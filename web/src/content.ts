@@ -1,3 +1,5 @@
+import type { Narrative } from './sentence-translations';
+
 /** Original Lantern Atlas learning content. Curriculum tags describe practice, not certification. */
 export type Level = 'A1' | 'A2' | 'B1';
 export type ExerciseMode = 'choice' | 'listen' | 'sentence' | 'type';
@@ -23,7 +25,7 @@ export interface Quest {
   subtitle: string;
   npcId: string;
   location: string;
-  story: string;
+  story: Narrative;
   objectives: string[];
   reward: number;
   exercises: Exercise[];
@@ -36,6 +38,7 @@ export interface NPC {
   y: number;
   color: string;
   greeting: string;
+  greetingSentences?: Narrative;
   portrait?: string;
 }
 export interface VocabularyItem { id: string; german: string; english: string; level: Level; example: string; }
@@ -49,7 +52,17 @@ export const npcs: NPC[] = [
     "x": 0.442,
     "y": 0.459,
     "color": "#F4B17D",
-    "greeting": "Willkommen! Möchtest du einen Kaffee?"
+    "greeting": "Willkommen! Möchtest du einen Kaffee?",
+    "greetingSentences": [
+      {
+        "german": "Willkommen!",
+        "english": "Welcome!"
+      },
+      {
+        "german": "Möchtest du einen Kaffee?",
+        "english": "Would you like a coffee?"
+      }
+    ]
   },
   {
     "id": "otto",
@@ -58,7 +71,17 @@ export const npcs: NPC[] = [
     "x": 0.815,
     "y": 0.299,
     "color": "#8CA7E8",
-    "greeting": "Guten Tag! Wohin möchtest du fahren?"
+    "greeting": "Guten Tag! Wohin möchtest du fahren?",
+    "greetingSentences": [
+      {
+        "german": "Guten Tag!",
+        "english": "Good day!"
+      },
+      {
+        "german": "Wohin möchtest du fahren?",
+        "english": "Where would you like to travel?"
+      }
+    ]
   },
   {
     "id": "lina",
@@ -67,7 +90,17 @@ export const npcs: NPC[] = [
     "x": 0.603,
     "y": 0.68,
     "color": "#DB8EAB",
-    "greeting": "Hallo! Kannst du mir mit diesem Paket helfen?"
+    "greeting": "Hallo! Kannst du mir mit diesem Paket helfen?",
+    "greetingSentences": [
+      {
+        "german": "Hallo!",
+        "english": "Hello!"
+      },
+      {
+        "german": "Kannst du mir mit diesem Paket helfen?",
+        "english": "Can you help me with this parcel?"
+      }
+    ]
   },
   {
     "id": "emil",
@@ -76,7 +109,17 @@ export const npcs: NPC[] = [
     "x": 0.228,
     "y": 0.738,
     "color": "#D3B36E",
-    "greeting": "Hallo! Suchst du etwas?"
+    "greeting": "Hallo! Suchst du etwas?",
+    "greetingSentences": [
+      {
+        "german": "Hallo!",
+        "english": "Hello!"
+      },
+      {
+        "german": "Suchst du etwas?",
+        "english": "Are you looking for something?"
+      }
+    ]
   },
   {
     "id": "ada",
@@ -85,7 +128,17 @@ export const npcs: NPC[] = [
     "x": 0.132,
     "y": 0.322,
     "color": "#AB97D6",
-    "greeting": "Willkommen in der Bibliothek. Was möchtest du wissen?"
+    "greeting": "Willkommen in der Bibliothek. Was möchtest du wissen?",
+    "greetingSentences": [
+      {
+        "german": "Willkommen in der Bibliothek.",
+        "english": "Welcome to the library."
+      },
+      {
+        "german": "Was möchtest du wissen?",
+        "english": "What would you like to know?"
+      }
+    ]
   },
   {
     "id": "fritz",
@@ -94,7 +147,17 @@ export const npcs: NPC[] = [
     "x": 0.775,
     "y": 0.475,
     "color": "#8AB77D",
-    "greeting": "Guten Morgen! Was darf es sein?"
+    "greeting": "Guten Morgen! Was darf es sein?",
+    "greetingSentences": [
+      {
+        "german": "Guten Morgen!",
+        "english": "Good morning!"
+      },
+      {
+        "german": "Was darf es sein?",
+        "english": "What would you like?"
+      }
+    ]
   },
   {
     "id": "greta",
@@ -103,7 +166,17 @@ export const npcs: NPC[] = [
     "x": 0.414,
     "y": 0.707,
     "color": "#72B7A8",
-    "greeting": "Hallo! Schön, dich zu sehen."
+    "greeting": "Hallo! Schön, dich zu sehen.",
+    "greetingSentences": [
+      {
+        "german": "Hallo!",
+        "english": "Hello!"
+      },
+      {
+        "german": "Schön, dich zu sehen.",
+        "english": "It is nice to see you."
+      }
+    ]
   }
 ];
 
@@ -136,7 +209,68 @@ export const quests: Quest[] = [
     "subtitle": "Meet the people behind the lanterns",
     "npcId": "otto",
     "location": "Lindenhafen · Railway station",
-    "story": "Your train arrives with a greenhouse carriage and forty sleeping pigeons. Otto says this is perfectly normal. The platform behind him is not: it appears only when the station bell rings, and its sign is losing letters. Someone has slipped a blank page into your luggage. Its one surviving sentence reads: “Do not let them ring the seventh bell.” Meet Otto, ask for help, and find out why your ticket names a town nobody admits exists. You can begin with no German; hints and explanations help you through every encounter.",
+    "story": [
+      {
+        "german": "Dein Zug kommt an.",
+        "english": "Your train arrives."
+      },
+      {
+        "german": "Ein Wagen ist ein Gewächshaus.",
+        "english": "One carriage is a greenhouse."
+      },
+      {
+        "german": "Im Zug schlafen vierzig Tauben.",
+        "english": "Forty pigeons are sleeping on the train."
+      },
+      {
+        "german": "Otto sagt: „Das ist ganz normal.“",
+        "english": "Otto says: “That is perfectly normal.”"
+      },
+      {
+        "german": "Aber der Bahnsteig hinter ihm ist nicht normal.",
+        "english": "But the platform behind him is not normal."
+      },
+      {
+        "german": "Er erscheint nur, wenn die Bahnhofsglocke läutet.",
+        "english": "It appears only when the station bell rings."
+      },
+      {
+        "german": "Auf seinem Schild verschwinden Buchstaben.",
+        "english": "Letters are disappearing from its sign."
+      },
+      {
+        "german": "Jemand hat eine fast leere Seite in dein Gepäck gelegt.",
+        "english": "Someone has put an almost blank page in your luggage."
+      },
+      {
+        "german": "Auf der Seite steht nur noch ein Satz: „Lass sie nicht die siebte Glocke läuten!“",
+        "english": "Only one sentence remains on the page: “Do not let them ring the seventh bell!”"
+      },
+      {
+        "german": "Lerne Otto kennen und bitte ihn um Hilfe.",
+        "english": "Meet Otto and ask him for help."
+      },
+      {
+        "german": "Auf deiner Fahrkarte steht der Name einer Stadt.",
+        "english": "The name of a town is on your ticket."
+      },
+      {
+        "german": "Aber niemand will sagen, dass es diese Stadt gibt.",
+        "english": "But nobody will admit that this town exists."
+      },
+      {
+        "german": "Finde heraus, warum der Name auf deiner Fahrkarte steht.",
+        "english": "Find out why the name is on your ticket."
+      },
+      {
+        "german": "Du kannst ohne Deutschkenntnisse anfangen.",
+        "english": "You can begin with no German."
+      },
+      {
+        "german": "Hinweise und Erklärungen helfen dir bei jeder Begegnung.",
+        "english": "Hints and explanations help you through every encounter."
+      }
+    ],
     "objectives": [
       "Greet someone and introduce yourself",
       "Ask for help and repetition",
@@ -262,7 +396,48 @@ export const quests: Quest[] = [
     "subtitle": "Marta has a menu and a very opinionated kettle",
     "npcId": "marta",
     "location": "Lindenhafen · Marta’s café",
-    "story": "Marta’s kettle predicts yesterday’s weather, which makes it a terrible kettle and an excellent witness. Today it whistles your name. While you help with ordinary café orders, Marta finds a receipt stamped with tomorrow’s date and the seal of the Brass Office. The customer paid for two coffees. Every person at the table remembers only one customer. Marta laughs until the second name begins disappearing from the receipt.",
+    "story": [
+      {
+        "german": "Martas Wasserkessel sagt das Wetter von gestern voraus.",
+        "english": "Marta’s kettle predicts yesterday’s weather."
+      },
+      {
+        "german": "Als Wasserkessel ist er schlecht, aber als Zeuge ist er sehr gut.",
+        "english": "It is a terrible kettle but a very good witness."
+      },
+      {
+        "german": "Heute pfeift er deinen Namen.",
+        "english": "Today it whistles your name."
+      },
+      {
+        "german": "Du hilfst Marta mit den normalen Bestellungen im Café.",
+        "english": "You help Marta with the ordinary café orders."
+      },
+      {
+        "german": "Dabei findet sie eine Quittung.",
+        "english": "While you do that, she finds a receipt."
+      },
+      {
+        "german": "Auf der Quittung stehen das Datum von morgen und das Siegel des Messingamts.",
+        "english": "The receipt bears tomorrow’s date and the seal of the Brass Office."
+      },
+      {
+        "german": "Der Kunde hat für zwei Kaffees bezahlt.",
+        "english": "The customer paid for two coffees."
+      },
+      {
+        "german": "Aber alle am Tisch erinnern sich nur an einen Kunden.",
+        "english": "But everyone at the table remembers only one customer."
+      },
+      {
+        "german": "Marta lacht.",
+        "english": "Marta laughs."
+      },
+      {
+        "german": "Dann beginnt der zweite Name auf der Quittung zu verschwinden.",
+        "english": "Then the second name begins disappearing from the receipt."
+      }
+    ],
     "objectives": [
       "Order food and drinks",
       "Understand a price",
@@ -388,7 +563,52 @@ export const quests: Quest[] = [
     "subtitle": "Fritz has misplaced dinner, somehow",
     "npcId": "fritz",
     "location": "Lindenhafen · Lantern market",
-    "story": "Fritz’s shopping list has escaped on tiny paper legs. Catch dinner before the soup club arrives; nobody wants to negotiate with hungry onions. Among the apples you find a numbered brass seal identical to Marta’s receipt. Fritz remembers selling the whole crate to a railway clerk, but his ledger now claims the clerk never existed. Buy the ingredients and help him read the surviving quantities before the ink fades completely.",
+    "story": [
+      {
+        "german": "Fritz hat eine Einkaufsliste mit kleinen Beinen aus Papier.",
+        "english": "Fritz has a shopping list with tiny paper legs."
+      },
+      {
+        "german": "Die Liste ist weggelaufen.",
+        "english": "The list has escaped."
+      },
+      {
+        "german": "Fang das Abendessen, bevor der Suppenclub kommt.",
+        "english": "Catch dinner before the soup club arrives."
+      },
+      {
+        "german": "Niemand will mit hungrigen Zwiebeln verhandeln.",
+        "english": "Nobody wants to negotiate with hungry onions."
+      },
+      {
+        "german": "Zwischen den Äpfeln findest du ein Siegel aus Messing mit einer Nummer.",
+        "english": "Among the apples you find a numbered brass seal."
+      },
+      {
+        "german": "Es sieht genauso aus wie das Siegel auf Martas Quittung.",
+        "english": "It looks exactly like the seal on Marta’s receipt."
+      },
+      {
+        "german": "Fritz erinnert sich an einen Bahnangestellten.",
+        "english": "Fritz remembers a railway clerk."
+      },
+      {
+        "german": "Er hat ihm die ganze Kiste verkauft.",
+        "english": "He sold him the whole crate."
+      },
+      {
+        "german": "Aber in seinem Buch steht jetzt: „Diesen Mann hat es nie gegeben.“",
+        "english": "But his ledger now says: “This man never existed.”"
+      },
+      {
+        "german": "Kauf die Zutaten und hilf Fritz, die restlichen Mengen zu lesen.",
+        "english": "Buy the ingredients and help Fritz read the remaining quantities."
+      },
+      {
+        "german": "Die Tinte verschwindet bald ganz.",
+        "english": "The ink will soon fade completely."
+      }
+    ],
     "objectives": [
       "Ask for everyday groceries",
       "Use quantities and payment phrases",
@@ -519,7 +739,52 @@ export const quests: Quest[] = [
     "subtitle": "Read the board before the board reads you",
     "npcId": "otto",
     "location": "Lindenhafen · The hidden platform",
-    "story": "Between platforms two and three, a departure board announces a train to Waldruh. Otto immediately turns it off. He insists it is a maintenance fault; then the disconnected speaker whispers the same destination. Help travellers find platforms and understand delays while checking the timetable. Six crossed-out departures match six faded names on Marta’s receipt. The seventh train leaves when the great bell rings.",
+    "story": [
+      {
+        "german": "Zwischen den Bahnsteigen zwei und drei steht eine Anzeigetafel.",
+        "english": "A departure board stands between platforms two and three."
+      },
+      {
+        "german": "Sie zeigt einen Zug nach Waldruh an.",
+        "english": "It announces a train to Waldruh."
+      },
+      {
+        "german": "Otto schaltet sie sofort aus.",
+        "english": "Otto immediately turns it off."
+      },
+      {
+        "german": "Er sagt: „Das ist nur ein technischer Fehler.“",
+        "english": "He says: “It is only a technical fault.”"
+      },
+      {
+        "german": "Dann flüstert der Lautsprecher dasselbe Ziel.",
+        "english": "Then the speaker whispers the same destination."
+      },
+      {
+        "german": "Dabei ist er gar nicht angeschlossen.",
+        "english": "Yet it is not even connected."
+      },
+      {
+        "german": "Hilf den Reisenden, ihre Bahnsteige zu finden und die Verspätungen zu verstehen.",
+        "english": "Help travellers find their platforms and understand the delays."
+      },
+      {
+        "german": "Prüfe auch den Fahrplan.",
+        "english": "Check the timetable too."
+      },
+      {
+        "german": "Sechs Abfahrten sind durchgestrichen.",
+        "english": "Six departures are crossed out."
+      },
+      {
+        "german": "Sie passen zu sechs blassen Namen auf Martas Quittung.",
+        "english": "They match six faded names on Marta’s receipt."
+      },
+      {
+        "german": "Der siebte Zug fährt ab, wenn die große Glocke läutet.",
+        "english": "The seventh train leaves when the great bell rings."
+      }
+    ],
     "objectives": [
       "Ask for travel information",
       "Understand departure times and platforms",
@@ -647,7 +912,44 @@ export const quests: Quest[] = [
     "subtitle": "It only levitates on Tuesdays",
     "npcId": "emil",
     "location": "Lindenhafen · Emil’s workshop",
-    "story": "Emil’s “extremely normal lamp” follows everyone except its owner. Locate his tools before it follows the mayor into a cupboard. The lamp brightens whenever you hold it over an erased address, revealing the shape of a road beneath the blank Atlas page. Emil recognizes the brass seal: he repaired a machine for the Brass Office. He was told it restored damaged maps. Its invoice calls it an eraser.",
+    "story": [
+      {
+        "german": "Emil nennt seine Lampe „völlig normal“.",
+        "english": "Emil calls his lamp “extremely normal”."
+      },
+      {
+        "german": "Aber sie folgt allen Menschen außer Emil.",
+        "english": "But it follows everyone except Emil."
+      },
+      {
+        "german": "Finde seine Werkzeuge, bevor die Lampe dem Bürgermeister in einen Schrank folgt.",
+        "english": "Find his tools before the lamp follows the mayor into a cupboard."
+      },
+      {
+        "german": "Hältst du die Lampe über eine gelöschte Adresse, leuchtet sie heller.",
+        "english": "When you hold the lamp over an erased address, it shines more brightly."
+      },
+      {
+        "german": "Unter der leeren Seite des Laternenatlas erscheint dann die Form einer Straße.",
+        "english": "The shape of a road then appears beneath the blank Atlas page."
+      },
+      {
+        "german": "Emil kennt das Siegel aus Messing.",
+        "english": "Emil recognizes the brass seal."
+      },
+      {
+        "german": "Er hat eine Maschine für das Messingamt repariert.",
+        "english": "He repaired a machine for the Brass Office."
+      },
+      {
+        "german": "Man hat ihm gesagt: „Die Maschine repariert kaputte Karten.“",
+        "english": "He was told: “The machine restores damaged maps.”"
+      },
+      {
+        "german": "Aber auf der Rechnung heißt sie „Löschmaschine“.",
+        "english": "But the invoice calls it an “eraser”."
+      }
+    ],
     "objectives": [
       "Describe objects and locations",
       "Make a simple request",
@@ -773,7 +1075,52 @@ export const quests: Quest[] = [
     "subtitle": "Lina would prefer an ordinary delivery",
     "npcId": "lina",
     "location": "Lindenhafen · Courier’s crossing",
-    "story": "Lina carries a parcel posted yesterday, dated tomorrow, and addressed to a person whose name has vanished. Follow its directions and help her deliver it before the station bell. Near Emil’s lamp, the blank page reveals a letter from Waldruh: “Before you erase us again, come.” A railway line burns gold across the paper. Lina is coming with you. Otto has already packed, though he claims he is only checking a connection.",
+    "story": [
+      {
+        "german": "Lina trägt ein Paket.",
+        "english": "Lina carries a parcel."
+      },
+      {
+        "german": "Es wurde gestern verschickt, aber das Datum ist von morgen.",
+        "english": "It was posted yesterday, but its date is tomorrow’s."
+      },
+      {
+        "german": "Der Name auf dem Paket ist verschwunden.",
+        "english": "The name on the parcel has vanished."
+      },
+      {
+        "german": "Folge der Wegbeschreibung und hilf Lina, das Paket zu liefern.",
+        "english": "Follow the directions and help Lina deliver the parcel."
+      },
+      {
+        "german": "Ihr müsst vor der Bahnhofsglocke ankommen.",
+        "english": "You must arrive before the station bell."
+      },
+      {
+        "german": "In der Nähe von Emils Lampe zeigt die leere Seite einen Brief aus Waldruh.",
+        "english": "Near Emil’s lamp, the blank page reveals a letter from Waldruh."
+      },
+      {
+        "german": "Darin steht: „Kommt, bevor ihr uns wieder löscht!“",
+        "english": "It says: “Come before you erase us again!”"
+      },
+      {
+        "german": "Eine Bahnlinie leuchtet golden auf dem Papier.",
+        "english": "A railway line shines gold across the paper."
+      },
+      {
+        "german": "Lina kommt mit dir.",
+        "english": "Lina is coming with you."
+      },
+      {
+        "german": "Otto hat schon gepackt.",
+        "english": "Otto has already packed."
+      },
+      {
+        "german": "Aber er sagt: „Ich prüfe nur eine Verbindung.“",
+        "english": "But he says: “I am only checking a connection.”"
+      }
+    ],
     "objectives": [
       "Ask for an address and directions",
       "Deliver a parcel politely",
@@ -901,7 +1248,36 @@ export const quests: Quest[] = [
     "subtitle": "A home, a rent bill and a suspicious refrigerator",
     "npcId": "marta",
     "location": "Waldruh · The Wayward Inn",
-    "story": "Waldruh is real, and every clock shows the same minute. Marta opens the Wayward Inn with a key she does not remember owning. Your room has two addresses: one belongs to the village, the other to a house that has disappeared. Its window changes views whenever someone tells the truth. Settle in, ask about the house rules and report the ordinary repairs. In the refrigerator, a resident has hidden letters to a family nobody remembers.",
+    "story": [
+      {
+        "german": "Waldruh gibt es wirklich, und alle Uhren zeigen dieselbe Minute.",
+        "english": "Waldruh is real, and every clock shows the same minute."
+      },
+      {
+        "german": "Marta öffnet das Gasthaus Wayward Inn mit einem Schlüssel.",
+        "english": "Marta opens the Wayward Inn with a key."
+      },
+      {
+        "german": "Sie erinnert sich nicht daran, dass er ihr gehört.",
+        "english": "She does not remember owning it."
+      },
+      {
+        "german": "Dein Zimmer hat zwei Adressen: eine im Dorf und eine in einem Haus, das verschwunden ist.",
+        "english": "Your room has two addresses: one in the village and one in a house that has disappeared."
+      },
+      {
+        "german": "Wenn jemand die Wahrheit sagt, verändert sich die Aussicht aus dem Fenster.",
+        "english": "Whenever someone tells the truth, the view from the window changes."
+      },
+      {
+        "german": "Mach es dir bequem, frag nach den Hausregeln und melde die normalen Reparaturen.",
+        "english": "Settle in, ask about the house rules and report the ordinary repairs."
+      },
+      {
+        "german": "Im Kühlschrank hat ein Bewohner Briefe an eine Familie versteckt, an die sich niemand erinnert.",
+        "english": "In the refrigerator, a resident has hidden letters to a family nobody remembers."
+      }
+    ],
     "objectives": [
       "Describe housing and everyday problems",
       "Use since, because and polite requests",
@@ -1027,7 +1403,36 @@ export const quests: Quest[] = [
     "subtitle": "A calendar problem with excellent soup",
     "npcId": "fritz",
     "location": "Waldruh · Autumn market",
-    "story": "Fritz proposes a lantern festival to prove Waldruh still exists. His onions propose a smaller committee. Arrange dinner, compare plans and make a rain plan with Greta. When the old market loudspeaker switches on, forgotten villagers answer from beyond the forest. They call themselves the Unwritten Circle. They want their railway back, but they refuse to be rescued by people who will decide everything for them again.",
+    "story": [
+      {
+        "german": "Fritz schlägt ein Laternenfest vor, um zu zeigen, dass Waldruh noch existiert.",
+        "english": "Fritz proposes a lantern festival to prove that Waldruh still exists."
+      },
+      {
+        "german": "Seine Zwiebeln schlagen ein kleineres Komitee vor.",
+        "english": "His onions propose a smaller committee."
+      },
+      {
+        "german": "Organisiere das Abendessen, vergleiche die Pläne und mach mit Greta einen Plan für Regen.",
+        "english": "Arrange dinner, compare plans and make a rain plan with Greta."
+      },
+      {
+        "german": "Als der alte Marktlautsprecher angeht, antworten vergessene Dorfbewohner von jenseits des Waldes.",
+        "english": "When the old market loudspeaker switches on, forgotten villagers answer from beyond the forest."
+      },
+      {
+        "german": "Sie nennen sich den Kreis der Ungeschriebenen.",
+        "english": "They call themselves the Unwritten Circle."
+      },
+      {
+        "german": "Sie wollen ihre Bahnlinie zurück.",
+        "english": "They want their railway back."
+      },
+      {
+        "german": "Aber sie wollen keine Retter, die wieder alles für sie entscheiden.",
+        "english": "But they do not want rescuers who will decide everything for them again."
+      }
+    ],
     "objectives": [
       "Make and change arrangements",
       "Express preferences and reasons",
@@ -1153,7 +1558,40 @@ export const quests: Quest[] = [
     "subtitle": "A journey worth confirming twice",
     "npcId": "otto",
     "location": "Waldruh · Forest station",
-    "story": "Otto finds the lost timetable beneath the station floor. The railway was closed from inside Waldruh, yet every official notice blames a storm outside it. Plan the connections and check the cancelled services. A handwritten instruction orders the keeper to erase the route “until agreement is restored.” Someone has crossed out the condition. The railway can return, but opening it carelessly may wake the machine that erased it.",
+    "story": [
+      {
+        "german": "Otto findet den verlorenen Fahrplan unter dem Boden des Bahnhofs.",
+        "english": "Otto finds the lost timetable beneath the station floor."
+      },
+      {
+        "german": "Die Bahnlinie wurde von Waldruh aus geschlossen.",
+        "english": "The railway was closed from inside Waldruh."
+      },
+      {
+        "german": "Trotzdem steht in allen offiziellen Mitteilungen, dass ein Sturm außerhalb des Dorfes schuld war.",
+        "english": "Yet every official notice blames a storm outside the village."
+      },
+      {
+        "german": "Plane die Anschlüsse und prüfe, welche Züge ausfallen.",
+        "english": "Plan the connections and check which services are cancelled."
+      },
+      {
+        "german": "Eine handgeschriebene Anweisung befiehlt dem Hüter, die Strecke zu löschen, „bis wieder Einigkeit herrscht“.",
+        "english": "A handwritten instruction orders the keeper to erase the route “until agreement is restored”."
+      },
+      {
+        "german": "Jemand hat diese Bedingung durchgestrichen.",
+        "english": "Someone has crossed out that condition."
+      },
+      {
+        "german": "Die Bahnlinie kann zurückkommen.",
+        "english": "The railway can return."
+      },
+      {
+        "german": "Aber wenn ihr sie unvorsichtig öffnet, wacht vielleicht die Maschine auf, die sie gelöscht hat.",
+        "english": "But if you open it carelessly, you may wake the machine that erased it."
+      }
+    ],
     "objectives": [
       "Understand connections and disruptions",
       "Ask follow-up travel questions",
@@ -1276,7 +1714,40 @@ export const quests: Quest[] = [
     "subtitle": "Emil kept receipts from the future",
     "npcId": "emil",
     "location": "Waldruh · Clockmill workshop",
-    "story": "The clockmill repeats one missing hour. Emil remembers repairing it yesterday; his receipt says the repair is tomorrow. Reconstruct his day and give clear instructions before another cycle starts. The machine is not merely losing minutes: after each repetition, one resident’s name fades from its records. Someone removed a small brass hand from the clock. Its serial number belongs to the lighthouse in Nebelstadt.",
+    "story": [
+      {
+        "german": "Die Uhrmühle wiederholt eine verschwundene Stunde.",
+        "english": "The clockmill repeats one missing hour."
+      },
+      {
+        "german": "Emil erinnert sich, dass er sie gestern repariert hat.",
+        "english": "Emil remembers repairing it yesterday."
+      },
+      {
+        "german": "Auf seiner Quittung steht aber das Datum von morgen.",
+        "english": "But his receipt bears tomorrow’s date."
+      },
+      {
+        "german": "Rekonstruiere seinen Tag und gib klare Anweisungen, bevor die nächste Wiederholung beginnt.",
+        "english": "Reconstruct his day and give clear instructions before the next repetition starts."
+      },
+      {
+        "german": "Die Maschine verliert nicht nur Minuten.",
+        "english": "The machine is not merely losing minutes."
+      },
+      {
+        "german": "Nach jeder Wiederholung verschwindet der Name eines Bewohners aus ihren Aufzeichnungen.",
+        "english": "After each repetition, one resident’s name fades from its records."
+      },
+      {
+        "german": "Jemand hat einen kleinen Zeiger aus Messing aus der Uhr entfernt.",
+        "english": "Someone removed a small brass hand from the clock."
+      },
+      {
+        "german": "Seine Seriennummer gehört zum Leuchtturm in Nebelstadt.",
+        "english": "Its serial number belongs to the lighthouse in Nebelstadt."
+      }
+    ],
     "objectives": [
       "Describe completed actions",
       "Use sequence and location",
@@ -1404,7 +1875,36 @@ export const quests: Quest[] = [
     "subtitle": "Greta’s plant has sneezed on the entire queue",
     "npcId": "greta",
     "location": "Waldruh · Conservatory clinic",
-    "story": "Greta’s enchanted fern has hay fever and very strong opinions about waiting rooms. Help visitors describe symptoms and arrange appointments while she keeps it away from the paperwork. People here still remember lost places even when clocks and records forget them. A patient remembers Elise Sander, the former Atlas keeper, pleading with the village to stop a fight. Another remembers a Brass Office official taking her signed order away.",
+    "story": [
+      {
+        "german": "Gretas verzauberter Farn hat Heuschnupfen und eine sehr klare Meinung über Wartezimmer.",
+        "english": "Greta’s enchanted fern has hay fever and very strong opinions about waiting rooms."
+      },
+      {
+        "german": "Hilf den Besuchern, ihre Beschwerden zu beschreiben und Termine zu vereinbaren.",
+        "english": "Help visitors describe their symptoms and arrange appointments."
+      },
+      {
+        "german": "Inzwischen hält Greta den Farn von den Unterlagen fern.",
+        "english": "Meanwhile, Greta keeps the fern away from the paperwork."
+      },
+      {
+        "german": "Die Menschen hier erinnern sich noch an verlorene Orte, auch wenn Uhren und Akten sie vergessen.",
+        "english": "People here still remember lost places even when clocks and records forget them."
+      },
+      {
+        "german": "Ein Patient erinnert sich an Elise Sander, die frühere Hüterin des Laternenatlas.",
+        "english": "A patient remembers Elise Sander, the former Atlas keeper."
+      },
+      {
+        "german": "Sie hat das Dorf angefleht, einen Streit zu beenden.",
+        "english": "She pleaded with the village to stop a fight."
+      },
+      {
+        "german": "Ein anderer Patient erinnert sich, dass ein Beamter des Messingamts ihre unterschriebene Anordnung mitgenommen hat.",
+        "english": "Another patient remembers a Brass Office official taking her signed order away."
+      }
+    ],
     "objectives": [
       "Describe symptoms and ask for appointments",
       "Understand simple advice",
@@ -1529,7 +2029,40 @@ export const quests: Quest[] = [
     "subtitle": "Ada would like the truth filed alphabetically",
     "npcId": "ada",
     "location": "Waldruh · The keeper’s records",
-    "story": "Ada brings two versions of the same record. One says Elise closed the railway to protect Waldruh. The other says the residents agreed to disappear. Compare dates, ask for clarification and find out which lines were added later. Ada recognizes her own handwriting beneath the first signature. She was Elise’s apprentice, and she helped file the order. A sealed final record points to Nebelstadt. Ada will go with you; this time she intends to speak.",
+    "story": [
+      {
+        "german": "Ada bringt zwei Versionen desselben Dokuments.",
+        "english": "Ada brings two versions of the same record."
+      },
+      {
+        "german": "In der ersten steht, dass Elise die Bahnlinie geschlossen hat, um Waldruh zu schützen.",
+        "english": "The first says that Elise closed the railway to protect Waldruh."
+      },
+      {
+        "german": "In der zweiten steht, dass die Bewohner einverstanden waren, zu verschwinden.",
+        "english": "The second says that the residents agreed to disappear."
+      },
+      {
+        "german": "Vergleiche die Daten, frag nach Erklärungen und finde heraus, welche Zeilen später dazugekommen sind.",
+        "english": "Compare the dates, ask for clarification and find out which lines were added later."
+      },
+      {
+        "german": "Ada erkennt ihre eigene Handschrift unter der ersten Unterschrift.",
+        "english": "Ada recognizes her own handwriting beneath the first signature."
+      },
+      {
+        "german": "Sie war Elises Lehrling und hat geholfen, die Anordnung abzulegen.",
+        "english": "She was Elise’s apprentice and helped file the order."
+      },
+      {
+        "german": "Ein letztes, versiegeltes Dokument weist nach Nebelstadt.",
+        "english": "A sealed final record points to Nebelstadt."
+      },
+      {
+        "german": "Ada wird mit dir gehen, und diesmal will sie sprechen.",
+        "english": "Ada will go with you, and this time she intends to speak."
+      }
+    ],
     "objectives": [
       "Talk about earlier life and change",
       "Compare people and places",
@@ -1655,7 +2188,32 @@ export const quests: Quest[] = [
     "subtitle": "Three accounts, one rather nervous pigeon",
     "npcId": "lina",
     "location": "Nebelstadt · Harbor post office",
-    "story": "The lighthouse shines a dark beam across Nebelstadt’s archive. Lina’s sender was seen arriving twice before anyone saw her leave. Compare the witnesses’ accounts and separate what they saw from what they assumed. One appearance was a recorded echo from Waldruh’s missing hour. The living witness carried Elise’s original agreement. The Brass Office copied her voice, then used it to make silence sound like consent.",
+    "story": [
+      {
+        "german": "Der Leuchtturm wirft einen dunklen Lichtstrahl über das Archiv von Nebelstadt.",
+        "english": "The lighthouse shines a dark beam across Nebelstadt’s archive."
+      },
+      {
+        "german": "Man hat Linas Absenderin zweimal ankommen sehen, bevor jemand sie weggehen sah.",
+        "english": "Lina’s sender was seen arriving twice before anyone saw her leave."
+      },
+      {
+        "german": "Vergleiche die Zeugenaussagen und unterscheide zwischen Beobachtungen und Vermutungen.",
+        "english": "Compare the witnesses’ accounts and distinguish between observations and assumptions."
+      },
+      {
+        "german": "Eine der Erscheinungen war ein aufgezeichnetes Echo aus Waldruhs verschwundener Stunde.",
+        "english": "One of the appearances was a recorded echo from Waldruh’s missing hour."
+      },
+      {
+        "german": "Die lebende Zeugin trug Elises ursprüngliche Vereinbarung bei sich.",
+        "english": "The living witness carried Elise’s original agreement."
+      },
+      {
+        "german": "Das Messingamt kopierte ihre Stimme und benutzte sie dann, um Schweigen wie Zustimmung klingen zu lassen.",
+        "english": "The Brass Office copied her voice and then used it to make silence sound like consent."
+      }
+    ],
     "objectives": [
       "Understand a connected witness account",
       "Describe sequence and uncertainty",
@@ -1798,7 +2356,32 @@ export const quests: Quest[] = [
     "subtitle": "Maps are useful; people are better",
     "npcId": "otto",
     "location": "Nebelstadt · Railway quay",
-    "story": "The Lamplighters want every erased railway reopened tonight. The Unwritten Circle wants a route that leaves its gardens and homes intact. Otto has a workable timetable; Greta has a map of everything it would destroy. Compare alternatives, explain conditions and propose a connection people can actually use. The Atlas reacts to practical promises. It does not react to a heroic speech, much to Otto’s disappointment.",
+    "story": [
+      {
+        "german": "Die Laternenhüter wollen heute Nacht jede gelöschte Bahnlinie wieder öffnen.",
+        "english": "The Lamplighters want every erased railway reopened tonight."
+      },
+      {
+        "german": "Der Kreis der Ungeschriebenen will eine Strecke, die seine Gärten und Häuser unversehrt lässt.",
+        "english": "The Unwritten Circle wants a route that leaves its gardens and homes intact."
+      },
+      {
+        "german": "Otto hat einen brauchbaren Fahrplan, und Greta hat eine Karte von allem, was dieser Plan zerstören würde.",
+        "english": "Otto has a workable timetable, and Greta has a map of everything that plan would destroy."
+      },
+      {
+        "german": "Vergleiche die Möglichkeiten, erkläre die Bedingungen und schlage eine Verbindung vor, die die Menschen tatsächlich nutzen können.",
+        "english": "Compare alternatives, explain conditions and propose a connection people can actually use."
+      },
+      {
+        "german": "Der Laternenatlas reagiert auf konkrete Versprechen.",
+        "english": "The Atlas reacts to practical promises."
+      },
+      {
+        "german": "Auf eine heldenhafte Rede reagiert er nicht, sehr zu Ottos Enttäuschung.",
+        "english": "It does not react to a heroic speech, much to Otto’s disappointment."
+      }
+    ],
     "objectives": [
       "Explain travel problems and solutions",
       "Use conditions and alternatives",
@@ -1942,7 +2525,36 @@ export const quests: Quest[] = [
     "subtitle": "Emil is hiring, probably on purpose",
     "npcId": "emil",
     "location": "Nebelstadt · Lantern repair dock",
-    "story": "Emil needs an assistant before the lighthouse’s next great bell. His job advert promises flexible hours because the clock bends them; sensible working conditions are your first repair. Explain skills, responsibilities and a safe work schedule. The maintenance log reveals that the eraser worked exactly as designed. The Brass Office kept repairing it long after the conflict ended. The missing route has been useful to someone.",
+    "story": [
+      {
+        "german": "Emil braucht vor dem nächsten großen Glockenschlag des Leuchtturms eine Assistenz.",
+        "english": "Emil needs an assistant before the lighthouse’s next great bell."
+      },
+      {
+        "german": "Seine Stellenanzeige verspricht flexible Arbeitszeiten, weil die Uhr die Stunden verbiegt.",
+        "english": "His job advert promises flexible hours because the clock bends them."
+      },
+      {
+        "german": "Deshalb sind vernünftige Arbeitsbedingungen deine erste Reparatur.",
+        "english": "So sensible working conditions are your first repair."
+      },
+      {
+        "german": "Erkläre Fähigkeiten und Aufgaben und entwirf einen sicheren Arbeitsplan.",
+        "english": "Explain skills and responsibilities and draw up a safe work schedule."
+      },
+      {
+        "german": "Das Wartungsbuch zeigt, dass die Löschmaschine genau wie geplant funktioniert hat.",
+        "english": "The maintenance log reveals that the eraser worked exactly as designed."
+      },
+      {
+        "german": "Das Messingamt hat sie noch lange nach dem Ende des Konflikts weiter repariert.",
+        "english": "The Brass Office kept repairing it long after the conflict ended."
+      },
+      {
+        "german": "Die verschwundene Strecke war für jemanden nützlich.",
+        "english": "The missing route has been useful to someone."
+      }
+    ],
     "objectives": [
       "Describe experience and responsibilities",
       "Ask for practical clarification",
@@ -2079,7 +2691,36 @@ export const quests: Quest[] = [
     "subtitle": "Seven chairs, eight opinions",
     "npcId": "ada",
     "location": "Nebelstadt · Council archive",
-    "story": "Seven chairs, eight opinions, and a lighthouse that records every pause. Ada presents Elise’s original order: she tried to stop a dangerous dispute, then officials kept the village silent to hide what followed. The council must decide how to restore the route and acknowledge the people it erased. Give reasons, question assumptions and make room for disagreement. The dark beam weakens when the residents are heard; it grows stronger when their answers are replaced.",
+    "story": [
+      {
+        "german": "Es gibt sieben Stühle, acht Meinungen und einen Leuchtturm, der jede Pause aufzeichnet.",
+        "english": "There are seven chairs, eight opinions and a lighthouse that records every pause."
+      },
+      {
+        "german": "Ada legt Elises ursprüngliche Anordnung vor.",
+        "english": "Ada presents Elise’s original order."
+      },
+      {
+        "german": "Elise wollte einen gefährlichen Streit beenden, doch die Beamten hielten das Dorf danach zum Schweigen an, um die Folgen zu verbergen.",
+        "english": "Elise tried to stop a dangerous dispute, but the officials then kept the village silent to hide what followed."
+      },
+      {
+        "german": "Der Rat muss entscheiden, wie er die Strecke wiederherstellt und die Menschen anerkennt, die durch die Löschung vergessen wurden.",
+        "english": "The council must decide how to restore the route and acknowledge the people who were forgotten through the erasure."
+      },
+      {
+        "german": "Begründe deine Meinung, hinterfrage Annahmen und lass Raum für Widerspruch.",
+        "english": "Give reasons for your opinion, question assumptions and make room for disagreement."
+      },
+      {
+        "german": "Der dunkle Lichtstrahl wird schwächer, wenn die Bewohner gehört werden.",
+        "english": "The dark beam weakens when the residents are heard."
+      },
+      {
+        "german": "Er wird stärker, wenn andere ihre Antworten ersetzen.",
+        "english": "It grows stronger when others replace their answers."
+      }
+    ],
     "objectives": [
       "State and support an opinion",
       "Agree or disagree respectfully",
@@ -2220,7 +2861,36 @@ export const quests: Quest[] = [
     "subtitle": "Greta would like to lodge a complaint with the clouds",
     "npcId": "greta",
     "location": "Nebelstadt · Observatory garden",
-    "story": "A storm cuts the power before the council can finish its agreement. The seventh bell will ring anyway. Greta protects the conservatory; Lina moves supplies; Otto keeps the railway clear; Emil needs help at the lamp mechanism. Give useful instructions and explain the consequences of each plan. No single person can save every place. A chain of small, trustworthy promises carries light from the garden to the lighthouse.",
+    "story": [
+      {
+        "german": "Ein Sturm unterbricht die Stromversorgung, bevor der Rat seine Vereinbarung abschließen kann.",
+        "english": "A storm cuts the power before the council can finish its agreement."
+      },
+      {
+        "german": "Die siebte Glocke wird trotzdem läuten.",
+        "english": "The seventh bell will ring anyway."
+      },
+      {
+        "german": "Greta schützt das Gewächshaus, Lina bringt Vorräte in Sicherheit und Otto hält die Bahnstrecke frei.",
+        "english": "Greta protects the conservatory, Lina moves supplies to safety and Otto keeps the railway clear."
+      },
+      {
+        "german": "Emil braucht Hilfe am Lampenmechanismus.",
+        "english": "Emil needs help at the lamp mechanism."
+      },
+      {
+        "german": "Gib hilfreiche Anweisungen und erkläre die Folgen jedes Plans.",
+        "english": "Give useful instructions and explain the consequences of each plan."
+      },
+      {
+        "german": "Kein einzelner Mensch kann jeden Ort retten.",
+        "english": "No single person can save every place."
+      },
+      {
+        "german": "Eine Kette kleiner, verlässlicher Versprechen trägt Licht vom Garten zum Leuchtturm.",
+        "english": "A chain of small, trustworthy promises carries light from the garden to the lighthouse."
+      }
+    ],
     "objectives": [
       "Understand a disruption notice",
       "Give advice and explain consequences",
@@ -2362,7 +3032,36 @@ export const quests: Quest[] = [
     "subtitle": "The truth belongs to the people who live it",
     "npcId": "ada",
     "location": "Nebelstadt · The last Atlas page",
-    "story": "The last page is blank because nobody can write an agreement for everyone else. Report what happened, distinguish motives from excuses, and help the residents state what they will do together. Elise’s protective erasure became the Brass Office’s silence; restoring the route also means preserving that uncomfortable truth. When the final promises are understood, the Atlas draws Waldruh back into the world. The seventh bell rings harmlessly. Then a fourth, unfamiliar coastline appears beyond the restored railway.",
+    "story": [
+      {
+        "german": "Die letzte Seite ist leer, weil niemand eine Vereinbarung für alle anderen schreiben kann.",
+        "english": "The last page is blank because nobody can write an agreement for everyone else."
+      },
+      {
+        "german": "Berichte, was passiert ist, unterscheide zwischen Motiven und Ausreden und hilf den Bewohnern zu sagen, was sie gemeinsam tun werden.",
+        "english": "Report what happened, distinguish motives from excuses and help the residents state what they will do together."
+      },
+      {
+        "german": "Elises Löschung sollte Schutz bieten, doch das Messingamt machte daraus ein erzwungenes Schweigen.",
+        "english": "Elise’s erasure was meant to offer protection, but the Brass Office turned it into enforced silence."
+      },
+      {
+        "german": "Die Strecke wiederherzustellen bedeutet auch, diese unbequeme Wahrheit zu bewahren.",
+        "english": "Restoring the route also means preserving that uncomfortable truth."
+      },
+      {
+        "german": "Wenn die letzten Versprechen verstanden sind, zeichnet der Laternenatlas Waldruh zurück in die Welt.",
+        "english": "When the final promises are understood, the Atlas draws Waldruh back into the world."
+      },
+      {
+        "german": "Die siebte Glocke läutet, ohne Schaden anzurichten.",
+        "english": "The seventh bell rings harmlessly."
+      },
+      {
+        "german": "Dann erscheint hinter der wiederhergestellten Bahnlinie eine vierte, unbekannte Küste.",
+        "english": "Then a fourth, unfamiliar coastline appears beyond the restored railway."
+      }
+    ],
     "objectives": [
       "Summarize an account and explain motives",
       "Clarify and correct a misunderstanding",

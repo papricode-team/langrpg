@@ -20,7 +20,37 @@ describe('canonical language content', () => {
     for (const quest of quests) {
       expect(quest.exercises).toHaveLength(7);
       expect(npcs.some(npc => npc.id === quest.npcId)).toBe(true);
-      expect(quest.story.trim().length).toBeGreaterThan(50);
+      expect(quest.story.map(sentence => sentence.german).join(' ').trim().length).toBeGreaterThan(50);
+    }
+  });
+
+  it('provides an English translation for every German narrative sentence', () => {
+    for (const quest of quests) {
+      expect(quest.story.length).toBeGreaterThanOrEqual(5);
+      for (const sentence of quest.story) {
+        expect(sentence.german.trim()).toBe(sentence.german);
+        expect(sentence.english.trim()).toBe(sentence.english);
+        expect(sentence.german).toMatch(/[.!?][“”„"]?$/u);
+        expect(sentence.english).toMatch(/[.!?][“”„"]?$/u);
+        expect(sentence.german).not.toBe(sentence.english);
+      }
+    }
+    const arrival = quests.find(quest => quest.id === 'a1-arrival')!.story;
+    expect(arrival.some(sentence => sentence.german.includes('vierzig Tauben') && sentence.english.includes('Forty pigeons'))).toBe(true);
+    expect(arrival.some(sentence => sentence.german.includes('siebte Glocke') && sentence.english.includes('seventh bell'))).toBe(true);
+    expect(arrival.some(sentence => sentence.german.includes('ohne Deutschkenntnisse') && sentence.english.includes('no German'))).toBe(true);
+    const conclusion = quests.find(quest => quest.id === 'b1-atlas')!.story;
+    expect(conclusion.some(sentence => sentence.german.includes('ohne Schaden') && sentence.english.includes('harmlessly'))).toBe(true);
+  });
+
+  it('pairs every greeting sentence with a translation without changing the spoken greeting', () => {
+    for (const npc of npcs) {
+      expect(npc.greetingSentences).toBeDefined();
+      expect(npc.greetingSentences!.map(sentence => sentence.german).join(' ')).toBe(npc.greeting);
+      for (const sentence of npc.greetingSentences!) {
+        expect(sentence.english.trim().length).toBeGreaterThan(0);
+        expect(sentence.german).not.toBe(sentence.english);
+      }
     }
   });
 

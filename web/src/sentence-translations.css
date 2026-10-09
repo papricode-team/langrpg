@@ -1,0 +1,52 @@
+.translation-help {
+  display: block;
+  margin: 8px 0 12px;
+  color: var(--game-muted, #62715b);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.translated-sentence {
+  cursor: help;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.translated-sentence:hover,
+.translated-sentence:focus-visible {
+  text-decoration-style: solid;
+}
+
+.translated-sentence:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.sentence-translation-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  box-sizing: border-box;
+  width: max-content;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid #dfcb9666;
+  border-radius: 8px;
+  background: #16392f;
+  color: #fff4d8;
+  box-shadow: 0 5px 18px #071d1a40;
+  font: 400 14px/1.5 'DM Sans', sans-serif;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: auto;
+  pointer-events: auto;
+  user-select: text;
+}
+
+.sentence-translation-tooltip[hidden] {
+  display: none;
+}

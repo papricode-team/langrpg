@@ -1,6 +1,7 @@
 import type { NPC, Quest } from './content';
 import type { StoryAct } from './story';
 import { escapeHtml as e, icon } from './icons';
+import { renderNarrative } from './sentence-translations';
 
 type SideActivity = { id: string; icon: string; action: string };
 
@@ -9,7 +10,7 @@ export function npcEncounter(npc: NPC, region: string, portrait: string, activit
     <aside class="encounter-character">${portrait}<span class="eyebrow">${e(region)}</span><span class="encounter-character-rule"></span></aside>
     <div class="encounter-conversation">
       <header class="encounter-heading">${portrait}<div class="eyebrow">${e(npc.role)}</div><h2 id="encounter-title">${e(npc.name)}</h2></header>
-      <blockquote class="encounter-greeting">“${e(npc.greeting)}”</blockquote>
+      <blockquote class="encounter-greeting">“${npc.greetingSentences ? renderNarrative(npc.greetingSentences) : e(npc.greeting)}”</blockquote>
       <button class="text-button encounter-listen" data-speak="${e(npc.greeting)}">${icon('volume')} Listen to greeting</button>
       ${quest ? `<section class="encounter-story" aria-label="Story quest"><div class="encounter-story-meta"><span>${icon(completed ? 'check' : 'lantern')} ${completed ? 'STORY DISCOVERED' : 'STORY QUEST'}</span><span>${quest.level}</span></div><h3>${e(quest.title)}</h3><p>${e(quest.subtitle)}</p><button class="primary-button" data-start-quest="${e(quest.id)}" autofocus>${completed ? 'Revisit this story' : 'Continue the story'} ${icon('arrow')}</button></section>` : '<p class="encounter-rest">There are more stories waiting along the route.</p>'}
       <section class="encounter-side" aria-label="Optional side activity"><span class="eyebrow">WHILE YOU’RE HERE <span>· OPTIONAL</span></span><button class="side-activity-button" data-activity="${e(activity.id)}">${icon(activity.icon)}<span>${e(activity.action)}</span>${icon('chevron')}</button></section>
@@ -23,8 +24,8 @@ export function adventureHome(options: { act: StoryAct; region: string; regionAr
   const finished = completed === total;
   return `<div class="journey-home">
     <section class="journey-hero" style="--journey-art:url('${e(regionArt)}')" aria-label="Continue your story">
-      <div class="journey-hero-copy"><div class="eyebrow">THE MAIN STORY <span> / </span> ACT ${act.number} · ${e(region)}</div><h2>${e(act.title)}</h2><p>${e(act.goal)}</p>
-        <div class="journey-next">${portrait}<div><span>${finished ? 'CHAPTER COMPLETE' : 'YOUR NEXT CONVERSATION'}</span><h3>${e(finished ? nextRegion ? `The road to ${nextRegion}` : 'The Atlas remembers' : quest.title)}</h3><p>${finished ? 'A route restored. A promise remembered.' : `${e(npc.name)} · ${e(quest.location)}`}</p></div></div>
+      <div class="journey-hero-copy"><div class="eyebrow">THE MAIN STORY <span> / </span> ACT ${act.number} · ${e(region)}</div><h2>${e(act.title)}</h2><p>${renderNarrative(act.goal)}</p>
+        <div class="journey-next">${portrait}<div><span>${finished ? 'CHAPTER COMPLETE' : 'YOUR NEXT CONVERSATION'}</span><h3>${e(finished ? nextRegion ? `The road to ${nextRegion}` : 'The Atlas remembers' : quest.title)}</h3><p>${finished ? renderNarrative([{ german: 'Eine Strecke ist wiederhergestellt.', english: 'A route restored.' }, { german: 'Ein Versprechen bleibt in Erinnerung.', english: 'A promise remembered.' }]) : `${e(npc.name)} · ${e(quest.location)}`}</p></div></div>
         <button class="primary-button" ${finished ? 'data-action="next-objective"' : `data-start-quest="${e(quest.id)}"`}>${finished ? nextRegion ? 'Continue to the next chapter' : 'Read your discoveries' : 'Continue the story'} ${icon('arrow')}</button>
         <div class="journey-progress"><span>${completed} / ${total} STORIES DISCOVERED</span><div role="progressbar" aria-label="Chapter stories discovered" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}">${Array.from({ length: total }, (_, i) => `<i class="${i < completed ? 'complete' : ''}"></i>`).join('')}</div></div>
       </div>
