@@ -19,6 +19,7 @@ import { maps, getMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
 import { actFor, clueFor, discoveredClues, objectStories, storyActs } from './story';
 import { activityDiscoveries } from './activity-stories';
+import { ScreenFilterControls } from './screen-filter-controls';
 
 type View = 'world' | 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
 type CourseModule = typeof import('./course');
@@ -67,6 +68,7 @@ let speechRate = Number(localStorage.getItem('atlas.speechRate') || '0.82');
 if (![0.65, 0.82, 1].includes(speechRate)) speechRate = 0.82;
 const chatMessages: ChatMessage[] = [];
 let world: World;
+let screenFilterControls: ScreenFilterControls | undefined;
 type Submission = { id: string; itemId: string; exerciseId: string; answer: string; hinted: boolean; mode: 'recognition' | 'production' | 'listening'; questId?: string };
 let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; correct: number; targetCount: number; hinted: boolean; audioHeard: boolean; answered: boolean; answer: string; tokenOrder: number[]; review: boolean; objectId?: string; label?: string; started: number; submission?: Submission } | undefined;
 let attemptBusy = false;
@@ -124,6 +126,7 @@ function toast(message: string, bad = false) {
   window.setTimeout(() => el.classList.remove('visible'), 4500);
 }
 function renderShell() {
+  screenFilterControls?.destroy();
   app.innerHTML = `
     <main class="game-shell" id="game-shell" data-view="world" data-map="lindenhafen">
       <section id="explore-view" class="world-stage" aria-label="Lindenhafen"><div id="world-container" aria-label="Game world. Use WASD, arrow keys, or the joystick to move. Press E to interact." tabindex="0"></div></section>
@@ -132,6 +135,7 @@ function renderShell() {
         <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="Edit your character">${portrait('self')}<span class="medallion-gem"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><div class="player-meta"><span id="hud-level">A1 · WANDERER</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></div><div class="player-progress"><span id="chapter-fill"></span></div></div></div>
         <div class="location-banner"><div class="location-title" id="breadcrumb-current">Lindenhafen</div><div class="location-subtitle" id="location-subtitle">THE FIRST MISSING ROUTE</div></div>
         <button class="region-compass" data-view="atlas" aria-label="Open the region atlas">${icon('compass')}<span><strong id="region-name">Lindenhafen</strong><small>REGION ATLAS</small></span></button>
+        <button class="screen-filters-button" id="screen-filters-button" data-action="screen-filters" aria-controls="screen-filter-panel" aria-expanded="false">${icon('sparkles')}<span>Filters</span><kbd>F</kbd></button>
         <aside class="quest-tracker" id="quest-tracker" aria-label="Next story objective"><div id="quest-panel"></div></aside>
         <section class="chat-card" id="chat-card" aria-label="Local chat"><button class="chat-header" data-action="chat-toggle" aria-label="Toggle local chat" aria-expanded="false" aria-controls="chat-body"><span>${icon('chat')}<strong id="chat-region">Lindenhafen</strong><small>LOCAL</small></span><span class="chat-toggle-icon">${icon('plus')}</span></button><div class="chat-body" id="chat-body" hidden><div class="chat-messages" id="chat-messages"><p class="chat-welcome">Say Hallo. Every wanderer has a story.</p></div><form id="chat-form" class="chat-input"><input id="chat-input" maxlength="280" autocomplete="off" placeholder="Say something…" aria-label="Message to this region"/><button type="submit" aria-label="Send message">${icon('send')}</button></form></div></section>
         <div class="game-controls-hint"><kbd>WASD</kbd><span>Move</span><b>·</b><kbd>E</kbd><span>Interact</span><b>·</b><kbd>M</kbd><span>Atlas</span></div>
@@ -145,7 +149,7 @@ function renderShell() {
     onNpc: showNpc,
     onObject: showObject,
     onMapReady: id => { regionReady = true; onRegionReady(id); },
-    onReady: () => { regionReady = true; document.querySelectorAll<HTMLCanvasElement>('[data-avatar-preview]').forEach(canvas => world.renderAvatarPreview(canvas, profile.avatar)); onRegionReady(mapId); },
+    onReady: () => { regionReady = true; screenFilterControls?.refreshSupport(); document.querySelectorAll<HTMLCanvasElement>('[data-avatar-preview]').forEach(canvas => world.renderAvatarPreview(canvas, profile.avatar)); onRegionReady(mapId); },
     onMove: (x, y) => api.move(x, y),
     onNearby: id => {
       const object = id?.startsWith('object:') ? getMap(mapId).objects.find(item => item.id === id.slice(7)) : undefined;
@@ -158,6 +162,11 @@ function renderShell() {
     },
   });
   world.setAvatar(profile.avatar);
+  screenFilterControls = new ScreenFilterControls(document.querySelector<HTMLElement>('#game-hud')!, {
+    apply: settings => world.setScreenFilter(settings),
+    supported: () => world.screenFiltersSupported(),
+    onOpenChange: () => { document.dispatchEvent(new Event('atlas-controls-reset')); world.setInputEnabled(worldCanInteract()); },
+  });
   bindGlobalEvents(); bindJoystick(); updateProgress();
 }
 function updateProgress() {
@@ -176,9 +185,10 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return view === 'world' && !pendingMap && !document.querySelector<HTMLDialogElement>('#dialog')!.open && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return view === 'world' && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
 function setView(next: View) {
   exposureObserver?.disconnect();
+  if (next !== 'world') screenFilterControls?.close(false);
   document.dispatchEvent(new Event('atlas-controls-reset'));
   if (next !== 'world' && view === 'world') menuFocus = document.activeElement as HTMLElement;
   view = next;
@@ -198,6 +208,11 @@ function setView(next: View) {
   } else { requestAnimationFrame(() => world.resize()); if (menuFocus?.isConnected && menuFocus.getClientRects().length) menuFocus.focus(); }
 }
 function openWorldMap() { setView('atlas'); }
+function openScreenFilters(trigger?: HTMLElement) {
+  if (view !== 'world') setView('world');
+  if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(false);
+  screenFilterControls?.open(trigger);
+}
 function seenKey(kind: string) { return `atlas.${kind}.${api.selfId || 'visitor'}`; }
 function readSeen(kind: string): string[] { try { const value: unknown = JSON.parse(localStorage.getItem(seenKey(kind)) || '[]'); return Array.isArray(value) ? value.filter((id): id is string => typeof id === 'string') : []; } catch { return []; } }
 function rememberSeen(kind: string, id: string) { const seen = new Set(readSeen(kind)); seen.add(id); localStorage.setItem(seenKey(kind), JSON.stringify([...seen])); }
@@ -442,7 +457,7 @@ function bindJoystick() {
     knob.style.transform = `translate(${dx * scale}px, ${dy * scale}px)`;
     world.setJoystick(dx / radius, dy / radius);
   };
-  stick.addEventListener('pointerdown', event => { if (held !== undefined || view !== 'world') return; event.preventDefault(); held = event.pointerId; stick.setPointerCapture(held); stick.classList.add('held'); move(event); });
+  stick.addEventListener('pointerdown', event => { if (held !== undefined || !worldCanInteract()) return; event.preventDefault(); held = event.pointerId; stick.setPointerCapture(held); stick.classList.add('held'); move(event); });
   stick.addEventListener('pointermove', move);
   stick.addEventListener('pointerup', reset);
   stick.addEventListener('pointercancel', reset);
@@ -487,7 +502,7 @@ function renderOther() {
     el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">EVERY ADVENTURE NEEDS A YOU.</div><h1>Make your mark.</h1><p>A little style. A little personality. Quite a lot of curiosity.</p></div></div><section class="character-page"><div class="character-illustration"><canvas class="painted-avatar" data-avatar-preview width="384" height="576" role="img" aria-label="Your character appearance"></canvas><h2>${e(profile.name)}</h2><p>A wanderer of the Atlas</p><span class="character-xp">${icon('sparkles')} ${progress.xp} adventure XP</span></div><div class="character-options">${profileForm()}<p class="honest-note">Your colours appear on your moving character and are visible to other players.</p></div></section>`;
     bindProfileForm();
   } else if (view === 'settings') {
-    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
+    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
     const select = document.querySelector<HTMLSelectElement>('#speech-rate')!;
     select.value = String(speechRate);
     select.onchange = () => { speechRate = Number(select.value); localStorage.setItem('atlas.speechRate', String(speechRate)); };
@@ -501,6 +516,7 @@ function renderOther() {
   }
 }
 function openDialog(html: string, className = '') {
+  screenFilterControls?.close(false);
   const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
   if (dialog.open) dialog.close();
   dialog.className = `dialog ${className}`;
@@ -746,8 +762,8 @@ function bindGlobalEvents() {
   document.addEventListener('keydown', event => {
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
     if (dialog.open) return;
-    const typing = (event.target as HTMLElement).matches('input,textarea,select') || (event.target as HTMLElement).isContentEditable;
-    if (event.key === 'Escape') { event.preventDefault(); if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
+    const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
+    if (event.key === 'Escape') { event.preventDefault(); if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
     if (view !== 'world' && event.key === 'Tab') {
       const targets = [...document.querySelectorAll<HTMLElement>('#menu-layer button, #menu-layer input, #menu-layer select')].filter(el => !el.hasAttribute('disabled') && !el.hidden && el.getClientRects().length);
       const first = targets[0], last = targets[targets.length - 1];
@@ -757,6 +773,8 @@ function bindGlobalEvents() {
     }
     if (typing || event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
     const key = event.key.toLowerCase();
+    if (key === 'f' && view === 'world') { event.preventDefault(); if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(); return; }
+    if (screenFilterControls?.isOpen() && (event.target as HTMLElement).closest('#screen-filter-panel')) return;
     const targetView = ({ p: 'activities', l: 'course', q: 'quests', j: 'journal', c: 'character', o: 'settings', n: 'story' } as Record<string, View>)[key];
     if (targetView) { event.preventDefault(); setView(view === targetView ? 'world' : targetView); }
     else if (key === 'm') { event.preventDefault(); openWorldMap(); }
@@ -794,6 +812,7 @@ function bindGlobalEvents() {
     }
     if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
     switch (target.dataset.action) {
+      case 'screen-filters': if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(target); break;
       case 'profile': showProfile(); break;
       case 'map': openWorldMap(); break;
       case 'talk': if (!world.interactNearest()) toast('Move closer to a character or a marked object.'); break;
@@ -840,6 +859,7 @@ function bindGlobalEvents() {
   };
 }
 function toggleChat(open?: boolean) {
+  if (open !== false) screenFilterControls?.close(false);
   const body = document.querySelector<HTMLElement>('#chat-body')!;
   body.hidden = open === undefined ? !body.hidden : !open;
   document.querySelector('#chat-card')!.classList.toggle('open', !body.hidden);
@@ -901,5 +921,5 @@ function updateConnection() {
   el.innerHTML = `<span></span>${connection === 'online' ? `${players.length || 1} ${(players.length || 1) === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : 'Reconnecting'}`;
 }
 document.addEventListener('visibilitychange', () => { world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

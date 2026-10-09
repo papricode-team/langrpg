@@ -7,6 +7,8 @@ import { NPC_ART, PLAYER_ART, PLAYER_LAYERS, paintAvatarPreview, playerMaterialS
 import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { WorldEnvironment } from './world-environment';
 import { WorldScenery } from './world-scenery';
+import { createScreenFilter, type ScreenFilterController } from './screen-filters';
+import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 
 export interface Avatar {
   hair: string;
@@ -118,6 +120,7 @@ export class World {
   private windowFocused = document.hasFocus();
   private motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   private motionMode: WorldMotion = 'auto';
+  private screenFilterSettings = normalizeScreenFilterSettings(undefined);
   private handleMotionPreference = () => {
     if (this.scene.ready) this.scene.setReducedMotion(this.motionMode === 'reduced'
       || this.motionMode === 'auto' && this.motionPreference.matches);
@@ -176,6 +179,15 @@ export class World {
   setMotionPreference(mode: WorldMotion): void {
     this.motionMode = mode;
     this.handleMotionPreference();
+  }
+
+  setScreenFilter(settings: ScreenFilterSettings): void {
+    this.screenFilterSettings = normalizeScreenFilterSettings(settings);
+    if (this.scene.ready) this.scene.setScreenFilter(this.screenFilterSettings);
+  }
+
+  screenFiltersSupported(): boolean {
+    return this.game.renderer?.type === Phaser.WEBGL;
   }
 
   /** Draw the same painted south-facing avatar used in the game, CPU only. */
@@ -266,6 +278,7 @@ export class World {
 
   boot(): void {
     this.handleMotionPreference();
+    this.scene.setScreenFilter(this.screenFilterSettings);
     this.scene.switchMap(this.mapId);
     this.scene.setObjective(this.objective);
     this.scene.changeAvatar(this.avatar);
@@ -329,6 +342,7 @@ class HarborScene extends Phaser.Scene {
   private mobileCamera = false;
   private cameraLead: MapPoint = { x: 0, y: 0 };
   private playerArtReady = false;
+  private screenFilter?: ScreenFilterController;
 
   constructor(private owner: World) { super({ key: 'lindenhafen' }); }
 
@@ -341,6 +355,7 @@ class HarborScene extends Phaser.Scene {
   create(): void {
     this.navigation = createMapNavigation('lindenhafen');
     this.playerArtReady = prepareCharacterArt(this);
+    this.screenFilter = createScreenFilter(this);
     this.createAmbientTextures();
     this.marker = this.add.container(0, 0, [
       this.add.ellipse(0, 0, 37, 18).setStrokeStyle(1.5, 0xf5e4ac, 0.8),
@@ -378,6 +393,10 @@ class HarborScene extends Phaser.Scene {
       this.residents = [];
     });
     this.owner.boot();
+  }
+
+  setScreenFilter(settings: ScreenFilterSettings): void {
+    this.screenFilter?.configure(settings);
   }
 
   switchMap(id: MapId): void {
