@@ -1,0 +1,40 @@
+Use case: stylized-concept
+Asset type: production-ready transparent walking-animation sprite sheet for a premium hand-painted 2D RPG.
+Primary request: one consistent adult traveler, exactly32 complete full-body frames arranged in EXACTLY8 columns and4 rows. Intended canvas2048x1536, each equal cell256x384, centered head-to-boot figure within cell, feet contact line around90% cell height, generous transparent gutters. Genuinely transparent background; NO floor, cast shadow, grid lines, lettering, numbers, scenery or extra people. Every frame must contain the entire body with the same scale and aligned foot-ground pivot.
+Character: androgynous adult about25, natural athletic human anatomy approximately7 heads tall, short swept dark chestnut hair, medium warm tan skin, expressive natural face, ivory collared shirt, muted TEAL hip-length tailored travel coat with brass buttons and brown belt, charcoal trousers, medium-brown leather lace-up boots, small brown leather cross-body satchel. No hats, capes or weapons, empty hands. Same facial identity, hairstyle, coat, satchel and clothing details in all32 frames.
+Art style: rich sophisticated hand-painted European fantasy character illustration, visible nuanced brushwork and fabric weave, shaded seams, soft cloth folds, worn leather, warm sunlight from upper left, restrained painterly edges and realistic faces. Match a detailed warm German canal-town RPG, no chibi or large doll heads, no anime, thick cartoon outlines, vector drawing or plastic3D.
+Camera: elevated orthographic 35–45-degree overhead game camera, fixed angle and lighting.
+ROW1: SOUTH/front, walking towards camera.
+ROW2: EAST/right, walking towards screen right in three-quarter profile.
+ROW3: NORTH/back, walking away from camera, the back of coat and head visible.
+ROW4: WEST/left, walking towards screen left in three-quarter profile.
+In EACH row, columns1 through8 form a clean loop with balanced gait: left-foot contact, left-leg down/weight, right-leg passing, right-leg high/swing, right-foot contact, right-leg down/weight, left-leg passing, left-leg high/swing. Arms naturally oppose legs; coat hems, belt and satchel follow motion subtly. These are eight DISTINCT progressive poses per row, not repeated standing pictures. Keep consistent anatomy and accessories, no face morphs or scaling changes. Column1 and5 are planted contact poses. Body height and foot-ground baseline remain consistent. End pose should lead naturally back to pose1. Exactly8 columns4rows with each frame fully isolated by transparency.
+
+CORRECTION PASS
+
+Edit the attached production sprite sheet, preserving the SAME young adult identity, detailed painted teal coat, brown boots, ivory shirt, leather satchel, genuine transparency, 8-column by 4-row layout, and 32 individual full bodies. Correct its walking motion: the source incorrectly repeats the SAME leading-leg pose in every column. EVERY ROW MUST HAVE A VISIBLY ALTERNATING LEFT-LEG THEN RIGHT-LEG WALK CYCLE, WITH BOTH NARROW PASSING POSES AND WIDE STRIDE POSES. This is actual animation sprite art, so prioritize the visibly different leg and arm poses over presentation illustration.
+
+Keep the top row facing south, row2 east/right, row3 north/back, row4 west/left. From left to right, use these eight extremely distinct cyclic poses in EVERY direction:
+1 LEFT heel on ground extended far FORWARD, RIGHT toe far BEHIND, right arm forward, left arm back.
+2 LEFT leg taking weight, RIGHT knee bending to lift its heel, body slightly lower.
+3 NARROW PASSING POSE: weight on straight LEFT leg directly under hip, RIGHT bent knee passing next to it, boots close together under hips, arms passing beside torso.
+4 RIGHT knee and foot swinging FORWARD in the air, LEFT leg trailing, left arm forward.
+5 RIGHT heel on ground far FORWARD, LEFT toe far BEHIND: EXACT OPPOSITE stride from column1, left arm forward and right arm back. Front row MUST clearly switch which visible boot is lower/forward. Back row MUST clearly switch which visible boot is lower/forward.
+6 RIGHT leg taking weight, LEFT knee bending to lift heel, body slightly lower.
+7 NARROW PASSING POSE: weight on straight RIGHT leg directly under hip, LEFT bent knee passing next to it, boots close together under hips.
+8 LEFT knee and foot swinging FORWARD in the air, RIGHT leg trailing, right arm forward, followed seamlessly by column1.
+
+In right and left profile rows, boots in columns3 and7 MUST be directly under hips, not in a wide stride. The front and back rows must visibly alternate the foreshortened forward boot; no repeated same-leg lead. Natural bent knees, opposing arm swing and relaxed hands. Keep a fixed hip/head horizontal pivot, matching camera/scale and anatomy across frames. Use an elevated 35-degree game camera even in profile, so the top of head and shoulders remain visible, like the game's painted NPC figures. Warm amber upper-left lighting, quiet brushwork, believable adult 7-head proportions. Keep all figures fully isolated inside their exact cell, transparent gutter, feet around90%cellheight, no body crossing cell boundary. No text, numbers, grid, floor, shadows, or extra people. Make the motion readable immediately as a real complete alternating walk, not eight copies of the same extended-stride picture.
+
+FINAL TARGETED GAIT PASS
+
+Targeted animation correction of attached sheet. Keep all 32cells, transparency, character identity, clothes, painterly fidelity and camera. The main request is to make the second half of every row show THE OPPOSITE LEG from the first half. Do not duplicate columns1through4 in columns5through8.
+
+Please literally compare column1 to column5 as you draw: their LOWER BODY SILHOUETTES MUST BE DISTINCT AND OPPOSITE. For front/south row1: column1 has the SCREEN-RIGHT boot furthest down toward the viewer; column5 must have the SCREEN-LEFT boot furthest down toward the viewer and the screen-right boot tucked HIGH behind. Column2 loads that screen-right leg; column6 must load the screen-left leg. Column4 lifts the screen-left knee/boot toward viewer; column8 lifts the screen-right knee/boot toward viewer, with clearly reversed knees. Keep front upper body and bag placement consistent; only arms/legs gait alternates.
+
+For back/north row3: similarly alternate which SCREEN-LEFT or SCREEN-RIGHT boot is extended behind and which heel lifts away. Column5 must be the other leg's contact from column1, and column6 the other leg's bent knee from column2. Column8 must swing the other leg from column4. These must NOT be copy-pasted lower bodies.
+
+For right/east row2: in column1 the leg NEAREST THE CAMERA reaches forward to screen-right while the FARTHER LEG reaches back to screen-left. In column5 the leg NEAREST THE CAMERA must reach back to SCREEN-LEFT while the FARTHER LEG reaches FORWARD to SCREEN-RIGHT. This reverses the knee positions, the leg overlap order at hips, and boot placement. The near leg and near arm must sweep from forward to back over columns1to5. Columns3and7 are passing: a straight weight-bearing leg directly under hip and a bent opposite knee lifted past it. Column4 has far leg swinging FORWARD in air; column8 has near leg swinging FORWARD in air. Feet are visibly above the contact level in swing poses. Keep boots pointing screen-right.
+For left/west row4: apply exactly the opposite gait with boots pointing screen-left.
+
+8phases per row: contact, down/loading, passing bent knee, up/swing, opposite contact, opposite down/loading, opposite passing bent knee, opposite up/swing. The two contact frames1and5 show opposite legs. The two swing frames4and8 show opposite legs. The arms always swing opposite to corresponding legs. Use natural bent knees and subtle weight transfer. Keep head/hip pivot aligned and every figure complete within a transparent cell. No text, labels, floor, shadow or extra figures. Create a usable anatomically alternating game animation instead of repeated pictures.

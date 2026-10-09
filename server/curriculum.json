@@ -1,0 +1,1583 @@
+{
+  "quests": [
+    {
+      "id": "a1-arrival",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-arrival-item-1",
+        "a1-arrival-item-2",
+        "a1-arrival-item-3",
+        "a1-arrival-item-4",
+        "a1-arrival-item-5",
+        "a1-arrival-item-6",
+        "a1-arrival-item-7"
+      ]
+    },
+    {
+      "id": "a1-cafe",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-cafe-item-1",
+        "a1-cafe-item-2",
+        "a1-cafe-item-3",
+        "a1-cafe-item-4",
+        "a1-cafe-item-5",
+        "a1-cafe-item-6",
+        "a1-cafe-item-7"
+      ]
+    },
+    {
+      "id": "a1-market",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-market-item-1",
+        "a1-market-item-2",
+        "a1-market-item-3",
+        "a1-market-item-4",
+        "a1-market-item-5",
+        "a1-market-item-6",
+        "a1-market-item-7"
+      ]
+    },
+    {
+      "id": "a1-station",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-station-item-1",
+        "a1-station-item-2",
+        "a1-station-item-3",
+        "a1-station-item-4",
+        "a1-station-item-5",
+        "a1-station-item-6",
+        "a1-station-item-7"
+      ]
+    },
+    {
+      "id": "a1-workshop",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-workshop-item-1",
+        "a1-workshop-item-2",
+        "a1-workshop-item-3",
+        "a1-workshop-item-4",
+        "a1-workshop-item-5",
+        "a1-workshop-item-6",
+        "a1-workshop-item-7"
+      ]
+    },
+    {
+      "id": "a1-lost-parcel",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-lost-parcel-item-1",
+        "a1-lost-parcel-item-2",
+        "a1-lost-parcel-item-3",
+        "a1-lost-parcel-item-4",
+        "a1-lost-parcel-item-5",
+        "a1-lost-parcel-item-6",
+        "a1-lost-parcel-item-7"
+      ]
+    },
+    {
+      "id": "a2-apartment",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-apartment-item-1",
+        "a2-apartment-item-2",
+        "a2-apartment-item-3",
+        "a2-apartment-item-4",
+        "a2-apartment-item-5",
+        "a2-apartment-item-6",
+        "a2-apartment-item-7"
+      ]
+    },
+    {
+      "id": "a2-evening-plans",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-evening-plans-item-1",
+        "a2-evening-plans-item-2",
+        "a2-evening-plans-item-3",
+        "a2-evening-plans-item-4",
+        "a2-evening-plans-item-5",
+        "a2-evening-plans-item-6",
+        "a2-evening-plans-item-7"
+      ]
+    },
+    {
+      "id": "a2-rail-trip",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-rail-trip-item-1",
+        "a2-rail-trip-item-2",
+        "a2-rail-trip-item-3",
+        "a2-rail-trip-item-4",
+        "a2-rail-trip-item-5",
+        "a2-rail-trip-item-6",
+        "a2-rail-trip-item-7"
+      ]
+    },
+    {
+      "id": "a2-broken-clock",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-broken-clock-item-1",
+        "a2-broken-clock-item-2",
+        "a2-broken-clock-item-3",
+        "a2-broken-clock-item-4",
+        "a2-broken-clock-item-5",
+        "a2-broken-clock-item-6",
+        "a2-broken-clock-item-7"
+      ]
+    },
+    {
+      "id": "a2-clinic",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-clinic-item-1",
+        "a2-clinic-item-2",
+        "a2-clinic-item-3",
+        "a2-clinic-item-4",
+        "a2-clinic-item-5",
+        "a2-clinic-item-6",
+        "a2-clinic-item-7"
+      ]
+    },
+    {
+      "id": "a2-archive",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-archive-item-1",
+        "a2-archive-item-2",
+        "a2-archive-item-3",
+        "a2-archive-item-4",
+        "a2-archive-item-5",
+        "a2-archive-item-6",
+        "a2-archive-item-7"
+      ]
+    },
+    {
+      "id": "b1-witness",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-witness-item-1",
+        "b1-witness-item-2",
+        "b1-witness-item-3",
+        "b1-witness-item-4",
+        "b1-witness-item-5",
+        "b1-witness-item-6",
+        "b1-witness-item-7"
+      ]
+    },
+    {
+      "id": "b1-new-route",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-new-route-item-1",
+        "b1-new-route-item-2",
+        "b1-new-route-item-3",
+        "b1-new-route-item-4",
+        "b1-new-route-item-5",
+        "b1-new-route-item-6",
+        "b1-new-route-item-7"
+      ]
+    },
+    {
+      "id": "b1-work",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-work-item-1",
+        "b1-work-item-2",
+        "b1-work-item-3",
+        "b1-work-item-4",
+        "b1-work-item-5",
+        "b1-work-item-6",
+        "b1-work-item-7"
+      ]
+    },
+    {
+      "id": "b1-council",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-council-item-1",
+        "b1-council-item-2",
+        "b1-council-item-3",
+        "b1-council-item-4",
+        "b1-council-item-5",
+        "b1-council-item-6",
+        "b1-council-item-7"
+      ]
+    },
+    {
+      "id": "b1-storm",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-storm-item-1",
+        "b1-storm-item-2",
+        "b1-storm-item-3",
+        "b1-storm-item-4",
+        "b1-storm-item-5",
+        "b1-storm-item-6",
+        "b1-storm-item-7"
+      ]
+    },
+    {
+      "id": "b1-atlas",
+      "reward": 90,
+      "requiredItemIds": [
+        "b1-atlas-item-1",
+        "b1-atlas-item-2",
+        "b1-atlas-item-3",
+        "b1-atlas-item-4",
+        "b1-atlas-item-5",
+        "b1-atlas-item-6",
+        "b1-atlas-item-7"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "a1-arrival-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-arrival-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-cafe-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-market-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-station-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-workshop-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-parcel-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a2-apartment-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-apartment-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-evening-plans-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-rail-trip-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-broken-clock-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-clinic-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-archive-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "b1-witness-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-witness-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-new-route-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-work-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-council-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-storm-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-atlas-item-7",
+      "level": "B1"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "a1-arrival-exercise-1",
+      "itemId": "a1-arrival-item-1",
+      "mode": "recognition",
+      "answer": "Guten Morgen!"
+    },
+    {
+      "id": "a1-arrival-exercise-2",
+      "itemId": "a1-arrival-item-2",
+      "mode": "production",
+      "answer": "Ich heiße Alex."
+    },
+    {
+      "id": "a1-arrival-exercise-3",
+      "itemId": "a1-arrival-item-3",
+      "mode": "production",
+      "answer": "Ich komme aus England."
+    },
+    {
+      "id": "a1-arrival-exercise-4",
+      "itemId": "a1-arrival-item-4",
+      "mode": "recognition",
+      "answer": "Wie heißen Sie?"
+    },
+    {
+      "id": "a1-arrival-exercise-5",
+      "itemId": "a1-arrival-item-5",
+      "mode": "listening",
+      "answer": "English"
+    },
+    {
+      "id": "a1-arrival-exercise-6",
+      "itemId": "a1-arrival-item-6",
+      "mode": "production",
+      "answer": "Helfen Sie mir bitte."
+    },
+    {
+      "id": "a1-arrival-exercise-7",
+      "itemId": "a1-arrival-item-7",
+      "mode": "production",
+      "answer": "Noch einmal, bitte.",
+      "acceptedAnswers": [
+        "Noch mal, bitte.",
+        "Bitte noch einmal.",
+        "Noch einmal bitte.",
+        "Noch mal bitte."
+      ]
+    },
+    {
+      "id": "a1-cafe-exercise-1",
+      "itemId": "a1-cafe-item-1",
+      "mode": "production",
+      "answer": "Ich möchte einen Kaffee."
+    },
+    {
+      "id": "a1-cafe-exercise-2",
+      "itemId": "a1-cafe-item-2",
+      "mode": "recognition",
+      "answer": "Mit Milch, bitte."
+    },
+    {
+      "id": "a1-cafe-exercise-3",
+      "itemId": "a1-cafe-item-3",
+      "mode": "production",
+      "answer": "Was kostet der Tee?"
+    },
+    {
+      "id": "a1-cafe-exercise-4",
+      "itemId": "a1-cafe-item-4",
+      "mode": "listening",
+      "answer": "€3"
+    },
+    {
+      "id": "a1-cafe-exercise-5",
+      "itemId": "a1-cafe-item-5",
+      "mode": "production",
+      "answer": "Ich nehme ein Wasser."
+    },
+    {
+      "id": "a1-cafe-exercise-6",
+      "itemId": "a1-cafe-item-6",
+      "mode": "recognition",
+      "answer": "Die Rechnung, bitte."
+    },
+    {
+      "id": "a1-cafe-exercise-7",
+      "itemId": "a1-cafe-item-7",
+      "mode": "listening",
+      "answer": "No, the order is complete."
+    },
+    {
+      "id": "a1-market-exercise-1",
+      "itemId": "a1-market-item-1",
+      "mode": "production",
+      "answer": "Ich brauche zwei Äpfel."
+    },
+    {
+      "id": "a1-market-exercise-2",
+      "itemId": "a1-market-item-2",
+      "mode": "recognition",
+      "answer": "Haben Sie Brot?"
+    },
+    {
+      "id": "a1-market-exercise-3",
+      "itemId": "a1-market-item-3",
+      "mode": "production",
+      "answer": "Ein Kilo Kartoffeln, bitte.",
+      "acceptedAnswers": [
+        "Ein Kilogramm Kartoffeln, bitte.",
+        "Ein Kilo Kartoffeln bitte.",
+        "Ein Kilogramm Kartoffeln bitte."
+      ]
+    },
+    {
+      "id": "a1-market-exercise-4",
+      "itemId": "a1-market-item-4",
+      "mode": "listening",
+      "answer": "€5.50"
+    },
+    {
+      "id": "a1-market-exercise-5",
+      "itemId": "a1-market-item-5",
+      "mode": "recognition",
+      "answer": "Die Tomaten sind frisch."
+    },
+    {
+      "id": "a1-market-exercise-6",
+      "itemId": "a1-market-item-6",
+      "mode": "production",
+      "answer": "Ich bezahle mit Karte."
+    },
+    {
+      "id": "a1-market-exercise-7",
+      "itemId": "a1-market-item-7",
+      "mode": "listening",
+      "answer": "The price is too high."
+    },
+    {
+      "id": "a1-station-exercise-1",
+      "itemId": "a1-station-item-1",
+      "mode": "recognition",
+      "answer": "Wo ist der Bahnhof?"
+    },
+    {
+      "id": "a1-station-exercise-2",
+      "itemId": "a1-station-item-2",
+      "mode": "listening",
+      "answer": "09:00"
+    },
+    {
+      "id": "a1-station-exercise-3",
+      "itemId": "a1-station-item-3",
+      "mode": "production",
+      "answer": "Ein Ticket nach Berlin, bitte."
+    },
+    {
+      "id": "a1-station-exercise-4",
+      "itemId": "a1-station-item-4",
+      "mode": "listening",
+      "answer": "Platform 2"
+    },
+    {
+      "id": "a1-station-exercise-5",
+      "itemId": "a1-station-item-5",
+      "mode": "production",
+      "answer": "Ist dieser Platz frei?"
+    },
+    {
+      "id": "a1-station-exercise-6",
+      "itemId": "a1-station-item-6",
+      "mode": "production",
+      "answer": "Ich muss heute nach Hause."
+    },
+    {
+      "id": "a1-station-exercise-7",
+      "itemId": "a1-station-item-7",
+      "mode": "recognition",
+      "answer": "Der Zug hat zehn Minuten Verspätung."
+    },
+    {
+      "id": "a1-workshop-exercise-1",
+      "itemId": "a1-workshop-item-1",
+      "mode": "listening",
+      "answer": "On the table"
+    },
+    {
+      "id": "a1-workshop-exercise-2",
+      "itemId": "a1-workshop-item-2",
+      "mode": "production",
+      "answer": "Ich brauche eine Lampe."
+    },
+    {
+      "id": "a1-workshop-exercise-3",
+      "itemId": "a1-workshop-item-3",
+      "mode": "recognition",
+      "answer": "Die Tür ist offen."
+    },
+    {
+      "id": "a1-workshop-exercise-4",
+      "itemId": "a1-workshop-item-4",
+      "mode": "listening",
+      "answer": "Closed"
+    },
+    {
+      "id": "a1-workshop-exercise-5",
+      "itemId": "a1-workshop-item-5",
+      "mode": "production",
+      "answer": "Kann ich den Stift haben?"
+    },
+    {
+      "id": "a1-workshop-exercise-6",
+      "itemId": "a1-workshop-item-6",
+      "mode": "production",
+      "answer": "Bitte warten Sie hier."
+    },
+    {
+      "id": "a1-workshop-exercise-7",
+      "itemId": "a1-workshop-item-7",
+      "mode": "recognition",
+      "answer": "Das funktioniert nicht."
+    },
+    {
+      "id": "a1-lost-parcel-exercise-1",
+      "itemId": "a1-lost-parcel-item-1",
+      "mode": "recognition",
+      "answer": "Das Paket ist für Marta."
+    },
+    {
+      "id": "a1-lost-parcel-exercise-2",
+      "itemId": "a1-lost-parcel-item-2",
+      "mode": "production",
+      "answer": "Wie ist die Adresse?",
+      "acceptedAnswers": [
+        "Wie lautet die Adresse?"
+      ]
+    },
+    {
+      "id": "a1-lost-parcel-exercise-3",
+      "itemId": "a1-lost-parcel-item-3",
+      "mode": "listening",
+      "answer": "Left"
+    },
+    {
+      "id": "a1-lost-parcel-exercise-4",
+      "itemId": "a1-lost-parcel-item-4",
+      "mode": "production",
+      "answer": "Gehen Sie geradeaus."
+    },
+    {
+      "id": "a1-lost-parcel-exercise-5",
+      "itemId": "a1-lost-parcel-item-5",
+      "mode": "recognition",
+      "answer": "Ich suche die Post."
+    },
+    {
+      "id": "a1-lost-parcel-exercise-6",
+      "itemId": "a1-lost-parcel-item-6",
+      "mode": "production",
+      "answer": "Hier ist Ihr Paket."
+    },
+    {
+      "id": "a1-lost-parcel-exercise-7",
+      "itemId": "a1-lost-parcel-item-7",
+      "mode": "listening",
+      "answer": "They are late."
+    },
+    {
+      "id": "a2-apartment-exercise-1",
+      "itemId": "a2-apartment-item-1",
+      "mode": "production",
+      "answer": "Ich suche eine Wohnung."
+    },
+    {
+      "id": "a2-apartment-exercise-2",
+      "itemId": "a2-apartment-item-2",
+      "mode": "production",
+      "answer": "Die Miete ist zu hoch."
+    },
+    {
+      "id": "a2-apartment-exercise-3",
+      "itemId": "a2-apartment-item-3",
+      "mode": "listening",
+      "answer": "Two rooms"
+    },
+    {
+      "id": "a2-apartment-exercise-4",
+      "itemId": "a2-apartment-item-4",
+      "mode": "production",
+      "answer": "Ich wohne seit drei Monaten hier."
+    },
+    {
+      "id": "a2-apartment-exercise-5",
+      "itemId": "a2-apartment-item-5",
+      "mode": "recognition",
+      "answer": "Der Kühlschrank ist kaputt."
+    },
+    {
+      "id": "a2-apartment-exercise-6",
+      "itemId": "a2-apartment-item-6",
+      "mode": "production",
+      "answer": "Könnten Sie das bitte reparieren?",
+      "acceptedAnswers": [
+        "Könnten Sie das reparieren, bitte?"
+      ]
+    },
+    {
+      "id": "a2-apartment-exercise-7",
+      "itemId": "a2-apartment-item-7",
+      "mode": "listening",
+      "answer": "The apartment is too small."
+    },
+    {
+      "id": "a2-evening-plans-exercise-1",
+      "itemId": "a2-evening-plans-item-1",
+      "mode": "production",
+      "answer": "Hast du morgen Zeit?"
+    },
+    {
+      "id": "a2-evening-plans-exercise-2",
+      "itemId": "a2-evening-plans-item-2",
+      "mode": "listening",
+      "answer": "18:30"
+    },
+    {
+      "id": "a2-evening-plans-exercise-3",
+      "itemId": "a2-evening-plans-item-3",
+      "mode": "production",
+      "answer": "Ich würde gern mitkommen.",
+      "acceptedAnswers": [
+        "Ich würde gerne mitkommen."
+      ]
+    },
+    {
+      "id": "a2-evening-plans-exercise-4",
+      "itemId": "a2-evening-plans-item-4",
+      "mode": "recognition",
+      "answer": "Leider kann ich nicht."
+    },
+    {
+      "id": "a2-evening-plans-exercise-5",
+      "itemId": "a2-evening-plans-item-5",
+      "mode": "production",
+      "answer": "Ich esse lieber Gemüse als Fleisch."
+    },
+    {
+      "id": "a2-evening-plans-exercise-6",
+      "itemId": "a2-evening-plans-item-6",
+      "mode": "listening",
+      "answer": "It is raining."
+    },
+    {
+      "id": "a2-evening-plans-exercise-7",
+      "itemId": "a2-evening-plans-item-7",
+      "mode": "production",
+      "answer": "Können wir den Termin verschieben?"
+    },
+    {
+      "id": "a2-rail-trip-exercise-1",
+      "itemId": "a2-rail-trip-item-1",
+      "mode": "production",
+      "answer": "Muss ich in Hamburg umsteigen?"
+    },
+    {
+      "id": "a2-rail-trip-exercise-2",
+      "itemId": "a2-rail-trip-item-2",
+      "mode": "listening",
+      "answer": "20 minutes"
+    },
+    {
+      "id": "a2-rail-trip-exercise-3",
+      "itemId": "a2-rail-trip-item-3",
+      "mode": "production",
+      "answer": "Ich habe meinen Anschluss verpasst."
+    },
+    {
+      "id": "a2-rail-trip-exercise-4",
+      "itemId": "a2-rail-trip-item-4",
+      "mode": "recognition",
+      "answer": "Welche Verbindung ist schneller?"
+    },
+    {
+      "id": "a2-rail-trip-exercise-5",
+      "itemId": "a2-rail-trip-item-5",
+      "mode": "production",
+      "answer": "Ist die Rückfahrt im Preis enthalten?"
+    },
+    {
+      "id": "a2-rail-trip-exercise-6",
+      "itemId": "a2-rail-trip-item-6",
+      "mode": "production",
+      "answer": "Ich möchte das Ticket stornieren."
+    },
+    {
+      "id": "a2-rail-trip-exercise-7",
+      "itemId": "a2-rail-trip-item-7",
+      "mode": "listening",
+      "answer": "The bus"
+    },
+    {
+      "id": "a2-broken-clock-exercise-1",
+      "itemId": "a2-broken-clock-item-1",
+      "mode": "production",
+      "answer": "Ich habe gestern den Schlüssel gefunden."
+    },
+    {
+      "id": "a2-broken-clock-exercise-2",
+      "itemId": "a2-broken-clock-item-2",
+      "mode": "listening",
+      "answer": "Tidying up"
+    },
+    {
+      "id": "a2-broken-clock-exercise-3",
+      "itemId": "a2-broken-clock-item-3",
+      "mode": "production",
+      "answer": "Kannst du mir die Anleitung erklären?"
+    },
+    {
+      "id": "a2-broken-clock-exercise-4",
+      "itemId": "a2-broken-clock-item-4",
+      "mode": "recognition",
+      "answer": "Leg das Werkzeug auf den Tisch."
+    },
+    {
+      "id": "a2-broken-clock-exercise-5",
+      "itemId": "a2-broken-clock-item-5",
+      "mode": "production",
+      "answer": "Das Werkzeug liegt unter dem Stuhl."
+    },
+    {
+      "id": "a2-broken-clock-exercise-6",
+      "itemId": "a2-broken-clock-item-6",
+      "mode": "production",
+      "answer": "Ich habe vergessen, das Fenster zu schließen.",
+      "acceptedAnswers": [
+        "Ich habe vergessen das Fenster zu schließen."
+      ]
+    },
+    {
+      "id": "a2-broken-clock-exercise-7",
+      "itemId": "a2-broken-clock-item-7",
+      "mode": "listening",
+      "answer": "Otto"
+    },
+    {
+      "id": "a2-clinic-exercise-1",
+      "itemId": "a2-clinic-item-1",
+      "mode": "production",
+      "answer": "Ich habe seit gestern Kopfschmerzen."
+    },
+    {
+      "id": "a2-clinic-exercise-2",
+      "itemId": "a2-clinic-item-2",
+      "mode": "production",
+      "answer": "Ich brauche einen Termin beim Arzt."
+    },
+    {
+      "id": "a2-clinic-exercise-3",
+      "itemId": "a2-clinic-item-3",
+      "mode": "listening",
+      "answer": "08:15"
+    },
+    {
+      "id": "a2-clinic-exercise-4",
+      "itemId": "a2-clinic-item-4",
+      "mode": "recognition",
+      "answer": "Wie lange soll ich warten?"
+    },
+    {
+      "id": "a2-clinic-exercise-5",
+      "itemId": "a2-clinic-item-5",
+      "mode": "production",
+      "answer": "Sie sollten sich ausruhen."
+    },
+    {
+      "id": "a2-clinic-exercise-6",
+      "itemId": "a2-clinic-item-6",
+      "mode": "production",
+      "answer": "Mir geht es schon besser.",
+      "acceptedAnswers": [
+        "Mir geht es bereits besser."
+      ]
+    },
+    {
+      "id": "a2-clinic-exercise-7",
+      "itemId": "a2-clinic-item-7",
+      "mode": "listening",
+      "answer": "Their insurance card"
+    },
+    {
+      "id": "a2-archive-exercise-1",
+      "itemId": "a2-archive-item-1",
+      "mode": "production",
+      "answer": "Früher war der Bahnhof kleiner."
+    },
+    {
+      "id": "a2-archive-exercise-2",
+      "itemId": "a2-archive-item-2",
+      "mode": "listening",
+      "answer": "By train"
+    },
+    {
+      "id": "a2-archive-exercise-3",
+      "itemId": "a2-archive-item-3",
+      "mode": "production",
+      "answer": "Seit wann arbeiten Sie hier?"
+    },
+    {
+      "id": "a2-archive-exercise-4",
+      "itemId": "a2-archive-item-4",
+      "mode": "recognition",
+      "answer": "Diese Karte ist älter als die andere."
+    },
+    {
+      "id": "a2-archive-exercise-5",
+      "itemId": "a2-archive-item-5",
+      "mode": "production",
+      "answer": "Ich interessiere mich für Geschichte."
+    },
+    {
+      "id": "a2-archive-exercise-6",
+      "itemId": "a2-archive-item-6",
+      "mode": "production",
+      "answer": "Können Sie mir das genauer erklären?",
+      "acceptedAnswers": [
+        "Können Sie mir das bitte genauer erklären?"
+      ]
+    },
+    {
+      "id": "a2-archive-exercise-7",
+      "itemId": "a2-archive-item-7",
+      "mode": "listening",
+      "answer": "In the old town"
+    },
+    {
+      "id": "b1-witness-exercise-1",
+      "itemId": "b1-witness-item-1",
+      "mode": "production",
+      "answer": "Als ich am Bahnhof ankam, war der Zug schon weg."
+    },
+    {
+      "id": "b1-witness-exercise-2",
+      "itemId": "b1-witness-item-2",
+      "mode": "listening",
+      "answer": "It was too dark."
+    },
+    {
+      "id": "b1-witness-exercise-3",
+      "itemId": "b1-witness-item-3",
+      "mode": "production",
+      "answer": "Ich bin mir nicht sicher, ob das stimmt.",
+      "acceptedAnswers": [
+        "Ich bin nicht sicher, ob das stimmt.",
+        "Ich bin mir nicht sicher ob das stimmt.",
+        "Ich bin nicht sicher ob das stimmt."
+      ]
+    },
+    {
+      "id": "b1-witness-exercise-4",
+      "itemId": "b1-witness-item-4",
+      "mode": "production",
+      "answer": "Zuerst hat sie gewartet, danach ist sie gegangen."
+    },
+    {
+      "id": "b1-witness-exercise-5",
+      "itemId": "b1-witness-item-5",
+      "mode": "recognition",
+      "answer": "Das widerspricht der Aussage des Zeugen."
+    },
+    {
+      "id": "b1-witness-exercise-6",
+      "itemId": "b1-witness-item-6",
+      "mode": "production",
+      "answer": "Könnten Sie beschreiben, was Sie gesehen haben?"
+    },
+    {
+      "id": "b1-witness-exercise-7",
+      "itemId": "b1-witness-item-7",
+      "mode": "production",
+      "answer": "Vielleicht hat sie den falschen Zug genommen.",
+      "acceptedAnswers": [
+        "Sie hat vielleicht den falschen Zug genommen."
+      ]
+    },
+    {
+      "id": "b1-new-route-exercise-1",
+      "itemId": "b1-new-route-item-1",
+      "mode": "production",
+      "answer": "Wenn der Zug ausfällt, nehmen wir den Bus."
+    },
+    {
+      "id": "b1-new-route-exercise-2",
+      "itemId": "b1-new-route-item-2",
+      "mode": "production",
+      "answer": "Wir müssen eine Lösung finden, die für alle passt.",
+      "acceptedAnswers": [
+        "Wir müssen eine Lösung finden, die für alle funktioniert.",
+        "Wir müssen eine Lösung finden die für alle passt.",
+        "Wir müssen eine Lösung finden die für alle funktioniert."
+      ]
+    },
+    {
+      "id": "b1-new-route-exercise-3",
+      "itemId": "b1-new-route-item-3",
+      "mode": "listening",
+      "answer": "The tickets would cost more."
+    },
+    {
+      "id": "b1-new-route-exercise-4",
+      "itemId": "b1-new-route-item-4",
+      "mode": "production",
+      "answer": "Statt zu warten, könnten wir zu Fuß gehen."
+    },
+    {
+      "id": "b1-new-route-exercise-5",
+      "itemId": "b1-new-route-item-5",
+      "mode": "recognition",
+      "answer": "Wir sollten die Vor- und Nachteile vergleichen."
+    },
+    {
+      "id": "b1-new-route-exercise-6",
+      "itemId": "b1-new-route-item-6",
+      "mode": "production",
+      "answer": "Obwohl die Strecke länger ist, ist sie günstiger."
+    },
+    {
+      "id": "b1-new-route-exercise-7",
+      "itemId": "b1-new-route-item-7",
+      "mode": "production",
+      "answer": "Ich schlage vor, dass wir früher losfahren.",
+      "acceptedAnswers": [
+        "Ich schlage vor, dass wir eher losfahren.",
+        "Ich schlage vor dass wir früher losfahren.",
+        "Ich schlage vor dass wir eher losfahren."
+      ]
+    },
+    {
+      "id": "b1-work-exercise-1",
+      "itemId": "b1-work-item-1",
+      "mode": "production",
+      "answer": "Ich habe Erfahrung im Umgang mit Kunden."
+    },
+    {
+      "id": "b1-work-exercise-2",
+      "itemId": "b1-work-item-2",
+      "mode": "production",
+      "answer": "Zu meinen Aufgaben gehört die Planung der Termine.",
+      "acceptedAnswers": [
+        "Die Planung der Termine gehört zu meinen Aufgaben."
+      ]
+    },
+    {
+      "id": "b1-work-exercise-3",
+      "itemId": "b1-work-item-3",
+      "mode": "listening",
+      "answer": "They work from home."
+    },
+    {
+      "id": "b1-work-exercise-4",
+      "itemId": "b1-work-item-4",
+      "mode": "production",
+      "answer": "Ich würde gern mehr Verantwortung übernehmen."
+    },
+    {
+      "id": "b1-work-exercise-5",
+      "itemId": "b1-work-item-5",
+      "mode": "recognition",
+      "answer": "Könnten Sie mir sagen, worauf es bei der Arbeit ankommt?"
+    },
+    {
+      "id": "b1-work-exercise-6",
+      "itemId": "b1-work-item-6",
+      "mode": "production",
+      "answer": "Bevor ich anfange, möchte ich die Bedingungen klären."
+    },
+    {
+      "id": "b1-work-exercise-7",
+      "itemId": "b1-work-item-7",
+      "mode": "production",
+      "answer": "Ich lerne schnell und arbeite gern im Team.",
+      "acceptedAnswers": [
+        "Ich lerne schnell und arbeite gerne im Team."
+      ]
+    },
+    {
+      "id": "b1-council-exercise-1",
+      "itemId": "b1-council-item-1",
+      "mode": "production",
+      "answer": "Meiner Meinung nach sollten wir die Strecke wieder öffnen."
+    },
+    {
+      "id": "b1-council-exercise-2",
+      "itemId": "b1-council-item-2",
+      "mode": "production",
+      "answer": "Ich bin dafür, weil die Verbindung wichtig ist.",
+      "acceptedAnswers": [
+        "Ich bin dafür, denn die Verbindung ist wichtig.",
+        "Ich bin dafür weil die Verbindung wichtig ist.",
+        "Ich bin dafür denn die Verbindung ist wichtig."
+      ]
+    },
+    {
+      "id": "b1-council-exercise-3",
+      "itemId": "b1-council-item-3",
+      "mode": "listening",
+      "answer": "The costs"
+    },
+    {
+      "id": "b1-council-exercise-4",
+      "itemId": "b1-council-item-4",
+      "mode": "production",
+      "answer": "Da stimme ich Ihnen zu."
+    },
+    {
+      "id": "b1-council-exercise-5",
+      "itemId": "b1-council-item-5",
+      "mode": "recognition",
+      "answer": "Ich sehe das anders, weil wir noch nicht genug wissen."
+    },
+    {
+      "id": "b1-council-exercise-6",
+      "itemId": "b1-council-item-6",
+      "mode": "production",
+      "answer": "Wir könnten zunächst eine Woche lang testen."
+    },
+    {
+      "id": "b1-council-exercise-7",
+      "itemId": "b1-council-item-7",
+      "mode": "production",
+      "answer": "Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.",
+      "acceptedAnswers": [
+        "Ein Kompromiss wäre, die Strecke nach und nach zu öffnen.",
+        "Ein Kompromiss wäre die Strecke schrittweise zu öffnen.",
+        "Ein Kompromiss wäre die Strecke nach und nach zu öffnen."
+      ]
+    },
+    {
+      "id": "b1-storm-exercise-1",
+      "itemId": "b1-storm-item-1",
+      "mode": "production",
+      "answer": "Wegen des Sturms wurde die Veranstaltung abgesagt."
+    },
+    {
+      "id": "b1-storm-exercise-2",
+      "itemId": "b1-storm-item-2",
+      "mode": "production",
+      "answer": "Es wäre besser, die Gäste vorher zu informieren.",
+      "acceptedAnswers": [
+        "Es wäre besser, die Gäste im Voraus zu informieren.",
+        "Es wäre besser die Gäste vorher zu informieren.",
+        "Es wäre besser die Gäste im Voraus zu informieren."
+      ]
+    },
+    {
+      "id": "b1-storm-exercise-3",
+      "itemId": "b1-storm-item-3",
+      "mode": "listening",
+      "answer": "In the hall"
+    },
+    {
+      "id": "b1-storm-exercise-4",
+      "itemId": "b1-storm-item-4",
+      "mode": "production",
+      "answer": "Wir sollten vermeiden, unnötig Müll zu produzieren."
+    },
+    {
+      "id": "b1-storm-exercise-5",
+      "itemId": "b1-storm-item-5",
+      "mode": "recognition",
+      "answer": "Je weniger wir verschwenden, desto mehr sparen wir."
+    },
+    {
+      "id": "b1-storm-exercise-6",
+      "itemId": "b1-storm-item-6",
+      "mode": "production",
+      "answer": "Wenn ich an deiner Stelle wäre, würde ich Hilfe holen."
+    },
+    {
+      "id": "b1-storm-exercise-7",
+      "itemId": "b1-storm-item-7",
+      "mode": "production",
+      "answer": "Wir können das Problem nur gemeinsam lösen.",
+      "acceptedAnswers": [
+        "Nur gemeinsam können wir das Problem lösen."
+      ]
+    },
+    {
+      "id": "b1-atlas-exercise-1",
+      "itemId": "b1-atlas-item-1",
+      "mode": "production",
+      "answer": "Der Bericht zeigt, dass beide Seiten Fehler gemacht haben."
+    },
+    {
+      "id": "b1-atlas-exercise-2",
+      "itemId": "b1-atlas-item-2",
+      "mode": "production",
+      "answer": "Sie wollte verhindern, dass der Streit schlimmer wird.",
+      "acceptedAnswers": [
+        "Sie wollte verhindern, dass der Konflikt schlimmer wird.",
+        "Sie wollte verhindern dass der Streit schlimmer wird.",
+        "Sie wollte verhindern dass der Konflikt schlimmer wird."
+      ]
+    },
+    {
+      "id": "b1-atlas-exercise-3",
+      "itemId": "b1-atlas-item-3",
+      "mode": "listening",
+      "answer": "A reliable connection"
+    },
+    {
+      "id": "b1-atlas-exercise-4",
+      "itemId": "b1-atlas-item-4",
+      "mode": "production",
+      "answer": "Habe ich Sie richtig verstanden, dass Sie mehr Zeit brauchen?"
+    },
+    {
+      "id": "b1-atlas-exercise-5",
+      "itemId": "b1-atlas-item-5",
+      "mode": "recognition",
+      "answer": "Entschuldigung, das habe ich anders gemeint."
+    },
+    {
+      "id": "b1-atlas-exercise-6",
+      "itemId": "b1-atlas-item-6",
+      "mode": "production",
+      "answer": "Wir vereinbaren, dass wir Probleme frühzeitig besprechen."
+    },
+    {
+      "id": "b1-atlas-exercise-7",
+      "itemId": "b1-atlas-item-7",
+      "mode": "production",
+      "answer": "Ich freue mich darauf, die neue Strecke gemeinsam zu entdecken.",
+      "acceptedAnswers": [
+        "Ich freue mich darauf, die neue Strecke zusammen zu entdecken.",
+        "Ich freue mich darauf die neue Strecke gemeinsam zu entdecken.",
+        "Ich freue mich darauf die neue Strecke zusammen zu entdecken."
+      ]
+    }
+  ]
+}

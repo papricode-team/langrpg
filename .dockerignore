@@ -1,0 +1,14 @@
+node_modules
+**/node_modules
+web/dist
+web/.vite
+server/.data
+server/data
+.env
+.git
+.DS_Store
+**/.DS_Store
+docs/screenshots
+art/source
+
+.runtime/

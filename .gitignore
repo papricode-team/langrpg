@@ -1,0 +1,16 @@
+node_modules/
+web/dist/
+web/.vite/
+server/data/
+server/.data/
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+.wrangler/
+.DS_Store
+playwright-report/
+test-results/
+
+.runtime/

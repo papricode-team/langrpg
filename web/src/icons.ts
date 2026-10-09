@@ -1,0 +1,45 @@
+const paths: Record<string, string> = {
+  cup: '<path d="M4 8h12v7a6 6 0 0 1-12 0V8Zm12 1h2a3 3 0 0 1 0 6h-2M3 22h15M7 3v2m5-2v2"/>',
+  basket: '<path d="m3 9 3 12h12l3-12H3Zm4 0 5-7 5 7M8 13v5m4-5v5m4-5v5"/>',
+  clue: '<circle cx="10" cy="10" r="7"/><path d="m15 15 7 7M7 10h6m-3-3v6"/>',
+  parcel: '<path d="m3 7 9-5 9 5v12l-9 4-9-4V7Zm0 0 9 5 9-5M12 12v11M7 4l10 6"/>',
+  route: '<circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 7v7a4 4 0 0 0 4 4h3a4 4 0 0 0 0-8h-2m4 6 3 2-3 2"/>',
+  expand: '<path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/>',
+  lantern: '<path d="M8 7h8l2 14H6L8 7Zm2-4h4v4h-4ZM8 13h8M12 7v14"/><path d="m12 11-2 5h3l-1 3 4-6h-3"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="m16 8-3 5-5 3 3-5 5-3Z"/>',
+  map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Zm6-3v15m6-12v15"/>',
+  book: '<path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Zm0 0v14"/>',
+  scroll: '<path d="M8 3h10a3 3 0 0 1 3 3v2h-4M8 3a3 3 0 0 1 3 3v12a3 3 0 0 1-6 0v-2h12V6M5 16H3v2a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-2"/>',
+  shirt: '<path d="m16 3 6 4-3 5-3-2v11H8V10l-3 2-3-5 6-4c0 3 8 3 8 0Z"/>',
+  settings: '<path d="m9 3-1 3-3 1 1 3-2 2 2 2-1 3 3 1 1 3h6l1-3 3-1-1-3 2-2-2-2 1-3-3-1-1-3H9Z"/><circle cx="12" cy="12" r="3"/>',
+  chevron: '<path d="m9 5 7 7-7 7"/>',
+  arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+  check: '<path d="m5 12 4 4L19 6"/>',
+  close: '<path d="m6 6 12 12M6 18 18 6"/>',
+  pin: '<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+  users: '<circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 4v3"/>',
+  chat: '<path d="M21 11a9 9 0 0 1-9 9H5l-3 2 1-6a9 9 0 1 1 18-5Z"/><path d="M7 10h10M7 14h6"/>',
+  send: '<path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2"/>',
+  star: '<path d="m12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6Z"/>',
+  sparkles: '<path d="m12 3 2 6 6 3-6 2-2 7-2-7-6-2 6-3 2-6Zm7-1 1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z"/>',
+  headphones: '<path d="M3 14v-3a9 9 0 0 1 18 0v3M3 13h4v8H3v-8Zm14 0h4v8h-4v-8Z"/>',
+  volume: '<path d="M4 9h4l5-5v16l-5-5H4V9Zm13-2a7 7 0 0 1 0 10m3-13a11 11 0 0 1 0 16"/>',
+  muted: '<path d="M4 9h4l5-5v16l-5-5H4V9Zm13-1 5 8m-5 0 5-8"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  leaf: '<path d="M20 3C9 1 2 8 5 15c7 4 15-2 15-12ZM4 21 16 9"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  minus: '<path d="M5 12h14"/>',
+  keyboard: '<rect x="2" y="5" width="20" height="14" rx="3"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M10 13h.01M14 13h.01M18 13h.01M7 16h10"/>',
+  heart: '<path d="M20 5a5 5 0 0 0-8 1 5 5 0 0 0-8-1c-5 5 8 16 8 16S25 10 20 5Z"/>',
+  flag: '<path d="M4 22V3c5-3 10 3 16 0v12c-6 3-11-3-16 0"/>',
+  lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 4v3"/>',
+  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+  refresh: '<path d="M20 7v5h-5M4 17v-5h5M20 12a8 8 0 0 0-14-5M4 12a8 8 0 0 0 14 5"/>',
+  trophy: '<path d="M7 3h10v7a5 5 0 0 1-10 0V3Zm0 2H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4m-5 3v5m-4 1h8"/>',
+};
+export function icon(name: string, className = ''): string {
+  return `<svg class="icon ${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] ?? paths.sparkles}</svg>`;
+}
+export function escapeHtml(value: unknown): string {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+}

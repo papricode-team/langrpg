@@ -1,0 +1,62 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8088}:80"
+    depends_on:
+      server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1/"]
+      interval: 20s
+      timeout: 4s
+      retries: 3
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    environment:
+      PORT: "8080"
+      DATABASE_URL: "postgres://${POSTGRES_USER:-lernen}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-lernen}?sslmode=disable"
+      ALLOWED_ORIGINS: "${ALLOWED_ORIGINS:-http://localhost:8088,http://localhost:5187}"
+      MAX_ZONE_PLAYERS: "${MAX_ZONE_PLAYERS:-128}"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/app/world", "healthcheck"]
+      interval: 15s
+      timeout: 4s
+      start_period: 15s
+      retries: 3
+    stop_grace_period: 15s
+
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-lernen}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}"
+      POSTGRES_DB: "${POSTGRES_DB:-lernen}"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 4s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  postgres_data:
+
+# Dokploy: add a domain for web's internal port 80 in the Domains tab and set
+# ALLOWED_ORIGINS=https://your-game-domain.example. Dokploy injects Traefik labels
+# and attaches the web service to its network. Remove the local ports mapping
+# in the production Compose override if all access goes through Traefik.
+# Keep db/server on the private default Compose network. See server/README.md.

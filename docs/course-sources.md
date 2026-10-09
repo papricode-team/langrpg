@@ -1,0 +1,22 @@
+# Course data provenance
+
+The imported lexical facts and adaptations in `web/src/data/course-lexicon.json`, the lexical layer of `web/src/data/course.json`, and the corresponding `server/course.json` are available under [Creative Commons Attribution–ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Keep this attribution and license with redistributed adaptations. This license concerns the dictionary data and its adaptations; it does not relicense unrelated application code or artwork.
+
+Dictionary attribution: English Wiktionary contributors, [German entries through Kaikki/Wiktextract](https://kaikki.org/dictionary/German/index.html), extracted by Tatu Ylonen's [Wiktextract](https://github.com/tatuylonen/wiktextract), and German Wiktionary contributors for the few individually checked entries linked in the data. Every lexeme carries an individual `sourceUrl` pointing to its dictionary source or a component used for an original transparent-compound gloss; `sourceNote` explains component-based entries. Wiktionary describes its entry-text licensing in [Copyrights](https://en.wiktionary.org/wiki/Wiktionary:Copyrights). The project imports short meanings and morphology, never third-party quotations, example sentences, pictures, or recorded audio.
+
+Morphology and ordering also use [wordhoard v0.1.0](https://github.com/natema/wordhoard/releases/tag/v0.1.0), an open dictionary build by natema. Its [NOTICE](https://github.com/natema/wordhoard/blob/main/NOTICE.md) credits Wiktionary/Kaikki, German Wiktionary via gambolputty/german-nouns, OpenSubtitles frequency data via hermitdave/FrequencyWords, and spaCy. The built dataset uses CC BY-SA4.0; its frequency and model inputs have their own MIT licenses. Corpus frequency is an ordering aid, never evidence of a person's proficiency.
+
+All grammar explanations, instructional examples, passages, comprehension questions, writing models, checkpoints and task instructions are original Lantern Atlas content. Editorial changes include selecting ordinary senses, shortening definitions, correcting lemma/POS mismatches, adding source-checked noun/verb homographs, giving useful grammatical forms, and grouping original topic routes. Variant spellings do not artificially create extra ice-cream or bank-machine targets. The two possessive homonyms `sein`/`ihr` have their own identities because their meaning and grammatical role differ from the verb/pronoun.
+
+The [Goethe A1](https://www.goethe.de/pro/relaunch/prf/de/A1_SD1_Wortliste_02.pdf), [A2](https://www.goethe.de/pro/relaunch/prf/de/Goethe-Zertifikat_A2_Wortliste.pdf) and [B1](https://www.goethe.de/pro/relaunch/prf/de/Goethe-Zertifikat_B1_Wortliste.pdf) references inform placements and coverage auditing, using the [DWDS reference API](https://www.dwds.de/d/api#wb-list-goethe). DWDS marks these reference lists © Goethe-Institut. Publisher PDFs and example sentences are not bundled or relicensed. The distributed meanings/morphology come from the open dictionary and original editorial facts; instructional contexts are independently authored. Neither Goethe nor DWDS has validated or endorsed this game.
+
+## Source snapshots
+
+Retrieved 2026-10-09. Kaikki's page identifies extraction 2026-10-03 from the English Wiktionary dump dated 2026-09-02. These input archives were read outside the repository; the checked-in lexical snapshot is the selected adaptation, so normal builds need no network.
+
+| Input | URL | SHA-256 |
+| --- | --- | --- |
+| Kaikki German English-gloss JSONL, gzip | [Download](https://kaikki.org/dictionary/German/kaikki.org-dictionary-German.jsonl.gz) | `ff03802fa4d034a80c03fd72a78243834cc06e69d7031c7be9d745a02c78b34e` |
+| wordhoard CSV v0.1.0 archive | [Download](https://github.com/natema/wordhoard/releases/download/v0.1.0/wordhoard-csv-v0.1.0.zip) | `83837efd46241e7226fc6daaa9d0cc81b57bf746434b8c539049c660d98ba761` |
+
+`sourceId=wiktionary-kaikki` identifies imported dictionary facts. `project-lexical-editorial` marks factual glosses/forms edited or supplied for the project and retains the dictionary-entry link. Original instructional source is `scripts/course-lessons.mjs`; original factual reference supplements are `scripts/course-reference-supplement.json`. Synthetic German audio is generated separately with the installed macOS Anna voice and FFmpeg; it is not Wiktionary audio or human speech. See [art and audio provenance](art.md).

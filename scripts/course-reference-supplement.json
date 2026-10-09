@@ -1,0 +1,1618 @@
+{
+  "lexemes": [
+    {
+      "lemma": "all",
+      "english": "all; every",
+      "level": "A1",
+      "pos": "det"
+    },
+    {
+      "lemma": "letzter",
+      "english": "last; final",
+      "level": "A1",
+      "pos": "adj"
+    },
+    {
+      "lemma": "Beamter",
+      "english": "civil servant (male)",
+      "level": "A1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Beamte"
+    },
+    {
+      "lemma": "Bekannter",
+      "english": "acquaintance (male)",
+      "level": "A1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Bekannte"
+    },
+    {
+      "lemma": "Deutscher",
+      "english": "German person (male)",
+      "level": "A1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Deutsche"
+    },
+    {
+      "lemma": "Celsius",
+      "english": "Celsius temperature scale",
+      "level": "A1",
+      "pos": "name"
+    },
+    {
+      "lemma": "Lkw",
+      "english": "lorry; truck",
+      "level": "A1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Lkws"
+    },
+    {
+      "lemma": "geboren",
+      "english": "born",
+      "level": "A1",
+      "pos": "adj"
+    },
+    {
+      "lemma": "Regen",
+      "english": "rain",
+      "level": "A1",
+      "pos": "noun",
+      "article": "der"
+    },
+    {
+      "lemma": "tausend",
+      "english": "one thousand",
+      "level": "A1",
+      "pos": "num"
+    },
+    {
+      "lemma": "wiedersehen",
+      "english": "to see again",
+      "level": "A1",
+      "pos": "verb",
+      "forms": [
+        "sieht wieder",
+        "sah wieder",
+        "wiedergesehen"
+      ]
+    },
+    {
+      "lemma": "auf sein",
+      "english": "to be open",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "aus sein",
+      "english": "to be switched off",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "weg sein",
+      "english": "to be away; to be gone",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "zu sein",
+      "english": "to be closed",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "wieder holen",
+      "english": "to fetch again",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "was für ein",
+      "english": "what kind of a",
+      "level": "A1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "Sankt",
+      "english": "Saint (before a name)",
+      "level": "A1",
+      "pos": "name"
+    },
+    {
+      "lemma": "auf jeden Fall",
+      "english": "definitely; in any case",
+      "level": "A2",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "auf keinen Fall",
+      "english": "under no circumstances",
+      "level": "A2",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "einige",
+      "english": "some; a few",
+      "level": "A2",
+      "pos": "det"
+    },
+    {
+      "lemma": "nächster",
+      "english": "next; nearest",
+      "level": "A2",
+      "pos": "adj"
+    },
+    {
+      "lemma": "Orange",
+      "english": "orange (fruit)",
+      "level": "A2",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Orangen"
+    },
+    {
+      "lemma": "orange",
+      "english": "orange (colour)",
+      "level": "A2",
+      "pos": "adj"
+    },
+    {
+      "lemma": "Reifen",
+      "english": "tyre",
+      "level": "A2",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Reifen"
+    },
+    {
+      "lemma": "reifen",
+      "english": "to ripen; to mature",
+      "level": "A2",
+      "pos": "verb",
+      "forms": [
+        "reift",
+        "reifte",
+        "gereift"
+      ]
+    },
+    {
+      "lemma": "Website",
+      "english": "website",
+      "level": "A2",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Websites"
+    },
+    {
+      "lemma": "Bankautomat",
+      "english": "cash machine; ATM",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Bankautomaten"
+    },
+    {
+      "lemma": "Bankkarte",
+      "english": "bank card; debit card",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Bankkarten"
+    },
+    {
+      "lemma": "Faschiertes",
+      "english": "minced meat (Austria)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "das"
+    },
+    {
+      "lemma": "Glacé",
+      "english": "ice cream (Switzerland)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "das",
+      "plural": "Glacés"
+    },
+    {
+      "lemma": "Coiffeuse",
+      "english": "female hairdresser (Switzerland)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Coiffeusen"
+    },
+    {
+      "lemma": "Daten",
+      "english": "data; information",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die"
+    },
+    {
+      "lemma": "durcheinander",
+      "english": "mixed up; in disorder",
+      "level": "B1",
+      "pos": "adv"
+    },
+    {
+      "lemma": "Einkommen",
+      "english": "income",
+      "level": "B1",
+      "pos": "noun",
+      "article": "das",
+      "plural": "Einkommen"
+    },
+    {
+      "lemma": "einschreiben",
+      "english": "to enrol; to register",
+      "level": "B1",
+      "pos": "verb",
+      "forms": [
+        "schreibt ein",
+        "schrieb ein",
+        "eingeschrieben"
+      ]
+    },
+    {
+      "lemma": "ein paar",
+      "english": "a few; a couple of",
+      "level": "B1",
+      "pos": "phrase"
+    },
+    {
+      "lemma": "Mittler",
+      "english": "mediator",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Mittler"
+    },
+    {
+      "lemma": "Personenstand",
+      "english": "civil status",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der"
+    },
+    {
+      "lemma": "Profisportler",
+      "english": "professional athlete (male)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Profisportler"
+    },
+    {
+      "lemma": "Profisportlerin",
+      "english": "professional athlete (female)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Profisportlerinnen"
+    },
+    {
+      "lemma": "Rasen",
+      "english": "lawn; grass",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Rasen"
+    },
+    {
+      "lemma": "rasen",
+      "english": "to race; to speed",
+      "level": "B1",
+      "pos": "verb",
+      "forms": [
+        "rast",
+        "raste",
+        "gerast"
+      ]
+    },
+    {
+      "lemma": "runterwerfen",
+      "english": "to throw down",
+      "level": "B1",
+      "pos": "verb",
+      "forms": [
+        "wirft runter",
+        "warf runter",
+        "runtergeworfen"
+      ]
+    },
+    {
+      "lemma": "Schnupfen",
+      "english": "a cold; runny nose",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der"
+    },
+    {
+      "lemma": "Schrecken",
+      "english": "terror; alarm",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Schrecken"
+    },
+    {
+      "lemma": "Serviceangestellte",
+      "english": "service employee (female)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Serviceangestellten"
+    },
+    {
+      "lemma": "Spieler",
+      "english": "player (male)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Spieler"
+    },
+    {
+      "lemma": "Steward",
+      "english": "steward; male cabin attendant",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Stewards"
+    },
+    {
+      "lemma": "Studierende",
+      "english": "student (female)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Studierenden"
+    },
+    {
+      "lemma": "Teilnehmer",
+      "english": "participant (male)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Teilnehmer"
+    },
+    {
+      "lemma": "Toter",
+      "english": "dead person (male)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Tote"
+    },
+    {
+      "lemma": "Umtausch",
+      "english": "exchange of purchased goods",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der"
+    },
+    {
+      "lemma": "untersagen",
+      "english": "to prohibit; to forbid",
+      "level": "B1",
+      "pos": "verb",
+      "forms": [
+        "untersagt",
+        "untersagte",
+        "untersagt"
+      ]
+    },
+    {
+      "lemma": "Verlierer",
+      "english": "loser (male)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "der",
+      "plural": "Verlierer"
+    },
+    {
+      "lemma": "Versichertenkarte",
+      "english": "health insurance card",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Versichertenkarten"
+    },
+    {
+      "lemma": "voraus",
+      "english": "ahead; in advance",
+      "level": "B1",
+      "pos": "adv"
+    },
+    {
+      "lemma": "bio",
+      "english": "organic (food)",
+      "level": "B1",
+      "pos": "adj"
+    },
+    {
+      "lemma": "au",
+      "english": "ouch",
+      "level": "B1",
+      "pos": "intj"
+    },
+    {
+      "lemma": "hinauf",
+      "english": "upward",
+      "level": "B1",
+      "pos": "adv"
+    },
+    {
+      "lemma": "hauptsächlich",
+      "english": "mainly; primarily",
+      "level": "B1",
+      "pos": "adv"
+    },
+    {
+      "lemma": "Absenderin",
+      "english": "female sender",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Absenderinnen"
+    },
+    {
+      "lemma": "Abwartin",
+      "english": "female caretaker (Switzerland)",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Abwartinnen"
+    },
+    {
+      "lemma": "Fußgängerin",
+      "english": "female pedestrian",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Fußgängerinnen"
+    },
+    {
+      "lemma": "Händlerin",
+      "english": "female trader",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Händlerinnen"
+    },
+    {
+      "lemma": "Hörerin",
+      "english": "female listener",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Hörerinnen"
+    },
+    {
+      "lemma": "Pensionistin",
+      "english": "female pensioner",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Pensionistinnen"
+    },
+    {
+      "lemma": "Spezialistin",
+      "english": "female specialist",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Spezialistinnen"
+    },
+    {
+      "lemma": "Sportlerin",
+      "english": "female athlete",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Sportlerinnen"
+    },
+    {
+      "lemma": "Täterin",
+      "english": "female perpetrator",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Täterinnen"
+    },
+    {
+      "lemma": "Verbrecherin",
+      "english": "female criminal",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Verbrecherinnen"
+    },
+    {
+      "lemma": "Zuhörerin",
+      "english": "female listener",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Zuhörerinnen"
+    },
+    {
+      "lemma": "Übersetzerin",
+      "english": "female translator",
+      "level": "B1",
+      "pos": "noun",
+      "article": "die",
+      "plural": "Übersetzerinnen"
+    }
+  ],
+  "aliases": [
+    {
+      "form": "deine",
+      "parentLemma": "dein",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "your (informal singular)"
+    },
+    {
+      "form": "dich",
+      "parentLemma": "du",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "you (informal singular, accusative)"
+    },
+    {
+      "form": "dir",
+      "parentLemma": "du",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "to you (informal singular, dative)"
+    },
+    {
+      "form": "die",
+      "parentLemma": "der",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "the (feminine singular or plural article)"
+    },
+    {
+      "form": "eine",
+      "parentLemma": "ein",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "a; an (feminine)"
+    },
+    {
+      "form": "eure",
+      "parentLemma": "euer",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "your (informal plural)"
+    },
+    {
+      "form": "ihm",
+      "parentLemma": "er",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "to him; to it (dative)"
+    },
+    {
+      "form": "ihre",
+      "parentLemma": "ihr",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "her; their"
+    },
+    {
+      "form": "jede",
+      "parentLemma": "jeder",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "every (feminine)"
+    },
+    {
+      "form": "jedes",
+      "parentLemma": "jeder",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "every (neuter)"
+    },
+    {
+      "form": "meine",
+      "parentLemma": "mein",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "my"
+    },
+    {
+      "form": "seine",
+      "parentLemma": "sein",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "his; its"
+    },
+    {
+      "form": "unsere",
+      "parentLemma": "unser",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "our"
+    },
+    {
+      "form": "unsre",
+      "parentLemma": "unser",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "our"
+    },
+    {
+      "form": "welches",
+      "parentLemma": "welcher",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "which (neuter)"
+    },
+    {
+      "form": "namen",
+      "parentLemma": "Name",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "names; grammatical form of name"
+    },
+    {
+      "form": "beamte",
+      "parentLemma": "Beamter",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "civil servants; grammatical form of civil servant"
+    },
+    {
+      "form": "bekannte",
+      "parentLemma": "Bekannter",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "acquaintances; grammatical form of acquaintance"
+    },
+    {
+      "form": "deutsche",
+      "parentLemma": "Deutscher",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "German people; grammatical form of German person"
+    },
+    {
+      "form": "besser",
+      "parentLemma": "gut",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "better"
+    },
+    {
+      "form": "lieber",
+      "parentLemma": "lieb",
+      "level": "A1",
+      "kind": "inflection",
+      "english": "dearer; more gladly"
+    },
+    {
+      "form": "alleine",
+      "parentLemma": "allein",
+      "level": "A1",
+      "kind": "spelling",
+      "english": "alone"
+    },
+    {
+      "form": "selbständig",
+      "parentLemma": "selbstständig",
+      "level": "A1",
+      "kind": "spelling",
+      "english": "independent; self-employed"
+    },
+    {
+      "form": "kennen lernen",
+      "parentLemma": "kennenlernen",
+      "level": "A1",
+      "kind": "spelling",
+      "english": "to get to know"
+    },
+    {
+      "form": "weh tun",
+      "parentLemma": "wehtun",
+      "level": "A1",
+      "kind": "spelling",
+      "english": "to hurt"
+    },
+    {
+      "form": "grade",
+      "parentLemma": "gerade",
+      "level": "A1",
+      "kind": "regional",
+      "english": "just; straight (colloquial)"
+    },
+    {
+      "form": "gradeaus",
+      "parentLemma": "geradeaus",
+      "level": "A1",
+      "kind": "regional",
+      "english": "straight ahead (colloquial)"
+    },
+    {
+      "form": "heut",
+      "parentLemma": "heute",
+      "level": "A1",
+      "kind": "regional",
+      "english": "today (colloquial)"
+    },
+    {
+      "form": "bös",
+      "parentLemma": "böse",
+      "level": "A1",
+      "kind": "regional",
+      "english": "angry; evil (poetic short form)"
+    },
+    {
+      "form": "am",
+      "parentLemma": "an",
+      "level": "A1",
+      "kind": "phrase",
+      "english": "at the; on the (an + dem)"
+    },
+    {
+      "form": "ins",
+      "parentLemma": "in",
+      "level": "A1",
+      "kind": "phrase",
+      "english": "into the (in + das)"
+    },
+    {
+      "form": "was für eine",
+      "parentLemma": "was für ein",
+      "level": "A1",
+      "kind": "phrase",
+      "english": "what kind of a (feminine)"
+    },
+    {
+      "form": "’s",
+      "parentLemma": "es",
+      "level": "A1",
+      "kind": "phrase",
+      "english": "it (spoken contraction)"
+    },
+    {
+      "form": "%",
+      "parentLemma": "Prozent",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "percent"
+    },
+    {
+      "form": "&",
+      "parentLemma": "und",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "and"
+    },
+    {
+      "form": "c",
+      "parentLemma": "Celsius",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "degrees Celsius (written °C)"
+    },
+    {
+      "form": "cm",
+      "parentLemma": "Zentimeter",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "centimetre"
+    },
+    {
+      "form": "ct",
+      "parentLemma": "Cent",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "cent"
+    },
+    {
+      "form": "¢",
+      "parentLemma": "Cent",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "cent"
+    },
+    {
+      "form": "g",
+      "parentLemma": "Gramm",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "gram"
+    },
+    {
+      "form": "kg",
+      "parentLemma": "Kilogramm",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "kilogram"
+    },
+    {
+      "form": "km",
+      "parentLemma": "Kilometer",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "kilometre"
+    },
+    {
+      "form": "m",
+      "parentLemma": "Meter",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "metre"
+    },
+    {
+      "form": "m²",
+      "parentLemma": "Quadratmeter",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "square metre"
+    },
+    {
+      "form": "qm",
+      "parentLemma": "Quadratmeter",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "square metre"
+    },
+    {
+      "form": "s",
+      "parentLemma": "Sekunde",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "second"
+    },
+    {
+      "form": "st",
+      "parentLemma": "Sankt",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "Saint (written St.)"
+    },
+    {
+      "form": "€",
+      "parentLemma": "Euro",
+      "level": "A1",
+      "kind": "abbreviation",
+      "english": "euro"
+    },
+    {
+      "form": "weiter-",
+      "parentLemma": "weiter",
+      "level": "A1",
+      "kind": "affix",
+      "english": "further; continued (as in weitergehen)"
+    },
+    {
+      "form": "besucht",
+      "parentLemma": "besuchen",
+      "level": "A2",
+      "kind": "inflection",
+      "english": "visited; visits"
+    },
+    {
+      "form": "blöde",
+      "parentLemma": "blöd",
+      "level": "A2",
+      "kind": "inflection",
+      "english": "stupid; silly"
+    },
+    {
+      "form": "nächste",
+      "parentLemma": "nächster",
+      "level": "A2",
+      "kind": "inflection",
+      "english": "next; nearest"
+    },
+    {
+      "form": "circus",
+      "parentLemma": "Zirkus",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "circus"
+    },
+    {
+      "form": "crème",
+      "parentLemma": "Creme",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "cream"
+    },
+    {
+      "form": "disko",
+      "parentLemma": "Disco",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "disco"
+    },
+    {
+      "form": "klub",
+      "parentLemma": "Club",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "club"
+    },
+    {
+      "form": "parfum",
+      "parentLemma": "Parfüm",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "perfume"
+    },
+    {
+      "form": "phantastisch",
+      "parentLemma": "fantastisch",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "fantastic"
+    },
+    {
+      "form": "web-seite",
+      "parentLemma": "Website",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "website"
+    },
+    {
+      "form": "ein mal",
+      "parentLemma": "einmal",
+      "level": "A2",
+      "kind": "spelling",
+      "english": "once; one time"
+    },
+    {
+      "form": "mail",
+      "parentLemma": "E-Mail",
+      "level": "A2",
+      "kind": "regional",
+      "english": "email (short form)"
+    },
+    {
+      "form": "her-",
+      "parentLemma": "her",
+      "level": "A2",
+      "kind": "affix",
+      "english": "movement toward the speaker"
+    },
+    {
+      "form": "hin-",
+      "parentLemma": "hin",
+      "level": "A2",
+      "kind": "affix",
+      "english": "movement away from the speaker"
+    },
+    {
+      "form": "zurück-",
+      "parentLemma": "zurück",
+      "level": "A2",
+      "kind": "affix",
+      "english": "back; return"
+    },
+    {
+      "form": "abhangen",
+      "parentLemma": "abhängen",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "to depend (variant form)"
+    },
+    {
+      "form": "andrerseits",
+      "parentLemma": "andererseits",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "on the other hand"
+    },
+    {
+      "form": "beinah",
+      "parentLemma": "beinahe",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "almost"
+    },
+    {
+      "form": "bekannt geben",
+      "parentLemma": "bekanntgeben",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "to announce"
+    },
+    {
+      "form": "büfett",
+      "parentLemma": "Buffet",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "buffet"
+    },
+    {
+      "form": "chic",
+      "parentLemma": "schick",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "elegant; stylish"
+    },
+    {
+      "form": "entwickelung",
+      "parentLemma": "Entwicklung",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "development (older spelling)"
+    },
+    {
+      "form": "friede",
+      "parentLemma": "Frieden",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "peace"
+    },
+    {
+      "form": "frisör",
+      "parentLemma": "Friseur",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "hairdresser"
+    },
+    {
+      "form": "graphik",
+      "parentLemma": "Grafik",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "graphic; illustration"
+    },
+    {
+      "form": "kaputt machen",
+      "parentLemma": "kaputtmachen",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "to break; to damage"
+    },
+    {
+      "form": "langweile",
+      "parentLemma": "Langeweile",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "boredom (shorter form)"
+    },
+    {
+      "form": "noch mal",
+      "parentLemma": "nochmal",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "again"
+    },
+    {
+      "form": "phantasie",
+      "parentLemma": "Fantasie",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "imagination; fantasy"
+    },
+    {
+      "form": "photograph",
+      "parentLemma": "Fotograf",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "photographer"
+    },
+    {
+      "form": "photographie",
+      "parentLemma": "Fotografie",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "photography"
+    },
+    {
+      "form": "portmonee",
+      "parentLemma": "Portemonnaie",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "wallet; purse"
+    },
+    {
+      "form": "sauce",
+      "parentLemma": "Soße",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "sauce"
+    },
+    {
+      "form": "so dass",
+      "parentLemma": "sodass",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "so that"
+    },
+    {
+      "form": "so genannt",
+      "parentLemma": "sogenannt",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "so-called"
+    },
+    {
+      "form": "staub saugen",
+      "parentLemma": "staubsaugen",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "to vacuum"
+    },
+    {
+      "form": "stehen bleiben",
+      "parentLemma": "stehenbleiben",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "to stop; to remain standing"
+    },
+    {
+      "form": "waagrecht",
+      "parentLemma": "waagerecht",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "horizontal"
+    },
+    {
+      "form": "zahncrème",
+      "parentLemma": "Zahncreme",
+      "level": "B1",
+      "kind": "spelling",
+      "english": "toothpaste"
+    },
+    {
+      "form": "bancomat",
+      "parentLemma": "Bankautomat",
+      "level": "B1",
+      "kind": "regional",
+      "english": "cash machine; ATM (Switzerland)"
+    },
+    {
+      "form": "bankomat",
+      "parentLemma": "Bankautomat",
+      "level": "B1",
+      "kind": "regional",
+      "english": "cash machine; ATM (Austria)"
+    },
+    {
+      "form": "bancomatkarte",
+      "parentLemma": "Bankkarte",
+      "level": "B1",
+      "kind": "regional",
+      "english": "ATM card (Switzerland)"
+    },
+    {
+      "form": "billet",
+      "parentLemma": "Fahrkarte",
+      "level": "B1",
+      "kind": "regional",
+      "english": "ticket (Switzerland)"
+    },
+    {
+      "form": "bub",
+      "parentLemma": "Junge",
+      "level": "B1",
+      "kind": "regional",
+      "english": "boy (Austria; southern Germany)"
+    },
+    {
+      "form": "couvert",
+      "parentLemma": "Briefumschlag",
+      "level": "B1",
+      "kind": "regional",
+      "english": "envelope (Switzerland)"
+    },
+    {
+      "form": "faschierte",
+      "parentLemma": "Faschiertes",
+      "level": "B1",
+      "kind": "regional",
+      "english": "minced meat (Austria)"
+    },
+    {
+      "form": "fasnacht",
+      "parentLemma": "Fasching",
+      "level": "B1",
+      "kind": "regional",
+      "english": "carnival (regional name)"
+    },
+    {
+      "form": "feber",
+      "parentLemma": "Februar",
+      "level": "B1",
+      "kind": "regional",
+      "english": "February (Austria)"
+    },
+    {
+      "form": "färbig",
+      "parentLemma": "farbig",
+      "level": "B1",
+      "kind": "regional",
+      "english": "coloured (Austria)"
+    },
+    {
+      "form": "führerausweis",
+      "parentLemma": "Führerschein",
+      "level": "B1",
+      "kind": "regional",
+      "english": "driving licence (Switzerland)"
+    },
+    {
+      "form": "henderl",
+      "parentLemma": "Hendl",
+      "level": "B1",
+      "kind": "regional",
+      "english": "chicken (Austria)"
+    },
+    {
+      "form": "hieher",
+      "parentLemma": "hierher",
+      "level": "B1",
+      "kind": "regional",
+      "english": "to here (older regional form)"
+    },
+    {
+      "form": "mobilbox",
+      "parentLemma": "Mailbox",
+      "level": "B1",
+      "kind": "regional",
+      "english": "mobile voicemail service"
+    },
+    {
+      "form": "müesli",
+      "parentLemma": "Müsli",
+      "level": "B1",
+      "kind": "regional",
+      "english": "muesli (Switzerland)"
+    },
+    {
+      "form": "nützen",
+      "parentLemma": "nutzen",
+      "level": "B1",
+      "kind": "regional",
+      "english": "to use; to benefit"
+    },
+    {
+      "form": "schi",
+      "parentLemma": "Ski",
+      "level": "B1",
+      "kind": "regional",
+      "english": "ski (Austria)"
+    },
+    {
+      "form": "schlagrahm",
+      "parentLemma": "Schlagsahne",
+      "level": "B1",
+      "kind": "regional",
+      "english": "whipped cream (Switzerland)"
+    },
+    {
+      "form": "zivilstand",
+      "parentLemma": "Familienstand",
+      "level": "B1",
+      "kind": "regional",
+      "english": "marital status (Switzerland)"
+    },
+    {
+      "form": "allerschönst",
+      "parentLemma": "schön",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "most beautiful (superlative stem)"
+    },
+    {
+      "form": "besonder",
+      "parentLemma": "besonders",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "special (inflected stem)"
+    },
+    {
+      "form": "dasselbe",
+      "parentLemma": "derselbe",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "the same (neuter)"
+    },
+    {
+      "form": "dies",
+      "parentLemma": "dieser",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "this"
+    },
+    {
+      "form": "diese",
+      "parentLemma": "dieser",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "this; these"
+    },
+    {
+      "form": "dieses",
+      "parentLemma": "dieser",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "this (neuter)"
+    },
+    {
+      "form": "dieselbe",
+      "parentLemma": "derselbe",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "the same (feminine)"
+    },
+    {
+      "form": "fachleute",
+      "parentLemma": "Fachmann",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "experts; skilled professionals"
+    },
+    {
+      "form": "selb",
+      "parentLemma": "selber",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "self (stem in derselbe)"
+    },
+    {
+      "form": "untersagt",
+      "parentLemma": "untersagen",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "prohibited; forbidden"
+    },
+    {
+      "form": "tote",
+      "parentLemma": "Toter",
+      "level": "B1",
+      "kind": "inflection",
+      "english": "dead people; grammatical form of dead person"
+    },
+    {
+      "form": "ec-karte",
+      "parentLemma": "Bankkarte",
+      "level": "B1",
+      "kind": "abbreviation",
+      "english": "debit card (EC-Karte)"
+    },
+    {
+      "form": "aller-",
+      "parentLemma": "alle",
+      "level": "B1",
+      "kind": "affix",
+      "english": "intensified superlative (as in allerbeste)"
+    },
+    {
+      "form": "bio-",
+      "parentLemma": "bio",
+      "level": "B1",
+      "kind": "affix",
+      "english": "organic; biological"
+    },
+    {
+      "form": "öko-",
+      "parentLemma": "ökologisch",
+      "level": "B1",
+      "kind": "affix",
+      "english": "ecological; environmentally friendly"
+    },
+    {
+      "form": "doppel-",
+      "parentLemma": "doppelt",
+      "level": "B1",
+      "kind": "affix",
+      "english": "double; twofold"
+    },
+    {
+      "form": "einzel-",
+      "parentLemma": "einzeln",
+      "level": "B1",
+      "kind": "affix",
+      "english": "single; individual"
+    },
+    {
+      "form": "elektro-",
+      "parentLemma": "elektrisch",
+      "level": "B1",
+      "kind": "affix",
+      "english": "electrical"
+    },
+    {
+      "form": "haupt-",
+      "parentLemma": "hauptsächlich",
+      "level": "B1",
+      "kind": "affix",
+      "english": "main; chief"
+    },
+    {
+      "form": "herein-",
+      "parentLemma": "herein",
+      "level": "B1",
+      "kind": "affix",
+      "english": "in toward the speaker"
+    },
+    {
+      "form": "hinter-",
+      "parentLemma": "hinter",
+      "level": "B1",
+      "kind": "affix",
+      "english": "behind"
+    },
+    {
+      "form": "miss-",
+      "parentLemma": "falsch",
+      "level": "B1",
+      "kind": "affix",
+      "english": "wrong; badly (as in missverstehen)"
+    },
+    {
+      "form": "ober-",
+      "parentLemma": "oben",
+      "level": "B1",
+      "kind": "affix",
+      "english": "upper"
+    },
+    {
+      "form": "rauf-",
+      "parentLemma": "hinauf",
+      "level": "B1",
+      "kind": "affix",
+      "english": "upward (colloquial)"
+    },
+    {
+      "form": "raus-",
+      "parentLemma": "heraus",
+      "level": "B1",
+      "kind": "affix",
+      "english": "outward (colloquial)"
+    },
+    {
+      "form": "rück-",
+      "parentLemma": "zurück",
+      "level": "B1",
+      "kind": "affix",
+      "english": "back; return"
+    },
+    {
+      "form": "schwieger-",
+      "parentLemma": "Familie",
+      "level": "B1",
+      "kind": "affix",
+      "english": "relation by marriage (as in Schwiegermutter)"
+    },
+    {
+      "form": "sonder-",
+      "parentLemma": "besonders",
+      "level": "B1",
+      "kind": "affix",
+      "english": "special; exceptional"
+    },
+    {
+      "form": "spezial-",
+      "parentLemma": "speziell",
+      "level": "B1",
+      "kind": "affix",
+      "english": "special; particular"
+    },
+    {
+      "form": "un-",
+      "parentLemma": "nicht",
+      "level": "B1",
+      "kind": "affix",
+      "english": "not; negative prefix"
+    },
+    {
+      "form": "unter-",
+      "parentLemma": "unter",
+      "level": "B1",
+      "kind": "affix",
+      "english": "under; lower"
+    },
+    {
+      "form": "vorbei-",
+      "parentLemma": "vorbei",
+      "level": "B1",
+      "kind": "affix",
+      "english": "past; passing by"
+    },
+    {
+      "form": "wieder-",
+      "parentLemma": "wieder",
+      "level": "B1",
+      "kind": "affix",
+      "english": "again"
+    },
+    {
+      "form": "zusammen-",
+      "parentLemma": "zusammen",
+      "level": "B1",
+      "kind": "affix",
+      "english": "together"
+    },
+    {
+      "form": "über-",
+      "parentLemma": "über",
+      "level": "B1",
+      "kind": "affix",
+      "english": "over; across; excessive"
+    }
+  ],
+  "overrides": [
+    {
+      "lemma": "Hörer",
+      "english": "telephone receiver; listener"
+    },
+    {
+      "lemma": "Entwicklung",
+      "english": "development; evolution"
+    },
+    {
+      "lemma": "Zuhörer",
+      "english": "listener; member of an audience"
+    },
+    {
+      "lemma": "Eis",
+      "english": "ice; ice cream"
+    }
+  ],
+  "exclusions": [
+    {
+      "form": "ander",
+      "level": "A1",
+      "reason": "Inflection stem; teach andere/anderer in determiner grammar."
+    },
+    {
+      "form": "best",
+      "level": "A1",
+      "reason": "Superlative stem; teach am besten, not a standalone word."
+    },
+    {
+      "form": "letzt",
+      "level": "A1",
+      "reason": "Inflection stem; taught under letzter."
+    },
+    {
+      "form": "siebenzig",
+      "level": "A1",
+      "reason": "Nonstandard reference spelling; standard siebzig already taught."
+    },
+    {
+      "form": "händetuch",
+      "level": "A2",
+      "reason": "Reference spelling anomaly; standard Handtuch already taught."
+    },
+    {
+      "form": "-weis",
+      "level": "B1",
+      "reason": "Reference suffix fragment; standard -weise is taught."
+    },
+    {
+      "form": "elektr-",
+      "level": "B1",
+      "reason": "Truncated reference prefix; teach elektrisch/elektro-."
+    },
+    {
+      "form": "eck",
+      "level": "B1",
+      "reason": "Reference stem; standard Ecke already taught."
+    },
+    {
+      "form": "wandrung",
+      "level": "B1",
+      "reason": "Reference spelling anomaly; standard Wanderung already taught."
+    },
+    {
+      "form": "weltenweit",
+      "level": "B1",
+      "reason": "Unusual reference form; standard weltweit already taught."
+    }
+  ]
+}
