@@ -277,6 +277,31 @@ export function evaluateActivity(scenario:ActivityScenario,state:ActivityState):
 }
 
 const seededHash = (text:string):number => {let value=2166136261;for(const char of text)value=Math.imul(value^char.charCodeAt(0),16777619);return value>>>0;};
+
+/** Keep each case's layout stable without exposing the authored answer order. */
+export function shuffledDetectiveBoard(board:DetectiveBoard,seed:string):DetectiveBoard {
+  const shuffle=<T>(values:T[],key:string):T[]=>{
+    const result=[...values];
+    let value=seededHash(`${seed}:${key}`);
+    for(let i=result.length-1;i>0;i--) {
+      value=(value+0x6d2b79f5)>>>0;
+      let random=Math.imul(value^(value>>>15),value|1);
+      random^=random+Math.imul(random^(random>>>7),random|61);
+      const j=Math.floor(((random^(random>>>14))>>>0)/4294967296*(i+1));
+      [result[i],result[j]]=[result[j],result[i]];
+    }
+    return result;
+  };
+  const cards=shuffle(board.cards,'cards'),slots=shuffle(board.slots,'slots');
+  // Even after ignoring distractors, pairing top to bottom must not solve a case.
+  const evidence=cards.filter(card=>slots.some(slot=>slot.expected===card.id));
+  if(evidence.length>1&&evidence.length===slots.length&&evidence.every((card,index)=>card.id===slots[index].expected)) {
+    const first=cards.indexOf(evidence[0]),second=cards.indexOf(evidence[1]);
+    [cards[first],cards[second]]=[cards[second],cards[first]];
+  }
+  return {...board,cards,slots};
+}
+
 export function selectActivityScenarios(id:ActivityId,level:Level,progress:Progress,seed:string,now=Date.now()): { scenarios:ActivityScenario[]; familiar:boolean } {
   const pool=scenarios.filter(scene=>scene.activityId===id&&scene.level===level);
   const ready=(scene:ActivityScenario):boolean=>{const item=progress.items[exerciseForScenario(scene).itemId];return !item||!Number.isFinite(Date.parse(item.dueAt))||Date.parse(item.dueAt)<=now;};

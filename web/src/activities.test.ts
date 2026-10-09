@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mountActivity, type ActivityCompletionContext, type ActivityContext, type MountActivityOptions } from './activities';
-import { activityScenarios, marketTotal, type ActivityScenario, type ActivityState } from './activity-engine';
+import { activityScenarios, marketTotal, shuffledDetectiveBoard, type ActivityScenario, type ActivityState } from './activity-engine';
 import { emptyProgress } from './api';
 import { answerMatches } from './learning';
 
@@ -74,6 +74,38 @@ function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
 }
 
 describe('playable mission controller',()=>{
+  it('keeps shuffled evidence and slots stable through placement, reset, pause and reopening',async()=>{
+    const root=new EventRoot(),{controller}=mount(root,{id:'detective'});
+    const current=scene(),board=current.board;
+    if(board.kind!=='detective')throw new Error('Wrong board.');
+    const order=(element:EventRoot,act:string)=>Array.from(element.innerHTML.matchAll(new RegExp(`<button[^>]*data-act="${act}"[^>]*data-value="([^"]+)"`,'g')),match=>match[1]);
+    const cards=order(root,'select-card'),slots=order(root,'place-card');
+    const expected=shuffledDetectiveBoard(board,`${run().runId}:${current.id}`);
+    expect(cards).toEqual(expected.cards.map(card=>card.id));
+    expect(slots).toEqual(expected.slots.map(slot=>slot.id));
+    const unchanged=(element:EventRoot)=>{
+      expect(order(element,'select-card')).toEqual(cards);
+      expect(order(element,'place-card')).toEqual(slots);
+    };
+    root.click('select-card',cards[0]);unchanged(root);
+    root.click('place-card',slots[0]);unchanged(root);
+    const linked=run().state;
+    controller.pause();controller.resume();unchanged(root);
+    controller.destroy();
+    const resumed=new EventRoot();mount(resumed,{id:'detective'});unchanged(resumed);
+    expect(run().state).toEqual(linked);
+    resumed.click('reset-board');unchanged(resumed);
+    expect(run().state).toEqual({kind:'detective',links:{}});
+    solveViaControls(resumed,current);resumed.click('submit');await flush();
+    expect(run().stage).toBe('scene-complete');
+    resumed.click('next');await flush();
+    const next=scene();
+    if(next.board.kind!=='detective')throw new Error('Wrong board.');
+    const nextLayout=shuffledDetectiveBoard(next.board,`${run().runId}:${next.id}`);
+    expect(order(resumed,'select-card')).toEqual(nextLayout.cards.map(card=>card.id));
+    expect(order(resumed,'place-card')).toEqual(nextLayout.slots.map(slot=>slot.id));
+  });
+
   it('keeps panel and reference navigation separate from saved actions and learning assistance',()=>{
     const root=new EventRoot(),onSceneVisible=vi.fn(),{controller,submit}=mount(root,{onSceneVisible});
     const board=scene().board;

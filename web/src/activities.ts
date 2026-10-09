@@ -4,7 +4,7 @@ import type { Progress } from './api';
 import { escapeHtml as e, icon } from './icons';
 import {
   activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
-  initialActivityState, inventory, marketTotal, money, selectActivityScenarios,
+  initialActivityState, inventory, marketTotal, money, selectActivityScenarios, shuffledDetectiveBoard,
   type ActivityAction, type ActivityId, type ActivityMode, type ActivityScenario, type ActivityState,
   type CafeState, type DetectiveState, type DeliveryBoard, type DeliveryState, type MarketState,
 } from './activity-engine';
@@ -154,7 +154,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
 
   function detectiveBoard(scene:ActivityScenario,state:DetectiveState):string {
     if(scene.board.kind!=='detective')return '';
-    const board=scene.board;
+    const board=shuffledDetectiveBoard(scene.board,`${run.runId}:${scene.id}`);
     return `<div class="activity-evidence-room"><div class="activity-evidence-pile"><div class="activity-bench-label">${icon('clue')} BEWEISE</div>${board.cards.map(card=>actionButton('select-card',`${icon(card.icon)}<span lang="de">${e(card.german)}</span><small>${Object.values(state.links).includes(card.id)?'On the board':'Select, then place'}</small>`,`data-value="${e(card.id)}" aria-pressed="${selectedCard===card.id}"`,selectedCard===card.id?'activity-evidence selected':'activity-evidence')).join('')}</div><div class="activity-investigation-board"><div class="activity-bench-label">${icon('scroll')} DIE REKONSTRUKTION</div><p>${selectedCard?'Choose where this evidence belongs.':'Select an evidence slip from the desk.'}</p>${board.slots.map((slot,index)=>{const card=board.cards.find(item=>item.id===state.links[slot.id]);return `<div class="activity-evidence-link"><span class="activity-link-number">${index+1}</span>${actionButton('place-card',`<strong lang="de">${e(slot.german)}</strong><span>${card?`${icon(card.icon)} ${e(card.german)}`:'Place an evidence slip here'}</span>`,`data-value="${e(slot.id)}"`,'activity-evidence-slot')}${card?actionButton('unlink',icon('close'),`data-value="${e(slot.id)}" aria-label="Remove evidence from ${e(slot.german)}"`,'activity-unpin'):''}</div>`;}).join('')}</div></div>`;
   }
 

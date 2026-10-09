@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { emptyProgress, type MemoryItem } from './api';
 import {
   activityAudioJobs, activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
-  initialActivityState, marketTotal, selectActivityScenarios, type ActivityAction, type ActivityScenario, type ActivityState,
+  initialActivityState, marketTotal, selectActivityScenarios, shuffledDetectiveBoard, type ActivityAction, type ActivityScenario, type ActivityState,
 } from './activity-engine';
 
 /** Solve by the same actions the player can perform, rather than assigning goal state. */
@@ -130,6 +130,30 @@ describe('market arithmetic and exchanges',()=>{
 });
 
 describe('evidence reconstruction',()=>{
+  it('varies every case layout without allowing top-to-bottom matching, even when skipping distractors',()=>{
+    for(const scene of activityScenarios.filter(scene=>scene.activityId==='detective')) {
+      if(scene.board.kind!=='detective')throw new Error('Wrong board.');
+      const original=structuredClone(scene.board),layouts=new Set<string>();
+      for(let attempt=0;attempt<100;attempt++) {
+        const seed=`run-${attempt}:${scene.id}`,board=shuffledDetectiveBoard(scene.board,seed);
+        expect(shuffledDetectiveBoard(scene.board,seed)).toEqual(board);
+        expect([...board.cards].sort((a,b)=>a.id.localeCompare(b.id))).toEqual([...original.cards].sort((a,b)=>a.id.localeCompare(b.id)));
+        expect([...board.slots].sort((a,b)=>a.id.localeCompare(b.id))).toEqual([...original.slots].sort((a,b)=>a.id.localeCompare(b.id)));
+        layouts.add(JSON.stringify([board.cards.map(card=>card.id),board.slots.map(slot=>slot.id)]));
+        const evidence=board.cards.filter(card=>board.slots.some(slot=>slot.expected===card.id));
+        for(const orderedCards of [board.cards,evidence]) {
+          let state=initialActivityState(scene);
+          board.slots.forEach((slot,index)=>{state=applyActivityAction(scene,state,{type:'link',slotId:slot.id,cardId:orderedCards[index].id});});
+          expect(evaluateActivity(scene,state).valid,`${scene.id}: ${seed}`).toBe(false);
+        }
+        const shuffledScene={...scene,board};
+        expect(evaluateActivity(shuffledScene,solve(shuffledScene)).valid).toBe(true);
+      }
+      expect(layouts.size).toBeGreaterThan(1);
+      expect(scene.board).toEqual(original);
+    }
+  });
+
   it('needs all links, prevents duplicate placement, and permits moving the same slip',()=>{
     const scene=activityScenarios.find(scene=>scene.id==='detective-b1-a-timetable-disagrees')!,board=scene.board;
     if(board.kind!=='detective')throw new Error('Wrong board.');
