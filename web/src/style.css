@@ -1711,6 +1711,17 @@ kbd {
   color:#738151;
   font-weight:500
 }
+.exercise-preferences {
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:16px
+}
+.silent-mode-button {
+  min-height:44px
+}
+.silent-mode-button[aria-pressed="true"] {
+  border-color:var(--game-gold, #bfa66a)
+}
 .exercise-progress {
   height:3px;
   background:#b1a47442;

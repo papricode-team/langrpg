@@ -16,7 +16,7 @@ import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
 import type { Progress, ChatMessage, ExposureInput } from './api';
-import { dueItems, modeFor, memoryLabel } from './learning';
+import { dueItems, modeFor, memoryLabel, practiceExercises, skipListeningExercises } from './learning';
 import { reviewExercises } from './review';
 import { icon, escapeHtml as e } from './icons';
 import { maps, getMap } from './maps';
@@ -76,6 +76,10 @@ let manualWorldHour = Number(localStorage.getItem('atlas.worldHour') ?? 12);
 if (!Number.isFinite(manualWorldHour)) manualWorldHour = 12;
 if (!['auto', 'full', 'reduced'].includes(worldMotion)) worldMotion = 'auto';
 let muted = localStorage.getItem('atlas.muted') !== 'false';
+let silentMode = localStorage.getItem('atlas.silentMode') === 'true';
+function silentModeButton() {
+  return `<button class="outline-button silent-mode-button" data-action="silent-mode" aria-pressed="${silentMode}">${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}</button>`;
+}
 let speechRate = Number(localStorage.getItem('atlas.speechRate') || '0.82');
 if (![0.65, 0.82, 1].includes(speechRate)) speechRate = 0.82;
 const chatMessages: ChatMessage[] = [];
@@ -250,11 +254,11 @@ function startInteriorActivity(id: string) {
   void startActivity(object.activityId, {roomId:room.id, stationId:id});
 }
 function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
-  return object.exerciseIds.flatMap(id => {
+  return practiceExercises(object.exerciseIds.flatMap(id => {
     const exercise = interiorExercises.find(item => item.id === id);
     if (!exercise) return [];
     return [exercise.mode === 'sentence' && hasSuccessfulEncounter(exercise.itemId) ? { ...exercise, mode: 'type' as const, prompt: `Write in German: ${exercise.english}` } : exercise];
-  });
+  }), silentMode);
 }
 function showInteriorObject(id: string) {
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
@@ -386,7 +390,7 @@ function activityForObject(object: WorldObjectSpec): ActivityId {
 function hasSuccessfulEncounter(itemId: string): boolean { return Object.values(progress.items[itemId]?.modeStats ?? {}).some(stats => stats.correct > 0); }
 function availableObjectExercises(object: WorldObjectSpec): Exercise[] {
   const due = new Set(dueItems(progress));
-  return object.exerciseIds.flatMap(id => { const ex = quests.flatMap(q => q.exercises).find(item => item.id === id); return ex && (!hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId)) ? [ex.mode === 'sentence' && progress.items[ex.itemId] ? { ...ex, mode: 'type' as const, prompt: `Write in German: ${ex.english}` } : ex] : []; });
+  return practiceExercises(object.exerciseIds.flatMap(id => { const ex = quests.flatMap(q => q.exercises).find(item => item.id === id); return ex && (!hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId)) ? [ex.mode === 'sentence' && progress.items[ex.itemId] ? { ...ex, mode: 'type' as const, prompt: `Write in German: ${ex.english}` } : ex] : []; }), silentMode);
 }
 function showObject(id: string) {
   const object = findObject(id); if (!object) return;
@@ -535,8 +539,8 @@ async function startWordPractice(id: string) {
     openDialog(`<div class="course-intro"><div class="eyebrow">A FAMILIAR WORD, AT REST</div><h2>${e(spokenWord(word))}</h2><p>${e(word.english)}</p><p>This word is resting. Its next encounter is ${new Date(memory.dueAt).toLocaleDateString(undefined, {month:'short',day:'numeric'})}.</p><button class="primary-button" data-speak="${e(spokenWord(word))}">${icon('volume')} Hear this word</button><button class="text-button" data-action="close-dialog">Keep exploring</button></div>`, 'course-dialog'); return;
   }
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
-  const queue = module.courseExercises.filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
-  if (!queue.length) { toast('This word is resting. There is a new adventure waiting.'); return; }
+  const queue = practiceExercises(module.courseExercises, silentMode).filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
+  if (!queue.length) { toast(silentMode ? 'No reading or writing practice is ready for this word. Listening is skipped in silent mode.' : 'This word is resting. There is a new adventure waiting.'); return; }
   setView('world'); run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:true, label:`A word for your journey · ${word.lemma}`, started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
 }
@@ -547,7 +551,8 @@ async function startCourseUnit(id: string) {
   const due = new Set(dueItems(progress));
   const pending = unit.exerciseIds.map(id => module.courseExerciseById.get(id)).filter((ex): ex is NonNullable<typeof ex> => !!ex && !exerciseHasSuccess(ex));
   const revisits = unit.exerciseIds.map(id => module.courseExerciseById.get(id)).filter((ex): ex is NonNullable<typeof ex> => !!ex && due.has(ex.itemId) && (!ex.targetWordId || !progress.words[ex.targetWordId]?.evidence?.[modeFor(ex)]?.dueAt || Date.parse(progress.words[ex.targetWordId].evidence[modeFor(ex)].dueAt) <= Date.now()));
-  const queue = (pending.length ? pending : revisits).slice(0, 8);
+  const queue = practiceExercises(pending.length ? pending : revisits, silentMode).slice(0, 8);
+  if (!queue.length && pending.length) { toast('This route has listening practice left. Turn off silent mode when you are ready to listen.'); return; }
   setView('world');
   run = { unitId:id, queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:unit.title, started:Date.now() };
   const guides = module.courseGrammar.filter(guide => unit.grammarIds.includes(guide.id));
@@ -557,8 +562,8 @@ async function startAdaptiveReview() {
   const module = await loadCourse().catch(() => undefined);
   if (!module) { startReview(); return; }
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
-  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises));
-  if (!queue.length) { toast('Your familiar words are resting. Follow a new route or play an adventure.'); return; }
+  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode);
+  if (!queue.length) { toast(silentMode ? 'No reading or writing reviews are ready. Listening is skipped in silent mode.' : 'Your familiar words are resting. Follow a new route or play an adventure.'); return; }
   setView('world'); run = { queue,index:0,correct:0,targetCount:queue.length,hinted:false,audioHeard:false,answered:false,answer:'',tokenOrder:[],review:true,label:'A short recall walk',started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
 }
@@ -625,7 +630,7 @@ function renderOther() {
     el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">EVERY ADVENTURE NEEDS A YOU.</div><h1>Make your mark.</h1><p>A little style. A little personality. Quite a lot of curiosity.</p></div></div><section class="character-page"><div class="character-illustration"><canvas class="painted-avatar" data-avatar-preview width="384" height="576" role="img" aria-label="Your character appearance"></canvas><h2>${e(profile.name)}</h2><p>A wanderer of the Atlas</p><span class="character-xp">${icon('sparkles')} ${progress.xp} adventure XP</span></div><div class="character-options">${profileForm()}<p class="honest-note">Your colours appear on your moving character and are visible to other players.</p></div></section>`;
     bindProfileForm();
   } else if (view === 'settings') {
-    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
+    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Silent mode</h3><p>Automatically skip listening exercises and mute audio. Skipped exercises stay available for later. Saved on this device.</p></div>${silentModeButton()}<div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
     const select = document.querySelector<HTMLSelectElement>('#speech-rate')!;
     select.value = String(speechRate);
     select.onchange = () => { speechRate = Number(select.value); localStorage.setItem('atlas.speechRate', String(speechRate)); };
@@ -687,7 +692,8 @@ function startQuest(id: string) {
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
   setView('world');
   const due = new Set(dueItems(progress));
-  const queue = quest.exercises.filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
+  const queue = practiceExercises(quest.exercises, silentMode).filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
+  if (!queue.length && quest.exercises.some(ex => !hasSuccessfulEncounter(ex.itemId))) { toast('This quest has listening practice left. Turn off silent mode when you are ready to listen.'); return; }
   run = { quest, queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: false, started: Date.now() };
   const npc = npcs.find(n => n.id === quest.npcId) ?? npcs[0];
   openDialog(`<div class="quest-intro">${portrait(npc.id, 'large-portrait')}<div class="eyebrow">${quest.level} · ${e(quest.location)}</div><h2>${e(quest.title)}</h2><p class="intro-story">${e(quest.story)}</p><div class="intro-details"><span>${icon('book')} ${queue.length ? `${queue.length} expressions to practise` : 'Your expressions are already saved'}</span><span>${icon('sparkles')} +${quest.reward} XP</span></div><button class="primary-button" data-action="begin-exercises">${queue.length ? 'Let the adventure begin' : 'Discover the next clue'} ${icon('arrow')}</button><small>You can take a break at any time. Your answered words stay saved.</small></div>`, 'quest-dialog');
@@ -695,7 +701,7 @@ function startQuest(id: string) {
 function startReview() {
   const ids = dueItems(progress).slice(0, 8);
   const queue = ids.flatMap(id => {
-    const ex = quests.flatMap(q => q.exercises).find(x => x.itemId === id);
+    const ex = practiceExercises(quests.flatMap(q => q.exercises), silentMode).find(x => x.itemId === id);
     if (!ex) return [];
     return [{ ...ex, ...(ex.mode === 'sentence' ? { mode: 'type' as const, prompt: `A familiar request, a new encounter. Write in German: ${ex.english}` } : {}) }];
   });
@@ -707,6 +713,7 @@ function startReview() {
 }
 function renderExercise() {
   if (!run) return;
+  if (silentMode) skipListeningExercises(run);
   if (run.index >= run.queue.length) { void finishRun(); return; }
   const ex = run.queue[run.index];
   run.hinted = false; run.audioHeard = false; run.answered = false; run.answer = ''; run.tokenOrder = [];
@@ -714,7 +721,7 @@ function renderExercise() {
   stopSpeech();
   const label = { choice: 'MAKE YOURSELF UNDERSTOOD', listen: 'LISTEN FOR A LITTLE CLUE', sentence: 'FIND THE RIGHT WORDS', type: 'YOUR WORDS, YOUR WAY' }[ex.mode];
   const optionMarkup = [...(ex.options ?? [])].map((option, i) => ({ option, seed: hash(`${ex.id}:${run!.index}:${i}`) })).sort((a, b) => a.seed - b.seed).map(({ option }, i) => `<button class="answer-option" data-answer="${e(option)}"><span>${String.fromCharCode(65 + i)}</span>${e(option)}</button>`).join('');
-  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close adventure">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? 'A familiar face, a new encounter' : e(run.quest?.title ?? 'Your learning route')}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="eyebrow">${label}</div><h2>${e(ex.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="Play German audio">${icon('volume')}</button><div><strong>A voice from ${e(interiorId ? getInterior(interiorId).name : getMap(mapId).name)}</strong><span>Listen, then choose your answer. Replay any time.</span></div></div><button class="text-button transcript-button" data-action="transcript">Show transcript</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="Your sentence"><span class="sentence-placeholder">Tap the words to build your answer</span></div><div class="word-tokens" id="word-tokens">${[...(ex.tokens ?? ex.answer.split(' '))].map((token, i) => ({ token, i })).sort((a, b) => hash(`${ex.id}-${a.i}`) - hash(`${ex.id}-${b.i}`)).map(({ token, i }) => `<button class="word-token" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} Start the sentence again</button>` : `<form id="typed-answer-form"><input class="typed-answer" id="typed-answer" placeholder="Write your answer in German…" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="Your German answer"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} A little help</button>${ex.mode === 'sentence' || ex.mode === 'type' ? '<button class="primary-button" data-action="check-answer" id="check-answer">Check my answer ' + icon('arrow') + '</button>' : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>On with the story ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(ex.hint)}</p></div>`;
+  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close adventure">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? 'A familiar face, a new encounter' : e(run.quest?.title ?? 'Your learning route')}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><div class="eyebrow">${label}</div><h2>${e(ex.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="Play German audio">${icon('volume')}</button><div><strong>A voice from ${e(interiorId ? getInterior(interiorId).name : getMap(mapId).name)}</strong><span>Listen, then choose your answer. Replay any time.</span></div></div><button class="text-button transcript-button" data-action="transcript">Show transcript</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="Your sentence"><span class="sentence-placeholder">Tap the words to build your answer</span></div><div class="word-tokens" id="word-tokens">${[...(ex.tokens ?? ex.answer.split(' '))].map((token, i) => ({ token, i })).sort((a, b) => hash(`${ex.id}-${a.i}`) - hash(`${ex.id}-${b.i}`)).map(({ token, i }) => `<button class="word-token" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} Start the sentence again</button>` : `<form id="typed-answer-form"><input class="typed-answer" id="typed-answer" placeholder="Write your answer in German…" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="Your German answer"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} A little help</button>${ex.mode === 'sentence' || ex.mode === 'type' ? '<button class="primary-button" data-action="check-answer" id="check-answer">Check my answer ' + icon('arrow') + '</button>' : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>On with the story ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(ex.hint)}</p></div>`;
   document.querySelector('#typed-answer-form')?.addEventListener('submit', event => { event.preventDefault(); void submitAnswer(); });
   if (ex.mode === 'choice' || ex.mode === 'sentence') recordExposure({exerciseId:ex.id});
   if (ex.mode === 'type') document.querySelector<HTMLInputElement>('#typed-answer')?.focus();
@@ -782,6 +789,11 @@ async function finishRun() {
       run = undefined; playCue(true); return;
     }
     if (activeRun.quest) {
+      const remaining = activeRun.quest.exercises.filter(ex => !hasSuccessfulEncounter(ex.itemId));
+      if (remaining.length) {
+        document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close quest session">${icon('close')}</button><div class="completion"><div class="completion-mark">${icon('leaf')}</div><div class="eyebrow">YOUR ANSWERS ARE SAVED</div><h2>A little further along the story.</h2><p>${e(activeRun.quest.title)} · ${remaining.length} ${remaining.length === 1 ? 'listening exercise remains' : 'listening exercises remain'}. Silent mode skipped them. Turn off silent mode when you are ready to finish this quest.</p><div class="completion-stats"><span><strong>${activeRun.correct}</strong> expressions practised</span><span><strong>✓</strong> progress saved</span></div><button class="primary-button" data-view="settings">Open Settings ${icon('settings')}</button><button class="text-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></div>`;
+        run = undefined; playCue(true); return;
+      }
       const result = await api.request<{ xpAdded: number; progress: Progress }>('/quest/complete', { questId: activeRun.quest.id });
       acceptProgress(result.progress); gained = result.xpAdded; updateProgress();
     }
@@ -856,6 +868,7 @@ function stopSpeech() {
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
 function speak(text: string) {
+  if (silentMode) { toast('Silent mode is on. Turn it off in Settings to hear audio.'); return; }
   stopSpeech();
   const generation = speechGeneration;
   const listeningRun = run;
@@ -895,7 +908,7 @@ function speak(text: string) {
 }
 let audioContext: AudioContext | undefined;
 function playCue(correct: boolean) {
-  if (muted) return;
+  if (muted || silentMode) return;
   try {
     audioContext ??= new AudioContext();
     void audioContext.resume();
@@ -994,6 +1007,19 @@ function bindGlobalEvents() {
       case 'clear-sentence': if (run && !run.answered) { run.tokenOrder = []; run.answer = ''; document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; }); document.querySelector('#sentence-result')!.innerHTML = '<span class="sentence-placeholder">Tap the words to build your answer</span>'; } break;
       case 'zoom-in': world.zoom(0.12); break;
       case 'zoom-out': world.zoom(-0.12); break;
+      case 'silent-mode':
+        if (attemptBusy) { toast('Your answer is saving. Try again in a moment.'); break; }
+        silentMode = !silentMode;
+        localStorage.setItem('atlas.silentMode', String(silentMode));
+        if (silentMode) { stopSpeech(); void audioContext?.suspend(); }
+        if (view === 'settings') renderOther();
+        if (silentMode && run && !run.answered && run.queue[run.index]?.mode === 'listen') renderExercise();
+        document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
+          button.setAttribute('aria-pressed', String(silentMode));
+          button.innerHTML = `${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}`;
+        });
+        toast(silentMode ? 'Silent mode on. Listening exercises will be skipped.' : 'Silent mode off. Listening exercises will return in your next session.');
+        break;
       case 'sound': muted = !muted; localStorage.setItem('atlas.muted', String(muted));  if (!muted) playCue(true); if (view === 'settings') renderOther(); break;
       case 'chat-toggle': toggleChat(); break;
     }

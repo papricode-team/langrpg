@@ -23,3 +23,15 @@ export function memoryLabel(repetitions: number, stability: number): string {
 export function modeFor(exercise: Exercise): 'recognition' | 'production' | 'listening' {
   return exercise.mode === 'listen' ? 'listening' : exercise.mode === 'choice' ? 'recognition' : 'production';
 }
+
+export function practiceExercises<T extends Exercise>(exercises: readonly T[], silentMode: boolean): T[] {
+  return exercises.filter(exercise => !silentMode || exercise.mode !== 'listen');
+}
+
+/** Keep answered history and the cursor intact when silent mode is enabled mid-session. */
+export function skipListeningExercises(session: { queue: Exercise[]; index: number; targetCount: number }): void {
+  const pending = session.queue.slice(session.index);
+  const skipped = new Set(pending.filter(exercise => exercise.mode === 'listen').map(exercise => exercise.id));
+  session.queue = [...session.queue.slice(0, session.index), ...practiceExercises(pending, true)];
+  session.targetCount -= skipped.size;
+}

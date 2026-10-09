@@ -9,6 +9,20 @@ const ex = (id:string, mode:Exercise['mode']='choice'):Exercise => ({id,itemId:i
 const memory = (id:string, dueAt=due) => ({itemId:id,dueAt,lastSeenAt:due,stabilityDays:1,difficulty:5,repetitions:1,lapses:0,modeStats:{}});
 const word = (id:string):WordMemory => ({...memory(id),wordId:id,exposures:1,contextExposures:0,directAttempts:1,mastery:'learning',evidence: Object.fromEntries(['production','listening','recognition'].map(mode=>[mode,{dueAt:due,status:'learning',stabilityDays:1,attempts:1,correct:1,unaidedSuccesses:1}])) as WordMemory['evidence']});
 describe('whole-course review',()=>{
+  it('selects a due reading skill when silent mode skips listening, and leaves listening evidence due',()=>{
+    const p=emptyProgress();p.words.apple=word('apple');p.words.apple.evidence.production.dueAt=future;
+    const drills=([['prod','type'],['listen','listen'],['read','choice']] as const).map(([id,mode])=>({...ex(id,mode),itemId:'word-apple',targetWordId:'apple'}));
+    const before=structuredClone(p);
+    expect(reviewExercises(p,drills,[],now,true).map(item=>item.id)).toEqual(['read']);
+    expect(p).toEqual(before);
+    expect(reviewExercises(p,drills,[],now).map(item=>item.id)).toEqual(['listen']);
+  });
+  it('fills a silent review with playable contexts even when many listening items are due first',()=>{
+    const p=emptyProgress();
+    const contexts=Array.from({length:12},(_,i)=>ex(`phrase-${i}`,i<4?'listen':'choice'));
+    for(const item of contexts)p.items[item.itemId]=memory(item.itemId);
+    expect(reviewExercises(p,[],contexts,now,true).map(item=>item.id)).toEqual(contexts.slice(4).map(item=>item.id));
+  });
   it('brings back extended course sentences alongside story expressions, while future items rest',()=>{
     const p=emptyProgress();p.items={course:memory('course'),story:memory('story'),future:memory('future',future)};
     const queue=reviewExercises(p,[ex('course','sentence'),ex('future')],[ex('story')],now);
