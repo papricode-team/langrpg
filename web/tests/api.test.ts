@@ -9,14 +9,14 @@ class MockSocket {
   bufferedAmount = 0;
   sent: unknown[] = [];
   onopen?: () => void;
-  onclose?: () => void;
+  onclose?: (event: { code: number }) => void;
   onerror?: () => void;
   onmessage?: (event: { data: string }) => void;
   constructor(readonly url: string) { MockSocket.instances.push(this); }
   send(value: string) { this.sent.push(JSON.parse(value)); }
   open() { this.readyState = MockSocket.OPEN; this.onopen?.(); }
   receive(value: unknown) { this.onmessage?.({ data: typeof value === 'string' ? value : JSON.stringify(value) }); }
-  close() { this.readyState = 3; queueMicrotask(() => this.onclose?.()); }
+  close(code = 1006) { this.readyState = 3; queueMicrotask(() => this.onclose?.({ code })); }
 }
 
 let storage: Map<string, string>;
@@ -118,6 +118,27 @@ describe('map-aware multiplayer API', () => {
     vi.advanceTimersByTime(800); const reconnected = latestSocket(); expect(reconnected).not.toBe(socket);
     expect(new URL(reconnected.url).searchParams.get('mapId')).toBe('waldruh'); reconnected.open(); reconnected.receive(packet('waldruh'));
     expect(api.joinMap('nebelstadt')).toBe(true);
+  });
+
+  it('stops reconnecting when another tab takes over the character', async () => {
+    const { api, socket } = onlineApi();
+    const onStatus = vi.fn(), onError = vi.fn(); api.onStatus = onStatus; api.onError = onError;
+    socket.close(4001); await Promise.resolve();
+    vi.advanceTimersByTime(60_000);
+    expect(MockSocket.instances).toHaveLength(1);
+    expect(onStatus).toHaveBeenLastCalledWith('replaced');
+    expect(onError).toHaveBeenCalledWith(expect.stringContaining('another tab'));
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('can explicitly resume a replaced tab and ignores its previous socket', async () => {
+    const { api, socket } = onlineApi(); const onStatus = vi.fn(); api.onStatus = onStatus;
+    socket.close(4001); await Promise.resolve();
+    api.connect(); latestSocket().open(); latestSocket().receive(packet());
+    socket.close(4001); await Promise.resolve();
+    expect(onStatus).toHaveBeenLastCalledWith('online');
+    expect(MockSocket.instances).toHaveLength(2);
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('ignores late messages and close events from a replaced socket', async () => {

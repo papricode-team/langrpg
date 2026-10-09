@@ -42,6 +42,7 @@ export interface CompletionResult { xpAdded: number; duplicate: boolean; progres
 export interface ActivityCompletionResult extends CompletionResult { reason: string; activity: ActivityProgress; }
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
+export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
 const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
@@ -72,7 +73,7 @@ export class Api {
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
   onChat?: (message: ChatMessage) => void;
-  onStatus?: (status: 'connecting' | 'online' | 'offline') => void;
+  onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
   selfId = '';
 
@@ -139,9 +140,15 @@ export class Api {
         }
       } catch { /* A malformed frame cannot alter application state. */ }
     };
-    ws.onclose = () => {
+    ws.onclose = event => {
       if (this.socket !== ws) return;
       this.pendingMap = undefined;
+      if (!this.stopped && event.code === 4001) {
+        this.stopped = true;
+        this.onStatus?.('replaced');
+        this.onError?.('Your character is active in another tab. Continue there, or close it and reload this page.');
+        return;
+      }
       this.onStatus?.('offline');
       if (!this.stopped) this.reconnectTimer = window.setTimeout(() => this.connect(), Math.min(15000, 800 * 2 ** this.reconnectCount++));
     };

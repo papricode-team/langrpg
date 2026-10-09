@@ -17,6 +17,9 @@ import (
 
 const DefaultMapID = "lindenhafen"
 
+// A replaced tab must not reconnect and evict the tab that took over.
+const sessionReplacedStatus websocket.StatusCode = 4001
+
 var mapIDs = []string{
 	DefaultMapID, "waldruh", "nebelstadt",
 	"saffroncourt", "rainmarket", "windplain", "riverweave", "terracielo",
@@ -207,9 +210,6 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
 	memory.mapID, memory.lastSeen = mapID, now
 	memory.positions[mapID] = position
-	if previous != nil {
-		previous.cancel()
-	}
 	w.clients[player.ID] = client
 	w.enqueueMapLocked(client, "welcome")
 	if previous != nil && previous.player.MapID != mapID {
@@ -217,6 +217,14 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	}
 	w.broadcastPlayersLocked(mapID)
 	w.mu.Unlock()
+	if previous != nil {
+		// Send a close frame before cancelling: cancellation alone aborts the
+		// transport, which browsers treat as a retryable network failure.
+		go func() {
+			_ = previous.conn.Close(sessionReplacedStatus, "character active in another tab")
+			previous.cancel()
+		}()
+	}
 	defer func() {
 		w.mu.Lock()
 		if w.clients[player.ID] == client {

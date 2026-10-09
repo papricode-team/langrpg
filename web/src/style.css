@@ -422,7 +422,8 @@ kbd {
   background:#bdd78e;
   box-shadow:0 0 5px #bdd78e90
 }
-.connection-pill.offline>span {
+.connection-pill.offline>span,
+.connection-pill.replaced>span {
   background:#e7976a
 }
 /* Quest slip. Its details fold away on small screens. */

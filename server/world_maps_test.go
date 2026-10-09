@@ -201,6 +201,35 @@ func TestMapReconnectRestoresPositionAndChatLimits(t *testing.T) {
 	readWorld(t, ctx, two, "error")
 }
 
+func TestNewTabReplacesSessionWithoutRetryableDisconnect(t *testing.T) {
+	app := testApp(t)
+	token, _ := createSession(t, app, "Ada")
+	server := httptest.NewServer(app.Handler())
+	defer server.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	one := dialMap(t, ctx, server, token, "waldruh")
+	defer one.CloseNow()
+	readWorld(t, ctx, one, "welcome")
+
+	two := dialMap(t, ctx, server, token, "waldruh")
+	defer two.CloseNow()
+	readWorld(t, ctx, two, "welcome")
+	for {
+		_, _, err := one.Read(ctx)
+		if err == nil {
+			continue // Drain any presence snapshots queued before takeover.
+		}
+		if websocket.CloseStatus(err) != sessionReplacedStatus {
+			t.Fatalf("replaced tab received a retryable disconnect: %v", err)
+		}
+		break
+	}
+	// Cleanup from the old handler must leave the new connection registered.
+	writeWorld(t, ctx, two, map[string]any{"type": "chat", "mapId": "waldruh", "message": "Still connected"})
+	readIsolatedChat(t, ctx, two, "waldruh", "Still connected")
+}
+
 func TestMapJoinRateLimitSurvivesReconnect(t *testing.T) {
 	app := testApp(t)
 	token, _ := createSession(t, app, "Ada")
