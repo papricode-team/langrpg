@@ -28,6 +28,11 @@ export function practiceExercises<T extends Exercise>(exercises: readonly T[], s
   return exercises.filter(exercise => !silentMode || exercise.mode !== 'listen');
 }
 
+export function remainingQuestExercises(exercises: readonly Exercise[], progress: Progress, silentMode: boolean): Exercise[] {
+  return practiceExercises(exercises, silentMode).filter(exercise =>
+    !Object.values(progress.items[exercise.itemId]?.modeStats ?? {}).some(stats => stats.correct > 0));
+}
+
 /** Keep answered history and the cursor intact when silent mode is enabled mid-session. */
 export function skipListeningExercises(session: { queue: Exercise[]; index: number; targetCount: number }): void {
   const pending = session.queue.slice(session.index);

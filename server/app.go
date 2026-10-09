@@ -406,7 +406,8 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var input struct {
-		QuestID string `json:"questId"`
+		QuestID    string `json:"questId"`
+		SilentMode bool   `json:"silentMode,omitempty"`
 	}
 	if err = decodeJSON(w, r, &input); err != nil {
 		apiFailure(w, err)
@@ -418,10 +419,20 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	request, _ := json.Marshal(input)
+	key := "quest:" + quest.ID
+	if input.SilentMode {
+		key += ":silent"
+	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "quest:"+quest.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
+		if contains(account.Progress.CompletedQuestIDs, quest.ID) {
+			return Receipt{}, nil
+		}
 		for _, id := range quest.RequiredItemIDs {
+			if input.SilentMode && a.curriculum.listeningOnlyItem(id) {
+				continue
+			}
 			memory, ok := account.Progress.Items[id]
 			correct := 0
 			if ok {
@@ -432,9 +443,6 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 			if correct == 0 {
 				return Receipt{}, &APIError{409, fmt.Sprintf("complete every exercise in this quest first (missing %s)", id)}
 			}
-		}
-		if contains(account.Progress.CompletedQuestIDs, quest.ID) {
-			return Receipt{}, nil
 		}
 		account.Progress.CompletedQuestIDs = append(account.Progress.CompletedQuestIDs, quest.ID)
 		account.Progress.XP += quest.Reward

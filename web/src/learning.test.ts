@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizedAnswer, dueItems, practiceExercises, skipListeningExercises } from './learning';
+import { normalizedAnswer, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
 import { emptyProgress } from './api';
 import { quests } from './content';
 
@@ -29,6 +29,26 @@ describe('silent mode', () => {
     skipListeningExercises(session);
     expect(session.index).toBe(session.queue.length);
     expect(session.targetCount).toBe(1);
+  });
+
+  it.each(quests.map(quest => [quest.id, quest] as const))('finishes %s after saved reading and writing answers without claiming listening success', (_, quest) => {
+    const progress = emptyProgress();
+    for (const exercise of practiceExercises(quest.exercises, true)) {
+      progress.items[exercise.itemId] = {
+        itemId: exercise.itemId, stabilityDays: 1, difficulty: 5, repetitions: 1, lapses: 0,
+        lastSeenAt: '2026-10-09T12:00:00Z', dueAt: '2026-10-10T12:00:00Z',
+        modeStats: { [modeFor(exercise)]: { attempts: 1, correct: 1, unaidedSuccesses: 0 } },
+      };
+    }
+    expect(remainingQuestExercises(quest.exercises, progress, true)).toEqual([]);
+    expect(remainingQuestExercises(quest.exercises, progress, false)).toEqual(quest.exercises.filter(exercise => exercise.mode === 'listen'));
+    for (const exercise of quest.exercises.filter(exercise => exercise.mode === 'listen')) {
+      expect(progress.items[exercise.itemId]).toBeUndefined();
+    }
+  });
+
+  it('still requires unanswered reading and writing exercises in silent mode', () => {
+    expect(remainingQuestExercises([reading, listening, writing], emptyProgress(), true)).toEqual([reading, writing]);
   });
 });
 

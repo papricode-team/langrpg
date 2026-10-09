@@ -321,6 +321,20 @@ func validMode(mode string) bool {
 	return mode == "recognition" || mode == "production" || mode == "listening"
 }
 
+func (c Curriculum) listeningOnlyItem(itemID string) bool {
+	listening := false
+	for _, exercise := range c.Exercises {
+		if exercise.ItemID != itemID {
+			continue
+		}
+		if exercise.Mode != "listening" {
+			return false
+		}
+		listening = true
+	}
+	return listening
+}
+
 func normalizeAnswer(answer string, caseSensitive bool) string {
 	answer = norm.NFC.String(strings.TrimSpace(answer))
 	answer = strings.Join(strings.Fields(answer), " ")

@@ -189,6 +189,9 @@ func TestQuestCompletionRequiresLearningAndAwardsOnce(t *testing.T) {
 		t.Fatalf("invented quest status %d", got)
 	}
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("one")))
+	if got := request(app, "POST", "/api/quest/complete", token, map[string]any{"questId": "quest", "silentMode": true}).Code; got != 409 {
+		t.Fatalf("silent mode skipped a target with both production and listening exercises: %d", got)
+	}
 	input := AttemptInput{ID: "two", ItemID: "item-two", ExerciseID: "exercise-two", Answer: "ICH   BIN HIER!", Mode: "production", QuestID: "quest"}
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, input))
 	first := request(app, "POST", "/api/quest/complete", token, map[string]string{"questId": "quest"})

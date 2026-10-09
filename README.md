@@ -64,7 +64,7 @@ On phones in portrait or landscape, drag the lower-left joystick to walk and rel
 
 The world uses **CRT** by default. Open **Settings → Screen filters** or press **F** to experiment with Original, Soft paint, CRT and Pixel CRT while viewing the world. Adjust softness, scanlines, texture, warmth, edge shade and pixel size; hold **Compare original** to compare the unfiltered artwork. Choices save on this device and take precedence over the default. The shared screen filter affects the world and its labels, while HTML menus and HUD stay clear. Filters require WebGL; the Canvas fallback keeps the original artwork.
 
-Enable **Silent mode** in Settings or from an exercise to automatically skip listening games and mute audio. The choice saves on this device. Skipped listening exercises remain available when silent mode is off; quests and learning routes keep their completed answers while waiting for any required listening practice.
+Enable **Silent mode** in Settings or from an exercise to automatically skip listening games and mute audio. The choice saves on this device. Story quests finish and award their discoveries and XP after the reading and writing exercises, including when silent mode is enabled mid-quest. Skipped listening exercises remain available when silent mode is off and are not recorded as answered. Learning routes keep their completed answers while waiting for any required listening practice.
 
 ## Checks
 
