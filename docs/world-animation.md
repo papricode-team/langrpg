@@ -1,6 +1,6 @@
 # Painted sprite animation
 
-The live worlds use terrain plates and **276 individually placed sprites**: 96 in Lindenhafen, 88 in Waldruh and 92 in Nebelstadt. Every object has two separately painted six-frame raster animation sets, calm day and quiet night, authored with the built-in ImageGen tool. The 96 regional asset families contain **1,152 scenery frames** across both periods.
+The original three worlds use terrain plates and **276 individually placed sprites**: 96 in Lindenhafen, 88 in Waldruh and 92 in Nebelstadt. Every object has two separately painted six-frame raster animation sets, calm day and quiet night, authored with the built-in ImageGen tool. The 96 regional asset families contain **1,152 scenery frames** across both periods. The ten additional regions use the separate sheets documented in [Expeditions](expeditions.md).
 
 Buildings use a **static base sprite** and **separate animated detail sprites**. Each of the 11 architectural families per region and period keeps the first painting for its walls, roof, foundation and silhouette. Small registered overlays animate window interiors, clock faces, forge flames and attached details; whole-building paintings never cycle. The 66 fixed bases and 732 detail frames are packed separately, so variations in the source paintings cannot make the architecture flicker. Each detail has its own deterministic phase and mirrors with its base, including off-center pivots.
 
@@ -12,7 +12,9 @@ Each region's original 16 roles has 16 additional house, tree, market and garden
 
 The world clock automatically selects day from 07:00 to 19:00 and night otherwise. A foreground day lasts twelve minutes in the default slow cycle. Menus and hidden pages pause that cycle. Settings → Time of day offers the slow cycle, real local time or a chosen hour. Moving the hour slider selects manual time. The clock button opens these controls, and the preference persists.
 
-Each period changes every object's sprite sheet and selects its painted terrain. Lindenhafen and Waldruh use their original clean ground plates for day; Nebelstadt has a daylight edit. All three have separately painted night ground plates. Time changes wait for the requested artwork to load before replacing sprites together. Rapid changes discard stale callbacks.
+For the original three regions, each period changes every object's sprite sheet and selects its painted terrain. Lindenhafen and Waldruh use their original clean ground plates for day; Nebelstadt has a daylight edit. All three have separately painted night ground plates. Time changes wait for the requested artwork to load before replacing sprites together. Rapid changes discard stale callbacks.
+
+The ten expedition regions share their terrain, prop, character and motion pages between periods. Night applies a steady cool ambient tint to ground, buildings and foliage; lantern sprites retain warm light and local characters use a lighter tint to remain readable. Day restores the original colors. These are runtime sprite tints, not separately painted night sheets, and they remain still with reduced motion.
 
 ## Files and export
 
@@ -32,7 +34,7 @@ The world exporter crops, packs and encodes generated artwork without warping it
 
 An optional source-specific `*-registration.json` can provide row boundaries when an authored sheet needs more room for an asset. The exporter keeps the original global foot baseline when a boundary moves, so rectangular crops preserve both the complete artwork and its ground contact.
 
-The initial region loads only its current period. Loading, cache checks and releases include every base and overlay sheet, skipping whole-building sequence pages when no other objects need them. Other regions and periods load on demand. Desktop retains loaded pages for revisits; small screens release pages from the previous region or period, and cached manifests can reload released textures. Resizing to a small screen releases inactive pages. Ordinary frame selection avoids repainting canvases or uploading textures each tick.
+The initial region loads only its current period. Loading, cache checks and releases include every base and overlay sheet, skipping whole-building sequence pages when no other objects need them. Other regions and periods load on demand. All devices release pages from a departed region, and cached manifests can reload released textures. Period changes release inactive pages while retaining pages shared by expedition day and night. Ordinary frame selection avoids repainting canvases or uploading textures each tick.
 
 ## Watching and accessibility
 

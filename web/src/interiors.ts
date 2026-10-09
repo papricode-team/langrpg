@@ -301,16 +301,18 @@ const referencedExercises = new Set(interiors.flatMap(interior => interior.objec
 export const interiorExercises: Exercise[] = quests.flatMap(quest => quest.exercises).filter(exercise => referencedExercises.has(exercise.id));
 
 /** Door markers sit on the pavement immediately outside existing storefronts. */
-const entranceLocations: Readonly<Record<MapId, Readonly<Record<InteriorId, MapPosition>>>> = {
+const entranceLocations: Readonly<Partial<Record<MapId, Readonly<Record<InteriorId, MapPosition>>>>> = {
   lindenhafen: { cafe: position(588, 475), bakery: position(1172, 847), supermarket: position(1230, 485) },
   waldruh: { cafe: position(320, 365), bakery: position(385, 720), supermarket: position(893, 765) },
   nebelstadt: { cafe: position(190, 480), bakery: position(273, 775), supermarket: position(790, 822) },
 };
 
 export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
+  const locations = entranceLocations[mapId];
+  if (!locations) return [];
   return interiors.map(interior => ({
     id: `building:${interior.id}` as const, interiorId: interior.id, label: interior.name,
-    description: interior.description, ...entranceLocations[mapId][interior.id],
+    description: interior.description, ...locations[interior.id],
   }));
 }
 

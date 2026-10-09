@@ -1,5 +1,6 @@
 import type { Avatar, WorldPlayer } from './world';
 import type { MapId } from './maps';
+import { isExpeditionMap } from './expeditions';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
@@ -43,7 +44,7 @@ export interface ExposureInput { exerciseId?: string; unitId?: string; activityI
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
-const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt';
+const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
 const validSpawn = (value: unknown): value is { x: number; y: number } => {
   if (!value || typeof value !== 'object') return false;
   const point = value as { x?: unknown; y?: unknown };

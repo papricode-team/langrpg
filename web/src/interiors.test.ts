@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { npcs, quests } from './content';
 import { buildingEntrances, createInteriorNavigation, getInterior, getInteriorObject, interiorExercises, interiors, type InteriorId } from './interiors';
-import { getMap, maps } from './maps';
+import { getMap, storyMaps as maps } from './maps';
 import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
 import type { SceneryAnimationManifest } from './scenery-animation';
 import { INTERIOR_CHARACTER_HEIGHT } from './character-art';

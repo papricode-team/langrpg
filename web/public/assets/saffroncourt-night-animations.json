@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "framesPerAsset": 6,
+  "terrain": "saffroncourt-terrain",
+  "assets": {
+    "motion-tree": {
+      "key": "saffroncourt-motions",
+      "frames": [
+        "motion-tree-0",
+        "motion-tree-1",
+        "motion-tree-2",
+        "motion-tree-3",
+        "motion-tree-4",
+        "motion-tree-5"
+      ],
+      "fps": 4,
+      "width": 217,
+      "height": 239,
+      "referenceWidth": 217,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-cloth": {
+      "key": "saffroncourt-motions",
+      "frames": [
+        "motion-cloth-0",
+        "motion-cloth-1",
+        "motion-cloth-2",
+        "motion-cloth-3",
+        "motion-cloth-4",
+        "motion-cloth-5"
+      ],
+      "fps": 4,
+      "width": 256,
+      "height": 244,
+      "referenceWidth": 256,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-lamp": {
+      "key": "saffroncourt-motions",
+      "frames": [
+        "motion-lamp-0",
+        "motion-lamp-1",
+        "motion-lamp-2",
+        "motion-lamp-3",
+        "motion-lamp-4",
+        "motion-lamp-5"
+      ],
+      "fps": 3,
+      "width": 124,
+      "height": 251,
+      "referenceWidth": 124,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-water": {
+      "key": "saffroncourt-motions",
+      "frames": [
+        "motion-water-0",
+        "motion-water-1",
+        "motion-water-2",
+        "motion-water-3",
+        "motion-water-4",
+        "motion-water-5"
+      ],
+      "fps": 4,
+      "width": 224,
+      "height": 219,
+      "referenceWidth": 224,
+      "originX": 0.5,
+      "originY": 1
+    }
+  }
+}

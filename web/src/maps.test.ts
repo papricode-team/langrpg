@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { maps, getMap, type MapId } from './maps';
+import { maps, storyMaps, getMap, type StoryMapId } from './maps';
+import { expeditionIds, getExpedition, getExpeditionEncounter } from './expeditions';
 import { npcs, quests } from './content';
 import { createMapNavigation, MAP_WIDTH, MAP_HEIGHT, type MapPoint, type NavigationGrid } from './navigation';
 
@@ -18,10 +19,10 @@ function verifyRoute(navigation: NavigationGrid, start: MapPoint, route: MapPoin
 }
 
 describe('painted region definitions', () => {
-  it('has three independent paintings and the authoritative arrival points', () => {
-    expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt']);
-    expect(new Set(maps.map(map => map.asset)).size).toBe(3);
-    expect(maps.map(map => map.spawn)).toEqual([{ x: .52, y: .61 }, { x: .52, y: .54 }, { x: .50, y: .55 }]);
+  it('keeps the three story paintings and adds ten independent exploration regions', () => {
+    expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt', ...expeditionIds]);
+    expect(new Set(maps.map(map => map.asset)).size).toBe(13);
+    expect(storyMaps.map(map => map.spawn)).toEqual([{ x: .52, y: .61 }, { x: .52, y: .54 }, { x: .50, y: .55 }]);
     for (const map of maps) expect(getMap(map.id)).toBe(map);
   });
 
@@ -30,13 +31,15 @@ describe('painted region definitions', () => {
     const ids = new Set<string>();
     for (const map of maps) {
       expect(map.objects.length).toBeGreaterThanOrEqual(4);
-      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set(npcs.map(npc => npc.id)));
+      const expedition = getExpedition(map.id);
+      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? npcs).map(npc => npc.id)));
       for (const object of map.objects) {
         expect(ids.has(object.id), `${object.id} must identify one discovery`).toBe(false);
         ids.add(object.id);
         expect(object.id.startsWith(`${map.id}-`)).toBe(true);
         expect(object.description.length).toBeGreaterThan(30);
-        expect(object.exerciseIds.length).toBeGreaterThan(0);
+        if (expedition) expect(getExpeditionEncounter(map.id, object.id)).toBeDefined();
+        else expect(object.exerciseIds.length).toBeGreaterThan(0);
         for (const id of object.exerciseIds) expect(exercises.get(id), id).toBe(map.level);
       }
     }
@@ -77,25 +80,25 @@ for (const map of maps) describe(`${map.name} paths`, () => {
 });
 
 describe('region-specific scenery barriers', () => {
-  const blocked: Record<MapId, number[][]> = {
+  const blocked: Record<StoryMapId, number[][]> = {
     lindenhafen: [[1390,750],[597,258],[1037,464],[818,535]],
     waldruh: [[1400,820],[300,160],[1250,430],[650,650],[1070,730],[720,452]],
     nebelstadt: [[1450,830],[300,190],[720,140],[1070,220],[1080,710],[650,710],[742,448]],
   };
   it('excludes each painting’s own buildings, monuments, stalls and open water', () => {
-    for (const map of maps) {
+    for (const map of storyMaps) {
       const navigation = createMapNavigation(map.id);
-      for (const [x, y] of blocked[map.id]) expect(navigation.isWalkable(x, y), `${map.id}: ${x},${y}`).toBe(false);
+      for (const [x, y] of blocked[map.id as StoryMapId]) expect(navigation.isWalkable(x, y), `${map.id}: ${x},${y}`).toBe(false);
     }
   });
 
   it('connects the woodland stream bridge and both harbor bridges', () => {
-    const crossings: Record<MapId, number[][]> = {
+    const crossings: Record<StoryMapId, number[][]> = {
       lindenhafen: [[1430,355],[1330,948]], waldruh: [[1280,605]], nebelstadt: [[1330,400],[1340,652]],
     };
-    for (const map of maps) {
+    for (const map of storyMaps) {
       const navigation = createMapNavigation(map.id), spawn = position(map.spawn);
-      for (const [x, y] of crossings[map.id]) {
+      for (const [x, y] of crossings[map.id as StoryMapId]) {
         expect(navigation.isWalkable(x, y), `${map.id} bridge`).toBe(true);
         const route = navigation.findPath(spawn, { x, y });
         expect(route.length).toBeGreaterThan(0);

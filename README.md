@@ -1,14 +1,16 @@
 # The Lantern Atlas
 
-A German-learning multiplayer RPG across three painted regions. Investigate a vanishing railway in Lindenhafen, a missing hour in Waldruh, and a lighthouse erasing names in Nebelstadt. Help residents with everyday problems, uncover the Brass Office’s altered records and restore a promise the whole route can trust.
+A German-learning multiplayer RPG across thirteen painted regions. Investigate a vanishing railway in Lindenhafen, a missing hour in Waldruh, and a lighthouse erasing names in Nebelstadt, then explore ten additional communities inspired by distinct contemporary cultural settings. Help residents with everyday problems, uncover the Brass Office’s altered records and make agreements across neighborhoods with different layouts and daily rhythms.
 
 The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guides and 10,266 course tasks**, alongside the original **18 quests and 126 story expressions**. Four actual mini-game systems contain **48 authored scenes across A1, A2 and B1**. Reading, listening and constrained written practice are included; speaking is excluded. Reference coverage and assessment limits are documented in [Curriculum](docs/curriculum.md).
 
 ## Playable features
 
-- Three painterly 2D maps for A1, A2 and B1, built from clean terrain and 276 separately placed objects. Every object has separate calm daytime and nighttime artwork, authored with ImageGen. The 96 regional silhouettes provide 1,152 source frames across both sets; the world clock switches them automatically. Buildings use fixed base sprites with separate animated detail sheets, keeping walls and roofs stable. Foliage, cloth, flames, water and building details animate within the artwork. Seven story residents, nine strolling locals and 15 interactive objects populate the connected paths. A camera tour lets you watch the town; decorative motion respects reduced motion.
+- Three story maps for A1, A2 and B1 retain their 276 placed objects, seven story residents, nine strolling locals and 15 discoveries. Their 96 regional silhouettes provide 1,152 source frames across separate daytime and nighttime sets. Buildings use fixed base sprites with animated details; the world clock switches their artwork automatically.
+- Ten new painterly expeditions add distinct terrain, 1,140 placed scenery instances, 80 named neighbors, 80 strolling locals, 100 interactive objects and 180 German encounters. Each region has its own buildings, plants, transport and four visual character identities. New art comprises 240 static prop sprites, 240 motion frames and 160 character frames across separate sheets. Twenty-four grounded decorations per region animate foliage, cloth, lamps and water; these expeditions reuse their motion sheets across daytime and nighttime. A camera tour, reduced motion and streamed destination assets support exploration. See the [expedition catalog](docs/expeditions.md).
 - Painted adult characters with four-direction player animation, live hair/skin/coat previews, visible players and shared town chat. Transparent scenery sorts characters behind objects and in front of their foot anchors; each solid object's placed base guides navigation. Shared material atlases keep character texture memory independent of player palettes.
 - Café tray/preparation games, market budgets/change/trades, connected evidence investigations and delivery route boards. Missions save in-progress actions and resume after leaving; each level adds more complex German.
+- Ten neighborhood planning games cover courtyard deliveries, shared timetables, packing, river purchases, commissions, radio messages, studio allocation, ferry connections, rooftop gatherings and irrigation agreements, with A1/A2/B1 support. Expedition plans and encounter results save in this browser and are not synchronized to the server.
 - Recognition, German listening, sentence tiles and hidden-answer typing with hints and corrective explanations. Object encounters offer brief contextual practice for new or due expressions; familiar expressions can rest.
 - First-visit story scenes, 18 earned discoveries, a mystery journal and clear next leads connecting all three regions. Regions stay freely explorable; completing each act recommends the next destination.
 - Server-graded attempts, exact course completion and validated current-run activity rewards. Independent word memory separates exposure from recognition/listening/recall and uses FSRS; new or due words return in short sessions while strong words rest.
@@ -30,6 +32,8 @@ npm run dev
 Open [http://localhost:5187](http://localhost:5187). The development command starts Go on **8097** and Vite on **5187**, with REST and WebSocket proxying. Stop both with Ctrl+C.
 
 Open the menu and choose **Continue the story** for your next conversation. **Story quests**, **Discoveries** and the **Region atlas** follow the main journey. **Side activities** contains optional café, market, detective and delivery missions; **Learning routes** offers vocabulary, grammar and connected practice. You can also follow the objective chip or meet a resident. Inspect a glowing object for a clue and a short language encounter. Use **A little help** whenever needed; return to **Your words** for due practice and **Discoveries** for collected evidence. Travel through the **Region atlas**. To test two distinct players, use separate browser profiles or a private window. Tabs sharing the same session represent the same player.
+
+The **Region atlas** also opens all ten expeditions. Meet their local cast or inspect a discovery for a German exchange, then choose the neighborhood game to build an agreement. These new encounter and game records are stored locally by browser and level. Clearing browser storage removes them; another device or browser starts its own expedition progress. Existing story and course progress continue to use the server.
 
 Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Account recovery is not implemented, so clearing browser storage loses access to that demo identity.
 
@@ -75,6 +79,17 @@ go vet ./...
 ```
 
 Frontend tests cover learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. Go tests cover grading, persistence, idempotency, scheduling, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
+
+Generated expedition originals and all generation prompts are in `art/source/expeditions/`. Export their transparent atlases and assembled previews from the repository root:
+
+```sh
+node scripts/prepare-expedition-art.mjs
+# Export one region, or permit missing sources during art production:
+node scripts/prepare-expedition-art.mjs riverweave
+node scripts/prepare-expedition-art.mjs --partial
+```
+
+The exporter preserves generated alpha, crops and registers sprite rows, and assembles previews from the same placements used in the game. It does not generate replacement artwork. See [Expeditions](docs/expeditions.md) for the asset contract and checks.
 
 ## Docker Compose and Dokploy
 
@@ -125,10 +140,12 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | Location | Purpose |
 | --- | --- |
 | `web/src/main.ts` | Interface, quest sessions, journal, character and chat |
-| `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser world, three region definitions, movement and routing |
+| `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser world, thirteen region definitions, movement and routing |
+| `web/src/expeditions.ts`, `expedition-games.ts` | Ten local casts, encounter catalog, terrain geometry and neighborhood planning games |
 | `web/src/placed-scenery.ts`, `placed-<region>.ts`, `world-scenery.ts` | Reusable transparent objects, regional placement, motion and foot depth |
 | `web/src/scenery-animation.ts`, `world-life.ts` | Painted animation frame cycles and resident routines |
 | `scripts/prepare-world-art.mjs` | Alpha-preserving prop atlases and composed interface previews |
+| `scripts/prepare-expedition-art.mjs`, `art/source/expeditions/` | Generated expedition source sheets, prompts and alpha-preserving exports |
 | `web/src/content.ts`, `story.ts` | NPCs, quests, learning content and connected story discoveries |
 | `web/src/course.ts`, `data/course.json` | Attributed lexicon, original lessons and canonical course tasks |
 | `web/src/activities.ts`, `activity-engine.ts` | Stateful mission controls and pure gameplay rules |
@@ -141,11 +158,12 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | [Curriculum](docs/curriculum.md) | Coverage, content contract and assessment limits |
 | [Implementation plan](docs/implementation-plan.md) | Complete scope and parallel ownership |
 | [Activities](docs/activities.md) | Gameplay contracts, recovery and mobile verification |
+| [Expeditions](docs/expeditions.md) | Ten cultural inspirations, local games, sprite counts and browser-local progress |
 | [Research](docs/research.md) | Evidence behind the learning design |
 | [Art and audio](docs/art.md) | Asset provenance and production directions |
 | [World animation](docs/world-animation.md) | Object motion, local routines, performance and regression checks |
 | [Scenery depth](docs/world-occlusion.md) | Transparent object depth, placement-derived collision bases and atlas lifecycle |
 
-One Go process hosts Lindenhafen, Waldruh and Nebelstadt, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store.
+One Go process hosts all thirteen regions, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store. The ten new expedition games and encounter records remain browser-local.
 
 Account recovery, moderation and durable chat history, educator-reviewed curriculum validation, speaking assessment, shared server collision geometry and horizontal zone scaling remain future work.

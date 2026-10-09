@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 244,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 244,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 244,
+        "h": 249
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 250,
+        "y": 2,
+        "w": 228,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 228,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 228,
+        "h": 240
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 482,
+        "y": 2,
+        "w": 241,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 244
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 727,
+        "y": 2,
+        "w": 242,
+        "h": 250
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 250
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 250
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 2,
+        "y": 256,
+        "w": 231,
+        "h": 264
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 231,
+        "h": 264
+      },
+      "sourceSize": {
+        "w": 231,
+        "h": 264
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 237,
+        "y": 256,
+        "w": 252,
+        "h": 238
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 238
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 238
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 493,
+        "y": 256,
+        "w": 226,
+        "h": 250
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 226,
+        "h": 250
+      },
+      "sourceSize": {
+        "w": 226,
+        "h": 250
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 723,
+        "y": 256,
+        "w": 214,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 214,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 214,
+        "h": 249
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 2,
+        "y": 524,
+        "w": 244,
+        "h": 251
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 244,
+        "h": 251
+      },
+      "sourceSize": {
+        "w": 244,
+        "h": 251
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 250,
+        "y": 524,
+        "w": 243,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 243,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 243,
+        "h": 249
+      }
+    },
+    "arch": {
+      "frame": {
+        "x": 497,
+        "y": 524,
+        "w": 253,
+        "h": 243
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 253,
+        "h": 243
+      },
+      "sourceSize": {
+        "w": 253,
+        "h": 243
+      }
+    },
+    "stall": {
+      "frame": {
+        "x": 754,
+        "y": 524,
+        "w": 252,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 200
+      }
+    },
+    "tree": {
+      "frame": {
+        "x": 2,
+        "y": 779,
+        "w": 240,
+        "h": 247
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 247
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 247
+      }
+    },
+    "tree-1": {
+      "frame": {
+        "x": 246,
+        "y": 779,
+        "w": 224,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 244
+      }
+    },
+    "tree-2": {
+      "frame": {
+        "x": 474,
+        "y": 779,
+        "w": 255,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 255,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 255,
+        "h": 244
+      }
+    },
+    "tree-3": {
+      "frame": {
+        "x": 733,
+        "y": 779,
+        "w": 246,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 246,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 246,
+        "h": 233
+      }
+    },
+    "tree-4": {
+      "frame": {
+        "x": 2,
+        "y": 1030,
+        "w": 198,
+        "h": 247
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 247
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 247
+      }
+    },
+    "cypress": {
+      "frame": {
+        "x": 204,
+        "y": 1030,
+        "w": 200,
+        "h": 247
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 200,
+        "h": 247
+      },
+      "sourceSize": {
+        "w": 200,
+        "h": 247
+      }
+    },
+    "lamp": {
+      "frame": {
+        "x": 408,
+        "y": 1030,
+        "w": 59,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 59,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 59,
+        "h": 217
+      }
+    },
+    "fountain": {
+      "frame": {
+        "x": 471,
+        "y": 1030,
+        "w": 226,
+        "h": 205
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 226,
+        "h": 205
+      },
+      "sourceSize": {
+        "w": 226,
+        "h": 205
+      }
+    },
+    "boat": {
+      "frame": {
+        "x": 701,
+        "y": 1030,
+        "w": 215,
+        "h": 171
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 171
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 171
+      }
+    },
+    "bench": {
+      "frame": {
+        "x": 2,
+        "y": 1281,
+        "w": 232,
+        "h": 123
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 123
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 123
+      }
+    },
+    "planter": {
+      "frame": {
+        "x": 238,
+        "y": 1281,
+        "w": 203,
+        "h": 184
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 203,
+        "h": 184
+      },
+      "sourceSize": {
+        "w": 203,
+        "h": 184
+      }
+    },
+    "sign": {
+      "frame": {
+        "x": 445,
+        "y": 1281,
+        "w": 189,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 219
+      }
+    }
+  },
+  "meta": {
+    "image": "seoulsteps-props.webp",
+    "size": {
+      "w": 1024,
+      "h": 1502
+    },
+    "scale": "1"
+  }
+}

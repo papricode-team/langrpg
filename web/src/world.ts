@@ -8,8 +8,10 @@ import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
-import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
-import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import { WorldMapAssets, regionPeopleKey, hasRegionPeople } from './world-map-assets';
+import { getExpeditionNpc } from './expeditions';
+import { worldAmbient } from './world-lighting';
+import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
 import { WorldClock, type WorldPeriod, type WorldTimeOptions, type WorldTimeState } from './world-clock';
 import { buildingEntrances, createInteriorNavigation, getInterior, interiors, type InteriorId, type InteriorSpec } from './interiors';
 import { WorldInterior } from './world-interior';
@@ -71,6 +73,7 @@ interface Character {
   interactionId?: string;
   idleAnimation?: SceneryAnimation;
   idleFrame?: string;
+  localArtVariant?: number;
 }
 
 interface WorldObject {
@@ -394,6 +397,7 @@ class HarborScene extends Phaser.Scene {
   private background?: Phaser.GameObjects.Image | Phaser.GameObjects.Graphics;
   private objective?: string;
   private mapRevision = 0;
+  private mapVisualsReady = false;
   private keys?: Record<string, Phaser.Input.Keyboard.Key>;
   private target?: { x: number; y: number };
   private waypoints: MapPoint[] = [];
@@ -421,6 +425,7 @@ class HarborScene extends Phaser.Scene {
   private terrainOnly = false;
   private tourTime = 0;
   private animationRequests = new Map<string, (() => void)[]>();
+  private regionAssets = new WorldMapAssets(this);
   private clock: WorldClock;
   private period: WorldPeriod;
   private pendingPeriod?: string;
@@ -438,11 +443,7 @@ class HarborScene extends Phaser.Scene {
   constructor(private owner: World, time?: WorldTimeOptions) { super({ key: 'lindenhafen' }); this.clock = new WorldClock(time); this.period = this.clock.advance(0).period; }
 
   preload(): void {
-    for (const map of maps) {
-      this.load.image(map.id, map.asset);
-      this.load.atlas(sceneryTextureKey(map.id), map.sceneryAsset, map.sceneryAtlas);
-      this.load.atlas(sceneryVariationKey(map.id), map.variationAsset, map.variationAtlas);
-    }
+    this.regionAssets.load(getMap('lindenhafen'), undefined, false);
     this.loadAnimationAssets('lindenhafen', this.period);
     for (const room of interiors) this.load.image(`interior-${room.id}-room`, room.asset);
     for (const sheet of ['cafe-objects', 'bakery-objects', 'supermarket-objects', 'decor', 'furniture']) {
@@ -464,7 +465,7 @@ class HarborScene extends Phaser.Scene {
   private loadAnimationAssets(id: MapId, period: WorldPeriod, onLoaded?: () => void): void {
     const key = sceneryAnimationManifestKey(id, period);
     const cached = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
-    if (cached && Object.values(cached.assets).length > 0 && sceneryAnimationTextureKeys(cached).every(page => this.textures.exists(page)) && (!cached.terrain || this.textures.exists(cached.terrain))) {
+    if (cached && Object.values(cached.assets).length > 0 && sceneryAnimationTextureKeys(cached).every(page => this.textures.exists(page)) && (!sceneryTerrainKey(id, cached) || this.textures.exists(sceneryTerrainKey(id, cached)!))) {
       onLoaded?.();
       return;
     }
@@ -475,7 +476,8 @@ class HarborScene extends Phaser.Scene {
       for (const page of sceneryAnimationTextureKeys(manifest)) {
         if (!this.textures.exists(page)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
       }
-      if (manifest.terrain && !this.textures.exists(manifest.terrain)) this.load.image(manifest.terrain, `/assets/${manifest.terrain}.webp`);
+      const terrain = sceneryTerrainKey(id, manifest);
+      if (terrain && !this.textures.exists(terrain)) this.load.image(terrain, `/assets/${manifest.terrain}.webp`);
     };
     if (cached) enqueue(cached);
     else {
@@ -485,7 +487,7 @@ class HarborScene extends Phaser.Scene {
     this.load.once(Phaser.Loader.Events.COMPLETE, () => {
       const callbacks = this.animationRequests.get(key) ?? [];
       this.animationRequests.delete(key);
-      if (this.ready && this.mobileCamera && this.mapSpec.id !== id) this.releaseAnimationAssets(id, period);
+      if (this.ready && this.mapSpec.id !== id) this.releaseAnimationAssets(id, period);
       for (const callback of callbacks) callback();
     });
     if (this.ready && !this.load.isLoading()) this.load.start();
@@ -497,10 +499,14 @@ class HarborScene extends Phaser.Scene {
     // decide whether to display it or release the stale request.
     if (this.animationRequests.has(key)) return;
     const manifest = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
+    const activeManifest = this.cache.json.get(sceneryAnimationManifestKey(this.mapSpec.id, this.period)) as SceneryAnimationManifest | undefined;
+    const retainedPages = new Set(activeManifest ? sceneryAnimationTextureKeys(activeManifest) : []);
     if (manifest) for (const page of sceneryAnimationTextureKeys(manifest)) {
-      if (this.textures.exists(page)) this.textures.remove(page);
+      // Expedition day/night periods can share one authored detail sheet.
+      if (!retainedPages.has(page) && this.textures.exists(page)) this.textures.remove(page);
     }
-    if (manifest?.terrain && this.textures.exists(manifest.terrain)) this.textures.remove(manifest.terrain);
+    const terrain = sceneryTerrainKey(id, manifest);
+    if (terrain && terrain !== this.mapSpec.id && this.textures.exists(terrain)) this.textures.remove(terrain);
   }
 
   private applyPeriod(period: WorldPeriod): void {
@@ -511,9 +517,12 @@ class HarborScene extends Phaser.Scene {
     this.scenery.setReducedMotion(this.reducedMotion);
     this.scenery.setVisible(!this.terrainOnly && !this.interiorSpec);
     const manifest = this.cache.json.get(sceneryAnimationManifestKey(this.mapSpec.id, period)) as SceneryAnimationManifest | undefined;
-    const terrain = manifest?.terrain && this.textures.exists(manifest.terrain) ? manifest.terrain : this.mapSpec.id;
-    if (this.background instanceof Phaser.GameObjects.Image) this.background.setTexture(terrain);
-    if (this.mobileCamera && previous !== period) this.releaseAnimationAssets(this.mapSpec.id, previous);
+    const requestedTerrain = sceneryTerrainKey(this.mapSpec.id, manifest);
+    const terrain = requestedTerrain && this.textures.exists(requestedTerrain) ? requestedTerrain : this.mapSpec.id;
+    if (this.background instanceof Phaser.GameObjects.Image) this.background.setTexture(terrain).setTint(worldAmbient(this.mapSpec.id,period).terrain);
+    for (const character of this.characters.values()) this.setCharacterAmbient(character);
+    for (const {character} of this.residents) this.setCharacterAmbient(character);
+    if (previous !== period) this.releaseAnimationAssets(this.mapSpec.id, previous);
     this.pendingPeriod = undefined;
   }
 
@@ -523,14 +532,15 @@ class HarborScene extends Phaser.Scene {
       this.lastClockLabel = state.label + state.period + state.mode;
       this.owner.timeChanged(state);
     }
+    if (!this.mapVisualsReady) return;
     const request = `${this.mapSpec.id}-${state.period}`;
     if (state.period !== this.period && this.pendingPeriod !== request) {
       this.pendingPeriod = request;
       const id = this.mapSpec.id;
       this.loadAnimationAssets(id, state.period, () => {
         if (this.pendingPeriod === request) this.pendingPeriod = undefined;
-        if (this.ready && this.mapSpec.id === id && this.clock.advance(0).period === state.period) this.applyPeriod(state.period);
-        else if (this.mobileCamera && (this.mapSpec.id !== id || this.period !== state.period)) this.releaseAnimationAssets(id, state.period);
+        if (this.ready && this.mapVisualsReady && this.mapSpec.id === id && this.clock.advance(0).period === state.period) this.applyPeriod(state.period);
+        else if (this.mapSpec.id !== id || this.period !== state.period) this.releaseAnimationAssets(id, state.period);
       });
     }
   }
@@ -585,16 +595,18 @@ class HarborScene extends Phaser.Scene {
   switchMap(id: MapId): void {
     if (this.interiorSpec) this.leaveInterior(false);
     const map = getMap(id);
+    const revision = ++this.mapRevision;
     this.clearControls();
     this.initializedSelf = false;
     this.lastX = -1;
     this.lastY = -1;
     this.cameraLead = { x: 0, y: 0 };
-    if (this.mapSpec.id !== map.id || !this.background) {
+    if (this.mapSpec.id !== map.id || !this.background || !this.mapVisualsReady) {
+      const previous = this.mapSpec;
       this.background?.destroy();
       this.scenery?.destroy();
       this.scenery = undefined;
-      if (this.mobileCamera && this.mapSpec.id !== map.id) for (const period of ['day', 'night'] as const) this.releaseAnimationAssets(this.mapSpec.id, period);
+      this.mapVisualsReady = false;
       for (const npc of this.characters.values()) npc.root.destroy();
       for (const object of this.objects.values()) object.root.destroy();
       for (const portal of this.portals.values()) portal.root.destroy();
@@ -606,26 +618,43 @@ class HarborScene extends Phaser.Scene {
       this.peers.clear();
       this.residents = [];
       this.mapSpec = map;
+      this.pendingPeriod = undefined;
       this.navigation = createMapNavigation(map.id);
-      if (this.textures.exists(map.id)) {
-        this.background = this.add.image(0, 0, map.id).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000);
-      } else {
-        // Asset failures have a plain neutral ground, never a recolored town.
-        this.background = this.add.graphics().fillStyle(0x263b3c).fillRect(0, 0, WIDTH, HEIGHT).setDepth(-1000);
+      if (previous.id !== map.id) {
+        this.regionAssets.release(previous);
+        for (const period of ['day', 'night'] as const) this.releaseAnimationAssets(previous.id, period);
       }
+      // Travel coordinates and snapshots are ready immediately. Destination art
+      // streams independently, so a network acknowledgement is never delayed.
+      this.background = this.add.graphics().fillStyle(0x263b3c).fillRect(0, 0, WIDTH, HEIGHT).setDepth(-1000);
       this.period = this.clock.advance(0).period;
-      this.scenery = new WorldScenery(this, map.id, this.period);
-      this.scenery.setReducedMotion(this.reducedMotion);
-      this.createMapCharacters(map);
-      this.createMapObjects(map);
-      this.createBuildingEntrances();
-      this.createResidents();
-      this.setTerrainOnly(this.terrainOnly);
-      const period = this.clock.advance(0).period;
-      this.loadAnimationAssets(map.id, period, () => {
-        if (this.ready && this.mapSpec.id === map.id && this.clock.advance(0).period === period) this.applyPeriod(period);
-        else if (this.mobileCamera && (this.mapSpec.id !== map.id || this.period !== period)) this.releaseAnimationAssets(map.id, period);
+      this.regionAssets.load(map, () => {
+        if (!this.ready || this.mapSpec.id !== map.id || revision !== this.mapRevision) {
+          if (this.mapSpec.id !== map.id) this.regionAssets.release(map);
+          return;
+        }
+        this.background?.destroy();
+        this.background = this.textures.exists(map.id)
+          ? this.add.image(0, 0, map.id).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000).setTint(worldAmbient(map.id,this.period).terrain)
+          : this.add.graphics().fillStyle(0x263b3c).fillRect(0, 0, WIDTH, HEIGHT).setDepth(-1000);
+        this.scenery = new WorldScenery(this, map.id, this.period);
+        this.scenery.setReducedMotion(this.reducedMotion);
+        this.createMapCharacters(map);
+        this.createMapObjects(map);
+        this.createBuildingEntrances();
+        this.createResidents();
+        this.mapVisualsReady = true;
+        this.setTerrainOnly(this.terrainOnly);
+        const period = this.clock.advance(0).period;
+        this.loadAnimationAssets(map.id, period, () => {
+          if (this.ready && this.mapSpec.id === map.id && revision === this.mapRevision) {
+            if (this.clock.advance(0).period === period) this.applyPeriod(period);
+            queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
+          } else if (this.mapSpec.id !== map.id || this.period !== period) this.releaseAnimationAssets(map.id, period);
+        });
       });
+    } else {
+      queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
     }
     const spawn = this.navigation.closestPoint(map.spawn.x * WIDTH, map.spawn.y * HEIGHT);
     this.local.x = this.local.targetX = spawn.x;
@@ -634,10 +663,6 @@ class HarborScene extends Phaser.Scene {
     this.local.walkDistance = 0;
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.frameCamera(1);
-    // Network acknowledgements synchronously deliver onPlayers after onMap.
-    // Defer UI waypoints until that first snapshot restores saved coordinates.
-    const revision = ++this.mapRevision;
-    queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
   }
 
   enterInterior(id: InteriorId): void {
@@ -755,9 +780,12 @@ class HarborScene extends Phaser.Scene {
 
   private createResidents(): void {
     if (!this.playerArtReady) return;
+    const localPeople = hasRegionPeople(this.mapSpec.id);
+    let residentIndex = 0;
     for (const motion of createWorldResidents(this.mapSpec.id, this.navigation)) {
       const position = sampleResidentMotion(motion, this.decorativeElapsed);
-      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar);
+      const variant = residentIndex++ % 4;
+      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, localPeople ? variant : -1, localPeople ? variant : undefined);
       character.name.setColor('#ddd6b5').setVisible(false);
       this.residents.push({ character, motion, sample: position });
     }
@@ -766,10 +794,11 @@ class HarborScene extends Phaser.Scene {
   private createMapCharacters(map: Pick<WorldMapSpec, 'npcs'>, interior?: InteriorSpec): void {
     for (const position of map.npcs) {
       const index = npcs.findIndex(npc => npc.id === position.id);
-      const npc = npcs[index];
+      const localNpc = getExpeditionNpc(position.id);
+      const npc = localNpc ?? npcs[index];
       if (!npc) continue;
       const { x, y } = this.navigation.closestPoint(position.x * WIDTH, position.y * HEIGHT);
-      const character = this.createCharacter(npc.id, npc.name, x, y, DEFAULT_AVATAR, npc.role.split('·')[0].trim(), index);
+      const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? DEFAULT_AVATAR, npc.role.split('·')[0].trim(), localNpc ? localNpc.artVariant % 4 : index, localNpc?.artVariant);
       const interiorNpc = interior?.npcs.find(resident => resident.id === npc.id);
       if (interiorNpc) {
         character.interactionId = interiorNpc.interactionId;
@@ -1199,7 +1228,12 @@ class HarborScene extends Phaser.Scene {
         this.owner.move(x, y);
       }
     }
+    const characterView = this.cameras.main.worldView;
     for (const npc of this.characters.values()) {
+      const visible = npc.x >= characterView.x - 100 && npc.x <= characterView.right + 100
+        && npc.y >= characterView.y - 110 && npc.y <= characterView.bottom + 100;
+      npc.root.setVisible(visible && !this.terrainOnly);
+      if (!visible) continue;
       this.animateCharacter(npc, 0, 0, this.elapsed + npc.phase);
       const near = this.controlsEnabled && this.windowFocused && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
       const show = this.controlsEnabled && this.windowFocused && (near || !!npc.hovered);
@@ -1281,6 +1315,7 @@ class HarborScene extends Phaser.Scene {
       }
     }
     if (character.idleAnimation) {
+      if (character.localArtVariant !== undefined && distance > .05) character.figure.setFlipX(dx < -.05);
       const frame = this.interiorSpec ? character.idleAnimation.frames[0]
         : sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
       if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
@@ -1345,14 +1380,26 @@ class HarborScene extends Phaser.Scene {
     }
   }
 
-  private createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1): Character {
+  private setCharacterAmbient(character: Character): void {
+    if (character.localArtVariant !== undefined) character.figure.setTint(worldAmbient(this.mapSpec.id,this.period).people);
+  }
+
+  private createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
     const npc = npcFrame >= 0;
     const shadow = this.add.image(0, 2, 'character-shadow').setDisplaySize(31, 12);
     const frame = npc ? npcFrame : PLAYER_ART.idle;
     const art = npc || !this.playerArtReady ? NPC_ART : PLAYER_ART;
     const keys = !npc && this.playerArtReady ? PLAYER_LAYERS : [NPC_ART.key];
     const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
-    const authoredIdle = npc ? idleManifest?.assets[id] : undefined;
+    const localKey = regionPeopleKey(this.mapSpec.id);
+    const variant = (localArtVariant ?? 0) % 4;
+    const localFrame = `person-${variant}-0`;
+    const hasLocalArt = localArtVariant !== undefined && this.textures.exists(localKey) && this.textures.get(localKey).has(localFrame);
+    const localFrameSize = hasLocalArt ? this.textures.get(localKey).get(localFrame) : undefined;
+    const authoredIdle: SceneryAnimation | undefined = hasLocalArt ? {
+      key: localKey, frames: Array.from({ length: 4 }, (_, frame) => `person-${variant}-${frame}`), fps: 3,
+      width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width, originX: .5, originY: 1,
+    } : npc ? idleManifest?.assets[id] : undefined;
     const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
     const idleFrame = idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined;
     const artScale = 82 / (idleAnimation?.height ?? art.height);
@@ -1365,9 +1412,10 @@ class HarborScene extends Phaser.Scene {
       roleText = this.add.text(0, 13, role, { fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
-    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, idleFrame };
+    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, idleFrame, localArtVariant };
     this.fitCharacterToRoom(character);
     this.tintCharacter(character);
+    this.setCharacterAmbient(character);
     return character;
   }
 

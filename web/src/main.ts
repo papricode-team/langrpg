@@ -8,6 +8,9 @@ import '@fontsource/fraunces/latin-600.css';
 import './style.css';
 import './course-ui.css';
 import './game-ui.css';
+import './expedition-games.css';
+import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions } from './expeditions';
+import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
 import { adventureHome, npcEncounter } from './game-panels';
 import './interiors.css';
 import { World } from './world';
@@ -52,6 +55,7 @@ let mapId: MapId = 'lindenhafen';
 let interiorId: InteriorId | undefined;
 let pendingMap: MapId | undefined;
 let pendingDestination: { kind: 'quest' | 'follow'; questId: string } | undefined;
+let pendingExpeditionGame: string | undefined;
 let mapConfirmed = false;
 let regionReady = false;
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -134,6 +138,11 @@ function observeVisibleWords() {
 
 
 function portrait(id: string, className = '') {
+  const local = getExpeditionNpc(id);
+  if (local) {
+    const region = expeditionRegions.find(region => region.npcs.some(npc => npc.id === local.id))!;
+    return `<span class="expedition-portrait ${className}" style="background-image:url('/assets/${region.id}-portraits.webp');background-size:400% 100%;background-position:${local.artVariant / 3 * 100}% 50%" aria-hidden="true"></span>`;
+  }
   const index = id === 'self' ? 7 : Math.max(0, npcs.findIndex(n => n.id === id));
   return `<span class="portrait ${className}" style="--portrait-x:${(index % 4) * 100 / 3}%;--portrait-y:${index < 4 ? 0 : 100}%" aria-hidden="true"></span>`;
 }
@@ -208,7 +217,7 @@ function updateNearby(id?: string) {
   const inside = id?.startsWith('interior:') ? getInteriorObject(id) : undefined;
   const exit = id?.startsWith('exit:') && interiorId;
   const object = id?.startsWith('object:') ? getMap(mapId).objects.find(item => item.id === id.slice(7)) : undefined;
-  const npc = id && !entrance && !inside && !exit && !object ? npcs.find(item => item.id === id) : undefined;
+  const npc = id && !entrance && !inside && !exit && !object ? npcs.find(item => item.id === id) ?? getExpeditionNpc(id) : undefined;
   const action = entrance ? 'Enter' : exit ? 'Leave' : inside?.npcId || npc ? 'Talk' : 'Inspect';
   const insideName = inside?.npcId ? npcs.find(item => item.id === inside.npcId)?.name ?? inside.label : inside?.label;
   const name = entrance?.label ?? insideName ?? (exit ? getInterior(exit).name : object?.label ?? npc?.name);
@@ -291,6 +300,18 @@ function placesSection() {
 }
 function updateProgress() {
   document.querySelector('#xp-value')!.textContent = String(progress.xp);
+  const expedition = getExpedition(mapId);
+  if (expedition) {
+    const game = getExpeditionGame(mapId)!, status = expeditionGameStatus(mapId, level);
+    const encountered = expedition.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length;
+    document.querySelector<HTMLElement>('#chapter-fill')!.style.width = `${(encountered + (status === 'completed' ? 1 : 0)) / (expedition.encounters.length + 1) * 100}%`;
+    document.querySelector('#hud-level')!.textContent = `${level} · EXPLORER`;
+    world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
+    document.querySelector('#quest-panel')!.innerHTML = `<button class="tracker-heading" data-expedition-game="${expedition.id}"><span class="quest-diamond">${icon(status === 'completed' ? 'check' : 'flag')}</span><span><small>LOCAL AGREEMENT · ${status === 'completed' ? 'REMEMBERED' : 'BUILD A PLAN'}</small><strong>${e(game.title)}</strong></span>${icon('chevron')}</button>`;
+    document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
+    if (['journal', 'quests', 'story', 'menu'].includes(view)) renderOther();
+    return;
+  }
   const q = currentQuest(), act = actFor(mapId);
   const npc = npcs.find(n => n.id === q.npcId) ?? npcs[0];
   const done = completedAtLevel(level), total = quests.filter(x => x.level === level).length;
@@ -345,11 +366,19 @@ function onRegionReady(id: MapId) {
   continueDestination();
 }
 function showActIntro(id: MapId) {
+  const expedition = getExpedition(id);
+  if (expedition) {
+    const map = getMap(id), game = getExpeditionGame(id)!;
+    rememberSeen('acts', id);
+    openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>EXPEDITION · A1 / A2 / B1</span></div><div class="act-copy"><div class="eyebrow">${e(expedition.feeling)}</div><h2>${e(expedition.name)}</h2><p>${e(expedition.description)}</p><p>${e(expedition.culture)}</p><div class="story-objective">${icon('flag')}<span>${e(game.summary)}</span></div><p class="expedition-save-note">Meet eight local neighbors and ten discoveries. Choose a language scaffold when you play. Expedition agreements are saved on this device.</p><button class="primary-button" data-action="act-begin">Explore ${e(expedition.name)} ${icon('arrow')}</button></div></div>`, 'act-dialog');
+    return;
+  }
   const act = actFor(id), map = getMap(id);
   rememberSeen('acts', id);
   openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>ACT ${act.number} · ${act.level}</span></div><div class="act-copy"><div class="eyebrow">${e(map.name.toUpperCase())}</div><h2>${e(act.title)}</h2>${act.introduction.map(p => `<p>${e(p)}</p>`).join('')}<div class="story-objective">${icon('flag')}<span>${e(act.goal)}</span></div><button class="primary-button" data-action="act-begin">Step into ${e(map.name)} ${icon('arrow')}</button></div></div>`, 'act-dialog');
 }
 function continueDestination() {
+  if (pendingExpeditionGame) { const id = pendingExpeditionGame; pendingExpeditionGame = undefined; startExpeditionGame(id); return; }
   const destination = pendingDestination; pendingDestination = undefined;
   if (!destination) return;
   if (interiorId) world.leaveInterior();
@@ -373,6 +402,7 @@ function travelMap(id: MapId, destination?: { kind: 'quest' | 'follow'; questId:
   toast(`Following the lanterns to ${getMap(id).name}…`);
 }
 function showNextObjective() {
+  if (getExpedition(mapId)) { startExpeditionGame(mapId); return; }
   const q = currentQuest(), act = actFor(mapId), done = completedAtLevel(level);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
   if (done === 6) {
@@ -395,7 +425,74 @@ function availableObjectExercises(object: WorldObjectSpec): Exercise[] {
   const due = new Set(dueItems(progress));
   return practiceExercises(object.exerciseIds.flatMap(id => { const ex = quests.flatMap(q => q.exercises).find(item => item.id === id); return ex && (!hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId)) ? [ex.mode === 'sentence' && progress.items[ex.itemId] ? { ...ex, mode: 'type' as const, prompt: `Write in German: ${ex.english}` } : ex] : []; }), silentMode);
 }
+type ExpeditionEncounterRecord = { selected: number; successful?: number; attempts: number };
+function expeditionEncounterResult(id: string): { selected: number; correct: boolean; attempts: number } | undefined {
+  try {
+    const records = JSON.parse(localStorage.getItem('atlas.expedition.encounters.v1') || '{}') as Record<string, ExpeditionEncounterRecord>;
+    const record = records[id];
+    const encounter = expeditionRegions.flatMap(region => [...region.encounters]).find(encounter => encounter.id === id);
+    if (!record || !encounter || !Number.isInteger(record.selected) || !encounter.choices[record.selected]) return undefined;
+    return { selected: record.selected, correct: record.successful !== undefined && !!encounter.choices[record.successful]?.correct, attempts: Number.isFinite(record.attempts) ? Math.max(0, record.attempts) : 0 };
+  } catch { return undefined; }
+}
+function answerExpeditionEncounter(encounterId: string, selected: number) {
+  const region = expeditionRegions.find(region => region.encounters.some(encounter => encounter.id === encounterId));
+  const encounter = region?.encounters.find(encounter => encounter.id === encounterId), choice = encounter?.choices[selected];
+  if (!region || !encounter || !choice || !Number.isInteger(selected)) return;
+  const previous = expeditionEncounterResult(encounterId);
+  try {
+    let records: Record<string, ExpeditionEncounterRecord> = {};
+    try { const saved = JSON.parse(localStorage.getItem('atlas.expedition.encounters.v1') || '{}'); if (saved && typeof saved === 'object' && !Array.isArray(saved)) records = saved; } catch { /* A stale notebook can be replaced by the next choice. */ }
+    records[encounterId] = { selected, attempts: (previous?.attempts ?? 0) + 1, successful: choice.correct ? selected : previous?.correct ? encounter.choices.findIndex(choice => choice.correct) : undefined };
+    localStorage.setItem('atlas.expedition.encounters.v1', JSON.stringify(records));
+  } catch { toast('Your reply is usable here; browser storage is unavailable.', true); }
+  const target = region.npcs.find(npc => npc.encounterId === encounterId)?.id ?? region.objects.find(object => getExpeditionEncounter(region.id, object.id)?.id === encounterId)?.id;
+  if (target) showExpeditionEncounter(target, selected);
+  updateProgress();
+}
+function showExpeditionEncounter(targetId: string, selected?: number) {
+  const region = expeditionRegions.find(region => !!getExpeditionEncounter(region.id, targetId));
+  if (!region) return;
+  const encounter = getExpeditionEncounter(region.id, targetId)!;
+  const npc = getExpeditionNpc(targetId), object = region.objects.find(object => object.id === targetId);
+  if (object) rememberSeen('objects', object.id);
+  const result = expeditionEncounterResult(encounter.id), chosen = selected ?? result?.selected;
+  const choice = chosen !== undefined ? encounter.choices[chosen] : undefined;
+  openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc ? portrait(npc.id, 'large-portrait') : `<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${encounter.difficulty} LANGUAGE ENCOUNTER</div><h2>${e(npc?.name ?? object?.label ?? encounter.title)}</h2>${npc ? `<span>${e(npc.role)}</span>` : ''}</div></header>${object ? `<p>${e(object.description)}</p>` : ''}${npc ? `<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>` : ''}<p>${e(encounter.prompt)}</p><blockquote class="expedition-brief"><span>${e(encounter.german)}</span><button class="icon-button" data-speak="${e(encounter.german)}" aria-label="Listen to this German message">${icon('volume')}</button></blockquote><details class="expedition-translation" ${level === 'A1' ? 'open' : ''}><summary>English support</summary><p>${e(encounter.translation)}</p></details><div class="expedition-encounter-choices">${encounter.choices.map((choice, index) => `<button class="${chosen === index ? 'chosen' : ''}" data-expedition-answer="${index}" data-expedition-encounter="${encounter.id}">${e(choice.text)}</button>`).join('')}</div>${choice ? `<div class="expedition-encounter-result" role="status"><strong>${choice.correct ? 'A connection made.' : 'Listen to what changes.'}</strong><p>${e(choice.response)}</p>${!choice.correct ? '<small>You can choose another reply. The explanation helps you revise the message.</small>' : '<small>This relationship outcome is remembered on this device.</small>'}</div>` : ''}<p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">Build this neighborhood’s plan ${icon('arrow')}</button>${region.id !== mapId ? `<button class="primary-button" data-travel="${region.id}">Travel to ${e(region.name)} ${icon('arrow')}</button>` : ''}<button class="text-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></div></div>`, 'expedition-dialog');
+  if (selected !== undefined) {
+    const feedback = document.querySelector<HTMLElement>('.expedition-encounter-result');
+    if (feedback) { feedback.tabIndex = -1; feedback.focus({ preventScroll: true }); feedback.scrollIntoView({ block: 'nearest' }); }
+  }
+}
+function expeditionActivityBoard() {
+  return `<section class="expedition-story-link"><div class="eyebrow">TEN WAYS TO MAKE AN AGREEMENT</div><h3>Local games across the Atlas</h3><div class="activity-board">${expeditionGames.map(game => { const region = getExpedition(game.id)!, status = expeditionGameStatus(game.id, level); return `<article class="activity-entry" style="--activity-art:url('${getMap(game.id).previewAsset}')">${icon('compass')}<small>${e(region.name)} · ${status === 'completed' ? 'AGREEMENT REMEMBERED' : status === 'started' ? 'RESUME YOUR PLAN' : 'A1 / A2 / B1'}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${game.id}">${status === 'started' ? 'Resume' : status === 'completed' ? 'Revisit' : 'Play'} the neighborhood game ${icon('arrow')}</button></article>`; }).join('')}</div></section>`;
+}
+function expeditionOverview() {
+  const region = getExpedition(mapId)!;
+  const game = getExpeditionGame(mapId)!, status = expeditionGameStatus(mapId, level);
+  const solved = region.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length;
+  return `<section class="expedition-overview"><div class="eyebrow">${e(region.feeling)}</div><h2>${e(region.name)}</h2><p>${e(region.description)}</p><p>${e(region.culture)}</p><div class="expedition-stat-row"><span>${region.npcs.length} local neighbors</span><span>${region.objects.length} discoveries</span><span>${solved} / ${region.encounters.length} connections made</span></div><section class="interior-practice-card"><span>${icon('compass')}</span><div><small>${status === 'completed' ? 'AN AGREEMENT REMEMBERED' : 'PLAY THIS NEIGHBORHOOD'}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><span>A1 / A2 / B1 scaffold · saved on this device</span></div><button class="primary-button" data-expedition-game="${region.id}">${status === 'started' ? 'Resume the plan' : status === 'completed' ? 'Revisit the agreement' : 'Build the plan'} ${icon('arrow')}</button></section><p>${icon('book')} ${e(region.languageFocus)}</p><div class="expedition-cast">${region.npcs.map(npc => `<button data-expedition-target="${npc.id}">${portrait(npc.id)}<span><strong>${e(npc.name)}</strong><small>${e(npc.role)}</small><small>${e(npc.relationship)}</small></span></button>`).join('')}</div><div class="expedition-game-actions"><button class="outline-button" data-view="atlas">Explore the region atlas ${icon('map')}</button><button class="text-button" data-travel="lindenhafen">Return to the missing-route story ${icon('arrow')}</button></div></section>`;
+}
+function startExpeditionGame(id: string, requestedLevel?: Level) {
+  const game = getExpeditionGame(id);
+  if (!game) return;
+  if (requestedLevel && ['A1', 'A2', 'B1'].includes(requestedLevel)) { level = requestedLevel; localStorage.setItem('atlas.level', level); }
+  if (mapId !== game.id) {
+    if (connection !== 'online') { toast('The route is reconnecting. Your local plan is waiting.', true); return; }
+    if (pendingMap) return;
+    pendingExpeditionGame = game.id;
+    travelMap(game.id);
+    if (!pendingMap) pendingExpeditionGame = undefined;
+    return;
+  }
+  setView('world'); run = undefined;
+  activityController?.destroy(); activityController = undefined;
+  openDialog('<div id="expedition-game-root"></div>', 'activity-dialog expedition-dialog');
+  activityController = mountExpeditionGame(document.querySelector<HTMLElement>('#expedition-game-root')!, game, { level, speak, onLevelChange: value => { level = value; localStorage.setItem('atlas.level', value); updateProgress(); }, onComplete: () => { updateProgress(); playCue(true); toast('An agreement remembered in your expedition notebook.'); } });
+  document.querySelector<HTMLDialogElement>('#dialog')!.scrollTop = 0;
+}
 function showObject(id: string) {
+  if (expeditionRegions.some(region => getExpeditionEncounter(region.id, id))) { showExpeditionEncounter(id); return; }
   const object = findObject(id); if (!object) return;
   rememberSeen('objects', id);
   const objectMap = maps.find(map => map.objects.some(item => item.id === id))!;
@@ -436,7 +533,8 @@ function requestCourseRender(el: Element) {
 }
 function renderActivities(el: Element) {
   const region = getMap(mapId);
-  el.innerHTML = `<div class="route-heading">${icon('star')}<div><div class="eyebrow">ACT ${actFor(mapId).number} · ${level} · ${e(region.name.toUpperCase())}</div><h2>A little detour.</h2><p>Take a break from the main story. Serve a customer, strike a deal, investigate evidence or deliver a letter. These optional activities let you practise German at your own pace.</p></div></div><div class="activity-board">${activityInfo.map((game, index) => { const saved = progress.activities?.[`${game.id}:${level}`]; return `<article class="activity-entry" style="--activity-art:url('${region.previewAsset}');--activity-position:${['35% 45%','70% 55%','10% 25%','85% 25%'][index]}">${icon(game.icon)}<small>${e(npcs.find(n => n.id === game.npcId)!.name)} · ${level} ${saved ? '· DISCOVERED' : '· OPTIONAL ACTIVITY'}</small><h3>${e(game.title)}</h3><p>${e(game.description)}</p><button class="primary-button" data-activity="${game.id}">${e(game.action)} ${icon('arrow')}</button></article>`; }).join('')}</div>`;
+  if (getExpedition(mapId)) { el.innerHTML = expeditionOverview() + expeditionActivityBoard(); return; }
+  el.innerHTML = `<div class="route-heading">${icon('star')}<div><div class="eyebrow">ACT ${actFor(mapId).number} · ${level} · ${e(region.name.toUpperCase())}</div><h2>A little detour.</h2><p>Take a break from the main story. Serve a customer, strike a deal, investigate evidence or deliver a letter. These optional activities let you practise German at your own pace.</p></div></div><div class="activity-board">${activityInfo.map((game, index) => { const saved = progress.activities?.[`${game.id}:${level}`]; return `<article class="activity-entry" style="--activity-art:url('${region.previewAsset}');--activity-position:${['35% 45%','70% 55%','10% 25%','85% 25%'][index]}">${icon(game.icon)}<small>${e(npcs.find(n => n.id === game.npcId)!.name)} · ${level} ${saved ? '· DISCOVERED' : '· OPTIONAL ACTIVITY'}</small><h3>${e(game.title)}</h3><p>${e(game.description)}</p><button class="primary-button" data-activity="${game.id}">${e(game.action)} ${icon('arrow')}</button></article>`; }).join('')}</div>` + expeditionActivityBoard();
 }
 async function startActivity(id: ActivityId, source?: {roomId:InteriorId; stationId:string}) {
   if (!activityInfo.some(game => game.id === id)) return;
@@ -606,6 +704,7 @@ function renderOther() {
   if (view === 'activities') { renderActivities(el); return; }
   if (view === 'course') { renderCourse(el); return; }
   if (view === 'journal' && journalTab === 'words') { renderWordJournal(el); return; }
+  if ((view === 'menu' || view === 'quests') && getExpedition(mapId)) { el.innerHTML = expeditionOverview(); return; }
   if (view === 'menu') {
     const act = actFor(mapId), clueCount = discoveredClues(progress.completedQuestIds).length;
     const quest = currentQuest(), npc = npcs.find(item => item.id === quest.npcId)!;
@@ -616,10 +715,15 @@ function renderOther() {
     el.innerHTML = `<div class="quest-log-heading"><span class="eyebrow">ACT ${act.number} · ${e(getMap(mapId).name.toUpperCase())}</span><h2>${e(act.title)}</h2><p>${e(act.goal)}</p></div><div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-start-quest="${q.id}"><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><small>${done ? 'DISCOVERED' : next ? 'YOUR NEXT LEAD' : 'A STORY TO FIND'} · ${e(q.location)}</small><strong>${e(q.title)}</strong><span>${e(done ? clueFor(q.id)?.title ?? q.subtitle : q.subtitle)}</span></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? 'Follow the next route' : 'Find my next lead'}</button><div class="quest-region-strip">${maps.map(map => `<button data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
   } else if (view === 'story') {
     const found = discoveredClues(progress.completedQuestIds), inspected = readSeen('objects');
-    el.innerHTML = `<div class="story-journal-heading"><div class="eyebrow">EVIDENCE, SECRETS & SMALL PROMISES</div><h2>The missing routes</h2><p>${found.length ? `${found.length} ${found.length === 1 ? 'clue' : 'clues'} remembered. Each one came from helping someone.` : 'A platform, a blank letter, and a town that should exist. Your first conversation is the beginning of the trail.'}</p></div><div class="story-acts">${storyActs.map(act => { const qs = quests.filter(q => q.level === act.level), clues = found.filter(clue => qs.some(q => q.id === clue.questId)); return `<section class="story-act"><header><span class="act-number">${act.number}</span><div><small>${act.level} · ${e(getMap(act.mapId).name)}</small><h3>${e(act.title)}</h3></div><span class="clue-count">${clues.length} / 6</span></header>${clues.length ? `<div class="clue-pages">${clues.map(clue => `<article class="clue-page"><span>${icon('lantern')}</span><div><h4>${e(clue.title)}</h4><p>${e(clue.text)}</p><small>${e(clue.lead)}</small></div></article>`).join('')}</div>` : '<p class="undiscovered-clue">This page is waiting for a conversation.</p>'}${clues.length === 6 ? `<blockquote class="act-cliffhanger">${e(act.cliffhanger)}</blockquote>` : ''}</section>`; }).join('')}</div>${inspected.length ? `<section class="field-notes"><div class="eyebrow">THINGS YOU NOTICED</div><h3>Notes from the road</h3>${maps.flatMap(map => map.objects.filter(object => inspected.includes(object.id)).map(object => `<button data-inspect-object="${object.id}" data-object-map="${map.id}">${icon('pin')}<span><strong>${e(object.label)}</strong><small>${e(map.name)}</small></span>${icon('chevron')}</button>`)).join('')}</section>` : ''}${earnedActivityJournal()}<button class="primary-button" data-action="next-objective">Follow the next lead ${icon('arrow')}</button>`;
+    el.innerHTML = `<div class="story-journal-heading"><div class="eyebrow">EVIDENCE, SECRETS & SMALL PROMISES</div><h2>The missing routes</h2><p>${found.length ? `${found.length} ${found.length === 1 ? 'clue' : 'clues'} remembered. Each one came from helping someone.` : 'A platform, a blank letter, and a town that should exist. Your first conversation is the beginning of the trail.'}</p></div><div class="story-acts">${storyActs.map(act => { const qs = quests.filter(q => q.level === act.level), clues = found.filter(clue => qs.some(q => q.id === clue.questId)); return `<section class="story-act"><header><span class="act-number">${act.number}</span><div><small>${act.level} · ${e(getMap(act.mapId).name)}</small><h3>${e(act.title)}</h3></div><span class="clue-count">${clues.length} / 6</span></header>${clues.length ? `<div class="clue-pages">${clues.map(clue => `<article class="clue-page"><span>${icon('lantern')}</span><div><h4>${e(clue.title)}</h4><p>${e(clue.text)}</p><small>${e(clue.lead)}</small></div></article>`).join('')}</div>` : '<p class="undiscovered-clue">This page is waiting for a conversation.</p>'}${clues.length === 6 ? `<blockquote class="act-cliffhanger">${e(act.cliffhanger)}</blockquote>` : ''}</section>`; }).join('')}</div>${inspected.length ? `<section class="field-notes"><div class="eyebrow">THINGS YOU NOTICED</div><h3>Notes from the road</h3>${maps.flatMap(map => map.objects.filter(object => inspected.includes(object.id)).map(object => `<button data-inspect-object="${object.id}" data-object-map="${map.id}">${icon('pin')}<span><strong>${e(object.label)}</strong><small>${e(map.name)}</small></span>${icon('chevron')}</button>`)).join('')}</section>` : ''}${earnedActivityJournal()}${expeditionNotebook()}<button class="primary-button" data-action="next-objective">Follow the next lead ${icon('arrow')}</button>`;
   } else if (view === 'atlas') {
     const current = getMap(mapId);
-    el.innerHTML = `<div class="atlas-heading"><span class="eyebrow">FOLLOW THE LANTERNS</span><h2>Three places. One missing promise.</h2><p>Begin in Lindenhafen, follow the trail to Waldruh, then bring the evidence to Nebelstadt. You can explore any route.</p></div><div class="region-cards">${maps.map((map, index) => { const act = actFor(map.id), done = completedAtLevel(map.level), recommended = index === 0 || completedAtLevel(maps[index - 1].level) === 6; return `<article class="region-card ${map.id === mapId ? 'current' : ''}"><div class="region-card-art" style="background-image:url('${map.previewAsset}')"><span>ACT ${act.number} · ${map.level}</span>${map.id === mapId ? '<b>YOU ARE HERE</b>' : ''}</div><div class="region-card-copy"><h3>${e(map.name)}</h3><small>${e(map.subtitle)}</small><p>${e(act.premise)}</p><div class="region-card-meta"><span>${done} / 6 stories</span><span>${recommended ? 'Ready to explore' : `Best after act ${index === 1 ? 'I' : 'II'}`}</span></div><button class="${map.id === mapId ? 'outline-button' : 'primary-button'}" ${map.id === mapId ? 'data-view="world"' : `data-travel="${map.id}"`}>${map.id === mapId ? 'Return to exploring' : `Travel to ${e(map.name)}`} ${icon('arrow')}</button></div></article>`; }).join('')}</div>${placesSection()}<section class="region-local-map"><div><span class="eyebrow">NEARBY IN ${e(current.name.toUpperCase())}</span><h3>People & little things</h3><p>Choose a marker to walk there.</p></div><div class="atlas-map"><img src="${current.previewAsset}" alt="Painted map of ${e(current.name)}"/>${current.npcs.map(point => { const npc = npcs.find(item => item.id === point.id); return npc ? `<button class="atlas-map-pin" data-waypoint="${point.id}" style="left:${point.x * 100}%;top:${point.y * 100}%" aria-label="Walk to ${e(npc.name)}">${portrait(point.id)}<span>${e(npc.name)}</span></button>` : ''; }).join('')}${current.objects.map(object => `<button class="object-map-pin" data-focus-object="${object.id}" style="left:${object.x * 100}%;top:${object.y * 100}%" aria-label="Walk to ${e(object.label)}">${icon(object.kind === 'garden' ? 'leaf' : object.kind === 'clock' ? 'clock' : 'lantern')}</button>`).join('')}<span class="atlas-map-compass">${icon('compass')} N</span></div></section>`;
+    el.innerHTML = `<div class="atlas-heading"><span class="eyebrow">FOLLOW YOUR CURIOSITY</span><h2>${maps.length} places. A world of connections.</h2><p>The missing-route story begins in Lindenhafen, Waldruh and Nebelstadt. Ten new expeditions bring local neighbors, surprising discoveries and playable agreements. Every region is ready to explore.</p></div><div class="region-cards">${maps.map(map => {
+      const expedition = getExpedition(map.id), act = expedition ? undefined : actFor(map.id);
+      const status = expedition ? expeditionGameStatus(map.id, level) : undefined;
+      const done = expedition ? expedition.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length : completedAtLevel(map.level);
+      return `<article class="region-card ${map.id === mapId ? 'current' : ''}"><div class="region-card-art" style="background-image:url('${map.previewAsset}')"><span>${expedition ? 'EXPEDITION · A1 / A2 / B1' : `ACT ${act!.number} · ${map.level}`}</span>${map.id === mapId ? '<b>YOU ARE HERE</b>' : ''}</div><div class="region-card-copy"><h3>${e(map.name)}</h3><small>${e(map.subtitle)}</small><p>${e(expedition?.description ?? act!.premise)}</p><div class="region-card-meta"><span>${expedition ? `${done} / ${expedition.encounters.length} encounters` : `${done} / 6 stories`}</span><span>${expedition ? status === 'completed' ? 'Agreement remembered' : `${expedition.npcs.length} neighbors · local game` : 'Story route'}</span></div><button class="${map.id === mapId ? 'outline-button' : 'primary-button'}" ${map.id === mapId ? 'data-view="world"' : `data-travel="${map.id}"`}>${map.id === mapId ? 'Return to exploring' : `Travel to ${e(map.name)}`} ${icon('arrow')}</button></div></article>`;
+    }).join('')}</div>${placesSection()}<section class="region-local-map"><div><span class="eyebrow">NEARBY IN ${e(current.name.toUpperCase())}</span><h3>People & little things</h3><p>Choose a marker to walk there.</p></div><div class="atlas-map"><img src="${current.previewAsset}" alt="Painted map of ${e(current.name)}"/>${current.npcs.map(point => { const npc = npcs.find(item => item.id === point.id) ?? getExpeditionNpc(point.id); return npc ? `<button class="atlas-map-pin" data-waypoint="${point.id}" style="left:${point.x * 100}%;top:${point.y * 100}%" aria-label="Walk to ${e(npc.name)}">${portrait(point.id)}<span>${e(npc.name)}</span></button>` : ''; }).join('')}${current.objects.map(object => `<button class="object-map-pin" data-focus-object="${object.id}" style="left:${object.x * 100}%;top:${object.y * 100}%" aria-label="Walk to ${e(object.label)}">${icon(object.kind === 'garden' ? 'leaf' : object.kind === 'clock' ? 'clock' : 'lantern')}</button>`).join('')}<span class="atlas-map-compass">${icon('compass')} N</span></div></section>`;
   } else if (view === 'journal') {
     const learned = vocabulary.filter(v => progress.items[v.id]);
     const due = dueItems(progress);
@@ -677,8 +781,10 @@ function openDialog(html: string, className = '') {
   document.dispatchEvent(new Event('atlas-controls-reset'));
   document.querySelector('#game-shell')!.classList.add('encounter-open');
   dialog.showModal();
+  dialog.scrollTop = 0;
 }
 function showNpc(id: string) {
+  if (getExpeditionNpc(id)) { showExpeditionEncounter(id); return; }
   const npc = npcs.find(n => n.id === id);
   if (!npc) return;
   const q = quests.find(q => q.npcId === id && q.level === level && !progress.completedQuestIds.includes(q.id)) ?? quests.find(q => q.npcId === id && q.level === level);
@@ -808,12 +914,12 @@ async function finishRun() {
       playCue(true); run = undefined; return;
     }
     const clue = activeRun.quest ? clueFor(activeRun.quest.id) : undefined;
-    const act = actFor(mapId), actFinished = completedAtLevel(level) === 6;
+    const act = getExpedition(mapId) ? undefined : actFor(mapId), actFinished = completedAtLevel(level) === 6;
     const title = clue?.title ?? (activeRun.objectId ? 'A little thing, better understood.' : 'Familiar words. Fresh memories.');
     const targetLabel = activeRun.queue.every(ex => 'targetWordId' in ex) ? 'words' : 'expressions';
     const body = clue?.text ?? (activeRun.objectId ? 'You made sense of this little encounter. Its lore is always here; the expressions can rest until they are ready again.' : `You’ve given these ${targetLabel} room to grow. They can rest until their next encounter.`);
     const targetCount = new Set(activeRun.queue.map(ex => ex.itemId)).size;
-    document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close discovery">${icon('close')}</button><div class="completion story-reveal"><div class="completion-mark">${icon(clue ? 'lantern' : 'leaf')}</div><div class="eyebrow">${clue ? 'A NEW DISCOVERY IN YOUR ATLAS' : 'A SMALL PROMISE TO REMEMBER'}</div><h2>${e(title)}</h2><p>${e(body)}</p>${clue ? `<div class="next-lead">${icon('flag')}<span>${e(actFinished ? act.cliffhanger : clue.lead)}</span></div>` : ''}<div class="completion-stats"><span><strong>${targetCount}</strong> ${targetLabel} practised</span><span><strong>${gained ? '+' + gained : '✓'}</strong> ${gained ? 'adventure XP' : 'progress saved'}</span></div>${clue ? '<button class="primary-button" data-action="next-objective">Follow the next lead ' + icon('arrow') + '</button><button class="text-button" data-view="story">Read your discoveries ' + icon('book') + '</button>' : `<button class="primary-button" data-action="close-dialog">Back to ${e(getMap(mapId).name)} ${icon('arrow')}</button>`}<button class="text-button" data-action="close-dialog">Keep exploring</button></div>`;
+    document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close discovery">${icon('close')}</button><div class="completion story-reveal"><div class="completion-mark">${icon(clue ? 'lantern' : 'leaf')}</div><div class="eyebrow">${clue ? 'A NEW DISCOVERY IN YOUR ATLAS' : 'A SMALL PROMISE TO REMEMBER'}</div><h2>${e(title)}</h2><p>${e(body)}</p>${clue ? `<div class="next-lead">${icon('flag')}<span>${e(actFinished ? act?.cliffhanger ?? clue.lead : clue.lead)}</span></div>` : ''}<div class="completion-stats"><span><strong>${targetCount}</strong> ${targetLabel} practised</span><span><strong>${gained ? '+' + gained : '✓'}</strong> ${gained ? 'adventure XP' : 'progress saved'}</span></div>${clue ? '<button class="primary-button" data-action="next-objective">Follow the next lead ' + icon('arrow') + '</button><button class="text-button" data-view="story">Read your discoveries ' + icon('book') + '</button>' : `<button class="primary-button" data-action="close-dialog">Back to ${e(getMap(mapId).name)} ${icon('arrow')}</button>`}<button class="text-button" data-action="close-dialog">Keep exploring</button></div>`;
     playCue(true); run = undefined;
   } catch (error) {
     if (run !== activeRun) return;
@@ -958,6 +1064,9 @@ function bindGlobalEvents() {
     if (target.dataset.journalTab) { journalTab = target.dataset.journalTab as typeof journalTab; renderOther(); return; }
     if (target.dataset.courseUnit) { void startCourseUnit(target.dataset.courseUnit); return; }
     if (target.dataset.wordPractice) { void startWordPractice(target.dataset.wordPractice); return; }
+    if (target.dataset.expeditionGame) { startExpeditionGame(target.dataset.expeditionGame, target.dataset.expeditionLevel as Level | undefined); return; }
+    if (target.dataset.expeditionTarget) { showExpeditionEncounter(target.dataset.expeditionTarget); return; }
+    if (target.dataset.expeditionAnswer !== undefined) { answerExpeditionEncounter(target.dataset.expeditionEncounter!, Number(target.dataset.expeditionAnswer)); return; }
     if (target.dataset.level) { const region = maps.find(map => map.level === target.dataset.level); if (region) travelMap(region.id); return; }
     if (target.dataset.travel) { const region = maps.find(map => map.id === target.dataset.travel); if (region) travelMap(region.id); return; }
     if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (q) travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
@@ -995,7 +1104,7 @@ function bindGlobalEvents() {
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); world.setInputEnabled(worldCanInteract()); continueDestination(); break;
       case 'open-chat': setView('world'); toggleChat(true); break;
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast('Full screen isn’t available here.')); break;
-      case 'close-dialog': document.querySelector<HTMLDialogElement>('#dialog')!.close(); run = undefined; pendingDestination = undefined; break;
+      case 'close-dialog': document.querySelector<HTMLDialogElement>('#dialog')!.close(); run = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; break;
       case 'help': openDialog(`<div class="help-dialog"><div class="completion-mark">${icon('compass')}</div><div class="eyebrow">YOUR FIRST STEPS</div><h2>Follow your curiosity.</h2><p>Click a path to wander, or use <strong>WASD / arrow keys</strong>. On your phone, move with the <strong>joystick</strong> or tap a destination.</p><p>Tap a character to meet them, press <strong>E</strong> nearby, or use the <strong>Talk</strong> button on your phone. Their stories become your adventures, and each adventure brings a little more German.</p><p>Choose a café, bakery or supermarket from <strong>Menu / Atlas</strong> to walk to its doorway. Interact to enter, then talk to people or inspect the glowing objects for a focused German session. Use <strong>Leave</strong> to return outside.</p><p>Open your quests with <strong>Q</strong>, journal with <strong>J</strong>, character with <strong>C</strong>, settings with <strong>O</strong>, and map with <strong>M</strong>. Press <strong>Escape</strong> to return to the world.</p><p>Use <strong>A little help</strong> whenever you need it. Mistakes are part of finding your way. Ready words return in your journal; strong words get longer rests.</p><p>The town square connects you with other wanderers. Be kind. Everyone is learning.</p><button class="primary-button" data-action="close-dialog">Let’s wander ${icon('arrow')}</button></div>`); break;
       case 'begin-exercises': renderExercise(); break;
       case 'check-answer': void submitAnswer(); break;
@@ -1075,7 +1184,7 @@ async function boot() {
     const changed = id !== mapId;
     if (changed) regionReady = false;
     mapId = id; pendingMap = undefined; mapConfirmed = true;
-    level = getMap(id).level; localStorage.setItem('atlas.level', level);
+    if (!getExpedition(id)) level = getMap(id).level; localStorage.setItem('atlas.level', level);
     chatMessages.splice(0); players = []; renderChat();
     document.querySelector('#chat-region')!.textContent = getMap(id).name;
     document.querySelector<HTMLElement>('#game-shell')!.dataset.map = id;
@@ -1084,8 +1193,8 @@ async function boot() {
   };
   api.onPlayers = (value, selfId) => { players = value; world.setPlayers(players, selfId); updateConnection(); };
   api.onChat = message => { if (!chatMessages.some(m => m.id === message.id)) { chatMessages.push(message); if (chatMessages.length > 100) chatMessages.shift(); renderChat(); } };
-  api.onStatus = value => { connection = value; if (value !== 'online' && pendingMap) { pendingMap = undefined; pendingDestination = undefined; world.setInputEnabled(worldCanInteract()); } updateConnection(); };
-  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; world.setInputEnabled(worldCanInteract()); } toast(message, true); };
+  api.onStatus = value => { connection = value; if (value !== 'online' && pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; world.setInputEnabled(worldCanInteract()); } updateConnection(); };
+  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; world.setInputEnabled(worldCanInteract()); } toast(message, true); };
   try {
     const result = await api.session(profile.name, profile.avatar);
     acceptProgress(result.progress, result.player.id);

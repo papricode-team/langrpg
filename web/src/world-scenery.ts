@@ -1,7 +1,8 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
-import { getPlacedScenery, sceneryTextureFor, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
+import { worldAmbient } from './world-lighting';
+import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
 import { isBuildingScenery,sampleSceneryFrame,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
@@ -29,7 +30,8 @@ export class WorldScenery {
       const authored=manifest?.assets[name];
       const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;
       const building=isBuildingScenery(name);
-      const key=animation?.base?.key??animation?.key??sceneryTextureFor(mapId,spec);
+      const requestedKey=animation?.base?.key??animation?.key??sceneryTextureFor(mapId,spec);
+      const key=scene.textures.exists(requestedKey)?requestedKey:sceneryTextureKey(mapId);
       const frameName=animation?.base?.frame??(animation
         ? building?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
       if(!scene.textures.exists(key))continue;
@@ -51,6 +53,8 @@ export class WorldScenery {
       }
       this.layers.push({spec,parts,width:frame.width*scale,height:frame.height*scale});
     }
+    const ambient=worldAmbient(mapId,period);
+    if(ambient.scenery!==0xffffff)this.setAmbientTint(ambient.scenery,ambient.light);
   }
   get objectCount(){return this.layers.length;}
   get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation)).length;}
@@ -61,6 +65,13 @@ export class WorldScenery {
     if(!visible)for(const {parts} of this.layers)for(const {sprite} of parts)sprite.setVisible(false);
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
+  /** Lanterns keep warm illumination while fixed architecture takes moonlight. */
+  setAmbientTint(tint:number,light=0xffffff){
+    for(const {spec,parts} of this.layers){
+      const emitter=spec.asset==='lamp'||spec.frame==='motion-lamp';
+      for(const {sprite} of parts)sprite.setTint(emitter?light:tint);
+    }
+  }
   update(time:number,view:SceneryView){
     if(!this.reducedMotion)this.motionTime=time;
     for(const item of this.layers){

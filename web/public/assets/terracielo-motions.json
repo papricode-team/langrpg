@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "motion-tree-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-tree-1": {
+      "frame": {
+        "x": 204,
+        "y": 2,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-tree-2": {
+      "frame": {
+        "x": 406,
+        "y": 2,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-tree-3": {
+      "frame": {
+        "x": 608,
+        "y": 2,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-tree-4": {
+      "frame": {
+        "x": 810,
+        "y": 2,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-tree-5": {
+      "frame": {
+        "x": 2,
+        "y": 221,
+        "w": 198,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 215
+      }
+    },
+    "motion-cloth-0": {
+      "frame": {
+        "x": 204,
+        "y": 221,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-cloth-1": {
+      "frame": {
+        "x": 450,
+        "y": 221,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-cloth-2": {
+      "frame": {
+        "x": 696,
+        "y": 221,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-cloth-3": {
+      "frame": {
+        "x": 2,
+        "y": 440,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-cloth-4": {
+      "frame": {
+        "x": 248,
+        "y": 440,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-cloth-5": {
+      "frame": {
+        "x": 494,
+        "y": 440,
+        "w": 242,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 242,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 242,
+        "h": 215
+      }
+    },
+    "motion-lamp-0": {
+      "frame": {
+        "x": 740,
+        "y": 440,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-lamp-1": {
+      "frame": {
+        "x": 2,
+        "y": 688,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-lamp-2": {
+      "frame": {
+        "x": 182,
+        "y": 688,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-lamp-3": {
+      "frame": {
+        "x": 362,
+        "y": 688,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-lamp-4": {
+      "frame": {
+        "x": 542,
+        "y": 688,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-lamp-5": {
+      "frame": {
+        "x": 722,
+        "y": 688,
+        "w": 176,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 244
+      }
+    },
+    "motion-water-0": {
+      "frame": {
+        "x": 2,
+        "y": 936,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    },
+    "motion-water-1": {
+      "frame": {
+        "x": 227,
+        "y": 936,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    },
+    "motion-water-2": {
+      "frame": {
+        "x": 452,
+        "y": 936,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    },
+    "motion-water-3": {
+      "frame": {
+        "x": 677,
+        "y": 936,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    },
+    "motion-water-4": {
+      "frame": {
+        "x": 2,
+        "y": 1179,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    },
+    "motion-water-5": {
+      "frame": {
+        "x": 227,
+        "y": 1179,
+        "w": 221,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 221,
+        "h": 239
+      },
+      "sourceSize": {
+        "w": 221,
+        "h": 239
+      }
+    }
+  },
+  "meta": {
+    "image": "terracielo-motions.webp",
+    "size": {
+      "w": 1024,
+      "h": 1420
+    },
+    "scale": "1"
+  }
+}

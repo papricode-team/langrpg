@@ -2,13 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { maps } from './maps';
 import { createMapNavigation, NavigationGrid } from './navigation';
 import { compileResident, createWorldResidents, sampleResidentMotion, worldResidentSpecs } from './world-life';
+import { isExpeditionMap } from './expeditions';
 
 describe('painted town resident routes', () => {
   for (const map of maps) {
     it(`keeps all ${map.name} resident loops on connected painted roads`, () => {
       const navigation = createMapNavigation(map.id);
       const residents = createWorldResidents(map.id, navigation);
-      expect(residents).toHaveLength(3);
+      expect(residents).toHaveLength(isExpeditionMap(map.id) ? 8 : 3);
       for (const resident of residents) {
         expect(resident.cycleSeconds).toBeGreaterThan(10);
         expect(resident.segments.some(segment => !segment.moving)).toBe(true);

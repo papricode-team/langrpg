@@ -2,6 +2,7 @@ import type { MapId } from './maps';
 import { lindenhafenPlacements } from './placed-lindenhafen';
 import { waldruhPlacements } from './placed-waldruh';
 import { nebelstadtPlacements } from './placed-nebelstadt';
+import { expeditionPlacements } from './expeditions';
 
 /** Each frame is reusable transparent artwork, independent of the terrain. */
 export const sceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp',
@@ -21,10 +22,13 @@ export interface PlacedScenerySpec {
   depth?: number;
   motion?: SceneryMotion;
   flipX?: boolean;
+  /** Decorative motion props placed beside paths do not close their approaches. */
+  collidable?: boolean;
 }
 
 const placements: Readonly<Record<MapId, readonly PlacedScenerySpec[]>> = {
   lindenhafen: lindenhafenPlacements, waldruh: waldruhPlacements, nebelstadt: nebelstadtPlacements,
+  ...expeditionPlacements,
 };
 export const getPlacedScenery = (mapId: MapId): readonly PlacedScenerySpec[] => placements[mapId];
 /** Match the feet-depth convention used by every character root. */
@@ -48,6 +52,7 @@ export function placedSceneryFootprints(mapId: MapId): readonly (readonly (reado
     return [x + Math.cos(angle) * rx, y + Math.sin(angle) * ry] as const;
   });
   return getPlacedScenery(mapId).flatMap(spec => {
+    if (spec.collidable === false) return [];
     if (spec.asset === 'boat') return []; // Floating scenery never blocks pavement.
     if (spec.asset === 'arch') {
       // The opening stays walkable; only the two posts have solid bases.

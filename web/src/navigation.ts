@@ -1,5 +1,6 @@
 import type { MapId } from './maps';
 import { placedSceneryFootprints } from './placed-scenery';
+import { expeditionWalkablePolygons, isExpeditionMap } from './expeditions';
 
 export interface MapPoint { x: number; y: number; }
 type Polygon = readonly (readonly [number, number])[];
@@ -384,6 +385,7 @@ const HARBOR_OBSTACLES: readonly Polygon[] = [
 ];
 
 export function createMapNavigation(id: MapId): NavigationGrid {
+  if (isExpeditionMap(id)) return new NavigationGrid(expeditionWalkablePolygons(id), placedSceneryFootprints(id));
   if (id === 'waldruh') return new NavigationGrid(WOODLAND_STREETS, [...WOODLAND_OBSTACLES, ...placedSceneryFootprints(id)]);
   if (id === 'nebelstadt') return new NavigationGrid(HARBOR_STREETS, [...HARBOR_OBSTACLES, ...placedSceneryFootprints(id)]);
   return createTownNavigation();

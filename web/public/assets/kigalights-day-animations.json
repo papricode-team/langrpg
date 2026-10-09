@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "framesPerAsset": 6,
+  "terrain": "kigalights-terrain",
+  "assets": {
+    "motion-tree": {
+      "key": "kigalights-motions",
+      "frames": [
+        "motion-tree-0",
+        "motion-tree-1",
+        "motion-tree-2",
+        "motion-tree-3",
+        "motion-tree-4",
+        "motion-tree-5"
+      ],
+      "fps": 4,
+      "width": 240,
+      "height": 243,
+      "referenceWidth": 240,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-cloth": {
+      "key": "kigalights-motions",
+      "frames": [
+        "motion-cloth-0",
+        "motion-cloth-1",
+        "motion-cloth-2",
+        "motion-cloth-3",
+        "motion-cloth-4",
+        "motion-cloth-5"
+      ],
+      "fps": 4,
+      "width": 235,
+      "height": 229,
+      "referenceWidth": 235,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-lamp": {
+      "key": "kigalights-motions",
+      "frames": [
+        "motion-lamp-0",
+        "motion-lamp-1",
+        "motion-lamp-2",
+        "motion-lamp-3",
+        "motion-lamp-4",
+        "motion-lamp-5"
+      ],
+      "fps": 3,
+      "width": 123,
+      "height": 223,
+      "referenceWidth": 123,
+      "originX": 0.5,
+      "originY": 1
+    },
+    "motion-water": {
+      "key": "kigalights-motions",
+      "frames": [
+        "motion-water-0",
+        "motion-water-1",
+        "motion-water-2",
+        "motion-water-3",
+        "motion-water-4",
+        "motion-water-5"
+      ],
+      "fps": 4,
+      "width": 233,
+      "height": 256,
+      "referenceWidth": 233,
+      "originX": 0.5,
+      "originY": 1
+    }
+  }
+}

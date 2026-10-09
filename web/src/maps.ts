@@ -1,6 +1,8 @@
 import type { Level } from './content';
+import { expeditionMaps, type ExpeditionId } from './expeditions';
 
-export type MapId = 'lindenhafen' | 'waldruh' | 'nebelstadt';
+export type StoryMapId = 'lindenhafen' | 'waldruh' | 'nebelstadt';
+export type MapId = StoryMapId | ExpeditionId;
 export interface MapPosition { x: number; y: number; }
 export interface WorldObjectSpec extends MapPosition {
   id: string;
@@ -9,6 +11,8 @@ export interface WorldObjectSpec extends MapPosition {
   exerciseIds: string[];
   prompt: string;
   description: string;
+  /** Local exploration encounters have their own content outside the original story exercises. */
+  encounterId?: string;
 }
 export interface WorldMapSpec {
   id: MapId;
@@ -31,7 +35,7 @@ export interface WorldMapSpec {
 }
 
 /** These are places to explore, not proficiency gates. The cast travels with the story. */
-export const maps: readonly WorldMapSpec[] = [
+export const storyMaps: readonly WorldMapSpec[] = [
   {
     id: 'lindenhafen', name: 'Lindenhafen', subtitle: 'The missing platform', level: 'A1',
     description: 'A sunlit canal town with excellent coffee, unreliable timetables and one platform that officially does not exist.',
@@ -147,6 +151,8 @@ export const maps: readonly WorldMapSpec[] = [
     ],
   },
 ];
+
+export const maps: readonly WorldMapSpec[] = [...storyMaps, ...expeditionMaps];
 
 export function getMap(id: MapId): WorldMapSpec {
   return maps.find(map => map.id === id) ?? maps[0];

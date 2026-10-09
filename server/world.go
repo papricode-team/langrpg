@@ -17,7 +17,11 @@ import (
 
 const DefaultMapID = "lindenhafen"
 
-var mapIDs = []string{DefaultMapID, "waldruh", "nebelstadt"}
+var mapIDs = []string{
+	DefaultMapID, "waldruh", "nebelstadt",
+	"saffroncourt", "rainmarket", "windplain", "riverweave", "terracielo",
+	"sunpatch", "kigalights", "cedarbay", "seoulsteps", "dunegarden",
+}
 
 type MapSpawn struct {
 	X float64 `json:"x"`
@@ -25,9 +29,19 @@ type MapSpawn struct {
 }
 
 var mapSpawns = map[string]MapSpawn{
-	DefaultMapID: {X: .52, Y: .61},
-	"waldruh":    {X: .52, Y: .54},
-	"nebelstadt": {X: .50, Y: .55},
+	DefaultMapID:   {X: .52, Y: .61},
+	"waldruh":      {X: .52, Y: .54},
+	"nebelstadt":   {X: .50, Y: .55},
+	"saffroncourt": {X: .50, Y: .72},
+	"rainmarket":   {X: .12, Y: .58},
+	"windplain":    {X: .50, Y: .76},
+	"riverweave":   {X: .15, Y: .77},
+	"terracielo":   {X: .16, Y: .83},
+	"sunpatch":     {X: .50, Y: .83},
+	"kigalights":   {X: .13, Y: .80},
+	"cedarbay":     {X: .16, Y: .81},
+	"seoulsteps":   {X: .17, Y: .84},
+	"dunegarden":   {X: .50, Y: .83},
 }
 
 func validMapID(id string) bool { _, ok := mapSpawns[id]; return ok }
@@ -410,7 +424,7 @@ func (memory *worldMemory) allowJoin(now time.Time) bool {
 
 func (w *World) joinMap(client *worldClient, mapID string, now time.Time) string {
 	if !validMapID(mapID) {
-		return "unknown map; choose lindenhafen, waldruh or nebelstadt"
+		return "unknown map; choose a destination from the atlas"
 	}
 	w.mu.Lock()
 	defer w.mu.Unlock()

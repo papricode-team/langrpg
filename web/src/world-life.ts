@@ -1,5 +1,6 @@
 import type { MapId } from './maps';
 import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, type MapPoint, type NavigationGrid } from './navigation';
+import { expeditionResidentSpecs } from './expeditions';
 
 export interface ResidentAvatar { hair: string; skin: string; outfit: string; }
 export interface ResidentStop extends MapPoint { pauseSeconds: number; }
@@ -43,6 +44,7 @@ const palette = (hair: string, skin: string, outfit: string): ResidentAvatar => 
 
 /** Background residents have no quest, interaction target or network identity. */
 export const worldResidentSpecs: Readonly<Record<MapId, readonly ResidentSpec[]>> = {
+  ...expeditionResidentSpecs,
   lindenhafen: [
     {
       id: 'lindenhafen-resident-courier', name: 'Nora', speed: 72, phase: .12,

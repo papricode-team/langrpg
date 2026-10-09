@@ -1,6 +1,6 @@
 import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
-import { maps } from './maps';
+import { storyMaps as maps } from './maps';
 import { getPlacedScenery,sceneryAssets,placedSceneryFootprints } from './placed-scenery';
 import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';

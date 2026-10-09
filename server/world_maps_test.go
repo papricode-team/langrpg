@@ -317,3 +317,52 @@ func TestReconnectCannotBypassMapJoinRateLimit(t *testing.T) {
 	writeWorld(t, ctx, conn, map[string]any{"type": "chat", "mapId": "waldruh", "message": "Still here"})
 	readIsolatedChat(t, ctx, conn, "waldruh", "Still here")
 }
+
+func TestEveryExpeditionSupportsTravelAndScopedChat(t *testing.T) {
+	for _, destination := range mapIDs[3:] {
+		t.Run(destination, func(t *testing.T) {
+			app := testApp(t)
+			token, _ := createSession(t, app, "Explorer")
+			server := httptest.NewServer(app.Handler())
+			defer server.Close()
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			conn := dialMap(t, ctx, server, token, DefaultMapID)
+			mapValue(t, readWorld(t, ctx, conn, "welcome"))
+			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": destination, "x": 1, "y": 1})
+			id, spawn, players, history := mapValue(t, readWorld(t, ctx, conn, "map"))
+			if id != destination || spawn != mapSpawns[destination] || len(players) != 1 || len(history) != 0 {
+				t.Fatalf("expedition arrival: %s %+v %+v %+v", id, spawn, players, history)
+			}
+			writeWorld(t, ctx, conn, map[string]any{"type": "chat", "mapId": destination, "message": "A local greeting"})
+			readIsolatedChat(t, ctx, conn, destination, "A local greeting")
+			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": DefaultMapID})
+			_, _, _, history = mapValue(t, readWorld(t, ctx, conn, "map"))
+			if len(history) != 0 {
+				t.Fatalf("expedition conversation leaked into home: %+v", history)
+			}
+			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": destination})
+			id, restored, _, history := mapValue(t, readWorld(t, ctx, conn, "map"))
+			if id != destination || restored != spawn || len(history) != 1 || history[0].Text != "A local greeting" {
+				t.Fatalf("expedition return: %s %+v %+v", id, restored, history)
+			}
+		})
+	}
+}
+
+func TestMapRegistryContainsThirteenUniqueDestinations(t *testing.T) {
+	if len(mapIDs) != 13 || len(mapSpawns) != 13 {
+		t.Fatalf("atlas registry mismatch: %d IDs, %d spawns", len(mapIDs), len(mapSpawns))
+	}
+	seen := make(map[string]bool)
+	for _, id := range mapIDs {
+		if seen[id] || !validMapID(id) {
+			t.Fatalf("duplicate or unknown atlas destination %q", id)
+		}
+		seen[id] = true
+		spawn := mapSpawns[id]
+		if !validCoordinate(spawn.X) || !validCoordinate(spawn.Y) {
+			t.Fatalf("invalid spawn for %s: %+v", id, spawn)
+		}
+	}
+}

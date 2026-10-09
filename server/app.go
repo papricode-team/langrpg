@@ -471,7 +471,7 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if mapID := r.URL.Query().Get("mapId"); mapID != "" && !validMapID(mapID) {
-		writeError(w, 400, "unknown map; choose lindenhafen, waldruh or nebelstadt")
+		writeError(w, 400, "unknown map; choose a destination from the atlas")
 		return
 	}
 	a.world.ServeHTTP(w, r, account.Player)
