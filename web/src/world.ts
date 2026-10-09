@@ -280,10 +280,6 @@ export class World {
     if (this.scene.ready) this.scene.setObjective(npcId);
   }
 
-  zoom(delta: number): void {
-    if (this.scene.ready) this.scene.adjustZoom(delta);
-  }
-
   setInputEnabled(enabled: boolean): void {
     this.inputEnabled = enabled;
     if (!enabled) this.clearHeldInput();
@@ -407,8 +403,6 @@ class HarborScene extends Phaser.Scene {
   private lastX = -1;
   private lastY = -1;
   private initializedSelf = false;
-  private zoomFactor = 1;
-  private targetZoomFactor = 1;
   private fitZoom = 1;
   private elapsed = 0;
   private decorativeElapsed = 0;
@@ -571,9 +565,6 @@ class HarborScene extends Phaser.Scene {
       if (!this.controlsEnabled || this.watching || !this.windowFocused || objects.length || pointer.rightButtonDown()) return;
       const destination = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
       this.walkTo(destination.x, destination.y);
-    });
-    this.input.on('wheel', (_pointer: Phaser.Input.Pointer, _objects: Phaser.GameObjects.GameObject[], _dx: number, dy: number) => {
-      if (this.controlsEnabled && this.windowFocused) this.adjustZoom(dy > 0 ? -0.08 : 0.08);
     });
     this.cameras.main.setBounds(0, 0, WIDTH, HEIGHT);
     this.ready = true;
@@ -927,13 +918,9 @@ class HarborScene extends Phaser.Scene {
         if (map.id !== this.mapSpec.id || period !== this.period) this.releaseAnimationAssets(map.id, period);
       }
     }
-    this.cameras.main.setZoom(this.fitZoom * this.zoomFactor);
+    this.cameras.main.setZoom(this.fitZoom);
     this.resizeHitTargets();
     this.frameCamera(1);
-  }
-
-  adjustZoom(delta: number): void {
-    this.targetZoomFactor = clamp(this.targetZoomFactor + delta, 1, 1.8);
   }
 
   setInputEnabled(enabled: boolean): void {
@@ -1264,10 +1251,6 @@ class HarborScene extends Phaser.Scene {
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.refreshNearby();
     if (this.marker.visible) this.marker.setScale(this.reducedMotion ? 1 : 1 + Math.sin(this.elapsed * 4) * 0.04);
-    if (Math.abs(this.zoomFactor - this.targetZoomFactor) > 0.0001) {
-      this.zoomFactor += (this.targetZoomFactor - this.zoomFactor) * (1 - Math.exp(-10 * seconds));
-      this.cameras.main.setZoom(this.fitZoom * this.zoomFactor);
-    }
     const lead = 1 - Math.exp(-5 * seconds);
     this.cameraLead.x += ((moving ? vx * (this.mobileCamera ? 55 : 24) : 0) - this.cameraLead.x) * lead;
     this.cameraLead.y += ((moving ? vy * (this.mobileCamera ? 36 : 18) : 0) - this.cameraLead.y) * lead;
@@ -1288,7 +1271,7 @@ class HarborScene extends Phaser.Scene {
       camera.scrollY += (targetY - camera.scrollY) * follow;
       return;
     }
-    camera.setZoom(this.fitZoom * this.zoomFactor);
+    camera.setZoom(this.fitZoom);
     const viewWidth = camera.width / camera.zoom;
     const viewHeight = camera.height / camera.zoom;
     const targetScrollX = clamp(this.local.x + this.cameraLead.x - viewWidth / 2, 0, Math.max(0, WIDTH - viewWidth));

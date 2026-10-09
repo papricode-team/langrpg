@@ -57,7 +57,6 @@ The world fills the browser window. Open the adventure menu for the quest log, s
 | F | Open or close the live screen filter panel |
 | M | Open the region atlas while exploring |
 | Escape | Close menus or encounters; collapse open town chat |
-| Mouse wheel | Zoom the world |
 | Settings → Time of day | Choose a time, a slow cycle or real local time |
 | Settings → Watch the world | Hide controls and watch a slow camera tour |
 
