@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Activity layout QA · The Lantern Atlas</title>
+    <style>
+      body { display: block; margin: 0; overflow: hidden; background: #193a30; }
+      .qa-controls { position: fixed; inset: 0; padding: 24px; overflow: auto; color: #f6e8c2; background: linear-gradient(#143a30ba, #143a30ed), url('/assets/lindenhafen.webp') center / cover; }
+      .qa-controls h1 { font-size: 24px; margin: 0 0 12px; }
+      .qa-controls p { max-width: 740px; line-height: 1.5; }
+      .qa-controls form { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; max-width: 1100px; margin-top: 24px; }
+      .qa-controls label { display: flex; flex-direction: column; gap: 8px; }
+      .qa-controls .qa-populated { flex-direction: row; align-items: center; min-height: 44px; }
+      .qa-controls select, .qa-controls button { min-height: 44px; padding: 10px; border: 1px solid #c9b983; border-radius: 6px; background: #fcf3dd; color: #244c37; font: inherit; }
+      .qa-controls select { max-width: min(650px, calc(100vw - 48px)); }
+      .qa-controls input { width: 22px; height: 22px; }
+      .qa-controls button { min-width: 100px; background: #345f45; color: #fcf3dd; }
+      #qa-status { font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <main class="qa-controls">
+      <h1>Activity layout QA</h1>
+      <p>Uses the real mission dialog and controls. This development fixture stores only isolated QA runs; it never connects to the world or writes a player learning record.</p>
+      <form id="qa-form">
+        <label>Scenario <select id="qa-scenario" aria-label="Scenario"></select></label>
+        <label class="qa-populated"><input id="qa-populated" type="checkbox" /> Populated board</label>
+        <label>Screen <select id="qa-screen" aria-label="Screen"><option value="playing">Playing</option><option value="scene-complete">Task complete</option><option value="complete">Mission complete</option></select></label>
+        <button type="submit">Open</button>
+      </form>
+      <p id="qa-status" role="status">Select a scenario and open its dialog. Close the dialog to choose another.</p>
+    </main>
+    <dialog id="qa-dialog" class="dialog activity-dialog" aria-label="Activity layout preview">
+      <button type="button" class="dialog-close" id="qa-close" aria-label="Close layout preview"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button>
+      <div id="activity-root"></div>
+    </dialog>
+    <script type="module">
+      import '../src/style.css';
+      import '../src/course-ui.css';
+      import { mountActivity } from '../src/activities.ts';
+      import { activityScenarios, initialActivityState, applyActivityAction, evaluateActivity } from '../src/activity-engine.ts';
+      import { emptyProgress } from '../src/api.ts';
+      import { answerMatches } from '../src/learning.ts';
+
+      const sessionKey = 'layout-qa-only';
+      const select = document.querySelector('#qa-scenario');
+      const dialog = document.querySelector('#qa-dialog');
+      const root = document.querySelector('#activity-root');
+      const status = document.querySelector('#qa-status');
+      let controller;
+      const storageKey = (scene) => `atlas.activity.v1:${sessionKey}:${scene.activityId}:${scene.level}`;
+
+      for (const scene of activityScenarios) {
+        const option = document.createElement('option');
+        option.value = scene.id;
+        option.textContent = `${scene.activityId} · ${scene.level} · ${scene.title} (${scene.id})`;
+        select.append(option);
+      }
+
+      function populatedState(scene) {
+        let state = initialActivityState(scene);
+        const replay = (action) => { state = applyActivityAction(scene, state, action); };
+        const board = scene.board;
+        if (board.kind === 'cafe') {
+          for (const id of board.stock) for (let n = 0; n < 9; n++) replay({ type: 'item', id, delta: 1 });
+          for (let n = 0; n < 8; n++) replay({ type: 'step', id: board.actions[n % board.actions.length] });
+          if (board.goal.venue) replay({ type: 'venue', value: board.goal.venue });
+          if (board.goal.service) replay({ type: 'service', value: board.goal.service });
+          if (board.goal.slot) replay({ type: 'slot', value: board.goal.slot });
+        } else if (board.kind === 'market') {
+          if (board.trade) replay({ type: 'trade' });
+          for (const id of board.stock) for (let n = 0; n < 9; n++) replay({ type: 'item', id, delta: 1 });
+          replay({ type: 'payment', value: board.method });
+          for (let n = 0; n < 30; n++) replay({ type: 'coin', value: [10, 20, 50, 100, 200, 500, 1000][n % 7] });
+        } else if (board.kind === 'detective') {
+          for (const slot of board.slots) replay({ type: 'link', slotId: slot.id, cardId: slot.expected });
+        } else {
+          replay({ type: 'parcel', value: board.parcel });
+          replay({ type: 'transport', value: board.transport });
+          if (board.departure) replay({ type: 'departure', value: board.departure });
+          // Keep the courier at the start so all movement and help controls remain testable.
+        }
+        return state;
+      }
+
+      function close() {
+        controller?.destroy();
+        controller = undefined;
+        if (dialog.open) dialog.close();
+      }
+
+      function open(event) {
+        event.preventDefault();
+        if (!import.meta.env.DEV) return;
+        close();
+        const scene = activityScenarios.find((candidate) => candidate.id === select.value);
+        if (!scene) return;
+        const siblings = activityScenarios.filter((candidate) => candidate.activityId === scene.activityId && candidate.level === scene.level && candidate.id !== scene.id).slice(0, 2);
+        const selected = [scene, ...siblings];
+        const stage = document.querySelector('#qa-screen').value;
+        const completed = stage === 'complete' ? selected : stage === 'scene-complete' ? [scene] : [];
+        const populated = document.querySelector('#qa-populated').checked;
+        const run = {
+          version: 1, runId: crypto.randomUUID(), id: scene.activityId, level: scene.level,
+          scenarioIds: selected.map((candidate) => candidate.id), index: stage === 'complete' ? 2 : 0,
+          state: populated ? populatedState(scene) : initialActivityState(scene), hinted: false, stage,
+          exerciseIds: completed.map((candidate) => candidate.exerciseId),
+          attemptIds: completed.map(() => crypto.randomUUID()), discoveries: completed.map((candidate) => candidate.discovery),
+          xp: 0, reward: stage === 'complete' ? 20 : 0, familiar: false,
+        };
+        localStorage.setItem(storageKey(scene), JSON.stringify(run));
+        controller = mountActivity(root, {
+          id: scene.activityId, level: scene.level, progress: emptyProgress(), sessionKey,
+          async submit(exercise, answer, _hinted, _mode, context) {
+            const saved = JSON.parse(localStorage.getItem(storageKey(scene)) ?? '{}');
+            const current = activityScenarios.find((candidate) => candidate.id === context?.scenarioId);
+            const evaluation = current ? evaluateActivity(current, saved.state) : { valid: false };
+            const correct = evaluation.valid && answerMatches(exercise, answer);
+            status.textContent = `QA submission: ${correct ? 'accepted' : 'needs correction'}. No player record was changed.`;
+            return { correct, progress: emptyProgress(), xpAdded: 0, attemptId: context?.attemptId };
+          },
+          async complete() { return { progress: emptyProgress(), xpAdded: 20 }; },
+          onClose: close,
+          speak(text) {
+            status.textContent = `German audio: ${text}`;
+            if ('speechSynthesis' in window) {
+              speechSynthesis.cancel();
+              const utterance = new SpeechSynthesisUtterance(text);
+              utterance.lang = 'de-DE';
+              speechSynthesis.speak(utterance);
+            }
+          },
+        });
+        status.textContent = `${scene.id} · ${populated ? 'populated' : 'initial'} · ${stage}. This run belongs only to ${sessionKey}.`;
+        dialog.showModal();
+      }
+
+      document.querySelector('#qa-form').addEventListener('submit', open);
+      document.querySelector('#qa-close').addEventListener('click', close);
+      dialog.addEventListener('cancel', (event) => { event.preventDefault(); close(); });
+      if (!import.meta.env.DEV) {
+        document.querySelector('#qa-form').hidden = true;
+        status.textContent = 'This fixture is available only on the Vite development server.';
+      }
+    </script>
+  </body>
+</html>

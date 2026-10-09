@@ -74,6 +74,34 @@ function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
 }
 
 describe('playable mission controller',()=>{
+  it('keeps panel and reference navigation separate from saved actions and learning assistance',()=>{
+    const root=new EventRoot(),onSceneVisible=vi.fn(),{controller,submit}=mount(root,{onSceneVisible});
+    const board=scene().board;
+    if(board.kind!=='cafe')throw new Error('Wrong board.');
+    root.click('add-item',board.stock[0]);
+    const before=run();
+    root.click('panel','kitchen');root.click('guide');root.click('guide');
+    expect(run()).toEqual(before);
+    expect(submit).not.toHaveBeenCalled();expect(onSceneVisible).toHaveBeenCalledTimes(1);
+    root.click('hint');
+    expect(run().hinted).toBe(true);expect(run().state).toEqual(before.state);
+    expect(root.innerHTML).toContain('aria-label="Mission help"');
+    controller.pause();controller.resume();
+    expect(run().state).toEqual(before.state);expect(onSceneVisible).toHaveBeenCalledTimes(1);
+  });
+
+  it('speaks the turn from the current heading after a courier backtracks',()=>{
+    const root=new EventRoot(),{speak}=mount(root,{id:'delivery'}),board=scene().board,state=run().state;
+    if(board.kind!=='delivery'||state.kind!=='delivery')throw new Error('Wrong board.');
+    const next=board.path[1],dx=next.x-state.position.x,dy=next.y-state.position.y;
+    const heading=dx>0?1:dx<0?3:dy>0?2:0,turn=(heading-state.heading+4)%4;
+    root.click('turn',turn===0?'straight':turn===1?'right':turn===3?'left':'back');
+    root.click('turn','back');root.click('speak-current-direction');
+    expect((run().state as {position:unknown}).position).toEqual(board.start);
+    expect(speak).toHaveBeenLastCalledWith('Kehre um.');
+    expect(run().hinted).toBe(false);
+  });
+
   it('submits actual wrong actions, retries the scene, and sends exactly three fresh correct proofs to completion',async()=>{
     const root=new EventRoot(),{controller,submit,complete}=mount(root);
     root.click('submit');await flush();
