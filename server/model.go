@@ -24,12 +24,13 @@ type Avatar struct {
 }
 
 type Player struct {
-	MapID  string  `json:"mapId"`
-	ID     string  `json:"id"`
-	Name   string  `json:"name"`
-	X      float64 `json:"x"`
-	Y      float64 `json:"y"`
-	Avatar Avatar  `json:"avatar"`
+	InteriorID string  `json:"interiorId,omitempty"`
+	MapID      string  `json:"mapId"`
+	ID         string  `json:"id"`
+	Name       string  `json:"name"`
+	X          float64 `json:"x"`
+	Y          float64 `json:"y"`
+	Avatar     Avatar  `json:"avatar"`
 }
 
 type ModeStats struct {

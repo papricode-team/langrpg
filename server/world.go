@@ -50,13 +50,15 @@ var mapSpawns = map[string]MapSpawn{
 func validMapID(id string) bool { _, ok := mapSpawns[id]; return ok }
 
 type worldMemory struct {
-	mapID          string
-	positions      map[string]MapSpawn
-	chatTimes      []time.Time
-	joinTimes      []time.Time
-	lastSeen       time.Time
-	lastMove       time.Time
-	movementCredit float64
+	mapID            string
+	interiorID       string
+	interiorPosition MapSpawn
+	positions        map[string]MapSpawn
+	chatTimes        []time.Time
+	joinTimes        []time.Time
+	lastSeen         time.Time
+	lastMove         time.Time
+	movementCredit   float64
 }
 
 type ChatMessage struct {
@@ -201,6 +203,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	}
 	if changingMap {
 		memory.lastMove, memory.movementCredit = now, 0
+		memory.interiorID = ""
 	}
 	client.memory = memory
 	position, exists := memory.positions[mapID]
@@ -208,6 +211,10 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		position = mapSpawns[mapID]
 	}
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
+	client.player.InteriorID = memory.interiorID
+	if memory.interiorID != "" {
+		client.player.X, client.player.Y = memory.interiorPosition.X, memory.interiorPosition.Y
+	}
 	memory.mapID, memory.lastSeen = mapID, now
 	memory.positions[mapID] = position
 	w.clients[player.ID] = client
@@ -281,11 +288,12 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			break
 		}
 		var message struct {
-			Type    string   `json:"type"`
-			X       *float64 `json:"x"`
-			Y       *float64 `json:"y"`
-			Message string   `json:"message"`
-			MapID   string   `json:"mapId"`
+			Type       string   `json:"type"`
+			X          *float64 `json:"x"`
+			Y          *float64 `json:"y"`
+			Message    string   `json:"message"`
+			MapID      string   `json:"mapId"`
+			InteriorID string   `json:"interiorId"`
 		}
 		if err := json.Unmarshal(b, &message); err != nil {
 			w.clientError(client, "invalid JSON message")
@@ -297,7 +305,11 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 				w.clientError(client, "coordinates must be between 0 and 1")
 				continue
 			}
-			if err := w.moveInMap(client, message.MapID, *message.X, *message.Y, now); err != "" {
+			if err := w.moveInLocation(client, message.MapID, message.InteriorID, *message.X, *message.Y, now); err != "" {
+				w.clientError(client, err)
+			}
+		case "joinInterior":
+			if err := w.joinInterior(client, message.MapID, message.InteriorID, now); err != "" {
 				w.clientError(client, err)
 			}
 		case "joinMap":
@@ -324,6 +336,10 @@ func (w *World) move(client *worldClient, x, y float64, now time.Time) {
 }
 
 func (w *World) moveInMap(client *worldClient, mapID string, x, y float64, now time.Time) string {
+	return w.moveInLocation(client, mapID, "", x, y, now)
+}
+
+func (w *World) moveInLocation(client *worldClient, mapID, interiorID string, x, y float64, now time.Time) string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.clients[client.player.ID] != client {
@@ -331,6 +347,9 @@ func (w *World) moveInMap(client *worldClient, mapID string, x, y float64, now t
 	}
 	if mapID != "" && mapID != client.player.MapID {
 		return "movement belongs to another map"
+	}
+	if interiorID != client.player.InteriorID {
+		return "movement belongs to another building"
 	}
 	memory := client.memory
 	memory.movementCredit = math.Min(.08, memory.movementCredit+math.Max(0, now.Sub(memory.lastMove).Seconds())*.24)
@@ -344,7 +363,12 @@ func (w *World) moveInMap(client *worldClient, mapID string, x, y float64, now t
 	client.player.X += dx / distance * step
 	client.player.Y += dy / distance * step
 	memory.movementCredit -= step
-	memory.positions[client.player.MapID] = MapSpawn{X: client.player.X, Y: client.player.Y}
+	position := MapSpawn{X: client.player.X, Y: client.player.Y}
+	if interiorID == "" {
+		memory.positions[client.player.MapID] = position
+	} else {
+		memory.interiorPosition = position
+	}
 	return ""
 }
 
@@ -411,7 +435,7 @@ func (w *World) broadcastPlayersLocked(mapID string) {
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
 	mapID := client.player.MapID
-	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID]})
+	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID]})
 	w.enqueueLocked(client, message)
 }
 
@@ -455,6 +479,7 @@ func (w *World) joinMap(client *worldClient, mapID string, now time.Time) string
 		position = mapSpawns[mapID]
 	}
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
+	client.player.InteriorID, client.memory.interiorID = "", ""
 	client.memory.mapID, client.memory.lastSeen = mapID, now
 	client.memory.positions[mapID] = position
 	client.memory.lastMove, client.memory.movementCredit = now, 0

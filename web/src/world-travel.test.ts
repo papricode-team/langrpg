@@ -5,17 +5,21 @@ import { worldAmbient } from './world-lighting';
 import { getExpedition } from './expeditions';
 import { createMapNavigation } from './navigation';
 import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
+import { getInterior, type InteriorId } from './interiors';
+import type { WorldPlayer } from './world';
 
 const harness = vi.hoisted(() => {
   class Picture {
     destroyed = false;
+    visible = true;
     tint = 0xffffff;
     flipX = false;
     constructor(public key = '', public frame?: string | number) {}
     fillStyle() { return this; } fillRect() { return this; }
     setDepth() { return this; } setOrigin() { return this; }
     setTint(tint: number) { this.tint = tint; return this; }
-    setScale() { return this; } setVisible() { return this; } setColor() { return this; }
+    setScale() { return this; } setVisible(visible: boolean) { this.visible = visible; return this; } setColor() { return this; }
+    setText() { return this; }
     setY() { return this; } setPosition() { return this; } add() { return this; }
     setFrame(frame: string | number) { this.frame = frame; return this; }
     setFlipX(flipX: boolean) { this.flipX = flipX; return this; }
@@ -81,6 +85,9 @@ vi.mock('./screen-filters', () => ({ createScreenFilter: () => undefined }));
 vi.mock('./world-scenery', () => ({ WorldScenery: class {
   setReducedMotion() {} setVisible() {} destroy() {}
 } }));
+vi.mock('./world-interior', () => ({ WorldInterior: class {
+  setReducedMotion() {} setVisible() {} update() {} destroy() {}
+} }));
 
 beforeEach(() => {
   vi.stubGlobal('document', { hasFocus: () => true, addEventListener() {}, removeEventListener() {} });
@@ -89,9 +96,9 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllGlobals());
 function fixture() {
-  const ready = vi.fn();
+  const ready = vi.fn(), move = vi.fn(), interiorChange = vi.fn();
   const world = new World({ clientWidth: 900, clientHeight: 600 } as HTMLElement,
-    { onNpc() {}, onMove() {}, onMapReady: ready, time: { mode: 'manual', hour: 12 } });
+    { onNpc() {}, onMove: move, onMapReady: ready, onInteriorChange: interiorChange, time: { mode: 'manual', hour: 12 } });
   // Exercise real scene travel and animation loading, with graphics-only work
   // replaced so network/lifecycle behavior can be tested without a browser GPU.
   const scene = harness.state.scene! as typeof harness.Scene.prototype & Record<string, any>;
@@ -100,8 +107,68 @@ function fixture() {
   scene.animateCharacter = vi.fn(); scene.frameCamera = vi.fn(); scene.setTerrainOnly = vi.fn();
   scene.createMapCharacters = vi.fn(); scene.createMapObjects = vi.fn();
   scene.createBuildingEntrances = vi.fn(); scene.createResidents = vi.fn();
-  return { world, scene, ready };
+  return { world, scene, ready, move, interiorChange };
 }
+
+function indoorFixture() {
+  const result = fixture(), { scene } = result;
+  scene.navigation = createMapNavigation('lindenhafen');
+  scene.local = scene.createCharacter('self', 'You', 800, 640, { hair: '#000000', skin: '#ccaa99', outfit: '#557755' });
+  for (const method of ['clearControls', 'createInteriorPropTargets', 'createPortal', 'transitionRoom', 'refreshNearby', 'updateResidents', 'updateWorldTime']) scene[method] = vi.fn();
+  scene.marker = new harness.Picture(); scene.marker.visible = false;
+  scene.cameras = { main: { worldView: { x: 0, y: 0, right: 1536, bottom: 1024 } } };
+  return result;
+}
+
+function player(id: string, interiorId?: InteriorId, mapId: WorldPlayer['mapId'] = 'lindenhafen'): WorldPlayer {
+  const position = interiorId ? getInterior(interiorId).spawn : { x: .52, y: .61 };
+  return { id, name: id, ...position, mapId, interiorId, avatar: { hair: '#000000', skin: '#ccaa99', outfit: '#557755' } };
+}
+
+describe('shared indoor rendering', () => {
+  it.each(['cafe', 'bakery', 'supermarket'] as const)('shows and moves only players in the same %s and region', id => {
+    const { world, scene, move } = indoorFixture();
+    world.setPlayers([player('self'), player('outside')], 'self');
+    const outside = scene.peers.get('outside');
+    world.enterInterior(id);
+    expect(outside.root.destroyed).toBe(true);
+    world.setPlayers([player('self', id), player('friend', id), player('outside'),
+      player('elsewhere', id === 'cafe' ? 'bakery' : 'cafe'), player('another-region', id, 'waldruh')], 'self');
+    expect([...scene.peers.keys()]).toEqual(['friend']);
+    const friend = scene.peers.get('friend');
+    expect(friend.root.visible).toBe(true);
+    const shifted = { ...player('friend', id), x: getInterior(id).spawn.x - .03 };
+    world.setPlayers([player('self', id), shifted], 'self');
+    const before = friend.x;
+    scene.update(100, 50); scene.update(150, 50);
+    expect(friend.x).toBeLessThan(before);
+    expect(move).toHaveBeenCalledWith(scene.local.x / 1536, scene.local.y / 1024);
+    // A scenery-only toggle must not keep indoor players permanently hidden.
+    const renderer = Object.getPrototypeOf(scene);
+    renderer.setTerrainOnly.call(scene, true); expect(friend.root.visible).toBe(false);
+    renderer.setTerrainOnly.call(scene, false); expect(friend.root.visible).toBe(true);
+    world.setPlayers([player('self', id)], 'self');
+    expect(scene.peers.size).toBe(0); expect(friend.root.destroyed).toBe(true);
+    world.destroy();
+  });
+
+  it('keeps outdoor snapshots from moving the indoor self and restores outdoor peers on exit', () => {
+    const { world, scene } = indoorFixture();
+    world.setPlayers([player('self'), player('outside'), player('friend', 'cafe')], 'self');
+    world.enterInterior('cafe');
+    const indoors = { x: scene.local.x, y: scene.local.y };
+    world.setPlayers([player('self'), player('outside'), player('friend', 'cafe')], 'self');
+    expect({ x: scene.local.x, y: scene.local.y }).toEqual(indoors);
+    expect([...scene.peers.keys()]).toEqual(['friend']);
+    const friend = scene.peers.get('friend');
+    world.leaveInterior();
+    expect(friend.root.destroyed).toBe(true);
+    expect([...scene.peers.keys()]).toEqual(['outside']);
+    world.setPlayers([player('self'), player('outside')], 'self');
+    expect(scene.local.x).not.toBe(indoors.x);
+    world.destroy();
+  });
+});
 
 describe('scene travel while destination art streams', () => {
   it('shows the newest arrival when returning to a destination whose first load is in flight', async () => {

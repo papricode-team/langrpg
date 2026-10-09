@@ -29,6 +29,7 @@ export interface WorldPlayer {
   y: number;
   avatar: Avatar;
   mapId?: MapId;
+  interiorId?: InteriorId;
 }
 
 export type WorldMotion = 'auto' | 'full' | 'reduced';
@@ -274,6 +275,13 @@ export class World {
     return this.scene.ready ? this.scene.interiorId : this.pendingInterior;
   }
 
+  /** Apply a confirmed room before its authoritative player snapshot. */
+  confirmInterior(id: InteriorId | undefined): void {
+    if (id) this.enterInterior(id);
+    else this.leaveInterior();
+    if (this.scene.ready) this.scene.resetPlayerPosition();
+  }
+
   /** Only the active story character keeps a distant navigation star. */
   setObjective(npcId: string | undefined): void {
     this.objective = npcId;
@@ -339,13 +347,13 @@ export class World {
     this.scene.switchMap(this.mapId);
     this.scene.setObjective(this.objective);
     this.scene.changeAvatar(this.avatar);
-    this.scene.syncPlayers(this.pendingPlayers, this.selfId);
     this.scene.setWindowFocused(this.windowFocused);
     this.scene.setInputEnabled(this.inputEnabled && this.visible && !document.hidden);
     this.scene.setJoystick(this.joystick.x, this.joystick.y);
     this.scene.setWatchMode(this.watching);
     this.scene.setTerrainOnly(this.terrainOnly);
     if (this.pendingInterior) this.scene.enterInterior(this.pendingInterior);
+    this.scene.syncPlayers(this.pendingPlayers, this.selfId);
     this.resize();
     this.game.canvas.setAttribute('aria-label', 'Lantern Atlas game world. Use WASD, arrow keys, the touch joystick, or tap a destination. Press E or the action button to speak or investigate nearby.');
     this.game.canvas.setAttribute('role', 'application');
@@ -383,7 +391,7 @@ class HarborScene extends Phaser.Scene {
     x: number; y: number; facing: number; navigation: NavigationGrid;
     characters: Map<string, Character>; objects: Map<string, WorldObject>; portals: Map<string, WorldPortal>;
   };
-  private deferredPlayers?: { players: WorldPlayer[]; selfId: string };
+  private latestPlayers?: { players: WorldPlayer[]; selfId: string };
   private interiorPropTargets: Phaser.GameObjects.Zone[] = [];
   private roomRevision = 0;
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion> }[] = [];
@@ -585,6 +593,7 @@ class HarborScene extends Phaser.Scene {
 
   switchMap(id: MapId): void {
     if (this.interiorSpec) this.leaveInterior(false);
+    this.latestPlayers = undefined;
     const map = getMap(id);
     const revision = ++this.mapRevision;
     this.clearControls();
@@ -670,7 +679,8 @@ class HarborScene extends Phaser.Scene {
     for (const character of this.characters.values()) character.root.setVisible(false);
     for (const object of this.objects.values()) object.root.setVisible(false);
     for (const portal of this.portals.values()) portal.root.setVisible(false);
-    for (const peer of this.peers.values()) peer.root.setVisible(false);
+    for (const peer of this.peers.values()) peer.root.destroy();
+    this.peers.clear();
     for (const resident of this.residents) resident.character.root.setVisible(false);
     this.characters = new Map();
     this.objects = new Map();
@@ -694,6 +704,8 @@ class HarborScene extends Phaser.Scene {
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.frameCamera(1);
     this.transitionRoom();
+    this.resetPlayerPosition();
+    if (this.latestPlayers) this.syncPlayers(this.latestPlayers.players, this.latestPlayers.selfId, true);
     this.owner.interiorChanged(id);
     this.refreshNearby();
   }
@@ -701,6 +713,8 @@ class HarborScene extends Phaser.Scene {
   leaveInterior(restorePeers = true): void {
     if (!this.interiorSpec || !this.outdoors) return;
     this.clearControls();
+    for (const peer of this.peers.values()) peer.root.destroy();
+    this.peers.clear();
     for (const character of this.characters.values()) character.root.destroy();
     for (const object of this.objects.values()) object.root.destroy();
     for (const portal of this.portals.values()) portal.root.destroy();
@@ -726,10 +740,9 @@ class HarborScene extends Phaser.Scene {
     for (const character of this.characters.values()) character.root.setVisible(!this.terrainOnly);
     for (const object of this.objects.values()) object.root.setVisible(!this.terrainOnly);
     for (const portal of this.portals.values()) portal.root.setVisible(!this.terrainOnly);
-    for (const peer of this.peers.values()) peer.root.setVisible(!this.terrainOnly);
-    const snapshot = this.deferredPlayers;
-    this.deferredPlayers = undefined;
+    const snapshot = this.latestPlayers;
     if (restorePeers && snapshot) this.syncPlayers(snapshot.players, snapshot.selfId, true);
+    this.resetPlayerPosition();
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.updateResidents();
     this.frameCamera(1);
@@ -766,7 +779,7 @@ class HarborScene extends Phaser.Scene {
     for (const target of this.interiorPropTargets) target.setVisible(!terrainOnly);
     this.local?.root.setVisible(!terrainOnly && !this.watching);
     for (const character of this.characters.values()) character.root.setVisible(!terrainOnly);
-    for (const character of this.peers.values()) character.root.setVisible(!terrainOnly && !this.interiorSpec);
+    for (const character of this.peers.values()) character.root.setVisible(!terrainOnly);
   }
 
   private createResidents(): void {
@@ -1008,17 +1021,11 @@ class HarborScene extends Phaser.Scene {
   }
 
   syncPlayers(players: WorldPlayer[], selfId: string, preserveLocal = false): void {
-    if (this.interiorSpec) {
-      // Interiors are local focus sessions. Outdoor snapshots must never use
-      // room coordinates for navigation, move the local player, or add peers.
-      this.deferredPlayers = { players, selfId };
-      const self = players.find(player => player.id === selfId);
-      if (self) this.local.name.setText(self.name || 'You');
-      return;
-    }
+    this.latestPlayers = { players, selfId };
     const present = new Set<string>();
     for (const player of players) {
       if ((player.mapId ?? 'lindenhafen') !== this.mapSpec.id) continue;
+      if ((player.interiorId || undefined) !== this.interiorSpec?.id) continue;
       if (!Number.isFinite(player.x) || !Number.isFinite(player.y)) continue;
       const rawX = clamp(player.x, 0.04, 0.96) * WIDTH;
       const rawY = clamp(player.y, 0.08, 0.95) * HEIGHT;
@@ -1043,6 +1050,7 @@ class HarborScene extends Phaser.Scene {
       if (!peer) {
         peer = this.createCharacter(player.id, player.name, x, y, player.avatar || DEFAULT_AVATAR);
         peer.name.setColor('#e1ecd9');
+        peer.root.setVisible(!this.terrainOnly);
         this.peers.set(player.id, peer);
       }
       peer.targetX = x;
@@ -1056,6 +1064,11 @@ class HarborScene extends Phaser.Scene {
     for (const [id, peer] of this.peers) {
       if (!present.has(id)) { peer.root.destroy(); this.peers.delete(id); }
     }
+  }
+
+  resetPlayerPosition(): void {
+    this.initializedSelf = false;
+    this.lastX = this.lastY = -1;
   }
 
   approachNpc(id: string): void {
@@ -1202,7 +1215,7 @@ class HarborScene extends Phaser.Scene {
     const moving = Math.hypot(localDx, localDy) > 0.05;
     this.animateCharacter(this.local, localDx, localDy, this.elapsed);
 
-    if (!this.interiorSpec && this.elapsed - this.lastSent > 1 / 15) {
+    if (this.elapsed - this.lastSent > 1 / 15) {
       const x = this.local.x / WIDTH;
       const y = this.local.y / HEIGHT;
       if (Math.abs(x - this.lastX) + Math.abs(y - this.lastY) > 0.0003) {

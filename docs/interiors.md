@@ -18,7 +18,7 @@ Use the atlas or places guide to walk to a building door, or approach a door and
 
 Each station offers vocabulary with German articles and plurals, optional speech playback, and a focused three-question session. Answers use the existing server grading and XP flow. A café order game is available at the café counter; the bakery hosts a hot-drink order while the bread bakes; the supermarket hosts basket, payment, and change practice. Indoor practice does not skip story objectives.
 
-Rooms currently run locally for each player. Outdoor multiplayer state is retained, movement broadcasts pause indoors, and the latest outdoor snapshot is applied when the player leaves.
+Players in the same building and region can see one another and move together. Indoor movement uses room coordinates, while each player's outdoor return position stays separate. Players outside, in another building, or in another region stay out of the room view. Reconnecting restores the current building and indoor position; leaving restores the saved outdoor position. Town chat remains shared across the region.
 
 ## Art and reproduction
 
@@ -42,7 +42,8 @@ The exporter preserves native alpha, uses inspected transparent row boundaries, 
 
 - `web/src/interiors.ts`: room architecture, furniture, entrances, navigation, vocabulary, and encounters.
 - `web/src/world-interior.ts`: fixed furniture and blended detail renderer, with shared culling and cleanup.
-- `web/src/world.ts`: entry/exit, indoor navigation, residents, interactions, outdoor visibility, and multiplayer suspension.
+- `web/src/world.ts`: entry/exit, indoor navigation, residents, interactions, and room-scoped multiplayer rendering.
+- `web/src/api.ts`, `server/world_interiors.go`: confirmed building transitions, tagged movement, outdoor return positions, and reconnect recovery.
 - `web/src/main.ts`, `interiors.css`, and `activities.ts`: room HUD, learning panels, and venue-specific games.
 - `web/src/interiors.test.ts`: doorway/furniture geometry, station/resident/exit reachability, exercise references, and transparent furniture/detail atlases.
 - `web/src/world-interior.test.ts`: unchanged furniture pixels/anchors across animation cycles, smooth detail blending, reduced motion, culling, and cleanup.

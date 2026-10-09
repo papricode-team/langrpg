@@ -160,6 +160,67 @@ describe('map-aware multiplayer API', () => {
   });
 });
 
+describe('shared building presence', () => {
+  function indoorPacket(id = 'cafe', type = 'interior') {
+    return { ...packet('lindenhafen', type), interiorId: id,
+      players: [{ id: 'self', mapId: 'lindenhafen', interiorId: id, x: .4, y: .75 }] };
+  }
+
+  it('confirms the room before applying presence and tags indoor movement', () => {
+    const { api, socket } = onlineApi(); const order: string[] = [];
+    api.onInterior = id => order.push(`room:${id}`);
+    api.onPlayers = () => order.push('players');
+    expect(api.joinInterior('cafe')).toBe(true);
+    api.move(.4, .75);
+    expect(socket.sent).toEqual([{ type: 'joinInterior', mapId: 'lindenhafen', interiorId: 'cafe' }]);
+    expect(api.joinMap('waldruh')).toBe(false);
+    socket.receive(indoorPacket());
+    expect(order).toEqual(['room:cafe', 'players']);
+    api.move(.4, .75);
+    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', interiorId: 'cafe', x: .4, y: .75 });
+    expect(api.joinInterior()).toBe(true);
+    api.move(.52, .61);
+    expect(socket.sent.at(-1)).toEqual({ type: 'joinInterior', mapId: 'lindenhafen', interiorId: '' });
+    socket.receive(indoorPacket(''));
+    api.move(.52, .61);
+    expect(api.interiorId).toBeUndefined();
+    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', x: .52, y: .61 });
+  });
+
+  it('ignores an earlier entry acknowledgement when the player has already left', () => {
+    const { api, socket } = onlineApi(); const onInterior = vi.fn(); api.onInterior = onInterior;
+    api.joinInterior('cafe'); api.joinInterior();
+    socket.receive(indoorPacket());
+    expect(onInterior).not.toHaveBeenCalled(); api.move(.52, .61);
+    expect(socket.sent).toHaveLength(2);
+    socket.receive(indoorPacket(''));
+    expect(onInterior).toHaveBeenCalledWith(undefined);
+    api.move(.52, .61); expect(socket.sent).toHaveLength(3);
+  });
+
+  it('rejects malformed, foreign and unavailable rooms', () => {
+    const { api, socket } = onlineApi(); const onInterior = vi.fn(); api.onInterior = onInterior;
+    expect(api.joinInterior('unknown' as 'cafe')).toBe(false);
+    for (const value of [indoorPacket('unknown'), { ...indoorPacket(), mapId: 'waldruh' },
+      { ...indoorPacket(), spawn: { x: -1, y: .5 } }, { ...indoorPacket(), players: {} }]) socket.receive(value);
+    expect(onInterior).not.toHaveBeenCalled(); expect(api.interiorId).toBeUndefined();
+    socket.receive(packet('saffroncourt', 'map'));
+    expect(api.joinInterior('cafe')).toBe(false);
+  });
+
+  it('rolls back rejected entry and restores a remembered room on reconnect', async () => {
+    const { api, socket } = onlineApi(); const onInterior = vi.fn(); api.onInterior = onInterior;
+    api.joinInterior('cafe'); socket.receive({ type: 'error', error: 'unknown building' });
+    expect(onInterior).toHaveBeenLastCalledWith(undefined);
+    api.joinInterior('cafe'); socket.receive(indoorPacket());
+    socket.close(); await Promise.resolve(); vi.advanceTimersByTime(800);
+    const replacement = latestSocket(); replacement.open(); replacement.receive(indoorPacket('cafe', 'welcome'));
+    expect(api.interiorId).toBe('cafe'); expect(onInterior).toHaveBeenLastCalledWith('cafe');
+    replacement.receive(packet('waldruh', 'map'));
+    expect(api.interiorId).toBeUndefined(); expect(onInterior).toHaveBeenLastCalledWith(undefined);
+  });
+});
+
 describe('session request compatibility', () => {
   it('preserves the bearer and JSON body for requests', async () => {
     const fetcher = vi.fn().mockResolvedValue(new Response('{"xp":6}', { headers: { 'Content-Type': 'application/json' } })); vi.stubGlobal('fetch', fetcher);

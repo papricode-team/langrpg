@@ -1,6 +1,7 @@
 import type { Avatar, WorldPlayer } from './world';
 import type { MapId } from './maps';
 import { isExpeditionMap } from './expeditions';
+import { buildingEntrances, type InteriorId } from './interiors';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
@@ -46,6 +47,8 @@ export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
 const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
+const validInterior = (mapId: MapId, value: unknown): value is InteriorId | '' | undefined =>
+  value === undefined || value === '' || buildingEntrances(mapId).some(entrance => entrance.interiorId === value);
 const validSpawn = (value: unknown): value is { x: number; y: number } => {
   if (!value || typeof value !== 'object') return false;
   const point = value as { x?: unknown; y?: unknown };
@@ -64,13 +67,16 @@ class ApiError extends Error {
 export class Api {
   token = localStorage.getItem('atlas.token') ?? '';
   mapId: MapId = initialMap();
+  interiorId?: InteriorId;
   private pendingMap?: MapId;
+  private pendingInterior?: { id: InteriorId | undefined };
   private socket?: WebSocket;
   private reconnectTimer?: number;
   private reconnectCount = 0;
   private stopped = false;
   private chatTimes: number[] = [];
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
+  onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
   onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
@@ -111,6 +117,7 @@ export class Api {
     if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
     this.socket?.close();
     this.pendingMap = undefined;
+    this.pendingInterior = undefined;
     this.onStatus?.('connecting');
     const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/world?token=${encodeURIComponent(this.token)}&mapId=${encodeURIComponent(this.mapId)}`);
     this.socket = ws;
@@ -120,22 +127,37 @@ export class Api {
       try {
         const value = JSON.parse(event.data);
         if (value.type === 'welcome' || value.type === 'map') {
-          if (!isMapId(value.mapId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
+          if (!isMapId(value.mapId) || !validInterior(value.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
           if (typeof value.selfId === 'string') this.selfId = value.selfId;
           this.mapId = value.mapId;
+          this.interiorId = value.interiorId || undefined;
+          this.pendingInterior = undefined;
           if (value.type === 'map' || this.pendingMap === value.mapId) this.pendingMap = undefined;
           try { localStorage.setItem('atlas.map', this.mapId); } catch { /* Storage availability must not prevent entering a map. */ }
           this.onMap?.(this.mapId, value.spawn);
+          this.onInterior?.(this.interiorId);
           this.onPlayers?.(value.players, this.selfId);
           for (const message of Array.isArray(value.messages) ? value.messages : []) {
             if (message?.mapId === this.mapId) this.onChat?.(message);
           }
+        } else if (value.type === 'interior' && value.mapId === this.mapId) {
+          if (!validInterior(this.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
+          const id = value.interiorId || undefined;
+          if (this.pendingInterior && this.pendingInterior.id !== id) return;
+          this.interiorId = id;
+          this.pendingInterior = undefined;
+          this.onInterior?.(id);
+          this.onPlayers?.(value.players, this.selfId);
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
           this.onPlayers?.(value.players, this.selfId);
         } else if (value.type === 'chat' && value.mapId === this.mapId && value.message?.mapId === this.mapId) {
           this.onChat?.(value.message);
         } else if (value.type === 'error') {
           this.pendingMap = undefined;
+          if (this.pendingInterior) {
+            this.pendingInterior = undefined;
+            this.onInterior?.(this.interiorId);
+          }
           this.onError?.(value.error ?? value.message ?? 'The town could not process that action.');
         }
       } catch { /* A malformed frame cannot alter application state. */ }
@@ -143,6 +165,7 @@ export class Api {
     ws.onclose = event => {
       if (this.socket !== ws) return;
       this.pendingMap = undefined;
+      this.pendingInterior = undefined;
       if (!this.stopped && event.code === 4001) {
         this.stopped = true;
         this.onStatus?.('replaced');
@@ -156,12 +179,22 @@ export class Api {
   }
   /** Enter only after the server confirms the map. Reconnect keeps the last acknowledgement. */
   joinMap(mapId: MapId): boolean {
-    if (!isMapId(mapId) || this.pendingMap) return false;
+    if (!isMapId(mapId) || this.pendingMap || this.pendingInterior) return false;
     if (!this.send({ type: 'joinMap', mapId })) return false;
     this.pendingMap = mapId;
     return true;
   }
-  move(x: number, y: number) { if (!this.pendingMap) this.send({ type: 'move', mapId: this.mapId, x, y }); }
+  joinInterior(id?: InteriorId): boolean {
+    if (this.pendingMap || !validInterior(this.mapId, id)) return false;
+    if (this.pendingInterior ? this.pendingInterior.id === id : this.interiorId === id) return true;
+    if (!this.send({ type: 'joinInterior', mapId: this.mapId, interiorId: id ?? '' })) return false;
+    this.pendingInterior = { id };
+    return true;
+  }
+  move(x: number, y: number) {
+    if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
+      ...(this.interiorId ? { interiorId: this.interiorId } : {}), x, y });
+  }
   chat(message: string) {
     if (this.pendingMap) throw new Error('Arriving in the next region. Your message is still here.');
     if (this.socket?.readyState !== WebSocket.OPEN) throw new Error('Chat reconnecting. Please try again in a moment.');

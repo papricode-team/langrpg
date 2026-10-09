@@ -53,6 +53,7 @@ const activityInfo = [
 ];
 let mapId: MapId = 'lindenhafen';
 let interiorId: InteriorId | undefined;
+let applyingWorldLocation = false;
 let pendingMap: MapId | undefined;
 let pendingDestination: { kind: 'quest' | 'follow'; questId: string } | undefined;
 let pendingExpeditionGame: string | undefined;
@@ -242,10 +243,20 @@ function syncLocation() {
   chip.innerHTML = room ? `<span class="interior-location-icon">${icon(interiorIcon(room.id))}</span><span class="interior-location-copy"><small>INSIDE ${e(region.name.toUpperCase())}</small><strong>${e(room.name)}</strong></span><button data-action="leave-interior" aria-label="Leave ${e(room.name)}">${icon('arrow')}<span>Leave</span></button>` : '';
 }
 function onInteriorChange(id?: InteriorId) {
+  if (!applyingWorldLocation && !api.joinInterior(id)) {
+    applyInterior(api.interiorId);
+    toast('The building is reconnecting. Please try again in a moment.', true);
+    return;
+  }
   interiorId = id;
-  syncLocation(); updateNearby(); updateProgress();
+  syncLocation(); updateNearby(); updateProgress(); updateConnection();
   document.querySelector('#quest-tracker')!.setAttribute('aria-label', id ? 'Learning in this building' : 'Next story objective');
   document.dispatchEvent(new Event('atlas-controls-reset'));
+}
+function applyInterior(id?: InteriorId) {
+  applyingWorldLocation = true;
+  try { world.confirmInterior(id); }
+  finally { applyingWorldLocation = false; }
 }
 function guideToBuilding(id: InteriorId) {
   if (!buildingEntrances(mapId).some(entrance => entrance.interiorId === id)) return;
@@ -1186,9 +1197,13 @@ async function boot() {
     chatMessages.splice(0); players = []; renderChat();
     document.querySelector('#chat-region')!.textContent = getMap(id).name;
     document.querySelector<HTMLElement>('#game-shell')!.dataset.map = id;
-    world.setMap(id); interiorId = world.getInteriorId(); syncLocation(); updateProgress(); world.setInputEnabled(worldCanInteract());
+    applyingWorldLocation = true;
+    try { world.setMap(id); }
+    finally { applyingWorldLocation = false; }
+    interiorId = world.getInteriorId(); syncLocation(); updateProgress(); world.setInputEnabled(worldCanInteract());
     if (regionReady) queueMicrotask(() => onRegionReady(id));
   };
+  api.onInterior = applyInterior;
   api.onPlayers = (value, selfId) => { players = value; world.setPlayers(players, selfId); updateConnection(); };
   api.onChat = message => { if (!chatMessages.some(m => m.id === message.id)) { chatMessages.push(message); if (chatMessages.length > 100) chatMessages.shift(); renderChat(); } };
   api.onStatus = value => {
@@ -1216,11 +1231,12 @@ async function boot() {
 }
 function updateConnection() {
   const el = document.querySelector('#connection-pill')!;
-  const stamp = `${connection}:${players.length || 1}`;
+  const count = players.filter(player => (player.interiorId || undefined) === interiorId).length || 1;
+  const stamp = `${connection}:${count}`;
   if (el.getAttribute('data-status') === stamp) return;
   el.setAttribute('data-status', stamp);
   el.className = `connection-pill ${connection}`;
-  el.innerHTML = `<span></span>${connection === 'online' ? `${players.length || 1} ${(players.length || 1) === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : connection === 'replaced' ? 'Active in another tab' : 'Reconnecting'}`;
+  el.innerHTML = `<span></span>${connection === 'online' ? `${count} ${count === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : connection === 'replaced' ? 'Active in another tab' : 'Reconnecting'}`;
 }
 document.addEventListener('visibilitychange', () => { world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
 window.addEventListener('beforeunload', () => { stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });

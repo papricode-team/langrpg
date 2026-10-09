@@ -16,7 +16,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 - Server-graded attempts, exact course completion and validated current-run activity rewards. Independent word memory separates exposure from recognition/listening/recall and uses FSRS; new or due words return in short sessions while strong words rest.
 - Original grammar explanations, connected reading/listening passages, guided writing and unseen practical checkpoints. The Word atlas makes every lexical target searchable, with articles, plurals, forms and source attribution.
 - Full-viewport desktop and mobile game interface with a compact objective chip, contextual interactions and one adventure menu. The region atlas and learning tools open as game panels. The canvas world uses Phaser; accessible interface controls use HTML.
-- Players and chat are separated by region. Server-confirmed travel restores map positions and keeps movement and messages in the correct region.
+- Players and chat are separated by region. Players inside the same café, bakery or supermarket can see one another and move together. Server-confirmed travel and building transitions keep indoor and outdoor positions separate and restore the current room after reconnecting.
 
 ## Run locally
 
