@@ -52,8 +52,9 @@
 .activity-entry>.icon { width:30px; height:30px; color:#d7bf80; }
 .activity-entry .primary-button { width:fit-content; min-height:44px; border-color:#c3b579; background:#e3d6a4; color:#274c36; }
 .activity-entry small { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:#cad5ac; }
-.npc-activity { margin-top:20px; padding-top:18px; border-top:1px solid #bec6a4; }
-.npc-activity .primary-button { width:100%; margin:6px 0; }
+.npc-activity { grid-column:1/-1; min-width:0; margin-top:20px; padding-top:18px; border-top:1px solid #bec6a4; }
+.npc-activity .primary-button { width:100%; max-width:100%; min-width:0; margin:6px 0; white-space:normal; line-height:1.4; }
+.npc-activity .primary-button .icon { flex-shrink:0; }
 .object-games { margin:18px 0; }
 .object-games button { min-height:48px; width:100%; }
 .course-intro-examples { padding:16px; border:1px solid #c0c7a4; margin:20px 0; background:#e8e7cc; }
