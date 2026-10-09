@@ -29,12 +29,13 @@ From the repository root:
 
 ```sh
 cp .env.example .env
-docker compose up --build -d
+# Set POSTGRES_PASSWORD in .env.
+docker compose -f compose.yaml -f compose.local.yaml up --build -d --wait
 ```
 
-Open `http://localhost:8088`. PostgreSQL is stored in a named volume; it is not published to the host. The web container proxies REST and WebSocket connections to `server:8080`. Compose waits for database and server readiness health checks. Use `docker compose down` to stop; `docker compose down -v` also deletes the database volume.
+Open `http://localhost:8088`. PostgreSQL is stored in a named volume; it is not published to the host. The web container proxies REST and WebSocket connections to `server:8080`. Compose waits for database and server readiness health checks. Use `docker compose -f compose.yaml -f compose.local.yaml down` to stop; adding `-v` also deletes the database volume.
 
-For Dokploy, choose a Docker Compose service, connect the repository, and use `compose.yaml`. Configure the public domain on the **web service at internal port 80** through Dokploy's Domains tab; this injects Traefik labels and connects the public service to the Dokploy network. Set `ALLOWED_ORIGINS=https://your-game-domain.example` and a strong URL-safe `POSTGRES_PASSWORD` in Dokploy Environment. The Compose file explicitly maps these values into containers. Remove the local web `ports` mapping in a production override when ingress is handled by Traefik. Leave server/database private. Use Dokploy named-volume backups and verify restores. No remote deployment has been performed by this project.
+For Dokploy, choose a Docker Compose service, connect the repository, and use only `compose.yaml`. Configure the public domain on the **web service at internal port 80** through Dokploy's Domains tab with HTTPS. Set `ALLOWED_ORIGINS=https://your-game-domain.example` and a strong `POSTGRES_PASSWORD` in Dokploy Environment. Both are required. Compose passes credentials separately through `PGUSER`, `PGPASSWORD` and `PGDATABASE`, so passwords need no URL encoding. All services retain the `app` network; only the frontend needs Dokploy's ingress network. No host ports are published by the production file. See [deployment, backups and restore instructions](../docs/deployment.md). No remote deployment has been performed by this project.
 
 Redis is deliberately absent from this first deployment because the current world has one Go process. Additional zone processes can add Redis for ephemeral presence/routing; learning data should remain transactional in PostgreSQL.
 

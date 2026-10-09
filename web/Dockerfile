@@ -8,7 +8,7 @@ COPY server/curriculum.json server/curriculum.json
 COPY server/course.json server/course.json
 RUN npm run build --workspace web
 
-FROM nginx:alpine
+FROM nginx:stable-alpine
 COPY web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/web/dist /usr/share/nginx/html
 EXPOSE 80

@@ -5,6 +5,9 @@ web/.vite
 server/.data
 server/data
 .env
+.env.*
+**/.env
+**/.env.*
 .git
 .DS_Store
 **/.DS_Store

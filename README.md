@@ -78,12 +78,13 @@ Frontend tests cover learning behavior, complete vocabulary/course/server parity
 
 ```sh
 cp .env.example .env
-docker compose up --build -d
+# Set POSTGRES_PASSWORD in .env.
+docker compose -f compose.yaml -f compose.local.yaml up --build -d --wait
 ```
 
 Edit `.env` for your environment, especially `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS`. Local Compose serves the game at [http://localhost:8088](http://localhost:8088), with PostgreSQL in a named volume and the Go service private.
 
-For Dokploy, create a Docker Compose service using `compose.yaml`. Add the public domain to the **web service, internal port 80**, and set `ALLOWED_ORIGINS` to that HTTPS origin. Keep the database and backend private; remove the local web port mapping through a production override when Dokploy handles ingress. See the [deployment and API guide](server/README.md) for configuration, persistence and backups.
+For Dokploy, create a Docker Compose service using **only `compose.yaml`**. Set `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS` in Environment, then add the public domain to the **web service, internal port 80** with HTTPS. The default file publishes no host ports. PostgreSQL stores profiles, sessions, progress and learning receipts in a persistent named volume. See the [Dokploy deployment guide](docs/deployment.md) for setup, verification, backups and recovery, and the [API guide](server/README.md) for the data contract.
 
 ## Temporary TryCloudflare preview
 

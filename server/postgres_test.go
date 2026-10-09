@@ -5,11 +5,75 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"reflect"
 	"strings"
 	"sync"
 	"testing"
 	"time"
 )
+
+func TestPostgresRestartRestoresProfileProgressAndReceipts(t *testing.T) {
+	url := os.Getenv("TEST_DATABASE_URL")
+	if url == "" {
+		t.Skip("set TEST_DATABASE_URL to a disposable PostgreSQL database for integration checks")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	store, err := NewPGStore(ctx, url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	app := NewApp(store, testCurriculum(), nil, 10)
+	token, player := createSession(t, app, "Restart Ada")
+	t.Cleanup(func() {
+		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
+		defer done()
+		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		app.Close()
+	})
+	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("restart-one")))
+	decodeAttempt(t, request(app, "POST", "/api/attempt", token, AttemptInput{ID: "restart-two", ItemID: "item-two", ExerciseID: "exercise-two", Answer: "Ich bin hier", Mode: "production", QuestID: "quest"}))
+	if result := request(app, "POST", "/api/quest/complete", token, map[string]string{"questId": "quest"}); result.Code != 200 {
+		t.Fatalf("complete quest: %d %s", result.Code, result.Body.String())
+	}
+	avatar := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#456789"}
+	before, err := store.UpdateProfile(ctx, tokenHash(token), "Restart Mira", avatar)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Recreate both storage and application, including startup schema initialization.
+	app.Close()
+	reopened, err := NewPGStore(ctx, url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	store = reopened
+	app = NewApp(store, testCurriculum(), nil, 10)
+	after, err := store.Get(ctx, tokenHash(token))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(before, after) {
+		t.Fatal("restart changed profile, progress or review schedules")
+	}
+	if result := request(app, "POST", "/api/session", token, map[string]any{}); result.Code != 200 {
+		t.Fatalf("resume session after restart: %d %s", result.Code, result.Body.String())
+	}
+	retry := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("restart-one")))
+	if !retry.Duplicate || retry.XPAdded != 0 || retry.Progress.XP != before.Progress.XP {
+		t.Fatal("restart lost the saved attempt receipt or awarded duplicate XP")
+	}
+	result := request(app, "POST", "/api/quest/complete", token, map[string]string{"questId": "quest"})
+	var quest struct {
+		Duplicate bool `json:"duplicate"`
+		XPAdded   int  `json:"xpAdded"`
+	}
+	if result.Code != 200 || json.Unmarshal(result.Body.Bytes(), &quest) != nil || !quest.Duplicate || quest.XPAdded != 0 {
+		t.Fatalf("restart lost quest reward receipt: %d %s", result.Code, result.Body.String())
+	}
+}
 
 func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 	url := os.Getenv("TEST_DATABASE_URL")
