@@ -3812,3 +3812,19 @@ kbd {
 }
 .settings-controls { display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
 .settings-controls .outline-button { padding:11px 14px; }
+
+/* Let the assembled artwork breathe without navigation labels. */
+.world-atmosphere-controls { position:absolute; left:50%; bottom:max(78px,calc(env(safe-area-inset-bottom) + 60px)); transform:translateX(-50%); display:flex; align-items:center; gap:8px; }
+.world-watch-button { border:1px solid #e5cd9666; border-radius:24px; padding:10px 18px; background:#203e32d9; color:#f4e5c3; font:500 12px 'DM Sans',sans-serif; cursor:pointer; }
+.world-watch-caption { display:none; position:fixed; z-index:5; left:50%; bottom:max(20px,env(safe-area-inset-bottom)); transform:translateX(-50%); align-items:center; gap:24px; padding:12px 18px; border:1px solid #dccb9966; border-radius:32px; background:#16382ed9; color:#f4e5c3; font:12px 'DM Sans',sans-serif; white-space:nowrap; }
+.world-watch-caption strong { font-weight:500; }
+.world-watch-caption button { color:inherit; background:transparent; border:0; padding:8px 0; cursor:pointer; font:inherit; }
+.world-watch-caption kbd { margin-left:8px; opacity:.6; font:10px inherit; }
+.watching-world .game-hud { visibility:hidden; pointer-events:none; }
+.watching-world .world-watch-caption { display:flex; }
+@media (max-width:760px) { .world-atmosphere-controls { top:max(145px,calc(env(safe-area-inset-top) + 131px)); bottom:auto; left:auto; right:15px; transform:none; } .world-watch-button { padding:9px 13px; } .world-watch-caption { gap:12px; padding:8px 14px; } .world-watch-caption kbd { display:none; } }
+.world-time-button { padding:9px 13px; border:1px solid #e5cd9655; border-radius:20px; background:#203e32d9; color:#f4e5c3; font:11px 'DM Sans',sans-serif; cursor:pointer; }
+.settings-time-preview { display:grid; gap:10px; padding:12px 0; color:#435348; }
+.settings-time-preview input { width:100%; accent-color:#56775e; min-height:36px; }
+.settings-time-preview output { font-size:12px; }
+@media(max-width:760px) { .world-watch-caption>span:first-child { display:none; } .world-watch-caption { max-width:calc(100% - 40px); gap:12px; font-size:11px; } }

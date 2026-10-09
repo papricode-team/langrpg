@@ -1,14 +1,18 @@
 import * as Phaser from 'phaser';
 import { npcs } from './content';
-import { createFallbackNavigation, createMapNavigation, NavigationGrid } from './navigation';
+import { createMapNavigation, NavigationGrid } from './navigation';
 import type { MapPoint } from './navigation';
 import { getMap, maps, type MapId, type WorldObjectSpec, type WorldMapSpec } from './maps';
 import { NPC_ART, PLAYER_ART, PLAYER_LAYERS, paintAvatarPreview, playerMaterialShadows, prepareCharacterArt } from './character-art';
 import { createWorldResidents, sampleResidentMotion } from './world-life';
-import { WorldEnvironment } from './world-environment';
 import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
+import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
+import { sceneryAnimationManifestKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import { WorldClock, type WorldPeriod, type WorldTimeOptions, type WorldTimeState } from './world-clock';
+import { buildingEntrances, createInteriorNavigation, getInterior, interiors, type InteriorId, type InteriorSpec } from './interiors';
+import { WorldInterior } from './world-interior';
 
 export interface Avatar {
   hair: string;
@@ -29,12 +33,16 @@ export type WorldMotion = 'auto' | 'full' | 'reduced';
 
 export interface WorldOptions {
   motion?: WorldMotion;
+  time?: WorldTimeOptions;
+  onTimeChange?: (state: WorldTimeState) => void;
   onNpc: (id: string) => void;
   onMove: (x: number, y: number) => void;
   onReady?: () => void;
   onNearby?: (id: string | undefined) => void;
   onObject?: (id: string) => void;
   onMapReady?: (id: MapId) => void;
+  onInteriorChange?: (id: InteriorId | undefined) => void;
+  onInteriorInteract?: (id: string) => void;
 }
 
 interface Character {
@@ -60,16 +68,9 @@ interface Character {
   artScale: number;
   avatar: Avatar;
   hovered?: boolean;
-}
-
-interface Ambient {
-  sprite: Phaser.GameObjects.Image;
-  x: number;
-  y: number;
-  phase: number;
-  speed: number;
-  kind: 'mote' | 'butterfly' | 'leaf' | 'bird' | 'lantern';
-  amplitude?: number;
+  interactionId?: string;
+  idleAnimation?: SceneryAnimation;
+  idleFrame?: string;
 }
 
 interface WorldObject {
@@ -82,6 +83,17 @@ interface WorldObject {
   label: Phaser.GameObjects.Text;
   hovered: boolean;
   activatedUntil: number;
+  interactionId: string;
+}
+
+interface WorldPortal {
+  id: string;
+  x: number;
+  y: number;
+  root: Phaser.GameObjects.Container;
+  halo: Phaser.GameObjects.Ellipse;
+  label: Phaser.GameObjects.Text;
+  hovered: boolean;
 }
 
 const WIDTH = 1536;
@@ -121,6 +133,9 @@ export class World {
   private motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   private motionMode: WorldMotion = 'auto';
   private screenFilterSettings = normalizeScreenFilterSettings(undefined);
+  private watching = false;
+  private terrainOnly = false;
+  private pendingInterior?: InteriorId;
   private handleMotionPreference = () => {
     if (this.scene.ready) this.scene.setReducedMotion(this.motionMode === 'reduced'
       || this.motionMode === 'auto' && this.motionPreference.matches);
@@ -141,7 +156,7 @@ export class World {
 
   constructor(private container: HTMLElement, private options: WorldOptions) {
     this.motionMode = options.motion ?? 'auto';
-    this.scene = new HarborScene(this);
+    this.scene = new HarborScene(this, options.time);
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
       parent: container,
@@ -190,6 +205,27 @@ export class World {
     return this.game.renderer?.type === Phaser.WEBGL;
   }
 
+  /** A quiet camera tour; scenery and residents use the same runtime as play. */
+  setWatchMode(watching: boolean): void {
+    this.watching = watching;
+    this.clearHeldInput();
+    if (this.scene.ready) this.scene.setWatchMode(watching);
+  }
+
+  /** Development art inspection without replacing the live scene. */
+  setTerrainOnly(terrainOnly: boolean): void {
+    this.terrainOnly = terrainOnly;
+    if (this.scene.ready) this.scene.setTerrainOnly(terrainOnly);
+  }
+
+  getWorldStats(): { objects: number; animated: number; residents: number; seconds: number; period: WorldPeriod } {
+    return this.scene.worldStats;
+  }
+
+  setTimePreference(options: WorldTimeOptions): void { this.scene.setTimePreference(options); }
+  getWorldTime(): WorldTimeState { return this.scene.worldTime; }
+  timeChanged(state: WorldTimeState): void { this.options.onTimeChange?.(state); }
+
   /** Draw the same painted south-facing avatar used in the game, CPU only. */
   renderAvatarPreview(canvas: HTMLCanvasElement, avatar: Avatar): boolean {
     return this.scene.ready && this.scene.renderAvatarPreview(canvas, avatar);
@@ -202,6 +238,7 @@ export class World {
   /** Switch after the server acknowledges travel; snapshots restore saved positions. */
   setMap(id: MapId): void {
     this.mapId = getMap(id).id;
+    this.pendingInterior = undefined;
     // The acknowledgement is followed by a fresh player snapshot. Replaying an
     // old same-map snapshot here would consume its authoritative first snap.
     this.pendingPlayers = [];
@@ -211,6 +248,27 @@ export class World {
 
   focusObject(id: string): void {
     if (this.scene.ready) this.scene.approachObject(id);
+  }
+
+  /** Walk to the real doorway selected from the places panel. */
+  focusBuilding(id: InteriorId): void {
+    if (this.scene.ready) this.scene.approachBuilding(id);
+  }
+
+  enterInterior(id: InteriorId): void {
+    this.pendingInterior = id;
+    this.clearHeldInput();
+    if (this.scene.ready) this.scene.enterInterior(id);
+  }
+
+  leaveInterior(): void {
+    this.pendingInterior = undefined;
+    this.clearHeldInput();
+    if (this.scene.ready) this.scene.leaveInterior();
+  }
+
+  getInteriorId(): InteriorId | undefined {
+    return this.scene.ready ? this.scene.interiorId : this.pendingInterior;
   }
 
   /** Only the active story character keeps a distant navigation star. */
@@ -286,6 +344,9 @@ export class World {
     this.scene.setWindowFocused(this.windowFocused);
     this.scene.setInputEnabled(this.inputEnabled && this.visible && !document.hidden);
     this.scene.setJoystick(this.joystick.x, this.joystick.y);
+    this.scene.setWatchMode(this.watching);
+    this.scene.setTerrainOnly(this.terrainOnly);
+    if (this.pendingInterior) this.scene.enterInterior(this.pendingInterior);
     this.resize();
     this.game.canvas.setAttribute('aria-label', 'Lantern Atlas game world. Use WASD, arrow keys, the touch joystick, or tap a destination. Press E or the action button to speak or investigate nearby.');
     this.game.canvas.setAttribute('role', 'application');
@@ -297,6 +358,11 @@ export class World {
   investigate(id: string): void { this.options.onObject?.(id); }
   mapReady(id: MapId): void { this.options.onMapReady?.(id); }
   nearby(id: string | undefined): void { this.options.onNearby?.(id); }
+  interiorChanged(id: InteriorId | undefined): void {
+    this.pendingInterior = id;
+    this.options.onInteriorChange?.(id);
+  }
+  interiorInteract(id: string): void { this.options.onInteriorInteract?.(id); }
 
   private clearHeldInput(): void {
     this.joystick = { x: 0, y: 0 };
@@ -310,9 +376,17 @@ class HarborScene extends Phaser.Scene {
   private peers = new Map<string, Character>();
   private characters = new Map<string, Character>();
   private objects = new Map<string, WorldObject>();
-  private ambient: Ambient[] = [];
-  private environment?: WorldEnvironment;
   private scenery?: WorldScenery;
+  private interior?: WorldInterior;
+  private interiorSpec?: InteriorSpec;
+  private portals = new Map<string, WorldPortal>();
+  private outdoors?: {
+    x: number; y: number; facing: number; navigation: NavigationGrid;
+    characters: Map<string, Character>; objects: Map<string, WorldObject>; portals: Map<string, WorldPortal>;
+  };
+  private deferredPlayers?: { players: WorldPlayer[]; selfId: string };
+  private interiorPropTargets: Phaser.GameObjects.Zone[] = [];
+  private roomRevision = 0;
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion> }[] = [];
   private reducedMotion = false;
   private navigation!: NavigationGrid;
@@ -343,20 +417,125 @@ class HarborScene extends Phaser.Scene {
   private cameraLead: MapPoint = { x: 0, y: 0 };
   private playerArtReady = false;
   private screenFilter?: ScreenFilterController;
+  private watching = false;
+  private terrainOnly = false;
+  private tourTime = 0;
+  private animationRequests = new Map<string, (() => void)[]>();
+  private clock: WorldClock;
+  private period: WorldPeriod;
+  private pendingPeriod?: string;
+  private lastClockLabel = '';
+  get worldTime(): WorldTimeState { return this.clock.advance(0); }
+  get interiorId(): InteriorId | undefined { return this.interiorSpec?.id; }
+  setTimePreference(options: WorldTimeOptions): void { this.clock.configure(options); if (this.ready) this.updateWorldTime(0); }
 
-  constructor(private owner: World) { super({ key: 'lindenhafen' }); }
+  get worldStats(): { objects: number; animated: number; residents: number; seconds: number; period: WorldPeriod } {
+    return { objects: this.interior?.objectCount ?? this.scenery?.objectCount ?? 0,
+      residents: this.interior ? this.characters.size : this.residents.length,
+      animated: this.interior?.animatedObjectCount ?? this.scenery?.animatedObjectCount ?? 0, seconds: this.decorativeElapsed, period: this.period };
+  }
+
+  constructor(private owner: World, time?: WorldTimeOptions) { super({ key: 'lindenhafen' }); this.clock = new WorldClock(time); this.period = this.clock.advance(0).period; }
 
   preload(): void {
-    for (const map of maps) this.load.image(map.id, map.asset);
+    for (const map of maps) {
+      this.load.image(map.id, map.asset);
+      this.load.atlas(sceneryTextureKey(map.id), map.sceneryAsset, map.sceneryAtlas);
+      this.load.atlas(sceneryVariationKey(map.id), map.variationAsset, map.variationAtlas);
+    }
+    this.loadAnimationAssets('lindenhafen', this.period);
+    for (const room of interiors) this.load.image(`interior-${room.id}-room`, room.asset);
+    for (const sheet of ['cafe-objects', 'bakery-objects', 'supermarket-objects', 'decor', 'furniture']) {
+      this.load.atlas(`interior-${sheet}`, `/assets/interior-${sheet}.webp`, `/assets/interior-${sheet}.json`);
+    }
+    this.load.json('interior-animations', '/assets/interior-animations.json');
+    this.load.once('filecomplete-json-residents-animations', (_key: string, _type: string, manifest: SceneryAnimationManifest) => {
+      for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
+    });
+    this.load.json('residents-animations', '/assets/residents-animations.json');
     this.load.spritesheet(NPC_ART.key, '/assets/characters.webp', { frameWidth: NPC_ART.width, frameHeight: NPC_ART.height });
     this.load.image(PLAYER_ART.source, '/assets/player-walk.webp');
+  }
+
+  private loadAnimationAssets(id: MapId, period: WorldPeriod, onLoaded?: () => void): void {
+    const key = sceneryAnimationManifestKey(id, period);
+    const cached = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
+    if (cached && Object.values(cached.assets).length > 0 && Object.values(cached.assets).every(asset => this.textures.exists(asset.key)) && (!cached.terrain || this.textures.exists(cached.terrain))) {
+      onLoaded?.();
+      return;
+    }
+    const pending = this.animationRequests.get(key);
+    if (pending) { if (onLoaded) pending.push(onLoaded); return; }
+    this.animationRequests.set(key, onLoaded ? [onLoaded] : []);
+    const enqueue = (manifest: SceneryAnimationManifest) => {
+      for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) {
+        if (!this.textures.exists(page)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
+      }
+      if (manifest.terrain && !this.textures.exists(manifest.terrain)) this.load.image(manifest.terrain, `/assets/${manifest.terrain}.webp`);
+    };
+    if (cached) enqueue(cached);
+    else {
+      this.load.once(`filecomplete-json-${key}`, (_key: string, _type: string, manifest: SceneryAnimationManifest) => enqueue(manifest));
+      this.load.json(key, `/assets/${id}-${period}-animations.json`);
+    }
+    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+      const callbacks = this.animationRequests.get(key) ?? [];
+      this.animationRequests.delete(key);
+      if (this.ready && this.mobileCamera && this.mapSpec.id !== id) this.releaseAnimationAssets(id, period);
+      for (const callback of callbacks) callback();
+    });
+    if (this.ready && !this.load.isLoading()) this.load.start();
+  }
+
+  private releaseAnimationAssets(id: MapId, period: WorldPeriod): void {
+    const key = sceneryAnimationManifestKey(id, period);
+    // A partly loaded atlas must remain intact until its completion callbacks
+    // decide whether to display it or release the stale request.
+    if (this.animationRequests.has(key)) return;
+    const manifest = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
+    if (manifest) for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) {
+      if (this.textures.exists(page)) this.textures.remove(page);
+    }
+    if (manifest?.terrain && this.textures.exists(manifest.terrain)) this.textures.remove(manifest.terrain);
+  }
+
+  private applyPeriod(period: WorldPeriod): void {
+    const previous = this.period;
+    this.scenery?.destroy();
+    this.period = period;
+    this.scenery = new WorldScenery(this, this.mapSpec.id, period);
+    this.scenery.setReducedMotion(this.reducedMotion);
+    this.scenery.setVisible(!this.terrainOnly && !this.interiorSpec);
+    const manifest = this.cache.json.get(sceneryAnimationManifestKey(this.mapSpec.id, period)) as SceneryAnimationManifest | undefined;
+    const terrain = manifest?.terrain && this.textures.exists(manifest.terrain) ? manifest.terrain : this.mapSpec.id;
+    if (this.background instanceof Phaser.GameObjects.Image) this.background.setTexture(terrain);
+    if (this.mobileCamera && previous !== period) this.releaseAnimationAssets(this.mapSpec.id, previous);
+    this.pendingPeriod = undefined;
+  }
+
+  private updateWorldTime(seconds: number): void {
+    const state = this.clock.advance(seconds);
+    if (state.label + state.period + state.mode !== this.lastClockLabel) {
+      this.lastClockLabel = state.label + state.period + state.mode;
+      this.owner.timeChanged(state);
+    }
+    const request = `${this.mapSpec.id}-${state.period}`;
+    if (state.period !== this.period && this.pendingPeriod !== request) {
+      this.pendingPeriod = request;
+      const id = this.mapSpec.id;
+      this.loadAnimationAssets(id, state.period, () => {
+        if (this.pendingPeriod === request) this.pendingPeriod = undefined;
+        if (this.ready && this.mapSpec.id === id && this.clock.advance(0).period === state.period) this.applyPeriod(state.period);
+        else if (this.mobileCamera && (this.mapSpec.id !== id || this.period !== state.period)) this.releaseAnimationAssets(id, state.period);
+      });
+    }
   }
 
   create(): void {
     this.navigation = createMapNavigation('lindenhafen');
     this.playerArtReady = prepareCharacterArt(this);
     this.screenFilter = createScreenFilter(this);
-    this.createAmbientTextures();
+    this.createMarkerTexture();
     this.marker = this.add.container(0, 0, [
       this.add.ellipse(0, 0, 37, 18).setStrokeStyle(1.5, 0xf5e4ac, 0.8),
       this.add.ellipse(0, 0, 6, 3, 0xf5e4ac, 0.8),
@@ -375,7 +554,7 @@ class HarborScene extends Phaser.Scene {
     }, false) as Record<string, Phaser.Input.Keyboard.Key> | undefined;
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, objects: Phaser.GameObjects.GameObject[]) => {
-      if (!this.controlsEnabled || !this.windowFocused || objects.length || pointer.rightButtonDown()) return;
+      if (!this.controlsEnabled || this.watching || !this.windowFocused || objects.length || pointer.rightButtonDown()) return;
       const destination = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
       this.walkTo(destination.x, destination.y);
     });
@@ -386,10 +565,10 @@ class HarborScene extends Phaser.Scene {
     this.ready = true;
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.ready = false;
-      this.environment?.destroy();
-      this.environment = undefined;
       this.scenery?.destroy();
       this.scenery = undefined;
+      this.interior?.destroy();
+      this.interior = undefined;
       this.residents = [];
     });
     this.owner.boot();
@@ -400,6 +579,7 @@ class HarborScene extends Phaser.Scene {
   }
 
   switchMap(id: MapId): void {
+    if (this.interiorSpec) this.leaveInterior(false);
     const map = getMap(id);
     this.clearControls();
     this.initializedSelf = false;
@@ -410,34 +590,38 @@ class HarborScene extends Phaser.Scene {
       this.background?.destroy();
       this.scenery?.destroy();
       this.scenery = undefined;
+      if (this.mobileCamera && this.mapSpec.id !== map.id) for (const period of ['day', 'night'] as const) this.releaseAnimationAssets(this.mapSpec.id, period);
       for (const npc of this.characters.values()) npc.root.destroy();
       for (const object of this.objects.values()) object.root.destroy();
+      for (const portal of this.portals.values()) portal.root.destroy();
       for (const peer of this.peers.values()) peer.root.destroy();
-      for (const item of this.ambient) item.sprite.destroy();
       for (const resident of this.residents) resident.character.root.destroy();
-      this.environment?.destroy();
       this.characters.clear();
       this.objects.clear();
+      this.portals.clear();
       this.peers.clear();
-      this.ambient = [];
       this.residents = [];
       this.mapSpec = map;
       this.navigation = createMapNavigation(map.id);
       if (this.textures.exists(map.id)) {
         this.background = this.add.image(0, 0, map.id).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000);
-        this.scenery = new WorldScenery(this, map.id);
-      } else if (map.id === 'lindenhafen') {
-        this.background = this.drawFallbackTown();
-        this.navigation = createFallbackNavigation();
       } else {
         // Asset failures have a plain neutral ground, never a recolored town.
         this.background = this.add.graphics().fillStyle(0x263b3c).fillRect(0, 0, WIDTH, HEIGHT).setDepth(-1000);
       }
+      this.period = this.clock.advance(0).period;
+      this.scenery = new WorldScenery(this, map.id, this.period);
+      this.scenery.setReducedMotion(this.reducedMotion);
       this.createMapCharacters(map);
       this.createMapObjects(map);
-      this.createAmbient();
+      this.createBuildingEntrances();
       this.createResidents();
-      this.createEnvironment();
+      this.setTerrainOnly(this.terrainOnly);
+      const period = this.clock.advance(0).period;
+      this.loadAnimationAssets(map.id, period, () => {
+        if (this.ready && this.mapSpec.id === map.id && this.clock.advance(0).period === period) this.applyPeriod(period);
+        else if (this.mobileCamera && (this.mapSpec.id !== map.id || this.period !== period)) this.releaseAnimationAssets(map.id, period);
+      });
     }
     const spawn = this.navigation.closestPoint(map.spawn.x * WIDTH, map.spawn.y * HEIGHT);
     this.local.x = this.local.targetX = spawn.x;
@@ -452,19 +636,117 @@ class HarborScene extends Phaser.Scene {
     queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
   }
 
+  enterInterior(id: InteriorId): void {
+    if (this.interiorSpec?.id === id) return;
+    if (this.interiorSpec) this.leaveInterior();
+    const spec = getInterior(id);
+    this.clearControls();
+    this.outdoors = {
+      x: this.local.x, y: this.local.y, facing: this.local.facing, navigation: this.navigation,
+      characters: this.characters, objects: this.objects, portals: this.portals,
+    };
+    this.background?.setVisible(false);
+    this.scenery?.setVisible(false);
+    for (const character of this.characters.values()) character.root.setVisible(false);
+    for (const object of this.objects.values()) object.root.setVisible(false);
+    for (const portal of this.portals.values()) portal.root.setVisible(false);
+    for (const peer of this.peers.values()) peer.root.setVisible(false);
+    for (const resident of this.residents) resident.character.root.setVisible(false);
+    this.characters = new Map();
+    this.objects = new Map();
+    this.portals = new Map();
+    this.interiorSpec = spec;
+    this.roomRevision++;
+    this.navigation = createInteriorNavigation(id);
+    this.interior = new WorldInterior(this, spec);
+    this.interior.setReducedMotion(this.reducedMotion);
+    this.interior.setVisible(!this.terrainOnly);
+    this.createMapCharacters(spec, spec);
+    this.createMapObjects({ objects: spec.objects.map(object => ({ ...object, kind: 'instrument' as const })) }, 'interior');
+    this.createInteriorPropTargets(spec);
+    this.createPortal(`exit:${id}`, spec.exit.x * WIDTH, spec.exit.y * HEIGHT, 'Return to town', true);
+    const spawn = this.navigation.closestPoint(spec.spawn.x * WIDTH, spec.spawn.y * HEIGHT);
+    this.local.x = this.local.targetX = spawn.x;
+    this.local.y = this.local.targetY = spawn.y;
+    this.local.facing = 2;
+    this.local.walkDistance = 0;
+    this.cameraLead = { x: 0, y: 0 };
+    this.animateCharacter(this.local, 0, 0, this.elapsed);
+    this.frameCamera(1);
+    this.transitionRoom();
+    this.owner.interiorChanged(id);
+    this.refreshNearby();
+  }
+
+  leaveInterior(restorePeers = true): void {
+    if (!this.interiorSpec || !this.outdoors) return;
+    this.clearControls();
+    for (const character of this.characters.values()) character.root.destroy();
+    for (const object of this.objects.values()) object.root.destroy();
+    for (const portal of this.portals.values()) portal.root.destroy();
+    for (const target of this.interiorPropTargets) target.destroy();
+    this.interiorPropTargets = [];
+    this.interior?.destroy();
+    this.interior = undefined;
+    this.interiorSpec = undefined;
+    this.roomRevision++;
+    const outdoors = this.outdoors;
+    this.outdoors = undefined;
+    this.navigation = outdoors.navigation;
+    this.characters = outdoors.characters;
+    this.objects = outdoors.objects;
+    this.portals = outdoors.portals;
+    this.local.x = this.local.targetX = outdoors.x;
+    this.local.y = this.local.targetY = outdoors.y;
+    this.local.facing = outdoors.facing;
+    this.local.walkDistance = 0;
+    this.cameraLead = { x: 0, y: 0 };
+    this.background?.setVisible(true);
+    this.scenery?.setVisible(!this.terrainOnly);
+    for (const character of this.characters.values()) character.root.setVisible(!this.terrainOnly);
+    for (const object of this.objects.values()) object.root.setVisible(!this.terrainOnly);
+    for (const portal of this.portals.values()) portal.root.setVisible(!this.terrainOnly);
+    for (const peer of this.peers.values()) peer.root.setVisible(!this.terrainOnly);
+    const snapshot = this.deferredPlayers;
+    this.deferredPlayers = undefined;
+    if (restorePeers && snapshot) this.syncPlayers(snapshot.players, snapshot.selfId, true);
+    this.animateCharacter(this.local, 0, 0, this.elapsed);
+    this.updateResidents();
+    this.frameCamera(1);
+    if (restorePeers) this.transitionRoom();
+    this.owner.interiorChanged(undefined);
+    this.refreshNearby();
+  }
+
+  private transitionRoom(): void {
+    this.cameras.main.resetFX();
+    if (!this.reducedMotion) this.cameras.main.fadeIn(220, 29, 35, 30);
+  }
+
   setObjective(id: string | undefined): void { this.objective = id; }
 
   setReducedMotion(reduced: boolean): void {
     this.reducedMotion = reduced;
-    this.environment?.setReducedMotion(reduced);
+    this.scenery?.setReducedMotion(reduced);
+    this.interior?.setReducedMotion(reduced);
   }
 
-  private createEnvironment(): void {
-    this.environment?.destroy();
-    this.environment = new WorldEnvironment(this, this.mapSpec.id, {
-      mobile: this.mobileCamera,
-      reducedMotion: this.reducedMotion,
-    });
+  setWatchMode(watching: boolean): void {
+    this.watching = watching;
+    this.tourTime = 0;
+    this.clearControls();
+    this.local?.root.setVisible(!watching && !this.terrainOnly);
+    this.frameCamera(1);
+  }
+
+  setTerrainOnly(terrainOnly: boolean): void {
+    this.terrainOnly = terrainOnly;
+    this.scenery?.setVisible(!terrainOnly && !this.interiorSpec);
+    this.interior?.setVisible(!terrainOnly);
+    for (const target of this.interiorPropTargets) target.setVisible(!terrainOnly);
+    this.local?.root.setVisible(!terrainOnly && !this.watching);
+    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly);
+    for (const character of this.peers.values()) character.root.setVisible(!terrainOnly && !this.interiorSpec);
   }
 
   private createResidents(): void {
@@ -477,13 +759,18 @@ class HarborScene extends Phaser.Scene {
     }
   }
 
-  private createMapCharacters(map: WorldMapSpec): void {
+  private createMapCharacters(map: Pick<WorldMapSpec, 'npcs'>, interior?: InteriorSpec): void {
     for (const position of map.npcs) {
       const index = npcs.findIndex(npc => npc.id === position.id);
       const npc = npcs[index];
       if (!npc) continue;
       const { x, y } = this.navigation.closestPoint(position.x * WIDTH, position.y * HEIGHT);
       const character = this.createCharacter(npc.id, npc.name, x, y, DEFAULT_AVATAR, npc.role.split('·')[0].trim(), index);
+      const interiorNpc = interior?.npcs.find(resident => resident.id === npc.id);
+      if (interiorNpc) {
+        character.interactionId = interiorNpc.interactionId;
+        character.role?.setText(interiorNpc.role);
+      }
       character.halo = this.add.ellipse(0, 2, 37, 17, 0xf5dda0, 0.08).setStrokeStyle(1, 0xf3d286, 0.6).setVisible(false);
       character.root.addAt(character.halo, 1);
       character.marker = this.add.text(0, -96, '✦', { fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
@@ -491,21 +778,21 @@ class HarborScene extends Phaser.Scene {
       character.root.add([character.marker, character.hint]);
       character.figure.setInteractive({
         useHandCursor: true,
-        hitArea: new Phaser.Geom.Rectangle(-40, 12, NPC_ART.width + 80, NPC_ART.height * NPC_ART.footY - 12),
+        hitArea: new Phaser.Geom.Rectangle(-40, 12, (character.idleAnimation?.width ?? NPC_ART.width) + 80, (character.idleAnimation?.height ?? NPC_ART.height) * (character.idleAnimation?.originY ?? NPC_ART.footY) - 12),
         hitAreaCallback: Phaser.Geom.Rectangle.Contains,
       });
       character.figure.on('pointerover', () => { character.hovered = true; });
       character.figure.on('pointerout', () => { character.hovered = false; });
       character.figure.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
-        this.approachNpc(npc.id);
+        this.approachInteraction(character.interactionId ?? npc.id);
       });
       this.characters.set(npc.id, character);
     }
     this.resizeHitTargets();
   }
 
-  private createMapObjects(map: WorldMapSpec): void {
+  private createMapObjects(map: Pick<WorldMapSpec, 'objects'>, prefix = 'object'): void {
     for (const spec of map.objects) {
       const x = spec.x * WIDTH, y = spec.y * HEIGHT;
       const halo = this.add.ellipse(0, 0, 36, 17, 0xeecf8a, .06).setStrokeStyle(1, 0xf5d896, .35);
@@ -513,26 +800,83 @@ class HarborScene extends Phaser.Scene {
       const label = this.add.text(0, -35, spec.label, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
       const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
       const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(y + 8);
-      const object: WorldObject = { spec, x, y, root, halo, marker, label, hovered: false, activatedUntil: 0 };
+      const object: WorldObject = { spec, x, y, root, halo, marker, label, hovered: false, activatedUntil: 0,
+        interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
       hit.on('pointerover', () => { object.hovered = true; });
       hit.on('pointerout', () => { object.hovered = false; });
       hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
-        this.approachObject(spec.id);
+        this.approachInteraction(object.interactionId);
       });
       this.objects.set(spec.id, object);
     }
   }
 
+  private createInteriorPropTargets(spec: InteriorSpec): void {
+    const manifest = this.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
+    for (const prop of spec.props) {
+      if (!prop.interactive) continue;
+      const object = this.objects.get(prop.interactive);
+      if (!object) continue;
+      const animation = manifest?.assets[prop.asset];
+      const height = prop.width * (animation ? animation.height / animation.referenceWidth : .75);
+      const centerX = prop.x + (.5 - (animation?.originX ?? .5)) * prop.width;
+      const centerY = prop.y + (.5 - (animation?.originY ?? .97)) * height;
+      const hit = this.add.zone(centerX, centerY, prop.width, height * .9)
+        .setDepth((prop.depth ?? prop.y) + 1).setInteractive({ useHandCursor: true }).setVisible(!this.terrainOnly);
+      hit.on('pointerover', () => { object.hovered = true; });
+      hit.on('pointerout', () => { object.hovered = false; });
+      hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+        event.stopPropagation();
+        this.approachInteraction(object.interactionId);
+      });
+      this.interiorPropTargets.push(hit);
+    }
+  }
+
+  private createBuildingEntrances(): void {
+    for (const entrance of buildingEntrances(this.mapSpec.id)) {
+      this.createPortal(entrance.id, entrance.x * WIDTH, entrance.y * HEIGHT, entrance.label);
+    }
+  }
+
+  private createPortal(id: string, x: number, y: number, label: string, exit = false): void {
+    const halo = this.add.ellipse(0, 1, 56, 22, 0xffd996, .1).setStrokeStyle(1.5, 0xf5d5a0, .75);
+    const glyph = this.add.text(0, -12, exit ? '↙' : '↗', {
+      fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#fff1cd', stroke: '#3a4236', strokeThickness: 3,
+    }).setOrigin(.5);
+    const name = this.add.text(0, -42, label, {
+      fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
+    }).setOrigin(.5);
+    const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
+    const root = this.add.container(x, y, [halo, glyph, name, hit]).setDepth(y + 8);
+    const portal: WorldPortal = { id, x, y, root, halo, label: name, hovered: false };
+    hit.on('pointerover', () => { portal.hovered = true; });
+    hit.on('pointerout', () => { portal.hovered = false; });
+    hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      event.stopPropagation();
+      this.approachInteraction(id);
+    });
+    this.portals.set(id, portal);
+  }
+
   private resizeHitTargets(): void {
     for (const npc of this.characters.values()) {
       const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
-      const width = Math.max(NPC_ART.width + 80, 44 / (npc.artScale * this.fitZoom));
-      hit?.setTo((NPC_ART.width - width) / 2, 12, width, NPC_ART.height * NPC_ART.footY - 12);
+      const frameWidth = npc.idleAnimation?.width ?? NPC_ART.width;
+      const frameHeight = npc.idleAnimation?.height ?? NPC_ART.height;
+      const footY = npc.idleAnimation?.originY ?? NPC_ART.footY;
+      const width = Math.max(frameWidth + 80, 44 / (npc.artScale * this.fitZoom));
+      hit?.setTo((frameWidth - width) / 2, 12, width, frameHeight * footY - 12);
     }
     for (const object of this.objects.values()) {
       const hit = object.root.list.at(-1) as Phaser.GameObjects.Zone;
       const size = Math.max(52, 44 / this.fitZoom);
+      hit.setSize(size, size, true);
+    }
+    for (const portal of this.portals.values()) {
+      const hit = portal.root.list.at(-1) as Phaser.GameObjects.Zone;
+      const size = Math.max(76, 44 / this.fitZoom);
       hit.setSize(size, size, true);
     }
   }
@@ -545,7 +889,9 @@ class HarborScene extends Phaser.Scene {
     this.mobileCamera = width < 760 || (width < 1000 && height < 520);
     if (previousMobile !== this.mobileCamera) {
       for (const npc of this.characters.values()) npc.hint?.setText(this.mobileCamera ? 'TAP TO TALK' : 'TALK · E');
-      if (this.environment) this.createEnvironment();
+      if (this.mobileCamera) for (const map of maps) for (const period of ['day', 'night'] as const) {
+        if (map.id !== this.mapSpec.id || period !== this.period) this.releaseAnimationAssets(map.id, period);
+      }
     }
     this.cameras.main.setZoom(this.fitZoom * this.zoomFactor);
     this.resizeHitTargets();
@@ -591,7 +937,7 @@ class HarborScene extends Phaser.Scene {
   }
 
   interactNearest(): boolean {
-    if (!this.controlsEnabled || !this.windowFocused || document.hidden) return false;
+    if (!this.controlsEnabled || this.watching || !this.windowFocused || document.hidden) return false;
     const nearest = this.findNearestInteraction();
     if (!nearest) return false;
     this.approachInteraction(nearest.id);
@@ -610,11 +956,15 @@ class HarborScene extends Phaser.Scene {
     let distance = INTERACTION_DISTANCE;
     for (const npc of this.characters.values()) {
       const separation = Math.hypot(npc.x - this.local.x, npc.y - this.local.y);
-      if (separation < distance) { distance = separation; nearest = npc; }
+      if (separation < distance) { distance = separation; nearest = { id: npc.interactionId ?? npc.id, x: npc.x, y: npc.y }; }
     }
     for (const object of this.objects.values()) {
       const separation = Math.hypot(object.x - this.local.x, object.y - this.local.y);
-      if (separation < distance) { distance = separation; nearest = { id: `object:${object.spec.id}`, x: object.x, y: object.y }; }
+      if (separation < distance) { distance = separation; nearest = { id: object.interactionId, x: object.x, y: object.y }; }
+    }
+    for (const portal of this.portals.values()) {
+      const separation = Math.hypot(portal.x - this.local.x, portal.y - this.local.y);
+      if (separation < distance) { distance = separation; nearest = { id: portal.id, x: portal.x, y: portal.y }; }
     }
     return nearest;
   }
@@ -626,7 +976,7 @@ class HarborScene extends Phaser.Scene {
   }
 
   private refreshNearby(): void {
-    this.setNearby(this.controlsEnabled && this.windowFocused && !document.hidden ? this.findNearestInteraction()?.id : undefined);
+    this.setNearby(this.controlsEnabled && !this.watching && this.windowFocused && !document.hidden ? this.findNearestInteraction()?.id : undefined);
   }
 
   changeAvatar(avatar: Avatar): void {
@@ -639,7 +989,15 @@ class HarborScene extends Phaser.Scene {
     return paintAvatarPreview(this, canvas, this.avatarPalette(avatar));
   }
 
-  syncPlayers(players: WorldPlayer[], selfId: string): void {
+  syncPlayers(players: WorldPlayer[], selfId: string, preserveLocal = false): void {
+    if (this.interiorSpec) {
+      // Interiors are local focus sessions. Outdoor snapshots must never use
+      // room coordinates for navigation, move the local player, or add peers.
+      this.deferredPlayers = { players, selfId };
+      const self = players.find(player => player.id === selfId);
+      if (self) this.local.name.setText(self.name || 'You');
+      return;
+    }
     const present = new Set<string>();
     for (const player of players) {
       if ((player.mapId ?? 'lindenhafen') !== this.mapSpec.id) continue;
@@ -649,6 +1007,7 @@ class HarborScene extends Phaser.Scene {
       const { x, y } = this.navigation.closestPoint(rawX, rawY);
       if (player.id === selfId) {
         this.local.name.setText(player.name || 'You');
+        if (preserveLocal) { this.initializedSelf = true; continue; }
         if (!this.initializedSelf) {
           this.local.x = x;
           this.local.y = y;
@@ -682,30 +1041,55 @@ class HarborScene extends Phaser.Scene {
   }
 
   approachNpc(id: string): void {
-    this.approachInteraction(id);
+    this.approachInteraction(this.characters.get(id)?.interactionId ?? id);
   }
 
   approachObject(id: string): void {
-    this.approachInteraction(id.startsWith('object:') ? id : `object:${id}`);
+    this.approachInteraction(id.includes(':') ? id : `${this.interiorSpec ? 'interior' : 'object'}:${id}`);
+  }
+
+  approachBuilding(id: InteriorId): void {
+    if (this.interiorSpec?.id === id) return;
+    if (this.interiorSpec) this.leaveInterior();
+    this.approachInteraction(`building:${id}`);
   }
 
   private interactionPosition(id: string): { x: number; y: number } | undefined {
-    return id.startsWith('object:') ? this.objects.get(id.slice(7)) : this.characters.get(id);
+    if (id.startsWith('building:') || id.startsWith('exit:')) return this.portals.get(id);
+    if (id.startsWith('object:')) return this.objects.get(id.slice(7));
+    if (id.startsWith('interior:')) {
+      const station = this.objects.get(id);
+      const resident = [...this.characters.values()].find(character => character.interactionId === id);
+      if (!station) return resident;
+      if (!resident) return station;
+      return Math.hypot(resident.x - this.local.x, resident.y - this.local.y)
+        < Math.hypot(station.x - this.local.x, station.y - this.local.y) ? resident : station;
+    }
+    return this.characters.get(id);
   }
 
   private triggerInteraction(id: string): void {
     this.cancelRoute();
-    if (id.startsWith('object:')) {
+    if (id.startsWith('building:')) {
+      const entrance = buildingEntrances(this.mapSpec.id).find(building => building.id === id);
+      if (entrance) this.enterInterior(entrance.interiorId);
+    } else if (id.startsWith('exit:')) {
+      this.leaveInterior();
+    } else if (id.startsWith('interior:')) {
+      const station = this.objects.get(id);
+      if (!station || !this.interiorSpec) return;
+      station.activatedUntil = this.elapsed + 4;
+      this.owner.interiorInteract(station.spec.id);
+    } else if (id.startsWith('object:')) {
       const object = this.objects.get(id.slice(7));
       if (!object) return;
       object.activatedUntil = this.elapsed + 4;
-      this.environment?.react(object.spec.kind, this.decorativeElapsed);
       this.owner.investigate(object.spec.id);
     } else this.owner.interact(id);
   }
 
   private approachInteraction(id: string): void {
-    if (!this.controlsEnabled || !this.windowFocused || document.hidden) return;
+    if (!this.controlsEnabled || this.watching || !this.windowFocused || document.hidden) return;
     const target = this.interactionPosition(id);
     if (!target) return;
     if (Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) {
@@ -734,6 +1118,7 @@ class HarborScene extends Phaser.Scene {
 
   update(_time: number, delta: number): void {
     if (!this.ready) return;
+    const roomRevision = this.roomRevision;
     const seconds = Math.min(delta, 50) / 1000;
     this.elapsed += seconds;
     if (!this.reducedMotion) this.decorativeElapsed += seconds;
@@ -756,6 +1141,7 @@ class HarborScene extends Phaser.Scene {
         this.interactNearest();
       }
     }
+    if (roomRevision !== this.roomRevision) return;
     if (this.controlsEnabled && this.windowFocused && !vx && !vy && (this.joystick.x || this.joystick.y)) {
       const smooth = 1 - Math.exp(-18 * seconds);
       this.smoothJoystick.x += (this.joystick.x - this.smoothJoystick.x) * smooth;
@@ -764,7 +1150,7 @@ class HarborScene extends Phaser.Scene {
       vy = this.smoothJoystick.y;
       this.cancelRoute();
     }
-    if (!this.controlsEnabled || !this.windowFocused) { vx = 0; vy = 0; }
+    if (!this.controlsEnabled || !this.windowFocused || this.watching) { vx = 0; vy = 0; }
     if (!vx && !vy && this.target) {
       const dx = this.target.x - this.local.x;
       const dy = this.target.y - this.local.y;
@@ -782,6 +1168,7 @@ class HarborScene extends Phaser.Scene {
         }
       } else { vx = dx / distance; vy = dy / distance; }
     }
+    if (roomRevision !== this.roomRevision) return;
     const nextX = this.local.x + vx * WALK_SPEED * seconds;
     const nextY = this.local.y + vy * WALK_SPEED * seconds;
     if (this.navigation.canWalkSegment(this.local.x, this.local.y, nextX, nextY)) {
@@ -797,7 +1184,7 @@ class HarborScene extends Phaser.Scene {
     const moving = Math.hypot(localDx, localDy) > 0.05;
     this.animateCharacter(this.local, localDx, localDy, this.elapsed);
 
-    if (this.elapsed - this.lastSent > 1 / 15) {
+    if (!this.interiorSpec && this.elapsed - this.lastSent > 1 / 15) {
       const x = this.local.x / WIDTH;
       const y = this.local.y / HEIGHT;
       if (Math.abs(x - this.lastX) + Math.abs(y - this.lastY) > 0.0003) {
@@ -816,7 +1203,7 @@ class HarborScene extends Phaser.Scene {
       npc.role?.setVisible(show && !this.mobileCamera);
       npc.hint?.setVisible(show);
       if (npc.marker) {
-        npc.marker.setVisible(this.objective === npc.id && !show);
+        npc.marker.setVisible(!this.watching && this.objective === npc.id && !show);
         npc.marker.y = -96 + (this.reducedMotion ? 0 : Math.sin(this.elapsed * 2 + npc.phase) * 1.5);
       }
     }
@@ -829,11 +1216,13 @@ class HarborScene extends Phaser.Scene {
       this.animateCharacter(peer, dx * interpolation, dy * interpolation, this.elapsed + peer.phase);
       peer.name.setVisible(Math.hypot(peer.x - this.local.x, peer.y - this.local.y) < 180 || !!peer.hovered);
     }
-    this.updateResidents();
+    this.updateWorldTime(seconds);
+    if (!this.interiorSpec) this.updateResidents();
     this.updateObjects(this.elapsed);
-    this.updateAmbient(this.decorativeElapsed);
-    this.environment?.update(this.decorativeElapsed, this.cameras.main.worldView);
-    this.scenery?.update(this.cameras.main.worldView);
+    this.updatePortals();
+    if (this.interior) this.interior.update(this.decorativeElapsed, this.cameras.main.worldView);
+    else this.scenery?.update(this.decorativeElapsed, this.cameras.main.worldView);
+    if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.refreshNearby();
     if (this.marker.visible) this.marker.setScale(this.reducedMotion ? 1 : 1 + Math.sin(this.elapsed * 4) * 0.04);
     if (Math.abs(this.zoomFactor - this.targetZoomFactor) > 0.0001) {
@@ -848,6 +1237,19 @@ class HarborScene extends Phaser.Scene {
 
   private frameCamera(follow: number): void {
     const camera = this.cameras.main;
+    if (this.watching) {
+      // A slow, continuous tour. Motion stays on the artwork when the camera rests.
+      const zoom = this.fitZoom * (1.12 + Math.sin(this.tourTime * .045) * .04);
+      camera.setZoom(zoom);
+      const centerX = 768 + Math.sin(this.tourTime * .036) * 440;
+      const centerY = 540 + Math.sin(this.tourTime * .027) * 155;
+      const targetX = clamp(centerX - camera.width / zoom / 2, 0, Math.max(0, WIDTH - camera.width / zoom));
+      const targetY = clamp(centerY - camera.height / zoom / 2, 0, Math.max(0, HEIGHT - camera.height / zoom));
+      camera.scrollX += (targetX - camera.scrollX) * follow;
+      camera.scrollY += (targetY - camera.scrollY) * follow;
+      return;
+    }
+    camera.setZoom(this.fitZoom * this.zoomFactor);
     const viewWidth = camera.width / camera.zoom;
     const viewHeight = camera.height / camera.zoom;
     const targetScrollX = clamp(this.local.x + this.cameraLead.x - viewWidth / 2, 0, Math.max(0, WIDTH - viewWidth));
@@ -872,6 +1274,11 @@ class HarborScene extends Phaser.Scene {
         this.setCharacterFrame(character, PLAYER_ART.idle + character.facing);
       }
     }
+    if (character.idleAnimation) {
+      const frame = sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
+      if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
+      return;
+    }
     // The ground pivot never moves. Breathing is deliberately smaller than a
     // pixel, with no spinning, bobbing, detached feet or stretched strides.
     const breathe = distance > 0.05 || this.reducedMotion ? 1 : 1 + Math.sin(time * 1.7 + character.phase) * 0.002;
@@ -888,7 +1295,7 @@ class HarborScene extends Phaser.Scene {
       character.y = position.y;
       const visible = character.x >= view.x - 90 && character.x <= view.right + 90
         && character.y >= view.y - 100 && character.y <= view.bottom + 100;
-      character.root.setVisible(visible);
+      character.root.setVisible(visible && !this.terrainOnly);
       if (!visible) continue;
       this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed);
       // Passing locals have no quest markers or player labels to crowd the map.
@@ -924,8 +1331,12 @@ class HarborScene extends Phaser.Scene {
     const frame = npc ? npcFrame : PLAYER_ART.idle;
     const art = npc || !this.playerArtReady ? NPC_ART : PLAYER_ART;
     const keys = !npc && this.playerArtReady ? PLAYER_LAYERS : [NPC_ART.key];
-    const artScale = 82 / art.height;
-    const layers = keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
+    const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
+    const authoredIdle = npc ? idleManifest?.assets[id] : undefined;
+    const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
+    const idleFrame = idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined;
+    const artScale = 82 / (idleAnimation?.height ?? art.height);
+    const layers = idleAnimation ? [this.add.image(0, 0, idleAnimation.key, idleFrame).setOrigin(idleAnimation.originX, idleAnimation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(y + 10);
@@ -934,22 +1345,36 @@ class HarborScene extends Phaser.Scene {
       roleText = this.add.text(0, 13, role, { fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
-    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar };
+    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, idleFrame };
     this.tintCharacter(character);
     return character;
   }
 
+  private updatePortals(): void {
+    const view = this.cameras.main.worldView;
+    for (const portal of this.portals.values()) {
+      const visible = portal.x >= view.x - 100 && portal.x <= view.right + 100
+        && portal.y >= view.y - 100 && portal.y <= view.bottom + 100;
+      portal.root.setVisible(visible && !this.terrainOnly);
+      const near = this.controlsEnabled && this.windowFocused
+        && Math.hypot(portal.x - this.local.x, portal.y - this.local.y) < INTERACTION_DISTANCE;
+      portal.halo.setAlpha(near || portal.hovered ? .95 : .45);
+      portal.label.setAlpha(near || portal.hovered ? 1 : .8);
+    }
+  }
+
   private updateObjects(time: number): void {
     const view = this.cameras.main.worldView;
+    const nearestId = this.interiorSpec ? this.findNearestInteraction()?.id : undefined;
     for (const object of this.objects.values()) {
       const visible = object.x >= view.x - 100 && object.x <= view.right + 100 && object.y >= view.y - 100 && object.y <= view.bottom + 100;
-      object.root.setVisible(visible);
+      object.root.setVisible(visible && !this.terrainOnly && !this.watching);
       if (!visible) continue;
       const near = this.controlsEnabled && this.windowFocused && Math.hypot(object.x - this.local.x, object.y - this.local.y) < INTERACTION_DISTANCE;
       const highlighted = this.controlsEnabled && this.windowFocused && (near || object.hovered);
       const active = Math.max(0, object.activatedUntil - time) / 4;
       const phase = (this.reducedMotion ? 0 : time * 2) + object.x / 170;
-      object.label.setVisible(highlighted);
+      object.label.setVisible(highlighted && (!this.interiorSpec || object.hovered || nearestId === object.interactionId));
       object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setScale(this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15);
       // The clue flares on discovery; fountains/lanterns also animate in place.
       object.marker.setAlpha(highlighted ? .95 : .5 + Math.sin(phase) * .12 + active * .3);
@@ -958,131 +1383,13 @@ class HarborScene extends Phaser.Scene {
     }
   }
 
-  private createAmbientTextures(): void {
+  private createMarkerTexture(): void {
     const graphics = this.make.graphics({ x: 0, y: 0 });
-    graphics.fillStyle(0xffedbd, 0.5).fillCircle(8, 8, 7);
-    graphics.fillStyle(0xfff3cf, 0.9).fillCircle(8, 8, 2.2);
-    graphics.generateTexture('mote', 16, 16);
-    graphics.clear();
-    graphics.fillStyle(0xf6dab7, 1).fillEllipse(9, 11, 14, 10).fillEllipse(23, 11, 14, 10);
-    graphics.fillStyle(0xd19d64, 1).fillEllipse(16, 13, 3, 11);
-    graphics.generateTexture('butterfly', 32, 26);
-    graphics.clear();
-    graphics.fillStyle(0xdaa65e, 0.8).fillEllipse(8, 8, 12, 6);
-    graphics.generateTexture('leaf', 16, 16);
-    graphics.clear();
-    graphics.lineStyle(2, 0xe5e0cd, .75).lineBetween(1, 9, 9, 4).lineBetween(9, 4, 17, 9).lineBetween(17, 9, 25, 4).lineBetween(25, 4, 33, 9);
-    graphics.generateTexture('bird', 34, 14);
-    graphics.clear();
     graphics.fillStyle(0xffe5ab, .8).fillPoints([new Phaser.Math.Vector2(16, 2), new Phaser.Math.Vector2(20, 12), new Phaser.Math.Vector2(30, 16), new Phaser.Math.Vector2(20, 20), new Phaser.Math.Vector2(16, 30), new Phaser.Math.Vector2(12, 20), new Phaser.Math.Vector2(2, 16), new Phaser.Math.Vector2(12, 12)], true);
     graphics.fillStyle(0xfff6d9, 1).fillCircle(16, 16, 2);
     graphics.generateTexture('discovery', 32, 32);
     graphics.destroy();
-    for (const [key, rgba] of [['lantern', '255,201,113']] as const) {
-      const texture = this.textures.createCanvas(key, 64, 64);
-      if (!texture) continue;
-      const ctx = texture.context;
-      const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 30);
-      gradient.addColorStop(0, `rgba(${rgba},.48)`);
-      gradient.addColorStop(.5, `rgba(${rgba},.16)`);
-      gradient.addColorStop(1, `rgba(${rgba},0)`);
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 64, 64);
-      texture.refresh();
-    }
+
   }
 
-  private createAmbient(): void {
-    const layouts: Record<MapId, { lamps: number[][]; foliage: number[][] }> = {
-      lindenhafen: {
-        lamps: [[577,548],[879,251],[1259,491],[1218,539],[1413,852]],
-        foliage: [[469,588],[663,838],[843,292],[337,498],[973,682]],
-      },
-      waldruh: {
-        lamps: [[650,259],[944,501],[492,505],[1065,268],[1210,340]],
-        foliage: [[511,396],[781,181],[875,395],[500,754],[892,854],[1196,839]],
-      },
-      nebelstadt: {
-        lamps: [[525,325],[916,348],[1066,388],[1202,406],[1277,450],[1139,533],[448,357]],
-        foliage: [[549,432],[942,531],[843,736],[359,437]],
-      },
-    };
-    const layout = layouts[this.mapSpec.id];
-    const add = (kind: Ambient['kind'], x: number, y: number, phase: number, scale: number, amplitude = 1): void => {
-      const sprite = this.add.image(x, y, kind).setDepth(kind === 'lantern' ? y + 2 : 2000).setAlpha(.3).setScale(scale);
-      this.ambient.push({ sprite, x, y, phase, speed: .25 + phase % 4 * .08, kind, amplitude });
-    };
-    const total = this.scale.width < 700 ? 13 : 23;
-    for (let i = 0; i < total; i++) {
-      const kind: Ambient['kind'] = i < 2 && this.mapSpec.id !== 'nebelstadt' ? 'butterfly' : i < (this.mapSpec.id === 'waldruh' ? 11 : 6) ? 'leaf' : 'mote';
-      const anchor = layout.foliage[i % layout.foliage.length];
-      add(kind, anchor[0] + i * 37 % 90 - 45, anchor[1] + i * 23 % 60 - 30, i * 1.63, kind === 'butterfly' ? .4 : kind === 'leaf' ? .6 : .42);
-    }
-    layout.lamps.forEach(([x, y], i) => add('lantern', x, y, i * .85, .65));
-    for (let bird = 0; bird < (this.mapSpec.id === 'nebelstadt' ? 3 : 2); bird++) add('bird', 420 + bird * 270, 235 + bird * 70, bird * 2.4, .65);
-  }
-
-  private updateAmbient(time: number): void {
-    const view = this.cameras.main.worldView;
-    for (const item of this.ambient) {
-      const cycle = time * item.speed + item.phase;
-      const visible = item.x >= view.x - 160 && item.x <= view.right + 160 && item.y >= view.y - 160 && item.y <= view.bottom + 160;
-      item.sprite.setVisible(visible);
-      if (!visible) continue;
-      if (item.kind === 'lantern') {
-        item.sprite.setAlpha(.25 + Math.sin(cycle * 2) * .05).setScale(.65 + Math.sin(cycle) * .045);
-      } else if (item.kind === 'bird') {
-        item.sprite.setPosition(item.x + Math.sin(cycle * .35) * 110, item.y + Math.cos(cycle * .4) * 30).setScale(.65, .45 + Math.abs(Math.sin(time * 5 + item.phase)) * .25).setAlpha(.5);
-      } else {
-        const radius = item.kind === 'butterfly' ? 22 : 12;
-        item.sprite.setPosition(item.x + Math.sin(cycle) * radius, item.y + Math.sin(cycle * 0.7) * radius * 0.5);
-        if (item.kind === 'butterfly') item.sprite.setScale(0.44 * (0.3 + Math.abs(Math.sin(time * 8 + item.phase)) * 0.7), 0.44);
-        if (item.kind === 'leaf') item.sprite.setRotation(Math.sin(cycle) * 0.8).setAlpha(0.35);
-        if (item.kind === 'mote') item.sprite.setAlpha(0.12 + (Math.sin(cycle) + 1) * 0.13);
-      }
-    }
-  }
-
-  private drawFallbackTown(): Phaser.GameObjects.Graphics {
-    const ground = this.add.graphics().setDepth(-1000);
-    ground.fillStyle(0x6d8464).fillRect(0, 0, WIDTH, HEIGHT);
-    ground.fillStyle(0x567253).fillRect(0, 0, WIDTH, 220);
-    ground.fillStyle(0x577c7d).fillPoints([[1150, 0], [1380, 0], [1536, 480], [1536, 1024], [1060, 1024], [1150, 640], [1080, 300]].map(([x, y]) => new Phaser.Math.Vector2(x, y)), true);
-    ground.lineStyle(115, 0xb7aa82, 1).lineBetween(160, 720, 1320, 480);
-    ground.lineStyle(86, 0xc7b994, 1).lineBetween(710, 100, 590, 1024);
-    ground.fillStyle(0xc6b895).fillEllipse(685, 590, 590, 300);
-    ground.fillStyle(0xa59a77, 0.45);
-    for (let i = 0; i < 150; i++) ground.fillEllipse(410 + i * 37 % 560, 480 + i * 53 % 210, 6 + i % 5, 3);
-    const houses = [
-      [290, 250, 265, 160, 0xa65e47], [670, 200, 255, 180, 0x7d7163],
-      [875, 385, 220, 140, 0x987354], [185, 710, 225, 140, 0x975e4a],
-      [800, 760, 255, 160, 0x8b7160],
-    ];
-    for (const [x, y, w, h, roof] of houses) {
-      ground.fillStyle(0x253c30, 0.20).fillRoundedRect(x + 15, y + 20, w, h + 30, 10);
-      ground.fillStyle(0xe2d3aa).fillRect(x, y + 30, w, h);
-      ground.lineStyle(8, 0x66533c).strokeRect(x, y + 30, w, h);
-      ground.fillStyle(roof).fillTriangle(x - 18, y + 40, x + w / 2, y - 65, x + w + 18, y + 40);
-      ground.lineStyle(3, 0x614e3d).lineBetween(x - 18, y + 40, x + w / 2, y - 65).lineBetween(x + w / 2, y - 65, x + w + 18, y + 40);
-      for (let j = 0; j < 3; j++) {
-        ground.fillStyle(0x59695a).fillRoundedRect(x + 25 + j * (w - 55) / 3, y + 60, 31, 39, 3);
-        ground.lineStyle(3, 0x9b8664).strokeRect(x + 25 + j * (w - 55) / 3, y + 60, 31, 39);
-      }
-      ground.fillStyle(0x675641).fillRoundedRect(x + w * 0.42, y + h - 26, 41, 56, 12);
-    }
-    for (let i = 0; i < 37; i++) {
-      const x = 70 + i * 293 % 1430;
-      const y = i < 15 ? 65 + i * 31 % 130 : 200 + i * 173 % 740;
-      if (x > 440 && x < 1080 && y > 440 && y < 790) continue;
-      ground.fillStyle(0x273e2e, 0.2).fillEllipse(x + 12, y + 15, 89, 37);
-      ground.fillStyle(0x6c6240).fillRect(x - 5, y - 44, 10, 48);
-      ground.fillStyle(i % 3 ? 0x4c684c : 0x8c935d).fillCircle(x, y - 51, 40);
-      ground.fillStyle(i % 3 ? 0x658060 : 0xa3a565).fillCircle(x - 14, y - 65, 28);
-    }
-    ground.fillStyle(0x9d967c).fillEllipse(687, 554, 96, 52);
-    ground.fillStyle(0xd9d1ad).fillEllipse(687, 545, 91, 42);
-    ground.fillStyle(0x668c8a).fillEllipse(687, 545, 69, 28);
-    ground.fillStyle(0xbdb695).fillRect(681, 506, 12, 35).fillEllipse(687, 507, 38, 16);
-    return ground;
-  }
 }

@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+import sharp from 'sharp';
+import {readFile}from'node:fs/promises';
+import{createHash}from'node:crypto';
+let sequences=0,frames=0;
+const dayManifests=new Map(),dayHashes=new Map();
+const requested=process.argv.slice(2);
+for(const map of requested.length?requested:['lindenhafen','waldruh','nebelstadt'])for(const period of ['day','night']){
+ const namespace=`${map}-${period}`;
+ const manifest=JSON.parse(await readFile(`web/public/assets/${namespace}-animations.json`,'utf8'));
+ if(Object.keys(manifest.assets).length!==32)throw Error(`${namespace}: 32 sequences required`);
+ if(period==='night'&&!manifest.terrain)throw Error(`${namespace}: painted night terrain required`);
+ if(manifest.terrain)await readFile(`web/public/assets/${manifest.terrain}.webp`);
+ if(period==='day')dayManifests.set(map,manifest);
+ const pages=new Map();
+ for(const [asset,entry] of Object.entries(manifest.assets)){
+  if(period==='night'&&entry.key===dayManifests.get(map).assets[asset].key)throw Error(`${namespace}/${asset}: separate painted night sequence required`);
+  if(entry.frames.length!==6||entry.referenceWidth<=0||entry.originY<0||entry.originY>1||entry.fps>4)throw Error(`${map}:badsequencegeometry`);
+  if(!pages.has(entry.key)){
+   const atlas=JSON.parse(await readFile(`web/public/assets/${entry.key}.json`,'utf8'));
+   const pixels=await sharp(`web/public/assets/${entry.key}.webp`).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+   if(pixels.info.width>2048||pixels.info.height>2048)throw Error(`${entry.key}:texturebudgetexceeded`);
+   pages.set(entry.key,{atlas,...pixels});
+  }
+  const page=pages.get(entry.key),hashes=[];
+  for(const name of entry.frames){
+   const rect=page.atlas.frames[name].frame;
+   if(rect.w!==entry.width||rect.h!==entry.height)throw Error(`${name}:unregisteredframe`);
+   const normalized=Buffer.alloc(rect.w*rect.h*4);let opaque=0,clear=0;
+   for(let y=0;y<rect.h;y++)for(let x=0;x<rect.w;x++){
+    const src=((rect.y+y)*page.info.width+rect.x+x)*4,dst=(y*rect.w+x)*4,alpha=page.data[src+3];
+    for(let c=0;c<3;c++)normalized[dst+c]=Math.round(page.data[src+c]*alpha/255);
+    normalized[dst+3]=alpha;if(alpha===0)clear++;if(alpha>128)opaque++;
+   }
+   if(opaque<30||clear<rect.w*rect.h*.01)throw Error(`${name}:nativealphaartrequired`);
+   hashes.push(createHash('sha256').update(normalized).digest('hex'));frames++;
+  }
+  if(new Set(hashes).size<4)throw Error(`${map}:${entry.frames[0]}:paintedmotionmissing`);
+  const identity=`${map}/${asset}`;
+  if(period==='day')dayHashes.set(identity,hashes[0]);
+  else if(dayHashes.get(identity)===hashes[0])throw Error(`${identity}: night artwork must differ`);
+  sequences++;
+ }
+ console.log(`${namespace}: 32 authored sequences, 192 transparent frames verified`);
+}
+console.log(`${sequences} sequences, ${frames} frames verified`);

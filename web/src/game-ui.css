@@ -94,7 +94,7 @@
 .camp-bottom>.text-button:first-child { margin-right:auto; color:var(--game-gold); }
 
 /* All encounters use the same quiet frame; native dialogs retain focus and Escape handling. */
-.dialog:not(.activity-dialog) {
+.dialog:not(.activity-dialog):not(.interior-dialog) {
   color:var(--game-text);
   background:radial-gradient(ellipse at top left,#263b30 0,transparent 65%),linear-gradient(135deg,#162c26f7,#10221ffb);
   border:1px solid #d8bb8052;
@@ -102,35 +102,35 @@
   box-shadow:0 24px 100px #03100dcc;
   scrollbar-color:#d8bb8055 transparent;
 }
-.dialog:not(.activity-dialog)::before { inset:0; border:0; border-top:2px solid #d8bb80; width:64px; }
+.dialog:not(.activity-dialog):not(.interior-dialog)::before { inset:0; border:0; border-top:2px solid #d8bb80; width:64px; }
 .dialog::backdrop { background:linear-gradient(0deg,#071612b8,#07161245); backdrop-filter:blur(4px); }
-.dialog:not(.activity-dialog) h2 { color:var(--game-text); font-weight:400; }
-.dialog:not(.activity-dialog) .eyebrow { color:var(--game-gold); }
-.dialog:not(.activity-dialog) .dialog-close { color:var(--game-muted); border:1px solid #d8bb8030; background:#0d211b90; }
-.dialog:not(.activity-dialog) .primary-button,.menu-layer .primary-button { background:linear-gradient(110deg,#dfc590,#c8a66a); color:#16251e; border-color:#edd2a0; box-shadow:inset 0 1px 0 #fff0ca50,0 4px 20px #0a161a33; font-weight:600; }
-.dialog:not(.activity-dialog) .primary-button:hover,.menu-layer .primary-button:hover { background:#eed7a5; }
-.dialog:not(.activity-dialog) .outline-button { color:var(--game-gold); border-color:#d8bb8055; }
-.dialog:not(.activity-dialog) .text-button { color:var(--game-muted); }
-.dialog:not(.activity-dialog) :is(.intro-story,.intro-details,.quest-intro>small,.completion p,.completion-stats span,.completion-stats strong,.help-dialog p,.object-encounter>p,.objective-dialog p,.act-copy>p,.resting-note,.object-language>span,.story-reveal>p,.honest-note,.course-intro>p) { color:var(--game-muted); }
-.dialog:not(.activity-dialog) :is(.story-objective,.next-lead,.object-encounter>blockquote) { color:#e2d6b8; background:#d8bb800b; border-color:#d8bb8060; }
-.dialog:not(.activity-dialog) :is(.story-objective,.next-lead)>.icon { color:var(--game-gold); }
-.dialog:not(.activity-dialog) .large-portrait { border:1px solid #d8bb8080; box-shadow:0 8px 30px #0004; }
-.dialog:not(.activity-dialog) .intro-story { border-color:var(--game-line); }
-.dialog:not(.activity-dialog) :is(.exercise-actions,.course-intro-examples) { background:#142923; }
-.dialog:not(.activity-dialog) .course-intro-examples { border-color:var(--game-line); }
-.dialog:not(.activity-dialog) .course-intro-examples p { color:var(--game-muted); }
-.dialog:not(.activity-dialog) :is(.answer-option,.word-token,.selected-token,.typed-answer,.german-keys button,.name-input) { color:var(--game-text); background:#233d32; border-color:#d8bb8040; box-shadow:none; }
-.dialog:not(.activity-dialog) .answer-option:hover { background:#345044; border-color:#d8bb80; }
-.dialog:not(.activity-dialog) .answer-option>span { color:var(--game-gold); border-color:#d8bb8050; background:#142923; }
-.dialog:not(.activity-dialog) .answer-option.correct-answer { background:#31533e; border-color:#96bb85; }
-.dialog:not(.activity-dialog) .answer-option.wrong-answer { background:#533a2c; border-color:#c69572; }
-.dialog:not(.activity-dialog) :is(.sentence-result,.audio-scene,.transcript,.exercise-feedback.shown,.exercise-hint) { background:#233b3066; color:var(--game-text); border-color:var(--game-line); }
-.dialog:not(.activity-dialog) :is(.audio-scene span,.audio-scene strong,.exercise-feedback p,.exercise-feedback small,.sentence-placeholder,.exercise-header,.form-label) { color:var(--game-muted); }
-.dialog:not(.activity-dialog) .exercise-feedback strong { color:#b9d5a9; }
-.dialog:not(.activity-dialog) .exercise-feedback.incorrect strong { color:#e3c194; }
-.dialog:not(.activity-dialog) .feedback-xp { color:var(--game-gold); }
-.dialog:not(.activity-dialog) :is(.typed-answer,.name-input)::placeholder { color:#8eaa98; }
-.dialog:not(.activity-dialog) .german-keys button { color:var(--game-gold); }
+.dialog:not(.activity-dialog):not(.interior-dialog) h2 { color:var(--game-text); font-weight:400; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .eyebrow { color:var(--game-gold); }
+.dialog:not(.activity-dialog):not(.interior-dialog) .dialog-close { color:var(--game-muted); border:1px solid #d8bb8030; background:#0d211b90; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button,.menu-layer .primary-button { background:linear-gradient(110deg,#dfc590,#c8a66a); color:#16251e; border-color:#edd2a0; box-shadow:inset 0 1px 0 #fff0ca50,0 4px 20px #0a161a33; font-weight:600; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover,.menu-layer .primary-button:hover { background:#eed7a5; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .outline-button { color:var(--game-gold); border-color:#d8bb8055; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .text-button { color:var(--game-muted); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.intro-story,.intro-details,.quest-intro>small,.completion p,.completion-stats span,.completion-stats strong,.help-dialog p,.object-encounter>p,.objective-dialog p,.act-copy>p,.resting-note,.object-language>span,.story-reveal>p,.honest-note,.course-intro>p) { color:var(--game-muted); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.story-objective,.next-lead,.object-encounter>blockquote) { color:#e2d6b8; background:#d8bb800b; border-color:#d8bb8060; }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.story-objective,.next-lead)>.icon { color:var(--game-gold); }
+.dialog:not(.activity-dialog):not(.interior-dialog) .large-portrait { border:1px solid #d8bb8080; box-shadow:0 8px 30px #0004; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .intro-story { border-color:var(--game-line); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.exercise-actions,.course-intro-examples) { background:#142923; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .course-intro-examples { border-color:var(--game-line); }
+.dialog:not(.activity-dialog):not(.interior-dialog) .course-intro-examples p { color:var(--game-muted); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.answer-option,.word-token,.selected-token,.typed-answer,.german-keys button,.name-input) { color:var(--game-text); background:#233d32; border-color:#d8bb8040; box-shadow:none; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option:hover { background:#345044; border-color:#d8bb80; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option>span { color:var(--game-gold); border-color:#d8bb8050; background:#142923; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option.correct-answer { background:#31533e; border-color:#96bb85; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option.wrong-answer { background:#533a2c; border-color:#c69572; }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.sentence-result,.audio-scene,.transcript,.exercise-feedback.shown,.exercise-hint) { background:#233b3066; color:var(--game-text); border-color:var(--game-line); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.audio-scene span,.audio-scene strong,.exercise-feedback p,.exercise-feedback small,.sentence-placeholder,.exercise-header,.form-label) { color:var(--game-muted); }
+.dialog:not(.activity-dialog):not(.interior-dialog) .exercise-feedback strong { color:#b9d5a9; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .exercise-feedback.incorrect strong { color:#e3c194; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .feedback-xp { color:var(--game-gold); }
+.dialog:not(.activity-dialog):not(.interior-dialog) :is(.typed-answer,.name-input)::placeholder { color:#8eaa98; }
+.dialog:not(.activity-dialog):not(.interior-dialog) .german-keys button { color:var(--game-gold); }
 #dialog.activity-dialog,#qa-dialog.activity-dialog { border-radius:2px; box-shadow:0 24px 100px #03100dcc; border-color:#d8bb8060; }
 #dialog.activity-dialog>.dialog-close,#qa-dialog.activity-dialog>.dialog-close { border-radius:0; background:#10211f; border:1px solid #d8bb8040; color:var(--game-text); }
 .activity-dialog .activity-shell { background:radial-gradient(ellipse at top left,#263b30,transparent 65%),#10211f; color:var(--game-text); }
@@ -195,6 +195,7 @@
 #menu-layer :is(.route-unit small,.route-unit em,.lexeme p,.lexeme>small,.grammar-route p,.grammar-route blockquote small,.word-card p,.word-card>small,.region-card-copy p,.region-card-copy>small,.region-card-meta,.clue-page p,.clue-page small,.undiscovered-clue,.settings-card p,.character-illustration p,.honest-note) { color:var(--game-muted); }
 #menu-layer :is(.route-levels button,.route-tabs button,.route-search,.journal-toolbar label,.settings-card select,.name-input,.level-switch button) { background:#10251e; color:var(--game-muted); border-color:var(--game-line); }
 #menu-layer :is(.route-search input,.journal-toolbar input) { color:var(--game-text); }
+#menu-layer .settings-time-preview { color:var(--game-muted); }
 #menu-layer :is(.route-levels button.selected,.route-tabs button.selected,.level-switch button.selected) { background:#d8bb8022; color:#ecd3a1; border-color:#d8bb8060; }
 #menu-layer :is(.grammar-route blockquote,.act-cliffhanger) { background:#d8bb800a; color:#e3d4b3; border-color:#d8bb8060; }
 #menu-layer :is(.lexeme-header,.lexeme-header button,.lexeme .text-button,.word-card .icon-button) { color:var(--game-gold); }

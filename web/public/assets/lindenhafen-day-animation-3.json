@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "stall-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "stall-1": {
+      "frame": {
+        "x": 229,
+        "y": 2,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "stall-2": {
+      "frame": {
+        "x": 456,
+        "y": 2,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "stall-3": {
+      "frame": {
+        "x": 683,
+        "y": 2,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "stall-4": {
+      "frame": {
+        "x": 2,
+        "y": 207,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "stall-5": {
+      "frame": {
+        "x": 229,
+        "y": 207,
+        "w": 223,
+        "h": 201
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 201
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 201
+      }
+    },
+    "bench-0": {
+      "frame": {
+        "x": 456,
+        "y": 207,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "bench-1": {
+      "frame": {
+        "x": 675,
+        "y": 207,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "bench-2": {
+      "frame": {
+        "x": 2,
+        "y": 412,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "bench-3": {
+      "frame": {
+        "x": 221,
+        "y": 412,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "bench-4": {
+      "frame": {
+        "x": 440,
+        "y": 412,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "bench-5": {
+      "frame": {
+        "x": 659,
+        "y": 412,
+        "w": 215,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 196
+      }
+    },
+    "planter-0": {
+      "frame": {
+        "x": 2,
+        "y": 612,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "planter-1": {
+      "frame": {
+        "x": 225,
+        "y": 612,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "planter-2": {
+      "frame": {
+        "x": 448,
+        "y": 612,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "planter-3": {
+      "frame": {
+        "x": 671,
+        "y": 612,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "planter-4": {
+      "frame": {
+        "x": 2,
+        "y": 775,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "planter-5": {
+      "frame": {
+        "x": 225,
+        "y": 775,
+        "w": 219,
+        "h": 159
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 219,
+        "h": 159
+      },
+      "sourceSize": {
+        "w": 219,
+        "h": 159
+      }
+    },
+    "sign-0": {
+      "frame": {
+        "x": 448,
+        "y": 775,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    },
+    "sign-1": {
+      "frame": {
+        "x": 619,
+        "y": 775,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    },
+    "sign-2": {
+      "frame": {
+        "x": 790,
+        "y": 775,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    },
+    "sign-3": {
+      "frame": {
+        "x": 2,
+        "y": 1006,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    },
+    "sign-4": {
+      "frame": {
+        "x": 173,
+        "y": 1006,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    },
+    "sign-5": {
+      "frame": {
+        "x": 344,
+        "y": 1006,
+        "w": 167,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 227
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-day-animation-3.webp",
+    "size": {
+      "w": 1024,
+      "h": 1235
+    },
+    "scale": "1"
+  }
+}

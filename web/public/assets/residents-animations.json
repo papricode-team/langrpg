@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "framesPerAsset": 6,
+  "assets": {
+    "marta": {
+      "key": "residents-animation-0",
+      "frames": [
+        "marta-0",
+        "marta-1",
+        "marta-2",
+        "marta-3",
+        "marta-4",
+        "marta-5"
+      ],
+      "fps": 3,
+      "width": 147,
+      "height": 230,
+      "referenceWidth": 147,
+      "originX": 0.5034013605442177,
+      "originY": 1
+    },
+    "otto": {
+      "key": "residents-animation-0",
+      "frames": [
+        "otto-0",
+        "otto-1",
+        "otto-2",
+        "otto-3",
+        "otto-4",
+        "otto-5"
+      ],
+      "fps": 3,
+      "width": 123,
+      "height": 229,
+      "referenceWidth": 123,
+      "originX": 0.4715447154471545,
+      "originY": 1
+    },
+    "lina": {
+      "key": "residents-animation-0",
+      "frames": [
+        "lina-0",
+        "lina-1",
+        "lina-2",
+        "lina-3",
+        "lina-4",
+        "lina-5"
+      ],
+      "fps": 3,
+      "width": 126,
+      "height": 230,
+      "referenceWidth": 126,
+      "originX": 0.47619047619047616,
+      "originY": 1
+    },
+    "emil": {
+      "key": "residents-animation-0",
+      "frames": [
+        "emil-0",
+        "emil-1",
+        "emil-2",
+        "emil-3",
+        "emil-4",
+        "emil-5"
+      ],
+      "fps": 3,
+      "width": 130,
+      "height": 238,
+      "referenceWidth": 130,
+      "originX": 0.4846153846153846,
+      "originY": 1
+    },
+    "ada": {
+      "key": "residents-animation-1",
+      "frames": [
+        "ada-0",
+        "ada-1",
+        "ada-2",
+        "ada-3",
+        "ada-4",
+        "ada-5"
+      ],
+      "fps": 3,
+      "width": 114,
+      "height": 230,
+      "referenceWidth": 114,
+      "originX": 0.42105263157894735,
+      "originY": 1
+    },
+    "fritz": {
+      "key": "residents-animation-1",
+      "frames": [
+        "fritz-0",
+        "fritz-1",
+        "fritz-2",
+        "fritz-3",
+        "fritz-4",
+        "fritz-5"
+      ],
+      "fps": 3,
+      "width": 162,
+      "height": 245,
+      "referenceWidth": 162,
+      "originX": 0.4876543209876543,
+      "originY": 1
+    },
+    "greta": {
+      "key": "residents-animation-1",
+      "frames": [
+        "greta-0",
+        "greta-1",
+        "greta-2",
+        "greta-3",
+        "greta-4",
+        "greta-5"
+      ],
+      "fps": 3,
+      "width": 123,
+      "height": 245,
+      "referenceWidth": 123,
+      "originX": 0.5121951219512195,
+      "originY": 1
+    },
+    "wanderer": {
+      "key": "residents-animation-1",
+      "frames": [
+        "wanderer-0",
+        "wanderer-1",
+        "wanderer-2",
+        "wanderer-3",
+        "wanderer-4",
+        "wanderer-5"
+      ],
+      "fps": 3,
+      "width": 125,
+      "height": 239,
+      "referenceWidth": 125,
+      "originX": 0.424,
+      "originY": 1
+    }
+  }
+}

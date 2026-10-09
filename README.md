@@ -6,8 +6,8 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 
 ## Playable features
 
-- Three distinct painted 2D maps for A1, A2 and B1, with connected paths, animated currents/fountains/smoke, regional waterfall/mill/fog/lighthouse effects, seven recurring story residents, nine strolling locals and 15 interactive objects. Decorative motion respects reduced motion and uses smaller mobile budgets.
-- Painted adult characters with four-direction player animation, live hair/skin/coat previews, visible players and shared town chat. Painted foreground silhouettes sort characters behind street-edge trees, lamps and planters. Shared material atlases keep character texture memory independent of player palettes.
+- Three painterly 2D maps for A1, A2 and B1, built from clean terrain and 276 separately placed objects. Every object has separate calm daytime and nighttime sprite sequences, authored with ImageGen. The 96 regional silhouettes provide 1,152 painted frames across both sets; the world clock switches them automatically. Foliage, cloth, flames, water and building details animate within the artwork. Seven story residents, nine strolling locals and 15 interactive objects populate the connected paths. A camera tour lets you watch the town; decorative motion respects reduced motion.
+- Painted adult characters with four-direction player animation, live hair/skin/coat previews, visible players and shared town chat. Transparent scenery sorts characters behind objects and in front of their foot anchors; each solid object's placed base guides navigation. Shared material atlases keep character texture memory independent of player palettes.
 - Café tray/preparation games, market budgets/change/trades, connected evidence investigations and delivery route boards. Missions save in-progress actions and resume after leaving; each level adds more complex German.
 - Recognition, German listening, sentence tiles and hidden-answer typing with hints and corrective explanations. Object encounters offer brief contextual practice for new or due expressions; familiar expressions can rest.
 - First-visit story scenes, 18 earned discoveries, a mystery journal and clear next leads connecting all three regions. Regions stay freely explorable; completing each act recommends the next destination.
@@ -54,8 +54,10 @@ The world fills the browser window. Open the adventure menu for the quest log, s
 | M | Open the region atlas while exploring |
 | Escape | Close menus or encounters; collapse open town chat |
 | Mouse wheel | Zoom the world |
+| World clock | Choose a time, a slow cycle or real local time |
+| Watch the world | Hide controls and watch a slow camera tour |
 
-On phones in portrait or landscape, drag the lower-left joystick to walk and release it to stop. The contextual action changes between **Talk** and **Inspect** near residents and objects. One adventure menu keeps the exploration screen clear; the objective chip opens the next lead. Atlas pins walk to the corresponding resident or object. **Settings** contains listening pace, interface sounds and region selection.
+On phones in portrait or landscape, drag the lower-left joystick to walk and release it to stop. The contextual action changes between **Talk** and **Inspect** near residents and objects. One adventure menu keeps the exploration screen clear; the objective chip opens the next lead. Atlas pins walk to the corresponding resident or object. **Settings** contains listening pace, interface sounds, scenery motion, time of day and region selection.
 
 Use **Filters** or **F** to experiment with Original, Soft paint, CRT and Pixel CRT while viewing the world. Adjust softness, scanlines, texture, warmth, edge shade and pixel size; hold **Compare original** to compare the unfiltered artwork. Choices save on this device. The shared screen filter affects the world and its labels, while HTML menus and HUD stay clear. Filters require WebGL; the Canvas fallback keeps the original artwork.
 
@@ -70,7 +72,7 @@ go test -race ./...
 go vet ./...
 ```
 
-Frontend tests cover learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. Go tests cover grading, persistence, idempotency, scheduling, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
+Frontend tests cover learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. Go tests cover grading, persistence, idempotency, scheduling, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
 
 ## Docker Compose and Dokploy
 
@@ -113,7 +115,7 @@ Copy its printed HTTPS URL, stop any existing `npm run dev` process for this pro
 ALLOWED_ORIGINS=http://localhost:5187,http://127.0.0.1:5187,http://127.240.77.9:5187,http://127.0.0.1:5188,https://YOUR-TUNNEL.trycloudflare.com npm run dev
 ```
 
-Keep all three processes running. Check `/api/health` with the tunnel URL as the `Origin` header and confirm the game shows connected players. Do not run multiple Go processes against the same JSON development store.
+Keep all three processes running. Check `/api/health` with the tunnel URL as the `Origin ` header and confirm the game shows connected players. Do not run multiple Go processes against the same JSON development store.
 
 ## Project map
 
@@ -121,6 +123,9 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | --- | --- |
 | `web/src/main.ts` | Interface, quest sessions, journal, character and chat |
 | `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser world, three region definitions, movement and routing |
+| `web/src/placed-scenery.ts`, `placed-<region>.ts`, `world-scenery.ts` | Reusable transparent objects, regional placement, motion and foot depth |
+| `web/src/scenery-animation.ts`, `world-life.ts` | Painted animation frame cycles and resident routines |
+| `scripts/prepare-world-art.mjs` | Alpha-preserving prop atlases and composed interface previews |
 | `web/src/content.ts`, `story.ts` | NPCs, quests, learning content and connected story discoveries |
 | `web/src/course.ts`, `data/course.json` | Attributed lexicon, original lessons and canonical course tasks |
 | `web/src/activities.ts`, `activity-engine.ts` | Stateful mission controls and pure gameplay rules |
@@ -135,8 +140,8 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | [Activities](docs/activities.md) | Gameplay contracts, recovery and mobile verification |
 | [Research](docs/research.md) | Evidence behind the learning design |
 | [Art and audio](docs/art.md) | Asset provenance and production directions |
-| [World animation](docs/world-animation.md) | Regional motion, local routines, performance and browser verification |
-| [Scenery depth](docs/world-occlusion.md) | Painted foreground silhouettes, shared collision footprints and atlas lifecycle |
+| [World animation](docs/world-animation.md) | Object motion, local routines, performance and regression checks |
+| [Scenery depth](docs/world-occlusion.md) | Transparent object depth, placement-derived collision bases and atlas lifecycle |
 
 One Go process hosts Lindenhafen, Waldruh and Nebelstadt, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store.
 

@@ -16,7 +16,14 @@ export interface WorldMapSpec {
   subtitle: string;
   level: Level;
   description: string;
+  /** Terrain only; raised scenery comes from the transparent prop atlas. */
   asset: string;
+  /** A static export of the assembled objects for region cards and atlas UI. */
+  previewAsset: string;
+  sceneryAsset: string;
+  sceneryAtlas: string;
+  variationAsset: string;
+  variationAtlas: string;
   /** Feet positions, normalized to each 1536 × 1024 painting. */
   spawn: MapPosition;
   npcs: ReadonlyArray<MapPosition & { id: string }>;
@@ -28,7 +35,7 @@ export const maps: readonly WorldMapSpec[] = [
   {
     id: 'lindenhafen', name: 'Lindenhafen', subtitle: 'The missing platform', level: 'A1',
     description: 'A sunlit canal town with excellent coffee, unreliable timetables and one platform that officially does not exist.',
-    asset: '/assets/lindenhafen.webp', spawn: { x: .52, y: .61 },
+    asset: '/assets/lindenhafen-terrain.webp', previewAsset: '/assets/lindenhafen-preview.webp', sceneryAsset: '/assets/lindenhafen-props.webp', sceneryAtlas: '/assets/lindenhafen-props.json', variationAsset: '/assets/lindenhafen-variations.webp', variationAtlas: '/assets/lindenhafen-variations.json', spawn: { x: .52, y: .61 },
     npcs: [
       { id: 'marta', x: .442, y: .459 }, { id: 'otto', x: .815, y: .299 },
       { id: 'lina', x: .603, y: .680 }, { id: 'emil', x: .228, y: .738 },
@@ -66,7 +73,7 @@ export const maps: readonly WorldMapSpec[] = [
   {
     id: 'waldruh', name: 'Waldruh', subtitle: 'A town out of time', level: 'A2',
     description: 'Autumn paths lead to a clockmill village where yesterday’s errands are still waiting and every clock tells a different story.',
-    asset: '/assets/waldruh.webp', spawn: { x: .52, y: .54 },
+    asset: '/assets/waldruh-terrain.webp', previewAsset: '/assets/waldruh-preview.webp', sceneryAsset: '/assets/waldruh-props.webp', sceneryAtlas: '/assets/waldruh-props.json', variationAsset: '/assets/waldruh-variations.webp', variationAtlas: '/assets/waldruh-variations.json', spawn: { x: .52, y: .54 },
     npcs: [
       { id: 'marta', x: .280, y: .346 }, { id: 'otto', x: .730, y: .307 },
       { id: 'lina', x: .430, y: .868 }, { id: 'emil', x: .300, y: .657 },
@@ -104,7 +111,7 @@ export const maps: readonly WorldMapSpec[] = [
   {
     id: 'nebelstadt', name: 'Nebelstadt', subtitle: 'The promise in the mist', level: 'B1',
     description: 'A misty harbor, a council with too many minutes and an observatory keeping the last secret of the Lantern Atlas.',
-    asset: '/assets/nebelstadt.webp', spawn: { x: .50, y: .55 },
+    asset: '/assets/nebelstadt-terrain.webp', previewAsset: '/assets/nebelstadt-preview.webp', sceneryAsset: '/assets/nebelstadt-props.webp', sceneryAtlas: '/assets/nebelstadt-props.json', variationAsset: '/assets/nebelstadt-variations.webp', variationAtlas: '/assets/nebelstadt-variations.json', spawn: { x: .50, y: .55 },
     npcs: [
       { id: 'marta', x: .296, y: .490 }, { id: 'otto', x: .697, y: .348 },
       { id: 'lina', x: .860, y: .602 }, { id: 'emil', x: .257, y: .734 },

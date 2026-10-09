@@ -1,29 +1,45 @@
-# Living world animation
+# Painted sprite animation
 
-The three maps retain their painted backgrounds. Separate engine layers now animate activity in the town and physical details in the environment, so motion does not require repainting the full map each frame.
+The live worlds use terrain plates and **276 individually placed sprites**: 96 in Lindenhafen, 88 in Waldruh and 92 in Nebelstadt. Every object has two separately painted six-frame raster animation sets, calm day and quiet night, authored with the built-in ImageGen tool. The 96 regional asset families contain **1,152 scenery frames** across both periods.
 
-## Implemented motion
+Roofs, walls, trunks, full tree crowns, lamp housings and ground contacts stay fixed. Movement stays local: small leaf tips, flowers, cloth hems, curtains, flames, water and mechanical details. Night paintings use silver-blue moonlight, warm occupied windows and lamps, settled cloth and quieter foliage. The renderer selects actual raster frames with ordinary upright sprites, fixed scale and common pivots. It has no environmental meshes, light masks or procedural overlays.
 
-- Lindenhafen: moving canal highlights, fountain streams, splash droplets and expanding rings, drifting chimney smoke, butterflies, birds and lantern glows.
-- Waldruh: downward waterfall flow, river currents, fountain water, rising smoke, turning mill spokes and moving clock hands, autumn leaves and birds.
-- Nebelstadt: harbor currents, drifting fog, lighthouse beam and beacon, chimney smoke, birds and lantern glows.
-- Nine painted background residents, three per region, stroll between destinations and pause for two to five seconds. Their feet follow the existing street navigation and avoid blocked gardens, buildings and water. Quest characters remain at their landmarks. Background residents have local visual identities and do not appear as connected players or in chat.
-- Inspecting a fountain, clock mechanism or lantern briefly strengthens its physical effects alongside the existing discovery marker.
+Each region's original 16 roles has 16 additional house, tree, market and garden silhouettes. Placements explicitly select each silhouette; navigation uses the physical role and foot anchor. Waldruh's western workshop is distinct from its clockmill.
 
-`web/src/world-life.ts` compiles resident routes once when entering a map. `sampleResidentMotion` samples continuous closed loops with reusable output objects. The renderer reuses the existing directional character material atlas and palette tints; residents add no character atlas copies.
+## Time of day
 
-`web/src/world-environment.ts` creates shared effect textures once and caches them across region visits. Updates change sprite position, rotation, scale and opacity. They do not redraw canvas textures, upload new textures, run pathfinding or create timers each frame. Environment budgets cap this layer at 52 sprites on desktop and 32 on mobile; actual maximums are 51 and 29. Existing small foliage/bird/light effects and characters are additional, separately bounded layers. Off-screen effects and residents are culled; all map-owned sprites are destroyed on travel. Resizing across the phone breakpoint recreates the environment at the appropriate budget.
+The world clock automatically selects day from 07:00 to 19:00 and night otherwise. A foreground day lasts twelve minutes in the default slow cycle. Menus and hidden pages pause that cycle. Settings → Time of day offers the slow cycle, real local time or a chosen hour. Moving the hour slider selects manual time. The clock button opens these controls, and the preference persists.
 
-Decorative motion uses a separate scene clock. It pauses when the world sleeps behind a menu or hidden page and respects the operating system's reduced-motion preference, including live changes. Reduced motion holds scenery and background residents steady while player-controlled walking and multiplayer movement remain available. Settings → World motion offers Follow device preference, Full world animation and Calm, still scenery; the selection persists on this device.
+Each period changes every object's sprite sheet and selects its painted terrain. Lindenhafen and Waldruh use their original clean ground plates for day; Nebelstadt has a daylight edit. All three have separately painted night ground plates. Time changes wait for the requested artwork to load before replacing sprites together. Rapid changes discard stale callbacks.
 
-## Visual and behavioral verification
+## Files and export
 
-All 110 frontend tests, TypeScript and the production build passed. Five resident tests cover dense road safety, disconnected route rejection, real pauses and continuous loop closure. Simulated updates across all six map/device combinations checked finite transforms, viewport culling, live reduced-motion freeze, interaction responses and repeated cleanup.
+- `art/source/<region>-day-animation-0.png` through `-7.png`, and matching `-night-animation-0..7.png`: selected ImageGen masters, 1536 × 1024, four asset rows and six time columns. Exact `*-prompt.txt` files accompany each master. The [prompt index](../art/source/world-animation-prompts.md) lists every selected generation.
+- `art/source/<region>-night-terrain.png` and `nebelstadt-day-terrain.png`: painted ground variants.
+- `art/animation-references/<region>.json`: row identities and registered reference geometry. `scripts/prepare-world-animation-references.mjs` rebuilds reference grids from transparent static assets.
+- `scripts/prepare-world-time-art.mjs`: optimizes the painted terrain variants.
+- `scripts/prepare-world-animations.mjs --set day` and `--set night`: rectangular export and common sequence bounds. Eight 1024-wide atlases per region and period preserve native alpha.
+- `web/public/assets/<region>-<period>-animation-0..7.{webp,json}` and `-animations.json`: runtime frames, speed, pivots and terrain metadata.
+- `web/src/world-clock.ts`: clock modes and period selection.
+- `web/src/scenery-animation.ts`: deterministic per-instance phase and frame sampling.
+- `web/src/world-scenery.ts`: sprite creation, frame selection, reduced motion and culling.
 
-Browser verification covered all three regions, map travel, fountain inspection, switching calm motion on and back to the device preference, 390×844 portrait and 844×390 landscape. Neither phone layout had horizontal overflow; exploration controls met the 44-pixel touch target. The TryCloudflare preview serves the updated world bundle and its API remains available.
+The exporter crops, packs and encodes generated artwork; it does not draw animation frames, mask pixels or warp images. Six frames share dimensions and pivots. Native source alpha remains intact. Historical stronger-wind masters remain in source for reference and are not selected by the world clock.
 
-The [animated capture](screenshots/world-alive.gif) records approximately five seconds of actual browser animation. It demonstrates motion, rather than measuring the game's frame rate. [Portrait](screenshots/world-alive-mobile.jpg) and [landscape](screenshots/world-alive-landscape.jpg) captures show the compact controls.
+An optional source-specific `*-registration.json` can provide row boundaries when an authored sheet needs more room for an asset. The exporter keeps the original global foot baseline when a boundary moves, so rectangular crops preserve both the complete artwork and its ground contact.
 
-## Art structure for richer scenery
+The initial region loads only its current period. Other regions and periods load on demand. Desktop retains loaded pages for revisits; small screens release pages from the previous region or period, and cached manifests can reload released textures. Resizing to a small screen releases inactive pages. Ordinary frame selection avoids repainting canvases or uploading textures each tick.
 
-Independent tree canopies, cloth awnings, doors, boats and articulated character actions benefit from separately authored transparent layers with clean background plates. Those layers can preserve painterly edges while moving at different speeds and depths. The current paintings bake those details together; the new engine layers supply environmental flow and town activity around that base. Source-layer animation is the appropriate art pipeline for bending whole canopies, opening painted doors or moving existing boats cleanly.
+## Watching and accessibility
+
+Three background residents per region follow navigation-tested routes with painted directional walking frames. Seven story residents use six-frame painted idle sequences; their fixed foot pivots preserve contact with the ground. The **Watch the world** control hides the HUD and follows a slow camera tour. Escape returns to exploration. Camera motion and decorative animation obey the configured reduced-motion preference.
+
+Settings → World motion offers Follow device preference, Full world animation and Calm, still scenery. The choice persists. Still scenery freezes the current painted frame and resident routines. Player movement remains available. The world sleeps behind menus and when the page is hidden.
+
+## Verification
+
+`placed-scenery.test.ts` checks every placement against both complete six-frame sets, varied tree silhouettes, registered dimensions, distinct period atlases and valid pivots. It also checks independent phases, frame changes, fixed upright transforms, freeze/resume, culling and destruction. Clock tests check day/night boundaries, gradual progression, midnight wrap and manual/local modes. Navigation tests cover all story-character and discovery approaches and every resident loop.
+
+`node scripts/check-world-animations.mjs` verifies 192 sequences and 1,152 frames, native transparency, distinct painted phases, separate day/night artwork and the 2048-pixel texture budget.
+
+The development fixture at `/qa/world-assets.html` uses the actual game renderer and residents. It selects all three regions and both times, hides raised objects, freezes animation or enables the camera tour. Its animation count reports placements with loaded authored frames.

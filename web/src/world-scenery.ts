@@ -1,64 +1,60 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
-import { getScenery, packScenery, sceneryDepth, type SceneryPolygon } from './scenery';
-
+import type { WorldPeriod } from './world-clock';
+import { getPlacedScenery, sceneryTextureFor, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
+import { sampleSceneryFrame,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 interface SceneryLayer {
-  sprite: Phaser.GameObjects.Image;
-  x: number; y: number; right: number; bottom: number;
+  spec:PlacedScenerySpec;
+  sprite:Phaser.GameObjects.Sprite;
+  animation?:SceneryAnimation;
+  currentFrame:string;
+  width:number;
+  height:number;
 }
-
-/** Reuses the exact painted pixels as transparent foreground silhouettes.
- * One shared atlas per active map, one GPU upload on entry, no masks or canvas
- * redraws per actor/frame. Works in both Phaser WebGL and Canvas renderers. */
+export interface SceneryView { x:number;y:number;right:number;bottom:number; }
+/** Each upright object plays ImageGen-authored raster frames. Foundations, scale
+ * and camera orientation stay fixed; there are no meshes or procedural overlays. */
 export class WorldScenery {
-  private readonly layers: SceneryLayer[] = [];
-  private readonly key: string;
-
-  constructor(private readonly scene: Phaser.Scene, mapId: MapId) {
-    this.key = `scenery-${mapId}`;
-    if (!scene.textures.exists(mapId)) return;
-    const { frames, width, height } = packScenery(getScenery(mapId));
-    if (!frames.length) return;
-    const source = scene.textures.get(mapId).getSourceImage() as CanvasImageSource;
-    const texture = scene.textures.createCanvas(this.key, width, height);
-    if (!texture) return;
-    const ctx = texture.context;
-    const path = (outline: SceneryPolygon): void => {
-      ctx.moveTo(outline[0][0], outline[0][1]);
-      for (let index = 1; index < outline.length; index++) ctx.lineTo(outline[index][0], outline[index][1]);
-      ctx.closePath();
-    };
-    for (const frame of frames) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(frame.atlasX, frame.atlasY, frame.width, frame.height);
-      ctx.clip();
-      ctx.translate(frame.atlasX - frame.x, frame.atlasY - frame.y);
-      ctx.beginPath();
-      path(frame.spec.outline);
-      for (const hole of frame.spec.holes ?? []) path(hole);
-      ctx.clip('evenodd');
-      ctx.drawImage(source, 0, 0, 1536, 1024);
-      ctx.restore();
-      texture.add(frame.spec.id, 0, frame.atlasX, frame.atlasY, frame.width, frame.height);
-    }
-    texture.refresh();
-    for (const frame of frames) {
-      const sprite = scene.add.image(frame.x, frame.y, this.key, frame.spec.id)
-        .setOrigin(0).setDepth(sceneryDepth(frame.spec.baseY));
-      this.layers.push({ sprite, x: frame.x, y: frame.y, right: frame.x + frame.width, bottom: frame.y + frame.height });
+  private layers:SceneryLayer[]=[];
+  private visible=true;
+  private reducedMotion=false;
+  private motionTime=0;
+  constructor(private scene:Phaser.Scene,mapId:MapId,period:WorldPeriod='day'){
+    const manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
+    for(const spec of getPlacedScenery(mapId)){
+      const name=spec.frame??spec.asset;
+      const authored=manifest?.assets[name];
+      const animation=authored&&scene.textures.exists(authored.key)?authored:undefined;
+      const key=animation?.key??sceneryTextureFor(mapId,spec);
+      const frameName=animation?sampleSceneryFrame(animation,spec.id,0):name;
+      if(!scene.textures.exists(key))continue;
+      const atlas=scene.textures.get(key);if(!atlas.has(frameName))continue;
+      const frame=atlas.get(frameName),scale=spec.width/(animation?.referenceWidth??frame.width);
+      const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
+        .setOrigin(animation?.originX??.5,animation?.originY??1).setScale(scale)
+        .setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
+      this.layers.push({spec,sprite,animation,currentFrame:frameName,width:frame.width*scale,height:frame.height*scale});
     }
   }
-
-  update(view: { x: number; y: number; right: number; bottom: number }): void {
-    for (const item of this.layers) item.sprite.setVisible(item.right >= view.x && item.x <= view.right
-      && item.bottom >= view.y && item.y <= view.bottom);
+  get objectCount(){return this.layers.length;}
+  get animatedObjectCount(){return this.layers.filter(item=>!!item.animation).length;}
+  setVisible(visible:boolean){
+    this.visible=visible;
+    // Hidden worlds stop updating while a room is active, so visibility must
+    // take effect here instead of waiting for the next scenery update.
+    if(!visible)for(const {sprite} of this.layers)sprite.setVisible(false);
   }
-
-  destroy(): void {
-    for (const { sprite } of this.layers) sprite.destroy();
-    this.layers.length = 0;
-    // Only the active map keeps an occlusion atlas in GPU memory.
-    if (this.scene.textures.exists(this.key)) this.scene.textures.remove(this.key);
+  setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
+  update(time:number,view:SceneryView){
+    if(!this.reducedMotion)this.motionTime=time;
+    for(const item of this.layers){
+      const {spec,sprite,width,height,animation}=item;
+      const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
+        &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
+      sprite.setVisible(visible);if(!visible||!animation)continue;
+      const frame=sampleSceneryFrame(animation,spec.id,this.motionTime);
+      if(frame!==item.currentFrame){sprite.setFrame(frame);item.currentFrame=frame;}
+    }
   }
+  destroy(){for(const {sprite} of this.layers)sprite.destroy();this.layers=[];}
 }

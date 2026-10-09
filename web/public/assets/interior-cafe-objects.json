@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "espresso-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 216,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 237
+      }
+    },
+    "espresso-1": {
+      "frame": {
+        "x": 222,
+        "y": 2,
+        "w": 216,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 237
+      }
+    },
+    "espresso-2": {
+      "frame": {
+        "x": 442,
+        "y": 2,
+        "w": 216,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 237
+      }
+    },
+    "espresso-3": {
+      "frame": {
+        "x": 662,
+        "y": 2,
+        "w": 216,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 237
+      }
+    },
+    "grinder-0": {
+      "frame": {
+        "x": 2,
+        "y": 243,
+        "w": 196,
+        "h": 242
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 196,
+        "h": 242
+      },
+      "sourceSize": {
+        "w": 196,
+        "h": 242
+      }
+    },
+    "grinder-1": {
+      "frame": {
+        "x": 202,
+        "y": 243,
+        "w": 196,
+        "h": 242
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 196,
+        "h": 242
+      },
+      "sourceSize": {
+        "w": 196,
+        "h": 242
+      }
+    },
+    "grinder-2": {
+      "frame": {
+        "x": 402,
+        "y": 243,
+        "w": 196,
+        "h": 242
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 196,
+        "h": 242
+      },
+      "sourceSize": {
+        "w": 196,
+        "h": 242
+      }
+    },
+    "grinder-3": {
+      "frame": {
+        "x": 602,
+        "y": 243,
+        "w": 196,
+        "h": 242
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 196,
+        "h": 242
+      },
+      "sourceSize": {
+        "w": 196,
+        "h": 242
+      }
+    },
+    "kettle-0": {
+      "frame": {
+        "x": 802,
+        "y": 243,
+        "w": 198,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 241
+      }
+    },
+    "kettle-1": {
+      "frame": {
+        "x": 2,
+        "y": 489,
+        "w": 198,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 241
+      }
+    },
+    "kettle-2": {
+      "frame": {
+        "x": 204,
+        "y": 489,
+        "w": 198,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 241
+      }
+    },
+    "kettle-3": {
+      "frame": {
+        "x": 406,
+        "y": 489,
+        "w": 198,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 198,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 198,
+        "h": 241
+      }
+    },
+    "cup-0": {
+      "frame": {
+        "x": 608,
+        "y": 489,
+        "w": 202,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 202,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 202,
+        "h": 219
+      }
+    },
+    "cup-1": {
+      "frame": {
+        "x": 814,
+        "y": 489,
+        "w": 202,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 202,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 202,
+        "h": 219
+      }
+    },
+    "cup-2": {
+      "frame": {
+        "x": 2,
+        "y": 734,
+        "w": 202,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 202,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 202,
+        "h": 219
+      }
+    },
+    "cup-3": {
+      "frame": {
+        "x": 208,
+        "y": 734,
+        "w": 202,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 202,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 202,
+        "h": 219
+      }
+    },
+    "pastry-case-0": {
+      "frame": {
+        "x": 414,
+        "y": 734,
+        "w": 243,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 243,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 243,
+        "h": 240
+      }
+    },
+    "pastry-case-1": {
+      "frame": {
+        "x": 661,
+        "y": 734,
+        "w": 243,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 243,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 243,
+        "h": 240
+      }
+    },
+    "pastry-case-2": {
+      "frame": {
+        "x": 2,
+        "y": 978,
+        "w": 243,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 243,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 243,
+        "h": 240
+      }
+    },
+    "pastry-case-3": {
+      "frame": {
+        "x": 249,
+        "y": 978,
+        "w": 243,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 243,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 243,
+        "h": 240
+      }
+    },
+    "cafe-table-0": {
+      "frame": {
+        "x": 496,
+        "y": 978,
+        "w": 252,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 256
+      }
+    },
+    "cafe-table-1": {
+      "frame": {
+        "x": 752,
+        "y": 978,
+        "w": 252,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 256
+      }
+    },
+    "cafe-table-2": {
+      "frame": {
+        "x": 2,
+        "y": 1238,
+        "w": 252,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 256
+      }
+    },
+    "cafe-table-3": {
+      "frame": {
+        "x": 258,
+        "y": 1238,
+        "w": 252,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 252,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 252,
+        "h": 256
+      }
+    }
+  },
+  "meta": {
+    "image": "interior-cafe-objects.webp",
+    "size": {
+      "w": 1024,
+      "h": 1496
+    },
+    "scale": "1"
+  }
+}

@@ -1,0 +1,146 @@
+/* Little rooms carry their own places, voices, and language. */
+.interior-location[hidden] { display:none; }
+.interior-location {
+  box-sizing:border-box;
+  position:absolute;
+  top:max(22px,env(safe-area-inset-top));
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:11px;
+  max-width:calc(100vw - 600px);
+  padding:9px 10px 9px 12px;
+  color:#f2dfb3;
+  background:linear-gradient(135deg,#283c2ef5,#142c24ed);
+  border:1px solid #d5b87572;
+  box-shadow:0 4px 16px #08231b45,inset 0 1px #fff1cb0b;
+  pointer-events:auto;
+}
+.game-shell[data-interior] .location-banner { display:none; }
+.game-shell[data-interior] .world-vignette { background:linear-gradient(180deg,#20170e8c,transparent 24%,transparent 74%,#1d180fcc),linear-gradient(90deg,#231d1438,transparent 24%,transparent 76%,#231d1438); }
+.interior-location-icon { display:grid; place-items:center; width:30px; height:34px; flex:none; color:#d6bb78; }
+.interior-location-icon>.icon { width:24px; height:24px; }
+.interior-location-copy { min-width:0; }
+.interior-location-copy small { display:block; font-size:7px; letter-spacing:1.4px; color:#c5c19f; margin-bottom:4px; }
+.interior-location-copy strong { display:block; font:17px 'Fraunces',serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.interior-location>button { display:flex; align-items:center; justify-content:center; gap:7px; margin-left:10px; min-height:35px; padding:8px 10px; color:#ebdba9; border:1px solid #d9bd8045; background:#d5be7b0d; font-size:10px; }
+.interior-location>button:hover { background:#d5be7b22; border-color:#d9bd8080; }
+.interior-location>button>.icon { width:15px; height:15px; }
+.interior-session-hint { display:flex; align-items:flex-start; gap:11px; padding:16px; }
+.interior-session-hint>span { flex:none; color:#d7bc7a; margin-top:2px; }
+.interior-session-hint>span>.icon { width:20px; height:20px; }
+.interior-session-hint small { display:block; color:#c9c39e; font-size:7px; letter-spacing:1.2px; }
+.interior-session-hint strong { display:block; font:16px 'Fraunces',serif; color:#f1e1b8; margin-top:8px; }
+.interior-session-hint p { color:#b7c3a4; font-size:10px; line-height:1.6; margin:7px 0 0; }
+
+.interior-dialog { width:min(700px,calc(100vw - 54px)); }
+.interior-encounter-heading { display:flex; align-items:center; gap:18px; padding-right:12px; }
+.interior-encounter-heading>.large-portrait { width:76px; height:76px; margin:0; border-color:#b79b60; box-shadow:0 2px 9px #65543625; }
+.interior-encounter-heading .eyebrow { font-size:8px; letter-spacing:1.25px; line-height:1.5; }
+.interior-encounter-heading h2 { margin:9px 0 0; font-size:29px; }
+.interior-object-emblem { display:grid; place-items:center; flex:none; width:65px; height:65px; color:#907646; border:1px solid #b49c634d; background:#c9b5791c; box-shadow:inset 0 0 0 5px #fbf2dc70; }
+.interior-object-emblem>.icon { width:30px; height:30px; }
+.interior-description { margin:23px 0 21px; font-size:14px; line-height:1.8; color:#53644a; }
+.interior-dialogue { display:flex; align-items:center; gap:12px; justify-content:space-between; margin:0 0 23px; padding:14px 17px; border-left:2px solid #a98d56; background:#9ba88620; color:#456040; font:18px/1.55 'Fraunces',serif; }
+.interior-dialogue .icon-button { flex:none; color:#788454; }
+.interior-word-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 11px; }
+.interior-word-heading>span { display:flex; align-items:center; gap:8px; color:#6a774c; font-size:11px; }
+.interior-word-heading .icon { width:15px; height:15px; }
+.interior-word-heading>small { font-size:7px; letter-spacing:1.1px; color:#8b815b; }
+.interior-words { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.interior-word { padding:13px 12px; min-width:0; border:1px solid #a6936240; background:#fff9e644; box-shadow:0 2px 3px #87754807; }
+.interior-word>div { display:flex; align-items:center; gap:5px; min-width:0; }
+.interior-word-article { color:#927646; font:12px 'Fraunces',serif; }
+.interior-word strong { font:18px 'Fraunces',serif; color:#304c37; overflow-wrap:anywhere; }
+.interior-word .icon-button { margin-left:auto; flex:none; width:25px; height:25px; padding:5px; color:#8b8458; }
+.interior-word .icon-button>.icon { width:14px; height:14px; }
+.interior-word p { margin:7px 0 9px; font-size:11px; line-height:1.5; color:#6c7757; }
+.interior-word small { display:block; color:#6f6f50; font-size:10px; line-height:1.5; }
+.interior-word small>span { font-size:6px; letter-spacing:1px; color:#96875b; margin-right:4px; }
+.interior-practice-card { display:grid; grid-template-columns:23px 1fr; align-items:start; gap:12px; border-top:1px solid #a28e5b45; margin-top:24px; padding-top:21px; }
+.interior-practice-card>span { color:#927d4b; margin-top:3px; }
+.interior-practice-card>span>.icon { width:23px; height:23px; }
+.interior-practice-card>div>small { font-size:7px; letter-spacing:1.25px; color:#927b46; }
+.interior-practice-card h3 { font-size:20px; color:#3e583d; margin:6px 0 9px; }
+.interior-practice-card p { color:#6c7757; font-size:12px; line-height:1.65; margin:0 0 9px; }
+.interior-practice-card>div>span { color:#92815a; font-size:9px; }
+.interior-practice-card>.primary-button { grid-column:2; justify-self:start; margin:4px 0 0; min-height:43px; padding:12px 18px; font-size:12px; }
+.interior-game-card { margin:21px 0 0 35px; padding:17px; border:1px solid #a18e5b45; background:#889c6520; }
+.interior-game-card>small { font-size:7px; letter-spacing:1.15px; color:#897847; }
+.interior-game-card h3 { margin:7px 0 9px; font-size:19px; color:#3e583d; }
+.interior-game-card p { font-size:11px; line-height:1.7; color:#61714f; margin-bottom:13px; }
+.interior-game-card>.interior-activity { display:flex; gap:8px; align-items:center; font-size:11px; min-height:38px; padding:10px 15px; }
+.interior-encounter>.interior-back { display:flex; margin:19px 0 0 35px; font-size:10px; }
+.interior-completion>.text-button { display:block; margin:12px auto 0; }
+
+.interior-places { margin-top:29px; border-top:1px solid #baa36b40; padding-top:23px; }
+.interior-places>header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.interior-places>header>.icon { width:31px; height:31px; color:#cdb57b; opacity:.65; flex:none; }
+.interior-places h3 { font-size:24px; color:#eadbb3; margin:9px 0; }
+.interior-places header p { color:#b4be9f; font-size:11px; line-height:1.6; margin:0; }
+.interior-place-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:20px; }
+.interior-place-list>button { display:flex; align-items:center; gap:11px; padding:15px 13px; text-align:left; color:#eadbb3; border:1px solid #bbab7245; background:linear-gradient(120deg,#a49a5220,#6d895415); }
+.interior-place-list>button:hover { border-color:#d1ba7d99; background:#a6a66725; }
+.interior-place-icon { display:grid; place-items:center; flex:none; width:35px; height:35px; border:1px solid #b8a77240; color:#cabb88; }
+.interior-place-icon>.icon { width:22px; height:22px; }
+.interior-place-list>button>span:nth-child(2) { min-width:0; flex:1; }
+.interior-place-list strong { display:block; font:17px 'Fraunces',serif; line-height:1.3; }
+.interior-place-list small { display:block; color:#b1b997; font-size:9px; line-height:1.5; margin-top:6px; }
+.interior-place-list>button>.icon { width:14px; height:14px; flex:none; color:#b6ab7b; }
+
+@media(max-width:1050px) {
+  .interior-location { max-width:calc(100vw - 540px); gap:7px; padding:8px; }
+  .interior-location-icon { display:none; }
+  .interior-location-copy strong { font-size:16px; }
+  .interior-location>button { margin-left:3px; padding:7px; }
+  .interior-place-list>button { flex-wrap:wrap; }
+  .interior-place-list>button>span:nth-child(2) { flex-basis:calc(100% - 48px); }
+  .interior-place-list>button>.icon { display:none; }
+}
+@media(max-width:800px) {
+  .interior-location { top:max(76px,calc(env(safe-area-inset-top) + 65px)); left:max(14px,env(safe-area-inset-left)); transform:none; max-width:min(350px,calc(100vw - 28px)); gap:10px; padding:8px 9px 8px 11px; }
+  .interior-location-icon { display:grid; width:25px; }
+  .interior-location-copy { flex:1; }
+  .interior-location-copy small { font-size:6px; }
+  .interior-location-copy strong { font-size:16px; }
+  .interior-location>button { padding:8px; }
+  .game-shell[data-interior] .quest-tracker { display:none; }
+  .interior-place-list { grid-template-columns:1fr; }
+  .interior-place-list>button { flex-wrap:nowrap; padding:12px 14px; }
+  .interior-place-list>button>span:nth-child(2) { flex-basis:auto; }
+  .interior-place-list>button>.icon { display:block; }
+}
+@media(max-width:540px) {
+  .interior-dialog { width:calc(100vw - 34px); padding:30px 20px 23px; max-height:calc(100dvh - 42px); }
+  .interior-encounter-heading { gap:12px; }
+  .interior-encounter-heading>.large-portrait { width:57px; height:57px; }
+  .interior-object-emblem { width:49px; height:54px; }
+  .interior-object-emblem>.icon { width:26px; height:26px; }
+  .interior-encounter-heading h2 { font-size:24px; }
+  .interior-encounter-heading .eyebrow { font-size:6px; letter-spacing:.7px; }
+  .interior-description { font-size:12px; margin:19px 0; line-height:1.75; }
+  .interior-dialogue { font-size:16px; padding:12px; }
+  .interior-word-heading { align-items:flex-start; }
+  .interior-word-heading>small { display:none; }
+  .interior-words { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .interior-word { padding:11px 10px; }
+  .interior-word strong { font-size:17px; }
+  .interior-practice-card { gap:10px; margin-top:21px; padding-top:18px; grid-template-columns:20px 1fr; }
+  .interior-practice-card h3 { font-size:19px; }
+  .interior-practice-card p { font-size:11px; }
+  .interior-practice-card>.primary-button { justify-self:stretch; justify-content:center; padding:12px; }
+  .interior-game-card { margin-left:30px; padding:13px; }
+  .interior-game-card h3 { font-size:18px; }
+  .interior-game-card>.interior-activity { width:100%; justify-content:center; padding:10px 9px; font-size:10px; }
+  .interior-encounter>.interior-back { margin-left:30px; font-size:9px; }
+  .interior-places h3 { font-size:21px; }
+}
+@media(max-height:540px) and (orientation:landscape) {
+  .interior-location { top:max(13px,env(safe-area-inset-top)); left:50%; transform:translateX(-50%); max-width:calc(100vw - 400px); }
+  .interior-location-icon { display:none; }
+  .interior-location-copy small { display:none; }
+  .interior-location-copy strong { font-size:14px; }
+  .interior-location>button { min-height:27px; padding:5px; }
+  .interior-location>button>span { display:none; }
+}

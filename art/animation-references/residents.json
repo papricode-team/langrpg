@@ -1,0 +1,93 @@
+{
+  "width": 1536,
+  "height": 1024,
+  "columns": 6,
+  "rows": 4,
+  "cell": 256,
+  "baseline": 230,
+  "batches": [
+    {
+      "batch": 0,
+      "path": "art/animation-references/residents-0.png",
+      "entries": [
+        {
+          "name": "marta",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "otto",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "lina",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "emil",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        }
+      ],
+      "rowStarts": [
+        0,
+        256,
+        512,
+        755,
+        1024
+      ]
+    },
+    {
+      "batch": 1,
+      "path": "art/animation-references/residents-1.png",
+      "entries": [
+        {
+          "name": "ada",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "fritz",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "greta",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        },
+        {
+          "name": "wanderer",
+          "width": 149,
+          "height": 224,
+          "left": 54,
+          "top": 28,
+          "baseline": 230
+        }
+      ]
+    }
+  ]
+}

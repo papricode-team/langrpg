@@ -1,0 +1,332 @@
+{
+  "frames": {
+    "house-1": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 292,
+        "h": 360
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 292,
+        "h": 360
+      },
+      "sourceSize": {
+        "w": 292,
+        "h": 360
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 298,
+        "y": 2,
+        "w": 335,
+        "h": 286
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 335,
+        "h": 286
+      },
+      "sourceSize": {
+        "w": 335,
+        "h": 286
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 637,
+        "y": 2,
+        "w": 266,
+        "h": 360
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 266,
+        "h": 360
+      },
+      "sourceSize": {
+        "w": 266,
+        "h": 360
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 2,
+        "y": 366,
+        "w": 322,
+        "h": 312
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 322,
+        "h": 312
+      },
+      "sourceSize": {
+        "w": 322,
+        "h": 312
+      }
+    },
+    "tree-1": {
+      "frame": {
+        "x": 328,
+        "y": 366,
+        "w": 325,
+        "h": 279
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 325,
+        "h": 279
+      },
+      "sourceSize": {
+        "w": 325,
+        "h": 279
+      }
+    },
+    "tree-2": {
+      "frame": {
+        "x": 657,
+        "y": 366,
+        "w": 271,
+        "h": 332
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 271,
+        "h": 332
+      },
+      "sourceSize": {
+        "w": 271,
+        "h": 332
+      }
+    },
+    "tree-3": {
+      "frame": {
+        "x": 2,
+        "y": 702,
+        "w": 347,
+        "h": 295
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 347,
+        "h": 295
+      },
+      "sourceSize": {
+        "w": 347,
+        "h": 295
+      }
+    },
+    "tree-4": {
+      "frame": {
+        "x": 353,
+        "y": 702,
+        "w": 225,
+        "h": 342
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 225,
+        "h": 342
+      },
+      "sourceSize": {
+        "w": 225,
+        "h": 342
+      }
+    },
+    "stall-1": {
+      "frame": {
+        "x": 582,
+        "y": 702,
+        "w": 314,
+        "h": 304
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 314,
+        "h": 304
+      },
+      "sourceSize": {
+        "w": 314,
+        "h": 304
+      }
+    },
+    "stall-2": {
+      "frame": {
+        "x": 2,
+        "y": 1048,
+        "w": 292,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 292,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 292,
+        "h": 272
+      }
+    },
+    "stall-3": {
+      "frame": {
+        "x": 298,
+        "y": 1048,
+        "w": 313,
+        "h": 296
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 313,
+        "h": 296
+      },
+      "sourceSize": {
+        "w": 313,
+        "h": 296
+      }
+    },
+    "stall-4": {
+      "frame": {
+        "x": 615,
+        "y": 1048,
+        "w": 316,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 316,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 316,
+        "h": 271
+      }
+    },
+    "planter-1": {
+      "frame": {
+        "x": 2,
+        "y": 1348,
+        "w": 231,
+        "h": 285
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 231,
+        "h": 285
+      },
+      "sourceSize": {
+        "w": 231,
+        "h": 285
+      }
+    },
+    "planter-2": {
+      "frame": {
+        "x": 237,
+        "y": 1348,
+        "w": 301,
+        "h": 218
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 301,
+        "h": 218
+      },
+      "sourceSize": {
+        "w": 301,
+        "h": 218
+      }
+    },
+    "garden-1": {
+      "frame": {
+        "x": 542,
+        "y": 1348,
+        "w": 270,
+        "h": 274
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 270,
+        "h": 274
+      },
+      "sourceSize": {
+        "w": 270,
+        "h": 274
+      }
+    },
+    "garden-2": {
+      "frame": {
+        "x": 2,
+        "y": 1637,
+        "w": 220,
+        "h": 268
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 220,
+        "h": 268
+      },
+      "sourceSize": {
+        "w": 220,
+        "h": 268
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-variations.webp",
+    "size": {
+      "w": 1024,
+      "h": 1907
+    },
+    "scale": "1"
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "frames": {
+    "house-1": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 344,
+        "h": 331
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 331
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 331
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 350,
+        "y": 2,
+        "w": 293,
+        "h": 335
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 293,
+        "h": 335
+      },
+      "sourceSize": {
+        "w": 293,
+        "h": 335
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 647,
+        "y": 2,
+        "w": 299,
+        "h": 294
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 299,
+        "h": 294
+      },
+      "sourceSize": {
+        "w": 299,
+        "h": 294
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 2,
+        "y": 341,
+        "w": 351,
+        "h": 319
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 351,
+        "h": 319
+      },
+      "sourceSize": {
+        "w": 351,
+        "h": 319
+      }
+    },
+    "tree-1": {
+      "frame": {
+        "x": 357,
+        "y": 341,
+        "w": 292,
+        "h": 344
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 292,
+        "h": 344
+      },
+      "sourceSize": {
+        "w": 292,
+        "h": 344
+      }
+    },
+    "tree-2": {
+      "frame": {
+        "x": 653,
+        "y": 341,
+        "w": 360,
+        "h": 318
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 360,
+        "h": 318
+      },
+      "sourceSize": {
+        "w": 360,
+        "h": 318
+      }
+    },
+    "tree-3": {
+      "frame": {
+        "x": 2,
+        "y": 689,
+        "w": 229,
+        "h": 348
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 348
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 348
+      }
+    },
+    "tree-4": {
+      "frame": {
+        "x": 235,
+        "y": 689,
+        "w": 347,
+        "h": 313
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 347,
+        "h": 313
+      },
+      "sourceSize": {
+        "w": 347,
+        "h": 313
+      }
+    },
+    "stall-1": {
+      "frame": {
+        "x": 586,
+        "y": 689,
+        "w": 337,
+        "h": 312
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 337,
+        "h": 312
+      },
+      "sourceSize": {
+        "w": 337,
+        "h": 312
+      }
+    },
+    "stall-2": {
+      "frame": {
+        "x": 2,
+        "y": 1041,
+        "w": 291,
+        "h": 298
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 291,
+        "h": 298
+      },
+      "sourceSize": {
+        "w": 291,
+        "h": 298
+      }
+    },
+    "stall-3": {
+      "frame": {
+        "x": 297,
+        "y": 1041,
+        "w": 298,
+        "h": 306
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 298,
+        "h": 306
+      },
+      "sourceSize": {
+        "w": 298,
+        "h": 306
+      }
+    },
+    "stall-4": {
+      "frame": {
+        "x": 599,
+        "y": 1041,
+        "w": 331,
+        "h": 309
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 331,
+        "h": 309
+      },
+      "sourceSize": {
+        "w": 331,
+        "h": 309
+      }
+    },
+    "planter-1": {
+      "frame": {
+        "x": 2,
+        "y": 1354,
+        "w": 326,
+        "h": 267
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 326,
+        "h": 267
+      },
+      "sourceSize": {
+        "w": 326,
+        "h": 267
+      }
+    },
+    "planter-2": {
+      "frame": {
+        "x": 332,
+        "y": 1354,
+        "w": 234,
+        "h": 277
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 234,
+        "h": 277
+      },
+      "sourceSize": {
+        "w": 234,
+        "h": 277
+      }
+    },
+    "garden-1": {
+      "frame": {
+        "x": 570,
+        "y": 1354,
+        "w": 305,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 305,
+        "h": 265
+      },
+      "sourceSize": {
+        "w": 305,
+        "h": 265
+      }
+    },
+    "garden-2": {
+      "frame": {
+        "x": 2,
+        "y": 1635,
+        "w": 272,
+        "h": 286
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 272,
+        "h": 286
+      },
+      "sourceSize": {
+        "w": 272,
+        "h": 286
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-variations.webp",
+    "size": {
+      "w": 1024,
+      "h": 1923
+    },
+    "scale": "1"
+  }
+}

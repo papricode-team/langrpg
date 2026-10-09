@@ -1,0 +1,456 @@
+{
+  "version": 1,
+  "framesPerAsset": 4,
+  "assets": {
+    "espresso": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "espresso-0",
+        "espresso-1",
+        "espresso-2",
+        "espresso-3"
+      ],
+      "fps": 2.5,
+      "width": 216,
+      "height": 237,
+      "referenceWidth": 216,
+      "originX": 0.4398148148148148,
+      "originY": 0.9873417721518988
+    },
+    "grinder": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "grinder-0",
+        "grinder-1",
+        "grinder-2",
+        "grinder-3"
+      ],
+      "fps": 2.5,
+      "width": 196,
+      "height": 242,
+      "referenceWidth": 196,
+      "originX": 0.37244897959183676,
+      "originY": 0.987603305785124
+    },
+    "kettle": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "kettle-0",
+        "kettle-1",
+        "kettle-2",
+        "kettle-3"
+      ],
+      "fps": 2.5,
+      "width": 198,
+      "height": 241,
+      "referenceWidth": 198,
+      "originX": 0.4090909090909091,
+      "originY": 0.9875518672199171
+    },
+    "cup": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "cup-0",
+        "cup-1",
+        "cup-2",
+        "cup-3"
+      ],
+      "fps": 2.5,
+      "width": 202,
+      "height": 219,
+      "referenceWidth": 202,
+      "originX": 0.504950495049505,
+      "originY": 0.9863013698630136
+    },
+    "pastry-case": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "pastry-case-0",
+        "pastry-case-1",
+        "pastry-case-2",
+        "pastry-case-3"
+      ],
+      "fps": 2.5,
+      "width": 243,
+      "height": 240,
+      "referenceWidth": 243,
+      "originX": 0.49794238683127573,
+      "originY": 0.9875
+    },
+    "cafe-table": {
+      "key": "interior-cafe-objects",
+      "frames": [
+        "cafe-table-0",
+        "cafe-table-1",
+        "cafe-table-2",
+        "cafe-table-3"
+      ],
+      "fps": 2.5,
+      "width": 252,
+      "height": 256,
+      "referenceWidth": 252,
+      "originX": 0.49603174603174605,
+      "originY": 0.98828125
+    },
+    "oven": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "oven-0",
+        "oven-1",
+        "oven-2",
+        "oven-3"
+      ],
+      "fps": 2.5,
+      "width": 228,
+      "height": 265,
+      "referenceWidth": 228,
+      "originX": 0.47368421052631576,
+      "originY": 0.9886792452830189
+    },
+    "mixer": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "mixer-0",
+        "mixer-1",
+        "mixer-2",
+        "mixer-3"
+      ],
+      "fps": 2.5,
+      "width": 249,
+      "height": 219,
+      "referenceWidth": 249,
+      "originX": 0.5140562248995983,
+      "originY": 0.9863013698630136
+    },
+    "bread-rack": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "bread-rack-0",
+        "bread-rack-1",
+        "bread-rack-2",
+        "bread-rack-3"
+      ],
+      "fps": 2.5,
+      "width": 204,
+      "height": 260,
+      "referenceWidth": 204,
+      "originX": 0.4950980392156863,
+      "originY": 0.9884615384615385
+    },
+    "pastry-tray": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "pastry-tray-0",
+        "pastry-tray-1",
+        "pastry-tray-2",
+        "pastry-tray-3"
+      ],
+      "fps": 2.5,
+      "width": 230,
+      "height": 233,
+      "referenceWidth": 230,
+      "originX": 0.4956521739130435,
+      "originY": 0.9871244635193133
+    },
+    "dough-bench": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "dough-bench-0",
+        "dough-bench-1",
+        "dough-bench-2",
+        "dough-bench-3"
+      ],
+      "fps": 2.5,
+      "width": 241,
+      "height": 219,
+      "referenceWidth": 241,
+      "originX": 0.5062240663900415,
+      "originY": 0.9863013698630136
+    },
+    "bakery-counter": {
+      "key": "interior-bakery-objects",
+      "frames": [
+        "bakery-counter-0",
+        "bakery-counter-1",
+        "bakery-counter-2",
+        "bakery-counter-3"
+      ],
+      "fps": 2.5,
+      "width": 250,
+      "height": 241,
+      "referenceWidth": 250,
+      "originX": 0.496,
+      "originY": 0.9875518672199171
+    },
+    "produce": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "produce-0",
+        "produce-1",
+        "produce-2",
+        "produce-3"
+      ],
+      "fps": 2.5,
+      "width": 239,
+      "height": 217,
+      "referenceWidth": 239,
+      "originX": 0.502092050209205,
+      "originY": 0.9861751152073732
+    },
+    "grocery-shelf": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "grocery-shelf-0",
+        "grocery-shelf-1",
+        "grocery-shelf-2",
+        "grocery-shelf-3"
+      ],
+      "fps": 2.5,
+      "width": 215,
+      "height": 216,
+      "referenceWidth": 215,
+      "originX": 0.49767441860465117,
+      "originY": 0.9861111111111112
+    },
+    "refrigerator": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "refrigerator-0",
+        "refrigerator-1",
+        "refrigerator-2",
+        "refrigerator-3"
+      ],
+      "fps": 2.5,
+      "width": 190,
+      "height": 249,
+      "referenceWidth": 190,
+      "originX": 0.5,
+      "originY": 0.9879518072289156
+    },
+    "checkout": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "checkout-0",
+        "checkout-1",
+        "checkout-2",
+        "checkout-3"
+      ],
+      "fps": 2.5,
+      "width": 240,
+      "height": 203,
+      "referenceWidth": 240,
+      "originX": 0.5041666666666667,
+      "originY": 0.9852216748768473
+    },
+    "basket": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "basket-0",
+        "basket-1",
+        "basket-2",
+        "basket-3"
+      ],
+      "fps": 2.5,
+      "width": 216,
+      "height": 235,
+      "referenceWidth": 216,
+      "originX": 0.4351851851851852,
+      "originY": 0.9872340425531915
+    },
+    "scales": {
+      "key": "interior-supermarket-objects",
+      "frames": [
+        "scales-0",
+        "scales-1",
+        "scales-2",
+        "scales-3"
+      ],
+      "fps": 2.5,
+      "width": 199,
+      "height": 283,
+      "referenceWidth": 199,
+      "originX": 0.49748743718592964,
+      "originY": 0.9893992932862191
+    },
+    "plant": {
+      "key": "interior-decor",
+      "frames": [
+        "plant-0",
+        "plant-1",
+        "plant-2",
+        "plant-3"
+      ],
+      "fps": 2.5,
+      "width": 191,
+      "height": 199,
+      "referenceWidth": 191,
+      "originX": 0.4712041884816754,
+      "originY": 0.9849246231155779
+    },
+    "pendulum-clock": {
+      "key": "interior-decor",
+      "frames": [
+        "pendulum-clock-0",
+        "pendulum-clock-1",
+        "pendulum-clock-2",
+        "pendulum-clock-3"
+      ],
+      "fps": 2.5,
+      "width": 127,
+      "height": 255,
+      "referenceWidth": 127,
+      "originX": 0.47244094488188976,
+      "originY": 0.9882352941176471
+    },
+    "candle": {
+      "key": "interior-decor",
+      "frames": [
+        "candle-0",
+        "candle-1",
+        "candle-2",
+        "candle-3"
+      ],
+      "fps": 2.5,
+      "width": 172,
+      "height": 224,
+      "referenceWidth": 172,
+      "originX": 0.4476744186046512,
+      "originY": 0.9866071428571429
+    },
+    "aquarium": {
+      "key": "interior-decor",
+      "frames": [
+        "aquarium-0",
+        "aquarium-1",
+        "aquarium-2",
+        "aquarium-3"
+      ],
+      "fps": 2,
+      "width": 221,
+      "height": 236,
+      "referenceWidth": 221,
+      "originX": 0.49321266968325794,
+      "originY": 0.9872881355932204
+    },
+    "bookshelf": {
+      "key": "interior-decor",
+      "frames": [
+        "bookshelf-0",
+        "bookshelf-1",
+        "bookshelf-2",
+        "bookshelf-3"
+      ],
+      "fps": 2.5,
+      "width": 215,
+      "height": 284,
+      "referenceWidth": 215,
+      "originX": 0.4697674418604651,
+      "originY": 0.9894366197183099
+    },
+    "coat-stand": {
+      "key": "interior-decor",
+      "frames": [
+        "coat-stand-0",
+        "coat-stand-1",
+        "coat-stand-2",
+        "coat-stand-3"
+      ],
+      "fps": 2.5,
+      "width": 145,
+      "height": 292,
+      "referenceWidth": 145,
+      "originX": 0.4689655172413793,
+      "originY": 0.9897260273972602
+    },
+    "coffee-bar": {
+      "key": "interior-furniture",
+      "frames": [
+        "coffee-bar-0",
+        "coffee-bar-1",
+        "coffee-bar-2",
+        "coffee-bar-3"
+      ],
+      "fps": 2.5,
+      "width": 247,
+      "height": 150,
+      "referenceWidth": 247,
+      "originX": 0.4817813765182186,
+      "originY": 0.98
+    },
+    "prep-bench": {
+      "key": "interior-furniture",
+      "frames": [
+        "prep-bench-0",
+        "prep-bench-1",
+        "prep-bench-2",
+        "prep-bench-3"
+      ],
+      "fps": 2.5,
+      "width": 247,
+      "height": 187,
+      "referenceWidth": 247,
+      "originX": 0.4979757085020243,
+      "originY": 0.983957219251337
+    },
+    "banquette": {
+      "key": "interior-furniture",
+      "frames": [
+        "banquette-0",
+        "banquette-1",
+        "banquette-2",
+        "banquette-3"
+      ],
+      "fps": 2.5,
+      "width": 244,
+      "height": 202,
+      "referenceWidth": 244,
+      "originX": 0.48360655737704916,
+      "originY": 0.9851485148514851
+    },
+    "pantry": {
+      "key": "interior-furniture",
+      "frames": [
+        "pantry-0",
+        "pantry-1",
+        "pantry-2",
+        "pantry-3"
+      ],
+      "fps": 2.5,
+      "width": 216,
+      "height": 260,
+      "referenceWidth": 216,
+      "originX": 0.4583333333333333,
+      "originY": 0.9884615384615385
+    },
+    "sink": {
+      "key": "interior-furniture",
+      "frames": [
+        "sink-0",
+        "sink-1",
+        "sink-2",
+        "sink-3"
+      ],
+      "fps": 2.5,
+      "width": 222,
+      "height": 228,
+      "referenceWidth": 222,
+      "originX": 0.4864864864864865,
+      "originY": 0.9868421052631579
+    },
+    "menu-board": {
+      "key": "interior-furniture",
+      "frames": [
+        "menu-board-0",
+        "menu-board-1",
+        "menu-board-2",
+        "menu-board-3"
+      ],
+      "fps": 2.5,
+      "width": 129,
+      "height": 279,
+      "referenceWidth": 129,
+      "originX": 0.49612403100775193,
+      "originY": 0.989247311827957
+    }
+  }
+}

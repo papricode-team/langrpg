@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "produce-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 239,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 239,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 239,
+        "h": 217
+      }
+    },
+    "produce-1": {
+      "frame": {
+        "x": 245,
+        "y": 2,
+        "w": 239,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 239,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 239,
+        "h": 217
+      }
+    },
+    "produce-2": {
+      "frame": {
+        "x": 488,
+        "y": 2,
+        "w": 239,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 239,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 239,
+        "h": 217
+      }
+    },
+    "produce-3": {
+      "frame": {
+        "x": 731,
+        "y": 2,
+        "w": 239,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 239,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 239,
+        "h": 217
+      }
+    },
+    "grocery-shelf-0": {
+      "frame": {
+        "x": 2,
+        "y": 223,
+        "w": 215,
+        "h": 216
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 216
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 216
+      }
+    },
+    "grocery-shelf-1": {
+      "frame": {
+        "x": 221,
+        "y": 223,
+        "w": 215,
+        "h": 216
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 216
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 216
+      }
+    },
+    "grocery-shelf-2": {
+      "frame": {
+        "x": 440,
+        "y": 223,
+        "w": 215,
+        "h": 216
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 216
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 216
+      }
+    },
+    "grocery-shelf-3": {
+      "frame": {
+        "x": 659,
+        "y": 223,
+        "w": 215,
+        "h": 216
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 216
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 216
+      }
+    },
+    "refrigerator-0": {
+      "frame": {
+        "x": 2,
+        "y": 443,
+        "w": 190,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 190,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 190,
+        "h": 249
+      }
+    },
+    "refrigerator-1": {
+      "frame": {
+        "x": 196,
+        "y": 443,
+        "w": 190,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 190,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 190,
+        "h": 249
+      }
+    },
+    "refrigerator-2": {
+      "frame": {
+        "x": 390,
+        "y": 443,
+        "w": 190,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 190,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 190,
+        "h": 249
+      }
+    },
+    "refrigerator-3": {
+      "frame": {
+        "x": 584,
+        "y": 443,
+        "w": 190,
+        "h": 249
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 190,
+        "h": 249
+      },
+      "sourceSize": {
+        "w": 190,
+        "h": 249
+      }
+    },
+    "checkout-0": {
+      "frame": {
+        "x": 778,
+        "y": 443,
+        "w": 240,
+        "h": 203
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 203
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 203
+      }
+    },
+    "checkout-1": {
+      "frame": {
+        "x": 2,
+        "y": 696,
+        "w": 240,
+        "h": 203
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 203
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 203
+      }
+    },
+    "checkout-2": {
+      "frame": {
+        "x": 246,
+        "y": 696,
+        "w": 240,
+        "h": 203
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 203
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 203
+      }
+    },
+    "checkout-3": {
+      "frame": {
+        "x": 490,
+        "y": 696,
+        "w": 240,
+        "h": 203
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 203
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 203
+      }
+    },
+    "basket-0": {
+      "frame": {
+        "x": 734,
+        "y": 696,
+        "w": 216,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 235
+      }
+    },
+    "basket-1": {
+      "frame": {
+        "x": 2,
+        "y": 935,
+        "w": 216,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 235
+      }
+    },
+    "basket-2": {
+      "frame": {
+        "x": 222,
+        "y": 935,
+        "w": 216,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 235
+      }
+    },
+    "basket-3": {
+      "frame": {
+        "x": 442,
+        "y": 935,
+        "w": 216,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 235
+      }
+    },
+    "scales-0": {
+      "frame": {
+        "x": 662,
+        "y": 935,
+        "w": 199,
+        "h": 283
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 199,
+        "h": 283
+      },
+      "sourceSize": {
+        "w": 199,
+        "h": 283
+      }
+    },
+    "scales-1": {
+      "frame": {
+        "x": 2,
+        "y": 1222,
+        "w": 199,
+        "h": 283
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 199,
+        "h": 283
+      },
+      "sourceSize": {
+        "w": 199,
+        "h": 283
+      }
+    },
+    "scales-2": {
+      "frame": {
+        "x": 205,
+        "y": 1222,
+        "w": 199,
+        "h": 283
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 199,
+        "h": 283
+      },
+      "sourceSize": {
+        "w": 199,
+        "h": 283
+      }
+    },
+    "scales-3": {
+      "frame": {
+        "x": 408,
+        "y": 1222,
+        "w": 199,
+        "h": 283
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 199,
+        "h": 283
+      },
+      "sourceSize": {
+        "w": 199,
+        "h": 283
+      }
+    }
+  },
+  "meta": {
+    "image": "interior-supermarket-objects.webp",
+    "size": {
+      "w": 1024,
+      "h": 1507
+    },
+    "scale": "1"
+  }
+}

@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "oven-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 228,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 228,
+        "h": 265
+      },
+      "sourceSize": {
+        "w": 228,
+        "h": 265
+      }
+    },
+    "oven-1": {
+      "frame": {
+        "x": 234,
+        "y": 2,
+        "w": 228,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 228,
+        "h": 265
+      },
+      "sourceSize": {
+        "w": 228,
+        "h": 265
+      }
+    },
+    "oven-2": {
+      "frame": {
+        "x": 466,
+        "y": 2,
+        "w": 228,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 228,
+        "h": 265
+      },
+      "sourceSize": {
+        "w": 228,
+        "h": 265
+      }
+    },
+    "oven-3": {
+      "frame": {
+        "x": 698,
+        "y": 2,
+        "w": 228,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 228,
+        "h": 265
+      },
+      "sourceSize": {
+        "w": 228,
+        "h": 265
+      }
+    },
+    "mixer-0": {
+      "frame": {
+        "x": 2,
+        "y": 271,
+        "w": 249,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 249,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 249,
+        "h": 219
+      }
+    },
+    "mixer-1": {
+      "frame": {
+        "x": 255,
+        "y": 271,
+        "w": 249,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 249,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 249,
+        "h": 219
+      }
+    },
+    "mixer-2": {
+      "frame": {
+        "x": 508,
+        "y": 271,
+        "w": 249,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 249,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 249,
+        "h": 219
+      }
+    },
+    "mixer-3": {
+      "frame": {
+        "x": 761,
+        "y": 271,
+        "w": 249,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 249,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 249,
+        "h": 219
+      }
+    },
+    "bread-rack-0": {
+      "frame": {
+        "x": 2,
+        "y": 494,
+        "w": 204,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 204,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 204,
+        "h": 260
+      }
+    },
+    "bread-rack-1": {
+      "frame": {
+        "x": 210,
+        "y": 494,
+        "w": 204,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 204,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 204,
+        "h": 260
+      }
+    },
+    "bread-rack-2": {
+      "frame": {
+        "x": 418,
+        "y": 494,
+        "w": 204,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 204,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 204,
+        "h": 260
+      }
+    },
+    "bread-rack-3": {
+      "frame": {
+        "x": 626,
+        "y": 494,
+        "w": 204,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 204,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 204,
+        "h": 260
+      }
+    },
+    "pastry-tray-0": {
+      "frame": {
+        "x": 2,
+        "y": 758,
+        "w": 230,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 230,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 230,
+        "h": 233
+      }
+    },
+    "pastry-tray-1": {
+      "frame": {
+        "x": 236,
+        "y": 758,
+        "w": 230,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 230,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 230,
+        "h": 233
+      }
+    },
+    "pastry-tray-2": {
+      "frame": {
+        "x": 470,
+        "y": 758,
+        "w": 230,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 230,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 230,
+        "h": 233
+      }
+    },
+    "pastry-tray-3": {
+      "frame": {
+        "x": 704,
+        "y": 758,
+        "w": 230,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 230,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 230,
+        "h": 233
+      }
+    },
+    "dough-bench-0": {
+      "frame": {
+        "x": 2,
+        "y": 995,
+        "w": 241,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 219
+      }
+    },
+    "dough-bench-1": {
+      "frame": {
+        "x": 247,
+        "y": 995,
+        "w": 241,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 219
+      }
+    },
+    "dough-bench-2": {
+      "frame": {
+        "x": 492,
+        "y": 995,
+        "w": 241,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 219
+      }
+    },
+    "dough-bench-3": {
+      "frame": {
+        "x": 737,
+        "y": 995,
+        "w": 241,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 219
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 219
+      }
+    },
+    "bakery-counter-0": {
+      "frame": {
+        "x": 2,
+        "y": 1218,
+        "w": 250,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 250,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 241
+      }
+    },
+    "bakery-counter-1": {
+      "frame": {
+        "x": 256,
+        "y": 1218,
+        "w": 250,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 250,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 241
+      }
+    },
+    "bakery-counter-2": {
+      "frame": {
+        "x": 510,
+        "y": 1218,
+        "w": 250,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 250,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 241
+      }
+    },
+    "bakery-counter-3": {
+      "frame": {
+        "x": 764,
+        "y": 1218,
+        "w": 250,
+        "h": 241
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 250,
+        "h": 241
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 241
+      }
+    }
+  },
+  "meta": {
+    "image": "interior-bakery-objects.webp",
+    "size": {
+      "w": 1024,
+      "h": 1461
+    },
+    "scale": "1"
+  }
+}

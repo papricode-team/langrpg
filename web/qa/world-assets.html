@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Living sprite worlds · Lantern Atlas QA</title>
+<style>
+body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{position:fixed;inset:0}header{position:fixed;z-index:2;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px;background:#14352ee8;border:1px solid #9c9c6b}select,button{font:inherit;min-height:44px;padding:8px;background:#fcf1d8;color:#14352e;border:0}label{display:flex;align-items:center;gap:8px;min-height:44px}input{width:20px;height:20px}#status{font-size:12px}canvas{display:block}
+</style></head>
+<body><div id="world"></div><header><select id="region" aria-label="Region"><option value="lindenhafen">Lindenhafen</option><option value="waldruh">Waldruh</option><option value="nebelstadt">Nebelstadt</option></select><select id="time" aria-label="Time of day"><option value="12">Calm daytime</option><option value="22">Calm nighttime</option></select><label><input type="checkbox" id="terrain">Terrain only</label><label><input type="checkbox" id="calm">Still scenery</label><label><input type="checkbox" id="tour">Camera tour</label><span id="status" role="status">Loading assets…</span></header>
+<script type="module">
+import { World } from '../src/world.ts';
+import { interiors } from '../src/interiors.ts';
+let world;
+const status=document.querySelector('#status');
+if(import.meta.env.DEV){
+ world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{world.setInputEnabled(false)}});
+ world.setInputEnabled(false);
+ const rooms = document.createElement('select'); rooms.id = 'interior'; rooms.setAttribute('aria-label', 'Interior');
+ rooms.innerHTML = '<option value="">Outdoors</option>' + interiors.map(room => `<option value="${room.id}">${room.name}</option>`).join('');
+ document.querySelector('header').insertBefore(rooms, status);
+ rooms.addEventListener('change', () => rooms.value ? world.enterInterior(rooms.value) : world.leaveInterior());
+ const controls = document.createElement('label'); controls.innerHTML = '<input type="checkbox" id="controls">Walk & interact';
+ document.querySelector('header').insertBefore(controls, status);
+ controls.querySelector('input').addEventListener('change', event => world.setInputEnabled(event.target.checked));
+ document.querySelector('#region').addEventListener('change',event=>world.setMap(event.target.value));
+ document.querySelector('#time').addEventListener('change',event=>world.setTimePreference({mode:'manual',hour:Number(event.target.value)}));
+ document.querySelector('#terrain').addEventListener('change',event=>world.setTerrainOnly(event.target.checked));
+ document.querySelector('#calm').addEventListener('change',event=>world.setMotionPreference(event.target.checked?'reduced':'full'));
+ document.querySelector('#tour').addEventListener('change',event=>world.setWatchMode(event.target.checked));
+ const timer=setInterval(()=>{const stats=world.getWorldStats(),clock=world.getWorldTime();status.textContent=`${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${stats.seconds.toFixed(1)} animation seconds`},250);
+ addEventListener('pagehide',()=>{clearInterval(timer);world.destroy()},{once:true});
+}else status.textContent='This fixture is available on the development server.';
+</script></body></html>

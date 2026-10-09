@@ -1,5 +1,5 @@
 import type { MapId } from './maps';
-import { sceneryFootprints } from './scenery';
+import { placedSceneryFootprints } from './placed-scenery';
 
 export interface MapPoint { x: number; y: number; }
 type Polygon = readonly (readonly [number, number])[];
@@ -319,7 +319,7 @@ export class NavigationGrid {
 // A canopy can cover a clear street while the trunk, pot or lamp plinth blocks
 // feet. Share only the painted object's ground footprint with navigation; its
 // wider silhouette belongs to depth rendering rather than collision.
-export const createTownNavigation = (): NavigationGrid => new NavigationGrid(STREETS, [...OBSTACLES, ...sceneryFootprints('lindenhafen')]);
+export const createTownNavigation = (): NavigationGrid => new NavigationGrid(STREETS, [...OBSTACLES, ...placedSceneryFootprints('lindenhafen')]);
 
 // These foot-level paths are traced independently from the two paintings.
 // A shared rectangle would allow walking through the clockmill, greenhouses,
@@ -384,8 +384,8 @@ const HARBOR_OBSTACLES: readonly Polygon[] = [
 ];
 
 export function createMapNavigation(id: MapId): NavigationGrid {
-  if (id === 'waldruh') return new NavigationGrid(WOODLAND_STREETS, [...WOODLAND_OBSTACLES, ...sceneryFootprints(id)]);
-  if (id === 'nebelstadt') return new NavigationGrid(HARBOR_STREETS, [...HARBOR_OBSTACLES, ...sceneryFootprints(id)]);
+  if (id === 'waldruh') return new NavigationGrid(WOODLAND_STREETS, [...WOODLAND_OBSTACLES, ...placedSceneryFootprints(id)]);
+  if (id === 'nebelstadt') return new NavigationGrid(HARBOR_STREETS, [...HARBOR_OBSTACLES, ...placedSceneryFootprints(id)]);
   return createTownNavigation();
 }
 

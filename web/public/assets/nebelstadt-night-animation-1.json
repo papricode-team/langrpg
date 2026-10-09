@@ -1,0 +1,492 @@
+{
+  "frames": {
+    "house-0": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 190,
+        "y": 2,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 378,
+        "y": 2,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 566,
+        "y": 2,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 754,
+        "y": 2,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "house-5": {
+      "frame": {
+        "x": 2,
+        "y": 246,
+        "w": 184,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 184,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 184,
+        "h": 240
+      }
+    },
+    "greenhouse-0": {
+      "frame": {
+        "x": 190,
+        "y": 246,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "greenhouse-1": {
+      "frame": {
+        "x": 423,
+        "y": 246,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "greenhouse-2": {
+      "frame": {
+        "x": 656,
+        "y": 246,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "greenhouse-3": {
+      "frame": {
+        "x": 2,
+        "y": 490,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "greenhouse-4": {
+      "frame": {
+        "x": 235,
+        "y": 490,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "greenhouse-5": {
+      "frame": {
+        "x": 468,
+        "y": 490,
+        "w": 229,
+        "h": 236
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 229,
+        "h": 236
+      },
+      "sourceSize": {
+        "w": 229,
+        "h": 236
+      }
+    },
+    "fountain-0": {
+      "frame": {
+        "x": 701,
+        "y": 490,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "fountain-1": {
+      "frame": {
+        "x": 2,
+        "y": 730,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "fountain-2": {
+      "frame": {
+        "x": 166,
+        "y": 730,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "fountain-3": {
+      "frame": {
+        "x": 330,
+        "y": 730,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "fountain-4": {
+      "frame": {
+        "x": 494,
+        "y": 730,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "fountain-5": {
+      "frame": {
+        "x": 658,
+        "y": 730,
+        "w": 160,
+        "h": 235
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 235
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 235
+      }
+    },
+    "boat-0": {
+      "frame": {
+        "x": 2,
+        "y": 969,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    },
+    "boat-1": {
+      "frame": {
+        "x": 238,
+        "y": 969,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    },
+    "boat-2": {
+      "frame": {
+        "x": 474,
+        "y": 969,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    },
+    "boat-3": {
+      "frame": {
+        "x": 710,
+        "y": 969,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    },
+    "boat-4": {
+      "frame": {
+        "x": 2,
+        "y": 1151,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    },
+    "boat-5": {
+      "frame": {
+        "x": 238,
+        "y": 1151,
+        "w": 232,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 232,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 232,
+        "h": 178
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-animation-1.webp",
+    "size": {
+      "w": 1024,
+      "h": 1331
+    },
+    "scale": "1"
+  }
+}
