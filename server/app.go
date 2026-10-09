@@ -29,6 +29,7 @@ type App struct {
 	world      *World
 	curriculum Curriculum
 	origins    map[string]bool
+	frontend   http.Handler
 	now        func() time.Time
 	rateMu     sync.Mutex
 	limits     map[string]rateWindow
@@ -63,7 +64,14 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/course/complete", a.completeUnit)
 	mux.HandleFunc("POST /api/activity/complete", a.completeActivity)
 	mux.HandleFunc("GET /api/world", a.connect)
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") })
+	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
+	mux.HandleFunc("/api/", missing)
+	mux.HandleFunc("/api", missing)
+	if a.frontend != nil {
+		mux.Handle("/", a.frontend)
+	} else {
+		mux.HandleFunc("/", missing)
+	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Cache-Control", "no-store")

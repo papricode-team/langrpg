@@ -1,3 +1,14 @@
+FROM node:24-alpine AS frontend
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY web/package.json web/package.json
+RUN npm ci --workspace web
+COPY web web
+COPY server/curriculum.json server/curriculum.json
+COPY server/course.json server/course.json
+COPY scripts/precompress-web.mjs scripts/precompress-web.mjs
+RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
+
 FROM golang:1.26-alpine AS build
 WORKDIR /src
 COPY server/go.mod server/go.sum ./
@@ -9,7 +20,8 @@ FROM alpine:3.22
 RUN apk add --no-cache ca-certificates && addgroup -S game && adduser -S game -G game
 WORKDIR /app
 COPY --from=build /out/world /app/world
-ENV PORT=8080
+COPY --from=frontend /app/web/dist /app/public
+ENV PORT=8080 STATIC_DIR=/app/public
 RUN mkdir -p /app/.data && chown game:game /app/.data
 USER game
 EXPOSE 8080

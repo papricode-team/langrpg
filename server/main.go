@@ -58,6 +58,13 @@ func main() {
 	}
 	app := NewApp(store, curriculum, strings.Split(env("ALLOWED_ORIGINS", "http://localhost:5187,http://127.0.0.1:5187,http://127.240.77.9:5187,http://localhost:8097"), ","), maxPlayers)
 	defer app.Close()
+	if directory := os.Getenv("STATIC_DIR"); directory != "" {
+		app.frontend, err = newFrontendHandler(directory)
+		if err != nil {
+			slog.Error("frontend initialization failed", "error", err)
+			os.Exit(1)
+		}
+	}
 	server := &http.Server{Addr: ":" + env("PORT", "8097"), Handler: app.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
 	stopped := make(chan os.Signal, 1)
 	shutdownDone := make(chan struct{})

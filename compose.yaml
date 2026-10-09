@@ -5,31 +5,17 @@ x-logging: &default-logging
     max-file: "3"
 
 services:
-  web:
-    logging: *default-logging
-    build:
-      context: .
-      dockerfile: web/Dockerfile
-    restart: unless-stopped
-    expose:
-      - "80"
-    networks:
-      - app
-    depends_on:
-      server:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1/"]
-      interval: 20s
-      timeout: 4s
-      retries: 3
-
   server:
     logging: *default-logging
     build:
       context: .
       dockerfile: server/Dockerfile
     restart: unless-stopped
+    expose:
+      - "8080"
+    labels:
+      # Select the ingress network when Dokploy also attaches the private app network.
+      traefik.docker.network: "${TRAEFIK_NETWORK:-dokploy-network}"
     environment:
       PORT: "8080"
       # pgx reads credentials from PG* variables so passwords need no URL encoding.
@@ -78,6 +64,6 @@ networks:
 volumes:
   postgres_data:
 
-# Dokploy: use compose.yaml and route the domain to web:80. Keep the app network
-# on all three services when previewing Dokploy's generated Compose file.
+# Dokploy: use compose.yaml and route the domain to server:8080 over HTTP.
+# Keep the app network on both services when previewing the generated file.
 # Local use: docker compose -f compose.yaml -f compose.local.yaml up --build -d

@@ -82,9 +82,9 @@ cp .env.example .env
 docker compose -f compose.yaml -f compose.local.yaml up --build -d --wait
 ```
 
-Edit `.env` for your environment, especially `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS`. Local Compose serves the game at [http://localhost:8088](http://localhost:8088), with PostgreSQL in a named volume and the Go service private.
+Edit `.env` for your environment, especially `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS`. Local Compose serves the game at [http://localhost:8088](http://localhost:8088). Go serves the built frontend, API and WebSockets directly, with PostgreSQL in a private named volume.
 
-For Dokploy, create a Docker Compose service using **only `compose.yaml`**. Set `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS` in Environment, then add the public domain to the **web service, internal port 80** with HTTPS. The default file publishes no host ports. PostgreSQL stores profiles, sessions, progress and learning receipts in a persistent named volume. See the [Dokploy deployment guide](docs/deployment.md) for setup, verification, backups and recovery, and the [API guide](server/README.md) for the data contract.
+For Dokploy, create a Docker Compose service using **only `compose.yaml`**. Set `POSTGRES_PASSWORD` and `ALLOWED_ORIGINS` in Environment, then add the public domain to the **server service, internal port 8080, upstream HTTP** with public HTTPS. `TRAEFIK_NETWORK` defaults to `dokploy-network`; set it to the generated ingress network name for isolated deployments. The default file publishes no host ports. PostgreSQL stores profiles, sessions, progress and learning receipts in a persistent named volume. See the [Dokploy deployment guide](docs/deployment.md) for setup, verification, backups and recovery, and the [API guide](server/README.md) for the data contract.
 
 ## Temporary TryCloudflare preview
 
@@ -135,7 +135,7 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | `web/src/api.ts` | REST sessions, map acknowledgements and multiplayer reconnects |
 | `server/curriculum.json`, `server/course.json` | Canonical grading, word links and exact completion requirements |
 | `server/` | Go REST/WebSocket service, persistence and FSRS scheduling |
-| `compose.yaml` | Web, Go and PostgreSQL deployment |
+| `compose.yaml` | Go application and PostgreSQL deployment |
 | [Curriculum](docs/curriculum.md) | Coverage, content contract and assessment limits |
 | [Implementation plan](docs/implementation-plan.md) | Complete scope and parallel ownership |
 | [Activities](docs/activities.md) | Gameplay contracts, recovery and mobile verification |

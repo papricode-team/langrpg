@@ -1,10 +1,11 @@
 # Deploy with Dokploy
 
-`compose.yaml` builds the frontend (Nginx) and Go backend and runs PostgreSQL 18.
-All three services share the project-scoped `app` network. No service publishes
-a host port; Dokploy routes the public domain to Nginx. Nginx proxies `/api/`,
-including WebSockets, to the backend. Run one backend instance: world presence,
-positions and chat are in memory.
+`compose.yaml` runs two services: the Go application (`server`) and PostgreSQL 18
+(`db`). The application image builds the Vite frontend and includes its compiled
+files. Go serves the game, `/api/` and WebSockets directly on **port 8080**.
+Both services share the project-scoped `app` network. No service publishes a
+host port; Dokploy routes the public domain directly to Go. Run one application
+instance: world presence, positions and chat are in memory.
 
 ## Configure Dokploy
 
@@ -19,6 +20,7 @@ positions and chat are in memory.
    POSTGRES_PASSWORD=REPLACE_WITH_A_RANDOM_PASSWORD
    ALLOWED_ORIGINS=https://learn.example.com
    MAX_ZONE_PLAYERS=128
+   TRAEFIK_NETWORK=dokploy-network
    ```
 
    Generate a password with `openssl rand -hex 32`. `POSTGRES_PASSWORD` and
@@ -29,14 +31,18 @@ positions and chat are in memory.
    `$` characters with single quotes in environment files to prevent Compose
    interpolation.
 3. Point the domain's DNS at the Dokploy host. In **Domains**, add your domain,
-   select service **web**, container port **80**, path `/`, and enable HTTPS.
+   select service **server**, container port **8080**, upstream protocol **HTTP**,
+   path `/`, and enable HTTPS for the public domain.
    The browser uses the same domain for the game, REST API and WebSockets.
 4. Use **Preview Compose** to verify the generated routing configuration. The
-   `app` network must remain attached to `web`, `server` and `db`, alongside
-   whichever ingress network Dokploy adds. Keep `server` and `db` off the public
-   ingress network and leave their host ports unpublished.
-5. Deploy. The startup order is PostgreSQL → backend → frontend, with readiness
-   checks at each stage. Initial startup creates the database tables
+   `app` network must remain attached to `server` and `db`. Dokploy also attaches
+   its ingress network to `server`. `TRAEFIK_NETWORK` selects that network for
+   routing so Traefik does not choose the private database network. For isolated
+   deployments, set it to the exact generated ingress network name shown in
+   Preview Compose. Keep `db` off the ingress network and leave host ports
+   unpublished.
+5. Deploy. The startup order is PostgreSQL → Go, with readiness checks at each
+   stage. Initial startup creates the database tables
    automatically; no separate SQL import or migration command is needed.
 6. Open `https://learn.example.com/api/health`. It should return
    `{"status":"ok","storage":"postgres","players":0}` before anyone connects.
@@ -44,9 +50,13 @@ positions and chat are in memory.
    resume its player and saved progress.
 
 Dokploy's [Compose domain documentation](https://docs.dokploy.com/docs/core/docker-compose/domains)
-explains automatic Traefik labels and ingress networking. No external
-`dokploy-network` is hardcoded in this repository, so the same file also works
-for local Compose and isolated Dokploy deployments.
+explains automatic Traefik labels and ingress networking. Compose does not
+require an external network for local use; Dokploy adds the ingress network.
+
+If upgrading from the earlier Nginx setup, change the domain's service from
+`web` to `server` and its port from `80` to `8080`, then redeploy. The separate
+`web` container is removed; the database service and named volume are preserved.
+Do not delete the database volume during this update.
 
 ## What the database stores
 
@@ -83,7 +93,7 @@ cp .env.example .env
 docker compose -f compose.yaml -f compose.local.yaml up --build -d --wait
 ```
 
-Open `http://localhost:8088`. The local override publishes only Nginx on
+Open `http://localhost:8088`. The local override publishes the Go application on
 `127.0.0.1:${WEB_PORT:-8088}`. If you change `WEB_PORT`, update
 `ALLOWED_ORIGINS` to match. Deploy only `compose.yaml` in Dokploy.
 
@@ -108,7 +118,7 @@ To restore into an empty, separately initialized stack with matching database
 and role names:
 
 ```sh
-docker compose stop web server
+docker compose stop server
 docker compose exec -T db sh -c 'pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" --no-owner --no-acl --exit-on-error' < lernen.dump
 docker compose up -d --wait
 ```
@@ -126,9 +136,11 @@ docker compose logs --tail=100 server db
 curl https://learn.example.com/api/health
 ```
 
-Container logs rotate at 10 MB, retaining three files per service. The backend
-runs as a non-root user. Nginx re-resolves the backend's Docker DNS address after
-container replacement, and access logs omit query strings containing WebSocket
+Container logs rotate at 10 MB, retaining three files per service. Go runs as a
+non-root user and serves precompressed frontend bundles, supports audio byte
+ranges, and returns the app shell for browser routes. Unknown API routes and
+missing assets return 404. API responses are never cached, and the app shell is
+revalidated after deployment. The server does not log request URLs or WebSocket
 session credentials.
 
 Go's PostgreSQL integration checks run when `TEST_DATABASE_URL` points at a
