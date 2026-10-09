@@ -59,7 +59,7 @@ The world fills the browser window. Open the adventure menu for the quest log, s
 
 On phones in portrait or landscape, drag the lower-left joystick to walk and release it to stop. The contextual action changes between **Talk** and **Inspect** near residents and objects. One adventure menu keeps the exploration screen clear; the objective chip opens the next lead. Atlas pins walk to the corresponding resident or object. **Settings** contains listening pace, interface sounds, scenery motion, time of day and region selection.
 
-Use **Filters** or **F** to experiment with Original, Soft paint, CRT and Pixel CRT while viewing the world. Adjust softness, scanlines, texture, warmth, edge shade and pixel size; hold **Compare original** to compare the unfiltered artwork. Choices save on this device. The shared screen filter affects the world and its labels, while HTML menus and HUD stay clear. Filters require WebGL; the Canvas fallback keeps the original artwork.
+The world uses **CRT** by default. Open **Settings → Screen filters** or press **F** to experiment with Original, Soft paint, CRT and Pixel CRT while viewing the world. Adjust softness, scanlines, texture, warmth, edge shade and pixel size; hold **Compare original** to compare the unfiltered artwork. Choices save on this device and take precedence over the default. The shared screen filter affects the world and its labels, while HTML menus and HUD stay clear. Filters require WebGL; the Canvas fallback keeps the original artwork.
 
 ## Checks
 

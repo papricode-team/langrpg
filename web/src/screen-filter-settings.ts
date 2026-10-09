@@ -1,4 +1,5 @@
 export type ScreenFilterPreset = 'original' | 'soft' | 'crt' | 'pixel';
+export const DEFAULT_SCREEN_FILTER_PRESET: ScreenFilterPreset = 'crt';
 
 export interface ScreenFilterSettings {
   preset: ScreenFilterPreset;
@@ -20,7 +21,8 @@ export const SCREEN_FILTER_PRESETS: { id: ScreenFilterPreset; name: string; desc
 /** Storage is untrusted: restore only known presets and finite, bounded values. */
 export function normalizeScreenFilterSettings(value: unknown): ScreenFilterSettings {
   const input = value && typeof value === 'object' ? value as Record<string, unknown> : {};
-  const preset = SCREEN_FILTER_PRESETS.find(item => item.id === input.preset) ?? SCREEN_FILTER_PRESETS[0];
+  const preset = SCREEN_FILTER_PRESETS.find(item => item.id === input.preset)
+    ?? SCREEN_FILTER_PRESETS.find(item => item.id === DEFAULT_SCREEN_FILTER_PRESET)!;
   const result = { ...preset.settings };
   for (const key of ['softness', 'scanlines', 'grain', 'warmth', 'vignette', 'pixelSize'] as const) {
     const number = input[key];

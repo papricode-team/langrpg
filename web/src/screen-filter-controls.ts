@@ -78,7 +78,7 @@ export class ScreenFilterControls {
     this.persist();
     if (restoreFocus) {
       const target = this.returnFocus?.isConnected && this.returnFocus.getClientRects().length
-        ? this.returnFocus : document.querySelector<HTMLElement>('#screen-filters-button');
+        ? this.returnFocus : document.querySelector<HTMLElement>('#world-container');
       target?.focus();
     }
     this.returnFocus = null;
@@ -160,7 +160,7 @@ export class ScreenFilterControls {
     const button = this.element.querySelector<HTMLButtonElement>('.screen-filter-compare')!;
     button.setAttribute('aria-pressed', 'true');
     button.textContent = 'Showing original — release';
-    this.options.apply(normalizeScreenFilterSettings(null));
+    this.options.apply(normalizeScreenFilterSettings({ preset: 'original' }));
   }
 
   private endCompare(): void {
@@ -198,7 +198,6 @@ export class ScreenFilterControls {
   }
 
   private syncTrigger(): void {
-    document.querySelector('#screen-filters-button')?.setAttribute('aria-expanded', String(this.opened));
     document.querySelector('#game-shell')?.classList.toggle('screen-filters-open', this.opened);
   }
 
