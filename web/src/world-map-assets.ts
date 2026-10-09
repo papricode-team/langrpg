@@ -3,7 +3,19 @@ import type { WorldMapSpec } from './maps';
 import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
 
 const originalMaps = new Set(['lindenhafen', 'waldruh', 'nebelstadt']);
-export const regionPeopleKey = (id: string): string => `${id}-people`;
+const peoplePageStarts = [0, 4, 10] as const;
+function validatePeopleVariant(variant: number): void {
+  if (!Number.isInteger(variant) || variant < 0 || variant >= 16) throw new RangeError(`Invalid regional character art variant: ${variant}`);
+}
+/** Stable identities span three independent atlas pages: four, six and six people. */
+export const regionPeopleKey = (id: string, variant = 0): string => {
+  validatePeopleVariant(variant);
+  return `${id}-people${variant < 4 ? '' : variant < 10 ? '-1' : '-2'}`;
+};
+export const regionPeopleFrames = (variant: number): readonly string[] => {
+  validatePeopleVariant(variant);
+  return Array.from({ length: 4 }, (_, frame) => `person-${variant}-${frame}`);
+};
 export const hasRegionPeople = (id: string): boolean => !originalMaps.has(id);
 
 interface RegionAsset { key: string; image: string; atlas?: string; }
@@ -17,7 +29,10 @@ export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
   if (map.variationAsset !== map.sceneryAsset || map.variationAtlas !== map.sceneryAtlas) {
     assets.push({ key: sceneryVariationKey(map.id), image: map.variationAsset, atlas: map.variationAtlas });
   }
-  if (hasRegionPeople(map.id)) assets.push({ key: regionPeopleKey(map.id), image: `/assets/${map.id}-people.webp`, atlas: `/assets/${map.id}-people.json` });
+  if (hasRegionPeople(map.id)) for (const variant of peoplePageStarts) {
+    const key = regionPeopleKey(map.id, variant);
+    assets.push({ key, image: `/assets/${key}.webp`, atlas: `/assets/${key}.json` });
+  }
   return assets;
 }
 

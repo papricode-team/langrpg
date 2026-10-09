@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getMap, type MapId, type WorldMapSpec } from './maps';
-import { regionAssets, WorldMapAssets } from './world-map-assets';
+import { regionAssets, regionPeopleFrames, regionPeopleKey, WorldMapAssets } from './world-map-assets';
 
 const expedition = (id: string): WorldMapSpec => ({
   ...getMap('lindenhafen'), id: id as MapId,
@@ -30,7 +30,7 @@ function fixture() {
 
 describe('destination asset streaming', () => {
   it('loads only terrain, local props and local people for an expedition', () => {
-    expect(regionAssets(expedition('saffroncourt')).map(asset => asset.key)).toEqual(['saffroncourt', 'saffroncourt-props', 'saffroncourt-people']);
+    expect(regionAssets(expedition('saffroncourt')).map(asset => asset.key)).toEqual(['saffroncourt', 'saffroncourt-props', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2']);
     expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations']);
   });
   it('coalesces requests while delivering every arrival callback', () => {
@@ -38,13 +38,13 @@ describe('destination asset streaming', () => {
     const first = vi.fn(), second = vi.fn();
     mock.assets.load(map, first); mock.assets.load(map, second);
     expect(mock.loader.image).toHaveBeenCalledTimes(1);
-    expect(mock.loader.atlas).toHaveBeenCalledTimes(2);
+    expect(mock.loader.atlas).toHaveBeenCalledTimes(4);
     expect(mock.loader.start).toHaveBeenCalledTimes(1);
     expect(first).not.toHaveBeenCalled();
     mock.complete();
     expect(first).toHaveBeenCalledTimes(1); expect(second).toHaveBeenCalledTimes(1);
     const cached = vi.fn(); mock.assets.load(map, cached);
-    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(2);
+    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(4);
   });
   it('reclaims a departed destination after its in-flight load completes', () => {
     const mock = fixture(), oldMap = expedition('rainmarket'), newMap = expedition('cedarbay');
@@ -52,8 +52,8 @@ describe('destination asset streaming', () => {
     expect(mock.assets.release(oldMap)).toBe(false);
     mock.assets.load(newMap);
     mock.complete();
-    expect([...mock.textures]).toEqual(['cedarbay', 'cedarbay-props', 'cedarbay-people']);
-    expect(mock.remove.mock.calls.map(call => call[0])).toEqual(['rainmarket', 'rainmarket-props', 'rainmarket-people']);
+    expect([...mock.textures]).toEqual(['cedarbay', 'cedarbay-props', 'cedarbay-people', 'cedarbay-people-1', 'cedarbay-people-2']);
+    expect(mock.remove.mock.calls.map(call => call[0])).toEqual(['rainmarket', 'rainmarket-props', 'rainmarket-people', 'rainmarket-people-1', 'rainmarket-people-2']);
   });
   it('does not start the loader during Phaser preload', () => {
     const mock = fixture(); mock.assets.load(getMap('lindenhafen'), undefined, false);
@@ -61,5 +61,36 @@ describe('destination asset streaming', () => {
     mock.complete();
     expect(mock.assets.release(getMap('lindenhafen'))).toBe(true);
     expect(mock.textures.size).toBe(0);
+  });
+
+  it('reloads only a missing character page before declaring the destination ready', () => {
+    const mock = fixture(), map = expedition('riverweave');
+    for (const asset of regionAssets(map)) mock.textures.add(asset.key);
+    mock.textures.delete('riverweave-people-2');
+    const ready = vi.fn();
+    mock.assets.load(map, ready);
+    expect(mock.queued).toEqual(['riverweave-people-2']);
+    expect(ready).not.toHaveBeenCalled();
+    mock.complete();
+    expect(ready).toHaveBeenCalledOnce();
+    mock.assets.release(map);
+    expect(mock.textures.size).toBe(0);
+  });
+});
+
+describe('stable regional character identities', () => {
+  it('resolves each global identity to one page and four exclusive animation frames', () => {
+    const bindings = Array.from({ length: 16 }, (_, variant) => ({
+      key: regionPeopleKey('cedarbay', variant), frames: regionPeopleFrames(variant),
+    }));
+    expect(bindings.map(binding => binding.key)).toEqual([
+      ...Array(4).fill('cedarbay-people'), ...Array(6).fill('cedarbay-people-1'), ...Array(6).fill('cedarbay-people-2'),
+    ]);
+    expect(new Set(bindings.flatMap(binding => binding.frames.map(frame => `${binding.key}:${frame}`))).size).toBe(64);
+    expect(bindings[15].frames).toEqual(['person-15-0', 'person-15-1', 'person-15-2', 'person-15-3']);
+    for (const invalid of [-1, 16, 1.5, NaN]) {
+      expect(() => regionPeopleKey('cedarbay', invalid)).toThrow(RangeError);
+      expect(() => regionPeopleFrames(invalid)).toThrow(RangeError);
+    }
   });
 });

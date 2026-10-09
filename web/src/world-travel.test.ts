@@ -2,15 +2,23 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { World } from './world';
 import { getMap } from './maps';
 import { worldAmbient } from './world-lighting';
+import { getExpedition } from './expeditions';
+import { createMapNavigation } from './navigation';
+import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
 
 const harness = vi.hoisted(() => {
   class Picture {
     destroyed = false;
     tint = 0xffffff;
-    constructor(public key = '') {}
+    flipX = false;
+    constructor(public key = '', public frame?: string | number) {}
     fillStyle() { return this; } fillRect() { return this; }
     setDepth() { return this; } setOrigin() { return this; }
     setTint(tint: number) { this.tint = tint; return this; }
+    setScale() { return this; } setVisible() { return this; } setColor() { return this; }
+    setY() { return this; } setPosition() { return this; } add() { return this; }
+    setFrame(frame: string | number) { this.frame = frame; return this; }
+    setFlipX(flipX: boolean) { this.flipX = flipX; return this; }
     setDisplaySize() { return this; } setTexture(key: string) { this.key = key; return this; }
     destroy() { this.destroyed = true; }
   }
@@ -23,9 +31,16 @@ const harness = vi.hoisted(() => {
     loading = false;
     requests: Task[] = [];
     input = { keyboard: undefined };
-    textures = { exists: (key: string) => this.textureKeys.has(key), remove: (key: string) => this.textureKeys.delete(key) };
+    textures = { exists: (key: string) => this.textureKeys.has(key), remove: (key: string) => this.textureKeys.delete(key),
+      get: (key: string) => ({ has: (frame: string) => {
+        const variant = Number(frame.split('-')[1]);
+        return key.endsWith(variant < 4 ? '-people' : variant < 10 ? '-people-1' : '-people-2');
+      }, get: () => ({ width: 100, height: 180 }) }),
+    };
     cache = { json: { get: (key: string) => this.manifests.get(key) } };
-    add = { graphics: () => new Picture(), image: (_x: number, _y: number, key: string) => new Picture(key) };
+    add = { graphics: () => new Picture(), image: (_x: number, _y: number, key: string, frame?: string | number) => new Picture(key, frame),
+      text: () => new Picture(), container: () => new Picture(),
+    };
     load = {
       image: (key: string) => this.enqueue(key, 'image'), atlas: (key: string) => this.enqueue(key, 'atlas'),
       json: (key: string) => this.enqueue(key, 'json'), isLoading: () => this.loading,
@@ -98,7 +113,7 @@ describe('scene travel while destination art streams', () => {
     expect(ready.mock.calls).toEqual([['saffroncourt']]);
     expect(scene.createMapCharacters).toHaveBeenCalledOnce();
     expect(scene.createMapCharacters).toHaveBeenCalledWith(getMap('saffroncourt'));
-    expect([...scene.textureKeys].sort()).toEqual(['saffroncourt', 'saffroncourt-motions', 'saffroncourt-people', 'saffroncourt-props']);
+    expect([...scene.textureKeys].sort()).toEqual(['saffroncourt', 'saffroncourt-motions', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2', 'saffroncourt-props']);
     world.destroy();
   });
   it('releases a departed destination when its detail sheet finishes after travel', async () => {
@@ -107,7 +122,7 @@ describe('scene travel while destination art streams', () => {
     world.setMap('cedarbay'); scene.finishLoad(); scene.finishLoad();
     await Promise.resolve();
     expect(ready.mock.calls).toEqual([['cedarbay']]);
-    expect([...scene.textureKeys].sort()).toEqual(['cedarbay', 'cedarbay-motions', 'cedarbay-people', 'cedarbay-props']);
+    expect([...scene.textureKeys].sort()).toEqual(['cedarbay', 'cedarbay-motions', 'cedarbay-people', 'cedarbay-people-1', 'cedarbay-people-2', 'cedarbay-props']);
     world.destroy();
   });
   it('keeps the active motion atlas when day and night share the same region sheet', async () => {
@@ -128,6 +143,37 @@ describe('scene travel while destination art streams', () => {
     expect(scene.background.tint).toBe(0xffffff);
     expect(neighbor.tint).toBe(0xffffff);
     scene.characters.clear();
+    world.destroy();
+  });
+
+  it('binds all sixteen local characters to distinct global frames throughout movement', () => {
+    const { world, scene } = fixture();
+    scene.mapSpec = getMap('saffroncourt');
+    scene.navigation = createMapNavigation('saffroncourt');
+    scene.playerArtReady = true;
+    for (const variant of [0, 4, 10]) scene.textureKeys.add(regionPeopleKey('saffroncourt', variant));
+    const renderer = Object.getPrototypeOf(scene);
+    const neighbors = getExpedition('saffroncourt')!.npcs.map(npc => scene.createCharacter(
+      npc.id, npc.name, 100, 100, npc.avatar, npc.role, npc.artVariant, npc.artVariant,
+    ));
+    // Use the real resident creation path, which must preserve the catalog's
+    // identity even though residents are instantiated after the named cast.
+    renderer.createResidents.call(scene);
+    const people = [...neighbors, ...scene.residents.map((resident: any) => resident.character)];
+    expect(people).toHaveLength(16);
+    expect(people.map(person => person.localArtVariant)).toEqual(Array.from({ length: 16 }, (_, index) => index));
+    expect(new Set(people.map(person => `${person.figure.key}:${person.figure.frame}`)).size).toBe(16);
+    for (const person of people) {
+      expect(person.idleAnimation.key).toBe(regionPeopleKey('saffroncourt', person.localArtVariant));
+      expect(person.idleAnimation.frames).toEqual(regionPeopleFrames(person.localArtVariant));
+      for (const seconds of [1, 2, 3]) {
+        scene.decorativeElapsed = seconds;
+        renderer.animateCharacter.call(scene, person, -3, 1, seconds);
+        expect(person.figure.key).toBe(regionPeopleKey('saffroncourt', person.localArtVariant));
+        expect(person.figure.frame).toMatch(new RegExp(`^person-${person.localArtVariant}-[0-3]$`));
+        expect(person.figure.flipX).toBe(true);
+      }
+    }
     world.destroy();
   });
 });

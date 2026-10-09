@@ -43,13 +43,23 @@ describe('ten culturally distinct exploration communities', () => {
       for (const npc of region.npcs) {
         expect(getExpeditionNpc(npc.id)).toBe(npc);
         expect(npc.artVariant).toBeGreaterThanOrEqual(0);
-        expect(npc.artVariant).toBeLessThan(4);
+        expect(npc.artVariant).toBeLessThan(8);
         expect(region.npcs.some(neighbor=>neighbor.id!==npc.id&&npc.relationship.includes(neighbor.name)),npc.id).toBe(true);
       }
       expect(getExpeditionEncounter('lindenhafen',region.npcs[0].id)).toBeUndefined();
       expect(getExpeditionEncounter(region.id,'unknown')).toBeUndefined();
     }
     expect(encounters).toBe(180);
+  });
+
+  it('assigns sixteen different stable visual identities to every community', () => {
+    for (const region of expeditionRegions) {
+      const residents = createWorldResidents(region.id);
+      expect(region.npcs.map(npc => npc.artVariant)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+      expect(residents.map(resident => resident.artVariant)).toEqual([8, 9, 10, 11, 12, 13, 14, 15]);
+      expect(new Set([...region.npcs, ...residents].map(person => person.artVariant)).size).toBe(16);
+      expect(new Set([...region.npcs, ...residents].map(person => person.id)).size).toBe(16);
+    }
   });
 
   for (const map of expeditionMaps) it(`${map.name} has separate static foundations, four motion kinds and eight connected residents`, () => {

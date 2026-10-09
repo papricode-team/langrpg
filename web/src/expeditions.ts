@@ -400,7 +400,7 @@ export const expeditionRegions: readonly ExpeditionRegion[] = seeds.map(seed => 
   const npcs: ExpeditionNpc[] = seed.cast.map(([slug, name, role, relationship, greeting], index) => ({
     id: `${seed.id}-${slug}`, name, role, relationship, relationships: [relationship], greeting,
     description: `${name} is the neighborhood’s ${role.toLowerCase()}. ${relationship}`,
-    avatar: avatars[index % avatars.length], artVariant: index % 4, encounterId: `${seed.id}-encounter-${slug}`,
+    avatar: avatars[index % avatars.length], artVariant: index, encounterId: `${seed.id}-encounter-${slug}`,
   }));
   const objects: WorldObjectSpec[] = seed.discoveries.map(([slug, label, kind, description, , , , , gameKind], index) => {
     const [from, to] = layout.links[index % layout.links.length];
@@ -591,7 +591,7 @@ export const expeditionPlacements: Readonly<Record<ExpeditionId, readonly Placed
 export const expeditionResidentSpecs: Readonly<Record<ExpeditionId, readonly ResidentSpec[]>> = seeds.reduce((result,seed,regionNumber)=>{
   result[seed.id] = seed.residents.map((name,index)=>{
   const nodes=expeditionLayouts[seed.id].nodes;
-  return { id:`${seed.id}-resident-${index}`,name,avatar:avatars[(index+regionNumber)%4],speed:48+(index%5)*5,phase:(index+.35)/seed.residents.length,
+  return { id:`${seed.id}-resident-${index}`,name,avatar:avatars[(index+regionNumber)%4],artVariant:8+index,speed:48+(index%5)*5,phase:(index+.35)/seed.residents.length,
     stops:[0,(index+1)%nodes.length,(index+3)%nodes.length,(index+6)%nodes.length].map((node,stopIndex)=>({...nodes[node],pauseSeconds:2.4+((index+stopIndex)%4)})) };
   });
   return result;

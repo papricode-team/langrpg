@@ -1,0 +1,16 @@
+Input images: Image 1 is the original four-person style/camera reference. Image 2 is the newly generated six-person companion sheet: style reference and identity-exclusion reference. Create six additional people, with different faces, hair, ages, builds, clothing silhouettes, colors and accessories from ALL TEN reference identities.
+Use case: stylized-concept. New production character sprite sheet for a painterly neighborhood exploration game.
+Use the supplied image only for painting style, adult proportions, lighting and slightly overhead front three-quarter camera. Draw NEW people with different faces, hair and clothes from the reference; preserve no reference identities.
+Transparent portrait canvas, preferably 1536 x 2048. Exactly FOUR columns and SIX rows, 24 full-body cutout sprites in equal cells. Six people total: one distinct person per row, repeated consistently across all four cells of that row. Center every figure in its cell with generous transparent padding; hair, arms, accessories and shoes must remain inside its own cell. No row overlap. Keep consistent body scale around 270px high.
+Four subtle idle frames per row: relaxed neutral, tiny breathing and hand shift, slight head glance, then near-neutral. Feet stay planted at precisely the same anchor within each cell. All people face the same front three-quarter camera. Same face, build, hair and clothes throughout each row.
+Match the hand-painted realistic game cutouts in the reference, with soft painted edges, warm neutral daylight and readable faces. Contemporary everyday clothing and workwear, without festival costumes.
+Native alpha transparency outside the people. No floor, scenery, cast ground shadow, labels, text, grid lines, dividers or watermarks.
+Community context: contemporary Kigali, Rwanda. These are contemporary neighbors with individual personalities, ages, faces and clothing.
+Six distinct identities, row order top to bottom:
+Row 1: Sandrine, resident. Woman about 45, slim, very deep brown skin, heart-shaped face, straight shoulder-length twists, rust blazer over ivory top, black midi skirt, small ochre handbag.
+Row 2: Claude, resident. Man about 34, broad muscular build, medium-deep brown skin, square jaw, close fade haircut, indigo hooded jacket, light gray trousers, orange backpack straps.
+Row 3: Nadine, resident. Woman about 70, short sturdy build, dark brown skin, round lined face, short white natural curls, lime cardigan over navy blouse, burgundy wide-leg trousers, wooden-handled shopping basket.
+Row 4: Olivier, resident. Man about 26, slim lanky build, deep brown skin, narrow oval face, medium flat-top natural hair, teal striped polo, tan chinos, black sling bag.
+Row 5: Beatrice, resident. Woman about 52, tall broad build, warm medium brown skin, rectangular face, braided crown hairstyle, cobalt open overshirt, white trousers, gold square earrings.
+Row 6: David, resident. Man about 59, average build with rounded belly, very deep brown skin, balding scalp and full gray beard, pale peach cardigan over maroon shirt, slate trousers, folded reading glasses.
+Each row must have a recognizably different age, face, hair, build, outfit silhouette, colors and accessories. Exactly 24 isolated sprites, 4 columns x 6 rows.

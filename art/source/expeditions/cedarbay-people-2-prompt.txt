@@ -1,0 +1,16 @@
+Input images: Image 1 is the original four-person style/camera reference. Image 2 is the newly generated six-person companion sheet: style reference and identity-exclusion reference. Create six additional people, with different faces, hair, ages, builds, clothing silhouettes, colors and accessories from ALL TEN reference identities.
+Use case: stylized-concept. New production character sprite sheet for a painterly neighborhood exploration game.
+Use the supplied image only for painting style, adult proportions, lighting and slightly overhead front three-quarter camera. Draw NEW people with different faces, hair and clothes from the reference; preserve no reference identities.
+Transparent portrait canvas, preferably 1536 x 2048. Exactly FOUR columns and SIX rows, 24 full-body cutout sprites in equal cells. Six people total: one distinct person per row, repeated consistently across all four cells of that row. Center every figure in its cell with generous transparent padding; hair, arms, accessories and shoes must remain inside its own cell. No row overlap. Keep consistent body scale around 270px high.
+Four subtle idle frames per row: relaxed neutral, tiny breathing and hand shift, slight head glance, then near-neutral. Feet stay planted at precisely the same anchor within each cell. All people face the same front three-quarter camera. Same face, build, hair and clothes throughout each row.
+Match the hand-painted realistic game cutouts in the reference, with soft painted edges, warm neutral daylight and readable faces. Contemporary everyday clothing and workwear, without festival costumes.
+Native alpha transparency outside the people. No floor, scenery, cast ground shadow, labels, text, grid lines, dividers or watermarks.
+Community context: contemporary Kerala, India. These are contemporary neighbors with individual personalities, ages, faces and clothing.
+Six distinct identities, row order top to bottom:
+Row 1: Deepa, resident. Woman about 33, slim, warm brown skin, long face, high curly ponytail, coral cardigan over white tee, navy wide-leg trousers, black crossbody bag.
+Row 2: Sajid, resident. Man about 58, stocky, deep brown skin, round face, short gray curls and full short gray beard, pale turquoise collarless cotton shirt, chocolate trousers, thin silver glasses.
+Row 3: Malini, resident. Woman about 72, short sturdy build, medium brown skin, lined rounded face, white hair in low bun, maroon blouse and plain dusty-pink everyday sari, small brown handbag.
+Row 4: Vivek, resident. Man about 42, tall slim build, dark brown skin, narrow face, receding black hair and clean-shaven, pale yellow rain vest over burgundy shirt, black trousers, folded compact umbrella.
+Row 5: Tara, resident. Woman about 27, athletic build, light brown skin, heart-shaped face, short curly crop, emerald overshirt, cream cropped trousers, purple sling bag.
+Row 6: Rohan, resident. Man about 66, average broad build, warm tan skin, angular lined face, swept-back silver hair and neat mustache, cobalt short-sleeve shirt, beige ankle-length cotton mundu, sandals, black wristwatch.
+Each row must have a recognizably different age, face, hair, build, outfit silhouette, colors and accessories. Exactly 24 isolated sprites, 4 columns x 6 rows.

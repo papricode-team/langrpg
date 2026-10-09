@@ -8,6 +8,8 @@ export interface ResidentSpec {
   id: string;
   name: string;
   avatar: ResidentAvatar;
+  /** Authored regional identity, independent of route or creation order. */
+  artVariant?: number;
   /** Pixels per second. Residents stroll more slowly than the player. */
   speed: number;
   /** A fraction of the compiled loop, so residents do not depart together. */
@@ -29,6 +31,7 @@ export interface WorldResident {
   id: string;
   name: string;
   avatar: ResidentAvatar;
+  artVariant?: number;
   segments: readonly ResidentSegment[];
   cycleSeconds: number;
   phaseSeconds: number;
@@ -139,7 +142,7 @@ export function compileResident(spec: ResidentSpec, navigation: NavigationGrid):
     }
   }
   if (!segments.length || cycleSeconds <= 0) return undefined;
-  return { id: spec.id, name: spec.name, avatar: spec.avatar, segments, cycleSeconds, phaseSeconds: Math.max(0, Math.min(.999, spec.phase)) * cycleSeconds };
+  return { id: spec.id, name: spec.name, avatar: spec.avatar, artVariant: spec.artVariant, segments, cycleSeconds, phaseSeconds: Math.max(0, Math.min(.999, spec.phase)) * cycleSeconds };
 }
 
 export function createWorldResidents(mapId: MapId, navigation = createMapNavigation(mapId)): WorldResident[] {

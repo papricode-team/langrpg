@@ -141,7 +141,7 @@ function portrait(id: string, className = '') {
   const local = getExpeditionNpc(id);
   if (local) {
     const region = expeditionRegions.find(region => region.npcs.some(npc => npc.id === local.id))!;
-    return `<span class="expedition-portrait ${className}" style="background-image:url('/assets/${region.id}-portraits.webp');background-size:400% 100%;background-position:${local.artVariant / 3 * 100}% 50%" aria-hidden="true"></span>`;
+    return `<span class="expedition-portrait ${className}" style="background-image:url('/assets/${region.id}-portraits.webp?v=2');background-size:800% 100%;background-position:${local.artVariant / 7 * 100}% 50%" aria-hidden="true"></span>`;
   }
   const index = id === 'self' ? 7 : Math.max(0, npcs.findIndex(n => n.id === id));
   return `<span class="portrait ${className}" style="--portrait-x:${(index % 4) * 100 / 3}%;--portrait-y:${index < 4 ? 0 : 100}%" aria-hidden="true"></span>`;

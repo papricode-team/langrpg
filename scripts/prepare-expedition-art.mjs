@@ -11,6 +11,8 @@ const compiled=ts.transpileModule(await readFile(resolve(root,'web/src/expeditio
 const data=await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 const selected=process.argv.slice(2).filter(arg=>!arg.startsWith('--'));
 const partial=process.argv.includes('--partial');
+const peopleOnly=process.argv.includes('--people-only');
+const peoplePages=[{kind:'people',rows:4,offset:0},{kind:'people-1',rows:6,offset:4},{kind:'people-2',rows:6,offset:10}];
 const frameSpec=(x,y,w,h)=>({frame:{x,y,w,h},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w,h},sourceSize:{w,h}});
 
 async function cells(path,cols,rows,registered=false){
@@ -49,8 +51,13 @@ async function cells(path,cols,rows,registered=false){
   const shared=registered?{left:Math.min(...bounds.map(b=>b.left)),top:Math.min(...bounds.map(b=>b.top)),right:Math.max(...bounds.map(b=>b.right)),bottom:Math.max(...bounds.map(b=>b.bottom))}:undefined;
   for(let col=0;col<cols;col++){
    const b=shared??bounds[col],left=Math.max(0,b.left-2),top=Math.max(0,b.top-2),right=Math.min(rawWidths[col]-1,b.right+2),bottom=Math.min(height-1,b.bottom+2);
-   const crop=await sharp(rawCells[col],{raw:{width:rawWidths[col],height,channels:4}}).extract({left,top,width:right-left+1,height:bottom-top+1}).png().toBuffer();
-   result.push({row,col,buffer:crop,width:right-left+1,height:bottom-top+1});
+   // Non-divisible source widths leave a wider final cell. Keep all four poses
+   // on the same canvas, preserving edge pixels with transparent padding.
+   const cropWidth=registered?b.right+3-left:right-left+1;
+   let crop=sharp(rawCells[col],{raw:{width:rawWidths[col],height,channels:4}}).extract({left,top,width:right-left+1,height:bottom-top+1});
+   if(cropWidth>right-left+1)crop=crop.extend({left:0,right:cropWidth-(right-left+1),top:0,bottom:0,background:{r:0,g:0,b:0,alpha:0}});
+   const buffer=await crop.png().toBuffer();
+   result.push({row,col,buffer,width:cropWidth,height:bottom-top+1});
   }
  }
  return result;
@@ -73,29 +80,35 @@ async function pack(id,kind,items,names){
 if(!process.argv.includes('--previews-only')) for(const region of expeditionArt.filter(r=>!selected.length||selected.includes(r.id))){
  const id=region.id;
  async function perform(kind,fn){try{await readFile(resolve(sourceDir,`${id}-${kind}.png`));await fn();}catch(error){if(partial&&error.code==='ENOENT')return;throw error;}}
- await perform('props',async()=>{const sprites=await cells(resolve(sourceDir,`${id}-props.png`),6,4);await pack(id,'props',sprites,propFrames);});
- await perform('motions',async()=>{
+ if(!peopleOnly)await perform('props',async()=>{const sprites=await cells(resolve(sourceDir,`${id}-props.png`),6,4);await pack(id,'props',sprites,propFrames);});
+ if(!peopleOnly)await perform('motions',async()=>{
   const sprites=await cells(resolve(sourceDir,`${id}-motions.png`),6,4,true),types=['motion-tree','motion-cloth','motion-lamp','motion-water'];
   const atlas=await pack(id,'motions',sprites,sprites.map(s=>`${types[s.row]}-${s.col}`));
   const assets=Object.fromEntries(types.map((name,row)=>{const f=atlas.frames[`${name}-0`].frame;return [name,{key:`${id}-motions`,frames:Array.from({length:6},(_,i)=>`${name}-${i}`),fps:row===2?3:4,width:f.w,height:f.h,referenceWidth:f.w,originX:.5,originY:1}];}));
   for(const period of ['day','night'])await writeFile(resolve(out,`${id}-${period}-animations.json`),JSON.stringify({version:1,framesPerAsset:6,terrain:`${id}-terrain`,assets},null,2)+'\n');
  });
  await perform('people',async()=>{
-  const sprites=await cells(resolve(sourceDir,`${id}-people.png`),4,4,true);await pack(id,'people',sprites,sprites.map(s=>`person-${s.row}-${s.col}`));
+  const identities=[];
+  for(const page of peoplePages){
+   const sprites=await cells(resolve(sourceDir,`${id}-${page.kind}.png`),4,page.rows,true);
+   await pack(id,page.kind,sprites,sprites.map(s=>`person-${page.offset+s.row}-${s.col}`));
+   for(let row=0;row<page.rows;row++)identities[page.offset+row]=sprites[row*4];
+  }
   const portraits=[];
-  for(let row=0;row<4;row++){
-   const sprite=sprites[row*4],cropHeight=Math.max(1,Math.round(sprite.height*.43));
+  // Portraits are stable named-neighbor identities 0..7, never a recycled face.
+  for(let row=0;row<8;row++){
+   const sprite=identities[row],cropHeight=Math.max(1,Math.round(sprite.height*.43));
    const portrait=await sharp(sprite.buffer).extract({left:0,top:0,width:sprite.width,height:cropHeight}).resize(244,244,{fit:'contain',background:{r:0,g:0,b:0,alpha:0}}).png().toBuffer();
    portraits.push({input:portrait,left:row*256+6,top:6});
   }
-  await sharp({create:{width:1024,height:256,channels:4,background:{r:244,g:238,b:225,alpha:1}}}).composite(portraits).webp({quality:90,effort:4}).toFile(resolve(out,`${id}-portraits.webp`));
+  await sharp({create:{width:2048,height:256,channels:4,background:{r:244,g:238,b:225,alpha:1}}}).composite(portraits).webp({quality:90,effort:4}).toFile(resolve(out,`${id}-portraits.webp`));
  });
- await perform('terrain',async()=>{await sharp(resolve(sourceDir,`${id}-terrain.png`)).resize(1536,1024,{fit:'fill'}).webp({quality:89,effort:4}).toFile(resolve(out,`${id}-terrain.webp`));});
- console.log(`${id}: exported available generated terrain /24 props /24 motion frames /16 character frames`);
+ if(!peopleOnly)await perform('terrain',async()=>{await sharp(resolve(sourceDir,`${id}-terrain.png`)).resize(1536,1024,{fit:'fill'}).webp({quality:89,effort:4}).toFile(resolve(out,`${id}-terrain.webp`));});
+ console.log(`${id}: exported ${peopleOnly?'character artwork':'available terrain /24 props /24 motion frames'} /64 character frames in3 sheets /8 named portraits`);
 }
 
 // Assemble atlas card previews from exactly the runtime foot anchors and frames.
-for(const region of expeditionArt.filter(r=>!selected.length||selected.includes(r.id))){
+if(!peopleOnly)for(const region of expeditionArt.filter(r=>!selected.length||selected.includes(r.id))){
  const id=region.id;let props,motions,terrain;
  try{props=JSON.parse(await readFile(resolve(out,`${id}-props.json`),'utf8'));motions=JSON.parse(await readFile(resolve(out,`${id}-motions.json`),'utf8'));terrain=await readFile(resolve(out,`${id}-terrain.webp`));}catch(error){if(partial&&error.code==='ENOENT')continue;throw error;}
  const placements=data.expeditionPlacements[id],images=[];

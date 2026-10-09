@@ -50,4 +50,13 @@ describe('painted town resident routes', () => {
     const spec = { ...worldResidentSpecs.lindenhafen[0], stops: [{ x: 100/1536, y: 100/1024, pauseSeconds: 2 }, { x: 350/1536, y: 350/1024, pauseSeconds: 2 }] };
     expect(compileResident(spec, navigation)).toBeUndefined();
   });
+
+  it('preserves the authored character identity when compiling routes in another order', () => {
+    const specs = worldResidentSpecs.saffroncourt;
+    const navigation = createMapNavigation('saffroncourt');
+    const reversed = [...specs].reverse().map(spec => compileResident(spec, navigation)!);
+    expect(reversed.map(resident => [resident.id, resident.artVariant])).toEqual([...specs].reverse().map(spec => [spec.id, spec.artVariant]));
+    expect(new Set(reversed.map(resident => resident.artVariant))).toEqual(new Set([8, 9, 10, 11, 12, 13, 14, 15]));
+    expect(createWorldResidents('lindenhafen').every(resident => resident.artVariant === undefined)).toBe(true);
+  });
 });

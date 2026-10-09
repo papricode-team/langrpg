@@ -8,7 +8,7 @@ import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
-import { WorldMapAssets, regionPeopleKey, hasRegionPeople } from './world-map-assets';
+import { WorldMapAssets, regionPeopleKey, regionPeopleFrames } from './world-map-assets';
 import { getExpeditionNpc } from './expeditions';
 import { worldAmbient } from './world-lighting';
 import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
@@ -771,12 +771,9 @@ class HarborScene extends Phaser.Scene {
 
   private createResidents(): void {
     if (!this.playerArtReady) return;
-    const localPeople = hasRegionPeople(this.mapSpec.id);
-    let residentIndex = 0;
     for (const motion of createWorldResidents(this.mapSpec.id, this.navigation)) {
       const position = sampleResidentMotion(motion, this.decorativeElapsed);
-      const variant = residentIndex++ % 4;
-      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, localPeople ? variant : -1, localPeople ? variant : undefined);
+      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, motion.artVariant ?? -1, motion.artVariant);
       character.name.setColor('#ddd6b5').setVisible(false);
       this.residents.push({ character, motion, sample: position });
     }
@@ -789,7 +786,7 @@ class HarborScene extends Phaser.Scene {
       const npc = localNpc ?? npcs[index];
       if (!npc) continue;
       const { x, y } = this.navigation.closestPoint(position.x * WIDTH, position.y * HEIGHT);
-      const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? DEFAULT_AVATAR, npc.role.split('·')[0].trim(), localNpc ? localNpc.artVariant % 4 : index, localNpc?.artVariant);
+      const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? DEFAULT_AVATAR, npc.role.split('·')[0].trim(), localNpc ? localNpc.artVariant : index, localNpc?.artVariant);
       const interiorNpc = interior?.npcs.find(resident => resident.id === npc.id);
       if (interiorNpc) {
         character.interactionId = interiorNpc.interactionId;
@@ -1370,17 +1367,18 @@ class HarborScene extends Phaser.Scene {
   private createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
     const npc = npcFrame >= 0;
     const shadow = this.add.image(0, 2, 'character-shadow').setDisplaySize(31, 12);
-    const frame = npc ? npcFrame : PLAYER_ART.idle;
+    // A neutral placeholder handles a failed regional page download; its global
+    // identity is never interpreted as an index into the original story sheet.
+    const frame = npc ? localArtVariant === undefined ? npcFrame : 7 : PLAYER_ART.idle;
     const art = npc || !this.playerArtReady ? NPC_ART : PLAYER_ART;
     const keys = !npc && this.playerArtReady ? PLAYER_LAYERS : [NPC_ART.key];
     const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
-    const localKey = regionPeopleKey(this.mapSpec.id);
-    const variant = (localArtVariant ?? 0) % 4;
-    const localFrame = `person-${variant}-0`;
-    const hasLocalArt = localArtVariant !== undefined && this.textures.exists(localKey) && this.textures.get(localKey).has(localFrame);
-    const localFrameSize = hasLocalArt ? this.textures.get(localKey).get(localFrame) : undefined;
+    const localKey = localArtVariant === undefined ? undefined : regionPeopleKey(this.mapSpec.id, localArtVariant);
+    const localFrames = localArtVariant === undefined ? undefined : regionPeopleFrames(localArtVariant);
+    const hasLocalArt = localKey !== undefined && this.textures.exists(localKey) && localFrames!.every(frame => this.textures.get(localKey).has(frame));
+    const localFrameSize = hasLocalArt ? this.textures.get(localKey!).get(localFrames![0]) : undefined;
     const authoredIdle: SceneryAnimation | undefined = hasLocalArt ? {
-      key: localKey, frames: Array.from({ length: 4 }, (_, frame) => `person-${variant}-${frame}`), fps: 3,
+      key: localKey!, frames: localFrames!, fps: 3,
       width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width, originX: .5, originY: 1,
     } : npc ? idleManifest?.assets[id] : undefined;
     const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;

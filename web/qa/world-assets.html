@@ -8,10 +8,12 @@ body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{positi
 <script type="module">
 import { World } from '../src/world.ts';
 import { interiors } from '../src/interiors.ts';
-let world;
+import { maps } from '../src/maps.ts';
+let world, shownRegion='';
 const status=document.querySelector('#status');
 if(import.meta.env.DEV){
- world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{world.setInputEnabled(false)}});
+ document.querySelector('#region').innerHTML=maps.map(map=>`<option value="${map.id}">${map.name}</option>`).join('');
+ world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{world.setInputEnabled(false)},onMapReady:id=>{shownRegion=id}});
  world.setInputEnabled(false);
  const rooms = document.createElement('select'); rooms.id = 'interior'; rooms.setAttribute('aria-label', 'Interior');
  rooms.innerHTML = '<option value="">Outdoors</option>' + interiors.map(room => `<option value="${room.id}">${room.name}</option>`).join('');
@@ -20,12 +22,12 @@ if(import.meta.env.DEV){
  const controls = document.createElement('label'); controls.innerHTML = '<input type="checkbox" id="controls">Walk & interact';
  document.querySelector('header').insertBefore(controls, status);
  controls.querySelector('input').addEventListener('change', event => world.setInputEnabled(event.target.checked));
- document.querySelector('#region').addEventListener('change',event=>world.setMap(event.target.value));
+ document.querySelector('#region').addEventListener('change',event=>{shownRegion='';world.setMap(event.target.value)});
  document.querySelector('#time').addEventListener('change',event=>world.setTimePreference({mode:'manual',hour:Number(event.target.value)}));
  document.querySelector('#terrain').addEventListener('change',event=>world.setTerrainOnly(event.target.checked));
  document.querySelector('#calm').addEventListener('change',event=>world.setMotionPreference(event.target.checked?'reduced':'full'));
  document.querySelector('#tour').addEventListener('change',event=>world.setWatchMode(event.target.checked));
- const timer=setInterval(()=>{const stats=world.getWorldStats(),clock=world.getWorldTime();status.textContent=`${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${stats.seconds.toFixed(1)} animation seconds`},250);
+ const timer=setInterval(()=>{const stats=world.getWorldStats(),clock=world.getWorldTime();status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${stats.seconds.toFixed(1)} animation seconds`:'Loading destination artwork…'},250);
  addEventListener('pagehide',()=>{clearInterval(timer);world.destroy()},{once:true});
 }else status.textContent='This fixture is available on the development server.';
 </script></body></html>

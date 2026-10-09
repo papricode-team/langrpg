@@ -1,0 +1,15 @@
+Use case: stylized-concept. New production character sprite sheet for a painterly neighborhood exploration game.
+Use the supplied image only for painting style, adult proportions, lighting and slightly overhead front three-quarter camera. Draw NEW people with different faces, hair and clothes from the reference; preserve no reference identities.
+Transparent portrait canvas, preferably 1536 x 2048. Exactly FOUR columns and SIX rows, 24 full-body cutout sprites in equal cells. Six people total: one distinct person per row, repeated consistently across all four cells of that row. Center every figure in its cell with generous transparent padding; hair, arms, accessories and shoes must remain inside its own cell. No row overlap. Keep consistent body scale around 270px high.
+Four subtle idle frames per row: relaxed neutral, tiny breathing and hand shift, slight head glance, then near-neutral. Feet stay planted at precisely the same anchor within each cell. All people face the same front three-quarter camera. Same face, build, hair and clothes throughout each row.
+Match the hand-painted realistic game cutouts in the reference, with soft painted edges, warm neutral daylight and readable faces. Contemporary everyday clothing and workwear, without festival costumes.
+Native alpha transparency outside the people. No floor, scenery, cast ground shadow, labels, text, grid lines, dividers or watermarks.
+Community context: contemporary Kerala, India. These are contemporary neighbors with individual personalities, ages, faces and clothing.
+Six distinct identities, row order top to bottom:
+Row 1: Dev, garden cooperative grower. Man about 46, tall lean build, deep brown skin, long face, thick salt-and-pepper mustache, short black hair, moss-green cotton shirt, beige work trousers, small pruning pouch.
+Row 2: Latha, community kitchen gardener. Woman about 51, broad strong build, dark brown skin, square face, black hair in a tight low bun, mustard linen long tunic, charcoal trousers, red gardening gloves at waist.
+Row 3: Farah, guesthouse and neighborhood host. Woman about 38, tall slim build, warm brown skin, angular face, loosely draped dusty-rose headscarf, cream open long jacket, plum tunic and trousers, small keyring at hip.
+Row 4: Nila, student question collector. Woman about 23, petite, medium brown skin, round face, chin-length straight black bob, blue round glasses, pale lavender checked shirt, dark jeans, lime canvas satchel.
+Row 5: Priya, resident. Woman about 63, curvy medium build, deep brown skin, oval lined face, silver-streaked long braid, dark indigo everyday sari with narrow red border, sandals, cloth grocery bag.
+Row 6: Kiran, resident. Man about 29, broad athletic build, medium tan skin, square jaw, cropped black hair and faint beard, orange polo shirt, slate shorts below knee, gray backpack.
+Each row must have a recognizably different age, face, hair, build, outfit silhouette, colors and accessories. Exactly 24 isolated sprites, 4 columns x 6 rows.
