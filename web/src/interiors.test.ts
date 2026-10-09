@@ -5,6 +5,7 @@ import { buildingEntrances, createInteriorNavigation, getInterior, getInteriorOb
 import { getMap, maps } from './maps';
 import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
 import type { SceneryAnimationManifest } from './scenery-animation';
+import { INTERIOR_CHARACTER_HEIGHT } from './character-art';
 
 const pixels = (point: MapPoint): MapPoint => ({ x: point.x * MAP_WIDTH, y: point.y * MAP_HEIGHT });
 
@@ -155,6 +156,68 @@ const assetPath = (name: string): string => decodeURIComponent(new URL(`../publi
 const readJson = <T>(name: string): T => artifactJson[`../public/assets/${name}`] as T;
 
 describe('authored interior artwork contract', () => {
+  it('keeps counters, tables and tabletop goods below adult height using isolated corrected stills', async () => {
+    const stills = readJson<SceneryAnimationManifest>('interior-stills.json');
+    const original = readJson<SceneryAnimationManifest>('interior-animations.json');
+    const atlas = readJson<InteriorAtlas>('interior-proportioned.json');
+    expect(Object.keys(stills.assets)).toHaveLength(6);
+    expect(Object.keys(atlas.frames)).toHaveLength(6);
+    const image = await sharp(assetPath(atlas.meta.image)).raw().toBuffer({ resolveWithObject: true });
+    expect(image.info.channels).toBe(4);
+    for (const animation of Object.values(stills.assets)) {
+      expect(animation.frames).toHaveLength(1);
+      const frame = atlas.frames[animation.frames[0]].frame;
+      expect([frame.w, frame.h]).toEqual([animation.width, animation.height]);
+      expect([animation.originX, animation.originY].every(value => value >= 0 && value <= 1)).toBe(true);
+      const rgba = await sharp(image.data, { raw: image.info }).extract({ left: frame.x, top: frame.y, width: frame.w, height: frame.h }).raw().toBuffer();
+      expect(new Uint8Array(rgba).some((value, index) => index % 4 === 3 && value === 0)).toBe(true);
+      expect(new Uint8Array(rgba).some((value, index) => index % 4 === 3 && value > 100)).toBe(true);
+    }
+    for (const room of interiors) for (const prop of room.props) {
+      const art = stills.assets[prop.asset] ?? original.assets[prop.asset];
+      const height = prop.width * art.height / art.referenceWidth;
+      if (['bakery-counter', 'checkout', 'pastry-case'].includes(prop.asset)) expect(height, `${prop.id} towers above people`).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .9);
+      if (prop.asset === 'cafe-table') expect(height).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .8);
+      if (prop.asset === 'cup') expect(height).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .12);
+    }
+  });
+
+  it('keeps animated steam and flames separate from solid furniture with native alpha and shared emitter pivots', async () => {
+    const manifest = readJson<SceneryAnimationManifest>('interior-effect-animations.json');
+    const atlas = readJson<InteriorAtlas>('interior-effects.json');
+    const { data, info } = await sharp(assetPath(atlas.meta.image)).raw().toBuffer({ resolveWithObject: true });
+    expect(info.channels).toBe(4);
+    expect([info.width, info.height]).toEqual([atlas.meta.size.w, atlas.meta.size.h]);
+    expect(Object.keys(atlas.frames)).toHaveLength(8);
+    expect(Object.keys(manifest.assets)).toEqual(['steam', 'flame']);
+    for (const animation of Object.values(manifest.assets)) {
+      expect([animation.originX, animation.originY].every(value => value >= 0 && value <= 1)).toBe(true);
+      const hashes = new Set<string>();
+      for (const frameName of animation.frames) {
+        const frame = atlas.frames[frameName].frame;
+        expect([frame.w, frame.h]).toEqual([animation.width, animation.height]);
+        const pixels = await sharp(data, { raw: info }).extract({ left: frame.x, top: frame.y, width: frame.w, height: frame.h }).raw().toBuffer();
+        let clear = 0, visible = 0, translucent = 0;
+        for (let index = 3; index < pixels.length; index += 4) {
+          if (pixels[index] === 0) clear++;
+          if (pixels[index] > 32) visible++;
+          if (pixels[index] > 0 && pixels[index] < 255) translucent++;
+        }
+        expect(clear).toBeGreaterThan(0);
+        expect(translucent).toBeGreaterThan(0);
+        expect(visible).toBeGreaterThan(0);
+        hashes.add(Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', pixels)), byte => byte.toString(16).padStart(2, '0')).join(''));
+      }
+      expect(hashes.size).toBe(4);
+    }
+    for (const room of interiors) for (const prop of room.props) for (const effect of prop.effects ?? []) {
+      expect(manifest.assets[effect.asset]).toBeDefined();
+      expect(effect.width).toBeGreaterThan(0);
+      expect(effect.alpha).toBeGreaterThan(0);
+      expect(effect.alpha).toBeLessThanOrEqual(1);
+    }
+  });
+
   it('resolves every placed prop to an available animated atlas and every room to a full painting', async () => {
     const manifest = readJson<SceneryAnimationManifest>('interior-animations.json');
     expect(manifest.version).toBe(1);

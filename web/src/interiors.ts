@@ -39,6 +39,8 @@ export interface InteriorPropSpec {
   interactive?: string;
   /** Solid footprint, excluding steam, glass reflections, and tall silhouettes. */
   collision?: { x: number; y: number; width: number; height: number };
+  /** Detail-only overlays, positioned relative to the fixed furniture anchor. */
+  effects?: readonly { asset: 'steam' | 'flame'; x: number; y: number; width: number; alpha: number }[];
 }
 export interface InteriorNpcSpec extends MapPosition {
   id: string;
@@ -127,21 +129,21 @@ export const interiors: readonly InteriorSpec[] = [
     props: [
       { id: 'cafe-service-bar-left', sheet: 'interior-furniture', asset: 'coffee-bar', x: 590, y: 490, width: 160, interactive: 'interior:cafe:coffee', collision: footprint(525, 445, 270, 48) },
       { id: 'cafe-service-bar-right', sheet: 'interior-furniture', asset: 'coffee-bar', x: 730, y: 490, width: 160, interactive: 'interior:cafe:tea' },
-      { id: 'cafe-espresso', sheet: 'interior-cafe-objects', asset: 'espresso', x: 565, y: 415, width: 75, depth: 500, interactive: 'interior:cafe:coffee' },
+      { id: 'cafe-espresso', sheet: 'interior-cafe-objects', asset: 'espresso', x: 565, y: 415, width: 60, depth: 500, interactive: 'interior:cafe:coffee', effects: [{ asset: 'steam', x: 18, y: -30, width: 16, alpha: .22 }] },
       { id: 'cafe-grinder', sheet: 'interior-cafe-objects', asset: 'grinder', x: 660, y: 415, width: 38, depth: 501, interactive: 'interior:cafe:coffee' },
-      { id: 'cafe-kettle', sheet: 'interior-cafe-objects', asset: 'kettle', x: 750, y: 415, width: 45, depth: 502, interactive: 'interior:cafe:tea' },
+      { id: 'cafe-kettle', sheet: 'interior-cafe-objects', asset: 'kettle', x: 750, y: 415, width: 28, depth: 502, interactive: 'interior:cafe:tea', effects: [{ asset: 'steam', x: 10, y: -21, width: 12, alpha: .22 }] },
       { id: 'cafe-pastry-case', sheet: 'interior-cafe-objects', asset: 'pastry-case', x: 915, y: 490, width: 170, interactive: 'interior:cafe:pastries', collision: footprint(840, 445, 150, 47) },
-      { id: 'cafe-reading-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 310, y: 675, width: 120, interactive: 'interior:cafe:table', collision: footprint(264, 637, 92, 40) },
-      { id: 'cafe-central-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 640, y: 670, width: 120, interactive: 'interior:cafe:table', collision: footprint(594, 632, 92, 40) },
-      { id: 'cafe-front-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 305, y: 805, width: 120, interactive: 'interior:cafe:table', collision: footprint(259, 767, 92, 40) },
+      { id: 'cafe-reading-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 310, y: 675, width: 140, interactive: 'interior:cafe:table', collision: footprint(254, 632, 112, 45) },
+      { id: 'cafe-central-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 640, y: 670, width: 140, interactive: 'interior:cafe:table', collision: footprint(584, 627, 112, 45) },
+      { id: 'cafe-front-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 305, y: 805, width: 140, interactive: 'interior:cafe:table', collision: footprint(249, 762, 112, 45) },
       { id: 'cafe-window-banquette', sheet: 'interior-furniture', asset: 'banquette', x: 1200, y: 655, width: 145, interactive: 'interior:cafe:table', collision: footprint(1136, 620, 128, 37) },
-      { id: 'cafe-window-table-south', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1185, y: 780, width: 120, interactive: 'interior:cafe:table', collision: footprint(1139, 742, 92, 40) },
-      { id: 'cafe-reading-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 330, y: 640, width: 22, depth: 682 },
-      { id: 'cafe-central-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 660, y: 635, width: 22, depth: 677 },
-      { id: 'cafe-window-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1205, y: 745, width: 22, depth: 787, interactive: 'interior:cafe:table' },
-      { id: 'cafe-candle', sheet: 'interior-decor', asset: 'candle', x: 1300, y: 715, width: 55, collision: footprint(1278, 694, 44, 23) },
+      { id: 'cafe-window-table-south', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1185, y: 780, width: 140, interactive: 'interior:cafe:table', collision: footprint(1129, 737, 112, 45) },
+      { id: 'cafe-reading-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 330, y: 620, width: 12, depth: 682 },
+      { id: 'cafe-central-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 660, y: 615, width: 12, depth: 677 },
+      { id: 'cafe-window-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1205, y: 725, width: 12, depth: 787, interactive: 'interior:cafe:table' },
+      { id: 'cafe-candle', sheet: 'interior-decor', asset: 'candle', x: 1300, y: 715, width: 55, collision: footprint(1278, 694, 44, 23), effects: [{ asset: 'flame', x: 0, y: -51, width: 8, alpha: .35 }] },
       { id: 'cafe-window-plant', sheet: 'interior-decor', asset: 'plant', x: 225, y: 510, width: 60, collision: footprint(211, 494, 28, 18) },
-      { id: 'cafe-clock', sheet: 'interior-decor', asset: 'pendulum-clock', x: 980, y: 285, width: 45 },
+      { id: 'cafe-clock', sheet: 'interior-decor', asset: 'pendulum-clock', x: 980, y: 285, width: 32 },
       { id: 'cafe-reading-shelf', sheet: 'interior-decor', asset: 'bookshelf', x: 1300, y: 590, width: 95, collision: footprint(1258, 564, 84, 28) },
       { id: 'cafe-menu-board', sheet: 'interior-furniture', asset: 'menu-board', x: 470, y: 780, width: 45, interactive: 'interior:cafe:coffee', collision: footprint(459, 764, 22, 18) },
     ],
@@ -199,19 +201,19 @@ export const interiors: readonly InteriorSpec[] = [
       },
     ],
     props: [
-      { id: 'bakery-bread-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 340, y: 705, width: 125, interactive: 'interior:bakery:bread', collision: footprint(286, 667, 108, 40) },
-      { id: 'bakery-roll-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 505, y: 705, width: 125, interactive: 'interior:bakery:bread', collision: footprint(451, 667, 108, 40) },
+      { id: 'bakery-bread-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 340, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(297, 675, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
+      { id: 'bakery-roll-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 505, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(462, 675, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
       { id: 'bakery-dough-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 725, y: 350, width: 145, collision: footprint(662, 310, 126, 42) },
-      { id: 'bakery-dough-bench', sheet: 'interior-bakery-objects', asset: 'dough-bench', x: 725, y: 275, width: 60, depth: 360 },
+      { id: 'bakery-dough-bench', sheet: 'interior-bakery-objects', asset: 'dough-bench', x: 725, y: 275, width: 46, depth: 360 },
       { id: 'bakery-mixing-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 975, y: 350, width: 145, collision: footprint(912, 310, 126, 42) },
       { id: 'bakery-mixer', sheet: 'interior-bakery-objects', asset: 'mixer', x: 975, y: 262, width: 45, depth: 361 },
-      { id: 'bakery-oven', sheet: 'interior-bakery-objects', asset: 'oven', x: 1200, y: 365, width: 145, interactive: 'interior:bakery:oven', collision: footprint(1137, 316, 126, 51) },
+      { id: 'bakery-oven', sheet: 'interior-bakery-objects', asset: 'oven', x: 1200, y: 365, width: 145, interactive: 'interior:bakery:oven', collision: footprint(1137, 316, 126, 51), effects: [{ asset: 'flame', x: 0, y: -62, width: 25, alpha: .4 }] },
       { id: 'bakery-pantry', sheet: 'interior-furniture', asset: 'pantry', x: 675, y: 270, width: 80, collision: footprint(640, 247, 70, 25) },
       { id: 'bakery-sink', sheet: 'interior-furniture', asset: 'sink', x: 1060, y: 270, width: 90, collision: footprint(1021, 244, 78, 28) },
       { id: 'bakery-pastry-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 685, y: 725, width: 155, interactive: 'interior:bakery:pastries', collision: footprint(617, 681, 136, 46) },
-      { id: 'bakery-pastry-tray', sheet: 'interior-bakery-objects', asset: 'pastry-tray', x: 685, y: 630, width: 85, depth: 735, interactive: 'interior:bakery:pastries' },
+      { id: 'bakery-pastry-tray', sheet: 'interior-bakery-objects', asset: 'pastry-tray', x: 710, y: 670, width: 45, depth: 735, interactive: 'interior:bakery:pastries', effects: [{ asset: 'steam', x: 0, y: -32, width: 16, alpha: .22 }] },
       { id: 'bakery-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 1060, y: 735, width: 175, interactive: 'interior:bakery:counter', collision: footprint(984, 688, 152, 49) },
-      { id: 'bakery-coat-stand', sheet: 'interior-decor', asset: 'coat-stand', x: 1250, y: 810, width: 38, collision: footprint(1241, 796, 18, 16) },
+      { id: 'bakery-coat-stand', sheet: 'interior-decor', asset: 'coat-stand', x: 1250, y: 810, width: 60, collision: footprint(1235, 792, 30, 22) },
       { id: 'bakery-window-plant', sheet: 'interior-decor', asset: 'plant', x: 265, y: 805, width: 55, collision: footprint(252, 789, 26, 18) },
     ],
   },

@@ -1,0 +1,132 @@
+{
+  "frames": {
+    "bakery-counter-still": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 461,
+        "h": 277
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 461,
+        "h": 277
+      },
+      "sourceSize": {
+        "w": 461,
+        "h": 277
+      }
+    },
+    "cafe-table-still": {
+      "frame": {
+        "x": 467,
+        "y": 2,
+        "w": 440,
+        "h": 326
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 440,
+        "h": 326
+      },
+      "sourceSize": {
+        "w": 440,
+        "h": 326
+      }
+    },
+    "pastry-case-still": {
+      "frame": {
+        "x": 2,
+        "y": 332,
+        "w": 482,
+        "h": 300
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 482,
+        "h": 300
+      },
+      "sourceSize": {
+        "w": 482,
+        "h": 300
+      }
+    },
+    "checkout-still": {
+      "frame": {
+        "x": 488,
+        "y": 332,
+        "w": 453,
+        "h": 293
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 453,
+        "h": 293
+      },
+      "sourceSize": {
+        "w": 453,
+        "h": 293
+      }
+    },
+    "oven-still": {
+      "frame": {
+        "x": 2,
+        "y": 636,
+        "w": 457,
+        "h": 434
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 457,
+        "h": 434
+      },
+      "sourceSize": {
+        "w": 457,
+        "h": 434
+      }
+    },
+    "scales-still": {
+      "frame": {
+        "x": 463,
+        "y": 636,
+        "w": 281,
+        "h": 392
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 281,
+        "h": 392
+      },
+      "sourceSize": {
+        "w": 281,
+        "h": 392
+      }
+    }
+  },
+  "meta": {
+    "image": "interior-proportioned.webp",
+    "size": {
+      "w": 1024,
+      "h": 1072
+    },
+    "scale": "1"
+  }
+}

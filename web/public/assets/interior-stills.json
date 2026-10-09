@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "framesPerAsset": 1,
+  "assets": {
+    "bakery-counter": {
+      "key": "interior-proportioned",
+      "frames": [
+        "bakery-counter-still"
+      ],
+      "fps": 0,
+      "width": 461,
+      "height": 277,
+      "referenceWidth": 461,
+      "originX": 0.4642082429501085,
+      "originY": 0.9855595667870036
+    },
+    "cafe-table": {
+      "key": "interior-proportioned",
+      "frames": [
+        "cafe-table-still"
+      ],
+      "fps": 0,
+      "width": 440,
+      "height": 326,
+      "referenceWidth": 440,
+      "originX": 0.49772727272727274,
+      "originY": 0.9877300613496932
+    },
+    "pastry-case": {
+      "key": "interior-proportioned",
+      "frames": [
+        "pastry-case-still"
+      ],
+      "fps": 0,
+      "width": 482,
+      "height": 300,
+      "referenceWidth": 482,
+      "originX": 0.46887966804979253,
+      "originY": 0.9866666666666667
+    },
+    "checkout": {
+      "key": "interior-proportioned",
+      "frames": [
+        "checkout-still"
+      ],
+      "fps": 0,
+      "width": 453,
+      "height": 293,
+      "referenceWidth": 453,
+      "originX": 0.4966887417218543,
+      "originY": 0.9863481228668942
+    },
+    "oven": {
+      "key": "interior-proportioned",
+      "frames": [
+        "oven-still"
+      ],
+      "fps": 0,
+      "width": 457,
+      "height": 434,
+      "referenceWidth": 457,
+      "originX": 0.4420131291028446,
+      "originY": 0.9907834101382489
+    },
+    "scales": {
+      "key": "interior-proportioned",
+      "frames": [
+        "scales-still"
+      ],
+      "fps": 0,
+      "width": 281,
+      "height": 392,
+      "referenceWidth": 281,
+      "originX": 0.4875444839857651,
+      "originY": 0.9897959183673469
+    }
+  }
+}

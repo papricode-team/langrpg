@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "framesPerAsset": 4,
+  "assets": {
+    "steam": {
+      "key": "interior-effects",
+      "frames": [
+        "steam-0",
+        "steam-1",
+        "steam-2",
+        "steam-3"
+      ],
+      "fps": 2.5,
+      "width": 152,
+      "height": 412,
+      "referenceWidth": 152,
+      "originX": 0.4605263157894737,
+      "originY": 0.9902912621359223
+    },
+    "flame": {
+      "key": "interior-effects",
+      "frames": [
+        "flame-0",
+        "flame-1",
+        "flame-2",
+        "flame-3"
+      ],
+      "fps": 2.5,
+      "width": 179,
+      "height": 258,
+      "referenceWidth": 179,
+      "originX": 0.49162011173184356,
+      "originY": 0.9844961240310077
+    }
+  }
+}

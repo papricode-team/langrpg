@@ -3,7 +3,7 @@ import { npcs } from './content';
 import { createMapNavigation, NavigationGrid } from './navigation';
 import type { MapPoint } from './navigation';
 import { getMap, maps, type MapId, type WorldObjectSpec, type WorldMapSpec } from './maps';
-import { NPC_ART, PLAYER_ART, PLAYER_LAYERS, paintAvatarPreview, playerMaterialShadows, prepareCharacterArt } from './character-art';
+import { NPC_ART, PLAYER_ART, PLAYER_LAYERS, INTERIOR_CHARACTER_HEIGHT, characterArtScale, paintAvatarPreview, playerMaterialShadows, prepareCharacterArt } from './character-art';
 import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
@@ -449,6 +449,10 @@ class HarborScene extends Phaser.Scene {
       this.load.atlas(`interior-${sheet}`, `/assets/interior-${sheet}.webp`, `/assets/interior-${sheet}.json`);
     }
     this.load.json('interior-animations', '/assets/interior-animations.json');
+    this.load.atlas('interior-effects', '/assets/interior-effects.webp', '/assets/interior-effects.json');
+    this.load.json('interior-effect-animations', '/assets/interior-effect-animations.json');
+    this.load.atlas('interior-proportioned', '/assets/interior-proportioned.webp', '/assets/interior-proportioned.json');
+    this.load.json('interior-stills', '/assets/interior-stills.json');
     this.load.once('filecomplete-json-residents-animations', (_key: string, _type: string, manifest: SceneryAnimationManifest) => {
       for (const page of sceneryAnimationTextureKeys(manifest)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
     });
@@ -814,11 +818,12 @@ class HarborScene extends Phaser.Scene {
 
   private createInteriorPropTargets(spec: InteriorSpec): void {
     const manifest = this.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
+    const stills = this.cache.json.get('interior-stills') as SceneryAnimationManifest | undefined;
     for (const prop of spec.props) {
       if (!prop.interactive) continue;
       const object = this.objects.get(prop.interactive);
       if (!object) continue;
-      const animation = manifest?.assets[prop.asset];
+      const animation = stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
       const height = prop.width * (animation ? animation.height / animation.referenceWidth : .75);
       const centerX = prop.x + (.5 - (animation?.originX ?? .5)) * prop.width;
       const centerY = prop.y + (.5 - (animation?.originY ?? .97)) * height;
@@ -845,7 +850,7 @@ class HarborScene extends Phaser.Scene {
     const glyph = this.add.text(0, -12, exit ? '↙' : '↗', {
       fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#fff1cd', stroke: '#3a4236', strokeThickness: 3,
     }).setOrigin(.5);
-    const name = this.add.text(0, -42, label, {
+    const name = this.add.text(0, exit ? 24 : -42, label, {
       fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
     }).setOrigin(.5);
     const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
@@ -1259,6 +1264,7 @@ class HarborScene extends Phaser.Scene {
   }
 
   private animateCharacter(character: Character, dx: number, dy: number, time: number): void {
+    this.fitCharacterToRoom(character);
     character.root.setPosition(character.x, character.y).setDepth(character.y + 10);
     const distance = Math.hypot(dx, dy);
     if (!character.npc && this.playerArtReady) {
@@ -1275,7 +1281,8 @@ class HarborScene extends Phaser.Scene {
       }
     }
     if (character.idleAnimation) {
-      const frame = sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
+      const frame = this.interiorSpec ? character.idleAnimation.frames[0]
+        : sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
       if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
       return;
     }
@@ -1308,6 +1315,19 @@ class HarborScene extends Phaser.Scene {
     if (character.frame === frame) return;
     character.frame = frame;
     for (const layer of character.layers) layer.setFrame(frame);
+  }
+
+  private fitCharacterToRoom(character: Character): void {
+    const art = character.npc || !this.playerArtReady ? NPC_ART : PLAYER_ART;
+    const canvasHeight = character.idleAnimation?.height ?? art.height;
+    const bodyHeight = character.idleAnimation ? canvasHeight - 6 : art.bodyHeight;
+    const indoors = !!this.interiorSpec;
+    const scale = characterArtScale(bodyHeight, canvasHeight, indoors);
+    if (character.artScale === scale) return;
+    character.artScale = scale;
+    for (const layer of character.layers) layer.setScale(scale);
+    character.shadow.setDisplaySize(indoors ? 43 : 31, indoors ? 17 : 12);
+    character.name.setY(indoors ? -INTERIOR_CHARACTER_HEIGHT - 12 : -79);
   }
 
   private avatarPalette(avatar: Avatar): { outfit: number; hair: number; skin: number } {
@@ -1346,6 +1366,7 @@ class HarborScene extends Phaser.Scene {
       root.add(roleText);
     }
     const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, idleFrame };
+    this.fitCharacterToRoom(character);
     this.tintCharacter(character);
     return character;
   }

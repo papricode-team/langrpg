@@ -1,7 +1,13 @@
 import type * as Phaser from 'phaser';
 
-export const NPC_ART = { key: 'town-characters', width: 256, height: 384, footY: 0.9 };
-export const PLAYER_ART = { source: 'wanderer-source', width: 192, height: 288, columns: 8, rows: 5, frameCount: 36, footY: 0.9, idle: 32 };
+export const NPC_ART = { key: 'town-characters', width: 256, height: 384, bodyHeight: 338, footY: 0.9 };
+export const PLAYER_ART = { source: 'wanderer-source', width: 192, height: 288, bodyHeight: 246, columns: 8, rows: 5, frameCount: 36, footY: 0.9, idle: 32 };
+export const INTERIOR_CHARACTER_HEIGHT = 132;
+
+/** Indoor adults share one visible body height, independent of transparent canvas padding. */
+export function characterArtScale(bodyHeight: number, canvasHeight: number, indoors: boolean): number {
+  return indoors ? INTERIOR_CHARACTER_HEIGHT / bodyHeight : 82 / canvasHeight;
+}
 export const PLAYER_LAYERS = ['wanderer-detail', 'wanderer-outfit', 'wanderer-hair', 'wanderer-skin'] as const;
 export type PlayerPalette = { outfit: number; hair: number; skin: number };
 

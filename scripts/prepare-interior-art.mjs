@@ -78,3 +78,5 @@ for (const id of ['cafe', 'bakery', 'supermarket']) {
   await sharp(source).webp({ quality: 91, effort: 6 }).toFile(resolve(assetDir, `interior-${id}-room.webp`));
 }
 console.log('Three distinct room paintings and 120 authored animation frames exported.');
+await import('./prepare-interior-effects.mjs');
+await import('./prepare-interior-stills.mjs');
