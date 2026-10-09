@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "framesPerAsset": 6,
   "assets": {
     "archive": {
@@ -17,7 +17,53 @@
       "height": 231,
       "referenceWidth": 183,
       "originX": 0.48633879781420764,
-      "originY": 0.9956709956709957
+      "originY": 0.9956709956709957,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "archive"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "archive-detail-0-0",
+            "archive-detail-0-1",
+            "archive-detail-0-2",
+            "archive-detail-0-3",
+            "archive-detail-0-4",
+            "archive-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 183,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -33.5,
+          "offsetY": -67.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "archive-detail-1-0",
+            "archive-detail-1-1",
+            "archive-detail-1-2",
+            "archive-detail-1-3",
+            "archive-detail-1-4",
+            "archive-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 183,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 29.5,
+          "offsetY": -158.5
+        }
+      ]
     },
     "cafe": {
       "key": "waldruh-day-animation-0",
@@ -34,7 +80,53 @@
       "height": 247,
       "referenceWidth": 230,
       "originX": 0.48695652173913045,
-      "originY": 0.9878542510121457
+      "originY": 0.9878542510121457,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "cafe-detail-0-0",
+            "cafe-detail-0-1",
+            "cafe-detail-0-2",
+            "cafe-detail-0-3",
+            "cafe-detail-0-4",
+            "cafe-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 230,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -7.5,
+          "offsetY": -125.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "cafe-detail-1-0",
+            "cafe-detail-1-1",
+            "cafe-detail-1-2",
+            "cafe-detail-1-3",
+            "cafe-detail-1-4",
+            "cafe-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 230,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -13.5,
+          "offsetY": -95.5
+        }
+      ]
     },
     "station": {
       "key": "waldruh-day-animation-0",
@@ -51,7 +143,53 @@
       "height": 209,
       "referenceWidth": 241,
       "originX": 0.49377593360995853,
-      "originY": 0.9808612440191388
+      "originY": 0.9808612440191388,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "station"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "station-detail-0-0",
+            "station-detail-0-1",
+            "station-detail-0-2",
+            "station-detail-0-3",
+            "station-detail-0-4",
+            "station-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 241,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -35.5,
+          "offsetY": -66.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "station-detail-1-0",
+            "station-detail-1-1",
+            "station-detail-1-2",
+            "station-detail-1-3",
+            "station-detail-1-4",
+            "station-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 241,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -71.5,
+          "offsetY": -77.5
+        }
+      ]
     },
     "workshop": {
       "key": "waldruh-day-animation-0",
@@ -68,7 +206,53 @@
       "height": 231,
       "referenceWidth": 215,
       "originX": 0.5162790697674419,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "workshop-detail-0-0",
+            "workshop-detail-0-1",
+            "workshop-detail-0-2",
+            "workshop-detail-0-3",
+            "workshop-detail-0-4",
+            "workshop-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 19,
+          "height": 21,
+          "referenceWidth": 215,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 1.5,
+          "offsetY": -142.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "workshop-detail-1-0",
+            "workshop-detail-1-1",
+            "workshop-detail-1-2",
+            "workshop-detail-1-3",
+            "workshop-detail-1-4",
+            "workshop-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 215,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -72.5,
+          "offsetY": -70.5
+        }
+      ]
     },
     "house": {
       "key": "waldruh-day-animation-1",
@@ -85,7 +269,53 @@
       "height": 242,
       "referenceWidth": 206,
       "originX": 0.49029126213592233,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "house"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-detail-0-0",
+            "house-detail-0-1",
+            "house-detail-0-2",
+            "house-detail-0-3",
+            "house-detail-0-4",
+            "house-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 13,
+          "height": 21,
+          "referenceWidth": 206,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 26.5,
+          "offsetY": -115.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-detail-1-0",
+            "house-detail-1-1",
+            "house-detail-1-2",
+            "house-detail-1-3",
+            "house-detail-1-4",
+            "house-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 17,
+          "referenceWidth": 206,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -46.5,
+          "offsetY": -72.5
+        }
+      ]
     },
     "greenhouse": {
       "key": "waldruh-day-animation-1",
@@ -102,7 +332,53 @@
       "height": 203,
       "referenceWidth": 223,
       "originX": 0.4977578475336323,
-      "originY": 0.9802955665024631
+      "originY": 0.9802955665024631,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "greenhouse-detail-0-0",
+            "greenhouse-detail-0-1",
+            "greenhouse-detail-0-2",
+            "greenhouse-detail-0-3",
+            "greenhouse-detail-0-4",
+            "greenhouse-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 13,
+          "height": 17,
+          "referenceWidth": 223,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 4.5,
+          "offsetY": -156.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "greenhouse-detail-1-0",
+            "greenhouse-detail-1-1",
+            "greenhouse-detail-1-2",
+            "greenhouse-detail-1-3",
+            "greenhouse-detail-1-4",
+            "greenhouse-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 15,
+          "height": 27,
+          "referenceWidth": 223,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 26.5,
+          "offsetY": -53.5
+        }
+      ]
     },
     "fountain": {
       "key": "waldruh-day-animation-1",
@@ -204,7 +480,53 @@
       "height": 225,
       "referenceWidth": 208,
       "originX": 0.49038461538461536,
-      "originY": 0.9955555555555555
+      "originY": 0.9955555555555555,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "arch"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "arch-detail-0-0",
+            "arch-detail-0-1",
+            "arch-detail-0-2",
+            "arch-detail-0-3",
+            "arch-detail-0-4",
+            "arch-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 208,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -15.5,
+          "offsetY": -191.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "arch-detail-1-0",
+            "arch-detail-1-1",
+            "arch-detail-1-2",
+            "arch-detail-1-3",
+            "arch-detail-1-4",
+            "arch-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 208,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 54.5,
+          "offsetY": -163.5
+        }
+      ]
     },
     "stall": {
       "key": "waldruh-day-animation-3",
@@ -289,7 +611,33 @@
       "height": 225,
       "referenceWidth": 220,
       "originX": 0.5,
-      "originY": 0.9955555555555555
+      "originY": 0.9955555555555555,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-1-detail-0-0",
+            "house-1-detail-0-1",
+            "house-1-detail-0-2",
+            "house-1-detail-0-3",
+            "house-1-detail-0-4",
+            "house-1-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 220,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -36.5,
+          "offsetY": -54.5
+        }
+      ]
     },
     "house-2": {
       "key": "waldruh-day-animation-4",
@@ -306,7 +654,53 @@
       "height": 237,
       "referenceWidth": 193,
       "originX": 0.49222797927461137,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-2-detail-0-0",
+            "house-2-detail-0-1",
+            "house-2-detail-0-2",
+            "house-2-detail-0-3",
+            "house-2-detail-0-4",
+            "house-2-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 193,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -39.5,
+          "offsetY": -108.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-2-detail-1-0",
+            "house-2-detail-1-1",
+            "house-2-detail-1-2",
+            "house-2-detail-1-3",
+            "house-2-detail-1-4",
+            "house-2-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 19,
+          "referenceWidth": 193,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 18.5,
+          "offsetY": -117.5
+        }
+      ]
     },
     "house-3": {
       "key": "waldruh-day-animation-4",
@@ -323,7 +717,33 @@
       "height": 232,
       "referenceWidth": 223,
       "originX": 0.48878923766816146,
-      "originY": 0.9956896551724138
+      "originY": 0.9956896551724138,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-3-detail-0-0",
+            "house-3-detail-0-1",
+            "house-3-detail-0-2",
+            "house-3-detail-0-3",
+            "house-3-detail-0-4",
+            "house-3-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 13,
+          "height": 17,
+          "referenceWidth": 223,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -46.5,
+          "offsetY": -67.5
+        }
+      ]
     },
     "house-4": {
       "key": "waldruh-day-animation-4",
@@ -340,7 +760,53 @@
       "height": 199,
       "referenceWidth": 225,
       "originX": 0.5066666666666667,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-day-building-bases",
+        "frame": "house-4"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-4-detail-0-0",
+            "house-4-detail-0-1",
+            "house-4-detail-0-2",
+            "house-4-detail-0-3",
+            "house-4-detail-0-4",
+            "house-4-detail-0-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 15,
+          "referenceWidth": 225,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -57.500000000000014,
+          "offsetY": -74.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-day-building-details",
+          "frames": [
+            "house-4-detail-1-0",
+            "house-4-detail-1-1",
+            "house-4-detail-1-2",
+            "house-4-detail-1-3",
+            "house-4-detail-1-4",
+            "house-4-detail-1-5"
+          ],
+          "fps": 1.5,
+          "width": 11,
+          "height": 15,
+          "referenceWidth": 225,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 17.499999999999986,
+          "offsetY": -66.5
+        }
+      ]
     },
     "tree-1": {
       "key": "waldruh-day-animation-5",

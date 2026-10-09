@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import { readFile,writeFile,mkdir,access } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 const root=process.cwd();
 const rawArgs=process.argv.slice(2);
 const setIndex=rawArgs.indexOf('--set'), set=setIndex<0?'':rawArgs[setIndex+1];
@@ -72,3 +73,5 @@ for(const map of maps){
  await writeFile(resolve(root,`web/public/assets/${namespace}-animations.json`),JSON.stringify(manifest,null,2)+'\n');
  console.log(`${map}:${Object.keys(manifest.assets).length}assets×6framesready`);
 }
+// Rebuilding a period must retain the static-building contract, including batch updates.
+if(set&&!partial)execFileSync(process.execPath,['scripts/prepare-building-layers.mjs','--set',set,...maps],{stdio:'inherit'});

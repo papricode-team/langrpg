@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "framesPerAsset": 6,
   "assets": {
     "archive": {
@@ -17,7 +17,53 @@
       "height": 228,
       "referenceWidth": 184,
       "originX": 0.483695652173913,
-      "originY": 0.9956140350877193
+      "originY": 0.9956140350877193,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "archive"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "archive-detail-0-0",
+            "archive-detail-0-1",
+            "archive-detail-0-2",
+            "archive-detail-0-3",
+            "archive-detail-0-4",
+            "archive-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 184,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -33.5,
+          "offsetY": -67.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "archive-detail-1-0",
+            "archive-detail-1-1",
+            "archive-detail-1-2",
+            "archive-detail-1-3",
+            "archive-detail-1-4",
+            "archive-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 184,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 29.5,
+          "offsetY": -158.5
+        }
+      ]
     },
     "cafe": {
       "key": "waldruh-night-animation-0",
@@ -34,7 +80,53 @@
       "height": 247,
       "referenceWidth": 228,
       "originX": 0.49122807017543857,
-      "originY": 0.9878542510121457
+      "originY": 0.9878542510121457,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "cafe-detail-0-0",
+            "cafe-detail-0-1",
+            "cafe-detail-0-2",
+            "cafe-detail-0-3",
+            "cafe-detail-0-4",
+            "cafe-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 228,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -7.5,
+          "offsetY": -125.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "cafe-detail-1-0",
+            "cafe-detail-1-1",
+            "cafe-detail-1-2",
+            "cafe-detail-1-3",
+            "cafe-detail-1-4",
+            "cafe-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 228,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -13.5,
+          "offsetY": -95.5
+        }
+      ]
     },
     "station": {
       "key": "waldruh-night-animation-0",
@@ -51,7 +143,53 @@
       "height": 199,
       "referenceWidth": 231,
       "originX": 0.49783549783549785,
-      "originY": 0.9798994974874372
+      "originY": 0.9798994974874372,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "station"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "station-detail-0-0",
+            "station-detail-0-1",
+            "station-detail-0-2",
+            "station-detail-0-3",
+            "station-detail-0-4",
+            "station-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 231,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -35.5,
+          "offsetY": -66.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "station-detail-1-0",
+            "station-detail-1-1",
+            "station-detail-1-2",
+            "station-detail-1-3",
+            "station-detail-1-4",
+            "station-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 15,
+          "referenceWidth": 231,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -71.5,
+          "offsetY": -77.5
+        }
+      ]
     },
     "workshop": {
       "key": "waldruh-night-animation-0",
@@ -68,7 +206,53 @@
       "height": 234,
       "referenceWidth": 216,
       "originX": 0.5138888888888888,
-      "originY": 0.9957264957264957
+      "originY": 0.9957264957264957,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "workshop-detail-0-0",
+            "workshop-detail-0-1",
+            "workshop-detail-0-2",
+            "workshop-detail-0-3",
+            "workshop-detail-0-4",
+            "workshop-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 19,
+          "height": 21,
+          "referenceWidth": 216,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 1.5000000000000142,
+          "offsetY": -142.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "workshop-detail-1-0",
+            "workshop-detail-1-1",
+            "workshop-detail-1-2",
+            "workshop-detail-1-3",
+            "workshop-detail-1-4",
+            "workshop-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 9,
+          "height": 19,
+          "referenceWidth": 216,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -72.49999999999999,
+          "offsetY": -70.5
+        }
+      ]
     },
     "house": {
       "key": "waldruh-night-animation-1",
@@ -85,7 +269,53 @@
       "height": 241,
       "referenceWidth": 202,
       "originX": 0.4900990099009901,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "house"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-detail-0-0",
+            "house-detail-0-1",
+            "house-detail-0-2",
+            "house-detail-0-3",
+            "house-detail-0-4",
+            "house-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 21,
+          "referenceWidth": 202,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 26.5,
+          "offsetY": -115.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-detail-1-0",
+            "house-detail-1-1",
+            "house-detail-1-2",
+            "house-detail-1-3",
+            "house-detail-1-4",
+            "house-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 17,
+          "referenceWidth": 202,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -46.5,
+          "offsetY": -72.5
+        }
+      ]
     },
     "greenhouse": {
       "key": "waldruh-night-animation-1",
@@ -102,7 +332,53 @@
       "height": 202,
       "referenceWidth": 222,
       "originX": 0.4954954954954955,
-      "originY": 0.9851485148514851
+      "originY": 0.9851485148514851,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "greenhouse-detail-0-0",
+            "greenhouse-detail-0-1",
+            "greenhouse-detail-0-2",
+            "greenhouse-detail-0-3",
+            "greenhouse-detail-0-4",
+            "greenhouse-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 17,
+          "referenceWidth": 222,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 4.5,
+          "offsetY": -156.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "greenhouse-detail-1-0",
+            "greenhouse-detail-1-1",
+            "greenhouse-detail-1-2",
+            "greenhouse-detail-1-3",
+            "greenhouse-detail-1-4",
+            "greenhouse-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 15,
+          "height": 27,
+          "referenceWidth": 222,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 26.5,
+          "offsetY": -53.5
+        }
+      ]
     },
     "fountain": {
       "key": "waldruh-night-animation-1",
@@ -204,7 +480,53 @@
       "height": 234,
       "referenceWidth": 214,
       "originX": 0.5,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "arch"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "arch-detail-0-0",
+            "arch-detail-0-1",
+            "arch-detail-0-2",
+            "arch-detail-0-3",
+            "arch-detail-0-4",
+            "arch-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 214,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -15.5,
+          "offsetY": -191.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "arch-detail-1-0",
+            "arch-detail-1-1",
+            "arch-detail-1-2",
+            "arch-detail-1-3",
+            "arch-detail-1-4",
+            "arch-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 214,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 54.5,
+          "offsetY": -163.5
+        }
+      ]
     },
     "stall": {
       "key": "waldruh-night-animation-3",
@@ -289,7 +611,33 @@
       "height": 208,
       "referenceWidth": 225,
       "originX": 0.5022222222222222,
-      "originY": 0.9903846153846154
+      "originY": 0.9903846153846154,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-1-detail-0-0",
+            "house-1-detail-0-1",
+            "house-1-detail-0-2",
+            "house-1-detail-0-3",
+            "house-1-detail-0-4",
+            "house-1-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 225,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -36.5,
+          "offsetY": -54.5
+        }
+      ]
     },
     "house-2": {
       "key": "waldruh-night-animation-4",
@@ -306,7 +654,53 @@
       "height": 231,
       "referenceWidth": 195,
       "originX": 0.49230769230769234,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-2-detail-0-0",
+            "house-2-detail-0-1",
+            "house-2-detail-0-2",
+            "house-2-detail-0-3",
+            "house-2-detail-0-4",
+            "house-2-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 195,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -39.5,
+          "offsetY": -108.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-2-detail-1-0",
+            "house-2-detail-1-1",
+            "house-2-detail-1-2",
+            "house-2-detail-1-3",
+            "house-2-detail-1-4",
+            "house-2-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 19,
+          "referenceWidth": 195,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 18.5,
+          "offsetY": -117.5
+        }
+      ]
     },
     "house-3": {
       "key": "waldruh-night-animation-4",
@@ -323,7 +717,33 @@
       "height": 218,
       "referenceWidth": 220,
       "originX": 0.4909090909090909,
-      "originY": 0.9954128440366973
+      "originY": 0.9954128440366973,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-3-detail-0-0",
+            "house-3-detail-0-1",
+            "house-3-detail-0-2",
+            "house-3-detail-0-3",
+            "house-3-detail-0-4",
+            "house-3-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 17,
+          "referenceWidth": 220,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -46.5,
+          "offsetY": -67.5
+        }
+      ]
     },
     "house-4": {
       "key": "waldruh-night-animation-4",
@@ -340,7 +760,53 @@
       "height": 200,
       "referenceWidth": 231,
       "originX": 0.4935064935064935,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "waldruh-night-building-bases",
+        "frame": "house-4"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-4-detail-0-0",
+            "house-4-detail-0-1",
+            "house-4-detail-0-2",
+            "house-4-detail-0-3",
+            "house-4-detail-0-4",
+            "house-4-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 15,
+          "referenceWidth": 231,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -57.5,
+          "offsetY": -74.5
+        },
+        {
+          "id": "detail-1",
+          "key": "waldruh-night-building-details",
+          "frames": [
+            "house-4-detail-1-0",
+            "house-4-detail-1-1",
+            "house-4-detail-1-2",
+            "house-4-detail-1-3",
+            "house-4-detail-1-4",
+            "house-4-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 15,
+          "referenceWidth": 231,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 17.5,
+          "offsetY": -66.5
+        }
+      ]
     },
     "tree-1": {
       "key": "waldruh-night-animation-5",

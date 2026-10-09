@@ -2,7 +2,9 @@
 
 The live worlds use terrain plates and **276 individually placed sprites**: 96 in Lindenhafen, 88 in Waldruh and 92 in Nebelstadt. Every object has two separately painted six-frame raster animation sets, calm day and quiet night, authored with the built-in ImageGen tool. The 96 regional asset families contain **1,152 scenery frames** across both periods.
 
-Roofs, walls, trunks, full tree crowns, lamp housings and ground contacts stay fixed. Movement stays local: small leaf tips, flowers, cloth hems, curtains, flames, water and mechanical details. Night paintings use silver-blue moonlight, warm occupied windows and lamps, settled cloth and quieter foliage. The renderer selects actual raster frames with ordinary upright sprites, fixed scale and common pivots. It has no environmental meshes, light masks or procedural overlays.
+Buildings use a **static base sprite** and **separate animated detail sprites**. Each of the 11 architectural families per region and period keeps the first painting for its walls, roof, foundation and silhouette. Small registered overlays animate window interiors, clock faces, forge flames and attached details; whole-building paintings never cycle. The 66 fixed bases and 732 detail frames are packed separately, so variations in the source paintings cannot make the architecture flicker. Each detail has its own deterministic phase and mirrors with its base, including off-center pivots.
+
+Other scenery plays its authored raster sequences. Night paintings use silver-blue moonlight, warm occupied windows and lamps, settled cloth and quieter foliage. The renderer uses ordinary upright sprites with fixed scale and pivots; it does not repaint textures each tick.
 
 Each region's original 16 roles has 16 additional house, tree, market and garden silhouettes. Placements explicitly select each silhouette; navigation uses the physical role and foot anchor. Waldruh's western workshop is distinct from its clockmill.
 
@@ -19,16 +21,18 @@ Each period changes every object's sprite sheet and selects its painted terrain.
 - `art/animation-references/<region>.json`: row identities and registered reference geometry. `scripts/prepare-world-animation-references.mjs` rebuilds reference grids from transparent static assets.
 - `scripts/prepare-world-time-art.mjs`: optimizes the painted terrain variants.
 - `scripts/prepare-world-animations.mjs --set day` and `--set night`: rectangular export and common sequence bounds. Eight 1024-wide atlases per region and period preserve native alpha.
+- `scripts/prepare-building-layers.mjs [--set day|night] [region...]`: extracts the fixed first painting and small, softly bounded detail regions from the existing atlases. Full period and batch exports invoke this automatically. Run it directly after a partial export once all 32 sequences are present.
 - `web/public/assets/<region>-<period>-animation-0..7.{webp,json}` and `-animations.json`: runtime frames, speed, pivots and terrain metadata.
+- `web/public/assets/<region>-<period>-building-bases.{webp,json}` and `-building-details.{webp,json}`: static architecture and separate detail sheets. Version 2 manifests include `base` and `overlays` on architectural entries; the original sequences remain available for reproducible extraction.
 - `web/src/world-clock.ts`: clock modes and period selection.
 - `web/src/scenery-animation.ts`: deterministic per-instance phase and frame sampling.
 - `web/src/world-scenery.ts`: sprite creation, frame selection, reduced motion and culling.
 
-The exporter crops, packs and encodes generated artwork; it does not draw animation frames, mask pixels or warp images. Six frames share dimensions and pivots. Native source alpha remains intact. Historical stronger-wind masters remain in source for reference and are not selected by the world clock.
+The world exporter crops, packs and encodes generated artwork without warping it. The building-layer exporter copies base RGBA losslessly and applies fixed soft masks only to the small detail crops, locking them to the base alpha. Six frames of each detail share dimensions and offsets. Historical stronger-wind masters remain in source for reference and are not selected by the world clock.
 
 An optional source-specific `*-registration.json` can provide row boundaries when an authored sheet needs more room for an asset. The exporter keeps the original global foot baseline when a boundary moves, so rectangular crops preserve both the complete artwork and its ground contact.
 
-The initial region loads only its current period. Other regions and periods load on demand. Desktop retains loaded pages for revisits; small screens release pages from the previous region or period, and cached manifests can reload released textures. Resizing to a small screen releases inactive pages. Ordinary frame selection avoids repainting canvases or uploading textures each tick.
+The initial region loads only its current period. Loading, cache checks and releases include every base and overlay sheet, skipping whole-building sequence pages when no other objects need them. Other regions and periods load on demand. Desktop retains loaded pages for revisits; small screens release pages from the previous region or period, and cached manifests can reload released textures. Resizing to a small screen releases inactive pages. Ordinary frame selection avoids repainting canvases or uploading textures each tick.
 
 ## Watching and accessibility
 
@@ -38,8 +42,8 @@ Settings → World motion offers Follow device preference, Full world animation 
 
 ## Verification
 
-`placed-scenery.test.ts` checks every placement against both complete six-frame sets, varied tree silhouettes, registered dimensions, distinct period atlases and valid pivots. It also checks independent phases, frame changes, fixed upright transforms, freeze/resume, culling and destruction. Clock tests check day/night boundaries, gradual progression, midnight wrap and manual/local modes. Navigation tests cover all story-character and discovery approaches and every resident loop.
+`placed-scenery.test.ts` checks every placement against both complete six-frame sets, varied tree silhouettes, registered dimensions, distinct period atlases and valid pivots. It also checks fixed architectural frames, separately animated details, mirrored offsets with off-center pivots, complete texture lifecycles, independent phases, freeze/resume, culling and destruction. Legacy manifests without detail layers freeze their first architectural frame. Clock tests check day/night boundaries, gradual progression, midnight wrap and manual/local modes. Navigation tests cover all story-character and discovery approaches and every resident loop.
 
-`node scripts/check-world-animations.mjs` verifies 192 sequences and 1,152 frames, native transparency, distinct painted phases, separate day/night artwork and the 2048-pixel texture budget.
+`node scripts/check-world-animations.mjs` verifies 192 source sequences and 1,152 frames, native transparency, distinct painted phases, separate day/night artwork and the 2048-pixel texture budget. It also verifies that all 66 bases match their first painting pixel-for-pixel, and every detail sequence has distinct phases, registered bounds, a transparent perimeter and a crop smaller than 5% of the base area.
 
 The development fixture at `/qa/world-assets.html` uses the actual game renderer and residents. It selects all three regions and both times, hides raised objects, freezes animation or enables the camera tour. Its animation count reports placements with loaded authored frames.

@@ -2,18 +2,21 @@ import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 import { getPlacedScenery, sceneryTextureFor, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
-import { sampleSceneryFrame,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
-interface SceneryLayer {
-  spec:PlacedScenerySpec;
+import { isBuildingScenery,sampleSceneryFrame,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
+interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   animation?:SceneryAnimation;
   currentFrame:string;
+  phaseId:string;
+}
+interface SceneryLayer {
+  spec:PlacedScenerySpec;
+  parts:AnimatedSprite[];
   width:number;
   height:number;
 }
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
-/** Each upright object plays ImageGen-authored raster frames. Foundations, scale
- * and camera orientation stay fixed; there are no meshes or procedural overlays. */
+/** Buildings keep a static base. Only their separate detail sprites change frame. */
 export class WorldScenery {
   private layers:SceneryLayer[]=[];
   private visible=true;
@@ -24,37 +27,52 @@ export class WorldScenery {
     for(const spec of getPlacedScenery(mapId)){
       const name=spec.frame??spec.asset;
       const authored=manifest?.assets[name];
-      const animation=authored&&scene.textures.exists(authored.key)?authored:undefined;
-      const key=animation?.key??sceneryTextureFor(mapId,spec);
-      const frameName=animation?sampleSceneryFrame(animation,spec.id,0):name;
+      const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;
+      const building=isBuildingScenery(name);
+      const key=animation?.base?.key??animation?.key??sceneryTextureFor(mapId,spec);
+      const frameName=animation?.base?.frame??(animation
+        ? building?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
       if(!scene.textures.exists(key))continue;
       const atlas=scene.textures.get(key);if(!atlas.has(frameName))continue;
       const frame=atlas.get(frameName),scale=spec.width/(animation?.referenceWidth??frame.width);
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
         .setOrigin(animation?.originX??.5,animation?.originY??1).setScale(scale)
         .setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
-      this.layers.push({spec,sprite,animation,currentFrame:frameName,width:frame.width*scale,height:frame.height*scale});
+      const parts:AnimatedSprite[]=[{sprite,animation:building||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
+      for(const overlay of animation?.overlays??[]){
+        if(!scene.textures.exists(overlay.key))continue;
+        const phaseId=`${spec.id}:${overlay.id}`,detailFrame=sampleSceneryFrame(overlay,phaseId,0);
+        if(!scene.textures.get(overlay.key).has(detailFrame))continue;
+        // Phaser flips within the base rectangle, whose pivot need not be centered.
+        const offsetX=spec.flipX?frame.width*(1-2*(animation?.originX??.5))-overlay.offsetX:overlay.offsetX;
+        const detail=scene.add.sprite(spec.x+offsetX*scale,spec.y+overlay.offsetY*scale,overlay.key,detailFrame)
+          .setOrigin(.5,.5).setScale(scale).setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
+        parts.push({sprite:detail,animation:overlay,currentFrame:detailFrame,phaseId});
+      }
+      this.layers.push({spec,parts,width:frame.width*scale,height:frame.height*scale});
     }
   }
   get objectCount(){return this.layers.length;}
-  get animatedObjectCount(){return this.layers.filter(item=>!!item.animation).length;}
+  get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation)).length;}
   setVisible(visible:boolean){
     this.visible=visible;
     // Hidden worlds stop updating while a room is active, so visibility must
     // take effect here instead of waiting for the next scenery update.
-    if(!visible)for(const {sprite} of this.layers)sprite.setVisible(false);
+    if(!visible)for(const {parts} of this.layers)for(const {sprite} of parts)sprite.setVisible(false);
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
   update(time:number,view:SceneryView){
     if(!this.reducedMotion)this.motionTime=time;
     for(const item of this.layers){
-      const {spec,sprite,width,height,animation}=item;
+      const {spec,parts,width,height}=item;
       const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
         &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
-      sprite.setVisible(visible);if(!visible||!animation)continue;
-      const frame=sampleSceneryFrame(animation,spec.id,this.motionTime);
-      if(frame!==item.currentFrame){sprite.setFrame(frame);item.currentFrame=frame;}
+      for(const part of parts){
+        part.sprite.setVisible(visible);if(!visible||!part.animation)continue;
+        const frame=sampleSceneryFrame(part.animation,part.phaseId,this.motionTime);
+        if(frame!==part.currentFrame){part.sprite.setFrame(frame);part.currentFrame=frame;}
+      }
     }
   }
-  destroy(){for(const {sprite} of this.layers)sprite.destroy();this.layers=[];}
+  destroy(){for(const {parts} of this.layers)for(const {sprite} of parts)sprite.destroy();this.layers=[];}
 }

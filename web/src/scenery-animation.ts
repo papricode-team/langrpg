@@ -10,8 +10,24 @@ export interface SceneryAnimation {
   referenceWidth:number;
   originX:number;
   originY:number;
+  /** Architecture uses a fixed painting with separately packed detail sheets. */
+  base?:{key:string;frame:string};
+  overlays?:readonly SceneryOverlay[];
+}
+export interface SceneryOverlay extends SceneryAnimation {
+  id:string;
+  /** Detail center relative to the building's foot pivot, in unscaled pixels. */
+  offsetX:number;
+  offsetY:number;
 }
 export interface SceneryAnimationManifest { version:number;framesPerAsset:number;terrain?:string;assets:Readonly<Record<string,SceneryAnimation>>; }
+/** Include every layer when loading, checking the cache or releasing a period. */
+export function sceneryAnimationTextureKeys(manifest:SceneryAnimationManifest):readonly string[] {
+  return [...new Set(Object.values(manifest.assets).flatMap(asset=>asset.base
+    ? [asset.base.key,...(asset.overlays??[]).map(overlay=>overlay.key)] : [asset.key]))];
+}
+export const isBuildingScenery=(name:string):boolean=>
+  ['archive','cafe','station','workshop','house','greenhouse','arch'].includes(name)||name.startsWith('house-');
 export const sceneryAnimationManifestKey=(id:MapId,period:WorldPeriod='day'):string=>`${id}-${period}-animations`;
 /** Each placement has its own point in an authored cycle; all transforms stay fixed. */
 export function sampleSceneryFrame(animation:SceneryAnimation,id:string,seconds:number):string {

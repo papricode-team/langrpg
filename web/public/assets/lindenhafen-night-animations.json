@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "framesPerAsset": 6,
   "assets": {
     "archive": {
@@ -17,7 +17,53 @@
       "height": 227,
       "referenceWidth": 181,
       "originX": 0.49171270718232046,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "archive"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "archive-detail-0-0",
+            "archive-detail-0-1",
+            "archive-detail-0-2",
+            "archive-detail-0-3",
+            "archive-detail-0-4",
+            "archive-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 17,
+          "height": 23,
+          "referenceWidth": 181,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 17.5,
+          "offsetY": -104.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "archive-detail-1-0",
+            "archive-detail-1-1",
+            "archive-detail-1-2",
+            "archive-detail-1-3",
+            "archive-detail-1-4",
+            "archive-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 181,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -26.5,
+          "offsetY": -93.5
+        }
+      ]
     },
     "cafe": {
       "key": "lindenhafen-night-animation-0",
@@ -34,7 +80,53 @@
       "height": 213,
       "referenceWidth": 181,
       "originX": 0.4972375690607735,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "cafe-detail-0-0",
+            "cafe-detail-0-1",
+            "cafe-detail-0-2",
+            "cafe-detail-0-3",
+            "cafe-detail-0-4",
+            "cafe-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 181,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -6.5,
+          "offsetY": -108.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "cafe-detail-1-0",
+            "cafe-detail-1-1",
+            "cafe-detail-1-2",
+            "cafe-detail-1-3",
+            "cafe-detail-1-4",
+            "cafe-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 17,
+          "referenceWidth": 181,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 43.5,
+          "offsetY": -118.5
+        }
+      ]
     },
     "station": {
       "key": "lindenhafen-night-animation-0",
@@ -51,7 +143,53 @@
       "height": 226,
       "referenceWidth": 212,
       "originX": 0.49056603773584906,
-      "originY": 0.9823008849557522
+      "originY": 0.9823008849557522,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "station"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "station-detail-0-0",
+            "station-detail-0-1",
+            "station-detail-0-2",
+            "station-detail-0-3",
+            "station-detail-0-4",
+            "station-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 17,
+          "height": 17,
+          "referenceWidth": 212,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -13.5,
+          "offsetY": -121.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "station-detail-1-0",
+            "station-detail-1-1",
+            "station-detail-1-2",
+            "station-detail-1-3",
+            "station-detail-1-4",
+            "station-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 19,
+          "referenceWidth": 212,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -44.5,
+          "offsetY": -72.5
+        }
+      ]
     },
     "workshop": {
       "key": "lindenhafen-night-animation-0",
@@ -68,7 +206,53 @@
       "height": 229,
       "referenceWidth": 203,
       "originX": 0.4975369458128079,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "workshop-detail-0-0",
+            "workshop-detail-0-1",
+            "workshop-detail-0-2",
+            "workshop-detail-0-3",
+            "workshop-detail-0-4",
+            "workshop-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 19,
+          "referenceWidth": 203,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -32.5,
+          "offsetY": -78.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "workshop-detail-1-0",
+            "workshop-detail-1-1",
+            "workshop-detail-1-2",
+            "workshop-detail-1-3",
+            "workshop-detail-1-4",
+            "workshop-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 17,
+          "referenceWidth": 203,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 23.5,
+          "offsetY": -58.5
+        }
+      ]
     },
     "house": {
       "key": "lindenhafen-night-animation-1",
@@ -85,7 +269,53 @@
       "height": 252,
       "referenceWidth": 182,
       "originX": 0.489010989010989,
-      "originY": 0.9523809523809523
+      "originY": 0.9523809523809523,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "house"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-detail-0-0",
+            "house-detail-0-1",
+            "house-detail-0-2",
+            "house-detail-0-3",
+            "house-detail-0-4",
+            "house-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 23,
+          "referenceWidth": 182,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -46.5,
+          "offsetY": -103.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-detail-1-0",
+            "house-detail-1-1",
+            "house-detail-1-2",
+            "house-detail-1-3",
+            "house-detail-1-4",
+            "house-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 182,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 13.5,
+          "offsetY": -98.5
+        }
+      ]
     },
     "greenhouse": {
       "key": "lindenhafen-night-animation-1",
@@ -102,7 +332,33 @@
       "height": 210,
       "referenceWidth": 224,
       "originX": 0.5,
-      "originY": 0.9809523809523809
+      "originY": 0.9809523809523809,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "greenhouse-detail-0-0",
+            "greenhouse-detail-0-1",
+            "greenhouse-detail-0-2",
+            "greenhouse-detail-0-3",
+            "greenhouse-detail-0-4",
+            "greenhouse-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 17,
+          "height": 39,
+          "referenceWidth": 224,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 23.5,
+          "offsetY": -83.5
+        }
+      ]
     },
     "fountain": {
       "key": "lindenhafen-night-animation-1",
@@ -204,7 +460,53 @@
       "height": 212,
       "referenceWidth": 223,
       "originX": 0.49327354260089684,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "arch"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "arch-detail-0-0",
+            "arch-detail-0-1",
+            "arch-detail-0-2",
+            "arch-detail-0-3",
+            "arch-detail-0-4",
+            "arch-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 223,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -25.5,
+          "offsetY": -176.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "arch-detail-1-0",
+            "arch-detail-1-1",
+            "arch-detail-1-2",
+            "arch-detail-1-3",
+            "arch-detail-1-4",
+            "arch-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 11,
+          "referenceWidth": 223,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 38.5,
+          "offsetY": -169.5
+        }
+      ]
     },
     "stall": {
       "key": "lindenhafen-night-animation-3",
@@ -289,7 +591,33 @@
       "height": 215,
       "referenceWidth": 224,
       "originX": 0.5,
-      "originY": 0.9906976744186047
+      "originY": 0.9906976744186047,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-1-detail-0-0",
+            "house-1-detail-0-1",
+            "house-1-detail-0-2",
+            "house-1-detail-0-3",
+            "house-1-detail-0-4",
+            "house-1-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 23,
+          "referenceWidth": 224,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -64.5,
+          "offsetY": -85.5
+        }
+      ]
     },
     "house-2": {
       "key": "lindenhafen-night-animation-4",
@@ -306,7 +634,53 @@
       "height": 227,
       "referenceWidth": 162,
       "originX": 0.5123456790123457,
-      "originY": 0.986784140969163
+      "originY": 0.986784140969163,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-2-detail-0-0",
+            "house-2-detail-0-1",
+            "house-2-detail-0-2",
+            "house-2-detail-0-3",
+            "house-2-detail-0-4",
+            "house-2-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 162,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -32.500000000000014,
+          "offsetY": -110.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-2-detail-1-0",
+            "house-2-detail-1-1",
+            "house-2-detail-1-2",
+            "house-2-detail-1-3",
+            "house-2-detail-1-4",
+            "house-2-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 21,
+          "referenceWidth": 162,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 17.499999999999986,
+          "offsetY": -53.5
+        }
+      ]
     },
     "house-3": {
       "key": "lindenhafen-night-animation-4",
@@ -323,7 +697,53 @@
       "height": 217,
       "referenceWidth": 225,
       "originX": 0.49333333333333335,
-      "originY": 0.9953917050691244
+      "originY": 0.9953917050691244,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-3-detail-0-0",
+            "house-3-detail-0-1",
+            "house-3-detail-0-2",
+            "house-3-detail-0-3",
+            "house-3-detail-0-4",
+            "house-3-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 23,
+          "referenceWidth": 225,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -21.5,
+          "offsetY": -82.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-3-detail-1-0",
+            "house-3-detail-1-1",
+            "house-3-detail-1-2",
+            "house-3-detail-1-3",
+            "house-3-detail-1-4",
+            "house-3-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 25,
+          "referenceWidth": 225,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 53.5,
+          "offsetY": -61.5
+        }
+      ]
     },
     "house-4": {
       "key": "lindenhafen-night-animation-4",
@@ -340,7 +760,53 @@
       "height": 233,
       "referenceWidth": 215,
       "originX": 0.49767441860465117,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "lindenhafen-night-building-bases",
+        "frame": "house-4"
+      },
+      "overlays": [
+        {
+          "id": "detail-0",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-4-detail-0-0",
+            "house-4-detail-0-1",
+            "house-4-detail-0-2",
+            "house-4-detail-0-3",
+            "house-4-detail-0-4",
+            "house-4-detail-0-5"
+          ],
+          "fps": 1,
+          "width": 13,
+          "height": 19,
+          "referenceWidth": 215,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": -61.5,
+          "offsetY": -83.5
+        },
+        {
+          "id": "detail-1",
+          "key": "lindenhafen-night-building-details",
+          "frames": [
+            "house-4-detail-1-0",
+            "house-4-detail-1-1",
+            "house-4-detail-1-2",
+            "house-4-detail-1-3",
+            "house-4-detail-1-4",
+            "house-4-detail-1-5"
+          ],
+          "fps": 1,
+          "width": 11,
+          "height": 15,
+          "referenceWidth": 215,
+          "originX": 0.5,
+          "originY": 0.5,
+          "offsetX": 62.5,
+          "offsetY": -100.5
+        }
+      ]
     },
     "tree-1": {
       "key": "lindenhafen-night-animation-5",

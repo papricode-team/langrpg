@@ -1,0 +1,232 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 181,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 181,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 181,
+        "h": 227
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 187,
+        "y": 2,
+        "w": 181,
+        "h": 213
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 181,
+        "h": 213
+      },
+      "sourceSize": {
+        "w": 181,
+        "h": 213
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 372,
+        "y": 2,
+        "w": 212,
+        "h": 226
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 212,
+        "h": 226
+      },
+      "sourceSize": {
+        "w": 212,
+        "h": 226
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 588,
+        "y": 2,
+        "w": 203,
+        "h": 229
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 203,
+        "h": 229
+      },
+      "sourceSize": {
+        "w": 203,
+        "h": 229
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 795,
+        "y": 2,
+        "w": 182,
+        "h": 252
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 182,
+        "h": 252
+      },
+      "sourceSize": {
+        "w": 182,
+        "h": 252
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 2,
+        "y": 258,
+        "w": 224,
+        "h": 210
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 210
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 210
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 230,
+        "y": 258,
+        "w": 224,
+        "h": 215
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 215
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 215
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 458,
+        "y": 258,
+        "w": 162,
+        "h": 227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 162,
+        "h": 227
+      },
+      "sourceSize": {
+        "w": 162,
+        "h": 227
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 624,
+        "y": 258,
+        "w": 225,
+        "h": 217
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 225,
+        "h": 217
+      },
+      "sourceSize": {
+        "w": 225,
+        "h": 217
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 2,
+        "y": 489,
+        "w": 215,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 215,
+        "h": 233
+      },
+      "sourceSize": {
+        "w": 215,
+        "h": 233
+      }
+    },
+    "arch": {
+      "frame": {
+        "x": 221,
+        "y": 489,
+        "w": 223,
+        "h": 212
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 223,
+        "h": 212
+      },
+      "sourceSize": {
+        "w": 223,
+        "h": 212
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-bases.webp",
+    "size": {
+      "w": 1024,
+      "h": 724
+    },
+    "scale": "1"
+  }
+}

@@ -9,7 +9,7 @@ import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
-import { sceneryAnimationManifestKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
 import { WorldClock, type WorldPeriod, type WorldTimeOptions, type WorldTimeState } from './world-clock';
 import { buildingEntrances, createInteriorNavigation, getInterior, interiors, type InteriorId, type InteriorSpec } from './interiors';
 import { WorldInterior } from './world-interior';
@@ -450,7 +450,7 @@ class HarborScene extends Phaser.Scene {
     }
     this.load.json('interior-animations', '/assets/interior-animations.json');
     this.load.once('filecomplete-json-residents-animations', (_key: string, _type: string, manifest: SceneryAnimationManifest) => {
-      for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
+      for (const page of sceneryAnimationTextureKeys(manifest)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
     });
     this.load.json('residents-animations', '/assets/residents-animations.json');
     this.load.spritesheet(NPC_ART.key, '/assets/characters.webp', { frameWidth: NPC_ART.width, frameHeight: NPC_ART.height });
@@ -460,7 +460,7 @@ class HarborScene extends Phaser.Scene {
   private loadAnimationAssets(id: MapId, period: WorldPeriod, onLoaded?: () => void): void {
     const key = sceneryAnimationManifestKey(id, period);
     const cached = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
-    if (cached && Object.values(cached.assets).length > 0 && Object.values(cached.assets).every(asset => this.textures.exists(asset.key)) && (!cached.terrain || this.textures.exists(cached.terrain))) {
+    if (cached && Object.values(cached.assets).length > 0 && sceneryAnimationTextureKeys(cached).every(page => this.textures.exists(page)) && (!cached.terrain || this.textures.exists(cached.terrain))) {
       onLoaded?.();
       return;
     }
@@ -468,7 +468,7 @@ class HarborScene extends Phaser.Scene {
     if (pending) { if (onLoaded) pending.push(onLoaded); return; }
     this.animationRequests.set(key, onLoaded ? [onLoaded] : []);
     const enqueue = (manifest: SceneryAnimationManifest) => {
-      for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) {
+      for (const page of sceneryAnimationTextureKeys(manifest)) {
         if (!this.textures.exists(page)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
       }
       if (manifest.terrain && !this.textures.exists(manifest.terrain)) this.load.image(manifest.terrain, `/assets/${manifest.terrain}.webp`);
@@ -493,7 +493,7 @@ class HarborScene extends Phaser.Scene {
     // decide whether to display it or release the stale request.
     if (this.animationRequests.has(key)) return;
     const manifest = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
-    if (manifest) for (const page of new Set(Object.values(manifest.assets).map(asset => asset.key))) {
+    if (manifest) for (const page of sceneryAnimationTextureKeys(manifest)) {
       if (this.textures.exists(page)) this.textures.remove(page);
     }
     if (manifest?.terrain && this.textures.exists(manifest.terrain)) this.textures.remove(manifest.terrain);
