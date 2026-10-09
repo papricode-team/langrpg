@@ -181,7 +181,7 @@ function pixelMaterial(pixels: Uint8ClampedArray, offset: number, x: number, y: 
   return 0;
 }
 
-function createContactShadow(scene: Phaser.Scene): void {
+export function createContactShadow(scene: Phaser.Scene): void {
   const texture = scene.textures.createCanvas('character-shadow', 160, 64);
   if (!texture) return;
   const context = texture.context;
@@ -199,11 +199,10 @@ function createContactShadow(scene: Phaser.Scene): void {
 }
 
 /** CPU-only preview of the same materials. No avatar-specific GPU texture. */
-export function paintAvatarPreview(scene: Phaser.Scene, canvas: HTMLCanvasElement, palette: PlayerPalette): boolean {
+export function paintAvatarPreview(scene: Phaser.Scene, canvas: HTMLCanvasElement, palette: PlayerPalette, frame = PLAYER_ART.idle): boolean {
   if (!scene.textures.exists(PLAYER_LAYERS[0])) return false;
   const context = canvas.getContext('2d');
   if (!context) return false;
-  const frame = PLAYER_ART.idle;
   const sourceX = frame % PLAYER_ART.columns * PLAYER_ART.width;
   const sourceY = Math.floor(frame / PLAYER_ART.columns) * PLAYER_ART.height;
   const scale = Math.min(canvas.width / PLAYER_ART.width, canvas.height / PLAYER_ART.height);

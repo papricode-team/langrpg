@@ -1,0 +1,2063 @@
+{
+  "sources": [
+    {
+      "direction": 0,
+      "name": "front",
+      "file": "art/source/player-edits/walk-front-candidate-3.png",
+      "sha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 4,
+        "rows": 2,
+        "cellWidth": 384,
+        "cellHeight": 512,
+        "inner": {
+          "left": 32,
+          "top": 16,
+          "width": 320,
+          "height": 480
+        },
+        "scale": 0.4
+      }
+    },
+    {
+      "direction": 1,
+      "name": "right",
+      "file": "art/source/player-edits/walk-right-candidate-1.png",
+      "sha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 4,
+        "rows": 2,
+        "cellWidth": 384,
+        "cellHeight": 512,
+        "inner": {
+          "left": 32,
+          "top": 16,
+          "width": 320,
+          "height": 480
+        },
+        "scale": 0.4
+      }
+    },
+    {
+      "direction": 2,
+      "name": "back",
+      "file": "art/source/player-edits/walk-back-final.png",
+      "sha256": "81922b8eeab04de3fd8691e10957dc2ed617fa09f2fb998e5578ad8f497a6a0c",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 4,
+        "rows": 2,
+        "cellWidth": 384,
+        "cellHeight": 512,
+        "inner": {
+          "left": 32,
+          "top": 16,
+          "width": 320,
+          "height": 480
+        },
+        "scale": 0.4
+      },
+      "cells": [
+        {
+          "cell": 0,
+          "source": "art/source/player-edits/walk-back-candidate-2.png",
+          "sourceCell": 0,
+          "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+        },
+        {
+          "cell": 1,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 1,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        },
+        {
+          "cell": 2,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 2,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        },
+        {
+          "cell": 3,
+          "source": "art/source/player-edits/walk-back-candidate-2.png",
+          "sourceCell": 3,
+          "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+        },
+        {
+          "cell": 4,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 4,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        },
+        {
+          "cell": 5,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 5,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        },
+        {
+          "cell": 6,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 6,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        },
+        {
+          "cell": 7,
+          "source": "art/source/player-edits/walk-back-candidate-3.png",
+          "sourceCell": 7,
+          "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+        }
+      ],
+      "packedRGBAExact": true
+    },
+    {
+      "direction": 3,
+      "name": "left",
+      "file": "art/source/player-edits/walk-left-candidate-1.png",
+      "sha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 4,
+        "rows": 2,
+        "cellWidth": 384,
+        "cellHeight": 512,
+        "inner": {
+          "left": 32,
+          "top": 16,
+          "width": 320,
+          "height": 480
+        },
+        "scale": 0.4
+      }
+    }
+  ],
+  "output": "/private/tmp/player-walk-final-candidate",
+  "cell": [
+    128,
+    192
+  ],
+  "runtimeCell": [
+    64,
+    96
+  ],
+  "columns": 9,
+  "rows": 4,
+  "registration": "Fixed whole-frame crop (32,16,320,480) within each 384×512 board cell, uniform scale 0.4. No leg warp, pose realignment or independent material transform.",
+  "clothReference": 97.9058,
+  "frames": [
+    {
+      "frame": 0,
+      "direction": 0,
+      "column": 0,
+      "copiedOriginal": true,
+      "originalIdle": true
+    },
+    {
+      "frame": 1,
+      "direction": 0,
+      "column": 1,
+      "boardCell": 0,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 0,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1536,
+      "bootPixels": 389,
+      "waistPixels": 38,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 6,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 81,
+        "top": 88,
+        "bottom": 172
+      },
+      "originalWaistPixels": 176,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 79,
+        "bottom": 96,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 2,
+      "direction": 0,
+      "column": 2,
+      "boardCell": 1,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 1,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1441,
+      "bootPixels": 362,
+      "waistPixels": 44,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 11,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 81,
+        "top": 89,
+        "bottom": 172
+      },
+      "originalWaistPixels": 172,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 80,
+        "bottom": 97,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 3,
+      "direction": 0,
+      "column": 3,
+      "boardCell": 2,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 2,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1354,
+      "bootPixels": 399,
+      "waistPixels": 63,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 8,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 79,
+        "top": 89,
+        "bottom": 172
+      },
+      "originalWaistPixels": 183,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 4,
+      "direction": 0,
+      "column": 4,
+      "boardCell": 3,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 3,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1616,
+      "bootPixels": 350,
+      "waistPixels": 66,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 11,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 46,
+        "right": 80,
+        "top": 89,
+        "bottom": 172
+      },
+      "originalWaistPixels": 204,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 5,
+      "direction": 0,
+      "column": 5,
+      "boardCell": 4,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 4,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1579,
+      "bootPixels": 362,
+      "waistPixels": 54,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 5,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 83,
+        "top": 89,
+        "bottom": 172
+      },
+      "originalWaistPixels": 184,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 80,
+        "bottom": 97,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 6,
+      "direction": 0,
+      "column": 6,
+      "boardCell": 5,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 5,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1441,
+      "bootPixels": 367,
+      "waistPixels": 48,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 8,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 82,
+        "top": 90,
+        "bottom": 173
+      },
+      "originalWaistPixels": 176,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 7,
+      "direction": 0,
+      "column": 7,
+      "boardCell": 6,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 6,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1422,
+      "bootPixels": 406,
+      "waistPixels": 49,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 7,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 49,
+        "right": 79,
+        "top": 89,
+        "bottom": 172
+      },
+      "originalWaistPixels": 184,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 80,
+        "bottom": 97,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 8,
+      "direction": 0,
+      "column": 8,
+      "boardCell": 7,
+      "provenance": {
+        "source": "art/source/player-edits/walk-front-candidate-3.png",
+        "sourceCell": 7,
+        "sourceSha256": "9d4c8c0f4582b6e47dff0cf1cac55e52738c0c9b38c41ef498965fa1b877a68a"
+      },
+      "registration": null,
+      "clothPixels": 1667,
+      "bootPixels": 363,
+      "waistPixels": 75,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 172,
+      "expectedGround": 172.8,
+      "groundDelta": -0.8000000000000114,
+      "groundWarning": false,
+      "discardedClothPixels": 15,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 48,
+        "right": 82,
+        "top": 90,
+        "bottom": 172
+      },
+      "originalWaistPixels": 221,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 9,
+      "direction": 1,
+      "column": 0,
+      "copiedOriginal": true,
+      "originalIdle": true
+    },
+    {
+      "frame": 10,
+      "direction": 1,
+      "column": 1,
+      "boardCell": 0,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 0,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1612,
+      "bootPixels": 479,
+      "waistPixels": 4,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 14,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 29,
+        "right": 107,
+        "top": 95,
+        "bottom": 175
+      },
+      "originalWaistPixels": 60,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 84,
+        "bottom": 101,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 11,
+      "direction": 1,
+      "column": 2,
+      "boardCell": 1,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 1,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1236,
+      "bootPixels": 439,
+      "waistPixels": 38,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 2,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 36,
+        "right": 93,
+        "top": 91,
+        "bottom": 175
+      },
+      "originalWaistPixels": 91,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 90,
+        "bottom": 107,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 12,
+      "direction": 1,
+      "column": 3,
+      "boardCell": 2,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 2,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1146,
+      "bootPixels": 286,
+      "waistPixels": 16,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 16,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 50,
+        "right": 78,
+        "top": 86,
+        "bottom": 175
+      },
+      "originalWaistPixels": 93,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 13,
+      "direction": 1,
+      "column": 4,
+      "boardCell": 3,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 3,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1658,
+      "bootPixels": 476,
+      "waistPixels": 10,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 12,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 13,
+        "right": 95,
+        "top": 91,
+        "bottom": 175
+      },
+      "originalWaistPixels": 97,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 83,
+        "bottom": 100,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 14,
+      "direction": 1,
+      "column": 5,
+      "boardCell": 4,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 4,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1643,
+      "bootPixels": 441,
+      "waistPixels": 13,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 15,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 11,
+        "right": 103,
+        "top": 89,
+        "bottom": 175
+      },
+      "originalWaistPixels": 71,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 15,
+      "direction": 1,
+      "column": 6,
+      "boardCell": 5,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 5,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1427,
+      "bootPixels": 478,
+      "waistPixels": 27,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 7,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 34,
+        "right": 94,
+        "top": 87,
+        "bottom": 175
+      },
+      "originalWaistPixels": 77,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 84,
+        "bottom": 101,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 16,
+      "direction": 1,
+      "column": 7,
+      "boardCell": 6,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 6,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1041,
+      "bootPixels": 417,
+      "waistPixels": 21,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 10,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 50,
+        "right": 77,
+        "top": 89,
+        "bottom": 175
+      },
+      "originalWaistPixels": 91,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 84,
+        "bottom": 101,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 17,
+      "direction": 1,
+      "column": 8,
+      "boardCell": 7,
+      "provenance": {
+        "source": "art/source/player-edits/walk-right-candidate-1.png",
+        "sourceCell": 7,
+        "sourceSha256": "bee0c8368330f1e20a30382f11e443558ca4c9ef73dc153f9b823dc020828fee"
+      },
+      "registration": null,
+      "clothPixels": 1618,
+      "bootPixels": 475,
+      "waistPixels": 29,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 4,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 40,
+        "right": 98,
+        "top": 88,
+        "bottom": 175
+      },
+      "originalWaistPixels": 80,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 87,
+        "bottom": 104,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 18,
+      "direction": 2,
+      "column": 0,
+      "copiedOriginal": true,
+      "originalIdle": true
+    },
+    {
+      "frame": 19,
+      "direction": 2,
+      "column": 1,
+      "boardCell": 0,
+      "provenance": {
+        "cell": 0,
+        "source": "art/source/player-edits/walk-back-candidate-2.png",
+        "sourceCell": 0,
+        "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": -3
+        },
+        "originalGround": 176,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1486,
+      "bootPixels": 446,
+      "waistPixels": 202,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 0,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 43,
+        "right": 81,
+        "top": 98,
+        "bottom": 173
+      },
+      "originalWaistPixels": 243,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 97,
+        "bottom": 114,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 20,
+      "direction": 2,
+      "column": 2,
+      "boardCell": 1,
+      "provenance": {
+        "cell": 1,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 1,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "originalGround": 173,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1501,
+      "bootPixels": 679,
+      "waistPixels": 175,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 1,
+      "discardedBootPixels": 11,
+      "silhouette": {
+        "left": 44,
+        "right": 84,
+        "top": 95,
+        "bottom": 173
+      },
+      "originalWaistPixels": 197,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 94,
+        "bottom": 111,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 21,
+      "direction": 2,
+      "column": 3,
+      "boardCell": 2,
+      "provenance": {
+        "cell": 2,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 2,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "originalGround": 173,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1471,
+      "bootPixels": 701,
+      "waistPixels": 273,
+      "waistComponents": 1,
+      "bootComponents": 3,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 0,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 38,
+        "right": 84,
+        "top": 99,
+        "bottom": 173
+      },
+      "originalWaistPixels": 264,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 98,
+        "bottom": 115,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 22,
+      "direction": 2,
+      "column": 4,
+      "boardCell": 3,
+      "provenance": {
+        "cell": 3,
+        "source": "art/source/player-edits/walk-back-candidate-2.png",
+        "sourceCell": 3,
+        "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": -3
+        },
+        "originalGround": 176,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1586,
+      "bootPixels": 366,
+      "waistPixels": 194,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 0,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 47,
+        "right": 82,
+        "top": 96,
+        "bottom": 173
+      },
+      "originalWaistPixels": 236,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 95,
+        "bottom": 112,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 23,
+      "direction": 2,
+      "column": 5,
+      "boardCell": 4,
+      "provenance": {
+        "cell": 4,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 4,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 3
+        },
+        "originalGround": 170,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1592,
+      "bootPixels": 682,
+      "waistPixels": 277,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 1,
+      "discardedBootPixels": 11,
+      "silhouette": {
+        "left": 45,
+        "right": 84,
+        "top": 99,
+        "bottom": 173
+      },
+      "originalWaistPixels": 294,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 98,
+        "bottom": 115,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 24,
+      "direction": 2,
+      "column": 6,
+      "boardCell": 5,
+      "provenance": {
+        "cell": 5,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 5,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 4
+        },
+        "originalGround": 169,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1525,
+      "bootPixels": 709,
+      "waistPixels": 273,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 0,
+      "discardedBootPixels": 13,
+      "silhouette": {
+        "left": 45,
+        "right": 87,
+        "top": 99,
+        "bottom": 174
+      },
+      "originalWaistPixels": 289,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 98,
+        "bottom": 115,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 25,
+      "direction": 2,
+      "column": 7,
+      "boardCell": 6,
+      "provenance": {
+        "cell": 6,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 6,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 3
+        },
+        "originalGround": 170,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1533,
+      "bootPixels": 728,
+      "waistPixels": 276,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 0,
+      "discardedBootPixels": 7,
+      "silhouette": {
+        "left": 44,
+        "right": 86,
+        "top": 98,
+        "bottom": 173
+      },
+      "originalWaistPixels": 258,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 97,
+        "bottom": 114,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 26,
+      "direction": 2,
+      "column": 8,
+      "boardCell": 7,
+      "provenance": {
+        "cell": 7,
+        "source": "art/source/player-edits/walk-back-candidate-3.png",
+        "sourceCell": 7,
+        "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+      },
+      "registration": {
+        "space": "Canonical whole source frame after fixed board crop",
+        "offset": {
+          "x": 0,
+          "y": 3
+        },
+        "originalGround": 170,
+        "targetGround": 173,
+        "appliedBeforeMaterialExtraction": true,
+        "scaleUnchanged": true,
+        "visibleRGBAUnchanged": true
+      },
+      "clothPixels": 1939,
+      "bootPixels": 595,
+      "waistPixels": 264,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 173,
+      "expectedGround": 172.8,
+      "groundDelta": 0.19999999999998863,
+      "groundWarning": false,
+      "discardedClothPixels": 4,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 45,
+        "right": 85,
+        "top": 93,
+        "bottom": 173
+      },
+      "originalWaistPixels": 198,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 92,
+        "bottom": 109,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 27,
+      "direction": 3,
+      "column": 0,
+      "copiedOriginal": true,
+      "originalIdle": true
+    },
+    {
+      "frame": 28,
+      "direction": 3,
+      "column": 1,
+      "boardCell": 0,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 0,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1762,
+      "bootPixels": 519,
+      "waistPixels": 39,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 174,
+      "expectedGround": 172.8,
+      "groundDelta": 1.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 6,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 25,
+        "right": 114,
+        "top": 88,
+        "bottom": 174
+      },
+      "originalWaistPixels": 93,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 29,
+      "direction": 3,
+      "column": 2,
+      "boardCell": 1,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 1,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1473,
+      "bootPixels": 521,
+      "waistPixels": 48,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 17,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 39,
+        "right": 105,
+        "top": 88,
+        "bottom": 175
+      },
+      "originalWaistPixels": 107,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 30,
+      "direction": 3,
+      "column": 3,
+      "boardCell": 2,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 2,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1205,
+      "bootPixels": 400,
+      "waistPixels": 48,
+      "waistComponents": 1,
+      "bootComponents": 1,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 14,
+      "discardedBootPixels": 4,
+      "silhouette": {
+        "left": 49,
+        "right": 84,
+        "top": 89,
+        "bottom": 175
+      },
+      "originalWaistPixels": 132,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 31,
+      "direction": 3,
+      "column": 4,
+      "boardCell": 3,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 3,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1632,
+      "bootPixels": 523,
+      "waistPixels": 45,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 11,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 33,
+        "right": 109,
+        "top": 88,
+        "bottom": 175
+      },
+      "originalWaistPixels": 102,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 32,
+      "direction": 3,
+      "column": 5,
+      "boardCell": 4,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 4,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1723,
+      "bootPixels": 531,
+      "waistPixels": 39,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 174,
+      "expectedGround": 172.8,
+      "groundDelta": 1.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 8,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 25,
+        "right": 112,
+        "top": 89,
+        "bottom": 174
+      },
+      "originalWaistPixels": 99,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 33,
+      "direction": 3,
+      "column": 6,
+      "boardCell": 5,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 5,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1559,
+      "bootPixels": 553,
+      "waistPixels": 40,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 6,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 37,
+        "right": 109,
+        "top": 89,
+        "bottom": 175
+      },
+      "originalWaistPixels": 104,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 81,
+        "bottom": 98,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 34,
+      "direction": 3,
+      "column": 7,
+      "boardCell": 6,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 6,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1327,
+      "bootPixels": 305,
+      "waistPixels": 58,
+      "waistComponents": 1,
+      "bootComponents": 1,
+      "connectedWaist": true,
+      "groundY": 175,
+      "expectedGround": 172.8,
+      "groundDelta": 2.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 2,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 44,
+        "right": 80,
+        "top": 89,
+        "bottom": 175
+      },
+      "originalWaistPixels": 130,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    },
+    {
+      "frame": 35,
+      "direction": 3,
+      "column": 8,
+      "boardCell": 7,
+      "provenance": {
+        "source": "art/source/player-edits/walk-left-candidate-1.png",
+        "sourceCell": 7,
+        "sourceSha256": "0b70b93f3831aba467f45a5b97892e54e735d8c19bbbf32e47a787ca806e71b6"
+      },
+      "registration": null,
+      "clothPixels": 1662,
+      "bootPixels": 547,
+      "waistPixels": 45,
+      "waistComponents": 1,
+      "bootComponents": 2,
+      "connectedWaist": true,
+      "groundY": 174,
+      "expectedGround": 172.8,
+      "groundDelta": 1.1999999999999886,
+      "groundWarning": false,
+      "discardedClothPixels": 10,
+      "discardedBootPixels": 0,
+      "silhouette": {
+        "left": 33,
+        "right": 110,
+        "top": 90,
+        "bottom": 174
+      },
+      "originalWaistPixels": 119,
+      "uncoveredOriginalWaistPixels": 0,
+      "uncoveredExposedWaistPixels": 0,
+      "protectedWaist": {
+        "top": 82,
+        "bottom": 99,
+        "relativeBand": [
+          -8,
+          8
+        ],
+        "transitionRows": 4,
+        "originalOpaqueRGBAExact": true,
+        "antialiasedEdgesSourceOver": true,
+        "candidateOutsideOriginalCoveragePreserved": true,
+        "coordinatesUnchanged": true
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "protectedWaist": {
+    "source": "Immutable original master raw materials source-over new fabric after neutralization",
+    "sourceAtlases": [
+      {
+        "file": "bottom-fabric-raw.webp",
+        "sha256": "b2a77ad0a8a4aa7e8515daaef24a9e010ce824806076ee09c144e9138cd99f10",
+        "neutralReference": 70
+      },
+      {
+        "file": "bottom-detail-raw.webp",
+        "sha256": "12d8a666e36d9ba7f9c059854a153039d42e9c23f6fb894c38270d602bec3e5b",
+        "neutralReference": null
+      }
+    ],
+    "relativeBand": [
+      -8,
+      8
+    ],
+    "transitionRows": 4,
+    "originalOpaqueRGBAExact": true,
+    "antialiasedEdgesSourceOver": true,
+    "candidateOutsideOriginalCoveragePreserved": true,
+    "coordinatesUnchanged": true
+  },
+  "preservedFrames": {
+    "frames": [
+      0,
+      9,
+      18,
+      27
+    ],
+    "assets": [
+      {
+        "id": "bottom-fabric",
+        "previewRGBAExact": true,
+        "runtimeRGBAExact": true
+      },
+      {
+        "id": "bottom-detail",
+        "previewRGBAExact": true,
+        "runtimeRGBAExact": true
+      }
+    ]
+  },
+  "skinCleanup": {
+    "source": "Current active body-skin atlas retaining the recorded rebuild exception",
+    "exceptions": [
+      {
+        "frame": 31,
+        "reason": "Known detached old boot pixels incorrectly labelled as skin",
+        "positiveAlphaPixels": 65,
+        "highAlphaPixels": 41,
+        "bounds": {
+          "left": 107,
+          "top": 133,
+          "right": 118,
+          "bottom": 140
+        },
+        "whollyBelowWaistPlus30": true,
+        "otherSkinRGBAUnchanged": true,
+        "runtimeHeadAndHandsRGBAExact": true
+      }
+    ],
+    "removedThisExport": [],
+    "otherFramesRGBAExact": true,
+    "sourceFilesUnchanged": true
+  },
+  "motionProof": {
+    "file": "walk-four-directions-1s.gif",
+    "frames": 8,
+    "delayMs": [
+      120,
+      130,
+      120,
+      130,
+      120,
+      130,
+      120,
+      130
+    ],
+    "cycleMs": 1000,
+    "recipe": [
+      [
+        "bottom-detail",
+        null
+      ],
+      [
+        "bottom-fabric",
+        "#44464d"
+      ],
+      [
+        "body-skin",
+        "#d6a07d"
+      ],
+      [
+        "head-detail",
+        null
+      ],
+      [
+        "jacket-detail",
+        null
+      ],
+      [
+        "jacket-fabric",
+        "#326a65"
+      ],
+      [
+        "hair-waves",
+        "#48372e"
+      ]
+    ]
+  },
+  "upperAssets": {
+    "sourceBaseline": "Current active public assets, including the recorded skin cleanup when present",
+    "sourceFilesUnchanged": true,
+    "unchanged": true,
+    "before": {
+      "body-skin-preview.webp": "66c10e95243c1e22161b5b50f7bc34798ec5acc282eb665cf44fa5f534962d16",
+      "body-skin.webp": "2b92a5d9cc2424c1ab182dbe7d2b7bfb1653e5e95fce7dfac175be5e89bf0044",
+      "face-almond-detail-preview.webp": "720df5c6d49d3440de22feaefe4a3074d37b12b97631884429f149aaa8ab5cb7",
+      "face-almond-detail.webp": "6437db72d227889564001ed9f7c7e608d7c18bff90dd446f54b5a6e8db4c4f15",
+      "face-almond-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-almond-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-almond-skin-preview.webp": "f1a9f0c3b93e25536d0f6739b45d5398e0700d023e2468ea69058dbf13af3283",
+      "face-almond-skin.webp": "32f9bc4e07f0301ed72b83f7c87bf4c074e220fb8cb3e68e248382ac788a96a6",
+      "face-angular-detail-preview.webp": "d4d5b8f902f43e8ed3237f81e8ef4e2c15ab028a1126ccf43aa63e9f51a254a9",
+      "face-angular-detail.webp": "2f6f713fca016af6cf26dc6636a85398d6b019ff579c62163cd2d6178150766b",
+      "face-angular-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-angular-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-angular-skin-preview.webp": "4bc044fcebc407fe6cc5bfaa341471379b4790cc64f0110e5400fcfc4c66fa00",
+      "face-angular-skin.webp": "e7264519f0fcc0e423dd250a3c82953ffdd238d8f78949aa8c35223c443a5920",
+      "face-bearded-detail-preview.webp": "1339fc83fec6cbd18eebaa2508f90236928998030291289de10194303d974d65",
+      "face-bearded-detail.webp": "5e6dbf7a5c73458981c21339e947c882334124cdcf2884a13c95bb6205fcbb36",
+      "face-bearded-hair-preview.webp": "7b7c8610fed75f1e77050919dafac4327949873381f924e816ab93514741f705",
+      "face-bearded-hair.webp": "7710942be254b929a0cd41cca7e5e0493f365ce6d4b2fad4b8efd2a5ca893297",
+      "face-bearded-skin-preview.webp": "a6d4928b71f99922a9fd4a212339c0397a872104306beebb931405371461d773",
+      "face-bearded-skin.webp": "dfe5b7dc2b4f4b48675ae6bdf71414717b4c9b1a32c3e0f4dc4af3acf5b2c96a",
+      "face-long-detail-preview.webp": "1bf7001e66ac03582fddae5ea11e87ac2799d3ba5ee2b95423dc14b63bf2bddc",
+      "face-long-detail.webp": "6fb6be11da0c3f4b872dcff189d953b397c433ca2386d51e99233178605808dc",
+      "face-long-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-long-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-long-skin-preview.webp": "178fe3e76c46f52c3a65dce45c843ee70f4961ccbee9d85e16d07bd7aa10d3ff",
+      "face-long-skin.webp": "7e85f61d73e7c10a8f3257e2272eb2f60a8643016c00e7faa0b92e0d72b82efa",
+      "face-mature-detail-preview.webp": "541807a7182314b3efa0ab8f58f2c236d485be75c49f10c5bbbfdfcea0c0cea8",
+      "face-mature-detail.webp": "37d9a6a4417bdd6e5014d26d5cdac5a1a6efa326e304a947f72e752dd5bd5e16",
+      "face-mature-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-mature-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-mature-skin-preview.webp": "e6c4a31e5b680c2af5811afd1a60fdf49e1d0bdfe941b622031309fba8091e38",
+      "face-mature-skin.webp": "866d5c0225de6ccaaeabeb5c55fecfa3224ab3f2553ade39f6e5603f3c4382d5",
+      "face-oval-detail-preview.webp": "1752733934e38589436941188c53ae2e8f50711518bda65fdc04fede502a3663",
+      "face-oval-detail.webp": "869c3096243b1206ab5d928ed89e46e33e6ba06fc56d48040f1f0b07840d88b3",
+      "face-oval-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-oval-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-oval-skin-preview.webp": "53d4c7f9a107d265a221cd2da08ca6a80eb22801f71fdec2d275cca95ea35161",
+      "face-oval-skin.webp": "c98ed79a668b208817b1fe37f2f1086052a5c0e51b1b048144aaa0356c76d177",
+      "face-round-detail-preview.webp": "d4c9de890c83b7dd86b89f28612bb99436e35617b7125874143cb34799d2906a",
+      "face-round-detail.webp": "f0a69c0f2c28dac1c7c1f8d5009ce19aad5763740c254d5d35b5afa6a1e541d3",
+      "face-round-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-round-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-round-skin-preview.webp": "a8df47c2a49d2e5c5dc632892582d3a3922690f0237931a1c32ef5b1a13de5c4",
+      "face-round-skin.webp": "9bf82fd0226e2559b75b9ee76dc93acbd3b04757ee3c888761552303a17229c7",
+      "face-square-detail-preview.webp": "c1ec05ddbe09912cbf48baf2d835008c8fd8ce66eaac248edf05be0868973722",
+      "face-square-detail.webp": "05ef562fdebf707771819c9afb8f4cce0fd873e77341465d603dfbb6b0762666",
+      "face-square-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-square-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-square-skin-preview.webp": "c35451ab07a937728b5ce12e2f508822205bfa80b068c933168a3f95a7ca0ae5",
+      "face-square-skin.webp": "f08356e83fa5cfd850afffbfa141db6c11460c67d2d4adf96a31787ca6e4dc17",
+      "hair-afro-preview.webp": "b73d0bc4e086dd3ed7bbb74c761c7d4e6ca7267c5b3eb56bf6b01596eb6583a9",
+      "hair-afro.webp": "e7c07f871727bc97fee730b99d35e6836859cd5933607181c1aa31f242028762",
+      "hair-bob-preview.webp": "0f3dad4f5f769108d63c3d791bc96aeed43fa2b8680f334047094305e766ba97",
+      "hair-bob.webp": "6834832e85937edf1defa0e4e5cbf49ac1ccc4cccd3a91f7548a4c49e3cb4375",
+      "hair-braids-preview.webp": "2b622ccd4e46daca219364ec3497eaaefd4db89586ca8c309167633e308c73b1",
+      "hair-braids.webp": "ba5ff0b8855d0cb653de1265d87d6a09f6df0d40359dbc42418179b243717793",
+      "hair-bun-preview.webp": "973a4c5939718c678c81073714453f9d62565b3e9548e8c758d4133687ec4899",
+      "hair-bun.webp": "52256e0ec9b29db9f39b884b8f4126fd5b9bf36bec4049db26e45c54f57c01a7",
+      "hair-buzz-preview.webp": "b2c07274486f82b40689d4488ea7d0f9aa89d984d5b52bb4bb4d347d0ad98931",
+      "hair-buzz.webp": "323531631eb96e8f1ba18230e7691fffc8ea2cb28d467512c46de67b28c04a8b",
+      "hair-coils-preview.webp": "8e824ef30b4084eb8482dd558510efa211a327c776ea0ada4855c31d324c9b84",
+      "hair-coils.webp": "e38724d4adc29bb8214e12685171ede620507f469af9415c605cd49d021b5606",
+      "hair-crop-preview.webp": "f418d53c0078c53eb1570e2553cce5580aeef85714fb599da31d872c3be04de1",
+      "hair-crop.webp": "548957f5a2cf1b814f7067442959bf472749c73bbf09ba963752e74c764c3d10",
+      "hair-elder-preview.webp": "da9d9d8fa2fbdd1f23fc6692dc8c97a6ca926fd9ee2acee91b0577b59f232ba8",
+      "hair-elder.webp": "8ca5811e06fd44349e7eecd2ff99087a861d02b191c8ed0136608fb47e67bf8f",
+      "hair-hijab-preview.webp": "7dcf4e2ac8b883f475a593c88393c0e5df1f60a318ed5465c9e7e64bb11241eb",
+      "hair-hijab.webp": "868f31ed62203c98a2d19b7418eb4cfc3f878ae3e098c1ba2b8d6487640b453a",
+      "hair-locs-preview.webp": "d70fd41a167af77667127e16d5188dd4ac15ef6c12e9f43e23e47755399069b7",
+      "hair-locs.webp": "000dd891fa62e9ce5af4d13ffa381aefca84eda385a03a1561be59b86c35355f",
+      "hair-pixie-preview.webp": "8f6e0b1f221ec8e1f5ec7b0143bafceea9211f3365914a5cd24c691aae787cdb",
+      "hair-pixie.webp": "cee91aa917cbc828249eb7c276b9a720896c6c893b47579387b3551a67fb3b52",
+      "hair-ponytail-preview.webp": "6fee35614e54e7057d46be57d70af6ef7d18207a08596973f690e4d3d26734a5",
+      "hair-ponytail.webp": "da8e8efaceb58ad25b66da91fea8f1d147f798822e59fb0edf59ed2eb1d19b6b",
+      "hair-silver-preview.webp": "70877aaa2a500473a926a8a8dfd0d95232fd5e9394ed2c98320ce51c453bbb73",
+      "hair-silver.webp": "90c5ed0de20ac10f5c85463f57092e3dcd78fcd720d802b5077cdd420bc7f4cd",
+      "hair-straight-preview.webp": "9a864f6608050a7f68e10d11299cf15a5ba5ccee6db65f7e8dfbed4a6b913f4d",
+      "hair-straight.webp": "5b6e17f67fd96f246a4822266c6eb7ec9bf61ef43b50c66ab2552a9641331316",
+      "hair-turban-preview.webp": "a6f635fc9295a77cc6ad436d6001bc3c883faedf8ab9572693d8a8b08ae97eac",
+      "hair-turban.webp": "00ca0114126e33cde4c9bdf19d3144a458752151bf5b61822dc582a1529127b0",
+      "hair-waves-preview.webp": "076a878efcdbd7824f5c94f7343d0f179ff60aa059e92c697e582ed785feac17",
+      "hair-waves.webp": "38c7d9d7e5fdc98bbfaf568cc34bf838ac628ef85166644f7ea43e81a84a7c68",
+      "hands-skin-preview.webp": "1d2c33063458a0d957e5e7d4cdabf7ca5533eb9bb7545560ae7f5aeba8c9f447",
+      "hands-skin-raw.webp": "871fa7441e57cdab7e25ace07624a83550dc8df957e3db48a68a54e17d751447",
+      "hands-skin.webp": "ba9f6fa56bbf37e0c7a7b714da4767a5c7a914a18bdb1c29d124c7f95382bb35",
+      "head-detail-preview.webp": "ca3b54fae7b1d633cf5cd357292d50ae0f66e6f3e75d4e3d117eff4cca4572d5",
+      "head-detail.webp": "a17e6317439af99dbfb7c91b750753f9b7457de2e3ecf30c7bed776f5af714f1",
+      "head-skin-preview.webp": "5d6a4987bfb2a9046edc18fcf295b865bd2499ea056004d23b3b5a00e8e3a741",
+      "head-skin.webp": "638754bb61c24514e95ef7c5d44fe978b190ae82fd68b3cd01e791b1e639e12b",
+      "jacket-detail-preview.webp": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358",
+      "jacket-detail-raw.webp": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358",
+      "jacket-detail.webp": "34c64f511e8bcfd1bf504129af6b86e4902da509d63af7051d413f1c261f3d24",
+      "jacket-fabric-preview.webp": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1",
+      "jacket-fabric-raw.webp": "2f782c1c2c202427f46aa487f771a84aef91767388988c21258498fe12cb5547",
+      "jacket-fabric.webp": "1414c6e34b66abca912e67839b02f7611f859371babebb6dfe7dd25b1707e6e8"
+    },
+    "after": {
+      "body-skin-preview.webp": "66c10e95243c1e22161b5b50f7bc34798ec5acc282eb665cf44fa5f534962d16",
+      "body-skin.webp": "2b92a5d9cc2424c1ab182dbe7d2b7bfb1653e5e95fce7dfac175be5e89bf0044",
+      "face-almond-detail-preview.webp": "720df5c6d49d3440de22feaefe4a3074d37b12b97631884429f149aaa8ab5cb7",
+      "face-almond-detail.webp": "6437db72d227889564001ed9f7c7e608d7c18bff90dd446f54b5a6e8db4c4f15",
+      "face-almond-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-almond-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-almond-skin-preview.webp": "f1a9f0c3b93e25536d0f6739b45d5398e0700d023e2468ea69058dbf13af3283",
+      "face-almond-skin.webp": "32f9bc4e07f0301ed72b83f7c87bf4c074e220fb8cb3e68e248382ac788a96a6",
+      "face-angular-detail-preview.webp": "d4d5b8f902f43e8ed3237f81e8ef4e2c15ab028a1126ccf43aa63e9f51a254a9",
+      "face-angular-detail.webp": "2f6f713fca016af6cf26dc6636a85398d6b019ff579c62163cd2d6178150766b",
+      "face-angular-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-angular-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-angular-skin-preview.webp": "4bc044fcebc407fe6cc5bfaa341471379b4790cc64f0110e5400fcfc4c66fa00",
+      "face-angular-skin.webp": "e7264519f0fcc0e423dd250a3c82953ffdd238d8f78949aa8c35223c443a5920",
+      "face-bearded-detail-preview.webp": "1339fc83fec6cbd18eebaa2508f90236928998030291289de10194303d974d65",
+      "face-bearded-detail.webp": "5e6dbf7a5c73458981c21339e947c882334124cdcf2884a13c95bb6205fcbb36",
+      "face-bearded-hair-preview.webp": "7b7c8610fed75f1e77050919dafac4327949873381f924e816ab93514741f705",
+      "face-bearded-hair.webp": "7710942be254b929a0cd41cca7e5e0493f365ce6d4b2fad4b8efd2a5ca893297",
+      "face-bearded-skin-preview.webp": "a6d4928b71f99922a9fd4a212339c0397a872104306beebb931405371461d773",
+      "face-bearded-skin.webp": "dfe5b7dc2b4f4b48675ae6bdf71414717b4c9b1a32c3e0f4dc4af3acf5b2c96a",
+      "face-long-detail-preview.webp": "1bf7001e66ac03582fddae5ea11e87ac2799d3ba5ee2b95423dc14b63bf2bddc",
+      "face-long-detail.webp": "6fb6be11da0c3f4b872dcff189d953b397c433ca2386d51e99233178605808dc",
+      "face-long-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-long-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-long-skin-preview.webp": "178fe3e76c46f52c3a65dce45c843ee70f4961ccbee9d85e16d07bd7aa10d3ff",
+      "face-long-skin.webp": "7e85f61d73e7c10a8f3257e2272eb2f60a8643016c00e7faa0b92e0d72b82efa",
+      "face-mature-detail-preview.webp": "541807a7182314b3efa0ab8f58f2c236d485be75c49f10c5bbbfdfcea0c0cea8",
+      "face-mature-detail.webp": "37d9a6a4417bdd6e5014d26d5cdac5a1a6efa326e304a947f72e752dd5bd5e16",
+      "face-mature-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-mature-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-mature-skin-preview.webp": "e6c4a31e5b680c2af5811afd1a60fdf49e1d0bdfe941b622031309fba8091e38",
+      "face-mature-skin.webp": "866d5c0225de6ccaaeabeb5c55fecfa3224ab3f2553ade39f6e5603f3c4382d5",
+      "face-oval-detail-preview.webp": "1752733934e38589436941188c53ae2e8f50711518bda65fdc04fede502a3663",
+      "face-oval-detail.webp": "869c3096243b1206ab5d928ed89e46e33e6ba06fc56d48040f1f0b07840d88b3",
+      "face-oval-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-oval-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-oval-skin-preview.webp": "53d4c7f9a107d265a221cd2da08ca6a80eb22801f71fdec2d275cca95ea35161",
+      "face-oval-skin.webp": "c98ed79a668b208817b1fe37f2f1086052a5c0e51b1b048144aaa0356c76d177",
+      "face-round-detail-preview.webp": "d4c9de890c83b7dd86b89f28612bb99436e35617b7125874143cb34799d2906a",
+      "face-round-detail.webp": "f0a69c0f2c28dac1c7c1f8d5009ce19aad5763740c254d5d35b5afa6a1e541d3",
+      "face-round-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-round-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-round-skin-preview.webp": "a8df47c2a49d2e5c5dc632892582d3a3922690f0237931a1c32ef5b1a13de5c4",
+      "face-round-skin.webp": "9bf82fd0226e2559b75b9ee76dc93acbd3b04757ee3c888761552303a17229c7",
+      "face-square-detail-preview.webp": "c1ec05ddbe09912cbf48baf2d835008c8fd8ce66eaac248edf05be0868973722",
+      "face-square-detail.webp": "05ef562fdebf707771819c9afb8f4cce0fd873e77341465d603dfbb6b0762666",
+      "face-square-hair-preview.webp": "24523f91a2f379f3386c99eeaf803e1ceed436b75fd71d942dda8f1ecb3228e2",
+      "face-square-hair.webp": "0fed140ab9346abf1346ce8aa2e099d8d3cddf8c0619df25c6c502c26bffc72e",
+      "face-square-skin-preview.webp": "c35451ab07a937728b5ce12e2f508822205bfa80b068c933168a3f95a7ca0ae5",
+      "face-square-skin.webp": "f08356e83fa5cfd850afffbfa141db6c11460c67d2d4adf96a31787ca6e4dc17",
+      "hair-afro-preview.webp": "b73d0bc4e086dd3ed7bbb74c761c7d4e6ca7267c5b3eb56bf6b01596eb6583a9",
+      "hair-afro.webp": "e7c07f871727bc97fee730b99d35e6836859cd5933607181c1aa31f242028762",
+      "hair-bob-preview.webp": "0f3dad4f5f769108d63c3d791bc96aeed43fa2b8680f334047094305e766ba97",
+      "hair-bob.webp": "6834832e85937edf1defa0e4e5cbf49ac1ccc4cccd3a91f7548a4c49e3cb4375",
+      "hair-braids-preview.webp": "2b622ccd4e46daca219364ec3497eaaefd4db89586ca8c309167633e308c73b1",
+      "hair-braids.webp": "ba5ff0b8855d0cb653de1265d87d6a09f6df0d40359dbc42418179b243717793",
+      "hair-bun-preview.webp": "973a4c5939718c678c81073714453f9d62565b3e9548e8c758d4133687ec4899",
+      "hair-bun.webp": "52256e0ec9b29db9f39b884b8f4126fd5b9bf36bec4049db26e45c54f57c01a7",
+      "hair-buzz-preview.webp": "b2c07274486f82b40689d4488ea7d0f9aa89d984d5b52bb4bb4d347d0ad98931",
+      "hair-buzz.webp": "323531631eb96e8f1ba18230e7691fffc8ea2cb28d467512c46de67b28c04a8b",
+      "hair-coils-preview.webp": "8e824ef30b4084eb8482dd558510efa211a327c776ea0ada4855c31d324c9b84",
+      "hair-coils.webp": "e38724d4adc29bb8214e12685171ede620507f469af9415c605cd49d021b5606",
+      "hair-crop-preview.webp": "f418d53c0078c53eb1570e2553cce5580aeef85714fb599da31d872c3be04de1",
+      "hair-crop.webp": "548957f5a2cf1b814f7067442959bf472749c73bbf09ba963752e74c764c3d10",
+      "hair-elder-preview.webp": "da9d9d8fa2fbdd1f23fc6692dc8c97a6ca926fd9ee2acee91b0577b59f232ba8",
+      "hair-elder.webp": "8ca5811e06fd44349e7eecd2ff99087a861d02b191c8ed0136608fb47e67bf8f",
+      "hair-hijab-preview.webp": "7dcf4e2ac8b883f475a593c88393c0e5df1f60a318ed5465c9e7e64bb11241eb",
+      "hair-hijab.webp": "868f31ed62203c98a2d19b7418eb4cfc3f878ae3e098c1ba2b8d6487640b453a",
+      "hair-locs-preview.webp": "d70fd41a167af77667127e16d5188dd4ac15ef6c12e9f43e23e47755399069b7",
+      "hair-locs.webp": "000dd891fa62e9ce5af4d13ffa381aefca84eda385a03a1561be59b86c35355f",
+      "hair-pixie-preview.webp": "8f6e0b1f221ec8e1f5ec7b0143bafceea9211f3365914a5cd24c691aae787cdb",
+      "hair-pixie.webp": "cee91aa917cbc828249eb7c276b9a720896c6c893b47579387b3551a67fb3b52",
+      "hair-ponytail-preview.webp": "6fee35614e54e7057d46be57d70af6ef7d18207a08596973f690e4d3d26734a5",
+      "hair-ponytail.webp": "da8e8efaceb58ad25b66da91fea8f1d147f798822e59fb0edf59ed2eb1d19b6b",
+      "hair-silver-preview.webp": "70877aaa2a500473a926a8a8dfd0d95232fd5e9394ed2c98320ce51c453bbb73",
+      "hair-silver.webp": "90c5ed0de20ac10f5c85463f57092e3dcd78fcd720d802b5077cdd420bc7f4cd",
+      "hair-straight-preview.webp": "9a864f6608050a7f68e10d11299cf15a5ba5ccee6db65f7e8dfbed4a6b913f4d",
+      "hair-straight.webp": "5b6e17f67fd96f246a4822266c6eb7ec9bf61ef43b50c66ab2552a9641331316",
+      "hair-turban-preview.webp": "a6f635fc9295a77cc6ad436d6001bc3c883faedf8ab9572693d8a8b08ae97eac",
+      "hair-turban.webp": "00ca0114126e33cde4c9bdf19d3144a458752151bf5b61822dc582a1529127b0",
+      "hair-waves-preview.webp": "076a878efcdbd7824f5c94f7343d0f179ff60aa059e92c697e582ed785feac17",
+      "hair-waves.webp": "38c7d9d7e5fdc98bbfaf568cc34bf838ac628ef85166644f7ea43e81a84a7c68",
+      "hands-skin-preview.webp": "1d2c33063458a0d957e5e7d4cdabf7ca5533eb9bb7545560ae7f5aeba8c9f447",
+      "hands-skin-raw.webp": "871fa7441e57cdab7e25ace07624a83550dc8df957e3db48a68a54e17d751447",
+      "hands-skin.webp": "ba9f6fa56bbf37e0c7a7b714da4767a5c7a914a18bdb1c29d124c7f95382bb35",
+      "head-detail-preview.webp": "ca3b54fae7b1d633cf5cd357292d50ae0f66e6f3e75d4e3d117eff4cca4572d5",
+      "head-detail.webp": "a17e6317439af99dbfb7c91b750753f9b7457de2e3ecf30c7bed776f5af714f1",
+      "head-skin-preview.webp": "5d6a4987bfb2a9046edc18fcf295b865bd2499ea056004d23b3b5a00e8e3a741",
+      "head-skin.webp": "638754bb61c24514e95ef7c5d44fe978b190ae82fd68b3cd01e791b1e639e12b",
+      "jacket-detail-preview.webp": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358",
+      "jacket-detail-raw.webp": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358",
+      "jacket-detail.webp": "34c64f511e8bcfd1bf504129af6b86e4902da509d63af7051d413f1c261f3d24",
+      "jacket-fabric-preview.webp": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1",
+      "jacket-fabric-raw.webp": "2f782c1c2c202427f46aa487f771a84aef91767388988c21258498fe12cb5547",
+      "jacket-fabric.webp": "1414c6e34b66abca912e67839b02f7611f859371babebb6dfe7dd25b1707e6e8"
+    }
+  }
+}

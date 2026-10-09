@@ -43,7 +43,7 @@ All figures in each row share one scale. The target median body height is 338 pi
 
 Exact full-body generation, gait revision and grounded idle prompts are saved in [character-npcs.txt](prompts/character-npcs.txt), [character-walk.txt](prompts/character-walk.txt) and [character-idle.txt](prompts/character-idle.txt). Character art and revisions were generated on 2026-10-08 using the built-in ImageGen tool.
 
-At scene startup, `web/src/character-art.ts` separates the painted player into shared detail, coat, hair and skin atlases. GPU tinting changes each material independently while keeping cloth shading and neutral leather, shirt and boots. The four RGBA textures use approximately 34 MiB regardless of player palettes; the source GPU texture is released after preparation. Movement uses actual travelled distance to advance directional frames, grounded pivots, shared contact shadows and subtle idle breathing. The character editor paints the same layers into a canvas for live previews without creating avatar-specific GPU textures.
+The live player now loads the pre-exported modular sheets in `web/public/assets/player-layers/`; the earlier complete player atlas above is retained as an art derivative. `characterLayers()` in `web/src/modular-character.ts` supplies the shared frame and tint recipe for both Phaser and the editor. Skin uses the combined `body-skin` sheet, with separate neutral head detail, hair, jacket and trouser materials. GPU tinting retains painted shading and neutral details without creating avatar-specific textures. Movement uses distance travelled to advance directional frames, grounded pivots, shared contact shadows and subtle idle breathing. The editor paints the same registered layers into its preview canvas. NPCs retain their full-body atlas or resident idle animation sheets; `web/src/character-art.ts` still provides their art dimensions, scaling and contact-shadow helpers. See the modular player section below for the active export and validation workflow.
 
 ## Additional painted regions
 
@@ -86,3 +86,96 @@ German examples and NPC greetings use machine-generated speech from the native m
 The asset naming contract is `web/public/audio/<exercise-id>.mp3` for authored instructional text, `word-<lexeme-id>.mp3` for dictionary pronunciation, `guide-<grammar-id>-<number>.mp3` for grammar examples, activity-specific IDs for orders/directions, and `npc-<npc-id>.mp3` for greetings. The generator deduplicates identical German text; the current manifest records the exact text, file and voice for every bundled clip. Static MP3 delivery makes the bundled clips independent of installed device voices. Transcripts remain available for accessibility and supported practice. Listen credit should require successful audio playback; revealing a transcript must not establish unaided listening mastery.
 
 Original longer listening passages and mission instructions are included. Varied speakers and educator-reviewed recordings remain useful future improvements. Regenerate the complete inventory with `AUDIO_WORKERS=6 node scripts/generate-audio.mjs --course --activities` (Node 24+, macOS Anna and FFmpeg); unchanged clips are reused. Article-form corrections are reflected in the spoken dictionary entry rather than pronouncing an ungrammatical article/lemma combination.
+
+### Modular player characters
+
+Players are assembled by overlaying independent head, hair, jacket, trouser
+and material spritesheets. `web/src/avatar-options.ts` is the active catalogue;
+`characterLayers()` in `web/src/modular-character.ts` supplies the same layers
+to Phaser and the editor. The current prototype offers the registration
+master's own head and body, a bald or long-waves hairstyle, one travel jacket,
+one straight-trouser design and separate skin, hair, jacket and trouser colours.
+Single-choice face, clothing and build selectors are hidden. All pieces retain
+their painted width; different builds need their own painted masters. Earlier
+face and hair donors are withheld from the active catalogue while replacement
+edits are made and reviewed. The larger customization library is unfinished.
+
+Every runtime sheet uses the same nine-column, four-row grid of 64×96 cells;
+the editor uses matching 128×192 cells with the same positions and frame order.
+Rows face down, right, up and left. Column zero contains the painted standing
+pose; columns one through eight contain the walking sequence. All
+selected layers display the same cell at the same origin and width. The
+renderer does not rotate limbs, solve joints, stretch heads or move individual
+pieces into place. Gameplay advances the sequence using distance travelled:
+one cycle spans 192 source pixels, about 0.87 seconds outdoors at normal
+walking speed. Remote position corrections cannot accelerate the gait beyond
+that walking speed. The editor uses animation timestamps for a one-second
+cycle and pauses when hidden, without catching up on return.
+
+The walking trouser and boot poses were redrawn with the built-in ImageGen
+tool on four larger direction boards, then extracted into the shared grid.
+Each 1536×1024 board has eight 384×512 cells. A fixed inner crop of
+`(32,16,320,480)` and one uniform 0.4 scale map each complete frame into its
+128×192 editor cell. Back frames additionally use a recorded whole-frame
+vertical translation to align their planted soles; no limb is warped. The
+original waistband material is preserved so its join with the shirt and
+jacket stays intact. The standing bottoms and upper materials retain the
+original pixels apart from one documented detached skin fragment in left
+walking pose 4. The halves of the leg cycle alternate their supporting leg;
+the original upper-body arm poses are retained. Sources, prompts and the
+staged export procedure are in
+[the walk edit workflow](prompts/player-edits/walk-README.md).
+
+The body exporter first registers each complete painted frame with one
+isotropic affine transform, then partitions it into disjoint jacket fabric,
+jacket detail, hand skin, trouser fabric and trouser detail masks. Their raw
+masks reconstruct the original registered body exactly, including fractional
+alpha at painted edges. The edited walking bottoms are replacement pixels;
+the active manifest does not claim that they reconstruct the original master.
+The head is extracted from the same bald master using that same
+per-frame transform, with no independent head donor registration. Head skin
+and hand skin use the same luminance reference of 180 and are merged into one
+`body-skin` atlas before downsampling. This preserves the original painted
+contour and avoids an artificial neck seam from separately filtering and
+overlaying two masks of the same skin material. The runtime recipe overlays
+`bottom-detail`, `bottom-fabric`, `body-skin`, `head-detail`, `jacket-detail`,
+`jacket-fabric` and the selected hair sheet. Tinting changes material colours
+while retaining shading and neutral details.
+
+New hairstyles are ImageGen edits of `art/source/player-edits/base.png`, an
+exact copy of the registration master in
+`art/source/player-customizations/motion.png`. The edit kit's short and long
+masks identify where hair may be added. The built-in ImageGen tool is available
+in this workflow and does not require an API key. The raw long-waves result is
+preserved as `hair-waves-candidate-1.png`; `scripts/lock-player-hair-edit.mjs`
+derives `hair-waves.png` by copying only keyed violet paint inside the allowed
+head regions onto the original master. Every other source RGBA pixel remains
+the master's exact pixel. This prevents repainting of faces, garments or
+background in a generated candidate from changing the assembled character.
+The selected prompt and complete edit workflow are recorded in
+[player-edits/README.md](prompts/player-edits/README.md).
+
+Rebuild the body with `node scripts/prepare-player-layers.mjs`, then run
+`node scripts/finalize-player-layer-assets.mjs` to create its 64×96 runtime
+cells and preserve its 128×192 editor cells. Next run
+`node scripts/prepare-player-head-edits.mjs` to extract the master's head,
+merge the full-size skin material and export validated hair edits. This last
+command writes both sizes itself; do not run a second finalization pass for
+these sheets. Runtime and preview assets are
+saved in `web/public/assets/player-layers/`, whose manifest records the shared
+frame transforms and source provenance. After rebuilding the original body
+and head, re-export and review the walking bottoms as described in the walk
+workflow. Running the original body exporter or finalizer after that would
+replace the revised walking bottoms.
+
+Before exporting a hair edit, run
+`node scripts/prepare-player-head-edits.mjs --check --input <edited-sheet.png> --id hair-<style>`.
+This read-only check rejects incorrect dimensions, excessive visible drift in
+protected pixels and missing or detached hair in any of the 36 frames. A
+failed validation emits no assets. Run
+`node --test scripts/prepare-player-head-edits.test.mjs` for the extractor's
+validation checks. Inspect actual assembled standing and walking overlays
+before enabling any new option; geometric checks do not establish visual
+quality. New faces, jackets, trousers and body builds must match the same
+painted master poses and frame origins. No combined player sheets or catalogue
+permutations are exported.

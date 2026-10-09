@@ -35,7 +35,9 @@ Open the menu and choose **Continue the story** for your next conversation. **St
 
 The **Region atlas** also opens all ten expeditions. Meet their local cast or inspect a discovery for a German exchange, then choose the neighborhood game to build an agreement. These new encounter and game records are stored locally by browser and level. Clearing browser storage removes them; another device or browser starts its own expedition progress. Existing story and course progress continue to use the server.
 
-Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Account recovery is not implemented, so clearing browser storage loses access to that demo identity.
+Before a first adventure, choose one of four suggested player names (one is selected) or type your own. After five minutes of visible play, a reminder shows your name and offers to link an email and password. You can skip it and add credentials later in **Menu → Settings**. On another device, select **Already played? Log in with email** to restore the same character and learning progress.
+
+Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Linked players can also log in with email and password after clearing browser storage. Unlinked guests lose access if they lose that token. Email verification and forgotten-password recovery are not implemented.
 
 ## Controls
 
@@ -166,3 +168,5 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 One Go process hosts all thirteen regions, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store. The ten new expedition games and encounter records remain browser-local.
 
 Account recovery, moderation and durable chat history, educator-reviewed curriculum validation, speaking assessment, shared server collision geometry and horizontal zone scaling remain future work.
+
+Players choose a name and build a character together before their first adventure. The character editor combines independent face, hair/headwear, jacket and trouser pieces, with separate colours and a live four-direction walking preview. See [the art pipeline](docs/art.md#modular-player-characters) for source assets and rebuilding the shared pieces.

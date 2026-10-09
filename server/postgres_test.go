@@ -276,3 +276,91 @@ func TestPostgresWordEvidenceAndAdditiveMigration(t *testing.T) {
 		t.Fatal("JSONB lost revision, compact word evidence or canonical FSRS cards")
 	}
 }
+
+func TestPostgresAccountCredentials(t *testing.T) {
+	url := os.Getenv("TEST_DATABASE_URL")
+	if url == "" {
+		t.Skip("set TEST_DATABASE_URL to a disposable PostgreSQL database")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	store, err := NewPGStore(ctx, url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	app := NewApp(store, testCurriculum(), nil, 10)
+	t.Cleanup(func() { app.Close() })
+	token, first := createSession(t, app, "Linked Juniper")
+	other, second := createSession(t, app, "Linked Ember")
+	t.Cleanup(func() {
+		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
+		defer done()
+		for _, id := range []string{first.ID, second.ID} {
+			_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", id)
+			_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", id)
+			_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", id)
+		}
+	})
+	before := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("linked-before")))
+	decodeAttempt(t, request(app, "POST", "/api/attempt", other, attemptFor("linked-before")))
+	email := strings.ToLower(first.ID) + "@example.com"
+	encoded, err := hashPassword("a long lantern password")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var workers sync.WaitGroup
+	results := make(chan error, 2)
+	for _, credential := range []string{token, other} {
+		workers.Go(func() { results <- store.SetCredentials(ctx, tokenHash(credential), email, encoded) })
+	}
+	workers.Wait()
+	close(results)
+	successes, conflicts := 0, 0
+	for result := range results {
+		if result == nil {
+			successes++
+		} else if errors.Is(result, ErrCredentialsConflict) {
+			conflicts++
+		} else {
+			t.Fatal(result)
+		}
+	}
+	if successes != 1 || conflicts != 1 {
+		t.Fatal("database allowed duplicate email ownership")
+	}
+	owner, err := store.GetByEmail(ctx, email)
+	if err != nil || owner.Email != email || !verifyPassword("a long lantern password", owner.PasswordHash) {
+		t.Fatal("database lost credentials")
+	}
+	// Use the same durable identity after reopening the database connection.
+	app.Close()
+	store, err = NewPGStore(ctx, url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	app = NewApp(store, testCurriculum(), nil, 10)
+	login := request(app, "POST", "/api/account/login", "", map[string]string{"email": email, "password": "a long lantern password"})
+	if login.Code != 200 {
+		t.Fatalf("database login: %d %s", login.Code, login.Body.String())
+	}
+	var result struct {
+		Token    string
+		Player   Player
+		Progress Progress
+	}
+	if err = json.Unmarshal(login.Body.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
+	if result.Player.ID != owner.Player.ID {
+		t.Fatal("login changed the player identity")
+	}
+	if result.Progress.XP != before.Progress.XP {
+		t.Fatal("login lost learning progress")
+	}
+	if strings.Contains(login.Body.String(), encoded) || strings.Contains(login.Body.String(), "passwordHash") {
+		t.Fatal("login leaked password material")
+	}
+	if got := request(app, "GET", "/api/progress", result.Token, nil).Code; got != 200 {
+		t.Fatalf("new device session failed: %d", got)
+	}
+}

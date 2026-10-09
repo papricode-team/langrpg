@@ -59,6 +59,8 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/health", a.health)
 	mux.HandleFunc("GET /api/version", a.deploymentVersion)
 	mux.HandleFunc("POST /api/session", a.session)
+	mux.HandleFunc("POST /api/account/register", a.registerAccount)
+	mux.HandleFunc("POST /api/account/login", a.loginAccount)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)
 	mux.HandleFunc("POST /api/exposure", a.exposure)
@@ -225,7 +227,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		// An empty profile resumes; a supplied profile updates this same account.
 		if input.Name != "" || input.Avatar != (Avatar{}) {
 			input.Name = strings.TrimSpace(input.Name)
-			if !validName(input.Name) || !paletteValue.MatchString(input.Avatar.Hair) || !paletteValue.MatchString(input.Avatar.Skin) || !paletteValue.MatchString(input.Avatar.Outfit) {
+			if !validName(input.Name) || !validAvatar(input.Avatar) {
 				writeError(w, 400, "provide a valid name and complete avatar")
 				return
 			}
@@ -236,7 +238,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 			}
 			account.Player = a.world.UpdateProfile(account.Player)
 		}
-		writeJSON(w, 200, map[string]any{"token": strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), "player": account.Player, "progress": account.Progress})
+		writeJSON(w, 200, sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
 		return
 	}
 	input.Name = strings.TrimSpace(input.Name)
@@ -244,7 +246,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "name must contain 2–24 letters, numbers, spaces, apostrophes, dashes or underscores")
 		return
 	}
-	if !paletteValue.MatchString(input.Avatar.Hair) || !paletteValue.MatchString(input.Avatar.Skin) || !paletteValue.MatchString(input.Avatar.Outfit) {
+	if !validAvatar(input.Avatar) {
 		writeError(w, 400, "choose valid hair, skin and outfit values")
 		return
 	}
@@ -277,7 +279,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 201, map[string]any{"token": token, "player": account.Player, "progress": account.Progress})
+	writeJSON(w, 201, sessionResponse(token, account))
 }
 
 func (a *App) progress(w http.ResponseWriter, r *http.Request) {

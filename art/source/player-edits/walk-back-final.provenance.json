@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "type": "packed-player-walk-board",
+  "output": "art/source/player-edits/walk-back-final.png",
+  "sha256": "81922b8eeab04de3fd8691e10957dc2ed617fa09f2fb998e5578ad8f497a6a0c",
+  "layout": {
+    "width": 1536,
+    "height": 1024,
+    "columns": 4,
+    "rows": 2,
+    "cellWidth": 384,
+    "cellHeight": 512,
+    "inner": {
+      "left": 32,
+      "top": 16,
+      "width": 320,
+      "height": 480
+    },
+    "scale": 0.4
+  },
+  "rgbaExact": true,
+  "cells": [
+    {
+      "cell": 0,
+      "source": "art/source/player-edits/walk-back-candidate-2.png",
+      "sourceCell": 0,
+      "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+    },
+    {
+      "cell": 1,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 1,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    },
+    {
+      "cell": 2,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 2,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    },
+    {
+      "cell": 3,
+      "source": "art/source/player-edits/walk-back-candidate-2.png",
+      "sourceCell": 3,
+      "sourceSha256": "1d807cc215e420f023ed681e31cab385afdb04a65231d41b838ba47fb784f235"
+    },
+    {
+      "cell": 4,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 4,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    },
+    {
+      "cell": 5,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 5,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    },
+    {
+      "cell": 6,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 6,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    },
+    {
+      "cell": 7,
+      "source": "art/source/player-edits/walk-back-candidate-3.png",
+      "sourceCell": 7,
+      "sourceSha256": "3549ca8857871981e5f4370b1af7250d0d89111959b8c4a3a6252f8af344d1e2"
+    }
+  ]
+}

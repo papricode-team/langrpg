@@ -44,6 +44,8 @@ export interface ActivityCompletionResult extends CompletionResult { reason: str
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
+export interface AccountStatus { registered: boolean; email: string; }
+export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; }
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
 const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
@@ -95,7 +97,7 @@ export class Api {
     return value as T;
   }
   async session(name: string, avatar: Avatar) {
-    let result: { token: string; player: WorldPlayer; progress: Progress };
+    let result: SessionResult;
     try { result = await this.request('/session', { name, avatar }); }
     catch (error) {
       if (!this.token || !(error instanceof ApiError) || error.status !== 401) throw error;
@@ -104,9 +106,33 @@ export class Api {
       try { result = await this.request('/session', { name, avatar }); }
       catch (retryError) { this.token = oldToken; throw retryError; }
     }
+    this.rememberSession(result);
+    return result;
+  }
+  private rememberSession(result: SessionResult) {
     this.token = result.token;
     this.selfId = result.player.id;
     localStorage.setItem('atlas.token', this.token);
+  }
+  async resume(): Promise<SessionResult | undefined> {
+    if (!this.token) return undefined;
+    try {
+      const result = await this.request<SessionResult>('/session', {});
+      this.rememberSession(result);
+      return result;
+    } catch (error) {
+      if (!(error instanceof ApiError) || error.status !== 401) throw error;
+      this.token = ''; this.selfId = ''; localStorage.removeItem('atlas.token');
+      return undefined;
+    }
+  }
+  register(email: string, password: string) {
+    return this.request<AccountStatus>('/account/register', { email, password });
+  }
+  async login(email: string, password: string): Promise<SessionResult> {
+    const result = await this.request<SessionResult>('/account/login', { email, password });
+    this.destroy();
+    this.rememberSession(result);
     return result;
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }

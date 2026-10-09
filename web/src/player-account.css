@@ -1,0 +1,23 @@
+.account-dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: clamp(24px, 5vw, 40px);
+}
+.account-dialog h2 { font-size: clamp(26px, 5vw, 34px); line-height: 1.15; margin: 12px 0 16px; }
+.account-dialog p { line-height: 1.6; }
+.account-dialog form { display: grid; gap: 12px; margin-top: 24px; }
+.account-dialog .form-label { margin: 8px 0 0; }
+.account-dialog .name-input { width: 100%; min-width: 0; }
+.account-dialog small { display: block; color: var(--muted); line-height: 1.5; }
+.account-dialog .text-button { display: block; margin: 18px auto 10px; }
+.account-dialog .primary-button { width: 100%; justify-content: center; }
+.name-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+.name-suggestion { padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); }
+.name-suggestion[aria-pressed="true"] { background: #326a65; border-color: #326a65; color: #fff; box-shadow: 0 0 0 2px #326a6533; }
+.account-error { color: #963d32; margin: 0; min-height: 1.5em; }
+.account-settings { display: grid; gap: 12px; margin-bottom: 32px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; }
+.account-settings h3 { margin: 0 0 8px; }
+.account-settings p { margin: 0; line-height: 1.6; overflow-wrap: anywhere; }
+/* Match the existing dark game panels, including unselected suggestions. */
+.account-dialog .name-suggestion { color: var(--paper); }
+.account-dialog .account-error { color: #ffc2ae; }

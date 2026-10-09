@@ -1,3 +1,4 @@
+import { characterBuilderMarkup, bindCharacterBuilder } from './character-builder';
 import { localHour, type WorldTimeMode } from './world-clock';
 import '@fontsource/dm-sans/latin-400.css';
 import '@fontsource/dm-sans/latin-500.css';
@@ -20,8 +21,10 @@ import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
-import type { Progress, ChatMessage, ExposureInput, ConnectionStatus } from './api';
+import type { Progress, ChatMessage, ExposureInput, ConnectionStatus, SessionResult, AccountStatus } from './api';
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
+import { AccountReminder, nameSuggestions } from './player-account';
+import './player-account.css';
 import { reviewExercises } from './review';
 import { icon, escapeHtml as e } from './icons';
 import { maps, getMap } from './maps';
@@ -64,6 +67,11 @@ const api = new Api();
 let stopUpdateChecks: (() => void) | undefined;
 let removeUpdateNotice: (() => void) | undefined;
 let progress: Progress = emptyProgress();
+let started = false;
+let account: AccountStatus = { registered: false, email: '' };
+let accountReminder: AccountReminder | undefined;
+let reminderTimer: number | undefined;
+const entryNames = nameSuggestions();
 let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
 if (!['A1', 'A2', 'B1'].includes(level)) level = 'A1';
 let view: View = 'world';
@@ -75,7 +83,7 @@ catch { profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077'
 if (!profile || typeof profile.name !== 'string' || !profile.avatar || typeof profile.avatar !== 'object' || Array.isArray(profile.avatar)) profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077', outfit: '#326a65' } };
 profile.name = profile.name.trim().slice(0, 24) || 'Wanderer';
 for (const [key, fallback] of Object.entries({ hair: '#48372e', skin: '#d8a077', outfit: '#326a65' })) {
-  if (!/^#[0-9a-f]{6}$/i.test(profile.avatar[key as keyof Avatar])) profile.avatar[key as keyof Avatar] = fallback;
+  if (!/^#[0-9a-f]{6}$/i.test(profile.avatar[key as 'hair' | 'skin' | 'outfit'])) profile.avatar[key as 'hair' | 'skin' | 'outfit'] = fallback;
 }
 let worldMotion: WorldMotion = (localStorage.getItem('atlas.worldMotion') as WorldMotion) || 'auto';
 let watchingWorld = false;
@@ -174,7 +182,7 @@ function renderShell() {
       </div>
       <div class="world-watch-caption"><span>A moment in <strong id="watch-region">Lindenhafen</strong></span><span id="watch-time">12:00 · DAY</span><button data-action="stop-watching">Return to exploring <kbd>ESC</kbd></button></div>
       <dialog class="menu-layer" id="menu-layer" aria-labelledby="menu-title" hidden><div class="menu-frame"><header class="menu-header"><span class="menu-crest">${icon('lantern')}</span><div><span class="menu-kicker">THE LANTERN ATLAS</span><h1 id="menu-title">Your adventure</h1></div><button class="menu-close" data-view="world" aria-label="Return to game">${icon('close')}<kbd>ESC</kbd></button></header><nav class="menu-tabs" aria-label="Game sections"><span class="menu-nav-label">THE JOURNEY</span>${([['menu','compass','Overview'],['quests','scroll','Story quests'],['story','lantern','Discoveries'],['atlas','map','Region atlas']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">OFF THE MAIN PATH</span>${([['activities','cup','Side activities'],['course','book','Learning routes'],['journal','leaf','Your words']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">YOUR ADVENTURE</span>${([['character','shirt','Character'],['settings','settings','Settings']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}</nav><div id="other-view" class="menu-content" tabindex="-1"></div><footer class="menu-footer"><span class="german-flag"></span><span>GERMAN FROM ENGLISH</span><span class="connection-pill" id="connection-pill"><span></span> Connecting</span></footer></div></dialog>
-    </main><dialog id="dialog" class="dialog" aria-label="Adventure encounter"></dialog><div id="toast" class="toast" role="status" aria-live="polite"></div>`;
+    </main><dialog id="dialog" class="dialog" aria-label="Adventure encounter"></dialog><dialog id="account-dialog" class="dialog account-dialog" aria-labelledby="account-title"></dialog><div id="toast" class="toast" role="status" aria-live="polite"></div>`;
   world = new World(document.querySelector('#world-container')!, {
     motion: worldMotion,
     time: { mode: worldTimeMode, hour: worldTimeMode === 'manual' ? manualWorldHour : localHour() },
@@ -201,6 +209,10 @@ function renderShell() {
     onOpenChange: () => { document.dispatchEvent(new Event('atlas-controls-reset')); world.setInputEnabled(worldCanInteract()); },
   });
   bindGlobalEvents(); bindJoystick(); updateProgress();
+  const accountDialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  accountDialog.addEventListener('cancel', event => { if (!started) event.preventDefault(); });
+  accountDialog.addEventListener('close', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); world.setInputEnabled(worldCanInteract()); if (started && regionReady) onRegionReady(mapId); });
+  world.setInputEnabled(false);
 }
 function watchWorld(watching: boolean): void {
   if (watching) screenFilterControls?.close(false);
@@ -337,7 +349,7 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return connection === 'online' && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return started && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
 function setView(next: View) {
   if (watchingWorld) watchWorld(false);
   exposureObserver?.disconnect();
@@ -372,7 +384,7 @@ function seenKey(kind: string) { return `atlas.${kind}.${api.selfId || 'visitor'
 function readSeen(kind: string): string[] { try { const value: unknown = JSON.parse(localStorage.getItem(seenKey(kind)) || '[]'); return Array.isArray(value) ? value.filter((id): id is string => typeof id === 'string') : []; } catch { return []; } }
 function rememberSeen(kind: string, id: string) { const seen = new Set(readSeen(kind)); seen.add(id); localStorage.setItem(seenKey(kind), JSON.stringify([...seen])); }
 function onRegionReady(id: MapId) {
-  if (!mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
+  if (!started || !mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
   if (!readSeen('acts').includes(id)) { showActIntro(id); return; }
   continueDestination();
 }
@@ -745,10 +757,10 @@ function renderOther() {
       document.querySelectorAll<HTMLElement>('[data-word]').forEach(card => { card.hidden = !card.dataset.word!.includes(query); });
     });
   } else if (view === 'character') {
-    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">EVERY ADVENTURE NEEDS A YOU.</div><h1>Make your mark.</h1><p>A little style. A little personality. Quite a lot of curiosity.</p></div></div><section class="character-page"><div class="character-illustration"><canvas class="painted-avatar" data-avatar-preview width="384" height="576" role="img" aria-label="Your character appearance"></canvas><h2>${e(profile.name)}</h2><p>A wanderer of the Atlas</p><span class="character-xp">${icon('sparkles')} ${progress.xp} adventure XP</span></div><div class="character-options">${profileForm()}<p class="honest-note">Your colours appear on your moving character and are visible to other players.</p></div></section>`;
+    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">EVERY ADVENTURE NEEDS A YOU.</div><h1>Make your mark.</h1><p>A little style. A little personality. Quite a lot of curiosity.</p></div></div><section class="character-page"><div class="character-illustration"><h2>${e(profile.name)}</h2><p>A wanderer of the Atlas</p><span class="character-xp">${icon('sparkles')} ${progress.xp} adventure XP</span></div><div class="character-options">${profileForm()}<p class="honest-note">Your character appears in town and is visible to other players.</p></div></section>`;
     bindProfileForm();
   } else if (view === 'settings') {
-    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Silent mode</h3><p>Automatically skip listening exercises and mute audio. Quests finish after reading and writing; listening stays available for later. Saved on this device.</p></div>${silentModeButton()}<div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="watch-world">${icon('compass')} Watch the world</button><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : connection === 'replaced' ? 'Your character is active in another tab. Continue there, or close it and reload this page.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
+    el.innerHTML = `<div class="account-settings"><div><h3>${account.registered ? 'Your adventure is linked' : 'Take your adventure with you'}</h3><p>${account.registered ? `Playing as ${e(profile.name)}. Log in on another device with ${e(account.email)} and your password.` : `Playing as ${e(profile.name)}. Add an email and password to continue on another device.`}</p></div>${account.registered ? '' : '<button class="outline-button" data-action="save-account">Add email &amp; password</button>'}<button class="text-button" data-action="login-account">Log in to a saved adventure</button></div><div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Silent mode</h3><p>Automatically skip listening exercises and mute audio. Quests finish after reading and writing; listening stays available for later. Saved on this device.</p></div>${silentModeButton()}<div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="watch-world">${icon('compass')} Watch the world</button><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : connection === 'replaced' ? 'Your character is active in another tab. Continue there, or close it and reload this page.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
     const select = document.querySelector<HTMLSelectElement>('#speech-rate')!;
     select.value = String(speechRate);
     select.onchange = () => { speechRate = Number(select.value); localStorage.setItem('atlas.speechRate', String(speechRate)); };
@@ -939,20 +951,11 @@ async function finishRun() {
   }
 }
 function profileForm() {
-  return `<form id="profile-form"><label class="form-label" for="character-name">What should the town call you?</label><input id="character-name" class="name-input" maxlength="24" minlength="2" value="${e(profile.name)}" required autocomplete="nickname"/><div class="palette-section"><label class="form-label">Your coat</label><div class="palette" data-palette="outfit">${['#326a65', '#6c7894', '#ab5e51', '#b38b3f', '#6e547e', '#c2957a'].map(color => `<button type="button" class="swatch ${profile.avatar.outfit === color ? 'selected' : ''}" style="--swatch:${color}" data-color="${color}" aria-label="Coat colour ${color}">${profile.avatar.outfit === color ? icon('check') : ''}</button>`).join('')}</div></div><div class="palette-section"><label class="form-label">Hair</label><div class="palette" data-palette="hair">${['#48372e', '#242529', '#ad683b', '#d9bc75', '#a0a2a2'].map(color => `<button type="button" class="swatch ${profile.avatar.hair === color ? 'selected' : ''}" style="--swatch:${color}" data-color="${color}" aria-label="Hair colour ${color}">${profile.avatar.hair === color ? icon('check') : ''}</button>`).join('')}</div></div><div class="palette-section"><label class="form-label">Skin tone</label><div class="palette" data-palette="skin">${['#f4d1b5', '#d8a077', '#b9825c', '#8a573f', '#533728'].map(color => `<button type="button" class="swatch ${profile.avatar.skin === color ? 'selected' : ''}" style="--swatch:${color}" data-color="${color}" aria-label="Skin tone ${color}">${profile.avatar.skin === color ? icon('check') : ''}</button>`).join('')}</div></div><button class="primary-button" type="submit">This is me ${icon('check')}</button></form>`;
+  return `<form id="profile-form"><label class="form-label" for="character-name">What should the town call you?</label><input id="character-name" class="name-input" maxlength="24" minlength="2" value="${e(profile.name)}" required autocomplete="nickname"/>${characterBuilderMarkup()}<button class="primary-button" type="submit">This is me ${icon('check')}</button></form>`;
 }
 function bindProfileForm() {
   const form = document.querySelector<HTMLFormElement>('#profile-form')!;
-  const draft = { ...profile.avatar };
-  const paintPreview = () => document.querySelectorAll<HTMLCanvasElement>('[data-avatar-preview]').forEach(canvas => world.renderAvatarPreview(canvas, draft));
-  paintPreview();
-  form.querySelectorAll<HTMLButtonElement>('[data-color]').forEach(button => { button.onclick = () => {
-    const field = button.parentElement!.dataset.palette as keyof Avatar;
-    draft[field] = button.dataset.color!;
-    button.parentElement!.querySelectorAll('button').forEach(b => { b.classList.remove('selected'); b.innerHTML = ''; });
-    button.classList.add('selected'); button.innerHTML = icon('check');
-    paintPreview();
-  }; });
+  const getAvatar = bindCharacterBuilder(form, profile.avatar);
   form.onsubmit = async event => {
     event.preventDefault();
     const name = document.querySelector<HTMLInputElement>('#character-name')!.value.trim();
@@ -960,7 +963,8 @@ function bindProfileForm() {
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     button.disabled = true;
     try {
-      const result = await api.session(name, draft);
+      const result = await api.session(name, getAvatar());
+      account = result.account;
       profile = { name: result.player.name, avatar: result.player.avatar };
       localStorage.setItem('atlas.profile', JSON.stringify(profile));
       acceptProgress(result.progress, result.player.id);
@@ -975,7 +979,7 @@ function bindProfileForm() {
     finally { button.disabled = false; }
   };
 }
-function showProfile() { openDialog(`<div class="profile-dialog-heading"><canvas class="painted-avatar" data-avatar-preview width="384" height="576" role="img" aria-label="Your character appearance"></canvas><div class="eyebrow">LET’S MAKE THIS YOUR ADVENTURE.</div><h2>Nice to meet you.</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
+function showProfile() { openDialog(`<div class="profile-dialog-heading"><div class="eyebrow">LET’S MAKE THIS YOUR ADVENTURE.</div><h2>Nice to meet you.</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
 const audioPaths = new Map([
   ...quests.flatMap(q => q.exercises.map(ex => [ex.german, `/audio/${ex.id}.mp3`] as const)),
   ...npcs.map(npc => [npc.greeting, `/audio/npc-${npc.id}.mp3`] as const),
@@ -1045,7 +1049,7 @@ function bindGlobalEvents() {
   window.addEventListener('resize', syncTrackerState);
   document.addEventListener('keydown', event => {
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
-    if (dialog.open) return;
+    if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
     const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
     if (event.key === 'Escape') { event.preventDefault(); if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
     if (view !== 'world' && event.key === 'Tab') {
@@ -1140,6 +1144,8 @@ function bindGlobalEvents() {
         });
         toast(silentMode ? 'Silent mode on. Listening exercises will be skipped.' : 'Silent mode off. Listening exercises will return in your next session.');
         break;
+      case 'save-account': showSaveAccount(); break;
+      case 'login-account': showLogin(); break;
       case 'sound': muted = !muted; localStorage.setItem('atlas.muted', String(muted));  if (!muted) playCue(true); if (view === 'settings') renderOther(); break;
       case 'chat-toggle': toggleChat(); break;
     }
@@ -1182,6 +1188,109 @@ function renderChat() {
   el.innerHTML = chatMessages.slice(-40).map(message => `<div class="chat-message"><span class="message-avatar" style="background:${message.playerId === api.selfId ? e(profile.avatar.outfit) : '#a67552'}">${e(message.name.slice(0, 1).toUpperCase())}</span><p><strong>${e(message.name)}${message.playerId === api.selfId ? '<small>you</small>' : ''}</strong><span>${e(message.text)}</span></p><time>${new Date(message.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}</time></div>`).join('');
   el.scrollTop = el.scrollHeight;
 }
+function showAccountDialog(html: string) {
+  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  dialog.innerHTML = html;
+  if (!dialog.open) dialog.showModal();
+  document.dispatchEvent(new Event('atlas-controls-reset'));
+  world.setInputEnabled(false);
+  accountReminder?.tick(performance.now(), false);
+}
+function accountError(error: unknown) {
+  document.querySelector<HTMLElement>('#account-error')!.textContent = error instanceof Error ? error.message : 'Please try again.';
+}
+function showNameEntry(restoreName = false) {
+  const selected = restoreName ? profile.name : entryNames[0];
+  const suggestions = entryNames.includes(selected) ? entryNames : [selected, ...entryNames.slice(0, 3)];
+  showAccountDialog(`<div class="eyebrow">YOUR FIRST STEP INTO THE LANTERN ATLAS</div><h2 id="account-title">What should the town call you?</h2><p>Pick a suggested name or write your own. This is the name other players will see.</p><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="Suggested player names">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${name}">${name}</button>`).join('')}</div><label class="form-label" for="entry-name">Your player name</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><small id="name-help">2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.</small>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Start my adventure ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">Already played? Log in with email</button>`);
+  const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
+  const input = document.querySelector<HTMLInputElement>('#entry-name')!;
+  const getAvatar = bindCharacterBuilder(form, profile.avatar);
+  const sync = () => {
+    const name = input.value.trim();
+    input.setCustomValidity(/^[\p{L}\p{N}\p{M} _'-]{2,24}$/u.test(name) ? '' : 'Choose a name with 2–24 letters, numbers, spaces, dashes, underscores or apostrophes.');
+    form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.suggestedName === name)));
+  };
+  input.addEventListener('input', sync);
+  form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; sync(); }; });
+  document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => showLogin();
+  form.onsubmit = async event => {
+    event.preventDefault(); sync(); if (!form.reportValidity()) return;
+    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    button.disabled = true; button.textContent = 'Opening the town…';
+    try {
+      const result = await api.session(input.value.trim(), getAvatar());
+      localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
+      enterGame(result);
+      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+    } catch (error) { accountError(error); }
+    finally { button.disabled = false; button.innerHTML = `Start my adventure ${icon('arrow')}`; }
+  };
+  sync();
+}
+function enterGame(result: SessionResult) {
+  started = true;
+  account = result.account;
+  acceptProgress(result.progress, result.player.id);
+  profile = { name: result.player.name, avatar: result.player.avatar };
+  localStorage.setItem('atlas.profile', JSON.stringify(profile));
+  document.querySelector('#profile-name')!.textContent = profile.name;
+  world.setPlayers([result.player], result.player.id);
+  world.setAvatar(profile.avatar);
+  updateProgress(); api.connect();
+  accountReminder = new AccountReminder(result.player.id, localStorage);
+  accountReminder.tick(performance.now(), false);
+  if (reminderTimer !== undefined) clearInterval(reminderTimer);
+  reminderTimer = window.setInterval(() => {
+    if (account.registered) return;
+    const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+    const due = accountReminder!.tick(performance.now(), !document.hidden && connection === 'online' && !dialog.open);
+    if (due && !document.hidden && view === 'world' && !watchingWorld && !dialog.open && !document.querySelector<HTMLDialogElement>('#dialog')!.open) {
+      showSaveAccount(true);
+      accountReminder!.markShown();
+    }
+  }, 1000);
+}
+function showSaveAccount(reminder = false) {
+  if (!started || account.registered) return;
+  showAccountDialog(`<div class="eyebrow">${reminder ? 'FIVE MINUTES INTO YOUR ADVENTURE' : 'KEEP YOUR ADVENTURE CLOSE'}</div><h2 id="account-title">You’re ${e(profile.name)} here.</h2><p>Add your email and a password to return as <strong>${e(profile.name)}</strong> on another device, with your character and progress.</p><form id="save-account-form"><label class="form-label" for="account-email">Email</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">Choose a password</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">Use 10–128 characters.</small><label class="form-label" for="account-password-confirm">Confirm password</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Save my adventure ${icon('check')}</button></form><button class="text-button" id="account-later">Keep playing — I’ll do this later</button><small>You can add these in Menu → Settings whenever you’re ready.</small>`);
+  const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
+  const password = document.querySelector<HTMLInputElement>('#account-password')!;
+  const confirmation = document.querySelector<HTMLInputElement>('#account-password-confirm')!;
+  const checkConfirmation = () => confirmation.setCustomValidity(confirmation.value === password.value ? '' : 'The passwords must match.');
+  confirmation.oninput = checkConfirmation; password.oninput = checkConfirmation;
+  document.querySelector<HTMLButtonElement>('#account-later')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+  form.onsubmit = async event => {
+    event.preventDefault(); checkConfirmation(); if (!form.reportValidity()) return;
+    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    button.disabled = true;
+    try {
+      account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
+      password.value = ''; confirmation.value = '';
+      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+      if (view === 'settings') renderOther();
+      toast(`Saved, ${profile.name}. Use your email and password to log in on another device.`);
+    } catch (error) { accountError(error); }
+    finally { button.disabled = false; }
+  };
+}
+function showLogin() {
+  showAccountDialog(`<div class="eyebrow">WELCOME BACK TO THE LANTERN ATLAS</div><h2 id="account-title">Continue your adventure.</h2><p>Use the email and password you saved to restore your name, character and progress.${started ? ' Logging in opens the adventure linked to that email.' : ''}</p><form id="login-account-form"><label class="form-label" for="login-email">Email</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">Password</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Log in &amp; continue ${icon('arrow')}</button></form><button class="text-button" id="login-back">${started ? 'Back to my adventure' : 'Back to choosing a name'}</button>`);
+  document.querySelector<HTMLButtonElement>('#login-back')!.onclick = () => { if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); else showNameEntry(!!api.token); };
+  const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
+  form.onsubmit = async event => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    button.disabled = true;
+    try {
+      const result = await api.login(document.querySelector<HTMLInputElement>('#login-email')!.value.trim(), document.querySelector<HTMLInputElement>('#login-password')!.value);
+      localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
+      // Restart the UI so in-flight learning responses cannot cross account owners.
+      location.reload();
+    } catch (error) { accountError(error); button.disabled = false; }
+  };
+}
+
 async function boot() {
   renderShell();
   if (import.meta.env.PROD) {
@@ -1215,18 +1324,22 @@ async function boot() {
     updateConnection();
   };
   api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; world.setInputEnabled(worldCanInteract()); } toast(message, true); };
+  showAccountDialog('<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">Opening your adventure…</h2><p role="status">Checking for your saved character.</p>');
   try {
-    const result = await api.session(profile.name, profile.avatar);
-    acceptProgress(result.progress, result.player.id);
-    profile = { name: result.player.name, avatar: result.player.avatar };
-    localStorage.setItem('atlas.profile', JSON.stringify(profile));
-    document.querySelector('#profile-name')!.textContent = profile.name;
-    world.setPlayers([result.player], result.player.id);
-    world.setAvatar(profile.avatar);
-    updateProgress(); api.connect();
+    const result = await api.resume();
+    if (result) {
+      profile = { name: result.player.name, avatar: result.player.avatar };
+      account = result.account;
+      if (account.registered || localStorage.getItem(`atlas.nameChosen.${result.player.id}`) === 'true') {
+        enterGame(result);
+        document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+      } else showNameEntry(true);
+    } else showNameEntry();
   } catch {
     connection = 'offline'; updateConnection();
-    toast(import.meta.env.DEV ? 'The town server is unavailable. Start it with npm run dev, then reload to play.' : 'Lindenhafen is unavailable right now. Please try again shortly.', true);
+    showNameEntry(!!api.token);
+    const error = document.querySelector<HTMLElement>('#account-error')!;
+    error.textContent = 'The town could not connect. You can try starting again in a moment.';
   }
 }
 function updateConnection() {
@@ -1238,6 +1351,6 @@ function updateConnection() {
   el.className = `connection-pill ${connection}`;
   el.innerHTML = `<span></span>${connection === 'online' ? `${count} ${count === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : connection === 'replaced' ? 'Active in another tab' : 'Reconnecting'}`;
 }
-document.addEventListener('visibilitychange', () => { world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
+window.addEventListener('beforeunload', () => { stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

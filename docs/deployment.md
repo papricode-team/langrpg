@@ -79,9 +79,11 @@ Changing `POSTGRES_PASSWORD` after initialization does not change the existing
 database role's password; rotate the role password and backend configuration
 together.
 
-Users currently sign in with a browser-held session token. Email/password login
-and account recovery are not implemented; clearing browser storage loses access
-to that identity. Map positions and chat reset on backend restart. Settings and
+Users start with a browser-held session token and can save their account with
+an email and password after five minutes of visible play, or from the menu.
+Email/password login restores the same character and progress on another device.
+Password recovery is not implemented; clearing browser storage before saving an
+account loses access to that identity. Map positions and chat reset on backend restart. Settings and
 unfinished mini-game boards are browser-local. Existing development
 `server/.data/state.json` files are not automatically imported into PostgreSQL.
 

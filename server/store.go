@@ -20,6 +20,9 @@ type Store interface {
 	Create(context.Context, string, Account) error
 	Get(context.Context, string) (Account, error)
 	UpdateProfile(context.Context, string, string, Avatar) (Account, error)
+	SetCredentials(context.Context, string, string, string) error
+	GetByEmail(context.Context, string) (Account, error)
+	AddSession(context.Context, string, string) error
 	Mutate(context.Context, string, string, json.RawMessage, func(*Account) (Receipt, error)) (Account, Receipt, bool, error)
 	ActivityProofs(context.Context, string, string, string, []string) (map[string]SavedAction, int, error)
 	Health(context.Context) error
@@ -221,6 +224,11 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS accounts (id TEXT PRIMARY KEY, data JSONB NOT NULL);
 	CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id), created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
 	CREATE TABLE IF NOT EXISTS learning_events (account_id TEXT NOT NULL REFERENCES accounts(id), event_key TEXT NOT NULL, request JSONB NOT NULL, receipt JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (account_id,event_key));`)
+	if err != nil {
+		pool.Close()
+		return nil, err
+	}
+	_, err = pool.Exec(ctx, `CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique ON accounts ((data->>'email')) WHERE data->>'email' IS NOT NULL`)
 	if err != nil {
 		pool.Close()
 		return nil, err

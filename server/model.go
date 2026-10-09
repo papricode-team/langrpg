@@ -18,9 +18,15 @@ var (
 )
 
 type Avatar struct {
-	Hair   string `json:"hair"`
-	Skin   string `json:"skin"`
-	Outfit string `json:"outfit"`
+	Face      string `json:"face,omitempty"`
+	Hairstyle string `json:"hairstyle,omitempty"`
+	Jacket    string `json:"jacket,omitempty"`
+	Bottom    string `json:"bottom,omitempty"`
+	Build     string `json:"build,omitempty"`
+	Pants     string `json:"pants,omitempty"`
+	Hair      string `json:"hair"`
+	Skin      string `json:"skin"`
+	Outfit    string `json:"outfit"`
 }
 
 type Player struct {
@@ -124,9 +130,11 @@ type Progress struct {
 }
 
 type Account struct {
-	Player    Player    `json:"player"`
-	Progress  Progress  `json:"progress"`
-	CreatedAt time.Time `json:"createdAt"`
+	Email        string    `json:"email,omitempty"`
+	PasswordHash string    `json:"passwordHash,omitempty"`
+	Player       Player    `json:"player"`
+	Progress     Progress  `json:"progress"`
+	CreatedAt    time.Time `json:"createdAt"`
 }
 
 type Receipt struct {
