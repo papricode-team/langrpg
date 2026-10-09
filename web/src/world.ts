@@ -9,6 +9,7 @@ import { buildWidth, characterFrame, MODULAR_ART, modularAssets, normalizeParts,
 import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
 import { characterLayers, paintCharacter } from './modular-character';
 import { createWorldResidents, sampleResidentMotion } from './world-life';
+import { residentFacingLeft, residentWalkDistance, residentWalkFrame } from './resident-animation';
 import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
@@ -77,6 +78,7 @@ interface Character {
   hovered?: boolean;
   interactionId?: string;
   idleAnimation?: SceneryAnimation;
+  walkingAnimation?: SceneryAnimation;
   idleFrame?: string;
   localArtVariant?: number;
 }
@@ -793,6 +795,11 @@ class HarborScene extends Phaser.Scene {
     for (const motion of createWorldResidents(this.mapSpec.id, this.navigation)) {
       const position = sampleResidentMotion(motion, this.decorativeElapsed);
       const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, motion.artVariant ?? -1, motion.artVariant);
+      this.animateCharacter(character, 0, 0, this.elapsed, Infinity, {
+        moving: position.moving, distance: residentWalkDistance(motion, this.decorativeElapsed),
+        velocityX: position.velocityX, velocityY: position.velocityY,
+        facingLeft: residentFacingLeft(motion, this.decorativeElapsed),
+      });
       character.name.setColor('#ddd6b5').setVisible(false);
       this.residents.push({ character, motion, sample: position });
     }
@@ -816,9 +823,10 @@ class HarborScene extends Phaser.Scene {
       character.marker = this.add.text(0, -96, '✦', { fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
       character.hint = this.add.text(0, 30, this.mobileCamera ? 'TAP TO TALK' : 'TALK · E', { fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
       character.root.add([character.marker, character.hint]);
+      const animation = character.walkingAnimation ?? character.idleAnimation;
       character.figure.setInteractive({
         useHandCursor: true,
-        hitArea: new Phaser.Geom.Rectangle(-40, 12, (character.idleAnimation?.width ?? NPC_ART.width) + 80, (character.idleAnimation?.height ?? NPC_ART.height) * (character.idleAnimation?.originY ?? NPC_ART.footY) - 12),
+        hitArea: new Phaser.Geom.Rectangle(-40, 12, (animation?.width ?? NPC_ART.width) + 80, (animation?.height ?? NPC_ART.height) * (animation?.originY ?? NPC_ART.footY) - 12),
         hitAreaCallback: Phaser.Geom.Rectangle.Contains,
       });
       character.figure.on('pointerover', () => { character.hovered = true; });
@@ -904,9 +912,10 @@ class HarborScene extends Phaser.Scene {
   private resizeHitTargets(): void {
     for (const npc of this.characters.values()) {
       const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
-      const frameWidth = npc.idleAnimation?.width ?? NPC_ART.width;
-      const frameHeight = npc.idleAnimation?.height ?? NPC_ART.height;
-      const footY = npc.idleAnimation?.originY ?? NPC_ART.footY;
+      const animation = npc.walkingAnimation ?? npc.idleAnimation;
+      const frameWidth = animation?.width ?? NPC_ART.width;
+      const frameHeight = animation?.height ?? NPC_ART.height;
+      const footY = animation?.originY ?? NPC_ART.footY;
       const width = Math.max(frameWidth + 80, 44 / (npc.artScale * this.fitZoom));
       hit?.setTo((frameWidth - width) / 2, 12, width, frameHeight * footY - 12);
     }
@@ -1297,7 +1306,7 @@ class HarborScene extends Phaser.Scene {
     camera.scrollY += (targetScrollY - camera.scrollY) * follow;
   }
 
-  private animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity): void {
+  private animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }): void {
     this.fitCharacterToRoom(character);
     character.root.setPosition(character.x, character.y).setDepth(character.y + 10);
     const distance = Math.hypot(dx, dy);
@@ -1315,8 +1324,25 @@ class HarborScene extends Phaser.Scene {
         this.setCharacterFrame(character, characterFrame(character.facing));
       }
     }
+    if (character.walkingAnimation) {
+      // Still-world mode holds the currently planted pose and facing. Regional
+      // paintings are walking poses; stationary neighbors keep one painting.
+      if (this.reducedMotion) return;
+      const moving = residentGait?.moving ?? distance > .05;
+      if (residentGait?.facingLeft !== undefined) character.figure.setFlipX(residentGait.facingLeft);
+      if (moving) {
+        character.walkDistance = residentGait?.distance ?? character.walkDistance + distance;
+        const velocityX = residentGait?.velocityX ?? dx;
+        const velocityY = residentGait?.velocityY ?? dy;
+        // Near-vertical travel has no authored direction; retain the last
+        // horizontal facing instead of flipping for small lateral drift.
+        if (residentGait?.facingLeft === undefined && Math.abs(velocityX) > Math.abs(velocityY) * .25 && Math.abs(velocityX) > .05) character.figure.setFlipX(velocityX < 0);
+      } else character.walkDistance = 0;
+      const frame = residentWalkFrame(character.walkingAnimation.frames, character.walkDistance, moving);
+      if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
+      return;
+    }
     if (character.idleAnimation) {
-      if (character.localArtVariant !== undefined && distance > .05) character.figure.setFlipX(dx < -.05);
       const frame = this.interiorSpec ? character.idleAnimation.frames[0]
         : sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
       if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
@@ -1340,8 +1366,13 @@ class HarborScene extends Phaser.Scene {
       const visible = character.x >= view.x - 90 && character.x <= view.right + 90
         && character.y >= view.y - 100 && character.y <= view.bottom + 100;
       character.root.setVisible(visible && !this.terrainOnly);
-      if (!visible) continue;
-      this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed);
+      // Sampling the exact route gait also advances culled residents, so they
+      // return with the same pose and facing as continuously visible people.
+      this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed, Infinity, {
+        moving: position.moving, distance: residentWalkDistance(motion, this.decorativeElapsed),
+        velocityX: position.velocityX, velocityY: position.velocityY,
+        facingLeft: residentFacingLeft(motion, this.decorativeElapsed),
+      });
       // Passing locals have no quest markers or player labels to crowd the map.
       character.name.setVisible(!position.moving && this.controlsEnabled
         && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100);
@@ -1356,8 +1387,9 @@ class HarborScene extends Phaser.Scene {
 
   private fitCharacterToRoom(character: Character): void {
     const art = character.npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
-    const canvasHeight = character.idleAnimation?.height ?? art.height;
-    const bodyHeight = character.idleAnimation ? canvasHeight - 6 : art.bodyHeight;
+    const animation = character.walkingAnimation ?? character.idleAnimation;
+    const canvasHeight = animation?.height ?? art.height;
+    const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = !!this.interiorSpec;
     const scale = !character.npc && this.playerArtReady && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors);
     if (character.artScale === scale) return;
@@ -1399,14 +1431,18 @@ class HarborScene extends Phaser.Scene {
     const localFrames = localArtVariant === undefined ? undefined : regionPeopleFrames(localArtVariant);
     const hasLocalArt = localKey !== undefined && this.textures.exists(localKey) && localFrames!.every(frame => this.textures.get(localKey).has(frame));
     const localFrameSize = hasLocalArt ? this.textures.get(localKey!).get(localFrames![0]) : undefined;
-    const authoredIdle: SceneryAnimation | undefined = hasLocalArt ? {
+    const walkingAnimation: SceneryAnimation | undefined = hasLocalArt ? {
       key: localKey!, frames: localFrames!, fps: 3,
-      width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width, originX: .5, originY: 1,
-    } : npc ? idleManifest?.assets[id] : undefined;
+      width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width,
+      originX: localFrameSize!.customPivot ? localFrameSize!.pivotX : .5,
+      originY: localFrameSize!.customPivot ? localFrameSize!.pivotY : 1,
+    } : undefined;
+    const authoredIdle = npc && !walkingAnimation ? idleManifest?.assets[id] : undefined;
     const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
-    const idleFrame = idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined;
-    const artScale = !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (idleAnimation?.height ?? art.height);
-    const layers = idleAnimation ? [this.add.image(0, 0, idleAnimation.key, idleFrame).setOrigin(idleAnimation.originX, idleAnimation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
+    const animation = walkingAnimation ?? idleAnimation;
+    const idleFrame = walkingAnimation?.frames[0] ?? (idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined);
+    const artScale = !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
+    const layers = animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(y + 10);
@@ -1415,7 +1451,7 @@ class HarborScene extends Phaser.Scene {
       roleText = this.add.text(0, 13, role, { fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
-    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, idleFrame, localArtVariant };
+    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, walkingAnimation, idleFrame, localArtVariant };
     this.fitCharacterToRoom(character);
     this.tintCharacter(character);
     this.setCharacterAmbient(character);

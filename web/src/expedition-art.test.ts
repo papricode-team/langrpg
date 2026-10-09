@@ -5,7 +5,11 @@ import { getPlacedScenery } from './placed-scenery';
 import { sampleSceneryFrame, type SceneryAnimationManifest } from './scenery-animation';
 import { regionPeopleKey } from './world-map-assets';
 
-interface Atlas { frames: Record<string, { frame: { x:number;y:number;w:number;h:number }; sourceSize:{w:number;h:number} }>; meta:{size:{w:number;h:number}}; }
+interface Atlas { frames: Record<string, {
+  frame: { x:number;y:number;w:number;h:number }; sourceSize:{w:number;h:number};
+  pivot?:{x:number;y:number};
+  registration?:{scale:number;outputTorsoX:number;outputSoleY:number};
+}>; meta:{size:{w:number;h:number}}; }
 const files = import.meta.glob(['../public/assets/*-props.json','../public/assets/*-motions.json','../public/assets/*-people*.json','../public/assets/*-day-animations.json','../public/assets/*-night-animations.json'], { eager:true, import:'default' });
 const readAtlas = (name:string): Atlas => files[`../public/assets/${name}.json`] as Atlas;
 
@@ -58,8 +62,20 @@ describe('exported expedition sprites', () => {
     const paintings=new Set<string>();
     for (let variant=0;variant<16;variant++) {
       const key=regionPeopleKey(map.id,variant),atlas=readAtlas(key);
-      const sizes=Array.from({length:4},(_,index)=>atlas.frames[`person-${variant}-${index}`]?.sourceSize);
+      const poses=Array.from({length:4},(_,index)=>atlas.frames[`person-${variant}-${index}`]);
+      const sizes=poses.map(pose=>pose?.sourceSize);
       expect(sizes.every(size=>!!size&&size.w===sizes[0].w&&size.h===sizes[0].h)).toBe(true);
+      for (const pose of poses) {
+        expect(pose.registration,`${key}: each complete pose must be registered`).toBeDefined();
+        expect(pose.pivot,`${key}: runtime needs the registered ground pivot`).toBeDefined();
+        expect(pose.pivot!.x).toBeCloseTo(.5);
+        expect(pose.pivot!.y).toBeGreaterThan(0);
+        expect(pose.pivot!.y).toBeLessThanOrEqual(1);
+        expect(pose.pivot!.x*pose.frame.w).toBeCloseTo(pose.registration!.outputTorsoX);
+        expect(pose.pivot!.y*pose.frame.h).toBeCloseTo(pose.registration!.outputSoleY);
+        expect(pose.pivot).toEqual(poses[0].pivot);
+        expect(pose.registration!.scale).toBe(poses[0].registration!.scale);
+      }
       keys.add(`${key}:person-${variant}-0`);
       const frame=atlas.frames[`person-${variant}-0`].frame;
       const pixels=await sharp(new URL(`../public/assets/${key}.webp`,import.meta.url).pathname)

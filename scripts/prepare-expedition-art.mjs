@@ -5,6 +5,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import ts from 'typescript';
 import { expeditionArt, propFrames } from './expedition-art-plan.mjs';
+import { peopleGrid, registerPeopleSequence } from './expedition-people-registration.mjs';
+import { reviewedPeopleSeams } from './expedition-people-seam-reviews.mjs';
 const root=resolve(import.meta.dirname,'..'), sourceDir=resolve(root,'art/source/expeditions'), out=resolve(root,'web/public/assets');
 await mkdir(out,{recursive:true});
 const compiled=ts.transpileModule(await readFile(resolve(root,'web/src/expeditions.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;
@@ -14,6 +16,18 @@ const partial=process.argv.includes('--partial');
 const peopleOnly=process.argv.includes('--people-only');
 const peoplePages=[{kind:'people',rows:4,offset:0},{kind:'people-1',rows:6,offset:4},{kind:'people-2',rows:6,offset:10}];
 const frameSpec=(x,y,w,h)=>({frame:{x,y,w,h},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w,h},sourceSize:{w,h}});
+
+async function peopleCells(path,rows){
+ if(!(await sharp(path).metadata()).hasAlpha)throw Error(`${path}: actual alpha required`);
+ const {data,info}=await sharp(path).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+ const key=path.split('/').at(-1).replace(/\.png$/,''),grid=peopleGrid({data,width:info.width,height:info.height},4,rows,reviewedPeopleSeams[key]),result=[];
+ for(let row=0;row<rows;row++)for(const cell of registerPeopleSequence(grid.cells.filter(cell=>cell.row===row))){
+  const buffer=await sharp(cell.data,{raw:{width:cell.width,height:cell.height,channels:4}}).png().toBuffer();
+  result.push({...cell,buffer});
+ }
+ result.seams=grid.seams;
+ return result;
+}
 
 async function cells(path,cols,rows,registered=false){
  const image=sharp(path),meta=await image.metadata();
@@ -69,11 +83,17 @@ async function pack(id,kind,items,names){
   const item=items[i],scale=Math.min(1,280/Math.max(item.width,item.height)),w=Math.round(item.width*scale),h=Math.round(item.height*scale);
   if(x+w+2>width){x=2;y+=rowHeight+4;rowHeight=0;}
   const buffer=await sharp(item.buffer).resize(w,h).png().toBuffer();
-  frames[names[i]]=frameSpec(x,y,w,h);layers.push({input:buffer,left:x,top:y});x+=w+4;rowHeight=Math.max(rowHeight,h);
+  frames[names[i]]=frameSpec(x,y,w,h);
+  if(item.registration){
+   frames[names[i]].registration={...item.registration,scale,outputTorsoX:item.registration.torsoX*w/item.width,outputSoleY:item.registration.soleY*h/item.height};
+   frames[names[i]].pivot={x:item.registration.torsoX/item.width,y:item.registration.soleY/item.height};
+  }
+  layers.push({input:buffer,left:x,top:y});x+=w+4;rowHeight=Math.max(rowHeight,h);
  }
  const height=y+rowHeight+2;if(height>2048)throw Error(`${id}-${kind}: atlas too tall`);
  await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(layers).webp({quality:90,alphaQuality:100,effort:4}).toFile(resolve(out,`${id}-${kind}.webp`));
  const atlas={frames,meta:{image:`${id}-${kind}.webp`,size:{w:width,h:height},scale:'1'}};
+ if(items.seams)atlas.meta.peopleRegistration={version:1,anchor:'Robust torso center and planted sole; complete-frame translation; one scale per identity',seams:items.seams};
  await writeFile(resolve(out,`${id}-${kind}.json`),JSON.stringify(atlas,null,2)+'\n');return atlas;
 }
 
@@ -90,7 +110,7 @@ if(!process.argv.includes('--previews-only')) for(const region of expeditionArt.
  await perform('people',async()=>{
   const identities=[];
   for(const page of peoplePages){
-   const sprites=await cells(resolve(sourceDir,`${id}-${page.kind}.png`),4,page.rows,true);
+   const sprites=await peopleCells(resolve(sourceDir,`${id}-${page.kind}.png`),page.rows);
    await pack(id,page.kind,sprites,sprites.map(s=>`person-${page.offset+s.row}-${s.col}`));
    for(let row=0;row<page.rows;row++)identities[page.offset+row]=sprites[row*4];
   }

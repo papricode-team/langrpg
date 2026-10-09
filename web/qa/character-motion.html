@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Character motion · Lantern Atlas QA</title>
+<style>
+body{margin:0;background:#182f2d;color:#fcf1d8;font:14px system-ui}main{max-width:920px;margin:24px auto;padding:0 16px}h1{font-size:22px;margin:0 0 8px}p{line-height:1.5}header{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}label{display:grid;gap:4px}select{font:inherit;padding:8px;color:#14352e;background:#fcf1d8;border:0;border-radius:4px;min-height:40px}#people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.person{background:#243f3a;border:1px solid #527264;border-radius:6px;padding:8px;text-align:center}.person canvas{display:block;max-width:100%;height:auto;margin:auto}.person p{margin:4px 0;font-size:12px}#status{min-height:20px;color:#d6d2b9}a{color:#fcf1d8}@media(max-width:600px){#people{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main>
+<h1>Regional character motion</h1>
+<p>Review all sixteen painted identities at a fixed ground pivot. The cross marks the path position; walking uses the same distance sampler as the game. <a href="./world-assets.html">Open the world renderer</a>.</p>
+<header>
+<label>Region<select id="region" aria-label="Region"></select></label>
+<label>Movement<select id="movement" aria-label="Movement"><option value="walking">Walking</option><option value="stopped">Standing</option><option value="pauses">Walk with pauses</option><option value="manual">Fixed pose</option></select></label>
+<label>Speed<select id="speed" aria-label="Walking speed"><option value="32">32 px/s</option><option value="50" selected>50 px/s</option><option value="80">80 px/s</option></select></label>
+<label>Pose<select id="pose" aria-label="Fixed pose"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option></select></label>
+</header>
+<p id="status" role="status">Loading character artwork…</p>
+<div id="people"></div>
+</main>
+<script type="module">
+import { getExpedition, expeditionMaps, expeditionResidentSpecs } from '../src/expeditions.ts';
+import { regionPeopleKey, regionPeopleFrames } from '../src/world-map-assets.ts';
+import { residentWalkFrame } from '../src/resident-animation.ts';
+
+const region=document.querySelector('#region'),movement=document.querySelector('#movement'),speed=document.querySelector('#speed'),pose=document.querySelector('#pose');
+const status=document.querySelector('#status'),grid=document.querySelector('#people');
+let characters=[],loadVersion=0,elapsed=0,lastTime=null,request=0;
+region.innerHTML=expeditionMaps.map(map=>`<option value="${map.id}">${map.name}</option>`).join('');
+region.value=new URLSearchParams(location.search).get('region')??'windplain';
+if(!region.value)region.value='windplain';
+
+async function loadRegion(){
+ const version=++loadVersion,id=region.value;
+ characters=[];grid.replaceChildren();status.textContent='Loading character artwork…';elapsed=0;lastTime=null;
+ try{
+  const pages=await Promise.all([0,4,10].map(async variant=>{
+   const key=regionPeopleKey(id,variant);
+   const [atlas,image]=await Promise.all([
+    fetch(`/assets/${key}.json`).then(response=>{if(!response.ok)throw Error(`Missing atlas ${key}`);return response.json();}),
+    new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error(`Missing artwork ${key}`));image.src=`/assets/${key}.webp`;})
+   ]);
+   return {key,atlas,image};
+  }));
+  if(version!==loadVersion)return;
+  const names=[...getExpedition(id).npcs,...expeditionResidentSpecs[id]].map(person=>person.name);
+  characters=Array.from({length:16},(_,variant)=>{
+   const page=pages.find(page=>page.key===regionPeopleKey(id,variant));
+   const card=document.createElement('div');card.className='person';
+   const canvas=document.createElement('canvas');canvas.width=180;canvas.height=170;canvas.setAttribute('aria-label',`${names[variant]} animation preview`);
+   const label=document.createElement('p');label.textContent=`${variant} · ${names[variant]} · ${variant<8?'neighbor':'roaming local'}`;
+   card.append(canvas,label);grid.append(card);
+   return {variant,page,canvas,context:canvas.getContext('2d'),frames:regionPeopleFrames(variant)};
+  });
+  paint();
+ }catch(error){if(version===loadVersion)status.textContent=error.message;}
+}
+
+function paint(){
+ const seconds=movement.value==='pauses'?elapsed%4:elapsed;
+ const moving=movement.value==='walking'||movement.value==='pauses'&&seconds<3;
+ const distance=(movement.value==='pauses'?Math.min(seconds,3):seconds)*Number(speed.value);
+ for(const character of characters){
+  const frame=movement.value==='manual'?character.frames[Number(pose.value)]:residentWalkFrame(character.frames,distance,moving);
+  const asset=character.page.atlas.frames[frame],{x,y,w,h}=asset.frame,context=character.context;
+  context.clearRect(0,0,180,170);
+  context.strokeStyle='#7d968066';context.beginPath();context.moveTo(14,148);context.lineTo(166,148);context.moveTo(90,32);context.lineTo(90,156);context.stroke();
+  context.fillStyle='#10272399';context.beginPath();context.ellipse(90,150,23,6,0,0,Math.PI*2);context.fill();
+  const scale=123/h;
+  context.drawImage(character.page.image,x,y,w,h,90-w*scale*(asset.pivot?.x??.5),148-h*scale*(asset.pivot?.y??1),w*scale,h*scale);
+ }
+ if(characters.length)status.textContent=`${region.selectedOptions[0].textContent} · 16 identities · ${movement.value==='manual'?`pose ${Number(pose.value)+1}`:moving?'walking':'standing'} · ${speed.value} px/s`;
+}
+
+function tick(timestamp){
+ if(!document.hidden&&lastTime!==null)elapsed+=Math.min(100,timestamp-lastTime)/1000;
+ lastTime=document.hidden?null:timestamp;paint();request=requestAnimationFrame(tick);
+}
+region.addEventListener('change',loadRegion);
+for(const control of [movement,speed,pose])control.addEventListener('change',()=>{elapsed=0;paint();});
+document.addEventListener('visibilitychange',()=>{lastTime=null;});
+addEventListener('pagehide',()=>{cancelAnimationFrame(request);loadVersion++;},{once:true});
+if(import.meta.env.DEV){loadRegion();request=requestAnimationFrame(tick);}else status.textContent='This fixture is available on the development server.';
+</script>
+</body>
+</html>

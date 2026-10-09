@@ -38,7 +38,7 @@ The initial region loads only its current period. Loading, cache checks and rele
 
 ## Watching and accessibility
 
-Three background residents per region follow navigation-tested routes with painted directional walking frames. Seven story residents use six-frame painted idle sequences; their fixed foot pivots preserve contact with the ground. The **Watch the world** control hides the HUD and follows a slow camera tour. Escape returns to exploration. Camera motion and decorative animation obey the configured reduced-motion preference.
+Three background residents in each original region follow navigation-tested routes with painted directional walking frames. The ten expeditions each have eight roaming residents with four registered poses, sampled by route distance; named neighbors and locals at a stop hold a standing pose. Their single-view paintings support horizontal mirroring. Seven original story residents use six-frame painted idle sequences; their fixed foot pivots preserve contact with the ground. The **Watch the world** control hides the HUD and follows a slow camera tour. Escape returns to exploration. Camera motion and decorative animation obey the configured reduced-motion preference.
 
 Settings → World motion offers Follow device preference, Full world animation and Calm, still scenery. The choice persists. Still scenery freezes the current painted frame and resident routines. Player movement remains available. The world sleeps behind menus and when the page is hidden.
 

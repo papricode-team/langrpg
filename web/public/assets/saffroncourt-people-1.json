@@ -4,480 +4,1440 @@
       "frame": {
         "x": 2,
         "y": 2,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "sourceSize": {
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
+      },
+      "registration": {
+        "translation": {
+          "x": -93,
+          "y": -3
+        },
+        "torsoX": 64,
+        "soleY": 235,
+        "sourceGeometry": {
+          "torsoX": 157,
+          "soleY": 238,
+          "bodyHeight": 231,
+          "bodyBounds": {
+            "left": 108,
+            "top": 8,
+            "right": 210,
+            "bottom": 238
+          },
+          "crop": {
+            "left": 105,
+            "top": 5,
+            "right": 213,
+            "bottom": 241
+          },
+          "silhouettePixels": 12001
+        },
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 284,
+          "height": 250
+        },
+        "cropPixelsPreserved": 25833,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 235
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975103734439834
       }
     },
     "person-4-1": {
       "frame": {
-        "x": 162,
+        "x": 134,
         "y": 2,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "sourceSize": {
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
+      },
+      "registration": {
+        "translation": {
+          "x": -71,
+          "y": 3
+        },
+        "torsoX": 64,
+        "soleY": 235,
+        "sourceGeometry": {
+          "torsoX": 135,
+          "soleY": 232,
+          "bodyHeight": 225,
+          "bodyBounds": {
+            "left": 80,
+            "top": 8,
+            "right": 192,
+            "bottom": 232
+          },
+          "crop": {
+            "left": 77,
+            "top": 5,
+            "right": 195,
+            "bottom": 235
+          },
+          "silhouettePixels": 12446
+        },
+        "source": {
+          "left": 284,
+          "top": 0,
+          "width": 259,
+          "height": 241
+        },
+        "cropPixelsPreserved": 27489,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 235
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975103734439834
       }
     },
     "person-4-2": {
       "frame": {
-        "x": 322,
+        "x": 266,
         "y": 2,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "sourceSize": {
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
+      },
+      "registration": {
+        "translation": {
+          "x": -71,
+          "y": -2
+        },
+        "torsoX": 64,
+        "soleY": 235,
+        "sourceGeometry": {
+          "torsoX": 135,
+          "soleY": 237,
+          "bodyHeight": 230,
+          "bodyBounds": {
+            "left": 90,
+            "top": 8,
+            "right": 190,
+            "bottom": 237
+          },
+          "crop": {
+            "left": 87,
+            "top": 5,
+            "right": 193,
+            "bottom": 240
+          },
+          "silhouettePixels": 12242
+        },
+        "source": {
+          "left": 543,
+          "top": 0,
+          "width": 282,
+          "height": 252
+        },
+        "cropPixelsPreserved": 25252,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 235
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975103734439834
       }
     },
     "person-4-3": {
       "frame": {
-        "x": 482,
+        "x": 398,
         "y": 2,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
       },
       "sourceSize": {
-        "w": 156,
-        "h": 236
+        "w": 128,
+        "h": 241
+      },
+      "registration": {
+        "translation": {
+          "x": -41,
+          "y": -3
+        },
+        "torsoX": 64,
+        "soleY": 235,
+        "sourceGeometry": {
+          "torsoX": 105,
+          "soleY": 238,
+          "bodyHeight": 231,
+          "bodyBounds": {
+            "left": 49,
+            "top": 8,
+            "right": 164,
+            "bottom": 238
+          },
+          "crop": {
+            "left": 46,
+            "top": 5,
+            "right": 166,
+            "bottom": 240
+          },
+          "silhouettePixels": 12554
+        },
+        "source": {
+          "left": 825,
+          "top": 0,
+          "width": 261,
+          "height": 241
+        },
+        "cropPixelsPreserved": 28556,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 235
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975103734439834
       }
     },
     "person-5-0": {
       "frame": {
-        "x": 642,
+        "x": 530,
         "y": 2,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "sourceSize": {
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
+      },
+      "registration": {
+        "translation": {
+          "x": -87,
+          "y": 3
+        },
+        "torsoX": 65,
+        "soleY": 244,
+        "sourceGeometry": {
+          "torsoX": 152,
+          "soleY": 241,
+          "bodyHeight": 235,
+          "bodyBounds": {
+            "left": 98,
+            "top": 7,
+            "right": 211,
+            "bottom": 241
+          },
+          "crop": {
+            "left": 95,
+            "top": 4,
+            "right": 214,
+            "bottom": 243
+          },
+          "silhouettePixels": 13295
+        },
+        "source": {
+          "left": 0,
+          "top": 237,
+          "width": 284,
+          "height": 252
+        },
+        "cropPixelsPreserved": 28800,
+        "scale": 1,
+        "outputTorsoX": 65,
+        "outputSoleY": 244
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.976
       }
     },
     "person-5-1": {
       "frame": {
-        "x": 794,
+        "x": 664,
         "y": 2,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "sourceSize": {
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
+      },
+      "registration": {
+        "translation": {
+          "x": -72,
+          "y": -5
+        },
+        "torsoX": 65,
+        "soleY": 244,
+        "sourceGeometry": {
+          "torsoX": 137,
+          "soleY": 249,
+          "bodyHeight": 239,
+          "bodyBounds": {
+            "left": 86,
+            "top": 11,
+            "right": 195,
+            "bottom": 249
+          },
+          "crop": {
+            "left": 83,
+            "top": 8,
+            "right": 198,
+            "bottom": 252
+          },
+          "silhouettePixels": 13748
+        },
+        "source": {
+          "left": 284,
+          "top": 231,
+          "width": 259,
+          "height": 254
+        },
+        "cropPixelsPreserved": 28420,
+        "scale": 1,
+        "outputTorsoX": 65,
+        "outputSoleY": 244
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.976
       }
     },
     "person-5-2": {
       "frame": {
-        "x": 2,
-        "y": 247,
-        "w": 148,
-        "h": 241
+        "x": 798,
+        "y": 2,
+        "w": 130,
+        "h": 250
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "sourceSize": {
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
+      },
+      "registration": {
+        "translation": {
+          "x": -72,
+          "y": -6
+        },
+        "torsoX": 65,
+        "soleY": 244,
+        "sourceGeometry": {
+          "torsoX": 137,
+          "soleY": 250,
+          "bodyHeight": 240,
+          "bodyBounds": {
+            "left": 88,
+            "top": 11,
+            "right": 194,
+            "bottom": 250
+          },
+          "crop": {
+            "left": 86,
+            "top": 8,
+            "right": 197,
+            "bottom": 253
+          },
+          "silhouettePixels": 13672
+        },
+        "source": {
+          "left": 543,
+          "top": 231,
+          "width": 282,
+          "height": 254
+        },
+        "cropPixelsPreserved": 27552,
+        "scale": 1,
+        "outputTorsoX": 65,
+        "outputSoleY": 244
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.976
       }
     },
     "person-5-3": {
       "frame": {
-        "x": 154,
-        "y": 247,
-        "w": 148,
-        "h": 241
+        "x": 2,
+        "y": 256,
+        "w": 130,
+        "h": 250
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
       },
       "sourceSize": {
-        "w": 148,
-        "h": 241
+        "w": 130,
+        "h": 250
+      },
+      "registration": {
+        "translation": {
+          "x": -41,
+          "y": -3
+        },
+        "torsoX": 65,
+        "soleY": 244,
+        "sourceGeometry": {
+          "torsoX": 106,
+          "soleY": 247,
+          "bodyHeight": 240,
+          "bodyBounds": {
+            "left": 58,
+            "top": 8,
+            "right": 159,
+            "bottom": 247
+          },
+          "crop": {
+            "left": 55,
+            "top": 5,
+            "right": 162,
+            "bottom": 248
+          },
+          "silhouettePixels": 13342
+        },
+        "source": {
+          "left": 825,
+          "top": 234,
+          "width": 261,
+          "height": 249
+        },
+        "cropPixelsPreserved": 26352,
+        "scale": 1,
+        "outputTorsoX": 65,
+        "outputSoleY": 244
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.976
       }
     },
     "person-6-0": {
       "frame": {
-        "x": 306,
-        "y": 247,
-        "w": 134,
-        "h": 232
+        "x": 136,
+        "y": 256,
+        "w": 122,
+        "h": 237
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
       },
       "sourceSize": {
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
+      },
+      "registration": {
+        "translation": {
+          "x": -89,
+          "y": 0
+        },
+        "torsoX": 61,
+        "soleY": 231,
+        "sourceGeometry": {
+          "torsoX": 150,
+          "soleY": 231,
+          "bodyHeight": 227,
+          "bodyBounds": {
+            "left": 98,
+            "top": 5,
+            "right": 201,
+            "bottom": 231
+          },
+          "crop": {
+            "left": 95,
+            "top": 2,
+            "right": 204,
+            "bottom": 234
+          },
+          "silhouettePixels": 14725
+        },
+        "source": {
+          "left": 0,
+          "top": 478,
+          "width": 284,
+          "height": 246
+        },
+        "cropPixelsPreserved": 25630,
+        "scale": 1,
+        "outputTorsoX": 61,
+        "outputSoleY": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9746835443037974
       }
     },
     "person-6-1": {
       "frame": {
-        "x": 444,
-        "y": 247,
-        "w": 134,
-        "h": 232
+        "x": 262,
+        "y": 256,
+        "w": 122,
+        "h": 237
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
       },
       "sourceSize": {
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
+      },
+      "registration": {
+        "translation": {
+          "x": -75,
+          "y": -5
+        },
+        "torsoX": 61,
+        "soleY": 231,
+        "sourceGeometry": {
+          "torsoX": 136,
+          "soleY": 236,
+          "bodyHeight": 226,
+          "bodyBounds": {
+            "left": 80,
+            "top": 11,
+            "right": 189,
+            "bottom": 236
+          },
+          "crop": {
+            "left": 77,
+            "top": 8,
+            "right": 191,
+            "bottom": 239
+          },
+          "silhouettePixels": 14377
+        },
+        "source": {
+          "left": 284,
+          "top": 473,
+          "width": 259,
+          "height": 251
+        },
+        "cropPixelsPreserved": 26680,
+        "scale": 1,
+        "outputTorsoX": 61,
+        "outputSoleY": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9746835443037974
       }
     },
     "person-6-2": {
       "frame": {
-        "x": 582,
-        "y": 247,
-        "w": 134,
-        "h": 232
+        "x": 388,
+        "y": 256,
+        "w": 122,
+        "h": 237
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
       },
       "sourceSize": {
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
+      },
+      "registration": {
+        "translation": {
+          "x": -78,
+          "y": 2
+        },
+        "torsoX": 61,
+        "soleY": 231,
+        "sourceGeometry": {
+          "torsoX": 139,
+          "soleY": 229,
+          "bodyHeight": 227,
+          "bodyBounds": {
+            "left": 91,
+            "top": 3,
+            "right": 187,
+            "bottom": 229
+          },
+          "crop": {
+            "left": 88,
+            "top": 0,
+            "right": 190,
+            "bottom": 232
+          },
+          "silhouettePixels": 15256
+        },
+        "source": {
+          "left": 543,
+          "top": 480,
+          "width": 282,
+          "height": 244
+        },
+        "cropPixelsPreserved": 23999,
+        "scale": 1,
+        "outputTorsoX": 61,
+        "outputSoleY": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9746835443037974
       }
     },
     "person-6-3": {
       "frame": {
-        "x": 720,
-        "y": 247,
-        "w": 134,
-        "h": 232
+        "x": 514,
+        "y": 256,
+        "w": 122,
+        "h": 237
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
       },
       "sourceSize": {
-        "w": 134,
-        "h": 232
+        "w": 122,
+        "h": 237
+      },
+      "registration": {
+        "translation": {
+          "x": -50,
+          "y": -3
+        },
+        "torsoX": 61,
+        "soleY": 231,
+        "sourceGeometry": {
+          "torsoX": 111,
+          "soleY": 234,
+          "bodyHeight": 227,
+          "bodyBounds": {
+            "left": 62,
+            "top": 8,
+            "right": 161,
+            "bottom": 234
+          },
+          "crop": {
+            "left": 59,
+            "top": 5,
+            "right": 163,
+            "bottom": 236
+          },
+          "silhouettePixels": 14718
+        },
+        "source": {
+          "left": 825,
+          "top": 476,
+          "width": 261,
+          "height": 239
+        },
+        "cropPixelsPreserved": 24360,
+        "scale": 1,
+        "outputTorsoX": 61,
+        "outputSoleY": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9746835443037974
       }
     },
     "person-7-0": {
       "frame": {
-        "x": 858,
-        "y": 247,
-        "w": 144,
-        "h": 244
+        "x": 640,
+        "y": 256,
+        "w": 128,
+        "h": 256
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
       },
       "sourceSize": {
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
+      },
+      "registration": {
+        "translation": {
+          "x": -88,
+          "y": -1
+        },
+        "torsoX": 64,
+        "soleY": 250,
+        "sourceGeometry": {
+          "torsoX": 152,
+          "soleY": 251,
+          "bodyHeight": 241,
+          "bodyBounds": {
+            "left": 97,
+            "top": 11,
+            "right": 208,
+            "bottom": 251
+          },
+          "crop": {
+            "left": 94,
+            "top": 8,
+            "right": 211,
+            "bottom": 254
+          },
+          "silhouettePixels": 15108
+        },
+        "source": {
+          "left": 0,
+          "top": 705,
+          "width": 284,
+          "height": 260
+        },
+        "cropPixelsPreserved": 29146,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 250
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9765625
       }
     },
     "person-7-1": {
       "frame": {
-        "x": 2,
-        "y": 495,
-        "w": 144,
-        "h": 244
+        "x": 772,
+        "y": 256,
+        "w": 128,
+        "h": 256
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
       },
       "sourceSize": {
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
+      },
+      "registration": {
+        "translation": {
+          "x": -73,
+          "y": -4
+        },
+        "torsoX": 64,
+        "soleY": 250,
+        "sourceGeometry": {
+          "torsoX": 137,
+          "soleY": 254,
+          "bodyHeight": 244,
+          "bodyBounds": {
+            "left": 84,
+            "top": 11,
+            "right": 193,
+            "bottom": 254
+          },
+          "crop": {
+            "left": 81,
+            "top": 7,
+            "right": 196,
+            "bottom": 257
+          },
+          "silhouettePixels": 14626
+        },
+        "source": {
+          "left": 284,
+          "top": 704,
+          "width": 259,
+          "height": 261
+        },
+        "cropPixelsPreserved": 29116,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 250
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9765625
       }
     },
     "person-7-2": {
       "frame": {
-        "x": 150,
-        "y": 495,
-        "w": 144,
-        "h": 244
+        "x": 2,
+        "y": 516,
+        "w": 128,
+        "h": 256
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
       },
       "sourceSize": {
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
+      },
+      "registration": {
+        "translation": {
+          "x": -70,
+          "y": -3
+        },
+        "torsoX": 64,
+        "soleY": 250,
+        "sourceGeometry": {
+          "torsoX": 134,
+          "soleY": 253,
+          "bodyHeight": 245,
+          "bodyBounds": {
+            "left": 81,
+            "top": 9,
+            "right": 192,
+            "bottom": 253
+          },
+          "crop": {
+            "left": 79,
+            "top": 5,
+            "right": 195,
+            "bottom": 256
+          },
+          "silhouettePixels": 14617
+        },
+        "source": {
+          "left": 543,
+          "top": 707,
+          "width": 282,
+          "height": 259
+        },
+        "cropPixelsPreserved": 29484,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 250
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9765625
       }
     },
     "person-7-3": {
       "frame": {
-        "x": 298,
-        "y": 495,
-        "w": 144,
-        "h": 244
+        "x": 134,
+        "y": 516,
+        "w": 128,
+        "h": 256
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
       },
       "sourceSize": {
-        "w": 144,
-        "h": 244
+        "w": 128,
+        "h": 256
+      },
+      "registration": {
+        "translation": {
+          "x": -50,
+          "y": -6
+        },
+        "torsoX": 64,
+        "soleY": 250,
+        "sourceGeometry": {
+          "torsoX": 114,
+          "soleY": 256,
+          "bodyHeight": 243,
+          "bodyBounds": {
+            "left": 59,
+            "top": 14,
+            "right": 168,
+            "bottom": 256
+          },
+          "crop": {
+            "left": 56,
+            "top": 11,
+            "right": 171,
+            "bottom": 259
+          },
+          "silhouettePixels": 14515
+        },
+        "source": {
+          "left": 825,
+          "top": 702,
+          "width": 261,
+          "height": 263
+        },
+        "cropPixelsPreserved": 28884,
+        "scale": 1,
+        "outputTorsoX": 64,
+        "outputSoleY": 250
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9765625
       }
     },
     "person-8-0": {
       "frame": {
-        "x": 446,
-        "y": 495,
-        "w": 177,
-        "h": 231
+        "x": 266,
+        "y": 516,
+        "w": 152,
+        "h": 240
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
       },
       "sourceSize": {
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
+      },
+      "registration": {
+        "translation": {
+          "x": -80,
+          "y": 0
+        },
+        "torsoX": 76,
+        "soleY": 234,
+        "sourceGeometry": {
+          "torsoX": 156,
+          "soleY": 234,
+          "bodyHeight": 230,
+          "bodyBounds": {
+            "left": 89,
+            "top": 5,
+            "right": 224,
+            "bottom": 234
+          },
+          "crop": {
+            "left": 86,
+            "top": 2,
+            "right": 227,
+            "bottom": 237
+          },
+          "silhouettePixels": 18176
+        },
+        "source": {
+          "left": 0,
+          "top": 953,
+          "width": 284,
+          "height": 253
+        },
+        "cropPixelsPreserved": 33512,
+        "scale": 1,
+        "outputTorsoX": 76,
+        "outputSoleY": 234
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
       }
     },
     "person-8-1": {
       "frame": {
-        "x": 627,
-        "y": 495,
-        "w": 177,
-        "h": 231
+        "x": 422,
+        "y": 516,
+        "w": 152,
+        "h": 240
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
       },
       "sourceSize": {
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
+      },
+      "registration": {
+        "translation": {
+          "x": -68,
+          "y": -1
+        },
+        "torsoX": 76,
+        "soleY": 234,
+        "sourceGeometry": {
+          "torsoX": 144,
+          "soleY": 235,
+          "bodyHeight": 229,
+          "bodyBounds": {
+            "left": 78,
+            "top": 7,
+            "right": 214,
+            "bottom": 235
+          },
+          "crop": {
+            "left": 75,
+            "top": 4,
+            "right": 217,
+            "bottom": 238
+          },
+          "silhouettePixels": 18541
+        },
+        "source": {
+          "left": 284,
+          "top": 952,
+          "width": 259,
+          "height": 253
+        },
+        "cropPixelsPreserved": 33605,
+        "scale": 1,
+        "outputTorsoX": 76,
+        "outputSoleY": 234
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
       }
     },
     "person-8-2": {
       "frame": {
-        "x": 808,
-        "y": 495,
-        "w": 177,
-        "h": 231
+        "x": 578,
+        "y": 516,
+        "w": 152,
+        "h": 240
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
       },
       "sourceSize": {
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
+      },
+      "registration": {
+        "translation": {
+          "x": -64,
+          "y": 3
+        },
+        "torsoX": 76,
+        "soleY": 234,
+        "sourceGeometry": {
+          "torsoX": 140,
+          "soleY": 231,
+          "bodyHeight": 227,
+          "bodyBounds": {
+            "left": 73,
+            "top": 5,
+            "right": 209,
+            "bottom": 231
+          },
+          "crop": {
+            "left": 70,
+            "top": 2,
+            "right": 212,
+            "bottom": 234
+          },
+          "silhouettePixels": 18014
+        },
+        "source": {
+          "left": 543,
+          "top": 957,
+          "width": 282,
+          "height": 249
+        },
+        "cropPixelsPreserved": 33319,
+        "scale": 1,
+        "outputTorsoX": 76,
+        "outputSoleY": 234
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
       }
     },
     "person-8-3": {
       "frame": {
-        "x": 2,
-        "y": 743,
-        "w": 177,
-        "h": 231
+        "x": 734,
+        "y": 516,
+        "w": 152,
+        "h": 240
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
       },
       "sourceSize": {
-        "w": 177,
-        "h": 231
+        "w": 152,
+        "h": 240
+      },
+      "registration": {
+        "translation": {
+          "x": -38,
+          "y": -1
+        },
+        "torsoX": 76,
+        "soleY": 234,
+        "sourceGeometry": {
+          "torsoX": 114,
+          "soleY": 235,
+          "bodyHeight": 230,
+          "bodyBounds": {
+            "left": 45,
+            "top": 6,
+            "right": 184,
+            "bottom": 235
+          },
+          "crop": {
+            "left": 42,
+            "top": 3,
+            "right": 186,
+            "bottom": 238
+          },
+          "silhouettePixels": 18428
+        },
+        "source": {
+          "left": 825,
+          "top": 953,
+          "width": 261,
+          "height": 252
+        },
+        "cropPixelsPreserved": 34220,
+        "scale": 1,
+        "outputTorsoX": 76,
+        "outputSoleY": 234
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
       }
     },
     "person-9-0": {
       "frame": {
-        "x": 183,
-        "y": 743,
-        "w": 164,
-        "h": 255
+        "x": 2,
+        "y": 776,
+        "w": 146,
+        "h": 260
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
       },
       "sourceSize": {
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
+      },
+      "registration": {
+        "translation": {
+          "x": -85,
+          "y": 3
+        },
+        "torsoX": 73,
+        "soleY": 254,
+        "sourceGeometry": {
+          "torsoX": 158,
+          "soleY": 251,
+          "bodyHeight": 250,
+          "bodyBounds": {
+            "left": 98,
+            "top": 2,
+            "right": 223,
+            "bottom": 251
+          },
+          "crop": {
+            "left": 95,
+            "top": 0,
+            "right": 226,
+            "bottom": 254
+          },
+          "silhouettePixels": 15764
+        },
+        "source": {
+          "left": 0,
+          "top": 1188,
+          "width": 284,
+          "height": 260
+        },
+        "cropPixelsPreserved": 33660,
+        "scale": 1,
+        "outputTorsoX": 73,
+        "outputSoleY": 254
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9769230769230769
       }
     },
     "person-9-1": {
       "frame": {
-        "x": 351,
-        "y": 743,
-        "w": 164,
-        "h": 255
+        "x": 152,
+        "y": 776,
+        "w": 146,
+        "h": 260
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
       },
       "sourceSize": {
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
+      },
+      "registration": {
+        "translation": {
+          "x": -72,
+          "y": -1
+        },
+        "torsoX": 73,
+        "soleY": 254,
+        "sourceGeometry": {
+          "torsoX": 145,
+          "soleY": 255,
+          "bodyHeight": 250,
+          "bodyBounds": {
+            "left": 86,
+            "top": 6,
+            "right": 201,
+            "bottom": 255
+          },
+          "crop": {
+            "left": 83,
+            "top": 3,
+            "right": 204,
+            "bottom": 258
+          },
+          "silhouettePixels": 14856
+        },
+        "source": {
+          "left": 284,
+          "top": 1184,
+          "width": 259,
+          "height": 264
+        },
+        "cropPixelsPreserved": 31232,
+        "scale": 1,
+        "outputTorsoX": 73,
+        "outputSoleY": 254
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9769230769230769
       }
     },
     "person-9-2": {
       "frame": {
-        "x": 519,
-        "y": 743,
-        "w": 164,
-        "h": 255
+        "x": 302,
+        "y": 776,
+        "w": 146,
+        "h": 260
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
       },
       "sourceSize": {
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
+      },
+      "registration": {
+        "translation": {
+          "x": -60,
+          "y": 0
+        },
+        "torsoX": 73,
+        "soleY": 254,
+        "sourceGeometry": {
+          "torsoX": 133,
+          "soleY": 254,
+          "bodyHeight": 249,
+          "bodyBounds": {
+            "left": 70,
+            "top": 6,
+            "right": 200,
+            "bottom": 254
+          },
+          "crop": {
+            "left": 67,
+            "top": 3,
+            "right": 203,
+            "bottom": 256
+          },
+          "silhouettePixels": 15600
+        },
+        "source": {
+          "left": 543,
+          "top": 1185,
+          "width": 282,
+          "height": 263
+        },
+        "cropPixelsPreserved": 34798,
+        "scale": 1,
+        "outputTorsoX": 73,
+        "outputSoleY": 254
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9769230769230769
       }
     },
     "person-9-3": {
       "frame": {
-        "x": 687,
-        "y": 743,
-        "w": 164,
-        "h": 255
+        "x": 452,
+        "y": 776,
+        "w": 146,
+        "h": 260
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
       },
       "sourceSize": {
-        "w": 164,
-        "h": 255
+        "w": 146,
+        "h": 260
+      },
+      "registration": {
+        "translation": {
+          "x": -41,
+          "y": 3
+        },
+        "torsoX": 73,
+        "soleY": 254,
+        "sourceGeometry": {
+          "torsoX": 114,
+          "soleY": 251,
+          "bodyHeight": 250,
+          "bodyBounds": {
+            "left": 54,
+            "top": 2,
+            "right": 175,
+            "bottom": 251
+          },
+          "crop": {
+            "left": 51,
+            "top": 0,
+            "right": 178,
+            "bottom": 254
+          },
+          "silhouettePixels": 15387
+        },
+        "source": {
+          "left": 825,
+          "top": 1189,
+          "width": 261,
+          "height": 259
+        },
+        "cropPixelsPreserved": 32640,
+        "scale": 1,
+        "outputTorsoX": 73,
+        "outputSoleY": 254
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9769230769230769
       }
     }
   },
@@ -485,8 +1445,212 @@
     "image": "saffroncourt-people-1.webp",
     "size": {
       "w": 1024,
-      "h": 1000
+      "h": 1038
     },
-    "scale": "1"
+    "scale": "1",
+    "peopleRegistration": {
+      "version": 1,
+      "anchor": "Robust torso center and planted sole; complete-frame translation; one scale per identity",
+      "seams": [
+        {
+          "axis": "x",
+          "column": 1,
+          "position": 284,
+          "opaquePixels": 0
+        },
+        {
+          "axis": "x",
+          "column": 2,
+          "position": 543,
+          "opaquePixels": 0
+        },
+        {
+          "axis": "x",
+          "column": 3,
+          "position": 825,
+          "opaquePixels": 0
+        },
+        {
+          "axis": "y",
+          "column": 0,
+          "row": 1,
+          "opaquePixels": 0,
+          "alphaSum": 6,
+          "minimum": 237,
+          "maximum": 250
+        },
+        {
+          "axis": "y",
+          "column": 0,
+          "row": 2,
+          "opaquePixels": 0,
+          "alphaSum": 21,
+          "minimum": 478,
+          "maximum": 489
+        },
+        {
+          "axis": "y",
+          "column": 0,
+          "row": 3,
+          "opaquePixels": 0,
+          "alphaSum": 27,
+          "minimum": 705,
+          "maximum": 724
+        },
+        {
+          "axis": "y",
+          "column": 0,
+          "row": 4,
+          "opaquePixels": 0,
+          "alphaSum": 35,
+          "minimum": 953,
+          "maximum": 965
+        },
+        {
+          "axis": "y",
+          "column": 0,
+          "row": 5,
+          "opaquePixels": 0,
+          "alphaSum": 31,
+          "minimum": 1188,
+          "maximum": 1206
+        },
+        {
+          "axis": "y",
+          "column": 1,
+          "row": 1,
+          "opaquePixels": 0,
+          "alphaSum": 8,
+          "minimum": 231,
+          "maximum": 241
+        },
+        {
+          "axis": "y",
+          "column": 1,
+          "row": 2,
+          "opaquePixels": 0,
+          "alphaSum": 17,
+          "minimum": 473,
+          "maximum": 485
+        },
+        {
+          "axis": "y",
+          "column": 1,
+          "row": 3,
+          "opaquePixels": 0,
+          "alphaSum": 27,
+          "minimum": 704,
+          "maximum": 724
+        },
+        {
+          "axis": "y",
+          "column": 1,
+          "row": 4,
+          "opaquePixels": 0,
+          "alphaSum": 13,
+          "minimum": 952,
+          "maximum": 965
+        },
+        {
+          "axis": "y",
+          "column": 1,
+          "row": 5,
+          "opaquePixels": 0,
+          "alphaSum": 11,
+          "minimum": 1184,
+          "maximum": 1205
+        },
+        {
+          "axis": "y",
+          "column": 2,
+          "row": 1,
+          "opaquePixels": 0,
+          "alphaSum": 16,
+          "minimum": 231,
+          "maximum": 252
+        },
+        {
+          "axis": "y",
+          "column": 2,
+          "row": 2,
+          "opaquePixels": 0,
+          "alphaSum": 28,
+          "minimum": 480,
+          "maximum": 485
+        },
+        {
+          "axis": "y",
+          "column": 2,
+          "row": 3,
+          "opaquePixels": 0,
+          "alphaSum": 23,
+          "minimum": 707,
+          "maximum": 724
+        },
+        {
+          "axis": "y",
+          "column": 2,
+          "row": 4,
+          "opaquePixels": 0,
+          "alphaSum": 50,
+          "minimum": 957,
+          "maximum": 966
+        },
+        {
+          "axis": "y",
+          "column": 2,
+          "row": 5,
+          "opaquePixels": 0,
+          "alphaSum": 11,
+          "minimum": 1185,
+          "maximum": 1206
+        },
+        {
+          "axis": "y",
+          "column": 3,
+          "row": 1,
+          "opaquePixels": 0,
+          "alphaSum": 18,
+          "minimum": 234,
+          "maximum": 241
+        },
+        {
+          "axis": "y",
+          "column": 3,
+          "row": 2,
+          "opaquePixels": 0,
+          "alphaSum": 172,
+          "minimum": 476,
+          "maximum": 483
+        },
+        {
+          "axis": "y",
+          "column": 3,
+          "row": 3,
+          "opaquePixels": 0,
+          "alphaSum": 51,
+          "minimum": 702,
+          "maximum": 715
+        },
+        {
+          "axis": "y",
+          "column": 3,
+          "row": 4,
+          "opaquePixels": 0,
+          "alphaSum": 20,
+          "minimum": 953,
+          "maximum": 965
+        },
+        {
+          "axis": "y",
+          "column": 3,
+          "row": 5,
+          "opaquePixels": 0,
+          "alphaSum": 11,
+          "minimum": 1189,
+          "maximum": 1205
+        }
+      ]
+    }
   }
 }

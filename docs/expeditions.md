@@ -44,7 +44,11 @@ The original worlds add 276 scenery instances, seven story NPCs, nine roaming re
 
 New architecture uses static transparent prop frames. Each motion row is a complete painted object with its own container, stand or pole: a moving plant, cloth shade, lantern or water feature. The 24 animated decorations have separate ground positions and normal foot-depth sorting. They are never stacked as floating pots in tree canopies or water features on vehicles. Daytime and nighttime reuse the same new motion atlases; lighting changes with the world clock. Reduced motion freezes their current frames.
 
-Each person has a stable character identity. Named neighbors use indices 0–7; roaming residents use 8–15. Three separate character pages hold identities 0–3, 4–9 and 10–15, with four registered animation poses per person. The eight named-neighbor portraits use those same identities. Character assignments never wrap around or change as the camera moves, so residents can gather without showing duplicate characters.
+Each person has a stable character identity. Named neighbors use indices 0–7; roaming residents use 8–15. Three separate character pages hold identities 0–3, 4–9 and 10–15, with four registered walking poses per person. The exporter finds the source sheet's actual cell gaps and translates each complete painted pose to a shared torso center and planted-sole baseline. All four poses use one canvas and one scale; individual limbs and body proportions are preserved. The eight named-neighbor portraits use those same identities. Character assignments never wrap around or change as the camera moves, so residents can gather without showing duplicate characters.
+
+Named neighbors hold the first pose while standing. Roaming residents advance their four poses from actual route distance, with one stride per 64 world pixels; pauses hold the first pose and start a new stride on departure. Route sampling keeps gait consistent across frame rates and camera culling. These sheets contain one camera view, with horizontal mirroring for leftward travel. Reduced motion holds the current pose and facing. The original story characters retain their separately authored idle sequences.
+
+The development fixture `/qa/character-motion.html` shows every regional character at an enlarged, fixed ground pivot. Select a region, inspect each of the four poses, or play walking at different speeds and with pauses. `/qa/world-assets.html` checks the same characters in the full game renderer.
 
 Terrain and navigation use the region’s normalized route nodes and links. The game pathfinder also uses static scenery foundations. Riverweave and Cedar Bay restrict land-based decoration to bank polygons traced from their terrain paintings; the independent decorations remain beside the walking approaches. The new regions stream their destination terrain, props, three character atlases and motion assets on demand.
 
@@ -76,9 +80,13 @@ node scripts/prepare-expedition-art.mjs riverweave
 node scripts/prepare-expedition-art.mjs --partial
 node scripts/prepare-expedition-art.mjs --previews-only
 node scripts/prepare-expedition-art.mjs --people-only
+node --test scripts/expedition-people-registration.test.mjs
+node scripts/check-expedition-people.mjs
 ```
 
 `--partial` permits missing source sheets during production. It should not be used to conceal missing assets in a completed build. `--people-only` updates the character pages and portraits without re-exporting terrain or scenery. Runtime exports in `web/public/assets/` include terrain, preview, prop atlas, motion atlas, three people atlases, an eight-person portrait strip and daytime/nighttime animation manifests for each region.
+
+The people audit checks all 640 exported frames against their painted sources, including source-pixel ownership, alpha preservation, common canvas sizes, torso/sole registration and exact runtime pivots. Irregular separators preserve neighboring silhouettes whose bounding boxes overlap. Four masters have narrow sole/hair contacts recorded in `scripts/expedition-people-seam-reviews.mjs`; unexpected opaque contacts fail export. The Rain Arcade exception keeps the separator at a shoe/hat contact so the crop cannot assign a shoe to the next character.
 
 ## Verification
 
