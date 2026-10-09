@@ -6,6 +6,7 @@ import { getMap, maps, type MapId, type WorldObjectSpec, type WorldMapSpec } fro
 import { NPC_ART, PLAYER_ART, PLAYER_LAYERS, paintAvatarPreview, playerMaterialShadows, prepareCharacterArt } from './character-art';
 import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { WorldEnvironment } from './world-environment';
+import { WorldScenery } from './world-scenery';
 
 export interface Avatar {
   hair: string;
@@ -298,6 +299,7 @@ class HarborScene extends Phaser.Scene {
   private objects = new Map<string, WorldObject>();
   private ambient: Ambient[] = [];
   private environment?: WorldEnvironment;
+  private scenery?: WorldScenery;
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion> }[] = [];
   private reducedMotion = false;
   private navigation!: NavigationGrid;
@@ -371,6 +373,8 @@ class HarborScene extends Phaser.Scene {
       this.ready = false;
       this.environment?.destroy();
       this.environment = undefined;
+      this.scenery?.destroy();
+      this.scenery = undefined;
       this.residents = [];
     });
     this.owner.boot();
@@ -385,6 +389,8 @@ class HarborScene extends Phaser.Scene {
     this.cameraLead = { x: 0, y: 0 };
     if (this.mapSpec.id !== map.id || !this.background) {
       this.background?.destroy();
+      this.scenery?.destroy();
+      this.scenery = undefined;
       for (const npc of this.characters.values()) npc.root.destroy();
       for (const object of this.objects.values()) object.root.destroy();
       for (const peer of this.peers.values()) peer.root.destroy();
@@ -400,6 +406,7 @@ class HarborScene extends Phaser.Scene {
       this.navigation = createMapNavigation(map.id);
       if (this.textures.exists(map.id)) {
         this.background = this.add.image(0, 0, map.id).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000);
+        this.scenery = new WorldScenery(this, map.id);
       } else if (map.id === 'lindenhafen') {
         this.background = this.drawFallbackTown();
         this.navigation = createFallbackNavigation();
@@ -758,13 +765,13 @@ class HarborScene extends Phaser.Scene {
     }
     const nextX = this.local.x + vx * WALK_SPEED * seconds;
     const nextY = this.local.y + vy * WALK_SPEED * seconds;
-    if (this.navigation.isWalkable(nextX, nextY)) {
+    if (this.navigation.canWalkSegment(this.local.x, this.local.y, nextX, nextY)) {
       this.local.x = nextX;
       this.local.y = nextY;
     } else {
       // Let keyboard movement slide gently along walls and planting beds.
-      if (this.navigation.isWalkable(nextX, this.local.y)) this.local.x = nextX;
-      if (this.navigation.isWalkable(this.local.x, nextY)) this.local.y = nextY;
+      if (this.navigation.canWalkSegment(this.local.x, this.local.y, nextX, this.local.y)) this.local.x = nextX;
+      if (this.navigation.canWalkSegment(this.local.x, this.local.y, this.local.x, nextY)) this.local.y = nextY;
     }
     const localDx = this.local.x - previousX;
     const localDy = this.local.y - previousY;
@@ -807,6 +814,7 @@ class HarborScene extends Phaser.Scene {
     this.updateObjects(this.elapsed);
     this.updateAmbient(this.decorativeElapsed);
     this.environment?.update(this.decorativeElapsed, this.cameras.main.worldView);
+    this.scenery?.update(this.cameras.main.worldView);
     this.refreshNearby();
     if (this.marker.visible) this.marker.setScale(this.reducedMotion ? 1 : 1 + Math.sin(this.elapsed * 4) * 0.04);
     if (Math.abs(this.zoomFactor - this.targetZoomFactor) > 0.0001) {
@@ -901,7 +909,7 @@ class HarborScene extends Phaser.Scene {
     const layers = keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
-    const root = this.add.container(x, y, [shadow, ...layers, nameText]);
+    const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(y + 10);
     let roleText: Phaser.GameObjects.Text | undefined;
     if (role) {
       roleText = this.add.text(0, 13, role, { fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { createTownNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
+import { createFallbackNavigation, createMapNavigation, createTownNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
 import { npcs } from './content';
+import { getMap, type MapId } from './maps';
 
 describe('Lindenhafen navigation', () => {
   const navigation = createTownNavigation();
@@ -46,6 +47,63 @@ describe('Lindenhafen navigation', () => {
 const rectangle = (x: number, y: number, width: number, height: number): readonly (readonly [number, number])[] =>
   [[x,y],[x+width,y],[x+width,y+height],[x,y+height]];
 
+describe('painted scenery foot collisions', () => {
+  // These are independently selected lamp-base and rear pavement coordinates
+  // from the paintings, rather than values read back from the collision specs.
+  // The canopy/pole can cover a character visually without closing the road.
+  const fixtures: { mapId: MapId; base: MapPoint; behind: MapPoint }[] = [
+    { mapId: 'lindenhafen', base: { x: 578, y: 602 }, behind: { x: 578, y: 570 } },
+    { mapId: 'lindenhafen', base: { x: 595, y: 605 }, behind: { x: 595, y: 580 } },
+    { mapId: 'waldruh', base: { x: 492, y: 582 }, behind: { x: 492, y: 565 } },
+    { mapId: 'waldruh', base: { x: 353, y: 400 }, behind: { x: 353, y: 375 } },
+    { mapId: 'waldruh', base: { x: 947, y: 570 }, behind: { x: 947, y: 550 } },
+    { mapId: 'waldruh', base: { x: 542, y: 790 }, behind: { x: 542, y: 765 } },
+    { mapId: 'nebelstadt', base: { x: 637, y: 318 }, behind: { x: 637, y: 298 } },
+    { mapId: 'nebelstadt', base: { x: 448, y: 415 }, behind: { x: 448, y: 395 } },
+    { mapId: 'nebelstadt', base: { x: 566, y: 604 }, behind: { x: 566, y: 580 } },
+    { mapId: 'nebelstadt', base: { x: 914, y: 387 }, behind: { x: 914, y: 365 } },
+    { mapId: 'nebelstadt', base: { x: 1119, y: 563 }, behind: { x: 1119, y: 543 } },
+    { mapId: 'nebelstadt', base: { x: 432, y: 758 }, behind: { x: 432, y: 738 } },
+  ];
+
+  it('blocks feet at the painted lamp bases', () => {
+    for (const { mapId, base } of fixtures) {
+      const navigation = createMapNavigation(mapId);
+      expect(navigation.isWalkable(base.x, base.y), `${mapId} lamp base at ${base.x},${base.y}`).toBe(false);
+      const redirected = navigation.closestPoint(base.x, base.y);
+      expect(navigation.isWalkable(redirected.x, redirected.y)).toBe(true);
+      expect(Math.hypot(redirected.x - base.x, redirected.y - base.y)).toBeLessThan(30);
+    }
+  });
+
+  it('keeps the pavement behind tall scenery connected to the arrival square', () => {
+    for (const { mapId, behind } of fixtures) {
+      const map = getMap(mapId);
+      const navigation = createMapNavigation(mapId);
+      const start = { x: map.spawn.x * MAP_WIDTH, y: map.spawn.y * MAP_HEIGHT };
+      expect(navigation.isWalkable(behind.x, behind.y), `${mapId} rear pavement at ${behind.x},${behind.y}`).toBe(true);
+      const route = navigation.findPath(start, behind);
+      expect(route.length, `${mapId} rear pavement has no route`).toBeGreaterThan(0);
+      expect(route.at(-1)).toEqual(behind);
+      expectClearRoute(navigation, start, route);
+    }
+  });
+
+  it('routes around a narrow lamp base rather than stepping through it', () => {
+    const navigation = createMapNavigation('waldruh');
+    const start = { x: 542, y: 765 };
+    const destination = { x: 542, y: 810 };
+    const route = navigation.findPath(start, destination);
+    expect(route.length).toBeGreaterThan(1);
+    expect(route.at(-1)).toEqual(destination);
+    expectClearRoute(navigation, start, route);
+  });
+
+  it('leaves the procedural fallback independent of painted scenery', () => {
+    expect(createFallbackNavigation().isWalkable(492, 582)).toBe(true);
+  });
+});
+
 function expectClearRoute(navigation: NavigationGrid, start: MapPoint, route: MapPoint[]): void {
   let previous = start;
   for (const point of route) {
@@ -61,6 +119,15 @@ function expectClearRoute(navigation: NavigationGrid, start: MapPoint, route: Ma
 }
 
 describe('continuous route collision checks', () => {
+  it('rejects a frame movement that crosses a small base between walkable endpoints', () => {
+    const navigation = new NavigationGrid([rectangle(40,40,400,240)], [rectangle(200,110,8,6)]);
+    expect(navigation.isWalkable(204, 107)).toBe(true);
+    expect(navigation.isWalkable(204, 119)).toBe(true);
+    expect(navigation.canWalkSegment(204, 107, 204, 119)).toBe(false);
+    expect(navigation.canWalkSegment(194, 107, 194, 119)).toBe(true);
+    expect(navigation.canWalkSegment(204, 119, 204, 107)).toBe(false);
+  });
+
   it('routes around a railing narrower than either the grid or old ray samples', () => {
     const navigation = new NavigationGrid([rectangle(40,40,400,240)], [rectangle(200.7,80,0.6,80)]);
     const start = { x:100, y:110 };

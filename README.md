@@ -7,7 +7,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 ## Playable features
 
 - Three distinct painted 2D maps for A1, A2 and B1, with connected paths, animated currents/fountains/smoke, regional waterfall/mill/fog/lighthouse effects, seven recurring story residents, nine strolling locals and 15 interactive objects. Decorative motion respects reduced motion and uses smaller mobile budgets.
-- Painted adult characters with four-direction player animation, live hair/skin/coat previews, visible players and shared town chat. Shared material atlases keep character texture memory independent of player palettes.
+- Painted adult characters with four-direction player animation, live hair/skin/coat previews, visible players and shared town chat. Painted foreground silhouettes sort characters behind street-edge trees, lamps and planters. Shared material atlases keep character texture memory independent of player palettes.
 - Café tray/preparation games, market budgets/change/trades, connected evidence investigations and delivery route boards. Missions save in-progress actions and resume after leaving; each level adds more complex German.
 - Recognition, German listening, sentence tiles and hidden-answer typing with hints and corrective explanations. Object encounters offer brief contextual practice for new or due expressions; familiar expressions can rest.
 - First-visit story scenes, 18 earned discoveries, a mystery journal and clear next leads connecting all three regions. Regions stay freely explorable; completing each act recommends the next destination.
@@ -133,6 +133,7 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | [Research](docs/research.md) | Evidence behind the learning design |
 | [Art and audio](docs/art.md) | Asset provenance and production directions |
 | [World animation](docs/world-animation.md) | Regional motion, local routines, performance and browser verification |
+| [Scenery depth](docs/world-occlusion.md) | Painted foreground silhouettes, shared collision footprints and atlas lifecycle |
 
 One Go process hosts Lindenhafen, Waldruh and Nebelstadt, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store.
 

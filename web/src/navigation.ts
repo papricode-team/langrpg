@@ -1,4 +1,5 @@
 import type { MapId } from './maps';
+import { sceneryFootprints } from './scenery';
 
 export interface MapPoint { x: number; y: number; }
 type Polygon = readonly (readonly [number, number])[];
@@ -134,10 +135,12 @@ export class NavigationGrid {
   private readonly clearEdges = new Uint8Array(this.columns * this.rows);
   private readonly streets: readonly Region[];
   private readonly barriers: readonly Region[];
+  private readonly geometry: readonly Region[];
 
   constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = []) {
     this.streets = areas.map(region);
     this.barriers = obstacles.map(region);
+    this.geometry = [...this.streets, ...this.barriers];
     for (let index = 0; index < this.allowed.length; index++) {
       const point = this.point(index);
       if (this.isWalkable(point.x, point.y)) {
@@ -151,6 +154,12 @@ export class NavigationGrid {
     if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
     if (x < 14 || x > MAP_WIDTH - 14 || y < 14 || y > MAP_HEIGHT - 14) return false;
     return this.streets.some(area => includes(area, x, y)) && !this.barriers.some(area => includes(area, x, y));
+  }
+
+  /** Check the complete feet movement, including bases narrower than a frame's
+   * travel. Endpoint checks alone let keyboard or joystick movement tunnel. */
+  canWalkSegment(startX: number, startY: number, endX: number, endY: number): boolean {
+    return this.lineClear({ x: startX, y: startY }, { x: endX, y: endY });
   }
 
   closestPoint(x: number, y: number): MapPoint {
@@ -252,7 +261,7 @@ export class NavigationGrid {
     const append = (fraction: number): void => {
       if (fraction >= -GEOMETRY_EPSILON && fraction <= 1 + GEOMETRY_EPSILON) cuts.push(Math.max(0, Math.min(1, fraction)));
     };
-    for (const area of [...this.streets, ...this.barriers]) {
+    for (const area of this.geometry) {
       if (area.maxX < minX || area.minX > maxX || area.maxY < minY || area.minY > maxY) continue;
       const polygon = area.polygon;
       for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -307,7 +316,10 @@ export class NavigationGrid {
   }
 }
 
-export const createTownNavigation = (): NavigationGrid => new NavigationGrid(STREETS, OBSTACLES);
+// A canopy can cover a clear street while the trunk, pot or lamp plinth blocks
+// feet. Share only the painted object's ground footprint with navigation; its
+// wider silhouette belongs to depth rendering rather than collision.
+export const createTownNavigation = (): NavigationGrid => new NavigationGrid(STREETS, [...OBSTACLES, ...sceneryFootprints('lindenhafen')]);
 
 // These foot-level paths are traced independently from the two paintings.
 // A shared rectangle would allow walking through the clockmill, greenhouses,
@@ -372,8 +384,8 @@ const HARBOR_OBSTACLES: readonly Polygon[] = [
 ];
 
 export function createMapNavigation(id: MapId): NavigationGrid {
-  if (id === 'waldruh') return new NavigationGrid(WOODLAND_STREETS, WOODLAND_OBSTACLES);
-  if (id === 'nebelstadt') return new NavigationGrid(HARBOR_STREETS, HARBOR_OBSTACLES);
+  if (id === 'waldruh') return new NavigationGrid(WOODLAND_STREETS, [...WOODLAND_OBSTACLES, ...sceneryFootprints(id)]);
+  if (id === 'nebelstadt') return new NavigationGrid(HARBOR_STREETS, [...HARBOR_OBSTACLES, ...sceneryFootprints(id)]);
   return createTownNavigation();
 }
 
