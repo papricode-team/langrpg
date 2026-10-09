@@ -15,6 +15,8 @@ import type { Avatar, WorldPlayer, WorldMotion } from './world';
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
+import { watchForUpdates } from './app-updates';
+import { showUpdateNotice } from './update-notice';
 import type { Progress, ChatMessage, ExposureInput } from './api';
 import { dueItems, modeFor, memoryLabel, practiceExercises, skipListeningExercises } from './learning';
 import { reviewExercises } from './review';
@@ -54,6 +56,8 @@ let mapConfirmed = false;
 let regionReady = false;
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const api = new Api();
+let stopUpdateChecks: (() => void) | undefined;
+let removeUpdateNotice: (() => void) | undefined;
 let progress: Progress = emptyProgress();
 let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
 if (!['A1', 'A2', 'B1'].includes(level)) level = 'A1';
@@ -155,7 +159,6 @@ function renderShell() {
         <aside class="quest-tracker" id="quest-tracker" aria-label="Next story objective"><div id="quest-panel"></div></aside>
         <section class="chat-card" id="chat-card" aria-label="Local chat"><button class="chat-header" data-action="chat-toggle" aria-label="Toggle local chat" aria-expanded="false" aria-controls="chat-body"><span>${icon('chat')}<strong id="chat-region">Lindenhafen</strong><small>LOCAL</small></span><span class="chat-toggle-icon">${icon('plus')}</span></button><div class="chat-body" id="chat-body" hidden><div class="chat-messages" id="chat-messages"><p class="chat-welcome">Say Hallo. Every wanderer has a story.</p></div><form id="chat-form" class="chat-input"><input id="chat-input" maxlength="280" autocomplete="off" placeholder="Say something…" aria-label="Message to this region"/><button type="submit" aria-label="Send message">${icon('send')}</button></form></div></section>
         <div class="game-controls-hint"><kbd>WASD</kbd><span>Move</span><b>·</b><kbd>E</kbd><span>Interact</span><b>·</b><kbd>M</kbd><span>Atlas</span></div>
-        <div class="world-atmosphere-controls"><button class="world-time-button" data-action="world-time" id="world-clock" aria-label="Time of day settings">12:00 · DAY</button><button class="world-watch-button" data-action="watch-world">Watch the world</button></div>
         <button class="game-menu-button" data-view="menu" aria-label="Open game menu">${icon('lantern')}<span>Menu</span><i id="review-dot" hidden></i></button>
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="Touch movement joystick"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="Interact with something nearby" disabled>${icon('chat')}<span id="nearby-action">Interact</span><small id="nearby-name">MOVE CLOSER</small></button></div>
       </div>
@@ -167,7 +170,7 @@ function renderShell() {
     time: { mode: worldTimeMode, hour: worldTimeMode === 'manual' ? manualWorldHour : localHour() },
     onTimeChange: state => {
       const label = `${state.label} · ${state.period.toUpperCase()}`;
-      for (const id of ['world-clock', 'watch-time', 'world-hour-label']) {
+      for (const id of ['watch-time', 'world-hour-label']) {
         const element = document.getElementById(id);
         if (element) element.textContent = label;
       }
@@ -197,7 +200,7 @@ function watchWorld(watching: boolean): void {
   document.querySelector<HTMLElement>('#game-hud')!.inert = watching || view !== 'world';
   world.setInputEnabled(!watching && worldCanInteract());
   document.querySelector('#watch-region')!.textContent = interiorId ? getInterior(interiorId).name : getMap(mapId).name;
-  document.querySelector<HTMLButtonElement>(watching ? '[data-action="stop-watching"]' : '[data-action="watch-world"]')?.focus();
+  document.querySelector<HTMLButtonElement>(watching ? '[data-action="stop-watching"]' : '.game-menu-button')?.focus();
 }
 function interiorIcon(id: InteriorId) { return id === 'cafe' ? 'cup' : id === 'bakery' ? 'leaf' : 'basket'; }
 function updateNearby(id?: string) {
@@ -630,7 +633,7 @@ function renderOther() {
     el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">EVERY ADVENTURE NEEDS A YOU.</div><h1>Make your mark.</h1><p>A little style. A little personality. Quite a lot of curiosity.</p></div></div><section class="character-page"><div class="character-illustration"><canvas class="painted-avatar" data-avatar-preview width="384" height="576" role="img" aria-label="Your character appearance"></canvas><h2>${e(profile.name)}</h2><p>A wanderer of the Atlas</p><span class="character-xp">${icon('sparkles')} ${progress.xp} adventure XP</span></div><div class="character-options">${profileForm()}<p class="honest-note">Your colours appear on your moving character and are visible to other players.</p></div></section>`;
     bindProfileForm();
   } else if (view === 'settings') {
-    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Silent mode</h3><p>Automatically skip listening exercises and mute audio. Skipped exercises stay available for later. Saved on this device.</p></div>${silentModeButton()}<div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
+    el.innerHTML = `<div class="page-heading"><div><div class="eyebrow">MAKE YOURSELF AT HOME.</div><h1>Your adventure, your rules.</h1><p>Comfort makes room for curiosity.</p></div></div><div class="settings-card"><div><h3>Silent mode</h3><p>Automatically skip listening exercises and mute audio. Skipped exercises stay available for later. Saved on this device.</p></div>${silentModeButton()}<div><h3>Listening pace</h3><p>German audio is included. Choose a comfortable pace and replay it whenever you like.</p></div><select id="speech-rate" aria-label="German speech rate"><option value="0.65">A little slower</option><option value="0.82">Easy pace</option><option value="1">Natural pace</option></select><div><h3>Interface sounds</h3><p>Small musical cues after your answers.</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? 'Sound off' : 'Sound on'}</button><div><h3>World motion</h3><p>Choose lively town scenery or a calmer world. Your device currently requests ${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced motion' : 'full motion'}.</p></div><select id="world-motion" aria-label="World motion"><option value="auto">Follow device preference</option><option value="full">Full world animation</option><option value="reduced">Calm, still scenery</option></select><div><h3>Time of day</h3><p>Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.</p></div><select id="world-time-mode" aria-label="World clock"><option value="cycle">Slow day and night cycle</option><option value="local">Real local time</option><option value="manual">Choose a time</option></select><div class="settings-time-preview"><label for="world-hour">Time to watch</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Time to watch"><output id="world-hour-label" for="world-hour"></output></div><div><h3>Screen filters</h3><p>Experiment with a softer world or an old television finish. Your choices are saved on this device.</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} Try filters in the world</button><div><h3>Your learning chapter</h3><p>Visit another chapter at any time. Your discoveries stay with you.</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>World controls</h3><p>Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.</p></div><div class="settings-controls"><button class="outline-button" data-action="watch-world">${icon('compass')} Watch the world</button><button class="outline-button" data-action="fullscreen">${icon('expand')} Full screen</button><button class="outline-button" data-action="zoom-out" aria-label="Zoom out">${icon('minus')}</button><button class="outline-button" data-action="zoom-in" aria-label="Zoom in">${icon('plus')}</button></div></div><button class="text-button" data-action="course-sources">Learning content &amp; credits</button><div class="connection-info">${icon('users')} ${connection === 'online' ? 'Your route is connected. Your progress is saved on the server.' : 'The route is reconnecting. Keep this tab open.'}</div>`;
     const select = document.querySelector<HTMLSelectElement>('#speech-rate')!;
     select.value = String(speechRate);
     select.onchange = () => { speechRate = Number(select.value); localStorage.setItem('atlas.speechRate', String(speechRate)); };
@@ -981,7 +984,6 @@ function bindGlobalEvents() {
     if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
     switch (target.dataset.action) {
       case 'screen-filters': if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(target); break;
-      case 'world-time': setView('settings'); document.querySelector('#world-time-mode')?.scrollIntoView({ block: 'center' }); break;
       case 'watch-world': if (view !== 'world') setView('world'); watchWorld(true); break;
       case 'stop-watching': watchWorld(false); break;
       case 'profile': showProfile(); break;
@@ -1064,6 +1066,11 @@ function renderChat() {
 }
 async function boot() {
   renderShell();
+  if (import.meta.env.PROD) {
+    stopUpdateChecks = watchForUpdates(__APP_VERSION__, () => {
+      removeUpdateNotice = showUpdateNotice(() => window.location.reload());
+    });
+  }
   api.onMap = id => {
     const changed = id !== mapId;
     if (changed) regionReady = false;
@@ -1102,5 +1109,5 @@ function updateConnection() {
   el.innerHTML = `<span></span>${connection === 'online' ? `${players.length || 1} ${(players.length || 1) === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : 'Reconnecting'}`;
 }
 document.addEventListener('visibilitychange', () => { world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

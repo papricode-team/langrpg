@@ -4,8 +4,8 @@ COPY package.json package-lock.json ./
 COPY web/package.json web/package.json
 RUN npm ci --workspace web
 COPY web web
-COPY server/curriculum.json server/curriculum.json
-COPY server/course.json server/course.json
+# Rebuild the shared release ID for backend changes as well as frontend changes.
+COPY server server
 COPY scripts/precompress-web.mjs scripts/precompress-web.mjs
 RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
 

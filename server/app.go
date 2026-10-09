@@ -30,6 +30,7 @@ type App struct {
 	curriculum Curriculum
 	origins    map[string]bool
 	frontend   http.Handler
+	version    string
 	now        func() time.Time
 	rateMu     sync.Mutex
 	limits     map[string]rateWindow
@@ -56,6 +57,7 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 func (a *App) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /api/health", a.health)
+	mux.HandleFunc("GET /api/version", a.deploymentVersion)
 	mux.HandleFunc("POST /api/session", a.session)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)

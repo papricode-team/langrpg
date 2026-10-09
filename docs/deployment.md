@@ -143,6 +143,16 @@ missing assets return 404. API responses are never cached, and the app shell is
 revalidated after deployment. The server does not log request URLs or WebSocket
 session credentials.
 
+Each frontend build embeds a release ID and writes `version.json`. Go reads it
+at startup and exposes it through the uncached `/api/version` endpoint. Open
+pages check once a minute while visible and when the user returns to the tab
+or reconnects. When the deployed ID changes, a persistent notification asks the
+user to **Refresh page**; the page reloads only when they click the button.
+The compact notification reserves space above the app so controls stay clear;
+**Later** dismisses it for the current page session.
+Docker rebuilds this ID for backend source changes too. Failed checks retry
+quietly. Vite development uses hot reload and does not show this notification.
+
 Go's PostgreSQL integration checks run when `TEST_DATABASE_URL` points at a
 disposable database. They cover concurrent idempotency, vocabulary/course
 evidence, durable activity receipts, and profile/progress/session restoration

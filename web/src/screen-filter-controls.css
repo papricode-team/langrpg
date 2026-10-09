@@ -3,7 +3,7 @@
   top:max(135px,calc(env(safe-area-inset-top) + 113px));
   right:max(24px,env(safe-area-inset-right));
   width:320px;
-  max-height:calc(100dvh - max(155px,calc(env(safe-area-inset-top) + 133px)) - env(safe-area-inset-bottom));
+  max-height:calc(100dvh - var(--update-notice-height,0px) - max(155px,calc(env(safe-area-inset-top) + 133px)) - env(safe-area-inset-bottom));
   overflow:auto;
   overscroll-behavior:contain;
   scrollbar-color:#b5a071 #ede4cd;
@@ -45,8 +45,8 @@
 .screen-filter-footer kbd { font-size:8px; }
 .screen-filter-panel button:focus-visible,.screen-filter-panel input:focus-visible { outline-color:#416347; outline-offset:3px; }
 @media (max-width:760px) {
-  .screen-filter-panel { top:max(114px,calc(env(safe-area-inset-top) + 100px)); right:max(15px,env(safe-area-inset-right)); width:min(320px,calc(100vw - 30px)); max-height:calc(100dvh - max(128px,calc(env(safe-area-inset-top) + 114px)) - env(safe-area-inset-bottom)); padding:14px; }
+  .screen-filter-panel { top:max(114px,calc(env(safe-area-inset-top) + 100px)); right:max(15px,env(safe-area-inset-right)); width:min(320px,calc(100vw - 30px)); max-height:calc(100dvh - var(--update-notice-height,0px) - max(128px,calc(env(safe-area-inset-top) + 114px)) - env(safe-area-inset-bottom)); padding:14px; }
 }
 @media (max-height:620px) and (min-width:761px) {
-  .screen-filter-panel { top:max(86px,calc(env(safe-area-inset-top) + 64px)); right:max(137px,calc(env(safe-area-inset-right) + 113px)); max-height:calc(100dvh - 102px - env(safe-area-inset-bottom)); }
+  .screen-filter-panel { top:max(86px,calc(env(safe-area-inset-top) + 64px)); right:max(137px,calc(env(safe-area-inset-right) + 113px)); max-height:calc(100dvh - var(--update-notice-height,0px) - 102px - env(safe-area-inset-bottom)); }
 }

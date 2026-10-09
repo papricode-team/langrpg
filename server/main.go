@@ -64,6 +64,10 @@ func main() {
 			slog.Error("frontend initialization failed", "error", err)
 			os.Exit(1)
 		}
+		app.version, err = loadDeploymentVersion(directory)
+		if err != nil {
+			slog.Warn("frontend version metadata is unavailable", "error", err)
+		}
 	}
 	server := &http.Server{Addr: ":" + env("PORT", "8097"), Handler: app.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
 	stopped := make(chan os.Signal, 1)

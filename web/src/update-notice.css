@@ -1,0 +1,83 @@
+.update-notice {
+  position:fixed;
+  inset:0 0 auto;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:calc(6px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 6px max(16px,env(safe-area-inset-left));
+  border:0;
+  border-bottom:1px solid #d8bb8070;
+  border-radius:0;
+  background:linear-gradient(110deg,#20392f,#10211f);
+  color:#f3eddb;
+  font:13px/1.4 'DM Sans',sans-serif;
+  text-align:left;
+}
+.update-notice>.icon { width:20px; height:20px; flex:none; color:#d8bb80; }
+.update-notice-copy { min-width:0; }
+.update-notice-copy strong { display:block; font-size:13px; font-weight:600; }
+.update-notice-copy p { margin:2px 0 0; color:#b1beb5; font-size:12px; }
+.update-notice-actions { display:flex; flex:none; align-items:center; gap:8px; }
+.update-notice .update-notice-actions>button {
+  min-width:44px;
+  min-height:44px;
+  padding:10px 14px;
+  border:1px solid #d8bb8070;
+  border-radius:2px;
+  background:transparent;
+  color:#f3eddb;
+  font-size:12px;
+  font-weight:600;
+  touch-action:manipulation;
+  white-space:nowrap;
+}
+.update-notice .update-notice-actions>.update-notice-refresh {
+  border-color:#edd2a0;
+  background:linear-gradient(110deg,#dfc590,#c8a66a);
+  color:#16251e;
+}
+.update-notice .update-notice-refresh:hover { background:#eed7a5; }
+.update-notice .update-notice-later:hover { background:#d8bb8018; }
+.update-notice .update-notice-actions>button:focus-visible { outline:2px solid #edd29b; outline-offset:2px; }
+
+/* Each world layer is fixed to the viewport, so each receives the same inset. */
+html.update-notice-visible #game-shell,
+html.update-notice-visible .world-stage,
+html.update-notice-visible #world-container,
+html.update-notice-visible #menu-layer {
+  top:var(--update-notice-height,0px);
+  bottom:0;
+  height:calc(100dvh - var(--update-notice-height,0px));
+  max-height:calc(100dvh - var(--update-notice-height,0px));
+}
+html.update-notice-visible #dialog {
+  top:var(--update-notice-height,0px);
+  bottom:0;
+  margin-block:auto;
+  max-height:calc(100dvh - var(--update-notice-height,0px) - 24px);
+}
+html.update-notice-visible #dialog.activity-dialog {
+  height:min(880px,calc(100dvh - var(--update-notice-height,0px) - 24px));
+}
+
+/* Without popovers, filtered or animated modals would contain the fixed strip.
+   Keep its containing block at the viewport while preserving modal ancestry. */
+html.update-notice-fallback #menu-layer,
+html.update-notice-fallback #dialog {
+  animation:none;
+  transform:none;
+  backdrop-filter:none;
+}
+@media(max-width:480px) {
+  .update-notice { gap:10px; padding-right:max(10px,env(safe-area-inset-right)); padding-left:max(10px,env(safe-area-inset-left)); }
+  .update-notice>.icon,.update-notice-copy p { display:none; }
+  .update-notice-copy { flex:1; }
+  .update-notice-copy strong { font-size:12px; }
+  .update-notice-actions { gap:6px; }
+  .update-notice .update-notice-actions>button { padding:10px; }
+}

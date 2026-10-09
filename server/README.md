@@ -47,6 +47,8 @@ All POST bodies use `Content-Type: application/json` and are limited to 8 KiB. R
 
 `GET /api/health` returns `{status:"ok",storage:"json-development"|"postgres",players:number}`. Readiness returns 503 if the database is unavailable.
 
+`GET /api/version` returns `{version:string}` without session authentication and with `Cache-Control: no-store`. It reports the frontend build ID loaded from `STATIC_DIR/version.json` at startup and remains available during database outages. Restarting the same build preserves the ID; deploying a new build changes it, allowing an open frontend to offer a page refresh. API-only development and older builds without version metadata return 503; malformed metadata logs a warning and also leaves version checks unavailable.
+
 `POST /api/session` accepts `{name,avatar:{hair,skin,outfit},level?:"A1"|"A2"|"B1"}`. Names contain 2–24 letters/numbers, spaces, dashes, underscores or apostrophes. Avatar values are safe palette names or hex-color strings, up to 32 characters. Returns `{token,player:{id,name,mapId,x,y,avatar},progress}`. A valid existing bearer credential with an empty body `{}` resumes its saved profile and progress; providing a full profile updates that account’s name/appearance while preserving progress. Connected players see these changes in snapshots. Creating a fresh session replaces no previous account. Keep the token in the browser and never log it or publish it in screenshots.
 
 `GET /api/progress` returns the progress object directly:

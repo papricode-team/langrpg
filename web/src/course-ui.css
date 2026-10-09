@@ -113,7 +113,7 @@
 .npc-dialog .npc-quest p { font-size:12px; line-height:1.5; margin-bottom:4px; }
 .npc-dialog .npc-quest .text-button { padding:6px 0; }
 
-.quest-dialog:not(:has(>.exercise-header)) .quest-intro { display:flex; flex-direction:column; align-items:stretch; gap:10px; max-height:calc(100dvh - 84px); }
+.quest-dialog:not(:has(>.exercise-header)) .quest-intro { display:flex; flex-direction:column; align-items:stretch; gap:10px; max-height:calc(100dvh - var(--update-notice-height,0px) - 84px); }
 .quest-dialog .quest-intro>:not(.intro-story):not(.course-intro-reference) { flex-shrink:0; }
 .quest-dialog .quest-intro>h2 { margin:0; padding-inline:12px; }
 .quest-dialog .quest-intro>.portrait { width:58px; height:58px; border-width:2px; margin:0 auto; flex:none; }
@@ -221,7 +221,7 @@
   .npc-dialog .npc-activity,.npc-dialog .npc-quest { margin-top:6px; padding-top:6px; }
   .npc-dialog .npc-quest h3 { font-size:18px; margin-bottom:3px; }
   .npc-dialog .npc-quest p { margin-bottom:0; }
-  .quest-dialog:not(:has(>.exercise-header)) .quest-intro { max-height:calc(100dvh - 64px); gap:7px; }
+  .quest-dialog:not(:has(>.exercise-header)) .quest-intro { max-height:calc(100dvh - var(--update-notice-height,0px) - 64px); gap:7px; }
   .quest-dialog .quest-intro>.portrait { display:none; }
   .quest-dialog .quest-intro>.intro-story { padding:8px 10px; font-size:13px; line-height:1.5; }
   .dialog:has(>.exercise-header) .exercise-progress { margin:7px 0 8px; }
