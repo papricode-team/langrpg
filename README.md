@@ -29,7 +29,7 @@ npm run dev
 
 Open [http://localhost:5187](http://localhost:5187). The development command starts Go on **8097** and Vite on **5187**, with REST and WebSocket proxying. Stop both with Ctrl+C.
 
-Use **Play** for café, market, detective and delivery missions. Use **Course** for vocabulary, grammar and connected practice. Choose a story from the **Quest log**, follow the objective chip, or meet a resident. Inspect a glowing object for a clue and a short language encounter. Use **A little help** whenever needed; return to **Your German** for due practice and **Story** for discovered evidence. Travel through the **Region atlas**. To test two distinct players, use separate browser profiles or a private window. Tabs sharing the same session represent the same player.
+Open the menu and choose **Continue the story** for your next conversation. **Story quests**, **Discoveries** and the **Region atlas** follow the main journey. **Side activities** contains optional café, market, detective and delivery missions; **Learning routes** offers vocabulary, grammar and connected practice. You can also follow the objective chip or meet a resident. Inspect a glowing object for a clue and a short language encounter. Use **A little help** whenever needed; return to **Your words** for due practice and **Discoveries** for collected evidence. Travel through the **Region atlas**. To test two distinct players, use separate browser profiles or a private window. Tabs sharing the same session represent the same player.
 
 Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Account recovery is not implemented, so clearing browser storage loses access to that demo identity.
 
