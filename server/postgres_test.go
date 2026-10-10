@@ -141,6 +141,23 @@ func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 	if updated.Progress.XP != 6 || updated.Player.Avatar != avatar {
 		t.Fatal("profile edit lost PostgreSQL progress")
 	}
+	if updated.Preferences.BaseLanguage != "" && updated.Preferences.BaseLanguage != "en" {
+		t.Fatalf("new PostgreSQL account must default to English support: %+v", updated.Preferences)
+	}
+	turkish, err := store.UpdatePreferences(ctx, tokenHash(token), Preferences{BaseLanguage: "tr"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	reloaded, err := store.Get(ctx, tokenHash(token))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if turkish.Preferences.BaseLanguage != "tr" || reloaded.Preferences.BaseLanguage != "tr" || reloaded.Progress.XP != 6 || reloaded.Player.Name != "Postgres Mira" {
+		t.Fatalf("PostgreSQL base language did not round-trip without touching progress: %+v", reloaded.Preferences)
+	}
+	if _, err = store.UpdatePreferences(ctx, "invalid", Preferences{BaseLanguage: "tr"}); !errors.Is(err, ErrUnauthorized) {
+		t.Fatalf("unknown PostgreSQL credential changed preferences: %v", err)
+	}
 	if _, err = store.Get(ctx, "invalid"); !errors.Is(err, ErrUnauthorized) {
 		t.Fatalf("unknown PostgreSQL credential: %v", err)
 	}

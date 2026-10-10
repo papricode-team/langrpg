@@ -61,6 +61,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/session", a.session)
 	mux.HandleFunc("POST /api/account/register", a.registerAccount)
 	mux.HandleFunc("POST /api/account/login", a.loginAccount)
+	mux.HandleFunc("POST /api/preferences", a.updatePreferences)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)
 	mux.HandleFunc("POST /api/exposure", a.exposure)
@@ -216,6 +217,8 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		Name   string `json:"name"`
 		Avatar Avatar `json:"avatar"`
 		Level  string `json:"level"`
+		// Optional on a new session; resuming never changes saved preferences.
+		BaseLanguage string `json:"baseLanguage"`
 	}
 	if err := decodeJSON(w, r, &input); err != nil {
 		apiFailure(w, err)
@@ -264,6 +267,10 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "level must be A1, A2 or B1")
 		return
 	}
+	if input.BaseLanguage != "" && !validBaseLanguage(input.BaseLanguage) {
+		writeError(w, 400, "baseLanguage must be en or tr")
+		return
+	}
 	remote, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
 		remote = r.RemoteAddr
@@ -282,7 +289,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC()}
+	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC(), Preferences: normalizedPreferences(Preferences{BaseLanguage: input.BaseLanguage})}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	if err = a.store.Create(ctx, tokenHash(token), account); err != nil {

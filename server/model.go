@@ -143,6 +143,7 @@ type Account struct {
 	StorySaves            map[string]StorySave `json:"storySaves,omitempty"`
 	RewardedQuestIDs      []string             `json:"rewardedQuestIds,omitempty"`
 	RewardedExpeditionIDs []string             `json:"rewardedExpeditionIds,omitempty"`
+	Preferences           Preferences          `json:"preferences,omitempty"`
 }
 
 type Receipt struct {

@@ -20,6 +20,7 @@ type Store interface {
 	Create(context.Context, string, Account) error
 	Get(context.Context, string) (Account, error)
 	UpdateProfile(context.Context, string, string, Avatar) (Account, error)
+	UpdatePreferences(context.Context, string, Preferences) (Account, error)
 	SetCredentials(context.Context, string, string, string) error
 	GetByEmail(context.Context, string) (Account, error)
 	AddSession(context.Context, string, string) error
@@ -197,6 +198,24 @@ func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar A
 	account := cloneAccount(previous)
 	account.Player.Name, account.Player.Avatar = name, avatar
 	account.Progress.Revision++
+	s.state.Accounts[id] = account
+	if err := s.save(); err != nil {
+		s.state.Accounts[id] = previous
+		return Account{}, err
+	}
+	return cloneAccount(account), nil
+}
+
+func (s *JSONStore) UpdatePreferences(_ context.Context, hash string, preferences Preferences) (Account, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	id, ok := s.state.Sessions[hash]
+	if !ok {
+		return Account{}, ErrUnauthorized
+	}
+	previous := s.state.Accounts[id]
+	account := cloneAccount(previous)
+	account.Preferences = normalizedPreferences(preferences)
 	s.state.Accounts[id] = account
 	if err := s.save(); err != nil {
 		s.state.Accounts[id] = previous
@@ -400,6 +419,42 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, avatar A
 	ensureProgress(&account.Progress)
 	account.Player.Name, account.Player.Avatar = name, avatar
 	account.Progress.Revision++
+	data, err = json.Marshal(account)
+	if err != nil {
+		return Account{}, err
+	}
+	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+		return Account{}, err
+	}
+	if err = tx.Commit(ctx); err != nil {
+		return Account{}, err
+	}
+	return account, nil
+}
+
+// UpdatePreferences stores preferences inside the account JSONB document, so old
+// rows need no schema migration: a missing field decodes to English support.
+func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preferences Preferences) (Account, error) {
+	tx, err := s.pool.Begin(ctx)
+	if err != nil {
+		return Account{}, err
+	}
+	defer tx.Rollback(ctx)
+	var data []byte
+	var id string
+	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &data)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return Account{}, ErrUnauthorized
+	}
+	if err != nil {
+		return Account{}, err
+	}
+	var account Account
+	if err = json.Unmarshal(data, &account); err != nil {
+		return Account{}, err
+	}
+	ensureProgress(&account.Progress)
+	account.Preferences = normalizedPreferences(preferences)
 	data, err = json.Marshal(account)
 	if err != nil {
 		return Account{}, err

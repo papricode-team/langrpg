@@ -49,7 +49,7 @@ func verifyPassword(password, encoded string) bool {
 }
 
 func sessionResponse(token string, account Account) map[string]any {
-	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email}}
+	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email}, "preferences": normalizedPreferences(account.Preferences)}
 }
 
 type credentialInput struct {
