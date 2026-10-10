@@ -109,7 +109,7 @@ func TestArchiveItemRequirementsAndLedgerPublicationAreServerChecked(t *testing.
 	}
 }
 
-func TestBellWarningsSurviveActMilestonesAndFailuresAreBounded(t *testing.T) {
+func TestActMilestonesSurviveAndLanguageMistakesNeverAdvanceTheBell(t *testing.T) {
 	quiet, loud := newProgress(), newProgress()
 	for _, id := range storyQuestOrder[:6] {
 		applyStoryChoice(&quiet.Story, id, "protect")
@@ -125,8 +125,8 @@ func TestBellWarningsSurviveActMilestonesAndFailuresAreBounded(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		recordStoryGateFailure(&quiet.Story, "a2-broken-clock")
 	}
-	if quiet.Story.BellWarnings != 1 || quiet.Story.GateFailures["a2-broken-clock"] != 3 {
-		t.Fatal("repeated errors farm warnings")
+	if quiet.Story.BellWarnings != 0 || quiet.Story.GateFailures["a2-broken-clock"] != 3 {
+		t.Fatal("language mistakes must be bounded practice evidence, never story pressure")
 	}
 	for _, id := range storyQuestOrder[6:17] {
 		applyStoryChoice(&quiet.Story, id, "restore")

@@ -49,7 +49,7 @@ describe('beginner dialogue replies', () => {
     first[0].english = 'Changed';
     first[0].effects.push({ flag: 'changed' });
     const next = beginnerGateChoices(a1Graphs[0].gateExerciseId);
-    expect(next[0].english).toBe('Please help me.');
+    expect(next[0].english).toBe('Once again, please.');
     expect(next[0].effects).toEqual([]);
   });
 

@@ -99,7 +99,9 @@ test('later acts have selective simpler variants and speakers do not narrate the
   const names = Object.fromEntries(npcs.map(npc => [npc.id, npc.id === 'inspector' ? 'Voss' : npc.name.split(' ')[0]]));
   for (const graph of later) for (const node of graph.nodes) for (const line of node.lines) {
     const name = names[line.speaker];
-    assert.ok(!new RegExp(`\\b${name}\\b`).test(line.german), `${line.id}: third-person self-narration`);
+    // A first-person introduction (Ich bin X / Ich heiße X / Hier spricht X) is not third-person narration.
+    const spoken = line.german.replace(new RegExp(`(Ich bin|Ich heiße|Hier spricht) ${name}\\b`, 'g'), '');
+    assert.ok(!new RegExp(`\\b${name}\\b`).test(spoken), `${line.id}: third-person self-narration`);
     for (const variant of line.variants ?? []) assert.ok(variant.english.trim() && variant.clipId, `${line.id}: incomplete translation or voice reference`);
   }
 });

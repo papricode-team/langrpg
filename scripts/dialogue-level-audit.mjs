@@ -16,6 +16,10 @@ export function dialogueEntries(graph) {
     }
     for (const choice of node.choices ?? []) entries.push({ kind: 'choice', lineId: `${node.id}:${choice.id}`, german: choice.german });
   }
+  for (const topic of graph.topics ?? []) {
+    entries.push({ kind: 'choice', lineId: `topic:${topic.id}`, german: topic.german });
+    for (const line of topic.lines) entries.push({ kind: 'line', lineId: line.id, german: line.german });
+  }
   for (const item of graph.investigations) entries.push({ kind: 'investigation', lineId: item.objectId, german: item.german });
   return entries;
 }

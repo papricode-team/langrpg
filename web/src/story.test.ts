@@ -7,7 +7,7 @@ import type { Narrative } from './sentence-translations';
 
 const prose: Narrative[] = [
   ...storyActs.flatMap(act => [act.premise, ...act.introduction, act.goal, act.cliffhanger]),
-  ...storyClues.flatMap(clue => [clue.text, clue.lead]),
+  ...storyClues.flatMap(clue => [clue.text, clue.lead, clue.letter]),
   ...Object.values(objectStories).flatMap(object => [object.detail, object.secret]),
   ...Object.values(activityDiscoveries).flatMap(discovery => [discovery.text, discovery.lead]),
 ];
@@ -22,8 +22,8 @@ describe('German story narrative', () => {
         expect(sentence.german.trim()).toBe(sentence.german);
         expect(sentence.english.trim()).toBe(sentence.english);
         expect(sentence.german).not.toBe(sentence.english);
-        expect(sentence.german).toMatch(/[.!?][“”„"]?$/u);
-        expect(sentence.english).toMatch(/[.!?][“”„"]?$/u);
+        expect(sentence.german).toMatch(/[.!?…][“”„"»«]?$/u);
+        expect(sentence.english).toMatch(/[.!?…][“”„"»«]?$/u);
       }
     }
   });
@@ -58,8 +58,8 @@ describe('German story narrative', () => {
   it('keeps translations for each inspectable story object and the seventh-bell stakes', () => {
     const storyMaps = maps.filter(map => storyActs.some(act => act.mapId === map.id));
     expect(Object.keys(objectStories)).toEqual(storyMaps.flatMap(map => map.objects.map(object => object.id)));
-    const warning = clueFor('b1-council')!.text;
-    expect(warning.some(sentence => sentence.german.includes('siebte') && sentence.english.includes('seventh'))).toBe(true);
+    const warning = storyActs[2].introduction.flat();
+    expect(warning.some(sentence => sentence.german.includes('siebten') && sentence.english.includes('seventh'))).toBe(true);
     const reveal = clueFor('a1-lost-parcel')!.text;
     expect(reveal.some(sentence => sentence.german.includes('Waldruh') && sentence.english.includes('Waldruh'))).toBe(true);
     expect(reveal.some(sentence => sentence.german.includes('auslöschst') && sentence.english.includes('erase us again'))).toBe(true);

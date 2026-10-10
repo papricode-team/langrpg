@@ -216,11 +216,8 @@ func warnStoryBell(s *StoryState) {
 	}
 }
 func recordStoryGateFailure(s *StoryState, questID string) {
+	// Mistakes are practice evidence only; they never push the story toward doom.
 	s.GateFailures[questID] = min(3, s.GateFailures[questID]+1)
-	if s.GateFailures[questID] == 3 && !s.Flags["bell-warning:"+questID] {
-		s.Flags["bell-warning:"+questID] = true
-		warnStoryBell(s)
-	}
 }
 
 func giveStoryItem(s *StoryState, id string) {
@@ -631,7 +628,7 @@ func (a *App) storyCinematic(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	prerequisites := map[string]string{"arrival": "", "platform": "a1-arrival", "clockmill": "a2-broken-clock", "dark-beam": "b1-new-route", "storm": "b1-storm", "bell": "b1-atlas"}
+	prerequisites := map[string]string{"arrival": "", "platform": "a1-arrival", "recording": "a1-station", "erasure": "a1-lost-parcel", "clockmill": "a2-broken-clock", "confession": "a2-archive", "dark-beam": "b1-new-route", "ledger": "b1-work", "storm": "b1-storm", "bell": "b1-atlas"}
 	questID, ok := prerequisites[input.Kind]
 	if !ok || !safeID.MatchString(input.ID) {
 		writeError(w, 400, "unknown cinematic or action ID")

@@ -2,8 +2,8 @@ import type { DialogueChoice } from './dialogue';
 
 /** Complete replies let new learners recognize the meaning before composing German. */
 const gateReplies: Record<string, readonly (readonly [german: string, english: string])[]> = {
-  'a1-arrival-exercise-6': [
-    ['Helfen Sie mir bitte.', 'Please help me.'],
+  'a1-arrival-exercise-7': [
+    ['Noch einmal, bitte.', 'Once again, please.'],
     ['Guten Morgen!', 'Good morning!'],
   ],
   'a1-cafe-exercise-1': [

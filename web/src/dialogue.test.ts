@@ -38,7 +38,7 @@ describe('authored in-world investigations', () => {
     expect(finale).toContain('meinen ersten Fehler');
     const station = questGraphs.find(graph => graph.questId === 'a1-station')!;
     expect(station.nodes.flatMap(node => node.lines).some(line => line.german.includes('Waldruh'))).toBe(false);
-    expect(questGraphs.find(graph => graph.questId === 'a1-lost-parcel')!.investigations[0].german).toContain('Waldruh');
+    expect(questGraphs.find(graph => graph.questId === 'a1-lost-parcel')!.nodes.flatMap(node => node.lines).some(line => line.german.includes('Waldruh'))).toBe(true);
   });
   it('detects dead links and unreachable editorial nodes', () => {
     const graph = structuredClone(questGraphs[0]);
@@ -66,10 +66,10 @@ describe('authored in-world investigations', () => {
     state.inventory=[];
     expect(dialogueChoices(council,state).map(c=>c.id)).not.toContain('publish-ledger');
   });
-  it('returns Voss to the market only when the platform was reported and plays one earned finale', () => {
+  it('returns Voss to the market only when the receipt was handed over and plays one earned finale', () => {
     const state=emptyStory(), market=questGraphs.find(g=>g.questId==='a1-market')!.nodes.find(n=>n.id==='intro')!;
     expect(dialogueLines(market,state).some(l=>l.speaker==='inspector')).toBe(false);
-    state.flags['platform-reported']=true;
+    state.flags['receipt-filed']=true;
     expect(dialogueLines(market,state).some(l=>l.speaker==='inspector')).toBe(true);
     const finale=questGraphs.find(g=>g.questId==='b1-atlas')!.nodes.find(n=>n.id==='complete')!;
     for(const ending of ['routes-reopened','towns-consent','brass-reformed']) {

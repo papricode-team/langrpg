@@ -33,12 +33,15 @@ export interface DialogueLine {
 }
 export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
+/** An optional player question on the last intro line; never saved, never required. */
+export interface DialogueTopic { id: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;
   investigations: { objectId: string; german: string; english: string }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
+  topics?: DialogueTopic[];
   introducedWords?: Record<string, string>;
 }
 export const emptyStory = (): StoryState => ({ flags: {}, inventory: [], reputation: { brassOffice: 0, lamplighters: 0, unwritten: 0 }, bell: 0, day: 1, nodes: {}, choices: {}, inspections: {} });
@@ -56,6 +59,7 @@ export function conditionMet(condition: DialogueCondition | undefined, state: St
     && (!condition.faction || state.reputation[condition.faction] >= (condition.minimum ?? 0));
 }
 export function dialogueLines(node: DialogueNode, state: StoryState): DialogueLine[] { return node.lines.filter(line => conditionMet(line.condition, state)); }
+export function dialogueTopics(graph: QuestGraph, state: StoryState): DialogueTopic[] { return (graph.topics ?? []).filter(topic => conditionMet(topic.condition, state)); }
 export function dialogueChoices(node: DialogueNode, state: StoryState): DialogueChoice[] { return (node.choices ?? []).filter(choice => conditionMet(choice.condition, state)); }
 export function personalized(line: string, name: string): string { return line.replaceAll('{name}', name); }
 export function nodeForStage(graph: QuestGraph, stage: StoryStage): DialogueNode {
@@ -85,6 +89,17 @@ export function validateDialogue(graph: QuestGraph): string[] {
     if (!node.terminal && !destinations.length) errors.push(`${graph.questId}: dead end ${node.id}`);
     if (new Set((node.choices ?? []).map(choice => choice.id)).size !== (node.choices?.length ?? 0)) errors.push(`${graph.questId}: duplicate choice ${node.id}`);
   }
+  for (const topic of graph.topics ?? []) {
+    if (!topic.id || !topic.german.trim() || !topic.english.trim() || !topic.lines.length) errors.push(`${graph.questId}: incomplete topic ${topic.id}`);
+    if (graph.level === 'A1' && topic.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 topic question too long ${topic.id}`);
+    for (const line of topic.lines) {
+      if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
+      lineIds.add(line.id);
+      if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
+    }
+  }
+  if (new Set((graph.topics ?? []).map(topic => topic.id)).size !== (graph.topics?.length ?? 0)) errors.push(`${graph.questId}: duplicate topic`);
   const visited = new Set<string>();
   const visit = (id: string) => { if (visited.has(id)) return; visited.add(id); const node = nodes.get(id); if (node?.next) visit(node.next); node?.choices?.forEach(choice => visit(choice.next)); };
   visit(graph.start);

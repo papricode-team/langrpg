@@ -5,7 +5,7 @@ export interface ContextualGrammar {
   title?: string; explanation?: string;
 }
 const notes: Record<string, Omit<ContextualGrammar, 'clipId'>> = {
-  'a1-arrival': { guideId:'a1-requests', german:'Mit Sie ist deine Bitte höflich. Das Verb steht zuerst: Helfen Sie.', english:'With Sie your request is polite. Put the verb first: Helfen Sie.' },
+  'a1-arrival': { guideId:'a1-requests', german:'Mit bitte wird jede Bitte höflich. Noch einmal heißt: Sag es wieder.', english:'Bitte makes any request polite. Noch einmal means: say it again.' },
   'a1-cafe': { guideId:'a1-modal', german:'Mit ich möchte bestellst du höflich. Der Kaffee wird einen Kaffee.', english:'Use ich möchte to order politely. Der Kaffee becomes einen Kaffee.' },
   'a1-market': { guideId:'a1-accusative', german:'Nach ich brauche kommt die Menge: zwei Äpfel. Ein Apfel wird einen Apfel.', english:'After ich brauche comes the amount: zwei Äpfel. Ein Apfel becomes einen Apfel.' },
   'a1-station': { guideId:'a1-questions', german:'Fragst du mit ja oder nein? Dann steht das Verb zuerst: Ist dieser Platz frei?', english:'For a yes-or-no question, put the verb first: Ist dieser Platz frei?' },

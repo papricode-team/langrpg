@@ -25,12 +25,12 @@ try {
       if (!ready) {
         const aiff = resolve(temp, `${job.clipId}.aiff`);
         await run('/usr/bin/say', ['-v', voice, '-r', '145', '-o', aiff, job.german]);
-        await run('ffmpeg', ['-v', 'error', '-y', '-i', aiff, '-codec:a', 'libmp3lame', '-b:a', '112k', path]);
+        await run('ffmpeg', ['-v', 'error', '-y', '-i', aiff, '-codec:a', 'libmp3lame', '-b:a', '48k', path]);
       }
       clips.push({ id: job.clipId, text: job.german, speaker: job.speaker, voice });
       count++; if (count % 25 === 0) process.stdout.write(`${count}/${jobs.length} dialogue clips\n`);
     }
   }));
   clips.sort((a,b) => a.id.localeCompare(b.id));
-  await writeFile(resolve(output, 'manifest.json'), JSON.stringify({ provider: 'Installed macOS de-DE voices', productionStatus: 'Distinct character voice sketches; neural and human VO remain a production milestone.', cast, rate: 145, bitRate: 112000, dynamicNames: 'German browser synthesis when available; otherwise play the recorded name-free version while displaying the chosen name.', clips }, null, 2) + '\n');
+  await writeFile(resolve(output, 'manifest.json'), JSON.stringify({ provider: 'Installed macOS de-DE voices', productionStatus: 'Distinct character voice sketches; neural and human VO remain a production milestone.', cast, rate: 145, bitRate: 48000, dynamicNames: 'German browser synthesis when available; otherwise play the recorded name-free version while displaying the chosen name.', clips }, null, 2) + '\n');
 } finally { await rm(temp, { recursive: true, force: true }); }

@@ -11,153 +11,154 @@
     "greta": "Sandy (German (Germany))",
     "inspector": "Reed (German (Germany))",
     "elise": "Shelley (German (Germany))",
+    "stimme": "Shelley (German (Germany))",
     "Evidence": "Anna"
   },
   "rate": 145,
-  "bitRate": 112000,
+  "bitRate": 48000,
   "dynamicNames": "German browser synthesis when available; otherwise play the recorded name-free version while displaying the chosen name.",
   "clips": [
     {
       "id": "artifact-a1-arrival-lindenhafen-noticeboard",
-      "text": "Nach W… Die Buchstaben fehlen. Die Laterne ist hell.",
+      "text": "Bahnsteige eins bis sechs. Sieben steht nicht im Plan. Die Laterne ist an.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-arrival-lindenhafen-platform-ticket-name-free",
-      "text": "Die Fahrkarte trägt deinen Namen. Bitte warten. Bahnsteig sieben.",
+      "text": "Fahrkarte für dich. Bahnsteig sieben. Unten: E. Die Buchstaben gehen weg.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
-      "id": "artifact-a1-cafe-lindenhafen-cafe-receipt",
-      "text": "Ein Kaffee. Datum: morgen. Das Siegel ist von Voss.",
+      "id": "artifact-a1-cafe-lindenhafen-cafe-receipt-name-free",
+      "text": "Eine Rechnung, nicht fertig: Für dich. Bezahlt. Datum: …",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-lost-parcel-lindenhafen-parcel-name-free",
-      "text": "Für dich. Von Elise. Waldruh. Bitte komm.",
+      "text": "Für dich. Absender: E. Adresse: … Die Tinte geht weg.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-market-lindenhafen-garden",
-      "text": "Frau Berg: ein Apfel. Im Buch steht ihr Name.",
+      "text": "Ein Garten mit Blumen. Am Haus: Nummer 7. Der Name fehlt.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-market-lindenhafen-market-crate",
-      "text": "Zwei Äpfel. Nummer 7. Eine Adresse fehlt.",
+      "text": "Zwei Äpfel. Nummer 7. Ein Siegel. Kein Name.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-station-lindenhafen-noticeboard",
-      "text": "Bahnsteig sieben: Nach W… Bitte hier warten.",
+      "text": "Bahnsteig sieben: Nach W… Abfahrt: sechs Uhr. Dann nichts.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-workshop-lindenhafen-workbench",
-      "text": "Lampe: oft gut. Sie sucht alte Adressen.",
+      "text": "Lampe. Funktioniert: meist. Am Dienstag fliegt sie. Sie sucht alte Adressen.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-apartment-waldruh-housing-board-name-free",
-      "text": "Der Vertrag verbindet zwei Adressen. Du bist die Nachfolge der Hüterin.",
+      "text": "Mietvertrag für Zimmer 7. Mieter: du. Die Miete für ein Jahr hat Elise im Voraus bezahlt. Zwei Adressen: Gasthaus Waldruh und Martas Café in Lindenhafen. Eine Tür. Gültig seit drei Monaten. Am Papier hängt ein schwerer Schlüssel mit einer kleinen Laterne.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-archive-waldruh-memory-stone",
-      "text": "Vorübergehende Schließung. Unterschrift: Ada. Unter dem Siegel steht: Fragt die Bewohner.",
+      "text": "Vorübergehende Schließung der Strecke, für eine Woche. Unterschrift: Ada, Lehrling der Hüterin. Unter dem Siegel, sehr klein: »Fragt die Bewohner.«",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-broken-clock-waldruh-clock",
-      "text": "Erst den roten Hebel ziehen. Dann den blauen Anschluss prüfen. Vor Mitternacht fehlt eine Stunde.",
+      "text": "Anleitung der Uhrenmühle. Erstens: den roten Hebel ziehen, dann hält die Mühle an. Zweitens: den blauen Anschluss prüfen. Er verbindet die Mühle mit dem Signal der Strecke. Der blaue Anschluss ist getrennt. Am Rand stehen zwei Zeilen in einer anderen Schrift.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-broken-clock-waldruh-memory-stone",
-      "text": "Hier stand die Adresse eines Gartens. Die Uhr kann den Stein nicht ändern.",
+      "text": "Namen vom letzten Laternenfest. Unten ist eine Stelle ganz glatt. Gestern stand dort noch ein Name. Heute weiß niemand mehr, welcher.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-clinic-waldruh-herb-garden",
-      "text": "Die Samentüten tragen sechs alte Adressen. Der Patient hat drei davon vor der Schließung besucht.",
+      "text": "Sechs Samentüten, mit der Hand beschriftet: alte Adressen entlang der Strecke. Daneben Gretas Notiz: Drei davon hat der Patient im Fieber genannt, mit Hausnummer. Und eine blaue Gartentür, die auf keiner Tüte steht.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-evening-plans-waldruh-herb-garden",
-      "text": "Treffen morgen nach der Arbeit. Bitte sagt zu oder schlagt eine andere Zeit vor.",
+      "text": "Kalender des Kreises. Laternenfest: verschoben. Verschoben. Verschoben. Neuer Termin: Fritz fragen. Darunter mit Bleistift: Fritz hat nie Zeit. Daneben hängt die Einladung zum letzten gemeinsamen Abendessen. Die Tinte ist verschwunden. Nur »18 Uhr« kann man noch lesen.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a2-rail-trip-waldruh-route-sign",
-      "text": "Der Anschluss fuhr um 17:59. Die Fahrkarte nennt 18:00. Derselbe Schlüssel schließt beide Wege.",
+      "text": "Neue Tafel: »Hier gab es nie eine Strecke.« Darunter die alte Farbe: »Anschluss nach Nebelstadt. Abfahrt 17:59.« Neben der Uhrzeit ist ein kleines Zeichen eingebrannt: eine Laterne.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-atlas-nebelstadt-council-board",
-      "text": "Wir besprechen Probleme frühzeitig. Jede Stadt behält ihre Namen und prüft die gemeinsame Verbindung.",
+      "text": "Auf der Ratstafel ist eine Zeile frei geblieben. Darüber steht in Adas Schrift: „Unsere Regel:“",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-atlas-nebelstadt-observatory-name-free",
-      "text": "Der Schlüssel nennt dich als Nachfolge. Eine Unterschrift darf die Stimmen der drei Städte nicht ersetzen.",
+      "text": "Der Schlüssel liegt auf dem Pult, neben einem Stapel Briefentwürfe an dich. Die ersten haben nur ein paar Wörter.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-council-nebelstadt-council-board",
-      "text": "Jede Öffnung braucht einen sicheren Fahrplan, den Schutz des Gartens und die Zustimmung der Bewohner.",
+      "text": "Drei Aushänge: „Sofort öffnen!“, „Erst fragen!“ und „Suppe ab zwölf“. Darunter eine alte Regel: Wer schweigt, stimmt zu.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-council-nebelstadt-harbor-chart",
-      "text": "Die Kosten und die Klinikhaltestelle sind öffentlich. Fehlende Angaben dürfen niemanden zum Schweigen bringen.",
+      "text": "Ottos Karte, jetzt mit beiden Linien. Neben jedem Bahnhof ist Platz für die Unterschrift der Stadt.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-new-route-nebelstadt-harbor-chart",
-      "text": "Variante A führt durch den Garten. Variante B nutzt die Straße und hält an der Klinik. Beide Kosten sind eingetragen.",
+      "text": "Ottos Karte: Eine gerade Linie geht durch Gretas Garten. Eine Kurve folgt der Straße. Neben der Kurve: ein wegradierter Punkt.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-storm-nebelstadt-signal-lantern",
-      "text": "Sturmwarnung. Erst die Menschen sichern. Strom am Signal abschalten. Nicht allein auf die Leiter steigen.",
+      "text": "Sturmwarnung: Erst die Menschen sichern. Strom am Signal abschalten. Niemand steigt allein auf die Leiter.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-witness-nebelstadt-evidence-crate",
-      "text": "Die Zeugin sah den Inspektor. Die Aufnahme enthält Elises Stimme von gestern. Die Uhrzeiten stimmen überein.",
+      "text": "Linas Kiste, sauber beschriftet: Lieferscheine, Martas Teeliste von der Nacht, eine Spule Tonband. Etikett: „Gehört, nicht gesehen.“",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-witness-nebelstadt-signal-lantern",
-      "text": "Der Speicher wiederholt das alte Signal automatisch. Er beweist nicht, wo Elise heute ist.",
+      "text": "Unter der Hafenlaterne hängt ein alter Rekorder. Das Band ist zu einem Ring geklebt. Es hat kein Ende.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-b1-work-nebelstadt-repair-ledger",
-      "text": "Das Messingamt bestellte nach dem Streit drei neue Löschspulen. Der Inspektor genehmigte die Wartung persönlich.",
+      "text": "Wartungsbuch, Löschmaschine Hafen. Drei neue Spulen, alle nach der Schließung bestellt. Genehmigt mit zwei Stempeln und einer Unterschrift.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
@@ -169,7 +170,7 @@
     },
     {
       "id": "cinematic-arrival-1",
-      "text": "Siehst du die Laterne? Dieser Bahnsteig ist neu.",
+      "text": "Siehst du die Laterne? Bahnsteig sieben gibt es nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -217,7 +218,7 @@
     },
     {
       "id": "cinematic-clockmill-0",
-      "text": "Die Uhr läuft wieder. Aber uns fehlen elf Minuten.",
+      "text": "Die Uhr läuft wieder. Aber uns fehlt eine Stunde.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
@@ -228,16 +229,64 @@
       "voice": "Grandma (German (Germany))"
     },
     {
+      "id": "cinematic-confession-0",
+      "text": "Ich habe unterschrieben. Ich dachte, es dauert nur eine Woche.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "cinematic-confession-1",
+      "text": "Du darfst „du“ sagen, wenn du magst. Ich verstecke mich nicht mehr.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
       "id": "cinematic-dark-beam-0",
       "text": "Der Strahl nimmt die Namen mit. Wir müssen ihn stoppen.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
+      "id": "cinematic-erasure-0",
+      "text": "Moment. Hier stand die Hausnummer von Frau Berg.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "cinematic-erasure-1",
+      "text": "Jetzt ist das Schild leer. Und das Haus auch.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "cinematic-ledger-0",
+      "text": "Hier ist mein Buch. Jede Seite trägt meine Unterschrift.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "cinematic-ledger-1",
+      "text": "Ich habe die Maschine am Laufen gehalten. Das war mein Fehler.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "cinematic-platform-0",
       "text": "Die erste Glocke. Der Weg ist wieder da.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "cinematic-recording-0",
+      "text": "Ist da jemand? Ich bin noch hier.",
+      "speaker": "stimme",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "cinematic-recording-1",
+      "text": "Jede Nacht ruft sie. Ich höre Sie. Aber ich darf nicht antworten.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "cinematic-storm-0",
@@ -259,33 +308,57 @@
     },
     {
       "id": "dialogue-a1-arrival-choice-0",
-      "text": "Was möchtest du tun?",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
+      "text": "Also: Bekomme ich die Fahrkarte? Oder ist sie gleich in Ottos Tasche?",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-complete-0",
-      "text": "Marta hat eine Rechnung. Geh bitte zum Café.",
+      "text": "Marta vom Café hat heute einen Kaffee für dich. Bezahlt. Sie kennt dich nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-0",
-      "text": "Ich helfe dir. Hörst du die Glocke?",
+      "text": "Gern. Langsam. Ihre. Fahrkarte. Ist. Nicht. Gültig.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-gate-1",
+      "text": "Bahnsteig sieben steht nicht im Plan. Also gibt es ihn nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-gate-2-name-free",
+      "text": "Und der Zug? Und die Tauben? Und?",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-gate-3",
+      "text": "Die Tauben schreibe ich auf. Die Fahrkarte nehme ich mit.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-gate-4",
+      "text": "Gib sie ihm nicht. Ich habe eine gute Tasche.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-request",
-      "text": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
+      "text": "Fahrkarte-nicht-gültig-Bahnsteig-sieben-gibt-es-nicht-bitte-sofort-abgeben-danke!",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-request-simple",
-      "text": "Frag mich bitte. Dann lesen wir das Schild.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
+      "text": "Fahrkarte nicht gültig. Sofort abgeben, bitte. Danke!",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-greeting-correction",
@@ -294,920 +367,2300 @@
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-a1-arrival-intro-0-name-free",
+      "id": "dialogue-a1-arrival-intro-0",
       "text": "Guten Morgen! Willkommen in Lindenhafen.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-1",
-      "text": "Dein Zug ist da. Alle schlafen noch.",
+      "text": "Dein Zug ist pünktlich. Das ist hier nicht normal.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-2",
-      "text": "Ihre Fahrkarte, bitte. Ich heiße Voss.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Und vierzig Tauben im Wagen. Alle pünktlich. Das gefällt mir nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-3",
-      "text": "Der Bahnsteig ist zu. Das ist normal.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Lindenhafen hat sechs Bahnsteige. Eins, zwei, drei, vier, fünf, sechs.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-4",
-      "text": "Normal? Die Laterne ist hell. Und hier steht dein Name.",
+      "text": "Du kommst von Bahnsteig sieben. Den gibt es nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-5",
-      "text": "Die Fahrkarte ist von Elise. Sie braucht deine Hilfe.",
+      "text": "Aber die Laterne da ist an. Sie ist nie an.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-6",
-      "text": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
+      "text": "Deine Fahrkarte, bitte. Ich bin hier der Chef.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-a1-arrival-intro-6-simple",
-      "text": "Frag mich bitte. Dann lesen wir das Schild.",
+      "id": "dialogue-a1-arrival-intro-7",
+      "text": "Hier steht dein Name. Bahnsteig sieben. Und unten nur ein Buchstabe: E.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-8",
+      "text": "Moment. Die Buchstaben gehen weg. Siehst du das?",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-9",
+      "text": "Guten Morgen. Voss, Beamter. Die Fahrkarte, bitte. Sofort.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-protect-0",
-      "text": "Danke! Hier ist mein Schlüssel für das Zimmer am Bahnhof.",
+      "text": "Keine Fahrkarte. So. Ich komme wieder, Herr Otto. Mit einem Formular.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-protect-1",
+      "text": "Er ist weg. Hier, deine Fahrkarte. Und mein Schlüssel für Bahnsteig sieben.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-protect-2",
+      "text": "Ich gebe nie Schlüssel. Heute schon. Das gefällt mir auch nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-report-0",
-      "text": "Voss kommt wieder. Hier ist sein Buch. Ich höre schon die Glocke.",
+      "text": "Danke. Ich schreibe sie ab. Langsam. Alles richtig.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-report-1",
+      "text": "Hier ist mein Buch. Lesen Sie. Bei mir ist alles richtig.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-report-2",
+      "text": "Er gibt dir sein Buch? Das hat er noch nie gemacht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-pigeons-0",
+      "text": "Sie fahren mit. Jeden Tag. Ohne Fahrkarte.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-pigeons-1",
+      "text": "Heute schlafen sie. Das ist neu. Neu gefällt mir nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-who-voss-0",
+      "text": "Voss ist Beamter. Er schreibt alles in sein Buch.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-who-voss-1",
+      "text": "Auch mich. Auch die Tauben. Jeden Tag.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-who-voss-2",
+      "text": "Die Tauben haben keine Fahrkarte, Herr Otto.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-why-seven-0",
+      "text": "Er steht nicht im Plan. Der Plan hat sechs.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-arrival-topic-why-seven-1",
+      "text": "Aber die Laterne ist alt. Sie ist nie falsch.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-cafe-choice-0",
-      "text": "Was möchtest du tun?",
+      "text": "Voss will alles Papier. Bekommt er die Rechnung, oder nimmst du sie mit?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-complete-0",
-      "text": "Fritz kennt das Siegel. Er wartet auf dem Platz.",
+      "text": "Moment. Das Siegel ist auch auf den Äpfeln von Fritz. Er steht auf dem Platz.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-gate-0",
-      "text": "Hier ist dein Kaffee. Das Siegel ist von Voss.",
+      "text": "Einen Kaffee. Gut! Und hörst du? Die Kasse druckt!",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-gate-1",
+      "text": "Ein Kaffee. Bezahlt: gestern. Datum: morgen.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-gate-2",
+      "text": "Und hier unten ein Siegel. Das Siegel kenne ich. Es ist von Voss.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-gate-3",
+      "text": "Warum ist das Siegel von Voss auf ihrer Rechnung? Das verstehe ich nicht.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-gate-request",
-      "text": "Ein Kaffee? Dann lesen wir die Rechnung.",
+      "text": "So, mein Gast. Die Frau hat bezahlt. Was möchtest du?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a1-cafe-intro-0-name-free",
-      "text": "Hallo! Möchtest du einen Kaffee?",
+      "id": "dialogue-a1-cafe-gate-request-simple",
+      "text": "Die Frau hat bezahlt. Was möchtest du?",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-intro-0",
+      "text": "Da bist du! Der Wasserkocher sagt seit sechs Uhr deinen Namen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-1",
-      "text": "Der Wasserkocher sagt deinen Namen. Hörst du das?",
+      "text": "Hörst du? Jetzt sagt er: Regen. Er sagt immer das Wetter von morgen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a1-cafe-intro-1-simple",
-      "text": "Der Wasserkocher sagt deinen Namen. Hörst du ihn?",
-      "speaker": "marta",
-      "voice": "Anna"
-    },
-    {
-      "id": "dialogue-a1-cafe-intro-2",
-      "text": "Elise war gestern hier. Sie kennt deinen Namen.",
+      "id": "dialogue-a1-cafe-intro-2-name-free",
+      "text": "Aber deinen Namen? Nie. Also, wer bist du?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-3",
-      "text": "Sie sagt: Du kannst die Namen wieder lesen.",
+      "text": "Gestern war eine Frau hier. Sie hat einen Kaffee für dich bezahlt.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a1-cafe-intro-4",
-      "text": "Hier ist ihre Rechnung. Das Datum ist morgen.",
+      "id": "dialogue-a1-cafe-intro-4-name-free",
+      "text": "Sie hat gesagt: „Morgen kommt.“ Und morgen ist heute.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-5",
-      "text": "Ein Kaffee? Dann lesen wir die Rechnung.",
+      "text": "Ich habe gefragt: Wer bist du? Sie hat nur gelacht.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-intro-6",
+      "text": "Und die Kasse druckt die Rechnung nicht zu Ende. Sie wartet. Auf dich, glaube ich.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-otto-key",
+      "text": "Otto gibt dir einen Schlüssel? Otto gibt nie Schlüssel. Nie!",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-protect-0",
-      "text": "Hier ist die Rechnung. Du kannst sie mitnehmen.",
+      "text": "Gut. Nimm sie mit. Und kein Wort zu Voss, ja?",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-protect-1",
+      "text": "Hörst du? Der Wasserkocher sagt wieder deinen Namen. Laut. Er ist zufrieden.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-report-0",
-      "text": "Ich schreibe alles ab. Voss bekommt meine Rechnung.",
+      "text": "Gut. Ich schreibe sie für dich ab. Voss bekommt das Papier.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
+      "id": "dialogue-a1-cafe-report-1",
+      "text": "Hörst du? Der Wasserkocher sagt nichts mehr. Das gefällt mir nicht.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-reported-again",
+      "text": "Er hat schon deine Fahrkarte. Jetzt die Rechnung auch?",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-reported-ticket",
+      "text": "Voss hat schon deine Fahrkarte? Der Mann ist schnell. Zu schnell.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-topic-kettle-0",
+      "text": "Ich weiß es nicht. Er war vor dem Café da.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-topic-kettle-1",
+      "text": "Er ist nie falsch. Nur am Dienstag. Am Dienstag ist alles falsch.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-topic-woman-0",
+      "text": "Müde, aber lieb. Und ihre Hände waren schwarz. Wie vom Schreiben.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-topic-woman-1",
+      "text": "Sie hat Tee getrunken. Kaffee für dich, Tee für sie.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-cafe-topic-woman-2",
+      "text": "Den Namen? Ich weiß ihn nicht. Ich weiß immer alles. Nur das nicht.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-berg-kept",
+      "text": "Aber ihr Name steht im Gästebuch. Und du hast die Adresse. Das bleibt.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-carried-lamp",
+      "text": "Und deine Lampe steht seit fünf Minuten vor dem Paket. Sie wartet.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
       "id": "dialogue-a1-lost-parcel-choice-0",
-      "text": "Was möchtest du tun?",
+      "text": "Voss will jede Adresse. Bekommt er Waldruh, oder bleibt der Brief bei dir?",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-complete-0",
-      "text": "Elise schreibt: Komm bitte! Fahr nach Waldruh.",
+      "text": "Und Frau Berg? Haus Nummer sieben ist weg. Einfach weg.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-complete-1",
+      "text": "Unten im Brief steht noch ein Satz. Sehr klein. Ich lese nur: „… komm.“",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-complete-2",
+      "text": "Otto wartet am Zug. Bahnsteig sieben, glaube ich.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-gate-0",
-      "text": "Die Adresse ist Waldruh. Elise wartet dort auf Hilfe.",
+      "text": "W… A… L… D… Die Tinte bleibt! Du fragst, und sie bleibt!",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-gate-1",
+      "text": "Waldruh. Die Adresse ist Waldruh.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-gate-2",
+      "text": "Waldruh? Die Stadt gibt es nicht. Aber hier steht sie. Sehr klar.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-gate-3",
+      "text": "Im Paket ist ein Brief. Unten steht nicht E. Unten steht: Elise.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-gate-4",
+      "text": "„Ich bin Elise. Ich warte in Waldruh. Bitte komm.“",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-gate-5",
+      "text": "Moment. Siehst du das Schild von Frau Berg? Die Nummer… sie geht weg.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-gate-request",
-      "text": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+      "text": "Keine Adresse, keine Post. Und allein lese ich sie nicht. Also?",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-gate-request-simple",
-      "text": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+      "text": "Keine Adresse, keine Post. Also?",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-0-name-free",
-      "text": "Das Paket ist für dich.",
+      "text": "Du bist? Ein Paket für dich. Unterschrift hier. Schnell.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-1",
-      "text": "Hier ist der Brief von Elise. Er ist im Paket.",
+      "text": "Datum: gestern. Kein Problem. Ich bringe auch Post nach gestern.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-2",
-      "text": "Die Lampe ist hell. Jetzt kann ich die Adresse lesen.",
+      "text": "Problem: die Adresse. Die Tinte geht weg.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-3",
-      "text": "Im Brief steht: Waldruh. Die Stadt ist noch da.",
+      "text": "Ich lese. Sie geht weg. Ich lese wieder. Sie geht weg. Seit heute Morgen.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-4",
-      "text": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+      "text": "Absender: E. Nur E. Wie auf deiner Fahrkarte, sagt Otto.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
-      "id": "dialogue-a1-lost-parcel-intro-4-simple",
-      "text": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+      "id": "dialogue-a1-lost-parcel-intro-5",
+      "text": "Und Frau Berg hat heute Post. Haus Nummer sieben. Das Haus ist noch da. Noch.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-protect-0",
-      "text": "Nimm den Brief mit. Otto wartet am Zug.",
+      "text": "Gut. Der Brief bei dir. Die Adresse im Kopf. Kein Buch.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-protect-1",
+      "text": "Voss fragt? Ich weiß nichts. Ich bin nur die Post.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-receipt-hands",
+      "text": "Marta sagt, die Frau im Café hatte schwarze Hände. Wie von Tinte.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-registered-lamp",
-      "text": "Die Lampe steht in meinem Buch. Ich kenne jetzt die Adresse.",
+      "text": "Lampe Nummer hundert. Sie ist hier. Ich auch. Alles in Ordnung.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-report-0",
-      "text": "Ich schicke Voss die Adresse. Du kannst jetzt nach Waldruh fahren.",
+      "text": "Gut. Ich schicke Voss die Adresse. Heute noch.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
-      "id": "dialogue-a1-lost-parcel-safe-address",
-      "text": "Frau Berg hat wieder eine Adresse. Sie sagt: Danke!",
+      "id": "dialogue-a1-lost-parcel-report-1",
+      "text": "Waldruh im Buch von Voss. Dann bleibt die Tinte. Glaube ich.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-berg-0",
+      "text": "Garten. Blumen. Zwei Äpfel jeden Freitag.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-berg-1",
+      "text": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post. Alle lieben sie.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-inside-0",
+      "text": "Ein Brief, glaube ich. Ich öffne nie ein Paket. Nie.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-inside-1",
+      "text": "Aber es ist schwer. Für einen Brief zu schwer.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-yesterday-0",
+      "text": "Schnell. Sehr schnell. Und immer nach links.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-lost-parcel-topic-yesterday-1",
+      "text": "Zwei Briefe bis jetzt. Beide pünktlich. Gestern.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-choice-0",
-      "text": "Was möchtest du tun?",
+      "text": "Was schreiben wir jetzt: die Nummer für Voss oder ihren Namen?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-complete-0",
-      "text": "Otto kennt die Nummer. Geh zum Bahnhof.",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a1-market-complete-0-simple",
-      "text": "Otto kennt die Nummer. Geh zum Bahnhof.",
+      "text": "Die Nummer sieben steht auch am Bahnhof. Otto ist nicht zufrieden.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-gate-0",
-      "text": "Zwei Äpfel. Ein Apfel ist für uns. Ein Apfel kommt mit.",
+      "text": "Zwei Äpfel. Nummer sieben. Zwei Äpfel… Moment!",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-gate-1",
+      "text": "Frau Berg! Das sagt Frau Berg. Jeden Freitag, seit zwanzig Jahren!",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-gate-2",
+      "text": "Sie wohnt im Haus mit dem Garten. Blumen, Blumen, Blumen. Nummer sieben.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-gate-3",
+      "text": "Aber ihr Name fehlt im Gästebuch. Und in meinem Kopf. Wie geht das?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-gate-request",
-      "text": "Ein Apfel oder zwei Äpfel? Sag es mir bitte.",
+      "text": "Du stehst bei Nummer sieben, mein Gast. Also: Was brauchst du?",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-gate-request-simple",
+      "text": "Nummer sieben. Was brauchst du?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-0",
-      "text": "Zwei Äpfel für die Reise? Sie sind gut.",
+      "text": "Hallo! Gut, du bist da. Meine Suppe hat ein Problem.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-1",
-      "text": "Der Apfel hat eine Nummer. Das ist kein Preis.",
+      "text": "Am Freitag essen alle zusammen. Ein Tisch, eine Suppe, alle Gäste.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-2",
-      "text": "Voss bringt die Äpfel. Dann fehlen Adressen.",
+      "text": "Alle Gäste stehen hier, in meinem Gästebuch. Seit zwanzig Jahren.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-3",
-      "text": "Das Buch ist richtig. Alle Namen stehen hier.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Aber hier: zwei Äpfel, Nummer sieben. Und kein Name. Wer ist das?",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-4",
-      "text": "Aber der Name von Frau Berg fehlt.",
+      "text": "Ich weiß es nicht mehr. Mein Kopf ist heute wie Suppe ohne Salz.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-5",
-      "text": "Ein Apfel oder zwei Äpfel? Sag es mir bitte.",
+      "text": "Und meine Äpfel haben Nummern. Mit dem Siegel von Voss. Warum? Ich weiß es nicht.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-marta-receipt",
+      "text": "Marta sagt, du hast eine Rechnung von morgen. Gut! Papier bleibt.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-otto-names",
+      "text": "Otto sagt, Namen gehen hier weg. Ich habe gelacht. Jetzt nicht mehr.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-protect-0",
-      "text": "Ich schreibe ihren Namen auf. Frau Berg bekommt ihren Apfel.",
+      "text": "Frau Berg. So! Jetzt steht sie wieder hier.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
-      "id": "dialogue-a1-market-quiet-platform",
-      "text": "Otto sagt: Du hilfst uns. Danke!",
+      "id": "dialogue-a1-market-protect-1",
+      "text": "Und hier ist ihre Adresse. Nimm sie mit. Ein Papier für mich, eins für dich.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-report-0",
-      "text": "Gut. Voss liest die Nummer. Er hat noch eine Frage.",
+      "text": "Gut. Voss schreibt die Nummer auf. Er sagt: Alles in Ordnung.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
+      "id": "dialogue-a1-market-report-1",
+      "text": "Aber im Gästebuch fehlt ihr Name noch. Die Suppe wartet.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-guests-0",
+      "text": "Otto, Marta, Lina, Emil. Und alle ohne Tisch.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-guests-1",
+      "text": "Die Tauben von Otto auch. Sie bezahlen nie.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-numbers-0",
+      "text": "Voss bringt die Nummern. Jeden Montag, mit dem Siegel.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-numbers-1",
+      "text": "Ich esse nur den Apfel. Die Nummer schmeckt nicht.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-soup-0",
+      "text": "Ohne Apfel? Nicht gut. Die Suppe braucht Apfel.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-topic-soup-1",
+      "text": "Das sagt meine Mutter. Und ihre Mutter. Und die Suppe.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-market-voss-book",
+      "text": "Das Buch ist richtig. Ein Name fehlt? Dann gab es ihn nie.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-berg-back",
+      "text": "Fritz sagt, Frau Berg steht wieder im Gästebuch. Gut gemacht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
       "id": "dialogue-a1-station-choice-0",
-      "text": "Was möchtest du tun?",
+      "text": "Schreibt Voss das Schild in sein Buch, oder öffnen wir die alte Tür?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-complete-0",
-      "text": "Emil hat eine Lampe. Geh bitte zu ihm.",
+      "text": "Emil sucht sein Licht. Jeden Abend steht es hier. Allein.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-gate-0",
-      "text": "Ja, der Platz ist frei. Auf dem Schild steht nur W.",
+      "text": "Ja. Der Platz ist frei. Bitte.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-1",
+      "text": "Sie sind das. Die Fahrkarte von Bahnsteig sieben.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-2",
+      "text": "Leise, bitte. Jetzt spricht sie.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-3",
+      "text": "Hörst du? Eine Stimme. Eine Frau.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
+      "id": "dialogue-a1-station-gate-4",
+      "text": "Jeden Abend sagt sie: „Bitte antworte. Ich warte.“",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-5",
+      "text": "Ich kann nicht antworten. Die Maschine hört mich nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-6",
+      "text": "Das steht nicht in meinem Buch. Und es bleibt so.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-a1-station-gate-request",
-      "text": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+      "text": "Da ist noch ein Platz. Aber seine Jacke liegt da.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-gate-request-simple",
+      "text": "Ein Platz. Seine Jacke liegt da.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-0",
-      "text": "Die Nummer steht auch hier am Bahnsteig.",
+      "text": "Heute Morgen: sechs Bahnsteige. Jetzt: sieben. Und es bleibt bei sieben.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-1",
-      "text": "Auf dem Schild steht: Nach W… Mehr steht hier nicht.",
+      "text": "Auf dem Schild steht: Nach W… Mehr nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-2",
-      "text": "Ich kenne die Stadt. Aber ihr Name ist weg.",
+      "text": "Ich kenne die Stadt. Zwanzig Jahre Fahrkarten. Aber den Namen weiß ich nicht mehr.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-3",
-      "text": "Hier ist eine Bank. Ein Mann sitzt am Ende.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
-    },
-    {
-      "id": "dialogue-a1-station-intro-3-simple",
-      "text": "Hier ist eine Bank. Dort sitzt ein Mann.",
+      "text": "Und da, am Ende der Bank: der Mann. Jeden Abend um sechs. Pünktlich.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-4",
-      "text": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+      "text": "Er hat eine alte Maschine. Die Maschine spricht. Er nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-intro-5",
+      "text": "Ich sitze da nie. Der Mann sagt nie Hallo.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-key-in-hand",
-      "text": "Du hast den Schlüssel. Die Tür am Bahnhof ist noch zu.",
+      "text": "Du hast meinen Schlüssel noch? Gut. Er ist für die alte Tür hier.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-ledger-in-hand",
-      "text": "Sie haben mein Buch. Ich komme mit zur Tür.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Du hast sein Buch? Dann kennst du den Mann schon.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-protect-0",
-      "text": "Die Tür ist auf. Hier steht die Nummer sieben.",
+      "text": "Die Tür ist auf. Hier ist mein altes Buch. Zwanzig Jahre alt.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-protect-1",
+      "text": "Hundert Fahrkarten für Bahnsteig sieben. Und unten immer ein E.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-report-0",
-      "text": "Voss hat jetzt das Schild. Ich schreibe das W auf.",
+      "text": "Nach W. Ein Buchstabe. Ich schreibe ihn auf. Alles in Ordnung.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-report-1",
+      "text": "Ein Buchstabe im Buch. Und die Stadt ist immer noch weg.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
+      "id": "dialogue-a1-station-second-key",
+      "text": "Noch einen Schlüssel? Ich habe immer zwei. Ein Chef hat immer zwei.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-ticket-blank",
+      "text": "Ihre Fahrkarte habe ich noch. Die Buchstaben sind jetzt weg.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-man-0",
+      "text": "Er kauft nie eine Fahrkarte. Er fährt nie.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-man-1",
+      "text": "Er wartet. Aber er sagt, er wartet nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-pigeons-0",
+      "text": "Auf sechs Bahnsteigen. Nie auf sieben.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-pigeons-1",
+      "text": "Lindenhafen hat heute sieben. Morgen vielleicht acht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-pigeons-2",
+      "text": "Die Tauben wissen es. Ich nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-sign-0",
+      "text": "Nach W… Dann nichts. Gestern war der Name noch da.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-topic-sign-1",
+      "text": "Ich habe den Namen jeden Tag gesagt. Zwanzig Jahre. Und jetzt? Nichts.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-station-voss-witness",
+      "text": "Ich komme mit. Ich lese nur. Ich schreibe nichts auf.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-a1-workshop-archive-register",
-      "text": "In dem Buch steht Elise. Die Lampe kommt von ihr.",
+      "text": "Ottos altes Buch! Hundert E. Und hier, auf der Lampe: auch ein E.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-choice-0",
-      "text": "Was möchtest du tun?",
+      "text": "Bekommt meine Lampe eine Nummer von Voss, oder geht sie mit dir?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-complete-0",
-      "text": "Lina hat ein Paket. Die Lampe möchte zu ihr.",
+      "text": "Lina von der Post hat ein Problem. Die Lampe weiß es schon.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-gate-0",
-      "text": "Hier ist die Lampe. Sie sucht alte Adressen.",
+      "text": "Sie bleibt! Sie bleibt bei dir! Das macht sie bei mir nie!",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-gate-1",
+      "text": "Und sie ist hell. Sehr hell. Sie geht zur Tür. Sie will zur Post.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-gate-2",
+      "text": "Zur Post? Fehlt da eine Adresse? Das gefällt mir nicht.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-gate-3",
+      "text": "Voss will eine Nummer für jede Maschine. Auch für meine Lampe.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-gate-request",
-      "text": "Brauchst du eine Lampe? Sag es mir.",
+      "text": "Jetzt steht sie bei dir und hört zu. Brauchst du eine Lampe, oder nicht?",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-gate-request-simple",
+      "text": "Sie hört zu. Brauchst du eine Lampe?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-0",
-      "text": "Meine Lampe läuft weg. Sie sucht eine Adresse.",
+      "text": "Vorsicht! Die Lampe! Sie läuft weg! Schon wieder!",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-1",
-      "text": "Sie ist alt. Sie kommt von Elise.",
+      "text": "Hallo. Ich bin Emil. Das ist meine Lampe. Sie funktioniert meist.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-2",
-      "text": "Auf deiner Fahrkarte steht auch die Nummer sieben.",
+      "text": "Am Dienstag fliegt sie. Nur am Dienstag. Das ist normal.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-3",
-      "text": "Elise braucht dich. Die Lampe kennt deinen Namen.",
+      "text": "Nicht normal: Sie läuft weg. Von mir! Ich bin ihr Vater!",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-4",
-      "text": "Brauchst du eine Lampe? Sag es mir.",
+      "text": "Sie geht nur zu Leuten mit einem Problem. Ohne Problem? Sie ist weg.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-intro-5",
+      "text": "Und jeden Abend geht sie zu Adressen. Aber da sind keine Häuser mehr.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-protect-0",
-      "text": "Nimm die Lampe mit. Lina wartet auf dich.",
+      "text": "Gut. Bei dir funktioniert sie. Meist.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-protect-1",
+      "text": "Und am Dienstag: Hand auf die Lampe!",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-receipt-glow",
+      "text": "Moment, du hast Martas Rechnung? Die Lampe wird sehr hell.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-report-0",
-      "text": "Hier ist die Nummer. Voss kann die Lampe auch sehen.",
+      "text": "Gut. Lampe Nummer hundert. Voss ist zufrieden. Die Lampe nicht.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-report-1",
+      "text": "Sie geht zur Post. Und Voss geht mit. Mit Formular.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-origin-0",
+      "text": "Ich habe sie aus einem alten Licht gemacht. Vom Bahnhof.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-origin-1",
+      "text": "Von Bahnsteig sieben, glaube ich. Ich habe Otto nicht gefragt.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-tuesday-0",
+      "text": "Sie fliegt. Einen Meter. Am Dienstag mit Regen: zwei Meter.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-tuesday-1",
+      "text": "Mit Regen! Ich verstehe das auch nicht. Noch nicht!",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-works-0",
+      "text": "Meist sehr gut! Meine Uhr funktioniert nie. Meine Maschine für Kaffee…",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-topic-works-1",
+      "text": "Nein. Über die Maschine sprechen wir nicht.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a1-workshop-voss-visit",
+      "text": "Voss war heute hier. Die Lampe war sofort unter dem Tisch.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-apartment-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Die Tür geht jetzt in beide Städte. Lassen wir sie offen, oder fragen wir zuerst Waldruh?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-apartment-complete-0",
-      "text": "Fritz organisiert ein Laternenfest. Vereinbart eine Zeit mit dem Kreis.",
+      "text": "Fritz will ein Fest für ganz Waldruh machen. Er weiß nur nicht, wann.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-complete-1",
+      "text": "Er hat nie Zeit. Immer ist gerade die Suppe wichtiger.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-apartment-consult-0",
-      "text": "Ich lade die Nachbarn ein. Niemand entscheidet allein über ihre Zimmer.",
+      "text": "Gut. Ich hänge einen Zettel an die Tür: Erst klopfen, dann reisen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a2-apartment-gate-0",
-      "text": "Gern. Die Tür ist wieder sicher. Der Vertrag bleibt als Beweis bei dir.",
-      "speaker": "marta",
-      "voice": "Anna"
+      "id": "dialogue-a2-apartment-consult-1",
+      "text": "Ich habe Klopfen gehört. Gibt es eine Versammlung? Ich habe Suppe dabei.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
     },
     {
-      "id": "dialogue-a2-apartment-gate-request",
-      "text": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
-      "speaker": "marta",
-      "voice": "Anna"
-    },
-    {
-      "id": "dialogue-a2-apartment-intro-0",
-      "text": "Willkommen in Waldruh. Dein Zimmer blickt auf zwei Städte.",
+      "id": "dialogue-a2-apartment-intro-0-name-free",
+      "text": "Schnell, komm rein! Gerade ist die Tür in Waldruh.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-apartment-intro-1",
-      "text": "Der Mietvertrag verbindet die Adressen, auch wenn die Akten sie vergessen.",
+      "text": "Vor fünf Minuten war sie noch meine Küchentür in Lindenhafen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a2-apartment-intro-1-simple",
-      "text": "Hier stehen beide Adressen. Beide Städte gehören zusammen.",
+      "id": "dialogue-a2-apartment-intro-10",
+      "text": "Ich repariere nur auf Antrag. Den Antrag stellt der Mieter. Wer wohnt in Zimmer 7?",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-intro-11",
+      "text": "Unten am Brett hängt ein Mietvertrag. Gestern war er noch nicht da.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-apartment-intro-2",
-      "text": "Du warst noch nie hier. Trotzdem steht dein Name im Vertrag.",
+      "text": "Ich habe heute früh das Café aufgeschlossen. Dahinter stand plötzlich dieses Gasthaus.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-apartment-intro-3",
-      "text": "Elise hat dich als ihre Nachfolge eingetragen. Das Amt verwechselt Name und Person.",
-      "speaker": "marta",
-      "voice": "Anna"
-    },
-    {
-      "id": "dialogue-a2-apartment-intro-3-simple",
-      "text": "Elise möchte, dass du ihre Arbeit machst. Darum steht dein Name hier.",
-      "speaker": "marta",
-      "voice": "Anna"
+      "text": "Guten Tag. Wir kennen uns ja. Ich prüfe dieses Gebäude.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a2-apartment-intro-4",
-      "text": "Die Warnung meint ihren Schlüssel. Du hast niemanden ausgelöscht.",
-      "speaker": "marta",
-      "voice": "Anna"
+      "text": "Danke für die Adresse aus Lindenhafen. Sie hat mich direkt hierher geführt.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a2-apartment-intro-5",
-      "text": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
+      "text": "Niemand hat ihm die Adresse gegeben. Er kam trotzdem. Durch meine Küche, ohne Kaffee.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
+      "id": "dialogue-a2-apartment-intro-6",
+      "text": "Laut Akte hat Waldruh freiwillig aufgehört zu existieren. Ich prüfe also ein Gebäude, das es nicht gibt.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-intro-6-simple",
+      "text": "In meiner Akte steht: Waldruh gibt es nicht mehr. Das Dorf wollte es so.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-intro-7",
+      "text": "Für ein Dorf, das es nicht gibt, hat es erstaunlich gute Kartoffeln.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-intro-8",
+      "text": "Der Kühlschrank steht in meinem Register. Er kommt aus Lindenhafen. Die Tür dort steht nirgends.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-intro-9",
+      "text": "Und genau diese Tür klemmt. Halb hier, halb in meinem Café. Dahinter liegt Zimmer 7.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-react-0",
+      "text": "Antrag angenommen. Ich stemple die Tür. So, jetzt existiert sie.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-react-1",
+      "text": "Sie geht auf! Ich rieche meinen Kaffee. Und der ist in Lindenhafen!",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-react-2",
+      "text": "Der Vertrag ist gültig. Bezahlt von … Elise.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-react-3",
+      "text": "Entschuldigen Sie mich. Ich muss etwas nachsehen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-react-4",
+      "text": "Hast du sein Gesicht gesehen? So schaut niemand ein Formular an.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-request-0-name-free",
+      "text": "Laut Vertrag wohnen Sie hier. Zimmer 7, im Voraus bezahlt.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-request-1",
+      "text": "Seit drei Monaten, steht da. Du bist doch heute erst angekommen.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-request-2",
+      "text": "Das Schloss klemmt. Ich habe Werkzeug, aber ohne Antrag rühre ich nichts an. Ich höre.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-a2-apartment-restore-0",
-      "text": "Ich stelle eine Laterne ins Fenster. Die Nachbarn sehen das Signal.",
+      "text": "Gut. Ich stelle einen Stuhl in die Tür. Dann kann sie nicht mehr weglaufen.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-restore-1",
+      "text": "Post für Waldruh! Drei Briefe, alle von gestern. Ich bin durch die Küche gekommen.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-kettle-0",
+      "text": "Regen für morgen. Und ab und zu einen Namen, den ich nicht kenne.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-kettle-1",
+      "text": "Ich schreibe die Namen auf. Ein Wasserkocher lügt nicht. Er übertreibt nur.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-one-door-0",
+      "text": "Meine Oma sagt, früher war das ein Haus. Die Strecke lief mitten durch den Flur.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-one-door-1",
+      "text": "Dann war die Strecke weg. Und das Haus stand auf einmal in zwei Städten.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-one-door-2",
+      "text": "Die Tür ist geblieben. Türen sind treuer als Akten.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-voss-stay-0",
+      "text": "Bis die Akte und das Dorf dasselbe sagen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-voss-stay-1",
+      "text": "Eines von beiden muss sich korrigieren. Ich hoffe, es ist das Dorf.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-apartment-topic-voss-stay-2",
+      "text": "Ich mache ihm ein Bett. Er hat schon gefragt, ob das Kissen registriert ist.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a2-archive-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Der zweite Stempel kommt aus Nebelstadt. Fährst du sofort mit dem Schlüssel, oder nimmst du zuerst Zeugen mit?",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-complete-0",
-      "text": "Der Hafenrat wartet. Finde Elise in Nebelstadt, bevor die siebte Glocke läutet.",
+      "text": "In Nebelstadt hat jemand aus meiner einen Woche ein »für immer« gemacht. Dort finden wir die Antwort.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-complete-1",
+      "text": "Und vielleicht Elise. Beeil dich, bevor die siebte Glocke läutet.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-consult-0",
-      "text": "Ich lade den Kreis und die Laternenhüter zum Hafenrat ein. Alle dürfen sprechen.",
+      "text": "Dann komme ich mit. Ich bin eine Zeugin. Die erste, die nicht mehr schweigt.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
-      "id": "dialogue-a2-archive-gate-0",
-      "text": "Hier ist meine Aussage. Die endgültige Unterschrift führt nach Nebelstadt.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-archive-gate-request",
-      "text": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
+      "id": "dialogue-a2-archive-consult-1",
+      "text": "Ich habe Platz für drei Zeugen und einen Farn. Greta besteht auf dem Farn.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-intro-0",
-      "text": "Ich habe den ersten Beschluss unterschrieben. Ich war Elises Lehrling.",
+      "text": "Sie suchen eine Unterschrift. Ich habe sie unter U abgelegt. Und dann unter S, wie Schuld.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-intro-1",
-      "text": "Elise wollte die Strecke vorübergehend schließen, damit der Streit nicht schlimmer wird.",
+      "text": "Verzeihung. Ich bin Ada. Ich ordne die Wahrheit alphabetisch. Leichter wird sie dadurch nicht.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-intro-2",
-      "text": "Das Messingamt hat aus vorübergehend ein endgültiges Verbot gemacht.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-archive-intro-2-simple",
-      "text": "Das Messingamt sagt: Der Zug darf nie mehr fahren. Elise wollte das nur für kurze Zeit.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-archive-intro-3",
-      "text": "Die Akte nennt keine Frist. Ich kann nur die Akte prüfen.",
+      "text": "Ich bin dienstlich hier. Man hat mir Ruhe verordnet. Ich arbeite also leise.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
+      "id": "dialogue-a2-archive-intro-3",
+      "text": "Bleiben Sie, Herr Voss. Was ich jetzt sage, soll auch das Messingamt hören.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
       "id": "dialogue-a2-archive-intro-4",
-      "text": "Die Warnung meint den Schlüssel der Hüterin. Elise hat dich als Nachfolge gewählt.",
+      "text": "Ich war Elises Lehrling. Ich habe die erste Schließung der Strecke unterschrieben. Mit meinem Namen.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-intro-5",
-      "text": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
+      "text": "Elise hat mich darum gebeten. Ich habe nicht gefragt, warum. Lehrlinge fragen nicht.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-intro-6",
+      "text": "Der Kreis sagt, Sie fragen die Leute zuerst. Das hätte ich damals auch tun sollen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-intro-7",
+      "text": "Die Laternenhüter sagen, Sie öffnen Türen schnell. Manche Türen sollte man vorher lesen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-intro-8",
+      "text": "Mein Beschluss steht auf dem Gedenkstein. Unter dem Siegel steht noch ein Satz. Lesen Sie ihn.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-0",
+      "text": "Gut. Genauer. Mein Beschluss galt eine Woche. Dann kam ein zweiter: endgültig.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-1",
+      "text": "Der zweite Beschluss trägt zwei Zeichen. Die Laterne von Elises Schlüssel. Und den Stempel des Messingamts.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-1-simple",
+      "text": "Auf dem zweiten Papier sind zwei Zeichen: Elises Schlüssel und der Stempel vom Messingamt.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-2",
+      "text": "Mein Amt. Ich kenne jeden Stempel, den wir je gemacht haben. An diesen erinnere ich mich nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-3",
+      "text": "Elise hat die Strecke von innen geschlossen. Danach hat sie den Schlüssel nicht behalten.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-4",
+      "text": "Sie hat ihn an einen Mietvertrag gehängt. Zimmer 7. Ein Schlüssel mit einer kleinen Laterne.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-5-name-free",
+      "text": "Unter N steht in meinem Register: Nachfolge der Hüterin. Das sind Sie.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-6",
+      "text": "»Bevor du uns wieder auslöschst« – das meint nicht Sie. Das meint den Schlüssel. Er kann Orte schließen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-7",
+      "text": "So. Jetzt ist alles gesagt. Ich lege den Stift hin.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-8",
+      "text": "Ich habe lange genug Sie gesagt. Ich bin Ada. Wir können uns gern duzen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-react-9",
+      "text": "Ich bleibe beim Sie, wenn Sie erlauben. Aber ich höre zu.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-request-0",
+      "text": "Eine Woche? In meiner Akte steht: endgültig. Seit Jahren.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-request-1",
+      "text": "Beide Papiere sind echt. Das ist ja das Schlimme.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-request-2",
+      "text": "Ich kann es erklären. Ich weiß nur nicht, wo ich anfangen soll.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-archive-restore-0",
-      "text": "Ich helfe Otto, den Schlüssel zu prüfen. Die nächste Strecke wird sichtbar.",
+      "text": "Dann schnell. Otto macht den Zug nach Nebelstadt bereit. Diesmal wartet er auf uns.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-restore-1",
+      "text": "Einsteigen, bitte! Nebelstadt. Pünktlich. Das ist mir selbst unheimlich.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-how-long-0",
+      "text": "Seit dem Morgen nach der Schließung. Das Archiv ist an dem Tag losgefahren, und ich mit.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-how-long-1",
+      "text": "Früher war der Bahnhof kleiner. Und lauter. Ein Bahnhof sollte laut sein.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-travelling-0",
+      "text": "Ein Archiv, das stillsteht, wird vergessen. Eines, das reist, muss man jeden Tag neu fragen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-travelling-1",
+      "text": "Außerdem bin ich als Kind immer mit dem Zug gefahren. Ich vermisse das Rattern.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-truth-0",
+      "text": "Unter W. Zwischen »Wetter« und »Wünsche«.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-archive-topic-truth-1",
+      "text": "Die Mappe »Wetter« ist viel dicker. Über Regen schreiben die Leute lieber.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Ziehen wir jetzt den Hebel, oder sagen wir zuerst alle Namen am Stein laut?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-complete-0",
-      "text": "Greta kennt jemanden, dessen Erinnerung die verlorene Stunde überstanden hat.",
+      "text": "Greta hat einen Patienten mit Laternenfieber. Er redet von einer Reise, die es nie gab.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-complete-1",
+      "text": "Man hat ihn heute Nacht an den alten Schienen gefunden. Er hat auf einen Zug gewartet.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-consult-0",
-      "text": "Ich sichere die Anleitung. Greta sucht einen unabhängigen Zeugen.",
+      "text": "Gut. Ich halte die Mühle mit der Hand an. Nicht lange. Sie ist stark.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
-      "id": "dialogue-a2-broken-clock-gate-0",
-      "text": "Der rote Hebel hält die Uhr an. Der blaue verbindet die Namen wieder.",
-      "speaker": "emil",
-      "voice": "Eddy (German (Germany))"
+      "id": "dialogue-a2-broken-clock-consult-1",
+      "text": "Wir sind da. Das ganze Dorf. Wir lesen die Namen vor, einen nach dem anderen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
     },
     {
-      "id": "dialogue-a2-broken-clock-gate-request",
-      "text": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
-      "speaker": "emil",
-      "voice": "Eddy (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-broken-clock-intro-0",
-      "text": "Das Rad dreht sich, aber die Uhr wiederholt dieselbe Stunde.",
+      "id": "dialogue-a2-broken-clock-intro-0-name-free",
+      "text": "Vorsicht, nicht da hinstellen! Da war gestern noch eine Stunde.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-intro-1",
-      "text": "Nach jeder Wiederholung fehlt ein Name. Das ist keine gewöhnliche Reparatur.",
-      "speaker": "emil",
-      "voice": "Eddy (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-broken-clock-intro-1-simple",
-      "text": "Die Stunde kommt wieder. Dann fehlt ein Name. Ich muss mehr als die Uhr reparieren.",
+      "text": "Die Uhrenmühle spielt jede Nacht dieselbe Stunde. Die Stunde vor Mitternacht. Immer wieder.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-intro-2",
-      "text": "Jemand hat meine Werkzeuge ausgeliehen und den Signalanschluss getrennt.",
+      "text": "Und nach jeder Runde fehlt im Dorf ein Name. Einfach weg. Wie ein Zahn aus einem Zahnrad.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-intro-3",
-      "text": "Der Dankesbrief ist von Elise. Sie wollte einen Streit stoppen.",
+      "text": "Ich habe sie gestern repariert. Glaube ich. Auf meiner Quittung steht: morgen.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-intro-4",
-      "text": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
+      "text": "Und das Beste – nein, das Schlimmste – meine Werkzeuge waren eine Nacht lang weg.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-intro-5",
+      "text": "Sie kamen zurück. Sauber, sortiert, mit einem Dankesbrief. Wer macht so etwas?",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-intro-6",
+      "text": "Ah, meine Lampe! Sie zittert immer, wenn die Mühle die Stunde wiederholt.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-intro-7",
+      "text": "Meine Lampe steht jetzt in Voss’ Register. Schade. Sie hätte die fehlenden Namen gefunden.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-intro-8",
+      "text": "Die Anleitung hängt an der Uhr. Und am Gedenkstein fehlt seit heute Nacht ein Name.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-0",
+      "text": "Gern! Also: Der rote Hebel hält die Mühle an. Nur kurz, sonst wird sie böse.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-1",
+      "text": "Der blaue Anschluss verbindet die Mühle mit dem Signal der Strecke. Jemand hat ihn getrennt. Sauber.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-2",
+      "text": "Und hier am Rand steht: »Bitte nur trennen, wenn es sein muss. Danke für das Werkzeug.«",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-3",
+      "text": "Dieselbe Schrift wie im Dankesbrief. Und wie auf deinem Mietvertrag. Das ist Elises Handschrift.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-4",
+      "text": "Du hast ihren Brief noch? Leg ihn daneben. Gleiches E, gleiche Schleife.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-5",
+      "text": "Und auf deiner Quittung aus dem Café: dasselbe E. Sie bezahlt immer im Voraus.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-6",
+      "text": "Elise hat meine Mühle kaputt gemacht. Mit meinem Werkzeug. Und sich dann bedankt.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-7",
+      "text": "Ich wollte nie das Werkzeug für einen Fehler sein. Eine Nacht lang war ich es.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-8",
+      "text": "Wenn ich den Hebel ziehe, kommt die Stunde zurück. Aber alles, was in ihr passiert ist, wird überschrieben.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-react-8-simple",
+      "text": "Mit dem Hebel kommt die Stunde zurück. Aber die Spuren in der Stunde sind dann weg.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-request-0",
+      "text": "Die Anleitung ist von einem Ingenieur. Also verstehe ich sie. Theoretisch.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-request-1",
+      "text": "Roter Hebel, blauer Anschluss … Ich verstehe jedes Wort. Nur nicht die Reihenfolge.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-request-2",
+      "text": "Ich erkläre Dinge gern laut. Aber nur, wenn jemand fragt. Sonst rede ich mit der Mühle.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-broken-clock-restore-0",
-      "text": "Ich stelle die Uhr ab. Eine weitere Adresse kehrt zurück.",
+      "text": "Roter Hebel … jetzt! Hörst du? Die Mühle tickt wieder normal. Meistens.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-restore-1",
+      "text": "Und am Stein kommt ein Name zurück. Nur einer. Aber er ist wieder da.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-topic-builder-0",
+      "text": "Niemand weiß es genau. Die alten Hüter der Strecke, sagt man.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-topic-builder-1",
+      "text": "Auf dem großen Rad ist eine kleine Laterne eingraviert. Hübsch, oder? Und ein bisschen unheimlich.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-topic-emil-here-0",
+      "text": "Meine Lampe ist losgelaufen. Ich bin hinterher, drei Tage durch den Wald.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-topic-emil-here-1",
+      "text": "Vor der Mühle ist sie stehen geblieben. Das ist ein Zeichen. Oder ein Defekt.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-broken-clock-topic-works-0",
+      "text": "Die Mühle funktioniert meistens. Der Kaffee funktioniert immer. Ich funktioniere bis Mitternacht.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Nutzen wir seine Erinnerung sofort, oder warten wir, bis er selbst entscheiden kann?",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-complete-0",
-      "text": "Bringe die Berichte zu Ada. Sie muss ihre Unterschrift erklären.",
+      "text": "Eine Akte, die einen Menschen vergisst, hat jemand geschrieben. Ada hat das Archiv.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-complete-1",
+      "text": "Sei vorsichtig mit ihr. Ada sagt immer die Wahrheit. Nur nicht immer sofort.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-consult-0",
-      "text": "Ich bewahre die Samentüten auf. Der Kreis bestimmt, wer sie lesen darf.",
+      "text": "Ich lege die Tüten in seine Jackentasche. Wenn er aufwacht, entscheidet er.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
-      "id": "dialogue-a2-clinic-gate-0",
-      "text": "Danke. Er ruht sich aus. Wir nehmen seine Aussage nur mit seiner Zustimmung mit.",
+      "id": "dialogue-a2-clinic-consult-1",
+      "text": "Danke. Mich hat lange niemand gefragt, was ich will.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-consult-2",
+      "text": "Hörst du das? Der Farn niest nicht mehr. Zum ersten Mal heute.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
-      "id": "dialogue-a2-clinic-gate-request",
-      "text": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
-      "speaker": "greta",
-      "voice": "Sandy (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-clinic-intro-0",
-      "text": "Mein Patient erinnert sich an seine Reise, obwohl die Akten sie nicht zeigen.",
+      "id": "dialogue-a2-clinic-intro-0-name-free",
+      "text": "Bleib bitte hinter der Linie. Mein Farn hat heute schon die ganze Schlange angeniest.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-intro-1",
-      "text": "Wir prüfen Erinnerungen behutsam. Ein Mensch ist kein fehlerhafter Fahrplan.",
-      "speaker": "greta",
-      "voice": "Sandy (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-clinic-intro-1-simple",
-      "text": "Wir hören gut zu. Menschen können sich erinnern. Ein Fahrplan kann das nicht.",
+      "text": "Alle haben Laternenfieber. Das bekommt man, wenn man zu lange auf eine verschwundene Strecke schaut.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-intro-2",
-      "text": "Die Samentüten tragen alte Adressen. Sie bestätigen seinen Bericht unabhängig.",
+      "text": "Mein schwierigster Patient sitzt dort drüben. Er sagt, ihm fehlt nichts.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-clinic-intro-3",
-      "text": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
+      "text": "Mir fehlt nichts. Ich bin nur müde. Das ist für mich ungewöhnlich.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-intro-4",
+      "text": "Er saß heute Nacht an den alten Schienen. Mit nassen Schuhen. Er weiß nicht, wie er dorthin kam.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
+      "id": "dialogue-a2-clinic-intro-5",
+      "text": "Ich bin nie gereist. Ich war im Büro. So steht es in meinen Akten.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-intro-6",
+      "text": "Sie haben doch mein Buch aus Lindenhafen. Prüfen Sie selbst: keine einzige Reise.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-intro-7",
+      "text": "Wer nie reist, kennt keine Bahnhöfe. Aber im Fieber hat er Haltestellen aufgezählt. Mit Hausnummern.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-intro-8",
+      "text": "Ich habe Samentüten mit den alten Adressen der Strecke. Ich möchte sie mit seinen Worten vergleichen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-0",
+      "text": "Ausruhen. Gut. Das ist ein klarer Rat. Ich nehme ihn an.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-1",
+      "text": "Darf ich Ihnen etwas sagen? Ich kenne die blaue Gartentür. Dort gab es Kuchen. Mit Pflaumen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-2",
+      "text": "Ich bin mit dem Zug dorthin gefahren. Vor der Schließung. Meine Akte sagt, diese Strecke gab es nie.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-2-simple",
+      "text": "Ich war dort. Mit dem Zug. Aber in meiner Akte gibt es diese Strecke nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-3",
+      "text": "Eine Tüte trägt Frau Bergs Adresse. Ihre Äpfel waren die besten an der ganzen Strecke.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-4",
+      "text": "Wenn die Akte stimmt, dann stimme ich nicht. Das ist … unangenehm.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-5",
+      "text": "Schlafen Sie, Herr Voss. Erinnerungen sind keine Fehler. Sie sind Samen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-react-6",
+      "text": "Seine Erinnerung könnte uns die alte Strecke zeigen. Aber sie gehört ihm, nicht uns.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-request-0",
+      "text": "Drei von sechs. Mit Hausnummern. Und eine blaue Gartentür, die nirgends aufgeschrieben ist.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-request-1",
+      "text": "Das ist unmöglich. Ich muss sofort einen Bericht schreiben. Ich stehe jetzt auf.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-request-2",
+      "text": "Er hört nicht auf mich. Ich rede ja auch mit Pflanzen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-request-3-name-free",
+      "text": "Sie sind ein vernünftiger Mensch. Was raten Sie mir?",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-a2-clinic-restore-0",
-      "text": "Ich gebe dir Kopien. Die Gärten leuchten wieder entlang der Strecke.",
+      "text": "Ich lese die drei Adressen laut. Schau, an den alten Schienen gehen Laternen an.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-restore-1",
+      "text": "Blaue Tür … Pflaumen … mit Sahne, bitte …",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-fern-0",
+      "text": "Er ist allergisch gegen Staub. Oder gegen Lügen. Ich bin noch nicht sicher.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-fern-1",
+      "text": "Bei Voss hat er heute elfmal geniest. Ich sage nichts. Ich notiere nur.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-lantern-fever-0",
+      "text": "Man sieht Lichter, wo keine sind. Man erinnert sich an Wege, die es nicht gibt.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-lantern-fever-1",
+      "text": "Gefährlich ist es nicht. Nur unbequem. Besonders für Leute mit Akten.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-waiting-0",
+      "text": "Bis der Farn fertig ist. Meistens zwanzig Minuten.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-clinic-topic-waiting-1",
+      "text": "Und bring nächstes Mal deine Versicherungskarte mit. Der Farn will sie sehen.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-a2-evening-plans-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Lina will das Signal heute senden, Greta will zuerst alle Stimmen hören. Wer bekommt den ersten Löffel?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
-      "id": "dialogue-a2-evening-plans-complete-0",
-      "text": "Otto hat die Verbindung gefunden, die den alten Beschluss gebracht hat.",
+      "id": "dialogue-a2-evening-plans-complete-0-name-free",
+      "text": "Morgen, halb sieben. Ich koche für alle, auch für die, die in keiner Akte stehen.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-complete-1",
+      "text": "Ach, und Otto sucht dich. Er hat unter dem Bahnhof einen alten Fahrplan gefunden.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a2-evening-plans-consult-0",
-      "text": "Greta schreibt die Wünsche auf. Das Fest wird zur ersten gemeinsamen Versammlung.",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-gate-0",
-      "text": "Ja, morgen habe ich Zeit. Wir treffen uns nach der Arbeit.",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-gate-request",
-      "text": "Frag mich, ob ich morgen Zeit habe. Dann können wir gemeinsam planen.",
-      "speaker": "lina",
-      "voice": "Flo (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-intro-0",
-      "text": "Die Suppe ist fertig. Der Kreis der Ungeschriebenen kommt auch.",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-intro-1",
-      "text": "Greta und Lina vertreten die Bewohner. Sie wurden nie gefragt, ob die Strecke schließen soll.",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-intro-1-simple",
-      "text": "Greta und Lina sprechen für die Menschen hier. Niemand hat sie gefragt: Darf der Zug noch fahren?",
-      "speaker": "fritz",
-      "voice": "Rocko (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-evening-plans-intro-2",
-      "text": "Wir möchten eine Uhrzeit vereinbaren. Versprechen müssen im Alltag funktionieren.",
+      "text": "Ich schreibe jeden Wunsch auf. Auch die Wünsche von meinem Farn.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
-      "id": "dialogue-a2-evening-plans-intro-3",
-      "text": "Frag mich, ob ich morgen Zeit habe. Dann können wir gemeinsam planen.",
+      "id": "dialogue-a2-evening-plans-consult-1",
+      "text": "Schau, am Waldrand. Leute mit Stühlen. Sie haben gehört, dass man sie fragt.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-0",
+      "text": "Heute Abend! Laternen an, Signal über den Wald, fertig.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
+      "id": "dialogue-a2-evening-plans-intro-1",
+      "text": "Heute Abend kommt niemand, Lina. Wir brauchen einen Termin. Einen echten.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-10",
+      "text": "Die Frau mit der Kiste Nummer sieben … Wie hieß sie noch? Es ist wieder weg.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-11",
+      "text": "Unser Kalender hängt am Kräutergarten. Er ist … sehr ehrlich.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-2-name-free",
+      "text": "Ah! Gut, dass du da bist. Suppe? Suppe beruhigt alle.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-3",
+      "text": "Fritz plant ein Fest. Ort: der Platz. Essen: Suppe. Termin: unbekannt. Seit Jahren.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-4",
+      "text": "Ich bin die Botanikerin. Der Farn ist unter Beobachtung. Bitte nicht zu nah, er niest.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-5",
+      "text": "Wir sind der Kreis der Ungeschriebenen. Leute, die in keiner Akte stehen. Oder nicht mehr.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-6",
+      "text": "Als die Strecke geschlossen wurde, hat uns niemand gefragt. Niemand. Und die Akte sagt: freiwillig.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-6-simple",
+      "text": "Die Strecke ist zu. Niemand hat uns vorher gefragt.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-7",
+      "text": "Wir haben an dem Abend alle zusammen gegessen. Um sechs. Danach war die Strecke weg.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-8",
+      "text": "Seitdem hat Fritz keine Zeit mehr. Für nichts, was eine Uhrzeit hat.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-intro-9",
+      "text": "Frau Berg aus Lindenhafen hat geschrieben. Sie hat kein Haus mehr, aber sie hat ihren Namen. Sie kommt.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-react-0",
+      "text": "Morgen? … Morgen. Ja. Morgen habe ich Zeit.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-react-1",
+      "text": "Halb sieben. Nicht um sechs. Nie wieder um sechs.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-react-2",
+      "text": "Sieh mal, unser Kalender. Da steht plötzlich Tinte: morgen, halb sieben.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-react-3",
+      "text": "Ein Termin, laut gesagt. Darauf hat der Kreis lange gewartet.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-react-4",
+      "text": "Gut. Aber ein Fest ohne Signal sieht niemand. Lindenhafen wartet auf Licht.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-request-0",
+      "text": "Ich frage ihn seit einer Woche. Er sagt immer nur: Suppe.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-request-1",
+      "text": "Heute ist zu früh für den Kreis. Nächste Woche ist zu spät für Lina.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-request-2",
+      "text": "Und ich habe nie Zeit. Höchstens, wenn mich jemand ganz direkt fragt.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
       "id": "dialogue-a2-evening-plans-restore-0",
-      "text": "Die Laternenhüter antworten. Otto und Emil wollen die Strecke schnell öffnen.",
+      "text": "Laternen an! Eins, zwei, drei … Das Licht geht über den Wald.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-restore-1",
+      "text": "Hier spricht Otto. Ich bin am Bahnhof von Waldruh und habe euer Licht gesehen.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-circle-0",
+      "text": "Alle, deren Namen einmal falsch oder gar nicht aufgeschrieben wurden.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-circle-1",
+      "text": "Wir erinnern uns gegenseitig. Jeden Morgen sagen wir unsere Namen laut. Das hilft.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-fern-0",
+      "text": "Er hat letzte Woche auf einen Stempel vom Messingamt geniest. Seitdem ist der Stempel grün.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-fern-1",
+      "text": "Ich beobachte ihn. Er beobachtet das Amt. Das ist fair.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-fritz-here-0",
+      "text": "Meine Äpfel rollen seit einer Woche alle nach Norden. Ich bin hinterhergelaufen.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-evening-plans-topic-fritz-here-1",
+      "text": "Und hier gibt es Kürbisse, so groß wie Koffer. Ich bleibe ein bisschen.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-choice-0",
-      "text": "Wie sollen wir gemeinsam weitergehen?",
+      "text": "Stellen wir die Uhr sofort richtig, oder sichern wir zuerst das Register als Beweis?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-complete-0",
-      "text": "Emil hat die Uhrenmühle repariert. Seine Notizen zeigen die verlorene Stunde.",
+      "text": "Ein Hüterschlüssel. Davon gibt es nicht viele. Ich habe noch nie einen gesehen.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-complete-1",
+      "text": "Emil sagt, seine Werkzeuge waren eine Nacht lang weg. Und kamen sehr höflich zurück.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-consult-0",
-      "text": "Lina und ich kopieren die fehlende Stunde. Die Zeugen behalten ihre Beweise.",
+      "text": "Ich schreibe das Register ab. Zweimal. Eine Kopie bleibt bei mir.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-a2-rail-trip-gate-0",
-      "text": "Ich sehe das Problem. Dein Anschluss steht hier zweimal, mit derselben Nummer.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
+      "id": "dialogue-a2-rail-trip-consult-1",
+      "text": "Die andere nehme ich. Ich bringe sie zu allen, die je einen Zug verpasst haben.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
     },
     {
-      "id": "dialogue-a2-rail-trip-gate-request",
-      "text": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-rail-trip-intro-0",
-      "text": "Die Schienen sind heil. Jemand hat die Strecke von innen geschlossen.",
+      "id": "dialogue-a2-rail-trip-intro-0-name-free",
+      "text": "Schnell! Hörst du das? Ein Zug, auf einer Strecke, die es nicht gibt.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-intro-1",
-      "text": "Ada und ich prüfen den alten Beschluss. Eine Unterschrift gilt.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
-    },
-    {
-      "id": "dialogue-a2-rail-trip-intro-2",
-      "text": "Elises Schlüssel fehlt im Register. Er wurde in der verlorenen Stunde benutzt.",
+      "text": "Unter dem Bahnhof lag ein alter Fahrplan. Ein Zug pro Tag: Anschluss nach Nebelstadt, 18:00.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-a2-rail-trip-intro-2-simple",
-      "text": "Elises Schlüssel fehlt hier im Buch. Jemand hat ihn in der Stunde benutzt. Die Stunde fehlt.",
+      "id": "dialogue-a2-rail-trip-intro-10",
+      "text": "Genau so geht das seit Jahren. Kein Fahrgast, kein Zeuge, keine Beschwerde.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-11",
+      "text": "Schau dir das alte Schild an. Unter der neuen Farbe steht noch etwas.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-2",
+      "text": "Und dazu eine Fahrkarte für genau diesen Zug. Wir haben noch eine Minute.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-intro-3",
-      "text": "Der Anschluss fährt immer eine Minute zu früh. So kommen keine Zeugen an.",
+      "text": "Einen Moment. Ihre Fahrkarte, bitte. Kontrolle ist Kontrolle.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-4",
+      "text": "Voss, nicht jetzt! Der Zug steht schon da!",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-a2-rail-trip-intro-4",
-      "text": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
+      "id": "dialogue-a2-rail-trip-intro-5",
+      "text": "Die Fahrkarte ist gültig. Abfahrt 18:00. Sie haben also noch genug … oh.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-6",
+      "text": "Weg. 17:59. Eine Minute zu früh. Wie jeden Abend.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-7",
+      "text": "Du hast das Register aus Lindenhafen? Schau: Auch dort fehlt jeden Tag dieselbe Minute.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-8",
+      "text": "Mein Schlüssel öffnet hier jede Tür. Nur das Schloss an den Schienen nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-intro-9",
+      "text": "Laut Akte fährt hier kein Zug. Ich habe also nichts gesehen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-0",
+      "text": "Notiert. Und sieh mal: Das Register schreibt von allein weiter.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-1",
+      "text": "Der Zug fährt immer eine Minute zu früh. So steigt niemand ein, und niemand sieht etwas.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-2",
+      "text": "Und darunter: Strecke von innen geschlossen. Mit einem Hüterschlüssel.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-3",
+      "text": "Von innen? Das steht in keiner Akte. Das kann in keiner Akte stehen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-4",
+      "text": "Und dieses Pfeifen vorhin … Ich kenne es. Von einer Aufnahme, die ich jeden Abend höre.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-5",
+      "text": "Ich kann die Bahnhofsuhr eine Minute vorstellen. Dann stimmt die Fahrkarte, und morgen sieht jeder den Zug.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-react-6",
+      "text": "Aber dann ist die falsche Minute weg. Und mit ihr der Beweis.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-request-0",
+      "text": "Das ist der Schalter. Hier hat seit Jahren niemand gestanden.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-request-1",
+      "text": "Laut Vorschrift zählt eine Beschwerde nur, wenn man sie laut sagt.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-request-2",
+      "text": "Ich setze meine Mütze auf. Bahnhof Waldruh, Schalter eins. Was ist passiert?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a2-rail-trip-restore-0",
-      "text": "Ich schalte die erste Verbindung frei. Das Amt verlangt eine neue Prüfung.",
+      "text": "Eine Minute vor. Fertig. Die Tauben auf dem Dach sind empört.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
+      "id": "dialogue-a2-rail-trip-restore-1",
+      "text": "Sieh mal, die Anzeige: Nebelstadt, 18:00. Zum ersten Mal steht da ein Ziel.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-destination-0",
+      "text": "Nach Nebelstadt, sagt das alte Schild. Das neue sagt: nirgendwohin.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-destination-1",
+      "text": "Ich glaube dem alten. Altes Holz lügt seltener.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-punctual-0",
+      "text": "Ein pünktlicher Zug will etwas verstecken. Wie eine pünktliche Taube.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-punctual-1",
+      "text": "Die Tauben hier landen jeden Abend um 17:58. Eine Minute vor dem Zug. Ich beobachte sie.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-voss-how-0",
+      "text": "Durch eine Küchentür. Das stand nicht im Dienstplan.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-a2-rail-trip-topic-voss-how-1",
+      "text": "Seitdem schlafe ich schlecht. Das ist für mich ungewöhnlich.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-atlas-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Er darf nie wieder bei nur einer Person liegen. Wem gibst du ihn: dem Rat oder dem Kreis?",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-complete-0",
       "text": "Drei Städte sind zurück. Eine Küste ohne Namen wartet auf deine nächste Frage.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-complete-1-name-free",
+      "text": "Danke. Du hast gefragt, als ich geschwiegen habe.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
@@ -1231,463 +2684,1285 @@
     },
     {
       "id": "dialogue-b1-atlas-gate-0",
-      "text": "Das Versprechen steht im Atlas. Es gehört allen entlang der Strecke, nicht einer einzigen Hüterin.",
+      "text": "„Wir“, „frühzeitig“, „besprechen“. Drei Wörter, die ich damals nicht kannte.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
+      "id": "dialogue-b1-atlas-gate-1",
+      "text": "Sieh mal, die Tinte hält. Sie läuft schon die Strecke entlang, bis nach Waldruh.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-gate-2",
+      "text": "Bleibt noch der Schlüssel. Er hat die Strecke geschlossen, und er könnte es wieder tun.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-gate-3",
+      "text": "Deshalb stand in meinem ersten Brief „wieder“. Ich hatte Angst vor mir. Und ein bisschen vor dir.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-gate-ledger",
+      "text": "Ich schreibe den Satz auch in mein Buch. In das Buch, das jetzt im Rathaus hängt.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-atlas-gate-request",
-      "text": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+      "text": "Die siebte Glocke läutet gleich. Was dann auf dieser Seite steht, gilt für alle drei Städte.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-gate-request-1",
+      "text": "Meine Regel war: Ich entscheide allein, und zwar spät. Was schreibst du an ihre Stelle?",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-0-name-free",
-      "text": "Du bist gekommen. Ich habe deinen Namen in den Atlas geschrieben, damit jemand weiterfragen kann.",
+      "text": ". Du bist wirklich da. Ich habe so oft geübt, was ich dir sagen will.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-1",
-      "text": "Ich habe die Strecke geschlossen, um einen Streit zu stoppen. Damit habe ich den Bewohnern ihre Entscheidung genommen.",
+      "text": "Und jetzt fällt mir nur ein: Möchtest du Tee? Mein Wasserkocher pfeift leider immer das Wetter von gestern.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-10",
+      "text": "Mein zweiter Fehler war die Stille danach. Ich habe mich versteckt und Briefe geschickt, statt selbst zu kommen.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-11",
+      "text": "Der Wasserkocher kannte deinen Namen, weil meine Nachricht über Martas alte Laterne kam. Es war die letzte offene Leitung.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-12",
+      "text": "Ich brauchte jemanden ohne Seite. Jemanden, der fragt, weil er die Antworten noch nicht kennt.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-13",
+      "text": "Frau Sander. Ich habe Ihre Stimme jeden Abend gehört. Ich hätte antworten müssen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-14",
+      "text": "Dann antworte jetzt, Voss.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-15",
+      "text": "Ich bin hier.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-16",
+      "text": "Der Schlüssel liegt auf dem Pult. Sieh dir an, was daneben liegt. Dann reden wir weiter.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-2",
-      "text": "Das Amt hielt die Schließung aufrecht. Aber meine gute Absicht entschuldigt meinen ersten Fehler nicht.",
-      "speaker": "elise",
-      "voice": "Shelley (German (Germany))"
-    },
-    {
-      "id": "dialogue-b1-atlas-intro-2-simple",
-      "text": "Das Amt ließ den Zug nicht mehr fahren. Ich wollte helfen. Trotzdem war meine erste Entscheidung falsch.",
+      "text": "Du hast meine Briefe alle behalten. Darf ich sie dir vorlesen? Ich habe sie nie laut gehört.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-3",
-      "text": "Die Warnung „bevor du uns wieder auslöschst“ gilt dem Schlüssel, nicht deiner Erinnerung. Du musst meinen Fehler nicht wiederholen.",
+      "text": "Der erste: „Bevor du uns wieder auslöschst, komm.“ Mehr Wörter konnte die Tinte damals nicht halten.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-4",
-      "text": "Der Wasserkocher kannte deinen Namen, weil meine Nachricht über Martas alte Laterne kam. Es war ein Ruf nach Hilfe.",
+      "text": "Und hier, aus der Hafenpost: „Ich bin nicht an zwei Orten. Ich bin nur an einem, und ich warte.“",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-5",
-      "text": "Eine letzte Glocke bleibt. Schreib ein Versprechen, das auch gilt, wenn wir wieder streiten.",
+      "text": "Mit jedem Satz, den du gesagt hast, wurden meine Briefe länger. Du hast mir die Sprache zurückgegeben.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-intro-6",
-      "text": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+      "text": "Jetzt schulde ich dir die Wahrheit.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-7",
+      "text": "Damals haben die drei Städte um die Strecke gestritten. Erst mit Worten, dann mit Steinen.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-8",
+      "text": "Ich wollte verhindern, dass der Streit schlimmer wird. Also habe ich um 17:59 den Schlüssel umgedreht. Für eine Woche.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-8-simple",
+      "text": "Der Streit sollte nicht schlimmer werden. Deshalb habe ich die Strecke mit dem Schlüssel geschlossen.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-9",
+      "text": "Ich nenne es nicht mehr Schutz. Ich nenne es meinen ersten Fehler: Ich habe niemanden gefragt.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-private",
+      "text": "Du hast meinen ersten Brief für dich behalten. Danke. Aber ab heute dürfen ihn alle lesen.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-intro-public",
+      "text": "Du hast meine Adresse damals dem Amt geschickt. Ich war wütend. Heute weiß ich, dass du recht hattest.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-remember-0",
-      "text": "Ich gebe den Schlüssel an den Kreis. Jede Stadt behält eine eigene Kopie des Versprechens.",
+      "text": "Dann bekommt der Kreis den Schlüssel und jede Stadt eine Abschrift unseres Satzes.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-remember-1",
+      "text": "Greta versteckt ihn bestimmt in ihrem Farn. Dort sucht ihn niemand.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-atlas-reopen-0",
-      "text": "Ich gebe den Schlüssel an den Rat. Die Laternen zeigen den neuen gemeinsamen Fahrplan.",
+      "text": "Dann bringe ich ihn heute noch zu Ada. Die Laternen zeigen schon den neuen Fahrplan.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-reopen-1",
+      "text": "Ada wird mit mir schimpfen. Zu Recht. Ich höre ihr zu, solange es dauert.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-life-0",
+      "text": "Mit Tee, alten Fahrplänen und einer Aufnahme, die ich nicht abstellen konnte.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-life-1",
+      "text": "Abends habe ich die Züge gezählt, die nicht kamen. Otto hätte das verstanden.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-next-0",
+      "text": "Ich fahre nach Waldruh und klopfe an jede Tür. Auch an die, hinter der man mich nicht sehen will.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-next-1",
+      "text": "Bei Ada fange ich an. Ich schulde ihr eine Woche, die viel zu lang gedauert hat.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-recording-0",
+      "text": "Ich wollte, dass jemand antwortet, auch wenn ich schlafe.",
+      "speaker": "elise",
+      "voice": "Shelley (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-atlas-topic-recording-1",
+      "text": "Und dann habe ich sie nicht abgeschaltet. Sie war das Letzte, was von mir noch gerufen hat.",
       "speaker": "elise",
       "voice": "Shelley (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Ein Schritt muss der erste sein. Fangen wir mit dem ersten Zug an oder mit der ersten Abstimmung?",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-complete-0",
-      "text": "Der Sturm erreicht den Hafen. Das Versprechen muss jetzt in der Praxis bestehen.",
+      "text": "Hört ihr den Wind? Der Sturm kommt früher als die nächste Glocke.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-complete-1",
+      "text": "Versprechen im Trockenen sind leicht. Jetzt sehen wir, ob unseres auch im Regen hält.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-gate-0",
-      "text": "Wir vereinbaren eine überprüfbare Öffnung mit Mitsprache und einem öffentlichen Wartungsbuch.",
+      "text": "Schrittweise. Ein Bahnhof nach dem anderen. Damit kann ich leben. Langsam.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-gate-1",
+      "text": "Und vor jedem Schritt fragen wir die Stadt. Laut. Mit Namen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-gate-2",
+      "text": "Hört ihr das? Der Strahl summt tiefer. Er wird schwächer, solange wir reden.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
-      "id": "dialogue-b1-council-gate-request",
-      "text": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
+      "id": "dialogue-b1-council-gate-3",
+      "text": "Dann gehört zu jedem Schritt eine Akte, die jeder lesen kann. Meine zuerst.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-gate-4",
+      "text": "Ich bin auch dafür. Laut. Damit es keiner für Schweigen hält.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-gate-request-name-free",
+      "text": "Zwischen „sofort“ und „nie“ muss es etwas geben. Was wäre das?",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-intro-0",
-      "text": "Der Rat hat alle drei Gruppen eingeladen. Jede darf ihre Beweise und ihre Sorgen nennen.",
+      "text": "Die Sitzung ist eröffnet. Sieben Stühle, acht Meinungen und ein Topf Suppe.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-intro-1",
-      "text": "Die Maschine löscht tatsächlich Namen. Meine Prüfung war zu eng. Ich trage Verantwortung für die Wartung.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Die Suppe ist neutral. Sie hat keine Meinung, nur Kartoffeln.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-10",
+      "text": "Die einen wollen alles sofort, die anderen nichts ohne Abstimmung. Und der Strahl wartet auf eine Pause.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-intro-2",
-      "text": "Die Laternenhüter wollen die Verbindung öffnen. Marta und ich stehen für die täglichen Wege ein.",
+      "text": "Bevor jemand spricht: Ich habe den dunklen Strahl die ganze Nacht gemessen. Er hört mit.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-3",
+      "text": "Jedes Schweigen in diesem Raum wertet er als Ja. Ja zur Schließung, für immer.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-3-simple",
+      "text": "Wenn hier jemand schweigt, zählt der Strahl das als Ja. Dann bleibt die Strecke für immer zu.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-4",
+      "text": "Fritz! Du hast drei Sekunden nichts gesagt, und der Strahl ist heller geworden!",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-5",
+      "text": "Nein! Ich meine: nein. Ich habe nur gekaut.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-intro-6",
+      "text": "Die Laternenhüter sagen: öffnen. Heute, ganz und sofort. Wir haben lange genug gewartet.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-b1-council-intro-3",
-      "text": "Der Kreis will, dass die Bewohner entscheiden können. Lina und ich vertreten ihre Aussagen.",
+      "id": "dialogue-b1-council-intro-7",
+      "text": "Der Kreis sagt: Nichts wird geöffnet, bevor jede Stadt gefragt wurde. Genau das hat beim letzten Mal gefehlt.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
-      "id": "dialogue-b1-council-intro-4",
-      "text": "Ich vertrete die Akten mit dem Inspektor. Akten müssen die Wirklichkeit prüfen, nicht ersetzen.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
+      "id": "dialogue-b1-council-intro-8",
+      "text": "Das Amt hat hier nichts mehr zu fordern. Ich bin gekommen, um zu antworten.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
-      "id": "dialogue-b1-council-intro-4-simple",
-      "text": "Ich prüfe die Bücher mit Voss. Wir müssen sehen: Ist das alles richtig?",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
+      "id": "dialogue-b1-council-intro-9",
+      "text": "Und bitte keinen Titel mehr. Ich heiße Voss. Wenn es Ihnen recht ist, sagen wir du.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
-      "id": "dialogue-b1-council-intro-5",
-      "text": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
-      "speaker": "ada",
-      "voice": "Grandma (German (Germany))"
+      "id": "dialogue-b1-council-intro-objections",
+      "text": "Der Kreis hat die alten Einwände mitgebracht. Vierzig Seiten. Damals hat sie niemand gelesen.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-ledger-testimony",
-      "text": "Sie haben mein Buch aufgehoben. Hier steht meine Unterschrift unter der Schließung. Ich kann sie nicht leugnen.",
+      "text": "Du hast mein Buch seit Lindenhafen. Leg es auf den Tisch. Meine Unterschrift steht unter der Schließung.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-public-ledger",
-      "text": "Ich lege das Buch im Rat aus. Voss muss jede neue Entscheidung öffentlich erklären.",
+      "text": "Das Buch hängt ab heute im Rathaus. Jede Seite, auch die unangenehmen.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-public-ledger-1",
+      "text": "Besonders die unangenehmen. Wer dazu eine Frage hat, kommt zu mir. Persönlich.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-remember-0",
-      "text": "Der Rat gibt dem Kreis ein Recht auf Prüfung. Kein stiller Beschluss kann es zurücknehmen.",
+      "text": "Beschlossen: Jede Stadt stimmt ab, bevor ein Gleis öffnet. Lina trägt die Stimmzettel aus.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-remember-1",
+      "text": "Heute noch. Notfalls liefere ich auch nach gestern.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-council-reopen-0",
-      "text": "Der Rat setzt einen ersten Zug an. Die Laternenhüter müssen die Sicherheit öffentlich nachweisen.",
+      "text": "Beschlossen: ein Zug am Montag, Otto auf der Lok, Greta im ersten Wagen.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
+      "id": "dialogue-b1-council-reopen-1",
+      "text": "Pünktlich um acht. Ich bin jetzt schon misstrauisch.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-empty-chair-0",
+      "text": "Er ist für die Menschen, deren Namen schon fehlen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-empty-chair-1",
+      "text": "Wir lesen ihre Einwände laut vor, damit ihr Schweigen nicht mitzählt.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-silence-0",
+      "text": "So steht es in einer alten Regel: Wer nicht widerspricht, stimmt zu. Für Ämter ist das sehr praktisch.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-silence-1",
+      "text": "Ich habe diese Regel zwanzig Jahre lang angewendet. Ich fand sie effizient. Heute schäme ich mich dafür.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-soup-0",
+      "text": "Kartoffeln aus Lindenhafen, Lauch aus Waldruh und Fisch aus Nebelstadt.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-council-topic-soup-1",
+      "text": "Drei Städte in einem Topf, und keiner beschwert sich. Das nenne ich Politik.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-new-route-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Die gerade Linie bringt Waldruh morgen zurück, die Kurve erst im Frühling. Welche ziehe ich mit Tinte nach?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-complete-0",
-      "text": "Emils Wartungsbuch zeigt, wer die Löschmaschine weiter betrieben hat.",
+      "text": "Moment. Seht ihr den Leuchtturm? Er leuchtet dunkel. So etwas gibt es gar nicht.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-complete-1",
+      "text": "Der Strahl zeigt nach Waldruh. Emil sagt, er kennt die Maschine dahinter. Er wartet am Reparaturdock.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-gate-0",
-      "text": "Dann zeichnen wir beide Kosten und alle betroffenen Gärten ein. Der Rat kann ehrlich entscheiden.",
+      "text": "Für alle. Das heißt: für keinen ganz.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-b1-new-route-gate-request",
-      "text": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+      "id": "dialogue-b1-new-route-gate-1",
+      "text": "Das heißt: Keiner verliert alles. Das ist ein Unterschied, Otto.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-2",
+      "text": "Na gut. Ich habe da noch eine Zeichnung. Nur für den Notfall.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-3",
+      "text": "Die lange Kurve an der Straße entlang. Und ein Halt an der Klinik?",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-4",
+      "text": "Für Leute, die nicht laufen können. Ich habe den Punkt dreimal wegradiert und wieder gezeichnet.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-5",
+      "text": "Otto. Warum zeigst du mir das erst jetzt?",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-6",
+      "text": "Ich wollte zuerst streiten. Das gehört bei mir zur Planung.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-7",
+      "text": "Wenn wir zu lange streiten, entscheidet wieder jemand anders für uns. Das hatten wir schon einmal.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-request-1-name-free",
+      "text": "Ja. Er oder ich? Und denk an den Farn.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-gate-request-name-free",
+      "text": "Also, du kommst von außen. Wer hat recht, Greta oder ich?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-intro-0",
-      "text": "Die schnellste Strecke führt durch den Garten. Die längere folgt einer bestehenden Straße.",
+      "text": "Zwei Pläne für die Strecke nach Waldruh. Einer ist gut. Der andere ist von Greta.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-intro-1",
-      "text": "Unsere Pflanzen sind Beweise und unsere Arbeit. Eine schnelle Verbindung darf uns nicht wieder auslöschen.",
+      "text": "Ich habe das gehört, Otto. Der Farn auch.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-intro-2",
-      "text": "Auf der längeren Strecke kann eine Haltestelle an der Klinik entstehen. Das dauert länger, hilft aber mehr Menschen.",
-      "speaker": "otto",
-      "voice": "Grandpa (German (Germany))"
-    },
-    {
-      "id": "dialogue-b1-new-route-intro-2-simple",
-      "text": "Der längere Weg hat Platz für eine Haltestelle bei der Klinik. Das braucht mehr Zeit. Es hilft mehr Menschen.",
+      "text": "Meine Linie ist gerade und vierzig Minuten schneller. Waldruh hätte schon morgen wieder einen Zug.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-intro-3",
-      "text": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+      "text": "Deine gerade Linie geht mitten durch meinen Garten. Durch die Beete mit den alten Samen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-4",
+      "text": "Auf jeder Samentüte steht eine Adresse, die sonst nirgends mehr steht. Ohne die Beete sind das nur Wörter.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-4-simple",
+      "text": "Auf den Samentüten stehen alte Adressen. Nur dort stehen sie noch.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-5",
+      "text": "Und die Leute in Waldruh? Die warten seit Jahren. Pünktlich ist auch ein Versprechen, Greta.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-6",
+      "text": "Schnell ist nicht dasselbe wie pünktlich, Otto. Das weißt du besser als ich.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-7-name-free",
+      "text": "Hm. Lies erst die Karte. Dann reden wir weiter.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-berg",
+      "text": "Frau Bergs Rhabarber wächst da auch. Von ihrem Haus ist nichts geblieben, nur dieses Beet.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-intro-rails",
+      "text": "Die Laternenhüter haben übrigens schon Schienen bestellt. Ohne mich zu fragen. Typisch.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-new-route-remember-0",
-      "text": "Ich zeichne die längere Kurve und die Klinikhaltestelle. Der Kreis unterstützt den Plan.",
+      "text": "Die Kurve also. An der Klinik kommt ein Schild hin: „Halt auf Verlangen“.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
+      "id": "dialogue-b1-new-route-remember-1-name-free",
+      "text": "Der Kreis wird das hören. Danke. Der Farn ist auch zufrieden, glaube ich.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-new-route-reopen-0",
-      "text": "Ich markiere die Abkürzung. Greta fordert eine überprüfbare Zusage für den Garten.",
+      "text": "Also mit Tinte. Morgen fährt ein Zug, und drei Beete müssen umziehen.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-reopen-1",
+      "text": "Dann trage ich jede Pflanze selbst. Und jede Adresse schreibe ich zweimal ab.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-builders-0",
+      "text": "Die Laternenhüter, lange vor meiner Zeit. Schwelle für Schwelle, mit der Hand.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-builders-1",
+      "text": "Mein Großvater hat die Schrauben gezählt. Ich zähle Bahnsteige. Das liegt in der Familie.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-garden-0",
+      "text": "Bohnen, Rhabarber und ein Farn, der unter Beobachtung steht.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-garden-1",
+      "text": "Er hat heute Morgen gezittert. Ich glaube, er hat Ottos Karte gesehen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-on-time-0",
+      "text": "Ein Fahrplan ist ein Versprechen. Wenn der Zug kommt, hat jemand Wort gehalten.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-new-route-topic-on-time-1",
+      "text": "Außer bei Tauben. Pünktliche Tauben planen etwas.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Unsere Hände reichen für eine Sache zuerst. Das Signal oder die Familien im Garten?",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-complete-0",
-      "text": "Elise ist im alten Signalraum. Höre ihre Erklärung, bevor du den Atlas abschließt.",
+      "text": "Der Wind dreht. Siehst du das Licht oben in der Sternwarte? Dort brennt seit Jahren keine Lampe mehr.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
+      "id": "dialogue-b1-storm-complete-1",
+      "text": "Post für dich. Absender: der alte Signalraum. Unterschrift: E.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-complete-2-name-free",
+      "text": "Geh. Elise wartet oben, und sie hat lange genug gewartet. Ich bringe euch später Tee.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
       "id": "dialogue-b1-storm-gate-0",
-      "text": "Dann teilen wir die Aufgaben: retten, reparieren und die Namen sichern. Du gehst mit Emil zum Signal.",
+      "text": "Gemeinsam. Gut. Aber ich halte die Leiter unten fest. Leitern traue ich nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-gate-1",
+      "text": "Eine Hand aus Lindenhafen, eine aus Waldruh, eine aus Nebelstadt. Seht doch, das Signal wird ruhig!",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-gate-2",
+      "text": "Lenz! Die Familie Lenz! Jetzt weiß ich es wieder.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-storm-gate-3",
+      "text": "Gut. Dann wissen wir, wen wir suchen. Sie sind noch im Garten, und das Wasser steigt.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-gate-request",
-      "text": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+      "text": "Sie hören nicht auf mich. Vielleicht hören sie auf dich. Was sagst du ihnen?",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-intro-0",
-      "text": "Das Wasser steigt. Wir bringen die Menschen zur Klinik und sichern den Signalraum.",
+      "text": "Das Wasser steht schon zwischen den Beeten. Der Farn ist in Sicherheit. Jetzt die Menschen.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-intro-1",
-      "text": "Ich habe heißen Tee und Decken. Sag mir, wo die Helfer warten sollen.",
-      "speaker": "marta",
-      "voice": "Anna"
+      "text": "Der Sturm hat den Fahrplan gelesen. Er kommt pünktlich. Verdächtig.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
     },
     {
-      "id": "dialogue-b1-storm-intro-2",
-      "text": "Ich öffne das Lager des Amts. Die Vorschrift darf niemanden im Regen stehen lassen.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
-    },
-    {
-      "id": "dialogue-b1-storm-intro-3",
-      "text": "Wenn die Gruppen dir vertrauen, arbeiten ihre Helfer zusammen. Jede frühere Zusage zählt jetzt.",
+      "id": "dialogue-b1-storm-intro-10-name-free",
+      "text": "Eine Leiter, drei Gruppen, und jeder will allein hinauf. Lies die Warnung am Signal.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
+      "id": "dialogue-b1-storm-intro-2",
+      "text": "Das Signal flackert. Der Strahl drückt dagegen wie eine Hand auf dem Mund.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-3",
+      "text": "Ich habe Tee, Decken und eine Liste. Greta, wer fehlt noch?",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
       "id": "dialogue-b1-storm-intro-4",
-      "text": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+      "text": "Die Familie mit dem roten Boot, aus Waldruh. Marta, wie heißen sie noch mal?",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-5",
+      "text": "Sie heißen … ich weiß es nicht mehr. Gestern wusste ich es noch.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-6",
+      "text": "Das Lager des Amts ist offen. Sandsäcke, Seile, Lampen. Ohne Formular.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-7",
+      "text": "Die Laternenhüter nehmen die Leiter. Das Signal machen wir allein, wie immer.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-8",
+      "text": "Der Kreis braucht keine Hilfe. Wir haben es immer allein geschafft.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-9",
+      "text": "Normalerweise übernimmt in solchen Fällen das Amt. Alte Gewohnheit. Entschuldigung.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-intro-ledger",
+      "text": "Seit Voss’ Buch im Rathaus hängt, tragen die Leute seine Sandsäcke. Vorher hätten sie das nicht getan.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-remember-0",
-      "text": "Alle Gruppen öffnen ihre Türen. Emil hält das Signal sicher, bis die letzte Familie angekommen ist.",
+      "text": "Alle Türen sind offen. Die Familie Lenz sitzt bei Marta in der Halle.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-remember-1",
+      "text": "Achtzehn Leute, zwei Hunde, ein Farn. Emil hält das Signal, bis die letzte Tür zu ist.",
+      "speaker": "marta",
+      "voice": "Anna"
     },
     {
       "id": "dialogue-b1-storm-reopen-0",
-      "text": "Otto und Emil schützen die Strecke. Lina und ich helfen den Menschen im Garten.",
+      "text": "Otto und Emil steigen hinauf, Voss hält die Leiter. Lina und ich laufen zum Garten.",
       "speaker": "greta",
       "voice": "Sandy (German (Germany))"
     },
     {
+      "id": "dialogue-b1-storm-reopen-1",
+      "text": "Das Signal steht! Und da drüben winkt die Familie Lenz vom Dach des Gewächshauses.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-beam-0",
+      "text": "Er macht es leiser. Ein Signal, das nicht antworten kann, ist nur noch ein Licht.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-beam-1",
+      "text": "Das war ein Vergleich. Er funktioniert meistens.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-fern-0",
+      "text": "Nicht zuerst. Nur schnell. Das ist ein Unterschied.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-fern-1",
+      "text": "Außerdem steht er unter Beobachtung. Ich lasse keinen Patienten im Regen stehen.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-festival-0",
+      "text": "Wegen des Sturms wurde das Hafenfest abgesagt. Die Gäste sind jetzt in der Halle.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-storm-topic-festival-1",
+      "text": "Fritz kocht dort weiter. Er sagt, Suppe ist auch eine Art Dach.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
       "id": "dialogue-b1-storm-trust-brassOffice",
-      "text": "Du hast Beweise eingereicht. Ich öffne die Vorratsräume und lasse die Helfer ohne Genehmigung hinein.",
+      "text": "Meine Leute kommen mit. Du hast uns Beweise gebracht statt Gerüchte. Das haben sie nicht vergessen.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-trust-lamplighters",
-      "text": "Du hast unsere Versprechen gehalten. Die Laternenhüter kommen mit Werkzeugen und sichern die Verbindung.",
+      "text": "Die Laternenhüter sind da, mit Leitern und Werkzeug. Du hast Wort gehalten. Jetzt halten wir es auch.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-b1-storm-trust-unwritten",
-      "text": "Du hast die Bewohner gehört. Der Kreis kennt jeden sicheren Weg zur Klinik und begleitet die Familien.",
+      "text": "Der Kreis ist da. Seine Leute kennen jeden Weg zur Klinik, auch die, die auf keiner Karte stehen.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Diese Aussage belastet einen Beamten. Hängen wir sie heute aus, oder prüft die Zeugin zuerst ihre Worte?",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-complete-0",
-      "text": "Otto hat zwei Vorschläge für die neue Strecke. Der Garten liegt zwischen ihnen.",
+      "text": "Nächster Termin: Otto am Bahnkai. Zwei Pläne, ein Garten, schlechte Laune.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-gate-0",
-      "text": "Sie sah den Inspektor an der Maschine, während Elises Signal aus dem alten Speicher kam.",
+      "text": "Gern. Es war kurz vor Mitternacht und sehr neblig. Zuerst habe ich nur eine Stimme gehört.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-1",
+      "text": "„Ist da jemand? Ich bin noch hier.“ Dann ein Husten. Dann alles wieder von vorn.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-2",
+      "text": "Dreimal derselbe Satz und dreimal derselbe Husten an derselben Stelle. So hustet kein Mensch.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-3",
+      "text": "Notiert: eine Aufnahme, keine Person. Elise war nicht an zwei Orten.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-4",
+      "text": "Eine Stimme kam also vom Band. Woher die andere kam, steht noch in keiner Akte.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-5",
+      "text": "An der Maschine neben der Laterne stand ein Mann. Sein Gesicht war im Dunkeln.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-6",
+      "text": "Aber ich habe seinen Stempel gehört. Klack, klack. Zweimal, wie bei jeder Genehmigung.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-7",
+      "text": "Ich war in dieser Nacht im Dienst. Mehr sage ich heute nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-gate-8",
+      "text": "Notiert. Auch das Schweigen.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-gate-request",
-      "text": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+      "text": "Das Protokoll ist offen. Die Zeugin ist bereit. Die erste Frage, bitte.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-intro-0",
-      "text": "Elises Signal wurde gleichzeitig am Hafen und an der Sternwarte gehört.",
+      "text": "Anhörung zum doppelten Signal. Hafenpost, neun Uhr. Ich leite. Kurze Sätze, bitte.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-intro-1",
-      "text": "Das beweist nicht, dass sie an beiden Orten war. Ein Signal ist kein Zeuge.",
+      "text": "Vorgestern Nacht kam Elises Stimme gleichzeitig vom Hafen und von der Sternwarte. Ein Mensch, zwei Orte.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-intro-2",
-      "text": "Ich habe einen Beschluss unterschrieben. Trotzdem kenne ich nicht jede spätere Entscheidung.",
+      "text": "Ich führe das Protokoll. Alphabetisch, falls niemand widerspricht.",
       "speaker": "ada",
       "voice": "Grandma (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-intro-3",
-      "text": "Wir trennen Beobachtung, Erinnerung und Vermutung. Erst dann vergleichen wir die Berichte.",
-      "speaker": "lina",
-      "voice": "Flo (German (Germany))"
-    },
-    {
-      "id": "dialogue-b1-witness-intro-3-simple",
-      "text": "Wir fragen: Was hast du gesehen? Was weißt du noch? Was glaubst du nur? Dann vergleichen wir die Antworten.",
+      "text": "Niemand widerspricht. Zeugin: Marta. Sie hat in dieser Nacht Tee zum Hafen gebracht.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-intro-4",
-      "text": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+      "text": "Lina, ich sitze hier wie vor Gericht. Darf ich wenigstens meinen Tee behalten?",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-5",
+      "text": "Nein. Der Tee ist ein Beweisstück.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
+      "id": "dialogue-b1-witness-intro-6",
+      "text": "Heute ist sie nicht Marta aus dem Café. Heute ist sie die Zeugin, und wir siezen sie.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-6-simple",
+      "text": "Heute ist Marta eine Zeugin. Deshalb sagen wir heute „Sie“ zu ihr.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-7",
+      "text": "Wie Sie wünschen, Frau Vorsitzende. Ich habe sogar die Schürze ausgezogen.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-8",
+      "text": "Das Messingamt nimmt als Beobachter teil. Ich höre zu. Ich unterbreche nicht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-9",
+      "text": "Erst die Beweise. Dann die Zeugin. In dieser Reihenfolge.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-lamp",
+      "text": "Und Emils Lampe zieht seit heute Morgen zur Laterne am Hafen. Dort fehlt also etwas.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-intro-ticket",
+      "text": "Die Kopie Ihrer Fahrkarte liegt noch in meiner Akte, falls das Protokoll sie braucht.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-witness-remember-0",
-      "text": "Ich bewahre die Aussage auf. Die Zeugin darf ihre Worte vor der Veröffentlichung prüfen.",
+      "text": "Danke. Ich streiche nichts. Ich will nur sicher sein, dass jedes Wort stimmt.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "dialogue-b1-witness-remember-1",
+      "text": "Die Aussage liegt jetzt beim Kreis. Greta bewacht sie, zusammen mit ihrem Farn.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-witness-reopen-0",
-      "text": "Die Laternenhüter hören die Nachricht. Der Inspektor verlangt, dass auch seine Erklärung geprüft wird.",
+      "text": "Ausgehängt um zwölf. Die Laternenhüter lesen mit. Otto liest zweimal und sucht Fehler.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-reopen-1",
+      "text": "Gut. Wer über meinen Stempel liest, soll bald auch meine Erklärung lesen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-hearing-0",
+      "text": "Jeder sagt, was er gesehen hat. Nicht, was er glaubt.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-hearing-1",
+      "text": "Und ich schreibe beides getrennt auf. Das ist schwerer, als es klingt.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-machine-0",
+      "text": "Am Hafen, neben der Signallaterne, unter einer grauen Plane. Niemand geht gern hin.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-machine-1",
+      "text": "Nachts summt sie. Wie ein Kühlschrank, der etwas verschweigt.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-pigeon-0",
+      "text": "Zweite Zeugin. Kam mit dem Nachtzug und verweigert die Aussage.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-witness-topic-pigeon-1",
+      "text": "Otto findet sie verdächtig. Sie war pünktlich.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-choice-0",
-      "text": "Welche Zusage möchtest du dem Rat geben?",
+      "text": "Schalten wir die Maschine heute Nacht ab, ohne lange zu fragen, oder zeigen wir erst allen den Plan?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-complete-0",
-      "text": "Der Hafenrat muss jetzt entscheiden. Bring Beweise und einen Vorschlag mit.",
+      "text": "Ada ruft für morgen früh den Rat zusammen. Alle müssen kommen. Wirklich alle.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
+      "id": "dialogue-b1-work-complete-own-ledger",
+      "text": "Ich bringe mein Buch mit und öffne es vor allen. Es war lange genug zu.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-complete-your-ledger-name-free",
+      "text": ", bringen Sie mein Buch mit. Ich öffne es vor allen. Es war lange genug zu.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-work-gate-0",
-      "text": "Wir schalten den Strom ab, arbeiten zu zweit und sichern die Leiter. Hier ist das Wartungsbuch.",
+      "text": "Bedingungen. Natürlich. Erste Bedingung: Wir wissen, wer die Maschine bisher bezahlt hat.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-1",
+      "text": "Drei neue Spulen, alle nach der Schließung bestellt: am zweiten März, am neunten Juli, am ersten Dezember.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-10",
+      "text": "Gut. Zweite Bedingung: Ab heute baue ich nichts mehr ein, was ich nicht verstehe.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-2",
+      "text": "Jedes Mal derselbe Stempel, zweimal gedrückt. Klack, klack.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-3",
+      "text": "Sie müssen nicht weitersuchen, Emil. Ich war es.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-4",
+      "text": "Ich habe jede Spule genehmigt. Persönlich. Mit diesem Stempel.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-5",
+      "text": "Ich dachte, ohne die Maschine kommt das Chaos zurück. Eine ruhige Akte war mir lieber als Fragen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-6",
+      "text": "Und jeden Abend habe ich ihre Stimme gehört. „Ist da jemand?“ Ich habe nie geantwortet.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-7",
+      "text": "Bei der dritten Spule habe ich aufgehört zu fragen. Ich wollte die Antwort nicht kennen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-8",
+      "text": "Ich habe die Spulen selbst eingebaut, Voss. Ich dachte, es wären Ersatzteile für den Leuchtturm.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-9",
+      "text": "Das ist meine Schuld, nicht Ihre. Schreiben Sie das so auf. Genau so.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-gate-ledger",
+      "text": "Und jetzt dein Buch aus Lindenhafen. Dieselbe Unterschrift. Derselbe schiefe Stempel.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-gate-request",
-      "text": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+      "text": "So. Arbeitszeit: jetzt. Lohn: Suppe. Gefahr: mittel bis hoch. Fängst du an?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
-      "id": "dialogue-b1-work-intro-0",
-      "text": "Die Maschine funktioniert genau wie geplant. Das ist das Problem.",
+      "id": "dialogue-b1-work-intro-0-name-free",
+      "text": "! Perfekt. Ich stelle jemanden ein. Dich. Wahrscheinlich. Also, wenn du willst.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-intro-1",
-      "text": "Das Messingamt hat sie nach dem Ende des Streits weiter repariert. Hier stehen Datum und Material.",
+      "text": "Die Stelle: Wir bauen das Signal am Hafen um. Es soll wieder Namen senden, statt sie zu löschen.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-intro-2",
-      "text": "Ich habe die Wartung genehmigt. Ich dachte, ohne Ordnung wäre der Hafen unsicher.",
-      "speaker": "inspector",
-      "voice": "Reed (German (Germany))"
+      "text": "Die Maschine unter der Plane funktioniert perfekt. Leider. Genau das ist das Problem.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-intro-3",
-      "text": "Du brauchst einen sicheren Arbeitsplan, bevor du das Signal umbaust. Niemand muss sich dafür verletzen.",
+      "text": "Jemand hat sie gepflegt: neue Spulen, frisches Öl, saubere Kontakte. Das passiert nicht aus Versehen.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-intro-3-simple",
-      "text": "Mach zuerst einen sicheren Plan für die Arbeit am Signal. Alle müssen dabei gesund bleiben.",
+      "text": "Jemand hat die Maschine repariert. Immer wieder. Das war Absicht.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-intro-4",
-      "text": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+      "text": "Diese Anlage gehört dem Messingamt. Wer daran arbeitet, braucht eine Genehmigung.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-intro-5",
+      "text": "Dann genehmigen Sie es doch. Sie haben ja einen Stempel.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-intro-6",
+      "text": "Nicht heute.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-intro-7",
+      "text": "Lies erst das Wartungsbuch. Ich warte. Ich warte sonst nie, das ist also ein großes Angebot.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-intro-ledger",
+      "text": "Hast du noch das Buch, das Voss dir in Lindenhafen gegeben hat? Gut. Halt es bereit.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-b1-work-remember-0",
-      "text": "Ich lege dem Kreis den Arbeitsplan vor. Greta organisiert Hilfe und einen sicheren Rückweg.",
+      "text": "Ich hänge den Plan an die Tafel im Rat. Mit Bildern, für Leute ohne Geduld.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
+      "id": "dialogue-b1-work-remember-1",
+      "text": "Hängen Sie meinen Namen daneben. Groß genug, dass man ihn von der Tür aus liest.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "dialogue-b1-work-reopen-0",
-      "text": "Otto und ich bereiten die sichere Reparatur vor. Der Inspektor bleibt als Zeuge dabei.",
+      "text": "Strom aus, Leiter gesichert, wir arbeiten zu zweit. Voss hält die Lampe.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-reopen-1",
+      "text": "Ich halte sie. Das ist das Mindeste.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-reopen-2",
+      "text": "Der Strahl flackert! Er ist schwächer. Nicht weg, aber schwächer.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-mostly-0",
+      "text": "Es bedeutet: Es funktioniert. Meistens. Ich finde das ehrlich.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-mostly-1",
+      "text": "Die Maschine unter der Plane funktioniert immer. Das macht mir Angst.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-office-0",
+      "text": "Nach der Schließung hat das Amt alle Anlagen am Hafen übernommen. So steht es in Paragraf zwölf.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-office-1",
+      "text": "Ich habe Paragraf zwölf selbst geschrieben. Das sage ich nicht gern.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-teacher-0",
+      "text": "Ein Buch ohne Umschlag, viel Mut und ein Feuerlöscher.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "dialogue-b1-work-topic-teacher-1",
+      "text": "Den Rest hat mir das Signal selbst beigebracht. Mit kleinen Stromschlägen.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "grammar-a1-arrival",
-      "text": "Mit Sie ist deine Bitte höflich. Das Verb steht zuerst: Helfen Sie.",
+      "text": "Mit bitte wird jede Bitte höflich. Noch einmal heißt: Sag es wieder.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1830,6 +4105,12 @@
       "voice": "Grandma (German (Germany))"
     },
     {
+      "id": "greeting-ada-B1-24-bab42c6d",
+      "text": "Das Buch des Inspektors liegt im Rat. Jeder darf darin lesen.",
+      "speaker": "ada",
+      "voice": "Grandma (German (Germany))"
+    },
+    {
       "id": "greeting-elise-A1-0-3419f44b",
       "text": "Danke, dass du weitergefragt hast. Ein Atlas muss den Menschen zuhören.",
       "speaker": "elise",
@@ -1854,6 +4135,18 @@
       "voice": "Eddy (German (Germany))"
     },
     {
+      "id": "greeting-emil-A1-18-6300c277",
+      "text": "Die Lampe mag dich. Das ist sehr ungewöhnlich.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
+      "id": "greeting-emil-A1-19-e04d313c",
+      "text": "Voss hat die Lampe notiert. Sie hat ihn fast gebissen.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
       "id": "greeting-emil-A2-0-88bc0780",
       "text": "Die Anleitung liegt an der Uhrenmühle. Erst prüfen wir den Anschluss, dann reparieren wir ihn.",
       "speaker": "emil",
@@ -1866,8 +4159,26 @@
       "voice": "Eddy (German (Germany))"
     },
     {
+      "id": "greeting-emil-B1-23-c88af298",
+      "text": "Das Signal hält. Ich traue ihm trotzdem nicht, es hat zu viel Charakter.",
+      "speaker": "emil",
+      "voice": "Eddy (German (Germany))"
+    },
+    {
       "id": "greeting-fritz-A1-0-1f47129b",
       "text": "Die Äpfel sind frisch. Jeder Name bleibt in meinem Gästebuch.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "greeting-fritz-A1-14-c9ceb01a",
+      "text": "Frau Berg steht im Gästebuch. Heute koche ich für sie.",
+      "speaker": "fritz",
+      "voice": "Rocko (German (Germany))"
+    },
+    {
+      "id": "greeting-fritz-A1-15-1147d9b2",
+      "text": "Voss hat die Nummer. Aber Frau Berg fehlt noch.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -1920,6 +4231,12 @@
       "voice": "Sandy (German (Germany))"
     },
     {
+      "id": "greeting-greta-B1-22-b1ab3628",
+      "text": "Die Familien schlafen in der Klinik. Der Farn hat nur zweimal geniest.",
+      "speaker": "greta",
+      "voice": "Sandy (German (Germany))"
+    },
+    {
       "id": "greeting-inspector-A1-0-38ae4d64",
       "text": "Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.",
       "speaker": "inspector",
@@ -1944,6 +4261,12 @@
       "voice": "Reed (German (Germany))"
     },
     {
+      "id": "greeting-inspector-A2-20-dffb518a",
+      "text": "Ich schlafe schlecht. Das ist für mich ungewöhnlich.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "greeting-inspector-B1-0-38ae4d64",
       "text": "Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.",
       "speaker": "inspector",
@@ -1956,6 +4279,12 @@
       "voice": "Reed (German (Germany))"
     },
     {
+      "id": "greeting-inspector-B1-25-6ba84b7e",
+      "text": "Jeder liest mein Buch. Es ist ungewohnt, nichts zu verbergen.",
+      "speaker": "inspector",
+      "voice": "Reed (German (Germany))"
+    },
+    {
       "id": "greeting-lina-A1-0-5cd7d412",
       "text": "Ich lese jede Adresse. Kein Brief soll verloren gehen.",
       "speaker": "lina",
@@ -1964,6 +4293,18 @@
     {
       "id": "greeting-lina-A1-1-95e4cc88",
       "text": "Du hast uns zuerst gefragt. Wir helfen dir und behalten unsere eigenen Stimmen.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "greeting-lina-A1-16-432ef0ab",
+      "text": "Der Brief bleibt bei dir. Ich habe nichts gesehen.",
+      "speaker": "lina",
+      "voice": "Flo (German (Germany))"
+    },
+    {
+      "id": "greeting-lina-A1-17-f373c3c",
+      "text": "Die Adresse ist öffentlich. Hoffentlich war das klug.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -2004,6 +4345,18 @@
       "voice": "Anna"
     },
     {
+      "id": "greeting-marta-A1-12-9c47cde6",
+      "text": "Du hast die Rechnung. Gut. Das Siegel mag ich nicht.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "greeting-marta-A1-13-b41bae51",
+      "text": "Voss hat eine Kopie. Der Wasserkocher pfeift seit gestern nicht mehr.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
       "id": "greeting-marta-A2-0-48406845",
       "text": "Dein Zimmer im Gasthaus ist sicher. Du kannst dort lesen, üben und den Tag beenden.",
       "speaker": "marta",
@@ -2012,6 +4365,12 @@
     {
       "id": "greeting-marta-A2-1-c1019bad",
       "text": "Du hast unsere Versprechen gehalten. Wenn du Hilfe brauchst, kommen wir.",
+      "speaker": "marta",
+      "voice": "Anna"
+    },
+    {
+      "id": "greeting-marta-A2-21-b541a54b",
+      "text": "Die Tür zum Café klemmt nicht mehr. Voss hat sie sogar gegrüßt.",
       "speaker": "marta",
       "voice": "Anna"
     },
@@ -2036,6 +4395,18 @@
     {
       "id": "greeting-otto-A1-1-c1019bad",
       "text": "Du hast unsere Versprechen gehalten. Wenn du Hilfe brauchst, kommen wir.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "greeting-otto-A1-10-cfc5f7fa",
+      "text": "Voss hat dein Ticket gesehen. Das gefällt mir nicht.",
+      "speaker": "otto",
+      "voice": "Grandpa (German (Germany))"
+    },
+    {
+      "id": "greeting-otto-A1-11-4453e3e4",
+      "text": "Dein Ticket ist bei mir sicher. Voss fragt jeden Tag.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
