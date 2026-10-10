@@ -20,6 +20,8 @@ import '@fontsource/dm-sans/latin-700.css';
 import '@fontsource/fraunces/latin-400.css';
 import '@fontsource/fraunces/latin-600.css';
 import './style.css';
+import './event-log.css';
+import { EventLog, installFormNotifications } from './event-log';
 import './course-ui.css';
 import './game-ui.css';
 import './expedition-games.css';
@@ -128,6 +130,8 @@ let speechRate = Number(localStorage.getItem('atlas.speechRate') || '0.82');
 if (![0.65, 0.82, 1].includes(speechRate)) speechRate = 0.82;
 const chatMessages: ChatMessage[] = [];
 let world: World;
+let eventLog: EventLog | undefined;
+let removeFormNotifications: (() => void) | undefined;
 let screenFilterControls: ScreenFilterControls | undefined;
 type Submission = { id: string; itemId: string; exerciseId: string; answer: string; hinted: boolean; mode: 'recognition' | 'production' | 'listening'; questId?: string; rating?: 'hard' | 'good' | 'easy'; responseTimeMs?: number };
 let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; correct: number; targetCount: number; hinted: boolean; audioHeard: boolean; answered: boolean; answer: string; tokenOrder: number[]; review: boolean; objectId?: string; interiorObjectId?: string; label?: string; started: number; submission?: Submission; skipListening?: boolean; shownAt?: number } | undefined;
@@ -186,10 +190,7 @@ function portrait(id: string, className = '') {
 function currentQuest() { return quests.find(q => q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => q.level === level)!; }
 function completedAtLevel(l: Level) { return quests.filter(q => q.level === l && progress.completedQuestIds.includes(q.id)).length; }
 function toast(message: string, bad = false) {
-  const el = document.querySelector<HTMLElement>('#toast')!;
-  el.textContent = message;
-  el.className = `toast visible ${bad ? 'bad' : ''}`;
-  window.setTimeout(() => el.classList.remove('visible'), 4500);
+  eventLog?.notify(message, bad);
 }
 function renderShell() {
   screenFilterControls?.destroy();
@@ -210,7 +211,11 @@ function renderShell() {
       </div>
       <div class="world-watch-caption"><span>A moment in <strong id="watch-region">Lindenhafen</strong></span><span id="watch-time">12:00 · DAY</span><button data-action="stop-watching">Return to exploring <kbd>ESC</kbd></button></div>
       <dialog class="menu-layer" id="menu-layer" aria-labelledby="menu-title" hidden><div class="menu-frame"><header class="menu-header"><span class="menu-crest">${icon('lantern')}</span><div><span class="menu-kicker">THE LANTERN ATLAS</span><h1 id="menu-title">Your adventure</h1></div><button class="menu-close" data-view="world" aria-label="Return to game">${icon('close')}<kbd>ESC</kbd></button></header><nav class="menu-tabs" aria-label="Game sections"><span class="menu-nav-label">THE JOURNEY</span>${([['menu','compass','Overview'],['quests','scroll','Story quests'],['story','lantern','Discoveries'],['atlas','map','Region atlas']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">OFF THE MAIN PATH</span>${([['activities','cup','Side activities'],['course','book','Learning routes'],['journal','leaf','Your words']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">YOUR ADVENTURE</span>${([['character','shirt','Character'],['settings','settings','Settings']] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${label}">${icon(glyph)}<span>${label}</span></button>`).join('')}</nav><div id="other-view" class="menu-content" tabindex="-1"></div><footer class="menu-footer"><span class="german-flag"></span><span>GERMAN FROM ENGLISH</span><span class="connection-pill" id="connection-pill"><span></span> Connecting</span></footer></div></dialog>
-    </main><dialog id="dialog" class="dialog" aria-label="Adventure encounter"></dialog><dialog id="account-dialog" class="dialog account-dialog" aria-labelledby="account-title"></dialog><div id="toast" class="toast" role="status" aria-live="polite"></div>`;
+    </main><dialog id="dialog" class="dialog" aria-label="Adventure encounter"></dialog><dialog id="account-dialog" class="dialog account-dialog" aria-labelledby="account-title"></dialog>`;
+  eventLog?.destroy();
+  eventLog = new EventLog();
+  removeFormNotifications?.();
+  removeFormNotifications = installFormNotifications(toast);
   world = new World(document.querySelector('#world-container')!, {
     motion: worldMotion,
     time: { mode: worldTimeMode, hour: worldTimeMode === 'manual' ? manualWorldHour : localHour() },
@@ -1068,7 +1073,7 @@ function bindProfileForm() {
   form.onsubmit = async event => {
     event.preventDefault();
     const name = document.querySelector<HTMLInputElement>('#character-name')!.value.trim();
-    if (name.length < 2) return;
+    if (name.length < 2) { toast('Your player name: Use at least 2 characters.', true); return; }
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     button.disabled = true;
     try {
@@ -1341,7 +1346,7 @@ function showNameEntry(restoreName = false) {
   form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; sync(); }; });
   document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => showLogin();
   form.onsubmit = async event => {
-    event.preventDefault(); sync(); if (!form.reportValidity()) return;
+    event.preventDefault(); sync(); if (!form.checkValidity()) return;
     const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
     button.disabled = true; button.textContent = 'Opening the town…';
     try {
@@ -1391,7 +1396,7 @@ function showSaveAccount(reminder = false) {
   confirmation.oninput = checkConfirmation; password.oninput = checkConfirmation;
   document.querySelector<HTMLButtonElement>('#account-later')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
   form.onsubmit = async event => {
-    event.preventDefault(); checkConfirmation(); if (!form.reportValidity()) return;
+    event.preventDefault(); checkConfirmation(); if (!form.checkValidity()) return;
     const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
     button.disabled = true;
     try {
@@ -1483,5 +1488,5 @@ function updateConnection() {
   el.innerHTML = `<span></span>${connection === 'online' ? `${count} ${count === 1 ? 'wanderer' : 'wanderers'} here` : connection === 'connecting' ? 'Connecting' : connection === 'replaced' ? 'Active in another tab' : 'Reconnecting'}`;
 }
 document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

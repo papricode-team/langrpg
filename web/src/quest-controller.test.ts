@@ -4,18 +4,20 @@ import { QuestController } from './quest-controller';
 import { emptyProgress, type Progress } from './api';
 import { emptyStory } from './dialogue';
 import { questGraphs } from './quest-graph';
+import { quests } from './content';
+import { answerMatches } from './learning';
 
 let controller: QuestController | undefined;
 afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; });
-function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro') {
+function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arrival') {
   let audioEnabled = true;
   let progress: Progress = {...emptyProgress(), story:emptyStory()};
-  progress.story!.nodes['a1-arrival'] = stage;
+  progress.story!.nodes[questId] = stage;
   const bump = () => { progress = {...progress,revision:progress.revision+1,story:structuredClone(progress.story)}; return progress; };
   const api = {
     request:vi.fn(async () => ({attemptId:'saved-reply',correct:true,progress:bump()})),
-    inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections['a1-arrival'] = [...(progress.story!.inspections['a1-arrival']??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
-    storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes['a1-arrival'] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push('a1-arrival');progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
+    inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections[questId] = [...(progress.story!.inspections[questId]??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
+    storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes[questId] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push(questId);progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
   const options = {api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
   controller = new QuestController(options);
@@ -24,6 +26,50 @@ function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro') {
 }
 
 describe('conversation scene lifecycle', () => {
+  it('reveals Marta’s accepted repair request and fills it without submitting automatically', async () => {
+    const f = fixture('gate', 'a2-apartment');
+    const exercise = quests.find(q => q.id === 'a2-apartment')!.exercises.find(ex => ex.id === 'a2-apartment-exercise-6')!;
+    f.options.setAudioEnabled(false);
+    await f.controller.open('a2-apartment');
+    document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = 'Könnten Sie der Tür reparieren?';
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    f.click('[data-dialogue-action="show-answer"]');
+    expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Könnten Sie das bitte reparieren?');
+    expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Könnten Sie der Tür reparieren?');
+    expect(f.options.expose).toHaveBeenCalledWith(exercise.id);
+    expect(f.options.speak).not.toHaveBeenCalled();
+    expect(f.api.request).not.toHaveBeenCalled();
+    expect(f.api.storyTransition).not.toHaveBeenCalled();
+    f.click('[data-dialogue-action="use-answer"]');
+    const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
+    expect(input.value).toBe(exercise.answer);
+    expect(answerMatches(exercise, input.value)).toBe(true);
+    expect(document.activeElement).toBe(input);
+    expect(f.api.request).not.toHaveBeenCalled();
+    document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', {answer:exercise.answer,hinted:true,sceneAttempt:true,questId:'a2-apartment'}]);
+    expect(f.api.storyTransition.mock.calls[0][0]).toMatchObject({nodeId:'gate',attemptId:'saved-reply'});
+  });
+
+  it('keeps revealed help while replaying a line, hides it on request, and resets it for another conversation', async () => {
+    const f = fixture('gate');
+    await f.controller.open('a1-arrival');
+    f.click('[data-dialogue-action="show-answer"]');
+    f.click('[data-dialogue-action="listen"]');
+    expect(document.querySelector('.dialogue-answer-help')).not.toBeNull();
+    f.click('[data-dialogue-action="show-answer"]');
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    f.click('[data-dialogue-action="show-answer"]');
+    f.controller.close();
+    f.progress.story!.nodes['a2-apartment'] = 'gate';
+    await f.controller.open('a2-apartment');
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    expect(document.querySelector('[data-dialogue-action="show-answer"]')?.getAttribute('aria-expanded')).toBe('false');
+    f.click('[data-dialogue-action="show-answer"]');
+    expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Könnten Sie das bitte reparieren?');
+  });
+
   it('stays quiet while audio is off, enables the current line and stops playback when disabled', async () => {
     const f = fixture('gate');
     f.options.setAudioEnabled(false);

@@ -2106,32 +2106,6 @@ kbd {
   width:14px;
   height:14px
 }
-.toast {
-  position:fixed;
-  z-index:50;
-  bottom:144px;
-  left:50%;
-  transform:translate(-50%,12px);
-  padding:13px 20px;
-  max-width:min(480px,calc(100vw - 36px));
-  background:#1b382bec;
-  color:#ece0bb;
-  border:1px solid #c9aa645e;
-  box-shadow:0 5px 20px #0b211c77;
-  font-size:12px;
-  line-height:1.6;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s,transform .2s
-}
-.toast.visible {
-  opacity:1;
-  transform:translate(-50%,0)
-}
-.toast.bad {
-  border-color:#c98d58;
-  color:#f0d1a9
-}
 @keyframes appear {
   from {
     opacity:0;
@@ -3077,13 +3051,6 @@ kbd {
   .completion>.primary-button {
     width:100%
   }
-  .toast {
-    bottom:260px;
-    font-size:12px;
-    max-width:calc(100vw - 35px);
-    width:max-content;
-    padding:12px 17px
-  }
 }
 @media(max-width:370px) {
   .player-hud {
@@ -3326,9 +3293,6 @@ kbd {
   }
   .npc-dialog {
     margin:auto auto 19px
-  }
-  .toast {
-    bottom:110px
   }
 }
 @media(max-height:520px) and (orientation:landscape) {
@@ -3769,7 +3733,7 @@ kbd {
   .object-encounter>p { font-size:14px; }
   .object-encounter>blockquote { font-size:16px; padding:13px 15px; }
   .object-language button { width:100%; padding:13px 12px; font-size:11px; }
-  .toast { bottom:136px; max-width:calc(100vw - 35px); font-size:12px; }
+
 }
 @media(orientation:landscape) and (max-height:520px) {
   .player-hud { top:max(12px,env(safe-area-inset-top)); left:max(15px,env(safe-area-inset-left)); width:159px; }
@@ -3816,7 +3780,7 @@ kbd {
   .act-art { height:115px; }
   .act-copy { padding:20px 27px 25px; }
   .act-dialog { padding:0; max-height:calc(100dvh - 20px); }
-  .toast { bottom:108px; }
+
 }
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }

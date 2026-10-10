@@ -17,3 +17,12 @@
 .dialogue-tools button:disabled{opacity:.45;cursor:default}
 .dialogue-translation{margin:12px 0;padding:10px 14px;border-left:2px solid #d9c17d;border-radius:0 8px 8px 0;background:#dbc89214;color:#e1e6d8;font-size:15px;line-height:1.65}
 .dialogue-translation mark{background:#e7ce8d;color:#18372f;border-radius:3px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+.dialogue-hint-tools{flex-wrap:wrap;column-gap:18px;row-gap:2px}
+.dialogue-answer-help{padding:14px 16px;border:1px solid #dbc58b60;border-radius:8px;background:#dbc89214}
+.dialogue-answer-help>strong{display:block;color:#d8c591;font-size:12px}
+.dialogue-answer-help>p{margin:8px 0;font:20px/1.5 'Fraunces',serif;color:#f5e7c6;overflow-wrap:anywhere}
+.dialogue-answer-help>small{display:block;line-height:1.6}
+.dialogue-answer-help>button{margin:12px 0 8px;padding:10px 14px;color:#f5e7c6;border-color:#dbc58b80;min-height:44px}
+.dialogue-answer-help>button .icon{width:15px;height:15px;vertical-align:middle;margin-left:8px}
+.dialogue-hint-tools button:disabled{opacity:.45;cursor:default}
