@@ -9,10 +9,10 @@ export function wordReadyForReview(word:WordMemory,now=Date.now()):boolean {
   return word.directAttempts>0&&ready(word.dueAt,now)&&Object.values(word.evidence??{}).some(evidence=>evidence.attempts>0&&evidence.status!=='unseen'&&ready(evidence.dueAt,now));
 }
 /** A short session across both the extended course and the story, with one due skill per word. */
-export function reviewExercises(progress: Progress, course: readonly ReviewExercise[], story: readonly Exercise[], now = Date.now(), silentMode = false): Exercise[] {
+export function reviewExercises(progress: Progress, course: readonly ReviewExercise[], story: readonly Exercise[], now = Date.now(), silentMode = false, writingReady = true): Exercise[] {
   const queue: Exercise[] = [];
-  course = practiceExercises(course, silentMode);
-  story = practiceExercises(story, silentMode);
+  course = practiceExercises(course, silentMode, writingReady);
+  story = practiceExercises(story, silentMode, writingReady);
   const wordExercises = new Map(course.filter(ex => ex.targetWordId).map(ex => [`${ex.targetWordId}:${modeFor(ex)}`, ex]));
   const words = Object.values(progress.words).filter(word => wordReadyForReview(word,now)).sort((a,b) => Date.parse(a.dueAt) - Date.parse(b.dueAt));
   for (const word of words) {

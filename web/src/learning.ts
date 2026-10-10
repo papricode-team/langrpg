@@ -107,8 +107,10 @@ export function modeFor(exercise: Exercise): 'recognition' | 'production' | 'lis
   return exercise.mode === 'listen' ? 'listening' : exercise.mode === 'choice' ? 'recognition' : 'production';
 }
 
-export function practiceExercises<T extends Exercise>(exercises: readonly T[], silentMode: boolean): T[] {
-  return exercises.filter(exercise => !silentMode || exercise.mode !== 'listen');
+/** Opening practice builds familiarity before asking learners to produce German. */
+export function practiceExercises<T extends Exercise>(exercises: readonly T[], silentMode: boolean, writingReady = true): T[] {
+  return exercises.filter(exercise => (!silentMode || exercise.mode !== 'listen') &&
+    (writingReady || (exercise.mode !== 'type' && exercise.mode !== 'sentence')));
 }
 
 export function remainingQuestExercises(exercises: readonly Exercise[], progress: Progress, silentMode: boolean): Exercise[] {

@@ -8,6 +8,7 @@ export function nameSuggestions(): string[] {
   return names.slice(0, 4);
 }
 export const ACCOUNT_REMINDER_MS = 5 * 60 * 1000;
+export const WRITING_UNLOCK_MS = 10 * 60 * 1000;
 
 /** Count visible play across reloads, scoped to the current player. */
 export class AccountReminder {
@@ -32,6 +33,8 @@ export class AccountReminder {
     return this.due;
   }
   get due(): boolean { return this.played >= ACCOUNT_REMINDER_MS && !this.shown; }
+  get elapsedMs(): number { return this.played; }
+  get writingReady(): boolean { return this.played >= WRITING_UNLOCK_MS; }
   markShown(): void { this.shown = true; this.save(); }
   private save(): void {
     try { this.storage.setItem(this.key, JSON.stringify({ played: this.played, shown: this.shown })); }

@@ -7,6 +7,7 @@ import { gradeFeedback } from './learning';
 import { residentConversation, earnedTitleGreeting } from './npc-dialogue';
 import { lanternRewards } from './lantern-rewards';
 import { grammarForQuest, type ContextualGrammar } from './contextual-grammar';
+import { beginnerGateChoices, beginnerReplyMeaning } from './beginner-dialogue';
 
 const glossary: Record<string, string> = {
   ich:'I', du:'you', wir:'we', sie:'she / they / formal you', ihr:'her / their / you (plural)',
@@ -32,6 +33,7 @@ export interface QuestControllerOptions {
   portrait(id: string): string;
   speak(text: string, speaker: string, clipId: string, personalized: boolean, rate?: number): void;
   audioEnabled(): boolean;
+  beginnerMode?(): boolean;
   setAudioEnabled(enabled: boolean): void;
   glosses?(text: string): Record<string, string> | undefined;
   prepareLine?(line: DialogueLine): DialogueLine;
@@ -57,6 +59,7 @@ interface SceneAttemptInput {
   mode: 'recognition' | 'production';
   questId: string;
   sceneAttempt: true;
+  guidedChoice?: true;
   responseTimeMs: number;
 }
 
@@ -73,6 +76,7 @@ export class QuestController {
   private answerShown = false;
   private busy = false;
   private replay = false;
+  private beginner = false;
   private error = '';
   private artifact?: { objectId: string; german: string; english: string };
   private pending?: { id: string; key: string; attempt?: Readonly<SceneAttemptInput> };
@@ -89,9 +93,11 @@ export class QuestController {
   async open(questId: string): Promise<void> {
     const graph = questGraph(questId); if (!graph) return;
     this.generation++; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId); this.answerShown = false; this.replyCorrection = undefined;
+    // Keep an open conversation in the same format when the opening timer ends.
+    this.beginner = graph.level === 'A1' && (this.options.beginnerMode?.() ?? true);
     const generation = this.generation;
     this.ambient = undefined;
-    this.hinted = this.options.wasHinted?.(questId)??false; this.translated = false; this.grammarShown = false; this.error = ''; this.artifact = undefined; this.pending = undefined; this.busy = false; this.gateProof = undefined;
+    this.hinted = this.beginner || (this.options.wasHinted?.(questId)??false); this.translated = false; this.grammarShown = false; this.error = ''; this.artifact = undefined; this.pending = undefined; this.busy = false; this.gateProof = undefined;
     const state = storyState(this.options.progress().story), stage = this.replay ? 'intro' : state.nodes[questId] ?? 'intro';
     this.node = nodeForStage(graph, stage); this.index = 0;
     this.options.onOpen(quests.find(q => q.id === questId)!.npcId);
@@ -108,6 +114,7 @@ export class QuestController {
     const graph = questGraph(questId), artifact = graph?.investigations.find(item => item.objectId === objectId);
     if (!graph || !artifact) return false;
     this.generation++; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
+    this.beginner = graph.level === 'A1' && (this.options.beginnerMode?.() ?? true);
     this.translated = false; this.hinted = false; this.busy = false; this.error = ''; this.pending = undefined;
     this.replay = (this.options.progress().story?.inspections?.[questId] ?? []).includes(objectId) || this.options.progress().completedQuestIds.includes(questId);
     this.options.onOpen(''); this.view.host.classList.add('investigation-artifact'); this.render(true); return true;
@@ -115,6 +122,7 @@ export class QuestController {
   greet(npc: NPC, level: Level) {
     this.generation++; this.replyCorrection = undefined; this.graph = undefined; this.node = undefined; this.artifact = undefined; this.answerShown = false;
     this.ambient = { npc, lines: residentConversation(npc, level, storyState(this.options.progress().story)) };
+    this.beginner = level === 'A1' && (this.options.beginnerMode?.() ?? true);
     const greeting = earnedTitleGreeting(npc,lanternRewards(this.options.progress()).title);
     if (greeting) this.ambient.lines.unshift(greeting);
     this.index = 0; this.translated = false; this.error = ''; this.busy = false; this.render(true);
@@ -128,7 +136,7 @@ export class QuestController {
     const audioEnabled = this.options.audioEnabled();
     if (this.ambient) {
       const { npc, lines } = this.ambient, source = lines[this.index], line = this.options.prepareLine?.(source) ?? source, atEnd = this.index === lines.length - 1;
-      this.view.render({ audioEnabled, title: 'A CONVERSATION IN THE TOWN', line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id), index:this.index,total:lines.length,help:this.translated,busy:false,glosses:this.options.glosses?.(line.german)??glossary,powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      this.view.render({ audioEnabled, title: 'A CONVERSATION IN THE TOWN', line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id), index:this.index,total:lines.length,help:this.translated || this.beginner,busy:false,glosses:this.options.glosses?.(line.german)??glossary,powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
       if (voice) { this.options.onOpen(npc.id); if (audioEnabled) this.options.speak(line.german,npc.id,line.clipId,false,rate); }
       return;
     }
@@ -140,10 +148,11 @@ export class QuestController {
     const atEnd = this.index === lines.length - 1;
     const gate = !this.replay && this.node?.stage === 'gate' && atEnd ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId) : undefined;
     const reply = !this.replay && !this.artifact && source.reply && !state.flags[`reply:${source.reply.exerciseId}`] ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === source.reply!.exerciseId) : undefined;
-    const choices = reply ? (reply.options ?? []).map(german => ({ id: german, german, english: '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
-    this.view.render({ audioEnabled, title: this.artifact ? 'READ THE EVIDENCE' : quests.find(q => q.id === graph.questId)!.title, line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker), index: this.index, total: lines.length, help: this.translated, busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? glossary), ...line.glosses }, powers,wordlight:this.wordlight, grammar: gate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, choices, gate, gatePrompt: graph.gatePrompt, advanceLabel: this.artifact ? this.replay ? 'Return to the investigation' : 'Record this evidence' : atEnd && this.node?.stage === 'intro' && !this.replay ? 'Examine the evidence' : atEnd && this.node?.terminal ? 'Keep exploring' : 'Continue' });
+    const guidedGate = gate && this.beginner;
+    const choices = guidedGate ? beginnerGateChoices(gate.id) : reply ? (reply.options ?? []).map(german => ({ id: german, german, english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
+    this.view.render({ audioEnabled, title: this.artifact ? 'READ THE EVIDENCE' : quests.find(q => q.id === graph.questId)!.title, line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker), index: this.index, total: lines.length, help: this.translated || this.beginner, busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? glossary), ...line.glosses }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? graph.gatePrompt : undefined, gatePrompt: graph.gatePrompt, advanceLabel: this.artifact ? this.replay ? 'Return to the investigation' : 'Record this evidence' : atEnd && this.node?.stage === 'intro' && !this.replay ? 'Examine the evidence' : atEnd && this.node?.terminal ? 'Keep exploring' : 'Continue' });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); if (audioEnabled) this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
-    if (gate && focusGate) { this.startedAt = performance.now(); this.view.focusGate(); }
+    if (gate && focusGate) { this.startedAt = performance.now(); if (!guidedGate) this.view.focusGate(); }
   }
   private async action(action: string) {
     const generation = this.generation;
@@ -217,23 +226,24 @@ export class QuestController {
     const questId = this.graph!.questId, key = `${questId}:${nodeId}:${extra?.choiceId ?? extra?.attemptId ?? ''}`;
     await this.command(key, () => this.options.api.storyTransition({ id: this.commandId(key), questId, nodeId, ...extra }));
   }
-  private async answer(answer: string) {
+  private async answer(answer: string, guidedChoice = false) {
     if (!this.graph || this.busy || !answer.trim() || this.node?.stage !== 'gate') return;
     const graph = this.graph, ex = quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId)!, generation = this.generation;
+    if (this.beginner && (!guidedChoice || !beginnerGateChoices(ex.id).some(choice => choice.id === answer))) return;
     if (this.gateProof) {
       await this.transition('gate', { attemptId: this.gateProof });
       if (generation === this.generation && !this.error && this.graph === graph) { this.node = nodeForStage(graph, 'choice'); this.index = 0; this.translated = false; this.render(true); }
       return;
     }
-    const key = `answer:${graph.questId}:${answer.trim()}:${this.hinted}`;
-    const input = this.attemptInput(key, { itemId: ex.itemId, exerciseId: ex.id, answer: answer.trim(), hinted: this.hinted, mode: 'production', questId: graph.questId, sceneAttempt: true });
+    const key = `answer:${graph.questId}:${answer.trim()}:${this.hinted}:${guidedChoice}`;
+    const input = this.attemptInput(key, { itemId: ex.itemId, exerciseId: ex.id, answer: answer.trim(), hinted: this.hinted || guidedChoice, mode: guidedChoice ? 'recognition' : 'production', questId: graph.questId, sceneAttempt: true, ...(guidedChoice ? { guidedChoice: true } : {}) });
     this.busy = true; this.error = ''; this.render();
     try {
       const result = await this.options.api.request<AttemptResult>('/attempt', input);
       this.options.onProgress(result.progress);
       if (generation !== this.generation) return;
       this.pending = undefined;
-      if (!result.correct) { this.error = result.reason || gradeFeedback(ex, answer); return; }
+      if (!result.correct) { this.error = guidedChoice ? `Try another reply. ${ex.english}` : result.reason || gradeFeedback(ex, answer); return; }
       this.gateProof = result.attemptId || input.id;
       this.busy = false;
       await this.transition('gate', { attemptId: this.gateProof });
@@ -245,6 +255,7 @@ export class QuestController {
   private async choose(id: string) {
     if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); return; }
     if (!this.graph || this.busy || !this.node) return;
+    if (!this.replay && this.node.stage === 'gate' && this.beginner) { await this.answer(id, true); return; }
     const source = dialogueLines(this.node, storyState(this.options.progress().story))[this.index];
     if (!this.replay && source?.reply && !this.options.progress().story?.flags[`reply:${source.reply.exerciseId}`]) {
       await this.reply(id, source); return;

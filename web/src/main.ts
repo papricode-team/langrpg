@@ -102,6 +102,7 @@ let started = false;
 let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
+function writingReady(): boolean { return accountReminder?.writingReady ?? false; }
 const entryNames = nameSuggestions();
 let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
 if (!['A1', 'A2', 'B1'].includes(level)) level = 'A1';
@@ -125,6 +126,14 @@ if (!Number.isFinite(manualWorldHour)) manualWorldHour = 12;
 if (!['auto', 'full', 'reduced'].includes(worldMotion)) worldMotion = 'auto';
 let muted = localStorage.getItem('atlas.muted') !== 'false';
 let silentMode = localStorage.getItem('atlas.silentMode') === 'true';
+function playablePractice<T extends Exercise>(exercises: readonly T[]): T[] {
+  return practiceExercises(exercises, silentMode, writingReady());
+}
+function showOpeningPracticeNotice(placement = false) {
+  cancelRun();
+  setView('world');
+  openDialog(`<div class="course-intro"><div class="eyebrow">YOUR FIRST STEPS · A1</div><h2>Listen, look and choose.</h2><p>${placement ? 'Start with A1 German and get comfortable in the town. The optional level sample opens after your first ten minutes of play.' : 'Writing practice opens after your first ten minutes of play. For now, discover the town through listening and simple choices. Your completed answers are saved.'}</p><button class="primary-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></div>`, 'course-dialog');
+}
 function silentModeButton() {
   return `<button class="outline-button silent-mode-button" data-action="silent-mode" aria-pressed="${silentMode}">${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}</button>`;
 }
@@ -244,6 +253,7 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
+    beginnerMode: () => !writingReady(),
     portrait: id => portrait(id), speak: (text, speaker, clipId, personalized, rate) => {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
@@ -349,11 +359,11 @@ function startInteriorActivity(id: string) {
   void startActivity(object.activityId, {roomId:room.id, stationId:id});
 }
 function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
-  return practiceExercises(object.exerciseIds.flatMap(id => {
+  return playablePractice(object.exerciseIds.flatMap(id => {
     const exercise = interiorExercises.find(item => item.id === id);
     if (!exercise) return [];
     return [exercise.mode === 'sentence' && hasSuccessfulEncounter(exercise.itemId) ? { ...exercise, mode: 'type' as const, prompt: `Write in German: ${exercise.english}` } : exercise];
-  }), silentMode);
+  }));
 }
 function showInteriorObject(id: string) {
   if (interiorId === 'inn') {
@@ -376,7 +386,7 @@ function startInteriorPractice(id: string) {
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
   if (connection !== 'online') { toast('The town is reconnecting. Try this session again in a moment.', true); return; }
   const queue = interiorPracticeQueue(object);
-  if (!queue.length) return;
+  if (!queue.length) { if (!writingReady()) showOpeningPracticeNotice(); return; }
   setView('world');
   run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:true, interiorObjectId:id, label:`${room.name} · ${object.sessionTitle}`, started:Date.now() };
   openDialog('', 'quest-dialog interior-practice-dialog'); renderExercise();
@@ -558,7 +568,7 @@ function activityForObject(object: WorldObjectSpec): ActivityId {
 function hasSuccessfulEncounter(itemId: string): boolean { return Object.values(progress.items[itemId]?.modeStats ?? {}).some(stats => stats.correct > 0); }
 function availableObjectExercises(object: WorldObjectSpec): Exercise[] {
   const due = new Set(dueItems(progress));
-  return practiceExercises(object.exerciseIds.flatMap(id => { const ex = quests.flatMap(q => q.exercises).find(item => item.id === id); return ex && (!hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId)) ? [ex.mode === 'sentence' && progress.items[ex.itemId] ? { ...ex, mode: 'type' as const, prompt: `Write in German: ${ex.english}` } : ex] : []; }), silentMode);
+  return playablePractice(object.exerciseIds.flatMap(id => { const ex = quests.flatMap(q => q.exercises).find(item => item.id === id); return ex && (!hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId)) ? [ex.mode === 'sentence' && progress.items[ex.itemId] ? { ...ex, mode: 'type' as const, prompt: `Write in German: ${ex.english}` } : ex] : []; }));
 }
 type ExpeditionEncounterRecord = { selected: number; successful?: number; attempts: number };
 function expeditionEncounterResult(id: string): { selected: number; correct: boolean; attempts: number } | undefined {
@@ -629,7 +639,7 @@ function showObject(id: string) {
 function startObjectPractice(id: string) {
   const object = findObject(id); if (!object) return;
   const queue = availableObjectExercises(object);
-  if (!queue.length) { showObject(id); return; }
+  if (!queue.length) { if (!writingReady()) showOpeningPracticeNotice(); else showObject(id); return; }
   if (connection !== 'online') { toast('The town is reconnecting. Your clue is safe; try the encounter in a moment.', true); return; }
   setView('world');
   run = { queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: true, objectId: id, label: object.label, started: Date.now() };
@@ -767,7 +777,8 @@ async function startWordPractice(id: string) {
     openDialog(`<div class="course-intro"><div class="eyebrow">A FAMILIAR WORD, AT REST</div><h2>${e(spokenWord(word))}</h2><p>${e(word.english)}</p><p>This word is resting. Its next encounter is ${new Date(memory.dueAt).toLocaleDateString(undefined, {month:'short',day:'numeric'})}.</p><button class="primary-button" data-speak="${e(spokenWord(word))}">${icon('volume')} Hear this word</button><button class="text-button" data-action="close-dialog">Keep exploring</button></div>`, 'course-dialog'); return;
   }
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
-  const queue = practiceExercises(module.courseExercises, silentMode).filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
+  const queue = playablePractice(module.courseExercises).filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
+  if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
   if (!queue.length) { toast(silentMode ? 'No reading or writing practice is ready for this word. Listening is skipped in silent mode.' : 'This word is resting. There is a new adventure waiting.'); return; }
   setView('world'); run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:true, label:`A word for your journey · ${word.lemma}`, started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
@@ -779,7 +790,8 @@ async function startCourseUnit(id: string) {
   const due = new Set(dueItems(progress));
   const pending = unit.exerciseIds.map(id => module.courseExerciseById.get(id)).filter((ex): ex is NonNullable<typeof ex> => !!ex && !exerciseHasSuccess(ex));
   const revisits = unit.exerciseIds.map(id => module.courseExerciseById.get(id)).filter((ex): ex is NonNullable<typeof ex> => !!ex && due.has(ex.itemId) && (!ex.targetWordId || !progress.words[ex.targetWordId]?.evidence?.[modeFor(ex)]?.dueAt || Date.parse(progress.words[ex.targetWordId].evidence[modeFor(ex)].dueAt) <= Date.now()));
-  const queue = practiceExercises(pending.length ? pending : revisits, silentMode).slice(0, 8);
+  const queue = playablePractice(pending.length ? pending : revisits).slice(0, 8);
+  if (!queue.length && !writingReady() && pending.some(ex => ex.mode === 'sentence' || ex.mode === 'type')) { showOpeningPracticeNotice(); return; }
   if (!queue.length && pending.length) { toast('This route has listening practice left. Turn off silent mode when you are ready to listen.'); return; }
   setView('world');
   run = { unitId:id, queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:unit.title, started:Date.now() };
@@ -790,7 +802,8 @@ async function startAdaptiveReview() {
   const module = await loadCourse().catch(() => undefined);
   if (!module) { startReview(); return; }
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
-  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode);
+  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode, writingReady());
+  if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
   if (!queue.length) { toast(silentMode ? 'No reading or writing reviews are ready. Listening is skipped in silent mode.' : 'Your familiar words are resting. Follow a new route or play an adventure.'); return; }
   setView('world'); run = { queue,index:0,correct:0,targetCount:queue.length,hinted:false,audioHeard:false,answered:false,answer:'',tokenOrder:[],review:true,label:'A short recall walk',started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
@@ -900,6 +913,7 @@ function renderOther() {
   }
 }
 async function startPlacement() {
+  if (!writingReady()) { showOpeningPracticeNotice(true); return; }
   openDialog('<div id="placement-root"><p>Opening your German sample…</p></div>', 'activity-dialog');
   const host = document.querySelector<HTMLElement>('#placement-root')!;
   try { placementController = await mountOptionalPlacement(host, { api, progress, speak, onClose: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(), onComplete: (result, value) => { acceptProgress(value); courseLevel = result.level; localStorage.setItem('atlas.placement', JSON.stringify(result)); updateProgress(); } }); if (!host.isConnected) { placementController.destroy(); placementController = undefined; } } catch (error) { toast((error as Error).message, true); }
@@ -923,7 +937,10 @@ function showNpc(id: string) {
   const npc = npcs.find(n => n.id === id);
   if (!npc) return;
   const available = quests.find(q => q.npcId === id && q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds));
-  if (available) { void questController?.open(available.id); return; }
+  if (available) {
+    if (available.level !== 'A1' && !writingReady()) { showOpeningPracticeNotice(); return; }
+    void questController?.open(available.id); return;
+  }
   recordExposure({npcId:id});
   questController?.greet(npc, level);
 }
@@ -943,7 +960,8 @@ function startQuestPractice(id: string) {
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
   setView('world');
   const due = new Set(dueItems(progress));
-  const queue = practiceExercises(quest.exercises, silentMode).filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
+  const queue = playablePractice(quest.exercises).filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
+  if (!queue.length && !writingReady() && quest.exercises.some(ex => (ex.mode === 'sentence' || ex.mode === 'type') && !hasSuccessfulEncounter(ex.itemId))) { showOpeningPracticeNotice(); return; }
   run = { quest, queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: false, started: Date.now(), skipListening: silentMode };
   const npc = npcs.find(n => n.id === quest.npcId) ?? npcs[0];
   openDialog(`<div class="quest-intro">${portrait(npc.id, 'large-portrait')}<div class="eyebrow">${quest.level} · ${e(quest.location)}</div><h2>${e(quest.title)}</h2>${translationHelp}<p class="intro-story">${renderNarrative(quest.story)}</p><div class="intro-details"><span>${icon('book')} ${queue.length ? `${queue.length} expressions to practise` : 'Your expressions are already saved'}</span><span>${icon('sparkles')} +${quest.reward} XP</span></div><button class="primary-button" data-action="begin-exercises">${queue.length ? 'Let the adventure begin' : 'Discover the next clue'} ${icon('arrow')}</button><small>You can take a break at any time. Your answered words stay saved.</small></div>`, 'quest-dialog');
@@ -951,11 +969,11 @@ function startQuestPractice(id: string) {
 function startReview() {
   const ids = dueItems(progress).slice(0, 8);
   const queue = ids.flatMap(id => {
-    const ex = practiceExercises(quests.flatMap(q => q.exercises), silentMode).find(x => x.itemId === id);
+    const ex = playablePractice(quests.flatMap(q => q.exercises)).find(x => x.itemId === id);
     if (!ex) return [];
     return [{ ...ex, ...(ex.mode === 'sentence' ? { mode: 'type' as const, prompt: `A familiar request, a new encounter. Write in German: ${ex.english}` } : {}) }];
   });
-  if (!queue.length) { toast('Your familiar words are resting. There’s a new adventure waiting.'); return; }
+  if (!queue.length) { if (!writingReady()) showOpeningPracticeNotice(); else toast('Your familiar words are resting. There’s a new adventure waiting.'); return; }
   if (connection !== 'online') { toast('The town is reconnecting. Try again in a moment.', true); return; }
   setView('world');
   run = { queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: true, started: Date.now() };
@@ -1066,7 +1084,9 @@ async function finishRun() {
     let gained = 0;
     if (activeRun.unitId && course) {
       const unit = course.courseUnits.find(unit => unit.id === activeRun.unitId)!;
-      const remaining = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return ex && !exerciseHasSuccess(ex); }).length;
+      const remainingExercises = unit.exerciseIds.flatMap(id => { const ex = course!.courseExerciseById.get(id); return ex && !exerciseHasSuccess(ex) ? [ex] : []; });
+      if (!writingReady() && remainingExercises.some(ex => ex.mode === 'sentence' || ex.mode === 'type') && !playablePractice(remainingExercises).length) { showOpeningPracticeNotice(); playCue(true); return; }
+      const remaining = remainingExercises.length;
       if (!remaining) { const result = await api.completeUnit(unit.id); acceptProgress(result.progress); gained = result.xpAdded; updateProgress(); }
       if (run !== activeRun) return;
       document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close learning route">${icon('close')}</button><div class="completion"><div class="completion-mark">${icon(remaining ? 'leaf' : 'check')}</div><div class="eyebrow">YOUR LEARNING ROUTE, SAVED</div><h2>${remaining ? 'A little further along the route.' : 'A route you can use.'}</h2><p>${e(unit.title)} · ${remaining ? `${remaining} encounters remain. Your completed answers are saved; continue when you are ready.` : 'Your answers are saved. Try this German in an adventure or let it rest until its next encounter.'}</p><div class="completion-stats"><span><strong>${activeRun.targetCount}</strong> encounters saved</span><span><strong>${gained ? '+' + gained : '✓'}</strong> ${gained ? 'adventure XP' : 'progress saved'}</span></div>${remaining ? `<button class="primary-button" data-course-unit="${unit.id}">Continue this route ${icon('arrow')}</button>` : '<button class="primary-button" data-view="activities">Use it in an adventure '+icon('arrow')+'</button>'}<button class="text-button" data-view="course">Return to your learning routes</button><button class="text-button" data-action="close-dialog">Keep exploring</button></div>`;
@@ -1075,6 +1095,7 @@ async function finishRun() {
     if (activeRun.quest && !questGraph(activeRun.quest.id)) {
       const skipListening = silentMode || !!activeRun.skipListening;
       const remaining = remainingQuestExercises(activeRun.quest.exercises, progress, skipListening);
+      if (!writingReady() && remaining.some(ex => ex.mode === 'sentence' || ex.mode === 'type') && !playablePractice(remaining).length) { showOpeningPracticeNotice(); playCue(true); return; }
       if (remaining.length) {
         document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close quest session">${icon('close')}</button><div class="completion"><div class="completion-mark">${icon('leaf')}</div><div class="eyebrow">YOUR ANSWERS ARE SAVED</div><h2>A little further along the story.</h2><p>${e(activeRun.quest.title)} · ${remaining.length} ${remaining.length === 1 ? 'exercise remains' : 'exercises remain'}. Your completed answers are saved; continue when you are ready.</p><div class="completion-stats"><span><strong>${activeRun.correct}</strong> expressions practised</span><span><strong>✓</strong> progress saved</span></div><button class="primary-button" data-start-quest="${activeRun.quest.id}">Continue this quest ${icon('arrow')}</button><button class="text-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></div>`;
         run = undefined; playCue(true); return;
@@ -1418,10 +1439,9 @@ function enterGame(result: SessionResult) {
   accountReminder.tick(performance.now(), false);
   if (reminderTimer !== undefined) clearInterval(reminderTimer);
   reminderTimer = window.setInterval(() => {
-    if (account.registered) return;
     const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
     const due = accountReminder!.tick(performance.now(), !document.hidden && connection === 'online' && !dialog.open);
-    if (due && !document.hidden && view === 'world' && !watchingWorld && !dialog.open && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen) {
+    if (!account.registered && due && writingReady() && !document.hidden && view === 'world' && !watchingWorld && !dialog.open && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen) {
       showSaveAccount(true);
       accountReminder!.markShown();
     }
@@ -1429,7 +1449,7 @@ function enterGame(result: SessionResult) {
 }
 function showSaveAccount(reminder = false) {
   if (!started || account.registered) return;
-  showAccountDialog(`<div class="eyebrow">${reminder ? 'FIVE MINUTES INTO YOUR ADVENTURE' : 'KEEP YOUR ADVENTURE CLOSE'}</div><h2 id="account-title">You’re ${e(profile.name)} here.</h2><p>Add your email and a password to return as <strong>${e(profile.name)}</strong> on another device, with your character and progress.</p><form id="save-account-form"><label class="form-label" for="account-email">Email</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">Choose a password</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">Use 10–128 characters.</small><label class="form-label" for="account-password-confirm">Confirm password</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Save my adventure ${icon('check')}</button></form><button class="text-button" id="account-later">Keep playing — I’ll do this later</button><small>You can add these in Menu → Settings whenever you’re ready.</small>`);
+  showAccountDialog(`<div class="eyebrow">${reminder ? 'SAVE YOUR ADVENTURE' : 'KEEP YOUR ADVENTURE CLOSE'}</div><h2 id="account-title">You’re ${e(profile.name)} here.</h2><p>Add your email and a password to return as <strong>${e(profile.name)}</strong> on another device, with your character and progress.</p><form id="save-account-form"><label class="form-label" for="account-email">Email</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">Choose a password</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">Use 10–128 characters.</small><label class="form-label" for="account-password-confirm">Confirm password</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Save my adventure ${icon('check')}</button></form><button class="text-button" id="account-later">Keep playing — I’ll do this later</button><small>You can add these in Menu → Settings whenever you’re ready.</small>`);
   const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
   const password = document.querySelector<HTMLInputElement>('#account-password')!;
   const confirmation = document.querySelector<HTMLInputElement>('#account-password-confirm')!;

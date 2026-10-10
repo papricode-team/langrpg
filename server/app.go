@@ -324,7 +324,18 @@ type AttemptInput struct {
 	ScenarioID     string          `json:"scenarioId,omitempty"`
 	BoardState     json.RawMessage `json:"boardState,omitempty"`
 	SceneAttempt   bool            `json:"sceneAttempt,omitempty"`
+	GuidedChoice   bool            `json:"guidedChoice,omitempty"`
 	Preview        bool            `json:"preview,omitempty"`
+}
+
+// Opening A1 conversations offer authored replies to tap. They prove supported
+// comprehension of this scene, never independently producing the German phrase.
+func (a *App) isGuidedStoryGate(input AttemptInput) bool {
+	rule, known := storyRule(input.QuestID)
+	exercise, installed := a.curriculum.Exercises[input.ExerciseID]
+	return input.GuidedChoice && input.SceneAttempt && input.Mode == "recognition" && input.Hinted &&
+		known && installed && exercise.Mode == "production" && input.ExerciseID == rule.GateExerciseID &&
+		a.curriculum.Items[exercise.ItemID].Level == "A1" && input.ActivityID == "" && input.RunID == ""
 }
 
 func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
@@ -355,9 +366,14 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	exercise, ok := a.curriculum.Exercises[input.ExerciseID]
+	guidedGate := a.isGuidedStoryGate(input)
+	if input.GuidedChoice && !guidedGate {
+		writeError(w, 400, "guided choices must be supported replies to an A1 conversation's current request")
+		return
+	}
 	transcriptFallback := exercise.Mode == "listening" && input.Mode == "recognition" && input.Hinted
 	missionRecognition := exercise.Mode == "production" && input.Mode == "recognition" && input.Hinted && input.ActivityID != "" && safeID.MatchString(input.RunID) && activityContains(input.ActivityID, a.curriculum.Items[exercise.ItemID].Level, exercise.ID)
-	if !ok || exercise.ItemID != input.ItemID || (exercise.Mode != input.Mode && !transcriptFallback && !missionRecognition) {
+	if !ok || exercise.ItemID != input.ItemID || (exercise.Mode != input.Mode && !transcriptFallback && !missionRecognition && !guidedGate) {
 		writeError(w, 400, "exercise, item and mode do not match the curriculum")
 		return
 	}
@@ -386,7 +402,7 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	}
 	if input.SceneAttempt {
 		rule, known := storyRule(input.QuestID)
-		gate := input.ExerciseID == rule.GateExerciseID && input.Mode == "production"
+		gate := input.ExerciseID == rule.GateExerciseID && (input.Mode == "production" || guidedGate)
 		reply := contains(rule.ReplyExerciseIDs, input.ExerciseID) && input.Mode == "recognition"
 		if !known || (!gate && !reply) || input.ActivityID != "" {
 			writeError(w, 400, "the scene answer must match its authored German request")
@@ -418,7 +434,7 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if input.SceneAttempt {
 			check := a.requireStoryGate
-			if input.Mode == "recognition" {
+			if input.Mode == "recognition" && !guidedGate {
 				check = a.requireStoryReply
 			}
 			if err := check(account, input.QuestID); err != nil {
@@ -432,16 +448,20 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 			correct = boardCorrect
 		}
 		gradedInput := input
-		if input.SceneAttempt && input.Mode == "recognition" && account.Progress.Story.Flags["reply-help:"+input.ExerciseID] {
+		if input.SceneAttempt && input.Mode == "recognition" && !guidedGate && account.Progress.Story.Flags["reply-help:"+input.ExerciseID] {
 			gradedInput.Hinted = true
 		}
-		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, gradedInput.Hinted, now, exercise.Mode, input.Rating, input.ResponseTimeMs)
+		sourceMode := exercise.Mode
+		if guidedGate {
+			sourceMode = "recognition"
+		}
+		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, gradedInput.Hinted, now, sourceMode, input.Rating, input.ResponseTimeMs)
 		if err != nil {
 			return Receipt{}, err
 		}
 		recordWordEvidence(&account.Progress, exercise, gradedInput, correct, now)
 		recordPromiseAttempt(&account.Progress, correct, gradedInput.Hinted, now, input.ItemID+":"+input.Mode)
-		if input.SceneAttempt && input.Mode == "recognition" {
+		if input.SceneAttempt && input.Mode == "recognition" && !guidedGate {
 			if correct {
 				account.Progress.Story.Flags["reply:"+input.ExerciseID] = true
 			} else {
@@ -451,7 +471,7 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		if input.SceneAttempt && input.Mode == "production" && !correct {
 			recordStoryGateFailure(&account.Progress.Story, input.QuestID)
 		}
-		if input.SceneAttempt && input.Mode == "production" && correct {
+		if input.SceneAttempt && (input.Mode == "production" || guidedGate) && correct {
 			proofs := append(account.Progress.Story.GateAttempts[input.QuestID], input.ID)
 			if len(proofs) > 32 {
 				proofs = proofs[len(proofs)-32:]

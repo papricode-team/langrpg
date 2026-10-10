@@ -36,6 +36,17 @@ describe('whole-course review',()=>{
     expect(p).toEqual(before);
     expect(reviewExercises(p,drills,[],now).map(item=>item.id)).toEqual(['listen']);
   });
+  it('keeps writing due during the opening and chooses familiar reading or listening instead',()=>{
+    const p=emptyProgress();p.words.apple=word('apple');
+    const drills=([['prod','type'],['listen','listen'],['read','choice']] as const).map(([id,mode])=>({...ex(id,mode),itemId:'word-apple',targetWordId:'apple'}));
+    const contexts=[ex('write','sentence'),ex('read-context')];
+    for(const item of contexts)p.items[item.itemId]=memory(item.itemId);
+    const before=structuredClone(p);
+    expect(reviewExercises(p,drills,contexts,now,false,false).map(item=>item.id)).toEqual(['listen','read-context']);
+    expect(reviewExercises(p,drills,contexts,now,true,false).map(item=>item.id)).toEqual(['read','read-context']);
+    expect(p).toEqual(before);
+    expect(reviewExercises(p,drills,contexts,now).map(item=>item.mode)).toEqual(['type','type','choice']);
+  });
   it('fills a silent review with playable contexts even when many listening items are due first',()=>{
     const p=emptyProgress();
     const contexts=Array.from({length:12},(_,i)=>ex(`phrase-${i}`,i<4?'listen':'choice'));

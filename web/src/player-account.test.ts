@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AccountReminder, nameSuggestions, suggestedNames } from './player-account';
+import { AccountReminder, nameSuggestions, suggestedNames, WRITING_UNLOCK_MS } from './player-account';
 
 function storage() {
   const values = new Map<string, string>();
@@ -24,6 +24,38 @@ describe('player names and account reminder', () => {
     expect(reminder.tick(301000, true)).toBe(true);
     reminder.markShown();
     expect(reminder.due).toBe(false);
+  });
+  it('opens writing at ten active minutes, including after the account reminder was shown', () => {
+    const reminder = new AccountReminder('player', storage());
+    play(reminder, 300);
+    reminder.markShown();
+    play(reminder, 299, 300000);
+    expect(reminder.elapsedMs).toBe(WRITING_UNLOCK_MS - 1000);
+    expect(reminder.writingReady).toBe(false);
+    reminder.tick(WRITING_UNLOCK_MS, true);
+    expect(reminder.writingReady).toBe(true);
+    expect(reminder.due).toBe(false);
+  });
+  it('retains the writing introduction across reloads and scopes it to the player', () => {
+    const saved = storage();
+    play(new AccountReminder('player', saved), 400);
+    const reminder = new AccountReminder('player', saved);
+    expect(reminder.elapsedMs).toBe(400000);
+    expect(reminder.writingReady).toBe(false);
+    play(reminder, 200);
+    expect(new AccountReminder('player', saved).writingReady).toBe(true);
+    expect(new AccountReminder('other-player', saved).writingReady).toBe(false);
+  });
+  it('does not unlock writing from a paused or background visit', () => {
+    const reminder = new AccountReminder('player', storage());
+    play(reminder, 599);
+    reminder.tick(599000, false);
+    reminder.tick(WRITING_UNLOCK_MS + 600000, false);
+    expect(reminder.elapsedMs).toBe(599000);
+    expect(reminder.writingReady).toBe(false);
+    reminder.tick(1200000, true);
+    reminder.tick(1201000, true);
+    expect(reminder.writingReady).toBe(true);
   });
   it('resumes accumulated play after reload and only prompts once per player', () => {
     const saved = storage();

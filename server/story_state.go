@@ -343,7 +343,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		var ok bool
 		proof, ok = proofs[input.AttemptID]
 		var attempt AttemptInput
-		if !ok || json.Unmarshal(proof.Request, &attempt) != nil || proof.Receipt.Correct == nil || !*proof.Receipt.Correct || attempt.ExerciseID != rule.GateExerciseID || attempt.QuestID != input.QuestID || attempt.Mode != "production" || !attempt.SceneAttempt {
+		if !ok || json.Unmarshal(proof.Request, &attempt) != nil || proof.Receipt.Correct == nil || !*proof.Receipt.Correct || attempt.ExerciseID != rule.GateExerciseID || attempt.QuestID != input.QuestID || (attempt.Mode != "production" && !a.isGuidedStoryGate(attempt)) || !attempt.SceneAttempt {
 			writeError(w, 409, "a correct saved German answer from this conversation is required")
 			return
 		}

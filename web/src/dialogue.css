@@ -26,3 +26,5 @@
 .dialogue-answer-help>button{margin:12px 0 8px;padding:10px 14px;color:#f5e7c6;border-color:#dbc58b80;min-height:44px}
 .dialogue-answer-help>button .icon{width:15px;height:15px;vertical-align:middle;margin-left:8px}
 .dialogue-hint-tools button:disabled{opacity:.45;cursor:default}
+
+.dialogue-choice-prompt{font-size:14px;line-height:1.5;margin:12px 0}.dialogue-choice-prompt small{display:block;color:#adbcab;font-size:12px;margin-top:4px}

@@ -17,6 +17,13 @@ describe('silent mode', () => {
     expect(practiceExercises([listening], true)).toEqual([]);
   });
 
+  it('keeps opening practice to reading and listening, preserving writing for later', () => {
+    expect(practiceExercises(exercises, false, false)).toEqual(exercises.filter(exercise => exercise.mode === 'choice' || exercise.mode === 'listen'));
+    expect(practiceExercises(exercises, true, false)).toEqual(exercises.filter(exercise => exercise.mode === 'choice'));
+    expect(practiceExercises(exercises, false, true)).toEqual(exercises);
+    expect(remainingQuestExercises([writing], emptyProgress(), false)).toEqual([writing]);
+  });
+
   it('moves straight to the next silent exercise without losing answered history or counting retries twice', () => {
     const session = { queue: [reading, listening, writing, listening], index: 1, targetCount: 3 };
     skipListeningExercises(session);

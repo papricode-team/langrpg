@@ -9,7 +9,7 @@ import { answerMatches } from './learning';
 
 let controller: QuestController | undefined;
 afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; vi.restoreAllMocks(); });
-function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arrival') {
+function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arrival', beginner = false) {
   let audioEnabled = true;
   let progress: Progress = {...emptyProgress(), story:emptyStory()};
   progress.story!.nodes[questId] = stage;
@@ -22,13 +22,79 @@ function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arr
     inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections[questId] = [...(progress.story!.inspections[questId]??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
     storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes[questId] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push(questId);progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
-  const options = {api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
+  const options = {beginnerMode:()=>beginner,api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
   controller = new QuestController(options);
   const click = (selector:string) => document.querySelector<HTMLButtonElement>(selector)!.click();
   return {api,options,controller,get progress(){return progress;},click};
 }
 
 describe('conversation scene lifecycle', () => {
+  it('starts A1 with visible meanings and supported greeting choices', async () => {
+    const f = fixture('intro', 'a1-arrival', true);
+    await f.controller.open('a1-arrival');
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Good morning');
+    expect([...document.querySelectorAll('[data-dialogue-choice] small')].map(meaning => meaning.textContent)).toEqual(expect.arrayContaining(['Good morning!', 'Goodbye!', 'Good night!']));
+    expect(document.querySelector('input, textarea')).toBeNull();
+    f.click('[data-dialogue-choice="Guten Morgen!"]');
+    await vi.waitFor(() => expect(f.api.request).toHaveBeenCalled());
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { mode: 'recognition', hinted: true }]);
+  });
+
+  it.each(questGraphs.filter(graph => graph.level === 'A1').map(graph => [graph.questId, graph.gateExerciseId]))('offers translated replies without a keyboard at the opening %s gate', async (questId, exerciseId) => {
+    const f = fixture('gate', questId, true);
+    const exercise = quests.find(quest => quest.id === questId)!.exercises.find(ex => ex.id === exerciseId)!;
+    await f.controller.open(questId);
+    expect(document.querySelector('input, textarea, form')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('Choose a reply.');
+    expect(document.querySelector('.dialogue-translation')).not.toBeNull();
+    const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')];
+    expect(choices).toHaveLength(2);
+    expect(choices.every(choice => !!choice.querySelector('small')?.textContent)).toBe(true);
+    choices.find(choice => choice.dataset.dialogueChoice === exercise.answer)!.click();
+    await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { exerciseId, answer: exercise.answer, mode: 'recognition', hinted: true, guidedChoice: true, sceneAttempt: true }]);
+    expect(f.api.storyTransition.mock.calls[0][0]).toMatchObject({ nodeId: 'gate', attemptId: 'saved-reply' });
+  });
+
+  it('helps a beginner retry a wrong gate choice without revealing a typing field', async () => {
+    const f = fixture('gate', 'a1-arrival', true);
+    f.api.request.mockResolvedValueOnce({ attemptId: 'wrong-choice', correct: false, progress: f.progress });
+    await f.controller.open('a1-arrival');
+    const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')];
+    choices.find(choice => choice.dataset.dialogueChoice !== 'Helfen Sie mir bitte.')!.click();
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toContain('Try another reply.'));
+    expect(document.querySelector('#dialogue-answer')).toBeNull();
+    expect(f.api.storyTransition).not.toHaveBeenCalled();
+    f.click('[data-dialogue-choice="Helfen Sie mir bitte."]');
+    await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
+  });
+
+  it('keeps an opening reply choice stable at ten minutes, then introduces writing in the next conversation', async () => {
+    const f = fixture('gate', 'a1-arrival', true);
+    let beginner = true;
+    f.options.beginnerMode = () => beginner;
+    await f.controller.open('a1-arrival');
+    beginner = false;
+    f.click('[data-dialogue-action="listen"]');
+    expect(document.querySelector('#dialogue-answer')).toBeNull();
+    expect(document.querySelector('[data-dialogue-choice]')).not.toBeNull();
+    f.controller.close();
+    await f.controller.open('a1-arrival');
+    expect(document.querySelector('#dialogue-answer')).not.toBeNull();
+  });
+
+  it('preserves a supported gate receipt when retrying a lost transition', async () => {
+    const f = fixture('gate', 'a1-arrival', true);
+    f.api.storyTransition.mockRejectedValueOnce(new Error('route reconnecting'));
+    await f.controller.open('a1-arrival');
+    f.click('[data-dialogue-choice="Helfen Sie mir bitte."]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toContain('route reconnecting'));
+    f.click('[data-dialogue-choice="Helfen Sie mir bitte."]');
+    await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalledTimes(2));
+    expect(f.api.request).toHaveBeenCalledTimes(1);
+    expect(f.api.storyTransition.mock.calls[0][0]).toEqual(f.api.storyTransition.mock.calls[1][0]);
+  });
+
   it('reveals Marta’s accepted repair request and fills it without submitting automatically', async () => {
     const f = fixture('gate', 'a2-apartment');
     const exercise = quests.find(q => q.id === 'a2-apartment')!.exercises.find(ex => ex.id === 'a2-apartment-exercise-6')!;
