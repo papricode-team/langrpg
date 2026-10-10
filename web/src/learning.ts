@@ -2,16 +2,25 @@ import type { Progress } from './api';
 import type { Exercise } from './content';
 
 export function normalizedAnswer(answer: string): string {
-  return answer.normalize('NFC').toLocaleLowerCase('de').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '');
+  return normalizedCaseAnswer(answer).toLocaleLowerCase('de');
 }
+const normalizedCaseAnswer = (value: string): string => value.normalize('NFC').trim().replace(/\s+/g, ' ').replace(/[.!?\s]+$/, '');
+
 export function answerMatches(exercise: Exercise & { caseSensitive?: boolean }, answer: string): boolean {
   const acceptable = [exercise.answer, ...((exercise as Exercise & { acceptedAnswers?: string[] }).acceptedAnswers ?? [])];
-  const normalize = exercise.caseSensitive ? (value: string) => value.normalize('NFC').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '') : normalizedAnswer;
-  return acceptable.some(value => normalize(value) === normalize(answer) ||
-    ((exercise.mode === 'type' || exercise.mode === 'sentence') && productionAnswerMatches(normalize(answer), normalize(value))));
+  const production = exercise.mode === 'type' || exercise.mode === 'sentence';
+  const normalize = exercise.caseSensitive && !production ? normalizedCaseAnswer : normalizedAnswer;
+  return acceptable.some(value => !(production && exercise.caseSensitive && formalAddressChanged(answer, value)) &&
+    (normalize(value) === normalize(answer) || (production && productionAnswerMatches(normalize(answer), normalize(value)))));
 }
 
-const umlautKeyboardForm = (value: string): string => value.replace(/[äöüÄÖÜ]/g, letter => ({ä:'ae',ö:'oe',ü:'ue',Ä:'Ae',Ö:'Oe',Ü:'Ue'}[letter]!));
+const umlautKeyboardForm = (value: string): string => value.replace(/[äöüÄÖÜßẞ]/g, letter => ({ä:'ae',ö:'oe',ü:'ue',Ä:'Ae',Ö:'Oe',Ü:'Ue',ß:'ss',ẞ:'SS'}[letter]!));
+
+function formalAddressChanged(answer: string, expected: string): boolean {
+  const a = normalizedCaseAnswer(answer).split(' '), b = normalizedCaseAnswer(expected).split(' ');
+  const formal = new Set(['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres']);
+  return a.length === b.length && b.some((token,index) => formal.has(token) && a[index] === token.toLocaleLowerCase('de'));
+}
 
 function mechanicalTypo(answer: string, expected: string): boolean {
   const a = Array.from(answer), b = Array.from(expected);
@@ -36,9 +45,19 @@ function productionAnswerMatches(answer: string, expected: string): boolean {
 }
 
 export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, answer: string): string {
-  if (answerMatches(exercise, answer)) return exercise.explanation;
-  const actual = answer.normalize('NFC').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '');
-  const expected = exercise.answer.normalize('NFC').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '');
+  if (answerMatches(exercise, answer)) {
+    if (exercise.mode === 'type' || exercise.mode === 'sentence') {
+      for (const accepted of [exercise.answer,...(exercise.acceptedAnswers ?? [])]) {
+        const actual = normalizedCaseAnswer(answer), expected = normalizedCaseAnswer(accepted);
+        if (productionAnswerMatches(actual.toLocaleLowerCase('de'), expected.toLocaleLowerCase('de')) && !productionAnswerMatches(actual,expected)) {
+          return `Accepted. Remember capitalization: begin sentences and German nouns with a capital letter. ${exercise.explanation}`;
+        }
+      }
+    }
+    return exercise.explanation;
+  }
+  const actual = normalizedCaseAnswer(answer);
+  const expected = normalizedCaseAnswer(exercise.answer);
   if (exercise.caseSensitive && umlautKeyboardForm(actual.toLocaleLowerCase('de')) === umlautKeyboardForm(expected.toLocaleLowerCase('de'))) return 'Check capitalization: begin sentences, German nouns and formal Sie with a capital letter.';
   const a = normalizedAnswer(answer).split(' '), b = normalizedAnswer(exercise.answer).split(' ');
   const articles = new Set(['der','die','das','den','dem','des','ein','eine','einen','einem','einer','eines']);

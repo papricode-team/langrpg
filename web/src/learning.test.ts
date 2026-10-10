@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { normalizedAnswer, answerMatches, gradeFeedback, sentenceTiles, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
 import { emptyProgress } from './api';
 import { quests } from './content';
+import gradingFixtures from '../../server/grading-fixtures.json';
 
 describe('silent mode', () => {
   const exercises = quests.flatMap(quest => quest.exercises);
@@ -68,8 +69,8 @@ describe('language answers', () => {
   it('keeps grammar, significant orthography, short words and multiple mistakes strict', () => {
     for (const answer of ['Ich mochte einen Kaffee','Ich möchte ein Kaffee','Ich möchte einen Koffee','Ich möcthe einen Kafefe']) expect(answerMatches(typed, answer)).toBe(false);
     expect(answerMatches({...typed, answer:'schön'}, 'schon')).toBe(false);
-    expect(answerMatches({...typed, answer:'Straße'}, 'Strasse')).toBe(false);
-    expect(answerMatches({...typed, answer:'der Bahnhof',caseSensitive:true}, 'der bahnhof')).toBe(false);
+    expect(answerMatches({...typed, answer:'Straße'}, 'Strasse')).toBe(true);
+    expect(answerMatches({...typed, answer:'der Bahnhof',caseSensitive:true}, 'der bahnhof')).toBe(true);
     expect(answerMatches({...typed,mode:'choice',answer:'schön'}, 'schoen')).toBe(false);
     expect(answerMatches({...typed,mode:'listen',answer:'Kaffee'}, 'Kafefe')).toBe(false);
   });
@@ -86,14 +87,21 @@ describe('language answers', () => {
       expect(tiles.slice(exercise.tokens!.length).every(tile=>!exercise.tokens!.includes(tile))).toBe(true);
     }
   });
-  it('keeps meaningful noun and formal Sie capitals in authored story production',()=>{
+  it('guides noun capitals while preserving formal Sie in authored story production',()=>{
     const exercise=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a2-apartment-exercise-6')!;
     expect(answerMatches(exercise,'Könnten sie das bitte reparieren?')).toBe(false);
     expect(gradeFeedback(exercise,'Könnten sie das bitte reparieren?')).toContain('capitalization');
     expect(gradeFeedback(exercise,'Koennten sie das bitte reparieren?')).toContain('capitalization');
     const address=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a1-lost-parcel-exercise-2')!;
-    expect(answerMatches(address,'Wie ist die adresse?')).toBe(false);
+    expect(answerMatches(address,'Wie ist die adresse?')).toBe(true);
+    expect(gradeFeedback(address,'Wie ist die adresse?')).toContain('Accepted. Remember capitalization');
     expect(answerMatches(address,address.answer)).toBe(true);
+  });
+  it.each(gradingFixtures)('matches server German grading: $name', fixture => {
+    const mode = fixture.mode === 'production' ? 'type' : fixture.mode === 'listening' ? 'listen' : 'choice';
+    const exercise = {...typed, mode: mode as 'type' | 'listen' | 'choice', answer:fixture.expected, caseSensitive:fixture.sensitive, acceptedAnswers:fixture.acceptedAnswers};
+    expect(answerMatches(exercise,fixture.answer)).toBe(fixture.correct);
+    if (fixture.feedback) expect(gradeFeedback(exercise,fixture.answer)).toContain(fixture.feedback);
   });
 });
 describe('review selection', () => {

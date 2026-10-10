@@ -43,6 +43,8 @@ import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExerci
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
 import { reviewExercises,wordReadyForReview } from './review';
+import { ReviewAttempt } from './review-attempt';
+import type { AttemptSubmission, AttemptResult, RecallRating } from './review-attempt';
 import { icon, escapeHtml as e } from './icons';
 import { maps, getMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
@@ -133,9 +135,10 @@ let world: World;
 let eventLog: EventLog | undefined;
 let removeFormNotifications: (() => void) | undefined;
 let screenFilterControls: ScreenFilterControls | undefined;
-type Submission = { id: string; itemId: string; exerciseId: string; answer: string; hinted: boolean; mode: 'recognition' | 'production' | 'listening'; questId?: string; rating?: 'hard' | 'good' | 'easy'; responseTimeMs?: number };
-let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; correct: number; targetCount: number; hinted: boolean; audioHeard: boolean; answered: boolean; answer: string; tokenOrder: number[]; review: boolean; objectId?: string; interiorObjectId?: string; label?: string; started: number; submission?: Submission; skipListening?: boolean; shownAt?: number } | undefined;
+type Submission = AttemptSubmission;
+let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; correct: number; targetCount: number; hinted: boolean; audioHeard: boolean; answered: boolean; answer: string; tokenOrder: number[]; review: boolean; objectId?: string; interiorObjectId?: string; label?: string; started: number; submission?: Submission; reviewAttempt?: ReviewAttempt; skipListening?: boolean; shownAt?: number } | undefined;
 let attemptBusy = false;
+function cancelRun() { run?.reviewAttempt?.cancel(); run = undefined; }
 let progressOwner: string | undefined;
 function acceptProgress(value: Progress, owner?: string) {
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
@@ -474,7 +477,7 @@ async function playPendingCinematic(): Promise<void> {
       try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
       catch { /* The world beat can still play while its saved marker reconnects. */ }
     }
-    await world.playCutscene(kind);
+    await world.playCutscene(kind, progress.story?.ending);
   } finally {
     cinematicActive = false;
     document.querySelector('#game-shell')!.classList.remove('cinematic-open');
@@ -929,7 +932,9 @@ function startQuest(id: string) {
   if (!questUnlocked(id, progress.completedQuestIds)) { toast('Follow the current witness before beginning this investigation.'); return; }
   const region = maps.find(map => map.level === quest.level)!;
   if (mapId !== region.id) { travelMap(region.id, { kind: 'follow', questId: id }); return; }
-  document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); world.focusNpc(quest.npcId);
+  document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world');
+  if (interiorId) world.leaveInterior();
+  world.focusNpc(quest.npcId);
 }
 function startQuestPractice(id: string) {
   const quest = quests.find(q => q.id === id);
@@ -962,11 +967,12 @@ function renderExercise() {
   if (run.index >= run.queue.length) { void finishRun(); return; }
   const ex = run.queue[run.index];
   run.hinted = false; run.audioHeard = false; run.answered = false; run.answer = ''; run.tokenOrder = [];
+  run.reviewAttempt?.cancel(); run.reviewAttempt = undefined;
   run.submission = undefined; run.shownAt = performance.now();
   stopSpeech();
   const label = { choice: 'MAKE YOURSELF UNDERSTOOD', listen: 'LISTEN FOR A LITTLE CLUE', sentence: 'FIND THE RIGHT WORDS', type: 'YOUR WORDS, YOUR WAY' }[ex.mode];
   const optionMarkup = [...(ex.options ?? [])].map((option, i) => ({ option, seed: hash(`${ex.id}:${run!.index}:${i}`) })).sort((a, b) => a.seed - b.seed).map(({ option }, i) => `<button class="answer-option" data-answer="${e(option)}"><span>${String.fromCharCode(65 + i)}</span>${e(option)}</button>`).join('');
-  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close adventure">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? 'A familiar face, a new encounter' : e(run.quest?.title ?? 'Your learning route')}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><div class="eyebrow">${label}</div><h2>${e(ex.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="Play German audio">${icon('volume')}</button><div><strong>A voice from ${e(interiorId ? getInterior(interiorId).name : getMap(mapId).name)}</strong><span>Listen, then choose your answer. Replay any time.</span></div></div><button class="text-button transcript-button" data-action="transcript">Show transcript</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="Your sentence"><span class="sentence-placeholder">Tap the words to build your answer</span></div><div class="word-tokens" id="word-tokens">${[...sentenceTiles(ex)].map((token, i) => ({ token, i })).sort((a, b) => hash(`${ex.id}-${a.i}`) - hash(`${ex.id}-${b.i}`)).map(({ token, i }) => `<button class="word-token" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} Start the sentence again</button>` : `<form id="typed-answer-form"><input class="typed-answer" id="typed-answer" placeholder="Write your answer in German…" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="Your German answer"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div><small class="typed-spelling-help">Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.</small></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions">${run.review && (ex.mode === 'type' || ex.mode === 'choice') ? '<label class="recall-rating">How did recalling this feel? <select id="recall-rating"><option value="good">Good</option><option value="hard">Hard</option><option value="easy">Easy</option></select></label>' : ''}<button class="text-button" data-action="hint">${icon('sparkles')} A little help</button>${ex.mode === 'sentence' || ex.mode === 'type' ? '<button class="primary-button" data-action="check-answer" id="check-answer">Check my answer ' + icon('arrow') + '</button>' : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>On with the story ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(ex.hint)}</p></div>`;
+  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="Close adventure">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? 'A familiar face, a new encounter' : e(run.quest?.title ?? 'Your learning route')}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><div class="eyebrow">${label}</div><h2>${e(ex.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="Play German audio">${icon('volume')}</button><div><strong>A voice from ${e(interiorId ? getInterior(interiorId).name : getMap(mapId).name)}</strong><span>Listen, then choose your answer. Replay any time.</span></div></div><button class="text-button transcript-button" data-action="transcript">Show transcript</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="Your sentence"><span class="sentence-placeholder">Tap the words to build your answer</span></div><div class="word-tokens" id="word-tokens">${[...sentenceTiles(ex)].map((token, i) => ({ token, i })).sort((a, b) => hash(`${ex.id}-${a.i}`) - hash(`${ex.id}-${b.i}`)).map(({ token, i }) => `<button class="word-token" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} Start the sentence again</button>` : `<form id="typed-answer-form"><input class="typed-answer" id="typed-answer" placeholder="Write your answer in German…" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="Your German answer"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div><small class="typed-spelling-help">Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.</small></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} A little help</button>${ex.mode === 'sentence' || ex.mode === 'type' ? '<button class="primary-button" data-action="check-answer" id="check-answer">Check my answer ' + icon('arrow') + '</button>' : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>On with the story ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(ex.hint)}</p></div>`;
   document.querySelector('#typed-answer-form')?.addEventListener('submit', event => { event.preventDefault(); void submitAnswer(); });
   if (ex.mode === 'choice' || ex.mode === 'sentence') recordExposure({exerciseId:ex.id});
   if (ex.mode === 'type') document.querySelector<HTMLInputElement>('#typed-answer')?.focus();
@@ -979,7 +985,7 @@ function hash(text: string) {
   return (value ^ (value >>> 16)) >>> 0;
 }
 function assembleSentence(index: number) {
-  if (!run || run.answered || run.tokenOrder.includes(index)) return;
+  if (!run || run.answered || run.submission || run.tokenOrder.includes(index)) return;
   run.tokenOrder.push(index);
   const token = document.querySelector<HTMLButtonElement>(`[data-token="${index}"]`)!;
   token.disabled = true;
@@ -987,7 +993,18 @@ function assembleSentence(index: number) {
   run.answer = tokens.join(' ');
   document.querySelector('#sentence-result')!.innerHTML = tokens.map((t, i) => `<button class="selected-token" data-remove-token="${i}">${e(t)}</button>`).join('');
 }
-async function submitAnswer(selected?: string) {
+function lockReviewAnswer() {
+  document.querySelectorAll<HTMLButtonElement | HTMLInputElement>('#dialog .exercise-answer button, #dialog .exercise-answer input, #dialog .exercise-preferences button, #dialog [data-speak], #dialog [data-action="transcript"], #dialog [data-action="hint"], #check-answer').forEach(control => { control.disabled = true; });
+}
+function showRecallRating() {
+  const feedback = document.querySelector<HTMLElement>('#exercise-feedback')!;
+  feedback.className = 'exercise-feedback shown';
+  feedback.innerHTML = '<div><strong>Your answer fits.</strong><p>How did recalling it feel?</p><div class="recall-rating"><button class="outline-button" data-recall-rating="hard">Hard</button><button class="outline-button" data-recall-rating="good">Good</button><button class="outline-button" data-recall-rating="easy">Easy</button></div></div>';
+  document.querySelector<HTMLElement>('#check-answer')?.setAttribute('hidden', '');
+  document.querySelector<HTMLElement>('[data-action="hint"]')!.hidden = true;
+  document.querySelector<HTMLButtonElement>('[data-recall-rating="good"]')?.focus();
+}
+async function submitAnswer(selected?: string, rating?: RecallRating) {
   if (!run || run.answered || attemptBusy) return;
   const activeRun = run;
   const ex = activeRun.queue[activeRun.index];
@@ -997,8 +1014,22 @@ async function submitAnswer(selected?: string) {
   document.querySelectorAll<HTMLButtonElement>('.answer-option, #check-answer').forEach(button => { button.disabled = true; });
   try {
     const supported = activeRun.hinted || ex.mode === 'sentence' || (ex.mode === 'listen' && !activeRun.audioHeard);
-    activeRun.submission ??= { id: crypto.randomUUID(), itemId: ex.itemId, exerciseId: ex.id, answer, hinted: supported, mode: ex.mode === 'listen' && !activeRun.audioHeard ? 'recognition' : modeFor(ex), questId: activeRun.quest?.id, rating: document.querySelector<HTMLSelectElement>('#recall-rating')?.value as 'hard' | 'good' | 'easy' | undefined, responseTimeMs: Math.min(600000, Math.round(performance.now() - (activeRun.shownAt ?? performance.now()))) };
-    const result = await api.request<{ correct: boolean; xpAdded: number; duplicate: boolean; reason?: string; progress: Progress }>('/attempt', activeRun.submission);
+    activeRun.submission ??= { id: crypto.randomUUID(), itemId: ex.itemId, exerciseId: ex.id, answer, hinted: supported, mode: ex.mode === 'listen' && !activeRun.audioHeard ? 'recognition' : modeFor(ex), questId: activeRun.quest?.id, responseTimeMs: Math.min(600000, Math.round(performance.now() - (activeRun.shownAt ?? performance.now()))) };
+    let result: AttemptResult;
+    if (activeRun.review) {
+      lockReviewAnswer();
+      document.querySelectorAll<HTMLButtonElement>('[data-recall-rating], [data-action="retry-review-answer"]').forEach(button => { button.disabled = true; });
+      activeRun.reviewAttempt ??= new ReviewAttempt(activeRun.submission);
+      const outcome = await activeRun.reviewAttempt.submit({
+        preview: input => api.request<{correct:boolean}>('/attempt', {...input, preview:true}),
+        save: input => api.request<AttemptResult>('/attempt', input),
+      }, rating);
+      if (outcome.kind === 'ignored') return;
+      if (outcome.kind === 'rating') { if (run === activeRun) showRecallRating(); return; }
+      result = outcome.result;
+    } else {
+      result = await api.request<AttemptResult>('/attempt', activeRun.submission);
+    }
     acceptProgress(result.progress);
     updateProgress();
     if (run !== activeRun) return;
@@ -1007,7 +1038,8 @@ async function submitAnswer(selected?: string) {
     else { activeRun.queue.push(ex); playCue(false); }
     const feedback = document.querySelector<HTMLElement>('#exercise-feedback')!;
     feedback.className = `exercise-feedback shown ${result.correct ? 'correct' : 'incorrect'}`;
-    feedback.innerHTML = `<span class="feedback-icon">${icon(result.correct ? 'check' : 'leaf')}</span><div><strong>${result.correct ? ['That’s the way!', 'Nicely said.', 'A little more German. A little more you.'][activeRun.correct % 3] : 'A small detour. You’ll get there.'}</strong><p>${result.correct ? e(ex.explanation) : e(result.reason || gradeFeedback(ex, answer))}</p>${!result.correct ? '<small>You’ll meet this one again before the adventure ends.</small>' : ''}</div>${result.xpAdded ? `<span class="feedback-xp">+${result.xpAdded} XP</span>` : ''}`;
+    const explanation = result.correct ? (result.reason?.startsWith('Accepted.') ? result.reason : ex.explanation) : result.reason || gradeFeedback(ex, answer);
+    feedback.innerHTML = `<span class="feedback-icon">${icon(result.correct ? 'check' : 'leaf')}</span><div><strong>${result.correct ? ['That’s the way!', 'Nicely said.', 'A little more German. A little more you.'][activeRun.correct % 3] : 'A small detour. You’ll get there.'}</strong><p>${e(explanation)}</p>${!result.correct ? '<small>You’ll meet this one again before the adventure ends.</small>' : ''}</div>${result.xpAdded ? `<span class="feedback-xp">+${result.xpAdded} XP</span>` : ''}`;
     document.querySelectorAll<HTMLButtonElement>('.answer-option').forEach(button => { if (button.dataset.answer === ex.answer) button.classList.add('correct-answer'); else if (button.dataset.answer === answer && !result.correct) button.classList.add('wrong-answer'); });
     document.querySelector<HTMLElement>('#check-answer')?.setAttribute('hidden', '');
     const nextButton = document.querySelector<HTMLButtonElement>('#next-exercise')!;
@@ -1017,7 +1049,14 @@ async function submitAnswer(selected?: string) {
     nextButton.focus();
   } catch (error) {
     toast((error as Error).message || 'Could not save your answer. Please try again.', true);
-    if (run === activeRun) document.querySelectorAll<HTMLButtonElement>('.answer-option, #check-answer').forEach(button => { button.disabled = false; });
+    if (run === activeRun) {
+      if (activeRun.review) {
+        const feedback = document.querySelector<HTMLElement>('#exercise-feedback')!;
+        feedback.className = 'exercise-feedback shown';
+        feedback.innerHTML = '<div><strong>Your answer is kept here.</strong><p>Try again to check or save this answer when the town reconnects.</p><button class="outline-button" data-action="retry-review-answer">Try again</button></div>';
+        document.querySelector<HTMLElement>('#check-answer')?.setAttribute('hidden', '');
+      } else document.querySelectorAll<HTMLButtonElement>('.answer-option, #check-answer').forEach(button => { button.disabled = false; });
+    }
   } finally { attemptBusy = false; }
 }
 async function finishRun() {
@@ -1111,7 +1150,7 @@ function setSilentMode(enabled: boolean, notify = true) {
   localStorage.setItem('atlas.silentMode', String(silentMode)); world.setAudioPreferences({ silent: silentMode, muted });
   if (silentMode) { stopSpeech(); void audioContext?.suspend(); }
   if (view === 'settings') renderOther();
-  if (silentMode && run && !run.answered && run.queue[run.index]?.mode === 'listen') renderExercise();
+  if (silentMode && run && !run.answered && !run.submission && run.queue[run.index]?.mode === 'listen') renderExercise();
   document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
     button.setAttribute('aria-pressed', String(silentMode));
     button.innerHTML = `${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}`;
@@ -1203,9 +1242,9 @@ function bindGlobalEvents() {
   });
   document.addEventListener('click', event => {
     const target = (event.target as HTMLElement).closest<HTMLElement>('button, a.brand');
-    if (!target) return;
+    if (!target || (target instanceof HTMLButtonElement && target.disabled)) return;
     if (target.matches('a.brand')) { event.preventDefault(); setView('world'); return; }
-    if (target.dataset.view) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); run = undefined; setView(target.dataset.view as View); return; }
+    if (target.dataset.view) { cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView(target.dataset.view as View); return; }
     if (target.dataset.activity) { void startActivity(target.dataset.activity as ActivityId); return; }
     if (target.dataset.coursePage) { coursePage = Math.max(0, Number(target.dataset.coursePage)); renderOther(); return; }
     if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; renderOther(); return; }
@@ -1235,15 +1274,16 @@ function bindGlobalEvents() {
     if (target.dataset.startQuest) { startQuest(target.dataset.startQuest); return; }
     if (target.dataset.speak) { speak(target.dataset.speak); return; }
     if (target.dataset.answer) { void submitAnswer(target.dataset.answer); return; }
+    if (target.dataset.recallRating && ['hard','good','easy'].includes(target.dataset.recallRating)) { void submitAnswer(undefined, target.dataset.recallRating as RecallRating); return; }
     if (target.dataset.token) { assembleSentence(Number(target.dataset.token)); return; }
-    if (target.dataset.removeToken && run && !run.answered) {
+    if (target.dataset.removeToken && run && !run.answered && !run.submission) {
       const index = Number(target.dataset.removeToken), selected = [...run.tokenOrder];
       selected.splice(index, 1); run.tokenOrder = []; run.answer = '';
       document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; });
       document.querySelector('#sentence-result')!.innerHTML = '<span class="sentence-placeholder">Tap the words to build your answer</span>';
       selected.forEach(assembleSentence); return;
     }
-    if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
+    if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input && !run?.submission) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
     switch (target.dataset.action) {
       case 'screen-filters': if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(target); break;
       case 'watch-world': if (view !== 'world') setView('world'); watchWorld(true); break;
@@ -1257,10 +1297,11 @@ function bindGlobalEvents() {
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); world.setInputEnabled(worldCanInteract()); continueDestination(); break;
       case 'open-chat': setView('world'); toggleChat(true); break;
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast('Full screen isn’t available here.')); break;
-      case 'close-dialog': document.querySelector<HTMLDialogElement>('#dialog')!.close(); run = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; break;
+      case 'close-dialog': cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); pendingDestination = undefined; pendingExpeditionGame = undefined; break;
       case 'help': openDialog(`<div class="help-dialog"><div class="completion-mark">${icon('compass')}</div><div class="eyebrow">YOUR FIRST STEPS</div><h2>Follow your curiosity.</h2><p>Click a path to wander, or use <strong>WASD / arrow keys</strong>. On your phone, move with the <strong>joystick</strong> or tap a destination.</p><p>Tap a character to meet them, press <strong>E</strong> nearby, or use the <strong>Talk</strong> button on your phone. Their stories become your adventures, and each adventure brings a little more German.</p><p>Choose a café, bakery or supermarket from <strong>Menu / Atlas</strong> to walk to its doorway. Interact to enter, then talk to people or inspect the glowing objects for a focused German session. Use <strong>Leave</strong> to return outside.</p><p>Open your quests with <strong>Q</strong>, journal with <strong>J</strong>, character with <strong>C</strong>, settings with <strong>O</strong>, and map with <strong>M</strong>. Press <strong>Escape</strong> to return to the world.</p><p>Use <strong>A little help</strong> whenever you need it. Mistakes are part of finding your way. Ready words return in your journal; strong words get longer rests.</p><p>The town square connects you with other wanderers. Be kind. Everyone is learning.</p><button class="primary-button" data-action="close-dialog">Let’s wander ${icon('arrow')}</button></div>`); break;
       case 'begin-exercises': renderExercise(); break;
       case 'check-answer': void submitAnswer(); break;
+      case 'retry-review-answer': void submitAnswer(); break;
       case 'next-exercise': if (run?.answered) { run.index++; renderExercise(); } break;
       case 'finish-run': void finishRun(); break;
       case 'review': void startAdaptiveReview(); break;
@@ -1268,9 +1309,9 @@ function bindGlobalEvents() {
       case 'sleep': if (interiorId === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast('A new day. Your lantern keeps the promises you made.'); }).catch(error => toast(error.message, true)); } break;
       case 'course-sources': void showCourseSources(); break;
       case 'course-retry': coursePromise = undefined; void loadCourse().then(() => renderOther()).catch(error => toast(error.message, true)); break;
-      case 'hint': if (run && !run.answered) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
-      case 'transcript': if (run && !run.answered) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
-      case 'clear-sentence': if (run && !run.answered) { run.tokenOrder = []; run.answer = ''; document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; }); document.querySelector('#sentence-result')!.innerHTML = '<span class="sentence-placeholder">Tap the words to build your answer</span>'; } break;
+      case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
+      case 'transcript': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
+      case 'clear-sentence': if (run && !run.answered && !run.submission) { run.tokenOrder = []; run.answer = ''; document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; }); document.querySelector('#sentence-result')!.innerHTML = '<span class="sentence-placeholder">Tap the words to build your answer</span>'; } break;
       case 'silent-mode':
         if (attemptBusy) { toast('Your answer is saving. Try again in a moment.'); break; }
         setSilentMode(!silentMode);
@@ -1281,14 +1322,14 @@ function bindGlobalEvents() {
       case 'chat-toggle': toggleChat(); break;
     }
   });
-  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('cancel', () => { run = undefined; pendingDestination = undefined; });
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('cancel', () => { cancelRun(); pendingDestination = undefined; });
   document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('click', event => {
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
     if (event.target !== dialog) return;
     const bounds = dialog.getBoundingClientRect();
-    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { pendingDestination = undefined; dialog.close(); }
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { cancelRun(); pendingDestination = undefined; dialog.close(); }
   });
-  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); world.setVisible(view === 'world' && !document.hidden); world.setInputEnabled(worldCanInteract()); placementController?.destroy(); placementController = undefined; run = undefined; activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) stopSpeech(); } });
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); world.setVisible(view === 'world' && !document.hidden); world.setInputEnabled(worldCanInteract()); placementController?.destroy(); placementController = undefined; cancelRun(); activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) stopSpeech(); } });
   const menu = document.querySelector<HTMLDialogElement>('#menu-layer')!;
   menu.addEventListener('close', () => { if (!menu.open && view !== 'world') setView('world'); });
   menu.addEventListener('click', event => { if (event.target === menu) setView('world'); });

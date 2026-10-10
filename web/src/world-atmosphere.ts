@@ -3,10 +3,14 @@ import type { MapId } from './maps';
 import { getMap } from './maps';
 import { getPlacedScenery } from './placed-scenery';
 import type { SceneryView } from './world-scenery';
+import { nightIntensity } from './world-clock';
+
+// Weather sits above the ground plate and below people, buildings and labels.
+export const WEATHER_DEPTH = 2;
 
 export function atmosphereProfile(id: MapId, storm: boolean) {
-  return { fog: id === 'nebelstadt' ? .13 : id === 'rainmarket' ? .04 : 0,
-    rain: storm ? 1 : id === 'rainmarket' ? .55 : 0,
+  return { fog: id === 'nebelstadt' ? .34 : id === 'rainmarket' ? .08 : 0,
+    rain: storm && id === 'nebelstadt' ? 1 : id === 'rainmarket' ? .55 : 0,
     leaves: id === 'waldruh', dust: id !== 'rainmarket' };
 }
 const hash = (n: number) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -19,7 +23,7 @@ export class WorldAtmosphere {
   private lamps: { x: number; y: number }[];
   private pointLights:Phaser.GameObjects.PointLight[]=[];
   constructor(private scene: Phaser.Scene, private id: MapId) {
-    this.foreground = scene.add.graphics().setDepth(10000);
+    this.foreground = scene.add.graphics().setDepth(WEATHER_DEPTH);
     this.illumination = scene.add.graphics().setDepth(2000).setBlendMode(1);
     this.lamps = getPlacedScenery(id).filter(spec => spec.asset === 'lamp' || spec.frame === 'motion-lamp').map(spec => ({ x: spec.x, y: spec.y - 52 }));
     this.lamps.push(...getMap(id).objects.filter(obj => obj.kind === 'lantern' || obj.kind === 'fountain').map(obj => ({ x: obj.x * 1536, y: obj.y * 1024 - 26 })));
@@ -32,7 +36,7 @@ export class WorldAtmosphere {
     this.foreground.clear(); this.illumination.clear();
     if (!this.visible) return;
     const t = reduced ? 0 : time;
-    const night = hour < 6 || hour > 20 ? 1 : hour < 8 ? (8 - hour) / 2 : hour > 17 ? (hour - 17) / 3 : 0;
+    const night = nightIntensity(hour);
     for(const light of this.pointLights)light.intensity=night*(reduced?.24:.23+Math.sin(t*2.1+light.x)*.01);
     for (const lamp of this.lamps) {
       if (lamp.x < view.x - 120 || lamp.x > view.right + 120 || lamp.y < view.y - 120 || lamp.y > view.bottom + 120) continue;
@@ -41,10 +45,12 @@ export class WorldAtmosphere {
       this.illumination.fillStyle(0xffe9b1, night * .4).fillCircle(lamp.x, lamp.y, 4);
     }
     const profile = atmosphereProfile(this.id, storm);
-    if (profile.fog) for (let i = 0; i < 9; i++) {
+    if (profile.fog) for (let i = 0; i < 12; i++) {
       const x = (hash(i + 1) * 2100 + t * (4 + hash(i + 2) * 3)) % 2100 - 280;
       const y = hash(i + 21) * 1024;
-      this.foreground.fillStyle(0xd1dfe3, profile.fog * .24).fillEllipse(x, y, 600, 130);
+      // Broad low mist hugs the streets; layers overlap softly at the edges.
+      for (let edge = 3; edge > 0; edge--) this.foreground.fillStyle(0xd1dfe3, profile.fog * .1)
+        .fillEllipse(x, y, 510 + edge * 60, 75 + edge * 25);
     }
     if (profile.rain) {
       this.foreground.lineStyle(.7, 0xc4d8e7, .26 * profile.rain);

@@ -7,6 +7,7 @@ export interface StoryState {
   inventory: string[];
   reputation: Record<Faction, number>;
   bell: number;
+  bellWarnings?: number;
   nodes: Record<string, StoryStage>;
   choices: Record<string, string>;
   inspections: Record<string, string[]>;
@@ -17,8 +18,8 @@ export interface StoryState {
   expeditionPlans?: Record<string, { level: Level; values: Record<string, number>; order: string[]; completed: boolean; attempts: number }>;
   ending?: string;
 }
-export interface DialogueCondition { flag?: string; item?: string; faction?: Faction; minimum?: number; }
-export interface DialogueEffect { flag?: string; item?: string; faction?: Faction; amount?: number; }
+export interface DialogueCondition { flag?: string; withoutFlag?: string; item?: string; missingItem?: string; faction?: Faction; minimum?: number; ending?: string; }
+export interface DialogueEffect { flag?: string; item?: string; faction?: Faction; amount?: number; bell?: number; }
 export interface DialogueLine {
   id: string;
   speaker: string;
@@ -28,6 +29,7 @@ export interface DialogueLine {
   condition?: DialogueCondition;
   glosses?: Record<string, string>;
   variants?: { german: string; english: string; clipId: string }[];
+  reply?: { exerciseId: string; correction: DialogueLine };
 }
 export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
@@ -37,6 +39,7 @@ export interface QuestGraph {
   investigations: { objectId: string; german: string; english: string }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
+  introducedWords?: Record<string, string>;
 }
 export const emptyStory = (): StoryState => ({ flags: {}, inventory: [], reputation: { brassOffice: 0, lamplighters: 0, unwritten: 0 }, bell: 0, day: 1, nodes: {}, choices: {}, inspections: {} });
 export function storyState(value?: Partial<StoryState>): StoryState {
@@ -46,7 +49,10 @@ export function storyState(value?: Partial<StoryState>): StoryState {
 export function conditionMet(condition: DialogueCondition | undefined, state: StoryState): boolean {
   if (!condition) return true;
   return (!condition.flag || state.flags[condition.flag] === true)
+    && (!condition.withoutFlag || !state.flags[condition.withoutFlag])
     && (!condition.item || state.inventory.includes(condition.item))
+    && (!condition.missingItem || !state.inventory.includes(condition.missingItem))
+    && (!condition.ending || state.ending === condition.ending)
     && (!condition.faction || state.reputation[condition.faction] >= (condition.minimum ?? 0));
 }
 export function dialogueLines(node: DialogueNode, state: StoryState): DialogueLine[] { return node.lines.filter(line => conditionMet(line.condition, state)); }
@@ -67,6 +73,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
       if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (line.reply && (!line.reply.exerciseId || !line.reply.correction.german.trim() || !line.reply.correction.english.trim() || !line.reply.correction.clipId)) errors.push(`${graph.questId}: incomplete comprehension reply ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
       for (const variant of line.variants ?? []) {
         if (!variant.german.trim() || !variant.english.trim() || !variant.clipId) errors.push(`${graph.questId}: empty variant ${line.id}`);

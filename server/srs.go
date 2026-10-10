@@ -19,6 +19,23 @@ func reviewScheduler() *fsrs.FSRS {
 	return fsrs.NewFSRS(parameters)
 }
 
+// Timing may temper a self-reported Easy only after three timed encounters of
+// this same item and mode. It never promotes a rating or punishes Good/Hard.
+// Very long answers may reflect interruptions, so they supply no adjustment.
+func timingAdjustedRating(stats ModeStats, mode, rating string, responseTimeMs int) string {
+	minimum := 15000
+	if mode == "production" {
+		minimum = 30000
+	}
+	if rating == "easy" && stats.TimedAttempts >= 3 && responseTimeMs >= minimum && responseTimeMs <= 90000 {
+		average := stats.ResponseTimeMs / int64(stats.TimedAttempts)
+		if average > 0 && int64(responseTimeMs) > 2*average {
+			return "good"
+		}
+	}
+	return rating
+}
+
 // Recognition, production and listening retain separate FSRS cards. Supported
 // answers are practice; they never establish a successful independent retrieval.
 func recordAttempt(p *Progress, itemID, mode string, correct, hinted bool, now time.Time, sourceModes ...string) (Receipt, error) {
@@ -45,6 +62,9 @@ func recordRatedAttempt(p *Progress, itemID, mode string, correct, hinted bool, 
 		m.PracticeDueAt = map[string]time.Time{}
 	}
 	stats := m.ModeStats[mode]
+	if !hinted {
+		rating = timingAdjustedRating(stats, mode, rating, responseTimeMs)
+	}
 	firstUnaided := stats.UnaidedSuccesses == 0
 	card, hasCard := m.Cards[mode]
 	wasDue := hasCard && !now.Before(card.Due)

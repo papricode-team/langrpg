@@ -32,3 +32,35 @@ func TestRecallRatingsAndResponseTimePreserveLearningAuthority(t *testing.T) {
 		t.Fatal("supported practice invented independent performance")
 	}
 }
+
+func TestSlowEstablishedRecallConservativelyCapsEasyAndLeavesOtherRatingsAlone(t *testing.T) {
+	now := time.Date(2026, 10, 10, 12, 0, 0, 0, time.UTC)
+	p := newProgress()
+	baseline := ModeStats{TimedAttempts: 3, ResponseTimeMs: 15000}
+	for _, id := range []string{"slow", "good", "fast", "interrupted", "hard", "unestablished"} {
+		stats := baseline
+		if id == "unestablished" {
+			stats.TimedAttempts = 2
+		}
+		p.Items[id] = Memory{ModeStats: map[string]ModeStats{"production": stats}}
+	}
+	for _, test := range []struct {
+		id, rating string
+		ms         int
+	}{{"slow", "easy", 45000}, {"good", "good", 45000}, {"fast", "easy", 4000}, {"interrupted", "easy", 120000}, {"hard", "hard", 45000}, {"unestablished", "easy", 45000}} {
+		if _, err := recordRatedAttempt(&p, test.id, "production", true, false, now, "production", test.rating, test.ms); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if p.Items["slow"].DueAt != p.Items["good"].DueAt {
+		t.Fatal("slow established Easy was not capped to Good")
+	}
+	for _, id := range []string{"fast", "interrupted", "unestablished"} {
+		if !p.Items["slow"].DueAt.Before(p.Items[id].DueAt) {
+			t.Fatalf("timing changed %s without reliable slowing evidence", id)
+		}
+	}
+	if !p.Items["hard"].DueAt.Before(p.Items["slow"].DueAt) {
+		t.Fatal("timing promoted a self-reported Hard")
+	}
+}

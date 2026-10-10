@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { grammarLessons, passages, writingLessons, checkpoints } from './course-lessons.mjs';
 import { createLexemeMapper } from './course-word-mapping.mjs';
+import { createListeningDistractorPicker, spokenWord } from './course-listening-distractors.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 const levels = ['A1','A2','B1'];
@@ -87,7 +88,6 @@ const addUnit = unit => {
   if(exs.some(ex=>!ex))throw new Error(`Missing exercise in ${unit.id}`);
   units.push({...unit,wordIds:unit.wordIds ?? [...new Set(exs.flatMap(ex=>ex.wordIds))],reward:unit.reward ?? 50,requiredItemIds:[...new Set(exs.map(ex=>ex.itemId))],requiredWordIds:unit.requiredWordIds ?? [],requiredExerciseIds:[...unit.exerciseIds]});
 };
-const spokenWord = word => word.article ? `${word.article} ${word.articleForm??word.lemma}` : word.lemma;
 const learnNote = word => `${spokenWord(word)} — ${word.english}.${word.plural ? ` Plural: ${word.plural}.` : ''}${word.forms?.length ? ` Forms: ${word.forms.join('; ')}.` : ''}`;
 // Recognition distractors share a part of speech where possible, but never duplicate the target gloss.
 const distractors = word => {
@@ -105,7 +105,8 @@ const distractors = word => {
   for(const value of ['a postal stamp','to repair a clock','unfortunately','a quiet room'])if(result.length<3 && value !== word.english && !result.includes(value))result.push(value);
   return result.slice(0,3);
 };
-const germanDistractors = word => lexicon.filter(other => other.id !== word.id && other.level === word.level && other.pos === word.pos && spokenWord(other).toLowerCase() !== spokenWord(word).toLowerCase()).slice(0,3).map(spokenWord);
+const pickListeningDistractors = createListeningDistractorPicker(lexicon);
+const germanDistractors = word => pickListeningDistractors(word).map(spokenWord);
 for(const level of levels) {
   for(const topic of Object.keys(labels)) {
     const words = lexicon.filter(word=>word.level===level && word.topic===topic);
@@ -118,7 +119,6 @@ for(const level of levels) {
         const listeningContext=word.id==='sie-formal-pron' ? 'Guten Tag, Frau Berger. Wie heißen Sie?' : word.id==='sie-pron' ? 'Marta ist hier. Sie arbeitet im Café.' : german;
         const listeningAnswer=word.id==='sie-formal-pron' ? 'Sie (höfliche Anrede)' : word.id==='sie-pron' ? 'sie (Marta)' : german;
         const listeningOptions=[listeningAnswer,...germanDistractors(word)];
-        for(const fallback of ['die Lampe','der Bahnhof','das Paket'])if(listeningOptions.length<4&&!listeningOptions.includes(fallback)&&fallback.toLowerCase()!==german.toLowerCase())listeningOptions.push(fallback);
         const listening={...recognition,id:`lex-${word.id}-listening`,mode:'listen',german:listeningContext,wordIds:[...new Set([word.id,...(listeningContext!==german?wordsIn(listeningContext):[])])],answer:listeningAnswer,options:[...new Set(listeningOptions)],prompt:listeningContext===german?'Listen, then choose the German word or expression you hear.':'Listen to the sentence. Choose the German pronoun in its context.',hint:`Replay the audio. ${note}`};
         const caseSensitive=word.pos==='noun' || word.lemma==='Sie';
         const production={id:`lex-${word.id}-production`,itemId,mode:'type',level,kind:'word',unitId,targetWordId,wordIds:[word.id],prompt:`Write the German ${word.pos === 'noun' ? 'noun' : word.pos === 'verb' ? 'infinitive' : 'word or expression'} for “${word.english}”.${word.article ? ' The article is optional; capitalize the noun.' : ''}`,german,english:word.english,answer:word.lemma,acceptedAnswers:alternatives,...(caseSensitive?{caseSensitive:true}:{}),hint:note,explanation:note};

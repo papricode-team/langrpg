@@ -62,4 +62,19 @@ describe('steady expedition night lighting', () => {
       expect(fixture(id,'night').sprites.every(sprite=>sprite.tint===0xffffff)).toBe(true);
     }
   });
+  it('keeps opaque scenery covered at the midpoint of animated frame blends', () => {
+    const { sprites, scenery } = fixture('saffroncourt', 'day');
+    let observedBlend = false;
+    for (let time = 0; time < 1; time += .03125) {
+      scenery.update(time, view);
+      for (const base of sprites) {
+        const next = sprites.find(sprite => sprite.depth === base.depth + .001 && sprite.x === base.x && sprite.y === base.y);
+        if (!next || next.alpha <= .25 || next.alpha >= .75) continue;
+        observedBlend = true;
+        expect(base.alpha).toBe(1);
+        expect(base.alpha + next.alpha * (1 - base.alpha)).toBe(1);
+      }
+    }
+    expect(observedBlend).toBe(true);
+  });
 });

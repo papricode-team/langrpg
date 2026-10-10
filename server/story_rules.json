@@ -10,6 +10,9 @@
         "y": 0.299
       },
       "gateExerciseId": "a1-arrival-exercise-6",
+      "replyExerciseIds": [
+        "a1-arrival-exercise-1"
+      ],
       "choiceIds": [
         "report",
         "protect"
@@ -21,6 +24,15 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "platform-reported"
+            },
+            {
+              "item": "inspector-ledger"
+            },
+            {
+              "bell": 1
             }
           ]
         },
@@ -30,6 +42,12 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "platform-protected"
+            },
+            {
+              "item": "lamplighter-key"
             }
           ]
         }
@@ -61,6 +79,7 @@
         "y": 0.459
       },
       "gateExerciseId": "a1-cafe-exercise-1",
+      "replyExerciseIds": [],
       "choiceIds": [
         "report",
         "protect"
@@ -72,6 +91,12 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "receipt-filed"
+            },
+            {
+              "item": "receipt-copy"
             }
           ]
         },
@@ -81,6 +106,12 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "receipt-kept"
+            },
+            {
+              "item": "original-receipt"
             }
           ]
         }
@@ -106,6 +137,7 @@
         "y": 0.475
       },
       "gateExerciseId": "a1-market-exercise-1",
+      "replyExerciseIds": [],
       "choiceIds": [
         "report",
         "protect"
@@ -117,6 +149,9 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "crate-number-filed"
             }
           ]
         },
@@ -126,6 +161,16 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "berg-remembered"
+            },
+            {
+              "faction": "unwritten",
+              "amount": 1
+            },
+            {
+              "item": "berg-address"
             }
           ]
         }
@@ -157,9 +202,12 @@
         "y": 0.299
       },
       "gateExerciseId": "a1-station-exercise-5",
+      "replyExerciseIds": [],
       "choiceIds": [
         "report",
-        "protect"
+        "protect",
+        "show-ledger",
+        "ask-otto"
       ],
       "choices": [
         {
@@ -168,6 +216,9 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "station-sign-filed"
             }
           ]
         },
@@ -177,8 +228,53 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "station-archive-opened"
+            },
+            {
+              "item": "station-register"
             }
-          ]
+          ],
+          "condition": {
+            "item": "lamplighter-key"
+          }
+        },
+        {
+          "id": "show-ledger",
+          "effects": [
+            {
+              "flag": "station-archive-opened"
+            },
+            {
+              "flag": "archive-witnessed"
+            },
+            {
+              "item": "station-register"
+            },
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ],
+          "condition": {
+            "item": "inspector-ledger"
+          }
+        },
+        {
+          "id": "ask-otto",
+          "effects": [
+            {
+              "flag": "station-archive-opened"
+            },
+            {
+              "item": "station-register"
+            }
+          ],
+          "condition": {
+            "missingItem": "lamplighter-key",
+            "withoutFlag": "platform-reported"
+          }
         }
       ],
       "investigationObjectIds": [
@@ -202,6 +298,7 @@
         "y": 0.738
       },
       "gateExerciseId": "a1-workshop-exercise-2",
+      "replyExerciseIds": [],
       "choiceIds": [
         "report",
         "protect"
@@ -213,6 +310,12 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "lamp-registered"
+            },
+            {
+              "item": "registered-lamp"
             }
           ]
         },
@@ -222,6 +325,12 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "lamp-carried"
+            },
+            {
+              "item": "signal-lamp"
             }
           ]
         }
@@ -247,6 +356,7 @@
         "y": 0.68
       },
       "gateExerciseId": "a1-lost-parcel-exercise-2",
+      "replyExerciseIds": [],
       "choiceIds": [
         "report",
         "protect"
@@ -258,6 +368,9 @@
             {
               "faction": "brassOffice",
               "amount": 1
+            },
+            {
+              "flag": "waldruh-address-public"
             }
           ]
         },
@@ -266,6 +379,13 @@
           "effects": [
             {
               "faction": "lamplighters",
+              "amount": 1
+            },
+            {
+              "flag": "elise-letter-private"
+            },
+            {
+              "faction": "unwritten",
               "amount": 1
             }
           ]
@@ -292,6 +412,7 @@
         "y": 0.346
       },
       "gateExerciseId": "a2-apartment-exercise-6",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -337,6 +458,7 @@
         "y": 0.719
       },
       "gateExerciseId": "a2-evening-plans-exercise-1",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -382,6 +504,7 @@
         "y": 0.307
       },
       "gateExerciseId": "a2-rail-trip-exercise-3",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -427,6 +550,7 @@
         "y": 0.657
       },
       "gateExerciseId": "a2-broken-clock-exercise-3",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -478,6 +602,7 @@
         "y": 0.816
       },
       "gateExerciseId": "a2-clinic-exercise-5",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -523,6 +648,7 @@
         "y": 0.836
       },
       "gateExerciseId": "a2-archive-exercise-6",
+      "replyExerciseIds": [],
       "choiceIds": [
         "restore",
         "consult"
@@ -568,6 +694,7 @@
         "y": 0.602
       },
       "gateExerciseId": "b1-witness-exercise-6",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
         "remember"
@@ -619,6 +746,7 @@
         "y": 0.348
       },
       "gateExerciseId": "b1-new-route-exercise-2",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
         "remember"
@@ -664,6 +792,7 @@
         "y": 0.734
       },
       "gateExerciseId": "b1-work-exercise-6",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
         "remember"
@@ -709,9 +838,11 @@
         "y": 0.362
       },
       "gateExerciseId": "b1-council-exercise-7",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
-        "remember"
+        "remember",
+        "publish-ledger"
       ],
       "choices": [
         {
@@ -731,6 +862,25 @@
               "amount": 1
             }
           ]
+        },
+        {
+          "id": "publish-ledger",
+          "effects": [
+            {
+              "flag": "ledger-published"
+            },
+            {
+              "faction": "brassOffice",
+              "amount": 2
+            },
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ],
+          "condition": {
+            "item": "inspector-ledger"
+          }
         }
       ],
       "investigationObjectIds": [
@@ -760,6 +910,7 @@
         "y": 0.56
       },
       "gateExerciseId": "b1-storm-exercise-7",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
         "remember"
@@ -771,6 +922,9 @@
             {
               "faction": "lamplighters",
               "amount": 1
+            },
+            {
+              "flag": "signal-secured"
             }
           ]
         },
@@ -780,6 +934,9 @@
             {
               "faction": "unwritten",
               "amount": 1
+            },
+            {
+              "flag": "families-sheltered"
             }
           ]
         }
@@ -805,6 +962,7 @@
         "y": 0.28
       },
       "gateExerciseId": "b1-atlas-exercise-6",
+      "replyExerciseIds": [],
       "choiceIds": [
         "reopen",
         "remember"

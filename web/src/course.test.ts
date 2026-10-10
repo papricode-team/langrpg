@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { courseLexicon, courseUnits, courseGrammar, courseExercises, courseExerciseById, lexemeById, courseSources, courseContextWordIds, courseActivityWordIds, courseNPCWordIds, courseReferenceCoverage } from './course';
 import { quests, npcs } from './content';
-import { answerMatches, modeFor } from './learning';
+import { answerMatches, gradeFeedback, modeFor } from './learning';
 import { activityScenarios } from './activity-engine';
 import manifest from '../../server/course.json';
 
@@ -30,12 +30,14 @@ describe('German course identity, grading and coverage', () => {
     expect(lexemeById.get('ihr-det')?.english).toContain('her');
     expect(courseExerciseById.get('lex-sie-formal-pron-production')?.caseSensitive).toBe(true);
     expect(answerMatches(courseExerciseById.get('lex-sie-formal-pron-production')!, 'sie')).toBe(false);
-    expect(answerMatches(courseExerciseById.get('lex-morgen-noun-production')!, 'morgen')).toBe(false);
+    expect(answerMatches(courseExerciseById.get('lex-morgen-noun-production')!, 'morgen')).toBe(true);
+    expect(gradeFeedback(courseExerciseById.get('lex-morgen-noun-production')!, 'morgen')).toContain('Accepted. Remember capitalization');
     expect(courseExerciseById.get('lex-morgen-noun-production')?.caseSensitive).toBe(true);
     expect(courseLexicon.some(word => word.lemma === 'h')).toBe(false);
     expect(courseExerciseById.get('lex-apfel-noun-production')?.caseSensitive).toBe(true);
     expect(answerMatches(courseExerciseById.get('lex-apfel-noun-production')!, 'Der Apfel')).toBe(true);
-    expect(answerMatches(courseExerciseById.get('lex-apfel-noun-production')!, 'der apfel')).toBe(false);
+    expect(answerMatches(courseExerciseById.get('lex-apfel-noun-production')!, 'der apfel')).toBe(true);
+    expect(gradeFeedback(courseExerciseById.get('lex-apfel-noun-production')!, 'der apfel')).toContain('Accepted. Remember capitalization');
     expect(courseExerciseById.get('lex-beamter-noun-listening')?.german).toBe('der Beamte');
     expect(courseExerciseById.get('lex-vorsitzender-noun-listening')?.german).toBe('der Vorsitzende');
   });

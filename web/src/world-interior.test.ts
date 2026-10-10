@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type * as Phaser from 'phaser';
-import { getInterior } from './interiors';
+import { getInterior, type InteriorId } from './interiors';
 import { WorldInterior } from './world-interior';
 import furniture from '../public/assets/interior-animations.json';
 import details from '../public/assets/interior-effect-animations.json';
@@ -20,7 +20,7 @@ class Sprite {
 }
 
 const roomView = { x: 0, y: 0, right: 1536, bottom: 1024 };
-function fixture(id: 'cafe' | 'bakery' | 'supermarket') {
+function fixture(id: InteriorId) {
   const sprites: Sprite[] = [];
   const create = (x: number, y: number, key: string, frame?: string) => {
     const sprite = new Sprite(x, y, key, frame); sprites.push(sprite); return sprite;
@@ -40,13 +40,24 @@ const pose = (sprite: Sprite) => [sprite.x, sprite.y, sprite.frame, sprite.scale
 const appearance = (sprite: Sprite) => [sprite.frame, sprite.alpha];
 
 describe('stable interior rendering', () => {
-  it.each(['cafe', 'bakery', 'supermarket'] as const)('keeps %s furniture and its anchors identical throughout an idle cycle', id => {
+  it.each(['cafe', 'bakery', 'supermarket', 'inn'] as const)('keeps %s furniture and its anchors identical throughout an idle cycle', id => {
     const { room, bodies } = fixture(id);
     const initial = bodies.map(pose);
     for (const seconds of [0, .15, .4, .8, 1.6, 10, 100]) {
       room.update(seconds, roomView);
       expect(bodies.map(pose)).toEqual(initial);
     }
+  });
+  it('gives the inn a stable tea table with steam confined to the kettle', () => {
+    const { room, bodies, effects } = fixture('inn');
+    expect(room.objectCount).toBe(3);
+    expect(room.animatedObjectCount).toBe(1);
+    expect(bodies.some(sprite => sprite.frame === 'cafe-table-still')).toBe(true);
+    expect(effects).toHaveLength(2);
+    const anchors = effects.map(sprite => [sprite.x, sprite.y, sprite.depth]);
+    room.update(.2, roomView); room.update(.3, roomView);
+    expect(effects.map(sprite => [sprite.x, sprite.y, sprite.depth])).toEqual(anchors);
+    expect(effects.every(sprite => sprite.frame.startsWith('steam-'))).toBe(true);
   });
 
   it('uses the corrected stills for counters and tables while preserving their floor anchors', () => {

@@ -8,14 +8,17 @@ import { quests } from './content';
 import { answerMatches } from './learning';
 
 let controller: QuestController | undefined;
-afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; });
+afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; vi.restoreAllMocks(); });
 function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arrival') {
   let audioEnabled = true;
   let progress: Progress = {...emptyProgress(), story:emptyStory()};
   progress.story!.nodes[questId] = stage;
   const bump = () => { progress = {...progress,revision:progress.revision+1,story:structuredClone(progress.story)}; return progress; };
   const api = {
-    request:vi.fn(async () => ({attemptId:'saved-reply',correct:true,progress:bump()})),
+    request:vi.fn(async (_path?:string,input?:{mode?:string;exerciseId?:string}) => {
+      if(input?.mode==='recognition' && input.exerciseId) progress.story!.flags[`reply:${input.exerciseId}`]=true;
+      return {attemptId:'saved-reply',correct:true,progress:bump()};
+    }),
     inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections[questId] = [...(progress.story!.inspections[questId]??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
     storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes[questId] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push(questId);progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
@@ -101,9 +104,12 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('dialog')).toBeNull();
     expect(document.querySelector('.dialogue-line')!.textContent).toContain('<Willow>');
     expect(document.querySelector('.dialogue-line')!.innerHTML).not.toContain('<Willow>');
-    for(let line=0;line<7;line++) f.click('[data-dialogue-action="next"]');
+    f.click('[data-dialogue-choice="Guten Morgen!"]');
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')!.textContent).toContain('Dein Zug'));
+    for(let line=0;line<6;line++) f.click('[data-dialogue-action="next"]');
     expect(f.options.onInvestigate).toHaveBeenCalledWith(questGraphs[0]);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt',{mode:'recognition',sceneAttempt:true,exerciseId:'a1-arrival-exercise-1'}]);
     expect(f.controller.isOpen).toBe(false);
   });
   it('records the read object with the server before returning to the canvas', async () => {
@@ -126,6 +132,7 @@ describe('conversation scene lifecycle', () => {
   });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
     const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs[0].investigations.map(item=>item.objectId);
+    f.progress.story!.flags['reply:a1-arrival-exercise-1']=true;
     f.api.storyTransition.mockRejectedValueOnce(new Error('Move closer to Otto.'));
     await f.controller.open('a1-arrival');
     expect(document.querySelector('#dialogue-answer')).toBeNull();
@@ -133,6 +140,39 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-action="next"]');
     await vi.waitFor(()=>expect(document.querySelector('#dialogue-answer')).not.toBeNull());
     expect(f.api.storyTransition.mock.calls[0][0]).toEqual(f.api.storyTransition.mock.calls[1][0]);
+  });
+  it('corrects a wrong greeting in Otto’s voice and tracks the helped retry', async () => {
+    const f=fixture();
+    f.api.request.mockResolvedValueOnce({attemptId:'wrong-greeting',correct:false,progress:f.progress});
+    await f.controller.open('a1-arrival');
+    f.click('[data-dialogue-choice="Gute Nacht!"]');
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    expect(f.options.speak.mock.lastCall?.[1]).toBe('otto');
+    expect(f.api.storyTransition).not.toHaveBeenCalled();
+    expect(f.options.onInvestigate).not.toHaveBeenCalled();
+    f.click('[data-dialogue-choice="Guten Morgen!"]');
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Dein Zug'));
+    expect(f.api.request.mock.calls[1]).toMatchObject(['/attempt',{answer:'Guten Morgen!',mode:'recognition',hinted:true,sceneAttempt:true}]);
+  });
+  it('clears a greeting correction before showing physical evidence', async () => {
+    const f=fixture();f.api.request.mockResolvedValueOnce({attemptId:'wrong-greeting',correct:false,progress:f.progress});
+    await f.controller.open('a1-arrival');f.click('[data-dialogue-choice="Gute Nacht!"]');
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    f.controller.close();f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Fahrkarte');
+    expect(document.querySelector('.dialogue-line')?.textContent).not.toContain('Es ist Morgen');
+  });
+  it('does not let a pending old choice finish a newly opened conversation', async () => {
+    const f=fixture('choice');let finish!:()=>void;
+    f.api.storyTransition.mockImplementationOnce(()=>new Promise(resolve=>{finish=()=>resolve({story:f.progress.story!,progress:f.progress});}));
+    await f.controller.open('a1-arrival');f.click('[data-dialogue-action="next"]');f.click('[data-dialogue-choice="protect"]');
+    await vi.waitFor(()=>expect(f.api.storyTransition).toHaveBeenCalled());
+    f.controller.close();await f.controller.open('a1-cafe');
+    const line=document.querySelector('.dialogue-line')?.textContent;finish();
+    // Let the saved command and both caller continuations settle before checking.
+    for(let index=0;index<5;index++) await Promise.resolve();
+    expect(document.querySelector('.dialogue-line')?.textContent).toBe(line);
+    expect(f.options.onComplete).not.toHaveBeenCalled();
   });
   it('marks requested contextual grammar as a hint while preserving the typed reply', async () => {
     const f=fixture('gate');await f.controller.open('a1-arrival');
@@ -167,6 +207,34 @@ describe('conversation scene lifecycle', () => {
     await vi.waitFor(()=>expect(f.api.storyTransition).toHaveBeenCalledTimes(2));
     expect(f.api.request).toHaveBeenCalledTimes(1);
     expect(f.api.storyTransition.mock.calls[0][0]).toEqual(f.api.storyTransition.mock.calls[1][0]);
+  });
+  it.each(['recognition', 'production'] as const)('retries a lost %s attempt response with its complete original payload', async mode => {
+    const clock = vi.spyOn(performance, 'now').mockReturnValue(1000);
+    const f = fixture(mode === 'recognition' ? 'intro' : 'gate');
+    const exercise = quests.find(q => q.id === 'a1-arrival')!.exercises.find(ex => ex.id === `a1-arrival-exercise-${mode === 'recognition' ? 1 : 6}`)!;
+    f.api.request.mockRejectedValueOnce(new Error('attempt response lost'));
+    await f.controller.open('a1-arrival');
+    const submit = () => {
+      if (mode === 'recognition') f.click('[data-dialogue-choice="Guten Morgen!"]');
+      else {
+        document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = exercise.answer;
+        document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      }
+    };
+    clock.mockReturnValue(1600); submit();
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toContain('attempt response lost'));
+    const original = structuredClone(f.api.request.mock.calls[0]);
+    expect(original).toEqual(['/attempt', {
+      id: expect.any(String), itemId: exercise.itemId, exerciseId: exercise.id, answer: exercise.answer,
+      hinted: false, mode, questId: 'a1-arrival', sceneAttempt: true, responseTimeMs: 600,
+    }]);
+    // Assistance received elsewhere cannot change a request whose ID is pending.
+    if (mode === 'recognition') f.progress.story!.flags[`reply-help:${exercise.id}`] = true;
+    clock.mockReturnValue(9500); submit();
+    await vi.waitFor(() => expect(f.api.request).toHaveBeenCalledTimes(2));
+    expect(f.api.request.mock.calls[1]).toEqual(original);
+    if (mode === 'recognition') await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Dein Zug'));
+    else await vi.waitFor(() => expect(f.progress.story!.nodes['a1-arrival']).toBe('choice'));
   });
   it('replays a completed scene without awarding items or submitting answers again', async () => {
     const f=fixture();f.progress.completedQuestIds.push('a1-arrival');await f.controller.open('a1-arrival');

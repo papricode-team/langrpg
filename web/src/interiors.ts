@@ -1,4 +1,4 @@
-import { quests, type Exercise } from './content';
+import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid } from './navigation';
 
@@ -46,6 +46,8 @@ export interface InteriorNpcSpec extends MapPosition {
   id: string;
   interactionId: string;
   role: string;
+  /** Shared-clock visiting hours; room actions remain available overnight. */
+  hours?: readonly [number, number];
 }
 export interface InteriorSpec {
   id: InteriorId;
@@ -289,13 +291,21 @@ export const interiors: readonly InteriorSpec[] = [
 
   {
     id: 'inn', name: 'Your room at the inn', germanName: 'Dein Zimmer', subtitle: 'A lamp, your evidence, and tomorrow', icon: 'cup',
-    description: 'Your own quiet room. Put your evidence on the desk, revisit the words you promised to remember, and rest when you are ready.',
+    description: 'Your own quiet room. Greta brings tea during the day. Put your evidence on the desk, revisit familiar words, and rest when you are ready.',
     asset: '/assets/interior-inn-room.webp', width: 1536, height: 1024,
     spawn: position(780, 805), exit: position(780, 885),
     walkableAreas: [[[150,365],[1380,365],[1380,830],[970,830],[970,950],[620,950],[620,830],[150,830]]],
     barriers: [[[150,365],[580,365],[580,550],[150,550]], [[1070,365],[1380,365],[1380,465],[1070,465]], [[700,365],[930,365],[930,410],[700,410]], [[1340,465],[1380,465],[1380,730],[1340,730]]],
-    npcs: [], props: [],
+    npcs: [
+      { id: 'greta', ...position(1040, 705), interactionId: 'interior:inn:welcome', role: 'Your inn host · tea until 21:00', hours: [7, 21] },
+    ],
+    props: [
+      { id: 'inn-tea-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1140, y: 690, width: 95, collision: footprint(1102, 654, 76, 34) },
+      { id: 'inn-host-kettle', sheet: 'interior-cafe-objects', asset: 'kettle', x: 1126, y: 649, width: 25, depth: 696, effects: [{ asset: 'steam', x: 7, y: -20, width: 12, alpha: .2 }] },
+      { id: 'inn-tea-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1155, y: 649, width: 12, depth: 697 },
+    ],
     objects: [
+      { id: 'interior:inn:welcome', label: 'Greta · ein warmer Tee', germanName: 'Ein Besuch von Greta', sessionTitle: 'A friendly welcome', npcId: 'greta', dialogue: npcs.find(npc => npc.id === 'greta')!.greeting, prompt: 'Say hello and ask for a warm drink.', description: 'Greta visits between 07:00 and 21:00 with tea. Your room is quiet overnight; your lamp, desk and bed are always ready.', ...position(1040, 745), exerciseIds: ['a1-arrival-exercise-1', 'a1-cafe-exercise-3', 'a1-cafe-exercise-7'], vocabulary: [vocabulary('der', 'Tee', 'die Tees', 'tea'), vocabulary('die', 'Tasse', 'die Tassen', 'cup'), vocabulary('das', 'Zimmer', 'die Zimmer', 'room')] },
       { id: 'interior:inn:bed', label: 'Das Bett', germanName: 'Das Bett', sessionTitle: 'Begin tomorrow', prompt: 'Rest here when your day is done.', description: 'Schlaf gut. Deine Beweise und deine Wörter bleiben im Atlas.', ...position(610, 570), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('das','Bett','Betten','bed')] },
       { id: 'interior:inn:review', label: 'Die Abendlampe', germanName: 'Die Abendlampe', sessionTitle: 'An evening review', prompt: 'Keep one small promise to your words.', description: 'Die Lampe wartet. Ein paar Wörter für heute, dann kannst du schlafen.', ...position(810, 470), exerciseIds: ['a1-cafe-exercise-6'], vocabulary: [vocabulary('die','Lampe','Lampen','lamp')] },
       { id: 'interior:inn:evidence', label: 'Dein Schreibtisch', germanName: 'Der Schreibtisch', sessionTitle: 'Connect the evidence', prompt: 'Lay out your letters and clues.', description: 'Hier liegen deine Briefe. Jeder Brief zeigt einen Weg. Wer hilft dir morgen?', ...position(1030, 490), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('der','Brief','Briefe','letter')] },
@@ -309,6 +319,20 @@ export function getInterior(id: InteriorId): InteriorSpec {
 
 export function getInteriorObject(id: string): InteriorObjectSpec | undefined {
   return interiors.flatMap(interior => [...interior.objects]).find(object => object.id === id);
+}
+
+/** Visiting actors and their conversation station share the same hours. */
+export function interiorNpcAvailable(npc: InteriorNpcSpec, hour: number): boolean {
+  if (!npc.hours) return true;
+  const h = ((hour % 24) + 24) % 24;
+  const [start, end] = npc.hours;
+  return start < end ? h >= start && h < end : h >= start || h < end;
+}
+
+export function interiorObjectAvailable(room: InteriorSpec, id: string, hour: number): boolean {
+  const object = room.objects.find(item => item.id === id);
+  const npc = object?.npcId ? room.npcs.find(item => item.id === object.npcId) : undefined;
+  return !npc || interiorNpcAvailable(npc, hour);
 }
 
 const referencedExercises = new Set(interiors.flatMap(interior => interior.objects.flatMap(object => object.exerciseIds)));

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { npcs, quests } from './content';
-import { buildingEntrances, createInteriorNavigation, getInterior, getInteriorObject, interiorExercises, interiors, type InteriorId } from './interiors';
+import { buildingEntrances, createInteriorNavigation, getInterior, getInteriorObject, interiorExercises, interiorNpcAvailable, interiorObjectAvailable, interiors, type InteriorId } from './interiors';
 import { getMap, storyMaps as maps } from './maps';
 import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
 import type { SceneryAnimationManifest } from './scenery-animation';
@@ -26,6 +26,23 @@ function expectReachable(navigation: NavigationGrid, start: MapPoint, destinatio
 }
 
 describe('enterable learning spaces', () => {
+  it('welcomes the player with tea by day and keeps their room actions available overnight', () => {
+    const inn = getInterior('inn'), host = inn.npcs.find(npc => npc.id === 'greta')!;
+    expect(host).toBeDefined();
+    expect(getInteriorObject(host.interactionId)?.dialogue).toBe(npcs.find(npc => npc.id === 'greta')!.greeting);
+    for (const hour of [7, 12, 20.999, 31]) {
+      expect(interiorNpcAvailable(host, hour)).toBe(true);
+      expect(interiorObjectAvailable(inn, host.interactionId, hour)).toBe(true);
+    }
+    for (const hour of [0, 6.999, 21, 23, -1]) {
+      expect(interiorNpcAvailable(host, hour)).toBe(false);
+      expect(interiorObjectAvailable(inn, host.interactionId, hour)).toBe(false);
+      for (const id of ['bed', 'review', 'evidence']) expect(interiorObjectAvailable(inn, `interior:inn:${id}`, hour)).toBe(true);
+    }
+    expect(inn.props.map(prop => prop.asset)).toEqual(['cafe-table', 'kettle', 'cup']);
+    expect(inn.props.find(prop => prop.asset === 'kettle')?.effects?.[0].asset).toBe('steam');
+  });
+
   it.each(maps)('offers the stores and inn on connected streets in $name', map => {
       const navigation = createMapNavigation(map.id);
       const start = pixels(getMap(map.id).spawn);

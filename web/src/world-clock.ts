@@ -4,6 +4,12 @@ export interface WorldTimeOptions { mode:WorldTimeMode; hour:number; }
 export interface WorldTimeState { hour:number; period:WorldPeriod; label:string; mode:WorldTimeMode; }
 const normalize=(hour:number)=>((hour%24)+24)%24;
 export const worldPeriod=(hour:number):WorldPeriod=>normalize(hour)>=7&&normalize(hour)<19?'day':'night';
+/** Lamps and fireflies share the authored night boundary, with daylight fades. */
+export function nightIntensity(hour: number): number {
+  const h = normalize(hour);
+  if (worldPeriod(h) === 'night') return 1;
+  return h < 8 ? 8 - h : h > 18 ? h - 18 : 0;
+}
 export const localHour=(date=new Date()):number=>date.getHours()+date.getMinutes()/60+date.getSeconds()/3600;
 /** A twelve-minute foreground day, or the user's local clock. Manual time is for watching a chosen scene. */
 export class WorldClock {

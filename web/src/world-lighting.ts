@@ -1,5 +1,5 @@
 import type { MapId } from './maps';
-import type { WorldPeriod } from './world-clock';
+import { worldPeriod, type WorldPeriod } from './world-clock';
 import { hasRegionPeople } from './world-map-assets';
 
 interface WorldAmbient { terrain: number; scenery: number; people: number; light: number; }
@@ -13,7 +13,7 @@ export function worldAmbient(mapId: MapId, period: WorldPeriod): Readonly<WorldA
 const mix = (a: number, b: number, ratio: number) => [16, 8, 0].reduce((result, shift) =>
   result | Math.round((a >> shift & 255) * (1 - ratio) + (b >> shift & 255) * ratio) << shift, 0);
 /** Continuous dawn, golden hour and blue hour, on top of authored night art. */
-export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod): Readonly<WorldAmbient> {
+export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod = worldPeriod(hour)): Readonly<WorldAmbient> {
   const h = ((hour % 24) + 24) % 24;
   const anchors = [[0, 0x8497ba], [5, 0x8497ba], [7, 0xffe5c3], [9, 0xffffff],
     [16, 0xffffff], [18, 0xffd0a2], [20, 0x8296b9], [24, 0x8497ba]];

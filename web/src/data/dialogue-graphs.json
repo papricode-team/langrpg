@@ -38,49 +38,48 @@
             "speaker": "otto",
             "german": "Guten Morgen, {name}! Willkommen in Lindenhafen.",
             "english": "Good morning, {name}! Welcome to Lindenhafen.",
-            "clipId": "dialogue-a1-arrival-intro-0"
+            "clipId": "dialogue-a1-arrival-intro-0",
+            "reply": {
+              "exerciseId": "a1-arrival-exercise-1",
+              "correction": {
+                "id": "a1-arrival-greeting-correction",
+                "speaker": "otto",
+                "german": "Guten Morgen! Es ist Morgen. Wir sagen: Guten Morgen!",
+                "english": "Good morning! It is morning. We say: Good morning!",
+                "clipId": "dialogue-a1-arrival-greeting-correction"
+              }
+            }
           },
           {
             "id": "a1-arrival-intro-1",
             "speaker": "otto",
-            "german": "Dein Zug ist da. Die Tauben schlafen noch.",
-            "english": "Your train is here. The pigeons are still sleeping.",
+            "german": "Dein Zug ist da. Alle schlafen noch.",
+            "english": "Your train is here. Everyone is still sleeping.",
             "clipId": "dialogue-a1-arrival-intro-1"
           },
           {
             "id": "a1-arrival-intro-2",
             "speaker": "inspector",
-            "german": "Ihre Fahrkarte, bitte. Das Messingamt prüft jede Reise.",
-            "english": "Your ticket, please. The Brass Office checks every journey.",
-            "clipId": "dialogue-a1-arrival-intro-2",
-            "variants": [
-              {
-                "german": "Ihre Fahrkarte, bitte. Das Amt prüft die Reise.",
-                "english": "Your ticket, please. The office checks the journey.",
-                "clipId": "dialogue-a1-arrival-intro-2-simple"
-              }
-            ]
+            "german": "Ihre Fahrkarte, bitte. Ich heiße Voss.",
+            "english": "Your ticket, please. My name is Voss.",
+            "clipId": "dialogue-a1-arrival-intro-2"
           },
           {
             "id": "a1-arrival-intro-3",
             "speaker": "inspector",
-            "german": "Dieser Bahnsteig ist geschlossen. Das ist ganz normal.",
-            "english": "This platform is closed. That is perfectly normal.",
-            "clipId": "dialogue-a1-arrival-intro-3",
-            "variants": [
-              {
-                "german": "Dieser Bahnsteig ist zu. Das ist normal.",
-                "english": "This platform is closed. That is normal.",
-                "clipId": "dialogue-a1-arrival-intro-3-simple"
-              }
-            ]
+            "german": "Der Bahnsteig ist zu. Das ist normal.",
+            "english": "The platform is closed. That is normal.",
+            "clipId": "dialogue-a1-arrival-intro-3"
           },
           {
             "id": "a1-arrival-intro-4",
             "speaker": "otto",
-            "german": "Normal? Die Laterne leuchtet. Und hier steht dein Name.",
-            "english": "Normal? The lantern is shining. And your name is here.",
-            "clipId": "dialogue-a1-arrival-intro-4"
+            "german": "Normal? Die Laterne ist hell. Und hier steht dein Name.",
+            "english": "Normal? The lantern is bright. And your name is here.",
+            "clipId": "dialogue-a1-arrival-intro-4",
+            "glosses": {
+              "laterne": "lantern"
+            }
           },
           {
             "id": "a1-arrival-intro-5",
@@ -135,9 +134,12 @@
           {
             "id": "a1-arrival-gate-0",
             "speaker": "otto",
-            "german": "Bitte, ich helfe dir. Die Glocke läutet einmal.",
-            "english": "Please, I will help you. The bell rings once.",
-            "clipId": "dialogue-a1-arrival-gate-0"
+            "german": "Ich helfe dir. Hörst du die Glocke?",
+            "english": "I will help you. Can you hear the bell?",
+            "clipId": "dialogue-a1-arrival-gate-0",
+            "glosses": {
+              "glocke": "bell"
+            }
           },
           {
             "id": "a1-arrival-choice-0",
@@ -150,13 +152,22 @@
         "choices": [
           {
             "id": "report",
-            "german": "Ich melde den Bahnsteig.",
-            "english": "I will report the platform.",
+            "german": "Ich sage es Voss.",
+            "english": "I will tell Voss.",
             "next": "after-report",
             "effects": [
               {
                 "faction": "brassOffice",
                 "amount": 1
+              },
+              {
+                "flag": "platform-reported"
+              },
+              {
+                "item": "inspector-ledger"
+              },
+              {
+                "bell": 1
               }
             ]
           },
@@ -169,6 +180,12 @@
               {
                 "faction": "lamplighters",
                 "amount": 1
+              },
+              {
+                "flag": "platform-protected"
+              },
+              {
+                "item": "lamplighter-key"
               }
             ]
           }
@@ -181,7 +198,7 @@
           {
             "id": "a1-arrival-complete-0",
             "speaker": "otto",
-            "german": "Marta hat eine Quittung. Geh bitte zum Café.",
+            "german": "Marta hat eine Rechnung. Geh bitte zum Café.",
             "english": "Marta has a receipt. Please go to the café.",
             "clipId": "dialogue-a1-arrival-complete-0"
           }
@@ -195,9 +212,12 @@
           {
             "id": "a1-arrival-report-0",
             "speaker": "otto",
-            "german": "Der Inspektor kommt zurück. Otto wartet auf seine Antwort.",
-            "english": "The inspector will return. Otto waits for his answer.",
-            "clipId": "dialogue-a1-arrival-report-0"
+            "german": "Voss kommt wieder. Hier ist sein Buch. Ich höre schon die Glocke.",
+            "english": "Voss will return. Here is his ledger. I can already hear the bell.",
+            "clipId": "dialogue-a1-arrival-report-0",
+            "glosses": {
+              "glocke": "bell"
+            }
           }
         ],
         "next": "complete"
@@ -209,16 +229,9 @@
           {
             "id": "a1-arrival-protect-0",
             "speaker": "otto",
-            "german": "Otto vertraut dir. Er zeigt dir seine alte Laterne.",
-            "english": "Otto trusts you. He shows you his old lantern.",
-            "clipId": "dialogue-a1-arrival-protect-0",
-            "variants": [
-              {
-                "german": "Otto hilft dir. Hier ist seine alte Laterne.",
-                "english": "Otto helps you. Here is his old lantern.",
-                "clipId": "dialogue-a1-arrival-protect-0-simple"
-              }
-            ]
+            "german": "Danke! Hier ist mein Schlüssel für das Zimmer am Bahnhof.",
+            "english": "Thank you! Here is my key for the room at the station.",
+            "clipId": "dialogue-a1-arrival-protect-0"
           }
         ],
         "next": "complete"
@@ -232,10 +245,14 @@
       },
       {
         "objectId": "lindenhafen-noticeboard",
-        "german": "Nach W… Die Buchstaben fehlen. Die Laterne leuchtet.",
-        "english": "To W… The letters are missing. The lantern shines."
+        "german": "Nach W… Die Buchstaben fehlen. Die Laterne ist hell.",
+        "english": "To W… The letters are missing. The lantern is bright."
       }
-    ]
+    ],
+    "introducedWords": {
+      "Laterne": "lantern",
+      "Glocke": "bell"
+    }
   },
   {
     "questId": "a1-cafe",
@@ -281,8 +298,8 @@
           {
             "id": "a1-cafe-intro-1",
             "speaker": "marta",
-            "german": "Der Wasserkocher pfeift deinen Namen. Hörst du das?",
-            "english": "The kettle whistles your name. Can you hear it?",
+            "german": "Der Wasserkocher sagt deinen Namen. Hörst du das?",
+            "english": "The kettle says your name. Can you hear it?",
             "clipId": "dialogue-a1-cafe-intro-1",
             "variants": [
               {
@@ -290,21 +307,17 @@
                 "english": "The kettle says your name. Can you hear it?",
                 "clipId": "dialogue-a1-cafe-intro-1-simple"
               }
-            ]
+            ],
+            "glosses": {
+              "wasserkocher": "electric kettle"
+            }
           },
           {
             "id": "a1-cafe-intro-2",
             "speaker": "marta",
-            "german": "Elise war gestern hier. Sie hat von dir gesprochen.",
-            "english": "Elise was here yesterday. She spoke about you.",
-            "clipId": "dialogue-a1-cafe-intro-2",
-            "variants": [
-              {
-                "german": "Elise war hier. Sie kennt deinen Namen.",
-                "english": "Elise was here. She knows your name.",
-                "clipId": "dialogue-a1-cafe-intro-2-simple"
-              }
-            ]
+            "german": "Elise war gestern hier. Sie kennt deinen Namen.",
+            "english": "Elise was here yesterday. She knows your name.",
+            "clipId": "dialogue-a1-cafe-intro-2"
           },
           {
             "id": "a1-cafe-intro-3",
@@ -316,23 +329,16 @@
           {
             "id": "a1-cafe-intro-4",
             "speaker": "marta",
-            "german": "Hier ist ihre Quittung. Das Datum ist morgen.",
+            "german": "Hier ist ihre Rechnung. Das Datum ist morgen.",
             "english": "Here is her receipt. The date is tomorrow.",
             "clipId": "dialogue-a1-cafe-intro-4"
           },
           {
             "id": "a1-cafe-intro-5",
             "speaker": "marta",
-            "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
-            "english": "Order a coffee first. Then I will show you the seal.",
-            "clipId": "dialogue-a1-cafe-intro-5",
-            "variants": [
-              {
-                "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
-                "english": "Order a coffee. Then you will see the mark.",
-                "clipId": "dialogue-a1-cafe-intro-5-simple"
-              }
-            ]
+            "german": "Ein Kaffee? Dann lesen wir die Rechnung.",
+            "english": "A coffee? Then we will read the receipt.",
+            "clipId": "dialogue-a1-cafe-intro-5"
           }
         ],
         "next": "gate"
@@ -344,16 +350,9 @@
           {
             "id": "a1-cafe-gate-request",
             "speaker": "marta",
-            "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
-            "english": "Order a coffee first. Then I will show you the seal.",
-            "clipId": "dialogue-a1-cafe-gate-request",
-            "variants": [
-              {
-                "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
-                "english": "Order a coffee. Then you will see the mark.",
-                "clipId": "dialogue-a1-cafe-gate-request-simple"
-              }
-            ]
+            "german": "Ein Kaffee? Dann lesen wir die Rechnung.",
+            "english": "A coffee? Then we will read the receipt.",
+            "clipId": "dialogue-a1-cafe-gate-request"
           }
         ],
         "gateExerciseId": "a1-cafe-exercise-1",
@@ -366,16 +365,12 @@
           {
             "id": "a1-cafe-gate-0",
             "speaker": "marta",
-            "german": "Hier ist dein Kaffee. Das Siegel ist vom Messingamt.",
-            "english": "Here is your coffee. The seal belongs to the Brass Office.",
+            "german": "Hier ist dein Kaffee. Das Siegel ist von Voss.",
+            "english": "Here is your coffee. The seal is from Voss.",
             "clipId": "dialogue-a1-cafe-gate-0",
-            "variants": [
-              {
-                "german": "Hier ist dein Kaffee. Das Zeichen ist vom Amt.",
-                "english": "Here is your coffee. The mark is from the office.",
-                "clipId": "dialogue-a1-cafe-gate-0-simple"
-              }
-            ]
+            "glosses": {
+              "siegel": "seal"
+            }
           },
           {
             "id": "a1-cafe-choice-0",
@@ -388,25 +383,37 @@
         "choices": [
           {
             "id": "report",
-            "german": "Die Quittung geht zum Amt.",
-            "english": "The receipt goes to the office.",
+            "german": "Voss bekommt die Rechnung.",
+            "english": "Voss gets the receipt.",
             "next": "after-report",
             "effects": [
               {
                 "faction": "brassOffice",
                 "amount": 1
+              },
+              {
+                "flag": "receipt-filed"
+              },
+              {
+                "item": "receipt-copy"
               }
             ]
           },
           {
             "id": "protect",
-            "german": "Wir behalten die Quittung.",
-            "english": "We will keep the receipt.",
+            "german": "Ich nehme die Rechnung mit.",
+            "english": "I will take the receipt with me.",
             "next": "after-protect",
             "effects": [
               {
                 "faction": "lamplighters",
                 "amount": 1
+              },
+              {
+                "flag": "receipt-kept"
+              },
+              {
+                "item": "original-receipt"
               }
             ]
           }
@@ -419,9 +426,12 @@
           {
             "id": "a1-cafe-complete-0",
             "speaker": "marta",
-            "german": "Fritz kennt dieses Siegel. Du findest ihn am Markt.",
-            "english": "Fritz knows this seal. Find him at the market.",
-            "clipId": "dialogue-a1-cafe-complete-0"
+            "german": "Fritz kennt das Siegel. Er wartet auf dem Platz.",
+            "english": "Fritz knows the seal. He is waiting in the square.",
+            "clipId": "dialogue-a1-cafe-complete-0",
+            "glosses": {
+              "siegel": "seal"
+            }
           }
         ],
         "terminal": true
@@ -433,16 +443,9 @@
           {
             "id": "a1-cafe-report-0",
             "speaker": "marta",
-            "german": "Marta gibt dir eine Kopie. Das Amt bekommt das Original.",
-            "english": "Marta gives you a copy. The office gets the original.",
-            "clipId": "dialogue-a1-cafe-report-0",
-            "variants": [
-              {
-                "german": "Marta hat eine Kopie. Das Amt bekommt die Quittung.",
-                "english": "Marta has a copy. The office gets the receipt.",
-                "clipId": "dialogue-a1-cafe-report-0-simple"
-              }
-            ]
+            "german": "Ich schreibe alles ab. Voss bekommt meine Rechnung.",
+            "english": "I will copy everything. Voss gets my receipt.",
+            "clipId": "dialogue-a1-cafe-report-0"
           }
         ],
         "next": "complete"
@@ -454,8 +457,8 @@
           {
             "id": "a1-cafe-protect-0",
             "speaker": "marta",
-            "german": "Marta legt die Quittung in ihre alte Tasche. Sie hilft dir.",
-            "english": "Marta puts the receipt in her old satchel. She will help you.",
+            "german": "Hier ist die Rechnung. Du kannst sie mitnehmen.",
+            "english": "Here is the receipt. You can take it with you.",
             "clipId": "dialogue-a1-cafe-protect-0"
           }
         ],
@@ -465,10 +468,14 @@
     "investigations": [
       {
         "objectId": "lindenhafen-cafe-receipt",
-        "german": "Ein Kaffee. Datum: morgen. Das Siegel ist aus Messing.",
-        "english": "One coffee. Date: tomorrow. The seal is brass."
+        "german": "Ein Kaffee. Datum: morgen. Das Siegel ist von Voss.",
+        "english": "One coffee. Date: tomorrow. The seal is from Voss."
       }
-    ]
+    ],
+    "introducedWords": {
+      "Siegel": "seal",
+      "Wasserkocher": "electric kettle"
+    }
   },
   {
     "questId": "a1-market",
@@ -507,57 +514,56 @@
           {
             "id": "a1-market-intro-0",
             "speaker": "fritz",
-            "german": "Zwei Äpfel für die Reise? Sie sind frisch.",
-            "english": "Two apples for the journey? They are fresh.",
+            "german": "Zwei Äpfel für die Reise? Sie sind gut.",
+            "english": "Two apples for the journey? They are good.",
             "clipId": "dialogue-a1-market-intro-0"
           },
           {
             "id": "a1-market-intro-1",
             "speaker": "fritz",
-            "german": "Dieser Apfel hat eine Nummer. Die Nummer ist keine Rechnung.",
-            "english": "This apple has a number. The number is not a price.",
+            "german": "Der Apfel hat eine Nummer. Das ist kein Preis.",
+            "english": "The apple has a number. It is not a price.",
             "clipId": "dialogue-a1-market-intro-1"
           },
           {
             "id": "a1-market-intro-2",
             "speaker": "fritz",
-            "german": "Das Messingamt bringt diese Kisten. Dann fehlen Adressen.",
-            "english": "The Brass Office brings these crates. Then addresses go missing.",
-            "clipId": "dialogue-a1-market-intro-2",
-            "variants": [
-              {
-                "german": "Das Amt bringt die Kisten. Dann fehlen Adressen.",
-                "english": "The office brings the crates. Then addresses are missing.",
-                "clipId": "dialogue-a1-market-intro-2-simple"
-              }
-            ]
+            "german": "Voss bringt die Äpfel. Dann fehlen Adressen.",
+            "english": "Voss brings the apples. Then addresses go missing.",
+            "clipId": "dialogue-a1-market-intro-2"
           },
           {
             "id": "a1-market-intro-3",
             "speaker": "inspector",
-            "german": "Die Liste ist richtig. Der Markt braucht Ordnung.",
-            "english": "The list is correct. The market needs order.",
-            "clipId": "dialogue-a1-market-intro-3"
+            "german": "Das Buch ist richtig. Alle Namen stehen hier.",
+            "english": "The book is correct. All the names are here.",
+            "clipId": "dialogue-a1-market-intro-3",
+            "condition": {
+              "flag": "platform-reported"
+            }
           },
           {
             "id": "a1-market-intro-4",
             "speaker": "fritz",
-            "german": "Aber Frau Berg steht nicht mehr auf der Liste.",
-            "english": "But Mrs Berg is no longer on the list.",
-            "clipId": "dialogue-a1-market-intro-4",
-            "variants": [
-              {
-                "german": "Aber der Name von Frau Berg fehlt.",
-                "english": "But Mrs Berg’s name is missing.",
-                "clipId": "dialogue-a1-market-intro-4-simple"
-              }
-            ]
+            "german": "Aber der Name von Frau Berg fehlt.",
+            "english": "But Mrs Berg’s name is missing.",
+            "clipId": "dialogue-a1-market-intro-4"
+          },
+          {
+            "id": "a1-market-quiet-platform",
+            "speaker": "fritz",
+            "german": "Otto sagt: Du hilfst uns. Danke!",
+            "english": "Otto says: You are helping us. Thank you!",
+            "clipId": "dialogue-a1-market-quiet-platform",
+            "condition": {
+              "flag": "platform-protected"
+            }
           },
           {
             "id": "a1-market-intro-5",
             "speaker": "fritz",
-            "german": "Sag mir, wie viele Äpfel du brauchst.",
-            "english": "Tell me how many apples you need.",
+            "german": "Ein Apfel oder zwei Äpfel? Sag es mir bitte.",
+            "english": "One apple or two apples? Please tell me.",
             "clipId": "dialogue-a1-market-intro-5"
           }
         ],
@@ -570,8 +576,8 @@
           {
             "id": "a1-market-gate-request",
             "speaker": "fritz",
-            "german": "Sag mir, wie viele Äpfel du brauchst.",
-            "english": "Tell me how many apples you need.",
+            "german": "Ein Apfel oder zwei Äpfel? Sag es mir bitte.",
+            "english": "One apple or two apples? Please tell me.",
             "clipId": "dialogue-a1-market-gate-request"
           }
         ],
@@ -585,16 +591,9 @@
           {
             "id": "a1-market-gate-0",
             "speaker": "fritz",
-            "german": "Zwei Äpfel. Einen essen wir, einen nehmen wir als Beweis.",
-            "english": "Two apples. We will eat one and keep one as evidence.",
-            "clipId": "dialogue-a1-market-gate-0",
-            "variants": [
-              {
-                "german": "Zwei Äpfel. Einer ist für uns. Einer bleibt hier.",
-                "english": "Two apples. One is for us. One stays here.",
-                "clipId": "dialogue-a1-market-gate-0-simple"
-              }
-            ]
+            "german": "Zwei Äpfel. Ein Apfel ist für uns. Ein Apfel kommt mit.",
+            "english": "Two apples. One apple is for us. One apple comes along.",
+            "clipId": "dialogue-a1-market-gate-0"
           },
           {
             "id": "a1-market-choice-0",
@@ -607,25 +606,38 @@
         "choices": [
           {
             "id": "report",
-            "german": "Ich gebe dem Amt die Nummer.",
-            "english": "I will give the office the number.",
+            "german": "Voss bekommt die Nummer.",
+            "english": "Voss gets the number.",
             "next": "after-report",
             "effects": [
               {
                 "faction": "brassOffice",
                 "amount": 1
+              },
+              {
+                "flag": "crate-number-filed"
               }
             ]
           },
           {
             "id": "protect",
-            "german": "Ich behalte die Nummer.",
-            "english": "I will keep the number.",
+            "german": "Ich schreibe ihren Namen auf.",
+            "english": "I will write down her name.",
             "next": "after-protect",
             "effects": [
               {
                 "faction": "lamplighters",
                 "amount": 1
+              },
+              {
+                "flag": "berg-remembered"
+              },
+              {
+                "faction": "unwritten",
+                "amount": 1
+              },
+              {
+                "item": "berg-address"
               }
             ]
           }
@@ -638,8 +650,8 @@
           {
             "id": "a1-market-complete-0",
             "speaker": "fritz",
-            "german": "Otto kennt die Streckennummer. Geh zum Bahnhof.",
-            "english": "Otto knows the route number. Go to the station.",
+            "german": "Otto kennt die Nummer. Geh zum Bahnhof.",
+            "english": "Otto knows the number. Go to the station.",
             "clipId": "dialogue-a1-market-complete-0",
             "variants": [
               {
@@ -659,8 +671,8 @@
           {
             "id": "a1-market-report-0",
             "speaker": "fritz",
-            "german": "Der Inspektor schreibt die Nummer auf. Er kennt jetzt deinen Weg.",
-            "english": "The inspector writes down the number. He now knows your route.",
+            "german": "Gut. Voss liest die Nummer. Er hat noch eine Frage.",
+            "english": "Good. Voss reads the number. He has another question.",
             "clipId": "dialogue-a1-market-report-0"
           }
         ],
@@ -673,8 +685,8 @@
           {
             "id": "a1-market-protect-0",
             "speaker": "fritz",
-            "german": "Fritz zeigt dir sein Gästebuch. Hier fehlen keine Namen.",
-            "english": "Fritz shows you his guest book. No names are missing here.",
+            "german": "Ich schreibe ihren Namen auf. Frau Berg bekommt ihren Apfel.",
+            "english": "I will write down her name. Mrs Berg gets her apple.",
             "clipId": "dialogue-a1-market-protect-0"
           }
         ],
@@ -684,15 +696,16 @@
     "investigations": [
       {
         "objectId": "lindenhafen-market-crate",
-        "german": "Zwei Äpfel. Strecke 7. Eine Adresse ist leer.",
-        "english": "Two apples. Route 7. An address is blank."
+        "german": "Zwei Äpfel. Nummer 7. Eine Adresse fehlt.",
+        "english": "Two apples. Number 7. An address is missing."
       },
       {
         "objectId": "lindenhafen-garden",
-        "german": "Frau Berg: ein Apfel. Im Gästebuch steht ihr Name.",
-        "english": "Mrs Berg: one apple. Her name is in the guest book."
+        "german": "Frau Berg: ein Apfel. Im Buch steht ihr Name.",
+        "english": "Mrs Berg: one apple. Her name is in the book."
       }
-    ]
+    ],
+    "introducedWords": {}
   },
   {
     "questId": "a1-station",
@@ -731,23 +744,16 @@
           {
             "id": "a1-station-intro-0",
             "speaker": "otto",
-            "german": "Die Nummer passt zu diesem Bahnsteig.",
-            "english": "The number matches this platform.",
+            "german": "Die Nummer steht auch hier am Bahnsteig.",
+            "english": "The number is also here on the platform.",
             "clipId": "dialogue-a1-station-intro-0"
           },
           {
             "id": "a1-station-intro-1",
             "speaker": "otto",
-            "german": "Auf der Tafel steht: Nach W… Dann sind die Buchstaben weg.",
-            "english": "The board says: To W… Then the letters disappear.",
-            "clipId": "dialogue-a1-station-intro-1",
-            "variants": [
-              {
-                "german": "Hier steht: Nach W… Mehr steht hier nicht.",
-                "english": "It says: To W… It says nothing more here.",
-                "clipId": "dialogue-a1-station-intro-1-simple"
-              }
-            ]
+            "german": "Auf dem Schild steht: Nach W… Mehr steht hier nicht.",
+            "english": "The sign says: To W… It says nothing more.",
+            "clipId": "dialogue-a1-station-intro-1"
           },
           {
             "id": "a1-station-intro-2",
@@ -759,8 +765,8 @@
           {
             "id": "a1-station-intro-3",
             "speaker": "otto",
-            "german": "Hier ist eine Bank. Ein Fahrgast sitzt am Ende.",
-            "english": "Here is a bench. A passenger sits at the end.",
+            "german": "Hier ist eine Bank. Ein Mann sitzt am Ende.",
+            "english": "Here is a bench. A man sits at the end.",
             "clipId": "dialogue-a1-station-intro-3",
             "variants": [
               {
@@ -769,6 +775,32 @@
                 "clipId": "dialogue-a1-station-intro-3-simple"
               }
             ]
+          },
+          {
+            "id": "a1-station-key-in-hand",
+            "speaker": "otto",
+            "german": "Du hast den Schlüssel. Die Tür am Bahnhof ist noch zu.",
+            "english": "You have the key. The door at the station is still closed.",
+            "clipId": "dialogue-a1-station-key-in-hand",
+            "condition": {
+              "item": "lamplighter-key"
+            },
+            "glosses": {
+              "tür": "door"
+            }
+          },
+          {
+            "id": "a1-station-ledger-in-hand",
+            "speaker": "inspector",
+            "german": "Sie haben mein Buch. Ich komme mit zur Tür.",
+            "english": "You have my ledger. I will come to the door with you.",
+            "clipId": "dialogue-a1-station-ledger-in-hand",
+            "condition": {
+              "item": "inspector-ledger"
+            },
+            "glosses": {
+              "tür": "door"
+            }
           },
           {
             "id": "a1-station-intro-4",
@@ -817,10 +849,58 @@
         "choices": [
           {
             "id": "report",
-            "german": "Das Amt soll das Schild prüfen.",
-            "english": "The office should inspect the sign.",
+            "german": "Voss bekommt das Schild.",
+            "english": "Voss gets the sign.",
             "next": "after-report",
             "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              },
+              {
+                "flag": "station-sign-filed"
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Ich öffne die Tür mit Ottos Schlüssel.",
+            "english": "I will open the door with Otto’s key.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              },
+              {
+                "flag": "station-archive-opened"
+              },
+              {
+                "item": "station-register"
+              }
+            ],
+            "condition": {
+              "item": "lamplighter-key"
+            }
+          },
+          {
+            "id": "show-ledger",
+            "german": "Ich öffne die Tür mit Voss.",
+            "english": "I will open the door with Voss.",
+            "next": "after-protect",
+            "condition": {
+              "item": "inspector-ledger"
+            },
+            "effects": [
+              {
+                "flag": "station-archive-opened"
+              },
+              {
+                "flag": "archive-witnessed"
+              },
+              {
+                "item": "station-register"
+              },
               {
                 "faction": "brassOffice",
                 "amount": 1
@@ -828,14 +908,20 @@
             ]
           },
           {
-            "id": "protect",
-            "german": "Wir zeichnen das Schild.",
-            "english": "We will draw the sign.",
+            "id": "ask-otto",
+            "german": "Otto, hilf mir bitte mit der Tür.",
+            "english": "Otto, please help me with the door.",
             "next": "after-protect",
+            "condition": {
+              "missingItem": "lamplighter-key",
+              "withoutFlag": "platform-reported"
+            },
             "effects": [
               {
-                "faction": "lamplighters",
-                "amount": 1
+                "flag": "station-archive-opened"
+              },
+              {
+                "item": "station-register"
               }
             ]
           }
@@ -848,16 +934,12 @@
           {
             "id": "a1-station-complete-0",
             "speaker": "otto",
-            "german": "Emil hat eine Lampe für diese Strecke. Geh zu ihm.",
-            "english": "Emil has a lamp for this route. Go to him.",
+            "german": "Emil hat eine Lampe. Geh bitte zu ihm.",
+            "english": "Emil has a lamp. Please go to him.",
             "clipId": "dialogue-a1-station-complete-0",
-            "variants": [
-              {
-                "german": "Emil hat eine Lampe. Geh zu ihm.",
-                "english": "Emil has a lamp. Go to him.",
-                "clipId": "dialogue-a1-station-complete-0-simple"
-              }
-            ]
+            "glosses": {
+              "lampe": "lamp"
+            }
           }
         ],
         "terminal": true
@@ -869,8 +951,8 @@
           {
             "id": "a1-station-report-0",
             "speaker": "otto",
-            "german": "Der Inspektor nimmt das Schild. Otto zeichnet eine Kopie.",
-            "english": "The inspector takes the sign. Otto draws a copy.",
+            "german": "Voss hat jetzt das Schild. Ich schreibe das W auf.",
+            "english": "Voss has the sign now. I will write down the W.",
             "clipId": "dialogue-a1-station-report-0"
           }
         ],
@@ -883,9 +965,12 @@
           {
             "id": "a1-station-protect-0",
             "speaker": "otto",
-            "german": "Otto zeichnet das W. Der Fahrgast nickt.",
-            "english": "Otto draws the W. The passenger nods.",
-            "clipId": "dialogue-a1-station-protect-0"
+            "german": "Die Tür ist auf. Hier steht die Nummer sieben.",
+            "english": "The door is open. The number seven is here.",
+            "clipId": "dialogue-a1-station-protect-0",
+            "glosses": {
+              "tür": "door"
+            }
           }
         ],
         "next": "complete"
@@ -897,7 +982,11 @@
         "german": "Bahnsteig sieben: Nach W… Bitte hier warten.",
         "english": "Platform seven: To W… Please wait here."
       }
-    ]
+    ],
+    "introducedWords": {
+      "Tür": "door",
+      "Lampe": "lamp"
+    }
   },
   {
     "questId": "a1-workshop",
@@ -938,49 +1027,57 @@
             "speaker": "emil",
             "german": "Meine Lampe läuft weg. Sie sucht eine Adresse.",
             "english": "My lamp keeps walking away. It is looking for an address.",
-            "clipId": "dialogue-a1-workshop-intro-0"
+            "clipId": "dialogue-a1-workshop-intro-0",
+            "glosses": {
+              "lampe": "lamp"
+            }
           },
           {
             "id": "a1-workshop-intro-1",
             "speaker": "emil",
-            "german": "Sie ist alt. Elise hat sie gebaut.",
-            "english": "It is old. Elise built it.",
+            "german": "Sie ist alt. Sie kommt von Elise.",
+            "english": "It is old. It comes from Elise.",
             "clipId": "dialogue-a1-workshop-intro-1"
           },
           {
             "id": "a1-workshop-intro-2",
             "speaker": "emil",
-            "german": "Deine Fahrkarte hat dasselbe Zeichen.",
-            "english": "Your ticket has the same mark.",
-            "clipId": "dialogue-a1-workshop-intro-2",
-            "variants": [
-              {
-                "german": "Das Zeichen steht auch auf deiner Fahrkarte.",
-                "english": "The mark is on your ticket too.",
-                "clipId": "dialogue-a1-workshop-intro-2-simple"
-              }
-            ]
+            "german": "Auf deiner Fahrkarte steht auch die Nummer sieben.",
+            "english": "The number seven is on your ticket too.",
+            "clipId": "dialogue-a1-workshop-intro-2"
           },
           {
             "id": "a1-workshop-intro-3",
             "speaker": "emil",
-            "german": "Elise hat dich gewählt. Die Lampe kennt deinen Namen.",
-            "english": "Elise chose you. The lamp knows your name.",
+            "german": "Elise braucht dich. Die Lampe kennt deinen Namen.",
+            "english": "Elise needs you. The lamp knows your name.",
             "clipId": "dialogue-a1-workshop-intro-3",
-            "variants": [
-              {
-                "german": "Elise braucht dich. Die Lampe kennt deinen Namen.",
-                "english": "Elise needs you. The lamp knows your name.",
-                "clipId": "dialogue-a1-workshop-intro-3-simple"
-              }
-            ]
+            "glosses": {
+              "lampe": "lamp"
+            }
+          },
+          {
+            "id": "a1-workshop-archive-register",
+            "speaker": "emil",
+            "german": "In dem Buch steht Elise. Die Lampe kommt von ihr.",
+            "english": "Elise is in the register. The lamp comes from her.",
+            "clipId": "dialogue-a1-workshop-archive-register",
+            "condition": {
+              "item": "station-register"
+            },
+            "glosses": {
+              "lampe": "lamp"
+            }
           },
           {
             "id": "a1-workshop-intro-4",
             "speaker": "emil",
             "german": "Brauchst du eine Lampe? Sag es mir.",
             "english": "Do you need a lamp? Tell me.",
-            "clipId": "dialogue-a1-workshop-intro-4"
+            "clipId": "dialogue-a1-workshop-intro-4",
+            "glosses": {
+              "lampe": "lamp"
+            }
           }
         ],
         "next": "gate"
@@ -994,7 +1091,10 @@
             "speaker": "emil",
             "german": "Brauchst du eine Lampe? Sag es mir.",
             "english": "Do you need a lamp? Tell me.",
-            "clipId": "dialogue-a1-workshop-gate-request"
+            "clipId": "dialogue-a1-workshop-gate-request",
+            "glosses": {
+              "lampe": "lamp"
+            }
           }
         ],
         "gateExerciseId": "a1-workshop-exercise-2",
@@ -1007,16 +1107,12 @@
           {
             "id": "a1-workshop-gate-0",
             "speaker": "emil",
-            "german": "Hier ist die Lampe. Sie leuchtet neben verlorenen Adressen.",
-            "english": "Here is the lamp. It shines beside lost addresses.",
+            "german": "Hier ist die Lampe. Sie sucht alte Adressen.",
+            "english": "Here is the lamp. It looks for old addresses.",
             "clipId": "dialogue-a1-workshop-gate-0",
-            "variants": [
-              {
-                "german": "Hier ist die Lampe. Bei alten Adressen ist sie hell.",
-                "english": "Here is the lamp. It is bright near old addresses.",
-                "clipId": "dialogue-a1-workshop-gate-0-simple"
-              }
-            ]
+            "glosses": {
+              "lampe": "lamp"
+            }
           },
           {
             "id": "a1-workshop-choice-0",
@@ -1029,25 +1125,37 @@
         "choices": [
           {
             "id": "report",
-            "german": "Ich registriere die Lampe.",
-            "english": "I will register the lamp.",
+            "german": "Voss darf die Lampe sehen.",
+            "english": "Voss may see the lamp.",
             "next": "after-report",
             "effects": [
               {
                 "faction": "brassOffice",
                 "amount": 1
+              },
+              {
+                "flag": "lamp-registered"
+              },
+              {
+                "item": "registered-lamp"
               }
             ]
           },
           {
             "id": "protect",
-            "german": "Die Lampe bleibt bei uns.",
-            "english": "The lamp stays with us.",
+            "german": "Ich nehme die Lampe mit.",
+            "english": "I will take the lamp with me.",
             "next": "after-protect",
             "effects": [
               {
                 "faction": "lamplighters",
                 "amount": 1
+              },
+              {
+                "flag": "lamp-carried"
+              },
+              {
+                "item": "signal-lamp"
               }
             ]
           }
@@ -1062,7 +1170,11 @@
             "speaker": "emil",
             "german": "Lina hat ein Paket. Die Lampe möchte zu ihr.",
             "english": "Lina has a parcel. The lamp wants to go to her.",
-            "clipId": "dialogue-a1-workshop-complete-0"
+            "clipId": "dialogue-a1-workshop-complete-0",
+            "glosses": {
+              "lampe": "lamp",
+              "paket": "parcel"
+            }
           }
         ],
         "terminal": true
@@ -1074,9 +1186,12 @@
           {
             "id": "a1-workshop-report-0",
             "speaker": "emil",
-            "german": "Emil schreibt die Nummer für das Amt auf.",
-            "english": "Emil writes down the number for the office.",
-            "clipId": "dialogue-a1-workshop-report-0"
+            "german": "Hier ist die Nummer. Voss kann die Lampe auch sehen.",
+            "english": "Here is the number. Voss can see the lamp too.",
+            "clipId": "dialogue-a1-workshop-report-0",
+            "glosses": {
+              "lampe": "lamp"
+            }
           }
         ],
         "next": "complete"
@@ -1088,16 +1203,12 @@
           {
             "id": "a1-workshop-protect-0",
             "speaker": "emil",
-            "german": "Emil lässt das Siegel offen. Du kannst die Lampe selbst benutzen.",
-            "english": "Emil leaves the seal open. You can use the lamp yourself.",
+            "german": "Nimm die Lampe mit. Lina wartet auf dich.",
+            "english": "Take the lamp with you. Lina is waiting for you.",
             "clipId": "dialogue-a1-workshop-protect-0",
-            "variants": [
-              {
-                "german": "Die Lampe ist offen. Du kannst sie benutzen.",
-                "english": "The lamp is open. You can use it.",
-                "clipId": "dialogue-a1-workshop-protect-0-simple"
-              }
-            ]
+            "glosses": {
+              "lampe": "lamp"
+            }
           }
         ],
         "next": "complete"
@@ -1106,10 +1217,13 @@
     "investigations": [
       {
         "objectId": "lindenhafen-workbench",
-        "german": "Lampe: meistens gut. Sie sucht alte Adressen.",
-        "english": "Lamp: mostly working. It seeks old addresses."
+        "german": "Lampe: oft gut. Sie sucht alte Adressen.",
+        "english": "Lamp: often working. It seeks old addresses."
       }
-    ]
+    ],
+    "introducedWords": {
+      "Paket": "parcel"
+    }
   },
   {
     "questId": "a1-lost-parcel",
@@ -1150,28 +1264,60 @@
             "speaker": "lina",
             "german": "Das Paket ist für dich, {name}.",
             "english": "The parcel is for you, {name}.",
-            "clipId": "dialogue-a1-lost-parcel-intro-0"
+            "clipId": "dialogue-a1-lost-parcel-intro-0",
+            "glosses": {
+              "paket": "parcel"
+            }
           },
           {
             "id": "a1-lost-parcel-intro-1",
             "speaker": "lina",
-            "german": "Hier ist der Brief von Elise. Die Seite ist im Paket.",
-            "english": "Here is Elise’s letter. The page is in the parcel.",
-            "clipId": "dialogue-a1-lost-parcel-intro-1"
+            "german": "Hier ist der Brief von Elise. Er ist im Paket.",
+            "english": "Here is Elise’s letter. It is in the parcel.",
+            "clipId": "dialogue-a1-lost-parcel-intro-1",
+            "glosses": {
+              "paket": "parcel"
+            }
           },
           {
             "id": "a1-lost-parcel-intro-2",
             "speaker": "lina",
-            "german": "Die Lampe leuchtet. Jetzt kann ich die Adresse lesen.",
-            "english": "The lamp shines. Now I can read the address.",
-            "clipId": "dialogue-a1-lost-parcel-intro-2"
+            "german": "Die Lampe ist hell. Jetzt kann ich die Adresse lesen.",
+            "english": "The lamp is bright. Now I can read the address.",
+            "clipId": "dialogue-a1-lost-parcel-intro-2",
+            "glosses": {
+              "lampe": "lamp"
+            }
           },
           {
             "id": "a1-lost-parcel-intro-3",
             "speaker": "lina",
-            "german": "Auf der Seite steht: Waldruh. Die Stadt ist noch da.",
-            "english": "The page says: Waldruh. The town is still there.",
+            "german": "Im Brief steht: Waldruh. Die Stadt ist noch da.",
+            "english": "The letter says: Waldruh. The town is still there.",
             "clipId": "dialogue-a1-lost-parcel-intro-3"
+          },
+          {
+            "id": "a1-lost-parcel-safe-address",
+            "speaker": "lina",
+            "german": "Frau Berg hat wieder eine Adresse. Sie sagt: Danke!",
+            "english": "Mrs Berg has an address again. She says: Thank you!",
+            "clipId": "dialogue-a1-lost-parcel-safe-address",
+            "condition": {
+              "flag": "berg-remembered"
+            }
+          },
+          {
+            "id": "a1-lost-parcel-registered-lamp",
+            "speaker": "inspector",
+            "german": "Die Lampe steht in meinem Buch. Ich kenne jetzt die Adresse.",
+            "english": "The lamp is in my ledger. I know the address now.",
+            "clipId": "dialogue-a1-lost-parcel-registered-lamp",
+            "condition": {
+              "flag": "lamp-registered"
+            },
+            "glosses": {
+              "lampe": "lamp"
+            }
           },
           {
             "id": "a1-lost-parcel-intro-4",
@@ -1234,24 +1380,34 @@
         "choices": [
           {
             "id": "report",
-            "german": "Das Amt bekommt eine Kopie.",
-            "english": "The office gets a copy.",
+            "german": "Voss bekommt die Adresse.",
+            "english": "Voss gets the address.",
             "next": "after-report",
             "effects": [
               {
                 "faction": "brassOffice",
                 "amount": 1
+              },
+              {
+                "flag": "waldruh-address-public"
               }
             ]
           },
           {
             "id": "protect",
-            "german": "Der Brief bleibt bei uns.",
-            "english": "The letter stays with us.",
+            "german": "Der Brief bleibt bei mir.",
+            "english": "The letter stays with me.",
             "next": "after-protect",
             "effects": [
               {
                 "faction": "lamplighters",
+                "amount": 1
+              },
+              {
+                "flag": "elise-letter-private"
+              },
+              {
+                "faction": "unwritten",
                 "amount": 1
               }
             ]
@@ -1265,8 +1421,8 @@
           {
             "id": "a1-lost-parcel-complete-0",
             "speaker": "lina",
-            "german": "Der Brief sagt: Bevor du uns wieder auslöschst, komm. Fahr nach Waldruh.",
-            "english": "The letter says: Before you erase us again, come. Travel to Waldruh.",
+            "german": "Elise schreibt: Komm bitte! Fahr nach Waldruh.",
+            "english": "Elise writes: Please come! Travel to Waldruh.",
             "clipId": "dialogue-a1-lost-parcel-complete-0"
           }
         ],
@@ -1279,16 +1435,9 @@
           {
             "id": "a1-lost-parcel-report-0",
             "speaker": "lina",
-            "german": "Lina schickt die Kopie. Die Glocke läutet ein zweites Mal.",
-            "english": "Lina sends the copy. The bell rings for a second time.",
-            "clipId": "dialogue-a1-lost-parcel-report-0",
-            "variants": [
-              {
-                "german": "Lina schickt eine Kopie. Die Glocke klingt noch einmal.",
-                "english": "Lina sends a copy. The bell sounds once more.",
-                "clipId": "dialogue-a1-lost-parcel-report-0-simple"
-              }
-            ]
+            "german": "Ich schicke Voss die Adresse. Du kannst jetzt nach Waldruh fahren.",
+            "english": "I will send Voss the address. You can travel to Waldruh now.",
+            "clipId": "dialogue-a1-lost-parcel-report-0"
           }
         ],
         "next": "complete"
@@ -1300,8 +1449,8 @@
           {
             "id": "a1-lost-parcel-protect-0",
             "speaker": "lina",
-            "german": "Lina packt den Brief ein. Otto öffnet die Strecke.",
-            "english": "Lina packs the letter away. Otto opens the route.",
+            "german": "Nimm den Brief mit. Otto wartet am Zug.",
+            "english": "Take the letter with you. Otto is waiting by the train.",
             "clipId": "dialogue-a1-lost-parcel-protect-0"
           }
         ],
@@ -1314,7 +1463,8 @@
         "german": "Für {name}. Von Elise. Waldruh. Bitte komm.",
         "english": "For {name}. From Elise. Waldruh. Please come."
       }
-    ]
+    ],
+    "introducedWords": {}
   },
   {
     "questId": "a2-apartment",
@@ -1362,7 +1512,14 @@
             "speaker": "marta",
             "german": "Der Mietvertrag verbindet die Adressen, auch wenn die Akten sie vergessen.",
             "english": "The lease connects the addresses even when the records forget them.",
-            "clipId": "dialogue-a2-apartment-intro-1"
+            "clipId": "dialogue-a2-apartment-intro-1",
+            "variants": [
+              {
+                "german": "Hier stehen beide Adressen. Beide Städte gehören zusammen.",
+                "english": "Both addresses are here. The two towns belong together.",
+                "clipId": "dialogue-a2-apartment-intro-1-simple"
+              }
+            ]
           },
           {
             "id": "a2-apartment-intro-2",
@@ -1376,7 +1533,14 @@
             "speaker": "marta",
             "german": "Elise hat dich als ihre Nachfolge eingetragen. Das Amt verwechselt Name und Person.",
             "english": "Elise named you as her successor. The office confuses a name with a person.",
-            "clipId": "dialogue-a2-apartment-intro-3"
+            "clipId": "dialogue-a2-apartment-intro-3",
+            "variants": [
+              {
+                "german": "Elise möchte, dass du ihre Arbeit machst. Darum steht dein Name hier.",
+                "english": "Elise wants you to do her work. That is why your name is here.",
+                "clipId": "dialogue-a2-apartment-intro-3-simple"
+              }
+            ]
           },
           {
             "id": "a2-apartment-intro-4",
@@ -1390,7 +1554,10 @@
             "speaker": "marta",
             "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
             "english": "The door is stuck between the towns. Ask me politely for a repair.",
-            "clipId": "dialogue-a2-apartment-intro-5"
+            "clipId": "dialogue-a2-apartment-intro-5",
+            "glosses": {
+              "tür": "door"
+            }
           }
         ],
         "next": "gate"
@@ -1404,7 +1571,10 @@
             "speaker": "marta",
             "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
             "english": "The door is stuck between the towns. Ask me politely for a repair.",
-            "clipId": "dialogue-a2-apartment-gate-request"
+            "clipId": "dialogue-a2-apartment-gate-request",
+            "glosses": {
+              "tür": "door"
+            }
           }
         ],
         "gateExerciseId": "a2-apartment-exercise-6",
@@ -1419,7 +1589,10 @@
             "speaker": "marta",
             "german": "Gern. Die Tür ist wieder sicher. Der Vertrag bleibt als Beweis bei dir.",
             "english": "Gladly. The door is safe again. Keep the lease as evidence.",
-            "clipId": "dialogue-a2-apartment-gate-0"
+            "clipId": "dialogue-a2-apartment-gate-0",
+            "glosses": {
+              "tür": "door"
+            }
           },
           {
             "id": "a2-apartment-choice-0",
@@ -1477,9 +1650,12 @@
           {
             "id": "a2-apartment-restore-0",
             "speaker": "marta",
-            "german": "Marta stellt eine Laterne ins Fenster. Die Nachbarn sehen das Signal.",
-            "english": "Marta puts a lantern in the window. The neighbours see the signal.",
-            "clipId": "dialogue-a2-apartment-restore-0"
+            "german": "Ich stelle eine Laterne ins Fenster. Die Nachbarn sehen das Signal.",
+            "english": "I will put a lantern in the window. The neighbours will see the signal.",
+            "clipId": "dialogue-a2-apartment-restore-0",
+            "glosses": {
+              "laterne": "lantern"
+            }
           }
         ],
         "next": "complete"
@@ -1491,8 +1667,8 @@
           {
             "id": "a2-apartment-consult-0",
             "speaker": "marta",
-            "german": "Marta lädt die Nachbarn ein. Niemand entscheidet allein über ihre Zimmer.",
-            "english": "Marta invites the neighbours. Nobody decides about their rooms alone.",
+            "german": "Ich lade die Nachbarn ein. Niemand entscheidet allein über ihre Zimmer.",
+            "english": "I will invite the neighbours. Nobody decides about their rooms alone.",
             "clipId": "dialogue-a2-apartment-consult-0"
           }
         ],
@@ -1553,7 +1729,14 @@
             "speaker": "fritz",
             "german": "Greta und Lina vertreten die Bewohner. Sie wurden nie gefragt, ob die Strecke schließen soll.",
             "english": "Greta and Lina represent the residents. They were never asked whether the route should close.",
-            "clipId": "dialogue-a2-evening-plans-intro-1"
+            "clipId": "dialogue-a2-evening-plans-intro-1",
+            "variants": [
+              {
+                "german": "Greta und Lina sprechen für die Menschen hier. Niemand hat sie gefragt: Darf der Zug noch fahren?",
+                "english": "Greta and Lina speak for the people here. Nobody asked them: May the train still run?",
+                "clipId": "dialogue-a2-evening-plans-intro-1-simple"
+              }
+            ]
           },
           {
             "id": "a2-evening-plans-intro-2",
@@ -1565,8 +1748,8 @@
           {
             "id": "a2-evening-plans-intro-3",
             "speaker": "lina",
-            "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
-            "english": "Ask Fritz whether he has time tomorrow. Then we can plan together.",
+            "german": "Frag mich, ob ich morgen Zeit habe. Dann können wir gemeinsam planen.",
+            "english": "Ask me whether I have time tomorrow. Then we can plan together.",
             "clipId": "dialogue-a2-evening-plans-intro-3"
           }
         ],
@@ -1579,8 +1762,8 @@
           {
             "id": "a2-evening-plans-gate-request",
             "speaker": "lina",
-            "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
-            "english": "Ask Fritz whether he has time tomorrow. Then we can plan together.",
+            "german": "Frag mich, ob ich morgen Zeit habe. Dann können wir gemeinsam planen.",
+            "english": "Ask me whether I have time tomorrow. Then we can plan together.",
             "clipId": "dialogue-a2-evening-plans-gate-request"
           }
         ],
@@ -1737,7 +1920,14 @@
             "speaker": "otto",
             "german": "Elises Schlüssel fehlt im Register. Er wurde in der verlorenen Stunde benutzt.",
             "english": "Elise’s key is missing from the register. It was used during the lost hour.",
-            "clipId": "dialogue-a2-rail-trip-intro-2"
+            "clipId": "dialogue-a2-rail-trip-intro-2",
+            "variants": [
+              {
+                "german": "Elises Schlüssel fehlt hier im Buch. Jemand hat ihn in der Stunde benutzt. Die Stunde fehlt.",
+                "english": "Elise’s key is missing from this book. Someone used it during that hour. The hour is missing.",
+                "clipId": "dialogue-a2-rail-trip-intro-2-simple"
+              }
+            ]
           },
           {
             "id": "a2-rail-trip-intro-3",
@@ -1838,8 +2028,8 @@
           {
             "id": "a2-rail-trip-restore-0",
             "speaker": "otto",
-            "german": "Otto schaltet die erste Verbindung frei. Das Amt verlangt eine neue Prüfung.",
-            "english": "Otto releases the first connection. The office demands another inspection.",
+            "german": "Ich schalte die erste Verbindung frei. Das Amt verlangt eine neue Prüfung.",
+            "english": "I will release the first connection. The office demands another inspection.",
             "clipId": "dialogue-a2-rail-trip-restore-0"
           }
         ],
@@ -1852,8 +2042,8 @@
           {
             "id": "a2-rail-trip-consult-0",
             "speaker": "otto",
-            "german": "Otto und Lina kopieren die fehlende Stunde. Die Zeugen behalten ihre Beweise.",
-            "english": "Otto and Lina copy the lost hour. The witnesses keep their evidence.",
+            "german": "Lina und ich kopieren die fehlende Stunde. Die Zeugen behalten ihre Beweise.",
+            "english": "Lina and I will copy the lost hour. The witnesses keep their evidence.",
             "clipId": "dialogue-a2-rail-trip-consult-0"
           }
         ],
@@ -1914,7 +2104,14 @@
             "speaker": "emil",
             "german": "Nach jeder Wiederholung fehlt ein Name. Das ist keine gewöhnliche Reparatur.",
             "english": "After every repeat, a name goes missing. This is not an ordinary repair.",
-            "clipId": "dialogue-a2-broken-clock-intro-1"
+            "clipId": "dialogue-a2-broken-clock-intro-1",
+            "variants": [
+              {
+                "german": "Die Stunde kommt wieder. Dann fehlt ein Name. Ich muss mehr als die Uhr reparieren.",
+                "english": "The hour returns. Then a name goes missing. I must repair more than the clock.",
+                "clipId": "dialogue-a2-broken-clock-intro-1-simple"
+              }
+            ]
           },
           {
             "id": "a2-broken-clock-intro-2",
@@ -2022,8 +2219,8 @@
           {
             "id": "a2-broken-clock-restore-0",
             "speaker": "emil",
-            "german": "Emil stellt die Uhr ab. Eine weitere Adresse kehrt zurück.",
-            "english": "Emil stops the clock. Another address returns.",
+            "german": "Ich stelle die Uhr ab. Eine weitere Adresse kehrt zurück.",
+            "english": "I will stop the clock. Another address returns.",
             "clipId": "dialogue-a2-broken-clock-restore-0"
           }
         ],
@@ -2036,8 +2233,8 @@
           {
             "id": "a2-broken-clock-consult-0",
             "speaker": "emil",
-            "german": "Emil sichert die Anleitung. Greta sucht einen unabhängigen Zeugen.",
-            "english": "Emil secures the manual. Greta looks for an independent witness.",
+            "german": "Ich sichere die Anleitung. Greta sucht einen unabhängigen Zeugen.",
+            "english": "I will keep the manual safe. Greta is looking for an independent witness.",
             "clipId": "dialogue-a2-broken-clock-consult-0"
           }
         ],
@@ -2103,7 +2300,14 @@
             "speaker": "greta",
             "german": "Wir prüfen Erinnerungen behutsam. Ein Mensch ist kein fehlerhafter Fahrplan.",
             "english": "We check memories with care. A person is not a faulty timetable.",
-            "clipId": "dialogue-a2-clinic-intro-1"
+            "clipId": "dialogue-a2-clinic-intro-1",
+            "variants": [
+              {
+                "german": "Wir hören gut zu. Menschen können sich erinnern. Ein Fahrplan kann das nicht.",
+                "english": "We listen carefully. People can remember. A timetable cannot do that.",
+                "clipId": "dialogue-a2-clinic-intro-1-simple"
+              }
+            ]
           },
           {
             "id": "a2-clinic-intro-2",
@@ -2204,8 +2408,8 @@
           {
             "id": "a2-clinic-restore-0",
             "speaker": "greta",
-            "german": "Greta gibt dir Kopien. Die Gärten leuchten wieder entlang der Strecke.",
-            "english": "Greta gives you copies. The gardens shine along the route again.",
+            "german": "Ich gebe dir Kopien. Die Gärten leuchten wieder entlang der Strecke.",
+            "english": "I give you copies. The gardens shine along the route again.",
             "clipId": "dialogue-a2-clinic-restore-0"
           }
         ],
@@ -2218,8 +2422,8 @@
           {
             "id": "a2-clinic-consult-0",
             "speaker": "greta",
-            "german": "Greta bewahrt die Samentüten auf. Der Kreis bestimmt, wer sie lesen darf.",
-            "english": "Greta keeps the seed packets safe. The Circle decides who may read them.",
+            "german": "Ich bewahre die Samentüten auf. Der Kreis bestimmt, wer sie lesen darf.",
+            "english": "I will keep the seed packets safe. The Circle decides who may read them.",
             "clipId": "dialogue-a2-clinic-consult-0"
           }
         ],
@@ -2287,7 +2491,14 @@
             "speaker": "ada",
             "german": "Das Messingamt hat aus vorübergehend ein endgültiges Verbot gemacht.",
             "english": "The Brass Office turned temporary into a permanent ban.",
-            "clipId": "dialogue-a2-archive-intro-2"
+            "clipId": "dialogue-a2-archive-intro-2",
+            "variants": [
+              {
+                "german": "Das Messingamt sagt: Der Zug darf nie mehr fahren. Elise wollte das nur für kurze Zeit.",
+                "english": "The Brass Office says: The train may never run again. Elise only wanted that for a short time.",
+                "clipId": "dialogue-a2-archive-intro-2-simple"
+              }
+            ]
           },
           {
             "id": "a2-archive-intro-3",
@@ -2383,7 +2594,10 @@
             "speaker": "ada",
             "german": "Der Hafenrat wartet. Finde Elise in Nebelstadt, bevor die siebte Glocke läutet.",
             "english": "The harbour council is waiting. Find Elise in Nebelstadt before the seventh bell rings.",
-            "clipId": "dialogue-a2-archive-complete-0"
+            "clipId": "dialogue-a2-archive-complete-0",
+            "glosses": {
+              "glocke": "bell"
+            }
           }
         ],
         "terminal": true
@@ -2395,8 +2609,8 @@
           {
             "id": "a2-archive-restore-0",
             "speaker": "ada",
-            "german": "Ada hilft Otto, den Schlüssel zu prüfen. Die nächste Strecke wird sichtbar.",
-            "english": "Ada helps Otto verify the key. The next route becomes visible.",
+            "german": "Ich helfe Otto, den Schlüssel zu prüfen. Die nächste Strecke wird sichtbar.",
+            "english": "I will help Otto verify the key. The next route becomes visible.",
             "clipId": "dialogue-a2-archive-restore-0"
           }
         ],
@@ -2409,8 +2623,8 @@
           {
             "id": "a2-archive-consult-0",
             "speaker": "ada",
-            "german": "Ada lädt den Kreis und die Laternenhüter zum Hafenrat ein. Alle dürfen sprechen.",
-            "english": "Ada invites the Circle and the Lamplighters to the harbour council. Everyone may speak.",
+            "german": "Ich lade den Kreis und die Laternenhüter zum Hafenrat ein. Alle dürfen sprechen.",
+            "english": "I will invite the Circle and the Lamplighters to the harbour council. Everyone may speak.",
             "clipId": "dialogue-a2-archive-consult-0"
           }
         ],
@@ -2485,7 +2699,14 @@
             "speaker": "lina",
             "german": "Wir trennen Beobachtung, Erinnerung und Vermutung. Erst dann vergleichen wir die Berichte.",
             "english": "We separate observation, memory and speculation. Only then do we compare the reports.",
-            "clipId": "dialogue-b1-witness-intro-3"
+            "clipId": "dialogue-b1-witness-intro-3",
+            "variants": [
+              {
+                "german": "Wir fragen: Was hast du gesehen? Was weißt du noch? Was glaubst du nur? Dann vergleichen wir die Antworten.",
+                "english": "We ask: What did you see? What do you still know? What do you only believe? Then we compare the answers.",
+                "clipId": "dialogue-b1-witness-intro-3-simple"
+              }
+            ]
           },
           {
             "id": "b1-witness-intro-4",
@@ -2593,8 +2814,8 @@
           {
             "id": "b1-witness-remember-0",
             "speaker": "lina",
-            "german": "Lina bewahrt die Aussage auf. Die Zeugin darf ihre Worte vor der Veröffentlichung prüfen.",
-            "english": "Lina stores the statement. The witness may check her words before publication.",
+            "german": "Ich bewahre die Aussage auf. Die Zeugin darf ihre Worte vor der Veröffentlichung prüfen.",
+            "english": "I will keep the statement safe. The witness may check her words before publication.",
             "clipId": "dialogue-b1-witness-remember-0"
           }
         ],
@@ -2667,7 +2888,14 @@
             "speaker": "otto",
             "german": "Auf der längeren Strecke kann eine Haltestelle an der Klinik entstehen. Das dauert länger, hilft aber mehr Menschen.",
             "english": "The longer route can have a stop at the clinic. It takes longer but helps more people.",
-            "clipId": "dialogue-b1-new-route-intro-2"
+            "clipId": "dialogue-b1-new-route-intro-2",
+            "variants": [
+              {
+                "german": "Der längere Weg hat Platz für eine Haltestelle bei der Klinik. Das braucht mehr Zeit. Es hilft mehr Menschen.",
+                "english": "The longer route has room for a stop by the clinic. It takes more time. It helps more people.",
+                "clipId": "dialogue-b1-new-route-intro-2-simple"
+              }
+            ]
           },
           {
             "id": "b1-new-route-intro-3",
@@ -2761,8 +2989,8 @@
           {
             "id": "b1-new-route-reopen-0",
             "speaker": "otto",
-            "german": "Otto markiert die Abkürzung. Greta fordert eine überprüfbare Zusage für den Garten.",
-            "english": "Otto marks the shortcut. Greta demands a verifiable promise for the garden.",
+            "german": "Ich markiere die Abkürzung. Greta fordert eine überprüfbare Zusage für den Garten.",
+            "english": "I will mark the shortcut. Greta demands a verifiable promise for the garden.",
             "clipId": "dialogue-b1-new-route-reopen-0"
           }
         ],
@@ -2775,8 +3003,8 @@
           {
             "id": "b1-new-route-remember-0",
             "speaker": "otto",
-            "german": "Otto zeichnet die längere Kurve und die Klinikhaltestelle. Der Kreis unterstützt den Plan.",
-            "english": "Otto draws the longer curve and clinic stop. The Circle supports the plan.",
+            "german": "Ich zeichne die längere Kurve und die Klinikhaltestelle. Der Kreis unterstützt den Plan.",
+            "english": "I draw the longer curve and clinic stop. The Circle supports the plan.",
             "clipId": "dialogue-b1-new-route-remember-0"
           }
         ],
@@ -2851,7 +3079,14 @@
             "speaker": "emil",
             "german": "Du brauchst einen sicheren Arbeitsplan, bevor du das Signal umbaust. Niemand muss sich dafür verletzen.",
             "english": "You need a safe work plan before rebuilding the signal. Nobody needs to be injured for this.",
-            "clipId": "dialogue-b1-work-intro-3"
+            "clipId": "dialogue-b1-work-intro-3",
+            "variants": [
+              {
+                "german": "Mach zuerst einen sicheren Plan für die Arbeit am Signal. Alle müssen dabei gesund bleiben.",
+                "english": "First make a safe plan for work on the signal. Everyone must stay healthy while doing it.",
+                "clipId": "dialogue-b1-work-intro-3-simple"
+              }
+            ]
           },
           {
             "id": "b1-work-intro-4",
@@ -2945,8 +3180,8 @@
           {
             "id": "b1-work-reopen-0",
             "speaker": "emil",
-            "german": "Emil und Otto bereiten die sichere Reparatur vor. Der Inspektor bleibt als Zeuge dabei.",
-            "english": "Emil and Otto prepare the safe repair. The inspector stays as a witness.",
+            "german": "Otto und ich bereiten die sichere Reparatur vor. Der Inspektor bleibt als Zeuge dabei.",
+            "english": "Otto and I will prepare the safe repair. The inspector stays as a witness.",
             "clipId": "dialogue-b1-work-reopen-0"
           }
         ],
@@ -2959,8 +3194,8 @@
           {
             "id": "b1-work-remember-0",
             "speaker": "emil",
-            "german": "Emil legt dem Kreis den Arbeitsplan vor. Greta organisiert Hilfe und einen sicheren Rückweg.",
-            "english": "Emil presents the work plan to the Circle. Greta organises help and a safe way back.",
+            "german": "Ich lege dem Kreis den Arbeitsplan vor. Greta organisiert Hilfe und einen sicheren Rückweg.",
+            "english": "I will present the work plan to the Circle. Greta organises help and a safe way back.",
             "clipId": "dialogue-b1-work-remember-0"
           }
         ],
@@ -3042,7 +3277,24 @@
             "speaker": "ada",
             "german": "Ich vertrete die Akten mit dem Inspektor. Akten müssen die Wirklichkeit prüfen, nicht ersetzen.",
             "english": "I represent the records with the inspector. Records must check reality, not replace it.",
-            "clipId": "dialogue-b1-council-intro-4"
+            "clipId": "dialogue-b1-council-intro-4",
+            "variants": [
+              {
+                "german": "Ich prüfe die Bücher mit Voss. Wir müssen sehen: Ist das alles richtig?",
+                "english": "I check the books with Voss. We must see: Is all of this correct?",
+                "clipId": "dialogue-b1-council-intro-4-simple"
+              }
+            ]
+          },
+          {
+            "id": "b1-council-ledger-testimony",
+            "speaker": "inspector",
+            "german": "Sie haben mein Buch aufgehoben. Hier steht meine Unterschrift unter der Schließung. Ich kann sie nicht leugnen.",
+            "english": "You kept my ledger. My signature authorising the closure is here. I cannot deny it.",
+            "clipId": "dialogue-b1-council-ledger-testimony",
+            "condition": {
+              "item": "inspector-ledger"
+            }
           },
           {
             "id": "b1-council-intro-5",
@@ -3112,6 +3364,28 @@
                 "amount": 1
               }
             ]
+          },
+          {
+            "id": "publish-ledger",
+            "german": "Wir veröffentlichen das Buch des Inspektors und prüfen jede Entscheidung.",
+            "english": "We will publish the inspector’s ledger and review every decision.",
+            "next": "after-publish-ledger",
+            "condition": {
+              "item": "inspector-ledger"
+            },
+            "effects": [
+              {
+                "flag": "ledger-published"
+              },
+              {
+                "faction": "brassOffice",
+                "amount": 2
+              },
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
           }
         ]
       },
@@ -3153,6 +3427,20 @@
             "german": "Der Rat gibt dem Kreis ein Recht auf Prüfung. Kein stiller Beschluss kann es zurücknehmen.",
             "english": "The council gives the Circle a right of review. No silent order can take it away.",
             "clipId": "dialogue-b1-council-remember-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-publish-ledger",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-council-public-ledger",
+            "speaker": "ada",
+            "german": "Ich lege das Buch im Rat aus. Voss muss jede neue Entscheidung öffentlich erklären.",
+            "english": "I will put the ledger before the council. Voss must explain every new decision publicly.",
+            "clipId": "dialogue-b1-council-public-ledger"
           }
         ],
         "next": "complete"
@@ -3320,6 +3608,9 @@
               {
                 "faction": "lamplighters",
                 "amount": 1
+              },
+              {
+                "flag": "signal-secured"
               }
             ]
           },
@@ -3332,6 +3623,9 @@
               {
                 "faction": "unwritten",
                 "amount": 1
+              },
+              {
+                "flag": "families-sheltered"
               }
             ]
           }
@@ -3358,8 +3652,8 @@
           {
             "id": "b1-storm-reopen-0",
             "speaker": "greta",
-            "german": "Otto und Emil schützen die Strecke. Greta übernimmt mit Lina die Menschen im Garten.",
-            "english": "Otto and Emil protect the route. Greta and Lina take care of the people in the garden.",
+            "german": "Otto und Emil schützen die Strecke. Lina und ich helfen den Menschen im Garten.",
+            "english": "Otto and Emil protect the route. Lina and I will help the people in the garden.",
             "clipId": "dialogue-b1-storm-reopen-0"
           }
         ],
@@ -3441,7 +3735,14 @@
             "speaker": "elise",
             "german": "Das Amt hielt die Schließung aufrecht. Aber meine gute Absicht entschuldigt meinen ersten Fehler nicht.",
             "english": "The office kept the closure in place. But my good intention does not excuse my first mistake.",
-            "clipId": "dialogue-b1-atlas-intro-2"
+            "clipId": "dialogue-b1-atlas-intro-2",
+            "variants": [
+              {
+                "german": "Das Amt ließ den Zug nicht mehr fahren. Ich wollte helfen. Trotzdem war meine erste Entscheidung falsch.",
+                "english": "The office stopped the train from running. I wanted to help. Even so, my first decision was wrong.",
+                "clipId": "dialogue-b1-atlas-intro-2-simple"
+              }
+            ]
           },
           {
             "id": "b1-atlas-intro-3",
@@ -3455,14 +3756,21 @@
             "speaker": "elise",
             "german": "Der Wasserkocher kannte deinen Namen, weil meine Nachricht über Martas alte Laterne kam. Es war ein Ruf nach Hilfe.",
             "english": "The kettle knew your name because my message travelled through Marta’s old lantern. It was a call for help.",
-            "clipId": "dialogue-b1-atlas-intro-4"
+            "clipId": "dialogue-b1-atlas-intro-4",
+            "glosses": {
+              "laterne": "lantern",
+              "wasserkocher": "electric kettle"
+            }
           },
           {
             "id": "b1-atlas-intro-5",
             "speaker": "elise",
             "german": "Eine letzte Glocke bleibt. Schreib ein Versprechen, das auch gilt, wenn wir wieder streiten.",
             "english": "One final bell remains. Write a promise that holds even when we disagree again.",
-            "clipId": "dialogue-b1-atlas-intro-5"
+            "clipId": "dialogue-b1-atlas-intro-5",
+            "glosses": {
+              "glocke": "bell"
+            }
           },
           {
             "id": "b1-atlas-intro-6",
@@ -3540,6 +3848,36 @@
         "stage": "complete",
         "lines": [
           {
+            "id": "b1-atlas-ending-routes-reopened",
+            "speaker": "otto",
+            "german": "Der erste Zug fährt wieder. Marta und ich halten die Laternen hell. Jede Stadt kann den Fahrplan ändern.",
+            "english": "The first train runs again. Marta and I will keep the lanterns bright. Every town may change the timetable.",
+            "clipId": "dialogue-b1-atlas-ending-routes-reopened",
+            "condition": {
+              "ending": "routes-reopened"
+            }
+          },
+          {
+            "id": "b1-atlas-ending-towns-consent",
+            "speaker": "greta",
+            "german": "Jede Stadt erhält einen eigenen Schlüssel. Lina sammelt die Stimmen, bevor eine neue Verbindung geöffnet wird.",
+            "english": "Every town receives its own key. Lina will gather people’s voices before a new connection opens.",
+            "clipId": "dialogue-b1-atlas-ending-towns-consent",
+            "condition": {
+              "ending": "towns-consent"
+            }
+          },
+          {
+            "id": "b1-atlas-ending-brass-reformed",
+            "speaker": "inspector",
+            "german": "Ich lege meinen Stempel ab. Das Buch bleibt offen. Ada und der Rat prüfen die Arbeit des Amts.",
+            "english": "I will put down my stamp. The ledger stays open. Ada and the council will review the office’s work.",
+            "clipId": "dialogue-b1-atlas-ending-brass-reformed",
+            "condition": {
+              "ending": "brass-reformed"
+            }
+          },
+          {
             "id": "b1-atlas-complete-0",
             "speaker": "elise",
             "german": "Drei Städte sind zurück. Eine Küste ohne Namen wartet auf deine nächste Frage.",
@@ -3556,8 +3894,8 @@
           {
             "id": "b1-atlas-reopen-0",
             "speaker": "elise",
-            "german": "Elise gibt den Schlüssel an den Rat. Die Laternen zeigen den neuen gemeinsamen Fahrplan.",
-            "english": "Elise gives the key to the council. The lanterns display the new shared timetable.",
+            "german": "Ich gebe den Schlüssel an den Rat. Die Laternen zeigen den neuen gemeinsamen Fahrplan.",
+            "english": "I give the key to the council. The lanterns display the new shared timetable.",
             "clipId": "dialogue-b1-atlas-reopen-0"
           }
         ],
@@ -3570,8 +3908,8 @@
           {
             "id": "b1-atlas-remember-0",
             "speaker": "elise",
-            "german": "Elise gibt den Schlüssel an den Kreis. Jede Stadt behält eine eigene Kopie des Versprechens.",
-            "english": "Elise gives the key to the Circle. Each town keeps its own copy of the promise.",
+            "german": "Ich gebe den Schlüssel an den Kreis. Jede Stadt behält eine eigene Kopie des Versprechens.",
+            "english": "I give the key to the Circle. Each town keeps its own copy of the promise.",
             "clipId": "dialogue-b1-atlas-remember-0"
           }
         ],

@@ -34,23 +34,59 @@ func (a *App) worldClock(w http.ResponseWriter, r *http.Request) { writeJSON(w, 
 
 type DailyPromise struct {
 	Day            int    `json:"day"`
+	Date           string `json:"date"`
 	Title          string `json:"title"`
 	Target         int    `json:"target"`
 	CorrectAnswers int    `json:"correctAnswers"`
 	Completed      bool   `json:"completed"`
 }
 
+// Calendar evidence belongs to Progress, outside rewound narrative saves.
+// Dates use the server's UTC calendar; no client clock can create a new day.
+type DailyPromiseRecord struct {
+	CorrectAnswers int      `json:"correctAnswers"`
+	Completed      bool     `json:"completed"`
+	RetrievedItems []string `json:"retrievedItems,omitempty"`
+}
+
 func ensureDailyPromise(s *StoryState) {
-	if s.Promise.Day != s.Day {
-		s.Promise = DailyPromise{Day: s.Day, Title: "Make three German connections", Target: 3}
+	s.Promise.Day = s.Day
+	s.Promise.Title = "Make three unaided German connections"
+	s.Promise.Target = 3
+}
+
+func refreshDailyPromise(p *Progress, now time.Time) {
+	if p.DailyPromises == nil {
+		p.DailyPromises = map[string]DailyPromiseRecord{}
+	}
+	ensureDailyPromise(&p.Story)
+	date := now.UTC().Format(time.DateOnly)
+	record := p.DailyPromises[date]
+	p.Story.Promise.Date = date
+	p.Story.Promise.CorrectAnswers = record.CorrectAnswers
+	p.Story.Promise.Completed = record.Completed
+	// Keep yesterday's lantern visible while today's promise is in progress.
+	day := now.UTC()
+	if !record.Completed {
+		day = day.AddDate(0, 0, -1)
+	}
+	p.Story.LanternStreak = 0
+	for p.DailyPromises[day.Format(time.DateOnly)].Completed {
+		p.Story.LanternStreak++
+		day = day.AddDate(0, 0, -1)
 	}
 }
 
-func recordPromiseAttempt(p *Progress, correct bool) {
-	ensureDailyPromise(&p.Story)
-	if correct && !p.Story.Promise.Completed {
-		p.Story.Promise.CorrectAnswers++
-		p.Story.Promise.Completed = p.Story.Promise.CorrectAnswers >= p.Story.Promise.Target
+func recordPromiseAttempt(p *Progress, correct, hinted bool, now time.Time, itemMode string) {
+	refreshDailyPromise(p, now)
+	date := p.Story.Promise.Date
+	record := p.DailyPromises[date]
+	if correct && !hinted && !record.Completed && !contains(record.RetrievedItems, itemMode) {
+		record.RetrievedItems = append(record.RetrievedItems, itemMode)
+		record.CorrectAnswers++
+		record.Completed = record.CorrectAnswers >= p.Story.Promise.Target
+		p.DailyPromises[date] = record
+		refreshDailyPromise(p, now)
 	}
 }
 
@@ -86,11 +122,8 @@ func (a *App) sleepStory(w http.ResponseWriter, r *http.Request) {
 			return Receipt{}, &APIError{409, "return to your room at the inn before resting"}
 		}
 		s := &account.Progress.Story
-		if s.Promise.Completed {
-			s.LanternStreak++
-		}
 		s.Day++
-		ensureDailyPromise(s)
+		refreshDailyPromise(&account.Progress, a.now().UTC())
 		return Receipt{}, nil
 	})
 	if err != nil {

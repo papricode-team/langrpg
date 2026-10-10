@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"reflect"
 	"strings"
 	"testing"
@@ -26,14 +27,40 @@ func TestProductionKeyboardSpellingsAndMechanicalTypos(t *testing.T) {
 	}{
 		{"production", "schön", "schoen", false, true},
 		{"production", "schön", "schon", false, false},
-		{"production", "Straße", "Strasse", false, false},
-		{"production", "der Bahnhof", "der bahnhof", true, false},
+		{"production", "Straße", "Strasse", false, true},
+		{"production", "der Bahnhof", "der bahnhof", true, true},
 		{"recognition", "schön", "schoen", false, false},
 		{"listening", "Kaffee", "Kafefe", false, false},
 	} {
 		if got := (Exercise{Mode: test.mode, Answer: test.expected, CaseSensitive: test.sensitive}).Grade(test.answer); got != test.correct {
 			t.Errorf("%s %q -> %q: %v", test.mode, test.answer, test.expected, got)
 		}
+	}
+}
+
+func TestSharedGermanGradingFixtures(t *testing.T) {
+	data, err := curriculumFiles.ReadFile("grading-fixtures.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixtures []struct {
+		Name, Mode, Expected, Answer, Feedback string
+		Sensitive, Correct                     bool
+		AcceptedAnswers                        []string
+	}
+	if err := json.Unmarshal(data, &fixtures); err != nil {
+		t.Fatal(err)
+	}
+	for _, fixture := range fixtures {
+		t.Run(fixture.Name, func(t *testing.T) {
+			exercise := Exercise{Mode: fixture.Mode, Answer: fixture.Expected, CaseSensitive: fixture.Sensitive, AcceptedAnswers: fixture.AcceptedAnswers}
+			if got := exercise.Grade(fixture.Answer); got != fixture.Correct {
+				t.Errorf("graded %q against %q: got %v, want %v", fixture.Answer, fixture.Expected, got, fixture.Correct)
+			}
+			if fixture.Feedback != "" && !strings.Contains(exercise.Feedback(fixture.Answer), fixture.Feedback) {
+				t.Errorf("feedback %q should contain %q", exercise.Feedback(fixture.Answer), fixture.Feedback)
+			}
+		})
 	}
 }
 

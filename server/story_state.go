@@ -15,6 +15,8 @@ type StoryState struct {
 	Inventory       []string                       `json:"inventory"`
 	Reputation      map[string]int                 `json:"reputation"`
 	Bell            int                            `json:"bell"`
+	BellWarnings    int                            `json:"bellWarnings"`
+	GateFailures    map[string]int                 `json:"gateFailures"`
 	Day             int                            `json:"day"`
 	LanternStreak   int                            `json:"lanternStreak"`
 	Promise         DailyPromise                   `json:"promise"`
@@ -44,6 +46,7 @@ type StorySave struct {
 type StoryRule struct {
 	QuestID                string            `json:"questId"`
 	GateExerciseID         string            `json:"gateExerciseId"`
+	ReplyExerciseIDs       []string          `json:"replyExerciseIds"`
 	ChoiceIDs              []string          `json:"choiceIds"`
 	MapID                  string            `json:"mapId"`
 	NPCID                  string            `json:"npcId"`
@@ -54,14 +57,32 @@ type StoryRule struct {
 }
 
 type StoryChoiceRule struct {
-	ID      string        `json:"id"`
-	Effects []StoryEffect `json:"effects"`
+	ID        string         `json:"id"`
+	Effects   []StoryEffect  `json:"effects"`
+	Condition StoryCondition `json:"condition"`
 }
+type StoryCondition struct {
+	Flag        string `json:"flag"`
+	WithoutFlag string `json:"withoutFlag"`
+	Item        string `json:"item"`
+	MissingItem string `json:"missingItem"`
+	Faction     string `json:"faction"`
+	Minimum     int    `json:"minimum"`
+	Ending      string `json:"ending"`
+}
+
+func (c StoryCondition) met(s *StoryState) bool {
+	return (c.Flag == "" || s.Flags[c.Flag]) && (c.WithoutFlag == "" || !s.Flags[c.WithoutFlag]) &&
+		(c.Item == "" || contains(s.Inventory, c.Item)) && (c.MissingItem == "" || !contains(s.Inventory, c.MissingItem)) &&
+		(c.Faction == "" || s.Reputation[c.Faction] >= c.Minimum) && (c.Ending == "" || s.Ending == c.Ending)
+}
+
 type StoryEffect struct {
 	Faction string `json:"faction"`
 	Amount  int    `json:"amount"`
 	Item    string `json:"item"`
 	Flag    string `json:"flag"`
+	Bell    int    `json:"bell"`
 }
 
 type StoryObject struct {
@@ -81,12 +102,6 @@ var storyBellMilestones = map[string]int{
 func bellCeilingForQuest(questID string) int {
 	if questID == "b1-atlas" {
 		return 7
-	}
-	if strings.HasPrefix(questID, "a1-") {
-		return 2
-	}
-	if strings.HasPrefix(questID, "a2-") {
-		return 4
 	}
 	return 6
 }
@@ -139,6 +154,9 @@ func ensureStory(p *Progress) {
 	if s.GateAttempts == nil {
 		s.GateAttempts = map[string][]string{}
 	}
+	if s.GateFailures == nil {
+		s.GateFailures = map[string]int{}
+	}
 	if s.Day < 1 {
 		s.Day = 1
 	}
@@ -160,18 +178,49 @@ func ensureStory(p *Progress) {
 		s.Flags["route:coastline"] = true
 		giveStoryItem(s, "restored-atlas")
 	}
+	if s.Choices["a1-arrival"] == "report" {
+		s.Flags["platform-reported"] = true
+		giveStoryItem(s, "inspector-ledger")
+	} else if s.Choices["a1-arrival"] == "protect" {
+		s.Flags["platform-protected"] = true
+		giveStoryItem(s, "lamplighter-key")
+	}
 	ceiling, earned := 2, 0
 	for _, id := range storyQuestOrder {
 		if contains(p.CompletedQuestIDs, id) {
 			earned = max(earned, storyBellMilestones[id])
-			ceiling = max(ceiling, bellCeilingForQuest(id))
+			ceiling = max(ceiling, storyBellMilestones[id])
 		} else if node := s.Nodes[id]; node == "gate" || node == "choice" {
-			ceiling = max(ceiling, min(6, bellCeilingForQuest(id)))
+			ceiling = max(ceiling, min(6, max(earned, storyBellMilestones[id])))
 		}
 	}
 	// Also repairs older saves in which Act I report choices exhausted all seven
 	// bells. Earned discoveries and their language evidence remain unchanged.
-	s.Bell = max(earned, min(s.Bell, ceiling))
+	s.BellWarnings = max(0, min(2, s.BellWarnings))
+	if s.Flags["platform-reported"] {
+		s.BellWarnings = max(1, s.BellWarnings)
+	}
+	limit := 6
+	if contains(p.CompletedQuestIDs, "b1-atlas") {
+		limit = 7
+	}
+	s.Bell = max(min(limit, earned+s.BellWarnings), min(s.Bell, min(limit, ceiling+s.BellWarnings)))
+}
+
+// Pressure survives canonical beats. Two early warnings leave the last bell
+// for the finale rather than turning language mistakes into a soft lock.
+func warnStoryBell(s *StoryState) {
+	if s.BellWarnings < 2 {
+		s.BellWarnings++
+		s.Bell = min(6, s.Bell+1)
+	}
+}
+func recordStoryGateFailure(s *StoryState, questID string) {
+	s.GateFailures[questID] = min(3, s.GateFailures[questID]+1)
+	if s.GateFailures[questID] == 3 && !s.Flags["bell-warning:"+questID] {
+		s.Flags["bell-warning:"+questID] = true
+		warnStoryBell(s)
+	}
 }
 
 func giveStoryItem(s *StoryState, id string) {
@@ -197,6 +246,20 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 	rule, _ := storyRule(questID)
 	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, .15) {
 		return &APIError{409, "walk back to this conversation's character first"}
+	}
+	return nil
+}
+
+func (a *App) requireStoryReply(account *Account, questID string) error {
+	if err := requireQuestOrder(questID, account.Progress.CompletedQuestIDs); err != nil {
+		return err
+	}
+	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "intro" {
+		return &APIError{409, "open this character's greeting first"}
+	}
+	rule, _ := storyRule(questID)
+	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, .15) {
+		return &APIError{409, "walk to this conversation's character first"}
 	}
 	return nil
 }
@@ -303,6 +366,11 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		s := &account.Progress.Story
 		switch input.NodeID {
 		case "intro":
+			for _, id := range rule.ReplyExerciseIDs {
+				if !s.Flags["reply:"+id] {
+					return Receipt{}, &APIError{409, "answer the character's greeting first"}
+				}
+			}
 			for _, id := range rule.InvestigationObjectIDs {
 				if !contains(s.Inspections[input.QuestID], id) {
 					return Receipt{}, &APIError{409, "read every piece of evidence in this investigation first"}
@@ -321,6 +389,11 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 			}
 			s.Nodes[input.QuestID] = "choice"
 		case "choice":
+			for _, choice := range rule.Choices {
+				if choice.ID == input.ChoiceID && !choice.Condition.met(s) {
+					return Receipt{}, &APIError{409, "this choice needs the item or trust shown in the conversation"}
+				}
+			}
 			for _, completed := range account.Progress.CompletedQuestIDs {
 				if !contains(account.RewardedQuestIDs, completed) {
 					account.RewardedQuestIDs = append(account.RewardedQuestIDs, completed)
@@ -368,21 +441,19 @@ func applyStoryChoice(s *StoryState, questID, choiceID string) {
 				if effect.Flag != "" {
 					s.Flags[effect.Flag] = true
 				}
+				if effect.Bell > 0 {
+					warnStoryBell(s)
+				}
 			}
 		}
 	}
-	switch choiceID {
-	case "report":
-		s.Bell = max(s.Bell, min(bellCeilingForQuest(questID), s.Bell+1))
+	s.Bell = max(s.Bell, min(bellCeilingForQuest(questID), storyBellMilestones[questID]+s.BellWarnings))
+	if questID == "b1-new-route" {
+		s.Flags["storm_active"] = true
 	}
-	if questID == "a1-arrival" {
-		if choiceID == "protect" {
-			giveStoryItem(s, "lamplighter-key")
-		} else {
-			giveStoryItem(s, "inspector-ledger")
-		}
+	if questID == "b1-storm" {
+		s.Flags["storm_active"] = false
 	}
-	s.Bell = max(s.Bell, storyBellMilestones[questID])
 	if questID == "b1-atlas" {
 		s.Flags["eliseFound"] = true
 		s.Ending = "routes-reopened"
@@ -482,6 +553,7 @@ func (a *App) loadStory(w http.ResponseWriter, r *http.Request) {
 		account.Progress.Story = StoryState{}
 		_ = json.Unmarshal(b, &account.Progress.Story)
 		account.Progress.CompletedQuestIDs = append([]string{}, save.CompletedQuestIDs...)
+		refreshDailyPromise(&account.Progress, a.now().UTC())
 		return Receipt{}, nil
 	})
 	if err != nil {

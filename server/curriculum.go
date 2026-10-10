@@ -360,13 +360,17 @@ func normalizeAnswer(answer string, caseSensitive bool) string {
 }
 
 func (e Exercise) Grade(answer string) bool {
-	normalized := normalizeAnswer(answer, e.CaseSensitive)
+	production := e.Mode == "production"
+	normalized := normalizeAnswer(answer, e.CaseSensitive && !production)
 	for _, accepted := range append([]string{e.Answer}, e.AcceptedAnswers...) {
-		expected := normalizeAnswer(accepted, e.CaseSensitive)
+		if production && e.CaseSensitive && formalAddressChanged(answer, accepted) {
+			continue
+		}
+		expected := normalizeAnswer(accepted, e.CaseSensitive && !production)
 		if normalized == expected {
 			return true
 		}
-		if e.Mode == "production" && productionAnswerMatches(normalized, expected) {
+		if production && productionAnswerMatches(normalized, expected) {
 			return true
 		}
 	}
@@ -374,11 +378,26 @@ func (e Exercise) Grade(answer string) bool {
 }
 
 func umlautKeyboardForm(value string) string {
-	return strings.NewReplacer("ä", "ae", "ö", "oe", "ü", "ue", "Ä", "Ae", "Ö", "Oe", "Ü", "Ue").Replace(value)
+	return strings.NewReplacer("ä", "ae", "ö", "oe", "ü", "ue", "Ä", "Ae", "Ö", "Oe", "Ü", "Ue", "ß", "ss", "ẞ", "SS").Replace(value)
+}
+
+// Capitalization of formal address can change who a sentence refers to.
+// Noun and sentence capitals are accepted with guidance; this distinction stays.
+func formalAddressChanged(answer, expected string) bool {
+	a, b := strings.Fields(normalizeAnswer(answer, true)), strings.Fields(normalizeAnswer(expected, true))
+	if len(a) != len(b) {
+		return false
+	}
+	for i, token := range b {
+		if contains([]string{"Sie", "Ihnen", "Ihr", "Ihre", "Ihren", "Ihrem", "Ihrer", "Ihres"}, token) && a[i] == strings.ToLower(token) {
+			return true
+		}
+	}
+	return false
 }
 
 // Forgive a single mechanical typing slip, not substitutions, grammar changes,
-// missing umlauts or capitalization errors. Short function words remain exact.
+// or missing umlauts. Short function words remain exact.
 func productionAnswerMatches(answer, expected string) bool {
 	actualWords := strings.Fields(umlautKeyboardForm(answer))
 	expectedWords := strings.Fields(umlautKeyboardForm(expected))
@@ -440,6 +459,14 @@ func mechanicalTypo(answer, expected string) bool {
 // context. It never claims that every unlisted paraphrase is incorrect German.
 func (e Exercise) Feedback(answer string) string {
 	if e.Grade(answer) {
+		if e.Mode == "production" {
+			for _, accepted := range append([]string{e.Answer}, e.AcceptedAnswers...) {
+				actual, expected := normalizeAnswer(answer, true), normalizeAnswer(accepted, true)
+				if productionAnswerMatches(strings.ToLower(actual), strings.ToLower(expected)) && !productionAnswerMatches(actual, expected) {
+					return "Accepted. Remember capitalization: begin sentences and German nouns with a capital letter. " + e.Explanation
+				}
+			}
+		}
 		return e.Explanation
 	}
 	actual, expected := normalizeAnswer(answer, e.CaseSensitive), normalizeAnswer(e.Answer, e.CaseSensitive)

@@ -1,5 +1,5 @@
 import './placement-ui.css';
-import type {Api,Progress,AttemptResult,CourseLevel} from './api';
+import type {Api,Progress,CourseLevel} from './api';
 import {escapeHtml as e} from './icons';
 import {modeFor} from './learning';
 import {placementExercises,placementRecommendation,placementDialogue,type PlacementEvidence,type PlacementExercise} from './learning-context';
@@ -14,11 +14,12 @@ export function placementCTAMarkup():string {
   return '<button type="button" class="outline-button" data-action="placement">Find my comfortable German level</button>';
 }
 
-/** A short optional sample; every response uses the regular server grader. */
+/** A short diagnostic sample uses the server grader without recording recall. */
 export async function mountOptionalPlacement(host:HTMLElement,options:PlacementOptions):Promise<{destroy():void}> {
   const {quests}=await import('./content');
   const queue=placementExercises(quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level})))),results:PlacementEvidence[]=[];
-  let index=0,progress=options.progress,busy=false,hinted=false,feedback='',answered=false,disposed=false;
+  const progress=options.progress;
+  let index=0,busy=false,hinted=false,feedback='',answered=false,disposed=false;
   const startedAt=Date.now();let shownAt=startedAt;
   let pending:{id:string;answer:string;hinted:boolean;responseTimeMs:number}|undefined;
   const finish=()=>{
@@ -39,10 +40,9 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
     pending??={id:crypto.randomUUID(),answer,hinted,responseTimeMs:Math.min(600000,Math.max(1,Date.now()-shownAt))};
     const attempt=pending;busy=true;render();
     try {
-      const result=await options.api.request<AttemptResult>('/attempt',{...attempt,itemId:exercise.itemId,exerciseId:exercise.id,mode:modeFor(exercise),level:exercise.level});
-      progress=result.progress;
+      const result=await options.api.request<{correct:boolean;reason?:string}>('/attempt',{...attempt,itemId:exercise.itemId,exerciseId:exercise.id,mode:modeFor(exercise),level:exercise.level,preview:true});
       results.push({level:exercise.level,correct:result.correct,hinted:attempt.hinted});
-      pending=undefined;answered=true;feedback=result.correct?'Saved. This helps us choose useful practice.':result.reason;
+      pending=undefined;answered=true;feedback=result.correct?'This helps us choose useful practice.':result.reason ?? 'We will choose more support for this kind of phrase.';
     } catch(error) {feedback=`${error instanceof Error?error.message:'The answer could not be saved.'} Retry keeps this same answer.`;}
     finally {busy=false;render();}
   };

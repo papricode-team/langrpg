@@ -9,7 +9,7 @@
     "build": "npm run build --workspace web",
     "check": "npm run check --workspace web",
     "test": "npm run test --workspace web",
-    "test:tooling": "node --test scripts/course-word-mapping.test.mjs scripts/map-editor-format.test.mjs scripts/map-editor.test.mjs scripts/export-world-content.test.mjs scripts/course-split.test.mjs",
+    "test:tooling": "node --test scripts/course-word-mapping.test.mjs scripts/course-listening-distractors.test.mjs scripts/world-audio-synthesis.test.mjs scripts/dialogue-level-audit.test.mjs scripts/map-editor-format.test.mjs scripts/map-editor.test.mjs scripts/export-world-content.test.mjs scripts/course-split.test.mjs",
     "maps:check": "node scripts/map-editor.mjs check",
     "lint": "npm run lint --workspace web",
     "assets": "node scripts/assets.mjs",

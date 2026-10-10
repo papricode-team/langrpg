@@ -324,6 +324,7 @@ type AttemptInput struct {
 	ScenarioID     string          `json:"scenarioId,omitempty"`
 	BoardState     json.RawMessage `json:"boardState,omitempty"`
 	SceneAttempt   bool            `json:"sceneAttempt,omitempty"`
+	Preview        bool            `json:"preview,omitempty"`
 }
 
 func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
@@ -339,6 +340,10 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	var input AttemptInput
 	if err = decodeJSON(w, r, &input); err != nil {
 		apiFailure(w, err)
+		return
+	}
+	if input.Preview && input.SceneAttempt {
+		writeError(w, 400, "story replies must be answered in their scene")
 		return
 	}
 	if !safeID.MatchString(input.ID) || len(input.Answer) > 1024 || strings.TrimSpace(input.Answer) == "" || !validMode(input.Mode) {
@@ -381,7 +386,9 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	}
 	if input.SceneAttempt {
 		rule, known := storyRule(input.QuestID)
-		if !known || input.ExerciseID != rule.GateExerciseID || input.Mode != "production" || input.ActivityID != "" {
+		gate := input.ExerciseID == rule.GateExerciseID && input.Mode == "production"
+		reply := contains(rule.ReplyExerciseIDs, input.ExerciseID) && input.Mode == "recognition"
+		if !known || (!gate && !reply) || input.ActivityID != "" {
 			writeError(w, 400, "the scene answer must match its authored German request")
 			return
 		}
@@ -394,9 +401,27 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	request, _ := json.Marshal(input)
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
+	if input.Preview {
+		// Preview is read-only, including for accounts awaiting exposure
+		// migration. It supplies no answer, explanation, receipt or evidence.
+		if _, err := a.store.Get(ctx, hash); err != nil {
+			apiFailure(w, err)
+			return
+		}
+		correct := exercise.Grade(input.Answer)
+		if boardHandled {
+			correct = boardCorrect
+		}
+		writeJSON(w, 200, map[string]any{"attemptId": input.ID, "preview": true, "correct": correct})
+		return
+	}
 	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if input.SceneAttempt {
-			if err := a.requireStoryGate(account, input.QuestID); err != nil {
+			check := a.requireStoryGate
+			if input.Mode == "recognition" {
+				check = a.requireStoryReply
+			}
+			if err := check(account, input.QuestID); err != nil {
 				return Receipt{}, err
 			}
 		}
@@ -406,13 +431,27 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		if boardHandled {
 			correct = boardCorrect
 		}
-		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, input.Hinted, now, exercise.Mode, input.Rating, input.ResponseTimeMs)
+		gradedInput := input
+		if input.SceneAttempt && input.Mode == "recognition" && account.Progress.Story.Flags["reply-help:"+input.ExerciseID] {
+			gradedInput.Hinted = true
+		}
+		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, gradedInput.Hinted, now, exercise.Mode, input.Rating, input.ResponseTimeMs)
 		if err != nil {
 			return Receipt{}, err
 		}
-		recordWordEvidence(&account.Progress, exercise, input, correct, now)
-		recordPromiseAttempt(&account.Progress, correct)
-		if input.SceneAttempt && correct {
+		recordWordEvidence(&account.Progress, exercise, gradedInput, correct, now)
+		recordPromiseAttempt(&account.Progress, correct, gradedInput.Hinted, now, input.ItemID+":"+input.Mode)
+		if input.SceneAttempt && input.Mode == "recognition" {
+			if correct {
+				account.Progress.Story.Flags["reply:"+input.ExerciseID] = true
+			} else {
+				account.Progress.Story.Flags["reply-help:"+input.ExerciseID] = true
+			}
+		}
+		if input.SceneAttempt && input.Mode == "production" && !correct {
+			recordStoryGateFailure(&account.Progress.Story, input.QuestID)
+		}
+		if input.SceneAttempt && input.Mode == "production" && correct {
 			proofs := append(account.Progress.Story.GateAttempts[input.QuestID], input.ID)
 			if len(proofs) > 32 {
 				proofs = proofs[len(proofs)-32:]

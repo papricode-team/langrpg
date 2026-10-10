@@ -129,7 +129,9 @@ type Progress struct {
 	ExerciseStats       map[string]ExerciseEvidence `json:"exerciseStats"`
 	RecentAttempts      map[string]AttemptEvidence  `json:"recentAttempts"`
 	WordExposureVersion int                         `json:"wordExposureVersion"`
-	Story               StoryState                  `json:"story"`
+	// Daily learning evidence survives narrative save-slot loads.
+	DailyPromises map[string]DailyPromiseRecord `json:"dailyPromises,omitempty"`
+	Story         StoryState                    `json:"story"`
 }
 
 type Account struct {
@@ -186,6 +188,9 @@ func ensureProgress(p *Progress) {
 	}
 	if p.RecentAttempts == nil {
 		p.RecentAttempts = map[string]AttemptEvidence{}
+	}
+	if p.DailyPromises == nil {
+		p.DailyPromises = map[string]DailyPromiseRecord{}
 	}
 	ensureStory(p)
 }

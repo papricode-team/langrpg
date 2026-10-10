@@ -11,6 +11,9 @@ import (
 
 func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 	account, err := a.store.Get(ctx, hash)
+	if err == nil {
+		refreshDailyPromise(&account.Progress, a.now().UTC())
+	}
 	if err != nil || account.Progress.WordExposureVersion >= 2 || len(a.curriculum.Lexicon) == 0 {
 		return account, err
 	}
@@ -19,6 +22,9 @@ func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 		migrateContextExposures(&account.Progress, a.curriculum, a.now().UTC())
 		return Receipt{}, nil
 	})
+	if err == nil {
+		refreshDailyPromise(&account.Progress, a.now().UTC())
+	}
 	return account, err
 }
 

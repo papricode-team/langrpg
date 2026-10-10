@@ -10,6 +10,7 @@ import { sampleResidentMotion, type WorldResident } from './world-life';
 import { sampleSceneryFrame } from './scenery-animation';
 import type { WorldPlayer } from './world';
 import { characterFrame, MODULAR_ART } from './avatar-options';
+import { explorationZoom } from './world-camera';
 
 const harness = vi.hoisted(() => {
   class Picture {
@@ -19,13 +20,16 @@ const harness = vi.hoisted(() => {
     flipX = false;
     originX = .5;
     originY = .5;
+    alpha = 1;
+    resolution = 1;
     constructor(public key = '', public frame?: string | number) {}
     fillStyle() { return this; } fillRect() { return this; }
     setDepth() { return this; }
     setOrigin(x = .5, y = x) { this.originX = x; this.originY = y; return this; }
     setTint(tint: number) { this.tint = tint; return this; }
     setScale() { return this; } setVisible(visible: boolean) { this.visible = visible; return this; } setColor() { return this; }
-    setAlpha() { return this; }
+    setAlpha(alpha: number) { this.alpha = alpha; return this; }
+    setResolution(resolution: number) { this.resolution = resolution; return this; }
     setText() { return this; }
     setY() { return this; } setPosition() { return this; } add() { return this; }
     setFrame(frame: string | number) { this.frame = frame; return this; }
@@ -51,7 +55,7 @@ const harness = vi.hoisted(() => {
     };
     cache = { json: { get: (key: string) => this.manifests.get(key) } };
     add = { graphics: () => new Picture(), image: (_x: number, _y: number, key: string, frame?: string | number) => new Picture(key, frame),
-      text: () => new Picture(), container: () => new Picture(),
+      text: (_x: number, _y: number, _value: string, style?: { resolution?: number }) => new Picture().setResolution(style?.resolution ?? 1), container: () => new Picture(),
     };
     load = {
       image: (key: string) => this.enqueue(key, 'image'), atlas: (key: string) => this.enqueue(key, 'atlas'),
@@ -91,10 +95,13 @@ vi.mock('phaser', () => ({ AUTO: 0, Scene: harness.Scene, Game: harness.Game,
   Loader: { Events: { COMPLETE: 'complete' } }, GameObjects: { Image: harness.Picture } }));
 vi.mock('./screen-filters', () => ({ createScreenFilter: () => undefined }));
 vi.mock('./world-scenery', () => ({ WorldScenery: class {
-  setReducedMotion() {} setVisible() {} destroy() {}
+  setReducedMotion() {} setVisible() {} setAlpha() {} destroy() {}
 } }));
 vi.mock('./world-interior', () => ({ WorldInterior: class {
   setReducedMotion() {} setVisible() {} update() {} destroy() {}
+} }));
+vi.mock('./world-atmosphere', () => ({ WorldAtmosphere: class {
+  setVisible() {} update() {} destroy() {}
 } }));
 
 beforeEach(() => {
@@ -104,9 +111,9 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllGlobals());
 function fixture() {
-  const ready = vi.fn(), move = vi.fn(), interiorChange = vi.fn();
+  const ready = vi.fn(), move = vi.fn(), interiorChange = vi.fn(), npc = vi.fn(), interiorInteract = vi.fn();
   const world = new World({ clientWidth: 900, clientHeight: 600 } as HTMLElement,
-    { onNpc() {}, onMove: move, onMapReady: ready, onInteriorChange: interiorChange, time: { mode: 'manual', hour: 12 } });
+    { onNpc: npc, onMove: move, onMapReady: ready, onInteriorChange: interiorChange, onInteriorInteract: interiorInteract, time: { mode: 'manual', hour: 12 } });
   // Exercise real scene travel and animation loading, with graphics-only work
   // replaced so network/lifecycle behavior can be tested without a browser GPU.
   const scene = harness.state.scene! as typeof harness.Scene.prototype & Record<string, any>;
@@ -115,7 +122,7 @@ function fixture() {
   scene.animateCharacter = vi.fn(); scene.frameCamera = vi.fn(); scene.setTerrainOnly = vi.fn();
   scene.createMapCharacters = vi.fn(); scene.createMapObjects = vi.fn();
   scene.createBuildingEntrances = vi.fn(); scene.createResidents = vi.fn();
-  return { world, scene, ready, move, interiorChange };
+  return { world, scene, ready, move, interiorChange, npc, interiorInteract };
 }
 
 function indoorFixture() {
@@ -124,7 +131,7 @@ function indoorFixture() {
   scene.local = scene.createCharacter('self', 'You', 800, 640, { hair: '#000000', skin: '#ccaa99', outfit: '#557755' });
   for (const method of ['clearControls', 'createInteriorPropTargets', 'createPortal', 'transitionRoom', 'refreshNearby', 'updateResidents', 'updateWorldTime']) scene[method] = vi.fn();
   scene.marker = new harness.Picture(); scene.marker.visible = false;
-  scene.cameras = { main: { worldView: { x: 0, y: 0, right: 1536, bottom: 1024 } } };
+  scene.cameras = { main: { width: 900, height: 600, zoom: 1, setZoom(zoom: number) { this.zoom = zoom; }, worldView: { x: 0, y: 0, right: 1536, bottom: 1024 } } };
   return result;
 }
 
@@ -134,6 +141,102 @@ function player(id: string, interiorId?: InteriorId, mapId: WorldPlayer['mapId']
 }
 
 describe('short player steps', () => {
+  it('turns toward the witness when the last path segment approaches sideways', () => {
+    const { world, scene, npc } = indoorFixture();
+    scene.mapSpec = { ...getMap('lindenhafen'), npcs: [] };
+    scene.playerArtReady = true; scene.textureKeys.add('main-cast');
+    scene.local.x = 0; scene.local.y = 300;
+    const witness = scene.createCharacter('otto', 'Otto', 200, 300, scene.local.avatar);
+    scene.characters.set('otto', witness); scene.objective = 'otto';
+    scene.navigation = { canWalkSegment: () => true, findPath: (_from: unknown, to: { x: number; y: number }) => [
+      { x: to.x, y: to.y + 30 }, to,
+    ] };
+    const renderer = Object.getPrototypeOf(scene);
+    scene.animateCharacter = renderer.animateCharacter.bind(scene);
+    world.focusNpc('otto');
+    for (let step = 0; step < 100 && !npc.mock.calls.length; step++) scene.update(step * 50, 50);
+    expect(npc).toHaveBeenCalledExactlyOnceWith('otto');
+    expect(scene.local.facing).toBe(1);
+    expect(scene.local.frame).toBe(characterFrame(1));
+    world.destroy();
+  });
+
+  it.each(['lindenhafen', 'waldruh', 'nebelstadt'] as const)('follows an NPC lead through %s and ends facing the witness exactly once', id => {
+    const { world, scene, npc } = indoorFixture();
+    scene.mapSpec = getMap(id);
+    scene.navigation = createMapNavigation(id);
+    scene.playerArtReady = true;
+    scene.textureKeys.add('main-cast');
+    const witness = scene.mapSpec.npcs.find((actor: { id: string }) => actor.id === 'otto');
+    const position = scene.navigation.closestPoint(witness.x * 1536, witness.y * 1024);
+    const character = scene.createCharacter('otto', 'Otto', position.x, position.y, scene.local.avatar);
+    scene.characters.set('otto', character);
+    const spawn = scene.navigation.closestPoint(scene.mapSpec.spawn.x * 1536, scene.mapSpec.spawn.y * 1024);
+    scene.local.x = spawn.x; scene.local.y = spawn.y;
+    scene.objective = 'otto';
+    const renderer = Object.getPrototypeOf(scene);
+    scene.animateCharacter = renderer.animateCharacter.bind(scene);
+    world.focusNpc('otto');
+    expect(scene.target).toBeDefined();
+    let steps = 0;
+    while (!npc.mock.calls.length && steps++ < 1000) scene.update(steps * 50, 50);
+    expect(npc).toHaveBeenCalledExactlyOnceWith('otto');
+    expect(Math.hypot(character.x - scene.local.x, character.y - scene.local.y)).toBeLessThanOrEqual(140);
+    const dx = character.x - scene.local.x, dy = character.y - scene.local.y;
+    const facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 0 : 2;
+    expect(scene.local.facing).toBe(facing);
+    expect(scene.local.frame).toBe(characterFrame(facing));
+    for (let frame = 0; frame < 5; frame++) scene.update((steps + frame + 1) * 50, 50);
+    expect(npc).toHaveBeenCalledOnce();
+    world.destroy();
+  });
+
+  it('keeps a walking player facing their route when nearby cast members glance at them', () => {
+    const { world, scene } = indoorFixture();
+    scene.playerArtReady = true;
+    scene.textureKeys.add('main-cast');
+    const renderer = Object.getPrototypeOf(scene);
+    scene.animateCharacter = renderer.animateCharacter.bind(scene);
+    const player = scene.local;
+    const left = scene.createCharacter('otto', 'Otto', player.x - 35, player.y, player.avatar);
+    const right = scene.createCharacter('marta', 'Marta', player.x + 35, player.y, player.avatar);
+    scene.animateCharacter(player, 4, 0, 1);
+    const walkingFrame = player.frame;
+    expect(walkingFrame).not.toBe(characterFrame(1));
+    scene.animateCharacter(left, 0, 0, 1);
+    scene.animateCharacter(right, 0, 0, 1);
+    expect(player.facing).toBe(1);
+    expect(player.frame).toBe(walkingFrame);
+    expect(left.facing).toBe(1);
+    expect(right.facing).toBe(3);
+    scene.characters.set('otto', left);
+    scene.setConversationTarget('otto');
+    expect(player.facing).toBe(3);
+    expect(player.frame).toBe(characterFrame(3));
+    world.destroy();
+  });
+
+  it('excludes Elise from keyboard, direct approach and callbacks until the storm reveal', () => {
+    const { world, scene, npc } = indoorFixture();
+    scene.textureKeys.add('story-cast');
+    const elise = scene.createCharacter('elise', 'Elise', scene.local.x + 10, scene.local.y, scene.local.avatar);
+    scene.characters.set('elise', elise);
+    scene.marker = new harness.Picture();
+    const renderer = Object.getPrototypeOf(scene);
+    renderer.setTerrainOnly.call(scene, false);
+    expect(elise.root.visible).toBe(false);
+    expect(scene.findNearestInteraction()).toBeUndefined();
+    expect(scene.interactionPosition('elise')).toBeUndefined();
+    scene.approachNpc('elise');
+    scene.triggerInteraction('elise');
+    expect(npc).not.toHaveBeenCalled();
+    scene.setStoryState({ completedQuestIds: ['b1-storm'], bellCount: 0 });
+    expect(scene.findNearestInteraction()?.id).toBe('elise');
+    scene.approachNpc('elise');
+    expect(npc).toHaveBeenCalledWith('elise');
+    world.destroy();
+  });
+
   it.each([30, 60, 120])('shows a brief click step and retains gait progress between clicks at %i Hz', fps => {
     const { world, scene } = indoorFixture();
     scene.playerArtReady = true;
@@ -164,6 +267,53 @@ describe('short player steps', () => {
 });
 
 describe('shared indoor rendering', () => {
+  it('routes the inn host through a room greeting and hides both actor and station after visiting hours', () => {
+    const { world, scene, npc, interiorInteract } = indoorFixture();
+    world.enterInterior('inn');
+    scene.textureKeys.add('main-cast');
+    const inn = getInterior('inn'), spec = inn.npcs[0];
+    const host = scene.createCharacter(spec.id, 'Greta', spec.x * 1536, spec.y * 1024, scene.local.avatar);
+    host.interactionId = spec.interactionId;
+    scene.characters.set(spec.id, host);
+    const station = { spec: inn.objects.find(object => object.id === spec.interactionId), x: 1040, y: 745,
+      root: new harness.Picture(), interactionId: spec.interactionId, activatedUntil: 0 };
+    scene.objects.set(spec.interactionId, station);
+    scene.local.x = host.x - 30; scene.local.y = host.y;
+    world.focusNpc('greta');
+    expect(interiorInteract).toHaveBeenCalledExactlyOnceWith(spec.interactionId);
+    expect(npc).not.toHaveBeenCalled();
+    expect(scene.local.facing).toBe(1);
+    scene.clock.configure({ mode: 'manual', hour: 21 });
+    expect(scene.findNearestInteraction()).toBeUndefined();
+    world.focusNpc('greta'); scene.triggerInteraction(spec.interactionId);
+    expect(interiorInteract).toHaveBeenCalledOnce();
+    world.destroy();
+  });
+
+  it('reframes indoor body height on entry and restores outdoor zoom without a resize', () => {
+    const { world, scene } = indoorFixture();
+    scene.fitCamera(900, 600, 1);
+    expect(scene.fitZoom).toBe(explorationZoom(900, 600, 1).zoom);
+    world.enterInterior('inn');
+    expect(scene.fitZoom).toBe(explorationZoom(900, 600, 1, true).zoom);
+    world.leaveInterior();
+    expect(scene.fitZoom).toBe(explorationZoom(900, 600, 1).zoom);
+    world.destroy();
+  });
+
+  it('renders labels at Retina density and refreshes existing labels when density changes', () => {
+    const { world, scene } = indoorFixture();
+    scene.fitCamera(1800, 1200, 2);
+    expect(scene.local.name.resolution).toBe(2);
+    const peer = scene.createCharacter('friend', 'Friend', 400, 400, scene.local.avatar);
+    expect(peer.name.resolution).toBe(2);
+    scene.peers.set('friend', peer);
+    scene.fitCamera(900, 600, 1);
+    expect(scene.local.name.resolution).toBe(1);
+    expect(peer.name.resolution).toBe(1);
+    world.destroy();
+  });
+
   it.each(['cafe', 'bakery', 'supermarket'] as const)('shows and moves only players in the same %s and region', id => {
     const { world, scene, move } = indoorFixture();
     world.setPlayers([player('self'), player('outside')], 'self');
@@ -226,6 +376,35 @@ describe('shared indoor rendering', () => {
 });
 
 describe('scene travel while destination art streams', () => {
+  it('builds the atmosphere even when audio is unavailable', () => {
+    const { world, scene } = fixture();
+    expect(scene.audio).toBeUndefined();
+    world.setMap('waldruh'); scene.finishLoad(); scene.finishLoad();
+    expect(scene.atmosphere).toBeDefined();
+    world.destroy();
+  });
+
+  it('keeps the existing painting opaque while the next period fades over it', () => {
+    const { world, scene } = indoorFixture();
+    scene.textureKeys.add('lindenhafen');
+    scene.background = new harness.Picture('lindenhafen');
+    const oldBackground = scene.background;
+    const oldScenery = { ...scene.scenery, setAlpha: vi.fn(), destroy: vi.fn() };
+    scene.scenery = oldScenery;
+    let tween: { targets: { alpha: number }; onUpdate: () => void; onComplete: () => void };
+    scene.tweens = { add: (options: typeof tween) => { tween = options; return { stop() {} }; } };
+    scene.applyPeriod('night');
+    oldScenery.setAlpha.mockClear();
+    tween!.targets.alpha = .5; tween!.onUpdate();
+    expect(oldBackground.alpha).toBe(1);
+    expect(scene.background.alpha).toBe(.5);
+    expect(oldScenery.setAlpha).not.toHaveBeenCalled();
+    tween!.onComplete();
+    expect(oldBackground.destroyed).toBe(true);
+    expect(scene.background.alpha).toBe(1);
+    world.destroy();
+  });
+
   it('shows the newest arrival when returning to a destination whose first load is in flight', async () => {
     const { world, scene, ready } = fixture();
     world.setMap('saffroncourt'); world.setMap('rainmarket'); world.setMap('saffroncourt');
@@ -331,6 +510,27 @@ function regionalFixture() {
 }
 
 describe('regional human motion', () => {
+  it('walks home along the route at closing time, disappears there and returns in the morning', () => {
+    const { world, scene, renderer, person, motion, render } = regionalFixture();
+    render(3.5);
+    scene.residents[0].routineElapsed = 3.5;
+    scene.clock.configure({ mode: 'manual', hour: 22 });
+    renderer.updateResidents.call(scene, .5);
+    expect(person.root.visible).toBe(true);
+    expect(person.x).toBeLessThan(124);
+    for (let step = 0; step < 10; step++) renderer.updateResidents.call(scene, .5);
+    expect(person.root.visible).toBe(false);
+    expect({ x: person.x, y: person.y }).toEqual(motion.segments[0].from);
+    const home = { x: person.x, y: person.y };
+    renderer.updateResidents.call(scene, 10);
+    expect({ x: person.x, y: person.y }).toEqual(home);
+    scene.clock.configure({ mode: 'manual', hour: 10 });
+    renderer.updateResidents.call(scene, .5);
+    expect(person.root.visible).toBe(true);
+    expect(person.x).toBeGreaterThan(home.x);
+    world.destroy();
+  });
+
   it('uses the exported sole pivot for ground contact and supports older character pages', () => {
     const { world, scene, person } = regionalFixture();
     expect(person.figure.originX).toBe(.5);

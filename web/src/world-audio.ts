@@ -1,5 +1,6 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
+import { worldPeriod } from './world-clock';
 
 const towns = ['lindenhafen', 'waldruh', 'nebelstadt'] as const;
 const names = [...towns.flatMap(id => [`music-${id}`,`music-${id}-night`]), ...towns.map(id => `ambience-${id}`), 'step-stone', 'step-wood', 'door', 'bell'];
@@ -37,7 +38,7 @@ export class WorldAudio {
   }
   setVisible(visible: boolean) { this.visible = visible; this.refresh(); }
   setNarration(active: boolean) { this.narration = active; this.refresh(); }
-  setHour(hour:number){const night=hour<7||hour>=19;if(this.night!==night){this.night=night;this.refresh();}}
+  setHour(hour:number){const night=worldPeriod(hour)==='night';if(this.night!==night){this.night=night;this.refresh();}}
   private refresh() {
     for (const [key, layer] of this.layers) {
       const active = [this.musicKey(),`world-ambience-${this.region}`].includes(key) && this.visible && !this.quiet;

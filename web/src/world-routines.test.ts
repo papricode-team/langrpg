@@ -20,7 +20,7 @@ describe('town routines and ambient German', () => {
     expect(npcRoutine('ada', 20).action).toBe('pack');
     const before = npcRoutine('marta', 19 - .00001), after = npcRoutine('marta', 19);
     expect(Math.hypot(before.offsetX - after.offsetX, before.offsetY - after.offsetY)).toBeLessThan(.00001);
-    expect(residentRoutine('lindenhafen-resident-reader', 2)).toEqual({ action: 'rest', pace: 0, visible: true });
+    expect(residentRoutine('lindenhafen-resident-reader', 2)).toEqual({ action: 'rest', pace: .8, visible: false });
     expect(residentRoutine('waldruh-resident-commuter', 7).pace).toBe(1);
   });
 
@@ -67,6 +67,7 @@ describe('town routines and ambient German', () => {
     const label = director.next({ ...context, speakerId: 'otto', elapsedSeconds: 10 });
     expect(label?.source).toBe('course-word'); expect(label?.wordIds).toEqual(['anschluss-noun']);
     expect(label?.german).toContain('der Anschluss');
+    expect(label?.german).toContain('Schild');
     director.reset();
     expect(director.next({ ...context, level: 'A1' })?.source).toBe('routine');
     expect(director.next({ ...context, speakerId: 'otto', level: 'A1', elapsedSeconds: 10 })?.source).toBe('routine');

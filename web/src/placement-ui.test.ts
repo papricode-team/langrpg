@@ -13,8 +13,23 @@ describe('server graded conversational placement',()=>{
     expect(host.querySelector('[lang="de"]')?.textContent).toBe('Willkommen! Es ist früh.');
     button(host,'answer').click();await flush();
     expect(host.textContent).toContain('Check the greeting.');
-    expect(request.mock.calls[0][1]).toMatchObject({exerciseId:'a1-arrival-exercise-1',mode:'recognition',hinted:false});
+    expect(request.mock.calls[0][1]).toMatchObject({exerciseId:'a1-arrival-exercise-1',mode:'recognition',hinted:false,preview:true});
     expect(progress.completedQuestIds).toEqual([]);
+    panel.destroy();
+  });
+  it('finishes the diagnostic with the original memory even when a response contains unrelated progress',async()=>{
+    const host=document.createElement('div'),progress=emptyProgress(),onComplete=vi.fn();
+    const request=vi.fn<Api['request']>().mockResolvedValue({correct:true,progress:{...emptyProgress(),xp:999,revision:10}});
+    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,onComplete,onClose:vi.fn(),speak:vi.fn()});
+    for(let index=0;index<8;index++) {
+      const input=host.querySelector<HTMLInputElement>('#placement-answer');
+      if(input){input.value='a diagnostic reply';host.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));}
+      else button(host,'answer').click();
+      await flush();button(host,'next').click();
+    }
+    expect(onComplete).toHaveBeenCalledWith(expect.objectContaining({answered:8}),progress);
+    expect(progress.xp).toBe(0);expect(progress.items).toEqual({});
+    expect(request.mock.calls.every(call=>(call[1] as {preview:boolean}).preview)).toBe(true);
     panel.destroy();
   });
   it('keeps the same graded answer and id when retrying after a save failure',async()=>{

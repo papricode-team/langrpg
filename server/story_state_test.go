@@ -60,6 +60,14 @@ func investigateStory(t *testing.T, app *App, token string, player Player, quest
 	if !ok {
 		t.Fatal("missing rule", questID)
 	}
+	placeStoryPlayer(app, player, rule.MapID, rule.NPC)
+	for _, id := range rule.ReplyExerciseIDs {
+		ex := app.curriculum.Exercises[id]
+		body := AttemptInput{ID: prefix + "greeting", QuestID: questID, ItemID: ex.ItemID, ExerciseID: ex.ID, Answer: ex.Answer, Mode: "recognition", SceneAttempt: true}
+		if r := request(app, "POST", "/api/attempt", token, body); r.Code != 200 {
+			t.Fatalf("greeting: %d %s", r.Code, r.Body.String())
+		}
+	}
 	for _, object := range rule.Objects {
 		placeStoryPlayer(app, player, rule.MapID, MapSpawn{object.X, object.Y})
 		r := request(app, "POST", "/api/story/inspect", token, map[string]string{"id": prefix + object.ID, "questId": questID, "objectId": object.ID})
@@ -103,7 +111,7 @@ func TestStoryRulesShareTheCanonicalQuestAndProductionGates(t *testing.T) {
 	app := storyTestApp(t)
 	for _, id := range storyQuestOrder {
 		rule, ok := storyRule(id)
-		if !ok || len(rule.Objects) < 1 || len(rule.ChoiceIDs) != 2 || !validMapID(rule.MapID) {
+		if !ok || len(rule.Objects) < 1 || len(rule.ChoiceIDs) < 2 || !validMapID(rule.MapID) {
 			t.Fatalf("incomplete graph rule %+v", rule)
 		}
 		ex, ok := app.curriculum.Exercises[rule.GateExerciseID]
@@ -207,7 +215,7 @@ func TestStoryGateNeedsCorrectOwnedSceneProofAndCompletionRewardsOnce(t *testing
 		t.Fatalf("story effects %+v", p.Story)
 	}
 	// The narrative gate replaces the mandatory seven-card queue.
-	if p.Items["a1-arrival-item-1"].ModeStats["recognition"].Attempts != 0 {
+	if p.Items["a1-arrival-item-1"].ModeStats["recognition"].Attempts != 1 {
 		t.Fatal("story invented drill evidence")
 	}
 	var result struct {

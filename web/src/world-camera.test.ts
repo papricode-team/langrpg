@@ -6,23 +6,24 @@ import { timeAmbient } from './world-lighting';
 describe('world presentation', () => {
   it('preserves CSS person scale on Retina while doubling canvas detail', () => {
     const css = explorationZoom(1920, 1080, 1), retina = explorationZoom(3840, 2160, 2);
-    expect(css.zoom * 72).toBeCloseTo(137.7);
+    expect(css.zoom * 72).toBeCloseTo(162);
     expect(retina.zoom / 2).toBe(css.zoom);
     expect(canvasSize(1920, 1080, 3)).toEqual({ width: 3840, height: 2160, density: 2 });
   });
-  it('pulls exploration and conversation back by fifteen percent without changing their relative framing', () => {
+  it('frames an outdoor person at 140–180 pixels at 1080p and accounts for the taller indoor bodies', () => {
     for (const [width,height,indoor] of [[1920,1080,false],[1440,900,true],[390,844,false]] as const) {
       const mobile=width<760||width<1000&&height<520;
-      const formerHeight=Math.max(mobile?88:110,Math.min(indoor?180:162,height*.15));
+      const personHeight=Math.max(mobile?88:110,Math.min(indoor?180:162,height*.15));
+      const bodyHeight=indoor?132:72;
       const zoom=explorationZoom(width,height,1,indoor).zoom;
-      expect(zoom).toBeCloseTo(formerHeight/72*.85);
-      expect(conversationZoom(zoom,true)).toBeCloseTo(formerHeight/72*1.12*.85);
+      expect(zoom).toBeCloseTo(Math.max(width/1536,height/1024,personHeight/bodyHeight));
+      expect(conversationZoom(zoom,true)).toBeCloseTo(zoom*1.12);
       expect(conversationZoom(zoom,false)).toBe(zoom);
       const retina=explorationZoom(width*2,height*2,2,indoor).zoom;
       expect(conversationZoom(retina,true)/2).toBeCloseTo(conversationZoom(zoom,true));
     }
   });
-  it('retains map-cover bounds on wide and tall screens after zooming out', () => {
+  it('retains map-cover bounds on wide and tall screens', () => {
     for(const [width,height] of [[3840,1080],[1200,2000]]) {
       const zoom=explorationZoom(width,height).zoom;
       expect(width/zoom).toBeLessThanOrEqual(1536);
@@ -45,6 +46,8 @@ describe('world presentation', () => {
     }
     expect(atmosphereProfile('nebelstadt', false).fog).toBeGreaterThan(0);
     expect(atmosphereProfile('rainmarket', false).rain).toBeGreaterThan(0);
-    expect(atmosphereProfile('lindenhafen', true).rain).toBe(1);
+    expect(atmosphereProfile('lindenhafen', true).rain).toBe(0);
+    expect(atmosphereProfile('waldruh', true).rain).toBe(0);
+    expect(atmosphereProfile('nebelstadt', true).rain).toBe(1);
   });
 });

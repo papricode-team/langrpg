@@ -13,8 +13,8 @@ export class CutsceneScene extends Phaser.Scene {
   private finish?: () => void;
   private kind:CutsceneKind='arrival';
   constructor(private cameraBeat: (beat: CameraBeat | undefined) => void,private voice?:(speaker:string,german:string,clipId:string)=>void) { super({ key: 'cinematic' }); }
-  create(data: {kind:CutsceneKind;mapId:MapId;complete:()=>void}) {
-    this.beats = cinematicBeats(data.kind,data.mapId); this.index = 0; this.elapsed = 0; this.finish = data.complete;
+  create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;complete:()=>void}) {
+    this.beats = cinematicBeats(data.kind,data.mapId,data.ending); this.index = 0; this.elapsed = 0; this.finish = data.complete;
     this.kind=data.kind;
     const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
     if(['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
@@ -31,7 +31,7 @@ export class CutsceneScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{ this.cameraBeat(undefined); const done=this.finish;this.finish=undefined;done?.(); });
     this.present();
   }
-  private present() { const beat=this.beats[this.index]; this.elapsed=0;this.speaker?.setText(beat.speaker);this.line?.setText('');this.cameraBeat(beat);this.voice?.(beat.speaker.toLowerCase(),beat.german,`cinematic-${this.kind}-${this.index}`); }
+  private present() { const beat=this.beats[this.index]; this.elapsed=0;this.speaker?.setText(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker);this.line?.setText('');this.cameraBeat(beat);this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`); }
   private next() { if(++this.index>=this.beats.length)this.complete();else this.present(); }
   private complete() { this.scene.stop(); }
   update(_time:number,delta:number) {

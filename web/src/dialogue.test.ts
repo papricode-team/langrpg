@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { conditionMet, emptyStory, personalized, validateDialogue } from './dialogue';
+import { conditionMet, dialogueChoices, dialogueLines, emptyStory, personalized, validateDialogue } from './dialogue';
 import { questGraphs } from './quest-graph';
 import { quests, npcs } from './content';
 import { getMap } from './maps';
@@ -18,7 +18,7 @@ describe('authored in-world investigations', () => {
       const quest = quests.find(quest => quest.id === graph.questId)!;
       const gate = quest.exercises.find(ex => ex.id === graph.gateExerciseId)!;
       expect(['type','sentence']).toContain(gate.mode);
-      expect(graph.nodes.find(node => node.id === 'choice')!.choices).toHaveLength(2);
+      expect(dialogueChoices(graph.nodes.find(node => node.id === 'choice')!,emptyStory()).length).toBeGreaterThanOrEqual(2);
     }
   });
   it('matches the server gate, choice and physical target contract', () => {
@@ -52,6 +52,30 @@ describe('authored in-world investigations', () => {
     expect(conditionMet({flag:'ready',item:'letter',faction:'unwritten',minimum:3},state)).toBe(true);
     expect(conditionMet({faction:'unwritten',minimum:4},state)).toBe(false);
     expect(personalized('Hallo, {name}. {name} ist willkommen.', '<Willow>')).toBe('Hallo, <Willow>. <Willow> ist willkommen.');
+  });
+  it('makes the archive and council routes depend on the items actually earned', () => {
+    const station = questGraphs.find(graph=>graph.questId==='a1-station')!.nodes.find(node=>node.id==='choice')!;
+    const state = emptyStory();
+    expect(dialogueChoices(station,state).map(c=>c.id)).not.toContain('protect');
+    state.inventory.push('lamplighter-key');
+    expect(dialogueChoices(station,state).map(c=>c.id)).toContain('protect');
+    state.inventory=['inspector-ledger']; state.flags['platform-reported']=true;
+    expect(dialogueChoices(station,state).map(c=>c.id)).toEqual(['report','show-ledger']);
+    const council = questGraphs.find(graph=>graph.questId==='b1-council')!.nodes.find(node=>node.id==='choice')!;
+    expect(dialogueChoices(council,state).map(c=>c.id)).toContain('publish-ledger');
+    state.inventory=[];
+    expect(dialogueChoices(council,state).map(c=>c.id)).not.toContain('publish-ledger');
+  });
+  it('returns Voss to the market only when the platform was reported and plays one earned finale', () => {
+    const state=emptyStory(), market=questGraphs.find(g=>g.questId==='a1-market')!.nodes.find(n=>n.id==='intro')!;
+    expect(dialogueLines(market,state).some(l=>l.speaker==='inspector')).toBe(false);
+    state.flags['platform-reported']=true;
+    expect(dialogueLines(market,state).some(l=>l.speaker==='inspector')).toBe(true);
+    const finale=questGraphs.find(g=>g.questId==='b1-atlas')!.nodes.find(n=>n.id==='complete')!;
+    for(const ending of ['routes-reopened','towns-consent','brass-reformed']) {
+      state.ending=ending;
+      expect(dialogueLines(finale,state).filter(l=>l.condition?.ending).map(l=>l.condition!.ending)).toEqual([ending]);
+    }
   });
   it('keeps revisions ordered within an owner and permits a fresh account state', () => {
     const store = createStateStore({revision:0,xp:0}), observer: number[] = [];

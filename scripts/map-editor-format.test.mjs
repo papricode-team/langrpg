@@ -6,6 +6,13 @@ const document=JSON.parse(await readFile(new URL('../web/src/data/world-navigati
 test('Tiled roundtrip preserves canonical geometry and foot placements',()=>{
   for(const id of Object.keys(document.maps))assert.deepEqual(fromTiled(toTiled(id,document),document),document);
 });
+test('all three checked-in town editor documents preserve canonical placements',async()=>{
+  for(const id of Object.keys(document.maps)) {
+    const tiled=JSON.parse(await readFile(new URL(`../docs/maps/${id}.tmj`,import.meta.url),'utf8'));
+    assert.deepEqual(tiled,toTiled(id,document),`${id}: editor document drifted from runtime geometry`);
+    assert.deepEqual(fromTiled(tiled,document),document);
+  }
+});
 test('editor position and polygon offset edits reach the canonical pixel data',()=>{
   const tiled=toTiled('lindenhafen',document);
   const npc=tiled.layers.find(layer=>layer.name==='NPCs').objects[0];npc.x+=24;

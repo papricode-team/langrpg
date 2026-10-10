@@ -759,8 +759,8 @@ export const quests: Quest[] = [
         "english": "A departure board stands between platforms two and three."
       },
       {
-        "german": "Sie zeigt einen Zug nach Waldruh an.",
-        "english": "It announces a train to Waldruh."
+        "german": "Auf der Tafel steht nur: Nach W… Weitere Buchstaben fehlen.",
+        "english": "The board only says: To W… The other letters are missing."
       },
       {
         "german": "Otto schaltet sie sofort aus.",

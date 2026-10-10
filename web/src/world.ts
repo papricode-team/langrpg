@@ -26,7 +26,7 @@ import type { Progress } from './api';
 import { CutsceneScene, type CutsceneKind, type CameraBeat } from './cutscene';
 import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
 import { WorldClock, type WorldPeriod, type WorldTimeOptions, type WorldTimeState } from './world-clock';
-import { buildingEntrances, createInteriorNavigation, getInterior, interiors, type InteriorId, type InteriorSpec } from './interiors';
+import { buildingEntrances, createInteriorNavigation, getInterior, interiorNpcAvailable, interiorObjectAvailable, interiors, type InteriorId, type InteriorSpec } from './interiors';
 import { WorldInterior } from './world-interior';
 
 export interface Avatar extends Partial<AvatarParts> {
@@ -117,6 +117,7 @@ interface WorldPortal {
   root: Phaser.GameObjects.Container;
   halo: Phaser.GameObjects.Ellipse;
   label: Phaser.GameObjects.Text;
+  glyph: Phaser.GameObjects.Text;
   hovered: boolean;
 }
 
@@ -263,11 +264,11 @@ export class World {
     return this.scene.worldStats;
   }
 
-  playCutscene(kind: CutsceneKind): Promise<void> {
+  playCutscene(kind: CutsceneKind, ending?: string): Promise<void> {
     if (!this.scene.ready || this.motionMode === 'reduced' || this.motionMode === 'auto' && this.motionPreference.matches) return Promise.resolve();
     if (this.game.scene.isActive('cinematic')) return Promise.resolve();
     this.scene.setInputEnabled(false);
-    return new Promise(resolve => this.game.scene.run('cinematic', { kind, mapId: this.mapId, complete: () => {
+    return new Promise(resolve => this.game.scene.run('cinematic', { kind, mapId: this.mapId, ending, complete: () => {
       if (this.alive) this.scene.setInputEnabled(this.inputEnabled && this.visible && !document.hidden);
       this.options.onCinematicEnd?.();
       resolve();
@@ -486,7 +487,7 @@ class HarborScene extends Phaser.Scene {
   private latestPlayers?: { players: WorldPlayer[]; selfId: string };
   private interiorPropTargets: Phaser.GameObjects.Zone[] = [];
   private roomRevision = 0;
-  private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion>;routineElapsed?:number }[] = [];
+  private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion>;routineElapsed?:number;homeReached?:boolean }[] = [];
   private reducedMotion = false;
   private navigation!: NavigationGrid;
   private mapSpec = getMap('lindenhafen');
@@ -636,7 +637,7 @@ class HarborScene extends Phaser.Scene {
       const fade = { alpha: 0 };
       this.scenery.setAlpha(0);
       this.periodFade = this.tweens.add({ targets: fade, alpha: 1, duration: 1300, ease: 'Sine.easeInOut',
-        onUpdate: () => { this.scenery?.setAlpha(fade.alpha); oldScenery?.setAlpha(1 - fade.alpha); this.background?.setAlpha(fade.alpha); oldBackground.setAlpha(1 - fade.alpha); },
+        onUpdate: () => { this.scenery?.setAlpha(fade.alpha); this.background?.setAlpha(fade.alpha); },
         onComplete: () => this.finishPeriodTransition() });
     } else {
       oldScenery?.destroy();
@@ -789,7 +790,7 @@ class HarborScene extends Phaser.Scene {
         this.createMapObjects(map);
         this.createBuildingEntrances();
         this.createResidents();
-        this.atmosphere = this.audio ? new WorldAtmosphere(this, map.id) : undefined;
+        this.atmosphere = new WorldAtmosphere(this, map.id);
         this.audio?.setRegion(map.id);
         this.lastAmbient = '';
         this.mapVisualsReady = true;
@@ -854,7 +855,7 @@ class HarborScene extends Phaser.Scene {
     this.local.lastWalkTime = undefined;
     this.cameraLead = { x: 0, y: 0 };
     this.animateCharacter(this.local, 0, 0, this.elapsed);
-    this.frameCamera(1);
+    this.fitCamera(this.cameras.main.width, this.cameras.main.height, this.density);
     this.transitionRoom();
     this.resetPlayerPosition();
     if (this.latestPlayers) this.syncPlayers(this.latestPlayers.players, this.latestPlayers.selfId, true);
@@ -892,7 +893,7 @@ class HarborScene extends Phaser.Scene {
     this.scenery?.setVisible(!this.terrainOnly);
     this.atmosphere?.setVisible(!this.terrainOnly);
     this.lastAmbient = '';
-    for (const character of this.characters.values()) character.root.setVisible(!this.terrainOnly);
+    for (const character of this.characters.values()) character.root.setVisible(!this.terrainOnly && this.characterRevealed(character));
     for (const object of this.objects.values()) object.root.setVisible(!this.terrainOnly);
     for (const portal of this.portals.values()) portal.root.setVisible(!this.terrainOnly);
     const snapshot = this.latestPlayers;
@@ -900,7 +901,7 @@ class HarborScene extends Phaser.Scene {
     this.resetPlayerPosition();
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.updateResidents();
-    this.frameCamera(1);
+    this.fitCamera(this.cameras.main.width, this.cameras.main.height, this.density);
     if (restorePeers) this.transitionRoom();
     this.owner.interiorChanged(undefined);
     this.refreshNearby();
@@ -923,11 +924,13 @@ class HarborScene extends Phaser.Scene {
       if (!this.reducedMotion) this.cameras?.main.shake?.(240, .003);
     }
     this.storyState = state;
+    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) npc.root.setVisible(false);
+    this.refreshNearby();
   }
   setConversationTarget(id: string | undefined) {
-    this.conversationTarget = id;
     const npc = id ? this.characters.get(id) : undefined;
-    if (npc && this.local) this.faceCharacters(this.local, npc);
+    this.conversationTarget = npc && this.characterRevealed(npc) ? id : undefined;
+    if (npc && this.local && this.characterRevealed(npc)) this.faceCharacters(this.local, npc);
   }
   private faceCharacters(player: Character, npc: Character) {
     const dx = npc.x - player.x, dy = npc.y - player.y;
@@ -935,6 +938,14 @@ class HarborScene extends Phaser.Scene {
     if (!player.npc && this.playerArtReady) this.setCharacterFrame(player, characterFrame(player.facing));
     npc.facing = (player.facing + 2) % 4;
     if (!npc.npc && this.playerArtReady) this.setCharacterFrame(npc, characterFrame(npc.facing));
+  }
+  private characterRevealed(character: Character): boolean {
+    const visitor = this.interiorSpec?.npcs.find(npc => npc.id === character.id);
+    if (visitor && !interiorNpcAvailable(visitor, this.clock.advance(0).hour)) return false;
+    return character.id !== 'elise' || this.storyState.completedQuestIds.includes('b1-storm');
+  }
+  private objectAvailable(object: WorldObject): boolean {
+    return !this.interiorSpec || interiorObjectAvailable(this.interiorSpec, object.spec.id, this.clock.advance(0).hour);
   }
 
   setReducedMotion(reduced: boolean): void {
@@ -958,14 +969,18 @@ class HarborScene extends Phaser.Scene {
     this.atmosphere?.setVisible(!terrainOnly && !this.interiorSpec);
     for (const target of this.interiorPropTargets) target.setVisible(!terrainOnly);
     this.local?.root.setVisible(!terrainOnly && !this.watching);
-    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly);
+    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly && this.characterRevealed(character));
     for (const character of this.peers.values()) character.root.setVisible(!terrainOnly);
   }
 
   private createResidents(): void {
     if (!this.playerArtReady) return;
     for (const motion of createWorldResidents(this.mapSpec.id, this.navigation)) {
-      const position = sampleResidentMotion(motion, this.decorativeElapsed);
+      const homeReached = residentRoutine(motion.id, this.clock.advance(0).hour).action === 'rest';
+      const routineElapsed = homeReached
+        ? Math.ceil((this.decorativeElapsed + motion.phaseSeconds) / motion.cycleSeconds) * motion.cycleSeconds - motion.phaseSeconds
+        : this.decorativeElapsed;
+      const position = sampleResidentMotion(motion, routineElapsed);
       const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, motion.artVariant ?? -1, motion.artVariant);
       this.animateCharacter(character, 0, 0, this.elapsed, Infinity, {
         moving: position.moving, distance: residentWalkDistance(motion, this.decorativeElapsed),
@@ -973,7 +988,8 @@ class HarborScene extends Phaser.Scene {
         facingLeft: residentFacingLeft(motion, this.decorativeElapsed),
       });
       character.name.setColor('#ddd6b5').setVisible(false);
-      this.residents.push({ character, motion, sample: position });
+      character.root.setVisible(!homeReached && !this.terrainOnly);
+      this.residents.push({ character, motion, sample: position, routineElapsed, homeReached });
     }
   }
 
@@ -994,8 +1010,8 @@ class HarborScene extends Phaser.Scene {
       }
       character.halo = this.add.ellipse(0, 2, 37, 17, 0xf5dda0, 0.08).setStrokeStyle(1, 0xf3d286, 0.6).setVisible(false);
       character.root.addAt(character.halo, 1);
-      character.marker = this.add.text(0, -96, '✦', { fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
-      character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
+      character.marker = this.add.text(0, -96, '✦', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
+      character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
       character.root.add([character.marker, character.hint]);
       const animation = character.walkingAnimation ?? character.idleAnimation;
       character.figure.setInteractive({
@@ -1010,6 +1026,7 @@ class HarborScene extends Phaser.Scene {
         this.approachInteraction(character.interactionId ?? npc.id);
       });
       this.characters.set(npc.id, character);
+      character.root.setVisible(this.characterRevealed(character) && !this.terrainOnly);
     }
     this.resizeHitTargets();
   }
@@ -1019,7 +1036,7 @@ class HarborScene extends Phaser.Scene {
       const x = spec.x * WIDTH, y = spec.y * HEIGHT;
       const halo = this.add.ellipse(0, 0, 36, 17, 0xeecf8a, .06).setStrokeStyle(1, 0xf5d896, .35);
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
-      const label = this.add.text(0, -35, spec.label, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
+      const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
       const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
       const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(y + 8);
       const object: WorldObject = { spec, x, y, root, halo, marker, label, hovered: false, activatedUntil: 0,
@@ -1031,6 +1048,7 @@ class HarborScene extends Phaser.Scene {
         this.approachInteraction(object.interactionId);
       });
       this.objects.set(spec.id, object);
+      root.setVisible(!this.terrainOnly && this.objectAvailable(object));
     }
   }
 
@@ -1066,14 +1084,14 @@ class HarborScene extends Phaser.Scene {
   private createPortal(id: string, x: number, y: number, label: string, exit = false): void {
     const halo = this.add.ellipse(0, 1, 56, 22, 0xffd996, .1).setStrokeStyle(1.5, 0xf5d5a0, .75);
     const glyph = this.add.text(0, -12, exit ? '↙' : '↗', {
-      fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#fff1cd', stroke: '#3a4236', strokeThickness: 3,
+      resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#fff1cd', stroke: '#3a4236', strokeThickness: 3,
     }).setOrigin(.5);
     const name = this.add.text(0, exit ? 24 : -42, label, {
-      fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
+      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
     }).setOrigin(.5);
     const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
     const root = this.add.container(x, y, [halo, glyph, name, hit]).setDepth(y + 8);
-    const portal: WorldPortal = { id, x, y, root, halo, label: name, hovered: false };
+    const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hovered: false };
     hit.on('pointerover', () => { portal.hovered = true; });
     hit.on('pointerout', () => { portal.hovered = false; });
     hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
@@ -1118,6 +1136,12 @@ class HarborScene extends Phaser.Scene {
       }
     }
     this.cameras.main.setZoom(this.fitZoom);
+    for (const actor of [this.local, ...this.characters.values(), ...this.peers.values(), ...this.residents.map(resident => resident.character)]) {
+      for (const label of [actor?.name, actor?.role, actor?.hint, actor?.marker]) label?.setResolution(density);
+    }
+    for (const object of this.objects.values()) object.label.setResolution(density);
+    for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph.setResolution(density); }
+    this.bark?.setResolution(density);
     this.resizeHitTargets();
     this.frameCamera(1);
   }
@@ -1180,10 +1204,12 @@ class HarborScene extends Phaser.Scene {
     let nearest: { id: string; x: number; y: number } | undefined;
     let distance = INTERACTION_DISTANCE;
     for (const npc of this.characters.values()) {
+      if (!this.characterRevealed(npc)) continue;
       const separation = Math.hypot(npc.x - this.local.x, npc.y - this.local.y);
       if (separation < distance) { distance = separation; nearest = { id: npc.interactionId ?? npc.id, x: npc.x, y: npc.y }; }
     }
     for (const object of this.objects.values()) {
+      if (!this.objectAvailable(object)) continue;
       const separation = Math.hypot(object.x - this.local.x, object.y - this.local.y);
       if (separation < distance) { distance = separation; nearest = { id: object.interactionId, x: object.x, y: object.y }; }
     }
@@ -1285,13 +1311,15 @@ class HarborScene extends Phaser.Scene {
     if (id.startsWith('object:')) return this.objects.get(id.slice(7));
     if (id.startsWith('interior:')) {
       const station = this.objects.get(id);
-      const resident = [...this.characters.values()].find(character => character.interactionId === id);
+      if (station && !this.objectAvailable(station)) return undefined;
+      const resident = [...this.characters.values()].find(character => character.interactionId === id && this.characterRevealed(character));
       if (!station) return resident;
       if (!resident) return station;
       return Math.hypot(resident.x - this.local.x, resident.y - this.local.y)
         < Math.hypot(station.x - this.local.x, station.y - this.local.y) ? resident : station;
     }
-    return this.characters.get(id);
+    const character = this.characters.get(id);
+    return character && this.characterRevealed(character) ? character : undefined;
   }
 
   private triggerInteraction(id: string): void {
@@ -1303,7 +1331,9 @@ class HarborScene extends Phaser.Scene {
       this.leaveInterior();
     } else if (id.startsWith('interior:')) {
       const station = this.objects.get(id);
-      if (!station || !this.interiorSpec) return;
+      if (!station || !this.interiorSpec || !this.objectAvailable(station)) return;
+      const resident = [...this.characters.values()].find(character => character.interactionId === id && this.characterRevealed(character));
+      if (resident) this.faceCharacters(this.local, resident);
       station.activatedUntil = this.elapsed + 4;
       this.owner.interiorInteract(station.spec.id);
     } else if (id.startsWith('object:')) {
@@ -1313,7 +1343,8 @@ class HarborScene extends Phaser.Scene {
       this.owner.investigate(object.spec.id);
     } else {
       const npc = this.characters.get(id);
-      if (npc) this.faceCharacters(this.local, npc);
+      if (!npc || !this.characterRevealed(npc)) return;
+      this.faceCharacters(this.local, npc);
       this.owner.interact(id);
     }
   }
@@ -1355,6 +1386,7 @@ class HarborScene extends Phaser.Scene {
     if (!this.reducedMotion) this.decorativeElapsed += seconds;
     let vx = 0;
     let vy = 0;
+    let arrivedInteraction: string | undefined;
     const previousX = this.local.x;
     const previousY = this.local.y;
     const keys = this.keys;
@@ -1399,10 +1431,8 @@ class HarborScene extends Phaser.Scene {
         this.target = this.waypoints.shift();
         if (!this.target) this.marker.setVisible(false);
         if (!this.target && this.pendingInteraction) {
-          const id = this.pendingInteraction;
+          arrivedInteraction = this.pendingInteraction;
           this.pendingInteraction = undefined;
-          const target = this.interactionPosition(id);
-          if (target && Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) this.triggerInteraction(id);
         }
       } else { vx = dx / distance; vy = dy / distance; }
     }
@@ -1423,6 +1453,13 @@ class HarborScene extends Phaser.Scene {
     this.animateCharacter(this.local, localDx, localDy, this.elapsed);
     this.audio?.footsteps(Math.hypot(localDx, localDy), !!this.interiorSpec);
     this.audio?.update(seconds);
+    // The final walk frame must be painted before the conversation turns both
+    // people toward each other; otherwise that step overwrites their facing.
+    if (arrivedInteraction) {
+      const target = this.interactionPosition(arrivedInteraction);
+      if (target && Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) this.triggerInteraction(arrivedInteraction);
+    }
+    if (roomRevision !== this.roomRevision) return;
 
     if (this.elapsed - this.lastSent > 1 / 15) {
       const x = this.local.x / WIDTH;
@@ -1451,9 +1488,9 @@ class HarborScene extends Phaser.Scene {
       }
       const visible = npc.x >= characterView.x - 100 && npc.x <= characterView.right + 100
         && npc.y >= characterView.y - 110 && npc.y <= characterView.bottom + 100;
-      const revealed = npc.id !== 'elise' || this.storyState.completedQuestIds.includes('b1-storm');
+      const revealed = this.characterRevealed(npc);
       npc.root.setVisible(visible && revealed && !this.terrainOnly);
-      if (!visible) continue;
+      if (!visible || !revealed) continue;
       this.animateCharacter(npc, npcDx, npcDy, this.elapsed + npc.phase);
       const near = this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
       const show = this.controlsEnabled && (near || !!npc.hovered);
@@ -1464,15 +1501,15 @@ class HarborScene extends Phaser.Scene {
       npc.hint?.setVisible(show);
       if(visible&&revealed&&!this.interiorSpec&&Math.hypot(npc.x-this.local.x,npc.y-this.local.y)<230)this.maybeBark(npc);
       if (npc.marker) {
-        npc.marker.setVisible(!this.watching && this.objective === npc.id && !show);
+        npc.marker.setVisible(!this.watching && !this.interiorSpec && this.objective === npc.id && !show);
         npc.marker.y = -96 + (this.reducedMotion ? 0 : Math.sin(this.elapsed * 2 + npc.phase) * 1.5);
       }
     }
     if(this.bark&&this.barkSpeaker){
-      const halfWidth=this.bark.width/(2*this.cameras.main.zoom);
+      const halfWidth=this.bark.width*this.density/(2*this.cameras.main.zoom);
       const barkX=clamp(this.barkSpeaker.x,characterView.x+halfWidth+4,characterView.right-halfWidth-4);
       this.bark.setVisible(!this.conversationTarget&&!this.cinematicTarget&&!this.interiorSpec&&this.elapsed<this.barkUntil&&!this.terrainOnly)
-        .setPosition(barkX,this.barkSpeaker.y-92).setDepth(this.barkSpeaker.y+120).setScale(1/this.cameras.main.zoom);
+        .setPosition(barkX,this.barkSpeaker.y-92).setDepth(3000).setScale(labelScale);
     }
     const interpolation = 1 - Math.exp(-12 * seconds);
     for (const peer of this.peers.values()) {
@@ -1491,7 +1528,7 @@ class HarborScene extends Phaser.Scene {
     else this.scenery?.update(this.decorativeElapsed, this.cameras.main.worldView);
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.atmosphere?.update(this.decorativeElapsed, this.clock.advance(0).hour, this.cameras.main.worldView, this.reducedMotion,
-      !!this.storyState.flags?.storm_active || this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm'));
+      this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')));
     this.refreshNearby();
     if (this.marker.visible) this.marker.setScale(this.reducedMotion ? 1 : 1 + Math.sin(this.elapsed * 4) * 0.04);
     const lead = 1 - Math.exp(-5 * seconds);
@@ -1503,7 +1540,7 @@ class HarborScene extends Phaser.Scene {
   private frameCamera(follow: number): void {
     const camera = this.cameras.main;
     if (this.cinematicTarget) {
-      const beat = this.cinematicTarget, zoom = beat.zoom * this.density;
+      const beat = this.cinematicTarget, zoom = Math.max(this.coverZoom, beat.zoom * this.density);
       camera.setZoom(camera.zoom + (zoom - camera.zoom) * follow);
       const targetX = cameraScroll(clamp(beat.x - camera.width / camera.zoom / 2, 0, Math.max(0, WIDTH - camera.width / camera.zoom)), camera.width, camera.zoom);
       const targetY = cameraScroll(clamp(beat.y - camera.height / camera.zoom / 2, 0, Math.max(0, HEIGHT - camera.height / camera.zoom)), camera.height, camera.zoom);
@@ -1560,7 +1597,11 @@ class HarborScene extends Phaser.Scene {
       }
     }
     if (character.castRow !== undefined) {
-      if (Math.hypot(character.x - this.local.x, character.y - this.local.y) < 170 || this.conversationTarget === character.id) this.faceCharacters(this.local, character);
+      if (Math.hypot(character.x - this.local.x, character.y - this.local.y) < 170 || this.conversationTarget === character.id) {
+        // Passers-by can draw a glance without changing the player's gait.
+        const dx = this.local.x - character.x, dy = this.local.y - character.y;
+        character.facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 0 : 2;
+      }
       character.figure.setFrame(character.castRow * 4 + character.facing);
       character.figure.setScale(character.artScale,character.artScale*(this.reducedMotion?1:1+Math.sin(time*1.7+character.phase)*.0015));
       return;
@@ -1599,7 +1640,7 @@ class HarborScene extends Phaser.Scene {
   private maybeBark(character:Character):void{
     const bark=this.barkDirector.next({speakerId:character.id,mapId:this.mapSpec.id,level:this.mapSpec.level,hour:this.clock.advance(0).hour,elapsedSeconds:this.elapsed,requiredNpcId:this.objective,conversationActive:!!this.conversationTarget||!!this.cinematicTarget||this.watching||!this.controlsEnabled,lexicon:this.lexicon,progress:this.learningProgress});
     if(!bark)return;
-    this.bark??=this.add.text(0,0,'',{fontFamily:'Georgia, serif',fontSize:`${14*this.density}px`,color:'#fff3d5',backgroundColor:'#20352d',padding:{x:9*this.density,y:6*this.density},wordWrap:{width:270*this.density},align:'center'}).setOrigin(.5,1);
+    this.bark??=this.add.text(0,0,'',{resolution:this.density,fontFamily:'Georgia, serif',fontSize:'14px',color:'#fff3d5',backgroundColor:'#20352d',padding:{x:9,y:6},wordWrap:{width:270},align:'center'}).setOrigin(.5,1);
     this.bark.setText(bark.german);this.barkSpeaker=character;this.barkUntil=this.elapsed+5;
     this.owner.barkShown(bark);
   }
@@ -1609,7 +1650,17 @@ class HarborScene extends Phaser.Scene {
     for (const resident of this.residents) {
       const {character,motion,sample}=resident;
       resident.routineElapsed??=this.decorativeElapsed;
-      if(seconds!==undefined)resident.routineElapsed+=seconds*residentRoutine(character.id,this.clock.advance(0).hour).pace;
+      const routine = residentRoutine(character.id, this.clock.advance(0).hour);
+      if (routine.action !== 'rest') resident.homeReached = false;
+      if (seconds !== undefined && !this.reducedMotion) {
+        if (routine.action === 'rest' && !resident.homeReached) {
+          const phase = (resident.routineElapsed + motion.phaseSeconds) % motion.cycleSeconds;
+          const remaining = phase < .00001 ? 0 : motion.cycleSeconds - phase;
+          const step = Math.min(seconds * routine.pace, remaining);
+          resident.routineElapsed += step;
+          if (step >= remaining) resident.homeReached = true;
+        } else if (routine.action !== 'rest') resident.routineElapsed += seconds * routine.pace;
+      }
       const sampleTime=seconds===undefined?this.decorativeElapsed:resident.routineElapsed;
       const position = sampleResidentMotion(motion, sampleTime, sample);
       const dx = position.x - character.x;
@@ -1618,16 +1669,16 @@ class HarborScene extends Phaser.Scene {
       character.y = position.y;
       const visible = character.x >= view.x - 90 && character.x <= view.right + 90
         && character.y >= view.y - 100 && character.y <= view.bottom + 100;
-      character.root.setVisible(visible && !this.terrainOnly);
+      character.root.setVisible(visible && !resident.homeReached && !this.terrainOnly);
       // Sampling the exact route gait also advances culled residents, so they
       // return with the same pose and facing as continuously visible people.
       this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed, Infinity, {
-        moving: position.moving, distance: residentWalkDistance(motion, sampleTime),
+        moving: position.moving && !resident.homeReached, distance: residentWalkDistance(motion, sampleTime),
         velocityX: position.velocityX, velocityY: position.velocityY,
         facingLeft: residentFacingLeft(motion, sampleTime),
       });
       // Passing locals have no quest markers or player labels to crowd the map.
-      character.name.setScale(this.density / (this.cameras.main.zoom || 1)).setVisible(!position.moving && this.controlsEnabled
+      character.name.setScale(this.density / (this.cameras.main.zoom || 1)).setVisible(!resident.homeReached && !position.moving && this.controlsEnabled
         && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100);
     }
   }
@@ -1700,11 +1751,11 @@ class HarborScene extends Phaser.Scene {
     const artScale = !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
     const layers = animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
-    const nameText = this.add.text(0, -79, name, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
+    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(y + 10);
     let roleText: Phaser.GameObjects.Text | undefined;
     if (role) {
-      roleText = this.add.text(0, 13, role, { fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
+      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
     const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, avatar, idleAnimation, walkingAnimation, idleFrame, localArtVariant, castRow };
@@ -1733,8 +1784,9 @@ class HarborScene extends Phaser.Scene {
     const nearestId = this.interiorSpec ? this.findNearestInteraction()?.id : undefined;
     for (const object of this.objects.values()) {
       const visible = object.x >= view.x - 100 && object.x <= view.right + 100 && object.y >= view.y - 100 && object.y <= view.bottom + 100;
-      object.root.setVisible(visible && !this.terrainOnly && !this.watching);
-      if (!visible) continue;
+      const available = this.objectAvailable(object);
+      object.root.setVisible(visible && available && !this.terrainOnly && !this.watching);
+      if (!visible || !available) continue;
       const near = this.controlsEnabled && Math.hypot(object.x - this.local.x, object.y - this.local.y) < INTERACTION_DISTANCE;
       const highlighted = this.controlsEnabled && (near || object.hovered);
       const objective = this.objective === object.spec.id || this.objective === `object:${object.spec.id}`;

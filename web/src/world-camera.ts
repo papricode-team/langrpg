@@ -7,8 +7,10 @@ export function canvasSize(width: number, height: number, ratio = 1) {
 export function explorationZoom(width: number, height: number, density = 1, indoor = false) {
   const cssWidth = width / density, cssHeight = height / density;
   const mobile = cssWidth < 760 || cssWidth < 1000 && cssHeight < 520;
-  const personHeight = Math.max(mobile ? 88 : 110, Math.min(indoor ? 180 : 162, cssHeight * .15)) * .85;
-  return { zoom: Math.max(width / 1536, height / 1024, personHeight / 72 * density), mobile };
+  const personHeight = Math.max(mobile ? 88 : 110, Math.min(indoor ? 180 : 162, cssHeight * .15));
+  // Room bodies are 132 units tall, compared with 72 outdoors. Keep a person
+  // within the same comfortable screen range instead of doubling their size.
+  return { zoom: Math.max(width / 1536, height / 1024, personHeight / (indoor ? 132 : 72) * density), mobile };
 }
 
 /** Conversation framing follows the same comfortable exploration scale. */

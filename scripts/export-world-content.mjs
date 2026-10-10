@@ -49,7 +49,8 @@ const rules = graphs.map(graph => {
     if (!object) throw new Error(`Missing ${item.objectId} in ${map.id}`);
     return { id: object.id, x: object.x, y: object.y };
   });
-  return { questId: graph.questId, mapId: map.id, npcId: quest.npcId, npc, gateExerciseId: graph.gateExerciseId, choiceIds: choiceNode.choices.map(choice => choice.id), choices: choiceNode.choices.map(choice => ({ id: choice.id, effects: choice.effects })), investigationObjectIds: objects.map(object => object.id), objects };
+  const replies = graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : []));
+  return { questId: graph.questId, mapId: map.id, npcId: quest.npcId, npc, gateExerciseId: graph.gateExerciseId, replyExerciseIds: replies, choiceIds: choiceNode.choices.map(choice => choice.id), choices: choiceNode.choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })), investigationObjectIds: objects.map(object => object.id), objects };
 });
 await writeFile(resolve(root, 'server/story_rules.json'), `${JSON.stringify({ rules }, null, 2)}\n`);
 process.stdout.write(`Exported ${rules.length} investigations, ${encounters.length} encounters and ${games.length} validated neighborhood plans.\n`);

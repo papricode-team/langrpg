@@ -88,13 +88,14 @@ export function npcRoutine(npcId: string, hour: number, requiredNpcId?: string):
     german: scheduled.german, english: scheduled.english };
 }
 
-export interface ResidentRoutine { action: 'errand' | 'pause' | 'rest'; pace: number; visible: true; }
+export interface ResidentRoutine { action: 'errand' | 'pause' | 'rest'; pace: number; visible: boolean; }
 export function residentRoutine(residentId: string, hour: number): ResidentRoutine {
   const h = hourOf(hour);
   // Harbor workers and couriers finish later; early commuters wake first.
   const early = /commuter|courier|sailor|port-worker/.test(residentId);
   const start = early ? 6 : 8, finish = early ? 22 : 20;
-  if (h < start || h >= finish) return { action: 'rest', pace: 0, visible: true };
+  // Closing time sends residents along their existing route to its home stop.
+  if (h < start || h >= finish) return { action: 'rest', pace: .8, visible: false };
   if (h >= finish - 2 || h < start + 1) return { action: 'pause', pace: .55, visible: true };
   return { action: 'errand', pace: 1, visible: true };
 }
@@ -129,9 +130,15 @@ const boundedText = (value: string): string => value.trim().replace(/[\r\n\t“�
 function lexicalBark(word: RoutineLexeme, context: BarkContext, source: 'due-word' | 'course-word'): WorldBark {
   const lemma = boundedText(word.articleForm ?? word.lemma);
   const printed = word.article ? `${boundedText(word.article)} ${lemma}` : lemma;
+  const [german, english] = context.speakerId === 'lina'
+    ? [`Auf dem Paket steht „${printed}“.`, `The parcel says “${printed}” (${word.english}).`]
+    : context.speakerId === 'otto' || context.speakerId === 'inspector'
+      ? [`Auf dem Schild steht „${printed}“.`, `The sign says “${printed}” (${word.english}).`]
+      : context.speakerId === 'ada' || context.speakerId === 'elise'
+        ? [`Im Buch steht „${printed}“.`, `The book says “${printed}” (${word.english}).`]
+        : [`Auf dem Zettel steht „${printed}“.`, `The note says “${printed}” (${word.english}).`];
   return { id: `${source}:${word.id}`, speakerId: context.speakerId,
-    german: `Auf dem Paket steht „${printed}“.`,
-    english: `The parcel says “${printed}” (${word.english}).`,
+    german, english,
     // Only this printed headword is credited, never inferred pronouns or stems.
     wordIds: [word.id], source };
 }

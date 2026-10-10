@@ -19,12 +19,13 @@ test('server investigation proof follows the actual edited runtime placements an
     assert.deepEqual(rule.npc, npc, `${graph.questId} NPC moved without regenerating server proof`);
     assert.equal(rule.npcId, quest.npcId);
     assert.equal(rule.gateExerciseId, graph.gateExerciseId);
+    assert.deepEqual(rule.replyExerciseIds, [...new Set(graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : [])))]);
     assert.deepEqual(rule.investigationObjectIds, graph.investigations.map(item => item.objectId));
     assert.deepEqual(rule.objects, graph.investigations.map(item => {
       const object = map.objects.find(object => object.id === item.objectId);
       assert.ok(object, `missing ${item.objectId}`);
       return { id: object.id, x: object.x, y: object.y };
     }), `${graph.questId} objects moved without regenerating server proof`);
-    assert.deepEqual(rule.choices, graph.nodes.find(node => node.id === 'choice').choices.map(choice => ({ id: choice.id, effects: choice.effects })));
+    assert.deepEqual(rule.choices, graph.nodes.find(node => node.id === 'choice').choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })));
   }
 });

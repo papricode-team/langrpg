@@ -48,6 +48,18 @@ export interface QuestControllerOptions {
   onGrammarGuide?(guideId:string): void;
 }
 
+interface SceneAttemptInput {
+  id: string;
+  itemId: string;
+  exerciseId: string;
+  answer: string;
+  hinted: boolean;
+  mode: 'recognition' | 'production';
+  questId: string;
+  sceneAttempt: true;
+  responseTimeMs: number;
+}
+
 /** Owns the scene cursor; authoritative effects are returned by the server. */
 export class QuestController {
   private view: DialogueView;
@@ -63,10 +75,11 @@ export class QuestController {
   private replay = false;
   private error = '';
   private artifact?: { objectId: string; german: string; english: string };
-  private pending?: { id: string; key: string };
+  private pending?: { id: string; key: string; attempt?: Readonly<SceneAttemptInput> };
   private generation = 0;
   private startedAt = 0;
   private gateProof?: string;
+  private replyCorrection?: DialogueLine;
   private ambient?: { npc: NPC; lines: ReturnType<typeof residentConversation> };
   constructor(private options: QuestControllerOptions) {
     this.view = new DialogueView({ action: action => void this.action(action), choice: id => void this.choose(id), answer: answer => void this.answer(answer), gloss: () => this.hint() });
@@ -75,15 +88,17 @@ export class QuestController {
   refreshAudio() { if (this.isOpen) this.render(); }
   async open(questId: string): Promise<void> {
     const graph = questGraph(questId); if (!graph) return;
-    this.generation++; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId); this.answerShown = false;
+    this.generation++; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId); this.answerShown = false; this.replyCorrection = undefined;
+    const generation = this.generation;
     this.ambient = undefined;
     this.hinted = this.options.wasHinted?.(questId)??false; this.translated = false; this.grammarShown = false; this.error = ''; this.artifact = undefined; this.pending = undefined; this.busy = false; this.gateProof = undefined;
     const state = storyState(this.options.progress().story), stage = this.replay ? 'intro' : state.nodes[questId] ?? 'intro';
     this.node = nodeForStage(graph, stage); this.index = 0;
     this.options.onOpen(quests.find(q => q.id === questId)!.npcId);
-    if (!this.replay && stage === 'intro' && this.allInspected()) {
+    const repliesDone = graph.nodes.flatMap(node => node.lines).every(line => !line.reply || state.flags[`reply:${line.reply.exerciseId}`]);
+    if (!this.replay && stage === 'intro' && this.allInspected() && repliesDone) {
       await this.transition('intro');
-      if (this.graph !== graph) return;
+      if (generation !== this.generation || this.graph !== graph) return;
       if (this.error) this.index = dialogueLines(this.node!,state).length-1;
       else this.node = nodeForStage(graph, 'gate');
     }
@@ -92,13 +107,13 @@ export class QuestController {
   inspect(questId: string, objectId: string) {
     const graph = questGraph(questId), artifact = graph?.investigations.find(item => item.objectId === objectId);
     if (!graph || !artifact) return false;
-    this.generation++; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
+    this.generation++; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
     this.translated = false; this.hinted = false; this.busy = false; this.error = ''; this.pending = undefined;
     this.replay = (this.options.progress().story?.inspections?.[questId] ?? []).includes(objectId) || this.options.progress().completedQuestIds.includes(questId);
     this.options.onOpen(''); this.view.host.classList.add('investigation-artifact'); this.render(true); return true;
   }
   greet(npc: NPC, level: Level) {
-    this.generation++; this.graph = undefined; this.node = undefined; this.artifact = undefined; this.answerShown = false;
+    this.generation++; this.replyCorrection = undefined; this.graph = undefined; this.node = undefined; this.artifact = undefined; this.answerShown = false;
     this.ambient = { npc, lines: residentConversation(npc, level, storyState(this.options.progress().story)) };
     const greeting = earnedTitleGreeting(npc,lanternRewards(this.options.progress()).title);
     if (greeting) this.ambient.lines.unshift(greeting);
@@ -120,15 +135,18 @@ export class QuestController {
     const graph = this.graph; if (!graph) return;
     const state = storyState(this.options.progress().story), lines = this.artifact ? [{ id: this.artifact.objectId, speaker: 'Evidence', german: this.artifact.german, english: this.artifact.english, clipId: `artifact-${graph.questId}-${this.artifact.objectId}` }] : dialogueLines(this.node!, state);
     const source = lines[this.index]; if (!source) return;
-    const line = this.options.prepareLine?.(source) ?? source;
+    const presented = this.replyCorrection ?? source;
+    const line = this.options.prepareLine?.(presented) ?? presented;
     const atEnd = this.index === lines.length - 1;
     const gate = !this.replay && this.node?.stage === 'gate' && atEnd ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId) : undefined;
-    const choices = !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
+    const reply = !this.replay && !this.artifact && source.reply && !state.flags[`reply:${source.reply.exerciseId}`] ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === source.reply!.exerciseId) : undefined;
+    const choices = reply ? (reply.options ?? []).map(german => ({ id: german, german, english: '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
     this.view.render({ audioEnabled, title: this.artifact ? 'READ THE EVIDENCE' : quests.find(q => q.id === graph.questId)!.title, line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker), index: this.index, total: lines.length, help: this.translated, busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? glossary), ...line.glosses }, powers,wordlight:this.wordlight, grammar: gate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, choices, gate, gatePrompt: graph.gatePrompt, advanceLabel: this.artifact ? this.replay ? 'Return to the investigation' : 'Record this evidence' : atEnd && this.node?.stage === 'intro' && !this.replay ? 'Examine the evidence' : atEnd && this.node?.terminal ? 'Keep exploring' : 'Continue' });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); if (audioEnabled) this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
     if (gate && focusGate) { this.startedAt = performance.now(); this.view.focusGate(); }
   }
   private async action(action: string) {
+    const generation = this.generation;
     if (action === 'close') { this.close(); return; }
     if (action === 'audio') {
       const enabled = !this.options.audioEnabled();
@@ -164,11 +182,13 @@ export class QuestController {
     if (action === 'hint') { this.hint(); const ex = quests.find(q => q.id === this.graph!.questId)!.exercises.find(ex => ex.id === this.graph!.gateExerciseId)!; this.error = ex.hint; this.render(); return; }
     if (action === 'listen') { this.render(true); return; }
     if (action !== 'next') return;
+    const current = this.node && dialogueLines(this.node, storyState(this.options.progress().story))[this.index];
+    if (!this.replay && current?.reply && !this.options.progress().story?.flags[`reply:${current.reply.exerciseId}`]) return;
     if (this.artifact) {
       if (!this.replay) {
         const key = `inspect:${this.graph.questId}:${this.artifact.objectId}`;
         await this.command(key, () => this.options.api.inspectStory({ id: this.commandId(key), questId: this.graph!.questId, objectId: this.artifact!.objectId }));
-        if (this.error || !this.graph) return;
+        if (generation !== this.generation || this.error || !this.graph) return;
       }
       const graph = this.graph; this.close(); this.options.onInvestigate(graph); return;
     }
@@ -178,10 +198,15 @@ export class QuestController {
     if (this.node!.terminal) { this.close(); return; }
     const next = this.node!.next;
     if (!next) return;
-    if (!this.replay && this.node!.stage === 'intro') { await this.transition('intro'); if (this.error) return; }
+    if (!this.replay && this.node!.stage === 'intro') { await this.transition('intro'); if (generation !== this.generation || this.error || !this.graph) return; }
     this.node = this.graph.nodes.find(node => node.id === next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
   }
   private commandId(key: string) { if (this.pending?.key !== key) this.pending = { key, id: crypto.randomUUID() }; return this.pending.id; }
+  private attemptInput(key: string, input: Omit<SceneAttemptInput, 'id' | 'responseTimeMs'>): Readonly<SceneAttemptInput> {
+    const id = this.commandId(key);
+    // A lost response must retry the exact body stored with this action ID.
+    return this.pending!.attempt ??= Object.freeze({ id, ...input, responseTimeMs: Math.min(600000, Math.round(performance.now() - this.startedAt)) });
+  }
   private async command(key: string, send: () => Promise<StoryResult>) {
     const generation = this.generation; this.busy = true; this.error = ''; this.commandId(key); this.render();
     try { const result = await send(); this.options.onProgress(result.progress); if (generation !== this.generation) return; this.pending = undefined; }
@@ -197,18 +222,19 @@ export class QuestController {
     const graph = this.graph, ex = quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId)!, generation = this.generation;
     if (this.gateProof) {
       await this.transition('gate', { attemptId: this.gateProof });
-      if (!this.error && this.graph === graph) { this.node = nodeForStage(graph, 'choice'); this.index = 0; this.translated = false; this.render(true); }
+      if (generation === this.generation && !this.error && this.graph === graph) { this.node = nodeForStage(graph, 'choice'); this.index = 0; this.translated = false; this.render(true); }
       return;
     }
-    const key = `answer:${graph.questId}:${answer.trim()}:${this.hinted}`, id = this.commandId(key);
+    const key = `answer:${graph.questId}:${answer.trim()}:${this.hinted}`;
+    const input = this.attemptInput(key, { itemId: ex.itemId, exerciseId: ex.id, answer: answer.trim(), hinted: this.hinted, mode: 'production', questId: graph.questId, sceneAttempt: true });
     this.busy = true; this.error = ''; this.render();
     try {
-      const result = await this.options.api.request<AttemptResult>('/attempt', { id, itemId: ex.itemId, exerciseId: ex.id, answer: answer.trim(), hinted: this.hinted, mode: 'production', questId: graph.questId, sceneAttempt:true, responseTimeMs: Math.min(600000,Math.round(performance.now() - this.startedAt)) });
+      const result = await this.options.api.request<AttemptResult>('/attempt', input);
       this.options.onProgress(result.progress);
       if (generation !== this.generation) return;
       this.pending = undefined;
       if (!result.correct) { this.error = result.reason || gradeFeedback(ex, answer); return; }
-      this.gateProof = result.attemptId || id;
+      this.gateProof = result.attemptId || input.id;
       this.busy = false;
       await this.transition('gate', { attemptId: this.gateProof });
       if (this.error || generation !== this.generation) return;
@@ -219,14 +245,36 @@ export class QuestController {
   private async choose(id: string) {
     if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); return; }
     if (!this.graph || this.busy || !this.node) return;
+    const source = dialogueLines(this.node, storyState(this.options.progress().story))[this.index];
+    if (!this.replay && source?.reply && !this.options.progress().story?.flags[`reply:${source.reply.exerciseId}`]) {
+      await this.reply(id, source); return;
+    }
     const choice = dialogueChoices(this.node, storyState(this.options.progress().story)).find(choice => choice.id === id); if (!choice) return;
+    const graph = this.graph, generation = this.generation;
     if (!this.replay) {
       const before = this.options.progress().xp;
-      await this.transition('choice', { choiceId: id }); if (this.error || !this.graph) return;
-      this.options.onComplete(this.graph, this.options.progress().xp - before);
+      await this.transition('choice', { choiceId: id }); if (generation !== this.generation || this.error || this.graph !== graph) return;
+      this.options.onComplete(graph, this.options.progress().xp - before);
     }
     this.node = this.graph.nodes.find(node => node.id === choice.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
   }
-  close() { this.generation++; this.view.close(); this.view.host.classList.remove('investigation-artifact'); this.graph = undefined; this.node = undefined; this.artifact = undefined; this.ambient = undefined; this.wordlight = false; this.busy = false; this.options.stopSpeech(); this.options.onClose(); }
+  private async reply(answer: string, source: DialogueLine) {
+    const graph = this.graph!, exercise = quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === source.reply!.exerciseId)!;
+    if (!exercise.options?.includes(answer)) return;
+    const generation = this.generation, key = `reply:${graph.questId}:${answer}:${this.hinted}`;
+    const input = this.attemptInput(key, { itemId: exercise.itemId, exerciseId: exercise.id, answer, hinted: this.hinted || !!this.options.progress().story?.flags[`reply-help:${exercise.id}`], mode: 'recognition', questId: graph.questId, sceneAttempt: true });
+    this.busy = true; this.error = ''; this.render();
+    try {
+      const result = await this.options.api.request<AttemptResult>('/attempt', input);
+      this.options.onProgress(result.progress);
+      if (generation !== this.generation) return;
+      this.pending = undefined;
+      if (result.correct) { this.replyCorrection = undefined; this.index++; this.translated = false; }
+      else { this.hinted = true; this.replyCorrection = source.reply!.correction; }
+      this.busy = false; this.render(true);
+    } catch (error) { if (generation === this.generation) this.error = error instanceof Error ? error.message : 'Your reply could not save. Try again.'; }
+    finally { if (generation === this.generation) { this.busy = false; this.render(); } }
+  }
+  close() { this.generation++; this.replyCorrection = undefined; this.view.close(); this.view.host.classList.remove('investigation-artifact'); this.graph = undefined; this.node = undefined; this.artifact = undefined; this.ambient = undefined; this.wordlight = false; this.busy = false; this.options.stopSpeech(); this.options.onClose(); }
   destroy() { this.close(); this.view.destroy(); }
 }

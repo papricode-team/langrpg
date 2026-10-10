@@ -21,6 +21,7 @@ jobs:
       - run: npm test
       - run: npm run test:tooling
       - run: npm run assets
+      - run: node scripts/audit-dialogue-levels.mjs --check
       - run: git diff --exit-code -- server/curriculum.json server/course.json server/story_rules.json server/expeditions.json server/activity_boards.json web/src/data/course.json web/src/data/course-meta.json web/src/data/course-exercises-a1.json web/src/data/course-exercises-a2.json web/src/data/course-exercises-b1.json docs/audits/dialogue-levels.json
       - run: npm run build
       - run: npm run budgets
