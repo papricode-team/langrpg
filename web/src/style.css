@@ -3467,6 +3467,17 @@ kbd {
 .region-compass strong,.region-compass small { display:block; text-align:left; }
 .region-compass strong { font:16px 'Fraunces',serif; }
 .region-compass small { margin-top:4px; font-size:7px; letter-spacing:1.6px; color:#c8c0a4; }
+.world-status { display:contents; }
+@media(min-width:761px) and (min-height:521px) {
+  .world-status { position:absolute; top:max(22px,env(safe-area-inset-top)); right:max(24px,env(safe-area-inset-right)); display:flex; flex-direction:column; align-items:flex-end; gap:12px; width:max-content; max-width:calc(50vw - 166px); }
+  .world-status>.region-compass,.world-status>.bell-tracker,.world-status>.quest-tracker { position:static; max-width:100%; }
+  /* Keep the event log beside the atlas, then let the status and objective flow below. */
+  .world-status>.region-compass { order:-1; margin-right:56px; max-width:calc(100% - 56px); }
+  .world-status>.region-compass>span { min-width:0; }
+  .world-status>.region-compass strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .world-status>.bell-tracker strong { white-space:nowrap; }
+  .world-status>.bell-tracker small { min-width:0; overflow-wrap:anywhere; }
+}
 .quest-tracker { top:101px; right:max(24px,env(safe-area-inset-right)); left:auto; width:254px; max-width:none; background:#142c24df; box-shadow:0 4px 13px #0b261e30; border-left:2px solid #c7a76b; }
 .quest-tracker::after { display:none; }
 .tracker-heading { align-items:center; gap:10px; padding:12px 14px; min-height:54px; }

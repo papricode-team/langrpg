@@ -210,12 +210,15 @@ function renderShell() {
     <main class="game-shell" id="game-shell" data-view="world" data-map="lindenhafen">
       <section id="explore-view" class="world-stage" aria-label="Lindenhafen"><div id="world-container" aria-label="Game world. Use WASD, arrow keys, or the joystick to move. Press E to interact." tabindex="0"></div></section>
       <div class="world-vignette" aria-hidden="true"></div>
-      <div class="game-hud" id="game-hud"><div class="bell-tracker" id="bell-tracker" aria-label="The seventh bell"><span>${icon('clock')}</span><strong id="bell-count">0 / 7</strong><small id="story-day">DAY 1</small></div>
+      <div class="game-hud" id="game-hud">
         <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="Edit your character">${portrait('self')}<span class="medallion-gem"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><div class="player-meta"><span id="hud-level">A1 · WANDERER</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></div><div class="player-progress"><span id="chapter-fill"></span></div></div></div>
         <div class="location-banner"><div class="location-title" id="breadcrumb-current">Lindenhafen</div><div class="location-subtitle" id="location-subtitle">THE FIRST MISSING ROUTE</div></div>
         <section class="interior-location" id="interior-location" aria-label="Current building" hidden></section>
-        <button class="region-compass" data-view="atlas" aria-label="Open the region atlas">${icon('compass')}<span><strong id="region-name">Lindenhafen</strong><small>REGION ATLAS</small></span></button>
-        <aside class="quest-tracker" id="quest-tracker" aria-label="Next story objective"><div id="quest-panel"></div></aside>
+        <div class="world-status">
+          <div class="bell-tracker" id="bell-tracker" aria-label="The seventh bell"><span>${icon('clock')}</span><strong id="bell-count">0 / 7</strong><small id="story-day">DAY 1</small></div>
+          <button class="region-compass" data-view="atlas" aria-label="Open the region atlas">${icon('compass')}<span><strong id="region-name">Lindenhafen</strong><small>REGION ATLAS</small></span></button>
+          <aside class="quest-tracker" id="quest-tracker" aria-label="Next story objective"><div id="quest-panel"></div></aside>
+        </div>
         <section class="chat-card" id="chat-card" aria-label="Local chat"><button class="chat-header" data-action="chat-toggle" aria-label="Toggle local chat" aria-expanded="false" aria-controls="chat-body"><span>${icon('chat')}<strong id="chat-region">Lindenhafen</strong><small>LOCAL</small></span><span class="chat-toggle-icon">${icon('plus')}</span></button><div class="chat-body" id="chat-body" hidden><div class="chat-messages" id="chat-messages"><p class="chat-welcome">Say Hallo. Every wanderer has a story.</p></div><form id="chat-form" class="chat-input"><input id="chat-input" maxlength="280" autocomplete="off" placeholder="Say something…" aria-label="Message to this region"/><button type="submit" aria-label="Send message">${icon('send')}</button></form></div></section>
         <div class="game-controls-hint"><kbd>WASD</kbd><span>Move</span><b>·</b><kbd>E</kbd><span>Interact</span><b>·</b><kbd>M</kbd><span>Atlas</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="Open game menu">${icon('lantern')}<span>Menu</span><i id="review-dot" hidden></i></button>
