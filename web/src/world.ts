@@ -83,6 +83,7 @@ interface Character {
   phase: number;
   facing: number;
   walkDistance: number;
+  lastWalkTime?: number;
   frame: number;
   npc: boolean;
   artScale: number;
@@ -809,6 +810,7 @@ class HarborScene extends Phaser.Scene {
     this.local.y = this.local.targetY = spawn.y;
     this.local.facing = 0;
     this.local.walkDistance = 0;
+    this.local.lastWalkTime = undefined;
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.frameCamera(1);
   }
@@ -849,6 +851,7 @@ class HarborScene extends Phaser.Scene {
     this.local.y = this.local.targetY = spawn.y;
     this.local.facing = 2;
     this.local.walkDistance = 0;
+    this.local.lastWalkTime = undefined;
     this.cameraLead = { x: 0, y: 0 };
     this.animateCharacter(this.local, 0, 0, this.elapsed);
     this.frameCamera(1);
@@ -883,6 +886,7 @@ class HarborScene extends Phaser.Scene {
     this.local.y = this.local.targetY = outdoors.y;
     this.local.facing = outdoors.facing;
     this.local.walkDistance = 0;
+    this.local.lastWalkTime = undefined;
     this.cameraLead = { x: 0, y: 0 };
     this.background?.setVisible(true);
     this.scenery?.setVisible(!this.terrainOnly);
@@ -1546,10 +1550,12 @@ class HarborScene extends Phaser.Scene {
         character.facing = horizontal ? (dx >= 0 ? 1 : 3) : (dy >= 0 ? 0 : 2);
         const cycleDistance = MODULAR_ART.cycleDistance * character.artScale * buildWidth(normalizeParts(character.avatar).build);
         character.walkDistance = advanceWalkDistance(character.walkDistance, distance, cycleDistance, maxGaitDistance);
+        character.lastWalkTime = time;
         const frame = characterFrame(character.facing, character.walkDistance / cycleDistance * WALK_POSE_COLUMNS.length);
         this.setCharacterFrame(character, frame);
-      } else {
-        character.walkDistance = 0;
+      } else if (!this.controlsEnabled || this.watching || time - (character.lastWalkTime ?? -Infinity) >= .1) {
+        // A single-frame click still needs a visible step. Idle pauses retain
+        // distance so repeated short clicks advance through the painted gait.
         this.setCharacterFrame(character, characterFrame(character.facing));
       }
     }

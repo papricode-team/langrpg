@@ -21,6 +21,21 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
 }
 
 describe('conversation word lookup', () => {
+  it('shows an icon audio toggle outside the text and preserves its keyboard focus', () => {
+    const f = fixture({ audioEnabled: false });
+    const toggle = () => f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-action="audio"]')!;
+    expect(toggle().closest('.dialogue-heading')).not.toBeNull();
+    expect(toggle().textContent).toBe('');
+    expect(toggle().getAttribute('aria-pressed')).toBe('false');
+    expect(f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(true);
+    toggle().focus(); toggle().click();
+    expect(f.actions.action).toHaveBeenCalledWith('audio');
+    f.view.render({ ...f.presentation, audioEnabled: true });
+    expect(toggle().getAttribute('aria-pressed')).toBe('true');
+    expect(f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(false);
+    expect(document.activeElement).toBe(toggle());
+  });
+
   it('reveals the whole English sentence and marks the selected contextual counterpart', () => {
     const f = fixture();
     expect(f.translation()).toBeNull();

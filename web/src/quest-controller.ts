@@ -31,6 +31,8 @@ export interface QuestControllerOptions {
   playerName(): string;
   portrait(id: string): string;
   speak(text: string, speaker: string, clipId: string, personalized: boolean, rate?: number): void;
+  audioEnabled(): boolean;
+  setAudioEnabled(enabled: boolean): void;
   glosses?(text: string): Record<string, string> | undefined;
   prepareLine?(line: DialogueLine): DialogueLine;
   grammar?(questId:string): ContextualGrammar | undefined;
@@ -69,6 +71,7 @@ export class QuestController {
     this.view = new DialogueView({ action: action => void this.action(action), choice: id => void this.choose(id), answer: answer => void this.answer(answer), gloss: () => this.hint() });
   }
   get isOpen(): boolean { return !this.view.host.hidden; }
+  refreshAudio() { if (this.isOpen) this.render(); }
   async open(questId: string): Promise<void> {
     const graph = questGraph(questId); if (!graph) return;
     this.generation++; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId);
@@ -104,12 +107,13 @@ export class QuestController {
     return this.graph!.investigations.every(item => (this.options.progress().story?.inspections?.[this.graph!.questId] ?? []).includes(item.objectId));
   }
   private hint() { this.hinted = true; if (this.graph && !this.replay) this.options.expose(this.graph.gateExerciseId); }
-  private render(voice = false, rate?: number) {
+  private render(voice = false, rate?: number, focusGate = voice) {
     const powers = lanternRewards(this.options.progress());
+    const audioEnabled = this.options.audioEnabled();
     if (this.ambient) {
       const { npc, lines } = this.ambient, source = lines[this.index], line = this.options.prepareLine?.(source) ?? source, atEnd = this.index === lines.length - 1;
-      this.view.render({ title: 'A CONVERSATION IN THE TOWN', line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id), index:this.index,total:lines.length,help:this.translated,busy:false,glosses:this.options.glosses?.(line.german)??glossary,powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
-      if (voice) { this.options.onOpen(npc.id); this.options.speak(line.german,npc.id,line.clipId,false,rate); }
+      this.view.render({ audioEnabled, title: 'A CONVERSATION IN THE TOWN', line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id), index:this.index,total:lines.length,help:this.translated,busy:false,glosses:this.options.glosses?.(line.german)??glossary,powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      if (voice) { this.options.onOpen(npc.id); if (audioEnabled) this.options.speak(line.german,npc.id,line.clipId,false,rate); }
       return;
     }
     const graph = this.graph; if (!graph) return;
@@ -119,12 +123,19 @@ export class QuestController {
     const atEnd = this.index === lines.length - 1;
     const gate = !this.replay && this.node?.stage === 'gate' && atEnd ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId) : undefined;
     const choices = !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
-    this.view.render({ title: this.artifact ? 'READ THE EVIDENCE' : quests.find(q => q.id === graph.questId)!.title, line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker), index: this.index, total: lines.length, help: this.translated, busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? glossary), ...line.glosses }, powers,wordlight:this.wordlight, grammar: gate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, choices, gate, gatePrompt: graph.gatePrompt, advanceLabel: this.artifact ? this.replay ? 'Return to the investigation' : 'Record this evidence' : atEnd && this.node?.stage === 'intro' && !this.replay ? 'Examine the evidence' : atEnd && this.node?.terminal ? 'Keep exploring' : 'Continue' });
-    if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
-    if (gate && voice) { this.startedAt = performance.now(); this.view.focusGate(); }
+    this.view.render({ audioEnabled, title: this.artifact ? 'READ THE EVIDENCE' : quests.find(q => q.id === graph.questId)!.title, line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker), index: this.index, total: lines.length, help: this.translated, busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? glossary), ...line.glosses }, powers,wordlight:this.wordlight, grammar: gate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, choices, gate, gatePrompt: graph.gatePrompt, advanceLabel: this.artifact ? this.replay ? 'Return to the investigation' : 'Record this evidence' : atEnd && this.node?.stage === 'intro' && !this.replay ? 'Examine the evidence' : atEnd && this.node?.terminal ? 'Keep exploring' : 'Continue' });
+    if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); if (audioEnabled) this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
+    if (gate && focusGate) { this.startedAt = performance.now(); this.view.focusGate(); }
   }
   private async action(action: string) {
     if (action === 'close') { this.close(); return; }
+    if (action === 'audio') {
+      const enabled = !this.options.audioEnabled();
+      this.options.setAudioEnabled(enabled);
+      if (!enabled) this.options.stopSpeech();
+      this.render(enabled, undefined, false);
+      return;
+    }
     if (action === 'slow' && lanternRewards(this.options.progress()).echo) { this.render(true,.65); return; }
     if (action === 'wordlight' && lanternRewards(this.options.progress()).wordlight) { this.wordlight = !this.wordlight; if (this.wordlight) this.hint(); this.render(); return; }
     if (this.ambient) {

@@ -90,7 +90,9 @@ export class WorldScenery {
         part.sprite.setVisible(visible);part.next?.setVisible(visible);if(!visible||!part.animation)continue;
         const blend=sceneryBlend(part.animation,part.phaseId,this.motionTime);
         if(blend.current!==part.currentFrame){part.sprite.setFrame(blend.current);part.currentFrame=blend.current;}
-        part.sprite.setAlpha(this.opacity*(part.next&&!this.reducedMotion?1-blend.alpha:1));
+        // Source-over draws the next frame over this one. Fading both frames
+        // makes opaque scenery lose up to 25% coverage midway through a blend.
+        part.sprite.setAlpha(this.opacity);
         part.next?.setFrame(blend.next).setAlpha(this.reducedMotion?0:this.opacity*blend.alpha);
       }
     }

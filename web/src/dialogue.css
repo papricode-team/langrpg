@@ -8,5 +8,12 @@
 .story-objectives ol{list-style:none;padding:0;margin:10px 0 0}.story-objectives li{display:flex;gap:8px;align-items:center}.story-objectives li .icon{width:13px;height:13px;flex:none}.story-objectives li.done{opacity:.6}.story-objectives li.current{font-weight:600}
 
 .dialogue-word.is-selected{background:#dfc47c44;border-bottom-color:#eedba6;border-radius:3px;box-shadow:0 0 0 2px #dfc47c22}
+.dialogue-heading>div{min-width:0;flex:1}
+.dialogue-audio{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:10px;border:1px solid #dbc58b60;border-radius:50%;background:#dbc58b12;color:#b8c6b5;cursor:pointer}
+.dialogue-audio[aria-pressed="true"]{color:#f5e7c6;border-color:#dbc58b90}
+.dialogue-audio .icon{width:19px;height:19px}
+.dialogue-audio+.dialogue-close{margin-left:0;flex:none}
+.dialogue-audio:focus-visible{outline:2px solid #eedba6;outline-offset:3px}
+.dialogue-tools button:disabled{opacity:.45;cursor:default}
 .dialogue-translation{margin:12px 0;padding:10px 14px;border-left:2px solid #d9c17d;border-radius:0 8px 8px 0;background:#dbc89214;color:#e1e6d8;font-size:15px;line-height:1.65}
 .dialogue-translation mark{background:#e7ce8d;color:#18372f;border-radius:3px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}

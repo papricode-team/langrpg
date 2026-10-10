@@ -9,6 +9,7 @@ import { getInterior, type InteriorId } from './interiors';
 import { sampleResidentMotion, type WorldResident } from './world-life';
 import { sampleSceneryFrame } from './scenery-animation';
 import type { WorldPlayer } from './world';
+import { characterFrame, MODULAR_ART } from './avatar-options';
 
 const harness = vi.hoisted(() => {
   class Picture {
@@ -24,6 +25,7 @@ const harness = vi.hoisted(() => {
     setOrigin(x = .5, y = x) { this.originX = x; this.originY = y; return this; }
     setTint(tint: number) { this.tint = tint; return this; }
     setScale() { return this; } setVisible(visible: boolean) { this.visible = visible; return this; } setColor() { return this; }
+    setAlpha() { return this; }
     setText() { return this; }
     setY() { return this; } setPosition() { return this; } add() { return this; }
     setFrame(frame: string | number) { this.frame = frame; return this; }
@@ -130,6 +132,36 @@ function player(id: string, interiorId?: InteriorId, mapId: WorldPlayer['mapId']
   const position = interiorId ? getInterior(interiorId).spawn : { x: .52, y: .61 };
   return { id, name: id, ...position, mapId, interiorId, avatar: { hair: '#000000', skin: '#ccaa99', outfit: '#557755' } };
 }
+
+describe('short player steps', () => {
+  it.each([30, 60, 120])('shows a brief click step and retains gait progress between clicks at %i Hz', fps => {
+    const { world, scene } = indoorFixture();
+    scene.playerArtReady = true;
+    const renderer = Object.getPrototypeOf(scene);
+    scene.animateCharacter = renderer.animateCharacter.bind(scene);
+    scene.navigation = { findPath: (_from: unknown, to: { x: number; y: number }) => [to], canWalkSegment: () => true };
+    const character = scene.local, seen = new Set<number>();
+    let time = 1;
+    for (let click = 0; click < 40; click++) {
+      // A nearby click reaches its destination in a single update.
+      scene.walkTo(character.x + 1, character.y);
+      scene.update(time * 1000, 1000 / fps);
+      expect(character.frame).not.toBe(characterFrame(character.facing));
+      expect(character.layers.every((layer: { frame: number }) => layer.frame === character.frame)).toBe(true);
+      seen.add(character.frame % MODULAR_ART.columns);
+      const pose = character.frame, distance = character.walkDistance;
+      scene.animateCharacter(character, 0, 0, scene.elapsed + .05);
+      expect(character.frame).toBe(pose);
+      scene.animateCharacter(character, 0, 0, scene.elapsed + .2);
+      expect(character.frame).toBe(characterFrame(character.facing));
+      expect(character.walkDistance).toBe(distance);
+      time += .25;
+    }
+    expect(seen.size).toBeGreaterThan(1);
+    expect(character.walkDistance).toBeCloseTo(40);
+    world.destroy();
+  });
+});
 
 describe('shared indoor rendering', () => {
   it.each(['cafe', 'bakery', 'supermarket'] as const)('shows and moves only players in the same %s and region', id => {

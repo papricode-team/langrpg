@@ -239,7 +239,7 @@ function renderShell() {
     portrait: id => portrait(id), speak: (text, speaker, clipId, personalized, rate) => {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
-    }, stopSpeech,
+    }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     glosses: text => course ? glossesForLine(text, createGlossLookup(course.courseLexicon, progress)) : undefined,
     prepareLine: line => { if (!course) return line; const lookup = createGlossLookup(course.courseLexicon,progress); const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
@@ -1101,8 +1101,21 @@ function stopSpeech() {
   if (activeSpeech) { activeSpeech.pause(); activeSpeech = undefined; }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
+function setSilentMode(enabled: boolean, notify = true) {
+  silentMode = enabled;
+  localStorage.setItem('atlas.silentMode', String(silentMode)); world.setAudioPreferences({ silent: silentMode, muted });
+  if (silentMode) { stopSpeech(); void audioContext?.suspend(); }
+  if (view === 'settings') renderOther();
+  if (silentMode && run && !run.answered && run.queue[run.index]?.mode === 'listen') renderExercise();
+  document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
+    button.setAttribute('aria-pressed', String(silentMode));
+    button.innerHTML = `${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}`;
+  });
+  questController?.refreshAudio();
+  if (notify) toast(silentMode ? 'Silent mode on. Listening exercises will be skipped.' : 'Silent mode off. Listening exercises will return in your next session.');
+}
 function speak(text: string, speaker?: string, clipId?: string, rate = speechRate) {
-  if (silentMode) { toast('Silent mode is on. Turn it off in Settings to hear audio.'); return; }
+  if (silentMode) return;
   stopSpeech();
   world?.setNarrationActive(true);
   const generation = speechGeneration;
@@ -1255,16 +1268,7 @@ function bindGlobalEvents() {
       case 'clear-sentence': if (run && !run.answered) { run.tokenOrder = []; run.answer = ''; document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; }); document.querySelector('#sentence-result')!.innerHTML = '<span class="sentence-placeholder">Tap the words to build your answer</span>'; } break;
       case 'silent-mode':
         if (attemptBusy) { toast('Your answer is saving. Try again in a moment.'); break; }
-        silentMode = !silentMode;
-        localStorage.setItem('atlas.silentMode', String(silentMode)); world.setAudioPreferences({ silent: silentMode, muted });
-        if (silentMode) { stopSpeech(); void audioContext?.suspend(); }
-        if (view === 'settings') renderOther();
-        if (silentMode && run && !run.answered && run.queue[run.index]?.mode === 'listen') renderExercise();
-        document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
-          button.setAttribute('aria-pressed', String(silentMode));
-          button.innerHTML = `${icon(silentMode ? 'muted' : 'volume')} Silent mode ${silentMode ? 'on' : 'off'}`;
-        });
-        toast(silentMode ? 'Silent mode on. Listening exercises will be skipped.' : 'Silent mode off. Listening exercises will return in your next session.');
+        setSilentMode(!silentMode);
         break;
       case 'save-account': showSaveAccount(); break;
       case 'login-account': showLogin(); break;

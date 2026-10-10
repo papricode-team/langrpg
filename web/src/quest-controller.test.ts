@@ -8,6 +8,7 @@ import { questGraphs } from './quest-graph';
 let controller: QuestController | undefined;
 afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; });
 function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro') {
+  let audioEnabled = true;
   let progress: Progress = {...emptyProgress(), story:emptyStory()};
   progress.story!.nodes['a1-arrival'] = stage;
   const bump = () => { progress = {...progress,revision:progress.revision+1,story:structuredClone(progress.story)}; return progress; };
@@ -16,13 +17,39 @@ function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro') {
     inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections['a1-arrival'] = [...(progress.story!.inspections['a1-arrival']??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
     storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes['a1-arrival'] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push('a1-arrival');progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
-  const options = {api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
+  const options = {api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
   controller = new QuestController(options);
   const click = (selector:string) => document.querySelector<HTMLButtonElement>(selector)!.click();
   return {api,options,controller,get progress(){return progress;},click};
 }
 
 describe('conversation scene lifecycle', () => {
+  it('stays quiet while audio is off, enables the current line and stops playback when disabled', async () => {
+    const f = fixture('gate');
+    f.options.setAudioEnabled(false);
+    await f.controller.open('a1-arrival');
+    expect(f.options.speak).not.toHaveBeenCalled();
+    const text = document.querySelector('.dialogue-line')!.textContent;
+    document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = 'Helfen Sie mir bitte.';
+    f.click('[aria-label="Meaning of Bitte"]');
+    const translation = document.querySelector('.dialogue-translation')!.textContent;
+    f.click('[data-dialogue-action="audio"]');
+    expect(f.options.setAudioEnabled).toHaveBeenLastCalledWith(true);
+    expect(f.options.speak).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('[data-dialogue-action="audio"]')!.getAttribute('aria-pressed')).toBe('true');
+    expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Helfen Sie mir bitte.');
+    expect(document.querySelector('.dialogue-line')!.textContent).toBe(text);
+    expect(document.querySelector('.dialogue-translation')!.textContent).toBe(translation);
+    f.click('[data-dialogue-action="audio"]');
+    expect(f.options.setAudioEnabled).toHaveBeenLastCalledWith(false);
+    expect(f.options.stopSpeech).toHaveBeenCalledTimes(1);
+    expect(f.options.speak).toHaveBeenCalledTimes(1);
+    // A preference changed elsewhere also updates the open dialogue without speaking.
+    f.options.setAudioEnabled(true); f.controller.refreshAudio();
+    expect(document.querySelector('[data-dialogue-action="audio"]')!.getAttribute('aria-pressed')).toBe('true');
+    expect(f.options.speak).toHaveBeenCalledTimes(1);
+  });
+
   it('plays German one line at a time, then returns to the physical investigation', async () => {
     const f=fixture(); await f.controller.open('a1-arrival');
     expect(document.querySelector('dialog')).toBeNull();

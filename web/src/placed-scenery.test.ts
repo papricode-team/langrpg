@@ -154,6 +154,30 @@ it('loads and releases the complete layer set without requiring unused architect
   expect(new Set(keys).size).toBe(keys.length);
 });
 
+it('keeps animated scenery opaque throughout frame blends and honors the world fade',()=>{
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const view={x:0,y:0,right:1536,bottom:1124};
+  const stall=getPlacedScenery('lindenhafen').find(spec=>spec.asset==='stall')!;
+  const sprites=mock.sprites.filter(sprite=>sprite.x===stall.x&&sprite.y===stall.y);
+  expect(sprites).toHaveLength(2);
+  const current=sprites.find(sprite=>!sprite.blend)!,next=sprites.find(sprite=>sprite.blend)!;
+  for(const opacity of [1,.4]){
+    scenery.setAlpha(opacity);
+    for(let frame=0;frame<20;frame++){
+      scenery.update(frame/30,view);
+      const currentAlpha=current.setAlpha.mock.lastCall![0],nextAlpha=next.setAlpha.mock.lastCall![0];
+      expect(currentAlpha).toBe(opacity);
+      expect(nextAlpha).toBeGreaterThanOrEqual(0);
+      expect(nextAlpha).toBeLessThanOrEqual(opacity);
+      // Source-over coverage of opaque frames must not dip midway through a blend.
+      if(opacity===1)expect(nextAlpha+currentAlpha*(1-nextAlpha)).toBe(1);
+    }
+  }
+  scenery.setReducedMotion(true);scenery.update(10,view);
+  expect(current.setAlpha.mock.lastCall![0]).toBe(.4);
+  expect(next.setAlpha.mock.lastCall![0]).toBe(0);
+});
+
 it('selects the requested time-of-day manifest when creating scenery',()=>{
   const mock=mockScene();
   const get=vi.fn(mock.raw.cache.json.get);
