@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 560,
+        "h": 594
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 560,
+        "h": 594
+      },
+      "sourceSize": {
+        "w": 560,
+        "h": 594
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-0.png",
+        "crop": {
+          "left": 24,
+          "top": 35,
+          "width": 560,
+          "height": 594
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 572,
+        "y": 4,
+        "w": 606,
+        "h": 567
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 606,
+        "h": 567
+      },
+      "sourceSize": {
+        "w": 606,
+        "h": 567
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-0.png",
+        "crop": {
+          "left": 25,
+          "top": 634,
+          "width": 606,
+          "height": 567
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1186,
+        "y": 4,
+        "w": 577,
+        "h": 570
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 577,
+        "h": 570
+      },
+      "sourceSize": {
+        "w": 577,
+        "h": 570
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-0.png",
+        "crop": {
+          "left": 635,
+          "top": 68,
+          "width": 577,
+          "height": 570
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 606,
+        "w": 580,
+        "h": 581
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 580,
+        "h": 581
+      },
+      "sourceSize": {
+        "w": 580,
+        "h": 581
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-0.png",
+        "crop": {
+          "left": 650,
+          "top": 647,
+          "width": 580,
+          "height": 581
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 592,
+        "y": 606,
+        "w": 586,
+        "h": 591
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 586,
+        "h": 591
+      },
+      "sourceSize": {
+        "w": 586,
+        "h": 591
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-1.png",
+        "crop": {
+          "left": 65,
+          "top": 30,
+          "width": 586,
+          "height": 591
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1186,
+        "y": 606,
+        "w": 597,
+        "h": 567
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 597,
+        "h": 567
+      },
+      "sourceSize": {
+        "w": 597,
+        "h": 567
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-1.png",
+        "crop": {
+          "left": 54,
+          "top": 627,
+          "width": 597,
+          "height": 567
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1205,
+        "w": 548,
+        "h": 565
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 548,
+        "h": 565
+      },
+      "sourceSize": {
+        "w": 548,
+        "h": 565
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-1.png",
+        "crop": {
+          "left": 681,
+          "top": 55,
+          "width": 548,
+          "height": 565
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 560,
+        "y": 1205,
+        "w": 550,
+        "h": 552
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 550,
+        "h": 552
+      },
+      "sourceSize": {
+        "w": 550,
+        "h": 552
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-1.png",
+        "crop": {
+          "left": 689,
+          "top": 627,
+          "width": 550,
+          "height": 552
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1118,
+        "y": 1205,
+        "w": 538,
+        "h": 573
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 538,
+        "h": 573
+      },
+      "sourceSize": {
+        "w": 538,
+        "h": 573
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-2.png",
+        "crop": {
+          "left": 59,
+          "top": 45,
+          "width": 538,
+          "height": 573
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "dunegarden-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1790
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

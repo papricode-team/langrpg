@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "framesPerAsset": 6,
   "terrain": "riverweave-terrain",
   "assets": {
@@ -70,6 +70,193 @@
       "referenceWidth": 234,
       "originX": 0.5,
       "originY": 1
+    },
+    "archive": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "archive"
+      ],
+      "fps": 0,
+      "width": 560,
+      "height": 607,
+      "referenceWidth": 560,
+      "originX": 0.5,
+      "originY": 0.9934102141680395,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "archive"
+      },
+      "overlays": []
+    },
+    "station": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "station"
+      ],
+      "fps": 0,
+      "width": 599,
+      "height": 579,
+      "referenceWidth": 599,
+      "originX": 0.5,
+      "originY": 0.9930915371329879,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "station"
+      },
+      "overlays": []
+    },
+    "cafe": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "cafe"
+      ],
+      "fps": 0,
+      "width": 609,
+      "height": 588,
+      "referenceWidth": 609,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": []
+    },
+    "workshop": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "workshop"
+      ],
+      "fps": 0,
+      "width": 566,
+      "height": 562,
+      "referenceWidth": 566,
+      "originX": 0.5,
+      "originY": 0.9928825622775801,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": []
+    },
+    "house": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "house"
+      ],
+      "fps": 0,
+      "width": 595,
+      "height": 597,
+      "referenceWidth": 595,
+      "originX": 0.5,
+      "originY": 0.9932998324958124,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "house"
+      },
+      "overlays": []
+    },
+    "house-1": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "house-1"
+      ],
+      "fps": 0,
+      "width": 590,
+      "height": 588,
+      "referenceWidth": 590,
+      "originX": 0.5,
+      "originY": 0.9931972789115646,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": []
+    },
+    "greenhouse": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "greenhouse"
+      ],
+      "fps": 0,
+      "width": 578,
+      "height": 599,
+      "referenceWidth": 578,
+      "originX": 0.5,
+      "originY": 0.993322203672788,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": []
+    },
+    "house-2": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "house-2"
+      ],
+      "fps": 0,
+      "width": 600,
+      "height": 583,
+      "referenceWidth": 600,
+      "originX": 0.5,
+      "originY": 0.9931389365351629,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": []
+    },
+    "house-3": {
+      "key": "riverweave-building-bases",
+      "frames": [
+        "house-3"
+      ],
+      "fps": 0,
+      "width": 570,
+      "height": 581,
+      "referenceWidth": 570,
+      "originX": 0.5,
+      "originY": 0.9931153184165232,
+      "base": {
+        "key": "riverweave-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": []
+    },
+    "arch": {
+      "key": "riverweave-building-bases-1",
+      "frames": [
+        "arch"
+      ],
+      "fps": 0,
+      "width": 619,
+      "height": 524,
+      "referenceWidth": 619,
+      "originX": 0.5,
+      "originY": 0.9923664122137404,
+      "base": {
+        "key": "riverweave-building-bases-1",
+        "frame": "arch"
+      },
+      "overlays": []
+    },
+    "house-4": {
+      "key": "riverweave-building-bases-1",
+      "frames": [
+        "house-4"
+      ],
+      "fps": 0,
+      "width": 555,
+      "height": 568,
+      "referenceWidth": 555,
+      "originX": 0.5,
+      "originY": 0.9929577464788732,
+      "base": {
+        "key": "riverweave-building-bases-1",
+        "frame": "house-4"
+      },
+      "overlays": []
     }
   }
 }

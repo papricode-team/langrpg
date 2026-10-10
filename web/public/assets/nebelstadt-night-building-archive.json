@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1212,
+        "h": 1182
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1212,
+        "h": 1182
+      },
+      "sourceSize": {
+        "w": 1212,
+        "h": 1182
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-archive.png",
+        "crop": {
+          "left": 29,
+          "top": 43,
+          "width": 1212,
+          "height": 1182
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-building-archive.webp",
+    "size": {
+      "w": 1212,
+      "h": 1182
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

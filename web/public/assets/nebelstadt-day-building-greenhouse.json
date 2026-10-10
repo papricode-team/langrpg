@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "greenhouse": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1148,
+        "h": 1188
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1148,
+        "h": 1188
+      },
+      "sourceSize": {
+        "w": 1148,
+        "h": 1188
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-day-greenhouse.png",
+        "crop": {
+          "left": 54,
+          "top": 9,
+          "width": 1148,
+          "height": 1188
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-day-building-greenhouse.webp",
+    "size": {
+      "w": 1148,
+      "h": 1188
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

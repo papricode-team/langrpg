@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 560,
+        "h": 607
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 560,
+        "h": 607
+      },
+      "sourceSize": {
+        "w": 560,
+        "h": 607
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-0.png",
+        "crop": {
+          "left": 32,
+          "top": 14,
+          "width": 560,
+          "height": 607
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 572,
+        "y": 4,
+        "w": 599,
+        "h": 579
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 599,
+        "h": 579
+      },
+      "sourceSize": {
+        "w": 599,
+        "h": 579
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-0.png",
+        "crop": {
+          "left": 25,
+          "top": 633,
+          "width": 599,
+          "height": 579
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1179,
+        "y": 4,
+        "w": 609,
+        "h": 588
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 609,
+        "h": 588
+      },
+      "sourceSize": {
+        "w": 609,
+        "h": 588
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-0.png",
+        "crop": {
+          "left": 628,
+          "top": 39,
+          "width": 609,
+          "height": 588
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 619,
+        "w": 566,
+        "h": 562
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 566,
+        "h": 562
+      },
+      "sourceSize": {
+        "w": 566,
+        "h": 562
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-0.png",
+        "crop": {
+          "left": 652,
+          "top": 627,
+          "width": 566,
+          "height": 562
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 578,
+        "y": 619,
+        "w": 595,
+        "h": 597
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 595,
+        "h": 597
+      },
+      "sourceSize": {
+        "w": 595,
+        "h": 597
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-1.png",
+        "crop": {
+          "left": 27,
+          "top": 13,
+          "width": 595,
+          "height": 597
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1181,
+        "y": 619,
+        "w": 590,
+        "h": 588
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 590,
+        "h": 588
+      },
+      "sourceSize": {
+        "w": 590,
+        "h": 588
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-1.png",
+        "crop": {
+          "left": 27,
+          "top": 627,
+          "width": 590,
+          "height": 588
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1224,
+        "w": 578,
+        "h": 599
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 578,
+        "h": 599
+      },
+      "sourceSize": {
+        "w": 578,
+        "h": 599
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-1.png",
+        "crop": {
+          "left": 649,
+          "top": 17,
+          "width": 578,
+          "height": 599
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 590,
+        "y": 1224,
+        "w": 600,
+        "h": 583
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 600,
+        "h": 583
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 583
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-1.png",
+        "crop": {
+          "left": 629,
+          "top": 632,
+          "width": 600,
+          "height": 583
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1198,
+        "y": 1224,
+        "w": 570,
+        "h": 581
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 570,
+        "h": 581
+      },
+      "sourceSize": {
+        "w": 570,
+        "h": 581
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-2.png",
+        "crop": {
+          "left": 38,
+          "top": 33,
+          "width": 570,
+          "height": 581
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "riverweave-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1835
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "workshop": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1218,
+        "h": 1248
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1218,
+        "h": 1248
+      },
+      "sourceSize": {
+        "w": 1218,
+        "h": 1248
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-workshop.png",
+        "crop": {
+          "left": 23,
+          "top": 2,
+          "width": 1218,
+          "height": 1248
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-night-building-workshop.webp",
+    "size": {
+      "w": 1218,
+      "h": 1248
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

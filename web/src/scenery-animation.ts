@@ -10,8 +10,8 @@ export interface SceneryAnimation {
   referenceWidth:number;
   originX:number;
   originY:number;
-  /** Architecture uses a fixed painting with separately packed detail sheets. */
-  base?:{key:string;frame:string};
+  /** Static paintings may have a higher native resolution than their detail layers. */
+  base?:{key:string;frame:string;referenceWidth?:number;originX?:number;originY?:number};
   overlays?:readonly SceneryOverlay[];
 }
 export interface SceneryOverlay extends SceneryAnimation {

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "workshop": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1156,
+        "h": 1104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1156,
+        "h": 1104
+      },
+      "sourceSize": {
+        "w": 1156,
+        "h": 1104
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-workshop.png",
+        "crop": {
+          "left": 62,
+          "top": 80,
+          "width": 1156,
+          "height": 1104
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-building-workshop.webp",
+    "size": {
+      "w": 1156,
+      "h": 1104
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

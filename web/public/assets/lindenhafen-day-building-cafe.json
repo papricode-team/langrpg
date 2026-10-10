@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1070,
+        "h": 1190
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1070,
+        "h": 1190
+      },
+      "sourceSize": {
+        "w": 1070,
+        "h": 1190
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-cafe.png",
+        "crop": {
+          "left": 93,
+          "top": 18,
+          "width": 1070,
+          "height": 1190
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-day-building-cafe.webp",
+    "size": {
+      "w": 1070,
+      "h": 1190
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

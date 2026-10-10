@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1134,
+        "h": 1212
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1134,
+        "h": 1212
+      },
+      "sourceSize": {
+        "w": 1134,
+        "h": 1212
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-cafe.png",
+        "crop": {
+          "left": 77,
+          "top": 14,
+          "width": 1134,
+          "height": 1212
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-building-cafe.webp",
+    "size": {
+      "w": 1134,
+      "h": 1212
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

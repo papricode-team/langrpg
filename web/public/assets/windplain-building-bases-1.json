@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 583,
+        "h": 533
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 583,
+        "h": 533
+      },
+      "sourceSize": {
+        "w": 583,
+        "h": 533
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-2.png",
+        "crop": {
+          "left": 35,
+          "top": 656,
+          "width": 583,
+          "height": 533
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 595,
+        "y": 4,
+        "w": 577,
+        "h": 538
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 577,
+        "h": 538
+      },
+      "sourceSize": {
+        "w": 577,
+        "h": 538
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-2.png",
+        "crop": {
+          "left": 652,
+          "top": 47,
+          "width": 577,
+          "height": 538
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "windplain-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 546
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

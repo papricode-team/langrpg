@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 580,
+        "h": 579
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 580,
+        "h": 579
+      },
+      "sourceSize": {
+        "w": 580,
+        "h": 579
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-0.png",
+        "crop": {
+          "left": 34,
+          "top": 49,
+          "width": 580,
+          "height": 579
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 592,
+        "y": 4,
+        "w": 600,
+        "h": 431
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 600,
+        "h": 431
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 431
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-0.png",
+        "crop": {
+          "left": 24,
+          "top": 773,
+          "width": 600,
+          "height": 431
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1200,
+        "y": 4,
+        "w": 577,
+        "h": 543
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 577,
+        "h": 543
+      },
+      "sourceSize": {
+        "w": 577,
+        "h": 543
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-0.png",
+        "crop": {
+          "left": 651,
+          "top": 83,
+          "width": 577,
+          "height": 543
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 591,
+        "w": 584,
+        "h": 514
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 584,
+        "h": 514
+      },
+      "sourceSize": {
+        "w": 584,
+        "h": 514
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-0.png",
+        "crop": {
+          "left": 649,
+          "top": 669,
+          "width": 584,
+          "height": 514
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 596,
+        "y": 591,
+        "w": 589,
+        "h": 554
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 589,
+        "h": 554
+      },
+      "sourceSize": {
+        "w": 589,
+        "h": 554
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-1.png",
+        "crop": {
+          "left": 28,
+          "top": 67,
+          "width": 589,
+          "height": 554
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1193,
+        "y": 591,
+        "w": 606,
+        "h": 528
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 606,
+        "h": 528
+      },
+      "sourceSize": {
+        "w": 606,
+        "h": 528
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-1.png",
+        "crop": {
+          "left": 16,
+          "top": 659,
+          "width": 606,
+          "height": 528
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1153,
+        "w": 593,
+        "h": 580
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 593,
+        "h": 580
+      },
+      "sourceSize": {
+        "w": 593,
+        "h": 580
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-1.png",
+        "crop": {
+          "left": 638,
+          "top": 37,
+          "width": 593,
+          "height": 580
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 605,
+        "y": 1153,
+        "w": 602,
+        "h": 526
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 602,
+        "h": 526
+      },
+      "sourceSize": {
+        "w": 602,
+        "h": 526
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-1.png",
+        "crop": {
+          "left": 636,
+          "top": 659,
+          "width": 602,
+          "height": 526
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1215,
+        "y": 1153,
+        "w": 585,
+        "h": 537
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 585,
+        "h": 537
+      },
+      "sourceSize": {
+        "w": 585,
+        "h": 537
+      },
+      "source": {
+        "path": "art/source/buildings/windplain-day-2.png",
+        "crop": {
+          "left": 28,
+          "top": 47,
+          "width": 585,
+          "height": 537
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "windplain-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1745
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

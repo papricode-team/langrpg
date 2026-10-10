@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "station": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1219,
+        "h": 1067
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1219,
+        "h": 1067
+      },
+      "sourceSize": {
+        "w": 1219,
+        "h": 1067
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-day-station.png",
+        "crop": {
+          "left": 19,
+          "top": 88,
+          "width": 1219,
+          "height": 1067
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-day-building-station.webp",
+    "size": {
+      "w": 1219,
+      "h": 1067
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

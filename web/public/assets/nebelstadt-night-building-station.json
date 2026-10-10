@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "station": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1223,
+        "h": 1071
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1223,
+        "h": 1071
+      },
+      "sourceSize": {
+        "w": 1223,
+        "h": 1071
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-station.png",
+        "crop": {
+          "left": 17,
+          "top": 85,
+          "width": 1223,
+          "height": 1071
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-building-station.webp",
+    "size": {
+      "w": 1223,
+      "h": 1071
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

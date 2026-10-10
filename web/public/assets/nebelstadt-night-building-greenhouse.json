@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "greenhouse": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1152,
+        "h": 1189
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1152,
+        "h": 1189
+      },
+      "sourceSize": {
+        "w": 1152,
+        "h": 1189
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-greenhouse.png",
+        "crop": {
+          "left": 54,
+          "top": 8,
+          "width": 1152,
+          "height": 1189
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-night-building-greenhouse.webp",
+    "size": {
+      "w": 1152,
+      "h": 1189
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

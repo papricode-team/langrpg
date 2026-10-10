@@ -8,7 +8,7 @@ const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
 
 describe('authored sprite worlds',()=>{
-  for(const map of maps)for(const period of ['day','night'] as const)it(`${map.name} has a complete calm ${period} animation set`,()=>{
+  for(const map of maps)for(const period of ['day','night'] as const)it(`${map.name} has high resolution static buildings and complete calm ${period} scenery`,()=>{
     expect(map.asset).toMatch(/-terrain\.webp$/);
     const specs=getPlacedScenery(map.id);
     const manifest=readAsset(`${map.id}-${period}-animations.json`) as SceneryAnimationManifest;
@@ -19,8 +19,9 @@ describe('authored sprite worlds',()=>{
       expect(sceneryAssets).toContain(spec.asset);
       const animation=manifest.assets[spec.frame??spec.asset];
       expect(animation,`missing authored animation for ${spec.id}`).toBeDefined();
-      expect(animation.frames).toHaveLength(6);
-      expect(new Set(animation.frames).size).toBe(6);
+      const building=isBuildingScenery(spec.frame??spec.asset);
+      expect(animation.frames).toHaveLength(building?1:6);
+      expect(new Set(animation.frames).size).toBe(building?1:6);
       expect(animation.referenceWidth).toBeGreaterThan(0);
       expect(animation.key).toContain(`-${period}-`);
       expect(animation.fps).toBeLessThanOrEqual(4);
@@ -29,21 +30,28 @@ describe('authored sprite worlds',()=>{
       const sizes=animation.frames.map(name=>atlas.frames[name].sourceSize);
       expect(sizes.every((size:{w:number;h:number})=>size.w===sizes[0].w&&size.h===sizes[0].h)).toBe(true);
       expect([spec.x,spec.y,spec.width].every(Number.isFinite)).toBe(true);
-      if(isBuildingScenery(spec.frame??spec.asset)){
+      if(building){
         expect(animation.base,`missing static base for ${spec.id}`).toBeDefined();
-        const base=readAsset(`${animation.base!.key}.json`).frames[animation.base!.frame].frame;
+        const baseAtlas=readAsset(`${animation.base!.key}.json`);
+        const base=baseAtlas.frames[animation.base!.frame].frame;
         expect([base.w,base.h]).toEqual([animation.width,animation.height]);
-        expect(animation.overlays!.length).toBeGreaterThan(0);
-        for(const overlay of animation.overlays!){
-          expect(overlay.key).not.toBe(animation.base!.key);
-          expect(overlay.frames).toHaveLength(6);
-          expect(overlay.width*overlay.height).toBeLessThan(animation.width*animation.height*.05);
-          expect(overlay.referenceWidth).toBe(animation.referenceWidth);
-          expect(Math.abs(overlay.offsetX)).toBeLessThan(animation.width);
-          expect(Math.abs(overlay.offsetY)).toBeLessThan(animation.height);
-          const atlas=readAsset(`${overlay.key}.json`);
-          for(const name of overlay.frames)expect(atlas.frames[name].sourceSize).toEqual({w:overlay.width,h:overlay.height});
+        expect(Math.max(base.w,base.h),`${spec.id}: native building resolution`).toBeGreaterThanOrEqual(400);
+        if(spec.width>=200){
+          expect(Object.keys(baseAtlas.frames),`${spec.id}: dedicated large-building texture`).toHaveLength(1);
+          expect(baseAtlas.frames[animation.base!.frame].source.standalone).toBe(true);
+          expect(Math.max(base.w,base.h)).toBeGreaterThanOrEqual(800);
         }
+        expect(animation.frames).toEqual([animation.base!.frame]);
+        expect(animation.fps).toBe(0);
+        expect(animation.overlays??[]).toEqual([]);
+        expect(baseAtlas.meta.size.w).toBeLessThanOrEqual(2048);
+        expect(baseAtlas.meta.size.h).toBeLessThanOrEqual(2048);
+        expect(base.x+base.w).toBeLessThanOrEqual(baseAtlas.meta.size.w);
+        expect(base.y+base.h).toBeLessThanOrEqual(baseAtlas.meta.size.h);
+        const referenceWidth=animation.base!.referenceWidth??animation.referenceWidth;
+        expect(referenceWidth).toBeGreaterThan(0);
+        const originX=animation.base!.originX??animation.originX,originY=animation.base!.originY??animation.originY;
+        expect([originX,originY].every(value=>value>=0&&value<=1)).toBe(true);
       }
     }
     const trees=specs.filter(spec=>spec.asset==='tree');
@@ -69,7 +77,7 @@ describe('authored sprite worlds',()=>{
   });
 });
 
-function mockScene(layered=true){
+function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings?:boolean}={}){
   const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>}[]=[];
   const specs=getPlacedScenery('lindenhafen');
   const assets:Record<string,SceneryAnimation>={};
@@ -78,11 +86,13 @@ function mockScene(layered=true){
     assets[name]={key:'painted',frames:Array.from({length:6},(_,i)=>`${name}-${i}`),fps:4,width:200,height:250,referenceWidth:200,originX:.4,originY:.95};
     if(layered&&isBuildingScenery(name)){
       assets[name].base={key:'bases',frame:name};
-      assets[name].overlays=[{...assets[name],id:'window',key:'details',frames:Array.from({length:6},(_,i)=>`${name}-window-${i}`),offsetX:25,offsetY:-70}];
+      if(options.highResolution)assets[name].base={key:'bases',frame:name,referenceWidth:800,originX:.3,originY:.98};
+      assets[name].overlays=options.staticBuildings?[]:[{...assets[name],id:'window',key:'details',frames:Array.from({length:6},(_,i)=>`${name}-window-${i}`),offsetX:25,offsetY:-70}];
+      if(options.staticBuildings){assets[name].frames=[name];assets[name].fps=0;}
     }
   }
   const frame={width:200,height:250};
-  const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:()=>({has:()=>true,get:()=>frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
+  const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
     add:{sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
       const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,setAlpha:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),destroy:vi.fn()};
       for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
@@ -136,6 +146,49 @@ it('keeps architecture fixed while registered details animate and mirror with th
   expect(mock.sprites.filter(sprite=>sprite.key==='details').every(sprite=>sprite.setFrame.mock.calls.length>0)).toBe(true);
 });
 
+it('scales high resolution bases independently while legacy details retain their size and mirrored registration',()=>{
+  const mock=mockScene(true,{highResolution:true}),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const specs=getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset));
+  expect(specs.some(spec=>spec.flipX)).toBe(true);
+  expect(specs.some(spec=>!spec.flipX)).toBe(true);
+  for(const spec of specs){
+    const base=mock.sprites.find(sprite=>sprite.key==='bases'&&sprite.x===spec.x&&sprite.y===spec.y)!;
+    expect(base.setScale.mock.calls).toEqual([[spec.width/800]]);
+    expect(base.setOrigin.mock.calls).toEqual([[.3,.98]]);
+    const detailScale=spec.width/200;
+    const details=mock.sprites.filter(sprite=>sprite.key==='details'&&Math.abs(sprite.x-(spec.x+(spec.flipX?15:25)*detailScale))<1e-8&&sprite.y===spec.y-70*detailScale);
+    expect(details).toHaveLength(2);
+    for(const detail of details){
+      expect(detail.setScale.mock.calls).toEqual([[detailScale]]);
+      expect(detail.setFlipX.mock.calls).toEqual(base.setFlipX.mock.calls);
+    }
+  }
+  scenery.destroy();
+});
+
+it('keeps one high resolution static sprite per building throughout animation, fades and culling',()=>{
+  const mock=mockScene(true,{highResolution:true,staticBuildings:true}),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const buildingSpecs=getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset));
+  const bases=mock.sprites.filter(sprite=>sprite.key==='bases');
+  expect(bases).toHaveLength(buildingSpecs.length);
+  expect(bases.every(sprite=>!sprite.blend)).toBe(true);
+  expect(mock.sprites.some(sprite=>sprite.key==='details')).toBe(false);
+  expect(scenery.animatedObjectCount).toBe(scenery.objectCount-buildingSpecs.length);
+  const initial=bases.map(sprite=>sprite.frame),view={x:0,y:0,right:1536,bottom:1124};
+  for(const time of [0,.2,1,7,30,400])scenery.update(time,view);
+  scenery.setAlpha(.35);
+  scenery.setReducedMotion(true);scenery.update(900,view);
+  expect(bases.map(sprite=>sprite.frame)).toEqual(initial);
+  expect(bases.every(sprite=>sprite.setFrame.mock.calls.length===0)).toBe(true);
+  expect(bases.every(sprite=>sprite.setAlpha.mock.lastCall![0]===.35)).toBe(true);
+  const spec=buildingSpecs[0],base=bases.find(sprite=>sprite.x===spec.x&&sprite.y===spec.y)!;
+  scenery.update(901,{x:spec.x+spec.width*.75,y:spec.y-10,right:spec.x+spec.width,bottom:spec.y+10});
+  expect(base.visible).toBe(false);
+  scenery.update(902,view);expect(base.visible).toBe(true);
+  scenery.destroy();
+  expect(bases.every(sprite=>sprite.destroy.mock.calls.length===1)).toBe(true);
+});
+
 it('freezes whole-building legacy animations if layered assets are unavailable',()=>{
   const mock=mockScene(false),scenery=new WorldScenery(mock.scene,'lindenhafen');
   scenery.update(5,{x:0,y:0,right:1536,bottom:1124});
@@ -148,7 +201,7 @@ it('loads and releases the complete layer set without requiring unused architect
   const manifest=readAsset('lindenhafen-day-animations.json') as SceneryAnimationManifest;
   const keys=sceneryAnimationTextureKeys(manifest);
   expect(keys).toContain('lindenhafen-day-building-bases');
-  expect(keys).toContain('lindenhafen-day-building-details');
+  expect(keys.some(key=>key.includes('building-details'))).toBe(false);
   expect(keys).not.toContain('lindenhafen-day-animation-0');
   expect(keys).toContain(manifest.assets.tree.key);
   expect(new Set(keys).size).toBe(keys.length);

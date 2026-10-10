@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 592,
+        "h": 465
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 592,
+        "h": 465
+      },
+      "sourceSize": {
+        "w": 592,
+        "h": 465
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-2.png",
+        "crop": {
+          "left": 36,
+          "top": 690,
+          "width": 592,
+          "height": 465
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 604,
+        "y": 4,
+        "w": 581,
+        "h": 557
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 581,
+        "h": 557
+      },
+      "sourceSize": {
+        "w": 581,
+        "h": 557
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-2.png",
+        "crop": {
+          "left": 659,
+          "top": 70,
+          "width": 581,
+          "height": 557
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "cedarbay-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 565
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

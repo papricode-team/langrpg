@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "greenhouse": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1211,
+        "h": 1228
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1211,
+        "h": 1228
+      },
+      "sourceSize": {
+        "w": 1211,
+        "h": 1228
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-greenhouse.png",
+        "crop": {
+          "left": 30,
+          "top": 11,
+          "width": 1211,
+          "height": 1228
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-day-building-greenhouse.webp",
+    "size": {
+      "w": 1211,
+      "h": 1228
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { expeditionMaps } from './expeditions';
 import { getPlacedScenery } from './placed-scenery';
-import { sampleSceneryFrame, type SceneryAnimationManifest } from './scenery-animation';
+import { isBuildingScenery, sceneryAnimationTextureKeys, sampleSceneryFrame, type SceneryAnimationManifest } from './scenery-animation';
 import { regionPeopleKey } from './world-map-assets';
 
 interface Atlas { frames: Record<string, {
@@ -10,7 +10,7 @@ interface Atlas { frames: Record<string, {
   pivot?:{x:number;y:number};
   registration?:{scale:number;outputTorsoX:number;outputSoleY:number};
 }>; meta:{size:{w:number;h:number}}; }
-const files = import.meta.glob(['../public/assets/*-props.json','../public/assets/*-motions.json','../public/assets/*-people*.json','../public/assets/*-day-animations.json','../public/assets/*-night-animations.json'], { eager:true, import:'default' });
+const files = import.meta.glob(['../public/assets/*-props.json','../public/assets/*-motions.json','../public/assets/*-people*.json','../public/assets/*-building-bases*.json','../public/assets/*-day-animations.json','../public/assets/*-night-animations.json'], { eager:true, import:'default' });
 const readAtlas = (name:string): Atlas => files[`../public/assets/${name}.json`] as Atlas;
 
 describe('exported expedition sprites', () => {
@@ -41,9 +41,29 @@ describe('exported expedition sprites', () => {
         expect(frame.y+frame.h).toBeLessThanOrEqual(metadata.height!);
       }
     }
+    const buildingPages=new Set<string>();
+    const day=files[`../public/assets/${map.id}-day-animations.json`] as SceneryAnimationManifest;
     for (const period of ['day','night'] as const) {
       const manifest=files[`../public/assets/${map.id}-${period}-animations.json`] as SceneryAnimationManifest;
-      expect(Object.keys(manifest.assets)).toHaveLength(4);
+      expect(Object.keys(manifest.assets)).toHaveLength(15);
+      const buildings=Object.entries(manifest.assets).filter(([name])=>isBuildingScenery(name));
+      expect(buildings).toHaveLength(11);
+      for(const [name,building] of buildings){
+        expect(building.base,`${map.id}/${name}: high resolution static base`).toBeDefined();
+        const base=building.base!,atlas=readAtlas(base.key),frame=atlas.frames[base.frame]?.frame;
+        expect(frame,`${map.id}/${name}: resolved building frame`).toBeDefined();
+        expect([frame.w,frame.h]).toEqual([building.width,building.height]);
+        expect(Math.max(frame.w,frame.h),`${map.id}/${name}: native building resolution`).toBeGreaterThanOrEqual(400);
+        expect(building.frames).toEqual([base.frame]);
+        expect(building.fps).toBe(0);
+        expect(building.overlays??[]).toEqual([]);
+        expect(base.key).toMatch(new RegExp(`^${map.id}-building-bases(?:-\\d+)?$`));
+        expect(base.key).toBe(day.assets[name].base!.key);
+        expect(sceneryAnimationTextureKeys(manifest)).toContain(base.key);
+        expect(base.referenceWidth??building.referenceWidth).toBeGreaterThan(0);
+        expect([base.originX??building.originX,base.originY??building.originY].every(value=>value>=0&&value<=1)).toBe(true);
+        buildingPages.add(base.key);
+      }
       for (const spec of getPlacedScenery(map.id)) {
         const name=spec.frame??spec.asset;
         if (spec.collidable===false) {
@@ -55,7 +75,23 @@ describe('exported expedition sprites', () => {
           const dimensions=animation.frames.map(frame=>motions.frames[frame].sourceSize);
           expect(dimensions.every(size=>size.w===dimensions[0].w&&size.h===dimensions[0].h)).toBe(true);
           expect(new Set(Array.from({length:6},(_,index)=>sampleSceneryFrame(animation,spec.id,index/animation.fps))).size).toBe(6);
-        } else expect(props.frames[name],`${map.id}: static ${name}`).toBeDefined();
+        } else if(isBuildingScenery(name))expect(manifest.assets[name].base,`${map.id}: static building ${name}`).toBeDefined();
+        else expect(props.frames[name],`${map.id}: static ${name}`).toBeDefined();
+      }
+    }
+    for(const key of buildingPages){
+      const atlas=readAtlas(key);
+      const metadata=await sharp(new URL(`../public/assets/${key}.webp`,import.meta.url).pathname).metadata();
+      expect(metadata.hasAlpha,`${key}: native transparency`).toBe(true);
+      expect(metadata.width).toBe(atlas.meta.size.w);
+      expect(metadata.height).toBe(atlas.meta.size.h);
+      expect(metadata.width).toBeLessThanOrEqual(2048);
+      expect(metadata.height).toBeLessThanOrEqual(2048);
+      for(const {frame} of Object.values(atlas.frames)){
+        expect(frame.x).toBeGreaterThanOrEqual(0);
+        expect(frame.y).toBeGreaterThanOrEqual(0);
+        expect(frame.x+frame.w).toBeLessThanOrEqual(metadata.width!);
+        expect(frame.y+frame.h).toBeLessThanOrEqual(metadata.height!);
       }
     }
     const keys=new Set<string>();

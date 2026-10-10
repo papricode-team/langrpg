@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "framesPerAsset": 6,
   "terrain": "saffroncourt-terrain",
   "assets": {
@@ -70,6 +70,193 @@
       "referenceWidth": 224,
       "originX": 0.5,
       "originY": 1
+    },
+    "archive": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "archive"
+      ],
+      "fps": 0,
+      "width": 569,
+      "height": 583,
+      "referenceWidth": 569,
+      "originX": 0.5,
+      "originY": 0.9931389365351629,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "archive"
+      },
+      "overlays": []
+    },
+    "station": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "station"
+      ],
+      "fps": 0,
+      "width": 558,
+      "height": 553,
+      "referenceWidth": 558,
+      "originX": 0.5,
+      "originY": 0.9927667269439421,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "station"
+      },
+      "overlays": []
+    },
+    "cafe": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "cafe"
+      ],
+      "fps": 0,
+      "width": 532,
+      "height": 594,
+      "referenceWidth": 532,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": []
+    },
+    "workshop": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "workshop"
+      ],
+      "fps": 0,
+      "width": 547,
+      "height": 542,
+      "referenceWidth": 547,
+      "originX": 0.5,
+      "originY": 0.992619926199262,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": []
+    },
+    "house": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "house"
+      ],
+      "fps": 0,
+      "width": 503,
+      "height": 559,
+      "referenceWidth": 503,
+      "originX": 0.5,
+      "originY": 0.9928443649373881,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "house"
+      },
+      "overlays": []
+    },
+    "house-1": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "house-1"
+      ],
+      "fps": 0,
+      "width": 407,
+      "height": 588,
+      "referenceWidth": 407,
+      "originX": 0.5,
+      "originY": 0.9931972789115646,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": []
+    },
+    "greenhouse": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "greenhouse"
+      ],
+      "fps": 0,
+      "width": 492,
+      "height": 560,
+      "referenceWidth": 492,
+      "originX": 0.5,
+      "originY": 0.9928571428571429,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": []
+    },
+    "house-2": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "house-2"
+      ],
+      "fps": 0,
+      "width": 443,
+      "height": 580,
+      "referenceWidth": 443,
+      "originX": 0.5,
+      "originY": 0.993103448275862,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": []
+    },
+    "house-3": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "house-3"
+      ],
+      "fps": 0,
+      "width": 424,
+      "height": 595,
+      "referenceWidth": 424,
+      "originX": 0.5,
+      "originY": 0.9932773109243698,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": []
+    },
+    "arch": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "arch"
+      ],
+      "fps": 0,
+      "width": 488,
+      "height": 530,
+      "referenceWidth": 488,
+      "originX": 0.5,
+      "originY": 0.9924528301886792,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "arch"
+      },
+      "overlays": []
+    },
+    "house-4": {
+      "key": "saffroncourt-building-bases",
+      "frames": [
+        "house-4"
+      ],
+      "fps": 0,
+      "width": 431,
+      "height": 578,
+      "referenceWidth": 431,
+      "originX": 0.5,
+      "originY": 0.9930795847750865,
+      "base": {
+        "key": "saffroncourt-building-bases",
+        "frame": "house-4"
+      },
+      "overlays": []
     }
   }
 }

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1206,
+        "h": 1180
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1206,
+        "h": 1180
+      },
+      "sourceSize": {
+        "w": 1206,
+        "h": 1180
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-day-archive.png",
+        "crop": {
+          "left": 31,
+          "top": 43,
+          "width": 1206,
+          "height": 1180
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-day-building-archive.webp",
+    "size": {
+      "w": 1206,
+      "h": 1180
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

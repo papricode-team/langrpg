@@ -2,231 +2,186 @@
   "frames": {
     "archive": {
       "frame": {
-        "x": 2,
-        "y": 2,
-        "w": 183,
-        "h": 231
+        "x": 4,
+        "y": 4,
+        "w": 404,
+        "h": 518
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 183,
-        "h": 231
+        "w": 404,
+        "h": 518
       },
       "sourceSize": {
-        "w": 183,
-        "h": 231
-      }
-    },
-    "cafe": {
-      "frame": {
-        "x": 189,
-        "y": 2,
-        "w": 230,
-        "h": 247
+        "w": 404,
+        "h": 518
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 230,
-        "h": 247
-      },
-      "sourceSize": {
-        "w": 230,
-        "h": 247
-      }
-    },
-    "station": {
-      "frame": {
-        "x": 423,
-        "y": 2,
-        "w": 241,
-        "h": 209
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 241,
-        "h": 209
-      },
-      "sourceSize": {
-        "w": 241,
-        "h": 209
-      }
-    },
-    "workshop": {
-      "frame": {
-        "x": 668,
-        "y": 2,
-        "w": 215,
-        "h": 231
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 215,
-        "h": 231
-      },
-      "sourceSize": {
-        "w": 215,
-        "h": 231
-      }
-    },
-    "house": {
-      "frame": {
-        "x": 2,
-        "y": 253,
-        "w": 206,
-        "h": 242
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 206,
-        "h": 242
-      },
-      "sourceSize": {
-        "w": 206,
-        "h": 242
-      }
-    },
-    "greenhouse": {
-      "frame": {
-        "x": 212,
-        "y": 253,
-        "w": 223,
-        "h": 203
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 223,
-        "h": 203
-      },
-      "sourceSize": {
-        "w": 223,
-        "h": 203
-      }
-    },
-    "house-1": {
-      "frame": {
-        "x": 439,
-        "y": 253,
-        "w": 220,
-        "h": 225
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 220,
-        "h": 225
-      },
-      "sourceSize": {
-        "w": 220,
-        "h": 225
-      }
-    },
-    "house-2": {
-      "frame": {
-        "x": 663,
-        "y": 253,
-        "w": 193,
-        "h": 237
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 193,
-        "h": 237
-      },
-      "sourceSize": {
-        "w": 193,
-        "h": 237
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 51,
+          "top": 4,
+          "width": 404,
+          "height": 518
+        }
       }
     },
     "house-3": {
       "frame": {
-        "x": 2,
-        "y": 499,
-        "w": 223,
-        "h": 232
+        "x": 416,
+        "y": 4,
+        "w": 470,
+        "h": 435
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 223,
-        "h": 232
+        "w": 470,
+        "h": 435
       },
       "sourceSize": {
-        "w": 223,
-        "h": 232
+        "w": 470,
+        "h": 435
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 32,
+          "top": 543,
+          "width": 470,
+          "height": 435
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 894,
+        "y": 4,
+        "w": 512,
+        "h": 475
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 512,
+        "h": 475
+      },
+      "sourceSize": {
+        "w": 512,
+        "h": 475
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 512,
+          "top": 53,
+          "width": 512,
+          "height": 475
+        }
       }
     },
     "house-4": {
       "frame": {
-        "x": 229,
-        "y": 499,
-        "w": 225,
-        "h": 199
+        "x": 1414,
+        "y": 4,
+        "w": 501,
+        "h": 401
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 225,
-        "h": 199
+        "w": 501,
+        "h": 401
       },
       "sourceSize": {
-        "w": 225,
-        "h": 199
+        "w": 501,
+        "h": 401
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 523,
+          "top": 559,
+          "width": 501,
+          "height": 401
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 4,
+        "y": 530,
+        "w": 382,
+        "h": 491
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 382,
+        "h": 491
+      },
+      "sourceSize": {
+        "w": 382,
+        "h": 491
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 1103,
+          "top": 21,
+          "width": 382,
+          "height": 491
+        }
       }
     },
     "arch": {
       "frame": {
-        "x": 458,
-        "y": 499,
-        "w": 208,
-        "h": 225
+        "x": 394,
+        "y": 530,
+        "w": 415,
+        "h": 458
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 208,
-        "h": 225
+        "w": 415,
+        "h": 458
       },
       "sourceSize": {
-        "w": 208,
-        "h": 225
+        "w": 415,
+        "h": 458
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-small.png",
+        "crop": {
+          "left": 1087,
+          "top": 532,
+          "width": 415,
+          "height": 458
+        }
       }
     }
   },
   "meta": {
     "image": "waldruh-day-building-bases.webp",
     "size": {
-      "w": 1024,
-      "h": 733
+      "w": 2048,
+      "h": 1025
     },
-    "scale": "1"
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
   }
 }

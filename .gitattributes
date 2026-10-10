@@ -1,3 +1,6 @@
 # New source paintings use LFS. Existing tracked art remains compatible; migrate
 # its history separately when all clones and release tooling are ready.
 art/source/story-cast/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Native-resolution building masters, with exact prompts tracked as ordinary text.
+art/source/buildings/*.png filter=lfs diff=lfs merge=lfs -text

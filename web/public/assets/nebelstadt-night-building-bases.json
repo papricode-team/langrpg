@@ -1,232 +1,158 @@
 {
   "frames": {
-    "archive": {
-      "frame": {
-        "x": 2,
-        "y": 2,
-        "w": 222,
-        "h": 228
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 222,
-        "h": 228
-      },
-      "sourceSize": {
-        "w": 222,
-        "h": 228
-      }
-    },
-    "cafe": {
-      "frame": {
-        "x": 228,
-        "y": 2,
-        "w": 209,
-        "h": 230
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 209,
-        "h": 230
-      },
-      "sourceSize": {
-        "w": 209,
-        "h": 230
-      }
-    },
-    "station": {
-      "frame": {
-        "x": 441,
-        "y": 2,
-        "w": 233,
-        "h": 209
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 233,
-        "h": 209
-      },
-      "sourceSize": {
-        "w": 233,
-        "h": 209
-      }
-    },
-    "workshop": {
-      "frame": {
-        "x": 678,
-        "y": 2,
-        "w": 235,
-        "h": 223
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 235,
-        "h": 223
-      },
-      "sourceSize": {
-        "w": 235,
-        "h": 223
-      }
-    },
-    "house": {
-      "frame": {
-        "x": 2,
-        "y": 236,
-        "w": 184,
-        "h": 240
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 184,
-        "h": 240
-      },
-      "sourceSize": {
-        "w": 184,
-        "h": 240
-      }
-    },
-    "greenhouse": {
-      "frame": {
-        "x": 190,
-        "y": 236,
-        "w": 229,
-        "h": 236
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 229,
-        "h": 236
-      },
-      "sourceSize": {
-        "w": 229,
-        "h": 236
-      }
-    },
     "house-1": {
       "frame": {
-        "x": 423,
-        "y": 236,
-        "w": 182,
-        "h": 235
+        "x": 4,
+        "y": 4,
+        "w": 430,
+        "h": 500
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 182,
-        "h": 235
+        "w": 430,
+        "h": 500
       },
       "sourceSize": {
-        "w": 182,
-        "h": 235
-      }
-    },
-    "house-2": {
-      "frame": {
-        "x": 609,
-        "y": 236,
-        "w": 228,
-        "h": 220
+        "w": 430,
+        "h": 500
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 228,
-        "h": 220
-      },
-      "sourceSize": {
-        "w": 228,
-        "h": 220
-      }
-    },
-    "house-3": {
-      "frame": {
-        "x": 841,
-        "y": 236,
-        "w": 176,
-        "h": 237
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 176,
-        "h": 237
-      },
-      "sourceSize": {
-        "w": 176,
-        "h": 237
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-small.png",
+        "crop": {
+          "left": 46,
+          "top": 24,
+          "width": 430,
+          "height": 500
+        }
       }
     },
     "house-4": {
       "frame": {
-        "x": 2,
-        "y": 480,
-        "w": 231,
-        "h": 218
+        "x": 442,
+        "y": 4,
+        "w": 501,
+        "h": 476
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 231,
-        "h": 218
+        "w": 501,
+        "h": 476
       },
       "sourceSize": {
-        "w": 231,
-        "h": 218
+        "w": 501,
+        "h": 476
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-small.png",
+        "crop": {
+          "left": 19,
+          "top": 529,
+          "width": 501,
+          "height": 476
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 951,
+        "y": 4,
+        "w": 520,
+        "h": 448
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 520,
+        "h": 448
+      },
+      "sourceSize": {
+        "w": 520,
+        "h": 448
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-small.png",
+        "crop": {
+          "left": 520,
+          "top": 69,
+          "width": 520,
+          "height": 448
+        }
       }
     },
     "arch": {
       "frame": {
-        "x": 237,
-        "y": 480,
-        "w": 238,
-        "h": 208
+        "x": 1479,
+        "y": 4,
+        "w": 489,
+        "h": 442
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 238,
-        "h": 208
+        "w": 489,
+        "h": 442
       },
       "sourceSize": {
-        "w": 238,
-        "h": 208
+        "w": 489,
+        "h": 442
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-small.png",
+        "crop": {
+          "left": 520,
+          "top": 530,
+          "width": 489,
+          "height": 442
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 4,
+        "y": 512,
+        "w": 411,
+        "h": 533
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 411,
+        "h": 533
+      },
+      "sourceSize": {
+        "w": 411,
+        "h": 533
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-night-small.png",
+        "crop": {
+          "left": 1081,
+          "top": 8,
+          "width": 411,
+          "height": 533
+        }
       }
     }
   },
   "meta": {
     "image": "nebelstadt-night-building-bases.webp",
     "size": {
-      "w": 1024,
-      "h": 700
+      "w": 2048,
+      "h": 1049
     },
-    "scale": "1"
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
   }
 }

@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 542,
+        "h": 602
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 542,
+        "h": 602
+      },
+      "sourceSize": {
+        "w": 542,
+        "h": 602
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-0.png",
+        "crop": {
+          "left": 69,
+          "top": 23,
+          "width": 542,
+          "height": 602
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 554,
+        "y": 4,
+        "w": 576,
+        "h": 536
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 576,
+        "h": 536
+      },
+      "sourceSize": {
+        "w": 576,
+        "h": 536
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-0.png",
+        "crop": {
+          "left": 629,
+          "top": 91,
+          "width": 576,
+          "height": 536
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 1138,
+        "y": 4,
+        "w": 613,
+        "h": 533
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 613,
+        "h": 533
+      },
+      "sourceSize": {
+        "w": 613,
+        "h": 533
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-0.png",
+        "crop": {
+          "left": 35,
+          "top": 651,
+          "width": 613,
+          "height": 533
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 614,
+        "w": 538,
+        "h": 515
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 538,
+        "h": 515
+      },
+      "sourceSize": {
+        "w": 538,
+        "h": 515
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-0.png",
+        "crop": {
+          "left": 675,
+          "top": 691,
+          "width": 538,
+          "height": 515
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 550,
+        "y": 614,
+        "w": 582,
+        "h": 592
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 582,
+        "h": 592
+      },
+      "sourceSize": {
+        "w": 582,
+        "h": 592
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-1.png",
+        "crop": {
+          "left": 54,
+          "top": 35,
+          "width": 582,
+          "height": 592
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1140,
+        "y": 614,
+        "w": 613,
+        "h": 590
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 613,
+        "h": 590
+      },
+      "sourceSize": {
+        "w": 613,
+        "h": 590
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-1.png",
+        "crop": {
+          "left": 23,
+          "top": 647,
+          "width": 613,
+          "height": 590
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1214,
+        "w": 583,
+        "h": 505
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 583,
+        "h": 505
+      },
+      "sourceSize": {
+        "w": 583,
+        "h": 505
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-1.png",
+        "crop": {
+          "left": 653,
+          "top": 87,
+          "width": 583,
+          "height": 505
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 595,
+        "y": 1214,
+        "w": 603,
+        "h": 576
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 603,
+        "h": 576
+      },
+      "sourceSize": {
+        "w": 603,
+        "h": 576
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-1.png",
+        "crop": {
+          "left": 636,
+          "top": 649,
+          "width": 603,
+          "height": 576
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1206,
+        "y": 1214,
+        "w": 580,
+        "h": 563
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 580,
+        "h": 563
+      },
+      "sourceSize": {
+        "w": 580,
+        "h": 563
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-2.png",
+        "crop": {
+          "left": 29,
+          "top": 51,
+          "width": 580,
+          "height": 563
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "kigalights-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1802
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

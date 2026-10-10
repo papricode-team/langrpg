@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1073,
+        "h": 1209
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1073,
+        "h": 1209
+      },
+      "sourceSize": {
+        "w": 1073,
+        "h": 1209
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-cafe.png",
+        "crop": {
+          "left": 93,
+          "top": 0,
+          "width": 1073,
+          "height": 1209
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-cafe.webp",
+    "size": {
+      "w": 1073,
+      "h": 1209
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

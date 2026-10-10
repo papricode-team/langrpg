@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "workshop": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1161,
+        "h": 1187
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1161,
+        "h": 1187
+      },
+      "sourceSize": {
+        "w": 1161,
+        "h": 1187
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-workshop.png",
+        "crop": {
+          "left": 64,
+          "top": 22,
+          "width": 1161,
+          "height": 1187
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-day-building-workshop.webp",
+    "size": {
+      "w": 1161,
+      "h": 1187
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

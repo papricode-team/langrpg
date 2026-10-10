@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import {readFile}from'node:fs/promises';
 import{createHash}from'node:crypto';
 let sequences=0,frames=0;
-let bases=0,detailFrames=0;
+let bases=0;
 const dayManifests=new Map(),dayHashes=new Map();
 const requested=process.argv.slice(2);
 for(const map of requested.length?requested:['lindenhafen','waldruh','nebelstadt'])for(const period of ['day','night']){
@@ -16,7 +16,8 @@ for(const map of requested.length?requested:['lindenhafen','waldruh','nebelstadt
  const pages=new Map();
  for(const [asset,entry] of Object.entries(manifest.assets)){
   if(period==='night'&&entry.key===dayManifests.get(map).assets[asset].key)throw Error(`${namespace}/${asset}: separate painted night sequence required`);
-  if(entry.frames.length!==6||entry.referenceWidth<=0||entry.originY<0||entry.originY>1||entry.fps>4)throw Error(`${map}:badsequencegeometry`);
+  const building=['archive','cafe','station','workshop','house','greenhouse','arch'].includes(asset)||asset.startsWith('house-');
+  if(entry.frames.length!==(building?1:6)||entry.referenceWidth<=0||entry.originY<0||entry.originY>1||entry.fps>4)throw Error(`${map}:badsequencegeometry`);
   if(!pages.has(entry.key)){
    const atlas=JSON.parse(await readFile(`web/public/assets/${entry.key}.json`,'utf8'));
    const pixels=await sharp(`web/public/assets/${entry.key}.webp`).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -36,41 +37,27 @@ for(const map of requested.length?requested:['lindenhafen','waldruh','nebelstadt
    if(opaque<30||clear<rect.w*rect.h*.01)throw Error(`${name}:nativealphaartrequired`);
    hashes.push(createHash('sha256').update(normalized).digest('hex'));frames++;
   }
-  if(new Set(hashes).size<4)throw Error(`${map}:${entry.frames[0]}:paintedmotionmissing`);
-  if(['archive','cafe','station','workshop','house','greenhouse','arch'].includes(asset)||asset.startsWith('house-')){
-   if(!entry.base||!entry.overlays?.length)throw Error(`${namespace}/${asset}: fixed base and separate details required`);
-   const baseAtlas=JSON.parse(await readFile(`web/public/assets/${entry.base.key}.json`,'utf8'));
-   const baseRect=baseAtlas.frames[entry.base.frame].frame;
-   if(baseRect.w!==entry.width||baseRect.h!==entry.height)throw Error(`${asset}: base geometry changed`);
-   const basePixels=await sharp(`web/public/assets/${entry.base.key}.webp`).extract({left:baseRect.x,top:baseRect.y,width:baseRect.w,height:baseRect.h}).ensureAlpha().raw().toBuffer();
-   for(let i=0;i<basePixels.length;i+=4)for(let c=0;c<3;c++)basePixels[i+c]=Math.round(basePixels[i+c]*basePixels[i+3]/255);
-   if(createHash('sha256').update(basePixels).digest('hex')!==hashes[0])throw Error(`${asset}: base differs from the fixed first painting`);
+  if(!building&&new Set(hashes).size<4)throw Error(`${map}:${entry.frames[0]}:paintedmotionmissing`);
+  if(building){
+   if(!entry.base||entry.fps!==0||entry.overlays?.length)throw Error(`${namespace}/${asset}: single static base required`);
+   const frame=page.atlas.frames[entry.base.frame];
+   if(entry.base.key!==entry.key||entry.frames[0]!==entry.base.frame)throw Error(`${asset}: static frame mismatch`);
+   if(Math.max(frame.frame.w,frame.frame.h)<400)throw Error(`${asset}: native resolution below 400px`);
+   if(frame.source?.standalone&&(Object.keys(page.atlas.frames).length!==1||Math.max(frame.frame.w,frame.frame.h)<800))throw Error(`${asset}: large buildings require an individual high-resolution image`);
+   if(!frame.source?.path?.startsWith('art/source/buildings/'))throw Error(`${asset}: dedicated master provenance missing`);
+   const sourceMeta=await sharp(frame.source.path).metadata(),crop=frame.source.crop;
+   if(!sourceMeta.hasAlpha||crop.width!==entry.width||crop.height!==entry.height||crop.left+crop.width>sourceMeta.width||crop.top+crop.height>sourceMeta.height)throw Error(`${asset}: native rectangular crop required`);
+   const sourcePixels=await sharp(frame.source.path).extract(crop).ensureAlpha().raw().toBuffer();
+   const runtimePixels=await sharp(`web/public/assets/${entry.key}.webp`).extract({left:frame.frame.x,top:frame.frame.y,width:frame.frame.w,height:frame.frame.h}).ensureAlpha().raw().toBuffer();
+   for(let i=3;i<sourcePixels.length;i+=4)if(sourcePixels[i]!==runtimePixels[i])throw Error(`${asset}: source alpha changed`);
    bases++;
-   for(const detail of entry.overlays){
-    if(detail.key===entry.base.key||detail.frames.length!==6||detail.referenceWidth!==entry.referenceWidth)throw Error(`${asset}: separate registered detail sheet required`);
-    if(detail.width*detail.height>=entry.width*entry.height*.05)throw Error(`${asset}: detail covers architecture`);
-    const left=detail.offsetX+entry.originX*entry.width-detail.width/2,top=detail.offsetY+entry.originY*entry.height-detail.height/2;
-    if(left<0||top<0||left+detail.width>entry.width||top+detail.height>entry.height)throw Error(`${asset}: detail outside base`);
-    const detailAtlas=JSON.parse(await readFile(`web/public/assets/${detail.key}.json`,'utf8'));
-    const detailHashes=[];
-    for(const name of detail.frames){
-     const rect=detailAtlas.frames[name].frame;
-     if(rect.w!==detail.width||rect.h!==detail.height)throw Error(`${name}: detail geometry changed`);
-     const pixels=await sharp(`web/public/assets/${detail.key}.webp`).extract({left:rect.x,top:rect.y,width:rect.w,height:rect.h}).ensureAlpha().raw().toBuffer();
-     if(!pixels.some((value,index)=>index%4===3&&value>0))throw Error(`${name}: empty detail`);
-     // Every crop has a transparent perimeter, so frame seams cannot repaint walls.
-     for(let y=0;y<rect.h;y++)for(let x=0;x<rect.w;x++)if((x===0||y===0||x===rect.w-1||y===rect.h-1)&&pixels[(y*rect.w+x)*4+3]!==0)throw Error(`${name}: hard detail seam`);
-     detailHashes.push(createHash('sha256').update(pixels).digest('hex'));detailFrames++;
-    }
-    if(new Set(detailHashes).size<4)throw Error(`${asset}/${detail.id}: missing detail animation`);
-   }
   }
   const identity=`${map}/${asset}`;
   if(period==='day')dayHashes.set(identity,hashes[0]);
   else if(dayHashes.get(identity)===hashes[0])throw Error(`${identity}: night artwork must differ`);
   sequences++;
  }
- console.log(`${namespace}: 32 authored sequences, 192 transparent frames verified`);
+ console.log(`${namespace}: 11 static buildings, 21 animated scenery families verified`);
 }
 console.log(`${sequences} sequences, ${frames} frames verified`);
-console.log(`${bases} static building bases, ${detailFrames} localized detail frames verified`);
+console.log(`${bases} high resolution static building bases verified`);

@@ -3,14 +3,12 @@
 import sharp from 'sharp';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import ts from 'typescript';
+import { execFileSync } from 'node:child_process';
 import { expeditionArt, propFrames } from './expedition-art-plan.mjs';
 import { peopleGrid, registerPeopleSequence } from './expedition-people-registration.mjs';
 import { reviewedPeopleSeams } from './expedition-people-seam-reviews.mjs';
 const root=resolve(import.meta.dirname,'..'), sourceDir=resolve(root,'art/source/expeditions'), out=resolve(root,'web/public/assets');
 await mkdir(out,{recursive:true});
-const compiled=ts.transpileModule(await readFile(resolve(root,'web/src/expeditions.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;
-const data=await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 const selected=process.argv.slice(2).filter(arg=>!arg.startsWith('--'));
 const partial=process.argv.includes('--partial');
 const peopleOnly=process.argv.includes('--people-only');
@@ -127,20 +125,9 @@ if(!process.argv.includes('--previews-only')) for(const region of expeditionArt.
  console.log(`${id}: exported ${peopleOnly?'character artwork':'available terrain /24 props /24 motion frames'} /64 character frames in3 sheets /8 named portraits`);
 }
 
-// Assemble atlas card previews from exactly the runtime foot anchors and frames.
-if(!peopleOnly)for(const region of expeditionArt.filter(r=>!selected.length||selected.includes(r.id))){
- const id=region.id;let props,motions,terrain;
- try{props=JSON.parse(await readFile(resolve(out,`${id}-props.json`),'utf8'));motions=JSON.parse(await readFile(resolve(out,`${id}-motions.json`),'utf8'));terrain=await readFile(resolve(out,`${id}-terrain.webp`));}catch(error){if(partial&&error.code==='ENOENT')continue;throw error;}
- const placements=data.expeditionPlacements[id],images=[];
- if(!placements)throw Error(`${id}: missing authored placements`);
- for(const spec of [...placements].sort((a,b)=>(a.depth??a.y+10.5)-(b.depth??b.y+10.5))){
-  const name=spec.frame??spec.asset,isMotion=name.startsWith('motion-'),atlas=isMotion?motions:props,frame=atlas.frames[isMotion?`${name}-0`:name]?.frame;
-  if(!frame)throw Error(`${id}: missing ${name}`);
-  const w=Math.round(spec.width),h=Math.round(frame.h*w/frame.w),left=Math.round(spec.x-w/2),top=Math.round(spec.y-h),clipX=Math.max(0,-left),clipY=Math.max(0,-top),clipW=Math.min(w-clipX,1536-Math.max(0,left)),clipH=Math.min(h-clipY,1024-Math.max(0,top));
-  if(clipW<=0||clipH<=0)continue;
-  let image=sharp(resolve(out,`${id}-${isMotion?'motions':'props'}.webp`)).extract({left:frame.x,top:frame.y,width:frame.w,height:frame.h}).resize(w,h);
-  if(spec.flipX)image=image.flop();const buffer=await sharp(await image.png().toBuffer()).extract({left:clipX,top:clipY,width:clipW,height:clipH}).png().toBuffer();
-  images.push({input:buffer,left:Math.max(0,left),top:Math.max(0,top)});
- }
- await sharp(terrain).composite(images).webp({quality:86,effort:4}).toFile(resolve(out,`${id}-preview.webp`));console.log(`${id}: preview of${placements.length} independent scenery objects`);
-}
+// Restore dedicated building stills after motion manifests are regenerated.
+// Preview composition shares the renderer's base scale and ground-pivot contract.
+if (!peopleOnly) execFileSync(process.execPath, [
+  `scripts/${process.argv.includes('--previews-only') ? 'prepare-scenery-previews' : 'prepare-static-buildings'}.mjs`,
+  ...expeditionArt.filter(r=>!selected.length||selected.includes(r.id)).map(r=>r.id),
+], {stdio:'inherit'});

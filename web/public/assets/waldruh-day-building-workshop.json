@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "workshop": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1215,
+        "h": 1245
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1215,
+        "h": 1245
+      },
+      "sourceSize": {
+        "w": 1215,
+        "h": 1245
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-workshop.png",
+        "crop": {
+          "left": 24,
+          "top": 4,
+          "width": 1215,
+          "height": 1245
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-day-building-workshop.webp",
+    "size": {
+      "w": 1215,
+      "h": 1245
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

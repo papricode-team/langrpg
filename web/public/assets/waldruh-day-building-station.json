@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "station": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1212,
+        "h": 1019
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1212,
+        "h": 1019
+      },
+      "sourceSize": {
+        "w": 1212,
+        "h": 1019
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-station.png",
+        "crop": {
+          "left": 27,
+          "top": 133,
+          "width": 1212,
+          "height": 1019
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-day-building-station.webp",
+    "size": {
+      "w": 1212,
+      "h": 1019
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

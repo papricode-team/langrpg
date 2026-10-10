@@ -1,0 +1,332 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 569,
+        "h": 583
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 569,
+        "h": 583
+      },
+      "sourceSize": {
+        "w": 569,
+        "h": 583
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-0.png",
+        "crop": {
+          "left": 27,
+          "top": 42,
+          "width": 569,
+          "height": 583
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 581,
+        "y": 4,
+        "w": 558,
+        "h": 553
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 558,
+        "h": 553
+      },
+      "sourceSize": {
+        "w": 558,
+        "h": 553
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-0.png",
+        "crop": {
+          "left": 50,
+          "top": 644,
+          "width": 558,
+          "height": 553
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1147,
+        "y": 4,
+        "w": 532,
+        "h": 594
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 532,
+        "h": 594
+      },
+      "sourceSize": {
+        "w": 532,
+        "h": 594
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-0.png",
+        "crop": {
+          "left": 659,
+          "top": 43,
+          "width": 532,
+          "height": 594
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 606,
+        "w": 547,
+        "h": 542
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 547,
+        "h": 542
+      },
+      "sourceSize": {
+        "w": 547,
+        "h": 542
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-0.png",
+        "crop": {
+          "left": 664,
+          "top": 663,
+          "width": 547,
+          "height": 542
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 559,
+        "y": 606,
+        "w": 503,
+        "h": 559
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 503,
+        "h": 559
+      },
+      "sourceSize": {
+        "w": 503,
+        "h": 559
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-1.png",
+        "crop": {
+          "left": 109,
+          "top": 42,
+          "width": 503,
+          "height": 559
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1070,
+        "y": 606,
+        "w": 407,
+        "h": 588
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 407,
+        "h": 588
+      },
+      "sourceSize": {
+        "w": 407,
+        "h": 588
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-1.png",
+        "crop": {
+          "left": 154,
+          "top": 627,
+          "width": 407,
+          "height": 588
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 1485,
+        "y": 606,
+        "w": 492,
+        "h": 560
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 492,
+        "h": 560
+      },
+      "sourceSize": {
+        "w": 492,
+        "h": 560
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-1.png",
+        "crop": {
+          "left": 667,
+          "top": 27,
+          "width": 492,
+          "height": 560
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 4,
+        "y": 1202,
+        "w": 443,
+        "h": 580
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 443,
+        "h": 580
+      },
+      "sourceSize": {
+        "w": 443,
+        "h": 580
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-1.png",
+        "crop": {
+          "left": 733,
+          "top": 640,
+          "width": 443,
+          "height": 580
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 455,
+        "y": 1202,
+        "w": 424,
+        "h": 595
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 424,
+        "h": 595
+      },
+      "sourceSize": {
+        "w": 424,
+        "h": 595
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-2.png",
+        "crop": {
+          "left": 107,
+          "top": 7,
+          "width": 424,
+          "height": 595
+        }
+      }
+    },
+    "arch": {
+      "frame": {
+        "x": 887,
+        "y": 1202,
+        "w": 488,
+        "h": 530
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 488,
+        "h": 530
+      },
+      "sourceSize": {
+        "w": 488,
+        "h": 530
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-2.png",
+        "crop": {
+          "left": 77,
+          "top": 651,
+          "width": 488,
+          "height": 530
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 1383,
+        "y": 1202,
+        "w": 431,
+        "h": 578
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 431,
+        "h": 578
+      },
+      "sourceSize": {
+        "w": 431,
+        "h": 578
+      },
+      "source": {
+        "path": "art/source/buildings/saffroncourt-day-2.png",
+        "crop": {
+          "left": 714,
+          "top": 33,
+          "width": 431,
+          "height": 578
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "saffroncourt-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1801
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

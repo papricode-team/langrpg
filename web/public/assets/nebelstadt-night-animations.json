@@ -1,364 +1,108 @@
 {
-  "version": 2,
+  "version": 3,
   "framesPerAsset": 6,
   "assets": {
     "archive": {
-      "key": "nebelstadt-night-animation-0",
+      "key": "nebelstadt-night-building-archive",
       "frames": [
-        "archive-0",
-        "archive-1",
-        "archive-2",
-        "archive-3",
-        "archive-4",
-        "archive-5"
+        "archive"
       ],
-      "fps": 1,
-      "width": 222,
-      "height": 228,
-      "referenceWidth": 222,
+      "fps": 0,
+      "width": 1212,
+      "height": 1182,
+      "referenceWidth": 1212,
       "originX": 0.5,
-      "originY": 0.9868421052631579,
+      "originY": 0.9966159052453468,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-archive",
         "frame": "archive"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "archive-detail-0-0",
-            "archive-detail-0-1",
-            "archive-detail-0-2",
-            "archive-detail-0-3",
-            "archive-detail-0-4",
-            "archive-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 19,
-          "referenceWidth": 222,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 15.5,
-          "offsetY": -131.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "archive-detail-1-0",
-            "archive-detail-1-1",
-            "archive-detail-1-2",
-            "archive-detail-1-3",
-            "archive-detail-1-4",
-            "archive-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 19,
-          "referenceWidth": 222,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -49.5,
-          "offsetY": -82.5
-        }
-      ]
+      "overlays": []
     },
     "cafe": {
-      "key": "nebelstadt-night-animation-0",
+      "key": "nebelstadt-night-building-cafe",
       "frames": [
-        "cafe-0",
-        "cafe-1",
-        "cafe-2",
-        "cafe-3",
-        "cafe-4",
-        "cafe-5"
+        "cafe"
       ],
-      "fps": 1,
-      "width": 209,
-      "height": 230,
-      "referenceWidth": 209,
-      "originX": 0.5023923444976076,
-      "originY": 0.9826086956521739,
+      "fps": 0,
+      "width": 1134,
+      "height": 1212,
+      "referenceWidth": 1134,
+      "originX": 0.5,
+      "originY": 0.9966996699669967,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-cafe",
         "frame": "cafe"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "cafe-detail-0-0",
-            "cafe-detail-0-1",
-            "cafe-detail-0-2",
-            "cafe-detail-0-3",
-            "cafe-detail-0-4",
-            "cafe-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 11,
-          "height": 19,
-          "referenceWidth": 209,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -35.499999999999986,
-          "offsetY": -77.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "cafe-detail-1-0",
-            "cafe-detail-1-1",
-            "cafe-detail-1-2",
-            "cafe-detail-1-3",
-            "cafe-detail-1-4",
-            "cafe-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 13,
-          "height": 13,
-          "referenceWidth": 209,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 0.5000000000000142,
-          "offsetY": -173.5
-        }
-      ]
+      "overlays": []
     },
     "station": {
-      "key": "nebelstadt-night-animation-0",
+      "key": "nebelstadt-night-building-station",
       "frames": [
-        "station-0",
-        "station-1",
-        "station-2",
-        "station-3",
-        "station-4",
-        "station-5"
+        "station"
       ],
-      "fps": 1,
-      "width": 233,
-      "height": 209,
-      "referenceWidth": 233,
-      "originX": 0.5021459227467812,
-      "originY": 0.9856459330143541,
+      "fps": 0,
+      "width": 1223,
+      "height": 1071,
+      "referenceWidth": 1223,
+      "originX": 0.5,
+      "originY": 0.996265172735761,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-station",
         "frame": "station"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "station-detail-0-0",
-            "station-detail-0-1",
-            "station-detail-0-2",
-            "station-detail-0-3",
-            "station-detail-0-4",
-            "station-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 9,
-          "referenceWidth": 233,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -43.500000000000014,
-          "offsetY": -129.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "station-detail-1-0",
-            "station-detail-1-1",
-            "station-detail-1-2",
-            "station-detail-1-3",
-            "station-detail-1-4",
-            "station-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 11,
-          "height": 13,
-          "referenceWidth": 233,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 4.499999999999986,
-          "offsetY": -73.5
-        }
-      ]
+      "overlays": []
     },
     "workshop": {
-      "key": "nebelstadt-night-animation-0",
+      "key": "nebelstadt-night-building-workshop",
       "frames": [
-        "workshop-0",
-        "workshop-1",
-        "workshop-2",
-        "workshop-3",
-        "workshop-4",
-        "workshop-5"
+        "workshop"
       ],
-      "fps": 1,
-      "width": 235,
-      "height": 223,
-      "referenceWidth": 235,
-      "originX": 0.4978723404255319,
-      "originY": 0.9910313901345291,
+      "fps": 0,
+      "width": 1156,
+      "height": 1104,
+      "referenceWidth": 1156,
+      "originX": 0.5,
+      "originY": 0.9963768115942029,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-workshop",
         "frame": "workshop"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "workshop-detail-0-0",
-            "workshop-detail-0-1",
-            "workshop-detail-0-2",
-            "workshop-detail-0-3",
-            "workshop-detail-0-4",
-            "workshop-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 15,
-          "referenceWidth": 235,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -35.5,
-          "offsetY": -114.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "workshop-detail-1-0",
-            "workshop-detail-1-1",
-            "workshop-detail-1-2",
-            "workshop-detail-1-3",
-            "workshop-detail-1-4",
-            "workshop-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 11,
-          "height": 19,
-          "referenceWidth": 235,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 64.5,
-          "offsetY": -97.5
-        }
-      ]
+      "overlays": []
     },
     "house": {
-      "key": "nebelstadt-night-animation-1",
+      "key": "nebelstadt-night-building-house",
       "frames": [
-        "house-0",
-        "house-1",
-        "house-2",
-        "house-3",
-        "house-4",
-        "house-5"
+        "house"
       ],
-      "fps": 1,
-      "width": 184,
-      "height": 240,
-      "referenceWidth": 184,
-      "originX": 0.4945652173913043,
-      "originY": 0.9541666666666667,
+      "fps": 0,
+      "width": 937,
+      "height": 1229,
+      "referenceWidth": 937,
+      "originX": 0.5,
+      "originY": 0.9967453213995118,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-house",
         "frame": "house"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-detail-0-0",
-            "house-detail-0-1",
-            "house-detail-0-2",
-            "house-detail-0-3",
-            "house-detail-0-4",
-            "house-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 15,
-          "height": 19,
-          "referenceWidth": 184,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -2.5,
-          "offsetY": -174.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-detail-1-0",
-            "house-detail-1-1",
-            "house-detail-1-2",
-            "house-detail-1-3",
-            "house-detail-1-4",
-            "house-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 7,
-          "height": 11,
-          "referenceWidth": 184,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 8.5,
-          "offsetY": -116.5
-        }
-      ]
+      "overlays": []
     },
     "greenhouse": {
-      "key": "nebelstadt-night-animation-1",
+      "key": "nebelstadt-night-building-greenhouse",
       "frames": [
-        "greenhouse-0",
-        "greenhouse-1",
-        "greenhouse-2",
-        "greenhouse-3",
-        "greenhouse-4",
-        "greenhouse-5"
+        "greenhouse"
       ],
-      "fps": 1,
-      "width": 229,
-      "height": 236,
-      "referenceWidth": 229,
-      "originX": 0.4978165938864629,
-      "originY": 0.9703389830508474,
+      "fps": 0,
+      "width": 1152,
+      "height": 1189,
+      "referenceWidth": 1152,
+      "originX": 0.5,
+      "originY": 0.9966358284272497,
       "base": {
-        "key": "nebelstadt-night-building-bases",
+        "key": "nebelstadt-night-building-greenhouse",
         "frame": "greenhouse"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "greenhouse-detail-0-0",
-            "greenhouse-detail-0-1",
-            "greenhouse-detail-0-2",
-            "greenhouse-detail-0-3",
-            "greenhouse-detail-0-4",
-            "greenhouse-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 17,
-          "height": 35,
-          "referenceWidth": 229,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -2.5,
-          "offsetY": -69.5
-        }
-      ]
+      "overlays": []
     },
     "fountain": {
       "key": "nebelstadt-night-animation-1",
@@ -446,67 +190,21 @@
       "originY": 0.9787234042553191
     },
     "arch": {
-      "key": "nebelstadt-night-animation-2",
+      "key": "nebelstadt-night-building-bases",
       "frames": [
-        "arch-0",
-        "arch-1",
-        "arch-2",
-        "arch-3",
-        "arch-4",
-        "arch-5"
+        "arch"
       ],
-      "fps": 1,
-      "width": 238,
-      "height": 208,
-      "referenceWidth": 238,
+      "fps": 0,
+      "width": 489,
+      "height": 442,
+      "referenceWidth": 489,
       "originX": 0.5,
-      "originY": 1,
+      "originY": 0.9909502262443439,
       "base": {
         "key": "nebelstadt-night-building-bases",
         "frame": "arch"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "arch-detail-0-0",
-            "arch-detail-0-1",
-            "arch-detail-0-2",
-            "arch-detail-0-3",
-            "arch-detail-0-4",
-            "arch-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 13,
-          "referenceWidth": 238,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -77.5,
-          "offsetY": -118.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "arch-detail-1-0",
-            "arch-detail-1-1",
-            "arch-detail-1-2",
-            "arch-detail-1-3",
-            "arch-detail-1-4",
-            "arch-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 13,
-          "referenceWidth": 238,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 78.5,
-          "offsetY": -115.5
-        }
-      ]
+      "overlays": []
     },
     "stall": {
       "key": "nebelstadt-night-animation-3",
@@ -577,256 +275,72 @@
       "originY": 0.9956140350877193
     },
     "house-1": {
-      "key": "nebelstadt-night-animation-4",
+      "key": "nebelstadt-night-building-bases",
       "frames": [
-        "house-1-0",
-        "house-1-1",
-        "house-1-2",
-        "house-1-3",
-        "house-1-4",
-        "house-1-5"
+        "house-1"
       ],
-      "fps": 1,
-      "width": 182,
-      "height": 235,
-      "referenceWidth": 182,
-      "originX": 0.510989010989011,
+      "fps": 0,
+      "width": 430,
+      "height": 500,
+      "referenceWidth": 430,
+      "originX": 0.5,
       "originY": 1,
       "base": {
         "key": "nebelstadt-night-building-bases",
         "frame": "house-1"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-1-detail-0-0",
-            "house-1-detail-0-1",
-            "house-1-detail-0-2",
-            "house-1-detail-0-3",
-            "house-1-detail-0-4",
-            "house-1-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 11,
-          "height": 19,
-          "referenceWidth": 182,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 26.5,
-          "offsetY": -127.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-1-detail-1-0",
-            "house-1-detail-1-1",
-            "house-1-detail-1-2",
-            "house-1-detail-1-3",
-            "house-1-detail-1-4",
-            "house-1-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 17,
-          "referenceWidth": 182,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -50.5,
-          "offsetY": -69.5
-        }
-      ]
+      "overlays": []
     },
     "house-2": {
-      "key": "nebelstadt-night-animation-4",
+      "key": "nebelstadt-night-building-bases",
       "frames": [
-        "house-2-0",
-        "house-2-1",
-        "house-2-2",
-        "house-2-3",
-        "house-2-4",
-        "house-2-5"
+        "house-2"
       ],
-      "fps": 1,
-      "width": 228,
-      "height": 220,
-      "referenceWidth": 228,
-      "originX": 0.5043859649122807,
-      "originY": 0.9818181818181818,
+      "fps": 0,
+      "width": 520,
+      "height": 448,
+      "referenceWidth": 520,
+      "originX": 0.5,
+      "originY": 1,
       "base": {
         "key": "nebelstadt-night-building-bases",
         "frame": "house-2"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-2-detail-0-0",
-            "house-2-detail-0-1",
-            "house-2-detail-0-2",
-            "house-2-detail-0-3",
-            "house-2-detail-0-4",
-            "house-2-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 11,
-          "height": 17,
-          "referenceWidth": 228,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -17.5,
-          "offsetY": -69.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-2-detail-1-0",
-            "house-2-detail-1-1",
-            "house-2-detail-1-2",
-            "house-2-detail-1-3",
-            "house-2-detail-1-4",
-            "house-2-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 17,
-          "referenceWidth": 228,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 48.5,
-          "offsetY": -81.5
-        }
-      ]
+      "overlays": []
     },
     "house-3": {
-      "key": "nebelstadt-night-animation-4",
+      "key": "nebelstadt-night-building-bases",
       "frames": [
-        "house-3-0",
-        "house-3-1",
-        "house-3-2",
-        "house-3-3",
-        "house-3-4",
-        "house-3-5"
+        "house-3"
       ],
-      "fps": 1,
-      "width": 176,
-      "height": 237,
-      "referenceWidth": 176,
-      "originX": 0.4943181818181818,
-      "originY": 0.9873417721518988,
+      "fps": 0,
+      "width": 411,
+      "height": 533,
+      "referenceWidth": 411,
+      "originX": 0.5,
+      "originY": 1,
       "base": {
         "key": "nebelstadt-night-building-bases",
         "frame": "house-3"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-3-detail-0-0",
-            "house-3-detail-0-1",
-            "house-3-detail-0-2",
-            "house-3-detail-0-3",
-            "house-3-detail-0-4",
-            "house-3-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 11,
-          "referenceWidth": 176,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -18.5,
-          "offsetY": -112.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-3-detail-1-0",
-            "house-3-detail-1-1",
-            "house-3-detail-1-2",
-            "house-3-detail-1-3",
-            "house-3-detail-1-4",
-            "house-3-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 17,
-          "referenceWidth": 176,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 32.5,
-          "offsetY": -60.5
-        }
-      ]
+      "overlays": []
     },
     "house-4": {
-      "key": "nebelstadt-night-animation-4",
+      "key": "nebelstadt-night-building-bases",
       "frames": [
-        "house-4-0",
-        "house-4-1",
-        "house-4-2",
-        "house-4-3",
-        "house-4-4",
-        "house-4-5"
+        "house-4"
       ],
-      "fps": 1,
-      "width": 231,
-      "height": 218,
-      "referenceWidth": 231,
-      "originX": 0.5064935064935064,
-      "originY": 1,
+      "fps": 0,
+      "width": 501,
+      "height": 476,
+      "referenceWidth": 501,
+      "originX": 0.5,
+      "originY": 0.9915966386554622,
       "base": {
         "key": "nebelstadt-night-building-bases",
         "frame": "house-4"
       },
-      "overlays": [
-        {
-          "id": "detail-0",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-4-detail-0-0",
-            "house-4-detail-0-1",
-            "house-4-detail-0-2",
-            "house-4-detail-0-3",
-            "house-4-detail-0-4",
-            "house-4-detail-0-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 17,
-          "referenceWidth": 231,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": -49.499999999999986,
-          "offsetY": -141.5
-        },
-        {
-          "id": "detail-1",
-          "key": "nebelstadt-night-building-details",
-          "frames": [
-            "house-4-detail-1-0",
-            "house-4-detail-1-1",
-            "house-4-detail-1-2",
-            "house-4-detail-1-3",
-            "house-4-detail-1-4",
-            "house-4-detail-1-5"
-          ],
-          "fps": 1,
-          "width": 9,
-          "height": 13,
-          "referenceWidth": 231,
-          "originX": 0.5,
-          "originY": 0.5,
-          "offsetX": 31.500000000000014,
-          "offsetY": -122.5
-        }
-      ]
+      "overlays": []
     },
     "tree-1": {
       "key": "nebelstadt-night-animation-5",

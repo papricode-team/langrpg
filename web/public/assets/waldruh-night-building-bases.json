@@ -2,231 +2,186 @@
   "frames": {
     "archive": {
       "frame": {
-        "x": 2,
-        "y": 2,
-        "w": 184,
-        "h": 228
+        "x": 4,
+        "y": 4,
+        "w": 402,
+        "h": 520
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 184,
-        "h": 228
+        "w": 402,
+        "h": 520
       },
       "sourceSize": {
-        "w": 184,
-        "h": 228
-      }
-    },
-    "cafe": {
-      "frame": {
-        "x": 190,
-        "y": 2,
-        "w": 228,
-        "h": 247
+        "w": 402,
+        "h": 520
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 228,
-        "h": 247
-      },
-      "sourceSize": {
-        "w": 228,
-        "h": 247
-      }
-    },
-    "station": {
-      "frame": {
-        "x": 422,
-        "y": 2,
-        "w": 231,
-        "h": 199
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 231,
-        "h": 199
-      },
-      "sourceSize": {
-        "w": 231,
-        "h": 199
-      }
-    },
-    "workshop": {
-      "frame": {
-        "x": 657,
-        "y": 2,
-        "w": 216,
-        "h": 234
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 216,
-        "h": 234
-      },
-      "sourceSize": {
-        "w": 216,
-        "h": 234
-      }
-    },
-    "house": {
-      "frame": {
-        "x": 2,
-        "y": 253,
-        "w": 202,
-        "h": 241
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 202,
-        "h": 241
-      },
-      "sourceSize": {
-        "w": 202,
-        "h": 241
-      }
-    },
-    "greenhouse": {
-      "frame": {
-        "x": 208,
-        "y": 253,
-        "w": 222,
-        "h": 202
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 222,
-        "h": 202
-      },
-      "sourceSize": {
-        "w": 222,
-        "h": 202
-      }
-    },
-    "house-1": {
-      "frame": {
-        "x": 434,
-        "y": 253,
-        "w": 225,
-        "h": 208
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 225,
-        "h": 208
-      },
-      "sourceSize": {
-        "w": 225,
-        "h": 208
-      }
-    },
-    "house-2": {
-      "frame": {
-        "x": 663,
-        "y": 253,
-        "w": 195,
-        "h": 231
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 195,
-        "h": 231
-      },
-      "sourceSize": {
-        "w": 195,
-        "h": 231
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 54,
+          "top": 5,
+          "width": 402,
+          "height": 520
+        }
       }
     },
     "house-3": {
       "frame": {
-        "x": 2,
-        "y": 498,
-        "w": 220,
-        "h": 218
+        "x": 414,
+        "y": 4,
+        "w": 471,
+        "h": 457
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 220,
-        "h": 218
+        "w": 471,
+        "h": 457
       },
       "sourceSize": {
-        "w": 220,
-        "h": 218
+        "w": 471,
+        "h": 457
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 34,
+          "top": 525,
+          "width": 471,
+          "height": 457
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 893,
+        "y": 4,
+        "w": 511,
+        "h": 479
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 511,
+        "h": 479
+      },
+      "sourceSize": {
+        "w": 511,
+        "h": 479
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 516,
+          "top": 52,
+          "width": 511,
+          "height": 479
+        }
       }
     },
     "house-4": {
       "frame": {
-        "x": 226,
-        "y": 498,
-        "w": 231,
-        "h": 200
+        "x": 1412,
+        "y": 4,
+        "w": 505,
+        "h": 409
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 231,
-        "h": 200
+        "w": 505,
+        "h": 409
       },
       "sourceSize": {
-        "w": 231,
-        "h": 200
+        "w": 505,
+        "h": 409
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 522,
+          "top": 556,
+          "width": 505,
+          "height": 409
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 4,
+        "y": 532,
+        "w": 383,
+        "h": 495
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 383,
+        "h": 495
+      },
+      "sourceSize": {
+        "w": 383,
+        "h": 495
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 1104,
+          "top": 20,
+          "width": 383,
+          "height": 495
+        }
       }
     },
     "arch": {
       "frame": {
-        "x": 461,
-        "y": 498,
-        "w": 214,
-        "h": 234
+        "x": 395,
+        "y": 532,
+        "w": 401,
+        "h": 457
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 214,
-        "h": 234
+        "w": 401,
+        "h": 457
       },
       "sourceSize": {
-        "w": 214,
-        "h": 234
+        "w": 401,
+        "h": 457
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-small.png",
+        "crop": {
+          "left": 1096,
+          "top": 534,
+          "width": 401,
+          "height": 457
+        }
       }
     }
   },
   "meta": {
     "image": "waldruh-night-building-bases.webp",
     "size": {
-      "w": 1024,
-      "h": 734
+      "w": 2048,
+      "h": 1031
     },
-    "scale": "1"
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
   }
 }

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "station": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1149,
+        "h": 1178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1149,
+        "h": 1178
+      },
+      "sourceSize": {
+        "w": 1149,
+        "h": 1178
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-station.png",
+        "crop": {
+          "left": 63,
+          "top": 39,
+          "width": 1149,
+          "height": 1178
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-station.webp",
+    "size": {
+      "w": 1149,
+      "h": 1178
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

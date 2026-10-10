@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "house": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 933,
+        "h": 1228
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 933,
+        "h": 1228
+      },
+      "sourceSize": {
+        "w": 933,
+        "h": 1228
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-day-house.png",
+        "crop": {
+          "left": 162,
+          "top": 19,
+          "width": 933,
+          "height": 1228
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-day-building-house.webp",
+    "size": {
+      "w": 933,
+      "h": 1228
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

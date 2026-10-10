@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1179,
+        "h": 1120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1179,
+        "h": 1120
+      },
+      "sourceSize": {
+        "w": 1179,
+        "h": 1120
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-cafe.png",
+        "crop": {
+          "left": 51,
+          "top": 78,
+          "width": 1179,
+          "height": 1120
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-day-building-cafe.webp",
+    "size": {
+      "w": 1179,
+      "h": 1120
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "workshop": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1164,
+        "h": 1190
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1164,
+        "h": 1190
+      },
+      "sourceSize": {
+        "w": 1164,
+        "h": 1190
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-workshop.png",
+        "crop": {
+          "left": 63,
+          "top": 20,
+          "width": 1164,
+          "height": 1190
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-workshop.webp",
+    "size": {
+      "w": 1164,
+      "h": 1190
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

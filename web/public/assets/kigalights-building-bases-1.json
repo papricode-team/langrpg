@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 606,
+        "h": 490
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 606,
+        "h": 490
+      },
+      "sourceSize": {
+        "w": 606,
+        "h": 490
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-2.png",
+        "crop": {
+          "left": 21,
+          "top": 679,
+          "width": 606,
+          "height": 490
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 618,
+        "y": 4,
+        "w": 575,
+        "h": 565
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 575,
+        "h": 565
+      },
+      "sourceSize": {
+        "w": 575,
+        "h": 565
+      },
+      "source": {
+        "path": "art/source/buildings/kigalights-day-2.png",
+        "crop": {
+          "left": 656,
+          "top": 54,
+          "width": 575,
+          "height": 565
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "kigalights-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 573
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

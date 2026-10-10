@@ -8,8 +8,13 @@ const content = [
   ['export-world-content.mjs'],
   ['audit-dialogue-levels.mjs'],
 ];
-const paint = ['prepare-world-art.mjs', 'prepare-world-variations.mjs', 'prepare-world-animations.mjs', 'prepare-interior-art.mjs', 'prepare-interior-stills.mjs', 'prepare-interior-effects.mjs', 'prepare-expedition-art.mjs', 'prepare-story-cast.mjs'];
-const jobs = process.argv.includes('--art') ? [...content,...paint.map(name=>[name])] : [...content];
+const paint = [
+  ['prepare-world-art.mjs'], ['prepare-world-variations.mjs'],
+  ['prepare-world-animations.mjs', '--set', 'day'], ['prepare-world-animations.mjs', '--set', 'night'],
+  ['prepare-interior-art.mjs'], ['prepare-interior-stills.mjs'], ['prepare-interior-effects.mjs'],
+  ['prepare-expedition-art.mjs'], ['prepare-story-cast.mjs'], ['prepare-static-buildings.mjs'],
+];
+const jobs = process.argv.includes('--art') ? [...content,...paint] : [...content];
 if (process.argv.includes('--audio')) jobs.push(['generate-world-audio.mjs'],['generate-dialogue-audio.mjs']);
 for (const [name,...args] of jobs) {
   console.log(`Assets: ${name}`);

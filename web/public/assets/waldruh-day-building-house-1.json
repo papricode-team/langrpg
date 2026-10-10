@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "house-1": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1198,
+        "h": 1163
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1198,
+        "h": 1163
+      },
+      "sourceSize": {
+        "w": 1198,
+        "h": 1163
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-day-house-1.png",
+        "crop": {
+          "left": 44,
+          "top": 25,
+          "width": 1198,
+          "height": 1163
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-day-building-house-1.webp",
+    "size": {
+      "w": 1198,
+      "h": 1163
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

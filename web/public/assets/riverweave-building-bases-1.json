@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 619,
+        "h": 524
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 619,
+        "h": 524
+      },
+      "sourceSize": {
+        "w": 619,
+        "h": 524
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-2.png",
+        "crop": {
+          "left": 11,
+          "top": 652,
+          "width": 619,
+          "height": 524
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 631,
+        "y": 4,
+        "w": 555,
+        "h": 568
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 555,
+        "h": 568
+      },
+      "sourceSize": {
+        "w": 555,
+        "h": 568
+      },
+      "source": {
+        "path": "art/source/buildings/riverweave-day-2.png",
+        "crop": {
+          "left": 662,
+          "top": 47,
+          "width": 555,
+          "height": 568
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "riverweave-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 576
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

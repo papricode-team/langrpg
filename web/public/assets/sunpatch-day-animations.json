@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "framesPerAsset": 6,
   "terrain": "sunpatch-terrain",
   "assets": {
@@ -70,6 +70,193 @@
       "referenceWidth": 238,
       "originX": 0.5,
       "originY": 1
+    },
+    "archive": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "archive"
+      ],
+      "fps": 0,
+      "width": 602,
+      "height": 574,
+      "referenceWidth": 602,
+      "originX": 0.5,
+      "originY": 0.9930313588850174,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "archive"
+      },
+      "overlays": []
+    },
+    "station": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "station"
+      ],
+      "fps": 0,
+      "width": 617,
+      "height": 522,
+      "referenceWidth": 617,
+      "originX": 0.5,
+      "originY": 0.9923371647509579,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "station"
+      },
+      "overlays": []
+    },
+    "cafe": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "cafe"
+      ],
+      "fps": 0,
+      "width": 590,
+      "height": 567,
+      "referenceWidth": 590,
+      "originX": 0.5,
+      "originY": 0.9929453262786596,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "cafe"
+      },
+      "overlays": []
+    },
+    "workshop": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "workshop"
+      ],
+      "fps": 0,
+      "width": 585,
+      "height": 536,
+      "referenceWidth": 585,
+      "originX": 0.5,
+      "originY": 0.9925373134328358,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "workshop"
+      },
+      "overlays": []
+    },
+    "house": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "house"
+      ],
+      "fps": 0,
+      "width": 583,
+      "height": 604,
+      "referenceWidth": 583,
+      "originX": 0.5,
+      "originY": 0.9933774834437086,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "house"
+      },
+      "overlays": []
+    },
+    "house-1": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "house-1"
+      ],
+      "fps": 0,
+      "width": 560,
+      "height": 579,
+      "referenceWidth": 560,
+      "originX": 0.5,
+      "originY": 0.9930915371329879,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "house-1"
+      },
+      "overlays": []
+    },
+    "greenhouse": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "greenhouse"
+      ],
+      "fps": 0,
+      "width": 599,
+      "height": 569,
+      "referenceWidth": 599,
+      "originX": 0.5,
+      "originY": 0.9929701230228472,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "greenhouse"
+      },
+      "overlays": []
+    },
+    "house-2": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "house-2"
+      ],
+      "fps": 0,
+      "width": 580,
+      "height": 583,
+      "referenceWidth": 580,
+      "originX": 0.5,
+      "originY": 0.9931389365351629,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "house-2"
+      },
+      "overlays": []
+    },
+    "house-3": {
+      "key": "sunpatch-building-bases",
+      "frames": [
+        "house-3"
+      ],
+      "fps": 0,
+      "width": 569,
+      "height": 569,
+      "referenceWidth": 569,
+      "originX": 0.5,
+      "originY": 0.9929701230228472,
+      "base": {
+        "key": "sunpatch-building-bases",
+        "frame": "house-3"
+      },
+      "overlays": []
+    },
+    "arch": {
+      "key": "sunpatch-building-bases-1",
+      "frames": [
+        "arch"
+      ],
+      "fps": 0,
+      "width": 586,
+      "height": 518,
+      "referenceWidth": 586,
+      "originX": 0.5,
+      "originY": 0.9922779922779923,
+      "base": {
+        "key": "sunpatch-building-bases-1",
+        "frame": "arch"
+      },
+      "overlays": []
+    },
+    "house-4": {
+      "key": "sunpatch-building-bases-1",
+      "frames": [
+        "house-4"
+      ],
+      "fps": 0,
+      "width": 529,
+      "height": 578,
+      "referenceWidth": 529,
+      "originX": 0.5,
+      "originY": 0.9930795847750865,
+      "base": {
+        "key": "sunpatch-building-bases-1",
+        "frame": "house-4"
+      },
+      "overlays": []
     }
   }
 }

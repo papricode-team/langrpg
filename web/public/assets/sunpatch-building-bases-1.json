@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 586,
+        "h": 518
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 586,
+        "h": 518
+      },
+      "sourceSize": {
+        "w": 586,
+        "h": 518
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-2.png",
+        "crop": {
+          "left": 51,
+          "top": 665,
+          "width": 586,
+          "height": 518
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 598,
+        "y": 4,
+        "w": 529,
+        "h": 578
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 529,
+        "h": 578
+      },
+      "sourceSize": {
+        "w": 529,
+        "h": 578
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-2.png",
+        "crop": {
+          "left": 687,
+          "top": 45,
+          "width": 529,
+          "height": 578
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "sunpatch-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 586
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

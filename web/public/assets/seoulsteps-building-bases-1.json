@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 555,
+        "h": 519
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 555,
+        "h": 519
+      },
+      "sourceSize": {
+        "w": 555,
+        "h": 519
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-2.png",
+        "crop": {
+          "left": 33,
+          "top": 671,
+          "width": 555,
+          "height": 519
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 567,
+        "y": 4,
+        "w": 573,
+        "h": 594
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 573,
+        "h": 594
+      },
+      "sourceSize": {
+        "w": 573,
+        "h": 594
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-2.png",
+        "crop": {
+          "left": 657,
+          "top": 40,
+          "width": 573,
+          "height": 594
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "seoulsteps-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 602
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

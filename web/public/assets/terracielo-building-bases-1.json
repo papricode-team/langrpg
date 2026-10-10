@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 600,
+        "h": 509
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 600,
+        "h": 509
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 509
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-2.png",
+        "crop": {
+          "left": 41,
+          "top": 654,
+          "width": 600,
+          "height": 509
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 612,
+        "y": 4,
+        "w": 565,
+        "h": 547
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 565,
+        "h": 547
+      },
+      "sourceSize": {
+        "w": 565,
+        "h": 547
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-2.png",
+        "crop": {
+          "left": 655,
+          "top": 73,
+          "width": 565,
+          "height": 547
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "terracielo-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 555
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

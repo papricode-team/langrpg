@@ -1,232 +1,158 @@
 {
   "frames": {
-    "archive": {
-      "frame": {
-        "x": 2,
-        "y": 2,
-        "w": 181,
-        "h": 226
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 181,
-        "h": 226
-      },
-      "sourceSize": {
-        "w": 181,
-        "h": 226
-      }
-    },
-    "cafe": {
-      "frame": {
-        "x": 187,
-        "y": 2,
-        "w": 179,
-        "h": 213
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 179,
-        "h": 213
-      },
-      "sourceSize": {
-        "w": 179,
-        "h": 213
-      }
-    },
-    "station": {
-      "frame": {
-        "x": 370,
-        "y": 2,
-        "w": 213,
-        "h": 224
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 213,
-        "h": 224
-      },
-      "sourceSize": {
-        "w": 213,
-        "h": 224
-      }
-    },
-    "workshop": {
-      "frame": {
-        "x": 587,
-        "y": 2,
-        "w": 202,
-        "h": 229
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 202,
-        "h": 229
-      },
-      "sourceSize": {
-        "w": 202,
-        "h": 229
-      }
-    },
     "house": {
       "frame": {
-        "x": 793,
-        "y": 2,
-        "w": 176,
-        "h": 245
+        "x": 4,
+        "y": 4,
+        "w": 553,
+        "h": 601
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 176,
-        "h": 245
+        "w": 553,
+        "h": 601
       },
       "sourceSize": {
-        "w": 176,
-        "h": 245
+        "w": 553,
+        "h": 601
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-1.png",
+        "crop": {
+          "left": 44,
+          "top": 22,
+          "width": 553,
+          "height": 601
+        }
       }
     },
     "greenhouse": {
       "frame": {
-        "x": 2,
-        "y": 251,
-        "w": 222,
-        "h": 204
+        "x": 565,
+        "y": 4,
+        "w": 592,
+        "h": 579
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 222,
-        "h": 204
+        "w": 592,
+        "h": 579
       },
       "sourceSize": {
-        "w": 222,
-        "h": 204
-      }
-    },
-    "house-1": {
-      "frame": {
-        "x": 228,
-        "y": 251,
-        "w": 224,
-        "h": 219
+        "w": 592,
+        "h": 579
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 224,
-        "h": 219
-      },
-      "sourceSize": {
-        "w": 224,
-        "h": 219
-      }
-    },
-    "house-2": {
-      "frame": {
-        "x": 456,
-        "y": 251,
-        "w": 158,
-        "h": 225
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 158,
-        "h": 225
-      },
-      "sourceSize": {
-        "w": 158,
-        "h": 225
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-1.png",
+        "crop": {
+          "left": 635,
+          "top": 24,
+          "width": 592,
+          "height": 579
+        }
       }
     },
     "house-3": {
       "frame": {
-        "x": 618,
-        "y": 251,
-        "w": 223,
-        "h": 227
+        "x": 1165,
+        "y": 4,
+        "w": 615,
+        "h": 608
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 223,
-        "h": 227
+        "w": 615,
+        "h": 608
       },
       "sourceSize": {
-        "w": 223,
-        "h": 227
-      }
-    },
-    "house-4": {
-      "frame": {
-        "x": 2,
-        "y": 482,
-        "w": 207,
-        "h": 234
+        "w": 615,
+        "h": 608
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 207,
-        "h": 234
-      },
-      "sourceSize": {
-        "w": 207,
-        "h": 234
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-2.png",
+        "crop": {
+          "left": 13,
+          "top": 7,
+          "width": 615,
+          "height": 608
+        }
       }
     },
     "arch": {
       "frame": {
-        "x": 213,
-        "y": 482,
-        "w": 223,
-        "h": 215
+        "x": 4,
+        "y": 620,
+        "w": 644,
+        "h": 566
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 223,
-        "h": 215
+        "w": 644,
+        "h": 566
       },
       "sourceSize": {
-        "w": 223,
-        "h": 215
+        "w": 644,
+        "h": 566
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-2.png",
+        "crop": {
+          "left": 10,
+          "top": 651,
+          "width": 644,
+          "height": 566
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 656,
+        "y": 620,
+        "w": 567,
+        "h": 581
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 567,
+        "h": 581
+      },
+      "sourceSize": {
+        "w": 567,
+        "h": 581
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-2.png",
+        "crop": {
+          "left": 677,
+          "top": 41,
+          "width": 567,
+          "height": 581
+        }
       }
     }
   },
   "meta": {
     "image": "lindenhafen-day-building-bases.webp",
     "size": {
-      "w": 1024,
-      "h": 718
+      "w": 2048,
+      "h": 1205
     },
-    "scale": "1"
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
   }
 }

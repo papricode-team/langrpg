@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1114,
+        "h": 1239
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1114,
+        "h": 1239
+      },
+      "sourceSize": {
+        "w": 1114,
+        "h": 1239
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-archive.png",
+        "crop": {
+          "left": 66,
+          "top": 5,
+          "width": 1114,
+          "height": 1239
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-archive.webp",
+    "size": {
+      "w": 1114,
+      "h": 1239
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

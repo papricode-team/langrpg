@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 579,
+        "h": 538
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 579,
+        "h": 538
+      },
+      "sourceSize": {
+        "w": 579,
+        "h": 538
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-0.png",
+        "crop": {
+          "left": 27,
+          "top": 60,
+          "width": 579,
+          "height": 538
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 591,
+        "y": 4,
+        "w": 594,
+        "h": 479
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 594,
+        "h": 479
+      },
+      "sourceSize": {
+        "w": 594,
+        "h": 479
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-0.png",
+        "crop": {
+          "left": 18,
+          "top": 670,
+          "width": 594,
+          "height": 479
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1193,
+        "y": 4,
+        "w": 605,
+        "h": 534
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 605,
+        "h": 534
+      },
+      "sourceSize": {
+        "w": 605,
+        "h": 534
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-0.png",
+        "crop": {
+          "left": 637,
+          "top": 66,
+          "width": 605,
+          "height": 534
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 550,
+        "w": 614,
+        "h": 486
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 614,
+        "h": 486
+      },
+      "sourceSize": {
+        "w": 614,
+        "h": 486
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-0.png",
+        "crop": {
+          "left": 630,
+          "top": 677,
+          "width": 614,
+          "height": 486
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 626,
+        "y": 550,
+        "w": 599,
+        "h": 522
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 599,
+        "h": 522
+      },
+      "sourceSize": {
+        "w": 599,
+        "h": 522
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-1.png",
+        "crop": {
+          "left": 36,
+          "top": 88,
+          "width": 599,
+          "height": 522
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1233,
+        "y": 550,
+        "w": 606,
+        "h": 502
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 606,
+        "h": 502
+      },
+      "sourceSize": {
+        "w": 606,
+        "h": 502
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-1.png",
+        "crop": {
+          "left": 22,
+          "top": 647,
+          "width": 606,
+          "height": 502
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1080,
+        "w": 552,
+        "h": 537
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 552,
+        "h": 537
+      },
+      "sourceSize": {
+        "w": 552,
+        "h": 537
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-1.png",
+        "crop": {
+          "left": 658,
+          "top": 77,
+          "width": 552,
+          "height": 537
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 564,
+        "y": 1080,
+        "w": 596,
+        "h": 487
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 596,
+        "h": 487
+      },
+      "sourceSize": {
+        "w": 596,
+        "h": 487
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-1.png",
+        "crop": {
+          "left": 638,
+          "top": 662,
+          "width": 596,
+          "height": 487
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1168,
+        "y": 1080,
+        "w": 589,
+        "h": 460
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 589,
+        "h": 460
+      },
+      "sourceSize": {
+        "w": 589,
+        "h": 460
+      },
+      "source": {
+        "path": "art/source/buildings/cedarbay-day-2.png",
+        "crop": {
+          "left": 39,
+          "top": 170,
+          "width": 589,
+          "height": 460
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "cedarbay-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1629
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

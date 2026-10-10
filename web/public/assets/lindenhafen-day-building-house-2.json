@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "house-2": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 782,
+        "h": 1165
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 782,
+        "h": 1165
+      },
+      "sourceSize": {
+        "w": 782,
+        "h": 1165
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-day-house-2.png",
+        "crop": {
+          "left": 246,
+          "top": 31,
+          "width": 782,
+          "height": 1165
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-day-building-house-2.webp",
+    "size": {
+      "w": 782,
+      "h": 1165
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

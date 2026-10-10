@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 592,
+        "h": 499
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 592,
+        "h": 499
+      },
+      "sourceSize": {
+        "w": 592,
+        "h": 499
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-2.png",
+        "crop": {
+          "left": 30,
+          "top": 689,
+          "width": 592,
+          "height": 499
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 604,
+        "y": 4,
+        "w": 561,
+        "h": 534
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 561,
+        "h": 534
+      },
+      "sourceSize": {
+        "w": 561,
+        "h": 534
+      },
+      "source": {
+        "path": "art/source/buildings/dunegarden-day-2.png",
+        "crop": {
+          "left": 670,
+          "top": 73,
+          "width": 561,
+          "height": 534
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "dunegarden-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 542
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

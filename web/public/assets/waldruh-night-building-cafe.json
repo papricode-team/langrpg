@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1183,
+        "h": 1122
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1183,
+        "h": 1122
+      },
+      "sourceSize": {
+        "w": 1183,
+        "h": 1122
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-cafe.png",
+        "crop": {
+          "left": 47,
+          "top": 78,
+          "width": 1183,
+          "height": 1122
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-night-building-cafe.webp",
+    "size": {
+      "w": 1183,
+      "h": 1122
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

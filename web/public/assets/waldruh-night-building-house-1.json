@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "house-1": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1199,
+        "h": 1174
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1199,
+        "h": 1174
+      },
+      "sourceSize": {
+        "w": 1199,
+        "h": 1174
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-house-1.png",
+        "crop": {
+          "left": 45,
+          "top": 19,
+          "width": 1199,
+          "height": 1174
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-night-building-house-1.webp",
+    "size": {
+      "w": 1199,
+      "h": 1174
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

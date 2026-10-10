@@ -1,0 +1,71 @@
+{
+  "frames": {
+    "arch": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 548,
+        "h": 509
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 548,
+        "h": 509
+      },
+      "sourceSize": {
+        "w": 548,
+        "h": 509
+      },
+      "source": {
+        "path": "art/source/buildings/rainmarket-day-2.png",
+        "crop": {
+          "left": 65,
+          "top": 675,
+          "width": 548,
+          "height": 509
+        }
+      }
+    },
+    "house-4": {
+      "frame": {
+        "x": 560,
+        "y": 4,
+        "w": 558,
+        "h": 587
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 558,
+        "h": 587
+      },
+      "sourceSize": {
+        "w": 558,
+        "h": 587
+      },
+      "source": {
+        "path": "art/source/buildings/rainmarket-day-2.png",
+        "crop": {
+          "left": 655,
+          "top": 67,
+          "width": 558,
+          "height": 587
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "rainmarket-building-bases-1.webp",
+    "size": {
+      "w": 2048,
+      "h": 595
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

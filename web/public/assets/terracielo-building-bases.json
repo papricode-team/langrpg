@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 597,
+        "h": 557
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 597,
+        "h": 557
+      },
+      "sourceSize": {
+        "w": 597,
+        "h": 557
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-0.png",
+        "crop": {
+          "left": 20,
+          "top": 50,
+          "width": 597,
+          "height": 557
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 609,
+        "y": 4,
+        "w": 616,
+        "h": 487
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 616,
+        "h": 487
+      },
+      "sourceSize": {
+        "w": 616,
+        "h": 487
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-0.png",
+        "crop": {
+          "left": 16,
+          "top": 672,
+          "width": 616,
+          "height": 487
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1233,
+        "y": 4,
+        "w": 596,
+        "h": 482
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 596,
+        "h": 482
+      },
+      "sourceSize": {
+        "w": 596,
+        "h": 482
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-0.png",
+        "crop": {
+          "left": 640,
+          "top": 120,
+          "width": 596,
+          "height": 482
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 569,
+        "w": 602,
+        "h": 424
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 602,
+        "h": 424
+      },
+      "sourceSize": {
+        "w": 602,
+        "h": 424
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-0.png",
+        "crop": {
+          "left": 636,
+          "top": 732,
+          "width": 602,
+          "height": 424
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 614,
+        "y": 569,
+        "w": 606,
+        "h": 544
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 606,
+        "h": 544
+      },
+      "sourceSize": {
+        "w": 606,
+        "h": 544
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-1.png",
+        "crop": {
+          "left": 45,
+          "top": 55,
+          "width": 606,
+          "height": 544
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 1228,
+        "y": 569,
+        "w": 554,
+        "h": 559
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 554,
+        "h": 559
+      },
+      "sourceSize": {
+        "w": 554,
+        "h": 559
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-1.png",
+        "crop": {
+          "left": 673,
+          "top": 41,
+          "width": 554,
+          "height": 559
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 4,
+        "y": 1136,
+        "w": 596,
+        "h": 584
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 596,
+        "h": 584
+      },
+      "sourceSize": {
+        "w": 596,
+        "h": 584
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-1.png",
+        "crop": {
+          "left": 27,
+          "top": 627,
+          "width": 596,
+          "height": 584
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 608,
+        "y": 1136,
+        "w": 590,
+        "h": 578
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 590,
+        "h": 578
+      },
+      "sourceSize": {
+        "w": 590,
+        "h": 578
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-1.png",
+        "crop": {
+          "left": 639,
+          "top": 635,
+          "width": 590,
+          "height": 578
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1206,
+        "y": 1136,
+        "w": 590,
+        "h": 496
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 590,
+        "h": 496
+      },
+      "sourceSize": {
+        "w": 590,
+        "h": 496
+      },
+      "source": {
+        "path": "art/source/buildings/terracielo-day-2.png",
+        "crop": {
+          "left": 40,
+          "top": 115,
+          "width": 590,
+          "height": 496
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "terracielo-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1732
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

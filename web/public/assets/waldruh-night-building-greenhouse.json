@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "greenhouse": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1211,
+        "h": 1227
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1211,
+        "h": 1227
+      },
+      "sourceSize": {
+        "w": 1211,
+        "h": 1227
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-greenhouse.png",
+        "crop": {
+          "left": 30,
+          "top": 12,
+          "width": 1211,
+          "height": 1227
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-night-building-greenhouse.webp",
+    "size": {
+      "w": 1211,
+      "h": 1227
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

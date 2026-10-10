@@ -1,232 +1,158 @@
 {
   "frames": {
-    "archive": {
-      "frame": {
-        "x": 2,
-        "y": 2,
-        "w": 181,
-        "h": 227
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 181,
-        "h": 227
-      },
-      "sourceSize": {
-        "w": 181,
-        "h": 227
-      }
-    },
-    "cafe": {
-      "frame": {
-        "x": 187,
-        "y": 2,
-        "w": 181,
-        "h": 213
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 181,
-        "h": 213
-      },
-      "sourceSize": {
-        "w": 181,
-        "h": 213
-      }
-    },
-    "station": {
-      "frame": {
-        "x": 372,
-        "y": 2,
-        "w": 212,
-        "h": 226
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 212,
-        "h": 226
-      },
-      "sourceSize": {
-        "w": 212,
-        "h": 226
-      }
-    },
-    "workshop": {
-      "frame": {
-        "x": 588,
-        "y": 2,
-        "w": 203,
-        "h": 229
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 203,
-        "h": 229
-      },
-      "sourceSize": {
-        "w": 203,
-        "h": 229
-      }
-    },
     "house": {
       "frame": {
-        "x": 795,
-        "y": 2,
-        "w": 182,
-        "h": 252
+        "x": 4,
+        "y": 4,
+        "w": 460,
+        "h": 504
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 182,
-        "h": 252
+        "w": 460,
+        "h": 504
       },
       "sourceSize": {
-        "w": 182,
-        "h": 252
-      }
-    },
-    "greenhouse": {
-      "frame": {
-        "x": 2,
-        "y": 258,
-        "w": 224,
-        "h": 210
+        "w": 460,
+        "h": 504
       },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 224,
-        "h": 210
-      },
-      "sourceSize": {
-        "w": 224,
-        "h": 210
-      }
-    },
-    "house-1": {
-      "frame": {
-        "x": 230,
-        "y": 258,
-        "w": 224,
-        "h": 215
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 224,
-        "h": 215
-      },
-      "sourceSize": {
-        "w": 224,
-        "h": 215
-      }
-    },
-    "house-2": {
-      "frame": {
-        "x": 458,
-        "y": 258,
-        "w": 162,
-        "h": 227
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 162,
-        "h": 227
-      },
-      "sourceSize": {
-        "w": 162,
-        "h": 227
-      }
-    },
-    "house-3": {
-      "frame": {
-        "x": 624,
-        "y": 258,
-        "w": 225,
-        "h": 217
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 225,
-        "h": 217
-      },
-      "sourceSize": {
-        "w": 225,
-        "h": 217
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-small.png",
+        "crop": {
+          "left": 60,
+          "top": 4,
+          "width": 460,
+          "height": 504
+        }
       }
     },
     "house-4": {
       "frame": {
-        "x": 2,
-        "y": 489,
-        "w": 215,
-        "h": 233
+        "x": 472,
+        "y": 4,
+        "w": 488,
+        "h": 456
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 215,
-        "h": 233
+        "w": 488,
+        "h": 456
       },
       "sourceSize": {
-        "w": 215,
-        "h": 233
+        "w": 488,
+        "h": 456
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-small.png",
+        "crop": {
+          "left": 53,
+          "top": 524,
+          "width": 488,
+          "height": 456
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 968,
+        "y": 4,
+        "w": 469,
+        "h": 483
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 469,
+        "h": 483
+      },
+      "sourceSize": {
+        "w": 469,
+        "h": 483
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-small.png",
+        "crop": {
+          "left": 583,
+          "top": 15,
+          "width": 469,
+          "height": 483
+        }
       }
     },
     "arch": {
       "frame": {
-        "x": 221,
-        "y": 489,
-        "w": 223,
-        "h": 212
+        "x": 1445,
+        "y": 4,
+        "w": 479,
+        "h": 447
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 223,
-        "h": 212
+        "w": 479,
+        "h": 447
       },
       "sourceSize": {
-        "w": 223,
-        "h": 212
+        "w": 479,
+        "h": 447
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-small.png",
+        "crop": {
+          "left": 577,
+          "top": 512,
+          "width": 479,
+          "height": 447
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 4,
+        "y": 516,
+        "w": 465,
+        "h": 491
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 465,
+        "h": 491
+      },
+      "sourceSize": {
+        "w": 465,
+        "h": 491
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-small.png",
+        "crop": {
+          "left": 1058,
+          "top": 3,
+          "width": 465,
+          "height": 491
+        }
       }
     }
   },
   "meta": {
     "image": "lindenhafen-night-building-bases.webp",
     "size": {
-      "w": 1024,
-      "h": 724
+      "w": 2048,
+      "h": 1011
     },
-    "scale": "1"
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
   }
 }

@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 571,
+        "h": 594
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 571,
+        "h": 594
+      },
+      "sourceSize": {
+        "w": 571,
+        "h": 594
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-0.png",
+        "crop": {
+          "left": 53,
+          "top": 40,
+          "width": 571,
+          "height": 594
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 583,
+        "y": 4,
+        "w": 540,
+        "h": 547
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 540,
+        "h": 547
+      },
+      "sourceSize": {
+        "w": 540,
+        "h": 547
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-0.png",
+        "crop": {
+          "left": 66,
+          "top": 650,
+          "width": 540,
+          "height": 547
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1131,
+        "y": 4,
+        "w": 551,
+        "h": 574
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 551,
+        "h": 574
+      },
+      "sourceSize": {
+        "w": 551,
+        "h": 574
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-0.png",
+        "crop": {
+          "left": 645,
+          "top": 64,
+          "width": 551,
+          "height": 574
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 606,
+        "w": 557,
+        "h": 556
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 557,
+        "h": 556
+      },
+      "sourceSize": {
+        "w": 557,
+        "h": 556
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-0.png",
+        "crop": {
+          "left": 636,
+          "top": 659,
+          "width": 557,
+          "height": 556
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 569,
+        "y": 606,
+        "w": 581,
+        "h": 612
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 581,
+        "h": 612
+      },
+      "sourceSize": {
+        "w": 581,
+        "h": 612
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-1.png",
+        "crop": {
+          "left": 31,
+          "top": 13,
+          "width": 581,
+          "height": 612
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1158,
+        "y": 606,
+        "w": 562,
+        "h": 567
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 562,
+        "h": 567
+      },
+      "sourceSize": {
+        "w": 562,
+        "h": 567
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-1.png",
+        "crop": {
+          "left": 52,
+          "top": 640,
+          "width": 562,
+          "height": 567
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1226,
+        "w": 568,
+        "h": 558
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 568,
+        "h": 558
+      },
+      "sourceSize": {
+        "w": 568,
+        "h": 558
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-1.png",
+        "crop": {
+          "left": 655,
+          "top": 62,
+          "width": 568,
+          "height": 558
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 580,
+        "y": 1226,
+        "w": 526,
+        "h": 585
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 526,
+        "h": 585
+      },
+      "sourceSize": {
+        "w": 526,
+        "h": 585
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-1.png",
+        "crop": {
+          "left": 677,
+          "top": 633,
+          "width": 526,
+          "height": 585
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1114,
+        "y": 1226,
+        "w": 562,
+        "h": 581
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 562,
+        "h": 581
+      },
+      "sourceSize": {
+        "w": 562,
+        "h": 581
+      },
+      "source": {
+        "path": "art/source/buildings/seoulsteps-day-2.png",
+        "crop": {
+          "left": 50,
+          "top": 60,
+          "width": 562,
+          "height": 581
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "seoulsteps-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1823
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

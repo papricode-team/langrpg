@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "house-2": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 784,
+        "h": 1169
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 784,
+        "h": 1169
+      },
+      "sourceSize": {
+        "w": 784,
+        "h": 1169
+      },
+      "source": {
+        "path": "art/source/buildings/lindenhafen-night-house-2.png",
+        "crop": {
+          "left": 246,
+          "top": 29,
+          "width": 784,
+          "height": 1169
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "lindenhafen-night-building-house-2.webp",
+    "size": {
+      "w": 784,
+      "h": 1169
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

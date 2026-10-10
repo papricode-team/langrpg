@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "station": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1213,
+        "h": 1023
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1213,
+        "h": 1023
+      },
+      "sourceSize": {
+        "w": 1213,
+        "h": 1023
+      },
+      "source": {
+        "path": "art/source/buildings/waldruh-night-station.png",
+        "crop": {
+          "left": 26,
+          "top": 131,
+          "width": 1213,
+          "height": 1023
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "waldruh-night-building-station.webp",
+    "size": {
+      "w": 1213,
+      "h": 1023
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

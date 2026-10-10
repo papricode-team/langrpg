@@ -1,0 +1,274 @@
+{
+  "frames": {
+    "archive": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 602,
+        "h": 574
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 602,
+        "h": 574
+      },
+      "sourceSize": {
+        "w": 602,
+        "h": 574
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-0.png",
+        "crop": {
+          "left": 21,
+          "top": 31,
+          "width": 602,
+          "height": 574
+        }
+      }
+    },
+    "station": {
+      "frame": {
+        "x": 614,
+        "y": 4,
+        "w": 617,
+        "h": 522
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 617,
+        "h": 522
+      },
+      "sourceSize": {
+        "w": 617,
+        "h": 522
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-0.png",
+        "crop": {
+          "left": 15,
+          "top": 651,
+          "width": 617,
+          "height": 522
+        }
+      }
+    },
+    "cafe": {
+      "frame": {
+        "x": 1239,
+        "y": 4,
+        "w": 590,
+        "h": 567
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 590,
+        "h": 567
+      },
+      "sourceSize": {
+        "w": 590,
+        "h": 567
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-0.png",
+        "crop": {
+          "left": 652,
+          "top": 49,
+          "width": 590,
+          "height": 567
+        }
+      }
+    },
+    "workshop": {
+      "frame": {
+        "x": 4,
+        "y": 586,
+        "w": 585,
+        "h": 536
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 585,
+        "h": 536
+      },
+      "sourceSize": {
+        "w": 585,
+        "h": 536
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-0.png",
+        "crop": {
+          "left": 650,
+          "top": 642,
+          "width": 585,
+          "height": 536
+        }
+      }
+    },
+    "house": {
+      "frame": {
+        "x": 597,
+        "y": 586,
+        "w": 583,
+        "h": 604
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 583,
+        "h": 604
+      },
+      "sourceSize": {
+        "w": 583,
+        "h": 604
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-1.png",
+        "crop": {
+          "left": 37,
+          "top": 11,
+          "width": 583,
+          "height": 604
+        }
+      }
+    },
+    "house-1": {
+      "frame": {
+        "x": 1188,
+        "y": 586,
+        "w": 560,
+        "h": 579
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 560,
+        "h": 579
+      },
+      "sourceSize": {
+        "w": 560,
+        "h": 579
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-1.png",
+        "crop": {
+          "left": 36,
+          "top": 627,
+          "width": 560,
+          "height": 579
+        }
+      }
+    },
+    "greenhouse": {
+      "frame": {
+        "x": 4,
+        "y": 1198,
+        "w": 599,
+        "h": 569
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 599,
+        "h": 569
+      },
+      "sourceSize": {
+        "w": 599,
+        "h": 569
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-1.png",
+        "crop": {
+          "left": 642,
+          "top": 54,
+          "width": 599,
+          "height": 569
+        }
+      }
+    },
+    "house-2": {
+      "frame": {
+        "x": 611,
+        "y": 1198,
+        "w": 580,
+        "h": 583
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 580,
+        "h": 583
+      },
+      "sourceSize": {
+        "w": 580,
+        "h": 583
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-1.png",
+        "crop": {
+          "left": 646,
+          "top": 626,
+          "width": 580,
+          "height": 583
+        }
+      }
+    },
+    "house-3": {
+      "frame": {
+        "x": 1199,
+        "y": 1198,
+        "w": 569,
+        "h": 569
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 569,
+        "h": 569
+      },
+      "sourceSize": {
+        "w": 569,
+        "h": 569
+      },
+      "source": {
+        "path": "art/source/buildings/sunpatch-day-2.png",
+        "crop": {
+          "left": 64,
+          "top": 49,
+          "width": 569,
+          "height": 569
+        }
+      }
+    }
+  },
+  "meta": {
+    "image": "sunpatch-building-bases.webp",
+    "size": {
+      "w": 2048,
+      "h": 1793
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen static paintings; native rectangular crops, no upscaling"
+  }
+}

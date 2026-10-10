@@ -179,3 +179,11 @@ before enabling any new option; geometric checks do not establish visual
 quality. New faces, jackets, trousers and body builds must match the same
 painted master poses and frame origins. No combined player sheets or catalogue
 permutations are exported.
+
+## High-resolution static architecture (2026-10-10)
+
+Buildings were repainted with Codex’s built-in ImageGen tool to replace the low-resolution crops from animation grids. Large story landmarks have individual transparent PNG source images in `art/source/buildings/<region>-<period>-<name>.png` and individual runtime WebP textures. Smaller buildings use source sheets with generous gutters and packed runtime atlases. The selection follows maximum placed width: story buildings at least 200 world pixels wide use standalone paintings (at least 800 native pixels on their longest side); smaller architecture uses at least 400 native pixels. Expedition structures are 130–168 world pixels wide and share smaller-building atlases. All buildings are single static frames. Exact generation and night-lighting prompts accompany every selected PNG.
+
+Run `node scripts/prepare-static-buildings.mjs` to export all thirteen regions, or append region IDs and `--set day|night` for a selected story period. The exporter crops native transparent pixels without rescaling, records each master and crop in the atlas metadata, and preserves the native alpha in quality-88 WebP derivatives. It writes version-3 runtime manifests and calls `prepare-scenery-previews.mjs` so map cards show the same building paintings, scales and ground anchors. Existing animation and expedition export entry points restore these stills automatically. The runtime loads and releases the new individual textures and atlas pages through the existing manifest lifecycle.
+
+The standard art build exports the active day and night sets; historical wind-animation source masters remain in `art/source/`. Old low-resolution whole-building pages and detail overlays are retired once the new manifests no longer reference them, keeping the larger architecture within the existing distribution budget.

@@ -1,0 +1,43 @@
+{
+  "frames": {
+    "cafe": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1130,
+        "h": 1211
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1130,
+        "h": 1211
+      },
+      "sourceSize": {
+        "w": 1130,
+        "h": 1211
+      },
+      "source": {
+        "path": "art/source/buildings/nebelstadt-day-cafe.png",
+        "crop": {
+          "left": 78,
+          "top": 14,
+          "width": 1130,
+          "height": 1211
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "nebelstadt-day-building-cafe.webp",
+    "size": {
+      "w": 1130,
+      "h": 1211
+    },
+    "scale": "1",
+    "provenance": "Individual built-in ImageGen building painting; native crop"
+  }
+}

@@ -6,6 +6,7 @@ import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, sceneryDepth, t
 import { isBuildingScenery,sampleSceneryFrame,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
+  scale:number;
   next?:Phaser.GameObjects.Sprite;
   animation?:SceneryAnimation;
   currentFrame:string;
@@ -18,7 +19,7 @@ interface SceneryLayer {
   height:number;
 }
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
-/** Buildings keep a static base. Only their separate detail sprites change frame. */
+/** High resolution building paintings stay fixed while other scenery changes frame. */
 export class WorldScenery {
   private layers:SceneryLayer[]=[];
   private visible=true;
@@ -38,25 +39,28 @@ export class WorldScenery {
         ? building?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
       if(!scene.textures.exists(key))continue;
       const atlas=scene.textures.get(key);if(!atlas.has(frameName))continue;
-      const frame=atlas.get(frameName),scale=spec.width/(animation?.referenceWidth??frame.width);
+      const frame=atlas.get(frameName),base=animation?.base;
+      const scale=spec.width/(base?.referenceWidth??animation?.referenceWidth??frame.width);
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
-        .setOrigin(animation?.originX??.5,animation?.originY??1).setScale(scale)
+        .setOrigin(base?.originX??animation?.originX??.5,base?.originY??animation?.originY??1).setScale(scale)
         .setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
-      const parts:AnimatedSprite[]=[{sprite,animation:building||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
+      const parts:AnimatedSprite[]=[{sprite,scale,animation:building||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
       for(const overlay of animation?.overlays??[]){
         if(!scene.textures.exists(overlay.key))continue;
         const phaseId=`${spec.id}:${overlay.id}`,detailFrame=sampleSceneryFrame(overlay,phaseId,0);
         if(!scene.textures.get(overlay.key).has(detailFrame))continue;
-        // Phaser flips within the base rectangle, whose pivot need not be centered.
-        const offsetX=spec.flipX?frame.width*(1-2*(animation?.originX??.5))-overlay.offsetX:overlay.offsetX;
-        const detail=scene.add.sprite(spec.x+offsetX*scale,spec.y+overlay.offsetY*scale,overlay.key,detailFrame)
-          .setOrigin(.5,.5).setScale(scale).setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
-        parts.push({sprite:detail,animation:overlay,currentFrame:detailFrame,phaseId});
+        // Detail offsets belong to the original artwork's coordinates, even
+        // when the replacement base has more pixels and its own ground pivot.
+        const detailScale=spec.width/overlay.referenceWidth;
+        const offsetX=spec.flipX?animation!.width*(1-2*animation!.originX)-overlay.offsetX:overlay.offsetX;
+        const detail=scene.add.sprite(spec.x+offsetX*detailScale,spec.y+overlay.offsetY*detailScale,overlay.key,detailFrame)
+          .setOrigin(.5,.5).setScale(detailScale).setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
+        parts.push({sprite:detail,scale:detailScale,animation:overlay,currentFrame:detailFrame,phaseId});
       }
       for(const part of parts)if(part.animation&&part.animation.frames.length>1){
         const source=part.sprite;
         part.next=scene.add.sprite(source.x,source.y,part.animation.key,part.currentFrame)
-          .setOrigin(source.originX,source.originY).setScale(scale).setDepth(source.depth+.001).setFlipX(spec.flipX??false).setAlpha(0);
+          .setOrigin(source.originX,source.originY).setScale(part.scale).setDepth(source.depth+.001).setFlipX(spec.flipX??false).setAlpha(0);
       }
       this.layers.push({spec,parts,width:frame.width*scale,height:frame.height*scale});
     }
