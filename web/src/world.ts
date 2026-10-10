@@ -14,6 +14,7 @@ import { WorldScenery } from './world-scenery';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 import { WorldMapAssets, regionPeopleKey, regionPeopleFrames } from './world-map-assets';
+import { WorldAnimationAssets } from './world-animation-assets';
 import { getExpeditionNpc } from './expeditions';
 import { worldAmbient, timeAmbient } from './world-lighting';
 import { canvasSize, explorationZoom, conversationZoom, cameraScroll } from './world-camera';
@@ -520,7 +521,9 @@ class HarborScene extends Phaser.Scene {
   private watching = false;
   private terrainOnly = false;
   private tourTime = 0;
-  private animationRequests = new Map<string, (() => void)[]>();
+  private animationAssets = new WorldAnimationAssets(this);
+  private mapAnimationsReady = false;
+  private animationRetryAt = 0;
   private regionAssets = new WorldMapAssets(this);
   private clock: WorldClock;
   private period: WorldPeriod;
@@ -551,7 +554,10 @@ class HarborScene extends Phaser.Scene {
   preload(): void {
     loadWorldAudio(this);
     this.regionAssets.load(getMap('lindenhafen'), undefined, false);
-    this.loadAnimationAssets('lindenhafen', this.period);
+    const period = this.period;
+    this.animationAssets.load('lindenhafen', period, () => {
+      if (this.ready && this.mapSpec.id !== 'lindenhafen') this.releaseAnimationAssets('lindenhafen', period);
+    }, false);
     for (const room of interiors) this.load.image(`interior-${room.id}-room`, room.asset);
     for (const sheet of ['cafe-objects', 'bakery-objects', 'supermarket-objects', 'decor', 'furniture']) {
       this.load.atlas(`interior-${sheet}`, `/assets/interior-${sheet}.webp`, `/assets/interior-${sheet}.json`);
@@ -572,60 +578,32 @@ class HarborScene extends Phaser.Scene {
     for (const asset of modularAssets) this.load.spritesheet(partTextureKey(asset.id, ''), `/assets/player-layers/${asset.id}-preview.webp?v=layers12`, { frameWidth: MODULAR_ART.width, frameHeight: MODULAR_ART.height });
   }
 
-  private loadAnimationAssets(id: MapId, period: WorldPeriod, onLoaded?: () => void): void {
-    const key = sceneryAnimationManifestKey(id, period);
-    const cached = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
-    if (cached && Object.values(cached.assets).length > 0 && sceneryAnimationTextureKeys(cached).every(page => this.textures.exists(page)) && (!sceneryTerrainKey(id, cached) || this.textures.exists(sceneryTerrainKey(id, cached)!))) {
-      onLoaded?.();
-      return;
-    }
-    const pending = this.animationRequests.get(key);
-    if (pending) { if (onLoaded) pending.push(onLoaded); return; }
-    this.animationRequests.set(key, onLoaded ? [onLoaded] : []);
-    const enqueue = (manifest: SceneryAnimationManifest) => {
-      for (const page of sceneryAnimationTextureKeys(manifest)) {
-        if (!this.textures.exists(page)) this.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
-      }
-      const terrain = sceneryTerrainKey(id, manifest);
-      if (terrain && !this.textures.exists(terrain)) this.load.image(terrain, `/assets/${manifest.terrain}.webp`);
-    };
-    if (cached) enqueue(cached);
-    else {
-      this.load.once(`filecomplete-json-${key}`, (_key: string, _type: string, manifest: SceneryAnimationManifest) => enqueue(manifest));
-      this.load.json(key, `/assets/${id}-${period}-animations.json`);
-    }
-    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
-      const callbacks = this.animationRequests.get(key) ?? [];
-      this.animationRequests.delete(key);
-      if (this.ready && this.mapSpec.id !== id) this.releaseAnimationAssets(id, period);
-      for (const callback of callbacks) callback();
-    });
-    if (this.ready && !this.load.isLoading()) this.load.start();
-  }
-
   private releaseAnimationAssets(id: MapId, period: WorldPeriod): void {
     const key = sceneryAnimationManifestKey(id, period);
     // A partly loaded atlas must remain intact until its completion callbacks
     // decide whether to display it or release the stale request.
-    if (this.animationRequests.has(key)) return;
+    if (this.animationAssets.pending(id, period)) return;
     const manifest = this.cache.json.get(key) as SceneryAnimationManifest | undefined;
-    const activeManifest = this.cache.json.get(sceneryAnimationManifestKey(this.mapSpec.id, this.period)) as SceneryAnimationManifest | undefined;
-    const retainedPages = new Set(activeManifest ? sceneryAnimationTextureKeys(activeManifest) : []);
+    const retainedPages = this.animationAssets.retainedTextures(this.mapSpec.id, this.period, this.previousPeriod);
     if (manifest) for (const page of sceneryAnimationTextureKeys(manifest)) {
       // Expedition day/night periods can share one authored detail sheet.
       if (!retainedPages.has(page) && this.textures.exists(page)) this.textures.remove(page);
     }
     const terrain = sceneryTerrainKey(id, manifest);
-    if (terrain && terrain !== this.mapSpec.id && this.textures.exists(terrain)) this.textures.remove(terrain);
+    if (terrain && terrain !== this.mapSpec.id && !retainedPages.has(terrain) && this.textures.exists(terrain)) this.textures.remove(terrain);
   }
 
   private applyPeriod(period: WorldPeriod): void {
+    if (period === this.period && this.mapAnimationsReady) return;
+    if (!this.animationAssets.ready(this.mapSpec.id, period)) return;
     this.finishPeriodTransition();
     const previous = this.period;
     const oldScenery = this.scenery;
     const oldBackground = this.background instanceof Phaser.GameObjects.Image ? this.background : undefined;
     this.period = period;
     this.scenery = new WorldScenery(this, this.mapSpec.id, period);
+    this.mapAnimationsReady = true;
+    this.atmosphere?.setLampLights(this.scenery.lampLights);
     this.scenery.setReducedMotion(this.reducedMotion);
     this.scenery.setVisible(!this.terrainOnly && !this.interiorSpec);
     const manifest = this.cache.json.get(sceneryAnimationManifestKey(this.mapSpec.id, period)) as SceneryAnimationManifest | undefined;
@@ -677,12 +655,16 @@ class HarborScene extends Phaser.Scene {
       for (const { character } of this.residents) this.setCharacterAmbient(character);
     }
     const request = `${this.mapSpec.id}-${state.period}`;
-    if (state.period !== this.period && this.pendingPeriod !== request) {
+    if ((state.period !== this.period || !this.mapAnimationsReady) && this.pendingPeriod !== request && this.time.now >= this.animationRetryAt) {
       this.pendingPeriod = request;
       const id = this.mapSpec.id;
-      this.loadAnimationAssets(id, state.period, () => {
+      const revision = this.mapRevision;
+      this.animationAssets.load(id, state.period, loaded => {
         if (this.pendingPeriod === request) this.pendingPeriod = undefined;
-        if (this.ready && this.mapVisualsReady && this.mapSpec.id === id && this.clock.advance(0).period === state.period) this.applyPeriod(state.period);
+        if (this.ready && this.mapVisualsReady && this.mapSpec.id === id && revision === this.mapRevision && this.clock.advance(0).period === state.period) {
+          if (loaded) this.applyPeriod(state.period);
+          else this.animationRetryAt = this.time.now + 3000;
+        }
         else if (this.mapSpec.id !== id || this.period !== state.period) this.releaseAnimationAssets(id, state.period);
       });
     }
@@ -754,6 +736,8 @@ class HarborScene extends Phaser.Scene {
       this.scenery?.destroy();
       this.scenery = undefined;
       this.mapVisualsReady = false;
+      this.mapAnimationsReady = false;
+      this.animationRetryAt = 0;
       for (const npc of this.characters.values()) npc.root.destroy();
       for (const object of this.objects.values()) object.root.destroy();
       for (const portal of this.portals.values()) portal.root.destroy();
@@ -790,15 +774,18 @@ class HarborScene extends Phaser.Scene {
         this.createMapObjects(map);
         this.createBuildingEntrances();
         this.createResidents();
-        this.atmosphere = new WorldAtmosphere(this, map.id);
+        this.atmosphere = new WorldAtmosphere(this, map.id, this.scenery.lampLights);
         this.audio?.setRegion(map.id);
         this.lastAmbient = '';
         this.mapVisualsReady = true;
         this.setTerrainOnly(this.terrainOnly);
         const period = this.clock.advance(0).period;
-        this.loadAnimationAssets(map.id, period, () => {
+        this.animationAssets.load(map.id, period, loaded => {
           if (this.ready && this.mapSpec.id === map.id && revision === this.mapRevision) {
-            if (this.clock.advance(0).period === period) this.applyPeriod(period);
+            if (this.clock.advance(0).period === period) {
+              if (loaded) this.applyPeriod(period);
+              else this.animationRetryAt = this.time.now + 3000;
+            }
             queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
           } else if (this.mapSpec.id !== map.id || this.period !== period) this.releaseAnimationAssets(map.id, period);
         });

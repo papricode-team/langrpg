@@ -19,6 +19,7 @@ interface SceneryLayer {
   height:number;
 }
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
+export interface LampLight { x:number;y:number;footY:number;width:number; }
 /** High resolution building paintings stay fixed while other scenery changes frame. */
 export class WorldScenery {
   private layers:SceneryLayer[]=[];
@@ -69,6 +70,12 @@ export class WorldScenery {
   }
   get objectCount(){return this.layers.length;}
   get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation)).length;}
+  /** Follow the glass in the scaled painting, rather than a fixed pole offset. */
+  get lampLights(): readonly LampLight[] {
+    return this.layers.filter(({spec})=>spec.asset==='lamp'||spec.frame==='motion-lamp').map(({spec,parts,height})=>({
+      x:spec.x,y:spec.y+height*(.22-parts[0].sprite.originY),footY:spec.y,width:spec.width,
+    }));
+  }
   setVisible(visible:boolean){
     this.visible=visible;
     // Hidden worlds stop updating while a room is active, so visibility must

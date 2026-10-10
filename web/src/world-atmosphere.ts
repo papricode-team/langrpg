@@ -1,8 +1,6 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
-import { getMap } from './maps';
-import { getPlacedScenery } from './placed-scenery';
-import type { SceneryView } from './world-scenery';
+import type { LampLight, SceneryView } from './world-scenery';
 import { nightIntensity } from './world-clock';
 
 // Weather sits above the ground plate and below people, buildings and labels.
@@ -20,29 +18,27 @@ export class WorldAtmosphere {
   private foreground: Phaser.GameObjects.Graphics;
   private illumination: Phaser.GameObjects.Graphics;
   private visible = true;
-  private lamps: { x: number; y: number }[];
-  private pointLights:Phaser.GameObjects.PointLight[]=[];
-  constructor(private scene: Phaser.Scene, private id: MapId) {
+  constructor(scene: Phaser.Scene, private id: MapId, private lamps: readonly LampLight[]) {
     this.foreground = scene.add.graphics().setDepth(WEATHER_DEPTH);
-    this.illumination = scene.add.graphics().setDepth(2000).setBlendMode(1);
-    this.lamps = getPlacedScenery(id).filter(spec => spec.asset === 'lamp' || spec.frame === 'motion-lamp').map(spec => ({ x: spec.x, y: spec.y - 52 }));
-    this.lamps.push(...getMap(id).objects.filter(obj => obj.kind === 'lantern' || obj.kind === 'fountain').map(obj => ({ x: obj.x * 1536, y: obj.y * 1024 - 26 })));
-    if(scene.sys.game.renderer.type===2&&scene.lights?.addPointLight)for(const lamp of this.lamps){
-      this.pointLights.push(scene.lights.addPointLight(lamp.x,lamp.y,0xffcf80,90,0,.09).setDepth(2001));
-    }
+    // Source-over alpha stays bounded in both renderers, including at camera zoom.
+    this.illumination = scene.add.graphics().setDepth(2000);
   }
-  setVisible(visible: boolean) { this.visible = visible; this.foreground.setVisible(visible); this.illumination.setVisible(visible);for(const light of this.pointLights)light.setVisible(visible); }
+  setLampLights(lamps: readonly LampLight[]) { this.lamps = lamps; }
+  setVisible(visible: boolean) { this.visible = visible; this.foreground.setVisible(visible); this.illumination.setVisible(visible); }
   update(time: number, hour: number, view: SceneryView, reduced: boolean, storm: boolean) {
     this.foreground.clear(); this.illumination.clear();
     if (!this.visible) return;
     const t = reduced ? 0 : time;
     const night = nightIntensity(hour);
-    for(const light of this.pointLights)light.intensity=night*(reduced?.24:.23+Math.sin(t*2.1+light.x)*.01);
     for (const lamp of this.lamps) {
       if (lamp.x < view.x - 120 || lamp.x > view.right + 120 || lamp.y < view.y - 120 || lamp.y > view.bottom + 120) continue;
-      const flicker = reduced ? 1 : .95 + Math.sin(t * 2.1 + lamp.x) * .05;
-      if(!this.pointLights.length)for (let r = 6; r > 0; r--) this.illumination.fillStyle(0xffce76, night * flicker * .016).fillCircle(lamp.x, lamp.y, r * 15);
-      this.illumination.fillStyle(0xffe9b1, night * .4).fillCircle(lamp.x, lamp.y, 4);
+      const flicker = reduced ? 1 : .98 + Math.sin(t * 2.1 + lamp.x) * .02;
+      const radius = Math.max(16, lamp.width * .9);
+      // A small amber halo preserves the painted lantern and nearby silhouettes.
+      for (let edge = 4; edge > 0; edge--) this.illumination.fillStyle(0xffc878, night * flicker * .018)
+        .fillCircle(lamp.x, lamp.y, radius * edge / 4);
+      this.illumination.fillStyle(0xffda94, night * .16).fillCircle(lamp.x, lamp.y, Math.max(1.2, lamp.width * .045));
+      this.foreground.fillStyle(0xe8ae62, night * flicker * .045).fillEllipse(lamp.x, lamp.footY - 3, lamp.width * 2.4, lamp.width * .65);
     }
     const profile = atmosphereProfile(this.id, storm);
     if (profile.fog) for (let i = 0; i < 12; i++) {
@@ -68,5 +64,5 @@ export class WorldAtmosphere {
         .fillEllipse(x, y, profile.leaves ? 4 : 1.5, profile.leaves ? 2 : 1.5);
     }
   }
-  destroy() { this.foreground.destroy(); this.illumination.destroy();for(const light of this.pointLights)light.destroy();this.pointLights=[]; }
+  destroy() { this.foreground.destroy(); this.illumination.destroy(); }
 }
