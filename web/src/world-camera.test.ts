@@ -30,6 +30,15 @@ describe('world presentation', () => {
       expect(height/zoom).toBeLessThanOrEqual(1024);
     }
   });
+  it('uses the inn painting scale when framing desktop and mobile rooms', () => {
+    for (const [width, height] of [[1920, 1080], [390, 844], [844, 390]]) {
+      const zoom = explorationZoom(width, height, 1, true, 240).zoom;
+      const mobile = explorationZoom(width, height).mobile;
+      const personHeight = Math.max(mobile ? 88 : 110, Math.min(180, height * .15));
+      expect(zoom).toBeCloseTo(Math.max(width / 1536, height / 1024, personHeight / 240));
+      expect(explorationZoom(width * 2, height * 2, 2, true, 240).zoom / 2).toBeCloseTo(zoom);
+    }
+  });
   it('keeps the followed person centered when Phaser zooms around a physical camera', () => {
     for (const density of [1, 2]) {
       const width = 1920 * density, zoom = explorationZoom(width, 1080 * density, density).zoom;

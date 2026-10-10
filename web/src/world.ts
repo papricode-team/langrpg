@@ -1126,7 +1126,7 @@ class HarborScene extends Phaser.Scene {
   fitCamera(width: number, height: number, density = 1): void {
     this.density = density;
     this.coverZoom = Math.max(width / WIDTH, height / HEIGHT);
-    this.fitZoom = explorationZoom(width, height, density, !!this.interiorSpec).zoom;
+    this.fitZoom = explorationZoom(width, height, density, !!this.interiorSpec, this.interiorSpec?.characterHeight).zoom;
     const previousMobile = this.mobileCamera;
     this.mobileCamera = explorationZoom(width, height, density).mobile;
     if (previousMobile !== this.mobileCamera) {
@@ -1695,13 +1695,15 @@ class HarborScene extends Phaser.Scene {
     const canvasHeight = animation?.height ?? art.height;
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = !!this.interiorSpec;
-    const scale = !character.npc && this.playerArtReady && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors);
+    const indoorHeight = this.interiorSpec?.characterHeight ?? INTERIOR_CHARACTER_HEIGHT;
+    const scale = !character.npc && this.playerArtReady && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight);
     if (character.artScale === scale) return;
     character.artScale = scale;
     const recipe = character.npc ? undefined : characterLayers(character.avatar, character.frame);
     character.layers.forEach((layer, index) => layer.setScale(scale * (recipe?.[index]?.width ?? 1), scale));
-    character.shadow.setDisplaySize(indoors ? 43 : 31, indoors ? 17 : 12);
-    character.name.setY(indoors ? -INTERIOR_CHARACTER_HEIGHT - 12 : -79);
+    const groundScale = indoorHeight / INTERIOR_CHARACTER_HEIGHT;
+    character.shadow.setDisplaySize(indoors ? 43 * groundScale : 31, indoors ? 17 * groundScale : 12);
+    character.name.setY(indoors ? -indoorHeight - 12 : -79);
   }
 
   private tintCharacter(character: Character): void {

@@ -195,9 +195,13 @@ describe('authored interior artwork contract', () => {
     for (const room of interiors) for (const prop of room.props) {
       const art = stills.assets[prop.asset] ?? original.assets[prop.asset];
       const height = prop.width * art.height / art.referenceWidth;
-      if (['bakery-counter', 'checkout', 'pastry-case'].includes(prop.asset)) expect(height, `${prop.id} towers above people`).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .9);
-      if (prop.asset === 'cafe-table') expect(height).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .8);
-      if (prop.asset === 'cup') expect(height).toBeLessThan(INTERIOR_CHARACTER_HEIGHT * .12);
+      const adultHeight = room.characterHeight ?? INTERIOR_CHARACTER_HEIGHT;
+      if (['bakery-counter', 'checkout', 'pastry-case'].includes(prop.asset)) expect(height, `${prop.id} towers above people`).toBeLessThan(adultHeight * .9);
+      if (prop.asset === 'cafe-table') {
+        expect(height).toBeGreaterThan(adultHeight * .4);
+        expect(height).toBeLessThan(adultHeight * .8);
+      }
+      if (prop.asset === 'cup') expect(height).toBeLessThan(adultHeight * .12);
     }
   });
 

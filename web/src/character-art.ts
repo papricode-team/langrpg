@@ -5,8 +5,8 @@ export const PLAYER_ART = { source: 'wanderer-source', width: 192, height: 288, 
 export const INTERIOR_CHARACTER_HEIGHT = 132;
 
 /** Indoor adults share one visible body height, independent of transparent canvas padding. */
-export function characterArtScale(bodyHeight: number, canvasHeight: number, indoors: boolean): number {
-  return indoors ? INTERIOR_CHARACTER_HEIGHT / bodyHeight : 82 / canvasHeight;
+export function characterArtScale(bodyHeight: number, canvasHeight: number, indoors: boolean, indoorHeight = INTERIOR_CHARACTER_HEIGHT): number {
+  return indoors ? indoorHeight / bodyHeight : 82 / canvasHeight;
 }
 export const PLAYER_LAYERS = ['wanderer-detail', 'wanderer-outfit', 'wanderer-hair', 'wanderer-skin'] as const;
 export type PlayerPalette = { outfit: number; hair: number; skin: number };
