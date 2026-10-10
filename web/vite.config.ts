@@ -15,9 +15,21 @@ export default defineConfig(({ command }) => {
       strictPort: true,
       watch: { ignored: ['**/public/audio/**'] },
       proxy: {
-        '/api': { target: 'http://127.0.0.1:8097', ws: true },
+        '/api': { target: process.env.ATLAS_API_ORIGIN || 'http://127.0.0.1:8097', ws: true },
       },
     },
-    build: { target: 'es2022', chunkSizeWarningLimit: 1800 },
+    build: {
+      target: 'es2022', chunkSizeWarningLimit: 1800,
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: ['meta', 'exercises-a1', 'exercises-a2', 'exercises-b1'].map(part => ({
+              name: `course-${part}`,
+              test: new RegExp(`[\\\\/]data[\\\\/]course-${part}\\.json$`),
+            })),
+          },
+        },
+      },
+    },
   };
 });

@@ -11,11 +11,11 @@ import (
 
 func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 	account, err := a.store.Get(ctx, hash)
-	if err != nil || account.Progress.WordExposureVersion >= 1 || len(a.curriculum.Lexicon) == 0 {
+	if err != nil || account.Progress.WordExposureVersion >= 2 || len(a.curriculum.Lexicon) == 0 {
 		return account, err
 	}
-	request := json.RawMessage(`{"version":1}`)
-	account, _, _, err = a.store.Mutate(ctx, hash, "word-exposure-migration:v1", request, func(account *Account) (Receipt, error) {
+	request := json.RawMessage(`{"version":2}`)
+	account, _, _, err = a.store.Mutate(ctx, hash, "word-exposure-migration:v2", request, func(account *Account) (Receipt, error) {
 		migrateContextExposures(&account.Progress, a.curriculum, a.now().UTC())
 		return Receipt{}, nil
 	})
@@ -26,7 +26,7 @@ func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 // phrase success, repetitions or stability into an individual word's cards.
 func migrateContextExposures(p *Progress, curriculum Curriculum, now time.Time) {
 	ensureProgress(p)
-	if p.WordExposureVersion >= 1 || len(curriculum.Lexicon) == 0 {
+	if p.WordExposureVersion >= 2 || len(curriculum.Lexicon) == 0 {
 		return
 	}
 	counts := map[string]int{}
@@ -74,16 +74,24 @@ func migrateContextExposures(p *Progress, curriculum Curriculum, now time.Time) 
 		if seen.After(word.LastSeenAt) {
 			word.LastSeenAt = seen
 		}
-		if word.DueAt.IsZero() {
-			word.DueAt = seen.Add(time.Hour)
-		}
 		if memory, exists := p.Items["word-"+id]; exists {
 			syncWordCards(&word, memory)
 		}
 		refreshWordMastery(&word)
 		p.Words[id] = word
 	}
-	p.WordExposureVersion = 1
+	// Version one created recall deadlines for reading alone. Clear those
+	// legacy deadlines while keeping actual retrieval cards authoritative.
+	for id, word := range p.Words {
+		if memory, exists := p.Items["word-"+id]; exists {
+			syncWordCards(&word, memory)
+		} else if word.DirectAttempts == 0 {
+			word.DueAt = time.Time{}
+		}
+		refreshWordMastery(&word)
+		p.Words[id] = word
+	}
+	p.WordExposureVersion = 2
 }
 
 // Only the authored target of a direct word drill inherits retrieval evidence.
@@ -104,9 +112,6 @@ func recordWordEvidence(p *Progress, exercise Exercise, input AttemptInput, corr
 		word.WordID = id
 		word.Exposures++
 		word.LastSeenAt = now.UTC()
-		if word.DueAt.IsZero() {
-			word.DueAt = now.Add(time.Hour)
-		}
 		if memory, exists := p.Items["word-"+id]; exists {
 			syncWordCards(&word, memory)
 		}
@@ -156,6 +161,8 @@ func recordWordEvidence(p *Progress, exercise Exercise, input AttemptInput, corr
 
 func syncWordCards(word *WordMemory, memory Memory) {
 	word.ModeStats, word.Cards, word.PracticeDueAt = memory.ModeStats, memory.Cards, memory.PracticeDueAt
+	word.DueAt, word.StabilityDays, word.Difficulty = memory.DueAt, memory.StabilityDays, memory.Difficulty
+	word.Repetitions, word.Lapses = memory.Repetitions, memory.Lapses
 }
 
 func refreshWordMastery(word *WordMemory) {

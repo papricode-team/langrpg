@@ -70,7 +70,7 @@ describe('authored sprite worlds',()=>{
 });
 
 function mockScene(layered=true){
-  const sprites:{key:string;x:number;y:number;frame:string;visible:boolean;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>}[]=[];
+  const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>}[]=[];
   const specs=getPlacedScenery('lindenhafen');
   const assets:Record<string,SceneryAnimation>={};
   for(const spec of specs){
@@ -84,8 +84,10 @@ function mockScene(layered=true){
   const frame={width:200,height:250};
   const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:()=>({has:()=>true,get:()=>frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
     add:{sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
-      const sprite={x,y,key,frame:name,visible:true,setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),destroy:vi.fn()};
-      for(const method of ['setOrigin','setScale','setDepth','setFlipX'] as const)sprite[method].mockReturnValue(sprite);
+      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,setAlpha:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),destroy:vi.fn()};
+      for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
+      sprite.setOrigin.mockImplementation((x:number,y:number)=>{sprite.originX=x;sprite.originY=y;return sprite});
+      sprite.setDepth.mockImplementation((depth:number)=>{sprite.depth=depth;return sprite});
       sprite.setVisible.mockImplementation((visible:boolean)=>{sprite.visible=visible;return sprite});
       sprite.setFrame.mockImplementation((frame:string)=>{sprite.frame=frame;return sprite});
       sprites.push(sprite);return sprite;
@@ -107,7 +109,7 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
   scenery.setReducedMotion(false);scenery.update(43,view);
   expect(mock.sprites.map(sprite=>sprite.frame)).not.toEqual(frozen);
   for(const sprite of mock.sprites){expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95])}
-  const bases=mock.sprites.filter(sprite=>sprite.key!=='details');
+  const bases=mock.sprites.filter(sprite=>sprite.key!=='details'&&!sprite.blend);
   expect(bases.every((sprite,i)=>sprite.x===getPlacedScenery('lindenhafen')[i].x&&sprite.y===getPlacedScenery('lindenhafen')[i].y)).toBe(true);
   expect(mock.raw.textures.createCanvas).not.toHaveBeenCalled();
   scenery.update(44,{x:5000,y:5000,right:5100,bottom:5100});expect(mock.sprites.every(sprite=>!sprite.visible)).toBe(true);
@@ -138,7 +140,7 @@ it('freezes whole-building legacy animations if layered assets are unavailable',
   const mock=mockScene(false),scenery=new WorldScenery(mock.scene,'lindenhafen');
   scenery.update(5,{x:0,y:0,right:1536,bottom:1124});
   getPlacedScenery('lindenhafen').forEach((spec,i)=>{
-    if(isBuildingScenery(spec.frame??spec.asset))expect(mock.sprites[i].setFrame).not.toHaveBeenCalled();
+    if(isBuildingScenery(spec.frame??spec.asset))expect(mock.sprites.filter(sprite=>!sprite.blend)[i].setFrame).not.toHaveBeenCalled();
   });
 });
 

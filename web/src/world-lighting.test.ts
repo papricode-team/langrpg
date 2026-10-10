@@ -7,9 +7,9 @@ import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 
 class Sprite {
-  tint = 0xffffff; visible = true; scale = 1; depth = 0;
+  alpha=1; originX=.5; originY=1; tint = 0xffffff; visible = true; scale = 1; depth = 0;
   constructor(public x: number, public y: number, public key: string, public frame: string) {}
-  setOrigin() { return this; } setScale(scale: number) { this.scale = scale; return this; }
+  setOrigin(x:number,y:number) { this.originX=x;this.originY=y;return this; } setAlpha(alpha:number) {this.alpha=alpha;return this;} setScale(scale: number) { this.scale = scale; return this; }
   setDepth(depth: number) { this.depth = depth; return this; } setFlipX() { return this; }
   setTint(tint: number) { this.tint = tint; return this; }
   setVisible(visible: boolean) { this.visible = visible; return this; }
@@ -38,8 +38,8 @@ describe('steady expedition night lighting', () => {
   it('cools buildings and foliage while retaining warm lantern illumination', () => {
     const {sprites} = fixture('saffroncourt','night');
     const ambient = worldAmbient('saffroncourt','night');
-    for(const [index,spec] of getPlacedScenery('saffroncourt').entries()) {
-      expect(sprites[index].tint).toBe(spec.asset==='lamp'||spec.frame==='motion-lamp' ? ambient.light : ambient.scenery);
+    for(const spec of getPlacedScenery('saffroncourt')) {
+      expect(sprites.find(sprite=>sprite.x===spec.x&&sprite.y===spec.y)!.tint).toBe(spec.asset==='lamp'||spec.frame==='motion-lamp' ? ambient.light : ambient.scenery);
     }
     expect(ambient.terrain).not.toBe(0xffffff);
     expect(ambient.people).not.toBe(ambient.terrain);

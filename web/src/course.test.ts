@@ -124,6 +124,9 @@ describe('German course identity, grading and coverage', () => {
     expect(courseActivityWordIds).toEqual(manifest.activityWordIds);
     expect(courseNPCWordIds).toEqual(manifest.npcWordIds);
     expect(courseContextWordIds['a1-arrival-exercise-2']).toContain('ich-pron');
+    expect(courseContextWordIds['a1-arrival-exercise-2']).toContain('heissen-verb');
+    expect(courseContextWordIds['a1-arrival-exercise-2']).not.toContain('heiss-adj');
+    for (const id of ['du-pron','er-pron','es-pron','ihr-pron','sie-pron','wir-pron']) expect(courseContextWordIds['a1-arrival-exercise-2']).not.toContain(id);
     expect(courseContextWordIds['a1-arrival-exercise-2']).not.toContain('sein-det');
     expect(courseExerciseById.get('course-a1-pronouns-exercise-3')?.wordIds).toContain('bahnhofsvorsteher-noun');
     expect(courseExerciseById.get('course-b1-procedure-exercise-1')?.wordIds).toContain('abstimmung-noun');

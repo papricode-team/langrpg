@@ -15,6 +15,15 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('account session lifecycle', () => {
+  it('resumes legacy guests when a server omits account metadata', async () => {
+    saved.set('atlas.token', 'legacy-token');
+    const { account: _account, ...legacy } = session('legacy-token');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(legacy))));
+    const result = await new Api().resume();
+    expect(result?.account).toEqual({ registered: false, email: '' });
+    expect(result?.player.id).toBe('original-player');
+    expect(saved.get('atlas.token')).toBe('legacy-token');
+  });
   it('resumes the server profile without overwriting it with this device’s defaults', async () => {
     saved.set('atlas.token', 'existing-device-token');
     const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify(session('existing-device-token'))));

@@ -111,7 +111,7 @@ describe('canonical language content', () => {
   });
 
   it('preserves portrait atlas order and usable normalized map positions', () => {
-    expect(npcs.map(npc => npc.id)).toEqual(['marta', 'otto', 'lina', 'emil', 'ada', 'fritz', 'greta']);
+    expect(npcs.slice(0, 7).map(npc => npc.id)).toEqual(['marta', 'otto', 'lina', 'emil', 'ada', 'fritz', 'greta']);
     for (const npc of npcs) {
       expect(npc.x).toBeGreaterThan(0);
       expect(npc.x).toBeLessThan(1);

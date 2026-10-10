@@ -26,12 +26,12 @@ function expectReachable(navigation: NavigationGrid, start: MapPoint, destinatio
 }
 
 describe('enterable learning spaces', () => {
-  it.each(maps)('offers all three stores on connected streets in $name', map => {
+  it.each(maps)('offers the stores and inn on connected streets in $name', map => {
       const navigation = createMapNavigation(map.id);
       const start = pixels(getMap(map.id).spawn);
       const entrances = buildingEntrances(map.id);
-      expect(entrances.map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket']);
-      expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(3);
+      expect(entrances.map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
+      expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(4);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
         expectReachable(navigation, start, pixels(entrance), `${map.name} ${entrance.label}`);
@@ -55,6 +55,7 @@ describe('enterable learning spaces', () => {
   it('routes around solid furniture while leaving the central aisle open', () => {
     const aisle: Record<InteriorId, MapPoint> = {
       cafe: { x: 500, y: 785 }, bakery: { x: 950, y: 785 }, supermarket: { x: 1250, y: 785 },
+      inn: { x: 780, y: 785 },
     };
     for (const interior of interiors) {
       const navigation = createInteriorNavigation(interior.id);
@@ -119,6 +120,7 @@ describe('enterable learning spaces', () => {
     const exported = new Set(interiorExercises.map(exercise => exercise.id));
     expect(exported.size).toBe(interiorExercises.length);
     for (const interior of interiors) {
+      if (interior.id === 'inn') continue; // Home actions use review/story endpoints.
       expect(interior.objects.length).toBe(4);
       for (const object of interior.objects) {
         expect(object.exerciseIds.length).toBe(3);

@@ -1,0 +1,30 @@
+name: Game checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run check
+      - run: npm test
+      - run: npm run test:tooling
+      - run: npm run assets
+      - run: git diff --exit-code -- server/curriculum.json server/course.json server/story_rules.json server/expeditions.json server/activity_boards.json web/src/data/course.json web/src/data/course-meta.json web/src/data/course-exercises-a1.json web/src/data/course-exercises-a2.json web/src/data/course-exercises-b1.json docs/audits/dialogue-levels.json
+      - run: npm run build
+      - run: npm run budgets
+      - run: go test -race ./...
+        working-directory: server
+      - run: go vet ./...
+        working-directory: server

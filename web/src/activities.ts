@@ -11,7 +11,7 @@ import {
 export { activityDefinitions, activityScenarios, activityAudioJobs } from './activity-engine';
 export type { ActivityId, ActivityMode } from './activity-engine';
 
-export interface ActivityContext { runId:string; activityId:ActivityId; level:Level; scenarioId:string; attemptId:string; }
+export interface ActivityContext { runId:string; activityId:ActivityId; level:Level; scenarioId:string; attemptId:string; boardState?:ActivityState; }
 export interface ActivityCompletionContext { runId:string; activityId:ActivityId; level:Level; exerciseIds:string[]; attemptIds:string[]; }
 export interface ActivityExposureContext { activityId:ActivityId; level:Level; scenarioId:string; }
 export interface ActivitySubmitResult { correct:boolean; progress:Progress; xpAdded:number; attemptId?:string; reason?:string; correctedAnswer?:string; }
@@ -171,7 +171,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
   function render(focusTarget?:string):void {
     if(disposed)return;
     const activeFocus=focusTarget??focusKey(),scene=scenario(),npc=npcs.find(item=>item.id===(options.venue?.npcId??definition.npcId)),image=options.venue?.asset??`/assets/${{A1:'lindenhafen',A2:'waldruh',B1:'nebelstadt'}[options.level]}.webp`;
-    let content='';
+    let content:string;
     if(paused) content=`<div class="activity-intermission">${icon('lantern')}<span class="activity-kicker">YOUR PLACE IS KEPT</span><h2>A moment by the lantern.</h2><p>Your ${definition.id==='delivery'?'parcel':'work'} stays exactly where you left it. There is no clock to race.</p><button type="button" class="activity-primary" data-act="resume">Return to the mission ${icon('arrow')}</button><button type="button" class="activity-link" data-act="leave">Save and leave</button></div>`;
     else if(run.familiar&&run.stage==='playing'&&run.index===0&&!run.pending) content=`<div class="activity-intermission">${icon('leaf')}<span class="activity-kicker">FAMILIAR WORDS ARE RESTING</span><h2>${e(npc?.name??'Your host')} remembers your help.</h2><p>These expressions are comfortable in your memory right now. You can keep exploring, or choose another shift for the story.</p><button type="button" class="activity-primary" data-act="free-play">Play another mission ${icon('arrow')}</button><button type="button" class="activity-link" data-act="leave">Back to exploring</button></div>`;
     else if(run.stage==='complete') content=`<div class="activity-intermission activity-finale">${icon('lantern')}<span class="activity-kicker">A SMALL PART OF THE MYSTERY RESTORED</span><h2>Three tasks. One new lead.</h2><div class="activity-discoveries">${run.discoveries.map(discovery=>`<p>${icon('clue')}<span>${e(discovery)}</span></p>`).join('')}</div><div class="activity-reward"><strong>${run.reward?`+${run.reward}`:'✓'}</strong><span>${run.reward?'adventure XP · reward saved':'Mission recorded · familiar rewards stay earned'}</span></div><button type="button" class="activity-primary" data-act="leave">${options.venue ? `Return to ${e(options.venue.name)}` : 'Return to the world'} ${icon('arrow')}</button><button type="button" class="activity-link" data-act="new-run">Try a different mission</button></div>`;
@@ -192,7 +192,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
   async function submit():Promise<void> {
     if(busy||run.stage!=='playing'||disposed)return;
     const active=run,scene=scenario(),evaluation=evaluateActivity(scene,active.state);
-    if(!active.pending) active.pending={answer:evaluation.answer,hinted:active.hinted,context:{runId:active.runId,activityId:options.id,level:options.level,scenarioId:scene.id,attemptId:uuid()}};
+    if(!active.pending) active.pending={answer:evaluation.answer,hinted:active.hinted,context:{runId:active.runId,activityId:options.id,level:options.level,scenarioId:scene.id,attemptId:uuid(),boardState:structuredClone(active.state)}};
     const pending=active.pending;
     busy=true;error='';feedback=[];persist();render();
     try {

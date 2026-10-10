@@ -4,6 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { grammarLessons, passages, writingLessons, checkpoints } from './course-lessons.mjs';
+import { createLexemeMapper } from './course-word-mapping.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 const levels = ['A1','A2','B1'];
@@ -73,38 +74,7 @@ const mannerParent=lexicon.find(word=>word.lemma==='teilweise');
 if(mannerParent)aliases.push({form:'-weise',parentLemma:mannerParent.lemma,parentId:mannerParent.id,level:'B1',kind:'affix',english:'in a particular way; manner (as in teilweise)'});
 const awayParent=lexicon.find(word=>word.lemma==='weg');
 if(awayParent)aliases.push({form:'weg-',parentLemma:'weg',parentId:awayParent.id,level:'B1',kind:'affix',english:'away (as in weggehen)'});
-const surfaceIndex = new Map();
-const addSurface = (form,id) => {
-  if (!/^[\p{L}ß-]+$/u.test(form)) return;
-  const key = form.normalize('NFC');
-  const set = surfaceIndex.get(key) ?? new Set();set.add(id);surfaceIndex.set(key,set);
-};
-for (const word of lexicon) {
-  addSurface(word.lemma,word.id);
-  if (word.pos !== 'noun' && word.pos !== 'name' && word.lemma===word.lemma.toLowerCase()) addSurface(word.lemma.toLowerCase(),word.id);
-  if(word.plural) addSurface(word.plural,word.id);
-  for(const form of word.surfaceForms ?? []) addSurface(form,word.id);
-  for(const form of word.forms ?? []) addSurface(form.replace(/^[^:]+:\s*/,''),word.id);
-  for(const alias of word.aliases ?? []) addSurface(alias.form,word.id);
-}
-const lowercaseHeadwords=new Set(lexicon.filter(word=>['adv','pron','article','det','prep','conj','particle','intj','num'].includes(word.pos) && word.lemma===word.lemma.toLowerCase()).map(word=>word.lemma));
-const separatedVerbs=lexicon.filter(word=>word.pos==='verb').flatMap(word=>(word.surfaceForms??[]).filter(form=>form.split(' ').length===2 && /^[\p{L}ß]+ [\p{L}ß]+$/u.test(form)).map(form=>({id:word.id,pattern:new RegExp(`\\b${form.split(' ')[0]}\\b[^.!?]*\\b${form.split(' ')[1]}\\b`,'iu')})));
-const wordsIn = text => {
-  const ids = new Set();
-  for(const token of text.matchAll(/[\p{L}ß]+(?:-[\p{L}ß]+)*/gu)) {
-    const surface=token[0], prefix=text.slice(0,token.index), after=text.slice(token.index+surface.length);
-    let candidates=surfaceIndex.get(surface) ?? surfaceIndex.get(surface.toLowerCase()) ?? [];
-    // At a sentence boundary, Morgen normally means tomorrow; "Guten Morgen" retains the noun.
-    const atBoundary=!prefix.trim() || /[.!?:„“]\s*$/.test(prefix);
-    if(atBoundary && surface!=='Sie' && surface!==surface.toLowerCase() && lowercaseHeadwords.has(surface.toLowerCase()))candidates=surfaceIndex.get(surface.toLowerCase()) ?? candidates;
-    // Capitalized subject sie followed by a singular verb is she, not formal you.
-    if(surface==='Sie' && /^\s+(?:selbst\s+)?(?:ist|hat|war|kann|möchte|geht|arbeitet|kommt|trinkt|heißt|soll|muss|hatte|liest|findet|wartet|sucht|sitzt|braucht|lebt)\b/iu.test(after))candidates=[lexicon.find(word=>word.lemma==='sie' && word.pos==='pron')?.id].filter(Boolean);
-    for(const id of candidates)ids.add(id);
-  }
-  // A separated verb still exposes its headword, e.g. "holt ... ab" → abholen.
-  for(const {id,pattern} of separatedVerbs)if(pattern.test(text))ids.add(id);
-  return [...ids].sort();
-};
+const wordsIn = createLexemeMapper(lexicon);
 const units = [], grammar = [], exercises = [];
 const exercisesById = new Map();
 const addExercise = exercise => {
@@ -135,6 +105,7 @@ const distractors = word => {
   for(const value of ['a postal stamp','to repair a clock','unfortunately','a quiet room'])if(result.length<3 && value !== word.english && !result.includes(value))result.push(value);
   return result.slice(0,3);
 };
+const germanDistractors = word => lexicon.filter(other => other.id !== word.id && other.level === word.level && other.pos === word.pos && spokenWord(other).toLowerCase() !== spokenWord(word).toLowerCase()).slice(0,3).map(spokenWord);
 for(const level of levels) {
   for(const topic of Object.keys(labels)) {
     const words = lexicon.filter(word=>word.level===level && word.topic===topic);
@@ -145,7 +116,10 @@ for(const level of levels) {
         const alternatives = [...new Set([...(word.article ? [german,german[0].toUpperCase()+german.slice(1)] : []),...(word.aliases ?? []).filter(alias=>['spelling','regional'].includes(alias.kind)).map(alias=>alias.form)])].filter(answer=>answer!==word.lemma);
         const recognition={id:`lex-${word.id}-recognition`,itemId,mode:'choice',level,kind:'word',unitId,targetWordId,wordIds:[word.id],prompt:`What does “${german}” mean?`,german,english:word.english,answer:word.english,options,hint:note,explanation:note};
         const listeningContext=word.id==='sie-formal-pron' ? 'Guten Tag, Frau Berger. Wie heißen Sie?' : word.id==='sie-pron' ? 'Marta ist hier. Sie arbeitet im Café.' : german;
-        const listening={...recognition,id:`lex-${word.id}-listening`,mode:'listen',german:listeningContext,wordIds:[...new Set([word.id,...(listeningContext!==german?wordsIn(listeningContext):[])])],prompt:listeningContext===german?'Listen to the German word or expression. Choose its meaning.':`Listen to the sentence. What does “${word.lemma}” mean in this context?`,hint:`Replay the audio. ${note}`};
+        const listeningAnswer=word.id==='sie-formal-pron' ? 'Sie (höfliche Anrede)' : word.id==='sie-pron' ? 'sie (Marta)' : german;
+        const listeningOptions=[listeningAnswer,...germanDistractors(word)];
+        for(const fallback of ['die Lampe','der Bahnhof','das Paket'])if(listeningOptions.length<4&&!listeningOptions.includes(fallback)&&fallback.toLowerCase()!==german.toLowerCase())listeningOptions.push(fallback);
+        const listening={...recognition,id:`lex-${word.id}-listening`,mode:'listen',german:listeningContext,wordIds:[...new Set([word.id,...(listeningContext!==german?wordsIn(listeningContext):[])])],answer:listeningAnswer,options:[...new Set(listeningOptions)],prompt:listeningContext===german?'Listen, then choose the German word or expression you hear.':'Listen to the sentence. Choose the German pronoun in its context.',hint:`Replay the audio. ${note}`};
         const caseSensitive=word.pos==='noun' || word.lemma==='Sie';
         const production={id:`lex-${word.id}-production`,itemId,mode:'type',level,kind:'word',unitId,targetWordId,wordIds:[word.id],prompt:`Write the German ${word.pos === 'noun' ? 'noun' : word.pos === 'verb' ? 'infinitive' : 'word or expression'} for “${word.english}”.${word.article ? ' The article is optional; capitalize the noun.' : ''}`,german,english:word.english,answer:word.lemma,acceptedAnswers:alternatives,...(caseSensitive?{caseSensitive:true}:{}),hint:note,explanation:note};
         for(const exercise of [recognition,listening,production]){addExercise(exercise);exerciseIds.push(exercise.id);}
@@ -156,7 +130,7 @@ for(const level of levels) {
 }
 const makeTask = (unitId,level,kind,index,mode,prompt,answer,options,context='',acceptedAnswers=[],explanation='') => {
   const id=`${unitId}-exercise-${index}`,german=context || answer;
-  return {id,itemId:`${unitId}-item-${index}`,mode,level,kind,unitId,prompt,german,english:prompt,answer,...(options ? {options} : {}),...(mode==='sentence'?{tokens:answer.split(' ')}:{}),...(acceptedAnswers.length?{acceptedAnswers}:{}),hint:explanation || `Reference answer: ${answer}`,explanation:explanation || `A suitable answer is: ${answer}`};
+  return {id,itemId:`${unitId}-item-${index}`,mode,level,kind,unitId,prompt,german,english:prompt,answer,...(options ? {options} : {}),...(['type','sentence'].includes(mode)?{caseSensitive:true}:{}),...(mode==='sentence'?{tokens:answer.split(' ')}:{}),...(acceptedAnswers.length?{acceptedAnswers}:{}),hint:explanation || `Reference answer: ${answer}`,explanation:explanation || `A suitable answer is: ${answer}`};
 };
 for(const [id,level,title,explanation,examples,tasks] of grammarLessons) {
   const unitId=`course-${id}`,exerciseIds=[];
@@ -236,13 +210,15 @@ const contextWordIds={};
 const {quests:legacyQuests,npcs:legacyNPCs}=await import('../web/src/content.ts');
 for(const quest of legacyQuests)for(const exercise of quest.exercises)contextWordIds[exercise.id]=wordsIn(exercise.german);
 const activityWordIds={};
+let activityBoards;
 try {
   // Import pure scenario data with Node's type stripper; no DOM/game module is imported.
   const {activityScenarios,inventory,actionLabels}=await import('../web/src/activity-engine.ts');
+  activityBoards={scenarios:activityScenarios.map(({id,activityId,level,exerciseId,board})=>({id,activityId,level,exerciseId,board})),prices:Object.fromEntries(Object.entries(inventory).map(([id,item])=>[id,item.price??0]))};
   for(const scenario of activityScenarios) {
     const boardStrings=[];
     if(scenario.board.kind==='detective')boardStrings.push(...scenario.board.cards.map(card=>card.german),...scenario.board.slots.map(slot=>slot.german));
-    if(scenario.board.kind==='delivery')boardStrings.push(scenario.board.destination,scenario.board.recipient);
+    if(scenario.board.kind==='delivery')boardStrings.push(scenario.board.goalName,scenario.board.checkpointName,scenario.board.parcel,...scenario.board.directions);
     if(scenario.board.stock)boardStrings.push(...scenario.board.stock.map(id=>inventory[id]?.german ?? ''));
     const ids=wordsIn([scenario.german,...boardStrings].join(' '));
     activityWordIds[scenario.id]=ids;
@@ -267,5 +243,15 @@ const sources=[
 const data={edition:'de-en-a1-b1-2026-10-09',sources,lexicon,units,grammar,exercises,contextWordIds,activityWordIds,npcWordIds,referenceCoverage};
 const manifest={items:[...new Map(exercises.map(ex=>[ex.itemId,{id:ex.itemId,level:ex.level}])).values()],lexicon,exercises:exercises.map(ex=>({id:ex.id,itemId:ex.itemId,mode:ex.mode==='choice'?'recognition':ex.mode==='listen'?'listening':'production',answer:ex.answer,...(ex.acceptedAnswers?.length?{acceptedAnswers:ex.acceptedAnswers}:{}),...(ex.caseSensitive?{caseSensitive:true}:{}),wordIds:ex.wordIds,...(ex.targetWordId?{targetWordId:ex.targetWordId}:{}),explanation:ex.explanation})),units:units.map(({id,level,reward,requiredItemIds,requiredWordIds,requiredExerciseIds})=>({id,level,reward,requiredItemIds,requiredWordIds,requiredExerciseIds})),quests:[],contextWordIds,activityWordIds,npcWordIds};
 await writeFile(resolve(root,'web/src/data/course.json'),JSON.stringify(data,null,2)+'\n');
+// Runtime transport chunks come from the same canonical document. Source
+// indices preserve the authored ordering across its interleaved levels.
+const {exercises:allExercises,...metadata}=data;
+await writeFile(resolve(root,'web/src/data/course-meta.json'),JSON.stringify(metadata)+'\n');
+for(const level of levels) {
+  const indices=[],levelExercises=[];
+  allExercises.forEach((exercise,index)=>{if(exercise.level===level){indices.push(index);levelExercises.push(exercise);}});
+  await writeFile(resolve(root,`web/src/data/course-exercises-${level.toLowerCase()}.json`),JSON.stringify({edition:data.edition,indices,exercises:levelExercises})+'\n');
+}
 await writeFile(resolve(root,'server/course.json'),JSON.stringify(manifest,null,2)+'\n');
+if(activityBoards)await writeFile(resolve(root,'server/activity_boards.json'),JSON.stringify(activityBoards,null,2)+'\n');
 console.log(JSON.stringify({lexemes:lexicon.length,units:units.length,grammar:grammar.length,exercises:exercises.length,byLevel:Object.fromEntries(levels.map(level=>[level,lexicon.filter(w=>w.level===level).length])),referenceCoverage:referenceCoverage.map(({level,mappedForms,normalizedReferenceForms,remainingForms})=>({level,mappedForms,normalizedReferenceForms,remaining:remainingForms.length}))},null,2));

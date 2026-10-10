@@ -3,9 +3,10 @@ import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 import { worldAmbient } from './world-lighting';
 import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
-import { isBuildingScenery,sampleSceneryFrame,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
+import { isBuildingScenery,sampleSceneryFrame,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
+  next?:Phaser.GameObjects.Sprite;
   animation?:SceneryAnimation;
   currentFrame:string;
   phaseId:string;
@@ -23,6 +24,7 @@ export class WorldScenery {
   private visible=true;
   private reducedMotion=false;
   private motionTime=0;
+  private opacity=1;
   constructor(private scene:Phaser.Scene,mapId:MapId,period:WorldPeriod='day'){
     const manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of getPlacedScenery(mapId)){
@@ -51,6 +53,11 @@ export class WorldScenery {
           .setOrigin(.5,.5).setScale(scale).setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
         parts.push({sprite:detail,animation:overlay,currentFrame:detailFrame,phaseId});
       }
+      for(const part of parts)if(part.animation&&part.animation.frames.length>1){
+        const source=part.sprite;
+        part.next=scene.add.sprite(source.x,source.y,part.animation.key,part.currentFrame)
+          .setOrigin(source.originX,source.originY).setScale(scale).setDepth(source.depth+.001).setFlipX(spec.flipX??false).setAlpha(0);
+      }
       this.layers.push({spec,parts,width:frame.width*scale,height:frame.height*scale});
     }
     const ambient=worldAmbient(mapId,period);
@@ -62,14 +69,15 @@ export class WorldScenery {
     this.visible=visible;
     // Hidden worlds stop updating while a room is active, so visibility must
     // take effect here instead of waiting for the next scenery update.
-    if(!visible)for(const {parts} of this.layers)for(const {sprite} of parts)sprite.setVisible(false);
+    if(!visible)for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.setVisible(false);next?.setVisible(false);}
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
+  setAlpha(alpha:number){this.opacity=alpha;for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.setAlpha(alpha);next?.setAlpha(0);}}
   /** Lanterns keep warm illumination while fixed architecture takes moonlight. */
   setAmbientTint(tint:number,light=0xffffff){
     for(const {spec,parts} of this.layers){
       const emitter=spec.asset==='lamp'||spec.frame==='motion-lamp';
-      for(const {sprite} of parts)sprite.setTint(emitter?light:tint);
+      for(const {sprite,next} of parts){sprite.setTint(emitter?light:tint);next?.setTint(emitter?light:tint);}
     }
   }
   update(time:number,view:SceneryView){
@@ -79,11 +87,13 @@ export class WorldScenery {
       const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
         &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
       for(const part of parts){
-        part.sprite.setVisible(visible);if(!visible||!part.animation)continue;
-        const frame=sampleSceneryFrame(part.animation,part.phaseId,this.motionTime);
-        if(frame!==part.currentFrame){part.sprite.setFrame(frame);part.currentFrame=frame;}
+        part.sprite.setVisible(visible);part.next?.setVisible(visible);if(!visible||!part.animation)continue;
+        const blend=sceneryBlend(part.animation,part.phaseId,this.motionTime);
+        if(blend.current!==part.currentFrame){part.sprite.setFrame(blend.current);part.currentFrame=blend.current;}
+        part.sprite.setAlpha(this.opacity*(part.next&&!this.reducedMotion?1-blend.alpha:1));
+        part.next?.setFrame(blend.next).setAlpha(this.reducedMotion?0:this.opacity*blend.alpha);
       }
     }
   }
-  destroy(){for(const {parts} of this.layers)for(const {sprite} of parts)sprite.destroy();this.layers=[];}
+  destroy(){for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.destroy();next?.destroy();}this.layers=[];}
 }

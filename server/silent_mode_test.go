@@ -16,6 +16,10 @@ func TestSilentQuestsFinishWithoutListeningEvidence(t *testing.T) {
 		t.Run(quest.ID, func(t *testing.T) {
 			app := testApp(t)
 			app.curriculum = curriculum
+			// Silent-mode practice keeps its learning semantics. Story discoveries
+			// now require the physical investigation and conversation graph.
+			quest.ID = "practice-" + quest.ID
+			app.curriculum.Quests = map[string]Quest{quest.ID: quest}
 			token, _ := createSession(t, app, "Ada")
 			silent := map[string]any{"questId": quest.ID, "silentMode": true}
 			if w := request(app, "POST", "/api/quest/complete", token, silent); w.Code != 409 {
@@ -47,7 +51,8 @@ func TestSilentQuestsFinishWithoutListeningEvidence(t *testing.T) {
 				if index == 0 {
 					expectedReward = quest.Reward
 				}
-				if result.XPAdded != expectedReward || result.Progress.XP != before.XP+quest.Reward || !reflect.DeepEqual(result.Progress.CompletedQuestIDs, []string{quest.ID}) {
+				expectedCompleted := []string{quest.ID}
+				if result.XPAdded != expectedReward || result.Progress.XP != before.XP+quest.Reward || !reflect.DeepEqual(result.Progress.CompletedQuestIDs, expectedCompleted) {
 					t.Fatalf("quest did not finish with one reward: %+v", result)
 				}
 				if result.Progress.Attempts != before.Attempts || !reflect.DeepEqual(result.Progress.Items, before.Items) || !reflect.DeepEqual(result.Progress.ExerciseStats, before.ExerciseStats) {

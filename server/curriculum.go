@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/fs"
 	"regexp"
+	"sort"
 	"strings"
 	"unicode"
 
@@ -49,6 +50,8 @@ type Curriculum struct {
 	ContextWordIDs  map[string][]string
 	ActivityWordIDs map[string][]string
 	NPCWordIDs      map[string][]string
+	ActivityBoards  map[string]ActivityBoardScenario
+	ActivityPrices  map[string]int
 }
 
 type Lexeme struct {
@@ -89,7 +92,18 @@ func loadCurriculum() (Curriculum, error) {
 	if err != nil {
 		return Curriculum{}, fmt.Errorf("course manifest: %w", err)
 	}
-	return mergeCurriculum(base, course)
+	merged, err := mergeCurriculum(base, course)
+	if err != nil {
+		return Curriculum{}, err
+	}
+	boards, err := curriculumFiles.ReadFile("activity_boards.json")
+	if err != nil {
+		return Curriculum{}, fmt.Errorf("activity board manifest: %w", err)
+	}
+	if err = loadActivityBoards(&merged, boards); err != nil {
+		return Curriculum{}, err
+	}
+	return merged, nil
 }
 
 func parseCurriculum(b []byte) (Curriculum, error) {
@@ -347,13 +361,115 @@ func normalizeAnswer(answer string, caseSensitive bool) string {
 
 func (e Exercise) Grade(answer string) bool {
 	normalized := normalizeAnswer(answer, e.CaseSensitive)
-	if normalized == normalizeAnswer(e.Answer, e.CaseSensitive) {
-		return true
-	}
-	for _, accepted := range e.AcceptedAnswers {
-		if normalized == normalizeAnswer(accepted, e.CaseSensitive) {
+	for _, accepted := range append([]string{e.Answer}, e.AcceptedAnswers...) {
+		expected := normalizeAnswer(accepted, e.CaseSensitive)
+		if normalized == expected {
+			return true
+		}
+		if e.Mode == "production" && productionAnswerMatches(normalized, expected) {
 			return true
 		}
 	}
 	return false
+}
+
+func umlautKeyboardForm(value string) string {
+	return strings.NewReplacer("ä", "ae", "ö", "oe", "ü", "ue", "Ä", "Ae", "Ö", "Oe", "Ü", "Ue").Replace(value)
+}
+
+// Forgive a single mechanical typing slip, not substitutions, grammar changes,
+// missing umlauts or capitalization errors. Short function words remain exact.
+func productionAnswerMatches(answer, expected string) bool {
+	actualWords := strings.Fields(umlautKeyboardForm(answer))
+	expectedWords := strings.Fields(umlautKeyboardForm(expected))
+	if len(actualWords) != len(expectedWords) {
+		return false
+	}
+	slips := 0
+	for i, word := range actualWords {
+		if word == expectedWords[i] {
+			continue
+		}
+		if slips > 0 || !mechanicalTypo(word, expectedWords[i]) {
+			return false
+		}
+		slips++
+	}
+	return true
+}
+
+func mechanicalTypo(answer, expected string) bool {
+	a, b := []rune(answer), []rune(expected)
+	if len(a) < 5 || len(b) < 5 {
+		return false
+	}
+	for _, word := range [][]rune{a, b} {
+		for _, letter := range word {
+			if !unicode.IsLetter(letter) {
+				return false
+			}
+		}
+	}
+	if len(a) == len(b) {
+		for i := 0; i < len(a)-1; i++ {
+			if a[i] == b[i] {
+				continue
+			}
+			if unicode.IsUpper(a[i]) || unicode.IsUpper(a[i+1]) || a[i] != b[i+1] || a[i+1] != b[i] {
+				return false
+			}
+			return string(a[i+2:]) == string(b[i+2:])
+		}
+		return false
+	}
+	if len(a) < len(b) {
+		a, b = b, a
+	}
+	if len(a) != len(b)+1 {
+		return false
+	}
+	for i := 1; i < len(a); i++ {
+		if a[i] == a[i-1] && !unicode.IsUpper(a[i]) && string(a[:i])+string(a[i+1:]) == string(b) {
+			return true
+		}
+	}
+	return false
+}
+
+// Feedback identifies what to revisit while the authored explanation supplies
+// context. It never claims that every unlisted paraphrase is incorrect German.
+func (e Exercise) Feedback(answer string) string {
+	if e.Grade(answer) {
+		return e.Explanation
+	}
+	actual, expected := normalizeAnswer(answer, e.CaseSensitive), normalizeAnswer(e.Answer, e.CaseSensitive)
+	if e.CaseSensitive && umlautKeyboardForm(strings.ToLower(actual)) == umlautKeyboardForm(strings.ToLower(expected)) {
+		return "Check capitalization: begin sentences, German nouns and formal Sie with a capital letter."
+	}
+	a, b := strings.Fields(strings.ToLower(actual)), strings.Fields(strings.ToLower(expected))
+	articles := []string{"der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "eines"}
+	if len(a) == len(b) {
+		for i, token := range a {
+			if token != b[i] && contains(articles, token) && contains(articles, b[i]) {
+				return "Check the article: its ending must match the noun's gender and its role in the sentence."
+			}
+		}
+	}
+	if len(a) == len(b) {
+		left, right := append([]string{}, a...), append([]string{}, b...)
+		sort.Strings(left)
+		sort.Strings(right)
+		if strings.Join(left, " ") == strings.Join(right, " ") {
+			for _, connector := range []string{"weil", "dass", "obwohl", "wenn", "falls"} {
+				if contains(b, connector) {
+					return "Check word order: after weil, dass, obwohl, wenn or falls, the conjugated verb belongs at the end of that clause."
+				}
+			}
+			return "Check word order: in a statement, the conjugated verb normally takes the second position."
+		}
+	}
+	if e.Mode == "production" {
+		return "Check spelling and the requested form. Use ae, oe or ue when your keyboard cannot type an umlaut. " + e.Explanation
+	}
+	return e.Explanation
 }

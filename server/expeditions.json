@@ -1,0 +1,1990 @@
+{
+  "encounters": [
+    {
+      "id": "saffroncourt-encounter-salma",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-youssef",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-amina",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-idriss",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-leila",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-karim",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-nour",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-sami",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-gate",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-pump",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-bench",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-parcel",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-bicycle",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-tea-table",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-sound-map",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-seed-box",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-key-hook",
+      "mapId": "saffroncourt",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "saffroncourt-encounter-roof-sign",
+      "mapId": "saffroncourt",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-haru",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-aiko",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-jun",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-mei",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-ren",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-sora",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-ken",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-yui",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-side-door",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-event-board",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-umbrella",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-display",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-bicycle",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-rehearsal",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-meal-box",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-rain-bell",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-quiet-stairs",
+      "mapId": "rainmarket",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "rainmarket-encounter-invitation",
+      "mapId": "rainmarket",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-sarnai",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-bat",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-tuya",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-erdene",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-nomin",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-munkh",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-oyun",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-ariun",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-address",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-trailer",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-radio",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-kitchen",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-hill-map",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-books",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-solar",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-water",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "windplain-encounter-weather",
+      "mapId": "windplain",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "windplain-encounter-arrival",
+      "mapId": "windplain",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-linh",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-mai",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-phuc",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-bao",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-trang",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-huy",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-chi",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-an",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-landing",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-order",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-rice",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-receipts",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-repair",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-folder",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-rehearsal",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-market-scale",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "riverweave-encounter-boat-bell",
+      "mapId": "riverweave",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "riverweave-encounter-garden",
+      "mapId": "riverweave",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-rosa",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-mateo",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-ana",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-pilar",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-diego",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-elena",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-tomas",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-luz",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-samples",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-commission",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-delivery",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-stairs",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-tools",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-bench",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-view-map",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-class-invite",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "terracielo-encounter-garden-plan",
+      "mapId": "terracielo",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "terracielo-encounter-receipt",
+      "mapId": "terracielo",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-ines",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-pablo",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-carmen",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-nico",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-alma",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-diego",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-luz",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-valeria",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-mural",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-ideas",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-table",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-print",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-recording",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-cable",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-paint",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-exchange",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-meal",
+      "mapId": "sunpatch",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "sunpatch-encounter-game-wall",
+      "mapId": "sunpatch",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-aline",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-eric",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-chantal",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-patrick",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-grace",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-samuel",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-diane",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-josiane",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-screening",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-ramp",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-battery",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-preview",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-cables",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-garden",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-seating",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-bus",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "kigalights-encounter-repair-desk",
+      "mapId": "kigalights",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "kigalights-encounter-signal",
+      "mapId": "kigalights",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-meera",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-ravi",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-anjali",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-arun",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-dev",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-latha",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-farah",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-nila",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-reading",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-lamp",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-boat",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-plants",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-herbs",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-questions",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-last-trip",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-repair",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-bridge",
+      "mapId": "cedarbay",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "cedarbay-encounter-books",
+      "mapId": "cedarbay",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-minji",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-jisoo",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-hana",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-soo",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-eun",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-dae",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-joon",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-yuna",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-roof",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-address",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-sound",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-tables",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-garden",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-jacket",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-request",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-arrows",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-interview",
+      "mapId": "seoulsteps",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "seoulsteps-encounter-clean-up",
+      "mapId": "seoulsteps",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-maryam",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-salim",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-huda",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-khalid",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-saif",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-noura",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-aisha",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-hamad",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-schedule",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-gate",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-compensation",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-repair",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-photos",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-seedlings",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-shade",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-change",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-well",
+      "mapId": "dunegarden",
+      "choices": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "dunegarden-encounter-meeting",
+      "mapId": "dunegarden",
+      "choices": [
+        false,
+        true
+      ]
+    }
+  ],
+  "games": [
+    {
+      "id": "saffroncourt",
+      "fields": [
+        {
+          "id": "permission",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "gate",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "recipient",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          1,
+          0,
+          2
+        ]
+      ],
+      "order": [
+        "workshop",
+        "gate",
+        "fountain",
+        "court"
+      ]
+    },
+    {
+      "id": "rainmarket",
+      "fields": [
+        {
+          "id": "start",
+          "values": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "id": "end",
+          "values": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        },
+        {
+          "id": "sound",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "place",
+          "values": [
+            0,
+            1
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          18,
+          20,
+          1,
+          1
+        ]
+      ],
+      "order": [
+        "notice",
+        "setup",
+        "meet",
+        "clear"
+      ]
+    },
+    {
+      "id": "windplain",
+      "fields": [
+        {
+          "id": "water",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "id": "food",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "tools",
+          "values": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "radio",
+          "values": [
+            0,
+            1
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          4,
+          2,
+          1,
+          1
+        ]
+      ],
+      "order": [
+        "check",
+        "pack",
+        "ger",
+        "move"
+      ]
+    },
+    {
+      "id": "riverweave",
+      "fields": [
+        {
+          "id": "veg",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "fruit",
+          "values": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "rice",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "route",
+          "values": [
+            3,
+            7
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          2,
+          1,
+          2,
+          3
+        ]
+      ],
+      "order": [
+        "veg",
+        "fruit",
+        "rice",
+        "kitchen"
+      ]
+    },
+    {
+      "id": "terracielo",
+      "fields": [
+        {
+          "id": "count",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "width",
+          "values": [
+            30,
+            40,
+            60
+          ]
+        },
+        {
+          "id": "height",
+          "values": [
+            40,
+            50,
+            60
+          ]
+        },
+        {
+          "id": "pattern",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          3,
+          40,
+          60,
+          2
+        ]
+      ],
+      "order": [
+        "measure",
+        "approve",
+        "cut",
+        "sew"
+      ]
+    },
+    {
+      "id": "sunpatch",
+      "fields": [
+        {
+          "id": "day",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "time",
+          "values": [
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "place",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "source",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          1,
+          8,
+          1,
+          1
+        ]
+      ],
+      "order": [
+        "day",
+        "time",
+        "place",
+        "invite"
+      ]
+    },
+    {
+      "id": "kigalights",
+      "fields": [
+        {
+          "id": "group",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "band",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "edit",
+          "values": [
+            14,
+            15,
+            16,
+            17
+          ]
+        },
+        {
+          "id": "entrance",
+          "values": [
+            0,
+            1
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          0,
+          1,
+          16,
+          0
+        ]
+      ],
+      "order": [
+        "needs",
+        "allocate",
+        "confirm",
+        "post"
+      ]
+    },
+    {
+      "id": "cedarbay",
+      "fields": [
+        {
+          "id": "landing",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "time",
+          "values": [
+            10,
+            11,
+            12,
+            13
+          ]
+        },
+        {
+          "id": "people",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "id": "crate",
+          "values": [
+            0,
+            2
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          1,
+          11,
+          4,
+          2
+        ]
+      ],
+      "order": [
+        "pickup",
+        "load",
+        "count",
+        "depart"
+      ]
+    },
+    {
+      "id": "seoulsteps",
+      "fields": [
+        {
+          "id": "start",
+          "values": [
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "id": "end",
+          "values": [
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        },
+        {
+          "id": "venue",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "music",
+          "values": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "access",
+          "values": [
+            0,
+            1
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          19,
+          21,
+          1,
+          1,
+          1
+        ]
+      ],
+      "order": [
+        "weather",
+        "neighbors",
+        "invite",
+        "meet"
+      ]
+    },
+    {
+      "id": "dunegarden",
+      "fields": [
+        {
+          "id": "shared",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "id": "young",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "id": "trees",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "id": "reserve",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "validValues": [
+        [
+          4,
+          3,
+          3,
+          2
+        ]
+      ],
+      "order": [
+        "check",
+        "upper",
+        "lower",
+        "close"
+      ]
+    }
+  ]
+}

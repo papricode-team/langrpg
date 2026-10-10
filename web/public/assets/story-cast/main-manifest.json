@@ -1,0 +1,26 @@
+{
+  "source": "art/source/story-cast/main-cast-directions.png",
+  "tool": "Built-in image_gen",
+  "cell": [
+    256,
+    384
+  ],
+  "rows": [
+    "marta",
+    "otto",
+    "lina",
+    "emil",
+    "ada",
+    "fritz",
+    "greta"
+  ],
+  "directions": [
+    "south",
+    "east",
+    "north",
+    "west"
+  ],
+  "registration": "Uniform scale per character; soles at y=346; generated transparency preserved.",
+  "prompt": "art/source/story-cast/main-cast-prompt.txt",
+  "license": "Generated for The Lantern Atlas"
+}

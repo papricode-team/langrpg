@@ -25,7 +25,7 @@ function imageFor(id: string) {
     promise = new Promise<HTMLImageElement>((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);
-      image.onerror = () => reject(new Error(`Missing character piece ${id}`));
+      image.onerror = () => { images.delete(id); reject(new Error(`Missing character piece ${id}`)); };
       image.src = `/assets/player-layers/${id}-preview.webp?v=layers11`;
     });
     images.set(id, promise);

@@ -1,0 +1,10 @@
+.placement-panel{max-width:720px;margin:auto;padding:30px;color:var(--ink,#24332b)}
+.placement-panel header{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.placement-panel h2{margin:18px 0;font-size:clamp(26px,4vw,36px)}
+.placement-panel p{line-height:1.6}
+.placement-panel h3{margin-top:28px;font-size:20px;white-space:pre-line}
+.placement-options{display:grid;gap:10px;margin:20px 0}
+.placement-panel form{display:grid;gap:12px;margin:20px 0}
+.placement-panel input{padding:14px;border:1px solid #829383;border-radius:12px;font:inherit;background:#fffdf6}
+.placement-feedback{min-height:24px;margin:18px 0;line-height:1.5}
+.placement-dialogue{margin:24px 0;padding:18px;border-left:3px solid #829383;background:#eaf0e5;border-radius:0 12px 12px 0}

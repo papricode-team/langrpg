@@ -2,7 +2,7 @@ import { quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid } from './navigation';
 
-export type InteriorId = 'cafe' | 'bakery' | 'supermarket';
+export type InteriorId = 'cafe' | 'bakery' | 'supermarket' | 'inn';
 export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture';
 export type InteriorPolygon = readonly (readonly [number, number])[];
 export interface InteriorVocabulary {
@@ -286,6 +286,21 @@ export const interiors: readonly InteriorSpec[] = [
       { id: 'supermarket-entrance-plant', sheet: 'interior-decor', asset: 'plant', x: 1345, y: 805, width: 55, collision: footprint(1332, 789, 26, 18) },
     ],
   },
+
+  {
+    id: 'inn', name: 'Your room at the inn', germanName: 'Dein Zimmer', subtitle: 'A lamp, your evidence, and tomorrow', icon: 'cup',
+    description: 'Your own quiet room. Put your evidence on the desk, revisit the words you promised to remember, and rest when you are ready.',
+    asset: '/assets/interior-inn-room.webp', width: 1536, height: 1024,
+    spawn: position(780, 805), exit: position(780, 885),
+    walkableAreas: [[[150,365],[1380,365],[1380,830],[970,830],[970,950],[620,950],[620,830],[150,830]]],
+    barriers: [[[150,365],[580,365],[580,550],[150,550]], [[1070,365],[1380,365],[1380,465],[1070,465]], [[700,365],[930,365],[930,410],[700,410]], [[1340,465],[1380,465],[1380,730],[1340,730]]],
+    npcs: [], props: [],
+    objects: [
+      { id: 'interior:inn:bed', label: 'Das Bett', germanName: 'Das Bett', sessionTitle: 'Begin tomorrow', prompt: 'Rest here when your day is done.', description: 'Schlaf gut. Deine Beweise und deine Wörter bleiben im Atlas.', ...position(610, 570), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('das','Bett','Betten','bed')] },
+      { id: 'interior:inn:review', label: 'Die Abendlampe', germanName: 'Die Abendlampe', sessionTitle: 'An evening review', prompt: 'Keep one small promise to your words.', description: 'Die Lampe wartet. Ein paar Wörter für heute, dann kannst du schlafen.', ...position(810, 470), exerciseIds: ['a1-cafe-exercise-6'], vocabulary: [vocabulary('die','Lampe','Lampen','lamp')] },
+      { id: 'interior:inn:evidence', label: 'Dein Schreibtisch', germanName: 'Der Schreibtisch', sessionTitle: 'Connect the evidence', prompt: 'Lay out your letters and clues.', description: 'Hier liegen deine Briefe. Jeder Brief zeigt einen Weg. Wer hilft dir morgen?', ...position(1030, 490), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('der','Brief','Briefe','letter')] },
+    ],
+  },
 ];
 
 export function getInterior(id: InteriorId): InteriorSpec {
@@ -302,16 +317,16 @@ export const interiorExercises: Exercise[] = quests.flatMap(quest => quest.exerc
 
 /** Door markers sit on the pavement immediately outside existing storefronts. */
 const entranceLocations: Readonly<Partial<Record<MapId, Readonly<Record<InteriorId, MapPosition>>>>> = {
-  lindenhafen: { cafe: position(588, 475), bakery: position(1172, 847), supermarket: position(1230, 485) },
-  waldruh: { cafe: position(320, 365), bakery: position(385, 720), supermarket: position(893, 765) },
-  nebelstadt: { cafe: position(190, 480), bakery: position(273, 775), supermarket: position(790, 822) },
+  lindenhafen: { cafe: position(588, 475), bakery: position(1172, 847), supermarket: position(1230, 485), inn: position(425, 462) },
+  waldruh: { cafe: position(320, 365), bakery: position(385, 720), supermarket: position(893, 765), inn: position(285, 368) },
+  nebelstadt: { cafe: position(190, 480), bakery: position(273, 775), supermarket: position(790, 822), inn: position(245, 485) },
 };
 
 export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
   const locations = entranceLocations[mapId];
   if (!locations) return [];
   return interiors.map(interior => ({
-    id: `building:${interior.id}` as const, interiorId: interior.id, label: interior.name,
+    id: `building:${interior.id}` as const, interiorId: interior.id, label: interior.germanName,
     description: interior.description, ...locations[interior.id],
   }));
 }

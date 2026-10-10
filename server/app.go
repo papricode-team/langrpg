@@ -67,6 +67,16 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/quest/complete", a.completeQuest)
 	mux.HandleFunc("POST /api/course/complete", a.completeUnit)
 	mux.HandleFunc("POST /api/activity/complete", a.completeActivity)
+	mux.HandleFunc("GET /api/story", a.story)
+	mux.HandleFunc("POST /api/story/transition", a.transitionStory)
+	mux.HandleFunc("POST /api/story/inspect", a.inspectStory)
+	mux.HandleFunc("POST /api/story/save", a.saveStory)
+	mux.HandleFunc("POST /api/story/load", a.loadStory)
+	mux.HandleFunc("POST /api/story/sleep", a.sleepStory)
+	mux.HandleFunc("POST /api/story/cinematic", a.storyCinematic)
+	mux.HandleFunc("GET /api/world-clock", a.worldClock)
+	mux.HandleFunc("POST /api/expedition/answer", a.answerExpedition)
+	mux.HandleFunc("POST /api/expedition/plan", a.planExpedition)
 	mux.HandleFunc("GET /api/world", a.connect)
 	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
 	mux.HandleFunc("/api/", missing)
@@ -299,16 +309,21 @@ func (a *App) progress(w http.ResponseWriter, r *http.Request) {
 }
 
 type AttemptInput struct {
-	ID         string `json:"id"`
-	ItemID     string `json:"itemId"`
-	ExerciseID string `json:"exerciseId"`
-	Answer     string `json:"answer"`
-	Hinted     bool   `json:"hinted"`
-	Mode       string `json:"mode"`
-	QuestID    string `json:"questId,omitempty"`
-	ActivityID string `json:"activityId,omitempty"`
-	RunID      string `json:"runId,omitempty"`
-	Level      string `json:"level,omitempty"`
+	ID             string          `json:"id"`
+	ItemID         string          `json:"itemId"`
+	ExerciseID     string          `json:"exerciseId"`
+	Answer         string          `json:"answer"`
+	Hinted         bool            `json:"hinted"`
+	Mode           string          `json:"mode"`
+	QuestID        string          `json:"questId,omitempty"`
+	ActivityID     string          `json:"activityId,omitempty"`
+	RunID          string          `json:"runId,omitempty"`
+	Level          string          `json:"level,omitempty"`
+	Rating         string          `json:"rating,omitempty"`
+	ResponseTimeMs int             `json:"responseTimeMs,omitempty"`
+	ScenarioID     string          `json:"scenarioId,omitempty"`
+	BoardState     json.RawMessage `json:"boardState,omitempty"`
+	SceneAttempt   bool            `json:"sceneAttempt,omitempty"`
 }
 
 func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
@@ -328,6 +343,10 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	}
 	if !safeID.MatchString(input.ID) || len(input.Answer) > 1024 || strings.TrimSpace(input.Answer) == "" || !validMode(input.Mode) {
 		writeError(w, 400, "send a unique attempt ID, answer, and valid exercise mode")
+		return
+	}
+	if (input.Rating != "" && input.Rating != "hard" && input.Rating != "good" && input.Rating != "easy") || input.ResponseTimeMs < 0 || input.ResponseTimeMs > 600000 || ((input.ScenarioID != "" || len(input.BoardState) > 0) && input.ActivityID == "") {
+		writeError(w, 400, "send a valid recall rating, response time and mission context")
 		return
 	}
 	exercise, ok := a.curriculum.Exercises[input.ExerciseID]
@@ -360,18 +379,46 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	if input.SceneAttempt {
+		rule, known := storyRule(input.QuestID)
+		if !known || input.ExerciseID != rule.GateExerciseID || input.Mode != "production" || input.ActivityID != "" {
+			writeError(w, 400, "the scene answer must match its authored German request")
+			return
+		}
+	}
+	boardCorrect, boardHandled, boardErr := a.curriculum.activityBoardGrade(input)
+	if boardErr != nil {
+		apiFailure(w, boardErr)
+		return
+	}
 	request, _ := json.Marshal(input)
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
+		if input.SceneAttempt {
+			if err := a.requireStoryGate(account, input.QuestID); err != nil {
+				return Receipt{}, err
+			}
+		}
 		now := a.now().UTC()
 		migrateContextExposures(&account.Progress, a.curriculum, now)
 		correct := exercise.Grade(input.Answer)
-		receipt, err := recordAttempt(&account.Progress, input.ItemID, input.Mode, correct, input.Hinted, now, exercise.Mode)
+		if boardHandled {
+			correct = boardCorrect
+		}
+		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, input.Hinted, now, exercise.Mode, input.Rating, input.ResponseTimeMs)
 		if err != nil {
 			return Receipt{}, err
 		}
 		recordWordEvidence(&account.Progress, exercise, input, correct, now)
+		recordPromiseAttempt(&account.Progress, correct)
+		if input.SceneAttempt && correct {
+			proofs := append(account.Progress.Story.GateAttempts[input.QuestID], input.ID)
+			if len(proofs) > 32 {
+				proofs = proofs[len(proofs)-32:]
+			}
+			account.Progress.Story.GateAttempts[input.QuestID] = proofs
+		}
 		return receipt, nil
 	})
 	if err != nil {
@@ -382,7 +429,10 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	if duplicate {
 		added = 0
 	}
-	reason := exercise.Explanation
+	reason := exercise.Feedback(input.Answer)
+	if boardHandled && !boardCorrect {
+		reason = "Check the German instructions against your items, actions and route. The mission board is not complete yet."
+	}
 	if reason == "" {
 		reason = "The answer matches the authored target."
 		if receipt.Correct == nil || !*receipt.Correct {
@@ -431,6 +481,12 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 		if contains(account.Progress.CompletedQuestIDs, quest.ID) {
 			return Receipt{}, nil
 		}
+		if contains(storyQuestOrder, quest.ID) {
+			return Receipt{}, &APIError{409, "continue this investigation in the world; practice exercises do not complete the story"}
+		}
+		if err := requireQuestOrder(quest.ID, account.Progress.CompletedQuestIDs); err != nil {
+			return Receipt{}, err
+		}
 		for _, id := range quest.RequiredItemIDs {
 			if input.SilentMode && a.curriculum.listeningOnlyItem(id) {
 				continue
@@ -447,8 +503,14 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		account.Progress.CompletedQuestIDs = append(account.Progress.CompletedQuestIDs, quest.ID)
-		account.Progress.XP += quest.Reward
-		return Receipt{XPAdded: quest.Reward}, nil
+		ensureStory(&account.Progress)
+		reward := 0
+		if !contains(account.RewardedQuestIDs, quest.ID) {
+			reward = quest.Reward
+			account.RewardedQuestIDs = append(account.RewardedQuestIDs, quest.ID)
+			account.Progress.XP += reward
+		}
+		return Receipt{XPAdded: reward}, nil
 	})
 	if err != nil {
 		apiFailure(w, err)
@@ -484,7 +546,24 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "unknown map; choose a destination from the atlas")
 		return
 	}
-	a.world.ServeHTTP(w, r, account.Player)
+	var authorize func(context.Context, string) error
+	if _, installed := a.curriculum.Quests["a1-arrival"]; installed {
+		authorize = func(ctx context.Context, mapID string) error {
+			current, err := a.store.Get(ctx, tokenHash(token))
+			if err != nil {
+				return err
+			}
+			if !routeUnlocked(mapID, current.Progress.CompletedQuestIDs) {
+				return routeLockedError(mapID)
+			}
+			return nil
+		}
+		if mapID := r.URL.Query().Get("mapId"); mapID != "" && !routeUnlocked(mapID, account.Progress.CompletedQuestIDs) {
+			apiFailure(w, routeLockedError(mapID))
+			return
+		}
+	}
+	a.world.ServeHTTP(w, r, account.Player, account.Progress, authorize)
 }
 
 func (a *App) Close() { a.world.Close(); a.store.Close() }

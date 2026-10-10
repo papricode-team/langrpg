@@ -23,7 +23,7 @@ export function normalizeParts(value: Partial<AvatarParts>): AvatarParts {
 }
 export const buildWidth = (_build: string) => 1;
 // One complete eight-pose cycle takes about 0.87s at normal outdoor speed.
-export const MODULAR_ART = { width: 64, height: 96, bodyHeight: 71, previewWidth: 128, previewHeight: 192, footY: .9, columns: 9, rows: 4, frameCount: 36, worldHeight: 72, cycleDistance: 192 };
+export const MODULAR_ART = { width: 128, height: 192, bodyHeight: 142, previewWidth: 128, previewHeight: 192, footY: .9, columns: 9, rows: 4, frameCount: 36, worldHeight: 72, cycleDistance: 384 };
 export function characterFrame(facing: number, phase?: number): number { return facing * 9 + (phase === undefined ? 0 : walkPoseColumn(phase)); }
 export const partTextureKey = (kind: string, id: string) => `player-layer-${kind}${id ? '-'+id : ''}`;
 export const modularAssets = [

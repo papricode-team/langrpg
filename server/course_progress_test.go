@@ -57,8 +57,8 @@ func TestContextExposesWordsWithoutTransferringPhraseMastery(t *testing.T) {
 		if word.Exposures != 1 || word.ContextExposures != 1 || word.DirectAttempts != 0 || word.Mastery != "exposed" || len(word.Cards) != 0 || len(word.ModeStats) != 0 {
 			t.Fatalf("context invented word mastery: %+v", word)
 		}
-		if word.DueAt != app.now().Add(time.Hour) {
-			t.Fatalf("new exposure has no first recall gate: %+v", word)
+		if !word.DueAt.IsZero() {
+			t.Fatalf("context exposure invented a recall deadline: %+v", word)
 		}
 	}
 	duplicate := courseAttempt(t, app, token, "context-once", "context-recognition", false)
@@ -268,7 +268,7 @@ func TestLegacyContextLinksMergeAndMigrateExposureOnlyOnce(t *testing.T) {
 				t.Fatalf("legacy phrase invented independent mastery %+v", word)
 			}
 		}
-		if p.XP != 24 || p.Items["item-one"].StabilityDays != 15 || p.WordExposureVersion != 1 {
+		if p.XP != 24 || p.Items["item-one"].StabilityDays != 15 || p.WordExposureVersion != 2 {
 			t.Fatal("migration changed existing learning")
 		}
 	}

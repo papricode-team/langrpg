@@ -40,9 +40,11 @@ type Player struct {
 }
 
 type ModeStats struct {
-	Attempts         int `json:"attempts"`
-	Correct          int `json:"correct"`
-	UnaidedSuccesses int `json:"unaidedSuccesses"`
+	Attempts         int   `json:"attempts"`
+	Correct          int   `json:"correct"`
+	UnaidedSuccesses int   `json:"unaidedSuccesses"`
+	TimedAttempts    int   `json:"timedAttempts,omitempty"`
+	ResponseTimeMs   int64 `json:"responseTimeMs,omitempty"`
 }
 
 type Memory struct {
@@ -127,14 +129,18 @@ type Progress struct {
 	ExerciseStats       map[string]ExerciseEvidence `json:"exerciseStats"`
 	RecentAttempts      map[string]AttemptEvidence  `json:"recentAttempts"`
 	WordExposureVersion int                         `json:"wordExposureVersion"`
+	Story               StoryState                  `json:"story"`
 }
 
 type Account struct {
-	Email        string    `json:"email,omitempty"`
-	PasswordHash string    `json:"passwordHash,omitempty"`
-	Player       Player    `json:"player"`
-	Progress     Progress  `json:"progress"`
-	CreatedAt    time.Time `json:"createdAt"`
+	Email                 string               `json:"email,omitempty"`
+	PasswordHash          string               `json:"passwordHash,omitempty"`
+	Player                Player               `json:"player"`
+	Progress              Progress             `json:"progress"`
+	CreatedAt             time.Time            `json:"createdAt"`
+	StorySaves            map[string]StorySave `json:"storySaves,omitempty"`
+	RewardedQuestIDs      []string             `json:"rewardedQuestIds,omitempty"`
+	RewardedExpeditionIDs []string             `json:"rewardedExpeditionIds,omitempty"`
 }
 
 type Receipt struct {
@@ -152,7 +158,7 @@ type SavedAction struct {
 }
 
 func newProgress() Progress {
-	p := Progress{WordExposureVersion: 1}
+	p := Progress{WordExposureVersion: 2}
 	ensureProgress(&p)
 	return p
 }
@@ -181,6 +187,7 @@ func ensureProgress(p *Progress) {
 	if p.RecentAttempts == nil {
 		p.RecentAttempts = map[string]AttemptEvidence{}
 	}
+	ensureStory(p)
 }
 
 func randomID(bytes int) (string, error) {

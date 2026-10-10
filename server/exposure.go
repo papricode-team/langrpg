@@ -153,9 +153,6 @@ func recordExposures(p *Progress, wordIDs []string, now time.Time) {
 		word.Exposures++
 		word.ContextExposures++
 		word.LastSeenAt = now.UTC()
-		if word.DueAt.IsZero() {
-			word.DueAt = now.Add(time.Hour)
-		}
 		if memory, exists := p.Items["word-"+id]; exists {
 			syncWordCards(&word, memory)
 		}

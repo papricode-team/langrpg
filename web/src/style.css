@@ -105,13 +105,12 @@ kbd {
   position:absolute;
   inset:0;
   z-index:2;
-  pointer-events:none;
-  transition:opacity .2s
+  pointer-events:none
 }
 .game-hud button,.chat-card,.joystick {
   pointer-events:auto
 }
-.game-shell[data-view]:not([data-view='world']) .game-hud,.encounter-open .game-hud {
+.game-shell[data-view]:not([data-view='world']) .game-hud,.game-shell:has(#dialog[open]) .game-hud {
   opacity:0;
   visibility:hidden
 }

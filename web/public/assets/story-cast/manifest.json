@@ -1,0 +1,21 @@
+{
+  "source": "art/source/story-cast/inspector-elise-directions.png",
+  "tool": "Built-in image_gen",
+  "cell": [
+    256,
+    384
+  ],
+  "rows": [
+    "inspector",
+    "elise"
+  ],
+  "directions": [
+    "south",
+    "east",
+    "north",
+    "west"
+  ],
+  "registration": "One uniform scale per character; soles at y=346; generated alpha preserved.",
+  "license": "Generated for The Lantern Atlas",
+  "prompt": "art/source/story-cast/prompt.txt"
+}

@@ -1,0 +1,20 @@
+{
+  "author": "The Lantern Atlas project",
+  "source": "scripts/generate-world-audio.mjs",
+  "license": "Original project compositions and synthesized audio; no external samples",
+  "sampleRate": 22050,
+  "seeds": [
+    8317
+  ],
+  "tracks": [
+    "lindenhafen",
+    "waldruh",
+    "nebelstadt"
+  ],
+  "arrangements": [
+    "day",
+    "night"
+  ],
+  "encoding": "Ogg Opus 64 kbps",
+  "note": "Generated instrumental sketches; human composition and recorded foley remain a production milestone."
+}

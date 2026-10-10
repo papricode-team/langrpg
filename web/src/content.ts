@@ -17,6 +17,8 @@ export interface Exercise {
   hint: string;
   explanation: string;
   acceptedAnswers?: string[];
+  /** Sentence starts, German nouns and formal Sie retain their authored capitals. */
+  caseSensitive?: boolean;
 }
 export interface Quest {
   id: string;
@@ -177,7 +179,9 @@ export const npcs: NPC[] = [
         "english": "It is nice to see you."
       }
     ]
-  }
+  },
+  { id: "inspector", name: "Inspector Voss", role: "Brass Office · responsible for the records", x: .815, y: .299, color: "#b09554", greeting: "Ihre Fahrkarte, bitte. Das Messingamt prüft jede Reise.", greetingSentences: [{ german: "Ihre Fahrkarte, bitte.", english: "Your ticket, please." }, { german: "Das Messingamt prüft jede Reise.", english: "The Brass Office checks every journey." }] },
+  { id: "elise", name: "Elise Sander", role: "Keeper of the Atlas · a promise still unfinished", x: .132, y: .322, color: "#5f8178", greeting: "Du bist gekommen. Lass uns die Namen gemeinsam bewahren.", greetingSentences: [{ german: "Du bist gekommen.", english: "You came." }, { german: "Lass uns die Namen gemeinsam bewahren.", english: "Let us preserve the names together." }] }
 ];
 
 export const chapters: Chapter[] = [
@@ -239,12 +243,12 @@ export const quests: Quest[] = [
         "english": "Letters are disappearing from its sign."
       },
       {
-        "german": "Jemand hat eine fast leere Seite in dein Gepäck gelegt.",
-        "english": "Someone has put an almost blank page in your luggage."
+        "german": "Elise hat einen Brief für dich geschickt.",
+        "english": "Elise has sent a letter for you."
       },
       {
-        "german": "Auf der Seite steht nur noch ein Satz: „Lass sie nicht die siebte Glocke läuten!“",
-        "english": "Only one sentence remains on the page: “Do not let them ring the seventh bell!”"
+        "german": "Im Brief steht: „Lass sie nicht die siebte Glocke läuten!“",
+        "english": "The letter says: “Do not let them ring the seventh bell!”"
       },
       {
         "german": "Lerne Otto kennen und bitte ihn um Hilfe.",
@@ -296,6 +300,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Introduce a traveller called Alex.",
         "german": "Ich heiße Alex.",
         "english": "My name is Alex.",
@@ -312,6 +317,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Write the line: \"I come from England.\"",
         "german": "Ich komme aus England.",
         "english": "I come from England.",
@@ -342,19 +348,20 @@ export const quests: Quest[] = [
         "prompt": "Listen to the traveller. Which language do they speak?",
         "german": "Ich spreche Englisch.",
         "english": "I speak English.",
-        "answer": "English",
+        "answer": "Englisch",
         "hint": "Listen for the language after spreche.",
         "explanation": "sprechen means to speak; Englisch means English.",
         "options": [
-          "English",
-          "German",
-          "French"
+          "Englisch",
+          "Deutsch",
+          "Französisch"
         ],
         "id": "a1-arrival-exercise-5",
         "itemId": "a1-arrival-item-5"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Ask Otto politely to help you.",
         "german": "Helfen Sie mir bitte.",
         "english": "Please help me.",
@@ -372,6 +379,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask Otto to repeat: \"Once again, please.\"",
         "german": "Noch einmal, bitte.",
         "english": "Once again, please.",
@@ -447,6 +455,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Order a coffee politely.",
         "german": "Ich möchte einen Kaffee.",
         "english": "I would like a coffee.",
@@ -480,6 +489,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask: \"How much does the tea cost?\"",
         "german": "Was kostet der Tee?",
         "english": "How much does the tea cost?",
@@ -494,19 +504,20 @@ export const quests: Quest[] = [
         "prompt": "Listen to the price. How much is the tea?",
         "german": "Der Tee kostet drei Euro.",
         "english": "The tea costs three euros.",
-        "answer": "€3",
+        "answer": "drei Euro",
         "hint": "drei is three.",
         "explanation": "German uses Euro after a number without adding an s.",
         "options": [
-          "€3",
-          "€2",
-          "€13"
+          "drei Euro",
+          "zwei Euro",
+          "dreizehn Euro"
         ],
         "id": "a1-cafe-exercise-4",
         "itemId": "a1-cafe-item-4"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Choose a water: \"I will have a water.\"",
         "german": "Ich nehme ein Wasser.",
         "english": "I will have a water.",
@@ -543,13 +554,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. Does the customer want to order more?",
         "german": "Danke, das ist alles.",
         "english": "Thank you, that is everything.",
-        "answer": "No, the order is complete.",
+        "answer": "Nein, das ist alles.",
         "hint": "alles means everything.",
         "explanation": "das ist alles tells the server that the order is complete.",
         "options": [
-          "No, the order is complete.",
-          "Yes, another coffee.",
-          "They want the menu."
+          "Nein, das ist alles.",
+          "Ja, noch einen Kaffee.",
+          "Die Speisekarte, bitte."
         ],
         "id": "a1-cafe-exercise-7",
         "itemId": "a1-cafe-item-7"
@@ -618,6 +629,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say that you need two apples.",
         "german": "Ich brauche zwei Äpfel.",
         "english": "I need two apples.",
@@ -651,6 +663,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Request one kilo of potatoes.",
         "german": "Ein Kilo Kartoffeln, bitte.",
         "english": "One kilo of potatoes, please.",
@@ -670,13 +683,13 @@ export const quests: Quest[] = [
         "prompt": "Listen to the total. What must you pay?",
         "german": "Das kostet fünf Euro fünfzig.",
         "english": "That costs five euros fifty.",
-        "answer": "€5.50",
+        "answer": "fünf Euro fünfzig",
         "hint": "fünfzig is fifty.",
         "explanation": "In everyday prices, fünf Euro fünfzig means €5.50.",
         "options": [
-          "€5.50",
-          "€15.00",
-          "€5.15"
+          "fünf Euro fünfzig",
+          "fünfzehn Euro",
+          "fünf Euro fünfzehn"
         ],
         "id": "a1-market-exercise-4",
         "itemId": "a1-market-item-4"
@@ -699,6 +712,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Tell Fritz you are paying by card.",
         "german": "Ich bezahle mit Karte.",
         "english": "I am paying by card.",
@@ -719,13 +733,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. What is the customer’s problem?",
         "german": "Das ist zu teuer.",
         "english": "That is too expensive.",
-        "answer": "The price is too high.",
+        "answer": "Der Preis ist zu hoch.",
         "hint": "zu before teuer means too.",
         "explanation": "zu teuer expresses that something costs more than the speaker wants to pay.",
         "options": [
-          "The price is too high.",
-          "The tomatoes are fresh.",
-          "The card is missing."
+          "Der Preis ist zu hoch.",
+          "Die Tomaten sind frisch.",
+          "Die Karte fehlt."
         ],
         "id": "a1-market-exercise-7",
         "itemId": "a1-market-item-7"
@@ -813,19 +827,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. When does the train leave?",
         "german": "Der Zug fährt um neun Uhr.",
         "english": "The train leaves at nine o’clock.",
-        "answer": "09:00",
+        "answer": "neun Uhr",
         "hint": "neun means nine; um introduces the time.",
         "explanation": "um neun Uhr is at nine o’clock.",
         "options": [
-          "09:00",
-          "19:00",
-          "08:00"
+          "neun Uhr",
+          "neunzehn Uhr",
+          "acht Uhr"
         ],
         "id": "a1-station-exercise-2",
         "itemId": "a1-station-item-2"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Request a ticket to Berlin.",
         "german": "Ein Ticket nach Berlin, bitte.",
         "english": "A ticket to Berlin, please.",
@@ -847,19 +862,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Which platform do you need?",
         "german": "Der Zug fährt von Gleis zwei ab.",
         "english": "The train departs from platform two.",
-        "answer": "Platform 2",
+        "answer": "Gleis zwei",
         "hint": "Listen for the number after Gleis.",
         "explanation": "abfahren is separable: the ab appears at the end of the sentence.",
         "options": [
-          "Platform 2",
-          "Platform 3",
-          "Platform 12"
+          "Gleis zwei",
+          "Gleis drei",
+          "Gleis zwölf"
         ],
         "id": "a1-station-exercise-4",
         "itemId": "a1-station-item-4"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask whether this seat is available.",
         "german": "Ist dieser Platz frei?",
         "english": "Is this seat free?",
@@ -871,6 +887,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say: \"I have to go home today.\"",
         "german": "Ich muss heute nach Hause.",
         "english": "I have to go home today.",
@@ -962,19 +979,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Where is the key?",
         "german": "Der Schlüssel ist auf dem Tisch.",
         "english": "The key is on the table.",
-        "answer": "On the table",
+        "answer": "Auf dem Tisch",
         "hint": "Tisch means table; auf means on.",
         "explanation": "auf dem Tisch describes a location. Learn this as a useful whole phrase.",
         "options": [
-          "On the table",
-          "Under the chair",
-          "In the cupboard"
+          "Auf dem Tisch",
+          "Unter dem Stuhl",
+          "Im Schrank"
         ],
         "id": "a1-workshop-exercise-1",
         "itemId": "a1-workshop-item-1"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Tell Emil that you need a lamp.",
         "german": "Ich brauche eine Lampe.",
         "english": "I need a lamp.",
@@ -1011,19 +1029,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Is the window open or closed?",
         "german": "Das Fenster ist geschlossen.",
         "english": "The window is closed.",
-        "answer": "Closed",
+        "answer": "Geschlossen",
         "hint": "geschlossen means closed.",
         "explanation": "Fenster is neuter: das Fenster.",
         "options": [
-          "Closed",
-          "Open",
-          "Broken"
+          "Geschlossen",
+          "Offen",
+          "Kaputt"
         ],
         "id": "a1-workshop-exercise-4",
         "itemId": "a1-workshop-item-4"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask: \"Can I have the pen?\"",
         "german": "Kann ich den Stift haben?",
         "english": "Can I have the pen?",
@@ -1035,6 +1054,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Ask a customer politely to wait here.",
         "german": "Bitte warten Sie hier.",
         "english": "Please wait here.",
@@ -1146,6 +1166,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask Lina: \"What is the address?\"",
         "german": "Wie ist die Adresse?",
         "english": "What is the address?",
@@ -1163,19 +1184,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Which direction is the pharmacy?",
         "german": "Die Apotheke ist links.",
         "english": "The pharmacy is on the left.",
-        "answer": "Left",
+        "answer": "Links",
         "hint": "links means on the left.",
         "explanation": "die Apotheke is the pharmacy; rechts would mean on the right.",
         "options": [
-          "Left",
-          "Right",
-          "Straight ahead"
+          "Links",
+          "Rechts",
+          "Geradeaus"
         ],
         "id": "a1-lost-parcel-exercise-3",
         "itemId": "a1-lost-parcel-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Give the polite direction: \"Go straight ahead.\"",
         "german": "Gehen Sie geradeaus.",
         "english": "Go straight ahead.",
@@ -1208,6 +1230,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Hand Marta the parcel politely.",
         "german": "Hier ist Ihr Paket.",
         "english": "Here is your parcel.",
@@ -1228,13 +1251,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. Why is the courier apologizing?",
         "german": "Entschuldigung, ich bin zu spät.",
         "english": "Sorry, I am late.",
-        "answer": "They are late.",
+        "answer": "Die Person kommt zu spät.",
         "hint": "zu spät means late.",
         "explanation": "Entschuldigung is a common apology or way to get someone’s attention.",
         "options": [
-          "They are late.",
-          "The parcel is empty.",
-          "They lost their ticket."
+          "Die Person kommt zu spät.",
+          "Das Paket ist leer.",
+          "Die Person hat ihre Fahrkarte verloren."
         ],
         "id": "a1-lost-parcel-exercise-7",
         "itemId": "a1-lost-parcel-item-7"
@@ -1287,6 +1310,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say that you are looking for an apartment.",
         "german": "Ich suche eine Wohnung.",
         "english": "I am looking for an apartment.",
@@ -1304,6 +1328,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Explain the problem: \"The rent is too high.\"",
         "german": "Die Miete ist zu hoch.",
         "english": "The rent is too high.",
@@ -1318,19 +1343,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. How many rooms does the apartment have?",
         "german": "Die Wohnung hat zwei Zimmer und einen Balkon.",
         "english": "The apartment has two rooms and a balcony.",
-        "answer": "Two rooms",
+        "answer": "Zwei Zimmer",
         "hint": "Listen for the number before Zimmer.",
         "explanation": "einen Balkon is the masculine object after hat.",
         "options": [
-          "Two rooms",
-          "Three rooms",
-          "One room"
+          "Zwei Zimmer",
+          "Drei Zimmer",
+          "Ein Zimmer"
         ],
         "id": "a2-apartment-exercise-3",
         "itemId": "a2-apartment-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say: \"I have been living here for three months.\"",
         "german": "Ich wohne seit drei Monaten hier.",
         "english": "I have been living here for three months.",
@@ -1366,6 +1392,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask politely: \"Could you please repair that?\"",
         "german": "Könnten Sie das bitte reparieren?",
         "english": "Could you please repair that?",
@@ -1383,13 +1410,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. Why is the speaker moving?",
         "german": "Ich ziehe um, weil die Wohnung zu klein ist.",
         "english": "I am moving because the apartment is too small.",
-        "answer": "The apartment is too small.",
+        "answer": "Die Wohnung ist zu klein.",
         "hint": "Listen to the reason after weil.",
         "explanation": "In a weil clause, the finite verb goes at the end: zu klein ist.",
         "options": [
-          "The apartment is too small.",
-          "The rent is low.",
-          "The station is closed."
+          "Die Wohnung ist zu klein.",
+          "Die Miete ist niedrig.",
+          "Der Bahnhof ist geschlossen."
         ],
         "id": "a2-apartment-exercise-7",
         "itemId": "a2-apartment-item-7"
@@ -1442,6 +1469,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Ask a friend whether they have time tomorrow.",
         "german": "Hast du morgen Zeit?",
         "english": "Do you have time tomorrow?",
@@ -1462,19 +1490,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. At what time is the meeting?",
         "german": "Wir treffen uns am Samstag um halb sieben.",
         "english": "We are meeting on Saturday at half past six.",
-        "answer": "18:30",
+        "answer": "halb sieben",
         "hint": "halb sieben is halfway to seven: 6:30. This is an evening meeting.",
         "explanation": "German halb names the following hour. am Samstag gives the day.",
         "options": [
-          "18:30",
-          "19:30",
-          "17:30"
+          "halb sieben",
+          "halb acht",
+          "halb sechs"
         ],
         "id": "a2-evening-plans-exercise-2",
         "itemId": "a2-evening-plans-item-2"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Accept enthusiastically: \"I would like to come along.\"",
         "german": "Ich würde gern mitkommen.",
         "english": "I would like to come along.",
@@ -1505,6 +1534,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say that you prefer vegetables to meat.",
         "german": "Ich esse lieber Gemüse als Fleisch.",
         "english": "I prefer eating vegetables to meat.",
@@ -1527,19 +1557,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Why are they staying home?",
         "german": "Wir bleiben zu Hause, weil es regnet.",
         "english": "We are staying at home because it is raining.",
-        "answer": "It is raining.",
+        "answer": "Es regnet.",
         "hint": "regnen means to rain.",
         "explanation": "zu Hause is at home; nach Hause is a destination.",
         "options": [
-          "It is raining.",
-          "They are tired.",
-          "The café is expensive."
+          "Es regnet.",
+          "Sie sind müde.",
+          "Das Café ist teuer."
         ],
         "id": "a2-evening-plans-exercise-6",
         "itemId": "a2-evening-plans-item-6"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask: \"Can we postpone the appointment?\"",
         "german": "Können wir den Termin verschieben?",
         "english": "Can we postpone the appointment?",
@@ -1601,6 +1632,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask whether you must change trains in Hamburg.",
         "german": "Muss ich in Hamburg umsteigen?",
         "english": "Do I have to change trains in Hamburg?",
@@ -1615,19 +1647,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. How long until the connecting train leaves?",
         "german": "Der Anschlusszug fährt in zwanzig Minuten ab.",
         "english": "The connecting train leaves in twenty minutes.",
-        "answer": "20 minutes",
+        "answer": "Zwanzig Minuten",
         "hint": "zwanzig means twenty.",
         "explanation": "in zwanzig Minuten describes how long from now until departure.",
         "options": [
-          "20 minutes",
-          "12 minutes",
-          "2 minutes"
+          "Zwanzig Minuten",
+          "Zwölf Minuten",
+          "Zwei Minuten"
         ],
         "id": "a2-rail-trip-exercise-2",
         "itemId": "a2-rail-trip-item-2"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Explain that you missed your connection.",
         "german": "Ich habe meinen Anschluss verpasst.",
         "english": "I missed my connection.",
@@ -1662,6 +1695,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask whether the price includes the return journey.",
         "german": "Ist die Rückfahrt im Preis enthalten?",
         "english": "Is the return journey included in the price?",
@@ -1673,6 +1707,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Ask to cancel the ticket.",
         "german": "Ich möchte das Ticket stornieren.",
         "english": "I would like to cancel the ticket.",
@@ -1694,13 +1729,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. What transport is not running today?",
         "german": "Wegen einer Störung fährt der Bus heute nicht.",
         "english": "Because of a disruption, the bus is not running today.",
-        "answer": "The bus",
+        "answer": "Der Bus",
         "hint": "Bus is the vehicle mentioned.",
         "explanation": "wegen introduces the reason; einer Störung means a disruption.",
         "options": [
-          "The bus",
-          "The train",
-          "The ferry"
+          "Der Bus",
+          "Der Zug",
+          "Die Fähre"
         ],
         "id": "a2-rail-trip-exercise-7",
         "itemId": "a2-rail-trip-item-7"
@@ -1757,6 +1792,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Report: \"I found the key yesterday.\"",
         "german": "Ich habe gestern den Schlüssel gefunden.",
         "english": "I found the key yesterday.",
@@ -1779,19 +1815,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. What happened first?",
         "german": "Zuerst habe ich aufgeräumt, dann habe ich gekocht.",
         "english": "First I tidied up, then I cooked.",
-        "answer": "Tidying up",
+        "answer": "Aufräumen",
         "hint": "zuerst marks the first action.",
         "explanation": "zuerst and dann help put a report in a clear sequence.",
         "options": [
-          "Tidying up",
-          "Cooking",
-          "Shopping"
+          "Aufräumen",
+          "Kochen",
+          "Einkaufen"
         ],
         "id": "a2-broken-clock-exercise-2",
         "itemId": "a2-broken-clock-item-2"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask a friend to explain the instructions to you.",
         "german": "Kannst du mir die Anleitung erklären?",
         "english": "Can you explain the instructions to me?",
@@ -1819,6 +1856,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Describe where the tools are: under the chair.",
         "german": "Das Werkzeug liegt unter dem Stuhl.",
         "english": "The tools are under the chair.",
@@ -1838,6 +1876,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Explain: \"I forgot to close the window.\"",
         "german": "Ich habe vergessen, das Fenster zu schließen.",
         "english": "I forgot to close the window.",
@@ -1914,6 +1953,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Describe a headache that started yesterday and continues.",
         "german": "Ich habe seit gestern Kopfschmerzen.",
         "english": "I have had a headache since yesterday.",
@@ -1932,6 +1972,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask for an appointment with the doctor.",
         "german": "Ich brauche einen Termin beim Arzt.",
         "english": "I need an appointment with the doctor.",
@@ -1946,13 +1987,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. When does the office open?",
         "german": "Die Praxis öffnet um Viertel nach acht.",
         "english": "The doctor’s office opens at quarter past eight.",
-        "answer": "08:15",
+        "answer": "Viertel nach acht",
         "hint": "Viertel nach means quarter past.",
         "explanation": "Viertel nach acht is 8:15. Viertel vor acht would be 7:45.",
         "options": [
-          "08:15",
-          "08:45",
-          "07:45"
+          "Viertel nach acht",
+          "Viertel vor neun",
+          "Viertel vor acht"
         ],
         "id": "a2-clinic-exercise-3",
         "itemId": "a2-clinic-item-3"
@@ -1975,6 +2016,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Give the polite advice: \"You should rest.\"",
         "german": "Sie sollten sich ausruhen.",
         "english": "You should rest.",
@@ -1992,6 +2034,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Say: \"I am already feeling better.\"",
         "german": "Mir geht es schon besser.",
         "english": "I am already feeling better.",
@@ -2009,13 +2052,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. What should the patient bring?",
         "german": "Bitte bringen Sie Ihre Versicherungskarte mit.",
         "english": "Please bring your insurance card with you.",
-        "answer": "Their insurance card",
+        "answer": "Die Versicherungskarte",
         "hint": "Listen for Versicherungskarte.",
         "explanation": "mitbringen is separable: bringen … mit.",
         "options": [
-          "Their insurance card",
-          "Their train ticket",
-          "Their shopping list"
+          "Die Versicherungskarte",
+          "Die Fahrkarte",
+          "Die Einkaufsliste"
         ],
         "id": "a2-clinic-exercise-7",
         "itemId": "a2-clinic-item-7"
@@ -2072,6 +2115,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Compare the old station with today: it used to be smaller.",
         "german": "Früher war der Bahnhof kleiner.",
         "english": "The station used to be smaller.",
@@ -2093,19 +2137,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. How did Ada often travel as a child?",
         "german": "Als Kind bin ich oft mit dem Zug gefahren.",
         "english": "As a child, I often travelled by train.",
-        "answer": "By train",
+        "answer": "Mit dem Zug",
         "hint": "mit dem Zug means by train.",
         "explanation": "fahren uses sein in the perfect when it describes travel: bin … gefahren.",
         "options": [
-          "By train",
-          "By bicycle",
-          "On foot"
+          "Mit dem Zug",
+          "Mit dem Fahrrad",
+          "Zu Fuß"
         ],
         "id": "a2-archive-exercise-2",
         "itemId": "a2-archive-item-2"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask Ada how long she has worked here, using Sie.",
         "german": "Seit wann arbeiten Sie hier?",
         "english": "Since when have you worked here?",
@@ -2133,6 +2178,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Tell Ada that you are interested in history.",
         "german": "Ich interessiere mich für Geschichte.",
         "english": "I am interested in history.",
@@ -2151,6 +2197,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Ask politely for a more detailed explanation.",
         "german": "Können Sie mir das genauer erklären?",
         "english": "Can you explain that to me in more detail?",
@@ -2168,13 +2215,13 @@ export const quests: Quest[] = [
         "prompt": "Listen. Where is the library now?",
         "german": "Die Bibliothek ist inzwischen in die Altstadt umgezogen.",
         "english": "The library has since moved to the old town.",
-        "answer": "In the old town",
+        "answer": "In der Altstadt",
         "hint": "Altstadt means old town.",
         "explanation": "inzwischen refers to a change between an earlier time and now; umziehen uses sein for moving home or premises.",
         "options": [
-          "In the old town",
-          "At the station",
-          "By the market"
+          "In der Altstadt",
+          "Am Bahnhof",
+          "Am Markt"
         ],
         "id": "a2-archive-exercise-7",
         "itemId": "a2-archive-item-7"
@@ -2223,6 +2270,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Report: \"When I arrived at the station, the train had already gone.\"",
         "german": "Als ich am Bahnhof ankam, war der Zug schon weg.",
         "english": "When I arrived at the station, the train had already gone.",
@@ -2249,19 +2297,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Why could the witness not identify the person?",
         "german": "Ich konnte ihr Gesicht nicht erkennen, weil es zu dunkel war.",
         "english": "I could not make out her face because it was too dark.",
-        "answer": "It was too dark.",
+        "answer": "Es war zu dunkel.",
         "hint": "Look for the reason after weil.",
         "explanation": "erkennen means recognize or make out. war ends the weil clause.",
         "options": [
-          "It was too dark.",
-          "The witness forgot their glasses.",
-          "The person ran away."
+          "Es war zu dunkel.",
+          "Die Zeugin hatte ihre Brille vergessen.",
+          "Die Person ist weggelaufen."
         ],
         "id": "b1-witness-exercise-2",
         "itemId": "b1-witness-item-2"
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Write a cautious response: \"I am not sure whether that is true.\"",
         "german": "Ich bin mir nicht sicher, ob das stimmt.",
         "english": "I am not sure whether that is true.",
@@ -2278,6 +2327,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Put the events in order: she waited first and left afterwards.",
         "german": "Zuerst hat sie gewartet, danach ist sie gegangen.",
         "english": "First she waited; afterwards she left.",
@@ -2315,6 +2365,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Ask politely for a description of what the witness saw.",
         "german": "Könnten Sie beschreiben, was Sie gesehen haben?",
         "english": "Could you describe what you saw?",
@@ -2335,6 +2386,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Offer a possibility: \"Perhaps she took the wrong train.\"",
         "german": "Vielleicht hat sie den falschen Zug genommen.",
         "english": "Perhaps she took the wrong train.",
@@ -2391,6 +2443,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Give a backup plan: if the train is cancelled, take the bus.",
         "german": "Wenn der Zug ausfällt, nehmen wir den Bus.",
         "english": "If the train is cancelled, we will take the bus.",
@@ -2412,6 +2465,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Write the group’s goal: \"We must find a solution that works for everyone.\"",
         "german": "Wir müssen eine Lösung finden, die für alle passt.",
         "english": "We must find a solution that works for everyone.",
@@ -2431,19 +2485,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. What is the disadvantage of the new route?",
         "german": "Die neue Strecke wäre kürzer, aber die Fahrkarten wären teurer.",
         "english": "The new route would be shorter, but the tickets would be more expensive.",
-        "answer": "The tickets would cost more.",
+        "answer": "Die Fahrkarten wären teurer.",
         "hint": "The disadvantage follows aber.",
         "explanation": "wäre and wären describe a hypothetical situation; teurer means more expensive.",
         "options": [
-          "The tickets would cost more.",
-          "The journey would take longer.",
-          "There would be fewer trains."
+          "Die Fahrkarten wären teurer.",
+          "Die Fahrt würde länger dauern.",
+          "Es gäbe weniger Züge."
         ],
         "id": "b1-new-route-exercise-3",
         "itemId": "b1-new-route-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Suggest walking instead of waiting.",
         "german": "Statt zu warten, könnten wir zu Fuß gehen.",
         "english": "Instead of waiting, we could walk.",
@@ -2481,6 +2536,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Explain that the longer route is nevertheless cheaper.",
         "german": "Obwohl die Strecke länger ist, ist sie günstiger.",
         "english": "Although the route is longer, it is cheaper.",
@@ -2502,6 +2558,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Suggest leaving earlier using a dass clause.",
         "german": "Ich schlage vor, dass wir früher losfahren.",
         "english": "I suggest that we leave earlier.",
@@ -2564,6 +2621,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Describe experience dealing with customers.",
         "german": "Ich habe Erfahrung im Umgang mit Kunden.",
         "english": "I have experience dealing with customers.",
@@ -2584,6 +2642,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Write: \"My responsibilities include scheduling appointments.\"",
         "german": "Zu meinen Aufgaben gehört die Planung der Termine.",
         "english": "My responsibilities include scheduling appointments.",
@@ -2601,19 +2660,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. What is different on Fridays?",
         "german": "Die Arbeitszeit beginnt um acht, aber freitags arbeiten wir von zu Hause.",
         "english": "Work starts at eight, but on Fridays we work from home.",
-        "answer": "They work from home.",
+        "answer": "Sie arbeiten von zu Hause.",
         "hint": "The difference follows aber freitags.",
         "explanation": "freitags means on Fridays regularly; von zu Hause means from home.",
         "options": [
-          "They work from home.",
-          "They start at ten.",
-          "They do not work."
+          "Sie arbeiten von zu Hause.",
+          "Sie beginnen um zehn.",
+          "Sie arbeiten nicht."
         ],
         "id": "b1-work-exercise-3",
         "itemId": "b1-work-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Explain that you want to take on more responsibility.",
         "german": "Ich würde gern mehr Verantwortung übernehmen.",
         "english": "I would like to take on more responsibility.",
@@ -2649,6 +2709,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Say you want to clarify the conditions before starting.",
         "german": "Bevor ich anfange, möchte ich die Bedingungen klären.",
         "english": "Before I start, I would like to clarify the conditions.",
@@ -2670,6 +2731,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Describe these two strengths: learning quickly and enjoying teamwork.",
         "german": "Ich lerne schnell und arbeite gern im Team.",
         "english": "I learn quickly and enjoy working in a team.",
@@ -2730,6 +2792,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "State your opinion that the route should reopen.",
         "german": "Meiner Meinung nach sollten wir die Strecke wieder öffnen.",
         "english": "In my opinion, we should reopen the route.",
@@ -2752,6 +2815,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Support the plan because the connection is important.",
         "german": "Ich bin dafür, weil die Verbindung wichtig ist.",
         "english": "I am in favour because the connection is important.",
@@ -2771,19 +2835,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. What concerns the speaker?",
         "german": "Ich verstehe den Vorschlag, trotzdem mache ich mir Sorgen um die Kosten.",
         "english": "I understand the proposal; nevertheless, I am worried about the costs.",
-        "answer": "The costs",
+        "answer": "Die Kosten",
         "hint": "The concern follows Sorgen um.",
         "explanation": "sich Sorgen machen um means worry about; trotzdem expresses nevertheless.",
         "options": [
-          "The costs",
-          "The timetable",
-          "The weather"
+          "Die Kosten",
+          "Der Fahrplan",
+          "Das Wetter"
         ],
         "id": "b1-council-exercise-3",
         "itemId": "b1-council-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Agree with Ada politely.",
         "german": "Da stimme ich Ihnen zu.",
         "english": "I agree with you on that.",
@@ -2818,6 +2883,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Propose a one-week trial before a final decision.",
         "german": "Wir könnten zunächst eine Woche lang testen.",
         "english": "We could test it for one week first.",
@@ -2838,6 +2904,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Propose gradually reopening the route as a compromise.",
         "german": "Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.",
         "english": "A compromise would be to open the route gradually.",
@@ -2900,6 +2967,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Report that the storm caused the event to be cancelled.",
         "german": "Wegen des Sturms wurde die Veranstaltung abgesagt.",
         "english": "The event was cancelled because of the storm.",
@@ -2920,6 +2988,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Recommend informing the guests beforehand.",
         "german": "Es wäre besser, die Gäste vorher zu informieren.",
         "english": "It would be better to inform the guests beforehand.",
@@ -2939,19 +3008,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. Where will the festival take place if the rain continues?",
         "german": "Falls es weiter regnet, findet das Fest in der Halle statt.",
         "english": "If it keeps raining, the festival will take place in the hall.",
-        "answer": "In the hall",
+        "answer": "In der Halle",
         "hint": "Listen to the location after findet.",
         "explanation": "falls introduces a possible condition; stattfinden is separable in the main clause.",
         "options": [
-          "In the hall",
-          "In the garden",
-          "At the station"
+          "In der Halle",
+          "Im Garten",
+          "Am Bahnhof"
         ],
         "id": "b1-storm-exercise-3",
         "itemId": "b1-storm-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Recommend avoiding unnecessary rubbish.",
         "german": "Wir sollten vermeiden, unnötig Müll zu produzieren.",
         "english": "We should avoid producing unnecessary rubbish.",
@@ -2988,6 +3058,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Advise a friend to get help using a hypothetical condition.",
         "german": "Wenn ich an deiner Stelle wäre, würde ich Hilfe holen.",
         "english": "If I were in your position, I would get help.",
@@ -3011,6 +3082,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Emphasize that solving the problem requires everyone.",
         "german": "Wir können das Problem nur gemeinsam lösen.",
         "english": "We can only solve the problem together.",
@@ -3030,7 +3102,7 @@ export const quests: Quest[] = [
     "level": "B1",
     "title": "The page nobody wanted to write",
     "subtitle": "The truth belongs to the people who live it",
-    "npcId": "ada",
+    "npcId": "elise",
     "location": "Nebelstadt · The last Atlas page",
     "story": [
       {
@@ -3071,6 +3143,7 @@ export const quests: Quest[] = [
     "exercises": [
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Summarize the report: both sides made mistakes.",
         "german": "Der Bericht zeigt, dass beide Seiten Fehler gemacht haben.",
         "english": "The report shows that both sides made mistakes.",
@@ -3093,6 +3166,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Explain her intention: preventing the dispute from getting worse.",
         "german": "Sie wollte verhindern, dass der Streit schlimmer wird.",
         "english": "She wanted to prevent the dispute from getting worse.",
@@ -3112,19 +3186,20 @@ export const quests: Quest[] = [
         "prompt": "Listen. What matters most to the residents?",
         "german": "Die Bewohner wünschen sich eine Verbindung, auf die sie sich verlassen können.",
         "english": "The residents want a connection they can rely on.",
-        "answer": "A reliable connection",
+        "answer": "Eine zuverlässige Verbindung",
         "hint": "sich verlassen auf means rely on.",
         "explanation": "The relative clause describes the connection. auf die refers back to feminine Verbindung.",
         "options": [
-          "A reliable connection",
-          "A cheaper café",
-          "A bigger archive"
+          "Eine zuverlässige Verbindung",
+          "Ein günstigeres Café",
+          "Ein größeres Archiv"
         ],
         "id": "b1-atlas-exercise-3",
         "itemId": "b1-atlas-item-3"
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Check whether Ada means that she needs more time.",
         "german": "Habe ich Sie richtig verstanden, dass Sie mehr Zeit brauchen?",
         "english": "Have I understood you correctly that you need more time?",
@@ -3164,6 +3239,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "sentence",
+        "caseSensitive": true,
         "prompt": "Create an agreement to discuss problems early.",
         "german": "Wir vereinbaren, dass wir Probleme frühzeitig besprechen.",
         "english": "We agree that we will discuss problems early.",
@@ -3184,6 +3260,7 @@ export const quests: Quest[] = [
       },
       {
         "mode": "type",
+        "caseSensitive": true,
         "prompt": "Finish your message by looking forward to discovering the new route together.",
         "german": "Ich freue mich darauf, die neue Strecke gemeinsam zu entdecken.",
         "english": "I look forward to discovering the new route together.",

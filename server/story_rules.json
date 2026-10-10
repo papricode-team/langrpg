@@ -1,0 +1,850 @@
+{
+  "rules": [
+    {
+      "questId": "a1-arrival",
+      "mapId": "lindenhafen",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.815,
+        "y": 0.299
+      },
+      "gateExerciseId": "a1-arrival-exercise-6",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-platform-ticket",
+        "lindenhafen-noticeboard"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-platform-ticket",
+          "x": 0.8370000000000001,
+          "y": 0.347
+        },
+        {
+          "id": "lindenhafen-noticeboard",
+          "x": 0.809,
+          "y": 0.328
+        }
+      ]
+    },
+    {
+      "questId": "a1-cafe",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.442,
+        "y": 0.459
+      },
+      "gateExerciseId": "a1-cafe-exercise-1",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-cafe-receipt"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-cafe-receipt",
+          "x": 0.458,
+          "y": 0.489
+        }
+      ]
+    },
+    {
+      "questId": "a1-market",
+      "mapId": "lindenhafen",
+      "npcId": "fritz",
+      "npc": {
+        "id": "fritz",
+        "x": 0.775,
+        "y": 0.475
+      },
+      "gateExerciseId": "a1-market-exercise-1",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-market-crate",
+        "lindenhafen-garden"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-market-crate",
+          "x": 0.762,
+          "y": 0.509
+        },
+        {
+          "id": "lindenhafen-garden",
+          "x": 0.415,
+          "y": 0.677
+        }
+      ]
+    },
+    {
+      "questId": "a1-station",
+      "mapId": "lindenhafen",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.815,
+        "y": 0.299
+      },
+      "gateExerciseId": "a1-station-exercise-5",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-noticeboard"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-noticeboard",
+          "x": 0.809,
+          "y": 0.328
+        }
+      ]
+    },
+    {
+      "questId": "a1-workshop",
+      "mapId": "lindenhafen",
+      "npcId": "emil",
+      "npc": {
+        "id": "emil",
+        "x": 0.228,
+        "y": 0.738
+      },
+      "gateExerciseId": "a1-workshop-exercise-2",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-workbench"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-workbench",
+          "x": 0.241,
+          "y": 0.763
+        }
+      ]
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "mapId": "lindenhafen",
+      "npcId": "lina",
+      "npc": {
+        "id": "lina",
+        "x": 0.603,
+        "y": 0.68
+      },
+      "gateExerciseId": "a1-lost-parcel-exercise-2",
+      "choiceIds": [
+        "report",
+        "protect"
+      ],
+      "choices": [
+        {
+          "id": "report",
+          "effects": [
+            {
+              "faction": "brassOffice",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "protect",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-parcel"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-parcel",
+          "x": 0.665,
+          "y": 0.743
+        }
+      ]
+    },
+    {
+      "questId": "a2-apartment",
+      "mapId": "waldruh",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.28,
+        "y": 0.346
+      },
+      "gateExerciseId": "a2-apartment-exercise-6",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-housing-board"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-housing-board",
+          "x": 0.379,
+          "y": 0.363
+        }
+      ]
+    },
+    {
+      "questId": "a2-evening-plans",
+      "mapId": "waldruh",
+      "npcId": "fritz",
+      "npc": {
+        "id": "fritz",
+        "x": 0.592,
+        "y": 0.719
+      },
+      "gateExerciseId": "a2-evening-plans-exercise-1",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-herb-garden"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-herb-garden",
+          "x": 0.637,
+          "y": 0.782
+        }
+      ]
+    },
+    {
+      "questId": "a2-rail-trip",
+      "mapId": "waldruh",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.73,
+        "y": 0.307
+      },
+      "gateExerciseId": "a2-rail-trip-exercise-3",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-route-sign"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-route-sign",
+          "x": 0.626,
+          "y": 0.295
+        }
+      ]
+    },
+    {
+      "questId": "a2-broken-clock",
+      "mapId": "waldruh",
+      "npcId": "emil",
+      "npc": {
+        "id": "emil",
+        "x": 0.3,
+        "y": 0.657
+      },
+      "gateExerciseId": "a2-broken-clock-exercise-3",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-clock",
+        "waldruh-memory-stone"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-clock",
+          "x": 0.771,
+          "y": 0.548
+        },
+        {
+          "id": "waldruh-memory-stone",
+          "x": 0.19499999999999998,
+          "y": 0.827
+        }
+      ]
+    },
+    {
+      "questId": "a2-clinic",
+      "mapId": "waldruh",
+      "npcId": "greta",
+      "npc": {
+        "id": "greta",
+        "x": 0.637,
+        "y": 0.816
+      },
+      "gateExerciseId": "a2-clinic-exercise-5",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-herb-garden"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-herb-garden",
+          "x": 0.637,
+          "y": 0.782
+        }
+      ]
+    },
+    {
+      "questId": "a2-archive",
+      "mapId": "waldruh",
+      "npcId": "ada",
+      "npc": {
+        "id": "ada",
+        "x": 0.242,
+        "y": 0.836
+      },
+      "gateExerciseId": "a2-archive-exercise-6",
+      "choiceIds": [
+        "restore",
+        "consult"
+      ],
+      "choices": [
+        {
+          "id": "restore",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "consult",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "waldruh-memory-stone"
+      ],
+      "objects": [
+        {
+          "id": "waldruh-memory-stone",
+          "x": 0.19499999999999998,
+          "y": 0.827
+        }
+      ]
+    },
+    {
+      "questId": "b1-witness",
+      "mapId": "nebelstadt",
+      "npcId": "lina",
+      "npc": {
+        "id": "lina",
+        "x": 0.86,
+        "y": 0.602
+      },
+      "gateExerciseId": "b1-witness-exercise-6",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-evidence-crate",
+        "nebelstadt-signal-lantern"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-evidence-crate",
+          "x": 0.149,
+          "y": 0.774
+        },
+        {
+          "id": "nebelstadt-signal-lantern",
+          "x": 0.882,
+          "y": 0.398
+        }
+      ]
+    },
+    {
+      "questId": "b1-new-route",
+      "mapId": "nebelstadt",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.697,
+        "y": 0.348
+      },
+      "gateExerciseId": "b1-new-route-exercise-2",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-harbor-chart"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-harbor-chart",
+          "x": 0.626,
+          "y": 0.309
+        }
+      ]
+    },
+    {
+      "questId": "b1-work",
+      "mapId": "nebelstadt",
+      "npcId": "emil",
+      "npc": {
+        "id": "emil",
+        "x": 0.257,
+        "y": 0.734
+      },
+      "gateExerciseId": "b1-work-exercise-6",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-repair-ledger"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-repair-ledger",
+          "x": 0.285,
+          "y": 0.767
+        }
+      ]
+    },
+    {
+      "questId": "b1-council",
+      "mapId": "nebelstadt",
+      "npcId": "ada",
+      "npc": {
+        "id": "ada",
+        "x": 0.342,
+        "y": 0.362
+      },
+      "gateExerciseId": "b1-council-exercise-7",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-council-board",
+        "nebelstadt-harbor-chart"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-council-board",
+          "x": 0.253,
+          "y": 0.434
+        },
+        {
+          "id": "nebelstadt-harbor-chart",
+          "x": 0.626,
+          "y": 0.309
+        }
+      ]
+    },
+    {
+      "questId": "b1-storm",
+      "mapId": "nebelstadt",
+      "npcId": "greta",
+      "npc": {
+        "id": "greta",
+        "x": 0.63,
+        "y": 0.56
+      },
+      "gateExerciseId": "b1-storm-exercise-7",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-signal-lantern"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-signal-lantern",
+          "x": 0.882,
+          "y": 0.398
+        }
+      ]
+    },
+    {
+      "questId": "b1-atlas",
+      "mapId": "nebelstadt",
+      "npcId": "elise",
+      "npc": {
+        "id": "elise",
+        "x": 0.501,
+        "y": 0.28
+      },
+      "gateExerciseId": "b1-atlas-exercise-6",
+      "choiceIds": [
+        "reopen",
+        "remember"
+      ],
+      "choices": [
+        {
+          "id": "reopen",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "nebelstadt-observatory",
+        "nebelstadt-council-board"
+      ],
+      "objects": [
+        {
+          "id": "nebelstadt-observatory",
+          "x": 0.501,
+          "y": 0.265
+        },
+        {
+          "id": "nebelstadt-council-board",
+          "x": 0.253,
+          "y": 0.434
+        }
+      ]
+    }
+  ]
+}

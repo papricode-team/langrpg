@@ -1,0 +1,3594 @@
+[
+  {
+    "questId": "a1-arrival",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-arrival-exercise-6",
+    "gatePrompt": "Ask Otto politely to help you.",
+    "evidenceItem": "a1-arrival-evidence",
+    "objectives": [
+      {
+        "text": "Meet Otto and examine the evidence",
+        "location": "Railway station",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "lindenhafen-platform-ticket, lindenhafen-noticeboard",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Otto politely to help you.",
+        "location": "Railway station",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Railway station",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-arrival-intro-0",
+            "speaker": "otto",
+            "german": "Guten Morgen, {name}! Willkommen in Lindenhafen.",
+            "english": "Good morning, {name}! Welcome to Lindenhafen.",
+            "clipId": "dialogue-a1-arrival-intro-0"
+          },
+          {
+            "id": "a1-arrival-intro-1",
+            "speaker": "otto",
+            "german": "Dein Zug ist da. Die Tauben schlafen noch.",
+            "english": "Your train is here. The pigeons are still sleeping.",
+            "clipId": "dialogue-a1-arrival-intro-1"
+          },
+          {
+            "id": "a1-arrival-intro-2",
+            "speaker": "inspector",
+            "german": "Ihre Fahrkarte, bitte. Das Messingamt prüft jede Reise.",
+            "english": "Your ticket, please. The Brass Office checks every journey.",
+            "clipId": "dialogue-a1-arrival-intro-2",
+            "variants": [
+              {
+                "german": "Ihre Fahrkarte, bitte. Das Amt prüft die Reise.",
+                "english": "Your ticket, please. The office checks the journey.",
+                "clipId": "dialogue-a1-arrival-intro-2-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-arrival-intro-3",
+            "speaker": "inspector",
+            "german": "Dieser Bahnsteig ist geschlossen. Das ist ganz normal.",
+            "english": "This platform is closed. That is perfectly normal.",
+            "clipId": "dialogue-a1-arrival-intro-3",
+            "variants": [
+              {
+                "german": "Dieser Bahnsteig ist zu. Das ist normal.",
+                "english": "This platform is closed. That is normal.",
+                "clipId": "dialogue-a1-arrival-intro-3-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-arrival-intro-4",
+            "speaker": "otto",
+            "german": "Normal? Die Laterne leuchtet. Und hier steht dein Name.",
+            "english": "Normal? The lantern is shining. And your name is here.",
+            "clipId": "dialogue-a1-arrival-intro-4"
+          },
+          {
+            "id": "a1-arrival-intro-5",
+            "speaker": "otto",
+            "german": "Die Fahrkarte ist von Elise. Sie braucht deine Hilfe.",
+            "english": "The ticket is from Elise. She needs your help.",
+            "clipId": "dialogue-a1-arrival-intro-5"
+          },
+          {
+            "id": "a1-arrival-intro-6",
+            "speaker": "otto",
+            "german": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
+            "english": "Ask me for help. Then we will look at the sign.",
+            "clipId": "dialogue-a1-arrival-intro-6",
+            "variants": [
+              {
+                "german": "Frag mich bitte. Dann lesen wir das Schild.",
+                "english": "Please ask me. Then we will read the sign.",
+                "clipId": "dialogue-a1-arrival-intro-6-simple"
+              }
+            ]
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-arrival-gate-request",
+            "speaker": "otto",
+            "german": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
+            "english": "Ask me for help. Then we will look at the sign.",
+            "clipId": "dialogue-a1-arrival-gate-request",
+            "variants": [
+              {
+                "german": "Frag mich bitte. Dann lesen wir das Schild.",
+                "english": "Please ask me. Then we will read the sign.",
+                "clipId": "dialogue-a1-arrival-gate-request-simple"
+              }
+            ]
+          }
+        ],
+        "gateExerciseId": "a1-arrival-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-arrival-gate-0",
+            "speaker": "otto",
+            "german": "Bitte, ich helfe dir. Die Glocke läutet einmal.",
+            "english": "Please, I will help you. The bell rings once.",
+            "clipId": "dialogue-a1-arrival-gate-0"
+          },
+          {
+            "id": "a1-arrival-choice-0",
+            "speaker": "otto",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-arrival-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Ich melde den Bahnsteig.",
+            "english": "I will report the platform.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Ich sage nichts.",
+            "english": "I will say nothing.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-arrival-complete-0",
+            "speaker": "otto",
+            "german": "Marta hat eine Quittung. Geh bitte zum Café.",
+            "english": "Marta has a receipt. Please go to the café.",
+            "clipId": "dialogue-a1-arrival-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-arrival-report-0",
+            "speaker": "otto",
+            "german": "Der Inspektor kommt zurück. Otto wartet auf seine Antwort.",
+            "english": "The inspector will return. Otto waits for his answer.",
+            "clipId": "dialogue-a1-arrival-report-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-arrival-protect-0",
+            "speaker": "otto",
+            "german": "Otto vertraut dir. Er zeigt dir seine alte Laterne.",
+            "english": "Otto trusts you. He shows you his old lantern.",
+            "clipId": "dialogue-a1-arrival-protect-0",
+            "variants": [
+              {
+                "german": "Otto hilft dir. Hier ist seine alte Laterne.",
+                "english": "Otto helps you. Here is his old lantern.",
+                "clipId": "dialogue-a1-arrival-protect-0-simple"
+              }
+            ]
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-platform-ticket",
+        "german": "Fahrkarte: {name}. Bitte warten. Bahnsteig sieben.",
+        "english": "Ticket: {name}. Please wait. Platform seven."
+      },
+      {
+        "objectId": "lindenhafen-noticeboard",
+        "german": "Nach W… Die Buchstaben fehlen. Die Laterne leuchtet.",
+        "english": "To W… The letters are missing. The lantern shines."
+      }
+    ]
+  },
+  {
+    "questId": "a1-cafe",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-cafe-exercise-1",
+    "gatePrompt": "Order a coffee from Marta.",
+    "evidenceItem": "a1-cafe-evidence",
+    "objectives": [
+      {
+        "text": "Meet Marta and examine the evidence",
+        "location": "Café",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "lindenhafen-cafe-receipt",
+        "stage": "intro"
+      },
+      {
+        "text": "Order a coffee from Marta.",
+        "location": "Café",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Café",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-cafe-intro-0",
+            "speaker": "marta",
+            "german": "Hallo, {name}! Möchtest du einen Kaffee?",
+            "english": "Hello, {name}! Would you like a coffee?",
+            "clipId": "dialogue-a1-cafe-intro-0"
+          },
+          {
+            "id": "a1-cafe-intro-1",
+            "speaker": "marta",
+            "german": "Der Wasserkocher pfeift deinen Namen. Hörst du das?",
+            "english": "The kettle whistles your name. Can you hear it?",
+            "clipId": "dialogue-a1-cafe-intro-1",
+            "variants": [
+              {
+                "german": "Der Wasserkocher sagt deinen Namen. Hörst du ihn?",
+                "english": "The kettle says your name. Can you hear it?",
+                "clipId": "dialogue-a1-cafe-intro-1-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-cafe-intro-2",
+            "speaker": "marta",
+            "german": "Elise war gestern hier. Sie hat von dir gesprochen.",
+            "english": "Elise was here yesterday. She spoke about you.",
+            "clipId": "dialogue-a1-cafe-intro-2",
+            "variants": [
+              {
+                "german": "Elise war hier. Sie kennt deinen Namen.",
+                "english": "Elise was here. She knows your name.",
+                "clipId": "dialogue-a1-cafe-intro-2-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-cafe-intro-3",
+            "speaker": "marta",
+            "german": "Sie sagt: Du kannst die Namen wieder lesen.",
+            "english": "She says: You can read the names again.",
+            "clipId": "dialogue-a1-cafe-intro-3"
+          },
+          {
+            "id": "a1-cafe-intro-4",
+            "speaker": "marta",
+            "german": "Hier ist ihre Quittung. Das Datum ist morgen.",
+            "english": "Here is her receipt. The date is tomorrow.",
+            "clipId": "dialogue-a1-cafe-intro-4"
+          },
+          {
+            "id": "a1-cafe-intro-5",
+            "speaker": "marta",
+            "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
+            "english": "Order a coffee first. Then I will show you the seal.",
+            "clipId": "dialogue-a1-cafe-intro-5",
+            "variants": [
+              {
+                "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
+                "english": "Order a coffee. Then you will see the mark.",
+                "clipId": "dialogue-a1-cafe-intro-5-simple"
+              }
+            ]
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-cafe-gate-request",
+            "speaker": "marta",
+            "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
+            "english": "Order a coffee first. Then I will show you the seal.",
+            "clipId": "dialogue-a1-cafe-gate-request",
+            "variants": [
+              {
+                "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
+                "english": "Order a coffee. Then you will see the mark.",
+                "clipId": "dialogue-a1-cafe-gate-request-simple"
+              }
+            ]
+          }
+        ],
+        "gateExerciseId": "a1-cafe-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-cafe-gate-0",
+            "speaker": "marta",
+            "german": "Hier ist dein Kaffee. Das Siegel ist vom Messingamt.",
+            "english": "Here is your coffee. The seal belongs to the Brass Office.",
+            "clipId": "dialogue-a1-cafe-gate-0",
+            "variants": [
+              {
+                "german": "Hier ist dein Kaffee. Das Zeichen ist vom Amt.",
+                "english": "Here is your coffee. The mark is from the office.",
+                "clipId": "dialogue-a1-cafe-gate-0-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-cafe-choice-0",
+            "speaker": "marta",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-cafe-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Die Quittung geht zum Amt.",
+            "english": "The receipt goes to the office.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Wir behalten die Quittung.",
+            "english": "We will keep the receipt.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-complete-0",
+            "speaker": "marta",
+            "german": "Fritz kennt dieses Siegel. Du findest ihn am Markt.",
+            "english": "Fritz knows this seal. Find him at the market.",
+            "clipId": "dialogue-a1-cafe-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-report-0",
+            "speaker": "marta",
+            "german": "Marta gibt dir eine Kopie. Das Amt bekommt das Original.",
+            "english": "Marta gives you a copy. The office gets the original.",
+            "clipId": "dialogue-a1-cafe-report-0",
+            "variants": [
+              {
+                "german": "Marta hat eine Kopie. Das Amt bekommt die Quittung.",
+                "english": "Marta has a copy. The office gets the receipt.",
+                "clipId": "dialogue-a1-cafe-report-0-simple"
+              }
+            ]
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-protect-0",
+            "speaker": "marta",
+            "german": "Marta legt die Quittung in ihre alte Tasche. Sie hilft dir.",
+            "english": "Marta puts the receipt in her old satchel. She will help you.",
+            "clipId": "dialogue-a1-cafe-protect-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-cafe-receipt",
+        "german": "Ein Kaffee. Datum: morgen. Das Siegel ist aus Messing.",
+        "english": "One coffee. Date: tomorrow. The seal is brass."
+      }
+    ]
+  },
+  {
+    "questId": "a1-market",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-market-exercise-1",
+    "gatePrompt": "Tell Fritz you need two apples.",
+    "evidenceItem": "a1-market-evidence",
+    "objectives": [
+      {
+        "text": "Meet Fritz and examine the evidence",
+        "location": "Market",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "lindenhafen-market-crate, lindenhafen-garden",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell Fritz you need two apples.",
+        "location": "Market",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Market",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-market-intro-0",
+            "speaker": "fritz",
+            "german": "Zwei Äpfel für die Reise? Sie sind frisch.",
+            "english": "Two apples for the journey? They are fresh.",
+            "clipId": "dialogue-a1-market-intro-0"
+          },
+          {
+            "id": "a1-market-intro-1",
+            "speaker": "fritz",
+            "german": "Dieser Apfel hat eine Nummer. Die Nummer ist keine Rechnung.",
+            "english": "This apple has a number. The number is not a price.",
+            "clipId": "dialogue-a1-market-intro-1"
+          },
+          {
+            "id": "a1-market-intro-2",
+            "speaker": "fritz",
+            "german": "Das Messingamt bringt diese Kisten. Dann fehlen Adressen.",
+            "english": "The Brass Office brings these crates. Then addresses go missing.",
+            "clipId": "dialogue-a1-market-intro-2",
+            "variants": [
+              {
+                "german": "Das Amt bringt die Kisten. Dann fehlen Adressen.",
+                "english": "The office brings the crates. Then addresses are missing.",
+                "clipId": "dialogue-a1-market-intro-2-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-market-intro-3",
+            "speaker": "inspector",
+            "german": "Die Liste ist richtig. Der Markt braucht Ordnung.",
+            "english": "The list is correct. The market needs order.",
+            "clipId": "dialogue-a1-market-intro-3"
+          },
+          {
+            "id": "a1-market-intro-4",
+            "speaker": "fritz",
+            "german": "Aber Frau Berg steht nicht mehr auf der Liste.",
+            "english": "But Mrs Berg is no longer on the list.",
+            "clipId": "dialogue-a1-market-intro-4",
+            "variants": [
+              {
+                "german": "Aber der Name von Frau Berg fehlt.",
+                "english": "But Mrs Berg’s name is missing.",
+                "clipId": "dialogue-a1-market-intro-4-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-market-intro-5",
+            "speaker": "fritz",
+            "german": "Sag mir, wie viele Äpfel du brauchst.",
+            "english": "Tell me how many apples you need.",
+            "clipId": "dialogue-a1-market-intro-5"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-market-gate-request",
+            "speaker": "fritz",
+            "german": "Sag mir, wie viele Äpfel du brauchst.",
+            "english": "Tell me how many apples you need.",
+            "clipId": "dialogue-a1-market-gate-request"
+          }
+        ],
+        "gateExerciseId": "a1-market-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-market-gate-0",
+            "speaker": "fritz",
+            "german": "Zwei Äpfel. Einen essen wir, einen nehmen wir als Beweis.",
+            "english": "Two apples. We will eat one and keep one as evidence.",
+            "clipId": "dialogue-a1-market-gate-0",
+            "variants": [
+              {
+                "german": "Zwei Äpfel. Einer ist für uns. Einer bleibt hier.",
+                "english": "Two apples. One is for us. One stays here.",
+                "clipId": "dialogue-a1-market-gate-0-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-market-choice-0",
+            "speaker": "fritz",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-market-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Ich gebe dem Amt die Nummer.",
+            "english": "I will give the office the number.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Ich behalte die Nummer.",
+            "english": "I will keep the number.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-market-complete-0",
+            "speaker": "fritz",
+            "german": "Otto kennt die Streckennummer. Geh zum Bahnhof.",
+            "english": "Otto knows the route number. Go to the station.",
+            "clipId": "dialogue-a1-market-complete-0",
+            "variants": [
+              {
+                "german": "Otto kennt die Nummer. Geh zum Bahnhof.",
+                "english": "Otto knows the number. Go to the station.",
+                "clipId": "dialogue-a1-market-complete-0-simple"
+              }
+            ]
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-market-report-0",
+            "speaker": "fritz",
+            "german": "Der Inspektor schreibt die Nummer auf. Er kennt jetzt deinen Weg.",
+            "english": "The inspector writes down the number. He now knows your route.",
+            "clipId": "dialogue-a1-market-report-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-market-protect-0",
+            "speaker": "fritz",
+            "german": "Fritz zeigt dir sein Gästebuch. Hier fehlen keine Namen.",
+            "english": "Fritz shows you his guest book. No names are missing here.",
+            "clipId": "dialogue-a1-market-protect-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-market-crate",
+        "german": "Zwei Äpfel. Strecke 7. Eine Adresse ist leer.",
+        "english": "Two apples. Route 7. An address is blank."
+      },
+      {
+        "objectId": "lindenhafen-garden",
+        "german": "Frau Berg: ein Apfel. Im Gästebuch steht ihr Name.",
+        "english": "Mrs Berg: one apple. Her name is in the guest book."
+      }
+    ]
+  },
+  {
+    "questId": "a1-station",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-station-exercise-5",
+    "gatePrompt": "Ask whether this seat is free.",
+    "evidenceItem": "a1-station-evidence",
+    "objectives": [
+      {
+        "text": "Meet Otto and examine the evidence",
+        "location": "Departure board",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "lindenhafen-noticeboard",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask whether this seat is free.",
+        "location": "Departure board",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Departure board",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-station-intro-0",
+            "speaker": "otto",
+            "german": "Die Nummer passt zu diesem Bahnsteig.",
+            "english": "The number matches this platform.",
+            "clipId": "dialogue-a1-station-intro-0"
+          },
+          {
+            "id": "a1-station-intro-1",
+            "speaker": "otto",
+            "german": "Auf der Tafel steht: Nach W… Dann sind die Buchstaben weg.",
+            "english": "The board says: To W… Then the letters disappear.",
+            "clipId": "dialogue-a1-station-intro-1",
+            "variants": [
+              {
+                "german": "Hier steht: Nach W… Mehr steht hier nicht.",
+                "english": "It says: To W… It says nothing more here.",
+                "clipId": "dialogue-a1-station-intro-1-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-station-intro-2",
+            "speaker": "otto",
+            "german": "Ich kenne die Stadt. Aber ihr Name ist weg.",
+            "english": "I know the town. But its name is gone.",
+            "clipId": "dialogue-a1-station-intro-2"
+          },
+          {
+            "id": "a1-station-intro-3",
+            "speaker": "otto",
+            "german": "Hier ist eine Bank. Ein Fahrgast sitzt am Ende.",
+            "english": "Here is a bench. A passenger sits at the end.",
+            "clipId": "dialogue-a1-station-intro-3",
+            "variants": [
+              {
+                "german": "Hier ist eine Bank. Dort sitzt ein Mann.",
+                "english": "Here is a bench. A man is sitting there.",
+                "clipId": "dialogue-a1-station-intro-3-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-station-intro-4",
+            "speaker": "otto",
+            "german": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+            "english": "Ask him: Is the seat free? Then you can read the sign.",
+            "clipId": "dialogue-a1-station-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-station-gate-request",
+            "speaker": "otto",
+            "german": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+            "english": "Ask him: Is the seat free? Then you can read the sign.",
+            "clipId": "dialogue-a1-station-gate-request"
+          }
+        ],
+        "gateExerciseId": "a1-station-exercise-5",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-station-gate-0",
+            "speaker": "otto",
+            "german": "Ja, der Platz ist frei. Auf dem Schild steht nur W.",
+            "english": "Yes, the seat is free. The sign only says W.",
+            "clipId": "dialogue-a1-station-gate-0"
+          },
+          {
+            "id": "a1-station-choice-0",
+            "speaker": "otto",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-station-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Das Amt soll das Schild prüfen.",
+            "english": "The office should inspect the sign.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Wir zeichnen das Schild.",
+            "english": "We will draw the sign.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-station-complete-0",
+            "speaker": "otto",
+            "german": "Emil hat eine Lampe für diese Strecke. Geh zu ihm.",
+            "english": "Emil has a lamp for this route. Go to him.",
+            "clipId": "dialogue-a1-station-complete-0",
+            "variants": [
+              {
+                "german": "Emil hat eine Lampe. Geh zu ihm.",
+                "english": "Emil has a lamp. Go to him.",
+                "clipId": "dialogue-a1-station-complete-0-simple"
+              }
+            ]
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-station-report-0",
+            "speaker": "otto",
+            "german": "Der Inspektor nimmt das Schild. Otto zeichnet eine Kopie.",
+            "english": "The inspector takes the sign. Otto draws a copy.",
+            "clipId": "dialogue-a1-station-report-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-station-protect-0",
+            "speaker": "otto",
+            "german": "Otto zeichnet das W. Der Fahrgast nickt.",
+            "english": "Otto draws the W. The passenger nods.",
+            "clipId": "dialogue-a1-station-protect-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-noticeboard",
+        "german": "Bahnsteig sieben: Nach W… Bitte hier warten.",
+        "english": "Platform seven: To W… Please wait here."
+      }
+    ]
+  },
+  {
+    "questId": "a1-workshop",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-workshop-exercise-2",
+    "gatePrompt": "Tell Emil you need a lamp.",
+    "evidenceItem": "a1-workshop-evidence",
+    "objectives": [
+      {
+        "text": "Meet Emil and examine the evidence",
+        "location": "Workshop",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "lindenhafen-workbench",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell Emil you need a lamp.",
+        "location": "Workshop",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Workshop",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-workshop-intro-0",
+            "speaker": "emil",
+            "german": "Meine Lampe läuft weg. Sie sucht eine Adresse.",
+            "english": "My lamp keeps walking away. It is looking for an address.",
+            "clipId": "dialogue-a1-workshop-intro-0"
+          },
+          {
+            "id": "a1-workshop-intro-1",
+            "speaker": "emil",
+            "german": "Sie ist alt. Elise hat sie gebaut.",
+            "english": "It is old. Elise built it.",
+            "clipId": "dialogue-a1-workshop-intro-1"
+          },
+          {
+            "id": "a1-workshop-intro-2",
+            "speaker": "emil",
+            "german": "Deine Fahrkarte hat dasselbe Zeichen.",
+            "english": "Your ticket has the same mark.",
+            "clipId": "dialogue-a1-workshop-intro-2",
+            "variants": [
+              {
+                "german": "Das Zeichen steht auch auf deiner Fahrkarte.",
+                "english": "The mark is on your ticket too.",
+                "clipId": "dialogue-a1-workshop-intro-2-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-workshop-intro-3",
+            "speaker": "emil",
+            "german": "Elise hat dich gewählt. Die Lampe kennt deinen Namen.",
+            "english": "Elise chose you. The lamp knows your name.",
+            "clipId": "dialogue-a1-workshop-intro-3",
+            "variants": [
+              {
+                "german": "Elise braucht dich. Die Lampe kennt deinen Namen.",
+                "english": "Elise needs you. The lamp knows your name.",
+                "clipId": "dialogue-a1-workshop-intro-3-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-workshop-intro-4",
+            "speaker": "emil",
+            "german": "Brauchst du eine Lampe? Sag es mir.",
+            "english": "Do you need a lamp? Tell me.",
+            "clipId": "dialogue-a1-workshop-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-workshop-gate-request",
+            "speaker": "emil",
+            "german": "Brauchst du eine Lampe? Sag es mir.",
+            "english": "Do you need a lamp? Tell me.",
+            "clipId": "dialogue-a1-workshop-gate-request"
+          }
+        ],
+        "gateExerciseId": "a1-workshop-exercise-2",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-workshop-gate-0",
+            "speaker": "emil",
+            "german": "Hier ist die Lampe. Sie leuchtet neben verlorenen Adressen.",
+            "english": "Here is the lamp. It shines beside lost addresses.",
+            "clipId": "dialogue-a1-workshop-gate-0",
+            "variants": [
+              {
+                "german": "Hier ist die Lampe. Bei alten Adressen ist sie hell.",
+                "english": "Here is the lamp. It is bright near old addresses.",
+                "clipId": "dialogue-a1-workshop-gate-0-simple"
+              }
+            ]
+          },
+          {
+            "id": "a1-workshop-choice-0",
+            "speaker": "emil",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-workshop-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Ich registriere die Lampe.",
+            "english": "I will register the lamp.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Die Lampe bleibt bei uns.",
+            "english": "The lamp stays with us.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-workshop-complete-0",
+            "speaker": "emil",
+            "german": "Lina hat ein Paket. Die Lampe möchte zu ihr.",
+            "english": "Lina has a parcel. The lamp wants to go to her.",
+            "clipId": "dialogue-a1-workshop-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-workshop-report-0",
+            "speaker": "emil",
+            "german": "Emil schreibt die Nummer für das Amt auf.",
+            "english": "Emil writes down the number for the office.",
+            "clipId": "dialogue-a1-workshop-report-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-workshop-protect-0",
+            "speaker": "emil",
+            "german": "Emil lässt das Siegel offen. Du kannst die Lampe selbst benutzen.",
+            "english": "Emil leaves the seal open. You can use the lamp yourself.",
+            "clipId": "dialogue-a1-workshop-protect-0",
+            "variants": [
+              {
+                "german": "Die Lampe ist offen. Du kannst sie benutzen.",
+                "english": "The lamp is open. You can use it.",
+                "clipId": "dialogue-a1-workshop-protect-0-simple"
+              }
+            ]
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-workbench",
+        "german": "Lampe: meistens gut. Sie sucht alte Adressen.",
+        "english": "Lamp: mostly working. It seeks old addresses."
+      }
+    ]
+  },
+  {
+    "questId": "a1-lost-parcel",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-lost-parcel-exercise-2",
+    "gatePrompt": "Ask Lina what the address is.",
+    "evidenceItem": "a1-lost-parcel-evidence",
+    "objectives": [
+      {
+        "text": "Meet Lina and examine the evidence",
+        "location": "Parcel counter",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "lindenhafen-parcel",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Lina what the address is.",
+        "location": "Parcel counter",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Parcel counter",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-intro-0",
+            "speaker": "lina",
+            "german": "Das Paket ist für dich, {name}.",
+            "english": "The parcel is for you, {name}.",
+            "clipId": "dialogue-a1-lost-parcel-intro-0"
+          },
+          {
+            "id": "a1-lost-parcel-intro-1",
+            "speaker": "lina",
+            "german": "Hier ist der Brief von Elise. Die Seite ist im Paket.",
+            "english": "Here is Elise’s letter. The page is in the parcel.",
+            "clipId": "dialogue-a1-lost-parcel-intro-1"
+          },
+          {
+            "id": "a1-lost-parcel-intro-2",
+            "speaker": "lina",
+            "german": "Die Lampe leuchtet. Jetzt kann ich die Adresse lesen.",
+            "english": "The lamp shines. Now I can read the address.",
+            "clipId": "dialogue-a1-lost-parcel-intro-2"
+          },
+          {
+            "id": "a1-lost-parcel-intro-3",
+            "speaker": "lina",
+            "german": "Auf der Seite steht: Waldruh. Die Stadt ist noch da.",
+            "english": "The page says: Waldruh. The town is still there.",
+            "clipId": "dialogue-a1-lost-parcel-intro-3"
+          },
+          {
+            "id": "a1-lost-parcel-intro-4",
+            "speaker": "lina",
+            "german": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+            "english": "Ask me for the address. Then I will write it down.",
+            "clipId": "dialogue-a1-lost-parcel-intro-4",
+            "variants": [
+              {
+                "german": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+                "english": "Ask me: What is the address? I will write it down.",
+                "clipId": "dialogue-a1-lost-parcel-intro-4-simple"
+              }
+            ]
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-gate-request",
+            "speaker": "lina",
+            "german": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+            "english": "Ask me for the address. Then I will write it down.",
+            "clipId": "dialogue-a1-lost-parcel-gate-request",
+            "variants": [
+              {
+                "german": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+                "english": "Ask me: What is the address? I will write it down.",
+                "clipId": "dialogue-a1-lost-parcel-gate-request-simple"
+              }
+            ]
+          }
+        ],
+        "gateExerciseId": "a1-lost-parcel-exercise-2",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-gate-0",
+            "speaker": "lina",
+            "german": "Die Adresse ist Waldruh. Elise wartet dort auf Hilfe.",
+            "english": "The address is Waldruh. Elise is waiting for help there.",
+            "clipId": "dialogue-a1-lost-parcel-gate-0"
+          },
+          {
+            "id": "a1-lost-parcel-choice-0",
+            "speaker": "lina",
+            "german": "Was möchtest du tun?",
+            "english": "What do you want to do?",
+            "clipId": "dialogue-a1-lost-parcel-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Das Amt bekommt eine Kopie.",
+            "english": "The office gets a copy.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Der Brief bleibt bei uns.",
+            "english": "The letter stays with us.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-complete-0",
+            "speaker": "lina",
+            "german": "Der Brief sagt: Bevor du uns wieder auslöschst, komm. Fahr nach Waldruh.",
+            "english": "The letter says: Before you erase us again, come. Travel to Waldruh.",
+            "clipId": "dialogue-a1-lost-parcel-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-report-0",
+            "speaker": "lina",
+            "german": "Lina schickt die Kopie. Die Glocke läutet ein zweites Mal.",
+            "english": "Lina sends the copy. The bell rings for a second time.",
+            "clipId": "dialogue-a1-lost-parcel-report-0",
+            "variants": [
+              {
+                "german": "Lina schickt eine Kopie. Die Glocke klingt noch einmal.",
+                "english": "Lina sends a copy. The bell sounds once more.",
+                "clipId": "dialogue-a1-lost-parcel-report-0-simple"
+              }
+            ]
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-parcel-protect-0",
+            "speaker": "lina",
+            "german": "Lina packt den Brief ein. Otto öffnet die Strecke.",
+            "english": "Lina packs the letter away. Otto opens the route.",
+            "clipId": "dialogue-a1-lost-parcel-protect-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-parcel",
+        "german": "Für {name}. Von Elise. Waldruh. Bitte komm.",
+        "english": "For {name}. From Elise. Waldruh. Please come."
+      }
+    ]
+  },
+  {
+    "questId": "a2-apartment",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-apartment-exercise-6",
+    "gatePrompt": "Ask Marta politely to repair the door.",
+    "evidenceItem": "a2-apartment-evidence",
+    "objectives": [
+      {
+        "text": "Meet Marta and examine the evidence",
+        "location": "Inn upstairs",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "waldruh-housing-board",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Marta politely to repair the door.",
+        "location": "Inn upstairs",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Inn upstairs",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-apartment-intro-0",
+            "speaker": "marta",
+            "german": "Willkommen in Waldruh. Dein Zimmer blickt auf zwei Städte.",
+            "english": "Welcome to Waldruh. Your room looks onto two towns.",
+            "clipId": "dialogue-a2-apartment-intro-0"
+          },
+          {
+            "id": "a2-apartment-intro-1",
+            "speaker": "marta",
+            "german": "Der Mietvertrag verbindet die Adressen, auch wenn die Akten sie vergessen.",
+            "english": "The lease connects the addresses even when the records forget them.",
+            "clipId": "dialogue-a2-apartment-intro-1"
+          },
+          {
+            "id": "a2-apartment-intro-2",
+            "speaker": "marta",
+            "german": "Du warst noch nie hier. Trotzdem steht dein Name im Vertrag.",
+            "english": "You have never been here. Yet your name is in the lease.",
+            "clipId": "dialogue-a2-apartment-intro-2"
+          },
+          {
+            "id": "a2-apartment-intro-3",
+            "speaker": "marta",
+            "german": "Elise hat dich als ihre Nachfolge eingetragen. Das Amt verwechselt Name und Person.",
+            "english": "Elise named you as her successor. The office confuses a name with a person.",
+            "clipId": "dialogue-a2-apartment-intro-3"
+          },
+          {
+            "id": "a2-apartment-intro-4",
+            "speaker": "marta",
+            "german": "Die Warnung meint ihren Schlüssel. Du hast niemanden ausgelöscht.",
+            "english": "The warning means her key. You did not erase anyone.",
+            "clipId": "dialogue-a2-apartment-intro-4"
+          },
+          {
+            "id": "a2-apartment-intro-5",
+            "speaker": "marta",
+            "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
+            "english": "The door is stuck between the towns. Ask me politely for a repair.",
+            "clipId": "dialogue-a2-apartment-intro-5"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-apartment-gate-request",
+            "speaker": "marta",
+            "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
+            "english": "The door is stuck between the towns. Ask me politely for a repair.",
+            "clipId": "dialogue-a2-apartment-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-apartment-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-apartment-gate-0",
+            "speaker": "marta",
+            "german": "Gern. Die Tür ist wieder sicher. Der Vertrag bleibt als Beweis bei dir.",
+            "english": "Gladly. The door is safe again. Keep the lease as evidence.",
+            "clipId": "dialogue-a2-apartment-gate-0"
+          },
+          {
+            "id": "a2-apartment-choice-0",
+            "speaker": "marta",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-apartment-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir öffnen zuerst die Verbindung.",
+            "english": "We will open the connection first.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Wir fragen zuerst die Bewohner.",
+            "english": "We will ask the residents first.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-apartment-complete-0",
+            "speaker": "marta",
+            "german": "Fritz organisiert ein Laternenfest. Vereinbart eine Zeit mit dem Kreis.",
+            "english": "Fritz is organising a lantern gathering. Agree on a time with the Circle.",
+            "clipId": "dialogue-a2-apartment-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-apartment-restore-0",
+            "speaker": "marta",
+            "german": "Marta stellt eine Laterne ins Fenster. Die Nachbarn sehen das Signal.",
+            "english": "Marta puts a lantern in the window. The neighbours see the signal.",
+            "clipId": "dialogue-a2-apartment-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-apartment-consult-0",
+            "speaker": "marta",
+            "german": "Marta lädt die Nachbarn ein. Niemand entscheidet allein über ihre Zimmer.",
+            "english": "Marta invites the neighbours. Nobody decides about their rooms alone.",
+            "clipId": "dialogue-a2-apartment-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-housing-board",
+        "german": "Der Vertrag verbindet zwei Adressen. Die Nachfolge der Hüterin heißt {name}.",
+        "english": "The lease joins two addresses. The keeper’s successor is called {name}."
+      }
+    ]
+  },
+  {
+    "questId": "a2-evening-plans",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-evening-plans-exercise-1",
+    "gatePrompt": "Ask Fritz whether he has time tomorrow.",
+    "evidenceItem": "a2-evening-plans-evidence",
+    "objectives": [
+      {
+        "text": "Meet Fritz and examine the evidence",
+        "location": "Lantern square",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "waldruh-herb-garden",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Fritz whether he has time tomorrow.",
+        "location": "Lantern square",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Lantern square",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-evening-plans-intro-0",
+            "speaker": "fritz",
+            "german": "Die Suppe ist fertig. Der Kreis der Ungeschriebenen kommt auch.",
+            "english": "The soup is ready. The Unwritten Circle is coming too.",
+            "clipId": "dialogue-a2-evening-plans-intro-0"
+          },
+          {
+            "id": "a2-evening-plans-intro-1",
+            "speaker": "fritz",
+            "german": "Greta und Lina vertreten die Bewohner. Sie wurden nie gefragt, ob die Strecke schließen soll.",
+            "english": "Greta and Lina represent the residents. They were never asked whether the route should close.",
+            "clipId": "dialogue-a2-evening-plans-intro-1"
+          },
+          {
+            "id": "a2-evening-plans-intro-2",
+            "speaker": "greta",
+            "german": "Wir möchten eine Uhrzeit vereinbaren. Versprechen müssen im Alltag funktionieren.",
+            "english": "We want to agree on a time. Promises must work in everyday life.",
+            "clipId": "dialogue-a2-evening-plans-intro-2"
+          },
+          {
+            "id": "a2-evening-plans-intro-3",
+            "speaker": "lina",
+            "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
+            "english": "Ask Fritz whether he has time tomorrow. Then we can plan together.",
+            "clipId": "dialogue-a2-evening-plans-intro-3"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-evening-plans-gate-request",
+            "speaker": "lina",
+            "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
+            "english": "Ask Fritz whether he has time tomorrow. Then we can plan together.",
+            "clipId": "dialogue-a2-evening-plans-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-evening-plans-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-evening-plans-gate-0",
+            "speaker": "fritz",
+            "german": "Ja, morgen habe ich Zeit. Wir treffen uns nach der Arbeit.",
+            "english": "Yes, I have time tomorrow. We will meet after work.",
+            "clipId": "dialogue-a2-evening-plans-gate-0"
+          },
+          {
+            "id": "a2-evening-plans-choice-0",
+            "speaker": "fritz",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-evening-plans-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir senden sofort ein Signal.",
+            "english": "We will send a signal immediately.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Wir hören zuerst alle Stimmen.",
+            "english": "We will hear everyone first.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-evening-plans-complete-0",
+            "speaker": "fritz",
+            "german": "Otto hat die Verbindung gefunden, die den alten Beschluss gebracht hat.",
+            "english": "Otto found the connection that brought the old order.",
+            "clipId": "dialogue-a2-evening-plans-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-evening-plans-restore-0",
+            "speaker": "fritz",
+            "german": "Die Laternenhüter antworten. Otto und Emil wollen die Strecke schnell öffnen.",
+            "english": "The Lamplighters answer. Otto and Emil want to open the route quickly.",
+            "clipId": "dialogue-a2-evening-plans-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-evening-plans-consult-0",
+            "speaker": "fritz",
+            "german": "Greta schreibt die Wünsche auf. Das Fest wird zur ersten gemeinsamen Versammlung.",
+            "english": "Greta writes down the requests. The festival becomes the first joint meeting.",
+            "clipId": "dialogue-a2-evening-plans-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-herb-garden",
+        "german": "Treffen morgen nach der Arbeit. Bitte sagt zu oder schlagt eine andere Zeit vor.",
+        "english": "Meeting tomorrow after work. Please accept or propose another time."
+      }
+    ]
+  },
+  {
+    "questId": "a2-rail-trip",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-rail-trip-exercise-3",
+    "gatePrompt": "Tell Otto you missed your connection.",
+    "evidenceItem": "a2-rail-trip-evidence",
+    "objectives": [
+      {
+        "text": "Meet Otto and examine the evidence",
+        "location": "Railway station",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "waldruh-route-sign",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell Otto you missed your connection.",
+        "location": "Railway station",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Railway station",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-rail-trip-intro-0",
+            "speaker": "otto",
+            "german": "Die Schienen sind heil. Jemand hat die Strecke von innen geschlossen.",
+            "english": "The rails are intact. Someone closed the route from inside.",
+            "clipId": "dialogue-a2-rail-trip-intro-0"
+          },
+          {
+            "id": "a2-rail-trip-intro-1",
+            "speaker": "inspector",
+            "german": "Ada und ich prüfen den alten Beschluss. Eine Unterschrift gilt.",
+            "english": "Ada and I are inspecting the old order. A signature stands.",
+            "clipId": "dialogue-a2-rail-trip-intro-1"
+          },
+          {
+            "id": "a2-rail-trip-intro-2",
+            "speaker": "otto",
+            "german": "Elises Schlüssel fehlt im Register. Er wurde in der verlorenen Stunde benutzt.",
+            "english": "Elise’s key is missing from the register. It was used during the lost hour.",
+            "clipId": "dialogue-a2-rail-trip-intro-2"
+          },
+          {
+            "id": "a2-rail-trip-intro-3",
+            "speaker": "otto",
+            "german": "Der Anschluss fährt immer eine Minute zu früh. So kommen keine Zeugen an.",
+            "english": "The connection always leaves one minute early. That prevents witnesses from arriving.",
+            "clipId": "dialogue-a2-rail-trip-intro-3"
+          },
+          {
+            "id": "a2-rail-trip-intro-4",
+            "speaker": "otto",
+            "german": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
+            "english": "Explain at the counter that you missed your connection. I will open the register.",
+            "clipId": "dialogue-a2-rail-trip-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-rail-trip-gate-request",
+            "speaker": "otto",
+            "german": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
+            "english": "Explain at the counter that you missed your connection. I will open the register.",
+            "clipId": "dialogue-a2-rail-trip-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-rail-trip-exercise-3",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-rail-trip-gate-0",
+            "speaker": "otto",
+            "german": "Ich sehe das Problem. Dein Anschluss steht hier zweimal, mit derselben Nummer.",
+            "english": "I see the problem. Your connection appears here twice with the same number.",
+            "clipId": "dialogue-a2-rail-trip-gate-0"
+          },
+          {
+            "id": "a2-rail-trip-choice-0",
+            "speaker": "otto",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-rail-trip-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir stellen den Fahrplan wieder her.",
+            "english": "We will restore the timetable.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Wir sichern zuerst das Register.",
+            "english": "We will secure the register first.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-rail-trip-complete-0",
+            "speaker": "otto",
+            "german": "Emil hat die Uhrenmühle repariert. Seine Notizen zeigen die verlorene Stunde.",
+            "english": "Emil repaired the clockmill. His notes reveal the lost hour.",
+            "clipId": "dialogue-a2-rail-trip-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-rail-trip-restore-0",
+            "speaker": "otto",
+            "german": "Otto schaltet die erste Verbindung frei. Das Amt verlangt eine neue Prüfung.",
+            "english": "Otto releases the first connection. The office demands another inspection.",
+            "clipId": "dialogue-a2-rail-trip-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-rail-trip-consult-0",
+            "speaker": "otto",
+            "german": "Otto und Lina kopieren die fehlende Stunde. Die Zeugen behalten ihre Beweise.",
+            "english": "Otto and Lina copy the lost hour. The witnesses keep their evidence.",
+            "clipId": "dialogue-a2-rail-trip-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-route-sign",
+        "german": "Der Anschluss fuhr um 17:59. Die Fahrkarte nennt 18:00. Derselbe Schlüssel schließt beide Wege.",
+        "english": "The connection left at 17:59. The ticket says 18:00. The same key closes both routes."
+      }
+    ]
+  },
+  {
+    "questId": "a2-broken-clock",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-broken-clock-exercise-3",
+    "gatePrompt": "Ask Emil to explain the manual.",
+    "evidenceItem": "a2-broken-clock-evidence",
+    "objectives": [
+      {
+        "text": "Meet Emil and examine the evidence",
+        "location": "Clockmill",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "waldruh-clock, waldruh-memory-stone",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Emil to explain the manual.",
+        "location": "Clockmill",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Clockmill",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-broken-clock-intro-0",
+            "speaker": "emil",
+            "german": "Das Rad dreht sich, aber die Uhr wiederholt dieselbe Stunde.",
+            "english": "The wheel turns, but the clock repeats the same hour.",
+            "clipId": "dialogue-a2-broken-clock-intro-0"
+          },
+          {
+            "id": "a2-broken-clock-intro-1",
+            "speaker": "emil",
+            "german": "Nach jeder Wiederholung fehlt ein Name. Das ist keine gewöhnliche Reparatur.",
+            "english": "After every repeat, a name goes missing. This is not an ordinary repair.",
+            "clipId": "dialogue-a2-broken-clock-intro-1"
+          },
+          {
+            "id": "a2-broken-clock-intro-2",
+            "speaker": "emil",
+            "german": "Jemand hat meine Werkzeuge ausgeliehen und den Signalanschluss getrennt.",
+            "english": "Someone borrowed my tools and disconnected the signal link.",
+            "clipId": "dialogue-a2-broken-clock-intro-2"
+          },
+          {
+            "id": "a2-broken-clock-intro-3",
+            "speaker": "emil",
+            "german": "Der Dankesbrief ist von Elise. Sie wollte einen Streit stoppen.",
+            "english": "The thank-you note is from Elise. She wanted to stop a dispute.",
+            "clipId": "dialogue-a2-broken-clock-intro-3"
+          },
+          {
+            "id": "a2-broken-clock-intro-4",
+            "speaker": "emil",
+            "german": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
+            "english": "Here is the manual. Ask me to explain it to you.",
+            "clipId": "dialogue-a2-broken-clock-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-broken-clock-gate-request",
+            "speaker": "emil",
+            "german": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
+            "english": "Here is the manual. Ask me to explain it to you.",
+            "clipId": "dialogue-a2-broken-clock-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-broken-clock-exercise-3",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-broken-clock-gate-0",
+            "speaker": "emil",
+            "german": "Der rote Hebel hält die Uhr an. Der blaue verbindet die Namen wieder.",
+            "english": "The red lever stops the clock. The blue one reconnects the names.",
+            "clipId": "dialogue-a2-broken-clock-gate-0"
+          },
+          {
+            "id": "a2-broken-clock-choice-0",
+            "speaker": "emil",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-broken-clock-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir verbinden die Namen sofort.",
+            "english": "We will reconnect the names immediately.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Wir prüfen erst die Erinnerungen.",
+            "english": "We will check the memories first.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-broken-clock-complete-0",
+            "speaker": "emil",
+            "german": "Greta kennt jemanden, dessen Erinnerung die verlorene Stunde überstanden hat.",
+            "english": "Greta knows someone whose memory survived the lost hour.",
+            "clipId": "dialogue-a2-broken-clock-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-broken-clock-restore-0",
+            "speaker": "emil",
+            "german": "Emil stellt die Uhr ab. Eine weitere Adresse kehrt zurück.",
+            "english": "Emil stops the clock. Another address returns.",
+            "clipId": "dialogue-a2-broken-clock-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-broken-clock-consult-0",
+            "speaker": "emil",
+            "german": "Emil sichert die Anleitung. Greta sucht einen unabhängigen Zeugen.",
+            "english": "Emil secures the manual. Greta looks for an independent witness.",
+            "clipId": "dialogue-a2-broken-clock-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-clock",
+        "german": "Erst den roten Hebel ziehen. Dann den blauen Anschluss prüfen. Vor Mitternacht fehlt eine Stunde.",
+        "english": "First pull the red lever. Then check the blue connection. An hour is missing before midnight."
+      },
+      {
+        "objectId": "waldruh-memory-stone",
+        "german": "Hier stand die Adresse eines Gartens. Die Uhr kann den Stein nicht ändern.",
+        "english": "The address of a garden stood here. The clock cannot change the stone."
+      }
+    ]
+  },
+  {
+    "questId": "a2-clinic",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-clinic-exercise-5",
+    "gatePrompt": "Tell the patient politely that he should rest.",
+    "evidenceItem": "a2-clinic-evidence",
+    "objectives": [
+      {
+        "text": "Meet Greta and examine the evidence",
+        "location": "Clinic garden",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "waldruh-herb-garden",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell the patient politely that he should rest.",
+        "location": "Clinic garden",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Clinic garden",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-clinic-intro-0",
+            "speaker": "greta",
+            "german": "Mein Patient erinnert sich an seine Reise, obwohl die Akten sie nicht zeigen.",
+            "english": "My patient remembers his journey, although the records do not show it.",
+            "clipId": "dialogue-a2-clinic-intro-0"
+          },
+          {
+            "id": "a2-clinic-intro-1",
+            "speaker": "greta",
+            "german": "Wir prüfen Erinnerungen behutsam. Ein Mensch ist kein fehlerhafter Fahrplan.",
+            "english": "We check memories with care. A person is not a faulty timetable.",
+            "clipId": "dialogue-a2-clinic-intro-1"
+          },
+          {
+            "id": "a2-clinic-intro-2",
+            "speaker": "greta",
+            "german": "Die Samentüten tragen alte Adressen. Sie bestätigen seinen Bericht unabhängig.",
+            "english": "The seed packets carry old addresses. They independently confirm his account.",
+            "clipId": "dialogue-a2-clinic-intro-2"
+          },
+          {
+            "id": "a2-clinic-intro-3",
+            "speaker": "greta",
+            "german": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
+            "english": "He is exhausted after the journey. Give him kind advice about resting.",
+            "clipId": "dialogue-a2-clinic-intro-3"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-clinic-gate-request",
+            "speaker": "greta",
+            "german": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
+            "english": "He is exhausted after the journey. Give him kind advice about resting.",
+            "clipId": "dialogue-a2-clinic-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-clinic-exercise-5",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-clinic-gate-0",
+            "speaker": "greta",
+            "german": "Danke. Er ruht sich aus. Wir nehmen seine Aussage nur mit seiner Zustimmung mit.",
+            "english": "Thank you. He rests. We only take his account with his consent.",
+            "clipId": "dialogue-a2-clinic-gate-0"
+          },
+          {
+            "id": "a2-clinic-choice-0",
+            "speaker": "greta",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-clinic-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir nutzen die Adressen als Signal.",
+            "english": "We will use the addresses as a signal.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Die Bewohner behalten die Originale.",
+            "english": "The residents will keep the originals.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-clinic-complete-0",
+            "speaker": "greta",
+            "german": "Bringe die Berichte zu Ada. Sie muss ihre Unterschrift erklären.",
+            "english": "Bring the accounts to Ada. She must explain her signature.",
+            "clipId": "dialogue-a2-clinic-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-clinic-restore-0",
+            "speaker": "greta",
+            "german": "Greta gibt dir Kopien. Die Gärten leuchten wieder entlang der Strecke.",
+            "english": "Greta gives you copies. The gardens shine along the route again.",
+            "clipId": "dialogue-a2-clinic-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-clinic-consult-0",
+            "speaker": "greta",
+            "german": "Greta bewahrt die Samentüten auf. Der Kreis bestimmt, wer sie lesen darf.",
+            "english": "Greta keeps the seed packets safe. The Circle decides who may read them.",
+            "clipId": "dialogue-a2-clinic-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-herb-garden",
+        "german": "Die Samentüten tragen sechs alte Adressen. Der Patient hat drei davon vor der Schließung besucht.",
+        "english": "The seed packets carry six old addresses. The patient visited three before the closure."
+      }
+    ]
+  },
+  {
+    "questId": "a2-archive",
+    "level": "A2",
+    "start": "intro",
+    "gateExerciseId": "a2-archive-exercise-6",
+    "gatePrompt": "Ask Ada to explain this more precisely.",
+    "evidenceItem": "a2-archive-evidence",
+    "objectives": [
+      {
+        "text": "Meet Ada and examine the evidence",
+        "location": "Travelling archive",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "waldruh-memory-stone",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Ada to explain this more precisely.",
+        "location": "Travelling archive",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Travelling archive",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a2-archive-intro-0",
+            "speaker": "ada",
+            "german": "Ich habe den ersten Beschluss unterschrieben. Ich war Elises Lehrling.",
+            "english": "I signed the first order. I was Elise’s apprentice.",
+            "clipId": "dialogue-a2-archive-intro-0"
+          },
+          {
+            "id": "a2-archive-intro-1",
+            "speaker": "ada",
+            "german": "Elise wollte die Strecke vorübergehend schließen, damit der Streit nicht schlimmer wird.",
+            "english": "Elise wanted to close the route temporarily so the dispute would not grow worse.",
+            "clipId": "dialogue-a2-archive-intro-1"
+          },
+          {
+            "id": "a2-archive-intro-2",
+            "speaker": "ada",
+            "german": "Das Messingamt hat aus vorübergehend ein endgültiges Verbot gemacht.",
+            "english": "The Brass Office turned temporary into a permanent ban.",
+            "clipId": "dialogue-a2-archive-intro-2"
+          },
+          {
+            "id": "a2-archive-intro-3",
+            "speaker": "inspector",
+            "german": "Die Akte nennt keine Frist. Ich kann nur die Akte prüfen.",
+            "english": "The file states no deadline. I can only inspect the file.",
+            "clipId": "dialogue-a2-archive-intro-3"
+          },
+          {
+            "id": "a2-archive-intro-4",
+            "speaker": "ada",
+            "german": "Die Warnung meint den Schlüssel der Hüterin. Elise hat dich als Nachfolge gewählt.",
+            "english": "The warning refers to the keeper’s key. Elise chose you as her successor.",
+            "clipId": "dialogue-a2-archive-intro-4"
+          },
+          {
+            "id": "a2-archive-intro-5",
+            "speaker": "ada",
+            "german": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
+            "english": "Ask me for a more precise explanation. I will hide no longer.",
+            "clipId": "dialogue-a2-archive-intro-5"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a2-archive-gate-request",
+            "speaker": "ada",
+            "german": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
+            "english": "Ask me for a more precise explanation. I will hide no longer.",
+            "clipId": "dialogue-a2-archive-gate-request"
+          }
+        ],
+        "gateExerciseId": "a2-archive-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a2-archive-gate-0",
+            "speaker": "ada",
+            "german": "Hier ist meine Aussage. Die endgültige Unterschrift führt nach Nebelstadt.",
+            "english": "Here is my statement. The final signature leads to Nebelstadt.",
+            "clipId": "dialogue-a2-archive-gate-0"
+          },
+          {
+            "id": "a2-archive-choice-0",
+            "speaker": "ada",
+            "german": "Wie sollen wir gemeinsam weitergehen?",
+            "english": "How should we proceed together?",
+            "clipId": "dialogue-a2-archive-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "restore",
+            "german": "Wir öffnen den Weg nach Nebelstadt.",
+            "english": "We will open the route to Nebelstadt.",
+            "next": "after-restore",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "consult",
+            "german": "Wir nehmen die Zeugen mit.",
+            "english": "We will take the witnesses with us.",
+            "next": "after-consult",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-archive-complete-0",
+            "speaker": "ada",
+            "german": "Der Hafenrat wartet. Finde Elise in Nebelstadt, bevor die siebte Glocke läutet.",
+            "english": "The harbour council is waiting. Find Elise in Nebelstadt before the seventh bell rings.",
+            "clipId": "dialogue-a2-archive-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-restore",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-archive-restore-0",
+            "speaker": "ada",
+            "german": "Ada hilft Otto, den Schlüssel zu prüfen. Die nächste Strecke wird sichtbar.",
+            "english": "Ada helps Otto verify the key. The next route becomes visible.",
+            "clipId": "dialogue-a2-archive-restore-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-consult",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a2-archive-consult-0",
+            "speaker": "ada",
+            "german": "Ada lädt den Kreis und die Laternenhüter zum Hafenrat ein. Alle dürfen sprechen.",
+            "english": "Ada invites the Circle and the Lamplighters to the harbour council. Everyone may speak.",
+            "clipId": "dialogue-a2-archive-consult-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "waldruh-memory-stone",
+        "german": "Vorübergehende Schließung. Unterschrift: Ada. Unter dem Siegel steht: Fragt die Bewohner.",
+        "english": "Temporary closure. Signature: Ada. Under the seal: Ask the residents."
+      }
+    ]
+  },
+  {
+    "questId": "b1-witness",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-witness-exercise-6",
+    "gatePrompt": "Politely ask the witness to describe what she saw.",
+    "evidenceItem": "b1-witness-evidence",
+    "objectives": [
+      {
+        "text": "Meet Lina and examine the evidence",
+        "location": "Signal harbour",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "nebelstadt-evidence-crate, nebelstadt-signal-lantern",
+        "stage": "intro"
+      },
+      {
+        "text": "Politely ask the witness to describe what she saw.",
+        "location": "Signal harbour",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Signal harbour",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-witness-intro-0",
+            "speaker": "lina",
+            "german": "Elises Signal wurde gleichzeitig am Hafen und an der Sternwarte gehört.",
+            "english": "Elise’s signal was heard at the harbour and observatory at the same time.",
+            "clipId": "dialogue-b1-witness-intro-0"
+          },
+          {
+            "id": "b1-witness-intro-1",
+            "speaker": "lina",
+            "german": "Das beweist nicht, dass sie an beiden Orten war. Ein Signal ist kein Zeuge.",
+            "english": "That does not prove she was in both places. A signal is not a witness.",
+            "clipId": "dialogue-b1-witness-intro-1"
+          },
+          {
+            "id": "b1-witness-intro-2",
+            "speaker": "ada",
+            "german": "Ich habe einen Beschluss unterschrieben. Trotzdem kenne ich nicht jede spätere Entscheidung.",
+            "english": "I signed an order. Even so, I do not know every later decision.",
+            "clipId": "dialogue-b1-witness-intro-2"
+          },
+          {
+            "id": "b1-witness-intro-3",
+            "speaker": "lina",
+            "german": "Wir trennen Beobachtung, Erinnerung und Vermutung. Erst dann vergleichen wir die Berichte.",
+            "english": "We separate observation, memory and speculation. Only then do we compare the reports.",
+            "clipId": "dialogue-b1-witness-intro-3"
+          },
+          {
+            "id": "b1-witness-intro-4",
+            "speaker": "lina",
+            "german": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+            "english": "Politely ask the witness to describe her observation.",
+            "clipId": "dialogue-b1-witness-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-witness-gate-request",
+            "speaker": "lina",
+            "german": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+            "english": "Politely ask the witness to describe her observation.",
+            "clipId": "dialogue-b1-witness-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-witness-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-witness-gate-0",
+            "speaker": "lina",
+            "german": "Sie sah den Inspektor an der Maschine, während Elises Signal aus dem alten Speicher kam.",
+            "english": "She saw the inspector at the machine while Elise’s signal came from the old recorder.",
+            "clipId": "dialogue-b1-witness-gate-0"
+          },
+          {
+            "id": "b1-witness-choice-0",
+            "speaker": "lina",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-witness-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir veröffentlichen den Bericht.",
+            "english": "We will publish the report.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Wir sichern zuerst die Aussage.",
+            "english": "We will secure the statement first.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-witness-complete-0",
+            "speaker": "lina",
+            "german": "Otto hat zwei Vorschläge für die neue Strecke. Der Garten liegt zwischen ihnen.",
+            "english": "Otto has two proposals for the new route. The garden lies between them.",
+            "clipId": "dialogue-b1-witness-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-witness-reopen-0",
+            "speaker": "lina",
+            "german": "Die Laternenhüter hören die Nachricht. Der Inspektor verlangt, dass auch seine Erklärung geprüft wird.",
+            "english": "The Lamplighters hear the news. The inspector asks for his explanation to be examined too.",
+            "clipId": "dialogue-b1-witness-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-witness-remember-0",
+            "speaker": "lina",
+            "german": "Lina bewahrt die Aussage auf. Die Zeugin darf ihre Worte vor der Veröffentlichung prüfen.",
+            "english": "Lina stores the statement. The witness may check her words before publication.",
+            "clipId": "dialogue-b1-witness-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-evidence-crate",
+        "german": "Die Zeugin sah den Inspektor. Die Aufnahme enthält Elises Stimme von gestern. Die Uhrzeiten stimmen überein.",
+        "english": "The witness saw the inspector. The recording contains Elise’s voice from yesterday. The times match."
+      },
+      {
+        "objectId": "nebelstadt-signal-lantern",
+        "german": "Der Speicher wiederholt das alte Signal automatisch. Er beweist nicht, wo Elise heute ist.",
+        "english": "The recorder automatically repeats the old signal. It does not prove where Elise is today."
+      }
+    ]
+  },
+  {
+    "questId": "b1-new-route",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-new-route-exercise-2",
+    "gatePrompt": "Say that we must find a solution that suits everyone.",
+    "evidenceItem": "b1-new-route-evidence",
+    "objectives": [
+      {
+        "text": "Meet Otto and examine the evidence",
+        "location": "Harbour chart",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "nebelstadt-harbor-chart",
+        "stage": "intro"
+      },
+      {
+        "text": "Say that we must find a solution that suits everyone.",
+        "location": "Harbour chart",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Harbour chart",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-new-route-intro-0",
+            "speaker": "otto",
+            "german": "Die schnellste Strecke führt durch den Garten. Die längere folgt einer bestehenden Straße.",
+            "english": "The quickest route crosses the garden. The longer one follows an existing road.",
+            "clipId": "dialogue-b1-new-route-intro-0"
+          },
+          {
+            "id": "b1-new-route-intro-1",
+            "speaker": "greta",
+            "german": "Unsere Pflanzen sind Beweise und unsere Arbeit. Eine schnelle Verbindung darf uns nicht wieder auslöschen.",
+            "english": "Our plants are evidence and our work. A quick connection must not erase us again.",
+            "clipId": "dialogue-b1-new-route-intro-1"
+          },
+          {
+            "id": "b1-new-route-intro-2",
+            "speaker": "otto",
+            "german": "Auf der längeren Strecke kann eine Haltestelle an der Klinik entstehen. Das dauert länger, hilft aber mehr Menschen.",
+            "english": "The longer route can have a stop at the clinic. It takes longer but helps more people.",
+            "clipId": "dialogue-b1-new-route-intro-2"
+          },
+          {
+            "id": "b1-new-route-intro-3",
+            "speaker": "otto",
+            "german": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+            "english": "Explain to the council that we need a solution for everyone.",
+            "clipId": "dialogue-b1-new-route-intro-3"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-new-route-gate-request",
+            "speaker": "otto",
+            "german": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+            "english": "Explain to the council that we need a solution for everyone.",
+            "clipId": "dialogue-b1-new-route-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-new-route-exercise-2",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-new-route-gate-0",
+            "speaker": "otto",
+            "german": "Dann zeichnen wir beide Kosten und alle betroffenen Gärten ein. Der Rat kann ehrlich entscheiden.",
+            "english": "Then we will map both costs and all affected gardens. The council can decide honestly.",
+            "clipId": "dialogue-b1-new-route-gate-0"
+          },
+          {
+            "id": "b1-new-route-choice-0",
+            "speaker": "otto",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-new-route-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir öffnen zuerst die schnelle Strecke.",
+            "english": "We will open the fast route first.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Wir schützen Garten und Klinik.",
+            "english": "We will protect the garden and clinic.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-new-route-complete-0",
+            "speaker": "otto",
+            "german": "Emils Wartungsbuch zeigt, wer die Löschmaschine weiter betrieben hat.",
+            "english": "Emil’s maintenance ledger shows who continued to operate the eraser.",
+            "clipId": "dialogue-b1-new-route-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-new-route-reopen-0",
+            "speaker": "otto",
+            "german": "Otto markiert die Abkürzung. Greta fordert eine überprüfbare Zusage für den Garten.",
+            "english": "Otto marks the shortcut. Greta demands a verifiable promise for the garden.",
+            "clipId": "dialogue-b1-new-route-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-new-route-remember-0",
+            "speaker": "otto",
+            "german": "Otto zeichnet die längere Kurve und die Klinikhaltestelle. Der Kreis unterstützt den Plan.",
+            "english": "Otto draws the longer curve and clinic stop. The Circle supports the plan.",
+            "clipId": "dialogue-b1-new-route-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-harbor-chart",
+        "german": "Variante A führt durch den Garten. Variante B nutzt die Straße und hält an der Klinik. Beide Kosten sind eingetragen.",
+        "english": "Option A crosses the garden. Option B uses the road and stops at the clinic. Both costs are included."
+      }
+    ]
+  },
+  {
+    "questId": "b1-work",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-work-exercise-6",
+    "gatePrompt": "Say that before starting you want to clarify the conditions.",
+    "evidenceItem": "b1-work-evidence",
+    "objectives": [
+      {
+        "text": "Meet Emil and examine the evidence",
+        "location": "Repair dock",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "nebelstadt-repair-ledger",
+        "stage": "intro"
+      },
+      {
+        "text": "Say that before starting you want to clarify the conditions.",
+        "location": "Repair dock",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Repair dock",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-work-intro-0",
+            "speaker": "emil",
+            "german": "Die Maschine funktioniert genau wie geplant. Das ist das Problem.",
+            "english": "The machine works exactly as planned. That is the problem.",
+            "clipId": "dialogue-b1-work-intro-0"
+          },
+          {
+            "id": "b1-work-intro-1",
+            "speaker": "emil",
+            "german": "Das Messingamt hat sie nach dem Ende des Streits weiter repariert. Hier stehen Datum und Material.",
+            "english": "The Brass Office kept repairing it after the dispute ended. Here are the dates and materials.",
+            "clipId": "dialogue-b1-work-intro-1"
+          },
+          {
+            "id": "b1-work-intro-2",
+            "speaker": "inspector",
+            "german": "Ich habe die Wartung genehmigt. Ich dachte, ohne Ordnung wäre der Hafen unsicher.",
+            "english": "I authorised the maintenance. I thought the harbour would be unsafe without order.",
+            "clipId": "dialogue-b1-work-intro-2"
+          },
+          {
+            "id": "b1-work-intro-3",
+            "speaker": "emil",
+            "german": "Du brauchst einen sicheren Arbeitsplan, bevor du das Signal umbaust. Niemand muss sich dafür verletzen.",
+            "english": "You need a safe work plan before rebuilding the signal. Nobody needs to be injured for this.",
+            "clipId": "dialogue-b1-work-intro-3"
+          },
+          {
+            "id": "b1-work-intro-4",
+            "speaker": "emil",
+            "german": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+            "english": "Tell me that you want to clarify the conditions first.",
+            "clipId": "dialogue-b1-work-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-work-gate-request",
+            "speaker": "emil",
+            "german": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+            "english": "Tell me that you want to clarify the conditions first.",
+            "clipId": "dialogue-b1-work-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-work-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-work-gate-0",
+            "speaker": "emil",
+            "german": "Wir schalten den Strom ab, arbeiten zu zweit und sichern die Leiter. Hier ist das Wartungsbuch.",
+            "english": "We will switch off the power, work in pairs and secure the ladder. Here is the maintenance ledger.",
+            "clipId": "dialogue-b1-work-gate-0"
+          },
+          {
+            "id": "b1-work-choice-0",
+            "speaker": "emil",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-work-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir bauen das Signal sofort um.",
+            "english": "We will rebuild the signal immediately.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Wir erklären zuerst den Plan.",
+            "english": "We will explain the plan first.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-work-complete-0",
+            "speaker": "emil",
+            "german": "Der Hafenrat muss jetzt entscheiden. Bring Beweise und einen Vorschlag mit.",
+            "english": "The harbour council must decide now. Bring evidence and a proposal.",
+            "clipId": "dialogue-b1-work-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-work-reopen-0",
+            "speaker": "emil",
+            "german": "Emil und Otto bereiten die sichere Reparatur vor. Der Inspektor bleibt als Zeuge dabei.",
+            "english": "Emil and Otto prepare the safe repair. The inspector stays as a witness.",
+            "clipId": "dialogue-b1-work-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-work-remember-0",
+            "speaker": "emil",
+            "german": "Emil legt dem Kreis den Arbeitsplan vor. Greta organisiert Hilfe und einen sicheren Rückweg.",
+            "english": "Emil presents the work plan to the Circle. Greta organises help and a safe way back.",
+            "clipId": "dialogue-b1-work-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-repair-ledger",
+        "german": "Das Messingamt bestellte nach dem Streit drei neue Löschspulen. Der Inspektor genehmigte die Wartung persönlich.",
+        "english": "The Brass Office ordered three new eraser coils after the dispute. The inspector personally authorised maintenance."
+      }
+    ]
+  },
+  {
+    "questId": "b1-council",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-council-exercise-7",
+    "gatePrompt": "Propose opening the route gradually as a compromise.",
+    "evidenceItem": "b1-council-evidence",
+    "objectives": [
+      {
+        "text": "Meet Ada and examine the evidence",
+        "location": "Council square",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "nebelstadt-council-board, nebelstadt-harbor-chart",
+        "stage": "intro"
+      },
+      {
+        "text": "Propose opening the route gradually as a compromise.",
+        "location": "Council square",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Council square",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-council-intro-0",
+            "speaker": "ada",
+            "german": "Der Rat hat alle drei Gruppen eingeladen. Jede darf ihre Beweise und ihre Sorgen nennen.",
+            "english": "The council invited all three groups. Each may state its evidence and concerns.",
+            "clipId": "dialogue-b1-council-intro-0"
+          },
+          {
+            "id": "b1-council-intro-1",
+            "speaker": "inspector",
+            "german": "Die Maschine löscht tatsächlich Namen. Meine Prüfung war zu eng. Ich trage Verantwortung für die Wartung.",
+            "english": "The machine really erases names. My inspection was too narrow. I bear responsibility for the maintenance.",
+            "clipId": "dialogue-b1-council-intro-1"
+          },
+          {
+            "id": "b1-council-intro-2",
+            "speaker": "otto",
+            "german": "Die Laternenhüter wollen die Verbindung öffnen. Marta und ich stehen für die täglichen Wege ein.",
+            "english": "The Lamplighters want to open the connection. Marta and I stand for everyday journeys.",
+            "clipId": "dialogue-b1-council-intro-2"
+          },
+          {
+            "id": "b1-council-intro-3",
+            "speaker": "greta",
+            "german": "Der Kreis will, dass die Bewohner entscheiden können. Lina und ich vertreten ihre Aussagen.",
+            "english": "The Circle wants residents to be able to decide. Lina and I represent their accounts.",
+            "clipId": "dialogue-b1-council-intro-3"
+          },
+          {
+            "id": "b1-council-intro-4",
+            "speaker": "ada",
+            "german": "Ich vertrete die Akten mit dem Inspektor. Akten müssen die Wirklichkeit prüfen, nicht ersetzen.",
+            "english": "I represent the records with the inspector. Records must check reality, not replace it.",
+            "clipId": "dialogue-b1-council-intro-4"
+          },
+          {
+            "id": "b1-council-intro-5",
+            "speaker": "ada",
+            "german": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
+            "english": "Propose a compromise: The route should open gradually.",
+            "clipId": "dialogue-b1-council-intro-5"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-council-gate-request",
+            "speaker": "ada",
+            "german": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
+            "english": "Propose a compromise: The route should open gradually.",
+            "clipId": "dialogue-b1-council-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-council-exercise-7",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-council-gate-0",
+            "speaker": "ada",
+            "german": "Wir vereinbaren eine überprüfbare Öffnung mit Mitsprache und einem öffentlichen Wartungsbuch.",
+            "english": "We agree to a verifiable opening with participation and a public maintenance ledger.",
+            "clipId": "dialogue-b1-council-gate-0"
+          },
+          {
+            "id": "b1-council-choice-0",
+            "speaker": "ada",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-council-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir beginnen mit der ersten Verbindung.",
+            "english": "We will begin with the first connection.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Die Bewohner bestätigen jeden Schritt.",
+            "english": "The residents will approve each step.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-council-complete-0",
+            "speaker": "ada",
+            "german": "Der Sturm erreicht den Hafen. Das Versprechen muss jetzt in der Praxis bestehen.",
+            "english": "The storm reaches the harbour. The promise must work in practice now.",
+            "clipId": "dialogue-b1-council-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-council-reopen-0",
+            "speaker": "ada",
+            "german": "Der Rat setzt einen ersten Zug an. Die Laternenhüter müssen die Sicherheit öffentlich nachweisen.",
+            "english": "The council schedules a first train. The Lamplighters must demonstrate safety publicly.",
+            "clipId": "dialogue-b1-council-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-council-remember-0",
+            "speaker": "ada",
+            "german": "Der Rat gibt dem Kreis ein Recht auf Prüfung. Kein stiller Beschluss kann es zurücknehmen.",
+            "english": "The council gives the Circle a right of review. No silent order can take it away.",
+            "clipId": "dialogue-b1-council-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-council-board",
+        "german": "Jede Öffnung braucht einen sicheren Fahrplan, den Schutz des Gartens und die Zustimmung der Bewohner.",
+        "english": "Each opening needs a safe timetable, protection for the garden and residents’ approval."
+      },
+      {
+        "objectId": "nebelstadt-harbor-chart",
+        "german": "Die Kosten und die Klinikhaltestelle sind öffentlich. Fehlende Angaben dürfen niemanden zum Schweigen bringen.",
+        "english": "The costs and clinic stop are public. Missing information must not silence anyone."
+      }
+    ]
+  },
+  {
+    "questId": "b1-storm",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-storm-exercise-7",
+    "gatePrompt": "Say that we can only solve the problem together.",
+    "evidenceItem": "b1-storm-evidence",
+    "objectives": [
+      {
+        "text": "Meet Greta and examine the evidence",
+        "location": "Lighthouse steps",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the evidence",
+        "location": "nebelstadt-signal-lantern",
+        "stage": "intro"
+      },
+      {
+        "text": "Say that we can only solve the problem together.",
+        "location": "Lighthouse steps",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Lighthouse steps",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-storm-intro-0",
+            "speaker": "greta",
+            "german": "Das Wasser steigt. Wir bringen die Menschen zur Klinik und sichern den Signalraum.",
+            "english": "The water is rising. We will bring people to the clinic and secure the signal room.",
+            "clipId": "dialogue-b1-storm-intro-0"
+          },
+          {
+            "id": "b1-storm-intro-1",
+            "speaker": "marta",
+            "german": "Ich habe heißen Tee und Decken. Sag mir, wo die Helfer warten sollen.",
+            "english": "I have hot tea and blankets. Tell me where the helpers should wait.",
+            "clipId": "dialogue-b1-storm-intro-1"
+          },
+          {
+            "id": "b1-storm-intro-2",
+            "speaker": "inspector",
+            "german": "Ich öffne das Lager des Amts. Die Vorschrift darf niemanden im Regen stehen lassen.",
+            "english": "I will open the office storehouse. The rules must not leave anyone in the rain.",
+            "clipId": "dialogue-b1-storm-intro-2"
+          },
+          {
+            "id": "b1-storm-trust-brassOffice",
+            "speaker": "inspector",
+            "german": "Du hast Beweise eingereicht. Ich öffne die Vorratsräume und lasse die Helfer ohne Genehmigung hinein.",
+            "english": "You submitted evidence. I will open the storehouses and let helpers in without a permit.",
+            "clipId": "dialogue-b1-storm-trust-brassOffice",
+            "condition": {
+              "faction": "brassOffice",
+              "minimum": 3
+            }
+          },
+          {
+            "id": "b1-storm-trust-unwritten",
+            "speaker": "lina",
+            "german": "Du hast die Bewohner gehört. Der Kreis kennt jeden sicheren Weg zur Klinik und begleitet die Familien.",
+            "english": "You listened to residents. The Circle knows every safe route to the clinic and accompanies the families.",
+            "clipId": "dialogue-b1-storm-trust-unwritten",
+            "condition": {
+              "faction": "unwritten",
+              "minimum": 3
+            }
+          },
+          {
+            "id": "b1-storm-trust-lamplighters",
+            "speaker": "otto",
+            "german": "Du hast unsere Versprechen gehalten. Die Laternenhüter kommen mit Werkzeugen und sichern die Verbindung.",
+            "english": "You kept our promises. The Lamplighters arrive with tools and secure the connection.",
+            "clipId": "dialogue-b1-storm-trust-lamplighters",
+            "condition": {
+              "faction": "lamplighters",
+              "minimum": 3
+            }
+          },
+          {
+            "id": "b1-storm-intro-3",
+            "speaker": "greta",
+            "german": "Wenn die Gruppen dir vertrauen, arbeiten ihre Helfer zusammen. Jede frühere Zusage zählt jetzt.",
+            "english": "If the groups trust you, their helpers work together. Every earlier promise matters now.",
+            "clipId": "dialogue-b1-storm-intro-3"
+          },
+          {
+            "id": "b1-storm-intro-4",
+            "speaker": "greta",
+            "german": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+            "english": "Explain to the helpers that we can only solve the problem together.",
+            "clipId": "dialogue-b1-storm-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-storm-gate-request",
+            "speaker": "greta",
+            "german": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+            "english": "Explain to the helpers that we can only solve the problem together.",
+            "clipId": "dialogue-b1-storm-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-storm-exercise-7",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-storm-gate-0",
+            "speaker": "greta",
+            "german": "Dann teilen wir die Aufgaben: retten, reparieren und die Namen sichern. Du gehst mit Emil zum Signal.",
+            "english": "Then we divide the tasks: rescue, repair and preserve names. You go to the signal with Emil.",
+            "clipId": "dialogue-b1-storm-gate-0"
+          },
+          {
+            "id": "b1-storm-choice-0",
+            "speaker": "greta",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-storm-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir sichern zuerst die Verbindung.",
+            "english": "We will secure the connection first.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Wir sichern zuerst die Menschen.",
+            "english": "We will secure the people first.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-storm-complete-0",
+            "speaker": "greta",
+            "german": "Elise ist im alten Signalraum. Höre ihre Erklärung, bevor du den Atlas abschließt.",
+            "english": "Elise is in the old signal room. Hear her explanation before completing the Atlas.",
+            "clipId": "dialogue-b1-storm-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-storm-reopen-0",
+            "speaker": "greta",
+            "german": "Otto und Emil schützen die Strecke. Greta übernimmt mit Lina die Menschen im Garten.",
+            "english": "Otto and Emil protect the route. Greta and Lina take care of the people in the garden.",
+            "clipId": "dialogue-b1-storm-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-storm-remember-0",
+            "speaker": "greta",
+            "german": "Alle Gruppen öffnen ihre Türen. Emil hält das Signal sicher, bis die letzte Familie angekommen ist.",
+            "english": "All groups open their doors. Emil keeps the signal safe until the final family arrives.",
+            "clipId": "dialogue-b1-storm-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-signal-lantern",
+        "german": "Sturmwarnung. Erst die Menschen sichern. Strom am Signal abschalten. Nicht allein auf die Leiter steigen.",
+        "english": "Storm warning. Secure people first. Switch off power to the signal. Do not climb the ladder alone."
+      }
+    ]
+  },
+  {
+    "questId": "b1-atlas",
+    "level": "B1",
+    "start": "intro",
+    "gateExerciseId": "b1-atlas-exercise-6",
+    "gatePrompt": "Write that we agree to discuss problems early.",
+    "evidenceItem": "b1-atlas-evidence",
+    "objectives": [
+      {
+        "text": "Meet Elise and examine the evidence",
+        "location": "Old signal room",
+        "stage": "intro"
+      },
+      {
+        "text": "Read both pieces of evidence",
+        "location": "nebelstadt-observatory, nebelstadt-council-board",
+        "stage": "intro"
+      },
+      {
+        "text": "Write that we agree to discuss problems early.",
+        "location": "Old signal room",
+        "stage": "gate"
+      },
+      {
+        "text": "Choose what happens to the evidence",
+        "location": "Old signal room",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "b1-atlas-intro-0",
+            "speaker": "elise",
+            "german": "Du bist gekommen, {name}. Ich habe deinen Namen in den Atlas geschrieben, damit jemand weiterfragen kann.",
+            "english": "You came, {name}. I wrote your name in the Atlas so someone could keep asking questions.",
+            "clipId": "dialogue-b1-atlas-intro-0"
+          },
+          {
+            "id": "b1-atlas-intro-1",
+            "speaker": "elise",
+            "german": "Ich habe die Strecke geschlossen, um einen Streit zu stoppen. Damit habe ich den Bewohnern ihre Entscheidung genommen.",
+            "english": "I closed the route to stop a dispute. In doing so, I took the decision away from its residents.",
+            "clipId": "dialogue-b1-atlas-intro-1"
+          },
+          {
+            "id": "b1-atlas-intro-2",
+            "speaker": "elise",
+            "german": "Das Amt hielt die Schließung aufrecht. Aber meine gute Absicht entschuldigt meinen ersten Fehler nicht.",
+            "english": "The office kept the closure in place. But my good intention does not excuse my first mistake.",
+            "clipId": "dialogue-b1-atlas-intro-2"
+          },
+          {
+            "id": "b1-atlas-intro-3",
+            "speaker": "elise",
+            "german": "Die Warnung „bevor du uns wieder auslöschst“ gilt dem Schlüssel, nicht deiner Erinnerung. Du musst meinen Fehler nicht wiederholen.",
+            "english": "The warning “before you erase us again” concerns the key, not your memory. You do not have to repeat my mistake.",
+            "clipId": "dialogue-b1-atlas-intro-3"
+          },
+          {
+            "id": "b1-atlas-intro-4",
+            "speaker": "elise",
+            "german": "Der Wasserkocher kannte deinen Namen, weil meine Nachricht über Martas alte Laterne kam. Es war ein Ruf nach Hilfe.",
+            "english": "The kettle knew your name because my message travelled through Marta’s old lantern. It was a call for help.",
+            "clipId": "dialogue-b1-atlas-intro-4"
+          },
+          {
+            "id": "b1-atlas-intro-5",
+            "speaker": "elise",
+            "german": "Eine letzte Glocke bleibt. Schreib ein Versprechen, das auch gilt, wenn wir wieder streiten.",
+            "english": "One final bell remains. Write a promise that holds even when we disagree again.",
+            "clipId": "dialogue-b1-atlas-intro-5"
+          },
+          {
+            "id": "b1-atlas-intro-6",
+            "speaker": "elise",
+            "german": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+            "english": "We must discuss problems early. Give this sentence your own commitment.",
+            "clipId": "dialogue-b1-atlas-intro-6"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "b1-atlas-gate-request",
+            "speaker": "elise",
+            "german": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+            "english": "We must discuss problems early. Give this sentence your own commitment.",
+            "clipId": "dialogue-b1-atlas-gate-request"
+          }
+        ],
+        "gateExerciseId": "b1-atlas-exercise-6",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "b1-atlas-gate-0",
+            "speaker": "elise",
+            "german": "Das Versprechen steht im Atlas. Es gehört allen entlang der Strecke, nicht einer einzigen Hüterin.",
+            "english": "The promise is in the Atlas. It belongs to everyone along the route, not to one keeper alone.",
+            "clipId": "dialogue-b1-atlas-gate-0"
+          },
+          {
+            "id": "b1-atlas-choice-0",
+            "speaker": "elise",
+            "german": "Welche Zusage möchtest du dem Rat geben?",
+            "english": "Which promise will you make to the council?",
+            "clipId": "dialogue-b1-atlas-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "reopen",
+            "german": "Wir öffnen die Strecke gemeinsam.",
+            "english": "We will open the route together.",
+            "next": "after-reopen",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              }
+            ]
+          },
+          {
+            "id": "remember",
+            "german": "Wir bewahren jede Stimme im Atlas.",
+            "english": "We will preserve every voice in the Atlas.",
+            "next": "after-remember",
+            "effects": [
+              {
+                "faction": "unwritten",
+                "amount": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-atlas-complete-0",
+            "speaker": "elise",
+            "german": "Drei Städte sind zurück. Eine Küste ohne Namen wartet auf deine nächste Frage.",
+            "english": "Three towns are back. A coast without a name awaits your next question.",
+            "clipId": "dialogue-b1-atlas-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-reopen",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-atlas-reopen-0",
+            "speaker": "elise",
+            "german": "Elise gibt den Schlüssel an den Rat. Die Laternen zeigen den neuen gemeinsamen Fahrplan.",
+            "english": "Elise gives the key to the council. The lanterns display the new shared timetable.",
+            "clipId": "dialogue-b1-atlas-reopen-0"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-remember",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "b1-atlas-remember-0",
+            "speaker": "elise",
+            "german": "Elise gibt den Schlüssel an den Kreis. Jede Stadt behält eine eigene Kopie des Versprechens.",
+            "english": "Elise gives the key to the Circle. Each town keeps its own copy of the promise.",
+            "clipId": "dialogue-b1-atlas-remember-0"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "nebelstadt-observatory",
+        "german": "Der Schlüssel nennt {name} als Nachfolge. Eine Unterschrift darf die Stimmen der drei Städte nicht ersetzen.",
+        "english": "The key names {name} as successor. One signature must not replace the voices of the three towns."
+      },
+      {
+        "objectId": "nebelstadt-council-board",
+        "german": "Wir besprechen Probleme frühzeitig. Jede Stadt behält ihre Namen und prüft die gemeinsame Verbindung.",
+        "english": "We discuss problems early. Each town keeps its names and reviews the shared connection."
+      }
+    ]
+  }
+]

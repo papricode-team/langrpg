@@ -1,4 +1,7 @@
-import data from './data/course.json';
+import data from './data/course-meta.json';
+import a1 from './data/course-exercises-a1.json';
+import a2 from './data/course-exercises-a2.json';
+import b1 from './data/course-exercises-b1.json';
 import type { Exercise, Level } from './content';
 
 /** Lexical facts from attributed open dictionaries; levels are course placements. */
@@ -68,7 +71,8 @@ export const courseSources = data.sources as CourseSource[];
 export const courseLexicon = data.lexicon as CourseLexeme[];
 export const courseUnits = data.units as CourseUnit[];
 export const courseGrammar = data.grammar as CourseGrammar[];
-export const courseExercises = data.exercises as CourseExercise[];
+const exerciseParts=[a1,a2,b1] as unknown as {indices:number[];exercises:CourseExercise[]}[];
+export const courseExercises=exerciseParts.flatMap(part=>part.exercises.map((exercise,index)=>({exercise,sourceIndex:part.indices[index]}))).sort((left,right)=>left.sourceIndex-right.sourceIndex).map(entry=>entry.exercise);
 export const courseExerciseById = new Map(courseExercises.map(exercise => [exercise.id, exercise]));
 export const lexemeById = new Map(courseLexicon.map(word => [word.id, word]));
 export const courseContextWordIds: Record<string, string[]> = data.contextWordIds;

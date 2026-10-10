@@ -39,3 +39,8 @@ export function sampleSceneryFrame(animation:SceneryAnimation,id:string,seconds:
   const phase=sceneryPhase(id)/(Math.PI*2)*animation.frames.length;
   return animation.frames[Math.floor(time*animation.fps+phase)%animation.frames.length];
 }
+export function sceneryBlend(animation:SceneryAnimation,id:string,seconds:number) {
+  const cycle=Math.max(0,Number.isFinite(seconds)?seconds:0)*animation.fps+sceneryPhase(id)/(Math.PI*2)*animation.frames.length;
+  const index=Math.floor(cycle)%animation.frames.length;
+  return {current:animation.frames[index],next:animation.frames[(index+1)%animation.frames.length],alpha:cycle-Math.floor(cycle)};
+}

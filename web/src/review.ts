@@ -1,20 +1,26 @@
 import type { Exercise } from './content';
-import type { Progress } from './api';
+import type { Progress,WordMemory } from './api';
 import { dueItems, modeFor, practiceExercises } from './learning';
 
 type ReviewExercise = Exercise & { targetWordId?: string };
-const ready = (date: string | undefined, now: number) => !!date && Number.isFinite(Date.parse(date)) && Date.parse(date) <= now;
+const ready = (date: string | undefined, now: number) => !!date && Number.isFinite(Date.parse(date)) && Date.parse(date)>0 && Date.parse(date) <= now;
+/** Journal counts and review queues share the same practiced-skill deadline. */
+export function wordReadyForReview(word:WordMemory,now=Date.now()):boolean {
+  return word.directAttempts>0&&ready(word.dueAt,now)&&Object.values(word.evidence??{}).some(evidence=>evidence.attempts>0&&evidence.status!=='unseen'&&ready(evidence.dueAt,now));
+}
 /** A short session across both the extended course and the story, with one due skill per word. */
 export function reviewExercises(progress: Progress, course: readonly ReviewExercise[], story: readonly Exercise[], now = Date.now(), silentMode = false): Exercise[] {
   const queue: Exercise[] = [];
   course = practiceExercises(course, silentMode);
   story = practiceExercises(story, silentMode);
   const wordExercises = new Map(course.filter(ex => ex.targetWordId).map(ex => [`${ex.targetWordId}:${modeFor(ex)}`, ex]));
-  const words = Object.values(progress.words).filter(word => ready(word.dueAt, now)).sort((a,b) => Date.parse(a.dueAt) - Date.parse(b.dueAt));
+  const words = Object.values(progress.words).filter(word => wordReadyForReview(word,now)).sort((a,b) => Date.parse(a.dueAt) - Date.parse(b.dueAt));
   for (const word of words) {
     for (const mode of ['production','listening','recognition'] as const) {
       const evidence = word.evidence?.[mode];
-      if (evidence?.dueAt && !ready(evidence.dueAt, now)) continue;
+      // A different practiced skill being due does not make unseen production
+      // due. Review only modalities with a real recall/practice deadline.
+      if (!evidence || evidence.attempts < 1 || evidence.status === 'unseen' || !ready(evidence.dueAt, now)) continue;
       const exercise = wordExercises.get(`${word.wordId}:${mode}`);
       if (exercise) { queue.push(exercise); break; }
     }

@@ -2,11 +2,12 @@ import type { Avatar, WorldPlayer } from './world';
 import type { MapId } from './maps';
 import { isExpeditionMap } from './expeditions';
 import { buildingEntrances, type InteriorId } from './interiors';
+import type { StoryState, StoryStage } from './dialogue';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
 export type ActivityId = 'cafe' | 'market' | 'detective' | 'delivery';
-export interface ModeEvidence { attempts: number; correct: number; unaidedSuccesses: number; }
+export interface ModeEvidence { attempts: number; correct: number; unaidedSuccesses: number; timedAttempts?:number; responseTimeMs?:number; }
 export interface MemoryItem {
   itemId: string; stabilityDays: number; difficulty: number; repetitions: number; lapses: number;
   lastSeenAt: string; dueAt: string;
@@ -34,6 +35,7 @@ export interface Progress {
   items: Record<string, MemoryItem>;
   words: Record<string, WordMemory>; completedUnitIds: string[]; activities: Record<string, ActivityProgress>;
   exerciseStats: Record<string, ExerciseEvidence>; recentAttempts: Record<string, AttemptEvidence>;
+  story?: StoryState;
 }
 export interface AttemptResult {
   attemptId: string; correct: boolean; xpAdded: number; duplicate: boolean; correctedAnswer: string; reason: string; progress: Progress;
@@ -46,6 +48,12 @@ export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
 export interface AccountStatus { registered: boolean; email: string; }
 export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; }
+export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
+/** Older servers omitted account metadata for guests. Normalize at the boundary. */
+export function normalizeSession(result: SessionResult): SessionResult {
+  const metadata = result.account;
+  return { ...result, account: { registered: metadata?.registered === true, email: typeof metadata?.email === 'string' ? metadata.email : '' } };
+}
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
 const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
@@ -80,6 +88,7 @@ export class Api {
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
+  onClock?: (clock: { hour: number; serverTime?: string; day?: number }) => void;
   onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
@@ -106,20 +115,20 @@ export class Api {
       try { result = await this.request('/session', { name, avatar }); }
       catch (retryError) { this.token = oldToken; throw retryError; }
     }
-    this.rememberSession(result);
-    return result;
+    return this.rememberSession(result);
   }
   private rememberSession(result: SessionResult) {
+    result = normalizeSession(result);
     this.token = result.token;
     this.selfId = result.player.id;
     localStorage.setItem('atlas.token', this.token);
+    return result;
   }
   async resume(): Promise<SessionResult | undefined> {
     if (!this.token) return undefined;
     try {
       const result = await this.request<SessionResult>('/session', {});
-      this.rememberSession(result);
-      return result;
+      return this.rememberSession(result);
     } catch (error) {
       if (!(error instanceof ApiError) || error.status !== 401) throw error;
       this.token = ''; this.selfId = ''; localStorage.removeItem('atlas.token');
@@ -132,10 +141,14 @@ export class Api {
   async login(email: string, password: string): Promise<SessionResult> {
     const result = await this.request<SessionResult>('/account/login', { email, password });
     this.destroy();
-    this.rememberSession(result);
-    return result;
+    return this.rememberSession(result);
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }
+  story() { return this.request<StoryResult>('/story'); }
+  storyTransition(input: { id: string; questId: string; nodeId: StoryStage; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
+  inspectStory(input: { id: string; questId: string; objectId: string }) { return this.request<StoryResult>('/story/inspect', input); }
+  saveStory(slot: string, name: string) { return this.request<StoryResult>('/story/save', { slot, name }); }
+  loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }
   completeActivity(input: ActivityCompletionInput) { return this.request<ActivityCompletionResult>('/activity/complete', input); }
   expose(input: ExposureInput) { return this.request<CompletionResult>('/exposure', input); }
   connect() {
@@ -152,6 +165,8 @@ export class Api {
       if (this.stopped || this.socket !== ws) return;
       try {
         const value = JSON.parse(event.data);
+        const clock = value.clock;
+        const publishClock = () => { if (clock && typeof clock.hour === 'number' && Number.isFinite(clock.hour) && clock.hour >= 0 && clock.hour < 24) this.onClock?.({ hour: clock.hour, ...(typeof clock.serverTime === 'string' ? {serverTime:clock.serverTime} : {}), ...(Number.isInteger(clock.day) && clock.day >= 1 ? {day:clock.day} : {}) }); };
         if (value.type === 'welcome' || value.type === 'map') {
           if (!isMapId(value.mapId) || !validInterior(value.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
           if (typeof value.selfId === 'string') this.selfId = value.selfId;
@@ -162,6 +177,7 @@ export class Api {
           try { localStorage.setItem('atlas.map', this.mapId); } catch { /* Storage availability must not prevent entering a map. */ }
           this.onMap?.(this.mapId, value.spawn);
           this.onInterior?.(this.interiorId);
+          publishClock();
           this.onPlayers?.(value.players, this.selfId);
           for (const message of Array.isArray(value.messages) ? value.messages : []) {
             if (message?.mapId === this.mapId) this.onChat?.(message);
@@ -173,8 +189,10 @@ export class Api {
           this.interiorId = id;
           this.pendingInterior = undefined;
           this.onInterior?.(id);
+          publishClock();
           this.onPlayers?.(value.players, this.selfId);
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
+          publishClock();
           this.onPlayers?.(value.players, this.selfId);
         } else if (value.type === 'chat' && value.mapId === this.mapId && value.message?.mapId === this.mapId) {
           this.onChat?.(value.message);

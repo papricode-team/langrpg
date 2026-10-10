@@ -22,6 +22,14 @@ func reviewScheduler() *fsrs.FSRS {
 // Recognition, production and listening retain separate FSRS cards. Supported
 // answers are practice; they never establish a successful independent retrieval.
 func recordAttempt(p *Progress, itemID, mode string, correct, hinted bool, now time.Time, sourceModes ...string) (Receipt, error) {
+	sourceMode := mode
+	if len(sourceModes) > 0 && validMode(sourceModes[0]) {
+		sourceMode = sourceModes[0]
+	}
+	return recordRatedAttempt(p, itemID, mode, correct, hinted, now, sourceMode, "good", 0)
+}
+
+func recordRatedAttempt(p *Progress, itemID, mode string, correct, hinted bool, now time.Time, sourceMode, rating string, responseTimeMs int) (Receipt, error) {
 	if p.Items == nil {
 		p.Items = map[string]Memory{}
 	}
@@ -36,16 +44,16 @@ func recordAttempt(p *Progress, itemID, mode string, correct, hinted bool, now t
 	if m.PracticeDueAt == nil {
 		m.PracticeDueAt = map[string]time.Time{}
 	}
-	sourceMode := mode
-	if len(sourceModes) > 0 && validMode(sourceModes[0]) {
-		sourceMode = sourceModes[0]
-	}
 	stats := m.ModeStats[mode]
 	firstUnaided := stats.UnaidedSuccesses == 0
 	card, hasCard := m.Cards[mode]
 	wasDue := hasCard && !now.Before(card.Due)
 	receipt := Receipt{Correct: &correct}
 	stats.Attempts++
+	if !hinted && responseTimeMs > 0 && responseTimeMs <= 600000 {
+		stats.TimedAttempts++
+		stats.ResponseTimeMs += int64(responseTimeMs)
+	}
 	p.Attempts++
 	if correct {
 		stats.Correct++
@@ -81,11 +89,15 @@ func recordAttempt(p *Progress, itemID, mode string, correct, hinted bool, now t
 		// Natural early encounters remain useful practice without repeatedly
 		// inflating stability or interrupting the story with a review.
 		if !correct || !hasCard || card.State != fsrs.Review || wasDue {
-			rating := fsrs.Good
+			fsrsRating := fsrs.Good
 			if !correct {
-				rating = fsrs.Again
+				fsrsRating = fsrs.Again
+			} else if rating == "hard" {
+				fsrsRating = fsrs.Hard
+			} else if rating == "easy" {
+				fsrsRating = fsrs.Easy
 			}
-			result, err := reviewScheduler().Next(card, now, rating)
+			result, err := reviewScheduler().Next(card, now, fsrsRating)
 			if err != nil {
 				return Receipt{}, fmt.Errorf("schedule item %s: %w", itemID, err)
 			}

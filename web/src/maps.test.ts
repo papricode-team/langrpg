@@ -23,7 +23,7 @@ describe('painted region definitions', () => {
     expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt', ...expeditionIds]);
     expect(new Set(maps.map(map => map.asset)).size).toBe(13);
     expect(storyMaps.map(map => map.spawn)).toEqual([{ x: .52, y: .61 }, { x: .52, y: .54 }, { x: .50, y: .55 }]);
-    for (const map of maps) expect(getMap(map.id)).toBe(map);
+    for (const map of maps) expect(getMap(map.id).id).toBe(map.id);
   });
 
   it('uses unique discoveries and existing exercises at the region’s level', () => {
@@ -32,7 +32,7 @@ describe('painted region definitions', () => {
     for (const map of maps) {
       expect(map.objects.length).toBeGreaterThanOrEqual(4);
       const expedition = getExpedition(map.id);
-      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? npcs).map(npc => npc.id)));
+      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? npcs.filter(npc => npc.id !== 'elise' || map.id === 'nebelstadt')).map(npc => npc.id)));
       for (const object of map.objects) {
         expect(ids.has(object.id), `${object.id} must identify one discovery`).toBe(false);
         ids.add(object.id);

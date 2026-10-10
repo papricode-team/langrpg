@@ -78,6 +78,7 @@ type worldClient struct {
 	memory        *worldMemory
 	messageWindow time.Time
 	messageCount  int
+	authorizeMap  func(context.Context, string) error
 }
 
 type World struct {
@@ -89,11 +90,12 @@ type World struct {
 	done           chan struct{}
 	maxPlayers     int
 	originPatterns []string
+	clockEpoch     time.Time
 }
 
 func NewWorld(maxPlayers int, origins []string) *World {
 	ctx, cancel := context.WithCancel(context.Background())
-	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins}
+	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockEpoch: time.Now().UTC()}
 	for _, mapID := range mapIDs {
 		w.messages[mapID] = []ChatMessage{}
 	}
@@ -159,7 +161,7 @@ func (w *World) clientError(client *worldClient, message string) {
 	w.enqueueLocked(client, b)
 }
 
-func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player) {
+func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player, progress Progress, authorize func(context.Context, string) error) {
 	// App checks exact scheme/origin; the library repeats origin verification.
 	conn, err := websocket.Accept(rw, r, &websocket.AcceptOptions{OriginPatterns: w.originPatterns, CompressionMode: websocket.CompressionDisabled})
 	if err != nil {
@@ -169,7 +171,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	defer conn.CloseNow()
-	client := &worldClient{player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel}
+	client := &worldClient{player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel, authorizeMap: authorize}
 	w.mu.Lock()
 	now := time.Now()
 	w.pruneMemoriesLocked(now)
@@ -180,6 +182,9 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		mapID = DefaultMapID
 		if memory != nil {
 			mapID = memory.mapID
+		}
+		if authorize != nil && !routeUnlocked(mapID, progress.CompletedQuestIDs) {
+			mapID = DefaultMapID
 		}
 	}
 	if !validMapID(mapID) {
@@ -331,6 +336,55 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 
 func validCoordinate(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) && v >= 0 && v <= 1 }
 
+func (w *World) nearStoryTarget(playerID, mapID string, target MapSpawn, radius float64) bool {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	client := w.clients[playerID]
+	return client != nil && client.player.MapID == mapID && client.player.InteriorID == "" && math.Hypot(client.player.X-target.X, client.player.Y-target.Y) <= radius
+}
+
+// Loading an earlier narrative slot can withdraw an earned route. Apply that
+// change to the active world membership as well as future travel requests.
+func (w *World) reconcileStoryLocation(playerID string, completed []string) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	client := w.clients[playerID]
+	if client == nil || routeUnlocked(client.player.MapID, completed) {
+		return
+	}
+	oldMap := client.player.MapID
+	position := mapSpawns[DefaultMapID]
+	if client.memory != nil {
+		if remembered, exists := client.memory.positions[DefaultMapID]; exists {
+			position = remembered
+		}
+		client.memory.mapID, client.memory.interiorID = DefaultMapID, ""
+		client.memory.positions[DefaultMapID] = position
+		client.memory.lastMove, client.memory.lastSeen = time.Now(), time.Now()
+		client.memory.movementCredit = 0
+	}
+	if w.mapCountLocked(DefaultMapID) >= w.maxPlayers {
+		// Restoring a save cannot bypass the destination's population limit.
+		// Normal reconnect will retry the unlocked town once a space is free.
+		delete(w.clients, playerID)
+		w.broadcastPlayersLocked(oldMap)
+		go func() {
+			if client.conn != nil {
+				_ = client.conn.Close(websocket.StatusTryAgainLater, "restored town is full")
+			}
+			if client.cancel != nil {
+				client.cancel()
+			}
+		}()
+		return
+	}
+	client.player.MapID, client.player.InteriorID = DefaultMapID, ""
+	client.player.X, client.player.Y = position.X, position.Y
+	w.enqueueMapLocked(client, "map")
+	w.broadcastPlayersLocked(oldMap)
+	w.broadcastPlayersLocked(DefaultMapID)
+}
+
 func (w *World) move(client *worldClient, x, y float64, now time.Time) {
 	_ = w.moveInMap(client, "", x, y, now)
 }
@@ -430,12 +484,12 @@ func (w *World) mapCountLocked(mapID string) int {
 }
 
 func (w *World) broadcastPlayersLocked(mapID string) {
-	w.broadcastLocked(mapID, map[string]any{"type": "players", "mapId": mapID, "players": w.playersLocked(mapID)})
+	w.broadcastLocked(mapID, map[string]any{"type": "players", "mapId": mapID, "players": w.playersLocked(mapID), "clock": w.Clock()})
 }
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
 	mapID := client.player.MapID
-	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID]})
+	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID], "clock": w.Clock()})
 	w.enqueueLocked(client, message)
 }
 
@@ -457,6 +511,14 @@ func (memory *worldMemory) allowJoin(now time.Time) bool {
 func (w *World) joinMap(client *worldClient, mapID string, now time.Time) string {
 	if !validMapID(mapID) {
 		return "unknown map; choose a destination from the atlas"
+	}
+	if client.authorizeMap != nil {
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		err := client.authorizeMap(ctx, mapID)
+		cancel()
+		if err != nil {
+			return err.Error()
+		}
 	}
 	w.mu.Lock()
 	defer w.mu.Unlock()

@@ -1,5 +1,5 @@
 export type ScreenFilterPreset = 'original' | 'soft' | 'crt' | 'pixel';
-export const DEFAULT_SCREEN_FILTER_PRESET: ScreenFilterPreset = 'crt';
+export const DEFAULT_SCREEN_FILTER_PRESET: ScreenFilterPreset = 'original';
 
 export interface ScreenFilterSettings {
   preset: ScreenFilterPreset;
@@ -13,7 +13,7 @@ export interface ScreenFilterSettings {
 
 export const SCREEN_FILTER_PRESETS: { id: ScreenFilterPreset; name: string; description: string; settings: ScreenFilterSettings }[] = [
   { id: 'original', name: 'Original', description: 'The painted world without a screen filter.', settings: { preset: 'original', softness: 0, scanlines: 0, grain: 0, warmth: 0, vignette: 0, pixelSize: 1 } },
-  { id: 'soft', name: 'Soft paint', description: 'Gentle softness and paper-like texture bring the artwork together.', settings: { preset: 'soft', softness: 32, scanlines: 0, grain: 12, warmth: 12, vignette: 0, pixelSize: 1 } },
+  { id: 'soft', name: 'Soft paint', description: 'A subtle paper texture and warm finish.', settings: { preset: 'soft', softness: 8, scanlines: 0, grain: 4, warmth: 6, vignette: 0, pixelSize: 1 } },
   { id: 'crt', name: 'CRT', description: 'A soft, warm screen with subtle scanlines.', settings: { preset: 'crt', softness: 38, scanlines: 28, grain: 10, warmth: 18, vignette: 8, pixelSize: 1 } },
   { id: 'pixel', name: 'Pixel CRT', description: 'A shared pixel grid and stronger scanlines for a retro look.', settings: { preset: 'pixel', softness: 24, scanlines: 42, grain: 8, warmth: 14, vignette: 12, pixelSize: 2.5 } },
 ];

@@ -1,0 +1,3311 @@
+{
+  "method": "Conservative dictionary surface matching and sentence-pattern flags. Unmapped proper names, inflections and story terms require editorial review. This does not establish CEFR proficiency or learner known-word coverage.",
+  "summary": {
+    "A1": {
+      "lines": 70,
+      "linesWithAboveLevelWords": 44,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "A2": {
+      "lines": 66,
+      "linesWithAboveLevelWords": 56,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "B1": {
+      "lines": 71,
+      "linesWithAboveLevelWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    }
+  },
+  "variantSummary": {
+    "A1": {
+      "lines": 25,
+      "linesWithAboveLevelWords": 15,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "A2": {
+      "lines": 0,
+      "linesWithAboveLevelWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "B1": {
+      "lines": 0,
+      "linesWithAboveLevelWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    }
+  },
+  "placementSummary": {
+    "A1": {
+      "lines": 3,
+      "linesWithAboveLevelWords": 2,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "A2": {
+      "lines": 3,
+      "linesWithAboveLevelWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
+    "B1": {
+      "lines": 2,
+      "linesWithAboveLevelWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    }
+  },
+  "lines": [
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-0",
+      "level": "A1",
+      "german": "Guten Morgen, {name}! Willkommen in Lindenhafen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Lindenhafen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-1",
+      "level": "A1",
+      "german": "Dein Zug ist da. Die Tauben schlafen noch.",
+      "aboveLevelWords": [
+        "Tauben"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-2",
+      "level": "A1",
+      "german": "Ihre Fahrkarte, bitte. Das Messingamt prüft jede Reise.",
+      "aboveLevelWords": [
+        "prüft"
+      ],
+      "unmappedWords": [
+        "Messingamt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-3",
+      "level": "A1",
+      "german": "Dieser Bahnsteig ist geschlossen. Das ist ganz normal.",
+      "aboveLevelWords": [
+        "Dieser",
+        "ganz"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-4",
+      "level": "A1",
+      "german": "Normal? Die Laterne leuchtet. Und hier steht dein Name.",
+      "aboveLevelWords": [
+        "Laterne"
+      ],
+      "unmappedWords": [
+        "leuchtet"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-5",
+      "level": "A1",
+      "german": "Die Fahrkarte ist von Elise. Sie braucht deine Hilfe.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-6",
+      "level": "A1",
+      "german": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich",
+        "uns"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-gate-request",
+      "level": "A1",
+      "german": "Bitte mich um Hilfe. Dann sehen wir uns das Schild an.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich",
+        "uns"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-gate-0",
+      "level": "A1",
+      "german": "Bitte, ich helfe dir. Die Glocke läutet einmal.",
+      "aboveLevelWords": [
+        "Glocke",
+        "einmal"
+      ],
+      "unmappedWords": [
+        "läutet"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-complete-0",
+      "level": "A1",
+      "german": "Marta hat eine Quittung. Geh bitte zum Café.",
+      "aboveLevelWords": [
+        "Quittung"
+      ],
+      "unmappedWords": [
+        "Marta",
+        "zum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-report-0",
+      "level": "A1",
+      "german": "Der Inspektor kommt zurück. Otto wartet auf seine Antwort.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Inspektor",
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-protect-0",
+      "level": "A1",
+      "german": "Otto vertraut dir. Er zeigt dir seine alte Laterne.",
+      "aboveLevelWords": [
+        "vertraut",
+        "zeigt",
+        "Laterne"
+      ],
+      "unmappedWords": [
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-0",
+      "level": "A1",
+      "german": "Hallo, {name}! Möchtest du einen Kaffee?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-1",
+      "level": "A1",
+      "german": "Der Wasserkocher pfeift deinen Namen. Hörst du das?",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Wasserkocher",
+        "pfeift"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-2",
+      "level": "A1",
+      "german": "Elise war gestern hier. Sie hat von dir gesprochen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-3",
+      "level": "A1",
+      "german": "Sie sagt: Du kannst die Namen wieder lesen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-4",
+      "level": "A1",
+      "german": "Hier ist ihre Quittung. Das Datum ist morgen.",
+      "aboveLevelWords": [
+        "Quittung"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-5",
+      "level": "A1",
+      "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
+      "aboveLevelWords": [
+        "zuerst",
+        "zeige",
+        "Siegel"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-gate-request",
+      "level": "A1",
+      "german": "Bestelle zuerst einen Kaffee. Dann zeige ich dir das Siegel.",
+      "aboveLevelWords": [
+        "zuerst",
+        "zeige",
+        "Siegel"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-gate-0",
+      "level": "A1",
+      "german": "Hier ist dein Kaffee. Das Siegel ist vom Messingamt.",
+      "aboveLevelWords": [
+        "Siegel"
+      ],
+      "unmappedWords": [
+        "vom",
+        "Messingamt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-complete-0",
+      "level": "A1",
+      "german": "Fritz kennt dieses Siegel. Du findest ihn am Markt.",
+      "aboveLevelWords": [
+        "dieses",
+        "Siegel",
+        "Markt"
+      ],
+      "unmappedWords": [
+        "Fritz"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-report-0",
+      "level": "A1",
+      "german": "Marta gibt dir eine Kopie. Das Amt bekommt das Original.",
+      "aboveLevelWords": [
+        "Kopie",
+        "Amt",
+        "Original"
+      ],
+      "unmappedWords": [
+        "Marta"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-protect-0",
+      "level": "A1",
+      "german": "Marta legt die Quittung in ihre alte Tasche. Sie hilft dir.",
+      "aboveLevelWords": [
+        "Quittung"
+      ],
+      "unmappedWords": [
+        "Marta"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-0",
+      "level": "A1",
+      "german": "Zwei Äpfel für die Reise? Sie sind frisch.",
+      "aboveLevelWords": [
+        "frisch"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-1",
+      "level": "A1",
+      "german": "Dieser Apfel hat eine Nummer. Die Nummer ist keine Rechnung.",
+      "aboveLevelWords": [
+        "Dieser"
+      ],
+      "unmappedWords": [
+        "keine"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-2",
+      "level": "A1",
+      "german": "Das Messingamt bringt diese Kisten. Dann fehlen Adressen.",
+      "aboveLevelWords": [
+        "diese",
+        "Kisten"
+      ],
+      "unmappedWords": [
+        "Messingamt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-3",
+      "level": "A1",
+      "german": "Die Liste ist richtig. Der Markt braucht Ordnung.",
+      "aboveLevelWords": [
+        "Liste",
+        "Markt"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-4",
+      "level": "A1",
+      "german": "Aber Frau Berg steht nicht mehr auf der Liste.",
+      "aboveLevelWords": [
+        "Berg",
+        "Liste"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-5",
+      "level": "A1",
+      "german": "Sag mir, wie viele Äpfel du brauchst.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mir",
+        "viele"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-gate-request",
+      "level": "A1",
+      "german": "Sag mir, wie viele Äpfel du brauchst.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mir",
+        "viele"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-gate-0",
+      "level": "A1",
+      "german": "Zwei Äpfel. Einen essen wir, einen nehmen wir als Beweis.",
+      "aboveLevelWords": [
+        "als",
+        "Beweis"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-complete-0",
+      "level": "A1",
+      "german": "Otto kennt die Streckennummer. Geh zum Bahnhof.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "Streckennummer",
+        "zum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-report-0",
+      "level": "A1",
+      "german": "Der Inspektor schreibt die Nummer auf. Er kennt jetzt deinen Weg.",
+      "aboveLevelWords": [
+        "Weg"
+      ],
+      "unmappedWords": [
+        "Inspektor"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-protect-0",
+      "level": "A1",
+      "german": "Fritz zeigt dir sein Gästebuch. Hier fehlen keine Namen.",
+      "aboveLevelWords": [
+        "zeigt"
+      ],
+      "unmappedWords": [
+        "Fritz",
+        "sein",
+        "Gästebuch",
+        "keine"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-0",
+      "level": "A1",
+      "german": "Die Nummer passt zu diesem Bahnsteig.",
+      "aboveLevelWords": [
+        "passt"
+      ],
+      "unmappedWords": [
+        "diesem"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-1",
+      "level": "A1",
+      "german": "Auf der Tafel steht: Nach W… Dann sind die Buchstaben weg.",
+      "aboveLevelWords": [
+        "Tafel"
+      ],
+      "unmappedWords": [
+        "W"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-2",
+      "level": "A1",
+      "german": "Ich kenne die Stadt. Aber ihr Name ist weg.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "ihr"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-3",
+      "level": "A1",
+      "german": "Hier ist eine Bank. Ein Fahrgast sitzt am Ende.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Fahrgast"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-4",
+      "level": "A1",
+      "german": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-gate-request",
+      "level": "A1",
+      "german": "Frag ihn: Ist der Platz frei? Dann kannst du das Schild lesen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-gate-0",
+      "level": "A1",
+      "german": "Ja, der Platz ist frei. Auf dem Schild steht nur W.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "W"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-complete-0",
+      "level": "A1",
+      "german": "Emil hat eine Lampe für diese Strecke. Geh zu ihm.",
+      "aboveLevelWords": [
+        "Lampe",
+        "diese",
+        "Strecke"
+      ],
+      "unmappedWords": [
+        "Emil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-report-0",
+      "level": "A1",
+      "german": "Der Inspektor nimmt das Schild. Otto zeichnet eine Kopie.",
+      "aboveLevelWords": [
+        "zeichnet",
+        "Kopie"
+      ],
+      "unmappedWords": [
+        "Inspektor",
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-protect-0",
+      "level": "A1",
+      "german": "Otto zeichnet das W. Der Fahrgast nickt.",
+      "aboveLevelWords": [
+        "zeichnet"
+      ],
+      "unmappedWords": [
+        "Otto",
+        "W",
+        "Fahrgast",
+        "nickt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-0",
+      "level": "A1",
+      "german": "Meine Lampe läuft weg. Sie sucht eine Adresse.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "Meine"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-1",
+      "level": "A1",
+      "german": "Sie ist alt. Elise hat sie gebaut.",
+      "aboveLevelWords": [
+        "gebaut"
+      ],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-2",
+      "level": "A1",
+      "german": "Deine Fahrkarte hat dasselbe Zeichen.",
+      "aboveLevelWords": [
+        "dasselbe",
+        "Zeichen"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-3",
+      "level": "A1",
+      "german": "Elise hat dich gewählt. Die Lampe kennt deinen Namen.",
+      "aboveLevelWords": [
+        "gewählt",
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-4",
+      "level": "A1",
+      "german": "Brauchst du eine Lampe? Sag es mir.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "mir"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-gate-request",
+      "level": "A1",
+      "german": "Brauchst du eine Lampe? Sag es mir.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "mir"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-gate-0",
+      "level": "A1",
+      "german": "Hier ist die Lampe. Sie leuchtet neben verlorenen Adressen.",
+      "aboveLevelWords": [
+        "Lampe",
+        "neben"
+      ],
+      "unmappedWords": [
+        "leuchtet",
+        "verlorenen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-complete-0",
+      "level": "A1",
+      "german": "Lina hat ein Paket. Die Lampe möchte zu ihr.",
+      "aboveLevelWords": [
+        "Paket",
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "Lina",
+        "ihr"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-report-0",
+      "level": "A1",
+      "german": "Emil schreibt die Nummer für das Amt auf.",
+      "aboveLevelWords": [
+        "Amt"
+      ],
+      "unmappedWords": [
+        "Emil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-protect-0",
+      "level": "A1",
+      "german": "Emil lässt das Siegel offen. Du kannst die Lampe selbst benutzen.",
+      "aboveLevelWords": [
+        "lässt",
+        "Siegel",
+        "offen",
+        "Lampe",
+        "selbst"
+      ],
+      "unmappedWords": [
+        "Emil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-0",
+      "level": "A1",
+      "german": "Das Paket ist für dich, {name}.",
+      "aboveLevelWords": [
+        "Paket"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-1",
+      "level": "A1",
+      "german": "Hier ist der Brief von Elise. Die Seite ist im Paket.",
+      "aboveLevelWords": [
+        "Seite",
+        "Paket"
+      ],
+      "unmappedWords": [
+        "Elise",
+        "im"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-2",
+      "level": "A1",
+      "german": "Die Lampe leuchtet. Jetzt kann ich die Adresse lesen.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "leuchtet"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-3",
+      "level": "A1",
+      "german": "Auf der Seite steht: Waldruh. Die Stadt ist noch da.",
+      "aboveLevelWords": [
+        "Seite"
+      ],
+      "unmappedWords": [
+        "Waldruh"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-4",
+      "level": "A1",
+      "german": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-gate-request",
+      "level": "A1",
+      "german": "Frag mich nach der Adresse. Dann schreibe ich sie auf.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-gate-0",
+      "level": "A1",
+      "german": "Die Adresse ist Waldruh. Elise wartet dort auf Hilfe.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Waldruh",
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-choice-0",
+      "level": "A1",
+      "german": "Was möchtest du tun?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-complete-0",
+      "level": "A1",
+      "german": "Der Brief sagt: Bevor du uns wieder auslöschst, komm. Fahr nach Waldruh.",
+      "aboveLevelWords": [
+        "Bevor"
+      ],
+      "unmappedWords": [
+        "uns",
+        "auslöschst",
+        "Waldruh"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-report-0",
+      "level": "A1",
+      "german": "Lina schickt die Kopie. Die Glocke läutet ein zweites Mal.",
+      "aboveLevelWords": [
+        "Kopie",
+        "Glocke",
+        "Mal"
+      ],
+      "unmappedWords": [
+        "Lina",
+        "läutet"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-protect-0",
+      "level": "A1",
+      "german": "Lina packt den Brief ein. Otto öffnet die Strecke.",
+      "aboveLevelWords": [
+        "packt",
+        "Strecke"
+      ],
+      "unmappedWords": [
+        "Lina",
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-0",
+      "level": "A2",
+      "german": "Willkommen in Waldruh. Dein Zimmer blickt auf zwei Städte.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Waldruh",
+        "blickt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-1",
+      "level": "A2",
+      "german": "Der Mietvertrag verbindet die Adressen, auch wenn die Akten sie vergessen.",
+      "aboveLevelWords": [
+        "verbindet"
+      ],
+      "unmappedWords": [
+        "Mietvertrag",
+        "Akten"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-2",
+      "level": "A2",
+      "german": "Du warst noch nie hier. Trotzdem steht dein Name im Vertrag.",
+      "aboveLevelWords": [
+        "Trotzdem"
+      ],
+      "unmappedWords": [
+        "im"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-3",
+      "level": "A2",
+      "german": "Elise hat dich als ihre Nachfolge eingetragen. Das Amt verwechselt Name und Person.",
+      "aboveLevelWords": [
+        "Amt",
+        "verwechselt"
+      ],
+      "unmappedWords": [
+        "Elise",
+        "Nachfolge"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-4",
+      "level": "A2",
+      "german": "Die Warnung meint ihren Schlüssel. Du hast niemanden ausgelöscht.",
+      "aboveLevelWords": [
+        "Warnung"
+      ],
+      "unmappedWords": [
+        "ihren",
+        "niemanden",
+        "ausgelöscht"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-intro-5",
+      "level": "A2",
+      "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
+      "aboveLevelWords": [
+        "höflich"
+      ],
+      "unmappedWords": [
+        "klemmt",
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-gate-request",
+      "level": "A2",
+      "german": "Die Tür klemmt zwischen den Städten. Bitte mich höflich um eine Reparatur.",
+      "aboveLevelWords": [
+        "höflich"
+      ],
+      "unmappedWords": [
+        "klemmt",
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-gate-0",
+      "level": "A2",
+      "german": "Gern. Die Tür ist wieder sicher. Der Vertrag bleibt als Beweis bei dir.",
+      "aboveLevelWords": [
+        "sicher",
+        "Beweis"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-complete-0",
+      "level": "A2",
+      "german": "Fritz organisiert ein Laternenfest. Vereinbart eine Zeit mit dem Kreis.",
+      "aboveLevelWords": [
+        "Kreis"
+      ],
+      "unmappedWords": [
+        "Fritz",
+        "Laternenfest"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-restore-0",
+      "level": "A2",
+      "german": "Marta stellt eine Laterne ins Fenster. Die Nachbarn sehen das Signal.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Marta",
+        "Signal"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-apartment",
+      "lineId": "a2-apartment-consult-0",
+      "level": "A2",
+      "german": "Marta lädt die Nachbarn ein. Niemand entscheidet allein über ihre Zimmer.",
+      "aboveLevelWords": [
+        "entscheidet"
+      ],
+      "unmappedWords": [
+        "Marta",
+        "lädt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-intro-0",
+      "level": "A2",
+      "german": "Die Suppe ist fertig. Der Kreis der Ungeschriebenen kommt auch.",
+      "aboveLevelWords": [
+        "Kreis"
+      ],
+      "unmappedWords": [
+        "Ungeschriebenen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-intro-1",
+      "level": "A2",
+      "german": "Greta und Lina vertreten die Bewohner. Sie wurden nie gefragt, ob die Strecke schließen soll.",
+      "aboveLevelWords": [
+        "vertreten",
+        "Bewohner",
+        "ob",
+        "Strecke"
+      ],
+      "unmappedWords": [
+        "Greta",
+        "Lina"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-intro-2",
+      "level": "A2",
+      "german": "Wir möchten eine Uhrzeit vereinbaren. Versprechen müssen im Alltag funktionieren.",
+      "aboveLevelWords": [
+        "Versprechen",
+        "Alltag",
+        "funktionieren"
+      ],
+      "unmappedWords": [
+        "Uhrzeit",
+        "im"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-intro-3",
+      "level": "A2",
+      "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
+      "aboveLevelWords": [
+        "ob",
+        "gemeinsam"
+      ],
+      "unmappedWords": [
+        "Fritz"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-gate-request",
+      "level": "A2",
+      "german": "Frag Fritz, ob er morgen Zeit hat. Dann können wir gemeinsam planen.",
+      "aboveLevelWords": [
+        "ob",
+        "gemeinsam"
+      ],
+      "unmappedWords": [
+        "Fritz"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-gate-0",
+      "level": "A2",
+      "german": "Ja, morgen habe ich Zeit. Wir treffen uns nach der Arbeit.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "uns"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-complete-0",
+      "level": "A2",
+      "german": "Otto hat die Verbindung gefunden, die den alten Beschluss gebracht hat.",
+      "aboveLevelWords": [
+        "Verbindung"
+      ],
+      "unmappedWords": [
+        "Otto",
+        "Beschluss"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-restore-0",
+      "level": "A2",
+      "german": "Die Laternenhüter antworten. Otto und Emil wollen die Strecke schnell öffnen.",
+      "aboveLevelWords": [
+        "Strecke"
+      ],
+      "unmappedWords": [
+        "Laternenhüter",
+        "Otto",
+        "Emil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-evening-plans",
+      "lineId": "a2-evening-plans-consult-0",
+      "level": "A2",
+      "german": "Greta schreibt die Wünsche auf. Das Fest wird zur ersten gemeinsamen Versammlung.",
+      "aboveLevelWords": [
+        "Versammlung"
+      ],
+      "unmappedWords": [
+        "Greta",
+        "zur",
+        "gemeinsamen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-intro-0",
+      "level": "A2",
+      "german": "Die Schienen sind heil. Jemand hat die Strecke von innen geschlossen.",
+      "aboveLevelWords": [
+        "Strecke",
+        "innen"
+      ],
+      "unmappedWords": [
+        "heil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-intro-1",
+      "level": "A2",
+      "german": "Ada und ich prüfen den alten Beschluss. Eine Unterschrift gilt.",
+      "aboveLevelWords": [
+        "gilt"
+      ],
+      "unmappedWords": [
+        "Ada",
+        "Beschluss"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-intro-2",
+      "level": "A2",
+      "german": "Elises Schlüssel fehlt im Register. Er wurde in der verlorenen Stunde benutzt.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elises",
+        "im",
+        "Register",
+        "verlorenen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-intro-3",
+      "level": "A2",
+      "german": "Der Anschluss fährt immer eine Minute zu früh. So kommen keine Zeugen an.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "keine",
+        "Zeugen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-intro-4",
+      "level": "A2",
+      "german": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Register"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-gate-request",
+      "level": "A2",
+      "german": "Erkläre am Schalter, dass du deinen Anschluss verpasst hast. Ich öffne das Register.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Register"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-gate-0",
+      "level": "A2",
+      "german": "Ich sehe das Problem. Dein Anschluss steht hier zweimal, mit derselben Nummer.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "zweimal",
+        "derselben"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-complete-0",
+      "level": "A2",
+      "german": "Emil hat die Uhrenmühle repariert. Seine Notizen zeigen die verlorene Stunde.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "Uhrenmühle",
+        "verlorene"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-restore-0",
+      "level": "A2",
+      "german": "Otto schaltet die erste Verbindung frei. Das Amt verlangt eine neue Prüfung.",
+      "aboveLevelWords": [
+        "schaltet",
+        "Verbindung",
+        "Amt",
+        "verlangt"
+      ],
+      "unmappedWords": [
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-rail-trip",
+      "lineId": "a2-rail-trip-consult-0",
+      "level": "A2",
+      "german": "Otto und Lina kopieren die fehlende Stunde. Die Zeugen behalten ihre Beweise.",
+      "aboveLevelWords": [
+        "kopieren",
+        "behalten",
+        "Beweise"
+      ],
+      "unmappedWords": [
+        "Otto",
+        "Lina",
+        "fehlende",
+        "Zeugen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-intro-0",
+      "level": "A2",
+      "german": "Das Rad dreht sich, aber die Uhr wiederholt dieselbe Stunde.",
+      "aboveLevelWords": [
+        "dreht",
+        "dieselbe"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-intro-1",
+      "level": "A2",
+      "german": "Nach jeder Wiederholung fehlt ein Name. Das ist keine gewöhnliche Reparatur.",
+      "aboveLevelWords": [
+        "Wiederholung"
+      ],
+      "unmappedWords": [
+        "keine",
+        "gewöhnliche"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-intro-2",
+      "level": "A2",
+      "german": "Jemand hat meine Werkzeuge ausgeliehen und den Signalanschluss getrennt.",
+      "aboveLevelWords": [
+        "Werkzeuge",
+        "getrennt"
+      ],
+      "unmappedWords": [
+        "meine",
+        "ausgeliehen",
+        "Signalanschluss"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-intro-3",
+      "level": "A2",
+      "german": "Der Dankesbrief ist von Elise. Sie wollte einen Streit stoppen.",
+      "aboveLevelWords": [
+        "Streit",
+        "stoppen"
+      ],
+      "unmappedWords": [
+        "Dankesbrief",
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-intro-4",
+      "level": "A2",
+      "german": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
+      "aboveLevelWords": [
+        "Anleitung"
+      ],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-gate-request",
+      "level": "A2",
+      "german": "Hier ist die Anleitung. Bitte mich, sie dir zu erklären.",
+      "aboveLevelWords": [
+        "Anleitung"
+      ],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-gate-0",
+      "level": "A2",
+      "german": "Der rote Hebel hält die Uhr an. Der blaue verbindet die Namen wieder.",
+      "aboveLevelWords": [
+        "verbindet"
+      ],
+      "unmappedWords": [
+        "Hebel"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-complete-0",
+      "level": "A2",
+      "german": "Greta kennt jemanden, dessen Erinnerung die verlorene Stunde überstanden hat.",
+      "aboveLevelWords": [
+        "Erinnerung"
+      ],
+      "unmappedWords": [
+        "Greta",
+        "jemanden",
+        "dessen",
+        "verlorene",
+        "überstanden"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-restore-0",
+      "level": "A2",
+      "german": "Emil stellt die Uhr ab. Eine weitere Adresse kehrt zurück.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "weitere",
+        "kehrt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-broken-clock",
+      "lineId": "a2-broken-clock-consult-0",
+      "level": "A2",
+      "german": "Emil sichert die Anleitung. Greta sucht einen unabhängigen Zeugen.",
+      "aboveLevelWords": [
+        "sichert",
+        "Anleitung",
+        "unabhängigen"
+      ],
+      "unmappedWords": [
+        "Emil",
+        "Greta",
+        "Zeugen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-intro-0",
+      "level": "A2",
+      "german": "Mein Patient erinnert sich an seine Reise, obwohl die Akten sie nicht zeigen.",
+      "aboveLevelWords": [
+        "Patient",
+        "obwohl"
+      ],
+      "unmappedWords": [
+        "Akten"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-intro-1",
+      "level": "A2",
+      "german": "Wir prüfen Erinnerungen behutsam. Ein Mensch ist kein fehlerhafter Fahrplan.",
+      "aboveLevelWords": [
+        "Erinnerungen"
+      ],
+      "unmappedWords": [
+        "behutsam",
+        "fehlerhafter"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-intro-2",
+      "level": "A2",
+      "german": "Die Samentüten tragen alte Adressen. Sie bestätigen seinen Bericht unabhängig.",
+      "aboveLevelWords": [
+        "Bericht",
+        "unabhängig"
+      ],
+      "unmappedWords": [
+        "Samentüten",
+        "seinen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-intro-3",
+      "level": "A2",
+      "german": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
+      "aboveLevelWords": [
+        "erschöpft",
+        "Rat"
+      ],
+      "unmappedWords": [
+        "zum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-gate-request",
+      "level": "A2",
+      "german": "Er ist nach der Reise erschöpft. Gib ihm einen freundlichen Rat zum Ausruhen.",
+      "aboveLevelWords": [
+        "erschöpft",
+        "Rat"
+      ],
+      "unmappedWords": [
+        "zum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-gate-0",
+      "level": "A2",
+      "german": "Danke. Er ruht sich aus. Wir nehmen seine Aussage nur mit seiner Zustimmung mit.",
+      "aboveLevelWords": [
+        "Zustimmung"
+      ],
+      "unmappedWords": [
+        "ruht",
+        "seiner"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-complete-0",
+      "level": "A2",
+      "german": "Bringe die Berichte zu Ada. Sie muss ihre Unterschrift erklären.",
+      "aboveLevelWords": [
+        "Berichte"
+      ],
+      "unmappedWords": [
+        "Ada"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-restore-0",
+      "level": "A2",
+      "german": "Greta gibt dir Kopien. Die Gärten leuchten wieder entlang der Strecke.",
+      "aboveLevelWords": [
+        "Kopien",
+        "entlang",
+        "Strecke"
+      ],
+      "unmappedWords": [
+        "Greta",
+        "leuchten"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-clinic",
+      "lineId": "a2-clinic-consult-0",
+      "level": "A2",
+      "german": "Greta bewahrt die Samentüten auf. Der Kreis bestimmt, wer sie lesen darf.",
+      "aboveLevelWords": [
+        "Kreis",
+        "bestimmt"
+      ],
+      "unmappedWords": [
+        "Greta",
+        "bewahrt",
+        "Samentüten"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-0",
+      "level": "A2",
+      "german": "Ich habe den ersten Beschluss unterschrieben. Ich war Elises Lehrling.",
+      "aboveLevelWords": [
+        "Lehrling"
+      ],
+      "unmappedWords": [
+        "Beschluss",
+        "Elises"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-1",
+      "level": "A2",
+      "german": "Elise wollte die Strecke vorübergehend schließen, damit der Streit nicht schlimmer wird.",
+      "aboveLevelWords": [
+        "Strecke",
+        "vorübergehend",
+        "damit",
+        "Streit"
+      ],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-2",
+      "level": "A2",
+      "german": "Das Messingamt hat aus vorübergehend ein endgültiges Verbot gemacht.",
+      "aboveLevelWords": [
+        "vorübergehend",
+        "endgültiges",
+        "Verbot"
+      ],
+      "unmappedWords": [
+        "Messingamt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-3",
+      "level": "A2",
+      "german": "Die Akte nennt keine Frist. Ich kann nur die Akte prüfen.",
+      "aboveLevelWords": [
+        "Frist"
+      ],
+      "unmappedWords": [
+        "Akte",
+        "keine"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-4",
+      "level": "A2",
+      "german": "Die Warnung meint den Schlüssel der Hüterin. Elise hat dich als Nachfolge gewählt.",
+      "aboveLevelWords": [
+        "Warnung"
+      ],
+      "unmappedWords": [
+        "Hüterin",
+        "Elise",
+        "Nachfolge"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-intro-5",
+      "level": "A2",
+      "german": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
+      "aboveLevelWords": [
+        "Erklärung",
+        "verstecke"
+      ],
+      "unmappedWords": [
+        "mich",
+        "genauere"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-gate-request",
+      "level": "A2",
+      "german": "Bitte mich um eine genauere Erklärung. Ich verstecke mich nicht länger.",
+      "aboveLevelWords": [
+        "Erklärung",
+        "verstecke"
+      ],
+      "unmappedWords": [
+        "mich",
+        "genauere"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-gate-0",
+      "level": "A2",
+      "german": "Hier ist meine Aussage. Die endgültige Unterschrift führt nach Nebelstadt.",
+      "aboveLevelWords": [
+        "endgültige",
+        "führt"
+      ],
+      "unmappedWords": [
+        "meine",
+        "Nebelstadt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-choice-0",
+      "level": "A2",
+      "german": "Wie sollen wir gemeinsam weitergehen?",
+      "aboveLevelWords": [
+        "gemeinsam"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-complete-0",
+      "level": "A2",
+      "german": "Der Hafenrat wartet. Finde Elise in Nebelstadt, bevor die siebte Glocke läutet.",
+      "aboveLevelWords": [
+        "bevor"
+      ],
+      "unmappedWords": [
+        "Hafenrat",
+        "Elise",
+        "Nebelstadt",
+        "siebte",
+        "läutet"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-restore-0",
+      "level": "A2",
+      "german": "Ada hilft Otto, den Schlüssel zu prüfen. Die nächste Strecke wird sichtbar.",
+      "aboveLevelWords": [
+        "Strecke",
+        "sichtbar"
+      ],
+      "unmappedWords": [
+        "Ada",
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a2-archive",
+      "lineId": "a2-archive-consult-0",
+      "level": "A2",
+      "german": "Ada lädt den Kreis und die Laternenhüter zum Hafenrat ein. Alle dürfen sprechen.",
+      "aboveLevelWords": [
+        "Kreis"
+      ],
+      "unmappedWords": [
+        "Ada",
+        "lädt",
+        "Laternenhüter",
+        "zum",
+        "Hafenrat"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-intro-0",
+      "level": "B1",
+      "german": "Elises Signal wurde gleichzeitig am Hafen und an der Sternwarte gehört.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elises",
+        "Signal",
+        "Sternwarte",
+        "gehört"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-intro-1",
+      "level": "B1",
+      "german": "Das beweist nicht, dass sie an beiden Orten war. Ein Signal ist kein Zeuge.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "beiden",
+        "Signal"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-intro-2",
+      "level": "B1",
+      "german": "Ich habe einen Beschluss unterschrieben. Trotzdem kenne ich nicht jede spätere Entscheidung.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Beschluss"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-intro-3",
+      "level": "B1",
+      "german": "Wir trennen Beobachtung, Erinnerung und Vermutung. Erst dann vergleichen wir die Berichte.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Vermutung"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-intro-4",
+      "level": "B1",
+      "german": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-gate-request",
+      "level": "B1",
+      "german": "Bitte die Zeugin höflich, ihre Beobachtung zu beschreiben.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-gate-0",
+      "level": "B1",
+      "german": "Sie sah den Inspektor an der Maschine, während Elises Signal aus dem alten Speicher kam.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Inspektor",
+        "Elises",
+        "Signal",
+        "Speicher"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-complete-0",
+      "level": "B1",
+      "german": "Otto hat zwei Vorschläge für die neue Strecke. Der Garten liegt zwischen ihnen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "ihnen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-reopen-0",
+      "level": "B1",
+      "german": "Die Laternenhüter hören die Nachricht. Der Inspektor verlangt, dass auch seine Erklärung geprüft wird.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Laternenhüter",
+        "Inspektor"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-witness",
+      "lineId": "b1-witness-remember-0",
+      "level": "B1",
+      "german": "Lina bewahrt die Aussage auf. Die Zeugin darf ihre Worte vor der Veröffentlichung prüfen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Lina",
+        "bewahrt",
+        "Veröffentlichung"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-intro-0",
+      "level": "B1",
+      "german": "Die schnellste Strecke führt durch den Garten. Die längere folgt einer bestehenden Straße.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "längere",
+        "bestehenden"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-intro-1",
+      "level": "B1",
+      "german": "Unsere Pflanzen sind Beweise und unsere Arbeit. Eine schnelle Verbindung darf uns nicht wieder auslöschen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "uns",
+        "auslöschen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-intro-2",
+      "level": "B1",
+      "german": "Auf der längeren Strecke kann eine Haltestelle an der Klinik entstehen. Das dauert länger, hilft aber mehr Menschen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "längeren"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-intro-3",
+      "level": "B1",
+      "german": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-gate-request",
+      "level": "B1",
+      "german": "Erkläre dem Rat, dass wir eine Lösung für alle brauchen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-gate-0",
+      "level": "B1",
+      "german": "Dann zeichnen wir beide Kosten und alle betroffenen Gärten ein. Der Rat kann ehrlich entscheiden.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "betroffenen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-complete-0",
+      "level": "B1",
+      "german": "Emils Wartungsbuch zeigt, wer die Löschmaschine weiter betrieben hat.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emils",
+        "Wartungsbuch",
+        "Löschmaschine",
+        "betrieben"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-reopen-0",
+      "level": "B1",
+      "german": "Otto markiert die Abkürzung. Greta fordert eine überprüfbare Zusage für den Garten.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "Abkürzung",
+        "Greta",
+        "überprüfbare"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-new-route",
+      "lineId": "b1-new-route-remember-0",
+      "level": "B1",
+      "german": "Otto zeichnet die längere Kurve und die Klinikhaltestelle. Der Kreis unterstützt den Plan.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "längere",
+        "Klinikhaltestelle"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-intro-0",
+      "level": "B1",
+      "german": "Die Maschine funktioniert genau wie geplant. Das ist das Problem.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-intro-1",
+      "level": "B1",
+      "german": "Das Messingamt hat sie nach dem Ende des Streits weiter repariert. Hier stehen Datum und Material.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Messingamt"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-intro-2",
+      "level": "B1",
+      "german": "Ich habe die Wartung genehmigt. Ich dachte, ohne Ordnung wäre der Hafen unsicher.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Wartung",
+        "unsicher"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-intro-3",
+      "level": "B1",
+      "german": "Du brauchst einen sicheren Arbeitsplan, bevor du das Signal umbaust. Niemand muss sich dafür verletzen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "sicheren",
+        "Arbeitsplan",
+        "Signal",
+        "umbaust"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-intro-4",
+      "level": "B1",
+      "german": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mir"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-gate-request",
+      "level": "B1",
+      "german": "Sag mir, dass du zuerst die Bedingungen klären möchtest.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mir"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-gate-0",
+      "level": "B1",
+      "german": "Wir schalten den Strom ab, arbeiten zu zweit und sichern die Leiter. Hier ist das Wartungsbuch.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "zweit",
+        "Wartungsbuch"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-complete-0",
+      "level": "B1",
+      "german": "Der Hafenrat muss jetzt entscheiden. Bring Beweise und einen Vorschlag mit.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Hafenrat"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-reopen-0",
+      "level": "B1",
+      "german": "Emil und Otto bereiten die sichere Reparatur vor. Der Inspektor bleibt als Zeuge dabei.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "Otto",
+        "Inspektor"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-work",
+      "lineId": "b1-work-remember-0",
+      "level": "B1",
+      "german": "Emil legt dem Kreis den Arbeitsplan vor. Greta organisiert Hilfe und einen sicheren Rückweg.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "Arbeitsplan",
+        "Greta",
+        "sicheren",
+        "Rückweg"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-0",
+      "level": "B1",
+      "german": "Der Rat hat alle drei Gruppen eingeladen. Jede darf ihre Beweise und ihre Sorgen nennen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-1",
+      "level": "B1",
+      "german": "Die Maschine löscht tatsächlich Namen. Meine Prüfung war zu eng. Ich trage Verantwortung für die Wartung.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Meine",
+        "Wartung"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-2",
+      "level": "B1",
+      "german": "Die Laternenhüter wollen die Verbindung öffnen. Marta und ich stehen für die täglichen Wege ein.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Laternenhüter",
+        "Marta",
+        "täglichen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-3",
+      "level": "B1",
+      "german": "Der Kreis will, dass die Bewohner entscheiden können. Lina und ich vertreten ihre Aussagen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Lina"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-4",
+      "level": "B1",
+      "german": "Ich vertrete die Akten mit dem Inspektor. Akten müssen die Wirklichkeit prüfen, nicht ersetzen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Akten",
+        "Inspektor"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-intro-5",
+      "level": "B1",
+      "german": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Schlage"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-gate-request",
+      "level": "B1",
+      "german": "Schlage einen Kompromiss vor: Die Strecke soll schrittweise öffnen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Schlage"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-gate-0",
+      "level": "B1",
+      "german": "Wir vereinbaren eine überprüfbare Öffnung mit Mitsprache und einem öffentlichen Wartungsbuch.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "überprüfbare",
+        "Öffnung",
+        "Mitsprache",
+        "Wartungsbuch"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-complete-0",
+      "level": "B1",
+      "german": "Der Sturm erreicht den Hafen. Das Versprechen muss jetzt in der Praxis bestehen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-reopen-0",
+      "level": "B1",
+      "german": "Der Rat setzt einen ersten Zug an. Die Laternenhüter müssen die Sicherheit öffentlich nachweisen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Laternenhüter",
+        "nachweisen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-council",
+      "lineId": "b1-council-remember-0",
+      "level": "B1",
+      "german": "Der Rat gibt dem Kreis ein Recht auf Prüfung. Kein stiller Beschluss kann es zurücknehmen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "stiller",
+        "Beschluss",
+        "zurücknehmen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-intro-0",
+      "level": "B1",
+      "german": "Das Wasser steigt. Wir bringen die Menschen zur Klinik und sichern den Signalraum.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "zur",
+        "Signalraum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-intro-1",
+      "level": "B1",
+      "german": "Ich habe heißen Tee und Decken. Sag mir, wo die Helfer warten sollen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mir"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-intro-2",
+      "level": "B1",
+      "german": "Ich öffne das Lager des Amts. Die Vorschrift darf niemanden im Regen stehen lassen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "niemanden",
+        "im"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-trust-brassOffice",
+      "level": "B1",
+      "german": "Du hast Beweise eingereicht. Ich öffne die Vorratsräume und lasse die Helfer ohne Genehmigung hinein.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Vorratsräume",
+        "Genehmigung",
+        "hinein"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-trust-unwritten",
+      "level": "B1",
+      "german": "Du hast die Bewohner gehört. Der Kreis kennt jeden sicheren Weg zur Klinik und begleitet die Familien.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "gehört",
+        "jeden",
+        "sicheren",
+        "zur"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-trust-lamplighters",
+      "level": "B1",
+      "german": "Du hast unsere Versprechen gehalten. Die Laternenhüter kommen mit Werkzeugen und sichern die Verbindung.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Laternenhüter"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-intro-3",
+      "level": "B1",
+      "german": "Wenn die Gruppen dir vertrauen, arbeiten ihre Helfer zusammen. Jede frühere Zusage zählt jetzt.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "frühere"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-intro-4",
+      "level": "B1",
+      "german": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-gate-request",
+      "level": "B1",
+      "german": "Erkläre den Helfern, dass wir das Problem nur gemeinsam lösen können.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-gate-0",
+      "level": "B1",
+      "german": "Dann teilen wir die Aufgaben: retten, reparieren und die Namen sichern. Du gehst mit Emil zum Signal.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "zum",
+        "Signal"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-complete-0",
+      "level": "B1",
+      "german": "Elise ist im alten Signalraum. Höre ihre Erklärung, bevor du den Atlas abschließt.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise",
+        "im",
+        "Signalraum",
+        "Atlas"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-reopen-0",
+      "level": "B1",
+      "german": "Otto und Emil schützen die Strecke. Greta übernimmt mit Lina die Menschen im Garten.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "Emil",
+        "Greta",
+        "Lina",
+        "im"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-storm",
+      "lineId": "b1-storm-remember-0",
+      "level": "B1",
+      "german": "Alle Gruppen öffnen ihre Türen. Emil hält das Signal sicher, bis die letzte Familie angekommen ist.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Emil",
+        "Signal",
+        "letzte"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-0",
+      "level": "B1",
+      "german": "Du bist gekommen, {name}. Ich habe deinen Namen in den Atlas geschrieben, damit jemand weiterfragen kann.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Atlas",
+        "weiterfragen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-1",
+      "level": "B1",
+      "german": "Ich habe die Strecke geschlossen, um einen Streit zu stoppen. Damit habe ich den Bewohnern ihre Entscheidung genommen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-2",
+      "level": "B1",
+      "german": "Das Amt hielt die Schließung aufrecht. Aber meine gute Absicht entschuldigt meinen ersten Fehler nicht.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "aufrecht",
+        "meine"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-3",
+      "level": "B1",
+      "german": "Die Warnung „bevor du uns wieder auslöschst“ gilt dem Schlüssel, nicht deiner Erinnerung. Du musst meinen Fehler nicht wiederholen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "uns",
+        "auslöschst"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-4",
+      "level": "B1",
+      "german": "Der Wasserkocher kannte deinen Namen, weil meine Nachricht über Martas alte Laterne kam. Es war ein Ruf nach Hilfe.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Wasserkocher",
+        "meine",
+        "Martas"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-5",
+      "level": "B1",
+      "german": "Eine letzte Glocke bleibt. Schreib ein Versprechen, das auch gilt, wenn wir wieder streiten.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "letzte"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-intro-6",
+      "level": "B1",
+      "german": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "diesem"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-gate-request",
+      "level": "B1",
+      "german": "Wir müssen Probleme frühzeitig besprechen. Gib diesem Satz deine eigene Zusage.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "diesem"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-gate-0",
+      "level": "B1",
+      "german": "Das Versprechen steht im Atlas. Es gehört allen entlang der Strecke, nicht einer einzigen Hüterin.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "im",
+        "Atlas",
+        "gehört",
+        "allen",
+        "Hüterin"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-choice-0",
+      "level": "B1",
+      "german": "Welche Zusage möchtest du dem Rat geben?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-complete-0",
+      "level": "B1",
+      "german": "Drei Städte sind zurück. Eine Küste ohne Namen wartet auf deine nächste Frage.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-reopen-0",
+      "level": "B1",
+      "german": "Elise gibt den Schlüssel an den Rat. Die Laternen zeigen den neuen gemeinsamen Fahrplan.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise",
+        "gemeinsamen"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "b1-atlas",
+      "lineId": "b1-atlas-remember-0",
+      "level": "B1",
+      "german": "Elise gibt den Schlüssel an den Kreis. Jede Stadt behält eine eigene Kopie des Versprechens.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise",
+        "Versprechens"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    }
+  ],
+  "variants": [
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-2",
+      "variant": 1,
+      "level": "A1",
+      "german": "Ihre Fahrkarte, bitte. Das Amt prüft die Reise.",
+      "aboveLevelWords": [
+        "Amt",
+        "prüft"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-3",
+      "variant": 1,
+      "level": "A1",
+      "german": "Dieser Bahnsteig ist zu. Das ist normal.",
+      "aboveLevelWords": [
+        "Dieser"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-intro-6",
+      "variant": 1,
+      "level": "A1",
+      "german": "Frag mich bitte. Dann lesen wir das Schild.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-gate-request",
+      "variant": 1,
+      "level": "A1",
+      "german": "Frag mich bitte. Dann lesen wir das Schild.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-arrival",
+      "lineId": "a1-arrival-protect-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Otto hilft dir. Hier ist seine alte Laterne.",
+      "aboveLevelWords": [
+        "Laterne"
+      ],
+      "unmappedWords": [
+        "Otto"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-1",
+      "variant": 1,
+      "level": "A1",
+      "german": "Der Wasserkocher sagt deinen Namen. Hörst du ihn?",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Wasserkocher"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-2",
+      "variant": 1,
+      "level": "A1",
+      "german": "Elise war hier. Sie kennt deinen Namen.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-intro-5",
+      "variant": 1,
+      "level": "A1",
+      "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
+      "aboveLevelWords": [
+        "Zeichen"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-gate-request",
+      "variant": 1,
+      "level": "A1",
+      "german": "Bestelle einen Kaffee. Dann siehst du das Zeichen.",
+      "aboveLevelWords": [
+        "Zeichen"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-gate-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Hier ist dein Kaffee. Das Zeichen ist vom Amt.",
+      "aboveLevelWords": [
+        "Zeichen",
+        "Amt"
+      ],
+      "unmappedWords": [
+        "vom"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-cafe",
+      "lineId": "a1-cafe-report-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Marta hat eine Kopie. Das Amt bekommt die Quittung.",
+      "aboveLevelWords": [
+        "Kopie",
+        "Amt",
+        "Quittung"
+      ],
+      "unmappedWords": [
+        "Marta"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-2",
+      "variant": 1,
+      "level": "A1",
+      "german": "Das Amt bringt die Kisten. Dann fehlen Adressen.",
+      "aboveLevelWords": [
+        "Amt",
+        "Kisten"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-intro-4",
+      "variant": 1,
+      "level": "A1",
+      "german": "Aber der Name von Frau Berg fehlt.",
+      "aboveLevelWords": [
+        "Berg"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-gate-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Zwei Äpfel. Einer ist für uns. Einer bleibt hier.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "uns"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-market",
+      "lineId": "a1-market-complete-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Otto kennt die Nummer. Geh zum Bahnhof.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Otto",
+        "zum"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-1",
+      "variant": 1,
+      "level": "A1",
+      "german": "Hier steht: Nach W… Mehr steht hier nicht.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "W"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-intro-3",
+      "variant": 1,
+      "level": "A1",
+      "german": "Hier ist eine Bank. Dort sitzt ein Mann.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-station",
+      "lineId": "a1-station-complete-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Emil hat eine Lampe. Geh zu ihm.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "Emil"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-2",
+      "variant": 1,
+      "level": "A1",
+      "german": "Das Zeichen steht auch auf deiner Fahrkarte.",
+      "aboveLevelWords": [
+        "Zeichen"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-intro-3",
+      "variant": 1,
+      "level": "A1",
+      "german": "Elise braucht dich. Die Lampe kennt deinen Namen.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [
+        "Elise"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-gate-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Hier ist die Lampe. Bei alten Adressen ist sie hell.",
+      "aboveLevelWords": [
+        "Lampe"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-workshop",
+      "lineId": "a1-workshop-protect-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Die Lampe ist offen. Du kannst sie benutzen.",
+      "aboveLevelWords": [
+        "Lampe",
+        "offen"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-intro-4",
+      "variant": 1,
+      "level": "A1",
+      "german": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-gate-request",
+      "variant": 1,
+      "level": "A1",
+      "german": "Frag mich: Wie ist die Adresse? Ich schreibe sie auf.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "mich"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "questId": "a1-lost-parcel",
+      "lineId": "a1-lost-parcel-report-0",
+      "variant": 1,
+      "level": "A1",
+      "german": "Lina schickt eine Kopie. Die Glocke klingt noch einmal.",
+      "aboveLevelWords": [
+        "Kopie",
+        "Glocke",
+        "klingt",
+        "einmal"
+      ],
+      "unmappedWords": [
+        "Lina"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    }
+  ],
+  "placement": [
+    {
+      "exerciseId": "a1-arrival-exercise-1",
+      "level": "A1",
+      "german": "Willkommen! Es ist früh.",
+      "aboveLevelWords": [
+        "früh"
+      ],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "a1-cafe-exercise-6",
+      "level": "A1",
+      "german": "Möchten Sie jetzt bezahlen?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "a1-lost-parcel-exercise-2",
+      "level": "A1",
+      "german": "Ich schicke das Paket. Was brauchen Sie?",
+      "aboveLevelWords": [
+        "Paket"
+      ],
+      "unmappedWords": [
+        "schicke"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "a2-evening-plans-exercise-4",
+      "level": "A2",
+      "german": "Wir essen heute zusammen. Kommst du?",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "a2-archive-exercise-4",
+      "level": "A2",
+      "german": "Eine Karte ist aus dem Jahr 1900, die andere aus dem Jahr 2000.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "a2-apartment-exercise-6",
+      "level": "A2",
+      "german": "Das Fenster geht nicht auf.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "b1-council-exercise-5",
+      "level": "B1",
+      "german": "Wir kennen noch nicht alle Fakten. Trotzdem will der Rat entscheiden.",
+      "aboveLevelWords": [],
+      "unmappedWords": [
+        "Fakten"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0
+    },
+    {
+      "exerciseId": "b1-witness-exercise-3",
+      "level": "B1",
+      "german": "Der Zeuge sagt, der Zug sei schon um fünf Uhr abgefahren.",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0
+    }
+  ]
+}

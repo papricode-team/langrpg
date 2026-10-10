@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizedAnswer, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
+import { normalizedAnswer, answerMatches, gradeFeedback, sentenceTiles, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
 import { emptyProgress } from './api';
 import { quests } from './content';
 
@@ -53,10 +53,47 @@ describe('silent mode', () => {
 });
 
 describe('language answers', () => {
+  const typed = {id:'test',itemId:'test',mode:'type' as const,prompt:'Write in German',german:'',english:'',answer:'Ich möchte einen Kaffee',hint:'',explanation:'A café order.'};
   it('preserves significant German orthography while accepting case and punctuation', () => {
     expect(normalizedAnswer('  Ich  möchte einen Kaffee! ')).toBe('ich möchte einen kaffee');
     expect(normalizedAnswer('schön')).not.toBe(normalizedAnswer('schon'));
     expect(normalizedAnswer('Straße')).not.toBe(normalizedAnswer('Strasse'));
+  });
+  it('accepts umlaut keyboard spellings and one mechanical typing slip in production', () => {
+    expect(answerMatches(typed, 'Ich moechte einen Kafefe')).toBe(true);
+    expect(answerMatches(typed, 'Ich möchte einen Kafffee')).toBe(true);
+    expect(answerMatches(typed, 'Ich möchte einen Kaffe')).toBe(true);
+    expect(answerMatches({...typed, answer:'schön'}, 'schoen')).toBe(true);
+  });
+  it('keeps grammar, significant orthography, short words and multiple mistakes strict', () => {
+    for (const answer of ['Ich mochte einen Kaffee','Ich möchte ein Kaffee','Ich möchte einen Koffee','Ich möcthe einen Kafefe']) expect(answerMatches(typed, answer)).toBe(false);
+    expect(answerMatches({...typed, answer:'schön'}, 'schon')).toBe(false);
+    expect(answerMatches({...typed, answer:'Straße'}, 'Strasse')).toBe(false);
+    expect(answerMatches({...typed, answer:'der Bahnhof',caseSensitive:true}, 'der bahnhof')).toBe(false);
+    expect(answerMatches({...typed,mode:'choice',answer:'schön'}, 'schoen')).toBe(false);
+    expect(answerMatches({...typed,mode:'listen',answer:'Kaffee'}, 'Kafefe')).toBe(false);
+  });
+  it('names article, capitalization and word-order errors', () => {
+    expect(gradeFeedback({...typed,answer:'der Bahnhof'},'die Bahnhof')).toContain('article');
+    expect(gradeFeedback({...typed,answer:'Bahnhof',caseSensitive:true},'bahnhof')).toContain('capitalization');
+    expect(gradeFeedback({...typed,answer:'Ich trinke Kaffee'},'Ich Kaffee trinke')).toContain('word order');
+  });
+  it('keeps every story sentence solvable while adding plausible grammar distractors',()=>{
+    for(const exercise of quests.flatMap(quest=>quest.exercises).filter(exercise=>exercise.mode==='sentence')) {
+      const tiles=sentenceTiles(exercise);
+      expect(tiles.slice(0,exercise.tokens!.length)).toEqual(exercise.tokens);
+      expect(tiles.length).toBeGreaterThan(exercise.tokens!.length);
+      expect(tiles.slice(exercise.tokens!.length).every(tile=>!exercise.tokens!.includes(tile))).toBe(true);
+    }
+  });
+  it('keeps meaningful noun and formal Sie capitals in authored story production',()=>{
+    const exercise=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a2-apartment-exercise-6')!;
+    expect(answerMatches(exercise,'Könnten sie das bitte reparieren?')).toBe(false);
+    expect(gradeFeedback(exercise,'Könnten sie das bitte reparieren?')).toContain('capitalization');
+    expect(gradeFeedback(exercise,'Koennten sie das bitte reparieren?')).toContain('capitalization');
+    const address=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a1-lost-parcel-exercise-2')!;
+    expect(answerMatches(address,'Wie ist die adresse?')).toBe(false);
+    expect(answerMatches(address,address.answer)).toBe(true);
   });
 });
 describe('review selection', () => {

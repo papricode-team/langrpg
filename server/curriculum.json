@@ -746,37 +746,46 @@
       "id": "a1-arrival-exercise-1",
       "itemId": "a1-arrival-item-1",
       "mode": "recognition",
-      "answer": "Guten Morgen!"
+      "answer": "Guten Morgen!",
+      "explanation": "Use Guten Morgen as a morning greeting."
     },
     {
       "id": "a1-arrival-exercise-2",
       "itemId": "a1-arrival-item-2",
       "mode": "production",
-      "answer": "Ich heiße Alex."
+      "answer": "Ich heiße Alex.",
+      "caseSensitive": true,
+      "explanation": "heißen means to be called. Ich heiße gives your name."
     },
     {
       "id": "a1-arrival-exercise-3",
       "itemId": "a1-arrival-item-3",
       "mode": "production",
-      "answer": "Ich komme aus England."
+      "answer": "Ich komme aus England.",
+      "caseSensitive": true,
+      "explanation": "aus introduces where someone comes from."
     },
     {
       "id": "a1-arrival-exercise-4",
       "itemId": "a1-arrival-item-4",
       "mode": "recognition",
-      "answer": "Wie heißen Sie?"
+      "answer": "Wie heißen Sie?",
+      "explanation": "Sie is the polite form of you; heißen stays in the plural form."
     },
     {
       "id": "a1-arrival-exercise-5",
       "itemId": "a1-arrival-item-5",
       "mode": "listening",
-      "answer": "English"
+      "answer": "Englisch",
+      "explanation": "sprechen means to speak; Englisch means English."
     },
     {
       "id": "a1-arrival-exercise-6",
       "itemId": "a1-arrival-item-6",
       "mode": "production",
-      "answer": "Helfen Sie mir bitte."
+      "answer": "Helfen Sie mir bitte.",
+      "caseSensitive": true,
+      "explanation": "Helfen Sie is a polite request. mir is the person receiving help."
     },
     {
       "id": "a1-arrival-exercise-7",
@@ -788,61 +797,76 @@
         "Bitte noch einmal.",
         "Noch einmal bitte.",
         "Noch mal bitte."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "This short request is useful whenever you need repetition."
     },
     {
       "id": "a1-cafe-exercise-1",
       "itemId": "a1-cafe-item-1",
       "mode": "production",
-      "answer": "Ich möchte einen Kaffee."
+      "answer": "Ich möchte einen Kaffee.",
+      "caseSensitive": true,
+      "explanation": "möchte makes the request polite; Kaffee is masculine, so the object is einen Kaffee."
     },
     {
       "id": "a1-cafe-exercise-2",
       "itemId": "a1-cafe-item-2",
       "mode": "recognition",
-      "answer": "Mit Milch, bitte."
+      "answer": "Mit Milch, bitte.",
+      "explanation": "mit means with. This short phrase works when ordering."
     },
     {
       "id": "a1-cafe-exercise-3",
       "itemId": "a1-cafe-item-3",
       "mode": "production",
-      "answer": "Was kostet der Tee?"
+      "answer": "Was kostet der Tee?",
+      "caseSensitive": true,
+      "explanation": "kosten means to cost. The item being priced is the subject."
     },
     {
       "id": "a1-cafe-exercise-4",
       "itemId": "a1-cafe-item-4",
       "mode": "listening",
-      "answer": "€3"
+      "answer": "drei Euro",
+      "explanation": "German uses Euro after a number without adding an s."
     },
     {
       "id": "a1-cafe-exercise-5",
       "itemId": "a1-cafe-item-5",
       "mode": "production",
-      "answer": "Ich nehme ein Wasser."
+      "answer": "Ich nehme ein Wasser.",
+      "caseSensitive": true,
+      "explanation": "Ich nehme is a common ordering phrase. Wasser is neuter: ein Wasser."
     },
     {
       "id": "a1-cafe-exercise-6",
       "itemId": "a1-cafe-item-6",
       "mode": "recognition",
-      "answer": "Die Rechnung, bitte."
+      "answer": "Die Rechnung, bitte.",
+      "explanation": "This short request is natural in cafés and restaurants."
     },
     {
       "id": "a1-cafe-exercise-7",
       "itemId": "a1-cafe-item-7",
       "mode": "listening",
-      "answer": "No, the order is complete."
+      "answer": "Nein, das ist alles.",
+      "explanation": "das ist alles tells the server that the order is complete."
     },
     {
       "id": "a1-market-exercise-1",
       "itemId": "a1-market-item-1",
       "mode": "production",
-      "answer": "Ich brauche zwei Äpfel."
+      "answer": "Ich brauche zwei Äpfel.",
+      "caseSensitive": true,
+      "explanation": "Apfel changes to Äpfel in the plural. Learn nouns with their useful forms."
     },
     {
       "id": "a1-market-exercise-2",
       "itemId": "a1-market-item-2",
       "mode": "recognition",
-      "answer": "Haben Sie Brot?"
+      "answer": "Haben Sie Brot?",
+      "explanation": "Put Haben first to ask a yes/no question politely."
     },
     {
       "id": "a1-market-exercise-3",
@@ -853,121 +877,149 @@
         "Ein Kilogramm Kartoffeln, bitte.",
         "Ein Kilo Kartoffeln bitte.",
         "Ein Kilogramm Kartoffeln bitte."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "Kartoffeln is the plural of Kartoffel. No extra word for of is needed here."
     },
     {
       "id": "a1-market-exercise-4",
       "itemId": "a1-market-item-4",
       "mode": "listening",
-      "answer": "€5.50"
+      "answer": "fünf Euro fünfzig",
+      "explanation": "In everyday prices, fünf Euro fünfzig means €5.50."
     },
     {
       "id": "a1-market-exercise-5",
       "itemId": "a1-market-item-5",
       "mode": "recognition",
-      "answer": "Die Tomaten sind frisch."
+      "answer": "Die Tomaten sind frisch.",
+      "explanation": "Use sind with a plural subject: die Tomaten sind."
     },
     {
       "id": "a1-market-exercise-6",
       "itemId": "a1-market-item-6",
       "mode": "production",
-      "answer": "Ich bezahle mit Karte."
+      "answer": "Ich bezahle mit Karte.",
+      "caseSensitive": true,
+      "explanation": "bezahlen means to pay; mit Karte means by card."
     },
     {
       "id": "a1-market-exercise-7",
       "itemId": "a1-market-item-7",
       "mode": "listening",
-      "answer": "The price is too high."
+      "answer": "Der Preis ist zu hoch.",
+      "explanation": "zu teuer expresses that something costs more than the speaker wants to pay."
     },
     {
       "id": "a1-station-exercise-1",
       "itemId": "a1-station-item-1",
       "mode": "recognition",
-      "answer": "Wo ist der Bahnhof?"
+      "answer": "Wo ist der Bahnhof?",
+      "explanation": "Wo ist …? asks for the location of a singular thing."
     },
     {
       "id": "a1-station-exercise-2",
       "itemId": "a1-station-item-2",
       "mode": "listening",
-      "answer": "09:00"
+      "answer": "neun Uhr",
+      "explanation": "um neun Uhr is at nine o’clock."
     },
     {
       "id": "a1-station-exercise-3",
       "itemId": "a1-station-item-3",
       "mode": "production",
-      "answer": "Ein Ticket nach Berlin, bitte."
+      "answer": "Ein Ticket nach Berlin, bitte.",
+      "caseSensitive": true,
+      "explanation": "Use nach with city names such as Berlin when describing a destination."
     },
     {
       "id": "a1-station-exercise-4",
       "itemId": "a1-station-item-4",
       "mode": "listening",
-      "answer": "Platform 2"
+      "answer": "Gleis zwei",
+      "explanation": "abfahren is separable: the ab appears at the end of the sentence."
     },
     {
       "id": "a1-station-exercise-5",
       "itemId": "a1-station-item-5",
       "mode": "production",
-      "answer": "Ist dieser Platz frei?"
+      "answer": "Ist dieser Platz frei?",
+      "caseSensitive": true,
+      "explanation": "frei can mean free or available. Here it describes an unoccupied seat."
     },
     {
       "id": "a1-station-exercise-6",
       "itemId": "a1-station-item-6",
       "mode": "production",
-      "answer": "Ich muss heute nach Hause."
+      "answer": "Ich muss heute nach Hause.",
+      "caseSensitive": true,
+      "explanation": "nach Hause means home as a destination. muss expresses necessity."
     },
     {
       "id": "a1-station-exercise-7",
       "itemId": "a1-station-item-7",
       "mode": "recognition",
-      "answer": "Der Zug hat zehn Minuten Verspätung."
+      "answer": "Der Zug hat zehn Minuten Verspätung.",
+      "explanation": "German commonly says a train has a delay: hat … Verspätung."
     },
     {
       "id": "a1-workshop-exercise-1",
       "itemId": "a1-workshop-item-1",
       "mode": "listening",
-      "answer": "On the table"
+      "answer": "Auf dem Tisch",
+      "explanation": "auf dem Tisch describes a location. Learn this as a useful whole phrase."
     },
     {
       "id": "a1-workshop-exercise-2",
       "itemId": "a1-workshop-item-2",
       "mode": "production",
-      "answer": "Ich brauche eine Lampe."
+      "answer": "Ich brauche eine Lampe.",
+      "caseSensitive": true,
+      "explanation": "With a feminine object, eine stays eine."
     },
     {
       "id": "a1-workshop-exercise-3",
       "itemId": "a1-workshop-item-3",
       "mode": "recognition",
-      "answer": "Die Tür ist offen."
+      "answer": "Die Tür ist offen.",
+      "explanation": "An adjective after ist has no ending here: ist offen."
     },
     {
       "id": "a1-workshop-exercise-4",
       "itemId": "a1-workshop-item-4",
       "mode": "listening",
-      "answer": "Closed"
+      "answer": "Geschlossen",
+      "explanation": "Fenster is neuter: das Fenster."
     },
     {
       "id": "a1-workshop-exercise-5",
       "itemId": "a1-workshop-item-5",
       "mode": "production",
-      "answer": "Kann ich den Stift haben?"
+      "answer": "Kann ich den Stift haben?",
+      "caseSensitive": true,
+      "explanation": "The modal verb kann starts the question; haben goes at the end. der Stift becomes den Stift."
     },
     {
       "id": "a1-workshop-exercise-6",
       "itemId": "a1-workshop-item-6",
       "mode": "production",
-      "answer": "Bitte warten Sie hier."
+      "answer": "Bitte warten Sie hier.",
+      "caseSensitive": true,
+      "explanation": "warten means wait; hier means here."
     },
     {
       "id": "a1-workshop-exercise-7",
       "itemId": "a1-workshop-item-7",
       "mode": "recognition",
-      "answer": "Das funktioniert nicht."
+      "answer": "Das funktioniert nicht.",
+      "explanation": "funktionieren means to function or work; nicht negates it."
     },
     {
       "id": "a1-lost-parcel-exercise-1",
       "itemId": "a1-lost-parcel-item-1",
       "mode": "recognition",
-      "answer": "Das Paket ist für Marta."
+      "answer": "Das Paket ist für Marta.",
+      "explanation": "für names the intended recipient."
     },
     {
       "id": "a1-lost-parcel-exercise-2",
@@ -976,67 +1028,84 @@
       "answer": "Wie ist die Adresse?",
       "acceptedAnswers": [
         "Wie lautet die Adresse?"
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "German commonly uses Wie ist die Adresse? to ask for an address."
     },
     {
       "id": "a1-lost-parcel-exercise-3",
       "itemId": "a1-lost-parcel-item-3",
       "mode": "listening",
-      "answer": "Left"
+      "answer": "Links",
+      "explanation": "die Apotheke is the pharmacy; rechts would mean on the right."
     },
     {
       "id": "a1-lost-parcel-exercise-4",
       "itemId": "a1-lost-parcel-item-4",
       "mode": "production",
-      "answer": "Gehen Sie geradeaus."
+      "answer": "Gehen Sie geradeaus.",
+      "caseSensitive": true,
+      "explanation": "Gehen Sie is a polite instruction to go or walk."
     },
     {
       "id": "a1-lost-parcel-exercise-5",
       "itemId": "a1-lost-parcel-item-5",
       "mode": "recognition",
-      "answer": "Ich suche die Post."
+      "answer": "Ich suche die Post.",
+      "explanation": "suchen means to look for; the thing being sought is the object."
     },
     {
       "id": "a1-lost-parcel-exercise-6",
       "itemId": "a1-lost-parcel-item-6",
       "mode": "production",
-      "answer": "Hier ist Ihr Paket."
+      "answer": "Hier ist Ihr Paket.",
+      "caseSensitive": true,
+      "explanation": "Polite Ihr is capitalized. Hier ist … is useful when handing something over."
     },
     {
       "id": "a1-lost-parcel-exercise-7",
       "itemId": "a1-lost-parcel-item-7",
       "mode": "listening",
-      "answer": "They are late."
+      "answer": "Die Person kommt zu spät.",
+      "explanation": "Entschuldigung is a common apology or way to get someone’s attention."
     },
     {
       "id": "a2-apartment-exercise-1",
       "itemId": "a2-apartment-item-1",
       "mode": "production",
-      "answer": "Ich suche eine Wohnung."
+      "answer": "Ich suche eine Wohnung.",
+      "caseSensitive": true,
+      "explanation": "Use suchen with an object to describe what you are looking for."
     },
     {
       "id": "a2-apartment-exercise-2",
       "itemId": "a2-apartment-item-2",
       "mode": "production",
-      "answer": "Die Miete ist zu hoch."
+      "answer": "Die Miete ist zu hoch.",
+      "caseSensitive": true,
+      "explanation": "zu hoch means too high. It also describes prices and temperatures."
     },
     {
       "id": "a2-apartment-exercise-3",
       "itemId": "a2-apartment-item-3",
       "mode": "listening",
-      "answer": "Two rooms"
+      "answer": "Zwei Zimmer",
+      "explanation": "einen Balkon is the masculine object after hat."
     },
     {
       "id": "a2-apartment-exercise-4",
       "itemId": "a2-apartment-item-4",
       "mode": "production",
-      "answer": "Ich wohne seit drei Monaten hier."
+      "answer": "Ich wohne seit drei Monaten hier.",
+      "caseSensitive": true,
+      "explanation": "German uses the present tense with seit when the situation continues. Monaten is dative plural."
     },
     {
       "id": "a2-apartment-exercise-5",
       "itemId": "a2-apartment-item-5",
       "mode": "recognition",
-      "answer": "Der Kühlschrank ist kaputt."
+      "answer": "Der Kühlschrank ist kaputt.",
+      "explanation": "kaputt is a useful everyday adjective for something that does not work."
     },
     {
       "id": "a2-apartment-exercise-6",
@@ -1045,25 +1114,31 @@
       "answer": "Könnten Sie das bitte reparieren?",
       "acceptedAnswers": [
         "Könnten Sie das reparieren, bitte?"
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "Könnten Sie …? makes a request more polite."
     },
     {
       "id": "a2-apartment-exercise-7",
       "itemId": "a2-apartment-item-7",
       "mode": "listening",
-      "answer": "The apartment is too small."
+      "answer": "Die Wohnung ist zu klein.",
+      "explanation": "In a weil clause, the finite verb goes at the end: zu klein ist."
     },
     {
       "id": "a2-evening-plans-exercise-1",
       "itemId": "a2-evening-plans-item-1",
       "mode": "production",
-      "answer": "Hast du morgen Zeit?"
+      "answer": "Hast du morgen Zeit?",
+      "caseSensitive": true,
+      "explanation": "Hast du …? is the informal form of Haben Sie …?"
     },
     {
       "id": "a2-evening-plans-exercise-2",
       "itemId": "a2-evening-plans-item-2",
       "mode": "listening",
-      "answer": "18:30"
+      "answer": "halb sieben",
+      "explanation": "German halb names the following hour. am Samstag gives the day."
     },
     {
       "id": "a2-evening-plans-exercise-3",
@@ -1072,103 +1147,130 @@
       "answer": "Ich würde gern mitkommen.",
       "acceptedAnswers": [
         "Ich würde gerne mitkommen."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "würde gern expresses a wish politely; mitkommen means come along."
     },
     {
       "id": "a2-evening-plans-exercise-4",
       "itemId": "a2-evening-plans-item-4",
       "mode": "recognition",
-      "answer": "Leider kann ich nicht."
+      "answer": "Leider kann ich nicht.",
+      "explanation": "This phrase politely says you are unable to do the suggested thing."
     },
     {
       "id": "a2-evening-plans-exercise-5",
       "itemId": "a2-evening-plans-item-5",
       "mode": "production",
-      "answer": "Ich esse lieber Gemüse als Fleisch."
+      "answer": "Ich esse lieber Gemüse als Fleisch.",
+      "caseSensitive": true,
+      "explanation": "lieber compares preferences; als introduces the alternative."
     },
     {
       "id": "a2-evening-plans-exercise-6",
       "itemId": "a2-evening-plans-item-6",
       "mode": "listening",
-      "answer": "It is raining."
+      "answer": "Es regnet.",
+      "explanation": "zu Hause is at home; nach Hause is a destination."
     },
     {
       "id": "a2-evening-plans-exercise-7",
       "itemId": "a2-evening-plans-item-7",
       "mode": "production",
-      "answer": "Können wir den Termin verschieben?"
+      "answer": "Können wir den Termin verschieben?",
+      "caseSensitive": true,
+      "explanation": "verschieben means reschedule or postpone. den Termin is the object."
     },
     {
       "id": "a2-rail-trip-exercise-1",
       "itemId": "a2-rail-trip-item-1",
       "mode": "production",
-      "answer": "Muss ich in Hamburg umsteigen?"
+      "answer": "Muss ich in Hamburg umsteigen?",
+      "caseSensitive": true,
+      "explanation": "A modal question begins with Muss; umsteigen remains an infinitive."
     },
     {
       "id": "a2-rail-trip-exercise-2",
       "itemId": "a2-rail-trip-item-2",
       "mode": "listening",
-      "answer": "20 minutes"
+      "answer": "Zwanzig Minuten",
+      "explanation": "in zwanzig Minuten describes how long from now until departure."
     },
     {
       "id": "a2-rail-trip-exercise-3",
       "itemId": "a2-rail-trip-item-3",
       "mode": "production",
-      "answer": "Ich habe meinen Anschluss verpasst."
+      "answer": "Ich habe meinen Anschluss verpasst.",
+      "caseSensitive": true,
+      "explanation": "The perfect tense uses haben plus the past participle verpasst."
     },
     {
       "id": "a2-rail-trip-exercise-4",
       "itemId": "a2-rail-trip-item-4",
       "mode": "recognition",
-      "answer": "Welche Verbindung ist schneller?"
+      "answer": "Welche Verbindung ist schneller?",
+      "explanation": "Comparative adjectives often add -er: schnell → schneller."
     },
     {
       "id": "a2-rail-trip-exercise-5",
       "itemId": "a2-rail-trip-item-5",
       "mode": "production",
-      "answer": "Ist die Rückfahrt im Preis enthalten?"
+      "answer": "Ist die Rückfahrt im Preis enthalten?",
+      "caseSensitive": true,
+      "explanation": "im Preis enthalten is a useful chunk meaning included in the price."
     },
     {
       "id": "a2-rail-trip-exercise-6",
       "itemId": "a2-rail-trip-item-6",
       "mode": "production",
-      "answer": "Ich möchte das Ticket stornieren."
+      "answer": "Ich möchte das Ticket stornieren.",
+      "caseSensitive": true,
+      "explanation": "stornieren means cancel a booking or ticket."
     },
     {
       "id": "a2-rail-trip-exercise-7",
       "itemId": "a2-rail-trip-item-7",
       "mode": "listening",
-      "answer": "The bus"
+      "answer": "Der Bus",
+      "explanation": "wegen introduces the reason; einer Störung means a disruption."
     },
     {
       "id": "a2-broken-clock-exercise-1",
       "itemId": "a2-broken-clock-item-1",
       "mode": "production",
-      "answer": "Ich habe gestern den Schlüssel gefunden."
+      "answer": "Ich habe gestern den Schlüssel gefunden.",
+      "caseSensitive": true,
+      "explanation": "finden has the irregular past participle gefunden."
     },
     {
       "id": "a2-broken-clock-exercise-2",
       "itemId": "a2-broken-clock-item-2",
       "mode": "listening",
-      "answer": "Tidying up"
+      "answer": "Aufräumen",
+      "explanation": "zuerst and dann help put a report in a clear sequence."
     },
     {
       "id": "a2-broken-clock-exercise-3",
       "itemId": "a2-broken-clock-item-3",
       "mode": "production",
-      "answer": "Kannst du mir die Anleitung erklären?"
+      "answer": "Kannst du mir die Anleitung erklären?",
+      "caseSensitive": true,
+      "explanation": "erklären takes the thing explained and the person receiving the explanation: mir."
     },
     {
       "id": "a2-broken-clock-exercise-4",
       "itemId": "a2-broken-clock-item-4",
       "mode": "recognition",
-      "answer": "Leg das Werkzeug auf den Tisch."
+      "answer": "Leg das Werkzeug auf den Tisch.",
+      "explanation": "Movement onto the table uses auf den Tisch. A location uses auf dem Tisch."
     },
     {
       "id": "a2-broken-clock-exercise-5",
       "itemId": "a2-broken-clock-item-5",
       "mode": "production",
-      "answer": "Das Werkzeug liegt unter dem Stuhl."
+      "answer": "Das Werkzeug liegt unter dem Stuhl.",
+      "caseSensitive": true,
+      "explanation": "A fixed location with unter uses dative: dem Stuhl."
     },
     {
       "id": "a2-broken-clock-exercise-6",
@@ -1177,43 +1279,54 @@
       "answer": "Ich habe vergessen, das Fenster zu schließen.",
       "acceptedAnswers": [
         "Ich habe vergessen das Fenster zu schließen."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "vergessen can be followed by a zu infinitive stating what was forgotten."
     },
     {
       "id": "a2-broken-clock-exercise-7",
       "itemId": "a2-broken-clock-item-7",
       "mode": "listening",
-      "answer": "Otto"
+      "answer": "Otto",
+      "explanation": "zurückbringen has the past participle zurückgebracht."
     },
     {
       "id": "a2-clinic-exercise-1",
       "itemId": "a2-clinic-item-1",
       "mode": "production",
-      "answer": "Ich habe seit gestern Kopfschmerzen."
+      "answer": "Ich habe seit gestern Kopfschmerzen.",
+      "caseSensitive": true,
+      "explanation": "Kopfschmerzen is plural in German. seit describes an ongoing situation."
     },
     {
       "id": "a2-clinic-exercise-2",
       "itemId": "a2-clinic-item-2",
       "mode": "production",
-      "answer": "Ich brauche einen Termin beim Arzt."
+      "answer": "Ich brauche einen Termin beim Arzt.",
+      "caseSensitive": true,
+      "explanation": "beim is short for bei dem; beim Arzt means with or at the doctor."
     },
     {
       "id": "a2-clinic-exercise-3",
       "itemId": "a2-clinic-item-3",
       "mode": "listening",
-      "answer": "08:15"
+      "answer": "Viertel nach acht",
+      "explanation": "Viertel nach acht is 8:15. Viertel vor acht would be 7:45."
     },
     {
       "id": "a2-clinic-exercise-4",
       "itemId": "a2-clinic-item-4",
       "mode": "recognition",
-      "answer": "Wie lange soll ich warten?"
+      "answer": "Wie lange soll ich warten?",
+      "explanation": "sollen describes an instruction or recommendation."
     },
     {
       "id": "a2-clinic-exercise-5",
       "itemId": "a2-clinic-item-5",
       "mode": "production",
-      "answer": "Sie sollten sich ausruhen."
+      "answer": "Sie sollten sich ausruhen.",
+      "caseSensitive": true,
+      "explanation": "sollten makes advice less direct. sich ausruhen means rest."
     },
     {
       "id": "a2-clinic-exercise-6",
@@ -1222,43 +1335,54 @@
       "answer": "Mir geht es schon besser.",
       "acceptedAnswers": [
         "Mir geht es bereits besser."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "The fixed expression Mir geht es … describes how you feel."
     },
     {
       "id": "a2-clinic-exercise-7",
       "itemId": "a2-clinic-item-7",
       "mode": "listening",
-      "answer": "Their insurance card"
+      "answer": "Die Versicherungskarte",
+      "explanation": "mitbringen is separable: bringen … mit."
     },
     {
       "id": "a2-archive-exercise-1",
       "itemId": "a2-archive-item-1",
       "mode": "production",
-      "answer": "Früher war der Bahnhof kleiner."
+      "answer": "Früher war der Bahnhof kleiner.",
+      "caseSensitive": true,
+      "explanation": "war is the simple past of sein; kleiner is the comparative of klein."
     },
     {
       "id": "a2-archive-exercise-2",
       "itemId": "a2-archive-item-2",
       "mode": "listening",
-      "answer": "By train"
+      "answer": "Mit dem Zug",
+      "explanation": "fahren uses sein in the perfect when it describes travel: bin … gefahren."
     },
     {
       "id": "a2-archive-exercise-3",
       "itemId": "a2-archive-item-3",
       "mode": "production",
-      "answer": "Seit wann arbeiten Sie hier?"
+      "answer": "Seit wann arbeiten Sie hier?",
+      "caseSensitive": true,
+      "explanation": "Seit wann asks when an ongoing situation began. German uses present-tense arbeiten."
     },
     {
       "id": "a2-archive-exercise-4",
       "itemId": "a2-archive-item-4",
       "mode": "recognition",
-      "answer": "Diese Karte ist älter als die andere."
+      "answer": "Diese Karte ist älter als die andere.",
+      "explanation": "alt changes to älter in the comparative."
     },
     {
       "id": "a2-archive-exercise-5",
       "itemId": "a2-archive-item-5",
       "mode": "production",
-      "answer": "Ich interessiere mich für Geschichte."
+      "answer": "Ich interessiere mich für Geschichte.",
+      "caseSensitive": true,
+      "explanation": "sich interessieren für is a reflexive expression for being interested in something."
     },
     {
       "id": "a2-archive-exercise-6",
@@ -1267,25 +1391,31 @@
       "answer": "Können Sie mir das genauer erklären?",
       "acceptedAnswers": [
         "Können Sie mir das bitte genauer erklären?"
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "genauer means more precisely or in more detail."
     },
     {
       "id": "a2-archive-exercise-7",
       "itemId": "a2-archive-item-7",
       "mode": "listening",
-      "answer": "In the old town"
+      "answer": "In der Altstadt",
+      "explanation": "inzwischen refers to a change between an earlier time and now; umziehen uses sein for moving home or premises."
     },
     {
       "id": "b1-witness-exercise-1",
       "itemId": "b1-witness-item-1",
       "mode": "production",
-      "answer": "Als ich am Bahnhof ankam, war der Zug schon weg."
+      "answer": "Als ich am Bahnhof ankam, war der Zug schon weg.",
+      "caseSensitive": true,
+      "explanation": "als introduces a single event in the past. The following main clause begins with its finite verb."
     },
     {
       "id": "b1-witness-exercise-2",
       "itemId": "b1-witness-item-2",
       "mode": "listening",
-      "answer": "It was too dark."
+      "answer": "Es war zu dunkel.",
+      "explanation": "erkennen means recognize or make out. war ends the weil clause."
     },
     {
       "id": "b1-witness-exercise-3",
@@ -1296,25 +1426,32 @@
         "Ich bin nicht sicher, ob das stimmt.",
         "Ich bin mir nicht sicher ob das stimmt.",
         "Ich bin nicht sicher ob das stimmt."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "ob introduces an indirect yes/no question; stimmt goes at the end."
     },
     {
       "id": "b1-witness-exercise-4",
       "itemId": "b1-witness-item-4",
       "mode": "production",
-      "answer": "Zuerst hat sie gewartet, danach ist sie gegangen."
+      "answer": "Zuerst hat sie gewartet, danach ist sie gegangen.",
+      "caseSensitive": true,
+      "explanation": "warten uses haben; gehen uses sein for movement. danach marks the next event."
     },
     {
       "id": "b1-witness-exercise-5",
       "itemId": "b1-witness-item-5",
       "mode": "recognition",
-      "answer": "Das widerspricht der Aussage des Zeugen."
+      "answer": "Das widerspricht der Aussage des Zeugen.",
+      "explanation": "widersprechen takes dative: der Aussage. des Zeugen means of the witness."
     },
     {
       "id": "b1-witness-exercise-6",
       "itemId": "b1-witness-item-6",
       "mode": "production",
-      "answer": "Könnten Sie beschreiben, was Sie gesehen haben?"
+      "answer": "Könnten Sie beschreiben, was Sie gesehen haben?",
+      "caseSensitive": true,
+      "explanation": "An indirect question keeps its finite verb at the end."
     },
     {
       "id": "b1-witness-exercise-7",
@@ -1323,13 +1460,17 @@
       "answer": "Vielleicht hat sie den falschen Zug genommen.",
       "acceptedAnswers": [
         "Sie hat vielleicht den falschen Zug genommen."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "vielleicht expresses uncertainty. nehmen has the past participle genommen."
     },
     {
       "id": "b1-new-route-exercise-1",
       "itemId": "b1-new-route-item-1",
       "mode": "production",
-      "answer": "Wenn der Zug ausfällt, nehmen wir den Bus."
+      "answer": "Wenn der Zug ausfällt, nehmen wir den Bus.",
+      "caseSensitive": true,
+      "explanation": "wenn introduces a condition; ausfallen means be cancelled or fail to run."
     },
     {
       "id": "b1-new-route-exercise-2",
@@ -1340,31 +1481,39 @@
         "Wir müssen eine Lösung finden, die für alle funktioniert.",
         "Wir müssen eine Lösung finden die für alle passt.",
         "Wir müssen eine Lösung finden die für alle funktioniert."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "The relative pronoun die refers to feminine Lösung. passt ends the relative clause."
     },
     {
       "id": "b1-new-route-exercise-3",
       "itemId": "b1-new-route-item-3",
       "mode": "listening",
-      "answer": "The tickets would cost more."
+      "answer": "Die Fahrkarten wären teurer.",
+      "explanation": "wäre and wären describe a hypothetical situation; teurer means more expensive."
     },
     {
       "id": "b1-new-route-exercise-4",
       "itemId": "b1-new-route-item-4",
       "mode": "production",
-      "answer": "Statt zu warten, könnten wir zu Fuß gehen."
+      "answer": "Statt zu warten, könnten wir zu Fuß gehen.",
+      "caseSensitive": true,
+      "explanation": "statt zu introduces an alternative to an action. zu Fuß gehen means walk."
     },
     {
       "id": "b1-new-route-exercise-5",
       "itemId": "b1-new-route-item-5",
       "mode": "recognition",
-      "answer": "Wir sollten die Vor- und Nachteile vergleichen."
+      "answer": "Wir sollten die Vor- und Nachteile vergleichen.",
+      "explanation": "vergleichen means compare; sollten expresses a recommendation."
     },
     {
       "id": "b1-new-route-exercise-6",
       "itemId": "b1-new-route-item-6",
       "mode": "production",
-      "answer": "Obwohl die Strecke länger ist, ist sie günstiger."
+      "answer": "Obwohl die Strecke länger ist, ist sie günstiger.",
+      "caseSensitive": true,
+      "explanation": "obwohl introduces a contrast. günstiger can mean cheaper or more favourable."
     },
     {
       "id": "b1-new-route-exercise-7",
@@ -1375,13 +1524,17 @@
         "Ich schlage vor, dass wir eher losfahren.",
         "Ich schlage vor dass wir früher losfahren.",
         "Ich schlage vor dass wir eher losfahren."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "vorschlagen is separable; losfahren goes last in the dass clause."
     },
     {
       "id": "b1-work-exercise-1",
       "itemId": "b1-work-item-1",
       "mode": "production",
-      "answer": "Ich habe Erfahrung im Umgang mit Kunden."
+      "answer": "Ich habe Erfahrung im Umgang mit Kunden.",
+      "caseSensitive": true,
+      "explanation": "im Umgang mit is a useful professional chunk meaning in dealing with."
     },
     {
       "id": "b1-work-exercise-2",
@@ -1390,31 +1543,39 @@
       "answer": "Zu meinen Aufgaben gehört die Planung der Termine.",
       "acceptedAnswers": [
         "Die Planung der Termine gehört zu meinen Aufgaben."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "The singular subject is die Planung, so the verb is gehört."
     },
     {
       "id": "b1-work-exercise-3",
       "itemId": "b1-work-item-3",
       "mode": "listening",
-      "answer": "They work from home."
+      "answer": "Sie arbeiten von zu Hause.",
+      "explanation": "freitags means on Fridays regularly; von zu Hause means from home."
     },
     {
       "id": "b1-work-exercise-4",
       "itemId": "b1-work-item-4",
       "mode": "production",
-      "answer": "Ich würde gern mehr Verantwortung übernehmen."
+      "answer": "Ich würde gern mehr Verantwortung übernehmen.",
+      "caseSensitive": true,
+      "explanation": "Verantwortung übernehmen means take on responsibility."
     },
     {
       "id": "b1-work-exercise-5",
       "itemId": "b1-work-item-5",
       "mode": "recognition",
-      "answer": "Könnten Sie mir sagen, worauf es bei der Arbeit ankommt?"
+      "answer": "Könnten Sie mir sagen, worauf es bei der Arbeit ankommt?",
+      "explanation": "ankommen auf expresses what is important. In the indirect question ankommt is joined and placed last."
     },
     {
       "id": "b1-work-exercise-6",
       "itemId": "b1-work-item-6",
       "mode": "production",
-      "answer": "Bevor ich anfange, möchte ich die Bedingungen klären."
+      "answer": "Bevor ich anfange, möchte ich die Bedingungen klären.",
+      "caseSensitive": true,
+      "explanation": "bevor introduces an earlier prerequisite action. Bedingungen means conditions."
     },
     {
       "id": "b1-work-exercise-7",
@@ -1423,13 +1584,17 @@
       "answer": "Ich lerne schnell und arbeite gern im Team.",
       "acceptedAnswers": [
         "Ich lerne schnell und arbeite gerne im Team."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "gern after a verb expresses enjoying that activity."
     },
     {
       "id": "b1-council-exercise-1",
       "itemId": "b1-council-item-1",
       "mode": "production",
-      "answer": "Meiner Meinung nach sollten wir die Strecke wieder öffnen."
+      "answer": "Meiner Meinung nach sollten wir die Strecke wieder öffnen.",
+      "caseSensitive": true,
+      "explanation": "Meiner Meinung nach is a common way to introduce an opinion."
     },
     {
       "id": "b1-council-exercise-2",
@@ -1440,31 +1605,39 @@
         "Ich bin dafür, denn die Verbindung ist wichtig.",
         "Ich bin dafür weil die Verbindung wichtig ist.",
         "Ich bin dafür denn die Verbindung ist wichtig."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "dafür means in favour. wichtig ist ends the reason clause."
     },
     {
       "id": "b1-council-exercise-3",
       "itemId": "b1-council-item-3",
       "mode": "listening",
-      "answer": "The costs"
+      "answer": "Die Kosten",
+      "explanation": "sich Sorgen machen um means worry about; trotzdem expresses nevertheless."
     },
     {
       "id": "b1-council-exercise-4",
       "itemId": "b1-council-item-4",
       "mode": "production",
-      "answer": "Da stimme ich Ihnen zu."
+      "answer": "Da stimme ich Ihnen zu.",
+      "caseSensitive": true,
+      "explanation": "zustimmen takes dative: Ihnen. The separable zu goes at the end."
     },
     {
       "id": "b1-council-exercise-5",
       "itemId": "b1-council-item-5",
       "mode": "recognition",
-      "answer": "Ich sehe das anders, weil wir noch nicht genug wissen."
+      "answer": "Ich sehe das anders, weil wir noch nicht genug wissen.",
+      "explanation": "Ich sehe das anders is a respectful disagreement; the reason follows weil."
     },
     {
       "id": "b1-council-exercise-6",
       "itemId": "b1-council-item-6",
       "mode": "production",
-      "answer": "Wir könnten zunächst eine Woche lang testen."
+      "answer": "Wir könnten zunächst eine Woche lang testen.",
+      "caseSensitive": true,
+      "explanation": "zunächst means initially. eine Woche lang gives a duration."
     },
     {
       "id": "b1-council-exercise-7",
@@ -1475,13 +1648,17 @@
         "Ein Kompromiss wäre, die Strecke nach und nach zu öffnen.",
         "Ein Kompromiss wäre die Strecke schrittweise zu öffnen.",
         "Ein Kompromiss wäre die Strecke nach und nach zu öffnen."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "schrittweise means step by step. The infinitive phrase explains the compromise."
     },
     {
       "id": "b1-storm-exercise-1",
       "itemId": "b1-storm-item-1",
       "mode": "production",
-      "answer": "Wegen des Sturms wurde die Veranstaltung abgesagt."
+      "answer": "Wegen des Sturms wurde die Veranstaltung abgesagt.",
+      "caseSensitive": true,
+      "explanation": "wurde plus a past participle reports a past passive event. des Sturms is genitive after wegen."
     },
     {
       "id": "b1-storm-exercise-2",
@@ -1492,31 +1669,39 @@
         "Es wäre besser, die Gäste im Voraus zu informieren.",
         "Es wäre besser die Gäste vorher zu informieren.",
         "Es wäre besser die Gäste im Voraus zu informieren."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "wäre makes the recommendation less direct; vorher means beforehand."
     },
     {
       "id": "b1-storm-exercise-3",
       "itemId": "b1-storm-item-3",
       "mode": "listening",
-      "answer": "In the hall"
+      "answer": "In der Halle",
+      "explanation": "falls introduces a possible condition; stattfinden is separable in the main clause."
     },
     {
       "id": "b1-storm-exercise-4",
       "itemId": "b1-storm-item-4",
       "mode": "production",
-      "answer": "Wir sollten vermeiden, unnötig Müll zu produzieren."
+      "answer": "Wir sollten vermeiden, unnötig Müll zu produzieren.",
+      "caseSensitive": true,
+      "explanation": "vermeiden means avoid; unnötig means unnecessary."
     },
     {
       "id": "b1-storm-exercise-5",
       "itemId": "b1-storm-item-5",
       "mode": "recognition",
-      "answer": "Je weniger wir verschwenden, desto mehr sparen wir."
+      "answer": "Je weniger wir verschwenden, desto mehr sparen wir.",
+      "explanation": "je … desto … links changes in two quantities."
     },
     {
       "id": "b1-storm-exercise-6",
       "itemId": "b1-storm-item-6",
       "mode": "production",
-      "answer": "Wenn ich an deiner Stelle wäre, würde ich Hilfe holen."
+      "answer": "Wenn ich an deiner Stelle wäre, würde ich Hilfe holen.",
+      "caseSensitive": true,
+      "explanation": "wäre and würde describe an imagined situation. an deiner Stelle means in your position."
     },
     {
       "id": "b1-storm-exercise-7",
@@ -1525,13 +1710,17 @@
       "answer": "Wir können das Problem nur gemeinsam lösen.",
       "acceptedAnswers": [
         "Nur gemeinsam können wir das Problem lösen."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "gemeinsam means together or jointly. nur limits how the solution can happen."
     },
     {
       "id": "b1-atlas-exercise-1",
       "itemId": "b1-atlas-item-1",
       "mode": "production",
-      "answer": "Der Bericht zeigt, dass beide Seiten Fehler gemacht haben."
+      "answer": "Der Bericht zeigt, dass beide Seiten Fehler gemacht haben.",
+      "caseSensitive": true,
+      "explanation": "A dass clause gives the report’s content. beide Seiten means both sides."
     },
     {
       "id": "b1-atlas-exercise-2",
@@ -1542,31 +1731,39 @@
         "Sie wollte verhindern, dass der Konflikt schlimmer wird.",
         "Sie wollte verhindern dass der Streit schlimmer wird.",
         "Sie wollte verhindern dass der Konflikt schlimmer wird."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "verhindern means prevent; schlimmer is the comparative of schlimm."
     },
     {
       "id": "b1-atlas-exercise-3",
       "itemId": "b1-atlas-item-3",
       "mode": "listening",
-      "answer": "A reliable connection"
+      "answer": "Eine zuverlässige Verbindung",
+      "explanation": "The relative clause describes the connection. auf die refers back to feminine Verbindung."
     },
     {
       "id": "b1-atlas-exercise-4",
       "itemId": "b1-atlas-item-4",
       "mode": "production",
-      "answer": "Habe ich Sie richtig verstanden, dass Sie mehr Zeit brauchen?"
+      "answer": "Habe ich Sie richtig verstanden, dass Sie mehr Zeit brauchen?",
+      "caseSensitive": true,
+      "explanation": "This phrase checks understanding without assuming that you understood correctly."
     },
     {
       "id": "b1-atlas-exercise-5",
       "itemId": "b1-atlas-item-5",
       "mode": "recognition",
-      "answer": "Entschuldigung, das habe ich anders gemeint."
+      "answer": "Entschuldigung, das habe ich anders gemeint.",
+      "explanation": "anders gemeint says the intended meaning was different."
     },
     {
       "id": "b1-atlas-exercise-6",
       "itemId": "b1-atlas-item-6",
       "mode": "production",
-      "answer": "Wir vereinbaren, dass wir Probleme frühzeitig besprechen."
+      "answer": "Wir vereinbaren, dass wir Probleme frühzeitig besprechen.",
+      "caseSensitive": true,
+      "explanation": "vereinbaren means agree or arrange; frühzeitig means at an early stage."
     },
     {
       "id": "b1-atlas-exercise-7",
@@ -1577,7 +1774,9 @@
         "Ich freue mich darauf, die neue Strecke zusammen zu entdecken.",
         "Ich freue mich darauf die neue Strecke gemeinsam zu entdecken.",
         "Ich freue mich darauf die neue Strecke zusammen zu entdecken."
-      ]
+      ],
+      "caseSensitive": true,
+      "explanation": "sich freuen auf describes looking forward to something; darauf points to the following infinitive phrase."
     }
   ]
 }

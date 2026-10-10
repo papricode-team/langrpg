@@ -34,7 +34,7 @@ export const storyActs: StoryAct[] = [
         sentence('Briefe kommen morgen, gestern oder in Martas Kühlschrank an.', 'Letters arrive tomorrow, yesterday, or inside Marta’s refrigerator.'),
       ],
       [
-        sentence('Lerne die Leute kennen, lerne Deutsch für alltägliche Besorgungen und folge den kleinen Dingen, die nicht verschwinden wollen.', 'Meet the locals, learn the German you need for everyday errands, and follow the little things that refuse to disappear.'),
+        sentence('Sprich mit Otto. Lies die Schilder. Finde den Brief.', 'Talk to Otto. Read the signs. Find the letter.'),
         sentence('Du brauchst keine Deutschkenntnisse, um anzufangen.', 'You do not need any German to begin.'),
         sentence('Ein bisschen Hilfe gibt es immer.', 'A little help is always available.'),
       ],
@@ -143,7 +143,7 @@ export const storyClues: StoryClue[] = [
   {
     questId: 'a1-station', title: 'A name in the announcement',
     text: [
-      sentence('Unter den normalen Abfahrten steht auf der Tafel kurz „Waldruh“.', 'Under the ordinary departures, the board briefly says “Waldruh”.'),
+      sentence('Unter den normalen Abfahrten erscheint kurz ein W. Der Rest des Namens fehlt.', 'Under the ordinary departures, a W briefly appears. The rest of the name is missing.'),
       sentence('Otto erinnert sich daran, diese Fahrkarte verkauft zu haben, obwohl es die Stadt laut offiziellem Fahrplan nie gab.', 'Otto remembers selling that ticket, though the official timetable insists the town was never there.'),
     ],
     lead: [sentence('Emils wandernde Lampe reagiert auf dieselbe Streckennummer.', 'Emil’s wandering lamp reacts to the same route number.')],
@@ -280,6 +280,9 @@ export const storyClues: StoryClue[] = [
 ];
 
 export const objectStories: Record<string, { detail: Narrative; secret: Narrative }> = {
+  'lindenhafen-platform-ticket': { detail: [sentence('Die Fahrkarte trägt deinen Namen und Elises Zeichen.', 'The ticket carries your name and Elise’s mark.')], secret: [sentence('Die Laterne antwortet auf den Schlüssel ihrer Nachfolge.', 'The lantern answers to her successor’s key.')] },
+  'lindenhafen-cafe-receipt': { detail: [sentence('Ein Kaffee. Das Datum ist morgen.', 'One coffee. The date is tomorrow.')], secret: [sentence('Das Messingsiegel verbindet die Quittung mit der fehlenden Strecke.', 'The brass seal connects the receipt to the missing route.')] },
+  'lindenhafen-market-crate': { detail: [sentence('Zwei Äpfel. Strecke sieben. Eine Adresse ist leer.', 'Two apples. Route seven. An address is blank.')], secret: [sentence('Fritz hat den Namen im Gästebuch behalten.', 'Fritz kept the name in his guest book.')] },
   'lindenhafen-fountain': {
     detail: [sentence('Münzen im Brunnen landen auf den Wünschen von gestern.', 'Coins in the fountain land on yesterday’s wishes.'), sentence('Auf einer Messingmarke steht eine Streckennummer, die niemand auf dem Platz erklären kann.', 'One brass token bears a route number that nobody in the square can explain.')],
     secret: [sentence('Marta sagt, der Brunnen hat früher Nachrichten zwischen den Cafés der Laternenhüter transportiert.', 'Marta says the fountain once carried messages between Lamplighter cafés.'), sentence('Sie sagt auch, die Rechnung des Klempners war völlig normal.', 'She insists the plumbing bill was entirely ordinary.')],
@@ -320,6 +323,7 @@ export const objectStories: Record<string, { detail: Narrative; secret: Narrativ
     detail: [sentence('Auf dem Stein stehen Namen vom letzten Laternenfest.', 'The stone lists names from the last lantern gathering.'), sentence('Eine Stelle nahe dem unteren Rand ist glatt poliert worden.', 'A space near the bottom has been polished smooth.')],
     secret: [sentence('Die Dorfbewohner legen Blumen neben die Lücke.', 'The villagers leave flowers beside the gap.'), sentence('Auch auf einen ausgelöschten Namen können noch Menschen warten.', 'An erased name can still have people waiting for it.')],
   },
+  'nebelstadt-repair-ledger': { detail: [sentence('Das Amt ließ die Maschine nach dem Streit weiter warten.', 'The office kept the machine maintained after the dispute.')], secret: [sentence('Der Inspektor genehmigte jede neue Löschspule persönlich.', 'The inspector personally authorised every new eraser coil.')] },
   'nebelstadt-council-board': {
     detail: [sentence('Drei Aushänge fordern Geschwindigkeit, Sicherheit und eine Stimme bei der Entscheidung.', 'Three notices argue for speed, safety, and a voice in the decision.'), sentence('Ein vierter macht Werbung für Fritz’ Suppe.', 'A fourth advertises Fritz’s soup.')],
     secret: [sentence('Die alten Einwände des Kreises der Ungeschriebenen hängen neben Adas Kopien.', 'The Unwritten Circle’s old objections are pinned beside Ada’s copies.'), sentence('Ausnahmsweise stehen die fehlenden Stimmen auf derselben Tafel.', 'For once, the missing voices are on the same board.')],

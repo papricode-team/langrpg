@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { World } from './world';
 import { getMap } from './maps';
-import { worldAmbient } from './world-lighting';
+import { timeAmbient } from './world-lighting';
 import { getExpedition } from './expeditions';
 import { createMapNavigation } from './navigation';
 import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
@@ -158,6 +158,23 @@ describe('shared indoor rendering', () => {
     world.destroy();
   });
 
+  it('keeps a short E tap until the next frame, and consumes it once', () => {
+    const { world, scene } = indoorFixture();
+    world.enterInterior('inn');
+    scene.interactNearest = vi.fn();
+    scene.queueKeyboardInteraction();
+    // No held key remains when this frame runs.
+    scene.update(100, 50);
+    scene.update(150, 50);
+    expect(scene.interactNearest).toHaveBeenCalledTimes(1);
+    scene.setInputEnabled(false);
+    scene.queueKeyboardInteraction();
+    scene.setInputEnabled(true);
+    scene.update(200, 50);
+    expect(scene.interactNearest).toHaveBeenCalledTimes(1);
+    world.destroy();
+  });
+
   it('keeps outdoor snapshots from moving the indoor self and restores outdoor peers on exit', () => {
     const { world, scene } = indoorFixture();
     world.setPlayers([player('self'), player('outside'), player('friend', 'cafe')], 'self');
@@ -206,8 +223,8 @@ describe('scene travel while destination art streams', () => {
     scene.characters.set('seoulsteps-neighbor',{localArtVariant:0,figure:neighbor});
     world.setMotionPreference('reduced');
     world.setTimePreference({ mode: 'manual', hour: 22 }); scene.finishLoad();
-    expect(scene.background.tint).toBe(worldAmbient('seoulsteps','night').terrain);
-    expect(neighbor.tint).toBe(worldAmbient('seoulsteps','night').people);
+    expect(scene.background.tint).toBe(timeAmbient('seoulsteps',22,'night').terrain);
+    expect(neighbor.tint).toBe(timeAmbient('seoulsteps',22,'night').people);
     expect(world.getWorldTime().period).toBe('night');
     expect(scene.textureKeys.has('seoulsteps-motions')).toBe(true);
     expect(scene.textureKeys.has('seoulsteps')).toBe(true);

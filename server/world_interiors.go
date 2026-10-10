@@ -8,6 +8,7 @@ var interiorSpawns = map[string]MapSpawn{
 	"cafe":        {X: 548.0 / 1536, Y: 800.0 / 1024},
 	"bakery":      {X: 1000.0 / 1536, Y: 800.0 / 1024},
 	"supermarket": {X: 1230.0 / 1536, Y: 790.0 / 1024},
+	"inn":         {X: .50, Y: .75},
 }
 
 func validInterior(mapID, interiorID string) bool {

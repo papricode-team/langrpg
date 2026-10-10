@@ -15,6 +15,16 @@ export interface ExpeditionPlan {
   attempts: number;
 }
 export interface PlanCheck { correct: boolean; feedback: string[]; meter: string; }
+export type ServerExpeditionPlan = Omit<ExpeditionPlan, 'version'>;
+export type AuthoritativeExpeditionPlans = Record<string, ServerExpeditionPlan>;
+export interface ExpeditionGameOptions {
+  level: Level;
+  onComplete(): void;
+  onLevelChange?(level: Level): void;
+  speak(text: string): void;
+  initialPlan?(level: Level): ServerExpeditionPlan | undefined;
+  submitPlan?(plan: ExpeditionPlan): Promise<{ correct: boolean; plan: ServerExpeditionPlan; feedback?: string[] }>;
+}
 export interface ExpeditionGame {
   id: ExpeditionGameId;
   title: string;
@@ -150,40 +160,67 @@ export function loadExpeditionPlan(game: ExpeditionGame,level: Level,storage?: S
   return fresh;
 }
 export function saveExpeditionPlan(game: ExpeditionGame,plan: ExpeditionPlan,storage?: StorageLike): void { try { (storage ?? localStorage).setItem(planKey(game.id,plan.level),JSON.stringify(plan)); } catch { /* The game remains playable when browser storage is unavailable. */ } }
-export function expeditionGameStatus(id:string,level:Level): 'new'|'started'|'completed' {
+export function expeditionGameStatus(id:string,level:Level,authoritativePlans?:AuthoritativeExpeditionPlans): 'new'|'started'|'completed' {
   const game=getExpeditionGame(id); if (!game) return 'new';
   const plan=loadExpeditionPlan(game,level);
-  return plan.completed?'completed':plan.attempts||plan.order.length||game.fields.some(field=>plan.values[field.id]!==field.options[0].value)?'started':'new';
+  const completed = authoritativePlans ? authoritativePlans[`${id}:${level}`]?.completed === true : plan.completed;
+  return completed?'completed':plan.attempts||plan.order.length||game.fields.some(field=>plan.values[field.id]!==field.options[0].value)?'started':'new';
 }
-export function expeditionNotebook(): string {
-  const entries=expeditionGames.flatMap(game=>(['A1','A2','B1'] as const).filter(level=>expeditionGameStatus(game.id,level)==='completed').map(level=>({game,level})));
+export function expeditionNotebook(authoritativePlans?:AuthoritativeExpeditionPlans): string {
+  const entries=expeditionGames.flatMap(game=>(['A1','A2','B1'] as const).filter(level=>expeditionGameStatus(game.id,level,authoritativePlans)==='completed').map(level=>({game,level})));
   if (!entries.length) return '';
-  return `<section class="field-notes expedition-notebook"><div class="eyebrow">EXPEDITION AGREEMENTS · SAVED ON THIS DEVICE</div><h3>People you helped connect</h3>${entries.map(({game,level})=>`<article class="grammar-route"><small>${level} · ${e(game.title)}</small><p>${e(game.note)}</p><blockquote>${e(game.agreement)}</blockquote><button class="text-button" data-expedition-game="${game.id}" data-expedition-level="${level}">Revisit this plan ${icon('arrow')}</button></article>`).join('')}</section>`;
+  return `<section class="field-notes expedition-notebook"><div class="eyebrow">EXPEDITION AGREEMENTS</div><h3>People you helped connect</h3>${entries.map(({game,level})=>`<article class="grammar-route"><small>${level} · ${e(game.title)}</small><p>${e(game.note)}</p><blockquote>${e(game.agreement)}</blockquote><button class="text-button" data-expedition-game="${game.id}" data-expedition-level="${level}">Revisit this plan ${icon('arrow')}</button></article>`).join('')}</section>`;
 }
 
-export function mountExpeditionGame(root: HTMLElement,game: ExpeditionGame,options:{level:Level;onComplete():void;onLevelChange?(level:Level):void; speak(text:string):void}): {destroy():void;pause():void;resume():void;reset():void} {
+export function mountExpeditionGame(root: HTMLElement,game: ExpeditionGame,options:ExpeditionGameOptions): {destroy():void;pause():void;resume():void;reset():void} {
   let currentLevel=options.level;
-  let plan=loadExpeditionPlan(game,currentLevel);
+  const selectPlan = (level: Level): ExpeditionPlan => {
+    const saved = options.initialPlan?.(level);
+    if (saved) return { version: 1, ...saved, values: { ...saved.values }, order: [...saved.order] };
+    const draft = loadExpeditionPlan(game, level);
+    if (options.submitPlan) draft.completed = false;
+    return draft;
+  };
+  let plan=selectPlan(currentLevel);
   let feedback: PlanCheck|undefined;
   let hint=currentLevel==='A1';
   let alive=true;
+  let submitting=false;
   const persist=()=>saveExpeditionPlan(game,plan);
   const redraw=(focusField?:string)=>{
     if (!alive) return;
-    root.innerHTML=`<section class="expedition-game"><header class="expedition-game-heading"><div class="eyebrow">NEIGHBORHOOD GAME · ${currentLevel}</div><h2>${e(game.title)}</h2><p>${e(game.summary)}</p><div class="expedition-levels" aria-label="Language scaffold">${(['A1','A2','B1'] as const).map(level=>`<button class="${currentLevel===level?'selected':''}" data-exp-level="${level}" aria-pressed="${currentLevel===level}">${level}</button>`).join('')}<span>${plan.completed?'Agreement saved':'Plan saved as you build'} · on this device</span></div></header><blockquote class="expedition-brief"><span>${e(game.german[currentLevel])}</span><button class="icon-button" data-exp-speak aria-label="Listen to the German instructions">${icon('volume')}</button></blockquote><button class="text-button" data-exp-hint aria-expanded="${hint}">${icon('book')} ${hint?'Hide':'Show'} English support</button>${hint?`<p class="expedition-glossary">${e(game.glossary)}</p>`:''}<div class="expedition-workbench"><div class="expedition-plan-fields">${game.fields.map(field=>`<label><strong>${e(field.label)}</strong>${hint?`<span>${e(field.english)}</span>`:''}<select data-exp-field="${field.id}" aria-label="${e(field.label)}" ${plan.completed?'disabled':''}>${field.options.map(option=>`<option value="${option.value}" ${plan.values[field.id]===option.value?'selected':''}>${e(option.label)}${hint&&option.english!==option.label?` — ${e(option.english)}`:''}</option>`).join('')}</select></label>`).join('')}</div><output class="expedition-resource" aria-live="polite">${icon('basket')} ${e(game.meter(plan.values))}</output><div class="expedition-order"><h3>${e(game.orderPrompt)}</h3><p>${hint?'Tap the pieces to build the route, message, or sequence. Tap a placed piece to remove it.':'Tippe auf die Teile. Tippe erneut, um ein Teil zu entfernen.'}</p><ol class="expedition-order-result" aria-label="Your assembled sequence">${plan.order.map((id,index)=>{const item=game.steps.find(step=>step.id===id)!;return `<li><button data-exp-remove="${index}" ${plan.completed?'disabled':''}><span>${index+1}</span><strong>${e(item.label)}</strong>${hint?`<small>${e(item.english)}</small>`:''}${!plan.completed?icon('close'):icon('check')}</button></li>`;}).join('')}${!plan.order.length?'<li class="expedition-order-empty">'+(hint?'Your plan begins here.':'Dein Plan beginnt hier.')+'</li>':''}</ol><div class="expedition-order-pieces">${[...game.steps].sort((a,b)=>b.id.localeCompare(a.id)).map(item=>`<button data-exp-add="${item.id}" ${plan.completed||plan.order.includes(item.id)?'disabled':''}><strong>${e(item.label)}</strong>${hint?`<small>${e(item.english)}</small>`:''}</button>`).join('')}</div></div></div><div class="expedition-plan-feedback ${feedback?.correct||plan.completed?'good':feedback?'retry':''}" role="status" aria-live="polite">${plan.completed?`<div class="eyebrow">A PROMISE YOU CAN USE</div><h3>${icon('check')} Everyone can work from this plan.</h3><p>${e(game.note)}</p><blockquote>${e(game.agreement)}</blockquote><button class="text-button" data-speak="${e(game.agreement)}">${icon('volume')} Listen to your agreement</button>`:feedback?`<strong>Your plan needs a change.</strong><ul>${feedback.feedback.map(text=>`<li>${e(text)}</li>`).join('')}</ul>`:''}</div><footer class="expedition-game-actions">${!plan.completed?`<button class="primary-button" data-exp-check>${icon('check')} Test the plan</button>`:''}<button class="text-button" data-exp-reset>${icon('refresh')} ${plan.completed?'Build another plan':'Start this plan again'}</button><button class="text-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></footer><p class="expedition-save-note">Your plan and connections are remembered on this device. Completing a plan adds an agreement to your expedition notebook.</p></section>`;
+    root.innerHTML=`<section class="expedition-game"><header class="expedition-game-heading"><div class="eyebrow">NEIGHBORHOOD GAME · ${currentLevel}</div><h2>${e(game.title)}</h2><p>${e(game.summary)}</p><div class="expedition-levels" aria-label="Language scaffold">${(['A1','A2','B1'] as const).map(level=>`<button class="${currentLevel===level?'selected':''}" data-exp-level="${level}" aria-pressed="${currentLevel===level}">${level}</button>`).join('')}<span>${plan.completed?'Agreement remembered':submitting?'Saving your plan…':'Your plan takes shape'}</span></div></header><blockquote class="expedition-brief"><span>${e(game.german[currentLevel])}</span><button class="icon-button" data-exp-speak aria-label="Listen to the German instructions">${icon('volume')}</button></blockquote><button class="text-button" data-exp-hint aria-expanded="${hint}">${icon('book')} ${hint?'Hide':'Show'} English support</button>${hint?`<p class="expedition-glossary">${e(game.glossary)}</p>`:''}<div class="expedition-workbench"><div class="expedition-plan-fields">${game.fields.map(field=>`<label><strong>${e(field.label)}</strong>${hint?`<span>${e(field.english)}</span>`:''}<select data-exp-field="${field.id}" aria-label="${e(field.label)}" ${plan.completed?'disabled':''}>${field.options.map(option=>`<option value="${option.value}" ${plan.values[field.id]===option.value?'selected':''}>${e(option.label)}${hint&&option.english!==option.label?` — ${e(option.english)}`:''}</option>`).join('')}</select></label>`).join('')}</div><output class="expedition-resource" aria-live="polite">${icon('basket')} ${e(game.meter(plan.values))}</output><div class="expedition-order"><h3>${e(game.orderPrompt)}</h3><p>${hint?'Tap the pieces to build the route, message, or sequence. Tap a placed piece to remove it.':'Tippe auf die Teile. Tippe erneut, um ein Teil zu entfernen.'}</p><ol class="expedition-order-result" aria-label="Your assembled sequence">${plan.order.map((id,index)=>{const item=game.steps.find(step=>step.id===id)!;return `<li><button data-exp-remove="${index}" ${plan.completed?'disabled':''}><span>${index+1}</span><strong>${e(item.label)}</strong>${hint?`<small>${e(item.english)}</small>`:''}${!plan.completed?icon('close'):icon('check')}</button></li>`;}).join('')}${!plan.order.length?'<li class="expedition-order-empty">'+(hint?'Your plan begins here.':'Dein Plan beginnt hier.')+'</li>':''}</ol><div class="expedition-order-pieces">${[...game.steps].sort((a,b)=>b.id.localeCompare(a.id)).map(item=>`<button data-exp-add="${item.id}" ${plan.completed||plan.order.includes(item.id)?'disabled':''}><strong>${e(item.label)}</strong>${hint?`<small>${e(item.english)}</small>`:''}</button>`).join('')}</div></div></div><div class="expedition-plan-feedback ${feedback?.correct||plan.completed?'good':feedback?'retry':''}" role="status" aria-live="polite">${plan.completed?`<div class="eyebrow">A PROMISE YOU CAN USE</div><h3>${icon('check')} Everyone can work from this plan.</h3><p>${e(game.note)}</p><blockquote>${e(game.agreement)}</blockquote><button class="text-button" data-speak="${e(game.agreement)}">${icon('volume')} Listen to your agreement</button>`:feedback?`<strong>Your plan needs a change.</strong><ul>${feedback.feedback.map(text=>`<li>${e(text)}</li>`).join('')}</ul>`:''}</div><footer class="expedition-game-actions">${!plan.completed?`<button class="primary-button" data-exp-check ${submitting?'disabled':''}>${icon('check')} Test the plan</button>`:''}<button class="text-button" data-exp-reset>${icon('refresh')} ${plan.completed?'Build another plan':'Start this plan again'}</button><button class="text-button" data-action="close-dialog">Keep exploring ${icon('arrow')}</button></footer><p class="expedition-save-note">Your completed agreements are remembered with your adventure. Completing a plan adds an agreement to your expedition notebook.</p></section>`;
     if (focusField) root.querySelector<HTMLSelectElement>(`[data-exp-field="${focusField}"]`)?.focus();
   };
-  const onClick=(event:Event)=>{
+  const onClick=async(event:Event)=>{
     const target=(event.target as HTMLElement).closest<HTMLButtonElement>('button'); if (!target||!root.contains(target)) return;
-    if (target.dataset.expLevel) { currentLevel=target.dataset.expLevel as Level;plan=loadExpeditionPlan(game,currentLevel);feedback=undefined;hint=currentLevel==='A1';options.onLevelChange?.(currentLevel);redraw(); return; }
+    if (submitting) return;
+    if (target.dataset.expLevel) { currentLevel=target.dataset.expLevel as Level;plan=selectPlan(currentLevel);feedback=undefined;hint=currentLevel==='A1';options.onLevelChange?.(currentLevel);redraw(); return; }
     if (target.hasAttribute('data-exp-hint')) { hint=!hint;redraw();return; }
     if (target.hasAttribute('data-exp-speak')) { options.speak(game.german[currentLevel]);return; }
     if (target.dataset.expAdd&&!plan.completed) { if (game.steps.some(step=>step.id===target.dataset.expAdd)&&!plan.order.includes(target.dataset.expAdd))plan.order.push(target.dataset.expAdd);feedback=undefined;persist();redraw();return; }
     if (target.dataset.expRemove!==undefined&&!plan.completed) { plan.order.splice(Number(target.dataset.expRemove),1);feedback=undefined;persist();redraw();return; }
-    if (target.hasAttribute('data-exp-check')&&!plan.completed) { plan.attempts++;feedback=checkExpeditionPlan(game,plan);plan.completed=feedback.correct;persist();redraw();if(plan.completed)options.onComplete();return; }
+    if (target.hasAttribute('data-exp-check')&&!plan.completed) {
+      if (options.submitPlan) {
+        submitting=true;redraw();
+        try {
+          const result=await options.submitPlan({ ...plan, values:{...plan.values}, order:[...plan.order] });
+          if (!alive) return;
+          plan={version:1,...result.plan,completed:result.correct&&result.plan.completed};
+          const explanation=checkExpeditionPlan(game,plan).feedback;
+          feedback={correct:result.correct,feedback:result.feedback??(explanation.length?explanation:['The neighborhood needs a different agreement.']),meter:game.meter(plan.values)};
+          persist();if(plan.completed)options.onComplete();
+        } catch(error) {
+          if (alive) feedback={correct:false,feedback:[error instanceof Error?error.message:'The neighborhood could not save this plan. Try again.'],meter:game.meter(plan.values)};
+        } finally { submitting=false;redraw(); }
+      } else {
+        plan.attempts++;feedback=checkExpeditionPlan(game,plan);plan.completed=feedback.correct;persist();redraw();if(plan.completed)options.onComplete();
+      }
+      return;
+    }
     if (target.hasAttribute('data-exp-reset')) { plan=freshExpeditionPlan(game,currentLevel);feedback=undefined;persist();redraw(); }
   };
-  const onChange=(event:Event)=>{const select=event.target as HTMLSelectElement;if (!select.dataset.expField||plan.completed)return;const id=select.dataset.expField;plan.values[id]=Number(select.value);feedback=undefined;persist();redraw(id);};
+  const onChange=(event:Event)=>{const select=event.target as HTMLSelectElement;if (submitting||!select.dataset.expField||plan.completed)return;const id=select.dataset.expField;plan.values[id]=Number(select.value);feedback=undefined;persist();redraw(id);};
   root.addEventListener('click',onClick);root.addEventListener('change',onChange);redraw();
   return {destroy(){alive=false;root.removeEventListener('click',onClick);root.removeEventListener('change',onChange);},pause(){},resume(){},reset(){plan=freshExpeditionPlan(game,currentLevel);feedback=undefined;persist();redraw();}};
 }

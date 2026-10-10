@@ -62,14 +62,36 @@ Do not delete the database volume during this update.
 
 | Table | Saved data |
 | --- | --- |
-| `accounts` | Player ID, name, avatar and progress JSONB: XP, quests, course units, vocabulary evidence, activity results and FSRS review schedules |
+| `accounts` | Player identity and progress JSONB: global XP, language evidence and FSRS schedules, completed course units and activity results; current narrative flags, inventory, reputation, bells, investigations, daily promises and expedition results; three narrative save slots and permanent quest/expedition reward ledgers |
 | `sessions` | Hashed bearer credentials linked to accounts |
-| `learning_events` | Immutable learning requests, grading results and reward receipts used for idempotent retries |
+| `learning_events` | Immutable learning and narrative action requests, grading results and reward receipts used for idempotent retries and owned scene/activity proof |
 
 Account updates and event receipts commit in one transaction, with account row
 locks preventing concurrent retries from awarding duplicate rewards. A database
 failure makes the API return a storage error and readiness return HTTP 503;
 Compose always configures PostgreSQL rather than the development JSON store.
+
+The three named save slots snapshot the narrative state and discovered quests,
+including inventory, faction choices, investigation progress, cinematic markers,
+personal days and expedition records. Loading a slot restores that story snapshot
+within the same account. XP, vocabulary and phrase memory, FSRS schedules,
+completed course units and activity results remain global to the account. The
+quest and expedition reward ledgers also survive loading, so earning the same
+discovery or agreement again cannot issue its XP twice. Save slots do not create
+separate characters or restore an earlier learning record.
+If restoring a slot withdraws the connected town's route, the server returns the
+character to Lindenhafen. Its population limit still applies; a full destination
+closes the world connection until the character can reconnect there.
+
+Expedition choices and submitted neighborhood plans are graded and stored by the
+server. Their completion claims cannot come from browser storage; an incorrect
+practice retry preserves an already earned agreement. The café, market,
+detective and delivery activities likewise keep submitted attempt receipts and
+completed results on the server, with authored board state checked during
+grading. Their unfinished board arrangements, scene cursor and pending submission
+IDs remain browser-local, so switching devices does not reconstruct an unfinished
+board even though its earlier submitted learning evidence and results survive.
+Unsubmitted expedition drafts are browser-local too.
 
 The `postgres_data` named volume survives container replacement and ordinary
 `docker compose down`. Keep the Compose project name stable so redeployments
@@ -83,8 +105,10 @@ Users start with a browser-held session token and can save their account with
 an email and password after five minutes of visible play, or from the menu.
 Email/password login restores the same character and progress on another device.
 Password recovery is not implemented; clearing browser storage before saving an
-account loses access to that identity. Map positions and chat reset on backend restart. Settings and
-unfinished mini-game boards are browser-local. Existing development
+account loses access to that identity. Map positions, presence, chat and the
+shared world clock's cycle reset on backend restart; the personal narrative day
+and daily promise remain saved. Settings and unfinished activity boards are
+browser-local. Existing development
 `server/.data/state.json` files are not automatically imported into PostgreSQL.
 
 ## Local Docker Compose
