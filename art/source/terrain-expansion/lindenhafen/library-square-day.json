@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "status": "review-export",
+  "generator": "Codex built-in ImageGen",
+  "pixelDensity": 4,
+  "worldSize": {
+    "width": 768,
+    "height": 512
+  },
+  "outputSize": {
+    "width": 3072,
+    "height": 2048
+  },
+  "sourceOverlap": 96,
+  "sections": [
+    {
+      "file": "library-square-day-0-0.png",
+      "x": 0,
+      "y": 0,
+      "width": 432,
+      "height": 304,
+      "nativeSize": {
+        "width": 1495,
+        "height": 1052
+      }
+    },
+    {
+      "file": "library-square-day-0-1.png",
+      "x": 336,
+      "y": 0,
+      "width": 432,
+      "height": 304,
+      "nativeSize": {
+        "width": 1495,
+        "height": 1052
+      }
+    },
+    {
+      "file": "library-square-day-1-0.png",
+      "x": 0,
+      "y": 208,
+      "width": 432,
+      "height": 304,
+      "nativeSize": {
+        "width": 1495,
+        "height": 1052
+      }
+    },
+    {
+      "file": "library-square-day-1-1.png",
+      "x": 336,
+      "y": 208,
+      "width": 432,
+      "height": 304,
+      "nativeSize": {
+        "width": 1495,
+        "height": 1052
+      }
+    }
+  ],
+  "runtime": {
+    "file": "lindenhafen-library-square-day-terrain.webp",
+    "width": 3074,
+    "height": 2050,
+    "crop": {
+      "x": 1,
+      "y": 1,
+      "width": 3072,
+      "height": 2048
+    },
+    "quality": 90,
+    "bytes": 2068512
+  }
+}

@@ -21,6 +21,22 @@ describe('canonical scenes in the game runtime',()=>{
     }
   });
 
+  it('connects the southern harbor, quay, library and orchard without opening water or planted lots',()=>{
+    const scene=sceneDocument.maps.lindenhafen,navigation=createMapNavigation('lindenhafen');
+    expect(scene.height).toBeGreaterThanOrEqual(1536);
+    expect(scene.coordinateVersion).toBeGreaterThanOrEqual(3);
+    for(const [id,x]of [['harbor-court',0],['bridge-quay',768],['library-square',1536],['orchard-path',2304]] as const){
+      expect(scene.terrain.find(tile=>tile.id===id)).toMatchObject({x,y:1024,width:768,height:512,pixelDensity:4});
+    }
+    for(const point of [{x:480,y:1300},{x:1570,y:1260},{x:2160,y:1340},{x:2770,y:1326}])
+      expect(navigation.findPath(scene.spawn,point).at(-1)).toEqual(point);
+    for(const [x,y1,y2]of [[704,960,1060],[2140,990,1060],[2660,990,1060]])
+      expect(navigation.canWalkSegment(x,y1,x,y2)).toBe(true);
+    expect(navigation.canWalkSegment(2280,1106,2340,1106)).toBe(true);
+    for(const [x,y]of [[900,1300],[1750,1250],[1900,1410],[2500,1210],[2830,1430]])
+      expect(navigation.isWalkable(x,y),`${x},${y}`).toBe(false);
+  });
+
   it('keeps the Lindenhafen core intact and connects the promenade, parcel, garden and canal activities',()=>{
     const core=parseWorldSceneDocument({version:2,maps:{lindenhafen:lindenCore}}).maps.lindenhafen;
     const original=new NavigationGrid(core.walkable,[...core.obstacles,...sceneryFootprints(core.scenery)],core);
@@ -60,22 +76,34 @@ describe('canonical scenes in the game runtime',()=>{
     const before=getMap('lindenhafen'),doors=buildingEntrances('lindenhafen');
     const routes=createWorldResidents('lindenhafen');
     try{
-      sceneDocument.maps.lindenhafen={...structuredClone(original),width:3072,height:2048,coordinateVersion:2};
+      sceneDocument.maps.lindenhafen={...structuredClone(original),width:3072,height:2048,coordinateVersion:original.coordinateVersion+1};
       const expanded=getMap('lindenhafen');
       expect(expanded.width).toBe(3072);expect(expanded.height).toBe(2048);
-      expect(expanded.spawn.x*expanded.width).toBe(before.spawn.x*before.width);
+      // Normalized coordinates round differently for non-power-of-two bounds.
+      // Compare physical anchors to sub-pixel precision after denormalizing.
+      expect(expanded.spawn.x*expanded.width).toBeCloseTo(before.spawn.x*before.width,10);
+      expect(expanded.spawn.y*expanded.height).toBeCloseTo(before.spawn.y*before.height,10);
       for(const npc of before.npcs){
         const next=expanded.npcs.find(item=>item.id===npc.id)!;
-        expect(next.x*expanded.width).toBe(npc.x*before.width);
-        expect(next.y*expanded.height).toBe(npc.y*before.height);
+        expect(next.x*expanded.width).toBeCloseTo(npc.x*before.width,10);
+        expect(next.y*expanded.height).toBeCloseTo(npc.y*before.height,10);
       }
       for(const door of buildingEntrances('lindenhafen')){
         const old=doors.find(item=>item.id===door.id)!;
-        expect(door.x*expanded.width).toBe(old.x*before.width);
-        expect(door.y*expanded.height).toBe(old.y*before.height);
+        expect(door.x*expanded.width).toBeCloseTo(old.x*before.width,10);
+        expect(door.y*expanded.height).toBeCloseTo(old.y*before.height,10);
       }
       expect(getPlacedScenery('lindenhafen')).toEqual(original.scenery);
-      expect(createWorldResidents('lindenhafen')).toEqual(routes);
+      expect(createWorldResidents('lindenhafen')).toEqual(routes.map(route=>({
+        ...route,cycleSeconds:expect.closeTo(route.cycleSeconds,10),phaseSeconds:expect.closeTo(route.phaseSeconds,10),
+        segments:route.segments.map(segment=>({
+          ...segment,
+          from:{x:expect.closeTo(segment.from.x,10),y:expect.closeTo(segment.from.y,10)},
+          to:{x:expect.closeTo(segment.to.x,10),y:expect.closeTo(segment.to.y,10)},
+          startSeconds:expect.closeTo(segment.startSeconds,10),durationSeconds:expect.closeTo(segment.durationSeconds,10),
+          velocityX:expect.closeTo(segment.velocityX,10),velocityY:expect.closeTo(segment.velocityY,10),
+        })),
+      })));
       expect(createInteriorNavigation('cafe').width).toBe(1536);
       expect(createInteriorNavigation('cafe').height).toBe(1024);
       expect(explorationZoom(1920,1080,1,false,132,expanded).zoom).toBe(explorationZoom(1920,1080,1,false,132,before).zoom);

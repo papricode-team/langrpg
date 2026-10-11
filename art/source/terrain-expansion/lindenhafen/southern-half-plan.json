@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "status": "first-row-integrated-final-row-layout-only",
+  "worldRect": {
+    "x": 0,
+    "y": 1024,
+    "width": 3072,
+    "height": 1024
+  },
+  "sourceGeometry": {
+    "width": 3072,
+    "height": 1152,
+    "northReferenceHeight": 128
+  },
+  "districts": [
+    {
+      "id": "harbor-court",
+      "label": "Harbor repair court",
+      "x": 0,
+      "y": 1024,
+      "purpose": "Repair work, boat supplies and a quay observation point",
+      "status": "integrated"
+    },
+    {
+      "id": "bridge-quay",
+      "label": "Bridge quay",
+      "x": 768,
+      "y": 1024,
+      "purpose": "Linked banks, delivery route and waterside resting place",
+      "status": "integrated"
+    },
+    {
+      "id": "library-square",
+      "label": "Library square",
+      "x": 1536,
+      "y": 1024,
+      "purpose": "Reading destination, book delivery and sheltered gathering",
+      "status": "integrated"
+    },
+    {
+      "id": "orchard-path",
+      "label": "Orchard path",
+      "x": 2304,
+      "y": 1024,
+      "purpose": "Garden work, harvest collection and a quiet footpath",
+      "status": "integrated"
+    },
+    {
+      "id": "ferry-landing",
+      "label": "Ferry landing",
+      "x": 0,
+      "y": 1536,
+      "purpose": "Passenger waiting, dock work and canal observation",
+      "status": "layout-only"
+    },
+    {
+      "id": "civic-square",
+      "label": "Civic square",
+      "x": 768,
+      "y": 1536,
+      "purpose": "Market exchange, communal seating and local notices",
+      "status": "layout-only"
+    },
+    {
+      "id": "riverside-meadow",
+      "label": "Riverside meadow",
+      "x": 1536,
+      "y": 1536,
+      "purpose": "Walking circuit, reading and nature observation",
+      "status": "layout-only"
+    },
+    {
+      "id": "garden-workyard",
+      "label": "Garden workyard",
+      "x": 2304,
+      "y": 1536,
+      "purpose": "Potting, repair, supply deliveries and evening rest",
+      "status": "layout-only"
+    }
+  ],
+  "promotionRule": "Promote a complete contiguous row only after generating and reviewing all its registered native day/night detail sections, tracing connected navigation and adding editable destinations and activities. Planning layouts alone are not playable terrain. The final row at y=1536 remains outside canonical bounds.",
+  "layoutNativeSize": {
+    "width": 2048,
+    "height": 768
+  },
+  "integratedWorldRect": {
+    "x": 0,
+    "y": 1024,
+    "width": 3072,
+    "height": 512
+  }
+}

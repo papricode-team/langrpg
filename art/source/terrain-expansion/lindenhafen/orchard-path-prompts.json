@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "layoutSource": "orchard-path-layout.png",
+  "layoutProvenance": {
+    "board": "southern-half-board.png",
+    "promptSet": "southern-half-prompts.json",
+    "logicalCrop": {
+      "x": 2304,
+      "y": 128,
+      "width": 768,
+      "height": 512
+    }
+  },
+  "logicalSize": {
+    "width": 768,
+    "height": 512
+  },
+  "sourceLogicalSize": {
+    "width": 432,
+    "height": 304
+  },
+  "sourceOverlap": 96,
+  "pixelDensity": 4,
+  "daySectionPrompts": [
+    {
+      "position": "0-0",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, orchard path. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "generatedFile": "exec-b70fb92f-fb42-44ec-a0af-ac51f8a5b592.png"
+    },
+    {
+      "position": "0-1",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, orchard path. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "generatedFile": "exec-c4f7880b-d6cc-4d3c-b0d7-651ff8b54c35.png"
+    },
+    {
+      "position": "1-0",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, orchard path. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "generatedFile": "exec-6e1c958c-9268-491c-9991-a971093f7ad9.png"
+    },
+    {
+      "position": "1-1",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, orchard path. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "generatedFile": "exec-00d3da4d-f978-4d96-9ba9-2db4ea70a010.png"
+    }
+  ]
+}

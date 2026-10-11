@@ -6,11 +6,11 @@
   "renderorder": "right-down",
   "infinite": false,
   "width": 3072,
-  "height": 1024,
+  "height": 1536,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 242,
-  "nextlayerid": 242,
+  "nextobjectid": 303,
+  "nextlayerid": 303,
   "properties": [
     {
       "name": "mapId",
@@ -30,12 +30,12 @@
     {
       "name": "coordinateVersion",
       "type": "int",
-      "value": 2
+      "value": 3
     },
     {
       "name": "residents",
       "type": "string",
-      "value": "[{\"id\":\"lindenhafen-parcel-courier\",\"name\":\"Ella\",\"home\":{\"x\":1992,\"y\":262},\"speed\":66,\"avatar\":{\"hair\":\"#62412f\",\"skin\":\"#c18b60\",\"outfit\":\"#4e729a\"},\"schedule\":[{\"id\":\"morning-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":8,\"endHour\":10,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"depot-sorting\",\"activityId\":\"promenade-depot-work\",\"action\":\"work\",\"startHour\":10,\"endHour\":11,\"durationSeconds\":18,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"midday-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"afternoon-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":14,\"endHour\":16,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"evening-rest\",\"activityId\":\"promenade-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"promenade-rain-shelter\"}],\"actionArt\":\"ella\"},{\"id\":\"lindenhafen-parcel-vendor\",\"name\":\"Karl\",\"home\":{\"x\":2430,\"y\":186},\"speed\":58,\"avatar\":{\"hair\":\"#302b2d\",\"skin\":\"#ecc4a2\",\"outfit\":\"#75855f\"},\"schedule\":[{\"id\":\"morning-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"midday-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":11,\"endHour\":14,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"afternoon-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"evening-reading\",\"activityId\":\"parcel-waiting-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":25,\"facing\":\"left\",\"heldObject\":\"book\"}],\"actionArt\":\"karl\"},{\"id\":\"lindenhafen-promenade-reader\",\"name\":\"Anne\",\"home\":{\"x\":2430,\"y\":186},\"speed\":57,\"avatar\":{\"hair\":\"#d7ae61\",\"skin\":\"#ecc4a2\",\"outfit\":\"#797197\"},\"schedule\":[{\"id\":\"morning-reading\",\"activityId\":\"parcel-reading-seat\",\"action\":\"read\",\"startHour\":9,\"endHour\":11,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"parcel-waiting-seat\"},{\"id\":\"market-visit\",\"activityId\":\"parcel-stall-queue\",\"action\":\"wait\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":25,\"facing\":\"left\",\"fallbackActivityId\":\"parcel-waiting-seat\"},{\"id\":\"afternoon-reading\",\"activityId\":\"canal-reading-seat\",\"action\":\"read\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"canal-garden-seat\"},{\"id\":\"evening-reading\",\"activityId\":\"promenade-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":30,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"promenade-rain-shelter\"}],\"actionArt\":\"anne\"},{\"id\":\"lindenhafen-garden-keeper\",\"name\":\"Mila\",\"home\":{\"x\":2894,\"y\":810},\"speed\":58,\"avatar\":{\"hair\":\"#7a492b\",\"skin\":\"#bc855b\",\"outfit\":\"#52784b\"},\"schedule\":[{\"id\":\"morning-herbs\",\"activityId\":\"community-herb-work\",\"action\":\"work\",\"startHour\":9,\"endHour\":11,\"durationSeconds\":20,\"heldObject\":\"tool\",\"facing\":\"left\"},{\"id\":\"midday-potting\",\"activityId\":\"community-potting-work\",\"action\":\"work\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":25,\"heldObject\":\"tool\",\"facing\":\"left\"},{\"id\":\"afternoon-greenhouse\",\"activityId\":\"community-greenhouse-work\",\"action\":\"work\",\"startHour\":14,\"endHour\":16,\"durationSeconds\":30,\"heldObject\":\"tool\",\"facing\":\"right\"},{\"id\":\"evening-garden-reading\",\"activityId\":\"community-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":24,\"heldObject\":\"book\",\"fallbackActivityId\":\"community-gate-shelter\"}],\"actionArt\":\"mila\"}]"
+      "value": "[{\"id\":\"lindenhafen-parcel-courier\",\"name\":\"Ella\",\"home\":{\"x\":1992,\"y\":262},\"speed\":66,\"avatar\":{\"hair\":\"#62412f\",\"skin\":\"#c18b60\",\"outfit\":\"#4e729a\"},\"schedule\":[{\"id\":\"morning-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":8,\"endHour\":10,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"depot-sorting\",\"activityId\":\"promenade-depot-work\",\"action\":\"work\",\"startHour\":10,\"endHour\":11,\"durationSeconds\":18,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"midday-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"afternoon-parcels\",\"activityId\":\"parcel-house-pickup\",\"action\":\"carry\",\"startHour\":14,\"endHour\":16,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"evening-rest\",\"activityId\":\"promenade-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":24,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"promenade-rain-shelter\"}],\"actionArt\":\"ella\"},{\"id\":\"lindenhafen-parcel-vendor\",\"name\":\"Karl\",\"home\":{\"x\":2430,\"y\":186},\"speed\":58,\"avatar\":{\"hair\":\"#302b2d\",\"skin\":\"#ecc4a2\",\"outfit\":\"#75855f\"},\"schedule\":[{\"id\":\"morning-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"midday-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":11,\"endHour\":14,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"afternoon-service\",\"activityId\":\"parcel-stall-service\",\"action\":\"serve\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"evening-reading\",\"activityId\":\"parcel-waiting-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":25,\"facing\":\"left\",\"heldObject\":\"book\"}],\"actionArt\":\"karl\"},{\"id\":\"lindenhafen-promenade-reader\",\"name\":\"Anne\",\"home\":{\"x\":2430,\"y\":186},\"speed\":57,\"avatar\":{\"hair\":\"#d7ae61\",\"skin\":\"#ecc4a2\",\"outfit\":\"#797197\"},\"schedule\":[{\"id\":\"morning-reading\",\"activityId\":\"parcel-reading-seat\",\"action\":\"read\",\"startHour\":9,\"endHour\":11,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"parcel-waiting-seat\"},{\"id\":\"market-visit\",\"activityId\":\"parcel-stall-queue\",\"action\":\"wait\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":25,\"facing\":\"left\",\"fallbackActivityId\":\"parcel-waiting-seat\"},{\"id\":\"afternoon-reading\",\"activityId\":\"canal-reading-seat\",\"action\":\"read\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"canal-garden-seat\"},{\"id\":\"evening-reading\",\"activityId\":\"promenade-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":30,\"facing\":\"left\",\"heldObject\":\"book\",\"fallbackActivityId\":\"promenade-rain-shelter\"}],\"actionArt\":\"anne\"},{\"id\":\"lindenhafen-garden-keeper\",\"name\":\"Mila\",\"home\":{\"x\":2894,\"y\":810},\"speed\":58,\"avatar\":{\"hair\":\"#7a492b\",\"skin\":\"#bc855b\",\"outfit\":\"#52784b\"},\"schedule\":[{\"id\":\"morning-herbs\",\"activityId\":\"community-herb-work\",\"action\":\"work\",\"startHour\":9,\"endHour\":11,\"durationSeconds\":20,\"heldObject\":\"tool\",\"facing\":\"left\"},{\"id\":\"midday-potting\",\"activityId\":\"community-potting-work\",\"action\":\"work\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":25,\"heldObject\":\"tool\",\"facing\":\"left\"},{\"id\":\"afternoon-greenhouse\",\"activityId\":\"community-greenhouse-work\",\"action\":\"work\",\"startHour\":14,\"endHour\":16,\"durationSeconds\":30,\"heldObject\":\"tool\",\"facing\":\"right\"},{\"id\":\"evening-garden-reading\",\"activityId\":\"community-reading-seat\",\"action\":\"read\",\"startHour\":17,\"endHour\":19,\"durationSeconds\":24,\"heldObject\":\"book\",\"fallbackActivityId\":\"community-gate-shelter\"}],\"actionArt\":\"mila\"},{\"id\":\"lindenhafen-harbor-repairer\",\"name\":\"Bruno\",\"actionArt\":\"karl\",\"avatar\":{\"hair\":\"#302b2d\",\"skin\":\"#ecc4a2\",\"outfit\":\"#75855f\"},\"home\":{\"x\":644,\"y\":1100},\"speed\":60,\"schedule\":[{\"id\":\"morning-repairs\",\"activityId\":\"harbor-repairs\",\"action\":\"work\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":45,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"supply-collection\",\"activityId\":\"harbor-supplies\",\"action\":\"carry\",\"startHour\":11,\"endHour\":13,\"durationSeconds\":25,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"afternoon-repairs\",\"activityId\":\"harbor-repairs\",\"action\":\"work\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":50,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"quayside-rest\",\"activityId\":\"harbor-rest\",\"action\":\"read\",\"startHour\":17,\"endHour\":20,\"durationSeconds\":35,\"facing\":\"left\",\"heldObject\":\"book\"}]},{\"id\":\"lindenhafen-quay-reader\",\"name\":\"Jonas\",\"actionArt\":\"ella\",\"avatar\":{\"hair\":\"#62412f\",\"skin\":\"#c18b60\",\"outfit\":\"#4e729a\"},\"home\":{\"x\":1578,\"y\":1174},\"speed\":60,\"schedule\":[{\"id\":\"morning-canal-reading\",\"activityId\":\"quay-reading\",\"action\":\"read\",\"startHour\":9,\"endHour\":12,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"book\"},{\"id\":\"afternoon-canal-reading\",\"activityId\":\"quay-reading\",\"action\":\"read\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"book\"}]},{\"id\":\"lindenhafen-library-keeper\",\"name\":\"Bea\",\"actionArt\":\"anne\",\"avatar\":{\"hair\":\"#d7ae61\",\"skin\":\"#ecc4a2\",\"outfit\":\"#797197\"},\"home\":{\"x\":2150,\"y\":1110},\"speed\":60,\"schedule\":[{\"id\":\"morning-books\",\"activityId\":\"library-books\",\"action\":\"carry\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"library-reading\",\"activityId\":\"library-reading\",\"action\":\"read\",\"startHour\":11,\"endHour\":14,\"durationSeconds\":45,\"facing\":\"left\",\"heldObject\":\"book\"},{\"id\":\"afternoon-gathering\",\"activityId\":\"library-gathering\",\"action\":\"greet\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":35,\"facing\":\"left\"},{\"id\":\"evening-books\",\"activityId\":\"library-books\",\"action\":\"carry\",\"startHour\":17,\"endHour\":20,\"durationSeconds\":28,\"facing\":\"left\",\"heldObject\":\"parcel\"}]},{\"id\":\"lindenhafen-orchard-keeper\",\"name\":\"Nora\",\"actionArt\":\"mila\",\"avatar\":{\"hair\":\"#7a492b\",\"skin\":\"#bc855b\",\"outfit\":\"#52784b\"},\"home\":{\"x\":2664,\"y\":1148},\"speed\":60,\"schedule\":[{\"id\":\"orchard-herbs\",\"activityId\":\"orchard-herbs\",\"action\":\"work\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":35,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"orchard-potting\",\"activityId\":\"orchard-potting\",\"action\":\"work\",\"startHour\":11,\"endHour\":14,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"afternoon-potting\",\"activityId\":\"orchard-potting\",\"action\":\"work\",\"startHour\":14,\"endHour\":17,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"orchard-reading\",\"activityId\":\"orchard-rest\",\"action\":\"read\",\"startHour\":17,\"endHour\":20,\"durationSeconds\":35,\"facing\":\"left\",\"heldObject\":\"book\"}]}]"
     },
     {
       "name": "prefabInstances",
@@ -55,7 +55,7 @@
   ],
   "layers": [
     {
-      "id": 168,
+      "id": 215,
       "name": "Terrain",
       "type": "objectgroup",
       "visible": true,
@@ -468,11 +468,215 @@
               "value": "[\"dayCrop\",\"nightCrop\"]"
             }
           ]
+        },
+        {
+          "id": 9,
+          "name": "harbor-court",
+          "x": 0,
+          "y": 1024,
+          "width": 768,
+          "height": 512,
+          "gid": 9,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-harbor-court-day-terrain-overview.webp"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-harbor-court-night-terrain.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-harbor-court-night-terrain-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "bridge-quay",
+          "x": 768,
+          "y": 1024,
+          "width": 768,
+          "height": 512,
+          "gid": 10,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-bridge-quay-day-terrain-overview.webp"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-bridge-quay-night-terrain.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-bridge-quay-night-terrain-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "library-square",
+          "x": 1536,
+          "y": 1024,
+          "width": 768,
+          "height": 512,
+          "gid": 11,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-library-square-day-terrain-overview.webp"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-library-square-night-terrain.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-library-square-night-terrain-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "orchard-path",
+          "x": 2304,
+          "y": 1024,
+          "width": 768,
+          "height": 512,
+          "gid": 12,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-orchard-path-day-terrain-overview.webp"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-orchard-path-night-terrain.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-orchard-path-night-terrain-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 207,
+      "id": 264,
       "name": "Walkable",
       "type": "objectgroup",
       "visible": true,
@@ -480,7 +684,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 169,
+          "id": 216,
           "name": "walkable-1",
           "x": 0,
           "y": 0,
@@ -541,7 +745,7 @@
           "properties": []
         },
         {
-          "id": 170,
+          "id": 217,
           "name": "walkable-2",
           "x": 0,
           "y": 0,
@@ -610,7 +814,7 @@
           "properties": []
         },
         {
-          "id": 171,
+          "id": 218,
           "name": "walkable-3",
           "x": 0,
           "y": 0,
@@ -671,7 +875,7 @@
           "properties": []
         },
         {
-          "id": 172,
+          "id": 219,
           "name": "walkable-4",
           "x": 0,
           "y": 0,
@@ -712,7 +916,7 @@
           "properties": []
         },
         {
-          "id": 173,
+          "id": 220,
           "name": "walkable-5",
           "x": 0,
           "y": 0,
@@ -753,7 +957,7 @@
           "properties": []
         },
         {
-          "id": 174,
+          "id": 221,
           "name": "walkable-6",
           "x": 0,
           "y": 0,
@@ -806,7 +1010,7 @@
           "properties": []
         },
         {
-          "id": 175,
+          "id": 222,
           "name": "walkable-7",
           "x": 0,
           "y": 0,
@@ -863,7 +1067,7 @@
           "properties": []
         },
         {
-          "id": 176,
+          "id": 223,
           "name": "walkable-8",
           "x": 0,
           "y": 0,
@@ -900,7 +1104,7 @@
           "properties": []
         },
         {
-          "id": 177,
+          "id": 224,
           "name": "walkable-9",
           "x": 0,
           "y": 0,
@@ -953,7 +1157,7 @@
           "properties": []
         },
         {
-          "id": 178,
+          "id": 225,
           "name": "walkable-10",
           "x": 0,
           "y": 0,
@@ -1014,7 +1218,7 @@
           "properties": []
         },
         {
-          "id": 179,
+          "id": 226,
           "name": "walkable-11",
           "x": 0,
           "y": 0,
@@ -1075,7 +1279,7 @@
           "properties": []
         },
         {
-          "id": 180,
+          "id": 227,
           "name": "walkable-12",
           "x": 0,
           "y": 0,
@@ -1132,7 +1336,7 @@
           "properties": []
         },
         {
-          "id": 181,
+          "id": 228,
           "name": "walkable-13",
           "x": 0,
           "y": 0,
@@ -1193,7 +1397,7 @@
           "properties": []
         },
         {
-          "id": 182,
+          "id": 229,
           "name": "walkable-14",
           "x": 0,
           "y": 0,
@@ -1250,7 +1454,7 @@
           "properties": []
         },
         {
-          "id": 183,
+          "id": 230,
           "name": "walkable-15",
           "x": 0,
           "y": 0,
@@ -1311,7 +1515,7 @@
           "properties": []
         },
         {
-          "id": 184,
+          "id": 231,
           "name": "walkable-16",
           "x": 0,
           "y": 0,
@@ -1384,7 +1588,7 @@
           "properties": []
         },
         {
-          "id": 185,
+          "id": 232,
           "name": "walkable-17",
           "x": 0,
           "y": 0,
@@ -1433,7 +1637,7 @@
           "properties": []
         },
         {
-          "id": 186,
+          "id": 233,
           "name": "walkable-18",
           "x": 0,
           "y": 0,
@@ -1482,7 +1686,7 @@
           "properties": []
         },
         {
-          "id": 187,
+          "id": 234,
           "name": "walkable-19",
           "x": 0,
           "y": 0,
@@ -1531,7 +1735,7 @@
           "properties": []
         },
         {
-          "id": 188,
+          "id": 235,
           "name": "walkable-20",
           "x": 0,
           "y": 0,
@@ -1560,7 +1764,7 @@
           "properties": []
         },
         {
-          "id": 189,
+          "id": 236,
           "name": "walkable-21",
           "x": 0,
           "y": 0,
@@ -1589,7 +1793,7 @@
           "properties": []
         },
         {
-          "id": 190,
+          "id": 237,
           "name": "walkable-22",
           "x": 0,
           "y": 0,
@@ -1622,7 +1826,7 @@
           "properties": []
         },
         {
-          "id": 191,
+          "id": 238,
           "name": "walkable-23",
           "x": 0,
           "y": 0,
@@ -1655,7 +1859,7 @@
           "properties": []
         },
         {
-          "id": 192,
+          "id": 239,
           "name": "walkable-24",
           "x": 0,
           "y": 0,
@@ -1688,7 +1892,7 @@
           "properties": []
         },
         {
-          "id": 193,
+          "id": 240,
           "name": "walkable-25",
           "x": 0,
           "y": 0,
@@ -1753,7 +1957,7 @@
           "properties": []
         },
         {
-          "id": 194,
+          "id": 241,
           "name": "walkable-26",
           "x": 0,
           "y": 0,
@@ -1866,7 +2070,7 @@
           "properties": []
         },
         {
-          "id": 195,
+          "id": 242,
           "name": "walkable-27",
           "x": 0,
           "y": 0,
@@ -1991,7 +2195,7 @@
           "properties": []
         },
         {
-          "id": 196,
+          "id": 243,
           "name": "walkable-28",
           "x": 0,
           "y": 0,
@@ -2016,7 +2220,7 @@
           "properties": []
         },
         {
-          "id": 197,
+          "id": 244,
           "name": "walkable-29",
           "x": 0,
           "y": 0,
@@ -2129,7 +2333,7 @@
           "properties": []
         },
         {
-          "id": 198,
+          "id": 245,
           "name": "walkable-30",
           "x": 0,
           "y": 0,
@@ -2182,7 +2386,7 @@
           "properties": []
         },
         {
-          "id": 199,
+          "id": 246,
           "name": "walkable-31",
           "x": 0,
           "y": 0,
@@ -2275,7 +2479,7 @@
           "properties": []
         },
         {
-          "id": 200,
+          "id": 247,
           "name": "walkable-32",
           "x": 0,
           "y": 0,
@@ -2332,7 +2536,7 @@
           "properties": []
         },
         {
-          "id": 201,
+          "id": 248,
           "name": "walkable-33",
           "x": 0,
           "y": 0,
@@ -2409,7 +2613,7 @@
           "properties": []
         },
         {
-          "id": 202,
+          "id": 249,
           "name": "walkable-34",
           "x": 0,
           "y": 0,
@@ -2462,7 +2666,7 @@
           "properties": []
         },
         {
-          "id": 203,
+          "id": 250,
           "name": "walkable-35",
           "x": 0,
           "y": 0,
@@ -2531,7 +2735,7 @@
           "properties": []
         },
         {
-          "id": 204,
+          "id": 251,
           "name": "walkable-36",
           "x": 0,
           "y": 0,
@@ -2668,7 +2872,7 @@
           "properties": []
         },
         {
-          "id": 205,
+          "id": 252,
           "name": "walkable-37",
           "x": 0,
           "y": 0,
@@ -2705,7 +2909,7 @@
           "properties": []
         },
         {
-          "id": 206,
+          "id": 253,
           "name": "walkable-38",
           "x": 0,
           "y": 0,
@@ -2764,11 +2968,585 @@
             }
           ],
           "properties": []
+        },
+        {
+          "id": 254,
+          "name": "walkable-39",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 642,
+              "y": 914
+            },
+            {
+              "x": 748,
+              "y": 958
+            },
+            {
+              "x": 775,
+              "y": 1035
+            },
+            {
+              "x": 782,
+              "y": 1060
+            },
+            {
+              "x": 785,
+              "y": 1120
+            },
+            {
+              "x": 746,
+              "y": 1138
+            },
+            {
+              "x": 660,
+              "y": 1171
+            },
+            {
+              "x": 628,
+              "y": 1260
+            },
+            {
+              "x": 646,
+              "y": 1299
+            },
+            {
+              "x": 664,
+              "y": 1330
+            },
+            {
+              "x": 636,
+              "y": 1350
+            },
+            {
+              "x": 550,
+              "y": 1393
+            },
+            {
+              "x": 474,
+              "y": 1434
+            },
+            {
+              "x": 397,
+              "y": 1393
+            },
+            {
+              "x": 323,
+              "y": 1356
+            },
+            {
+              "x": 256,
+              "y": 1319
+            },
+            {
+              "x": 343,
+              "y": 1261
+            },
+            {
+              "x": 370,
+              "y": 1221
+            },
+            {
+              "x": 295,
+              "y": 1177
+            },
+            {
+              "x": 261,
+              "y": 1149
+            },
+            {
+              "x": 252,
+              "y": 1131
+            },
+            {
+              "x": 199,
+              "y": 1097
+            },
+            {
+              "x": 282,
+              "y": 1027
+            },
+            {
+              "x": 400,
+              "y": 1099
+            },
+            {
+              "x": 443,
+              "y": 1130
+            },
+            {
+              "x": 530,
+              "y": 1112
+            },
+            {
+              "x": 592,
+              "y": 1059
+            },
+            {
+              "x": 629,
+              "y": 1003
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 255,
+          "name": "walkable-40",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1390,
+              "y": 950
+            },
+            {
+              "x": 1454,
+              "y": 988
+            },
+            {
+              "x": 1560,
+              "y": 1062
+            },
+            {
+              "x": 1610,
+              "y": 1100
+            },
+            {
+              "x": 1622,
+              "y": 1180
+            },
+            {
+              "x": 1626,
+              "y": 1410
+            },
+            {
+              "x": 1650,
+              "y": 1536
+            },
+            {
+              "x": 1548,
+              "y": 1536
+            },
+            {
+              "x": 1514,
+              "y": 1490
+            },
+            {
+              "x": 1482,
+              "y": 1456
+            },
+            {
+              "x": 1528,
+              "y": 1400
+            },
+            {
+              "x": 1528,
+              "y": 1180
+            },
+            {
+              "x": 1490,
+              "y": 1115
+            },
+            {
+              "x": 1420,
+              "y": 1090
+            },
+            {
+              "x": 1370,
+              "y": 1045
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 256,
+          "name": "walkable-41",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1245,
+              "y": 1480
+            },
+            {
+              "x": 1275,
+              "y": 1468
+            },
+            {
+              "x": 1330,
+              "y": 1482
+            },
+            {
+              "x": 1430,
+              "y": 1482
+            },
+            {
+              "x": 1474,
+              "y": 1472
+            },
+            {
+              "x": 1518,
+              "y": 1420
+            },
+            {
+              "x": 1560,
+              "y": 1435
+            },
+            {
+              "x": 1560,
+              "y": 1536
+            },
+            {
+              "x": 1470,
+              "y": 1536
+            },
+            {
+              "x": 1400,
+              "y": 1521
+            },
+            {
+              "x": 1305,
+              "y": 1521
+            },
+            {
+              "x": 1245,
+              "y": 1515
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 257,
+          "name": "walkable-42",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2116,
+              "y": 991
+            },
+            {
+              "x": 2172,
+              "y": 991
+            },
+            {
+              "x": 2182,
+              "y": 1100
+            },
+            {
+              "x": 2190,
+              "y": 1155
+            },
+            {
+              "x": 2196,
+              "y": 1204
+            },
+            {
+              "x": 2168,
+              "y": 1240
+            },
+            {
+              "x": 2115,
+              "y": 1237
+            },
+            {
+              "x": 2098,
+              "y": 1200
+            },
+            {
+              "x": 2110,
+              "y": 1130
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 258,
+          "name": "walkable-43",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1824,
+              "y": 1093
+            },
+            {
+              "x": 3072,
+              "y": 1093
+            },
+            {
+              "x": 3072,
+              "y": 1120
+            },
+            {
+              "x": 1824,
+              "y": 1120
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 259,
+          "name": "walkable-44",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1848,
+              "y": 1310
+            },
+            {
+              "x": 3072,
+              "y": 1310
+            },
+            {
+              "x": 3072,
+              "y": 1342
+            },
+            {
+              "x": 1848,
+              "y": 1342
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 260,
+          "name": "walkable-45",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2298,
+              "y": 1324
+            },
+            {
+              "x": 2294,
+              "y": 1360
+            },
+            {
+              "x": 2281,
+              "y": 1394
+            },
+            {
+              "x": 2260,
+              "y": 1422
+            },
+            {
+              "x": 2233,
+              "y": 1444
+            },
+            {
+              "x": 2202,
+              "y": 1458
+            },
+            {
+              "x": 2168,
+              "y": 1463
+            },
+            {
+              "x": 2134,
+              "y": 1458
+            },
+            {
+              "x": 2103,
+              "y": 1444
+            },
+            {
+              "x": 2076,
+              "y": 1422
+            },
+            {
+              "x": 2055,
+              "y": 1394
+            },
+            {
+              "x": 2042,
+              "y": 1360
+            },
+            {
+              "x": 2038,
+              "y": 1324
+            },
+            {
+              "x": 2042,
+              "y": 1288
+            },
+            {
+              "x": 2055,
+              "y": 1255
+            },
+            {
+              "x": 2076,
+              "y": 1226
+            },
+            {
+              "x": 2103,
+              "y": 1204
+            },
+            {
+              "x": 2134,
+              "y": 1190
+            },
+            {
+              "x": 2168,
+              "y": 1185
+            },
+            {
+              "x": 2202,
+              "y": 1190
+            },
+            {
+              "x": 2233,
+              "y": 1204
+            },
+            {
+              "x": 2260,
+              "y": 1226
+            },
+            {
+              "x": 2281,
+              "y": 1255
+            },
+            {
+              "x": 2294,
+              "y": 1288
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 261,
+          "name": "walkable-46",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2150,
+              "y": 1420
+            },
+            {
+              "x": 2208,
+              "y": 1420
+            },
+            {
+              "x": 2208,
+              "y": 1536
+            },
+            {
+              "x": 2150,
+              "y": 1536
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 262,
+          "name": "walkable-47",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2588,
+              "y": 994
+            },
+            {
+              "x": 2747,
+              "y": 994
+            },
+            {
+              "x": 2753,
+              "y": 1088
+            },
+            {
+              "x": 2725,
+              "y": 1123
+            },
+            {
+              "x": 2710,
+              "y": 1152
+            },
+            {
+              "x": 2710,
+              "y": 1270
+            },
+            {
+              "x": 2737,
+              "y": 1310
+            },
+            {
+              "x": 2740,
+              "y": 1342
+            },
+            {
+              "x": 2600,
+              "y": 1342
+            },
+            {
+              "x": 2600,
+              "y": 1310
+            },
+            {
+              "x": 2620,
+              "y": 1280
+            },
+            {
+              "x": 2620,
+              "y": 1160
+            },
+            {
+              "x": 2604,
+              "y": 1130
+            },
+            {
+              "x": 2588,
+              "y": 1115
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 263,
+          "name": "walkable-48",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2990,
+              "y": 1310
+            },
+            {
+              "x": 3072,
+              "y": 1310
+            },
+            {
+              "x": 3072,
+              "y": 1536
+            },
+            {
+              "x": 3045,
+              "y": 1536
+            },
+            {
+              "x": 3045,
+              "y": 1390
+            },
+            {
+              "x": 3020,
+              "y": 1353
+            },
+            {
+              "x": 2990,
+              "y": 1342
+            }
+          ],
+          "properties": []
         }
       ]
     },
     {
-      "id": 212,
+      "id": 269,
       "name": "Obstacles",
       "type": "objectgroup",
       "visible": true,
@@ -2776,7 +3554,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 208,
+          "id": 265,
           "name": "obstacle-1",
           "x": 0,
           "y": 0,
@@ -2857,7 +3635,7 @@
           "properties": []
         },
         {
-          "id": 209,
+          "id": 266,
           "name": "obstacle-2",
           "x": 0,
           "y": 0,
@@ -2938,7 +3716,7 @@
           "properties": []
         },
         {
-          "id": 210,
+          "id": 267,
           "name": "obstacle-3",
           "x": 0,
           "y": 0,
@@ -3019,7 +3797,7 @@
           "properties": []
         },
         {
-          "id": 211,
+          "id": 268,
           "name": "obstacle-4",
           "x": 0,
           "y": 0,
@@ -3102,19 +3880,19 @@
       ]
     },
     {
-      "id": 213,
+      "id": 270,
       "name": "Scenery",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 9,
+          "id": 13,
           "name": "archive",
           "x": 58,
           "y": -4.787960467205721,
           "width": 290,
           "height": 322.8301886792453,
-          "gid": 9,
+          "gid": 13,
           "properties": [
             {
               "name": "key",
@@ -3164,13 +3942,13 @@
           ]
         },
         {
-          "id": 10,
+          "id": 14,
           "name": "cafe",
           "x": 422,
           "y": 87.00747663551402,
           "width": 332,
           "height": 369.23364485981307,
-          "gid": 10,
+          "gid": 14,
           "properties": [
             {
               "name": "key",
@@ -3220,13 +3998,13 @@
           ]
         },
         {
-          "id": 11,
+          "id": 15,
           "name": "station",
           "x": 1110,
           "y": -153.7727272727273,
           "width": 430,
           "height": 441.2762237762238,
-          "gid": 11,
+          "gid": 15,
           "properties": [
             {
               "name": "key",
@@ -3276,13 +4054,13 @@
           ]
         },
         {
-          "id": 12,
+          "id": 16,
           "name": "workshop",
           "x": 97,
           "y": 394.86046511627904,
           "width": 324,
           "height": 331.25581395348837,
-          "gid": 12,
+          "gid": 16,
           "properties": [
             {
               "name": "key",
@@ -3332,13 +4110,13 @@
           ]
         },
         {
-          "id": 13,
+          "id": 17,
           "name": "riverside-house",
           "x": 1045.5,
           "y": 605.6072908036454,
           "width": 231,
           "height": 214.1582435791218,
-          "gid": 13,
+          "gid": 17,
           "properties": [
             {
               "name": "key",
@@ -3388,13 +4166,13 @@
           ]
         },
         {
-          "id": 14,
+          "id": 18,
           "name": "west-edge-house",
           "x": -58,
           "y": 51.90281329923272,
           "width": 124,
           "height": 184.73145780051152,
-          "gid": 2147483662,
+          "gid": 2147483666,
           "properties": [
             {
               "name": "key",
@@ -3444,13 +4222,13 @@
           ]
         },
         {
-          "id": 15,
+          "id": 19,
           "name": "north-library-house",
           "x": 17.5,
           "y": -63.26341463414633,
           "width": 153,
           "height": 151.25853658536585,
-          "gid": 15,
+          "gid": 19,
           "properties": [
             {
               "name": "key",
@@ -3500,13 +4278,13 @@
           ]
         },
         {
-          "id": 16,
+          "id": 20,
           "name": "north-central-house",
           "x": 287.5,
           "y": -66.94532627865962,
           "width": 167,
           "height": 171.12345679012347,
-          "gid": 2147483664,
+          "gid": 2147483668,
           "properties": [
             {
               "name": "key",
@@ -3556,13 +4334,13 @@
           ]
         },
         {
-          "id": 17,
+          "id": 21,
           "name": "high-street-house",
           "x": 557.5,
           "y": 5.101077050538521,
           "width": 185,
           "height": 171.51201325600664,
-          "gid": 13,
+          "gid": 17,
           "properties": [
             {
               "name": "key",
@@ -3612,13 +4390,13 @@
           ]
         },
         {
-          "id": 18,
+          "id": 22,
           "name": "high-street-east-house",
           "x": 779.5,
           "y": -126.56905370843992,
           "width": 191,
           "height": 284.5460358056266,
-          "gid": 2147483662,
+          "gid": 2147483666,
           "properties": [
             {
               "name": "key",
@@ -3668,13 +4446,13 @@
           ]
         },
         {
-          "id": 19,
+          "id": 23,
           "name": "high-street-cottage",
           "x": 722.5,
           "y": 111.91382113821138,
           "width": 107,
           "height": 105.78211382113821,
-          "gid": 15,
+          "gid": 19,
           "properties": [
             {
               "name": "key",
@@ -3724,13 +4502,13 @@
           ]
         },
         {
-          "id": 20,
+          "id": 24,
           "name": "workshop-west-house",
           "x": -41.5,
           "y": 453.05467372134035,
           "width": 167,
           "height": 171.12345679012347,
-          "gid": 2147483664,
+          "gid": 2147483668,
           "properties": [
             {
               "name": "key",
@@ -3780,13 +4558,13 @@
           ]
         },
         {
-          "id": 21,
+          "id": 25,
           "name": "east-canal-house",
           "x": 1436,
           "y": 686.8053024026513,
           "width": 168,
           "height": 155.75144987572494,
-          "gid": 13,
+          "gid": 17,
           "properties": [
             {
               "name": "key",
@@ -3836,13 +4614,13 @@
           ]
         },
         {
-          "id": 22,
+          "id": 26,
           "name": "southwest-canal-house",
           "x": -27,
           "y": 729.6521739130435,
           "width": 238,
           "height": 354.5652173913044,
-          "gid": 2147483662,
+          "gid": 2147483666,
           "properties": [
             {
               "name": "key",
@@ -3892,13 +4670,13 @@
           ]
         },
         {
-          "id": 23,
+          "id": 27,
           "name": "archive-west-tree",
           "x": -6.731707317073173,
           "y": 169.7560975609756,
           "width": 105,
           "height": 115.2439024390244,
-          "gid": 17,
+          "gid": 21,
           "properties": [
             {
               "name": "key",
@@ -3948,13 +4726,13 @@
           ]
         },
         {
-          "id": 24,
+          "id": 28,
           "name": "archive-back-tree",
           "x": 259.9537037037037,
           "y": 52.08333333333334,
           "width": 157,
           "height": 144.6435185185185,
-          "gid": 18,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -4004,13 +4782,13 @@
           ]
         },
         {
-          "id": 25,
+          "id": 29,
           "name": "archive-east-tree",
           "x": 334.5483870967742,
           "y": 108.03225806451613,
           "width": 144,
           "height": 175.74193548387098,
-          "gid": 2147483667,
+          "gid": 2147483671,
           "properties": [
             {
               "name": "key",
@@ -4060,13 +4838,13 @@
           ]
         },
         {
-          "id": 26,
+          "id": 30,
           "name": "archive-north-tree",
           "x": 214.69585253456222,
           "y": -54.576036866359445,
           "width": 132,
           "height": 115.57603686635944,
-          "gid": 20,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -4116,13 +4894,13 @@
           ]
         },
         {
-          "id": 27,
+          "id": 31,
           "name": "cafe-back-tree",
           "x": 453.830985915493,
           "y": 93.24413145539906,
           "width": 118,
           "height": 126.30985915492958,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -4172,13 +4950,13 @@
           ]
         },
         {
-          "id": 28,
+          "id": 32,
           "name": "cafe-north-tree",
           "x": 400.1666666666667,
           "y": -8.499999999999986,
           "width": 126,
           "height": 116.08333333333333,
-          "gid": 2147483666,
+          "gid": 2147483670,
           "properties": [
             {
               "name": "key",
@@ -4228,13 +5006,13 @@
           ]
         },
         {
-          "id": 29,
+          "id": 33,
           "name": "cafe-east-tree",
           "x": 671.989247311828,
           "y": 191.21505376344086,
           "width": 92,
           "height": 112.27956989247312,
-          "gid": 19,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -4284,13 +5062,13 @@
           ]
         },
         {
-          "id": 30,
+          "id": 34,
           "name": "high-street-tree",
           "x": 797.2442396313364,
           "y": 131.8110599078341,
           "width": 111,
           "height": 97.1889400921659,
-          "gid": 2147483668,
+          "gid": 2147483672,
           "properties": [
             {
               "name": "key",
@@ -4340,13 +5118,13 @@
           ]
         },
         {
-          "id": 31,
+          "id": 35,
           "name": "high-street-north-tree",
           "x": 947.4731707317073,
           "y": -35.975609756097555,
           "width": 133,
           "height": 145.97560975609755,
-          "gid": 17,
+          "gid": 21,
           "properties": [
             {
               "name": "key",
@@ -4396,13 +5174,13 @@
           ]
         },
         {
-          "id": 32,
+          "id": 36,
           "name": "station-garden-tree",
           "x": 1038.0985915492959,
           "y": 68.41314553990611,
           "width": 85,
           "height": 90.98591549295774,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -4452,13 +5230,13 @@
           ]
         },
         {
-          "id": 33,
+          "id": 37,
           "name": "market-north-tree",
           "x": 869.6559139784946,
           "y": 157.88172043010755,
           "width": 154,
           "height": 187.94623655913978,
-          "gid": 2147483667,
+          "gid": 2147483671,
           "properties": [
             {
               "name": "key",
@@ -4508,13 +5286,13 @@
           ]
         },
         {
-          "id": 34,
+          "id": 38,
           "name": "market-east-tree",
           "x": 1103.7557603686637,
           "y": 286.1889400921659,
           "width": 106,
           "height": 92.8110599078341,
-          "gid": 20,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -4564,13 +5342,13 @@
           ]
         },
         {
-          "id": 35,
+          "id": 39,
           "name": "market-west-tree",
           "x": 838.5268292682927,
           "y": 390.9756097560976,
           "width": 72,
           "height": 79.02439024390245,
-          "gid": 17,
+          "gid": 21,
           "properties": [
             {
               "name": "key",
@@ -4620,13 +5398,13 @@
           ]
         },
         {
-          "id": 36,
+          "id": 40,
           "name": "workshop-back-tree",
           "x": 245.69444444444446,
           "y": 450.75,
           "width": 129,
           "height": 118.84722222222223,
-          "gid": 2147483666,
+          "gid": 2147483670,
           "properties": [
             {
               "name": "key",
@@ -4676,13 +5454,13 @@
           ]
         },
         {
-          "id": 37,
+          "id": 41,
           "name": "workshop-garden-tree",
           "x": 454.5633802816901,
           "y": 520.7417840375587,
           "width": 80,
           "height": 85.63380281690141,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -4732,13 +5510,13 @@
           ]
         },
         {
-          "id": 38,
+          "id": 42,
           "name": "rose-garden-north-tree",
           "x": 704.8341013824885,
           "y": 635.9585253456221,
           "width": 72,
           "height": 63.04147465437788,
-          "gid": 20,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -4788,13 +5566,13 @@
           ]
         },
         {
-          "id": 39,
+          "id": 43,
           "name": "rose-garden-east-tree",
           "x": 934.6146341463415,
           "y": 640.8048780487804,
           "width": 84,
           "height": 92.1951219512195,
-          "gid": 2147483665,
+          "gid": 2147483669,
           "properties": [
             {
               "name": "key",
@@ -4844,13 +5622,13 @@
           ]
         },
         {
-          "id": 40,
+          "id": 44,
           "name": "rose-garden-south-tree",
           "x": 601.8888888888889,
           "y": 892,
           "width": 96,
           "height": 88.44444444444444,
-          "gid": 18,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -4900,13 +5678,13 @@
           ]
         },
         {
-          "id": 41,
+          "id": 45,
           "name": "south-canal-tree",
           "x": 233.2258064516129,
           "y": 878.483870967742,
           "width": 114,
           "height": 139.1290322580645,
-          "gid": 19,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -4956,13 +5734,13 @@
           ]
         },
         {
-          "id": 42,
+          "id": 46,
           "name": "riverside-door-tree",
           "x": 1005.0422535211268,
           "y": 684.9389671361503,
           "width": 77,
           "height": 82.4225352112676,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -5012,13 +5790,13 @@
           ]
         },
         {
-          "id": 43,
+          "id": 47,
           "name": "east-canal-tree",
           "x": 1417.3707317073172,
           "y": 879.390243902439,
           "width": 119,
           "height": 130.609756097561,
-          "gid": 2147483665,
+          "gid": 2147483669,
           "properties": [
             {
               "name": "key",
@@ -5068,13 +5846,13 @@
           ]
         },
         {
-          "id": 44,
+          "id": 48,
           "name": "west-canal-tree",
           "x": 23.962962962962962,
           "y": 732.6666666666666,
           "width": 104,
           "height": 95.81481481481481,
-          "gid": 18,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -5124,13 +5902,13 @@
           ]
         },
         {
-          "id": 45,
+          "id": 49,
           "name": "archive-garden-cypress",
           "x": 337.4418604651163,
           "y": 329.25581395348837,
           "width": 38,
           "height": 100.74418604651163,
-          "gid": 22,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -5180,13 +5958,13 @@
           ]
         },
         {
-          "id": 46,
+          "id": 50,
           "name": "workshop-street-cypress",
           "x": 580.8372093023256,
           "y": 532.1162790697674,
           "width": 29,
           "height": 76.88372093023256,
-          "gid": 22,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -5236,13 +6014,13 @@
           ]
         },
         {
-          "id": 47,
+          "id": 51,
           "name": "workshop-garden-cypress",
           "x": 401,
           "y": 456,
           "width": 43,
           "height": 114,
-          "gid": 22,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -5292,13 +6070,13 @@
           ]
         },
         {
-          "id": 48,
+          "id": 52,
           "name": "rose-garden-east-cypress",
           "x": 805.1627906976744,
           "y": 670.8837209302326,
           "width": 57,
           "height": 151.11627906976744,
-          "gid": 22,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -5348,13 +6126,13 @@
           ]
         },
         {
-          "id": 49,
+          "id": 53,
           "name": "rose-garden-west-cypress",
           "x": 511.4651162790698,
           "y": 667.953488372093,
           "width": 40,
           "height": 106.04651162790698,
-          "gid": 22,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -5404,13 +6182,13 @@
           ]
         },
         {
-          "id": 50,
+          "id": 54,
           "name": "archive-front-lamp",
           "x": 142.91954022988506,
           "y": 330.2413793103448,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5460,13 +6238,13 @@
           ]
         },
         {
-          "id": 51,
+          "id": 55,
           "name": "archive-east-lamp",
           "x": 325.2758620689655,
           "y": 303.17241379310343,
           "width": 27,
           "height": 69.82758620689656,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5516,13 +6294,13 @@
           ]
         },
         {
-          "id": 52,
+          "id": 56,
           "name": "archive-garden-lamp",
           "x": 362.7471264367816,
           "y": 365.7586206896552,
           "width": 26,
           "height": 67.24137931034483,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5572,13 +6350,13 @@
           ]
         },
         {
-          "id": 53,
+          "id": 57,
           "name": "cafe-west-lamp",
           "x": 512.2758620689655,
           "y": 389.17241379310343,
           "width": 27,
           "height": 69.82758620689656,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5628,13 +6406,13 @@
           ]
         },
         {
-          "id": 54,
+          "id": 58,
           "name": "cafe-east-lamp",
           "x": 750.2758620689655,
           "y": 313.17241379310343,
           "width": 27,
           "height": 69.82758620689656,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5684,13 +6462,13 @@
           ]
         },
         {
-          "id": 55,
+          "id": 59,
           "name": "workshop-rose-lamp",
           "x": 564.8045977011494,
           "y": 532.5862068965517,
           "width": 28,
           "height": 72.41379310344827,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5740,13 +6518,13 @@
           ]
         },
         {
-          "id": 56,
+          "id": 60,
           "name": "rose-garden-north-lamp",
           "x": 661.3333333333334,
           "y": 588,
           "width": 29,
           "height": 75,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5796,13 +6574,13 @@
           ]
         },
         {
-          "id": 57,
+          "id": 61,
           "name": "rose-garden-east-lamp",
           "x": 782.3908045977012,
           "y": 652.8275862068965,
           "width": 31,
           "height": 80.17241379310344,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5852,13 +6630,13 @@
           ]
         },
         {
-          "id": 58,
+          "id": 62,
           "name": "rose-garden-gate-lamp",
           "x": 735.9770114942529,
           "y": 794.0689655172414,
           "width": 34,
           "height": 87.93103448275862,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5908,13 +6686,13 @@
           ]
         },
         {
-          "id": 59,
+          "id": 63,
           "name": "southwest-bridge-lamp",
           "x": 443.91954022988506,
           "y": 815.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -5964,13 +6742,13 @@
           ]
         },
         {
-          "id": 60,
+          "id": 64,
           "name": "market-west-lamp",
           "x": 864.8045977011494,
           "y": 248.58620689655174,
           "width": 28,
           "height": 72.41379310344827,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6020,13 +6798,13 @@
           ]
         },
         {
-          "id": 61,
+          "id": 65,
           "name": "high-street-garden-lamp",
           "x": 840.7471264367816,
           "y": 168.75862068965517,
           "width": 26,
           "height": 67.24137931034483,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6076,13 +6854,13 @@
           ]
         },
         {
-          "id": 62,
+          "id": 66,
           "name": "high-street-east-lamp",
           "x": 899.7471264367816,
           "y": 152.75862068965517,
           "width": 26,
           "height": 67.24137931034483,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6132,13 +6910,13 @@
           ]
         },
         {
-          "id": 63,
+          "id": 67,
           "name": "market-north-lamp",
           "x": 1087.16091954023,
           "y": 260.51724137931035,
           "width": 23,
           "height": 59.48275862068966,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6188,13 +6966,13 @@
           ]
         },
         {
-          "id": 64,
+          "id": 68,
           "name": "market-east-lamp",
           "x": 1223.3908045977012,
           "y": 373.82758620689657,
           "width": 31,
           "height": 80.17241379310344,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6244,13 +7022,13 @@
           ]
         },
         {
-          "id": 65,
+          "id": 69,
           "name": "riverside-bridge-lamp",
           "x": 1203.2758620689656,
           "y": 521.1724137931035,
           "width": 27,
           "height": 69.82758620689656,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6300,13 +7078,13 @@
           ]
         },
         {
-          "id": 66,
+          "id": 70,
           "name": "southeast-bridge-lamp",
           "x": 1397.448275862069,
           "y": 851.6551724137931,
           "width": 33,
           "height": 85.34482758620689,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6356,13 +7134,13 @@
           ]
         },
         {
-          "id": 67,
+          "id": 71,
           "name": "river-middle-bridge-lamp",
           "x": 1461.6206896551723,
           "y": 471.1379310344828,
           "width": 39,
           "height": 100.86206896551724,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6412,13 +7190,13 @@
           ]
         },
         {
-          "id": 68,
+          "id": 72,
           "name": "station-forecourt-lamp",
           "x": 1193.8620689655172,
           "y": 222.41379310344826,
           "width": 30,
           "height": 77.58620689655173,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6468,13 +7246,13 @@
           ]
         },
         {
-          "id": 69,
+          "id": 73,
           "name": "south-canal-crossing-lamp",
           "x": 896.3908045977012,
           "y": 894.8275862068965,
           "width": 31,
           "height": 80.17241379310344,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -6524,13 +7302,13 @@
           ]
         },
         {
-          "id": 70,
+          "id": 74,
           "name": "market-west-stall",
           "x": 875.8356164383562,
           "y": 403.24657534246575,
           "width": 102,
           "height": 91.75342465753425,
-          "gid": 24,
+          "gid": 28,
           "properties": [
             {
               "name": "key",
@@ -6580,13 +7358,13 @@
           ]
         },
         {
-          "id": 71,
+          "id": 75,
           "name": "market-south-stall",
           "x": 983.5642458100558,
           "y": 381.96648044692733,
           "width": 112,
           "height": 142.03351955307264,
-          "gid": 2147483673,
+          "gid": 2147483677,
           "properties": [
             {
               "name": "key",
@@ -6636,13 +7414,13 @@
           ]
         },
         {
-          "id": 72,
+          "id": 76,
           "name": "market-east-stall",
           "x": 1102.6837209302325,
           "y": 355.4418604651163,
           "width": 98,
           "height": 103.0139534883721,
-          "gid": 26,
+          "gid": 30,
           "properties": [
             {
               "name": "key",
@@ -6692,13 +7470,13 @@
           ]
         },
         {
-          "id": 73,
+          "id": 77,
           "name": "market-middle-stall",
           "x": 1004.7625570776256,
           "y": 299.6986301369863,
           "width": 104,
           "height": 98.3013698630137,
-          "gid": 2147483675,
+          "gid": 2147483679,
           "properties": [
             {
               "name": "key",
@@ -6748,13 +7526,13 @@
           ]
         },
         {
-          "id": 74,
+          "id": 78,
           "name": "market-north-stall",
           "x": 912.9269406392694,
           "y": 318.44292237442926,
           "width": 94,
           "height": 84.55707762557077,
-          "gid": 24,
+          "gid": 28,
           "properties": [
             {
               "name": "key",
@@ -6804,13 +7582,13 @@
           ]
         },
         {
-          "id": 75,
+          "id": 79,
           "name": "workshop-canopy",
           "x": 379.54748603351953,
           "y": 615.8882681564246,
           "width": 75,
           "height": 95.11173184357541,
-          "gid": 2147483673,
+          "gid": 2147483677,
           "properties": [
             {
               "name": "key",
@@ -6860,13 +7638,13 @@
           ]
         },
         {
-          "id": 76,
+          "id": 80,
           "name": "square-fountain",
           "x": 765.2355555555556,
           "y": 468.53777777777776,
           "width": 106,
           "height": 98.93333333333334,
-          "gid": 28,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -6916,13 +7694,13 @@
           ]
         },
         {
-          "id": 77,
+          "id": 81,
           "name": "garden-fountain",
           "x": 641.7066666666667,
           "y": 709.6133333333333,
           "width": 93,
           "height": 86.8,
-          "gid": 28,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -6972,13 +7750,13 @@
           ]
         },
         {
-          "id": 78,
+          "id": 82,
           "name": "rose-garden-arch",
           "x": 572.5,
           "y": 590.1894409937888,
           "width": 135,
           "height": 118.64906832298136,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -7028,13 +7806,13 @@
           ]
         },
         {
-          "id": 79,
+          "id": 83,
           "name": "archive-garden-arch",
           "x": 200.5,
           "y": 354.0776397515528,
           "width": 87,
           "height": 76.46273291925466,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -7084,13 +7862,13 @@
           ]
         },
         {
-          "id": 80,
+          "id": 84,
           "name": "rose-garden-greenhouse",
           "x": 806.5,
           "y": 767.7854729729729,
           "width": 97,
           "height": 94.86993243243244,
-          "gid": 30,
+          "gid": 34,
           "properties": [
             {
               "name": "key",
@@ -7140,13 +7918,13 @@
           ]
         },
         {
-          "id": 81,
+          "id": 85,
           "name": "archive-west-bench",
           "x": 78.33488372093024,
           "y": 317.2418604651163,
           "width": 48,
           "height": 43.75813953488372,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -7196,13 +7974,13 @@
           ]
         },
         {
-          "id": 82,
+          "id": 86,
           "name": "workshop-bench",
           "x": 530.8418604651163,
           "y": 585.3302325581395,
           "width": 49,
           "height": 44.669767441860465,
-          "gid": 2147483679,
+          "gid": 2147483683,
           "properties": [
             {
               "name": "key",
@@ -7252,13 +8030,13 @@
           ]
         },
         {
-          "id": 83,
+          "id": 87,
           "name": "rose-garden-east-bench",
           "x": 749.8,
           "y": 730.8,
           "width": 43,
           "height": 39.2,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -7308,13 +8086,13 @@
           ]
         },
         {
-          "id": 84,
+          "id": 88,
           "name": "rose-garden-west-bench",
           "x": 549.3209302325581,
           "y": 735.0651162790698,
           "width": 46,
           "height": 41.93488372093023,
-          "gid": 2147483679,
+          "gid": 2147483683,
           "properties": [
             {
               "name": "key",
@@ -7364,13 +8142,13 @@
           ]
         },
         {
-          "id": 85,
+          "id": 89,
           "name": "station-forecourt-bench",
           "x": 1125.8418604651163,
           "y": 208.33023255813953,
           "width": 49,
           "height": 44.669767441860465,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -7420,13 +8198,13 @@
           ]
         },
         {
-          "id": 86,
+          "id": 90,
           "name": "garden-south-bench",
           "x": 561.8,
           "y": 847.8,
           "width": 43,
           "height": 39.2,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -7476,13 +8254,13 @@
           ]
         },
         {
-          "id": 87,
+          "id": 91,
           "name": "cafe-east-planter",
           "x": 762.0238095238095,
           "y": 365.8511904761905,
           "width": 31,
           "height": 41.148809523809526,
-          "gid": 32,
+          "gid": 36,
           "properties": [
             {
               "name": "key",
@@ -7532,13 +8310,13 @@
           ]
         },
         {
-          "id": 88,
+          "id": 92,
           "name": "workshop-front-planter",
           "x": 496.7142857142857,
           "y": 606.0952380952381,
           "width": 36,
           "height": 42.095238095238095,
-          "gid": 33,
+          "gid": 37,
           "properties": [
             {
               "name": "key",
@@ -7588,13 +8366,13 @@
           ]
         },
         {
-          "id": 89,
+          "id": 93,
           "name": "station-street-planter",
           "x": 1273.7224880382776,
           "y": 294.6267942583732,
           "width": 31,
           "height": 33.3732057416268,
-          "gid": 34,
+          "gid": 38,
           "properties": [
             {
               "name": "key",
@@ -7644,13 +8422,13 @@
           ]
         },
         {
-          "id": 90,
+          "id": 94,
           "name": "archive-front-planter",
           "x": 290.6409090909091,
           "y": 273.70454545454544,
           "width": 31,
           "height": 30.295454545454547,
-          "gid": 35,
+          "gid": 39,
           "properties": [
             {
               "name": "key",
@@ -7700,13 +8478,13 @@
           ]
         },
         {
-          "id": 91,
+          "id": 95,
           "name": "garden-west-planter",
           "x": 446.0238095238095,
           "y": 765.8511904761905,
           "width": 31,
           "height": 41.148809523809526,
-          "gid": 32,
+          "gid": 36,
           "properties": [
             {
               "name": "key",
@@ -7756,13 +8534,13 @@
           ]
         },
         {
-          "id": 92,
+          "id": 96,
           "name": "garden-northeast-planter",
           "x": 891.7619047619048,
           "y": 766.0793650793651,
           "width": 30,
           "height": 35.07936507936508,
-          "gid": 33,
+          "gid": 37,
           "properties": [
             {
               "name": "key",
@@ -7812,13 +8590,13 @@
           ]
         },
         {
-          "id": 93,
+          "id": 97,
           "name": "garden-south-planter",
           "x": 746.2153110047847,
           "y": 900.7033492822967,
           "width": 30,
           "height": 32.29665071770335,
-          "gid": 34,
+          "gid": 38,
           "properties": [
             {
               "name": "key",
@@ -7868,13 +8646,13 @@
           ]
         },
         {
-          "id": 94,
+          "id": 98,
           "name": "riverside-planter",
           "x": 1008.1727272727272,
           "y": 810.8636363636364,
           "width": 38,
           "height": 37.13636363636363,
-          "gid": 35,
+          "gid": 39,
           "properties": [
             {
               "name": "key",
@@ -7924,13 +8702,13 @@
           ]
         },
         {
-          "id": 95,
+          "id": 99,
           "name": "market-crate-planter",
           "x": 1088.4761904761904,
           "y": 478.5238095238095,
           "width": 32,
           "height": 42.476190476190474,
-          "gid": 32,
+          "gid": 36,
           "properties": [
             {
               "name": "key",
@@ -7980,13 +8758,13 @@
           ]
         },
         {
-          "id": 96,
+          "id": 100,
           "name": "northern-bridge-planter",
           "x": 1435.7301587301588,
           "y": 347.4232804232804,
           "width": 34,
           "height": 39.75661375661376,
-          "gid": 33,
+          "gid": 37,
           "properties": [
             {
               "name": "key",
@@ -8036,13 +8814,13 @@
           ]
         },
         {
-          "id": 97,
+          "id": 101,
           "name": "cafe-menu",
           "x": 635.5868263473054,
           "y": 447.5808383233533,
           "width": 29,
           "height": 39.41916167664671,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -8092,13 +8870,13 @@
           ]
         },
         {
-          "id": 98,
+          "id": 102,
           "name": "station-departure-sign",
           "x": 1247.11377245509,
           "y": 287.34730538922156,
           "width": 38,
           "height": 51.65269461077844,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -8148,13 +8926,13 @@
           ]
         },
         {
-          "id": 99,
+          "id": 103,
           "name": "workshop-direction-sign",
           "x": 376.5868263473054,
           "y": 696.5808383233533,
           "width": 29,
           "height": 39.41916167664671,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -8204,13 +8982,13 @@
           ]
         },
         {
-          "id": 100,
+          "id": 104,
           "name": "south-garden-sign",
           "x": 858.0898203592815,
           "y": 885.2215568862275,
           "width": 30,
           "height": 40.778443113772454,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -8260,13 +9038,13 @@
           ]
         },
         {
-          "id": 101,
+          "id": 105,
           "name": "west-canal-rowboat",
           "x": 182.5,
           "y": 780.0454545454545,
           "width": 85,
           "height": 57.95454545454545,
-          "gid": 37,
+          "gid": 41,
           "properties": [
             {
               "name": "key",
@@ -8316,13 +9094,13 @@
           ]
         },
         {
-          "id": 102,
+          "id": 106,
           "name": "south-canal-rowboat",
           "x": 438,
           "y": 944.0909090909091,
           "width": 82,
           "height": 55.90909090909091,
-          "gid": 2147483685,
+          "gid": 2147483689,
           "properties": [
             {
               "name": "key",
@@ -8372,13 +9150,13 @@
           ]
         },
         {
-          "id": 103,
+          "id": 107,
           "name": "east-canal-rowboat",
           "x": 1313,
           "y": 754.2727272727273,
           "width": 70,
           "height": 47.72727272727273,
-          "gid": 37,
+          "gid": 41,
           "properties": [
             {
               "name": "key",
@@ -8428,13 +9206,13 @@
           ]
         },
         {
-          "id": 104,
+          "id": 108,
           "name": "north-canal-rowboat",
           "x": 1456.5,
           "y": 435.6818181818182,
           "width": 65,
           "height": 44.31818181818182,
-          "gid": 2147483685,
+          "gid": 2147483689,
           "properties": [
             {
               "name": "key",
@@ -8484,13 +9262,13 @@
           ]
         },
         {
-          "id": 105,
+          "id": 109,
           "name": "promenade-depot",
           "x": 1910,
           "y": 16.210163652024136,
           "width": 200,
           "height": 204.4788975021533,
-          "gid": 12,
+          "gid": 16,
           "properties": [
             {
               "name": "key",
@@ -8545,13 +9323,13 @@
           ]
         },
         {
-          "id": 106,
+          "id": 110,
           "name": "promenade-shelter",
           "x": 1846,
           "y": 128.29813664596273,
           "width": 128,
           "height": 112.4968944099379,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -8606,13 +9384,13 @@
           ]
         },
         {
-          "id": 107,
+          "id": 111,
           "name": "promenade-reading-bench",
           "x": 2126.967441860465,
           "y": 198.92093023255813,
           "width": 67,
           "height": 61.07906976744186,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -8667,13 +9445,13 @@
           ]
         },
         {
-          "id": 108,
+          "id": 112,
           "name": "promenade-lamp-west",
           "x": 1583.5057471264367,
           "y": 200.48275862068965,
           "width": 35,
           "height": 90.51724137931035,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -8728,13 +9506,13 @@
           ]
         },
         {
-          "id": 109,
+          "id": 113,
           "name": "promenade-lamp-east",
           "x": 2233.5057471264367,
           "y": 121.48275862068965,
           "width": 35,
           "height": 90.51724137931035,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -8789,13 +9567,13 @@
           ]
         },
         {
-          "id": 110,
+          "id": 114,
           "name": "promenade-tree-north",
           "x": 2133.7323943661972,
           "y": 40.1643192488263,
           "width": 104,
           "height": 111.32394366197182,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -8850,13 +9628,13 @@
           ]
         },
         {
-          "id": 111,
+          "id": 115,
           "name": "promenade-tree-south",
           "x": 2058.239436619718,
           "y": 333.09859154929575,
           "width": 105,
           "height": 112.3943661971831,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -8911,13 +9689,13 @@
           ]
         },
         {
-          "id": 112,
+          "id": 116,
           "name": "parcel-sorting-house",
           "x": 2342.5,
           "y": -27.92405063291139,
           "width": 175,
           "height": 190.18987341772151,
-          "gid": 38,
+          "gid": 42,
           "properties": [
             {
               "name": "key",
@@ -8972,13 +9750,13 @@
           ]
         },
         {
-          "id": 113,
+          "id": 117,
           "name": "parcel-market-stall",
           "x": 2864.2286995515697,
           "y": 82.0627802690583,
           "width": 102,
           "height": 91.9372197309417,
-          "gid": 39,
+          "gid": 43,
           "properties": [
             {
               "name": "key",
@@ -9033,13 +9811,13 @@
           ]
         },
         {
-          "id": 114,
+          "id": 118,
           "name": "parcel-garden-arch",
           "x": 2627,
           "y": 54.006211180124225,
           "width": 110,
           "height": 96.67701863354037,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -9094,13 +9872,13 @@
           ]
         },
         {
-          "id": 115,
+          "id": 119,
           "name": "parcel-reading-bench",
           "x": 2576.446511627907,
           "y": 219.65581395348838,
           "width": 64,
           "height": 58.34418604651163,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -9155,13 +9933,13 @@
           ]
         },
         {
-          "id": 116,
+          "id": 120,
           "name": "parcel-waiting-bench",
           "x": 2768.446511627907,
           "y": 193.65581395348838,
           "width": 64,
           "height": 58.34418604651163,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -9216,13 +9994,13 @@
           ]
         },
         {
-          "id": 117,
+          "id": 121,
           "name": "parcel-court-lamp",
           "x": 2684.448275862069,
           "y": 144.6551724137931,
           "width": 33,
           "height": 85.34482758620689,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -9277,13 +10055,13 @@
           ]
         },
         {
-          "id": 118,
+          "id": 122,
           "name": "parcel-south-lamp",
           "x": 2749.919540229885,
           "y": 344.2413793103448,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -9338,13 +10116,13 @@
           ]
         },
         {
-          "id": 119,
+          "id": 123,
           "name": "parcel-tree-northwest",
           "x": 2443.6619718309857,
           "y": 4.821596244131456,
           "width": 94,
           "height": 100.61971830985915,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -9399,13 +10177,13 @@
           ]
         },
         {
-          "id": 120,
+          "id": 124,
           "name": "parcel-tree-southeast",
           "x": 2865.774647887324,
           "y": 309.7699530516432,
           "width": 110,
           "height": 117.74647887323944,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -9460,13 +10238,13 @@
           ]
         },
         {
-          "id": 121,
+          "id": 125,
           "name": "parcel-sign",
           "x": 2543.5988023952095,
           "y": 174.1437125748503,
           "width": 33,
           "height": 44.8562874251497,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -9521,13 +10299,13 @@
           ]
         },
         {
-          "id": 122,
+          "id": 126,
           "name": "community-greenhouse",
           "x": 2814,
           "y": 631.5945945945946,
           "width": 160,
           "height": 156.48648648648648,
-          "gid": 30,
+          "gid": 34,
           "properties": [
             {
               "name": "key",
@@ -9582,13 +10360,13 @@
           ]
         },
         {
-          "id": 123,
+          "id": 127,
           "name": "community-potting-planter",
           "x": 2792.0913242009133,
           "y": 711.9589041095891,
           "width": 40,
           "height": 29.041095890410958,
-          "gid": 40,
+          "gid": 44,
           "properties": [
             {
               "name": "key",
@@ -9643,13 +10421,13 @@
           ]
         },
         {
-          "id": 124,
+          "id": 128,
           "name": "community-reading-bench",
           "x": 2636.953488372093,
           "y": 790.7441860465117,
           "width": 65,
           "height": 59.25581395348837,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -9704,13 +10482,13 @@
           ]
         },
         {
-          "id": 125,
+          "id": 129,
           "name": "community-gate",
           "x": 2601,
           "y": 485.5527950310559,
           "width": 130,
           "height": 114.25465838509317,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -9765,13 +10543,13 @@
           ]
         },
         {
-          "id": 126,
+          "id": 130,
           "name": "community-fountain",
           "x": 2596.217777777778,
           "y": 692.9688888888888,
           "width": 98,
           "height": 91.46666666666667,
-          "gid": 28,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -9826,13 +10604,13 @@
           ]
         },
         {
-          "id": 127,
+          "id": 131,
           "name": "community-north-lamp",
           "x": 2755.919540229885,
           "y": 531.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -9887,13 +10665,13 @@
           ]
         },
         {
-          "id": 128,
+          "id": 132,
           "name": "community-work-lamp",
           "x": 2938.919540229885,
           "y": 714.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -9948,13 +10726,13 @@
           ]
         },
         {
-          "id": 129,
+          "id": 133,
           "name": "community-west-lamp",
           "x": 2416.919540229885,
           "y": 648.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -10009,13 +10787,13 @@
           ]
         },
         {
-          "id": 130,
+          "id": 134,
           "name": "community-tree-northwest",
           "x": 2342.605633802817,
           "y": 470.3474178403756,
           "width": 86,
           "height": 92.05633802816901,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10070,13 +10848,13 @@
           ]
         },
         {
-          "id": 131,
+          "id": 135,
           "name": "community-tree-southeast",
           "x": 2970.760563380282,
           "y": 836.9014084507043,
           "width": 108,
           "height": 115.6056338028169,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10131,13 +10909,13 @@
           ]
         },
         {
-          "id": 132,
+          "id": 136,
           "name": "community-tree-southwest",
           "x": 2360.6197183098593,
           "y": 882.2159624413146,
           "width": 88,
           "height": 94.19718309859155,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10192,13 +10970,13 @@
           ]
         },
         {
-          "id": 133,
+          "id": 137,
           "name": "community-sign",
           "x": 2539.0898203592815,
           "y": 566.2215568862275,
           "width": 30,
           "height": 40.778443113772454,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -10253,13 +11031,13 @@
           ]
         },
         {
-          "id": 134,
+          "id": 138,
           "name": "community-herb-planter",
           "x": 2447.0913242009133,
           "y": 691.9589041095891,
           "width": 40,
           "height": 29.041095890410958,
-          "gid": 40,
+          "gid": 44,
           "properties": [
             {
               "name": "key",
@@ -10314,13 +11092,13 @@
           ]
         },
         {
-          "id": 135,
+          "id": 139,
           "name": "canal-reading-bench",
           "x": 1957.5023255813953,
           "y": 705.3627906976744,
           "width": 72,
           "height": 65.63720930232559,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -10375,13 +11153,13 @@
           ]
         },
         {
-          "id": 136,
+          "id": 140,
           "name": "canal-reading-lamp",
           "x": 1917.9195402298851,
           "y": 703.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -10436,13 +11214,13 @@
           ]
         },
         {
-          "id": 137,
+          "id": 141,
           "name": "canal-reading-planter",
           "x": 2030.0821917808219,
           "y": 744.8630136986301,
           "width": 36,
           "height": 26.136986301369863,
-          "gid": 40,
+          "gid": 44,
           "properties": [
             {
               "name": "key",
@@ -10497,13 +11275,13 @@
           ]
         },
         {
-          "id": 138,
+          "id": 142,
           "name": "canal-garden-bench",
           "x": 2169.4186046511627,
           "y": 637.3023255813954,
           "width": 60,
           "height": 54.69767441860465,
-          "gid": 31,
+          "gid": 35,
           "properties": [
             {
               "name": "key",
@@ -10558,13 +11336,13 @@
           ]
         },
         {
-          "id": 139,
+          "id": 143,
           "name": "canal-garden-lamp",
           "x": 2258.919540229885,
           "y": 667.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -10619,13 +11397,13 @@
           ]
         },
         {
-          "id": 140,
+          "id": 144,
           "name": "canal-south-lamp",
           "x": 2177.919540229885,
           "y": 866.2413793103449,
           "width": 32,
           "height": 82.75862068965517,
-          "gid": 23,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -10680,13 +11458,13 @@
           ]
         },
         {
-          "id": 141,
+          "id": 145,
           "name": "canal-tree-northwest",
           "x": 1702.619718309859,
           "y": 510.21596244131456,
           "width": 88,
           "height": 94.19718309859155,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10741,13 +11519,13 @@
           ]
         },
         {
-          "id": 142,
+          "id": 146,
           "name": "canal-tree-island",
           "x": 2042.6478873239437,
           "y": 542.9530516431925,
           "width": 92,
           "height": 98.47887323943662,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10802,13 +11580,13 @@
           ]
         },
         {
-          "id": 143,
+          "id": 147,
           "name": "canal-tree-southeast",
           "x": 2194.6478873239435,
           "y": 815.9530516431925,
           "width": 92,
           "height": 98.47887323943662,
-          "gid": 21,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -10863,13 +11641,13 @@
           ]
         },
         {
-          "id": 144,
+          "id": 148,
           "name": "canal-south-sign",
           "x": 2053.0898203592815,
           "y": 801.2215568862275,
           "width": 30,
           "height": 40.778443113772454,
-          "gid": 36,
+          "gid": 40,
           "properties": [
             {
               "name": "key",
@@ -10924,13 +11702,13 @@
           ]
         },
         {
-          "id": 145,
+          "id": 149,
           "name": "canal-gate",
           "x": 1888,
           "y": 501.2422360248447,
           "width": 104,
           "height": 91.40372670807453,
-          "gid": 29,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -10983,17 +11761,1908 @@
               "value": false
             }
           ]
+        },
+        {
+          "id": 150,
+          "name": "harbor-workshop",
+          "x": 351,
+          "y": 1069.3850129198966,
+          "width": 138,
+          "height": 141.0904392764858,
+          "gid": 16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-workshop"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 420
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1210
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 138
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 351
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1069.3850129198966
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 138
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 151,
+          "name": "harbor-supply-stall",
+          "x": 546.713004484305,
+          "y": 1096.372197309417,
+          "width": 95,
+          "height": 85.62780269058295,
+          "gid": 43,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-supply-stall"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 594
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1182
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 95
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 546.713004484305
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1096.372197309417
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 95
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 152,
+          "name": "harbor-rest-bench",
+          "x": 475.51627906976745,
+          "y": 1286.539534883721,
+          "width": 74,
+          "height": 67.46046511627907,
+          "gid": 35,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-rest-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 512
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1354
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 475.51627906976745
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1286.539534883721
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 153,
+          "name": "harbor-lamp",
+          "x": 579.9195402298851,
+          "y": 1252.2413793103449,
+          "width": 32,
+          "height": 82.75862068965517,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 595
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1335
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 579.9195402298851
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1252.2413793103449
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 154,
+          "name": "harbor-entry-lamp",
+          "x": 597.9195402298851,
+          "y": 1039.2413793103449,
+          "width": 32,
+          "height": 82.75862068965517,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-entry-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 613
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1122
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 597.9195402298851
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1039.2413793103449
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 155,
+          "name": "harbor-tree",
+          "x": 114.73239436619718,
+          "y": 969.1643192488264,
+          "width": 104,
+          "height": 111.32394366197182,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-tree"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 166
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1080
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 114.73239436619718
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 969.1643192488264
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 156,
+          "name": "harbor-boat",
+          "x": 546,
+          "y": 1406.3636363636363,
+          "width": 108,
+          "height": 73.63636363636364,
+          "gid": 41,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-boat"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 600
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1480
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 108
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 546
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1406.3636363636363
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 108
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 157,
+          "name": "harbor-sign",
+          "x": 369.0898203592814,
+          "y": 1248.2215568862275,
+          "width": 30,
+          "height": 40.778443113772454,
+          "gid": 40,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-sign"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 384
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1289
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 369.0898203592814
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1248.2215568862275
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 158,
+          "name": "quay-bench",
+          "x": 1546.4744186046512,
+          "y": 1318.0093023255813,
+          "width": 68,
+          "height": 61.990697674418605,
+          "gid": 35,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1580
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1380
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1546.4744186046512
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1318.0093023255813
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 159,
+          "name": "quay-shelter",
+          "x": 1520,
+          "y": 1077.7329192546583,
+          "width": 100,
+          "height": 87.88819875776397,
+          "gid": 33,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-shelter"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1570
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1165
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1520
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1077.7329192546583
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 160,
+          "name": "quay-lamp",
+          "x": 1594.9195402298851,
+          "y": 1247.2413793103449,
+          "width": 32,
+          "height": 82.75862068965517,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1610
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1330
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1594.9195402298851
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1247.2413793103449
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 161,
+          "name": "quay-tree",
+          "x": 1412.6760563380283,
+          "y": 1227.6901408450703,
+          "width": 96,
+          "height": 102.7605633802817,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-tree"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1460
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1330
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 96
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1412.6760563380283
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1227.6901408450703
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 96
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 162,
+          "name": "quay-tree-north",
+          "x": 1377.5774647887324,
+          "y": 1112.6103286384978,
+          "width": 82,
+          "height": 87.77464788732394,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-tree-north"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1418
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1200
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 82
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1377.5774647887324
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1112.6103286384978
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 82
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 163,
+          "name": "quay-boat",
+          "x": 1067,
+          "y": 1217.7272727272727,
+          "width": 106,
+          "height": 72.27272727272727,
+          "gid": 41,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-boat"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1120
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1290
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1067
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1217.7272727272727
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 164,
+          "name": "library-building",
+          "x": 1891,
+          "y": 1046.9272237196765,
+          "width": 174,
+          "height": 193.69811320754718,
+          "gid": 13,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-building"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1978
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1240
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 174
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1891
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1046.9272237196765
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 174
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 165,
+          "name": "library-reading-bench",
+          "x": 2135.5162790697673,
+          "y": 1307.539534883721,
+          "width": 74,
+          "height": 67.46046511627907,
+          "gid": 35,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-reading-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2172
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1375
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2135.5162790697673
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1307.539534883721
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 166,
+          "name": "library-lamp",
+          "x": 2228.919540229885,
+          "y": 1286.2413793103449,
+          "width": 32,
+          "height": 82.75862068965517,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2244
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1369
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2228.919540229885
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1286.2413793103449
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 167,
+          "name": "library-tree",
+          "x": 2188.6619718309857,
+          "y": 1069.8215962441313,
+          "width": 94,
+          "height": 100.61971830985915,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-tree"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2235
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1170
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 94
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2188.6619718309857
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1069.8215962441313
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 94
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 168,
+          "name": "library-planter",
+          "x": 2060.0913242009133,
+          "y": 1228.958904109589,
+          "width": 40,
+          "height": 29.041095890410958,
+          "gid": 44,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-planter"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2080
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1258
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2060.0913242009133
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1228.958904109589
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 169,
+          "name": "library-notice",
+          "x": 2198.1017964071857,
+          "y": 1248.7844311377246,
+          "width": 34,
+          "height": 46.21556886227545,
+          "gid": 40,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-notice"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2215
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1295
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2198.1017964071857
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1248.7844311377246
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 170,
+          "name": "orchard-greenhouse",
+          "x": 2771,
+          "y": 1096.537162162162,
+          "width": 158,
+          "height": 154.53040540540542,
+          "gid": 34,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-greenhouse"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2850
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1250
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 2771
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1096.537162162162
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 171,
+          "name": "orchard-planter",
+          "x": 2658.1004566210045,
+          "y": 1225.054794520548,
+          "width": 44,
+          "height": 31.945205479452056,
+          "gid": 44,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-planter"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2680
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1257
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2658.1004566210045
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1225.054794520548
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 172,
+          "name": "orchard-bench",
+          "x": 2880.4883720930234,
+          "y": 1244.1860465116279,
+          "width": 70,
+          "height": 63.81395348837209,
+          "gid": 35,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2915
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1308
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 70
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2880.4883720930234
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1244.1860465116279
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 70
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 173,
+          "name": "orchard-lamp",
+          "x": 2784.919540229885,
+          "y": 1223.2413793103449,
+          "width": 32,
+          "height": 82.75862068965517,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2800
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1306
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2784.919540229885
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1223.2413793103449
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 174,
+          "name": "orchard-gate",
+          "x": 2615,
+          "y": 1094.4782608695652,
+          "width": 98,
+          "height": 86.1304347826087,
+          "gid": 33,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-gate"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2664
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1180
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 2615
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1094.4782608695652
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 175,
+          "name": "orchard-tree-1",
+          "x": 2356.6901408450703,
+          "y": 1112.5586854460093,
+          "width": 98,
+          "height": 104.90140845070422,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-1"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2405
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1217
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2356.6901408450703
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1112.5586854460093
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 176,
+          "name": "orchard-tree-2",
+          "x": 2455.7464788732395,
+          "y": 1131.0328638497654,
+          "width": 106,
+          "height": 113.46478873239437,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-2"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2508
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1244
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2455.7464788732395
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1131.0328638497654
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 177,
+          "name": "orchard-tree-3",
+          "x": 2765.6338028169016,
+          "y": 1054.0845070422536,
+          "width": 90,
+          "height": 96.33802816901408,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-3"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2810
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1150
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2765.6338028169016
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1054.0845070422536
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 178,
+          "name": "orchard-tree-4",
+          "x": 2921.6901408450703,
+          "y": 1105.5586854460093,
+          "width": 98,
+          "height": 104.90140845070422,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-4"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2970
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1210
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2921.6901408450703
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1105.5586854460093
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 179,
+          "name": "orchard-tree-5",
+          "x": 2437.7464788732395,
+          "y": 1347.0328638497654,
+          "width": 106,
+          "height": 113.46478873239437,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-5"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2490
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1460
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2437.7464788732395
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1347.0328638497654
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 106
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 180,
+          "name": "orchard-tree-6",
+          "x": 2810.6338028169016,
+          "y": 1364.0845070422536,
+          "width": 90,
+          "height": 96.33802816901408,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-tree-6"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2855
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1460
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2810.6338028169016
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 1364.0845070422536
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
         }
       ]
     },
     {
-      "id": 215,
+      "id": 272,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 214,
+          "id": 271,
           "name": "spawn",
           "point": true,
           "x": 798.72,
@@ -11009,13 +13678,13 @@
       ]
     },
     {
-      "id": 224,
+      "id": 281,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 216,
+          "id": 273,
           "name": "marta",
           "point": true,
           "x": 678.912,
@@ -11029,7 +13698,7 @@
           ]
         },
         {
-          "id": 217,
+          "id": 274,
           "name": "otto",
           "point": true,
           "x": 1251.84,
@@ -11043,7 +13712,7 @@
           ]
         },
         {
-          "id": 218,
+          "id": 275,
           "name": "lina",
           "point": true,
           "x": 926.208,
@@ -11057,7 +13726,7 @@
           ]
         },
         {
-          "id": 219,
+          "id": 276,
           "name": "emil",
           "point": true,
           "x": 350.208,
@@ -11071,7 +13740,7 @@
           ]
         },
         {
-          "id": 220,
+          "id": 277,
           "name": "ada",
           "point": true,
           "x": 202.752,
@@ -11085,7 +13754,7 @@
           ]
         },
         {
-          "id": 221,
+          "id": 278,
           "name": "fritz",
           "point": true,
           "x": 1190.4,
@@ -11099,7 +13768,7 @@
           ]
         },
         {
-          "id": 222,
+          "id": 279,
           "name": "greta",
           "point": true,
           "x": 635.904,
@@ -11113,7 +13782,7 @@
           ]
         },
         {
-          "id": 223,
+          "id": 280,
           "name": "inspector",
           "point": true,
           "x": 1311.744,
@@ -11129,13 +13798,13 @@
       ]
     },
     {
-      "id": 233,
+      "id": 290,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 225,
+          "id": 282,
           "name": "lindenhafen-platform-ticket",
           "point": true,
           "x": 1285.632,
@@ -11149,7 +13818,7 @@
           ]
         },
         {
-          "id": 226,
+          "id": 283,
           "name": "lindenhafen-cafe-receipt",
           "point": true,
           "x": 703.488,
@@ -11163,7 +13832,7 @@
           ]
         },
         {
-          "id": 227,
+          "id": 284,
           "name": "lindenhafen-market-crate",
           "point": true,
           "x": 1170.432,
@@ -11177,7 +13846,7 @@
           ]
         },
         {
-          "id": 228,
+          "id": 285,
           "name": "lindenhafen-fountain",
           "point": true,
           "x": 818.6880000000001,
@@ -11191,7 +13860,7 @@
           ]
         },
         {
-          "id": 229,
+          "id": 286,
           "name": "lindenhafen-noticeboard",
           "point": true,
           "x": 1242.624,
@@ -11205,7 +13874,7 @@
           ]
         },
         {
-          "id": 230,
+          "id": 287,
           "name": "lindenhafen-parcel",
           "point": true,
           "x": 1021.44,
@@ -11219,7 +13888,7 @@
           ]
         },
         {
-          "id": 231,
+          "id": 288,
           "name": "lindenhafen-workbench",
           "point": true,
           "x": 370.176,
@@ -11233,7 +13902,7 @@
           ]
         },
         {
-          "id": 232,
+          "id": 289,
           "name": "lindenhafen-garden",
           "point": true,
           "x": 637.4399999999999,
@@ -11249,14 +13918,14 @@
       ]
     },
     {
-      "id": 238,
+      "id": 299,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 234,
+          "id": 291,
           "name": "station-yard",
           "x": 0,
           "y": 0,
@@ -11292,7 +13961,7 @@
           ]
         },
         {
-          "id": 235,
+          "id": 292,
           "name": "parcel-yard",
           "x": 0,
           "y": 0,
@@ -11328,7 +13997,7 @@
           ]
         },
         {
-          "id": 236,
+          "id": 293,
           "name": "garden-court",
           "x": 0,
           "y": 0,
@@ -11364,7 +14033,7 @@
           ]
         },
         {
-          "id": 237,
+          "id": 294,
           "name": "canal-walk",
           "x": 0,
           "y": 0,
@@ -11398,17 +14067,161 @@
               "value": "Canal walk"
             }
           ]
+        },
+        {
+          "id": 295,
+          "name": "harbor-court",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 0,
+              "y": 1024
+            },
+            {
+              "x": 768,
+              "y": 1024
+            },
+            {
+              "x": 768,
+              "y": 1536
+            },
+            {
+              "x": 0,
+              "y": 1536
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-court"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Harbor repair court"
+            }
+          ]
+        },
+        {
+          "id": 296,
+          "name": "bridge-quay",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 768,
+              "y": 1024
+            },
+            {
+              "x": 1536,
+              "y": 1024
+            },
+            {
+              "x": 1536,
+              "y": 1536
+            },
+            {
+              "x": 768,
+              "y": 1536
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "bridge-quay"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Bridge quay"
+            }
+          ]
+        },
+        {
+          "id": 297,
+          "name": "library-square",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1536,
+              "y": 1024
+            },
+            {
+              "x": 2304,
+              "y": 1024
+            },
+            {
+              "x": 2304,
+              "y": 1536
+            },
+            {
+              "x": 1536,
+              "y": 1536
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-square"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Library square"
+            }
+          ]
+        },
+        {
+          "id": 298,
+          "name": "orchard-path",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2304,
+              "y": 1024
+            },
+            {
+              "x": 3072,
+              "y": 1024
+            },
+            {
+              "x": 3072,
+              "y": 1536
+            },
+            {
+              "x": 2304,
+              "y": 1536
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-path"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Orchard path"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 239,
+      "id": 300,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 146,
+          "id": 181,
           "name": "promenade-depot-pickup",
           "point": true,
           "x": 1992,
@@ -11472,7 +14285,7 @@
           ]
         },
         {
-          "id": 147,
+          "id": 182,
           "name": "promenade-depot-work",
           "point": true,
           "x": 2028,
@@ -11526,7 +14339,7 @@
           ]
         },
         {
-          "id": 148,
+          "id": 183,
           "name": "promenade-rain-shelter",
           "point": true,
           "x": 1910,
@@ -11595,7 +14408,7 @@
           ]
         },
         {
-          "id": 149,
+          "id": 184,
           "name": "promenade-reading-seat",
           "point": true,
           "x": 2160,
@@ -11659,7 +14472,7 @@
           ]
         },
         {
-          "id": 150,
+          "id": 185,
           "name": "parcel-house-pickup",
           "point": true,
           "x": 2430,
@@ -11713,7 +14526,7 @@
           ]
         },
         {
-          "id": 151,
+          "id": 186,
           "name": "parcel-stall-service",
           "point": true,
           "x": 2915,
@@ -11767,7 +14580,7 @@
           ]
         },
         {
-          "id": 152,
+          "id": 187,
           "name": "parcel-stall-queue",
           "point": true,
           "x": 2915,
@@ -11836,7 +14649,7 @@
           ]
         },
         {
-          "id": 153,
+          "id": 188,
           "name": "parcel-reading-seat",
           "point": true,
           "x": 2608,
@@ -11890,7 +14703,7 @@
           ]
         },
         {
-          "id": 154,
+          "id": 189,
           "name": "parcel-waiting-seat",
           "point": true,
           "x": 2800,
@@ -11944,7 +14757,7 @@
           ]
         },
         {
-          "id": 155,
+          "id": 190,
           "name": "community-greenhouse-work",
           "point": true,
           "x": 2894,
@@ -11998,7 +14811,7 @@
           ]
         },
         {
-          "id": 156,
+          "id": 191,
           "name": "community-greenhouse-pickup",
           "point": true,
           "x": 2862,
@@ -12052,7 +14865,7 @@
           ]
         },
         {
-          "id": 157,
+          "id": 192,
           "name": "community-potting-work",
           "point": true,
           "x": 2812,
@@ -12106,7 +14919,7 @@
           ]
         },
         {
-          "id": 158,
+          "id": 193,
           "name": "community-herb-work",
           "point": true,
           "x": 2488,
@@ -12160,7 +14973,7 @@
           ]
         },
         {
-          "id": 159,
+          "id": 194,
           "name": "community-reading-seat",
           "point": true,
           "x": 2669,
@@ -12214,7 +15027,7 @@
           ]
         },
         {
-          "id": 160,
+          "id": 195,
           "name": "community-gate-shelter",
           "point": true,
           "x": 2666,
@@ -12283,7 +15096,7 @@
           ]
         },
         {
-          "id": 161,
+          "id": 196,
           "name": "canal-reading-seat",
           "point": true,
           "x": 1993,
@@ -12352,7 +15165,7 @@
           ]
         },
         {
-          "id": 162,
+          "id": 197,
           "name": "canal-garden-seat",
           "point": true,
           "x": 2199,
@@ -12406,7 +15219,7 @@
           ]
         },
         {
-          "id": 163,
+          "id": 198,
           "name": "canal-gate-shelter",
           "point": true,
           "x": 1940,
@@ -12473,17 +15286,680 @@
               "value": "[\"places\"]"
             }
           ]
+        },
+        {
+          "id": 199,
+          "name": "harbor-repairs",
+          "point": true,
+          "x": 448,
+          "y": 1240,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-repairs"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "harbor-workshop"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "work"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 448
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1240
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 138
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 200,
+          "name": "harbor-supplies",
+          "point": true,
+          "x": 594,
+          "y": 1201,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-supplies"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "harbor-supply-stall"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "pickup"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 19
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 594
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1201
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 95
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 201,
+          "name": "harbor-rest",
+          "point": true,
+          "x": 512,
+          "y": 1370,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "harbor-rest"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "harbor-rest-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 16
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 512
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1370
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 202,
+          "name": "quay-reading",
+          "point": true,
+          "x": 1580,
+          "y": 1396,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-reading"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "quay-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 16
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1580
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1396
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 203,
+          "name": "quay-shelter-place",
+          "point": true,
+          "x": 1570,
+          "y": 1189,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "quay-shelter-place"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "quay-shelter"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "shelter"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1570
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1189
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 204,
+          "name": "library-books",
+          "point": true,
+          "x": 1978,
+          "y": 1326,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-books"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "library-building"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "pickup"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 86
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1978
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1326
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 174
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 205,
+          "name": "library-reading",
+          "point": true,
+          "x": 2172,
+          "y": 1391,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-reading"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "library-reading-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 16
+            },
+            {
+              "name": "capacity",
+              "type": "int",
+              "value": 2
+            },
+            {
+              "name": "places",
+              "type": "string",
+              "value": "[{\"x\":-14,\"y\":0},{\"x\":14,\"y\":0}]"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2172
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1391
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"places\"]"
+            }
+          ]
+        },
+        {
+          "id": 206,
+          "name": "library-gathering",
+          "point": true,
+          "x": 2173,
+          "y": 1320,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "library-gathering"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "library-notice"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "wait"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": -42
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 25
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2173
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1320
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 207,
+          "name": "orchard-potting",
+          "point": true,
+          "x": 2850,
+          "y": 1326,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-potting"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "orchard-greenhouse"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "work"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 76
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2850
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1326
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 208,
+          "name": "orchard-herbs",
+          "point": true,
+          "x": 2680,
+          "y": 1275,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-herbs"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "orchard-planter"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "work"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2680
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1275
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 209,
+          "name": "orchard-rest",
+          "point": true,
+          "x": 2915,
+          "y": 1326,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-rest"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "orchard-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2915
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1326
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 70
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 210,
+          "name": "orchard-shelter",
+          "point": true,
+          "x": 2664,
+          "y": 1200,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "orchard-shelter"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "orchard-gate"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "shelter"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2664
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1200
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
         }
       ]
     },
     {
-      "id": 240,
+      "id": 301,
       "name": "Entrances",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 164,
+          "id": 211,
           "name": "cafe-entrance",
           "point": true,
           "x": 588,
@@ -12537,7 +16013,7 @@
           ]
         },
         {
-          "id": 165,
+          "id": 212,
           "name": "bakery-entrance",
           "point": true,
           "x": 1172,
@@ -12591,7 +16067,7 @@
           ]
         },
         {
-          "id": 166,
+          "id": 213,
           "name": "supermarket-entrance",
           "point": true,
           "x": 1230,
@@ -12645,7 +16121,7 @@
           ]
         },
         {
-          "id": 167,
+          "id": 214,
           "name": "inn-entrance",
           "point": true,
           "x": 425,
@@ -12701,7 +16177,7 @@
       ]
     },
     {
-      "id": 241,
+      "id": 302,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,
@@ -12717,7 +16193,7 @@
       "objectalignment": "topleft",
       "tilewidth": 3072,
       "tileheight": 2048,
-      "tilecount": 40,
+      "tilecount": 44,
       "tiles": [
         {
           "id": 0,
@@ -13057,6 +16533,174 @@
         },
         {
           "id": 8,
+          "image": "../../web/public/assets/world-expansions/lindenhafen/lindenhafen-harbor-court-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-harbor-court-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "image": "../../web/public/assets/world-expansions/lindenhafen/lindenhafen-bridge-quay-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-bridge-quay-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "image": "../../web/public/assets/world-expansions/lindenhafen/lindenhafen-library-square-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-library-square-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "image": "../../web/public/assets/world-expansions/lindenhafen/lindenhafen-orchard-path-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/lindenhafen/lindenhafen-orchard-path-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 12,
           "image": "../../web/public/assets/lindenhafen-day-building-archive.webp",
           "imagewidth": 1113,
           "imageheight": 1239,
@@ -13098,7 +16742,7 @@
           ]
         },
         {
-          "id": 9,
+          "id": 13,
           "image": "../../web/public/assets/lindenhafen-day-building-cafe.webp",
           "imagewidth": 1070,
           "imageheight": 1190,
@@ -13140,7 +16784,7 @@
           ]
         },
         {
-          "id": 10,
+          "id": 14,
           "image": "../../web/public/assets/lindenhafen-day-building-station.webp",
           "imagewidth": 1144,
           "imageheight": 1174,
@@ -13182,7 +16826,7 @@
           ]
         },
         {
-          "id": 11,
+          "id": 15,
           "image": "../../web/public/assets/lindenhafen-day-building-workshop.webp",
           "imagewidth": 1161,
           "imageheight": 1187,
@@ -13224,7 +16868,7 @@
           ]
         },
         {
-          "id": 12,
+          "id": 16,
           "image": "../../web/public/assets/lindenhafen-day-building-house-1.webp",
           "imagewidth": 1207,
           "imageheight": 1119,
@@ -13276,7 +16920,7 @@
           ]
         },
         {
-          "id": 13,
+          "id": 17,
           "image": "../../web/public/assets/lindenhafen-day-building-house-2.webp",
           "imagewidth": 782,
           "imageheight": 1165,
@@ -13328,7 +16972,7 @@
           ]
         },
         {
-          "id": 14,
+          "id": 18,
           "image": "../../web/public/assets/lindenhafen-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1205,
@@ -13380,7 +17024,7 @@
           ]
         },
         {
-          "id": 15,
+          "id": 19,
           "image": "../../web/public/assets/lindenhafen-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1205,
@@ -13432,7 +17076,7 @@
           ]
         },
         {
-          "id": 16,
+          "id": 20,
           "image": "../../web/public/assets/lindenhafen-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1317,
@@ -13484,7 +17128,7 @@
           ]
         },
         {
-          "id": 17,
+          "id": 21,
           "image": "../../web/public/assets/lindenhafen-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1317,
@@ -13536,7 +17180,7 @@
           ]
         },
         {
-          "id": 18,
+          "id": 22,
           "image": "../../web/public/assets/lindenhafen-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1317,
@@ -13588,7 +17232,7 @@
           ]
         },
         {
-          "id": 19,
+          "id": 23,
           "image": "../../web/public/assets/lindenhafen-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1317,
@@ -13640,7 +17284,7 @@
           ]
         },
         {
-          "id": 20,
+          "id": 24,
           "image": "../../web/public/assets/lindenhafen-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 912,
@@ -13682,7 +17326,7 @@
           ]
         },
         {
-          "id": 21,
+          "id": 25,
           "image": "../../web/public/assets/lindenhafen-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 912,
@@ -13724,7 +17368,7 @@
           ]
         },
         {
-          "id": 22,
+          "id": 26,
           "image": "../../web/public/assets/lindenhafen-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 912,
@@ -13766,7 +17410,7 @@
           ]
         },
         {
-          "id": 23,
+          "id": 27,
           "image": "../../web/public/assets/lindenhafen-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1315,
@@ -13818,7 +17462,7 @@
           ]
         },
         {
-          "id": 24,
+          "id": 28,
           "image": "../../web/public/assets/lindenhafen-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1315,
@@ -13870,7 +17514,7 @@
           ]
         },
         {
-          "id": 25,
+          "id": 29,
           "image": "../../web/public/assets/lindenhafen-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1315,
@@ -13922,7 +17566,7 @@
           ]
         },
         {
-          "id": 26,
+          "id": 30,
           "image": "../../web/public/assets/lindenhafen-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1315,
@@ -13974,7 +17618,7 @@
           ]
         },
         {
-          "id": 27,
+          "id": 31,
           "image": "../../web/public/assets/lindenhafen-day-animation-1.webp",
           "imagewidth": 1024,
           "imageheight": 1294,
@@ -14016,7 +17660,7 @@
           ]
         },
         {
-          "id": 28,
+          "id": 32,
           "image": "../../web/public/assets/lindenhafen-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1205,
@@ -14058,7 +17702,7 @@
           ]
         },
         {
-          "id": 29,
+          "id": 33,
           "image": "../../web/public/assets/lindenhafen-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1205,
@@ -14100,7 +17744,7 @@
           ]
         },
         {
-          "id": 30,
+          "id": 34,
           "image": "../../web/public/assets/lindenhafen-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1235,
@@ -14142,7 +17786,7 @@
           ]
         },
         {
-          "id": 31,
+          "id": 35,
           "image": "../../web/public/assets/lindenhafen-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1350,
@@ -14194,7 +17838,7 @@
           ]
         },
         {
-          "id": 32,
+          "id": 36,
           "image": "../../web/public/assets/lindenhafen-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1350,
@@ -14246,7 +17890,7 @@
           ]
         },
         {
-          "id": 33,
+          "id": 37,
           "image": "../../web/public/assets/lindenhafen-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1350,
@@ -14298,7 +17942,7 @@
           ]
         },
         {
-          "id": 34,
+          "id": 38,
           "image": "../../web/public/assets/lindenhafen-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1350,
@@ -14350,7 +17994,7 @@
           ]
         },
         {
-          "id": 35,
+          "id": 39,
           "image": "../../web/public/assets/lindenhafen-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1235,
@@ -14392,7 +18036,7 @@
           ]
         },
         {
-          "id": 36,
+          "id": 40,
           "image": "../../web/public/assets/lindenhafen-day-animation-1.webp",
           "imagewidth": 1024,
           "imageheight": 1294,
@@ -14434,7 +18078,7 @@
           ]
         },
         {
-          "id": 37,
+          "id": 41,
           "image": "../../web/public/assets/lindenhafen-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1205,
@@ -14476,7 +18120,7 @@
           ]
         },
         {
-          "id": 38,
+          "id": 42,
           "image": "../../web/public/assets/lindenhafen-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1235,
@@ -14518,7 +18162,7 @@
           ]
         },
         {
-          "id": 39,
+          "id": 43,
           "image": "../../web/public/assets/lindenhafen-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1235,

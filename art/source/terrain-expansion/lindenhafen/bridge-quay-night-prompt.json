@@ -1,0 +1,18 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "positions": [
+    "0-0",
+    "0-1",
+    "1-0",
+    "1-1"
+  ],
+  "prompt": "Use case: lighting-weather. Asset type: registered nighttime terrain for The Lantern Atlas, bridge quay. Image 1 is the exact daylight geometry target. Image 2 is ONLY a color and night-brightness reference from the adjoining existing canal; do not borrow or move its geometry. Change ONLY image 1 lighting to the same clear blue-teal nighttime palette as image 2: muted slate-blue paving, subdued dark olive grass, deep turquoise water with soft readable moonlit ripples. Preserve perfect visibility of curbs and routes. No new light sources, lamp halos or fake golden pools. Every cobble, canal bank, grass edge, soil patch, circle, frame intersection and perspective must retain its exact normalized position from image 1. No zoom/crop, no added objects or altered layout. Same exact 432:304 aspect ratio; output approximately1495 by1052 native pixels, minimum1450 wide and1024 high. Preserve fine painted detail, not a blurry night filter. No buildings, trees, bushes, lamps, furniture, people, text, grid, border or UI. Output only image 1 relit at night; no side by side comparison.",
+  "generatedFiles": {
+    "0-0": "461d3474-f447-4d0d-a11b-e49d347b3b57",
+    "0-1": "3fcd9aef-63ff-401f-a891-4855ed4ea47a",
+    "1-0": "08997dce-ecb8-4467-b1ed-ad245143f961",
+    "1-1": "28d613f8-3495-4aba-a9d4-1dba60d374c1"
+  },
+  "dayTargets": "bridge-quay-day-{row}-{col}.png",
+  "lightingReference": "web/public/assets/world-expansions/lindenhafen/lindenhafen-canal-walk-night-terrain-overview.webp"
+}

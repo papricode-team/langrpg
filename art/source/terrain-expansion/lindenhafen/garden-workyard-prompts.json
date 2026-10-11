@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "layoutSource": "garden-workyard-layout.png",
+  "layoutProvenance": {
+    "board": "southern-half-board.png",
+    "promptSet": "southern-half-prompts.json",
+    "logicalCrop": {
+      "x": 2304,
+      "y": 640,
+      "width": 768,
+      "height": 512
+    }
+  },
+  "logicalSize": {
+    "width": 768,
+    "height": 512
+  },
+  "sourceLogicalSize": {
+    "width": 432,
+    "height": 304
+  },
+  "sourceOverlap": 96,
+  "pixelDensity": 4,
+  "daySectionPrompts": []
+}

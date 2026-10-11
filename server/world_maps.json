@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "15e099c67131de75",
+  "contentVersion": "14b30349de1d9a26",
   "maps": {
     "lindenhafen": {
       "width": 3072,
-      "height": 1024,
+      "height": 1536,
       "spawn": {
         "x": 0.26,
-        "y": 0.61
+        "y": 0.4066666666666667
       },
-      "coordinateVersion": 2,
+      "coordinateVersion": 3,
       "entrances": {
         "cafe": {
           "id": "cafe-entrance",
           "ownerId": "cafe",
           "approach": {
             "x": 0.19140625,
-            "y": 0.4638671875
+            "y": 0.3092447916666667
           },
           "return": {
             "x": 0.19140625,
-            "y": 0.4638671875
+            "y": 0.3092447916666667
           }
         },
         "bakery": {
@@ -28,11 +28,11 @@
           "ownerId": "riverside-house",
           "approach": {
             "x": 0.3815104166666667,
-            "y": 0.8271484375
+            "y": 0.5514322916666666
           },
           "return": {
             "x": 0.3815104166666667,
-            "y": 0.8271484375
+            "y": 0.5514322916666666
           }
         },
         "supermarket": {
@@ -40,11 +40,11 @@
           "ownerId": "market-east-stall",
           "approach": {
             "x": 0.400390625,
-            "y": 0.4736328125
+            "y": 0.3157552083333333
           },
           "return": {
             "x": 0.400390625,
-            "y": 0.4736328125
+            "y": 0.3157552083333333
           }
         },
         "inn": {
@@ -52,11 +52,11 @@
           "ownerId": "cafe",
           "approach": {
             "x": 0.13834635416666666,
-            "y": 0.451171875
+            "y": 0.30078125
           },
           "return": {
             "x": 0.13834635416666666,
-            "y": 0.451171875
+            "y": 0.30078125
           }
         }
       }
