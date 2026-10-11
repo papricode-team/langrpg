@@ -20,3 +20,7 @@ Retrieved 2026-10-09. Kaikki's page identifies extraction 2026-10-03 from the En
 | wordhoard CSV v0.1.0 archive | [Download](https://github.com/natema/wordhoard/releases/download/v0.1.0/wordhoard-csv-v0.1.0.zip) | `83837efd46241e7226fc6daaa9d0cc81b57bf746434b8c539049c660d98ba761` |
 
 `sourceId=wiktionary-kaikki` identifies imported dictionary facts. `project-lexical-editorial` marks factual glosses/forms edited or supplied for the project and retains the dictionary-entry link. Original instructional source is `scripts/course-lessons.mjs`; original factual reference supplements are `scripts/course-reference-supplement.json`. Synthetic German audio is generated separately with the installed macOS Anna voice and FFmpeg; it is not Wiktionary audio or human speech. See [art and audio provenance](art.md).
+
+## Turkish support text
+
+No licensed Turkish dictionary or Turkish course source is bundled. All Turkish in `web/src/data/i18n/` — story meanings, interface text, the Turkish glosses for the A1 lexicon and for the words the story uses, grammar-guide translations, story-exercise text and the short notes for Turkish speakers — is **authored translation (machine-written by an AI model), needs native review**. It is translated from the project's own German and English text, not from third-party dictionaries, and inherits no external license. See [Turkish route](turkish-route.md) for coverage and review priorities.
