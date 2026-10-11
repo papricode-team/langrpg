@@ -619,7 +619,7 @@ class HarborScene extends Phaser.Scene {
         onComplete: () => this.finishPeriodTransition() });
     } else {
       oldScenery?.destroy();
-      if (oldBackground) oldBackground.setTexture(terrain).setTint(timeAmbient(this.mapSpec.id, this.clock.advance(0).hour, period).terrain);
+      if (oldBackground) oldBackground.setTexture(terrain).setDisplaySize(WIDTH, HEIGHT).setTint(timeAmbient(this.mapSpec.id, this.clock.advance(0).hour, period).terrain);
       if (previous !== period) this.releaseAnimationAssets(this.mapSpec.id, previous);
     }
     this.lastAmbient = '';

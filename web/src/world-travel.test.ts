@@ -34,7 +34,7 @@ const harness = vi.hoisted(() => {
     setY() { return this; } setPosition() { return this; } add() { return this; }
     setFrame(frame: string | number) { this.frame = frame; return this; }
     setFlipX(flipX: boolean) { this.flipX = flipX; return this; }
-    setDisplaySize() { return this; } setTexture(key: string) { this.key = key; return this; }
+    setDisplaySize(_width: number, _height: number) { return this; } setTexture(key: string) { this.key = key; return this; }
     destroy() { this.destroyed = true; }
   }
   type Task = { key: string; kind: 'image' | 'atlas' | 'json' };
@@ -391,6 +391,19 @@ describe('shared indoor rendering', () => {
 });
 
 describe('scene travel while destination art streams', () => {
+  it('keeps the terrain footprint fixed when a period swaps to a larger painting', () => {
+    const { world, scene } = indoorFixture();
+    const background = new harness.Picture('lindenhafen');
+    let displayed = [1536, 1024];
+    background.setTexture = () => { displayed = [3072, 2048]; return background; };
+    background.setDisplaySize = (width: number, height: number) => { displayed = [width, height]; return background; };
+    scene.background = background;
+    scene.reducedMotion = true;
+    scene.applyPeriod('night');
+    expect(displayed).toEqual([1536, 1024]);
+    world.destroy();
+  });
+
   it('builds the atmosphere even when audio is unavailable', async () => {
     const { world, scene } = fixture();
     expect(scene.audio).toBeUndefined();

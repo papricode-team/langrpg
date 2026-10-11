@@ -6,7 +6,8 @@ Created for the Lantern Atlas concept on 2026-10-08, with separate world terrain
 
 | Asset | Size | Use |
 | --- | --- | --- |
-| `web/public/assets/<region>-terrain.webp` | 1536 × 1024 each | Ground, roads and water for live exploration |
+| `web/public/assets/<story-town>-terrain.webp` and day/night variants | 3072 × 2048 each | Stitched high-resolution ground, roads and water for live exploration |
+| `web/public/assets/<expedition>-terrain.webp` | 1536 × 1024 each | Expedition ground, roads and water |
 | `web/public/assets/lindenhafen-props.webp` | 1024 × 1598 | 16 reusable transparent Lindenhafen prop frames |
 | `web/public/assets/waldruh-props.webp` | 1024 × 1582 | 16 reusable transparent Waldruh prop frames |
 | `web/public/assets/nebelstadt-props.webp` | 1024 × 1646 | 16 reusable transparent Nebelstadt prop frames |
@@ -22,6 +23,11 @@ Lossless source masters are included in `art/source/lindenhafen.png`, `art/sourc
 The game requests the WebP assets. Original PNGs need not be copied into the public production directory. The source masters are excluded from Docker build contexts; publishing serves the optimized runtime images.
 
 ## Separate world terrain and props
+
+The three story towns received separately generated high-resolution terrain
+sections on 2026-10-11. Four overlapping sprites for each day/night plate
+are stitched to 3072 × 2048 while retaining the original world coordinate
+footprint. See [terrain masters, exact prompts and export commands](../art/source/terrain-hd/README.md).
 
 The three terrain plates and transparent prop sheets were generated with the built-in ImageGen tool on 2026-10-09 using each region's original painting as its visual reference. Terrain edits removed buildings, trees, lamps, stalls, boats and other raised scenery while retaining the road, water and land layout. Prop sheets matched the reference camera, palette and painterly materials. The original `lindenhafen.png`, `waldruh.png` and `nebelstadt.png` paintings remain historical references, and their original WebP exports are no longer the live world's base layer.
 

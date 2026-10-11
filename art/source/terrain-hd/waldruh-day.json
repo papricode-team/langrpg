@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "original": "art/source/waldruh-terrain.png",
+  "worldSize": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputSize": {
+    "width": 3072,
+    "height": 2048
+  },
+  "sourceCropSize": {
+    "width": 832,
+    "height": 576
+  },
+  "overlap": 128,
+  "tiles": {
+    "nw": {
+      "left": 0,
+      "top": 0,
+      "file": "waldruh-day-nw.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    },
+    "ne": {
+      "left": 704,
+      "top": 0,
+      "file": "waldruh-day-ne.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    },
+    "sw": {
+      "left": 0,
+      "top": 448,
+      "file": "waldruh-day-sw.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    },
+    "se": {
+      "left": 704,
+      "top": 448,
+      "file": "waldruh-day-se.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    }
+  },
+  "quality": 82
+}

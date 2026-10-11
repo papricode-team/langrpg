@@ -4,3 +4,9 @@ art/source/story-cast/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Native-resolution building masters, with exact prompts tracked as ordinary text.
 art/source/buildings/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Multi-section high-resolution terrain masters; crop references are regenerated.
+art/source/terrain-hd/*-nw.png filter=lfs diff=lfs merge=lfs -text
+art/source/terrain-hd/*-ne.png filter=lfs diff=lfs merge=lfs -text
+art/source/terrain-hd/*-sw.png filter=lfs diff=lfs merge=lfs -text
+art/source/terrain-hd/*-se.png filter=lfs diff=lfs merge=lfs -text

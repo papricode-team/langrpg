@@ -2,9 +2,16 @@
 /** Optimize ImageGen-painted time-of-day terrain without changing its geometry. */
 import sharp from 'sharp';
 import { access, readFile, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 const maps = process.argv.slice(2);
 for (const map of maps.length ? maps : ['lindenhafen', 'waldruh', 'nebelstadt']) {
   for (const period of ['day', 'night']) {
+    // Approved multi-section masters take precedence over the old small plate.
+    try {
+      await access(`art/source/terrain-hd/${map}-${period}.json`);
+      execFileSync(process.execPath, ['scripts/prepare-terrain-hd.mjs', map, `--${period}`], { stdio: 'inherit' });
+      continue;
+    } catch (error) { if (error.code !== 'ENOENT') throw error; }
     const source = `art/source/${map}-${period}-terrain.png`;
     try { await access(source); }
     catch (error) { if (period === 'day' && error.code === 'ENOENT') continue; throw error; }

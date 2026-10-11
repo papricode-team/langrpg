@@ -35,6 +35,6 @@ for (const map of args.length ? args : [...stories, ...expeditionArt.map(region 
     const input = await sharp(await image.png().toBuffer()).extract({ left: cropLeft, top: cropTop, width: cropWidth, height: cropHeight }).png().toBuffer();
     images.push({ input, left: Math.max(0, left), top: Math.max(0, top) });
   }
-  await sharp(resolve(out, `${manifest.terrain ?? `${map}-terrain`}.webp`)).composite(images).webp({ quality: 86, effort: 4 }).toFile(resolve(out, `${map}-preview.webp`));
+  await sharp(resolve(out, `${manifest.terrain ?? `${map}-terrain`}.webp`)).resize(1536, 1024).composite(images).webp({ quality: 86, effort: 4 }).toFile(resolve(out, `${map}-preview.webp`));
   console.log(`${map}: preview uses runtime building stills and ground anchors`);
 }

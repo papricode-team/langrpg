@@ -1,0 +1,185 @@
+{
+  "lindenhafen-day-nw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: northwest terrain sprite / overlapping section of Lindenhafen game ground.\nInput image: edit target, exact 832 by 576 source crop. Redraw this exact entire crop at 2496 by 1728 pixels with richly resolved fine detail, for stitching with adjoining sections into a large game terrain. Output landscape aspect 13:9.\nPrimary request: increase actual painted ground resolution, crisp individual small cobblestones with irregular edges, fine moss between stones, small grass blades, dry soil grain, stone stair joints. Keep the same gentle hand-painted RPG style, light direction, palette and material scale. This is a meticulous high-resolution restoration, not a new map.\nConstraints: preserve ALL source shapes and geometry EXACTLY at the same normalized coordinates: every road edge, circular grass island, stair tread, curb and path crossing; preserve the complete crop bounds with no zooming, reframing, new borders or new objects. Make every original paving stone retain its location, split only internal details. Retain source colors, no change in light. No buildings, trees, objects, people, text or UI. Do not expand the crop or invent space. The outer 8% must match the reference's shapes and colors especially closely to allow invisible overlap stitching. Opaque terrain.",
+    "output": "lindenhafen-day-nw.png",
+    "references": [
+      "lindenhafen-day-nw-reference.png"
+    ]
+  },
+  "lindenhafen-day-ne": {
+    "prompt": "Use case: precise-object-edit\nAsset type: northeast terrain sprite / overlapping section of Lindenhafen game ground.\nInput image: edit target, exact 832 by 576 source crop. Redraw this exact entire crop at 2496 by 1728 pixels with richly resolved fine detail, for stitching with adjoining sections into a large game terrain. Output landscape aspect 13:9.\nPrimary request: increase actual painted ground resolution, crisp individual small cobblestones with irregular edges, fine moss between stones, small grass blades, dry soil grain, stone stair joints. Keep the same gentle hand-painted RPG style, light direction, palette and material scale. This is a meticulous high-resolution restoration, not a new map.\nConstraints: preserve ALL source shapes and geometry EXACTLY at the same normalized coordinates: every road edge, circular grass island, stair tread, curb and path crossing; preserve the complete crop bounds with no zooming, reframing, new borders or new objects. Make every original paving stone retain its location, split only internal details. Retain source colors, no change in light. No buildings, trees, objects, people, text or UI. Do not expand the crop or invent space. The outer 8% must match the reference's shapes and colors especially closely to allow invisible overlap stitching. Opaque terrain.\nAdditional constraints: keep every water shoreline, canal bridge opening, retaining wall and stair location exactly registered to the source. Match the supporting generated northwest section's detail density and colors. Reference 1 is the edit target; reference 2 is ONLY a neighboring style example, do not copy its layout.",
+    "output": "lindenhafen-day-ne.png",
+    "references": [
+      "lindenhafen-day-ne-reference.png",
+      "lindenhafen-day-nw.png"
+    ]
+  },
+  "lindenhafen-day-sw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: southwest terrain sprite / overlapping section of Lindenhafen game ground.\nInput image: edit target, exact 832 by 576 source crop. Redraw this exact entire crop at 2496 by 1728 pixels with richly resolved fine detail, for stitching with adjoining sections into a large game terrain. Output landscape aspect 13:9.\nPrimary request: increase actual painted ground resolution, crisp individual small cobblestones with irregular edges, fine moss between stones, small grass blades, dry soil grain, stone stair joints. Keep the same gentle hand-painted RPG style, light direction, palette and material scale. This is a meticulous high-resolution restoration, not a new map.\nConstraints: preserve ALL source shapes and geometry EXACTLY at the same normalized coordinates: every road edge, circular grass island, stair tread, curb and path crossing; preserve the complete crop bounds with no zooming, reframing, new borders or new objects. Make every original paving stone retain its location, split only internal details. Retain source colors, no change in light. No buildings, trees, objects, people, text or UI. Do not expand the crop or invent space. The outer 8% must match the reference's shapes and colors especially closely to allow invisible overlap stitching. Opaque terrain.\nAdditional constraints: keep every water shoreline, canal bridge opening, retaining wall and stair location exactly registered to the source. Match the supporting generated northwest section's detail density and colors. Reference 1 is the edit target; reference 2 is ONLY a neighboring style example, do not copy its layout.",
+    "output": "lindenhafen-day-sw.png",
+    "references": [
+      "lindenhafen-day-sw-reference.png",
+      "lindenhafen-day-nw.png"
+    ]
+  },
+  "lindenhafen-day-se": {
+    "prompt": "Use case: precise-object-edit\nAsset type: southeast terrain sprite / overlapping section of Lindenhafen game ground.\nInput image: edit target, exact 832 by 576 source crop. Redraw this exact entire crop at 2496 by 1728 pixels with richly resolved fine detail, for stitching with adjoining sections into a large game terrain. Output landscape aspect 13:9.\nPrimary request: increase actual painted ground resolution, crisp individual small cobblestones with irregular edges, fine moss between stones, small grass blades, dry soil grain, stone stair joints. Keep the same gentle hand-painted RPG style, light direction, palette and material scale. This is a meticulous high-resolution restoration, not a new map.\nConstraints: preserve ALL source shapes and geometry EXACTLY at the same normalized coordinates: every road edge, circular grass island, stair tread, curb and path crossing; preserve the complete crop bounds with no zooming, reframing, new borders or new objects. Make every original paving stone retain its location, split only internal details. Retain source colors, no change in light. No buildings, trees, objects, people, text or UI. Do not expand the crop or invent space. The outer 8% must match the reference's shapes and colors especially closely to allow invisible overlap stitching. Opaque terrain.\nAdditional constraints: keep every water shoreline, canal bridge opening, retaining wall and stair location exactly registered to the source. Match the supporting generated northwest section's detail density and colors. Reference 1 is the edit target; reference 2 is ONLY a neighboring style example, do not copy its layout.",
+    "output": "lindenhafen-day-se.png",
+    "references": [
+      "lindenhafen-day-se-reference.png",
+      "lindenhafen-day-nw.png"
+    ]
+  },
+  "lindenhafen-night-nw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution nw overlapping nighttime terrain sprite for Lindenhafen.\nInput 1: edit target, the selected richly detailed daytime terrain section.\nInput 2: lighting/color reference ONLY, the corresponding original nighttime crop.\nPrimary request: repaint ONLY the lighting of input 1 to the deep blue moonlit nighttime palette of input 2. Preserve ALL of input 1's crisp fine stone edges, small grass blades, soil grains, moss joints and water texture. Deliver a high-resolution 2496×1728 landscape image, exact 13:9 framing.\nConstraints: keep input 1's exact road and grass outlines, stair treads, walls, canal shores, bridges, arches, every paving stone and all normalized geometry. Match input 2's nighttime blue-gray stones, dark teal grass, deep blue water and restrained pale silver water reflections where present. No glow sources or new objects, no lamps, buildings, trees, people or text. No camera change, cropping, borders, haze or loss of fine detail. Match lighting reference uniformly across the complete section, including its edges, for seamless stitching. Opaque full image.",
+    "output": "lindenhafen-night-nw.png",
+    "references": [
+      "lindenhafen-day-nw.png",
+      "lindenhafen-night-nw-reference.png"
+    ]
+  },
+  "lindenhafen-night-ne": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution ne overlapping nighttime terrain sprite for Lindenhafen.\nInput 1: edit target, the selected richly detailed daytime terrain section.\nInput 2: lighting/color reference ONLY, the corresponding original nighttime crop.\nPrimary request: repaint ONLY the lighting of input 1 to the deep blue moonlit nighttime palette of input 2. Preserve ALL of input 1's crisp fine stone edges, small grass blades, soil grains, moss joints and water texture. Deliver a high-resolution 2496×1728 landscape image, exact 13:9 framing.\nConstraints: keep input 1's exact road and grass outlines, stair treads, walls, canal shores, bridges, arches, every paving stone and all normalized geometry. Match input 2's nighttime blue-gray stones, dark teal grass, deep blue water and restrained pale silver water reflections where present. No glow sources or new objects, no lamps, buildings, trees, people or text. No camera change, cropping, borders, haze or loss of fine detail. Match lighting reference uniformly across the complete section, including its edges, for seamless stitching. Opaque full image.",
+    "output": "lindenhafen-night-ne.png",
+    "references": [
+      "lindenhafen-day-ne.png",
+      "lindenhafen-night-ne-reference.png"
+    ]
+  },
+  "lindenhafen-night-sw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution sw overlapping nighttime terrain sprite for Lindenhafen.\nInput 1: edit target, the selected richly detailed daytime terrain section.\nInput 2: lighting/color reference ONLY, the corresponding original nighttime crop.\nPrimary request: repaint ONLY the lighting of input 1 to the deep blue moonlit nighttime palette of input 2. Preserve ALL of input 1's crisp fine stone edges, small grass blades, soil grains, moss joints and water texture. Deliver a high-resolution 2496×1728 landscape image, exact 13:9 framing.\nConstraints: keep input 1's exact road and grass outlines, stair treads, walls, canal shores, bridges, arches, every paving stone and all normalized geometry. Match input 2's nighttime blue-gray stones, dark teal grass, deep blue water and restrained pale silver water reflections where present. No glow sources or new objects, no lamps, buildings, trees, people or text. No camera change, cropping, borders, haze or loss of fine detail. Match lighting reference uniformly across the complete section, including its edges, for seamless stitching. Opaque full image.",
+    "output": "lindenhafen-night-sw.png",
+    "references": [
+      "lindenhafen-day-sw.png",
+      "lindenhafen-night-sw-reference.png"
+    ]
+  },
+  "lindenhafen-night-se": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution se overlapping nighttime terrain sprite for Lindenhafen.\nInput 1: edit target, the selected richly detailed daytime terrain section.\nInput 2: lighting/color reference ONLY, the corresponding original nighttime crop.\nPrimary request: repaint ONLY the lighting of input 1 to the deep blue moonlit nighttime palette of input 2. Preserve ALL of input 1's crisp fine stone edges, small grass blades, soil grains, moss joints and water texture. Deliver a high-resolution 2496×1728 landscape image, exact 13:9 framing.\nConstraints: keep input 1's exact road and grass outlines, stair treads, walls, canal shores, bridges, arches, every paving stone and all normalized geometry. Match input 2's nighttime blue-gray stones, dark teal grass, deep blue water and restrained pale silver water reflections where present. No glow sources or new objects, no lamps, buildings, trees, people or text. No camera change, cropping, borders, haze or loss of fine detail. Match lighting reference uniformly across the complete section, including its edges, for seamless stitching. Opaque full image.",
+    "output": "lindenhafen-night-se.png",
+    "references": [
+      "lindenhafen-day-se.png",
+      "lindenhafen-night-se-reference.png"
+    ]
+  },
+  "waldruh-day-nw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution nw terrain section for Waldruh, a painterly overhead RPG.\nInput: exact edit target, an 832×576 overlapping crop. Redraw at 2496×1728, preserving its exact 13:9 framing.\nPrimary request: restore truly sharp fine detail in cobblestone joints, fine gravel, individual grass tufts, lichen on rough rocky terraces, dry dirt grains, autumn leaves and flowing water where present. This is the same original terrain with detailed surface painting at higher resolution.\nConstraints: keep EVERY road boundary, staircase, terrace, rock silhouette, retaining wall, circular stone plaza, shoreline, waterfall and bridge in its EXACT original normalized position and shape. No camera or zoom change, no perspective change, no new land or paths. Retain the warm autumn colors, soft sunlight, existing direction of shadows and original painted aesthetic. Do not add trees, buildings, objects, people, writing or borders. Complete image is opaque ground. Outer 8% especially must match the reference colors and shapes for seamless overlap stitching. Do not replace stone sizes with much larger stones.",
+    "output": "waldruh-day-nw.png",
+    "references": [
+      "waldruh-day-nw-reference.png"
+    ]
+  },
+  "waldruh-day-ne": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution ne terrain section for Waldruh, a painterly overhead RPG.\nInput: exact edit target, an 832×576 overlapping crop. Redraw at 2496×1728, preserving its exact 13:9 framing.\nPrimary request: restore truly sharp fine detail in cobblestone joints, fine gravel, individual grass tufts, lichen on rough rocky terraces, dry dirt grains, autumn leaves and flowing water where present. This is the same original terrain with detailed surface painting at higher resolution.\nConstraints: keep EVERY road boundary, staircase, terrace, rock silhouette, retaining wall, circular stone plaza, shoreline, waterfall and bridge in its EXACT original normalized position and shape. No camera or zoom change, no perspective change, no new land or paths. Retain the warm autumn colors, soft sunlight, existing direction of shadows and original painted aesthetic. Do not add trees, buildings, objects, people, writing or borders. Complete image is opaque ground. Outer 8% especially must match the reference colors and shapes for seamless overlap stitching. Do not replace stone sizes with much larger stones.",
+    "output": "waldruh-day-ne.png",
+    "references": [
+      "waldruh-day-ne-reference.png"
+    ]
+  },
+  "waldruh-day-sw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution sw terrain section for Waldruh, a painterly overhead RPG.\nInput: exact edit target, an 832×576 overlapping crop. Redraw at 2496×1728, preserving its exact 13:9 framing.\nPrimary request: restore truly sharp fine detail in cobblestone joints, fine gravel, individual grass tufts, lichen on rough rocky terraces, dry dirt grains, autumn leaves and flowing water where present. This is the same original terrain with detailed surface painting at higher resolution.\nConstraints: keep EVERY road boundary, staircase, terrace, rock silhouette, retaining wall, circular stone plaza, shoreline, waterfall and bridge in its EXACT original normalized position and shape. No camera or zoom change, no perspective change, no new land or paths. Retain the warm autumn colors, soft sunlight, existing direction of shadows and original painted aesthetic. Do not add trees, buildings, objects, people, writing or borders. Complete image is opaque ground. Outer 8% especially must match the reference colors and shapes for seamless overlap stitching. Do not replace stone sizes with much larger stones.",
+    "output": "waldruh-day-sw.png",
+    "references": [
+      "waldruh-day-sw-reference.png"
+    ]
+  },
+  "waldruh-day-se": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution se terrain section for Waldruh, a painterly overhead RPG.\nInput: exact edit target, an 832×576 overlapping crop. Redraw at 2496×1728, preserving its exact 13:9 framing.\nPrimary request: restore truly sharp fine detail in cobblestone joints, fine gravel, individual grass tufts, lichen on rough rocky terraces, dry dirt grains, autumn leaves and flowing water where present. This is the same original terrain with detailed surface painting at higher resolution.\nConstraints: keep EVERY road boundary, staircase, terrace, rock silhouette, retaining wall, circular stone plaza, shoreline, waterfall and bridge in its EXACT original normalized position and shape. No camera or zoom change, no perspective change, no new land or paths. Retain the warm autumn colors, soft sunlight, existing direction of shadows and original painted aesthetic. Do not add trees, buildings, objects, people, writing or borders. Complete image is opaque ground. Outer 8% especially must match the reference colors and shapes for seamless overlap stitching. Do not replace stone sizes with much larger stones.",
+    "output": "waldruh-day-se.png",
+    "references": [
+      "waldruh-day-se-reference.png"
+    ]
+  },
+  "waldruh-night-nw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution nw overlapping nighttime terrain sprite for Waldruh.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Keep every autumn leaf in place, with cool nighttime colors. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "waldruh-night-nw.png",
+    "references": [
+      "waldruh-day-nw.png",
+      "waldruh-night-nw-reference.png"
+    ]
+  },
+  "waldruh-night-ne": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution ne overlapping nighttime terrain sprite for Waldruh.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Keep every autumn leaf in place, with cool nighttime colors. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "waldruh-night-ne.png",
+    "references": [
+      "waldruh-day-ne.png",
+      "waldruh-night-ne-reference.png"
+    ]
+  },
+  "waldruh-night-sw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution sw overlapping nighttime terrain sprite for Waldruh.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Keep every autumn leaf in place, with cool nighttime colors. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "waldruh-night-sw.png",
+    "references": [
+      "waldruh-day-sw.png",
+      "waldruh-night-sw-reference.png"
+    ]
+  },
+  "waldruh-night-se": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution se overlapping nighttime terrain sprite for Waldruh.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Keep every autumn leaf in place, with cool nighttime colors. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "waldruh-night-se.png",
+    "references": [
+      "waldruh-day-se.png",
+      "waldruh-night-se-reference.png"
+    ]
+  },
+  "nebelstadt-day-nw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution nw overlapping terrain section for Nebelstadt, painterly overhead RPG.\nInput: edit target is exact 832×576 crop. Restore at 2496×1728 pixels, keep exact landscape 13:9 framing.\nPrimary request: finely resolved gray-blue paving, mortar lines, small lichen patches, weathered stone railing pillars and walls, stone stair tread edges, flowing teal sea ripples and coastal rock texture where present. Retain the source's graceful detailed hand-painted game art, restrained colors and daylight.\nConstraints: preserve the EXACT normalized layout, road edges, terraces, stairs, wall silhouettes, pillar positions, bridges and arches, shoreline and distant coastal silhouettes, circular compass plaza and radial pattern. No change to camera, view, crop, scale or geometry. Do not replace small stones with larger stones; restore fine details inside the source shapes. No new buildings, trees, people, objects, writing or borders. Complete image is opaque ground. Outer 8% must closely match the source's color and geometry for invisible overlap stitching. Keep exact day lighting and existing shadows.",
+    "output": "nebelstadt-day-nw.png",
+    "references": [
+      "nebelstadt-day-nw-reference.png"
+    ]
+  },
+  "nebelstadt-day-ne": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution ne overlapping terrain section for Nebelstadt, painterly overhead RPG.\nInput: edit target is exact 832×576 crop. Restore at 2496×1728 pixels, keep exact landscape 13:9 framing.\nPrimary request: finely resolved gray-blue paving, mortar lines, small lichen patches, weathered stone railing pillars and walls, stone stair tread edges, flowing teal sea ripples and coastal rock texture where present. Retain the source's graceful detailed hand-painted game art, restrained colors and daylight.\nConstraints: preserve the EXACT normalized layout, road edges, terraces, stairs, wall silhouettes, pillar positions, bridges and arches, shoreline and distant coastal silhouettes, circular compass plaza and radial pattern. No change to camera, view, crop, scale or geometry. Do not replace small stones with larger stones; restore fine details inside the source shapes. No new buildings, trees, people, objects, writing or borders. Complete image is opaque ground. Outer 8% must closely match the source's color and geometry for invisible overlap stitching. Keep exact day lighting and existing shadows.",
+    "output": "nebelstadt-day-ne.png",
+    "references": [
+      "nebelstadt-day-ne-reference.png"
+    ]
+  },
+  "nebelstadt-day-sw": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution sw overlapping terrain section for Nebelstadt, painterly overhead RPG.\nInput: edit target is exact 832×576 crop. Restore at 2496×1728 pixels, keep exact landscape 13:9 framing.\nPrimary request: finely resolved gray-blue paving, mortar lines, small lichen patches, weathered stone railing pillars and walls, stone stair tread edges, flowing teal sea ripples and coastal rock texture where present. Retain the source's graceful detailed hand-painted game art, restrained colors and daylight.\nConstraints: preserve the EXACT normalized layout, road edges, terraces, stairs, wall silhouettes, pillar positions, bridges and arches, shoreline and distant coastal silhouettes, circular compass plaza and radial pattern. No change to camera, view, crop, scale or geometry. Do not replace small stones with larger stones; restore fine details inside the source shapes. No new buildings, trees, people, objects, writing or borders. Complete image is opaque ground. Outer 8% must closely match the source's color and geometry for invisible overlap stitching. Keep exact day lighting and existing shadows.",
+    "output": "nebelstadt-day-sw.png",
+    "references": [
+      "nebelstadt-day-sw-reference.png"
+    ]
+  },
+  "nebelstadt-day-se": {
+    "prompt": "Use case: precise-object-edit\nAsset type: high-resolution se overlapping terrain section for Nebelstadt, painterly overhead RPG.\nInput: edit target is exact 832×576 crop. Restore at 2496×1728 pixels, keep exact landscape 13:9 framing.\nPrimary request: finely resolved gray-blue paving, mortar lines, small lichen patches, weathered stone railing pillars and walls, stone stair tread edges, flowing teal sea ripples and coastal rock texture where present. Retain the source's graceful detailed hand-painted game art, restrained colors and daylight.\nConstraints: preserve the EXACT normalized layout, road edges, terraces, stairs, wall silhouettes, pillar positions, bridges and arches, shoreline and distant coastal silhouettes, circular compass plaza and radial pattern. No change to camera, view, crop, scale or geometry. Do not replace small stones with larger stones; restore fine details inside the source shapes. No new buildings, trees, people, objects, writing or borders. Complete image is opaque ground. Outer 8% must closely match the source's color and geometry for invisible overlap stitching. Keep exact day lighting and existing shadows.",
+    "output": "nebelstadt-day-se.png",
+    "references": [
+      "nebelstadt-day-se-reference.png"
+    ]
+  },
+  "nebelstadt-night-nw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution nw overlapping nighttime terrain sprite for Nebelstadt.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Retain the exact gold line geometry in the blue circular compass plaza, dimly lit at night. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "nebelstadt-night-nw.png",
+    "references": [
+      "nebelstadt-day-nw.png",
+      "nebelstadt-night-nw-reference.png"
+    ]
+  },
+  "nebelstadt-night-ne": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution ne overlapping nighttime terrain sprite for Nebelstadt.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Retain the exact gold line geometry in the blue circular compass plaza, dimly lit at night. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "nebelstadt-night-ne.png",
+    "references": [
+      "nebelstadt-day-ne.png",
+      "nebelstadt-night-ne-reference.png"
+    ]
+  },
+  "nebelstadt-night-sw": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution sw overlapping nighttime terrain sprite for Nebelstadt.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Retain the exact gold line geometry in the blue circular compass plaza, dimly lit at night. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "nebelstadt-night-sw.png",
+    "references": [
+      "nebelstadt-day-sw.png",
+      "nebelstadt-night-sw-reference.png"
+    ]
+  },
+  "nebelstadt-night-se": {
+    "prompt": "Use case: lighting-weather\nAsset type: high-resolution se overlapping nighttime terrain sprite for Nebelstadt.\nInput 1: EDIT TARGET, selected detailed daytime terrain section.\nInput 2: color/light reference ONLY, matching original night crop.\nPrimary request: change ONLY input 1's lighting and surface colors to match the deep blue moonlit nighttime illumination of input 2. Keep every crisp paving joint, rock edge, fine grass tuft, tiny lichen patch and water ripple from input 1. Output 2496×1728 pixels in the exact landscape 13:9 framing.\nConstraints: preserve input 1's exact geometry and normalized coordinates: ALL paths, steps, rock contours, terraced land outlines, retaining walls, pillar locations, circular plazas, shorelines, bridge arches and distant scenery. No change to stone sizes, camera, perspective, image bounds or material detail density. Nighttime blue-gray stone, very dark blue-green ground, restrained silver ripples and highlights as in input 2. Retain the exact gold line geometry in the blue circular compass plaza, dimly lit at night. No new light sources, new buildings, trees, lamps, people, objects, writing or borders. No added haze or bloom; ground remains finely detailed and readable. Match reference nighttime tones uniformly all the way to the edges for seamless stitching. Full opaque terrain image.",
+    "output": "nebelstadt-night-se.png",
+    "references": [
+      "nebelstadt-day-se.png",
+      "nebelstadt-night-se-reference.png"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "original": "art/source/nebelstadt-day-terrain.png",
+  "worldSize": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputSize": {
+    "width": 3072,
+    "height": 2048
+  },
+  "sourceCropSize": {
+    "width": 832,
+    "height": 576
+  },
+  "overlap": 128,
+  "tiles": {
+    "nw": {
+      "left": 0,
+      "top": 0,
+      "file": "nebelstadt-day-nw.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    },
+    "ne": {
+      "left": 704,
+      "top": 0,
+      "file": "nebelstadt-day-ne.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    },
+    "sw": {
+      "left": 0,
+      "top": 448,
+      "file": "nebelstadt-day-sw.png",
+      "nativeSize": {
+        "width": 1509,
+        "height": 1042
+      }
+    },
+    "se": {
+      "left": 704,
+      "top": 448,
+      "file": "nebelstadt-day-se.png",
+      "nativeSize": {
+        "width": 1508,
+        "height": 1043
+      }
+    }
+  },
+  "quality": 90
+}

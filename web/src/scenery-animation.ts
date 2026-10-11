@@ -29,9 +29,11 @@ export function sceneryAnimationTextureKeys(manifest:SceneryAnimationManifest):r
 export const isBuildingScenery=(name:string):boolean=>
   ['archive','cafe','station','workshop','house','greenhouse','arch'].includes(name)||name.startsWith('house-');
 export const sceneryAnimationManifestKey=(id:MapId,period:WorldPeriod='day'):string=>`${id}-${period}-animations`;
-/** Expedition day/night motions share the already streamed terrain texture. */
+/** Reuse the streamed base when it is the same painting as the period terrain. */
 export function sceneryTerrainKey(id: MapId, manifest?: SceneryAnimationManifest): string | undefined {
-  return manifest?.terrain === `${id}-terrain` ? id : manifest?.terrain;
+  const base = manifest?.terrain === `${id}-terrain`
+    || id === 'nebelstadt' && manifest?.terrain === 'nebelstadt-day-terrain';
+  return base ? id : manifest?.terrain;
 }
 /** Each placement has its own point in an authored cycle; all transforms stay fixed. */
 export function sampleSceneryFrame(animation:SceneryAnimation,id:string,seconds:number):string {

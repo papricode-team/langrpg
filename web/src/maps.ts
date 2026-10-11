@@ -29,7 +29,7 @@ export interface WorldMapSpec {
   sceneryAtlas: string;
   variationAsset: string;
   variationAtlas: string;
-  /** Feet positions, normalized to each 1536 × 1024 painting. */
+  /** Feet positions normalized to the 1536 × 1024 world footprint. */
   spawn: MapPosition;
   npcs: ReadonlyArray<MapPosition & { id: string }>;
   objects: ReadonlyArray<WorldObjectSpec>;
