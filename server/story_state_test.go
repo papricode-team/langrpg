@@ -17,6 +17,9 @@ func storyTestApp(t *testing.T) *App {
 	if err != nil {
 		t.Fatal(err)
 	}
+	// Story mechanics are tested with every word already restored; vocabulary
+	// pacing has its own coverage in intake_test.go.
+	curriculum.Syllabus = nil
 	store, err := NewJSONStore("")
 	if err != nil {
 		t.Fatal(err)

@@ -264,3 +264,17 @@
 }
 .grammar-route .grammar-note { border-left:3px solid #b39554; padding:6px 12px; background:#e8dfbd; color:#4d5c40; }
 .grammar-route .grammar-note strong { margin-right:6px; }
+
+/* Learning routes open as the Atlas restores their words; today's words come first. */
+.route-unit.locked { opacity:.62; cursor:default; border-style:dashed; }
+.route-unit.locked:hover { border-color:#bdc3a0; background:#f3eed7; }
+.route-unit.locked em { color:#8b7a52; }
+.todays-words { display:flex; align-items:center; gap:16px; padding:18px 20px; margin-bottom:14px; border:1px solid #9bb08a; background:#e9efd7; color:#2f4a2d; }
+.todays-words>.icon { width:28px; height:28px; flex:none; }
+.todays-words>div { flex:1; min-width:0; }
+.todays-words small { display:block; text-transform:uppercase; font-size:10px; letter-spacing:1px; color:#5f7a53; margin-bottom:4px; }
+.todays-words strong { display:block; font-family:'Fraunces',serif; font-size:18px; font-weight:500; }
+.todays-words p { margin:6px 0 0; font-size:13px; }
+.todays-words .word-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.todays-words .word-chips span { padding:2px 8px; border-radius:999px; background:#f6f3e4; border:1px solid #c6d0ad; font-size:12px; }
+.lexeme.unrestored { opacity:.55; }

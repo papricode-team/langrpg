@@ -33,12 +33,15 @@ export interface ActivityProgress {
   activityId: ActivityId; level: CourseLevel; completions: number; completedAt: string; lastCompletedAt: string;
   exerciseIds: string[]; correctedAnswers: number;
 }
+/** Vocabulary intake: credited play and the syllabus words the server has introduced (see intake.ts). */
+export interface IntakeState { version: number; activeSeconds: number; creditSeconds: number; lastBeatAt: string; wordIds: string[]; }
 export interface Progress {
   revision: number;
   xp: number; completedQuestIds: string[]; attempts: number; correctAttempts: number;
   items: Record<string, MemoryItem>;
   words: Record<string, WordMemory>; completedUnitIds: string[]; activities: Record<string, ActivityProgress>;
   exerciseStats: Record<string, ExerciseEvidence>; recentAttempts: Record<string, AttemptEvidence>;
+  intake?: IntakeState;
   story?: StoryState;
 }
 export interface AttemptResult {
@@ -175,6 +178,8 @@ export class Api {
   loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }
   completeActivity(input: ActivityCompletionInput) { return this.request<ActivityCompletionResult>('/activity/complete', input); }
   expose(input: ExposureInput) { return this.request<CompletionResult>('/exposure', input); }
+  /** Credit up to two minutes of visible play; the server introduces any words the budget now allows. */
+  heartbeat(id: string, seconds: number) { return this.request<{ progress: Progress; introduced: string[]; duplicate: boolean }>('/intake/heartbeat', { id, seconds }); }
   connect() {
     // A reload supplies the matching compiled scene. Automatic retries with the
     // same incompatible bundle would only keep replacing the current session.

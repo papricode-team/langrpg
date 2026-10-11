@@ -9,7 +9,9 @@ import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewa
 import type { CutsceneKind } from './cutscene';
 import { grammarForQuest } from './contextual-grammar';
 import { questObjectivesMarkup } from './quest-objectives';
-import { routeUnlocked, routeLockReason, questUnlocked, firstAvailableMap } from './progression';
+import { routeUnlocked, routeLockReason, questUnlocked, questAvailable, questLockReason, firstAvailableMap } from './progression';
+import { IntakeClock, intakeStatus, introducedWords, missingQuestWords, missingWordCount, syllabus, todaysWords, wordIntroduced, wordScheduled } from './intake';
+import type { CourseLexeme } from './course';
 import { createStateStore } from './game-state';
 import { characterBuilderMarkup, bindCharacterBuilder } from './character-builder';
 import { localHour, type WorldTimeMode } from './world-clock';
@@ -104,6 +106,35 @@ let started = false;
 let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
+/** Vocabulary intake: one heartbeat per minute of visible, connected play; the server introduces words at its own pace. */
+const intakeClock = new IntakeClock();
+let heartbeatBusy = false;
+let pendingHeartbeat: { id: string; seconds: number } | undefined;
+function introducedSet(): ReadonlySet<string> { return introducedWords(progress); }
+/** Ambient lines may only use restored words; anything the lexicon cannot place (names, story words) passes. */
+function barkLineAllowed(german: string): boolean {
+  if (!course) return true;
+  const lookup = createGlossLookup(course.courseLexicon, progress), introduced = introducedSet();
+  return (german.match(/\p{L}+/gu) ?? []).every(token => { const gloss = lookup(token); return !gloss || !wordScheduled(gloss.wordId) || introduced.has(gloss.wordId); });
+}
+async function sendHeartbeat(seconds: number) {
+  if (!started || heartbeatBusy) return;
+  heartbeatBusy = true;
+  pendingHeartbeat ??= { id: crypto.randomUUID(), seconds };
+  try {
+    const result = await api.heartbeat(pendingHeartbeat.id, pendingHeartbeat.seconds);
+    pendingHeartbeat = undefined;
+    acceptProgress(result.progress); updateProgress();
+    announceRestoredWords(result.introduced);
+  } catch { /* The same beat is retried on the next minute; unsent play is not lost. */ }
+  finally { heartbeatBusy = false; }
+}
+function announceRestoredWords(ids: readonly string[]) {
+  if (!ids.length) return;
+  const words = ids.map(id => course?.lexemeById.get(id)).filter((word): word is CourseLexeme => !!word);
+  if (words.length === 1) { const word = words[0]; toast(t('The ink returns: {word} — {meaning}', { word: word.article ? `${word.article} ${word.lemma}` : word.lemma, meaning: lexemeMeaning(word) })); return; }
+  toast(t('{count} words have returned to the Atlas. Open Your words to meet them.', { count: ids.length }));
+}
 function writingReady(): boolean { return accountReminder?.writingReady ?? false; }
 const entryNames = nameSuggestions();
 let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
@@ -213,7 +244,7 @@ function renderShell() {
       <section id="explore-view" class="world-stage" aria-label="Lindenhafen"><div id="world-container" aria-label="${e(t('Game world. Use WASD, arrow keys, or the joystick to move. Press E to interact.'))}" tabindex="0"></div></section>
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
-        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><div class="player-meta"><span id="hud-level">A1 · ${e(upper(titleLabel('Wanderer')))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></div><div class="player-progress"><span id="chapter-fill"></span></div></div></div>
+        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><div class="player-meta"><span id="hud-level">A1 · ${e(upper(titleLabel('Wanderer')))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span><button class="ink-badge" id="ink-badge" data-paused="" data-view="journal" aria-label="${e(t('Restored words'))}"></button></div><div class="player-progress"><span id="chapter-fill"></span></div></div></div>
         <div class="location-banner"><div class="location-title" id="breadcrumb-current">Lindenhafen</div><div class="location-subtitle" id="location-subtitle">${upper(t('The first missing route'))}</div></div>
         <section class="interior-location" id="interior-location" aria-label="${e(t('Current building'))}" hidden></section>
         <div class="world-status">
@@ -263,7 +294,7 @@ function renderShell() {
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
     }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     glosses: text => course ? glossesForLine(text, createGlossLookup(course.courseLexicon, progress)) : undefined,
-    prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
+    prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup,.95,introducedSet()); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); world.setInputEnabled(false); document.dispatchEvent(new Event('atlas-controls-reset')); },
@@ -368,6 +399,7 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
   return playablePractice(object.exerciseIds.flatMap(id => {
     const exercise = interiorExercises.find(item => item.id === id);
     if (!exercise) return [];
+    if (course && missingWordCount(course.courseContextWordIds[exercise.id] ?? [], progress)) return [];
     return [exercise.mode === 'sentence' && hasSuccessfulEncounter(exercise.itemId) ? { ...exercise, mode: 'type' as const, prompt: t('Write in German: {english}', { english: localizedExercise(exercise).english }) } : exercise];
   }));
 }
@@ -410,8 +442,14 @@ function updateProgress() {
   document.querySelector('#bell-count')!.textContent = `${savedStory.bell} / 7`;
   document.querySelector('#story-day')!.textContent = `${upper(t('Day {day}', { day: savedStory.day }))}${savedStory.lanternStreak ? ` · ${savedStory.lanternStreak === 1 ? t('{count} lantern', { count: savedStory.lanternStreak }) : t('{count} lanterns', { count: savedStory.lanternStreak })}` : ''}`;
   world.setStoryState({ completedQuestIds: progress.completedQuestIds, bellCount: savedStory.bell, flags: savedStory.flags, playerName: profile.name });
-  if (course) world.setLearningContext(course.courseLexicon,progress);
+  if (course) world.setLearningContext(course.courseLexicon,progress,introducedSet(),barkLineAllowed);
   document.querySelector('#xp-value')!.textContent = String(progress.xp);
+  const intake = intakeStatus(progress), badge = document.querySelector<HTMLElement>('#ink-badge');
+  if (badge) {
+    badge.dataset.paused = intake.paused;
+    badge.innerHTML = `${icon('leaf')} ${e(intake.introduced === 1 ? t('{count} word restored', { count: intake.introduced }) : t('{count} words restored', { count: intake.introduced }))}`;
+    badge.title = intake.paused === 'practise' ? t('Practise your restored words before new ones return.') : intake.paused === 'review' ? t('Review the words that are due before new ones return.') : intake.pending ? t('New words are returning now.') : intake.remaining ? t('The next word returns in about {minutes} min.', { minutes: Math.max(1, Math.ceil(intake.nextWordInSeconds / 60)) }) : t('Every word has returned.');
+  }
   const expedition = getExpedition(mapId);
   if (expedition) {
     const game = getExpeditionGame(mapId)!, status = expeditionGameStatus(mapId, level, progress.story?.expeditionPlans ?? {});
@@ -435,7 +473,7 @@ function updateProgress() {
   const investigation = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
   world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigation.objectId}` : q.npcId);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}</span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigation.objectId)?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong></span>${icon('chevron')}</button>`;
+  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}</span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigation.objectId)?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong>${!finished && missingQuestWords(q.id, progress).length ? `<small class="tracker-lock">${e(questLockReason(q.id, progress))}</small>` : ''}</span>${icon('chevron')}</button>`;
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') renderOther();
 }
@@ -570,6 +608,11 @@ function showNextObjective() {
   const graph = questGraph(q.id), target = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
   if (target) { world.focusObject(target.objectId); toast(t('Read {thing}, then return to the witness.', { thing: findObject(target.objectId)?.label ?? t('the evidence') })); return; }
   const npc = npcs.find(item => item.id === q.npcId)!;
+  const missing = missingQuestWords(q.id, progress).length;
+  if (missing) {
+    openDialog(`<div class="objective-dialog">${portrait(npc.id, 'large-portrait')}<div class="eyebrow">${t('YOUR NEXT LEAD')}</div><h2>${e(localized(q.title))}</h2><p class="vocabulary-lock">${icon('leaf')} ${e(questLockReason(q.id, progress))} ${e(t('The Atlas restores about {count} words an hour while you play, as long as you keep up with them.', { count: syllabus.wordsPerHour }))}</p><button class="primary-button" data-action="todays-words">${t('Practise today’s words')} ${icon('arrow')}</button><button class="text-button" data-view="course">${t('Open your learning routes')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'objective-dialog');
+    return;
+  }
   const chapterQuests = quests.filter(item => item.level === level);
   const previous = chapterQuests.slice(0, chapterQuests.findIndex(item => item.id === q.id)).reverse().find(item => progress.completedQuestIds.includes(item.id));
   openDialog(`<div class="objective-dialog">${portrait(npc.id, 'large-portrait')}<div class="eyebrow">${t('YOUR NEXT LEAD')}</div><h2>${e(localized(q.title))}</h2>${graph ? questObjectivesMarkup(graph,progress) : ''}<p>${renderNarrative(previous ? clueFor(previous.id)?.lead ?? act.goal : act.goal)}</p><div class="story-objective">${icon('pin')}<span>${e(t('Find {name}', { name: localizedName(npc.name) }))} · ${e(localized(q.location))}</span></div><button class="primary-button" data-follow-quest="${q.id}">${e(t('Find {name}', { name: localizedName(npc.name) }))} ${icon('arrow')}</button><button class="text-button" data-follow-quest="${q.id}">${icon('pin')} ${t('Track this conversation')}</button></div>`, 'objective-dialog');
@@ -643,7 +686,7 @@ function startExpeditionGame(id: string, requestedLevel?: Level) {
 }
 function showObject(id: string) {
   const active = currentQuest(), graph = questGraph(active.id);
-  if (graph?.investigations.some(item => item.objectId === id) && questUnlocked(active.id, progress.completedQuestIds) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (questController?.inspect(active.id, id)) return; }
+  if (graph?.investigations.some(item => item.objectId === id) && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (questController?.inspect(active.id, id)) return; }
   if (expeditionRegions.some(region => getExpeditionEncounter(region.id, id))) { showExpeditionEncounter(id); return; }
   const object = findObject(id); if (!object) return;
   rememberSeen('objects', id);
@@ -665,7 +708,7 @@ async function loadCourse(): Promise<CourseModule> {
   if (course) return course;
   coursePromise ??= import('./course').then(module => {
     course = module;
-    world.setLearningContext(module.courseLexicon,progress);
+    world.setLearningContext(module.courseLexicon,progress,introducedSet(),barkLineAllowed);
     for (const word of module.courseLexicon) if (!audioPaths.has(spokenWord(word))) audioPaths.set(spokenWord(word), `/audio/word-${word.id}.mp3`);
     for (const ex of module.courseExercises) if (!audioPaths.has(ex.german)) audioPaths.set(ex.german, `/audio/${ex.id}.mp3`);
     for (const guide of module.courseGrammar) guide.examples.forEach((example, index) => { if (!audioPaths.has(example.german)) audioPaths.set(example.german, `/audio/guide-${guide.id}-${index + 1}.mp3`); });
@@ -748,17 +791,36 @@ function renderCourse(el: Element) {
   const units = course.courseUnits.filter(unit => unit.level === courseLevel);
   const grammar = course.courseGrammar.filter(item => item.level === courseLevel);
   const completed = units.filter(unit => progress.completedUnitIds?.includes(unit.id)).length;
-  el.innerHTML = `<div class="route-heading">${icon('book')}<div><div class="eyebrow">${t('WORDS BECOME POSSIBILITIES')}</div><h2>${t('Your routes through German.')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p></div></div><div class="route-levels">${(['A1','A2','B1'] as const).map(l => `<button class="${l === courseLevel ? 'selected' : ''}" data-course-level="${l}" aria-pressed="${l === courseLevel}">${l}<small>${e(maps.find(map => map.level === l)!.name)}</small></button>`).join('')}</div><div class="route-summary"><span><strong>${words.length}</strong> ${t('words')}</span><span><strong>${grammar.length}</strong> ${t('grammar guides')}</span><span><strong>${completed} / ${units.length}</strong> ${t('routes completed')}</span></div><div class="route-tabs">${([['topics',t('Learning routes')],['grammar',t('Grammar guides')],['lexicon',t('Word atlas')]] as const).map(([id,title]) => `<button class="${courseTab === id ? 'selected' : ''}" data-course-tab="${id}" aria-pressed="${courseTab === id}">${e(title)}</button>`).join('')}</div><button class="text-button" data-action="course-sources">${e(t('Learning content & credits'))}</button><div id="course-content"></div>`;
+  el.innerHTML = `<div class="route-heading">${icon('book')}<div><div class="eyebrow">${t('WORDS BECOME POSSIBILITIES')}</div><h2>${t('Your routes through German.')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p></div></div><div class="route-levels">${(['A1','A2','B1'] as const).map(l => `<button class="${l === courseLevel ? 'selected' : ''}" data-course-level="${l}" aria-pressed="${l === courseLevel}">${l}<small>${e(maps.find(map => map.level === l)!.name)}</small></button>`).join('')}</div><div class="route-summary"><span><strong>${words.filter(word => wordIntroduced(progress, word.id)).length} / ${words.length}</strong> ${t('words restored')}</span><span><strong>${grammar.length}</strong> ${t('grammar guides')}</span><span><strong>${completed} / ${units.length}</strong> ${t('routes completed')}</span></div><div class="route-tabs">${([['topics',t('Learning routes')],['grammar',t('Grammar guides')],['lexicon',t('Word atlas')]] as const).map(([id,title]) => `<button class="${courseTab === id ? 'selected' : ''}" data-course-tab="${id}" aria-pressed="${courseTab === id}">${e(title)}</button>`).join('')}</div><button class="text-button" data-action="course-sources">${e(t('Learning content & credits'))}</button><div id="course-content"></div>`;
   const content = document.querySelector('#course-content')!;
   if (courseTab === 'topics') {
     const pageCount = Math.max(1, Math.ceil(units.length / 24)); coursePage = Math.min(coursePage, pageCount - 1);
-    content.innerHTML = `<div class="route-unit-list">${units.slice(coursePage * 24, coursePage * 24 + 24).map(unit => { const done = progress.completedUnitIds?.includes(unit.id); const practiced = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return ex && exerciseHasSuccess(ex); }).length; return `<button class="route-unit ${done ? 'found' : ''}" data-course-unit="${e(unit.id)}">${icon(done ? 'check' : 'scroll')}<span><small>${unit.level} · ${e(localized(unit.topic))}</small><strong>${e(localized(unit.title))}</strong><em>${e(t('{done} / {total} encounters saved', { done: practiced, total: unit.exerciseIds.length }))}</em></span>${icon('chevron')}</button>`; }).join('')}</div>${pageCount > 1 ? `<div class="route-pagination"><button class="outline-button" data-course-page="${coursePage - 1}" ${coursePage === 0 ? 'disabled' : ''}>${t('Previous')}</button><span>${coursePage + 1} / ${pageCount}</span><button class="outline-button" data-course-page="${coursePage + 1}" ${coursePage === pageCount - 1 ? 'disabled' : ''}>${t('Next')}</button></div>` : ''}`;
+    content.innerHTML = `${todaysWordsCard()}<div class="route-unit-list">${units.slice(coursePage * 24, coursePage * 24 + 24).map(unit => { const done = progress.completedUnitIds?.includes(unit.id); const missing = done ? 0 : missingWordCount(unit.wordIds, progress); const practiced = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return ex && exerciseHasSuccess(ex); }).length; return `<button class="route-unit ${done ? 'found' : missing ? 'locked' : ''}" data-course-unit="${e(unit.id)}" ${missing ? 'disabled' : ''}>${icon(done ? 'check' : missing ? 'leaf' : 'scroll')}<span><small>${unit.level} · ${e(localized(unit.topic))}</small><strong>${e(localized(unit.title))}</strong><em>${e(missing ? (missing === 1 ? t('Opens after {count} more restored word', { count: missing }) : t('Opens after {count} more restored words', { count: missing })) : t('{done} / {total} encounters saved', { done: practiced, total: unit.exerciseIds.length }))}</em></span>${icon('chevron')}</button>`; }).join('')}</div>${pageCount > 1 ? `<div class="route-pagination"><button class="outline-button" data-course-page="${coursePage - 1}" ${coursePage === 0 ? 'disabled' : ''}>${t('Previous')}</button><span>${coursePage + 1} / ${pageCount}</span><button class="outline-button" data-course-page="${coursePage + 1}" ${coursePage === pageCount - 1 ? 'disabled' : ''}>${t('Next')}</button></div>` : ''}`;
   } else if (courseTab === 'grammar') {
     content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source); const unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<article class="grammar-route" data-grammar-guide="${guide.id}"><small class="eyebrow">${guide.level} · ${t('YOUR LANGUAGE TOOLKIT')}</small><h3>${e(guide.title)}</h3><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note"><strong>${e(t('For Turkish speakers'))}</strong> ${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${e(example.german)} <button class="text-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}', { text: example.german }))}">${icon('volume')}</button><small>${e(example.english)}</small></blockquote>`).join('')}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')} ${icon('arrow')}</button>` : ''}</article>`; }).join('');
   } else {
-    content.innerHTML = `<label class="route-search">${icon('clue')}<input id="lexicon-search" type="search" placeholder="${e(t('Find a German word or English meaning…'))}" aria-label="${e(t('Search the word atlas'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>`;
-    bindLexiconSearch(words);
+    content.innerHTML = `<label class="route-search">${icon('clue')}<input id="lexicon-search" type="search" placeholder="${e(t('Find a German word or English meaning…'))}" aria-label="${e(t('Search the word atlas'))}"/></label><p class="lexicon-status">${e(t('{restored} of {total} words at this level have returned to the Atlas; the rest arrive as you play.', { restored: words.filter(word => wordIntroduced(progress, word.id)).length, total: words.length }))}</p><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>`;
+    bindLexiconSearch(words.filter(word => wordIntroduced(progress, word.id)));
   }
+}
+/** Restored words the learner has not yet recognised unaided: the daily loop between conversations. */
+function todaysWordsCard(): string {
+  if (!course) return '';
+  const status = intakeStatus(progress), words = todaysWords(progress).map(id => course!.lexemeById.get(id)).filter((word): word is CourseLexeme => !!word);
+  const next = status.paused === 'practise' ? t('New words wait until you have met these.') : status.paused === 'review' ? t('New words wait until your due words are reviewed.') : status.pending ? t('New words are returning now.') : status.remaining ? t('The next word returns in about {minutes} min.', { minutes: Math.max(1, Math.ceil(status.nextWordInSeconds / 60)) }) : t('Every word has returned.');
+  return `<section class="todays-words">${icon('leaf')}<div><small>${e(t('TODAY’S WORDS'))} · ${e(t('{count} to meet', { count: words.length }))}</small><strong>${e(words.length ? t('Words the Atlas has restored for you') : t('You have met every restored word'))}</strong><p>${e(t('{count} words restored so far.', { count: status.introduced }))} ${e(next)}</p>${words.length ? `<div class="word-chips">${words.map(word => `<span lang="de">${e(word.article ? `${word.article} ${word.lemma}` : word.lemma)}</span>`).join('')}</div>` : ''}</div>${words.length ? `<button class="primary-button" data-action="todays-words">${t('Practise today’s words')} ${icon('arrow')}</button>` : ''}</section>`;
+}
+async function startTodaysWords() {
+  const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
+  if (!module) return;
+  if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
+  const ids = todaysWords(progress);
+  // Meaning first, then the sound, then recall: every mode across today's words before the next mode begins.
+  const queue = playablePractice((['recognition', 'listening', 'production'] as const).flatMap(mode => ids.flatMap(id => { const ex = module.courseExerciseById.get(`lex-${id}-${mode}`); return ex && !exerciseHasSuccess(ex) ? [ex] : []; }))).slice(0, 12);
+  if (!queue.length) { toast(t('You have met every restored word. New words return as you play.')); return; }
+  setView('world');
+  run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:t('Today’s words'), started:Date.now() };
+  openDialog('', 'quest-dialog course-dialog'); renderExercise();
 }
 function lexemeCards(words: CourseModule['courseLexicon']): string {
   return words.map(word => {
@@ -779,15 +841,17 @@ function bindLexiconSearch(words: CourseModule['courseLexicon']) {
 }
 function renderWordJournal(el: Element) {
   if (!course) { requestCourseRender(el); return; }
-  const seen = course.courseLexicon.filter(word => progress.words?.[word.id]);
-  const due = seen.filter(word => wordReadyForReview(progress.words[word.id]));
+  const introduced = introducedSet();
+  const seen = course.courseLexicon.filter(word => introduced.has(word.id) || progress.words?.[word.id]);
+  const due = seen.filter(word => progress.words?.[word.id] && wordReadyForReview(progress.words[word.id]));
   const retained = seen.filter(word => progress.words[word.id].mastery === 'retained');
-  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><div class="eyebrow">${t('YOUR GERMAN, GROWING WITH YOU')}</div><h2>${t('Every word has its own story.')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words encountered')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
+  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><div class="eyebrow">${t('YOUR GERMAN, GROWING WITH YOU')}</div><h2>${t('Every word has its own story.')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words restored')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${todaysWordsCard()}${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
   if (seen.length) bindLexiconSearch(seen);
 }
 async function startWordPractice(id: string) {
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
   const word = module?.lexemeById.get(id); if (!word || !module) return;
+  if (wordScheduled(id) && !wordIntroduced(progress, id)) { toast(t('This word has not returned to the Atlas yet. Keep playing and it will.')); return; }
   const memory = progress.words?.[id];
   if (memory?.mastery === 'retained' && Date.parse(memory.dueAt) > Date.now()) {
     openDialog(`<div class="course-intro"><div class="eyebrow">${t('A FAMILIAR WORD, AT REST')}</div><h2>${e(spokenWord(word))}</h2><p>${e(lexemeMeaning(word))}</p><p>${e(t('This word is resting. Its next encounter is {date}.', { date: new Date(memory.dueAt).toLocaleDateString(baseLanguage(), {month:'short',day:'numeric'}) }))}</p><button class="primary-button" data-speak="${e(spokenWord(word))}">${icon('volume')} ${t('Hear this word')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'course-dialog'); return;
@@ -802,6 +866,8 @@ async function startWordPractice(id: string) {
 async function startCourseUnit(id: string) {
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
   const unit = module?.courseUnits.find(item => item.id === id); if (!module || !unit) return;
+  const missing = progress.completedUnitIds?.includes(unit.id) ? 0 : missingWordCount(unit.wordIds, progress);
+  if (missing) { toast(missing === 1 ? t('Opens after {count} more restored word', { count: missing }) : t('Opens after {count} more restored words', { count: missing })); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const due = new Set(dueItems(progress));
   const pending = unit.exerciseIds.map(id => module.courseExerciseById.get(id)).filter((ex): ex is NonNullable<typeof ex> => !!ex && !exerciseHasSuccess(ex));
@@ -869,7 +935,7 @@ function renderOther() {
     el.innerHTML = adventureHome({ act, region: getMap(mapId).name, regionArt: getMap(mapId).previewAsset, quest, npc, portrait: portrait(npc.id), completed: completedAtLevel(level), total: quests.filter(item => item.level === level).length, nextRegion: nextAct ? getMap(nextAct.mapId).name : undefined, clueCount, dueCount: dueItems(progress).length }) + `<div class="promise-card"><h3>${e(progress.story?.promise?.title ? localized(progress.story.promise.title) : t('Your German, at your pace'))}</h3><p>${progress.story?.promise ? `${t('{done} / {total} connections today', { done: Math.min(progress.story.promise.correctAnswers, progress.story.promise.target), total: progress.story.promise.target })}${progress.story.promise.completed ? ` · ${t('lantern lit')}` : ''}` : t('Choose the support that helps you read the town.')}</p>${placementCTAMarkup()}</div>` + lanternRewardsMarkup(progress) + placesSection();
   } else if (view === 'quests') {
     const act = actFor(mapId), chapterQuests = quests.filter(q => q.level === level);
-    el.innerHTML = `<div class="quest-log-heading"><span class="eyebrow">${e(upper(t('Act {number}', { number: act.number })))} · ${e(getMap(mapId).name.toUpperCase())}</span><h2>${e(localized(act.title))}</h2><p>${renderNarrative(act.goal)}</p></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questUnlocked(q.id, progress.completedQuestIds) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><small>${done ? t('DISCOVERED') : next ? t('YOUR NEXT LEAD') : t('A STORY TO FIND')} · ${e(localized(q.location))}</small><strong>${e(localized(q.title))}</strong><span>${e(localized(done ? clueFor(q.id)?.title ?? q.subtitle : q.subtitle))}</span></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
+    el.innerHTML = `<div class="quest-log-heading"><span class="eyebrow">${e(upper(t('Act {number}', { number: act.number })))} · ${e(getMap(mapId).name.toUpperCase())}</span><h2>${e(localized(act.title))}</h2><p>${renderNarrative(act.goal)}</p></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questAvailable(q.id, progress) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><small>${done ? t('DISCOVERED') : next ? t('YOUR NEXT LEAD') : t('A STORY TO FIND')} · ${e(localized(q.location))}</small><strong>${e(localized(q.title))}</strong><span>${e(localized(done ? clueFor(q.id)?.title ?? q.subtitle : q.subtitle))}</span>${!done && questUnlocked(q.id, progress.completedQuestIds) && !questAvailable(q.id, progress) ? `<small class="quest-log-lock">${e(questLockReason(q.id, progress))}</small>` : ''}</span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
   } else if (view === 'story') {
     const found = discoveredClues(progress.completedQuestIds), inspected = readSeen('objects');
     const introduction = found.length ? renderNarrative([{ german: `${found.length} ${found.length === 1 ? 'Hinweis bleibt' : 'Hinweise bleiben'} in Erinnerung.`, english: found.length === 1 ? t('{count} clue remembered.', { count: found.length }) : t('{count} clues remembered.', { count: found.length }), localized: true }, journalNarratives.helping]) : renderNarrative(journalNarratives.firstPage);
@@ -957,6 +1023,7 @@ function showNpc(id: string) {
   if (!npc) return;
   const available = quests.find(q => q.npcId === id && q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds));
   if (available) {
+    if (!questAvailable(available.id, progress)) { toast(questLockReason(available.id, progress)); recordExposure({npcId:id}); questController?.greet(npc, level); return; }
     if (available.level !== 'A1' && !writingReady()) { showOpeningPracticeNotice(); return; }
     void questController?.open(available.id); return;
   }
@@ -965,7 +1032,7 @@ function showNpc(id: string) {
 }
 function startQuest(id: string) {
   const quest = quests.find(q => q.id === id); if (!quest) return;
-  if (!questUnlocked(id, progress.completedQuestIds)) { toast(t('Follow the current witness before beginning this investigation.')); return; }
+  if (!questAvailable(id, progress)) { toast(questLockReason(id, progress)); return; }
   const region = maps.find(map => map.level === quest.level)!;
   if (mapId !== region.id) { travelMap(region.id, { kind: 'follow', questId: id }); return; }
   document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world');
@@ -975,7 +1042,7 @@ function startQuest(id: string) {
 function startQuestPractice(id: string) {
   const quest = quests.find(q => q.id === id);
   if (!quest) return;
-  if (!questUnlocked(id, progress.completedQuestIds)) { toast(t('Find the scene before practising its expressions.')); return; }
+  if (!questAvailable(id, progress)) { toast(questUnlocked(id, progress.completedQuestIds) ? questLockReason(id, progress) : t('Find the scene before practising its expressions.')); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   setView('world');
   const due = new Set(dueItems(progress));
@@ -1298,7 +1365,7 @@ function bindGlobalEvents() {
     if (target.dataset.expeditionAnswer !== undefined) { answerExpeditionEncounter(target.dataset.expeditionEncounter!, Number(target.dataset.expeditionAnswer)); return; }
     if (target.dataset.level) { const region = maps.find(map => map.level === target.dataset.level); if (region) travelMap(region.id); return; }
     if (target.dataset.travel) { const region = maps.find(map => map.id === target.dataset.travel); if (region) travelMap(region.id); return; }
-    if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (q && questUnlocked(q.id, progress.completedQuestIds)) travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
+    if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (!q) return; if (!questAvailable(q.id, progress)) { toast(questLockReason(q.id, progress)); return; } travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
     if (target.dataset.waypoint) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); if (interiorId) world.leaveInterior(); world.setInputEnabled(worldCanInteract()); world.focusNpc(target.dataset.waypoint); return; }
     if (target.dataset.focusObject) { setView('world'); if (interiorId) world.leaveInterior(); world.focusObject(target.dataset.focusObject); return; }
     if (target.dataset.focusBuilding) { const id = target.dataset.focusBuilding; if (interiors.some(room => room.id === id)) guideToBuilding(id as InteriorId); return; }
@@ -1349,6 +1416,7 @@ function bindGlobalEvents() {
       case 'placement': void startPlacement(); break;
       case 'sleep': if (interiorId === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast(t('A new day. Your lantern keeps the promises you made.')); }).catch(error => toast(error.message, true)); } break;
       case 'course-sources': void showCourseSources(); break;
+    case 'todays-words': void startTodaysWords(); break;
       case 'course-retry': coursePromise = undefined; void loadCourse().then(() => renderOther()).catch(error => toast(error.message, true)); break;
       case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
       case 'transcript': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
@@ -1488,6 +1556,7 @@ function enterGame(result: SessionResult) {
   world.setAvatar(profile.avatar);
   api.mapId = firstAvailableMap(api.mapId, progress.completedQuestIds);
   updateProgress(); api.connect();
+  void sendHeartbeat(0);
   void loadCourse().catch(() => {});
   const owner = result.player.id;
   void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); updateProgress(); }).catch(error => toast(error.message, true));
@@ -1496,7 +1565,9 @@ function enterGame(result: SessionResult) {
   if (reminderTimer !== undefined) clearInterval(reminderTimer);
   reminderTimer = window.setInterval(() => {
     const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-    const due = accountReminder!.tick(performance.now(), !document.hidden && connection === 'online' && !dialog.open);
+    const active = !document.hidden && connection === 'online' && !dialog.open;
+    const due = accountReminder!.tick(performance.now(), active);
+    if (intakeClock.tick(performance.now(), active)) void sendHeartbeat(intakeClock.consume());
     if (!account.registered && due && writingReady() && !document.hidden && view === 'world' && !watchingWorld && !dialog.open && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen) {
       showSaveAccount(true);
       accountReminder!.markShown();

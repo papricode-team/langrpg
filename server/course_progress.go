@@ -39,6 +39,10 @@ func (a *App) completeUnit(w http.ResponseWriter, r *http.Request) {
 		if contains(account.Progress.CompletedUnitIDs, unit.ID) {
 			return Receipt{}, nil
 		}
+		migrateIntake(&account.Progress, a.curriculum.Syllabus)
+		if err := a.requireUnitVocabulary(unit, &account.Progress); err != nil {
+			return Receipt{}, err
+		}
 		for _, id := range unit.RequiredExerciseIDs {
 			stats := account.Progress.ExerciseStats[id]
 			if stats.Correct == 0 {

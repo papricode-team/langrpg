@@ -65,6 +65,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)
 	mux.HandleFunc("POST /api/exposure", a.exposure)
+	mux.HandleFunc("POST /api/intake/heartbeat", a.heartbeat)
 	mux.HandleFunc("POST /api/quest/complete", a.completeQuest)
 	mux.HandleFunc("POST /api/course/complete", a.completeUnit)
 	mux.HandleFunc("POST /api/activity/complete", a.completeActivity)
@@ -450,6 +451,12 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		}
 		now := a.now().UTC()
 		migrateContextExposures(&account.Progress, a.curriculum, now)
+		migrateIntake(&account.Progress, a.curriculum.Syllabus)
+		// Pacing: a word drill needs its word restored. Phrase practice and the
+		// placement sample stay open; scenes are gated by requireStoryGate above.
+		if err := a.requireWordIntroduced(exercise, &account.Progress); err != nil {
+			return Receipt{}, err
+		}
 		correct := exercise.Grade(input.Answer)
 		if boardHandled {
 			correct = boardCorrect
