@@ -37,7 +37,7 @@ describe('destination asset streaming', () => {
   });
   it('loads only terrain, local props and local people for an expedition', () => {
     expect(regionAssets(expedition('saffroncourt')).map(asset => asset.key)).toEqual(['saffroncourt', 'saffroncourt-props', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2']);
-    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations']);
+    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`)]);
   });
   it('coalesces requests while delivering every arrival callback', () => {
     const mock = fixture(), map = expedition('windplain');

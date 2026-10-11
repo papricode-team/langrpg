@@ -1,3 +1,4 @@
+import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
 export type ScenePolygon = readonly (readonly [number, number])[];
@@ -38,6 +39,7 @@ export interface SceneResidentTask {
 export interface SceneResident {
   id:string; name:string; home:ScenePoint; speed:number;
   avatar:{hair:string;skin:string;outfit:string}; artVariant?:number;
+  actionArt?:ResidentActionLook;
   schedule:SceneResidentTask[];
 }
 export const sceneInteriorIds = ['cafe', 'bakery', 'supermarket', 'inn'] as const;
@@ -270,6 +272,11 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
         const avatar=resident.avatar;
         if(!record(avatar)||['hair','skin','outfit'].some(key=>typeof avatar[key]!=='string'||!/^#[\da-f]{6}$/i.test(String(avatar[key]))))fail(`${id} resident ${resident.id} needs valid avatar colors`);
         if(resident.artVariant!==undefined&&(!Number.isInteger(resident.artVariant)||Number(resident.artVariant)<0||Number(resident.artVariant)>15))fail(`${id} resident has invalid art variant`);
+        if(resident.actionArt!==undefined){
+          const look=residentActionLooks[resident.actionArt as ResidentActionLook];
+          if(!look)fail(`${id} resident has unknown action artwork`);
+          if(resident.artVariant!==undefined||Object.entries(look.avatar).some(([key,color])=>String(avatar[key]).toLowerCase()!==color))fail(`${id} resident action artwork must match its avatar colors and cannot replace regional art`);
+        }
         if((input.npcs as SceneAnchor[]).some(npc=>npc.id===resident.id))fail(`${id} resident cannot replace a required story character`);
         list(resident.schedule,`${id} resident schedule`);
         if(resident.schedule.length>32)fail(`${id} resident has too many schedule blocks`);

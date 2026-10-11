@@ -2,6 +2,8 @@ import type * as Phaser from 'phaser';
 import type { WorldMapSpec } from './maps';
 import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
 import { worldAssetUrl } from './world-asset-url';
+import {getWorldScene} from './scene-data';
+import {residentActionKey} from './resident-action-art';
 
 const originalMaps = new Set(['lindenhafen', 'waldruh', 'nebelstadt']);
 const peoplePageStarts = [0, 4, 10] as const;
@@ -34,6 +36,8 @@ export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
     const key = regionPeopleKey(map.id, variant);
     assets.push({ key, image: `/assets/${key}.webp`, atlas: `/assets/${key}.json` });
   }
+  for(const look of new Set((getWorldScene(map.id).residents??[]).flatMap(resident=>resident.actionArt?[resident.actionArt]:[])))
+    assets.push({key:residentActionKey(map.id,look),image:`/assets/resident-actions/${look}.webp`,atlas:`/assets/resident-actions/${look}.json`});
   return assets;
 }
 

@@ -4215,7 +4215,7 @@
               "endHour": 11,
               "durationSeconds": 18,
               "facing": "left",
-              "heldObject": "tool"
+              "heldObject": "parcel"
             },
             {
               "id": "midday-parcels",
@@ -4248,7 +4248,8 @@
               "heldObject": "book",
               "fallbackActivityId": "promenade-rain-shelter"
             }
-          ]
+          ],
+          "actionArt": "ella"
         },
         {
           "id": "lindenhafen-parcel-vendor",
@@ -4301,7 +4302,8 @@
               "facing": "left",
               "heldObject": "book"
             }
-          ]
+          ],
+          "actionArt": "karl"
         },
         {
           "id": "lindenhafen-promenade-reader",
@@ -4360,7 +4362,8 @@
               "heldObject": "book",
               "fallbackActivityId": "promenade-rain-shelter"
             }
-          ]
+          ],
+          "actionArt": "anne"
         },
         {
           "id": "lindenhafen-garden-keeper",
@@ -4416,7 +4419,8 @@
               "heldObject": "book",
               "fallbackActivityId": "community-gate-shelter"
             }
-          ]
+          ],
+          "actionArt": "mila"
         }
       ],
       "prefabInstances": [

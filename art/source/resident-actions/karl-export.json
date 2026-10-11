@@ -1,0 +1,291 @@
+{
+  "source": "art/source/resident-actions/karl.png",
+  "sourceSha256": "792612f281107bf37ba0c896d3564c1fd48958944a3bcc9a1f76424f2252ad8d",
+  "sourceSize": [
+    1086,
+    1448
+  ],
+  "runtimeSize": [
+    512,
+    576
+  ],
+  "alpha": "Preserved; alpha threshold is used for registration bounds only.",
+  "frames": [
+    {
+      "name": "idle",
+      "left": 0,
+      "top": 0,
+      "width": 272,
+      "height": 496,
+      "bounds": {
+        "x0": 56,
+        "y0": 39,
+        "x1": 208,
+        "y1": 475
+      },
+      "footX": 131.5,
+      "ground": 475,
+      "pixels": 42752,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 38,
+        "y": 30,
+        "targetWidth": 52,
+        "targetHeight": 144
+      }
+    },
+    {
+      "name": "read",
+      "left": 272,
+      "top": 0,
+      "width": 271,
+      "height": 496,
+      "bounds": {
+        "x0": 62,
+        "y0": 116,
+        "x1": 235,
+        "y1": 474
+      },
+      "footX": 172,
+      "ground": 474,
+      "pixels": 35669,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 27,
+        "y": 55,
+        "targetWidth": 58,
+        "targetHeight": 119
+      }
+    },
+    {
+      "name": "read-turn",
+      "left": 543,
+      "top": 0,
+      "width": 272,
+      "height": 496,
+      "bounds": {
+        "x0": 55,
+        "y0": 128,
+        "x1": 229,
+        "y1": 474
+      },
+      "footX": 166.5,
+      "ground": 474,
+      "pixels": 33758,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 27,
+        "y": 59,
+        "targetWidth": 59,
+        "targetHeight": 115
+      }
+    },
+    {
+      "name": "sit",
+      "left": 815,
+      "top": 0,
+      "width": 271,
+      "height": 496,
+      "bounds": {
+        "x0": 50,
+        "y0": 125,
+        "x1": 221,
+        "y1": 473
+      },
+      "footX": 163,
+      "ground": 473,
+      "pixels": 33616,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 26,
+        "y": 59,
+        "targetWidth": 58,
+        "targetHeight": 115
+      }
+    },
+    {
+      "name": "work",
+      "left": 0,
+      "top": 496,
+      "width": 272,
+      "height": 459,
+      "bounds": {
+        "x0": 67,
+        "y0": 32,
+        "x1": 223,
+        "y1": 439
+      },
+      "footX": 135,
+      "ground": 439,
+      "pixels": 39048,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 41,
+        "y": 40,
+        "targetWidth": 53,
+        "targetHeight": 135
+      }
+    },
+    {
+      "name": "work-down",
+      "left": 272,
+      "top": 496,
+      "width": 271,
+      "height": 459,
+      "bounds": {
+        "x0": 71,
+        "y0": 30,
+        "x1": 220,
+        "y1": 440
+      },
+      "footX": 133.5,
+      "ground": 440,
+      "pixels": 38522,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 43,
+        "y": 39,
+        "targetWidth": 51,
+        "targetHeight": 136
+      }
+    },
+    {
+      "name": "serve",
+      "left": 543,
+      "top": 496,
+      "width": 272,
+      "height": 459,
+      "bounds": {
+        "x0": 69,
+        "y0": 24,
+        "x1": 248,
+        "y1": 441
+      },
+      "footX": 143,
+      "ground": 441,
+      "pixels": 37913,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 39,
+        "y": 36,
+        "targetWidth": 60,
+        "targetHeight": 138
+      }
+    },
+    {
+      "name": "greet",
+      "left": 815,
+      "top": 496,
+      "width": 271,
+      "height": 459,
+      "bounds": {
+        "x0": 60,
+        "y0": 21,
+        "x1": 238,
+        "y1": 441
+      },
+      "footX": 134,
+      "ground": 441,
+      "pixels": 41074,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 39,
+        "y": 35,
+        "targetWidth": 60,
+        "targetHeight": 139
+      }
+    },
+    {
+      "name": "carry",
+      "left": 0,
+      "top": 955,
+      "width": 272,
+      "height": 493,
+      "bounds": {
+        "x0": 57,
+        "y0": 18,
+        "x1": 211,
+        "y1": 440
+      },
+      "footX": 129,
+      "ground": 440,
+      "pixels": 39684,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 40,
+        "y": 35,
+        "targetWidth": 52,
+        "targetHeight": 139
+      }
+    },
+    {
+      "name": "carry-left",
+      "left": 272,
+      "top": 955,
+      "width": 271,
+      "height": 493,
+      "bounds": {
+        "x0": 67,
+        "y0": 29,
+        "x1": 235,
+        "y1": 436
+      },
+      "footX": 197,
+      "ground": 436,
+      "pixels": 36983,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 21,
+        "y": 40,
+        "targetWidth": 57,
+        "targetHeight": 135
+      }
+    },
+    {
+      "name": "carry-pass",
+      "left": 543,
+      "top": 955,
+      "width": 272,
+      "height": 493,
+      "bounds": {
+        "x0": 63,
+        "y0": 34,
+        "x1": 235,
+        "y1": 443
+      },
+      "footX": 185.5,
+      "ground": 443,
+      "pixels": 37092,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 23,
+        "y": 39,
+        "targetWidth": 58,
+        "targetHeight": 135
+      }
+    },
+    {
+      "name": "carry-right",
+      "left": 815,
+      "top": 955,
+      "width": 271,
+      "height": 493,
+      "bounds": {
+        "x0": 61,
+        "y0": 29,
+        "x1": 237,
+        "y1": 441
+      },
+      "footX": 196,
+      "ground": 441,
+      "pixels": 37823,
+      "registration": {
+        "scale": 0.32494279176201374,
+        "x": 19,
+        "y": 38,
+        "targetWidth": 59,
+        "targetHeight": 136
+      }
+    }
+  ]
+}

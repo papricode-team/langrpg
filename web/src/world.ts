@@ -1,5 +1,6 @@
 import {worldDaySeconds,worldStartHour,type SharedWorldTime,type WorldSimulationTime} from './shared-world-time';
 import {ResidentActivityWorld,type ActivityResidentSample} from './resident-activities';
+import {residentActionKey,residentActionPose,residentSeatedOffset,RESIDENT_ACTION_ART} from './resident-action-art';
 import type { AvatarParts } from './avatar-options';
 import * as Phaser from 'phaser';
 import { npcs } from './content';
@@ -500,7 +501,7 @@ class HarborScene extends Phaser.Scene {
   private roomRevision = 0;
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion>;routineElapsed?:number;homeReached?:boolean }[] = [];
   private activityWorld?:ResidentActivityWorld;
-  private activityResidents:{character:Character;prop:Phaser.GameObjects.Graphics;propKind?:string;sample?:ActivityResidentSample}[]=[];
+  private activityResidents:{character:Character;prop:Phaser.GameObjects.Graphics;actionFigure?:Phaser.GameObjects.Image;propKind?:string;sample?:ActivityResidentSample}[]=[];
   private observedResidentId?:string;
   observeResident(id?:string):void{this.observedResidentId=id;}
   get activityResidentStates():{id:string;name:string;state:ActivityResidentSample}[]{
@@ -1026,8 +1027,11 @@ class HarborScene extends Phaser.Scene {
     }
     for(const {spec} of this.activityWorld.residents){
       const character=this.createCharacter(spec.id,spec.name,spec.home.x,spec.home.y,spec.avatar,undefined,spec.artVariant??-1,spec.artVariant);
+      const key=spec.actionArt?residentActionKey(this.mapSpec.id,spec.actionArt):undefined;
+      const actionFigure=key&&this.textures.exists(key)?this.add.image(0,0,key,'idle').setOrigin(.5,RESIDENT_ACTION_ART.footY).setScale(MODULAR_ART.worldHeight/RESIDENT_ACTION_ART.bodyHeight).setVisible(false):undefined;
+      if(actionFigure)character.root.add(actionFigure);
       const prop=this.add.graphics();character.root.add(prop);character.name.setColor('#ddd6b5');
-      this.activityResidents.push({character,prop});
+      this.activityResidents.push({character,prop,actionFigure});
     }
     this.updateActivityResidents();
   }
@@ -1745,6 +1749,13 @@ class HarborScene extends Phaser.Scene {
       if(sample.facingLeft!==undefined&&!sample.moving)character.facing=sample.facingLeft?3:1;
       this.animateCharacter(character,this.reducedMotion?0:dx,this.reducedMotion?0:dy,this.elapsed,Infinity,
         {moving:sample.moving,distance:sample.walkDistance,velocityX:sample.velocityX,velocityY:sample.velocityY,facingLeft:sample.facingLeft});
+      const pose=resident.actionFigure?residentActionPose(sample,this.reducedMotion):undefined;
+      for(const layer of character.layers)layer.setVisible(!pose);
+      resident.actionFigure?.setVisible(!!pose);
+      const seatedOffset=pose?residentSeatedOffset(sample,this.reducedMotion):0;
+      if(pose)resident.actionFigure!.setFrame(pose.frame).setPosition(0,seatedOffset).setFlipX(sample.facingLeft??character.facing===3).setTint(timeAmbient(this.mapSpec.id,this.clock.gameplayHour(),this.period).people);
+      character.shadow.setPosition(0,2+seatedOffset);
+      character.name.setY((pose&&sample.seatedOffsetY!==undefined?-62:-79)+seatedOffset);
       const visible=!this.terrainOnly&&sample.phase!=='home'&&sample.x>=view.x-90&&sample.x<=view.right+90&&sample.y>=view.y-100&&sample.y<=view.bottom+100;
       character.root.setVisible(visible);
       character.name.setScale(this.density/(this.cameras.main.zoom||1)).setVisible(sample.phase==='act'&&(character.id===this.observedResidentId||this.controlsEnabled&&Math.hypot(character.x-this.local.x,character.y-this.local.y)<100));
@@ -1754,7 +1765,7 @@ class HarborScene extends Phaser.Scene {
         else if(sample.heldObject==='book')prop.fillStyle(0x324c51).fillRect(-10,-37,20,12).fillStyle(0xf0e2bd).fillRect(-8,-36,7,9).fillRect(1,-36,7,9);
         else if(sample.heldObject==='tool')prop.fillStyle(0x916b41).fillRect(-2,-41,4,18).fillStyle(0xaab6b0).fillRect(-7,-43,14,5);
       }
-      resident.prop.setVisible(!!sample.heldObject);
+      resident.prop.setVisible(!!sample.heldObject&&pose?.bakedObject!==sample.heldObject);
     }
   }
 

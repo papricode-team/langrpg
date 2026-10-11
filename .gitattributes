@@ -14,3 +14,4 @@ art/source/terrain-detail/*-[0-3]-[0-3].png filter=lfs diff=lfs merge=lfs -text
 
 # New expansion layouts and native detail sections follow the same LFS workflow.
 art/source/terrain-expansion/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/resident-actions/*.png filter=lfs diff=lfs merge=lfs -text

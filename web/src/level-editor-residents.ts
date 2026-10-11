@@ -1,4 +1,5 @@
 import {sceneActivityPoint,type SceneResidentTask,type WorldScene} from './scene-schema';
+import {residentActionLooks,type ResidentActionLook} from './resident-action-art';
 
 let selectedResidentId:string|undefined;
 let previewHour=9;
@@ -16,6 +17,7 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
     <label>Resident<select id="resident-select">${residents.map(item=>`<option value="${item.id}"${item===resident?' selected':''}>${escape(item.name)}</option>`).join('')}</select></label>
     <button id="add-resident">Add resident</button>
     ${resident?`<label>Name<input id="resident-name" maxlength="60" value="${escape(resident.name)}"></label><div class="field-grid">${field('Home X','home-x',resident.home.x)}${field('Home Y','home-y',resident.home.y)}${field('Walking speed','speed',resident.speed)}</div>
+    <label>Action appearance<select id="resident-action-art" aria-label="Action appearance"><option value="">Current avatar · basic actions</option>${Object.entries(residentActionLooks).map(([id,look])=>`<option value="${id}"${resident.actionArt===id?' selected':''}>${look.label}</option>`).join('')}</select></label><p class="panel-note">Painted looks include seated reading, work, serving, greetings and carrying. Choosing one also sets the matching walking appearance.</p>
     <button id="resident-home">Home at selected object’s activity</button><button id="remove-resident">Remove resident</button>
     ${resident.schedule.map((task,index)=>`<details class="section" data-task="${task.id}"${index===0?' open':''}><summary>${escape(task.id)} · ${task.startHour}–${task.endHour}</summary>
       <label>Activity<select data-task-field="activityId" aria-label="${task.id} activity">${options(task.activityId)}</select></label>
@@ -23,6 +25,7 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
       <div class="field-grid">${[['Start hour','startHour',task.startHour],['End hour','endHour',task.endHour],['Action seconds','durationSeconds',task.durationSeconds]].map(([label,key,value])=>`<label>${label}<input type="number" step="0.1" data-task-field="${key}" aria-label="${task.id} ${label}" value="${value}"></label>`).join('')}</div>
       <label>Fallback<select data-task-field="fallbackActivityId" aria-label="${task.id} fallback">${options(task.fallbackActivityId,true)}</select></label>
       <label>Held object<select data-task-field="heldObject" aria-label="${task.id} held object"><option value="">None</option>${['book','parcel','tool'].map(kind=>`<option${task.heldObject===kind?' selected':''}>${kind}</option>`).join('')}</select></label>
+      <label>Face while acting<select data-task-field="facing" aria-label="${task.id} facing"><option value="">Arrival direction</option>${['left','right'].map(direction=>`<option${task.facing===direction?' selected':''}>${direction}</option>`).join('')}</select></label>
       <button data-remove-task="${task.id}">Remove ${escape(task.id)}</button></details>`).join('')}
     <button id="add-resident-task">Add daily activity</button>`:''}
     <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show the sampled activity positions. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
@@ -38,6 +41,11 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
   query<HTMLButtonElement>('#clear-resident-preview').onclick=()=>preview(undefined);
   if(!resident)return;
   const edit=(mutate:(resident:NonNullable<WorldScene['residents']>[number])=>void)=>apply(next=>mutate(next.residents!.find(item=>item.id===resident.id)!));
+  query<HTMLSelectElement>('#resident-action-art').onchange=()=>edit(item=>{
+    const look=query<HTMLSelectElement>('#resident-action-art').value as ResidentActionLook;
+    if(!look){delete item.actionArt;return;}
+    item.actionArt=look;item.avatar={...residentActionLooks[look].avatar};delete item.artVariant;
+  });
   query<HTMLInputElement>('#resident-name').onchange=()=>{const name=query<HTMLInputElement>('#resident-name').value.trim();if(name)edit(item=>{item.name=name;});};
   host.querySelectorAll<HTMLInputElement>('[data-resident]').forEach(input=>input.onchange=()=>{
     const value=Number(input.value);if(!Number.isFinite(value))return;

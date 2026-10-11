@@ -4,7 +4,7 @@ import {worldDaySeconds,worldStartHour,type WorldSimulationTime} from './shared-
 
 interface RouteSegment {from:ScenePoint;to:ScenePoint;start:number;duration:number;distance:number;distanceBefore:number;}
 interface Route {segments:RouteSegment[];seconds:number;length:number;start:ScenePoint;end:ScenePoint;}
-interface Destination {activity:SceneActivity;place:number;point:ScenePoint;outbound:Route;returning:Route;fallback:boolean;}
+interface Destination {activity:SceneActivity;place:number;point:ScenePoint;outbound:Route;returning:Route;fallback:boolean;seatedOffsetY?:number;}
 interface CompiledTask {spec:SceneResidentTask;destinations:Destination[];}
 export interface CompiledActivityResident {spec:SceneResident;tasks:CompiledTask[];}
 export interface ActivityReservation {residentId:string;taskId:string;activityId:string;place:number;point:ScenePoint;start:number;end:number;}
@@ -17,6 +17,10 @@ export interface ActivityResidentSample extends ScenePoint {
   residentId:string;phase:'home'|'travel'|'act'|'return';action:SceneResidentTask['action'];
   activityId?:string;taskId?:string;place?:number;reservationUntil?:number;
   moving:boolean;velocityX:number;velocityY:number;walkDistance:number;facingLeft?:boolean;
+  phaseSeconds:number;
+  phaseDurationSeconds?:number;
+  /** Bench poses sit back from the walkable arrival anchor onto the furniture. */
+  seatedOffsetY?:number;
   heldObject?:SceneResidentTask['heldObject'];
 }
 const distance=(a:ScenePoint,b:ScenePoint):number=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -59,6 +63,7 @@ export function compileResidentActivities(scene:WorldScene,navigation:Navigation
         const owner=scene.scenery.find(item=>item.id===activity.ownerId)!;
         const resolve=(offset:ScenePoint|undefined,feet:ScenePoint):ScenePoint=>offset?{x:owner.x+offset.x,y:owner.y+offset.y}:feet;
         return sceneActivityPlaces(scene,activity).map((point,place)=>({activity,point,place,fallback:index>0,
+          ...(activity.kind==='seat'&&owner.asset==='bench'?{seatedOffsetY:-activity.offsetY}:{}),
           outbound:route([spec.home,resolve(activity.approach,point),point],spec.speed,navigation,`${spec.id}/${task.id}`),
           returning:route([point,resolve(activity.exit,point),spec.home],spec.speed,navigation,`${spec.id}/${task.id}`)}));
       });
@@ -121,15 +126,21 @@ function sampleRoute(route:Route,seconds:number):Pick<ActivityResidentSample,'x'
 
 export function sampleActivityResident(resident:CompiledActivityResident,plan:ActivityDay,seconds:number):ActivityResidentSample {
   const active=plan.activities.find(activity=>activity.residentId===resident.spec.id&&seconds>=activity.departure&&seconds<activity.homeAt);
-  const base:ActivityResidentSample={residentId:resident.spec.id,...resident.spec.home,phase:'home',action:'wait',moving:false,velocityX:0,velocityY:0,walkDistance:0};
+  const base:ActivityResidentSample={residentId:resident.spec.id,...resident.spec.home,phase:'home',action:'wait',moving:false,velocityX:0,velocityY:0,walkDistance:0,phaseSeconds:0};
   if(!active)return base;
   const {destination,task}=active;
   const action=destination.fallback?destination.activity.kind==='seat'?'sit':destination.activity.kind==='shelter'?'shelter':'wait':task.action;
   Object.assign(base,{taskId:task.id,activityId:destination.activity.id,place:destination.place,reservationUntil:active.reservation.end,action});
-  if(seconds<active.arrival)return {...base,...sampleRoute(destination.outbound,seconds-active.departure),phase:'travel'};
+  if(seconds<active.arrival)return {...base,...sampleRoute(destination.outbound,seconds-active.departure),phase:'travel',phaseSeconds:seconds-active.departure};
   const heldObject=destination.fallback?undefined:task.heldObject;
-  if(seconds<active.finished)return {...base,...destination.point,phase:'act',heldObject,...(task.facing?{facingLeft:task.facing==='left'}:{})};
-  return {...base,...sampleRoute(destination.returning,seconds-active.finished),phase:'return',heldObject:action==='carry'?heldObject:undefined};
+  if(seconds<active.finished){
+    let approach:RouteSegment|undefined;
+    for(let index=destination.outbound.segments.length-1;index>=0;index--)if(Math.abs(destination.outbound.segments[index].to.x-destination.outbound.segments[index].from.x)>.05){approach=destination.outbound.segments[index];break;}
+    return {...base,...destination.point,phase:'act',phaseSeconds:seconds-active.arrival,phaseDurationSeconds:task.durationSeconds,
+      ...(['sit','read'].includes(action)&&destination.seatedOffsetY!==undefined?{seatedOffsetY:destination.seatedOffsetY}:{}),
+      heldObject,facingLeft:task.facing?task.facing==='left':approach?approach.to.x<approach.from.x:false};
+  }
+  return {...base,...sampleRoute(destination.returning,seconds-active.finished),phase:'return',phaseSeconds:seconds-active.finished,heldObject:action==='carry'?heldObject:undefined};
 }
 
 /** Cache only the most recent two days; a late join reconstructs directly. */

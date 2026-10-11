@@ -8,6 +8,7 @@ import sharp from 'sharp';
 import './register-content-loader.mjs';
 const {parseWorldSceneDocument, sceneActivityPoint, sceneActivityPlaces, sceneEntrancePoint, sceneInteriorIds} = await import('../web/src/scene-schema.ts');
 const {compileResidentActivities} = await import('../web/src/resident-activities.ts');
+const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resident-action-art.ts');
 const {NavigationGrid} = await import('../web/src/navigation.ts');
 const {sceneryFootprints} = await import('../web/src/placed-scenery.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
@@ -30,6 +31,16 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
   };
   for (const expected of contentMaps) if (!document.maps[expected.id]) errors.push(`missing required map ${expected.id}`);
   for (const scene of Object.values(document.maps)) {
+    for(const look of new Set((scene.residents??[]).flatMap(resident=>resident.actionArt?[resident.actionArt]:[]))){
+      try{
+        const path=`web/public/assets/resident-actions/${look}`,atlas=await loadJSON(`${path}.json`),size=await sharp(resolve(root,`${path}.webp`)).metadata(),art=RESIDENT_ACTION_ART;
+        if(size.width!==art.width*art.columns||size.height!==art.height*art.rows||!size.hasAlpha)errors.push(`${scene.id}: action artwork ${look} must use a transparent registered 512 × 576 atlas`);
+        for(const [index,name]of residentActionFrames.entries()){
+          const frame=atlas.frames?.[name]?.frame;
+          if(!frame||frame.x!==index%art.columns*art.width||frame.y!==Math.floor(index/art.columns)*art.height||frame.w!==art.width||frame.h!==art.height)errors.push(`${scene.id}: action artwork ${look} has an invalid ${name} frame`);
+        }
+      }catch{errors.push(`${scene.id}: missing or unreadable action artwork ${look}`);}
+    }
     const content = contentMaps.find(map => map.id === scene.id);
     if (!content && scene.kind !== 'interior') errors.push(`${scene.id}: no registered map content`);
     if (content && scene.coordinateVersion === 1 && (scene.width !== 1536 || scene.height !== 1024 || (scene.legacyOffset?.x ?? 0) !== 0 || (scene.legacyOffset?.y ?? 0) !== 0)) errors.push(`${scene.id}: legacy bounds/origin require a higher coordinateVersion`);

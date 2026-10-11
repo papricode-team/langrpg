@@ -1,0 +1,291 @@
+{
+  "source": "art/source/resident-actions/anne.png",
+  "sourceSha256": "acefd8d0dbba74fd38fabe3ed5da7b2d103093b696849cede6647498b275902d",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "runtimeSize": [
+    512,
+    576
+  ],
+  "alpha": "Preserved; alpha threshold is used for registration bounds only.",
+  "frames": [
+    {
+      "name": "idle",
+      "left": 0,
+      "top": 0,
+      "width": 314,
+      "height": 421,
+      "bounds": {
+        "x0": 92,
+        "y0": 22,
+        "x1": 223,
+        "y1": 409
+      },
+      "footX": 165.5,
+      "ground": 409,
+      "pixels": 32038,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 36,
+        "y": 30,
+        "targetWidth": 51,
+        "targetHeight": 144
+      }
+    },
+    {
+      "name": "read",
+      "left": 314,
+      "top": 0,
+      "width": 313,
+      "height": 421,
+      "bounds": {
+        "x0": 83,
+        "y0": 92,
+        "x1": 246,
+        "y1": 407
+      },
+      "footX": 193.5,
+      "ground": 407,
+      "pixels": 29259,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 22,
+        "y": 56,
+        "targetWidth": 62,
+        "targetHeight": 118
+      }
+    },
+    {
+      "name": "read-turn",
+      "left": 627,
+      "top": 0,
+      "width": 314,
+      "height": 421,
+      "bounds": {
+        "x0": 84,
+        "y0": 92,
+        "x1": 245,
+        "y1": 406
+      },
+      "footX": 194,
+      "ground": 406,
+      "pixels": 28740,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 23,
+        "y": 57,
+        "targetWidth": 61,
+        "targetHeight": 117
+      }
+    },
+    {
+      "name": "sit",
+      "left": 941,
+      "top": 0,
+      "width": 313,
+      "height": 421,
+      "bounds": {
+        "x0": 88,
+        "y0": 91,
+        "x1": 236,
+        "y1": 406
+      },
+      "footX": 196,
+      "ground": 406,
+      "pixels": 27288,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 23,
+        "y": 56,
+        "targetWidth": 57,
+        "targetHeight": 118
+      }
+    },
+    {
+      "name": "work",
+      "left": 0,
+      "top": 421,
+      "width": 314,
+      "height": 403,
+      "bounds": {
+        "x0": 94,
+        "y0": 17,
+        "x1": 250,
+        "y1": 389
+      },
+      "footX": 139,
+      "ground": 389,
+      "pixels": 31542,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 46,
+        "y": 36,
+        "targetWidth": 60,
+        "targetHeight": 139
+      }
+    },
+    {
+      "name": "work-down",
+      "left": 314,
+      "top": 421,
+      "width": 313,
+      "height": 403,
+      "bounds": {
+        "x0": 101,
+        "y0": 26,
+        "x1": 246,
+        "y1": 389
+      },
+      "footX": 149.5,
+      "ground": 389,
+      "pixels": 29717,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 45,
+        "y": 39,
+        "targetWidth": 56,
+        "targetHeight": 135
+      }
+    },
+    {
+      "name": "serve",
+      "left": 627,
+      "top": 421,
+      "width": 314,
+      "height": 403,
+      "bounds": {
+        "x0": 97,
+        "y0": 17,
+        "x1": 254,
+        "y1": 389
+      },
+      "footX": 148,
+      "ground": 389,
+      "pixels": 29247,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 44,
+        "y": 36,
+        "targetWidth": 60,
+        "targetHeight": 139
+      }
+    },
+    {
+      "name": "greet",
+      "left": 941,
+      "top": 421,
+      "width": 313,
+      "height": 403,
+      "bounds": {
+        "x0": 99,
+        "y0": 11,
+        "x1": 261,
+        "y1": 389
+      },
+      "footX": 156,
+      "ground": 389,
+      "pixels": 32828,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 42,
+        "y": 33,
+        "targetWidth": 62,
+        "targetHeight": 141
+      }
+    },
+    {
+      "name": "carry",
+      "left": 0,
+      "top": 824,
+      "width": 314,
+      "height": 430,
+      "bounds": {
+        "x0": 92,
+        "y0": 13,
+        "x1": 237,
+        "y1": 390
+      },
+      "footX": 156,
+      "ground": 390,
+      "pixels": 31717,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 39,
+        "y": 34,
+        "targetWidth": 56,
+        "targetHeight": 141
+      }
+    },
+    {
+      "name": "carry-left",
+      "left": 314,
+      "top": 824,
+      "width": 313,
+      "height": 430,
+      "bounds": {
+        "x0": 81,
+        "y0": 18,
+        "x1": 257,
+        "y1": 389
+      },
+      "footX": 214.5,
+      "ground": 389,
+      "pixels": 31075,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 14,
+        "y": 36,
+        "targetWidth": 67,
+        "targetHeight": 138
+      }
+    },
+    {
+      "name": "carry-pass",
+      "left": 627,
+      "top": 824,
+      "width": 314,
+      "height": 430,
+      "bounds": {
+        "x0": 84,
+        "y0": 19,
+        "x1": 248,
+        "y1": 391
+      },
+      "footX": 205.5,
+      "ground": 391,
+      "pixels": 30284,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 18,
+        "y": 36,
+        "targetWidth": 63,
+        "targetHeight": 139
+      }
+    },
+    {
+      "name": "carry-right",
+      "left": 941,
+      "top": 824,
+      "width": 313,
+      "height": 430,
+      "bounds": {
+        "x0": 89,
+        "y0": 18,
+        "x1": 259,
+        "y1": 389
+      },
+      "footX": 219.5,
+      "ground": 389,
+      "pixels": 30662,
+      "registration": {
+        "scale": 0.36597938144329895,
+        "x": 15,
+        "y": 36,
+        "targetWidth": 65,
+        "targetHeight": 138
+      }
+    }
+  ]
+}
