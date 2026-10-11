@@ -119,3 +119,24 @@ func (s *PGStore) AddSession(ctx context.Context, hash, id string) error {
 	_, err := s.pool.Exec(ctx, "INSERT INTO sessions(token_hash,account_id) VALUES($1,$2)", hash, id)
 	return err
 }
+
+// DeleteSession revokes only this device's token, preserving the account and other sessions.
+func (s *JSONStore) DeleteSession(_ context.Context, hash string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	id, exists := s.state.Sessions[hash]
+	if !exists {
+		return nil
+	}
+	delete(s.state.Sessions, hash)
+	if err := s.save(); err != nil {
+		s.state.Sessions[hash] = id
+		return err
+	}
+	return nil
+}
+
+func (s *PGStore) DeleteSession(ctx context.Context, hash string) error {
+	_, err := s.pool.Exec(ctx, "DELETE FROM sessions WHERE token_hash=$1", hash)
+	return err
+}

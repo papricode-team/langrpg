@@ -171,3 +171,19 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	writeJSON(w, 200, sessionResponse(token, account))
 }
+
+func (a *App) logoutAccount(w http.ResponseWriter, r *http.Request) {
+	hash, err := bearer(r)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+	defer cancel()
+	if err = a.store.DeleteSession(ctx, hash); err != nil {
+		apiFailure(w, err)
+		return
+	}
+	a.world.RevokeSession(hash)
+	writeJSON(w, 200, map[string]bool{"loggedOut": true})
+}

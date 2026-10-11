@@ -165,6 +165,13 @@ export class Api {
     this.destroy();
     return this.rememberSession(result);
   }
+  async logout(): Promise<void> {
+    if (this.token) await this.request('/account/logout', {});
+    this.destroy();
+    this.token = ''; this.selfId = '';
+    localStorage.removeItem('atlas.token');
+    localStorage.removeItem('atlas.profile');
+  }
   async savePreferences(preferences: Preferences): Promise<Preferences> {
     const result = await this.request<{ preferences?: Partial<Preferences> }>('/preferences', preferences);
     const language = result.preferences?.baseLanguage;

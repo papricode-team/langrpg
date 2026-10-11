@@ -61,6 +61,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/session", a.session)
 	mux.HandleFunc("POST /api/account/register", a.registerAccount)
 	mux.HandleFunc("POST /api/account/login", a.loginAccount)
+	mux.HandleFunc("POST /api/account/logout", a.logoutAccount)
 	mux.HandleFunc("POST /api/preferences", a.updatePreferences)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)

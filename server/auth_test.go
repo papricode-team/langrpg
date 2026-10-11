@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestAccountLoginRestoresIdentityAndProgressAfterRestart(t *testing.T) {
@@ -147,5 +149,82 @@ func TestLoginRateLimit(t *testing.T) {
 	}
 	if got := request(app, "POST", "/api/account/login", "", map[string]string{"email": "invalid", "password": "wrong"}).Code; got != 429 {
 		t.Fatalf("unlimited login attempts: %d", got)
+	}
+}
+
+func TestLogoutRevokesOnlyCurrentSessionAndPersists(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "state.json")
+	store, err := NewJSONStore(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	app := NewApp(store, testCurriculum(), nil, 10)
+	defer app.Close()
+	token, player := createSession(t, app, "Juniper")
+	credentials := map[string]string{"email": "juniper@example.com", "password": "a long lantern password"}
+	if result := request(app, "POST", "/api/account/register", token, credentials); result.Code != 200 {
+		t.Fatal(result.Body.String())
+	}
+	before := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("before-logout")))
+	otherToken, _ := randomID(32)
+	if err := store.AddSession(context.Background(), tokenHash(otherToken), player.ID); err != nil {
+		t.Fatal(err)
+	}
+	if result := request(app, "POST", "/api/account/logout", "", map[string]any{}); result.Code != 401 {
+		t.Fatalf("anonymous logout: %d", result.Code)
+	}
+	for i := 0; i < 2; i++ {
+		if result := request(app, "POST", "/api/account/logout", token, map[string]any{}); result.Code != 200 {
+			t.Fatalf("logout: %d %s", result.Code, result.Body.String())
+		}
+	}
+	reopened, err := NewJSONStore(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	app2 := NewApp(reopened, testCurriculum(), nil, 10)
+	defer app2.Close()
+	if result := request(app2, "GET", "/api/progress", token, nil); result.Code != 401 {
+		t.Fatalf("revoked token accepted: %d", result.Code)
+	}
+	other, err := reopened.Get(context.Background(), tokenHash(otherToken))
+	if err != nil || other.Player.ID != player.ID || other.Progress.XP != before.Progress.XP {
+		t.Fatal("logout changed account or another session")
+	}
+	login := request(app2, "POST", "/api/account/login", "", credentials)
+	if login.Code != 200 {
+		t.Fatalf("login after logout: %d", login.Code)
+	}
+	var result struct {
+		Player   Player
+		Progress Progress
+	}
+	if err := json.Unmarshal(login.Body.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
+	if result.Player.ID != player.ID || result.Progress.XP != before.Progress.XP {
+		t.Fatal("logout lost saved adventure")
+	}
+}
+
+func TestLogoutDisconnectsWorldSession(t *testing.T) {
+	app := testApp(t)
+	token, _ := createSession(t, app, "Juniper")
+	server := httptest.NewServer(app.Handler())
+	defer server.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	conn := dialMap(t, ctx, server, token, DefaultMapID)
+	readWorld(t, ctx, conn, "welcome")
+	if result := request(app, "POST", "/api/account/logout", token, map[string]any{}); result.Code != 200 {
+		t.Fatalf("logout: %d", result.Code)
+	}
+	for {
+		if _, _, err := conn.Read(ctx); err != nil {
+			if ctx.Err() != nil {
+				t.Fatal("logged-out world socket stayed open")
+			}
+			break
+		}
 	}
 }

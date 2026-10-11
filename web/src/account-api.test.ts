@@ -15,6 +15,36 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('account session lifecycle', () => {
+  it('revokes the current session and returns to signed-out state without resetting preferences', async () => {
+    saved.set('atlas.token', 'device-token');
+    saved.set('atlas.profile', '{"name":"Juniper"}');
+    saved.set('atlas.silentMode', 'true');
+    const fetch = vi.fn().mockResolvedValue(new Response('{"loggedOut":true}'));
+    vi.stubGlobal('fetch', fetch);
+    const api = new Api();
+    const destroy = vi.spyOn(api, 'destroy');
+    api.selfId = 'original-player';
+    await api.logout();
+    expect(fetch.mock.calls[0][0]).toBe('/api/account/logout');
+    expect(fetch.mock.calls[0][1].headers.Authorization).toBe('Bearer device-token');
+    expect(destroy).toHaveBeenCalledOnce();
+    expect(api.token).toBe('');
+    expect(api.selfId).toBe('');
+    expect(saved.has('atlas.token')).toBe(false);
+    expect(saved.has('atlas.profile')).toBe(false);
+    expect(saved.get('atlas.silentMode')).toBe('true');
+    expect(await new Api().resume()).toBeUndefined();
+  });
+  it('keeps the current adventure accessible when logout fails', async () => {
+    saved.set('atlas.token', 'device-token');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{"error":"unavailable"}', { status: 503 })));
+    const api = new Api();
+    const destroy = vi.spyOn(api, 'destroy');
+    await expect(api.logout()).rejects.toThrow('unavailable');
+    expect(destroy).not.toHaveBeenCalled();
+    expect(api.token).toBe('device-token');
+    expect(saved.get('atlas.token')).toBe('device-token');
+  });
   it('resumes legacy guests when a server omits account metadata', async () => {
     saved.set('atlas.token', 'legacy-token');
     const { account: _account, ...legacy } = session('legacy-token');

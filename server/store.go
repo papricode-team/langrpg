@@ -25,6 +25,7 @@ type Store interface {
 	SetCredentials(context.Context, string, string, string) error
 	GetByEmail(context.Context, string) (Account, error)
 	AddSession(context.Context, string, string) error
+	DeleteSession(context.Context, string) error
 	Mutate(context.Context, string, string, json.RawMessage, func(*Account) (Receipt, error)) (Account, Receipt, bool, error)
 	ActivityProofs(context.Context, string, string, string, []string) (map[string]SavedAction, int, error)
 	Health(context.Context) error

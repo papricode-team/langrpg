@@ -55,6 +55,7 @@ type ChatMessage struct {
 }
 
 type worldClient struct {
+	sessionHash   string
 	player        Player
 	conn          *websocket.Conn
 	send          chan []byte
@@ -168,7 +169,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	defer conn.CloseNow()
-	client := &worldClient{player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel, authorizeMap: authorize}
+	client := &worldClient{sessionHash: tokenHash(r.URL.Query().Get("token")), player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel, authorizeMap: authorize}
 	w.mu.Lock()
 	now := time.Now()
 	w.pruneMemoriesLocked(now)
@@ -598,5 +599,16 @@ func (w *World) Close() {
 	defer w.mu.Unlock()
 	for _, c := range w.clients {
 		c.cancel()
+	}
+}
+
+func (w *World) RevokeSession(hash string) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	for _, client := range w.clients {
+		if client.sessionHash == hash {
+			client.cancel()
+			_ = client.conn.CloseNow()
+		}
 	}
 }
