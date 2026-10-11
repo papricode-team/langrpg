@@ -37,6 +37,23 @@ describe('canonical scenes in the game runtime',()=>{
       expect(navigation.isWalkable(x,y),`${x},${y}`).toBe(false);
   });
 
+  it('doubles both Lindenhafen dimensions with complete detailed terrain and connected southern destinations',()=>{
+    const scene=sceneDocument.maps.lindenhafen,navigation=createMapNavigation('lindenhafen');
+    expect(scene.width).toBeGreaterThanOrEqual(lindenCore.width*2);
+    expect(scene.height).toBeGreaterThanOrEqual(lindenCore.height*2);
+    expect(scene.coordinateVersion).toBeGreaterThanOrEqual(4);
+    for(let y=0;y<scene.height;y+=512)for(let x=0;x<scene.width;x+=768){
+      expect(scene.terrain.find(tile=>tile.x===x&&tile.y===y),`${x},${y}`).toMatchObject({width:768,height:512,pixelDensity:4});
+    }
+    for(const point of [{x:635,y:1737},{x:1180,y:1850},{x:1710,y:1764},{x:2610,y:1893}])
+      expect(navigation.findPath(scene.spawn,point).at(-1)).toEqual(point);
+    for(const x of [1605,2180,3058])expect(navigation.canWalkSegment(x,1515,x,1548),`southern crossing ${x}`).toBe(true);
+    expect(navigation.canWalkSegment(1320,1840,1480,1840)).toBe(true);
+    for(const [x,y]of [[900,2000],[1400,1700],[2450,1750],[2100,1800],[2770,1990]])
+      expect(navigation.isWalkable(x,y),`${x},${y}`).toBe(false);
+    expect(navigation.auditConnectedArea(scene.spawn).connectedCells).toBeGreaterThanOrEqual(1628*2);
+  });
+
   it('keeps the Lindenhafen core intact and connects the promenade, parcel, garden and canal activities',()=>{
     const core=parseWorldSceneDocument({version:2,maps:{lindenhafen:lindenCore}}).maps.lindenhafen;
     const original=new NavigationGrid(core.walkable,[...core.obstacles,...sceneryFootprints(core.scenery)],core);
@@ -68,7 +85,7 @@ describe('canonical scenes in the game runtime',()=>{
     expect(navigation.canWalkSegment(1505,683,1580,683)).toBe(true);
     expect(navigation.isWalkable(1600,760)).toBe(false); // Canal water.
     expect(navigation.isWalkable(2040,650)).toBe(false); // Planted island.
-    expect(navigation.isWalkable(2200,1600)).toBe(false); // Unauthored south.
+    expect(navigation.isWalkable(2200,1770)).toBe(false); // Southern planted plot.
   });
 
   it('keeps core anchors, doorways, scenery and resident paths fixed when map bounds double',()=>{
@@ -76,9 +93,9 @@ describe('canonical scenes in the game runtime',()=>{
     const before=getMap('lindenhafen'),doors=buildingEntrances('lindenhafen');
     const routes=createWorldResidents('lindenhafen');
     try{
-      sceneDocument.maps.lindenhafen={...structuredClone(original),width:3072,height:2048,coordinateVersion:original.coordinateVersion+1};
+      sceneDocument.maps.lindenhafen={...structuredClone(original),width:original.width*2,height:original.height*2,coordinateVersion:original.coordinateVersion+1};
       const expanded=getMap('lindenhafen');
-      expect(expanded.width).toBe(3072);expect(expanded.height).toBe(2048);
+      expect(expanded.width).toBe(original.width*2);expect(expanded.height).toBe(original.height*2);
       // Normalized coordinates round differently for non-power-of-two bounds.
       // Compare physical anchors to sub-pixel precision after denormalizing.
       expect(expanded.spawn.x*expanded.width).toBeCloseTo(before.spawn.x*before.width,10);

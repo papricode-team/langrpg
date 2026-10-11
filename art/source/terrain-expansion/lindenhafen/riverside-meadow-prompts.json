@@ -22,5 +22,26 @@
   },
   "sourceOverlap": 96,
   "pixelDensity": 4,
-  "daySectionPrompts": []
+  "daySectionPrompts": [
+    {
+      "position": "0-0",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, riverside square and meadow. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "reference": "riverside-meadow-day-0-0-reference.png"
+    },
+    {
+      "position": "0-1",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, riverside square and meadow. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "reference": "riverside-meadow-day-0-1-reference.png"
+    },
+    {
+      "position": "1-0",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, riverside square and meadow. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "reference": "riverside-meadow-day-1-0-reference.png"
+    },
+    {
+      "position": "1-1",
+      "prompt": "Use case: precise-object-edit. Asset type: native high-resolution ground painting for The Lantern Atlas, riverside square and meadow. The input is the EXACT GEOMETRY TARGET for one overlapping 432 by 304 logical-world-unit section. Output approximately 1495 by 1052 native pixels, at EXACT 432:304 aspect ratio; minimum 1450 pixels wide and 1024 high. Redraw at new fine native detail: individual small honey/cream cobbles and mortar, weathered stone-bank blocks, tiny olive grass blades and flowers, granular soil, translucent turquoise canal ripples. Preserve all curb corners, canal banks, grass boundaries, paving rings and their exact normalized frame-edge intersections. NO reframing, zoom, crop, rotation, perspective change or moved geometry. The section overlaps adjacent paintings and registration must stay exact. Same elevated orthographic painted game view and warm diffuse daylight as input. Keep small stones at the same world scale; add microdetail rather than larger stones. Ground only: no buildings, trees, bushes, benches, lamps, furniture, crates, boats, people, letters, labels, border or UI. No artificial noise or sharpening halos. Return only the finished rectangular ground painting, precisely 432:304 aspect.",
+      "reference": "riverside-meadow-day-1-1-reference.png"
+    }
+  ]
 }

@@ -47,7 +47,7 @@ describe('authored resident activities',()=>{
   });
   it('walks the complete authored Lindenhafen day without jumps or blocked feet',()=>{
     const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen'),world=new ResidentActivityWorld(scene,nav);
-    expect(world.residents).toHaveLength(8);
+    expect(world.residents).toHaveLength(12);
     let previous=world.sample(time);
     for(let tick=1;tick<=2880;tick++){
       const samples=world.sample({...time,elapsedSeconds:tick/4});

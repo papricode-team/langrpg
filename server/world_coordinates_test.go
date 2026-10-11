@@ -118,20 +118,21 @@ func TestReconnectPositionMigrationPreservesCoreAndOrigin(t *testing.T) {
 	}
 }
 
-func TestSouthernExpansionPreservesVersionTwoSavedPosition(t *testing.T) {
+func TestSouthernExpansionPreservesEarlierSavedPositions(t *testing.T) {
 	destination := compiledWorldMaps.Maps[DefaultMapID]
-	previous := WorldCoordinateFrame{CoordinateVersion: 2, Width: 3072, Height: 1024}
-	for _, saved := range []MapSpawn{{.25, .5}, {.875, .875}} {
-		memory := &worldMemory{positions: map[string]MapSpawn{DefaultMapID: saved}, positionFrames: map[string]WorldCoordinateFrame{DefaultMapID: previous}}
-		position := memory.restorePosition(DefaultMapID, destination)
-		if math.Abs(position.X*destination.Width-saved.X*previous.Width) > .000001 || math.Abs(position.Y*destination.Height-saved.Y*previous.Height) > .000001 {
-			t.Fatalf("southern expansion moved saved position %+v to %+v", saved, position)
-		}
-		if again := memory.restorePosition(DefaultMapID, destination); again != position {
-			t.Fatalf("reconnect applied the expansion twice: %+v", again)
-		}
-		if memory.positionFrames[DefaultMapID] != destination.WorldCoordinateFrame {
-			t.Fatal("southern expansion did not record the current coordinate frame")
+	for _, previous := range []WorldCoordinateFrame{{CoordinateVersion: 2, Width: 3072, Height: 1024}, {CoordinateVersion: 3, Width: 3072, Height: 1536}} {
+		for _, saved := range []MapSpawn{{.25, .5}, {.875, .875}} {
+			memory := &worldMemory{positions: map[string]MapSpawn{DefaultMapID: saved}, positionFrames: map[string]WorldCoordinateFrame{DefaultMapID: previous}}
+			position := memory.restorePosition(DefaultMapID, destination)
+			if math.Abs(position.X*destination.Width-saved.X*previous.Width) > .000001 || math.Abs(position.Y*destination.Height-saved.Y*previous.Height) > .000001 {
+				t.Fatalf("southern expansion moved saved position %+v to %+v", saved, position)
+			}
+			if again := memory.restorePosition(DefaultMapID, destination); again != position {
+				t.Fatalf("reconnect applied the expansion twice: %+v", again)
+			}
+			if memory.positionFrames[DefaultMapID] != destination.WorldCoordinateFrame {
+				t.Fatal("southern expansion did not record the current coordinate frame")
+			}
 		}
 	}
 }

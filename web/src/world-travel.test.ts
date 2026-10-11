@@ -110,7 +110,7 @@ it('keeps authored tasks synchronized while reduced motion, local sky previews a
   scene.clock.setSharedTime({epoch:'2026-10-11T00:00:00.000Z',seed:'0123456789abcdef0123456789abcdef',serverTime:'2026-10-11T00:00:45.000Z',elapsedSeconds:45,dayLengthSeconds:720,day:1,hour:8.5});
   for(const look of ['anne','ella','karl','mila'])scene.textureKeys.add(`lindenhafen-resident-actions-${look}`);
   renderer.createResidents.call(scene);
-  expect(world.getWorldStats().residents).toBe(11);
+  expect(world.getWorldStats().residents).toBe(15);
   const first=world.getActivityResidents();
   expect(first.find(resident=>resident.name==='Ella')?.state).toMatchObject({phase:'act',action:'carry',heldObject:'parcel'});
   const courier=scene.activityResidents.find((resident:any)=>resident.character.id==='lindenhafen-parcel-courier');

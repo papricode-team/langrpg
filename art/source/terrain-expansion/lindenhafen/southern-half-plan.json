@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "first-row-integrated-final-row-layout-only",
+  "status": "all-districts-integrated",
   "worldRect": {
     "x": 0,
     "y": 1024,
@@ -51,23 +51,23 @@
       "x": 0,
       "y": 1536,
       "purpose": "Passenger waiting, dock work and canal observation",
-      "status": "layout-only"
+      "status": "integrated"
     },
     {
       "id": "civic-square",
-      "label": "Civic square",
+      "label": "Canal island",
       "x": 768,
       "y": 1536,
       "purpose": "Market exchange, communal seating and local notices",
-      "status": "layout-only"
+      "status": "integrated"
     },
     {
       "id": "riverside-meadow",
-      "label": "Riverside meadow",
+      "label": "Riverside square",
       "x": 1536,
       "y": 1536,
       "purpose": "Walking circuit, reading and nature observation",
-      "status": "layout-only"
+      "status": "integrated"
     },
     {
       "id": "garden-workyard",
@@ -75,10 +75,10 @@
       "x": 2304,
       "y": 1536,
       "purpose": "Potting, repair, supply deliveries and evening rest",
-      "status": "layout-only"
+      "status": "integrated"
     }
   ],
-  "promotionRule": "Promote a complete contiguous row only after generating and reviewing all its registered native day/night detail sections, tracing connected navigation and adding editable destinations and activities. Planning layouts alone are not playable terrain. The final row at y=1536 remains outside canonical bounds.",
+  "promotionRule": "Promote a complete contiguous row only after generating and reviewing all its registered native day/night detail sections, tracing connected navigation and adding editable destinations and activities. Planning layouts alone are not playable terrain. Both southern rows are now registered in the canonical 3072 × 2048 scene.",
   "layoutNativeSize": {
     "width": 2048,
     "height": 768
@@ -87,6 +87,6 @@
     "x": 0,
     "y": 1024,
     "width": 3072,
-    "height": 512
+    "height": 1024
   }
 }
