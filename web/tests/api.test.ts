@@ -77,7 +77,7 @@ describe('map-aware multiplayer API', () => {
     expect(api.mapId).toBe('lindenhafen'); expect(api.joinMap('nebelstadt')).toBe(false);
     api.move(.7, .7); expect(socket.sent).toHaveLength(1); expect(() => api.chat('hello')).toThrow(/Arriving/);
     socket.receive(packet('waldruh', 'map')); expect(api.mapId).toBe('waldruh');
-    api.move(.7, .7); expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'waldruh', coordinateVersion: 1, x: .7, y: .7 });
+    api.move(.7, .7); expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'waldruh', coordinateVersion: getWorldScene('waldruh').coordinateVersion, x: .7, y: .7 });
     api.chat('hello'); expect(socket.sent.at(-1)).toEqual({ type: 'chat', mapId: 'waldruh', message: 'hello' });
   });
 

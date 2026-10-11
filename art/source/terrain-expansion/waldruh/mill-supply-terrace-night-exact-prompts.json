@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "reason": "Two-reference outputs repeatedly widened to 1515–1516 by 1037–1038. Use one accepted day target with exact pixel dimensions.",
+  "rejected": [
+    {
+      "section": "0-0",
+      "generatedFile": "exec-2ede3e67-544a-490b-b649-17dc9e0f0b07.png"
+    },
+    {
+      "section": "0-1",
+      "generatedFile": "exec-41a14735-42c1-4b43-8275-3c50d16b99ff.png"
+    },
+    {
+      "section": "1-0",
+      "generatedFile": "exec-3a0cc18b-1ad5-4b0e-b200-0023b18dd20b.png"
+    },
+    {
+      "section": "1-1",
+      "generatedFile": "exec-3c2e3c53-8a9b-4dfe-afd5-4885f1902a18.png"
+    }
+  ],
+  "jobs": [
+    {
+      "section": "0-0",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-supply-terrace terrain section 0-0. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-supply-terrace-day-0-0.png"
+      ],
+      "key": "mill-supply-terrace-night-exact-0-0",
+      "district": "mill-supply-terrace"
+    },
+    {
+      "section": "0-1",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-supply-terrace terrain section 0-1. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-supply-terrace-day-0-1.png"
+      ],
+      "key": "mill-supply-terrace-night-exact-0-1",
+      "district": "mill-supply-terrace"
+    },
+    {
+      "section": "1-0",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-supply-terrace terrain section 1-0. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-supply-terrace-day-1-0.png"
+      ],
+      "key": "mill-supply-terrace-night-exact-1-0",
+      "district": "mill-supply-terrace"
+    },
+    {
+      "section": "1-1",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-supply-terrace terrain section 1-1. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-supply-terrace-day-1-1.png"
+      ],
+      "key": "mill-supply-terrace-night-exact-1-1",
+      "district": "mill-supply-terrace"
+    }
+  ]
+}

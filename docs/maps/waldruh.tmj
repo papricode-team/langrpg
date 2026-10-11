@@ -5,12 +5,12 @@
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "infinite": false,
-  "width": 1536,
+  "width": 2304,
   "height": 1024,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 138,
-  "nextlayerid": 138,
+  "nextobjectid": 172,
+  "nextlayerid": 172,
   "properties": [
     {
       "name": "mapId",
@@ -30,22 +30,27 @@
     {
       "name": "coordinateVersion",
       "type": "int",
-      "value": 1
+      "value": 2
+    },
+    {
+      "name": "residents",
+      "type": "string",
+      "value": "[{\"id\":\"waldruh-supply-keeper\",\"name\":\"Emil\",\"actionArt\":\"karl\",\"avatar\":{\"hair\":\"#302b2d\",\"skin\":\"#ecc4a2\",\"outfit\":\"#75855f\"},\"home\":{\"x\":1856,\"y\":455},\"speed\":60,\"schedule\":[{\"id\":\"morning-repairs\",\"activityId\":\"waldruh-terrace-repairs\",\"action\":\"work\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"midday-service\",\"activityId\":\"waldruh-supply-service\",\"action\":\"serve\",\"startHour\":11,\"endHour\":15,\"durationSeconds\":55,\"facing\":\"left\"},{\"id\":\"yard-gathering\",\"activityId\":\"waldruh-yard-gathering\",\"action\":\"greet\",\"startHour\":15,\"endHour\":17,\"durationSeconds\":30,\"facing\":\"left\"},{\"id\":\"evening-reading\",\"activityId\":\"waldruh-terrace-reading\",\"action\":\"read\",\"startHour\":17,\"endHour\":20,\"durationSeconds\":45,\"facing\":\"left\",\"heldObject\":\"book\"}]},{\"id\":\"waldruh-yard-courier\",\"name\":\"Nora\",\"actionArt\":\"ella\",\"avatar\":{\"hair\":\"#62412f\",\"skin\":\"#c18b60\",\"outfit\":\"#4e729a\"},\"home\":{\"x\":2176,\"y\":1000},\"speed\":60,\"schedule\":[{\"id\":\"morning-gardening\",\"activityId\":\"waldruh-yard-gardening\",\"action\":\"work\",\"startHour\":8,\"endHour\":11,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"tool\"},{\"id\":\"supply-visit\",\"activityId\":\"waldruh-supply-customer\",\"action\":\"wait\",\"startHour\":11,\"endHour\":15,\"durationSeconds\":25,\"facing\":\"left\",\"exchangeWith\":{\"residentId\":\"waldruh-supply-keeper\",\"taskId\":\"midday-service\"}},{\"id\":\"afternoon-collection\",\"activityId\":\"waldruh-supply-pickup\",\"action\":\"carry\",\"startHour\":15,\"endHour\":18,\"durationSeconds\":35,\"facing\":\"left\",\"heldObject\":\"parcel\"},{\"id\":\"evening-rest\",\"activityId\":\"waldruh-yard-rest\",\"action\":\"read\",\"startHour\":18,\"endHour\":21,\"durationSeconds\":40,\"facing\":\"left\",\"heldObject\":\"book\"}]}]"
     },
     {
       "name": "_optionalCollections",
       "type": "string",
-      "value": "[\"entrances\"]"
+      "value": "[\"activities\",\"entrances\"]"
     },
     {
       "name": "_jsonFields",
       "type": "string",
-      "value": "[\"_optionalCollections\"]"
+      "value": "[\"residents\",\"_optionalCollections\"]"
     }
   ],
   "layers": [
     {
-      "id": 97,
+      "id": 121,
       "name": "Terrain",
       "type": "objectgroup",
       "visible": true,
@@ -254,11 +259,113 @@
               "value": "[\"dayCrop\",\"nightCrop\"]"
             }
           ]
+        },
+        {
+          "id": 5,
+          "name": "mill-supply-terrace",
+          "x": 1536,
+          "y": 0,
+          "width": 768,
+          "height": 512,
+          "gid": 5,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-supply-terrace-day-terrain-overview.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-supply-terrace-night-terrain.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-supply-terrace-night-terrain-overview.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "mill-service-yard",
+          "x": 1536,
+          "y": 512,
+          "width": 768,
+          "height": 512,
+          "gid": 6,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-service-yard-day-terrain-overview.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-service-yard-night-terrain.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-service-yard-night-terrain-overview.webp"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 109,
+      "id": 141,
       "name": "Walkable",
       "type": "objectgroup",
       "visible": true,
@@ -266,7 +373,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 98,
+          "id": 122,
           "name": "walkable-1",
           "x": 0,
           "y": 0,
@@ -415,7 +522,7 @@
           "properties": []
         },
         {
-          "id": 99,
+          "id": 123,
           "name": "walkable-2",
           "x": 0,
           "y": 0,
@@ -484,7 +591,7 @@
           "properties": []
         },
         {
-          "id": 100,
+          "id": 124,
           "name": "walkable-3",
           "x": 0,
           "y": 0,
@@ -553,7 +660,7 @@
           "properties": []
         },
         {
-          "id": 101,
+          "id": 125,
           "name": "walkable-4",
           "x": 0,
           "y": 0,
@@ -610,7 +717,7 @@
           "properties": []
         },
         {
-          "id": 102,
+          "id": 126,
           "name": "walkable-5",
           "x": 0,
           "y": 0,
@@ -659,7 +766,7 @@
           "properties": []
         },
         {
-          "id": 103,
+          "id": 127,
           "name": "walkable-6",
           "x": 0,
           "y": 0,
@@ -696,7 +803,7 @@
           "properties": []
         },
         {
-          "id": 104,
+          "id": 128,
           "name": "walkable-7",
           "x": 0,
           "y": 0,
@@ -745,7 +852,7 @@
           "properties": []
         },
         {
-          "id": 105,
+          "id": 129,
           "name": "walkable-8",
           "x": 0,
           "y": 0,
@@ -854,7 +961,7 @@
           "properties": []
         },
         {
-          "id": 106,
+          "id": 130,
           "name": "walkable-9",
           "x": 0,
           "y": 0,
@@ -911,7 +1018,7 @@
           "properties": []
         },
         {
-          "id": 107,
+          "id": 131,
           "name": "walkable-10",
           "x": 0,
           "y": 0,
@@ -948,7 +1055,7 @@
           "properties": []
         },
         {
-          "id": 108,
+          "id": 132,
           "name": "walkable-11",
           "x": 0,
           "y": 0,
@@ -1003,11 +1110,563 @@
             }
           ],
           "properties": []
+        },
+        {
+          "id": 133,
+          "name": "walkable-12",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1436,
+              "y": 666
+            },
+            {
+              "x": 1513,
+              "y": 682
+            },
+            {
+              "x": 1665,
+              "y": 706
+            },
+            {
+              "x": 1838,
+              "y": 689
+            },
+            {
+              "x": 1977,
+              "y": 674
+            },
+            {
+              "x": 2161,
+              "y": 672
+            },
+            {
+              "x": 2161,
+              "y": 634
+            },
+            {
+              "x": 1975,
+              "y": 636
+            },
+            {
+              "x": 1834,
+              "y": 651
+            },
+            {
+              "x": 1667,
+              "y": 668
+            },
+            {
+              "x": 1519,
+              "y": 644
+            },
+            {
+              "x": 1444,
+              "y": 628
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 134,
+          "name": "walkable-13",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2256,
+              "y": 661
+            },
+            {
+              "x": 2253,
+              "y": 678
+            },
+            {
+              "x": 2243,
+              "y": 694
+            },
+            {
+              "x": 2228,
+              "y": 708
+            },
+            {
+              "x": 2209,
+              "y": 718
+            },
+            {
+              "x": 2186,
+              "y": 725
+            },
+            {
+              "x": 2161,
+              "y": 727
+            },
+            {
+              "x": 2136,
+              "y": 725
+            },
+            {
+              "x": 2114,
+              "y": 718
+            },
+            {
+              "x": 2094,
+              "y": 708
+            },
+            {
+              "x": 2079,
+              "y": 694
+            },
+            {
+              "x": 2069,
+              "y": 678
+            },
+            {
+              "x": 2066,
+              "y": 661
+            },
+            {
+              "x": 2069,
+              "y": 644
+            },
+            {
+              "x": 2079,
+              "y": 628
+            },
+            {
+              "x": 2094,
+              "y": 614
+            },
+            {
+              "x": 2114,
+              "y": 604
+            },
+            {
+              "x": 2136,
+              "y": 597
+            },
+            {
+              "x": 2161,
+              "y": 595
+            },
+            {
+              "x": 2186,
+              "y": 597
+            },
+            {
+              "x": 2209,
+              "y": 604
+            },
+            {
+              "x": 2228,
+              "y": 614
+            },
+            {
+              "x": 2243,
+              "y": 628
+            },
+            {
+              "x": 2253,
+              "y": 644
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 135,
+          "name": "walkable-14",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2175,
+              "y": 656
+            },
+            {
+              "x": 2245,
+              "y": 569
+            },
+            {
+              "x": 2300,
+              "y": 483
+            },
+            {
+              "x": 2302,
+              "y": 370
+            },
+            {
+              "x": 2304,
+              "y": 308
+            },
+            {
+              "x": 2268,
+              "y": 306
+            },
+            {
+              "x": 2266,
+              "y": 370
+            },
+            {
+              "x": 2264,
+              "y": 473
+            },
+            {
+              "x": 2215,
+              "y": 547
+            },
+            {
+              "x": 2147,
+              "y": 634
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 136,
+          "name": "walkable-15",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1656,
+              "y": 701
+            },
+            {
+              "x": 1766,
+              "y": 784
+            },
+            {
+              "x": 1869,
+              "y": 858
+            },
+            {
+              "x": 1894,
+              "y": 886
+            },
+            {
+              "x": 1894,
+              "y": 930
+            },
+            {
+              "x": 1959,
+              "y": 980
+            },
+            {
+              "x": 2053,
+              "y": 1014
+            },
+            {
+              "x": 2208,
+              "y": 1017
+            },
+            {
+              "x": 2285,
+              "y": 999
+            },
+            {
+              "x": 2277,
+              "y": 965
+            },
+            {
+              "x": 2204,
+              "y": 983
+            },
+            {
+              "x": 2059,
+              "y": 980
+            },
+            {
+              "x": 1975,
+              "y": 950
+            },
+            {
+              "x": 1928,
+              "y": 914
+            },
+            {
+              "x": 1928,
+              "y": 874
+            },
+            {
+              "x": 1893,
+              "y": 832
+            },
+            {
+              "x": 1786,
+              "y": 756
+            },
+            {
+              "x": 1676,
+              "y": 673
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 137,
+          "name": "walkable-16",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2090,
+              "y": 699
+            },
+            {
+              "x": 1980,
+              "y": 797
+            },
+            {
+              "x": 1900,
+              "y": 867
+            },
+            {
+              "x": 1922,
+              "y": 893
+            },
+            {
+              "x": 2002,
+              "y": 823
+            },
+            {
+              "x": 2112,
+              "y": 725
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 138,
+          "name": "walkable-17",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2287,
+              "y": 353
+            },
+            {
+              "x": 2149,
+              "y": 332
+            },
+            {
+              "x": 1990,
+              "y": 296
+            },
+            {
+              "x": 1841,
+              "y": 251
+            },
+            {
+              "x": 1691,
+              "y": 210
+            },
+            {
+              "x": 1626,
+              "y": 188
+            },
+            {
+              "x": 1616,
+              "y": 220
+            },
+            {
+              "x": 1681,
+              "y": 242
+            },
+            {
+              "x": 1831,
+              "y": 283
+            },
+            {
+              "x": 1982,
+              "y": 328
+            },
+            {
+              "x": 2143,
+              "y": 366
+            },
+            {
+              "x": 2281,
+              "y": 387
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 139,
+          "name": "walkable-18",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 2302,
+              "y": 306
+            },
+            {
+              "x": 2297,
+              "y": 257
+            },
+            {
+              "x": 2236,
+              "y": 222
+            },
+            {
+              "x": 2203,
+              "y": 185
+            },
+            {
+              "x": 2185,
+              "y": 149
+            },
+            {
+              "x": 2161,
+              "y": 104
+            },
+            {
+              "x": 2127,
+              "y": 51
+            },
+            {
+              "x": 2043,
+              "y": 10
+            },
+            {
+              "x": 1998,
+              "y": 9
+            },
+            {
+              "x": 1998,
+              "y": 41
+            },
+            {
+              "x": 2035,
+              "y": 42
+            },
+            {
+              "x": 2105,
+              "y": 75
+            },
+            {
+              "x": 2133,
+              "y": 120
+            },
+            {
+              "x": 2157,
+              "y": 163
+            },
+            {
+              "x": 2177,
+              "y": 203
+            },
+            {
+              "x": 2216,
+              "y": 248
+            },
+            {
+              "x": 2267,
+              "y": 277
+            },
+            {
+              "x": 2270,
+              "y": 310
+            }
+          ],
+          "properties": []
+        },
+        {
+          "id": 140,
+          "name": "walkable-19",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1602,
+              "y": 400
+            },
+            {
+              "x": 1681,
+              "y": 425
+            },
+            {
+              "x": 1762,
+              "y": 453
+            },
+            {
+              "x": 1854,
+              "y": 470
+            },
+            {
+              "x": 1912,
+              "y": 478
+            },
+            {
+              "x": 1972,
+              "y": 505
+            },
+            {
+              "x": 2002,
+              "y": 538
+            },
+            {
+              "x": 2010,
+              "y": 565
+            },
+            {
+              "x": 2024,
+              "y": 596
+            },
+            {
+              "x": 2042,
+              "y": 647
+            },
+            {
+              "x": 2070,
+              "y": 637
+            },
+            {
+              "x": 2052,
+              "y": 584
+            },
+            {
+              "x": 2038,
+              "y": 555
+            },
+            {
+              "x": 2030,
+              "y": 522
+            },
+            {
+              "x": 1990,
+              "y": 481
+            },
+            {
+              "x": 1920,
+              "y": 448
+            },
+            {
+              "x": 1858,
+              "y": 440
+            },
+            {
+              "x": 1770,
+              "y": 423
+            },
+            {
+              "x": 1691,
+              "y": 397
+            },
+            {
+              "x": 1610,
+              "y": 372
+            }
+          ],
+          "properties": []
         }
       ]
     },
     {
-      "id": 115,
+      "id": 147,
       "name": "Obstacles",
       "type": "objectgroup",
       "visible": true,
@@ -1015,7 +1674,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 110,
+          "id": 142,
           "name": "obstacle-1",
           "x": 0,
           "y": 0,
@@ -1096,7 +1755,7 @@
           "properties": []
         },
         {
-          "id": 111,
+          "id": 143,
           "name": "obstacle-2",
           "x": 0,
           "y": 0,
@@ -1129,7 +1788,7 @@
           "properties": []
         },
         {
-          "id": 112,
+          "id": 144,
           "name": "obstacle-3",
           "x": 0,
           "y": 0,
@@ -1162,7 +1821,7 @@
           "properties": []
         },
         {
-          "id": 113,
+          "id": 145,
           "name": "obstacle-4",
           "x": 0,
           "y": 0,
@@ -1195,7 +1854,7 @@
           "properties": []
         },
         {
-          "id": 114,
+          "id": 146,
           "name": "obstacle-5",
           "x": 0,
           "y": 0,
@@ -1278,19 +1937,19 @@
       ]
     },
     {
-      "id": 116,
+      "id": 148,
       "name": "Scenery",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 5,
+          "id": 7,
           "name": "waldruh-inn",
           "x": 125,
           "y": -45.160305343511425,
           "width": 390,
           "height": 370.4834605597964,
-          "gid": 5,
+          "gid": 7,
           "properties": [
             {
               "name": "key",
@@ -1340,13 +1999,13 @@
           ]
         },
         {
-          "id": 6,
+          "id": 8,
           "name": "waldruh-station",
           "x": 914,
           "y": -41.633663366336634,
           "width": 396,
           "height": 332.94059405940595,
-          "gid": 6,
+          "gid": 8,
           "properties": [
             {
               "name": "key",
@@ -1396,13 +2055,13 @@
           ]
         },
         {
-          "id": 7,
+          "id": 9,
           "name": "waldruh-clockmill",
           "x": 1068,
           "y": 256.70864197530864,
           "width": 294,
           "height": 301.25925925925924,
-          "gid": 7,
+          "gid": 9,
           "properties": [
             {
               "name": "key",
@@ -1452,13 +2111,13 @@
           ]
         },
         {
-          "id": 8,
+          "id": 10,
           "name": "waldruh-west-workshop",
           "x": 72,
           "y": 374.67779632721204,
           "width": 328,
           "height": 318.4173622704507,
-          "gid": 8,
+          "gid": 10,
           "properties": [
             {
               "name": "key",
@@ -1508,13 +2167,13 @@
           ]
         },
         {
-          "id": 9,
+          "id": 11,
           "name": "waldruh-archive",
           "x": 476,
           "y": -26.811881188118804,
           "width": 134,
           "height": 171.8118811881188,
-          "gid": 9,
+          "gid": 11,
           "properties": [
             {
               "name": "key",
@@ -1564,13 +2223,13 @@
           ]
         },
         {
-          "id": 10,
+          "id": 12,
           "name": "waldruh-north-chapel",
           "x": 764.5,
           "y": -62.915841584158414,
           "width": 145,
           "height": 185.91584158415841,
-          "gid": 9,
+          "gid": 11,
           "properties": [
             {
               "name": "key",
@@ -1620,13 +2279,13 @@
           ]
         },
         {
-          "id": 11,
+          "id": 13,
           "name": "waldruh-east-cottage",
           "x": 1251.5,
           "y": 28.808848080133544,
           "width": 117,
           "height": 113.58180300500835,
-          "gid": 10,
+          "gid": 12,
           "properties": [
             {
               "name": "key",
@@ -1676,13 +2335,13 @@
           ]
         },
         {
-          "id": 12,
+          "id": 14,
           "name": "waldruh-north-cottage",
           "x": 382,
           "y": -46.188481675392666,
           "width": 128,
           "height": 164.5235602094241,
-          "gid": 11,
+          "gid": 13,
           "properties": [
             {
               "name": "key",
@@ -1732,13 +2391,13 @@
           ]
         },
         {
-          "id": 13,
+          "id": 15,
           "name": "waldruh-conservatory",
           "x": 981,
           "y": 578.1230388109001,
           "width": 268,
           "height": 271.7621800165153,
-          "gid": 12,
+          "gid": 14,
           "properties": [
             {
               "name": "key",
@@ -1788,13 +2447,13 @@
           ]
         },
         {
-          "id": 14,
+          "id": 16,
           "name": "waldruh-plaza-fountain",
           "x": 650.6757990867579,
           "y": 343.42922374429224,
           "width": 142,
           "height": 133.57077625570776,
-          "gid": 13,
+          "gid": 15,
           "properties": [
             {
               "name": "key",
@@ -1844,13 +2503,13 @@
           ]
         },
         {
-          "id": 15,
+          "id": 17,
           "name": "waldruh-market-west",
           "x": 552.1689497716895,
           "y": 583.634703196347,
           "width": 145,
           "height": 141.02739726027397,
-          "gid": 14,
+          "gid": 16,
           "properties": [
             {
               "name": "key",
@@ -1900,13 +2559,13 @@
           ]
         },
         {
-          "id": 16,
+          "id": 18,
           "name": "waldruh-market-east",
           "x": 755.5,
           "y": 559.3,
           "width": 154,
           "height": 163.1,
-          "gid": 15,
+          "gid": 17,
           "properties": [
             {
               "name": "key",
@@ -1956,13 +2615,13 @@
           ]
         },
         {
-          "id": 17,
+          "id": 19,
           "name": "waldruh-market-south",
           "x": 677.3390557939914,
           "y": 625.931330472103,
           "width": 158,
           "height": 163.42489270386267,
-          "gid": 16,
+          "gid": 18,
           "properties": [
             {
               "name": "key",
@@ -2012,13 +2671,13 @@
           ]
         },
         {
-          "id": 18,
+          "id": 20,
           "name": "waldruh-garden-arch",
           "x": 891.5,
           "y": 677.0650602409638,
           "width": 127,
           "height": 140.15903614457832,
-          "gid": 17,
+          "gid": 19,
           "properties": [
             {
               "name": "key",
@@ -2068,13 +2727,13 @@
           ]
         },
         {
-          "id": 19,
+          "id": 21,
           "name": "waldruh-housing-board",
           "x": 554.6813186813187,
           "y": 312.9340659340659,
           "width": 58,
           "height": 71.06593406593407,
-          "gid": 18,
+          "gid": 20,
           "properties": [
             {
               "name": "key",
@@ -2124,13 +2783,13 @@
           ]
         },
         {
-          "id": 20,
+          "id": 22,
           "name": "waldruh-route-board",
           "x": 935.7362637362637,
           "y": 267.1868131868132,
           "width": 48,
           "height": 58.81318681318681,
-          "gid": 18,
+          "gid": 20,
           "properties": [
             {
               "name": "key",
@@ -2180,13 +2839,13 @@
           ]
         },
         {
-          "id": 21,
+          "id": 23,
           "name": "waldruh-archive-board",
           "x": 271.75824175824175,
           "y": 811.0879120879121,
           "width": 44,
           "height": 53.91208791208791,
-          "gid": 18,
+          "gid": 20,
           "properties": [
             {
               "name": "key",
@@ -2236,13 +2895,13 @@
           ]
         },
         {
-          "id": 22,
+          "id": 24,
           "name": "waldruh-river-boat-north",
           "x": 1444.774193548387,
           "y": 169.5483870967742,
           "width": 64,
           "height": 39.74193548387097,
-          "gid": 19,
+          "gid": 21,
           "properties": [
             {
               "name": "key",
@@ -2292,13 +2951,13 @@
           ]
         },
         {
-          "id": 23,
+          "id": 25,
           "name": "waldruh-river-boat-south",
           "x": 1381.991935483871,
           "y": 717.733870967742,
           "width": 82,
           "height": 50.91935483870968,
-          "gid": 2147483667,
+          "gid": 2147483669,
           "properties": [
             {
               "name": "key",
@@ -2348,13 +3007,13 @@
           ]
         },
         {
-          "id": 24,
+          "id": 26,
           "name": "waldruh-inn-lamp",
           "x": 342.20754716981133,
           "y": 312.92452830188677,
           "width": 22,
           "height": 90.0754716981132,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2404,13 +3063,13 @@
           ]
         },
         {
-          "id": 25,
+          "id": 27,
           "name": "waldruh-west-garden-lamp",
           "x": 159.20754716981133,
           "y": 304.92452830188677,
           "width": 22,
           "height": 90.0754716981132,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2460,13 +3119,13 @@
           ]
         },
         {
-          "id": 26,
+          "id": 28,
           "name": "waldruh-board-west-lamp",
           "x": 618.188679245283,
           "y": 223.1132075471698,
           "width": 20,
           "height": 81.88679245283019,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2516,13 +3175,13 @@
           ]
         },
         {
-          "id": 27,
+          "id": 29,
           "name": "waldruh-board-east-lamp",
           "x": 638.188679245283,
           "y": 245.1132075471698,
           "width": 20,
           "height": 81.88679245283019,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2572,13 +3231,13 @@
           ]
         },
         {
-          "id": 28,
+          "id": 30,
           "name": "waldruh-north-garden-lamp",
           "x": 833.7169811320755,
           "y": 264.8301886792453,
           "width": 23,
           "height": 94.16981132075472,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2628,13 +3287,13 @@
           ]
         },
         {
-          "id": 29,
+          "id": 31,
           "name": "waldruh-station-lamp",
           "x": 1052.7169811320755,
           "y": 220.83018867924528,
           "width": 23,
           "height": 94.16981132075472,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2684,13 +3343,13 @@
           ]
         },
         {
-          "id": 30,
+          "id": 32,
           "name": "waldruh-workshop-lamp",
           "x": 478.2641509433962,
           "y": 471.35849056603774,
           "width": 28,
           "height": 114.64150943396227,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2740,13 +3399,13 @@
           ]
         },
         {
-          "id": 31,
+          "id": 33,
           "name": "waldruh-mill-road-lamp",
           "x": 933.7547169811321,
           "y": 463.45283018867923,
           "width": 27,
           "height": 110.54716981132076,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2796,13 +3455,13 @@
           ]
         },
         {
-          "id": 32,
+          "id": 34,
           "name": "waldruh-market-lamp",
           "x": 528.7547169811321,
           "y": 684.4528301886793,
           "width": 27,
           "height": 110.54716981132076,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2852,13 +3511,13 @@
           ]
         },
         {
-          "id": 33,
+          "id": 35,
           "name": "waldruh-east-bridge-lamp",
           "x": 1383.2641509433963,
           "y": 519.3584905660377,
           "width": 28,
           "height": 114.64150943396227,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2908,13 +3567,13 @@
           ]
         },
         {
-          "id": 34,
+          "id": 36,
           "name": "waldruh-conservatory-lamp",
           "x": 1009.7735849056604,
           "y": 826.2641509433962,
           "width": 29,
           "height": 118.73584905660377,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -2964,13 +3623,13 @@
           ]
         },
         {
-          "id": 35,
+          "id": 37,
           "name": "waldruh-north-path-lamp",
           "x": 636.6792452830189,
           "y": 114.20754716981132,
           "width": 19,
           "height": 77.79245283018868,
-          "gid": 20,
+          "gid": 22,
           "properties": [
             {
               "name": "key",
@@ -3020,13 +3679,13 @@
           ]
         },
         {
-          "id": 36,
+          "id": 38,
           "name": "waldruh-inn-planter",
           "x": 473,
           "y": 339.80555555555554,
           "width": 42,
           "height": 35.19444444444444,
-          "gid": 21,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -3076,13 +3735,13 @@
           ]
         },
         {
-          "id": 37,
+          "id": 39,
           "name": "waldruh-inn-step-planter",
           "x": 332.1744186046512,
           "y": 293.75581395348837,
           "width": 30,
           "height": 39.24418604651163,
-          "gid": 22,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -3132,13 +3791,13 @@
           ]
         },
         {
-          "id": 38,
+          "id": 40,
           "name": "waldruh-inn-west-planter",
           "x": 107.19534883720931,
           "y": 297.4325581395349,
           "width": 28,
           "height": 26.567441860465117,
-          "gid": 23,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -3188,13 +3847,13 @@
           ]
         },
         {
-          "id": 39,
+          "id": 41,
           "name": "waldruh-station-planter-west",
           "x": 897.5454545454545,
           "y": 255.75757575757575,
           "width": 30,
           "height": 34.24242424242424,
-          "gid": 24,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -3244,13 +3903,13 @@
           ]
         },
         {
-          "id": 40,
+          "id": 42,
           "name": "waldruh-station-planter-east",
           "x": 1275,
           "y": 256.53703703703707,
           "width": 28,
           "height": 23.462962962962962,
-          "gid": 21,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -3300,13 +3959,13 @@
           ]
         },
         {
-          "id": 41,
+          "id": 43,
           "name": "waldruh-fountain-planter-west",
           "x": 610.7151162790698,
           "y": 420.5988372093023,
           "width": 37,
           "height": 48.401162790697676,
-          "gid": 22,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -3356,13 +4015,13 @@
           ]
         },
         {
-          "id": 42,
+          "id": 44,
           "name": "waldruh-fountain-planter-east",
           "x": 777.2651162790697,
           "y": 447.9441860465116,
           "width": 38,
           "height": 36.055813953488375,
-          "gid": 23,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -3412,13 +4071,13 @@
           ]
         },
         {
-          "id": 43,
+          "id": 45,
           "name": "waldruh-fountain-planter-north",
           "x": 770.060606060606,
           "y": 380.8989898989899,
           "width": 29,
           "height": 33.101010101010104,
-          "gid": 24,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -3468,13 +4127,13 @@
           ]
         },
         {
-          "id": 44,
+          "id": 46,
           "name": "waldruh-market-road-planter",
           "x": 473.5,
           "y": 733.6435185185185,
           "width": 41,
           "height": 34.35648148148148,
-          "gid": 21,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -3524,13 +4183,13 @@
           ]
         },
         {
-          "id": 45,
+          "id": 47,
           "name": "waldruh-market-step-planter",
           "x": 575.1976744186046,
           "y": 761.5232558139535,
           "width": 34,
           "height": 44.47674418604651,
-          "gid": 22,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -3580,13 +4239,13 @@
           ]
         },
         {
-          "id": 46,
+          "id": 48,
           "name": "waldruh-west-workshop-planter",
           "x": 401.25116279069766,
           "y": 658.8418604651163,
           "width": 36,
           "height": 34.15813953488372,
-          "gid": 23,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -3636,13 +4295,13 @@
           ]
         },
         {
-          "id": 47,
+          "id": 49,
           "name": "waldruh-clockmill-planter",
           "x": 1063.909090909091,
           "y": 485.4848484848485,
           "width": 39,
           "height": 44.515151515151516,
-          "gid": 24,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -3692,13 +4351,13 @@
           ]
         },
         {
-          "id": 48,
+          "id": 50,
           "name": "waldruh-east-bridge-planter",
           "x": 1415,
           "y": 645.4814814814815,
           "width": 40,
           "height": 33.51851851851852,
-          "gid": 21,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -3748,13 +4407,13 @@
           ]
         },
         {
-          "id": 49,
+          "id": 51,
           "name": "waldruh-herb-garden-planter",
           "x": 997.7267441860465,
           "y": 781.9825581395348,
           "width": 39,
           "height": 51.01744186046512,
-          "gid": 22,
+          "gid": 24,
           "properties": [
             {
               "name": "key",
@@ -3804,13 +4463,13 @@
           ]
         },
         {
-          "id": 50,
+          "id": 52,
           "name": "waldruh-conservatory-planter-west",
           "x": 990.7581395348838,
           "y": 846.893023255814,
           "width": 37,
           "height": 35.10697674418605,
-          "gid": 23,
+          "gid": 25,
           "properties": [
             {
               "name": "key",
@@ -3860,13 +4519,13 @@
           ]
         },
         {
-          "id": 51,
+          "id": 53,
           "name": "waldruh-conservatory-planter-east",
           "x": 1244.939393939394,
           "y": 784.7676767676768,
           "width": 37,
           "height": 42.23232323232323,
-          "gid": 24,
+          "gid": 26,
           "properties": [
             {
               "name": "key",
@@ -3916,13 +4575,13 @@
           ]
         },
         {
-          "id": 52,
+          "id": 54,
           "name": "waldruh-archive-planter",
           "x": 247,
           "y": 876.5092592592592,
           "width": 34,
           "height": 28.49074074074074,
-          "gid": 21,
+          "gid": 23,
           "properties": [
             {
               "name": "key",
@@ -3972,13 +4631,13 @@
           ]
         },
         {
-          "id": 53,
+          "id": 55,
           "name": "waldruh-north-square-bench",
           "x": 752.6915887850467,
           "y": 288.9158878504673,
           "width": 74,
           "height": 67.08411214953271,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4028,13 +4687,13 @@
           ]
         },
         {
-          "id": 54,
+          "id": 56,
           "name": "waldruh-fountain-bench",
           "x": 608.1822429906542,
           "y": 427.8224299065421,
           "width": 73,
           "height": 66.17757009345794,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4084,13 +4743,13 @@
           ]
         },
         {
-          "id": 55,
+          "id": 57,
           "name": "waldruh-inn-garden-bench",
           "x": 245.10747663551402,
           "y": 361.0747663551402,
           "width": 65,
           "height": 58.925233644859816,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4140,13 +4799,13 @@
           ]
         },
         {
-          "id": 56,
+          "id": 58,
           "name": "waldruh-west-garden-bench",
           "x": 202.6728971962617,
           "y": 780.7289719626168,
           "width": 72,
           "height": 65.27102803738318,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4196,13 +4855,13 @@
           ]
         },
         {
-          "id": 57,
+          "id": 59,
           "name": "waldruh-herb-garden-bench",
           "x": 1023.7102803738318,
           "y": 794.1028037383178,
           "width": 76,
           "height": 68.89719626168224,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4252,13 +4911,13 @@
           ]
         },
         {
-          "id": 58,
+          "id": 60,
           "name": "waldruh-river-bench",
           "x": 1441.107476635514,
           "y": 557.0747663551401,
           "width": 65,
           "height": 58.925233644859816,
-          "gid": 25,
+          "gid": 27,
           "properties": [
             {
               "name": "key",
@@ -4308,13 +4967,13 @@
           ]
         },
         {
-          "id": 59,
+          "id": 61,
           "name": "waldruh-square-autumn-tree",
           "x": 668.5806451612904,
           "y": 19.32258064516131,
           "width": 189,
           "height": 234.7258064516129,
-          "gid": 26,
+          "gid": 28,
           "properties": [
             {
               "name": "key",
@@ -4364,13 +5023,13 @@
           ]
         },
         {
-          "id": 60,
+          "id": 62,
           "name": "waldruh-clockmill-autumn-tree",
           "x": 937.2564102564103,
           "y": 355.8461538461538,
           "width": 132,
           "height": 120.71794871794872,
-          "gid": 27,
+          "gid": 29,
           "properties": [
             {
               "name": "key",
@@ -4420,13 +5079,13 @@
           ]
         },
         {
-          "id": 61,
+          "id": 63,
           "name": "waldruh-workshop-autumn-tree",
           "x": 378.41059602649005,
           "y": 354.65562913907286,
           "width": 104,
           "height": 160.47682119205297,
-          "gid": 28,
+          "gid": 30,
           "properties": [
             {
               "name": "key",
@@ -4476,13 +5135,13 @@
           ]
         },
         {
-          "id": 62,
+          "id": 64,
           "name": "waldruh-south-route-fir",
           "x": 349.2269938650307,
           "y": 769.8527607361963,
           "width": 74,
           "height": 102.14723926380368,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -4532,13 +5191,13 @@
           ]
         },
         {
-          "id": 63,
+          "id": 65,
           "name": "waldruh-north-tree-01",
           "x": -31.19911504424779,
           "y": -18.243362831858406,
           "width": 147,
           "height": 137.2433628318584,
-          "gid": 30,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -4588,13 +5247,13 @@
           ]
         },
         {
-          "id": 64,
+          "id": 66,
           "name": "waldruh-north-tree-02",
           "x": 69.30044843049328,
           "y": -28.399103139013448,
           "width": 134,
           "height": 133.39910313901345,
-          "gid": 2147483679,
+          "gid": 2147483681,
           "properties": [
             {
               "name": "key",
@@ -4644,13 +5303,13 @@
           ]
         },
         {
-          "id": 65,
+          "id": 67,
           "name": "waldruh-north-tree-03",
           "x": 176.33128834355827,
           "y": -76.079754601227,
           "width": 108,
           "height": 149.079754601227,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -4700,13 +5359,13 @@
           ]
         },
         {
-          "id": 66,
+          "id": 68,
           "name": "waldruh-north-tree-04",
           "x": 269.84188034188037,
           "y": -52.70512820512822,
           "width": 137,
           "height": 125.2905982905983,
-          "gid": 27,
+          "gid": 29,
           "properties": [
             {
               "name": "key",
@@ -4756,13 +5415,13 @@
           ]
         },
         {
-          "id": 67,
+          "id": 69,
           "name": "waldruh-north-tree-05",
           "x": 529.7218543046358,
           "y": -123.96026490066225,
           "width": 139,
           "height": 214.48344370860926,
-          "gid": 2147483676,
+          "gid": 2147483678,
           "properties": [
             {
               "name": "key",
@@ -4812,13 +5471,13 @@
           ]
         },
         {
-          "id": 68,
+          "id": 70,
           "name": "waldruh-north-tree-06",
           "x": 612.8008849557522,
           "y": -14.243362831858406,
           "width": 147,
           "height": 137.2433628318584,
-          "gid": 30,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -4868,13 +5527,13 @@
           ]
         },
         {
-          "id": 69,
+          "id": 71,
           "name": "waldruh-north-tree-07",
           "x": 861.8834355828221,
           "y": -59.54601226993864,
           "width": 125,
           "height": 172.54601226993864,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -4924,13 +5583,13 @@
           ]
         },
         {
-          "id": 70,
+          "id": 72,
           "name": "waldruh-north-tree-08",
           "x": 938.7096774193549,
           "y": -78.16129032258064,
           "width": 138,
           "height": 171.38709677419354,
-          "gid": 2147483674,
+          "gid": 2147483676,
           "properties": [
             {
               "name": "key",
@@ -4980,13 +5639,13 @@
           ]
         },
         {
-          "id": 71,
+          "id": 73,
           "name": "waldruh-north-tree-09",
           "x": 1092.3680981595091,
           "y": -81.64417177914112,
           "width": 120,
           "height": 165.64417177914112,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5036,13 +5695,13 @@
           ]
         },
         {
-          "id": 72,
+          "id": 74,
           "name": "waldruh-north-tree-10",
           "x": 1370.2914798206277,
           "y": 2.5829596412555986,
           "width": 130,
           "height": 129.4170403587444,
-          "gid": 31,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -5092,13 +5751,13 @@
           ]
         },
         {
-          "id": 73,
+          "id": 75,
           "name": "waldruh-west-tree-01",
           "x": -20.147239263803684,
           "y": 78.25766871165644,
           "width": 115,
           "height": 158.74233128834356,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5148,13 +5807,13 @@
           ]
         },
         {
-          "id": 74,
+          "id": 76,
           "name": "waldruh-west-tree-02",
           "x": -10.125827814569533,
           "y": 148.58940397350995,
           "width": 124,
           "height": 191.33774834437085,
-          "gid": 2147483676,
+          "gid": 2147483678,
           "properties": [
             {
               "name": "key",
@@ -5204,13 +5863,13 @@
           ]
         },
         {
-          "id": 75,
+          "id": 77,
           "name": "waldruh-west-tree-03",
           "x": -12.814159292035399,
           "y": 330.8938053097345,
           "width": 134,
           "height": 125.10619469026548,
-          "gid": 30,
+          "gid": 32,
           "properties": [
             {
               "name": "key",
@@ -5260,13 +5919,13 @@
           ]
         },
         {
-          "id": 76,
+          "id": 78,
           "name": "waldruh-west-tree-04",
           "x": 275.77914110429447,
           "y": 391.3865030674847,
           "width": 91,
           "height": 125.61349693251533,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5316,13 +5975,13 @@
           ]
         },
         {
-          "id": 77,
+          "id": 79,
           "name": "waldruh-west-tree-05",
           "x": -1.2365591397849443,
           "y": 555.3870967741935,
           "width": 140,
           "height": 173.8709677419355,
-          "gid": 2147483674,
+          "gid": 2147483676,
           "properties": [
             {
               "name": "key",
@@ -5372,13 +6031,13 @@
           ]
         },
         {
-          "id": 78,
+          "id": 80,
           "name": "waldruh-west-tree-06",
           "x": 68.91411042944785,
           "y": 619.6503067484663,
           "width": 135,
           "height": 186.34969325153375,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5428,13 +6087,13 @@
           ]
         },
         {
-          "id": 79,
+          "id": 81,
           "name": "waldruh-west-tree-07",
           "x": -26.196581196581192,
           "y": 786.7179487179487,
           "width": 164,
           "height": 149.98290598290598,
-          "gid": 27,
+          "gid": 29,
           "properties": [
             {
               "name": "key",
@@ -5484,13 +6143,13 @@
           ]
         },
         {
-          "id": 80,
+          "id": 82,
           "name": "waldruh-south-tree-01",
           "x": 54.4170403587444,
           "y": 827.8340807174889,
           "width": 186,
           "height": 185.1659192825112,
-          "gid": 31,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -5540,13 +6199,13 @@
           ]
         },
         {
-          "id": 81,
+          "id": 83,
           "name": "waldruh-south-tree-02",
           "x": 224.23893805309734,
           "y": 867.2920353982302,
           "width": 140,
           "height": 130.7079646017699,
-          "gid": 2147483678,
+          "gid": 2147483680,
           "properties": [
             {
               "name": "key",
@@ -5596,13 +6255,13 @@
           ]
         },
         {
-          "id": 82,
+          "id": 84,
           "name": "waldruh-south-tree-03",
           "x": 439.47852760736197,
           "y": 814.6625766871166,
           "width": 156,
           "height": 215.33742331288343,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5652,13 +6311,13 @@
           ]
         },
         {
-          "id": 83,
+          "id": 85,
           "name": "waldruh-south-tree-04",
           "x": 427.6989247311828,
           "y": 752.1290322580645,
           "width": 119,
           "height": 147.79032258064515,
-          "gid": 26,
+          "gid": 28,
           "properties": [
             {
               "name": "key",
@@ -5708,13 +6367,13 @@
           ]
         },
         {
-          "id": 84,
+          "id": 86,
           "name": "waldruh-south-tree-05",
           "x": 738.1794871794872,
           "y": 812.6923076923076,
           "width": 186,
           "height": 170.10256410256412,
-          "gid": 2147483675,
+          "gid": 2147483677,
           "properties": [
             {
               "name": "key",
@@ -5764,13 +6423,13 @@
           ]
         },
         {
-          "id": 85,
+          "id": 87,
           "name": "waldruh-south-tree-06",
           "x": 877.9815950920246,
           "y": 813.282208588957,
           "width": 157,
           "height": 216.71779141104295,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -5820,13 +6479,13 @@
           ]
         },
         {
-          "id": 86,
+          "id": 88,
           "name": "waldruh-south-tree-07",
           "x": 850.8609271523179,
           "y": 761.0198675496688,
           "width": 145,
           "height": 223.74172185430464,
-          "gid": 28,
+          "gid": 30,
           "properties": [
             {
               "name": "key",
@@ -5876,13 +6535,13 @@
           ]
         },
         {
-          "id": 87,
+          "id": 89,
           "name": "waldruh-garden-tree-01",
           "x": 1135.7757847533633,
           "y": 779.5515695067264,
           "width": 123,
           "height": 122.44843049327355,
-          "gid": 31,
+          "gid": 33,
           "properties": [
             {
               "name": "key",
@@ -5932,13 +6591,13 @@
           ]
         },
         {
-          "id": 88,
+          "id": 90,
           "name": "waldruh-garden-tree-02",
           "x": 1255.8924731182797,
           "y": 713.9032258064516,
           "width": 89,
           "height": 110.53225806451613,
-          "gid": 2147483674,
+          "gid": 2147483676,
           "properties": [
             {
               "name": "key",
@@ -5988,13 +6647,13 @@
           ]
         },
         {
-          "id": 89,
+          "id": 91,
           "name": "waldruh-east-tree-01",
           "x": 1453.8282208588957,
           "y": 57.30061349693253,
           "width": 107,
           "height": 147.69938650306747,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -6044,13 +6703,13 @@
           ]
         },
         {
-          "id": 90,
+          "id": 92,
           "name": "waldruh-east-tree-02",
           "x": 1458.1196581196582,
           "y": 247.12820512820514,
           "width": 124,
           "height": 113.4017094017094,
-          "gid": 2147483675,
+          "gid": 2147483677,
           "properties": [
             {
               "name": "key",
@@ -6100,13 +6759,13 @@
           ]
         },
         {
-          "id": 91,
+          "id": 93,
           "name": "waldruh-east-tree-03",
           "x": 1454.2119205298013,
           "y": 374.1125827814569,
           "width": 117,
           "height": 180.53642384105962,
-          "gid": 28,
+          "gid": 30,
           "properties": [
             {
               "name": "key",
@@ -6156,13 +6815,13 @@
           ]
         },
         {
-          "id": 92,
+          "id": 94,
           "name": "waldruh-east-tree-04",
           "x": 1413.4110429447853,
           "y": 733.0306748466257,
           "width": 134,
           "height": 184.96932515337423,
-          "gid": 29,
+          "gid": 31,
           "properties": [
             {
               "name": "key",
@@ -6210,17 +6869,810 @@
               "value": false
             }
           ]
+        },
+        {
+          "id": 95,
+          "name": "waldruh-terrace-workshop",
+          "x": 1793,
+          "y": 306.10546875,
+          "width": 126,
+          "height": 116.89453125,
+          "gid": 34,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-workshop"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1856
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 423
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 126
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1793
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 306.10546875
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 126
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 96,
+          "name": "waldruh-supply-stall",
+          "x": 2039.5779816513761,
+          "y": 220.6422018348624,
+          "width": 92,
+          "height": 87.35779816513761,
+          "gid": 35,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-supply-stall"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2086
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 308
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2039.5779816513761
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 220.6422018348624
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 97,
+          "name": "waldruh-terrace-bench",
+          "x": 1722.6355140186915,
+          "y": 353.3551401869159,
+          "width": 68,
+          "height": 61.64485981308411,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1756
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 415
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1722.6355140186915
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 353.3551401869159
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 98,
+          "name": "waldruh-terrace-lamp",
+          "x": 1881.2830188679245,
+          "y": 307.1698113207547,
+          "width": 30,
+          "height": 122.83018867924528,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1896
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 430
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1881.2830188679245
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 307.1698113207547
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 99,
+          "name": "waldruh-terrace-tree",
+          "x": 1746.2242152466367,
+          "y": 14.448430493273548,
+          "width": 100,
+          "height": 99.55156950672645,
+          "gid": 33,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-tree"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1796
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 114
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1746.2242152466367
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 14.448430493273548
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 100,
+          "name": "waldruh-terrace-sign",
+          "x": 1600.8351648351647,
+          "y": 321.24175824175825,
+          "width": 30,
+          "height": 36.75824175824176,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-sign"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1616
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 358
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1600.8351648351647
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 321.24175824175825
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 101,
+          "name": "waldruh-yard-house",
+          "x": 2112,
+          "y": 847.25,
+          "width": 128,
+          "height": 118.75,
+          "gid": 34,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-house"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2176
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 966
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 128
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 2112
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 847.25
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 128
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 102,
+          "name": "waldruh-yard-shelter",
+          "x": 2032,
+          "y": 511.7903614457831,
+          "width": 98,
+          "height": 108.15421686746988,
+          "gid": 19,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-shelter"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2081
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 619
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 2032
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 511.7903614457831
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 103,
+          "name": "waldruh-yard-bench",
+          "x": 2145.6728971962616,
+          "y": 623.7289719626168,
+          "width": 72,
+          "height": 65.27102803738318,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-bench"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2181
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 689
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2145.6728971962616
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 623.7289719626168
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 104,
+          "name": "waldruh-yard-planter",
+          "x": 1962.4827586206898,
+          "y": 894.3103448275862,
+          "width": 42,
+          "height": 44.689655172413794,
+          "gid": 36,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-planter"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1984
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 939
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1962.4827586206898
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 894.3103448275862
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 105,
+          "name": "waldruh-yard-sign",
+          "x": 1694.8241758241759,
+          "y": 610.7912087912088,
+          "width": 32,
+          "height": 39.20879120879121,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-sign"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1711
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 650
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1694.8241758241759
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 610.7912087912088
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 106,
+          "name": "waldruh-yard-lamp",
+          "x": 2100.301886792453,
+          "y": 594.9811320754717,
+          "width": 32,
+          "height": 131.0188679245283,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-lamp"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2116
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 726
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2100.301886792453
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 594.9811320754717
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 107,
+          "name": "waldruh-yard-tree",
+          "x": 2061.2466367713005,
+          "y": 756.493273542601,
+          "width": 110,
+          "height": 109.5067264573991,
+          "gid": 33,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-tree"
+            },
+            {
+              "name": "groupId",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2116
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 866
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 110
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 2061.2466367713005
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 756.493273542601
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 110
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
         }
       ]
     },
     {
-      "id": 118,
+      "id": 150,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 117,
+          "id": 149,
           "name": "spawn",
           "point": true,
           "x": 798.72,
@@ -6236,13 +7688,13 @@
       ]
     },
     {
-      "id": 127,
+      "id": 159,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 119,
+          "id": 151,
           "name": "marta",
           "point": true,
           "x": 430.08000000000004,
@@ -6256,7 +7708,7 @@
           ]
         },
         {
-          "id": 120,
+          "id": 152,
           "name": "otto",
           "point": true,
           "x": 1121.28,
@@ -6270,7 +7722,7 @@
           ]
         },
         {
-          "id": 121,
+          "id": 153,
           "name": "lina",
           "point": true,
           "x": 660.48,
@@ -6284,7 +7736,7 @@
           ]
         },
         {
-          "id": 122,
+          "id": 154,
           "name": "emil",
           "point": true,
           "x": 460.79999999999995,
@@ -6298,7 +7750,7 @@
           ]
         },
         {
-          "id": 123,
+          "id": 155,
           "name": "ada",
           "point": true,
           "x": 371.712,
@@ -6312,7 +7764,7 @@
           ]
         },
         {
-          "id": 124,
+          "id": 156,
           "name": "fritz",
           "point": true,
           "x": 909.3119999999999,
@@ -6326,7 +7778,7 @@
           ]
         },
         {
-          "id": 125,
+          "id": 157,
           "name": "greta",
           "point": true,
           "x": 978.432,
@@ -6340,7 +7792,7 @@
           ]
         },
         {
-          "id": 126,
+          "id": 158,
           "name": "inspector",
           "point": true,
           "x": 1147.392,
@@ -6356,13 +7808,13 @@
       ]
     },
     {
-      "id": 133,
+      "id": 165,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 128,
+          "id": 160,
           "name": "waldruh-clock",
           "point": true,
           "x": 1184.256,
@@ -6376,7 +7828,7 @@
           ]
         },
         {
-          "id": 129,
+          "id": 161,
           "name": "waldruh-housing-board",
           "point": true,
           "x": 582.144,
@@ -6390,7 +7842,7 @@
           ]
         },
         {
-          "id": 130,
+          "id": 162,
           "name": "waldruh-herb-garden",
           "point": true,
           "x": 978.432,
@@ -6404,7 +7856,7 @@
           ]
         },
         {
-          "id": 131,
+          "id": 163,
           "name": "waldruh-route-sign",
           "point": true,
           "x": 961.5360000000001,
@@ -6418,7 +7870,7 @@
           ]
         },
         {
-          "id": 132,
+          "id": 164,
           "name": "waldruh-memory-stone",
           "point": true,
           "x": 299.52,
@@ -6434,28 +7886,603 @@
       ]
     },
     {
-      "id": 134,
+      "id": 168,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
-      "objects": []
+      "objects": [
+        {
+          "id": 166,
+          "name": "mill-supply-terrace",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1536,
+              "y": 0
+            },
+            {
+              "x": 2304,
+              "y": 0
+            },
+            {
+              "x": 2304,
+              "y": 512
+            },
+            {
+              "x": 1536,
+              "y": 512
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "mill-supply-terrace"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Mill supply terrace"
+            }
+          ]
+        },
+        {
+          "id": 167,
+          "name": "mill-service-yard",
+          "x": 0,
+          "y": 0,
+          "polygon": [
+            {
+              "x": 1536,
+              "y": 512
+            },
+            {
+              "x": 2304,
+              "y": 512
+            },
+            {
+              "x": 2304,
+              "y": 1024
+            },
+            {
+              "x": 1536,
+              "y": 1024
+            }
+          ],
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "mill-service-yard"
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "value": "Mill service yard"
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": 135,
+      "id": 169,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
-      "objects": []
+      "objects": [
+        {
+          "id": 108,
+          "name": "waldruh-terrace-repairs",
+          "point": true,
+          "x": 1856,
+          "y": 455,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-repairs"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-terrace-workshop"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "work"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1856
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 455
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 126
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 109,
+          "name": "waldruh-supply-service",
+          "point": true,
+          "x": 2086,
+          "y": 338,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-supply-service"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-supply-stall"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "service"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2086
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 338
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 110,
+          "name": "waldruh-supply-customer",
+          "point": true,
+          "x": 2056,
+          "y": 330,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-supply-customer"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-supply-stall"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "wait"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": -30
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2056
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 330
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 111,
+          "name": "waldruh-supply-pickup",
+          "point": true,
+          "x": 2110,
+          "y": 345,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-supply-pickup"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-supply-stall"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "pickup"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2110
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 345
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 112,
+          "name": "waldruh-terrace-reading",
+          "point": true,
+          "x": 1756,
+          "y": 436,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-terrace-reading"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-terrace-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1756
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 436
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 68
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 113,
+          "name": "waldruh-yard-shelter-place",
+          "point": true,
+          "x": 2081,
+          "y": 649,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-shelter-place"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-yard-shelter"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "shelter"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "capacity",
+              "type": "int",
+              "value": 2
+            },
+            {
+              "name": "places",
+              "type": "string",
+              "value": "[{\"x\":0,\"y\":0},{\"x\":20,\"y\":0}]"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2081
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 649
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"places\"]"
+            }
+          ]
+        },
+        {
+          "id": 114,
+          "name": "waldruh-yard-rest",
+          "point": true,
+          "x": 2181,
+          "y": 707,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-rest"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-yard-bench"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "seat"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 2181
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 707
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 115,
+          "name": "waldruh-yard-gardening",
+          "point": true,
+          "x": 1984,
+          "y": 976,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-gardening"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-yard-planter"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "work"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1984
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 976
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 116,
+          "name": "waldruh-yard-gathering",
+          "point": true,
+          "x": 1711,
+          "y": 689,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-yard-gathering"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-yard-sign"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "wait"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1711
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 689
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": 136,
+      "id": 170,
       "name": "Entrances",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 93,
+          "id": 117,
           "name": "cafe-entrance",
           "point": true,
           "x": 320,
@@ -6509,7 +8536,7 @@
           ]
         },
         {
-          "id": 94,
+          "id": 118,
           "name": "bakery-entrance",
           "point": true,
           "x": 385,
@@ -6563,7 +8590,7 @@
           ]
         },
         {
-          "id": 95,
+          "id": 119,
           "name": "supermarket-entrance",
           "point": true,
           "x": 893,
@@ -6617,7 +8644,7 @@
           ]
         },
         {
-          "id": 96,
+          "id": 120,
           "name": "inn-entrance",
           "point": true,
           "x": 285,
@@ -6673,7 +8700,7 @@
       ]
     },
     {
-      "id": 137,
+      "id": 171,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,
@@ -6689,7 +8716,7 @@
       "objectalignment": "topleft",
       "tilewidth": 3072,
       "tileheight": 2048,
-      "tilecount": 31,
+      "tilecount": 36,
       "tiles": [
         {
           "id": 0,
@@ -6861,6 +8888,90 @@
         },
         {
           "id": 4,
+          "image": "../../web/public/assets/world-expansions/waldruh/waldruh-mill-supply-terrace-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-supply-terrace-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "image": "../../web/public/assets/world-expansions/waldruh/waldruh-mill-service-yard-day-terrain.webp",
+          "imagewidth": 3074,
+          "imageheight": 2050,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/world-expansions/waldruh/waldruh-mill-service-yard-day-terrain.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 6,
           "image": "../../web/public/assets/waldruh-day-building-cafe.webp",
           "imagewidth": 1179,
           "imageheight": 1120,
@@ -6902,7 +9013,7 @@
           ]
         },
         {
-          "id": 5,
+          "id": 7,
           "image": "../../web/public/assets/waldruh-day-building-station.webp",
           "imagewidth": 1212,
           "imageheight": 1019,
@@ -6944,7 +9055,7 @@
           ]
         },
         {
-          "id": 6,
+          "id": 8,
           "image": "../../web/public/assets/waldruh-day-building-workshop.webp",
           "imagewidth": 1215,
           "imageheight": 1245,
@@ -6986,7 +9097,7 @@
           ]
         },
         {
-          "id": 7,
+          "id": 9,
           "image": "../../web/public/assets/waldruh-day-building-house-1.webp",
           "imagewidth": 1198,
           "imageheight": 1163,
@@ -7038,7 +9149,7 @@
           ]
         },
         {
-          "id": 8,
+          "id": 10,
           "image": "../../web/public/assets/waldruh-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1025,
@@ -7080,7 +9191,7 @@
           ]
         },
         {
-          "id": 9,
+          "id": 11,
           "image": "../../web/public/assets/waldruh-day-building-house-1.webp",
           "imagewidth": 1198,
           "imageheight": 1163,
@@ -7132,7 +9243,7 @@
           ]
         },
         {
-          "id": 10,
+          "id": 12,
           "image": "../../web/public/assets/waldruh-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1025,
@@ -7184,7 +9295,7 @@
           ]
         },
         {
-          "id": 11,
+          "id": 13,
           "image": "../../web/public/assets/waldruh-day-building-greenhouse.webp",
           "imagewidth": 1211,
           "imageheight": 1228,
@@ -7226,7 +9337,7 @@
           ]
         },
         {
-          "id": 12,
+          "id": 14,
           "image": "../../web/public/assets/waldruh-day-animation-1.webp",
           "imagewidth": 1024,
           "imageheight": 1277,
@@ -7268,7 +9379,7 @@
           ]
         },
         {
-          "id": 13,
+          "id": 15,
           "image": "../../web/public/assets/waldruh-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1398,
@@ -7320,7 +9431,7 @@
           ]
         },
         {
-          "id": 14,
+          "id": 16,
           "image": "../../web/public/assets/waldruh-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1398,
@@ -7372,7 +9483,7 @@
           ]
         },
         {
-          "id": 15,
+          "id": 17,
           "image": "../../web/public/assets/waldruh-day-animation-6.webp",
           "imagewidth": 1024,
           "imageheight": 1398,
@@ -7424,7 +9535,7 @@
           ]
         },
         {
-          "id": 16,
+          "id": 18,
           "image": "../../web/public/assets/waldruh-day-building-bases.webp",
           "imagewidth": 2048,
           "imageheight": 1025,
@@ -7466,7 +9577,7 @@
           ]
         },
         {
-          "id": 17,
+          "id": 19,
           "image": "../../web/public/assets/waldruh-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1294,
@@ -7508,7 +9619,7 @@
           ]
         },
         {
-          "id": 18,
+          "id": 20,
           "image": "../../web/public/assets/waldruh-day-animation-1.webp",
           "imagewidth": 1024,
           "imageheight": 1277,
@@ -7550,7 +9661,7 @@
           ]
         },
         {
-          "id": 19,
+          "id": 21,
           "image": "../../web/public/assets/waldruh-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 1142,
@@ -7592,7 +9703,7 @@
           ]
         },
         {
-          "id": 20,
+          "id": 22,
           "image": "../../web/public/assets/waldruh-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1311,
@@ -7644,7 +9755,7 @@
           ]
         },
         {
-          "id": 21,
+          "id": 23,
           "image": "../../web/public/assets/waldruh-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1311,
@@ -7696,7 +9807,7 @@
           ]
         },
         {
-          "id": 22,
+          "id": 24,
           "image": "../../web/public/assets/waldruh-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1311,
@@ -7748,7 +9859,7 @@
           ]
         },
         {
-          "id": 23,
+          "id": 25,
           "image": "../../web/public/assets/waldruh-day-animation-7.webp",
           "imagewidth": 1024,
           "imageheight": 1311,
@@ -7800,7 +9911,7 @@
           ]
         },
         {
-          "id": 24,
+          "id": 26,
           "image": "../../web/public/assets/waldruh-day-animation-3.webp",
           "imagewidth": 1024,
           "imageheight": 1294,
@@ -7842,7 +9953,7 @@
           ]
         },
         {
-          "id": 25,
+          "id": 27,
           "image": "../../web/public/assets/waldruh-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1374,
@@ -7894,7 +10005,7 @@
           ]
         },
         {
-          "id": 26,
+          "id": 28,
           "image": "../../web/public/assets/waldruh-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1374,
@@ -7946,7 +10057,7 @@
           ]
         },
         {
-          "id": 27,
+          "id": 29,
           "image": "../../web/public/assets/waldruh-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1374,
@@ -7998,7 +10109,7 @@
           ]
         },
         {
-          "id": 28,
+          "id": 30,
           "image": "../../web/public/assets/waldruh-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 1142,
@@ -8040,7 +10151,7 @@
           ]
         },
         {
-          "id": 29,
+          "id": 31,
           "image": "../../web/public/assets/waldruh-day-animation-5.webp",
           "imagewidth": 1024,
           "imageheight": 1374,
@@ -8092,7 +10203,7 @@
           ]
         },
         {
-          "id": 30,
+          "id": 32,
           "image": "../../web/public/assets/waldruh-day-animation-2.webp",
           "imagewidth": 1024,
           "imageheight": 1142,
@@ -8130,6 +10241,132 @@
               "name": "_referenceWidth",
               "type": "int",
               "value": 223
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "image": "../../web/public/assets/waldruh-day-building-bases.webp",
+          "imagewidth": 2048,
+          "imageheight": 1025,
+          "x": 894,
+          "y": 4,
+          "width": 512,
+          "height": 475,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "house"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 512
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 475
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 512
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "image": "../../web/public/assets/waldruh-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1294,
+          "x": 2,
+          "y": 2,
+          "width": 218,
+          "height": 207,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5045871559633027
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 218
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 207
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 218
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "image": "../../web/public/assets/waldruh-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1294,
+          "x": 2,
+          "y": 622,
+          "width": 203,
+          "height": 216,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5123152709359606
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 203
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 216
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 203
             }
           ]
         }

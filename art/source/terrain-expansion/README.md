@@ -6,6 +6,10 @@ Twelve Lindenhafen additions are integrated: `station-yard`, `parcel-yard`, `gar
 
 ## Source and export geometry
 
+Waldruh now has two integrated additions, `mill-supply-terrace` and `mill-service-yard`, with sixteen native day/night paintings and eight registered runtime exports. Its current footprint is 2304 × 1024, with 101 editable props, nine activity definitions and two authored residents. The remaining ten districts in `waldruh/expansion-plan.json` are planned only. Accepted day sources are 1495 × 1052; night sources are 1494 × 1052. The four detail files range from 1.82 to 1.97 MiB and retain the same guard crops, density and overviews as Lindenhafen. Full map expansion is unfinished.
+
+Waldruh's first twelve night attempts failed the unchanged aspect-ratio check. Their prompt/provenance records remain available; only the sixteen accepted native paintings are shipped as source files. Final `*-night-exact-prompts.json` requests use each matching day source as the sole layout reference, preserving the complete frame at 1494 × 1052. Reviewed bridge and district boundary composites are under `output/terrain-expansion/waldruh/`; the saved scene validates in the editor (`output/qa/waldruh-first-editor-night.png`).
+
 - One runtime chunk covers 768 × 512 world units.
 - Four overlapping source paintings each cover 432 × 304 units. Columns start at 0 and 336; rows at 0 and 208. The overlap is 96 world units.
 - Each native detail painting must be at least 1450 × 1000 pixels and within 0.03 of the 432:304 aspect ratio. Accepted parcel-yard paintings are 1494–1495 × 1052 pixels, matching the native detail density on main.

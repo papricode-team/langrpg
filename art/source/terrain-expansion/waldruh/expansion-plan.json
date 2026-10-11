@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "layout-review",
+  "status": "partially-integrated-paused",
   "worldRect": {
     "x": 0,
     "y": 0,
@@ -20,7 +20,7 @@
       "x": 1536,
       "y": 0,
       "purpose": "Supplies and clockwork deliveries",
-      "status": "planned"
+      "status": "integrated"
     },
     {
       "id": "woodland-lookout",
@@ -36,7 +36,7 @@
       "x": 1536,
       "y": 512,
       "purpose": "Repair work and courier exchange",
-      "status": "planned"
+      "status": "integrated"
     },
     {
       "id": "inn-garden",
@@ -114,6 +114,10 @@
   "promotionRule": "Preserve the original core exactly. Promote native-detail day/night chunks only after continuous boundary review, connected navigation, editable destinations and resident activities. Layout references do not count as playable expansion.",
   "layoutNativeSize": {
     "width": 1536,
+    "height": 1024
+  },
+  "currentPlayableSize": {
+    "width": 2304,
     "height": 1024
   }
 }

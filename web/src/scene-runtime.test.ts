@@ -1,6 +1,7 @@
 import {describe,expect,it} from 'vitest';
 import baseline from '../../docs/audits/living-world-area-baseline.json';
 import lindenCore from '../../docs/audits/lindenhafen-core-v1.json';
+import waldruhCore from '../../docs/audits/waldruh-core-v1.json';
 import {parseWorldSceneDocument,sceneActivityPoint} from './scene-schema';
 import {sceneDocument} from './scene-data';
 import {getMap,type MapId} from './maps';
@@ -35,6 +36,22 @@ describe('canonical scenes in the game runtime',()=>{
     expect(navigation.canWalkSegment(2280,1106,2340,1106)).toBe(true);
     for(const [x,y]of [[900,1300],[1750,1250],[1900,1410],[2500,1210],[2830,1430]])
       expect(navigation.isWalkable(x,y),`${x},${y}`).toBe(false);
+  });
+
+  it('preserves Waldruh’s core and connects the detailed mill terraces across the bridge',()=>{
+    const core=parseWorldSceneDocument({version:2,maps:{waldruh:waldruhCore}}).maps.waldruh;
+    const scene=sceneDocument.maps.waldruh,navigation=createMapNavigation('waldruh');
+    for(const key of ['spawn','npcs','objects','entrances','obstacles'] as const)expect(scene[key]).toEqual(core[key]);
+    for(const key of ['walkable','scenery','terrain'] as const)expect(scene[key].slice(0,core[key].length)).toEqual(core[key]);
+    expect(scene.width).toBeGreaterThanOrEqual(2304);expect(scene.coordinateVersion).toBeGreaterThanOrEqual(2);
+    for(const [id,y]of [['mill-supply-terrace',0],['mill-service-yard',512]] as const)
+      expect(scene.terrain.find(tile=>tile.id===id)).toMatchObject({x:1536,y,width:768,height:512,pixelDensity:4});
+    for(const slot of scene.activities??[]){const point=sceneActivityPoint(scene,slot);expect(navigation.findPath(scene.spawn,point).at(-1),slot.id).toEqual(point);}
+    for(const point of [{x:2086,y:338},{x:1856,y:455},{x:2176,y:1000}])expect(navigation.findPath(scene.spawn,point).at(-1)).toEqual(point);
+    expect(navigation.canWalkSegment(1520,665,1575,673)).toBe(true);
+    expect(navigation.canWalkSegment(2237,538,2269,492)).toBe(true);
+    for(const [x,y]of [[1560,785],[1936,210],[1970,720],[2070,830]])expect(navigation.isWalkable(x,y),`${x},${y}`).toBe(false);
+    expect(navigation.auditConnectedArea(scene.spawn).connectedCells).toBeGreaterThan(1614);
   });
 
   it('doubles both Lindenhafen dimensions with complete detailed terrain and connected southern destinations',()=>{

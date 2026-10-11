@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "reason": "Two-reference outputs repeatedly widened to 1515–1516 by 1037–1038. Use one accepted day target with exact pixel dimensions.",
+  "rejected": [
+    {
+      "section": "0-0",
+      "generatedFile": "exec-e3ec2260-8570-40bd-a0c8-7e31ab2c71af.png"
+    },
+    {
+      "section": "0-1",
+      "generatedFile": "exec-627c51c7-3be9-4f26-aa65-b1b3b0a328c9.png"
+    },
+    {
+      "section": "1-0",
+      "generatedFile": "exec-aba3b341-e6c1-48df-9a56-290fdb187423.png"
+    },
+    {
+      "section": "1-1",
+      "generatedFile": "exec-d3193bf4-dabd-4c1e-9090-b2f97326f8ca.png"
+    }
+  ],
+  "jobs": [
+    {
+      "section": "0-0",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-service-yard terrain section 0-0. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-service-yard-day-0-0.png"
+      ],
+      "key": "mill-service-yard-night-exact-0-0",
+      "district": "mill-service-yard"
+    },
+    {
+      "section": "0-1",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-service-yard terrain section 0-1. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-service-yard-day-0-1.png"
+      ],
+      "key": "mill-service-yard-night-exact-0-1",
+      "district": "mill-service-yard"
+    },
+    {
+      "section": "1-0",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-service-yard terrain section 1-0. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-service-yard-day-1-0.png"
+      ],
+      "key": "mill-service-yard-night-exact-1-0",
+      "district": "mill-service-yard"
+    },
+    {
+      "section": "1-1",
+      "prompt": "Use case: precise-object-edit. Create a registered nighttime version of the supplied Waldruh mill-service-yard terrain section 1-1. The input is the exact full-canvas layout. Output dimensions must be 1494×1052 pixels, landscape ratio 1.420:1. Keep the full uncropped frame, every path edge, stair, rock, cobble, flower and grass patch at the exact same normalized position. Do not widen the canvas or crop its height. Change only illumination to cool blue moonlight: subdued slate-blue stones, dark blue-green shadows, deep olive vegetation, dim flowers. Match the established Waldruh night palette, with clearly readable paths. No light pools or new sources, no objects, no text or UI. Clean high-resolution painterly detail. This is a ground plate for precise day/night crossfades. Return only the relit input image at 1494×1052.",
+      "references": [
+        "art/source/terrain-expansion/waldruh/mill-service-yard-day-1-1.png"
+      ],
+      "key": "mill-service-yard-night-exact-1-1",
+      "district": "mill-service-yard"
+    }
+  ]
+}
