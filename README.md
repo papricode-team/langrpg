@@ -12,6 +12,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 - German appears first. Tap unfamiliar words to reveal the full English sentence with the selected word highlighted in context, or explicitly reveal English; help counts as assistance. Short A1 turns grow from at most 8 words in the first two quests to 10, then 12. Authored simpler variants are selected using retained-word evidence. Each production scene offers a contextual grammar explanation linked to an existing guide. Measured coverage selects support; it does not guarantee that every line is 95% familiar to every learner.
 - The player’s name appears on the ticket and in dialogue. The inspector and Elise have visible characters and portraits. Choices change three factions’ trust, later greetings, the people who offer help and one of three endings. A visible bell counter follows story beats, with the seventh bell reserved for the finale.
 - Routes are earned: restore Lindenhafen to reach Waldruh, obtain the archive confession to reach Nebelstadt, then complete Act III to reveal the ten expeditions. Existing earned discoveries remain accessible. Optional drills live in the journal, NPC side offers and the inn.
+- **Vocabulary is paced.** The server restores course words at about ten per hour of visible play (ten at the start, never more than fifteen banked), pauses while twelve restored words are still unrecognised or twenty are due for review, and keeps a story conversation closed until every word it uses has been restored. Learning routes, word drills, resident barks, interior sessions and the Word atlas follow the same restored-word list; **Today's words** in the journal practises the newest ones. See [docs/pacing.md](docs/pacing.md) for the budget, the content targets it implies and `npm run pacing`.
 - Server-held letters, keys and evidence appear in a case board. Three named story save slots restore narrative state while preserving XP, language evidence and previously earned rewards. Saved progress grants Echo slow playback, Wordlight highlighting, lantern crests and titles acknowledged by residents.
 - Crisp, device-resolution rendering uses Original artwork by default. A camera follows the player and frames conversations. Continuous daylight tint, day/night art transitions, lamp lights, mist, rain and story storm effects bring the painted towns to life. Character facing, resident routines, German barks, a train and short skippable cinematics support the story. Towns still use their existing painted plates; larger multi-plate districts remain production work.
 - The three story towns have regional music, quieter night stems, ambience, surface footsteps, doors and bells, with narration ducking, mute and reduced-motion preferences. Dialogue clips use consistent installed macOS German voice sketches with recorded provenance. They are not neural or human performances; personalized names use browser speech when a German voice is available, with recorded name-free fallbacks.
@@ -85,6 +86,7 @@ npm run lint
 npm run maps:check
 npm run build
 npm run budgets
+npm run pacing
 cd server
 go test -race ./...
 go vet ./...
@@ -178,9 +180,11 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | `web/src/review.ts` | Short reviews across word skills, course sentences and story expressions |
 | `web/src/api.ts` | REST sessions, map acknowledgements and multiplayer reconnects |
 | `server/curriculum.json`, `server/course.json` | Canonical grading, word links and exact completion requirements |
+| `scripts/syllabus.mjs`, `build-syllabus.mjs`, `audit-pacing.mjs`, `server/intake.go`, `web/src/intake.ts` | Vocabulary syllabus, intake budget, heartbeats, gates and the pacing audit |
 | `server/` | Go REST/WebSocket service, persistence and FSRS scheduling |
 | `compose.yaml` | Go application and PostgreSQL deployment |
 | [Curriculum](docs/curriculum.md) | Coverage, content contract and assessment limits |
+| [Pacing](docs/pacing.md) | Ten words an hour: syllabus, intake budget, gates and per-scene unlock hours |
 | [Roadmap implementation](docs/roadmap-implementation.md) | Delivered changes, validation and remaining production scope |
 | [Implementation plan](docs/implementation-plan.md) | Original scope and parallel ownership |
 | [Activities](docs/activities.md) | Gameplay contracts, recovery and mobile verification |

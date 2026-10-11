@@ -299,3 +299,11 @@
   .menu-layer,.dialog { animation:none; }
   .menu-layer *, .dialog * { scroll-behavior:auto; }
 }
+
+/* Vocabulary intake: the Atlas restores about ten words an hour. */
+.ink-badge { display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:999px; background:#2b4a3e; color:#f3e9c8; font-size:11px; letter-spacing:.4px; white-space:nowrap; }
+.ink-badge[data-paused="practise"], .ink-badge[data-paused="review"] { background:#6e4a2a; }
+.ink-badge .icon { width:12px; height:12px; }
+.quest-tracker .tracker-lock { display:block; margin-top:4px; font-size:11px; color:#d9c9a6; }
+.objective-dialog .vocabulary-lock { margin:14px 0 6px; padding:12px 14px; border:1px solid #c9b98f; background:#f6efd9; color:#4b4232; font-size:14px; }
+.quest-log-entry .quest-log-lock { display:block; margin-top:4px; font-size:11px; color:#8b7a52; }

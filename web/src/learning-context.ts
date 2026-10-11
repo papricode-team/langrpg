@@ -52,12 +52,14 @@ export function filterKnownGlosses(glosses:Record<string,string>,lookup:GlossLoo
   return Object.fromEntries(Object.entries(glosses).filter(([surface])=>!lookup(surface)?.known));
 }
 
-export function selectInputVariant<T extends {german:string}>(variants:readonly T[],lookup:GlossLookup,target=.95):{
+/** Words the Atlas has not restored yet weigh most when no variant is comprehensible. */
+export function selectInputVariant<T extends {german:string}>(variants:readonly T[],lookup:GlossLookup,target=.95,introduced?:ReadonlySet<string>):{
   variant:T;coverage:{known:number;total:number;ratio:number};requiresScaffolding:boolean;newWords:string[];glosses:Record<string,string>;
 } {
   if(!variants.length)throw new Error('A conversation needs an authored line');
-  const scored=variants.map((variant,index)=>({variant,index,coverage:inputCoverage(variant.german,lookup)}));
-  const chosen=scored.find(item=>item.coverage.ratio>=target)??[...scored].sort((a,b)=>(a.coverage.total-a.coverage.known)-(b.coverage.total-b.coverage.known)||b.coverage.ratio-a.coverage.ratio||a.index-b.index)[0];
+  const unintroduced=(text:string)=>introduced?(text.replace(/\{[^}]+\}/g,'').match(/\p{L}+/gu)??[]).filter(token=>{const gloss=lookup(token);return gloss&&!gloss.known&&!introduced.has(gloss.wordId);}).length:0;
+  const scored=variants.map((variant,index)=>({variant,index,coverage:inputCoverage(variant.german,lookup),unintroduced:unintroduced(variant.german)}));
+  const chosen=scored.find(item=>item.coverage.ratio>=target)??[...scored].sort((a,b)=>a.unintroduced-b.unintroduced||(a.coverage.total-a.coverage.known)-(b.coverage.total-b.coverage.known)||b.coverage.ratio-a.coverage.ratio||a.index-b.index)[0];
   const newWords=[...new Set((chosen.variant.german.replace(/\{[^}]+\}/g,'').match(/\p{L}+/gu)??[]).filter(word=>!lookup(word)?.known))];
   return {variant:chosen.variant,coverage:chosen.coverage,requiresScaffolding:chosen.coverage.ratio<target,newWords,glosses:glossesForLine(chosen.variant.german,lookup)};
 }

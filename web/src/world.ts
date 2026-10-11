@@ -308,7 +308,7 @@ export class World {
   }
 
   setSharedClock(state: SharedWorldTime): void { this.scene.setSharedClock(state); }
-  setLearningContext(lexicon:readonly RoutineLexeme[],progress:Pick<Progress,'words'>):void { this.scene.setLearningContext(lexicon,progress); }
+  setLearningContext(lexicon:readonly RoutineLexeme[],progress:Pick<Progress,'words'>,introduced?:ReadonlySet<string>,lineAllowed?:(german:string)=>boolean):void { this.scene.setLearningContext(lexicon,progress,introduced,lineAllowed); }
   barkShown(bark:WorldBark):void {this.options.onBarkShown?.(bark);}
   setTimePreference(options: WorldTimeOptions): void { this.scene.setTimePreference(options); }
   getWorldTime(): WorldTimeState { return this.scene.worldTime; }
@@ -562,7 +562,9 @@ class HarborScene extends Phaser.Scene {
   private barkSpeaker?:Character;
   private lexicon:readonly RoutineLexeme[]=[];
   private learningProgress:Pick<Progress,'words'>={words:{}};
-  setLearningContext(lexicon:readonly RoutineLexeme[],progress:Pick<Progress,'words'>){this.lexicon=lexicon;this.learningProgress=progress;}
+  private introducedWords?:ReadonlySet<string>;
+  private barkLineAllowed?:(german:string)=>boolean;
+  setLearningContext(lexicon:readonly RoutineLexeme[],progress:Pick<Progress,'words'>,introduced?:ReadonlySet<string>,lineAllowed?:(german:string)=>boolean){this.lexicon=lexicon;this.learningProgress=progress;this.introducedWords=introduced;this.barkLineAllowed=lineAllowed;}
   setSharedClock(state: SharedWorldTime) { this.clock.setSharedTime(state); }
   get worldTime(): WorldTimeState { return this.clock.advance(0); }
   get interiorId(): InteriorId | undefined { return this.interiorSpec?.id; }
@@ -1693,7 +1695,7 @@ class HarborScene extends Phaser.Scene {
   }
 
   private maybeBark(character:Character):void{
-    const bark=this.barkDirector.next({speakerId:character.id,mapId:this.mapSpec.id,level:this.mapSpec.level,hour:this.clock.gameplayHour(),elapsedSeconds:this.elapsed,requiredNpcId:this.objective,conversationActive:!!this.conversationTarget||!!this.cinematicTarget||this.watching||!this.controlsEnabled,lexicon:this.lexicon,progress:this.learningProgress});
+    const bark=this.barkDirector.next({speakerId:character.id,mapId:this.mapSpec.id,level:this.mapSpec.level,hour:this.clock.gameplayHour(),elapsedSeconds:this.elapsed,requiredNpcId:this.objective,conversationActive:!!this.conversationTarget||!!this.cinematicTarget||this.watching||!this.controlsEnabled,lexicon:this.lexicon,progress:this.learningProgress,introduced:this.introducedWords,lineAllowed:this.barkLineAllowed});
     if(!bark)return;
     this.bark??=this.add.text(0,0,'',{resolution:this.density,fontFamily:'Georgia, serif',fontSize:'14px',color:'#fff3d5',backgroundColor:'#20352d',padding:{x:9,y:6},wordWrap:{width:270},align:'center'}).setOrigin(.5,1);
     this.bark.setText(bark.german);this.barkSpeaker=character;this.barkUntil=this.elapsed+5;

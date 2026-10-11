@@ -116,6 +116,10 @@ The course generator preserves the full `web/src/data/course.json` as its audita
 
 Before claiming an A1, A2 or B1 outcome, add a reviewed syllabus with sufficient topic and form coverage, accessible audio recorded by speakers, many unseen transfer tasks, longer reading and writing, independent assessment and a speaking path outside this microphone-free release. Have a qualified German educator review wording, progression and corrective feedback. Evaluate retention after delays rather than using quest completion or XP as the success metric.
 
+### Vocabulary pacing
+
+New words reach the player through a server-held intake budget: ten restored words at the start, one more per 360 seconds of visible play, at most fifteen banked, paused while twelve restored words have never been recognised unaided or twenty practised words are due. The generated syllabus (`web/src/data/syllabus.json`, `server/syllabus.json`) fixes the introduction order and records the lexemes every story scene uses; a scene, a learning route or a word drill opens only once its words are restored. `npm run pacing` reports where each scene lands under that budget; the current graphs demand 75 lexemes in the first scene, which is why a story rewrite is planned. See [Pacing](pacing.md).
+
 ### Beginner story support
 
 Story support is independent of the ten-minute timer for optional writing practice. The first three quests always keep complete translated replies. Afterward, removing support requires at least 12 distinct successfully answered items in the latest 24 unassisted attempts, including four distinct written items, with at least 80% correct overall. Guided or hinted answers do not qualify. Recent difficulty restores support, and the controller keeps the format stable until the conversation closes. Later towns retain visible meanings for learners who still need them; their existing written requests remain assisted. This is a conservative support rule, not a CEFR placement claim.

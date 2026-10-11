@@ -234,7 +234,7 @@ func storyNode(p *Progress, questID string) string {
 }
 
 func (a *App) requireStoryGate(account *Account, questID string) error {
-	if err := requireQuestOrder(questID, account.Progress.CompletedQuestIDs); err != nil {
+	if err := a.requireQuestAccess(questID, &account.Progress); err != nil {
 		return err
 	}
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "gate" {
@@ -248,7 +248,7 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 }
 
 func (a *App) requireStoryReply(account *Account, questID string) error {
-	if err := requireQuestOrder(questID, account.Progress.CompletedQuestIDs); err != nil {
+	if err := a.requireQuestAccess(questID, &account.Progress); err != nil {
 		return err
 	}
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "intro" {
@@ -348,7 +348,8 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 	request, _ := json.Marshal(input)
 	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "story:"+input.ID, request, func(account *Account) (Receipt, error) {
 		ensureStory(&account.Progress)
-		if err := requireQuestOrder(input.QuestID, account.Progress.CompletedQuestIDs); err != nil {
+		migrateIntake(&account.Progress, a.curriculum.Syllabus)
+		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
 			return Receipt{}, err
 		}
 		if contains(account.Progress.CompletedQuestIDs, input.QuestID) {
@@ -592,7 +593,8 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	request, _ := json.Marshal(input)
 	account, _, duplicate, err := a.store.Mutate(ctx, hash, "story-inspect:"+input.ID, request, func(account *Account) (Receipt, error) {
-		if err := requireQuestOrder(input.QuestID, account.Progress.CompletedQuestIDs); err != nil {
+		migrateIntake(&account.Progress, a.curriculum.Syllabus)
+		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
 			return Receipt{}, err
 		}
 		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || storyNode(&account.Progress, input.QuestID) != "intro" {
