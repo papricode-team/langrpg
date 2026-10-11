@@ -506,7 +506,7 @@ class HarborScene extends Phaser.Scene {
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion>;routineElapsed?:number;homeReached?:boolean }[] = [];
   private activityWorld?:ResidentActivityWorld;
   private weatherPreview:WorldWeatherMode='regional';
-  private activityResidents:{character:Character;prop:Phaser.GameObjects.Graphics;actionFigure?:Phaser.GameObjects.Image;propKind?:string;sample?:ActivityResidentSample}[]=[];
+  private activityResidents:{character:Character;prop:Phaser.GameObjects.Graphics;actionFigure?:Phaser.GameObjects.Image;speech?:Phaser.GameObjects.Text;propKind?:string;sample?:ActivityResidentSample}[]=[];
   private observedResidentId?:string;
   observeResident(id?:string):void{this.observedResidentId=id;}
   get activityResidentStates():{id:string;name:string;state:ActivityResidentSample}[]{
@@ -1770,7 +1770,7 @@ class HarborScene extends Phaser.Scene {
       character.name.setY((pose&&sample.seatedOffsetY!==undefined?-62:-79)+seatedOffset);
       const visible=!this.terrainOnly&&sample.phase!=='home'&&sample.x>=view.x-90&&sample.x<=view.right+90&&sample.y>=view.y-100&&sample.y<=view.bottom+100;
       character.root.setVisible(visible);
-      character.name.setScale(this.density/(this.cameras.main.zoom||1)).setVisible(sample.phase==='act'&&(character.id===this.observedResidentId||this.controlsEnabled&&Math.hypot(character.x-this.local.x,character.y-this.local.y)<100));
+      character.name.setScale(this.density/(this.cameras.main.zoom||1)).setVisible(!sample.exchange&&sample.phase==='act'&&(character.id===this.observedResidentId||this.controlsEnabled&&Math.hypot(character.x-this.local.x,character.y-this.local.y)<100));
       if(resident.propKind!==sample.heldObject){
         resident.propKind=sample.heldObject;const prop=resident.prop;prop.clear();
         if(sample.heldObject==='parcel')prop.fillStyle(0x745031).fillRect(-9,-39,18,14).fillStyle(0xcda36e).fillRect(-8,-38,16,11).fillStyle(0xf0d5a0).fillRect(-1,-38,3,11);
@@ -1778,6 +1778,16 @@ class HarborScene extends Phaser.Scene {
         else if(sample.heldObject==='tool')prop.fillStyle(0x916b41).fillRect(-2,-41,4,18).fillStyle(0xaab6b0).fillRect(-7,-43,14,5);
       }
       resident.prop.setVisible(!!sample.heldObject&&pose?.bakedObject!==sample.heldObject);
+      const exchange=sample.exchange;
+      const speaking=visible&&exchange?.speaking&&!this.conversationTarget&&!this.cinematicTarget&&!this.watching
+        &&(this.controlsEnabled&&Math.hypot(character.x-this.local.x,character.y-this.local.y)<230||character.id===this.observedResidentId||exchange.partnerId===this.observedResidentId)
+        &&(!this.barkLineAllowed||this.barkLineAllowed(exchange.german));
+      if(speaking){
+        if(!resident.speech){resident.speech=this.add.text(0,-106,'',{resolution:this.density,fontFamily:'Georgia, serif',fontSize:'14px',color:'#fff3d5',backgroundColor:'#20352d',padding:{x:9,y:6},wordWrap:{width:190},align:'center'}).setOrigin(.5,1);character.root.add(resident.speech);}
+        resident.speech.setText(exchange.german).setScale(this.density/(this.cameras.main.zoom||1));
+        character.name.setVisible(false);
+      }
+      resident.speech?.setVisible(!!speaking);
     }
   }
 

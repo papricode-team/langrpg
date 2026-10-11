@@ -15,6 +15,7 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
   selectedResidentId=resident?.id;
   const field=(label:string,key:string,value:number)=>`<label>${label}<input type="number" step="0.1" data-resident="${key}" value="${value}"></label>`;
   const options=(current:string|undefined,empty=false)=>`${empty?'<option value="">None</option>':''}${(scene.activities??[]).map(slot=>`<option value="${slot.id}"${current===slot.id?' selected':''}>${escape(slot.id)} · ${slot.kind}</option>`).join('')}`;
+  const services=residents.filter(item=>item!==resident).flatMap(item=>item.schedule.filter(task=>task.action==='serve'&&!task.exchangeWith).map(task=>({residentId:item.id,taskId:task.id,label:`${item.name} · ${task.id} (${task.startHour}–${task.endHour})`})));
   host.innerHTML=`<h3>Residents & daily activities</h3><p class="panel-note">Give a resident a home and timed visits to usable objects. Travel and waiting must fit inside each time window.</p>
     <label>Resident<select id="resident-select">${residents.map(item=>`<option value="${item.id}"${item===resident?' selected':''}>${escape(item.name)}</option>`).join('')}</select></label>
     <button id="add-resident">Add resident</button>
@@ -28,9 +29,11 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
       <label>Fallback<select data-task-field="fallbackActivityId" aria-label="${task.id} fallback">${options(task.fallbackActivityId,true)}</select></label>
       <label>Held object<select data-task-field="heldObject" aria-label="${task.id} held object"><option value="">None</option>${['book','parcel','tool'].map(kind=>`<option${task.heldObject===kind?' selected':''}>${kind}</option>`).join('')}</select></label>
       <label>Face while acting<select data-task-field="facing" aria-label="${task.id} facing"><option value="">Arrival direction</option>${['left','right'].map(direction=>`<option${task.facing===direction?' selected':''}>${direction}</option>`).join('')}</select></label>
+      <label>Trade with<select data-exchange aria-label="${task.id} trade with"><option value="">Independent visit</option>${services.map((service,index)=>`<option value="${index}"${task.exchangeWith?.residentId===service.residentId&&task.exchangeWith?.taskId===service.taskId?' selected':''}>${escape(service.label)}</option>`).join('')}</select></label>
+      <p class="panel-note">A customer needs a waiting position 16–96 units from the vendor. Both visits must fit the same service block. Trading clears the customer’s fallback and held object; the parcel appears at handover.</p>
       <button data-remove-task="${task.id}">Remove ${escape(task.id)}</button></details>`).join('')}
     <button id="add-resident-task">Add daily activity</button>`:''}
-    <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><label>Weather preview<select id="resident-preview-weather">${Object.entries(weatherPreviewLabels).map(([value,label])=>`<option value="${value}"${value===previewWeather?' selected':''}>${label}</option>`).join('')}</select></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show sampled positions; violet marks a rain response. Work resumes only if it still fits the schedule. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
+    <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><label>Weather preview<select id="resident-preview-weather">${Object.entries(weatherPreviewLabels).map(([value,label])=>`<option value="${value}"${value===previewWeather?' selected':''}>${label}</option>`).join('')}</select></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show sampled positions; violet marks a rain response and orange links an active exchange. Work resumes only if it still fits the schedule. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
   const query=<T extends HTMLElement>(selector:string)=>host.querySelector<T>(selector)!;
   const apply=(edit:(next:WorldScene)=>void)=>{const next=structuredClone(scene);edit(next);change(next);};
   query<HTMLSelectElement>('#resident-select').onchange=()=>{selectedResidentId=query<HTMLSelectElement>('#resident-select').value;renderResidentTools(host,scene,selected,change,preview,error);};
@@ -58,13 +61,24 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
     if(!slot){error('Select an object with an activity position first.');return;}
     edit(item=>{item.home=sceneActivityPoint(scene,slot);});
   };
-  query<HTMLButtonElement>('#remove-resident').onclick=()=>apply(next=>{next.residents=next.residents?.filter(item=>item.id!==resident.id);});
+  const dependents=(taskId?:string)=>residents.flatMap(item=>item.schedule.filter(task=>task.exchangeWith?.residentId===resident.id&&(taskId===undefined||task.exchangeWith.taskId===taskId)).map(task=>`${item.name}/${task.id}`));
+  const protectService=(taskId?:string):boolean=>{const customers=dependents(taskId);if(!customers.length)return false;error(`Reassign these customer visits first: ${customers.join(', ')}.`);return true;};
+  query<HTMLButtonElement>('#remove-resident').onclick=()=>{if(!protectService())apply(next=>{next.residents=next.residents?.filter(item=>item.id!==resident.id);});};
+  host.querySelectorAll<HTMLElement>('[data-task]').forEach(section=>{
+    const select=section.querySelector<HTMLSelectElement>('[data-exchange]')!;
+    select.onchange=()=>{
+      const task=resident.schedule.find(task=>task.id===section.dataset.task)!;
+      if(select.value!==''&&scene.activities?.find(slot=>slot.id===task.activityId)?.kind!=='wait'){error('Choose a waiting activity beside the vendor before linking a customer visit.');select.value='';return;}
+      edit(item=>{const target=item.schedule.find(item=>item.id===task.id)!;if(select.value===''){delete target.exchangeWith;return;}
+        const service=services[Number(select.value)];target.exchangeWith={residentId:service.residentId,taskId:service.taskId};target.action='wait';delete target.fallbackActivityId;delete target.heldObject;});
+    };
+  });
   host.querySelectorAll<HTMLElement>('[data-task]').forEach(section=>section.querySelectorAll<HTMLInputElement|HTMLSelectElement>('[data-task-field]').forEach(input=>input.onchange=()=>{
     const key=input.dataset.taskField!,value=input instanceof HTMLInputElement?Number(input.value):input.value;
     if(typeof value==='number'&&!Number.isFinite(value))return;
     edit(item=>{const task=item.schedule.find(task=>task.id===section.dataset.task)!;if(value==='')delete (task as unknown as Record<string,unknown>)[key];else Object.assign(task,{[key]:value});});
   }));
-  host.querySelectorAll<HTMLButtonElement>('[data-remove-task]').forEach(button=>button.onclick=()=>edit(item=>{item.schedule=item.schedule.filter(task=>task.id!==button.dataset.removeTask);}));
+  host.querySelectorAll<HTMLButtonElement>('[data-remove-task]').forEach(button=>button.onclick=()=>{if(!protectService(button.dataset.removeTask))edit(item=>{item.schedule=item.schedule.filter(task=>task.id!==button.dataset.removeTask);});});
   query<HTMLButtonElement>('#add-resident-task').onclick=()=>{
     const slot=scene.activities?.find(slot=>selected.has(slot.ownerId))??scene.activities?.[0];
     if(!slot){error('Add an activity position to an object before scheduling a visit.');return;}

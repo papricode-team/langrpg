@@ -35,6 +35,8 @@ export interface SceneResidentTask {
   id:string; activityId:string; action:typeof residentActions[number];
   startHour:number; endHour:number; durationSeconds:number;
   fallbackActivityId?:string; facing?:'left'|'right'; heldObject?:'book'|'parcel'|'tool';
+  /** Customer visit coordinated with this resident's service block. */
+  exchangeWith?:{residentId:string;taskId:string};
 }
 export interface SceneResident {
   id:string; name:string; home:ScenePoint; speed:number;
@@ -295,6 +297,16 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
           }
           if(task.facing!==undefined&&!['left','right'].includes(String(task.facing)))fail(`${id} resident task has invalid facing`);
           if(task.heldObject!==undefined&&!['book','parcel','tool'].includes(String(task.heldObject)))fail(`${id} resident task has invalid held object`);
+          if(task.exchangeWith!==undefined){
+            const partner=task.exchangeWith;
+            if(!record(partner)||!validId(partner.residentId)||!validId(partner.taskId))fail(`${id} resident exchange needs a resident and service task`);
+            const vendor=(input.residents as unknown as SceneResident[]).find(item=>item.id===partner.residentId);
+            const service=Array.isArray(vendor?.schedule)?vendor.schedule.find(item=>item?.id===partner.taskId):undefined;
+            if(!vendor||vendor.id===resident.id||!service||service.action!=='serve'||service.exchangeWith)fail(`${id} resident ${resident.id}/${task.id} exchange references a missing or invalid service task`);
+            const slot=(input.activities as unknown as SceneActivity[]).find(item=>item.id===task.activityId)!;
+            if(task.action!=='wait'||slot.kind!=='wait'||task.fallbackActivityId||task.heldObject)fail(`${id} exchange customer needs a waiting position with no fallback or held object`);
+            if(Math.max(start,service.startHour)>=Math.min(end,service.endHour)||Number(task.durationSeconds)>service.durationSeconds)fail(`${id} exchange needs overlapping hours and enough service time`);
+          }
         }
       }
     }

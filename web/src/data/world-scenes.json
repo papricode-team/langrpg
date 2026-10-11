@@ -6472,7 +6472,10 @@
               "endHour": 13,
               "durationSeconds": 25,
               "facing": "left",
-              "fallbackActivityId": "parcel-waiting-seat"
+              "exchangeWith": {
+                "residentId": "lindenhafen-parcel-vendor",
+                "taskId": "midday-service"
+              }
             },
             {
               "id": "afternoon-reading",
@@ -6850,7 +6853,11 @@
               "startHour": 12,
               "endHour": 15,
               "durationSeconds": 35,
-              "facing": "left"
+              "facing": "left",
+              "exchangeWith": {
+                "residentId": "lindenhafen-riverside-vendor",
+                "taskId": "midday-service"
+              }
             },
             {
               "id": "island-afternoon",

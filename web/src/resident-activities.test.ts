@@ -45,19 +45,19 @@ describe('authored resident activities',()=>{
       expect(new ResidentActivityWorld(scene,nav).sample(now)).toEqual(a.sample(now));
     }
   });
-  it('walks the complete authored Lindenhafen day without jumps or blocked feet',()=>{
+  it('walks the complete dry authored Lindenhafen day without jumps or blocked feet',()=>{
     const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen'),world=new ResidentActivityWorld(scene,nav);
     expect(world.residents).toHaveLength(12);
-    let previous=world.sample(time);
+    let previous=world.sample(time,'dry');
     for(let tick=1;tick<=2880;tick++){
-      const samples=world.sample({...time,elapsedSeconds:tick/4});
+      const samples=world.sample({...time,elapsedSeconds:tick/4},'dry');
       for(const [i,sample] of samples.entries()){
         expect(nav.isWalkable(sample.x,sample.y)).toBe(true);
         expect(Math.hypot(sample.x-previous[i].x,sample.y-previous[i].y)).toBeLessThanOrEqual(world.residents[i].spec.speed/4+.001);
       }
       previous=samples;
     }
-    const day=world.day(time).plan;
+    const day=world.day(time,'dry').plan;
     expect(day.skipped).toEqual([]);
     for(const reservation of day.reservations)for(const other of day.reservations){
       if(reservation===other||Math.hypot(reservation.point.x-other.point.x,reservation.point.y-other.point.y)>=16)continue;

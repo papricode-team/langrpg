@@ -22,7 +22,11 @@ interface ActivityPhase {
   phaseOffset?:number;phaseDurationSeconds?:number;interruption?:'rain';resumed?:boolean;
   heldObject?:SceneResidentTask['heldObject'];facingLeft?:boolean;seatedOffsetY?:number;
 }
-export interface ActivityDay {day:number;activities:PlannedActivity[];reservations:ActivityReservation[];skipped:{residentId:string;taskId:string;reason:string}[];}
+export interface ActivityExchange {
+  id:string;start:number;handover:number;end:number;customerHomeAt:number;
+  vendor:{residentId:string;taskId:string;point:ScenePoint};customer:{residentId:string;taskId:string;point:ScenePoint};
+}
+export interface ActivityDay {day:number;activities:PlannedActivity[];reservations:ActivityReservation[];exchanges:ActivityExchange[];skipped:{residentId:string;taskId:string;reason:string}[];}
 export interface ActivityResidentSample extends ScenePoint {
   residentId:string;phase:'home'|'travel'|'act'|'return';action:SceneResidentTask['action'];
   activityId?:string;taskId?:string;place?:number;reservationUntil?:number;
@@ -35,6 +39,7 @@ export interface ActivityResidentSample extends ScenePoint {
   seatedOffsetY?:number;
   heldObject?:SceneResidentTask['heldObject'];
   interruption?:'rain';resumed?:boolean;
+  exchange?:{id:string;partnerId:string;stage:'greeting'|'request'|'handover'|'thanks';speaking:boolean;german:string;english:string};
 }
 const distance=(a:ScenePoint,b:ScenePoint):number=>Math.hypot(a.x-b.x,a.y-b.y);
 const hash=(value:string):number=>{let n=2166136261;for(const char of value)n=Math.imul(n^char.charCodeAt(0),16777619)>>>0;return n;};
@@ -64,7 +69,7 @@ function route(points:ScenePoint[],speed:number,navigation:NavigationGrid,label:
 
 /** Resolve authored objects and route geometry once. No pathfinding in frame updates. */
 export function compileResidentActivities(scene:WorldScene,navigation:NavigationGrid):CompiledActivityResident[] {
-  return [...(scene.residents??[])].sort((a,b)=>a.id.localeCompare(b.id)).map(spec=>{
+  const residents=[...(scene.residents??[])].sort((a,b)=>a.id.localeCompare(b.id)).map(spec=>{
     if(!navigation.isWalkable(spec.home.x,spec.home.y)||!navigation.findPath(scene.spawn,spec.home).length)throw Error(`${spec.id}: home must be on spawn-connected ground`);
     const tasks=spec.schedule.map(task=>{
       const destinations=[task.activityId,task.fallbackActivityId].filter((id):id is string=>!!id).flatMap((id,index)=>{
@@ -86,7 +91,19 @@ export function compileResidentActivities(scene:WorldScene,navigation:Navigation
     });
     return {spec,tasks};
   });
-
+  for(const customer of residents)for(const task of customer.tasks)if(task.spec.exchangeWith){
+    const partner=task.spec.exchangeWith,vendor=residents.find(item=>item.spec.id===partner.residentId);
+    const service=vendor?.tasks.find(item=>item.spec.id===partner.taskId);
+    if(!service||service.spec.action!=='serve'||service.spec.exchangeWith||vendor===customer||task.spec.action!=='wait'||task.spec.fallbackActivityId||task.spec.heldObject)throw Error(`${customer.spec.id}/${task.spec.id}: exchange needs another resident's service block and a plain waiting visit`);
+    const feasible=task.destinations.some(place=>place.activity.kind==='wait'&&!place.fallback&&service.destinations.some(counter=>{
+      if(counter.fallback||distance(place.point,counter.point)<16||distance(place.point,counter.point)>96)return false;
+      const vendorArrival=service.spec.startHour*worldDaySeconds/24+counter.outbound.seconds;
+      const start=Math.max(task.spec.startHour*worldDaySeconds/24+place.outbound.seconds,vendorArrival);
+      return start+task.spec.durationSeconds<=Math.min(vendorArrival+service.spec.durationSeconds,task.spec.endHour*worldDaySeconds/24-place.returning.seconds);
+    }));
+    if(!feasible)throw Error(`${customer.spec.id}/${task.spec.id}: exchange needs distinct nearby positions and enough shared service time for travel and return`);
+  }
+  return residents;
 }
 
 function earliestReservation(point:ScenePoint,start:number,duration:number,latest:number,reservations:ActivityReservation[]):number|undefined {
@@ -103,8 +120,9 @@ function earliestReservation(point:ScenePoint,start:number,duration:number,lates
  * Residents wait at home when full, use an authored fallback, or skip a block.
  * Every accepted activity returns home before its window closes. */
 export function planResidentDay(residents:readonly CompiledActivityResident[],time:WorldSimulationTime,day:number):ActivityDay {
-  const result:ActivityDay={day,activities:[],reservations:[],skipped:[]},secondsPerHour=time.dayLengthSeconds/24;
-  const requests=residents.flatMap(resident=>resident.tasks.map(task=>({resident,task,priority:hash(`${time.seed}:${day}:${resident.spec.id}:${task.spec.id}`)})))
+  const result:ActivityDay={day,activities:[],reservations:[],exchanges:[],skipped:[]},secondsPerHour=time.dayLengthSeconds/24;
+  // Customers are scheduled after weather has established their vendor's availability.
+  const requests=residents.flatMap(resident=>resident.tasks.filter(task=>!task.spec.exchangeWith).map(task=>({resident,task,priority:hash(`${time.seed}:${day}:${resident.spec.id}:${task.spec.id}`)})))
     .sort((a,b)=>a.task.spec.startHour-b.task.spec.startHour||a.priority-b.priority||a.resident.spec.id.localeCompare(b.resident.spec.id)||a.task.spec.id.localeCompare(b.task.spec.id));
   const homeAt=new Map<string,number>();
   for(const {resident,task,priority} of requests){
@@ -153,7 +171,7 @@ function activityAccess(scene:WorldScene,activity:SceneActivity,kind:'approach'|
  * place. Shelter overflow goes home, and no detour can overrun the task window. */
 export function planResidentWeather(scene:WorldScene,navigation:NavigationGrid,residents:readonly CompiledActivityResident[],dry:ActivityDay,rain:RainWindow,dayLengthSeconds=worldDaySeconds):ActivityDay {
   const affected=new Set(dry.activities.filter(item=>item.destination.activity.kind!=='shelter'&&item.departure<rain.end&&item.finished>rain.start));
-  const result:ActivityDay={day:dry.day,activities:[],skipped:[...dry.skipped],reservations:dry.reservations.filter(reservation=>!dry.activities.some(item=>affected.has(item)&&item.reservation===reservation))};
+  const result:ActivityDay={day:dry.day,activities:[],exchanges:[],skipped:[...dry.skipped],reservations:dry.reservations.filter(reservation=>!dry.activities.some(item=>affected.has(item)&&item.reservation===reservation))};
   // Install every pre-rain booking before allocating shelters or resumed work.
   const prefixes=new Map<PlannedActivity,ActivityReservation>();
   for(const item of affected)if(item.departure<rain.start){
@@ -227,6 +245,46 @@ export function planResidentWeather(scene:WorldScene,navigation:NavigationGrid,r
   return result;
 }
 
+/** Allocate a customer only inside a vendor's actual, weather-adjusted service.
+ * The service booking holds the vendor's feet; an exchange lock prevents two
+ * separate customer positions from engaging the same vendor simultaneously. */
+export function planResidentExchanges(residents:readonly CompiledActivityResident[],base:ActivityDay,time:WorldSimulationTime,rain?:RainWindow):ActivityDay {
+  const result:ActivityDay={...base,activities:[...base.activities],reservations:[...base.reservations],skipped:[...base.skipped],exchanges:[]};
+  const hour=time.dayLengthSeconds/24;
+  const requests=residents.flatMap(resident=>resident.tasks.filter(task=>task.spec.exchangeWith).map(task=>({resident,task,priority:hash(`${time.seed}:${base.day}:${resident.spec.id}:${task.spec.id}`)})))
+    .sort((a,b)=>a.task.spec.startHour-b.task.spec.startHour||a.priority-b.priority||a.resident.spec.id.localeCompare(b.resident.spec.id)||a.task.spec.id.localeCompare(b.task.spec.id));
+  for(const {resident,task} of requests){
+    const partner=task.spec.exchangeWith!,vendor=base.activities.find(item=>item.residentId===partner.residentId&&item.task.id===partner.taskId&&!item.destination.fallback);
+    const windows=vendor?(vendor.phases??dryPhases(vendor)).filter(phase=>phase.phase==='act'&&phase.action==='serve'&&!phase.interruption):[];
+    const candidates=task.destinations.filter(place=>!place.fallback&&vendor&&distance(place.point,vendor.destination.point)>=16&&distance(place.point,vendor.destination.point)<=96).flatMap(destination=>windows.flatMap(window=>{
+      const duration=task.spec.durationSeconds,outbound=destination.outbound.seconds,returning=destination.returning.seconds;
+      const latest=Math.min(window.end-duration,task.spec.endHour*hour-duration-returning);
+      let arrival=Math.max(window.start,task.spec.startHour*hour+outbound);
+      for(let attempt=0;attempt<result.reservations.length+result.exchanges.length+3&&arrival<=latest+.00001;attempt++){
+        const departure=earliestReservation(destination.point,arrival-outbound,outbound+duration+returning,latest+duration+returning,result.reservations);
+        if(departure===undefined)return [];
+        arrival=departure+outbound;
+        const conflict=result.exchanges.find(exchange=>exchange.vendor.residentId===partner.residentId&&arrival<exchange.end&&arrival+duration>exchange.start);
+        if(conflict){arrival=conflict.end;continue;}
+        // Keep an uninterrupted exchange: wait at home through a forecast shower.
+        if(rain&&departure<rain.end&&arrival+duration>rain.start){arrival=rain.end+outbound;continue;}
+        return [{destination,departure,arrival,finished:arrival+duration,homeAt:arrival+duration+returning}];
+      }
+      return [];
+    })).sort((a,b)=>a.arrival-b.arrival||a.destination.place-b.destination.place);
+    const accepted=candidates[0];
+    if(!accepted||!vendor){result.skipped.push({residentId:resident.spec.id,taskId:task.spec.id,reason:'No shared service time is available after travel, weather and existing customers.'});continue;}
+    const {destination,departure,arrival,finished,homeAt}=accepted;
+    const reservation:ActivityReservation={residentId:resident.spec.id,taskId:task.spec.id,activityId:destination.activity.id,place:destination.place,point:destination.point,start:departure,end:homeAt};
+    const visit:PlannedActivity={...accepted,residentId:resident.spec.id,task:task.spec,reservation};
+    visit.phases=dryPhases(visit).map(phase=>phase.phase==='return'?{...phase,action:'carry',heldObject:'parcel'}:phase);
+    result.activities.push(visit);result.reservations.push(reservation);
+    result.exchanges.push({id:`${time.seed}:${base.day}:${partner.residentId}:${partner.taskId}:${resident.spec.id}:${task.spec.id}`,start:arrival,handover:arrival+(finished-arrival)*.75,end:finished,customerHomeAt:homeAt,
+      vendor:{residentId:partner.residentId,taskId:partner.taskId,point:vendor.destination.point},customer:{residentId:resident.spec.id,taskId:task.spec.id,point:destination.point}});
+  }
+  return result;
+}
+
 function sampleRoute(route:Route,seconds:number):Pick<ActivityResidentSample,'x'|'y'|'velocityX'|'velocityY'|'moving'|'walkDistance'|'facingLeft'> {
   const index=route.segments.findIndex(segment=>seconds<segment.start+segment.duration),segment=route.segments[index];
   if(!segment)return {...route.end,moving:false,velocityX:0,velocityY:0,walkDistance:route.length};
@@ -237,7 +295,7 @@ function sampleRoute(route:Route,seconds:number):Pick<ActivityResidentSample,'x'
     moving:true,velocityX,velocityY,walkDistance:segment.distanceBefore+segment.distance*t,...(direction?{facingLeft:direction.to.x<direction.from.x}:{})};
 }
 
-export function sampleActivityResident(resident:CompiledActivityResident,plan:ActivityDay,seconds:number):ActivityResidentSample {
+function sampleSoloActivity(resident:CompiledActivityResident,plan:ActivityDay,seconds:number):ActivityResidentSample {
   const active=plan.activities.find(activity=>activity.residentId===resident.spec.id&&seconds>=activity.departure&&seconds<activity.homeAt);
   const base:ActivityResidentSample={residentId:resident.spec.id,...resident.spec.home,phase:'home',action:'wait',moving:false,velocityX:0,velocityY:0,walkDistance:0,phaseSeconds:0};
   if(!active)return base;
@@ -263,6 +321,21 @@ export function sampleActivityResident(resident:CompiledActivityResident,plan:Ac
   return {...base,...sampleRoute(destination.returning,seconds-active.finished),phase:'return',phaseSeconds:seconds-active.finished,heldObject:action==='carry'?heldObject:undefined};
 }
 
+export function sampleActivityResident(resident:CompiledActivityResident,plan:ActivityDay,seconds:number):ActivityResidentSample {
+  const sample=sampleSoloActivity(resident,plan,seconds);
+  const exchange=plan.exchanges.find(item=>seconds>=item.start&&seconds<item.end&&(item.customer.residentId===sample.residentId||item.vendor.residentId===sample.residentId));
+  if(!exchange)return sample;
+  const duration=exchange.end-exchange.start,progress=(seconds-exchange.start)/duration;
+  const vendor=sample.residentId===exchange.vendor.residentId,partner=vendor?exchange.customer:exchange.vendor;
+  const stage=progress<.2?'greeting':progress<.5?'request':seconds<exchange.handover?'handover':'thanks';
+  const lines={greeting:['Guten Tag!','Hello!'],request:['Ein Paket, bitte.','A parcel, please.'],handover:['Hier, bitte.','Here you are.'],thanks:['Danke!','Thank you!']};
+  const [german,english]=lines[stage],speaking=vendor?(stage==='greeting'||stage==='handover'):(stage==='request'||stage==='thanks');
+  const start=exchange.start+duration*({greeting:0,request:.2,handover:.5,thanks:.75}[stage]);
+  const heldObject=vendor&&stage==='handover'||!vendor&&stage==='thanks'?'parcel' as const:undefined;
+  return {...sample,action:heldObject?'carry':speaking?'greet':'wait',heldObject,facingLeft:partner.point.x<sample.x,phaseSeconds:seconds-start,segmentSeconds:seconds-start,
+    phaseDurationSeconds:duration*({greeting:.2,request:.3,handover:.25,thanks:.25}[stage]),exchange:{id:exchange.id,partnerId:partner.residentId,stage,speaking,german,english}};
+}
+
 /** Cache only two day/preview plans; a late join reconstructs directly. */
 export class ResidentActivityWorld {
   readonly residents:CompiledActivityResident[];
@@ -278,6 +351,7 @@ export class ResidentActivityWorld {
       plan=planResidentDay(this.residents,time,day);
       const rain=rainForDay(this.scene.id,time,day,weather);
       if(rain)plan=planResidentWeather(this.scene,this.navigation,this.residents,plan,rain,time.dayLengthSeconds);
+      plan=planResidentExchanges(this.residents,plan,time,rain);
       this.plans.set(key,plan);if(this.plans.size>2)this.plans.delete(this.plans.keys().next().value!);
     }
     return {plan,seconds};

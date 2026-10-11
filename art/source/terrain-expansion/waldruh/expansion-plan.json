@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "status": "layout-review",
+  "worldRect": {
+    "x": 0,
+    "y": 0,
+    "width": 3072,
+    "height": 2048
+  },
+  "preservedCore": {
+    "x": 0,
+    "y": 0,
+    "width": 1536,
+    "height": 1024
+  },
+  "districts": [
+    {
+      "id": "mill-supply-terrace",
+      "label": "Mill supply terrace",
+      "x": 1536,
+      "y": 0,
+      "purpose": "Supplies and clockwork deliveries",
+      "status": "planned"
+    },
+    {
+      "id": "woodland-lookout",
+      "label": "Woodland lookout",
+      "x": 2304,
+      "y": 0,
+      "purpose": "Woodland loop, observation and reading",
+      "status": "planned"
+    },
+    {
+      "id": "mill-service-yard",
+      "label": "Mill service yard",
+      "x": 1536,
+      "y": 512,
+      "purpose": "Repair work and courier exchange",
+      "status": "planned"
+    },
+    {
+      "id": "inn-garden",
+      "label": "Inn garden",
+      "x": 2304,
+      "y": 512,
+      "purpose": "Garden work and evening gathering",
+      "status": "planned"
+    },
+    {
+      "id": "archive-courtyard",
+      "label": "Archive courtyard",
+      "x": 0,
+      "y": 1024,
+      "purpose": "Archive visits and book collection",
+      "status": "planned"
+    },
+    {
+      "id": "woodland-crossing",
+      "label": "Woodland crossing",
+      "x": 768,
+      "y": 1024,
+      "purpose": "Walking route and sheltered gathering",
+      "status": "planned"
+    },
+    {
+      "id": "millstream-bank",
+      "label": "Millstream bank",
+      "x": 1536,
+      "y": 1024,
+      "purpose": "River observation and delivery landing",
+      "status": "planned"
+    },
+    {
+      "id": "orchard-workshop",
+      "label": "Orchard workshop",
+      "x": 2304,
+      "y": 1024,
+      "purpose": "Repairs and orchard work",
+      "status": "planned"
+    },
+    {
+      "id": "forest-reading",
+      "label": "Forest reading grove",
+      "x": 0,
+      "y": 1536,
+      "purpose": "Quiet reading loop and woodland work",
+      "status": "planned"
+    },
+    {
+      "id": "woodland-meadow",
+      "label": "Woodland meadow",
+      "x": 768,
+      "y": 1536,
+      "purpose": "Meadow loop and garden work",
+      "status": "planned"
+    },
+    {
+      "id": "south-footbridge",
+      "label": "South footbridge",
+      "x": 1536,
+      "y": 1536,
+      "purpose": "Connected river crossing and waiting place",
+      "status": "planned"
+    },
+    {
+      "id": "garden-rest",
+      "label": "Garden rest court",
+      "x": 2304,
+      "y": 1536,
+      "purpose": "Gathering, service and evening rest",
+      "status": "planned"
+    }
+  ],
+  "promotionRule": "Preserve the original core exactly. Promote native-detail day/night chunks only after continuous boundary review, connected navigation, editable destinations and resident activities. Layout references do not count as playable expansion.",
+  "layoutNativeSize": {
+    "width": 1536,
+    "height": 1024
+  }
+}

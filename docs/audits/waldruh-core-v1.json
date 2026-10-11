@@ -1,0 +1,1901 @@
+{
+  "id": "waldruh",
+  "kind": "outdoor",
+  "width": 1536,
+  "height": 1024,
+  "coordinateVersion": 1,
+  "spawn": {
+    "x": 798.72,
+    "y": 552.96
+  },
+  "npcs": [
+    {
+      "id": "marta",
+      "x": 430.08000000000004,
+      "y": 354.304
+    },
+    {
+      "id": "otto",
+      "x": 1121.28,
+      "y": 314.368
+    },
+    {
+      "id": "lina",
+      "x": 660.48,
+      "y": 888.832
+    },
+    {
+      "id": "emil",
+      "x": 460.79999999999995,
+      "y": 672.768
+    },
+    {
+      "id": "ada",
+      "x": 371.712,
+      "y": 856.064
+    },
+    {
+      "id": "fritz",
+      "x": 909.3119999999999,
+      "y": 736.256
+    },
+    {
+      "id": "greta",
+      "x": 978.432,
+      "y": 835.584
+    },
+    {
+      "id": "inspector",
+      "x": 1147.392,
+      "y": 307.2
+    }
+  ],
+  "objects": [
+    {
+      "id": "waldruh-clock",
+      "x": 1184.256,
+      "y": 561.152
+    },
+    {
+      "id": "waldruh-housing-board",
+      "x": 582.144,
+      "y": 371.712
+    },
+    {
+      "id": "waldruh-herb-garden",
+      "x": 978.432,
+      "y": 800.768
+    },
+    {
+      "id": "waldruh-route-sign",
+      "x": 961.5360000000001,
+      "y": 302.08
+    },
+    {
+      "id": "waldruh-memory-stone",
+      "x": 299.52,
+      "y": 846.848
+    }
+  ],
+  "walkable": [
+    [
+      [
+        501,
+        436
+      ],
+      [
+        547,
+        391
+      ],
+      [
+        631,
+        352
+      ],
+      [
+        655,
+        312
+      ],
+      [
+        636,
+        274
+      ],
+      [
+        649,
+        232
+      ],
+      [
+        688,
+        244
+      ],
+      [
+        716,
+        301
+      ],
+      [
+        767,
+        356
+      ],
+      [
+        862,
+        326
+      ],
+      [
+        949,
+        305
+      ],
+      [
+        1009,
+        321
+      ],
+      [
+        977,
+        369
+      ],
+      [
+        957,
+        425
+      ],
+      [
+        955,
+        490
+      ],
+      [
+        982,
+        552
+      ],
+      [
+        959,
+        594
+      ],
+      [
+        916,
+        648
+      ],
+      [
+        871,
+        686
+      ],
+      [
+        847,
+        755
+      ],
+      [
+        803,
+        805
+      ],
+      [
+        758,
+        839
+      ],
+      [
+        741,
+        930
+      ],
+      [
+        761,
+        1010
+      ],
+      [
+        646,
+        1010
+      ],
+      [
+        629,
+        923
+      ],
+      [
+        587,
+        867
+      ],
+      [
+        520,
+        825
+      ],
+      [
+        463,
+        809
+      ],
+      [
+        402,
+        778
+      ],
+      [
+        393,
+        733
+      ],
+      [
+        431,
+        679
+      ],
+      [
+        463,
+        622
+      ],
+      [
+        485,
+        547
+      ],
+      [
+        498,
+        485
+      ]
+    ],
+    [
+      [
+        173,
+        344
+      ],
+      [
+        250,
+        344
+      ],
+      [
+        358,
+        327
+      ],
+      [
+        434,
+        326
+      ],
+      [
+        488,
+        354
+      ],
+      [
+        535,
+        377
+      ],
+      [
+        574,
+        385
+      ],
+      [
+        579,
+        426
+      ],
+      [
+        541,
+        453
+      ],
+      [
+        449,
+        432
+      ],
+      [
+        412,
+        457
+      ],
+      [
+        351,
+        439
+      ],
+      [
+        314,
+        413
+      ],
+      [
+        235,
+        396
+      ],
+      [
+        190,
+        378
+      ]
+    ],
+    [
+      [
+        886,
+        269
+      ],
+      [
+        927,
+        258
+      ],
+      [
+        1002,
+        265
+      ],
+      [
+        1102,
+        280
+      ],
+      [
+        1197,
+        296
+      ],
+      [
+        1300,
+        301
+      ],
+      [
+        1320,
+        322
+      ],
+      [
+        1280,
+        339
+      ],
+      [
+        1168,
+        324
+      ],
+      [
+        1082,
+        330
+      ],
+      [
+        1018,
+        318
+      ],
+      [
+        991,
+        343
+      ],
+      [
+        955,
+        341
+      ],
+      [
+        975,
+        300
+      ],
+      [
+        909,
+        292
+      ]
+    ],
+    [
+      [
+        945,
+        422
+      ],
+      [
+        1008,
+        402
+      ],
+      [
+        1072,
+        424
+      ],
+      [
+        1066,
+        489
+      ],
+      [
+        1104,
+        524
+      ],
+      [
+        1172,
+        564
+      ],
+      [
+        1205,
+        584
+      ],
+      [
+        1149,
+        618
+      ],
+      [
+        1078,
+        596
+      ],
+      [
+        1008,
+        565
+      ],
+      [
+        970,
+        582
+      ],
+      [
+        955,
+        510
+      ]
+    ],
+    [
+      [
+        1121,
+        570
+      ],
+      [
+        1204,
+        560
+      ],
+      [
+        1281,
+        584
+      ],
+      [
+        1369,
+        605
+      ],
+      [
+        1405,
+        637
+      ],
+      [
+        1370,
+        665
+      ],
+      [
+        1300,
+        640
+      ],
+      [
+        1244,
+        618
+      ],
+      [
+        1188,
+        604
+      ],
+      [
+        1125,
+        616
+      ]
+    ],
+    [
+      [
+        1366,
+        626
+      ],
+      [
+        1414,
+        625
+      ],
+      [
+        1459,
+        648
+      ],
+      [
+        1473,
+        682
+      ],
+      [
+        1433,
+        700
+      ],
+      [
+        1385,
+        675
+      ],
+      [
+        1355,
+        659
+      ]
+    ],
+    [
+      [
+        397,
+        680
+      ],
+      [
+        440,
+        647
+      ],
+      [
+        475,
+        601
+      ],
+      [
+        508,
+        616
+      ],
+      [
+        500,
+        665
+      ],
+      [
+        478,
+        709
+      ],
+      [
+        430,
+        742
+      ],
+      [
+        389,
+        756
+      ],
+      [
+        349,
+        738
+      ],
+      [
+        340,
+        717
+      ]
+    ],
+    [
+      [
+        467,
+        638
+      ],
+      [
+        518,
+        604
+      ],
+      [
+        560,
+        615
+      ],
+      [
+        570,
+        657
+      ],
+      [
+        538,
+        707
+      ],
+      [
+        516,
+        763
+      ],
+      [
+        558,
+        801
+      ],
+      [
+        647,
+        823
+      ],
+      [
+        725,
+        814
+      ],
+      [
+        779,
+        782
+      ],
+      [
+        839,
+        774
+      ],
+      [
+        857,
+        725
+      ],
+      [
+        883,
+        681
+      ],
+      [
+        911,
+        650
+      ],
+      [
+        942,
+        670
+      ],
+      [
+        924,
+        724
+      ],
+      [
+        901,
+        781
+      ],
+      [
+        872,
+        819
+      ],
+      [
+        810,
+        852
+      ],
+      [
+        725,
+        875
+      ],
+      [
+        626,
+        866
+      ],
+      [
+        544,
+        845
+      ],
+      [
+        469,
+        820
+      ],
+      [
+        429,
+        786
+      ],
+      [
+        422,
+        747
+      ]
+    ],
+    [
+      [
+        407,
+        786
+      ],
+      [
+        443,
+        803
+      ],
+      [
+        459,
+        846
+      ],
+      [
+        428,
+        883
+      ],
+      [
+        389,
+        881
+      ],
+      [
+        350,
+        917
+      ],
+      [
+        303,
+        929
+      ],
+      [
+        252,
+        901
+      ],
+      [
+        232,
+        868
+      ],
+      [
+        252,
+        831
+      ],
+      [
+        312,
+        810
+      ],
+      [
+        369,
+        803
+      ]
+    ],
+    [
+      [
+        426,
+        789
+      ],
+      [
+        461,
+        808
+      ],
+      [
+        480,
+        837
+      ],
+      [
+        463,
+        861
+      ],
+      [
+        444,
+        840
+      ],
+      [
+        425,
+        817
+      ],
+      [
+        409,
+        798
+      ]
+    ],
+    [
+      [
+        908,
+        714
+      ],
+      [
+        942,
+        708
+      ],
+      [
+        964,
+        744
+      ],
+      [
+        953,
+        785
+      ],
+      [
+        981,
+        825
+      ],
+      [
+        994,
+        865
+      ],
+      [
+        980,
+        904
+      ],
+      [
+        947,
+        910
+      ],
+      [
+        926,
+        877
+      ],
+      [
+        926,
+        832
+      ],
+      [
+        906,
+        794
+      ],
+      [
+        885,
+        782
+      ]
+    ]
+  ],
+  "obstacles": [
+    [
+      [
+        832,
+        452
+      ],
+      [
+        825.2455735280217,
+        475.9414100327968
+      ],
+      [
+        805.7969776293255,
+        496.99513267805776
+      ],
+      [
+        776,
+        512.6217782649107
+      ],
+      [
+        739.4485958986962,
+        520.9365427108546
+      ],
+      [
+        700.5514041013038,
+        520.9365427108546
+      ],
+      [
+        664,
+        512.6217782649107
+      ],
+      [
+        634.2030223706745,
+        496.99513267805776
+      ],
+      [
+        614.7544264719783,
+        475.9414100327968
+      ],
+      [
+        608,
+        452
+      ],
+      [
+        614.7544264719783,
+        428.0585899672032
+      ],
+      [
+        634.2030223706745,
+        407.00486732194224
+      ],
+      [
+        664,
+        391.3782217350893
+      ],
+      [
+        700.5514041013038,
+        383.06345728914545
+      ],
+      [
+        739.4485958986961,
+        383.06345728914545
+      ],
+      [
+        776,
+        391.3782217350893
+      ],
+      [
+        805.7969776293255,
+        407.00486732194224
+      ],
+      [
+        825.2455735280217,
+        428.05858996720315
+      ]
+    ],
+    [
+      [
+        549,
+        613
+      ],
+      [
+        655,
+        602
+      ],
+      [
+        694,
+        648
+      ],
+      [
+        686,
+        698
+      ],
+      [
+        603,
+        721
+      ],
+      [
+        549,
+        704
+      ]
+    ],
+    [
+      [
+        756,
+        616
+      ],
+      [
+        830,
+        604
+      ],
+      [
+        889,
+        628
+      ],
+      [
+        881,
+        710
+      ],
+      [
+        808,
+        739
+      ],
+      [
+        755,
+        705
+      ]
+    ],
+    [
+      [
+        685,
+        682
+      ],
+      [
+        769,
+        671
+      ],
+      [
+        830,
+        699
+      ],
+      [
+        825,
+        771
+      ],
+      [
+        758,
+        799
+      ],
+      [
+        680,
+        767
+      ]
+    ],
+    [
+      [
+        334,
+        852
+      ],
+      [
+        332.25108600279134,
+        859.5244431531647
+      ],
+      [
+        327.21528885045035,
+        866.1413274131039
+      ],
+      [
+        319.5,
+        871.0525588832577
+      ],
+      [
+        310.035797152341,
+        873.6657705662685
+      ],
+      [
+        299.964202847659,
+        873.6657705662685
+      ],
+      [
+        290.5,
+        871.0525588832577
+      ],
+      [
+        282.78471114954965,
+        866.1413274131039
+      ],
+      [
+        277.74891399720866,
+        859.5244431531647
+      ],
+      [
+        276,
+        852
+      ],
+      [
+        277.74891399720866,
+        844.4755568468353
+      ],
+      [
+        282.78471114954965,
+        837.8586725868961
+      ],
+      [
+        290.5,
+        832.9474411167423
+      ],
+      [
+        299.964202847659,
+        830.3342294337315
+      ],
+      [
+        310.035797152341,
+        830.3342294337315
+      ],
+      [
+        319.5,
+        832.9474411167423
+      ],
+      [
+        327.21528885045035,
+        837.8586725868961
+      ],
+      [
+        332.25108600279134,
+        844.4755568468353
+      ]
+    ]
+  ],
+  "scenery": [
+    {
+      "id": "waldruh-inn",
+      "asset": "cafe",
+      "x": 320,
+      "y": 324,
+      "width": 390,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-station",
+      "asset": "station",
+      "x": 1112,
+      "y": 290,
+      "width": 396,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-clockmill",
+      "asset": "workshop",
+      "x": 1215,
+      "y": 557,
+      "width": 294,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-west-workshop",
+      "asset": "workshop",
+      "frame": "house-1",
+      "variant": true,
+      "x": 236,
+      "y": 692,
+      "width": 328,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-archive",
+      "asset": "archive",
+      "x": 543,
+      "y": 145,
+      "width": 134,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-north-chapel",
+      "asset": "archive",
+      "x": 837,
+      "y": 123,
+      "width": 145,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-east-cottage",
+      "asset": "house",
+      "frame": "house-1",
+      "variant": true,
+      "x": 1310,
+      "y": 142,
+      "width": 117,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-north-cottage",
+      "asset": "house",
+      "frame": "house-2",
+      "variant": true,
+      "x": 446,
+      "y": 118,
+      "width": 128,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-conservatory",
+      "asset": "greenhouse",
+      "x": 1115,
+      "y": 849,
+      "width": 268,
+      "motion": "building"
+    },
+    {
+      "id": "waldruh-plaza-fountain",
+      "asset": "fountain",
+      "x": 722,
+      "y": 477,
+      "width": 142,
+      "motion": "water"
+    },
+    {
+      "id": "waldruh-market-west",
+      "asset": "stall",
+      "frame": "stall-1",
+      "variant": true,
+      "x": 625,
+      "y": 724,
+      "width": 145,
+      "motion": "cloth"
+    },
+    {
+      "id": "waldruh-market-east",
+      "asset": "stall",
+      "frame": "stall-2",
+      "variant": true,
+      "x": 829,
+      "y": 721,
+      "width": 154,
+      "motion": "cloth"
+    },
+    {
+      "id": "waldruh-market-south",
+      "asset": "stall",
+      "frame": "stall-3",
+      "variant": true,
+      "x": 756,
+      "y": 788,
+      "width": 158,
+      "motion": "cloth"
+    },
+    {
+      "id": "waldruh-garden-arch",
+      "asset": "arch",
+      "x": 955,
+      "y": 816,
+      "width": 127,
+      "motion": "cloth"
+    },
+    {
+      "id": "waldruh-housing-board",
+      "asset": "sign",
+      "x": 584,
+      "y": 384,
+      "width": 58,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-route-board",
+      "asset": "sign",
+      "x": 960,
+      "y": 326,
+      "width": 48,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-archive-board",
+      "asset": "sign",
+      "x": 294,
+      "y": 865,
+      "width": 44,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-river-boat-north",
+      "asset": "boat",
+      "x": 1476,
+      "y": 208,
+      "width": 64,
+      "motion": "boat"
+    },
+    {
+      "id": "waldruh-river-boat-south",
+      "asset": "boat",
+      "x": 1422,
+      "y": 767,
+      "width": 82,
+      "motion": "boat",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-inn-lamp",
+      "asset": "lamp",
+      "x": 353,
+      "y": 403,
+      "width": 22,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-west-garden-lamp",
+      "asset": "lamp",
+      "x": 170,
+      "y": 395,
+      "width": 22,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-board-west-lamp",
+      "asset": "lamp",
+      "x": 628,
+      "y": 305,
+      "width": 20,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-board-east-lamp",
+      "asset": "lamp",
+      "x": 648,
+      "y": 327,
+      "width": 20,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-north-garden-lamp",
+      "asset": "lamp",
+      "x": 845,
+      "y": 359,
+      "width": 23,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-station-lamp",
+      "asset": "lamp",
+      "x": 1064,
+      "y": 315,
+      "width": 23,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-workshop-lamp",
+      "asset": "lamp",
+      "x": 492,
+      "y": 586,
+      "width": 28,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-mill-road-lamp",
+      "asset": "lamp",
+      "x": 947,
+      "y": 574,
+      "width": 27,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-market-lamp",
+      "asset": "lamp",
+      "x": 542,
+      "y": 795,
+      "width": 27,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-east-bridge-lamp",
+      "asset": "lamp",
+      "x": 1397,
+      "y": 634,
+      "width": 28,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-conservatory-lamp",
+      "asset": "lamp",
+      "x": 1024,
+      "y": 945,
+      "width": 29,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-north-path-lamp",
+      "asset": "lamp",
+      "x": 646,
+      "y": 192,
+      "width": 19,
+      "motion": "lamp"
+    },
+    {
+      "id": "waldruh-inn-planter",
+      "asset": "planter",
+      "frame": "planter-1",
+      "variant": true,
+      "x": 494,
+      "y": 375,
+      "width": 42,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-inn-step-planter",
+      "asset": "planter",
+      "frame": "planter-2",
+      "variant": true,
+      "x": 347,
+      "y": 333,
+      "width": 30,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-inn-west-planter",
+      "asset": "planter",
+      "frame": "garden-1",
+      "variant": true,
+      "x": 121,
+      "y": 324,
+      "width": 28,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-station-planter-west",
+      "asset": "planter",
+      "frame": "garden-2",
+      "variant": true,
+      "x": 913,
+      "y": 290,
+      "width": 30,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-station-planter-east",
+      "asset": "planter",
+      "frame": "planter-1",
+      "variant": true,
+      "x": 1289,
+      "y": 280,
+      "width": 28,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-fountain-planter-west",
+      "asset": "planter",
+      "frame": "planter-2",
+      "variant": true,
+      "x": 629,
+      "y": 469,
+      "width": 37,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-fountain-planter-east",
+      "asset": "planter",
+      "frame": "garden-1",
+      "variant": true,
+      "x": 796,
+      "y": 484,
+      "width": 38,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-fountain-planter-north",
+      "asset": "planter",
+      "frame": "garden-2",
+      "variant": true,
+      "x": 785,
+      "y": 414,
+      "width": 29,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-market-road-planter",
+      "asset": "planter",
+      "frame": "planter-1",
+      "variant": true,
+      "x": 494,
+      "y": 768,
+      "width": 41,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-market-step-planter",
+      "asset": "planter",
+      "frame": "planter-2",
+      "variant": true,
+      "x": 592,
+      "y": 806,
+      "width": 34,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-workshop-planter",
+      "asset": "planter",
+      "frame": "garden-1",
+      "variant": true,
+      "x": 419,
+      "y": 693,
+      "width": 36,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-clockmill-planter",
+      "asset": "planter",
+      "frame": "garden-2",
+      "variant": true,
+      "x": 1084,
+      "y": 530,
+      "width": 39,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-east-bridge-planter",
+      "asset": "planter",
+      "frame": "planter-1",
+      "variant": true,
+      "x": 1435,
+      "y": 679,
+      "width": 40,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-herb-garden-planter",
+      "asset": "planter",
+      "frame": "planter-2",
+      "variant": true,
+      "x": 1017,
+      "y": 833,
+      "width": 39,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-conservatory-planter-west",
+      "asset": "planter",
+      "frame": "garden-1",
+      "variant": true,
+      "x": 1009,
+      "y": 882,
+      "width": 37,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-conservatory-planter-east",
+      "asset": "planter",
+      "frame": "garden-2",
+      "variant": true,
+      "x": 1264,
+      "y": 827,
+      "width": 37,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-archive-planter",
+      "asset": "planter",
+      "frame": "planter-1",
+      "variant": true,
+      "x": 264,
+      "y": 905,
+      "width": 34,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-square-bench",
+      "asset": "bench",
+      "x": 789,
+      "y": 356,
+      "width": 74,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-fountain-bench",
+      "asset": "bench",
+      "x": 644,
+      "y": 494,
+      "width": 73,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-inn-garden-bench",
+      "asset": "bench",
+      "x": 277,
+      "y": 420,
+      "width": 65,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-west-garden-bench",
+      "asset": "bench",
+      "x": 238,
+      "y": 846,
+      "width": 72,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-herb-garden-bench",
+      "asset": "bench",
+      "x": 1061,
+      "y": 863,
+      "width": 76,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-river-bench",
+      "asset": "bench",
+      "x": 1473,
+      "y": 616,
+      "width": 65,
+      "motion": "still"
+    },
+    {
+      "id": "waldruh-square-autumn-tree",
+      "asset": "tree",
+      "frame": "tree-1",
+      "variant": true,
+      "x": 758,
+      "y": 251,
+      "width": 189,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-clockmill-autumn-tree",
+      "asset": "tree",
+      "frame": "tree-2",
+      "variant": true,
+      "x": 1001,
+      "y": 476,
+      "width": 132,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-workshop-autumn-tree",
+      "asset": "tree",
+      "frame": "tree-3",
+      "variant": true,
+      "x": 428,
+      "y": 511,
+      "width": 104,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-route-fir",
+      "asset": "cypress",
+      "x": 386,
+      "y": 872,
+      "width": 74,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-01",
+      "asset": "tree",
+      "frame": "tree-4",
+      "variant": true,
+      "x": 41,
+      "y": 119,
+      "width": 147,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-02",
+      "asset": "tree",
+      "x": 136,
+      "y": 105,
+      "width": 134,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-north-tree-03",
+      "asset": "cypress",
+      "x": 230,
+      "y": 73,
+      "width": 108,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-04",
+      "asset": "tree",
+      "frame": "tree-2",
+      "variant": true,
+      "x": 336,
+      "y": 72,
+      "width": 137,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-05",
+      "asset": "tree",
+      "frame": "tree-3",
+      "variant": true,
+      "x": 596,
+      "y": 85,
+      "width": 139,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-north-tree-06",
+      "asset": "tree",
+      "frame": "tree-4",
+      "variant": true,
+      "x": 685,
+      "y": 123,
+      "width": 147,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-07",
+      "asset": "cypress",
+      "x": 924,
+      "y": 113,
+      "width": 125,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-08",
+      "asset": "tree",
+      "frame": "tree-1",
+      "variant": true,
+      "x": 1004,
+      "y": 91,
+      "width": 138,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-north-tree-09",
+      "asset": "cypress",
+      "x": 1152,
+      "y": 84,
+      "width": 120,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-north-tree-10",
+      "asset": "tree",
+      "x": 1435,
+      "y": 132,
+      "width": 130,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-tree-01",
+      "asset": "cypress",
+      "x": 37,
+      "y": 237,
+      "width": 115,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-tree-02",
+      "asset": "tree",
+      "frame": "tree-3",
+      "variant": true,
+      "x": 49,
+      "y": 335,
+      "width": 124,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-west-tree-03",
+      "asset": "tree",
+      "frame": "tree-4",
+      "variant": true,
+      "x": 53,
+      "y": 456,
+      "width": 134,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-tree-04",
+      "asset": "cypress",
+      "x": 321,
+      "y": 517,
+      "width": 91,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-tree-05",
+      "asset": "tree",
+      "frame": "tree-1",
+      "variant": true,
+      "x": 65,
+      "y": 727,
+      "width": 140,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-west-tree-06",
+      "asset": "cypress",
+      "x": 136,
+      "y": 806,
+      "width": 135,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-west-tree-07",
+      "asset": "tree",
+      "frame": "tree-2",
+      "variant": true,
+      "x": 53,
+      "y": 936,
+      "width": 164,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-tree-01",
+      "asset": "tree",
+      "x": 147,
+      "y": 1013,
+      "width": 186,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-tree-02",
+      "asset": "tree",
+      "frame": "tree-4",
+      "variant": true,
+      "x": 293,
+      "y": 998,
+      "width": 140,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-south-tree-03",
+      "asset": "cypress",
+      "x": 517,
+      "y": 1030,
+      "width": 156,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-tree-04",
+      "asset": "tree",
+      "frame": "tree-1",
+      "variant": true,
+      "x": 484,
+      "y": 898,
+      "width": 119,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-tree-05",
+      "asset": "tree",
+      "frame": "tree-2",
+      "variant": true,
+      "x": 828,
+      "y": 982,
+      "width": 186,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-south-tree-06",
+      "asset": "cypress",
+      "x": 956,
+      "y": 1030,
+      "width": 157,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-south-tree-07",
+      "asset": "tree",
+      "frame": "tree-3",
+      "variant": true,
+      "x": 920,
+      "y": 979,
+      "width": 145,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-garden-tree-01",
+      "asset": "tree",
+      "x": 1197,
+      "y": 902,
+      "width": 123,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-garden-tree-02",
+      "asset": "tree",
+      "frame": "tree-1",
+      "variant": true,
+      "x": 1298,
+      "y": 823,
+      "width": 89,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-east-tree-01",
+      "asset": "cypress",
+      "x": 1507,
+      "y": 205,
+      "width": 107,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-east-tree-02",
+      "asset": "tree",
+      "frame": "tree-2",
+      "variant": true,
+      "x": 1518,
+      "y": 360,
+      "width": 124,
+      "motion": "tree",
+      "flipX": true
+    },
+    {
+      "id": "waldruh-east-tree-03",
+      "asset": "tree",
+      "frame": "tree-3",
+      "variant": true,
+      "x": 1510,
+      "y": 550,
+      "width": 117,
+      "motion": "tree"
+    },
+    {
+      "id": "waldruh-east-tree-04",
+      "asset": "cypress",
+      "x": 1480,
+      "y": 918,
+      "width": 134,
+      "motion": "tree"
+    }
+  ],
+  "terrain": [
+    {
+      "id": "core-0-0",
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 512,
+      "dayAsset": "/assets/waldruh-day-terrain-detail-0-0.webp",
+      "nightAsset": "/assets/waldruh-night-terrain-detail-0-0.webp",
+      "dayCrop": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "nightCrop": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "pixelDensity": 4,
+      "dayPreviewAsset": "/assets/waldruh-day-terrain-detail-0-0-overview.webp",
+      "nightPreviewAsset": "/assets/waldruh-night-terrain-detail-0-0-overview.webp"
+    },
+    {
+      "id": "core-0-1",
+      "x": 768,
+      "y": 0,
+      "width": 768,
+      "height": 512,
+      "dayAsset": "/assets/waldruh-day-terrain-detail-0-1.webp",
+      "nightAsset": "/assets/waldruh-night-terrain-detail-0-1.webp",
+      "dayCrop": {
+        "x": 1,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "nightCrop": {
+        "x": 1,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "pixelDensity": 4,
+      "dayPreviewAsset": "/assets/waldruh-day-terrain-detail-0-1-overview.webp",
+      "nightPreviewAsset": "/assets/waldruh-night-terrain-detail-0-1-overview.webp"
+    },
+    {
+      "id": "core-1-0",
+      "x": 0,
+      "y": 512,
+      "width": 768,
+      "height": 512,
+      "dayAsset": "/assets/waldruh-day-terrain-detail-1-0.webp",
+      "nightAsset": "/assets/waldruh-night-terrain-detail-1-0.webp",
+      "dayCrop": {
+        "x": 0,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "nightCrop": {
+        "x": 0,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "pixelDensity": 4,
+      "dayPreviewAsset": "/assets/waldruh-day-terrain-detail-1-0-overview.webp",
+      "nightPreviewAsset": "/assets/waldruh-night-terrain-detail-1-0-overview.webp"
+    },
+    {
+      "id": "core-1-1",
+      "x": 768,
+      "y": 512,
+      "width": 768,
+      "height": 512,
+      "dayAsset": "/assets/waldruh-day-terrain-detail-1-1.webp",
+      "nightAsset": "/assets/waldruh-night-terrain-detail-1-1.webp",
+      "dayCrop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "nightCrop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "pixelDensity": 4,
+      "dayPreviewAsset": "/assets/waldruh-day-terrain-detail-1-1-overview.webp",
+      "nightPreviewAsset": "/assets/waldruh-night-terrain-detail-1-1-overview.webp"
+    }
+  ],
+  "districts": [],
+  "entrances": [
+    {
+      "id": "cafe-entrance",
+      "ownerId": "waldruh-inn",
+      "interiorId": "cafe",
+      "offsetX": 0,
+      "offsetY": 41
+    },
+    {
+      "id": "bakery-entrance",
+      "ownerId": "waldruh-west-workshop",
+      "interiorId": "bakery",
+      "offsetX": 149,
+      "offsetY": 28
+    },
+    {
+      "id": "supermarket-entrance",
+      "ownerId": "waldruh-market-east",
+      "interiorId": "supermarket",
+      "offsetX": 64,
+      "offsetY": 44
+    },
+    {
+      "id": "inn-entrance",
+      "ownerId": "waldruh-inn",
+      "interiorId": "inn",
+      "offsetX": -35,
+      "offsetY": 44
+    }
+  ]
+}

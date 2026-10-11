@@ -213,8 +213,10 @@ export class LevelEditorCanvas extends Phaser.Scene {
     if(this.residentHour!==undefined){
       try{
         if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:new ResidentActivityWorld(world,new NavigationGrid(world.walkable,[...world.obstacles,...sceneryFootprints(world.scenery)],world))};
-        for(const sample of this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30},this.residentWeather)){
-          g.fillStyle(sample.interruption==='rain'?0xbda2ea:sample.phase==='home'?0x88988a:sample.phase==='act'?0xf4bd61:0x75cbe0,.9).fillCircle(sample.x,sample.y,6/zoom);
+        const samples=this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30},this.residentWeather);
+        for(const sample of samples){
+          if(sample.exchange&&sample.residentId<sample.exchange.partnerId){const partner=samples.find(item=>item.residentId===sample.exchange!.partnerId)!;g.lineStyle(2/zoom,0xeea87a,.9).lineBetween(sample.x,sample.y,partner.x,partner.y);}
+          g.fillStyle(sample.exchange?0xeea87a:sample.interruption==='rain'?0xbda2ea:sample.phase==='home'?0x88988a:sample.phase==='act'?0xf4bd61:0x75cbe0,.9).fillCircle(sample.x,sample.y,6/zoom);
           if(sample.phase==='act')g.lineStyle(2/zoom,0xf4bd61,1).strokeCircle(sample.x,sample.y,11/zoom);
         }
       }catch{this.residentGuide=undefined;}

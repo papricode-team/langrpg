@@ -136,6 +136,26 @@ it('keeps authored tasks synchronized while reduced motion, local sky previews a
   expect(reader.character.layers.every((layer:any)=>layer.visible)).toBe(true);expect(reader.prop.visible).toBe(false);
   world.destroy();
 });
+it('renders one parcel and one exchange speaker while respecting dialogue, culling and vocabulary intake',()=>{
+  const {world,scene}=fixture(),renderer=Object.getPrototypeOf(scene);
+  scene.navigation=createMapNavigation('lindenhafen');scene.playerArtReady=true;
+  scene.clock=new WorldClock({mode:'manual',hour:11.75});
+  scene.cameras.main.worldView={x:0,y:0,right:3072,bottom:2048};
+  for(const look of ['anne','ella','karl','mila'])scene.textureKeys.add(`lindenhafen-resident-actions-${look}`);
+  renderer.createResidents.call(scene);world.setWeatherPreview('dry');world.setMotionPreference('reduced');world.observeResident('lindenhafen-promenade-reader');
+  renderer.updateActivityResidents.call(scene);
+  const vendor=scene.activityResidents.find((item:any)=>item.character.id==='lindenhafen-parcel-vendor');
+  const customer=scene.activityResidents.find((item:any)=>item.character.id==='lindenhafen-promenade-reader');
+  expect(vendor.actionFigure.frame).toBe('carry');expect(vendor.prop.visible).toBe(false);expect(vendor.speech.visible).toBe(true);
+  expect(customer.sample.heldObject).toBeUndefined();expect(customer.speech?.visible??false).toBe(false);expect(customer.character.name.visible).toBe(false);
+  world.setLearningContext([],{words:{}},new Set(),()=>false);renderer.updateActivityResidents.call(scene);expect(vendor.speech.visible).toBe(false);
+  world.setLearningContext([],{words:{}},new Set(),()=>true);scene.clock.configure({mode:'manual',hour:12});renderer.updateActivityResidents.call(scene);
+  expect(customer.actionFigure.frame).toBe('carry');expect(customer.prop.visible).toBe(false);expect(customer.speech.visible).toBe(true);expect(vendor.sample.heldObject).toBeUndefined();expect(vendor.speech.visible).toBe(false);
+  scene.conversationTarget='marta';renderer.updateActivityResidents.call(scene);expect(customer.speech.visible).toBe(false);
+  scene.conversationTarget=undefined;scene.cameras.main.worldView={x:-3000,y:-3000,right:-2000,bottom:-2000};renderer.updateActivityResidents.call(scene);
+  expect(customer.speech.visible).toBe(false);expect(customer.sample.heldObject).toBe('parcel');expect(customer.character.root.visible).toBe(false);
+  world.destroy();
+});
 vi.mock('phaser', () => ({ AUTO: 0, Scene: harness.Scene, Game: harness.Game,
   Loader: { Events: { COMPLETE: 'complete' } }, GameObjects: { Image: harness.Picture } }));
 vi.mock('./screen-filters', () => ({ createScreenFilter: () => undefined }));
