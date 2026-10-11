@@ -7,10 +7,11 @@ import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 
 class Sprite {
-  alpha=1; originX=.5; originY=1; tint = 0xffffff; visible = true; scale = 1; depth = 0;
+  alpha=1; originX=.5; originY=1; tint = 0xffffff; visible = true; scale = 1; depth = 0; rotation = 0;
   constructor(public x: number, public y: number, public key: string, public frame: string) {}
   setOrigin(x:number,y:number) { this.originX=x;this.originY=y;return this; } setAlpha(alpha:number) {this.alpha=alpha;return this;} setScale(scale: number) { this.scale = scale; return this; }
   setDepth(depth: number) { this.depth = depth; return this; } setFlipX() { return this; }
+  setRotation(rotation: number) { this.rotation = rotation; return this; }
   setTint(tint: number) { this.tint = tint; return this; }
   setVisible(visible: boolean) { this.visible = visible; return this; }
   setFrame(frame: string) { this.frame = frame; return this; } destroy() {}
@@ -32,7 +33,7 @@ function fixture(mapId: MapId, period: WorldPeriod) {
   return {sprites,scenery};
 }
 const view = {x:0,y:0,right:1536,bottom:1024};
-const pose = (sprite: Sprite) => [sprite.x,sprite.y,sprite.scale,sprite.depth,sprite.frame];
+const pose = (sprite: Sprite) => [sprite.x,sprite.y,sprite.scale,sprite.depth,sprite.frame,sprite.rotation];
 
 describe('steady expedition night lighting', () => {
   it('cools buildings and foliage while retaining warm lantern illumination', () => {

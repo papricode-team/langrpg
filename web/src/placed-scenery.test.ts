@@ -2,7 +2,7 @@ import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { storyMaps as maps } from './maps';
 import { getPlacedScenery,sceneryAssets,placedSceneryFootprints } from './placed-scenery';
-import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
+import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
 const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
@@ -78,7 +78,7 @@ describe('authored sprite worlds',()=>{
 });
 
 function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings?:boolean}={}){
-  const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>}[]=[];
+  const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;rotation:number;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>;setRotation:ReturnType<typeof vi.fn>}[]=[];
   const specs=getPlacedScenery('lindenhafen');
   const assets:Record<string,SceneryAnimation>={};
   for(const spec of specs){
@@ -94,16 +94,76 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
   const frame={width:200,height:250};
   const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
     add:{sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
-      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,setAlpha:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),destroy:vi.fn()};
+      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),destroy:vi.fn()};
       for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
       sprite.setOrigin.mockImplementation((x:number,y:number)=>{sprite.originX=x;sprite.originY=y;return sprite});
       sprite.setDepth.mockImplementation((depth:number)=>{sprite.depth=depth;return sprite});
       sprite.setVisible.mockImplementation((visible:boolean)=>{sprite.visible=visible;return sprite});
       sprite.setFrame.mockImplementation((frame:string)=>{sprite.frame=frame;return sprite});
+      sprite.setRotation.mockImplementation((rotation:number)=>{sprite.rotation=rotation;return sprite});
       sprites.push(sprite);return sprite;
     })}};
   return {scene:scene as unknown as Phaser.Scene,sprites,raw:scene};
 }
+
+it('keeps tree and cypress silhouettes stable with one gently swaying sprite, including still scenery and fades',()=>{
+  const view={x:0,y:0,right:1536,bottom:1124};
+  for(const period of ['day','night'] as const){
+    const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen',period);
+    const specs=getPlacedScenery('lindenhafen').filter(spec=>spec.asset==='tree'||spec.asset==='cypress');
+    const trees=specs.map(spec=>{
+      const trees=mock.sprites.filter(sprite=>sprite.x===spec.x&&sprite.y===spec.y);
+      expect(trees).toHaveLength(1);
+      const tree=trees[0];
+      expect(tree.frame).toBe(`${spec.frame??spec.asset}-0`);
+      return {spec,tree,original:{x:tree.x,y:tree.y,frame:tree.frame,originX:tree.originX,originY:tree.originY},rotations:[] as number[]};
+    });
+    for(let time=0;time<20;time+=.5){
+      scenery.update(time,view);
+      for(const {tree,rotations} of trees){
+        rotations.push(tree.rotation);
+        expect(Math.abs(tree.rotation)).toBeLessThanOrEqual(.0025);
+      }
+    }
+    const frozen=trees.map(({tree})=>tree.rotation);
+    scenery.setReducedMotion(true);scenery.update(42,view);
+    expect(trees.map(({tree})=>tree.rotation)).toEqual(frozen);
+    scenery.setAlpha(.35);scenery.update(43,view);
+    scenery.setReducedMotion(false);scenery.update(44,view);
+    for(const {spec,tree,original,rotations} of trees){
+      expect(Math.max(...rotations)-Math.min(...rotations)).toBeGreaterThan(.001);
+      expect({x:tree.x,y:tree.y,frame:tree.frame,originX:tree.originX,originY:tree.originY}).toEqual(original);
+      expect(tree.setFrame).not.toHaveBeenCalled();
+      expect(tree.setScale).toHaveBeenCalledTimes(1);
+      expect(tree.setFlipX).toHaveBeenCalledWith(spec.flipX??false);
+      expect(tree.setAlpha.mock.lastCall![0]).toBe(.35);
+      expect(tree.rotation).not.toBe(rotations[rotations.length-1]);
+      expect(tree.rotation).toBe(sampleTreeSway(spec.id,44,period));
+    }
+    // Planter motion shares the 'tree' label but must keep its existing frames.
+    const planter=getPlacedScenery('lindenhafen').find(spec=>spec.asset==='planter'&&spec.motion==='tree')!;
+    const planterSprite=mock.sprites.find(sprite=>sprite.x===planter.x&&sprite.y===planter.y)!;
+    expect(planterSprite.setFrame).toHaveBeenCalled();
+    expect(planterSprite.setRotation).not.toHaveBeenCalled();
+    scenery.destroy();
+    expect(mock.sprites.every(sprite=>sprite.destroy.mock.calls.length===1)).toBe(true);
+  }
+});
+
+it('bounds tree motion and its speed across instances, with quieter nights and safe time inputs',()=>{
+  const ids=['cafe-east-tree','waldruh-south-route-fir','nebelstadt-council-north-tree'];
+  expect(new Set(ids.map(id=>sampleTreeSway(id,0))).size).toBe(ids.length);
+  for(const id of ids)for(const period of ['day','night'] as const){
+    const limit=period==='night'?.0025*.55:.0025;
+    for(let time=0;time<120;time+=1/60){
+      const rotation=sampleTreeSway(id,time,period);
+      expect(Math.abs(rotation)).toBeLessThanOrEqual(limit);
+      // Even at 60 fps, a breeze cannot jerk or snap across the cycle boundary.
+      expect(Math.abs(sampleTreeSway(id,time+1/60,period)-rotation)).toBeLessThan(.002/60);
+    }
+    for(const time of [NaN,Infinity,-1])expect(sampleTreeSway(id,time,period)).toBe(sampleTreeSway(id,0,period));
+  }
+});
 
 it('changes painted sprite frames, keeps foundations upright, freezes, culls and cleans up',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');

@@ -3,12 +3,13 @@ import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 import { worldAmbient } from './world-lighting';
 import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, sceneryDepth, type PlacedScenerySpec } from './placed-scenery';
-import { isBuildingScenery,sampleSceneryFrame,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
+import { isBuildingScenery,sampleSceneryFrame,sampleTreeSway,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   scale:number;
   next?:Phaser.GameObjects.Sprite;
   animation?:SceneryAnimation;
+  treeSway?:boolean;
   currentFrame:string;
   phaseId:string;
 }
@@ -20,24 +21,25 @@ interface SceneryLayer {
 }
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
 export interface LampLight { x:number;y:number;footY:number;width:number; }
-/** High resolution building paintings stay fixed while other scenery changes frame. */
+/** Trees gently sway one stable painting; other scenery uses authored frames. */
 export class WorldScenery {
   private layers:SceneryLayer[]=[];
   private visible=true;
   private reducedMotion=false;
   private motionTime=0;
   private opacity=1;
-  constructor(private scene:Phaser.Scene,mapId:MapId,period:WorldPeriod='day'){
+  constructor(private scene:Phaser.Scene,mapId:MapId,private period:WorldPeriod='day'){
     const manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of getPlacedScenery(mapId)){
       const name=spec.frame??spec.asset;
       const authored=manifest?.assets[name];
       const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;
       const building=isBuildingScenery(name);
+      const tree=spec.asset==='tree'||spec.asset==='cypress';
       const requestedKey=animation?.base?.key??animation?.key??sceneryTextureFor(mapId,spec);
       const key=scene.textures.exists(requestedKey)?requestedKey:sceneryTextureKey(mapId);
       const frameName=animation?.base?.frame??(animation
-        ? building?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
+        ? building||tree?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
       if(!scene.textures.exists(key))continue;
       const atlas=scene.textures.get(key);if(!atlas.has(frameName))continue;
       const frame=atlas.get(frameName),base=animation?.base;
@@ -45,7 +47,8 @@ export class WorldScenery {
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
         .setOrigin(base?.originX??animation?.originX??.5,base?.originY??animation?.originY??1).setScale(scale)
         .setDepth(spec.depth??sceneryDepth(spec.y)).setFlipX(spec.flipX??false);
-      const parts:AnimatedSprite[]=[{sprite,scale,animation:building||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
+      if(tree)sprite.setRotation(sampleTreeSway(spec.id,0,period));
+      const parts:AnimatedSprite[]=[{sprite,scale,treeSway:tree,animation:building||tree||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
       for(const overlay of animation?.overlays??[]){
         if(!scene.textures.exists(overlay.key))continue;
         const phaseId=`${spec.id}:${overlay.id}`,detailFrame=sampleSceneryFrame(overlay,phaseId,0);
@@ -69,7 +72,7 @@ export class WorldScenery {
     if(ambient.scenery!==0xffffff)this.setAmbientTint(ambient.scenery,ambient.light);
   }
   get objectCount(){return this.layers.length;}
-  get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation)).length;}
+  get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation||part.treeSway)).length;}
   /** Follow the glass in the scaled painting, rather than a fixed pole offset. */
   get lampLights(): readonly LampLight[] {
     return this.layers.filter(({spec})=>spec.asset==='lamp'||spec.frame==='motion-lamp').map(({spec,parts,height})=>({
@@ -98,7 +101,11 @@ export class WorldScenery {
       const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
         &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
       for(const part of parts){
-        part.sprite.setVisible(visible);part.next?.setVisible(visible);if(!visible||!part.animation)continue;
+        part.sprite.setVisible(visible);part.next?.setVisible(visible);if(!visible)continue;
+        // Keeping a single tree painting avoids branches morphing, doubled
+        // silhouettes and jumping roots between independently painted poses.
+        if(part.treeSway){part.sprite.setRotation(sampleTreeSway(part.phaseId,this.motionTime,this.period));continue;}
+        if(!part.animation)continue;
         const blend=sceneryBlend(part.animation,part.phaseId,this.motionTime);
         if(blend.current!==part.currentFrame){part.sprite.setFrame(blend.current);part.currentFrame=blend.current;}
         // Source-over draws the next frame over this one. Fading both frames
