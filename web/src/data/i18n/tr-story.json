@@ -24,84 +24,84 @@
   "tr": "Günaydın! Lindenhafen'e hoş geldin."
  },
  "dialogue:a1-arrival-greeting-correction": {
-  "de": "Guten Morgen! Es ist Morgen. Wir sagen: Guten Morgen!",
-  "tr": "Günaydın! Şu an sabah. Biz “Günaydın!” deriz."
+  "de": "Es ist Morgen. Guten Morgen!",
+  "tr": "Şu an sabah. Günaydın!"
  },
  "dialogue:a1-arrival-intro-1": {
-  "de": "Dein Zug ist pünktlich. Das ist hier nicht normal.",
-  "tr": "Trenin tam vaktinde geldi. Burada bu normal değil."
+  "de": "Dein Zug ist hier.",
+  "tr": "Trenin burada."
  },
  "dialogue:a1-arrival-intro-2": {
-  "de": "Und vierzig Tauben im Wagen. Alle pünktlich. Das gefällt mir nicht.",
-  "tr": "Bir de vagonda kırk güvercin. Hepsi tam vaktinde. Bu hoşuma gitmiyor."
+  "de": "Die Tauben fahren mit.",
+  "tr": "Güvercinler de geliyor."
  },
  "gloss:tauben:pigeons": {
   "en": "pigeons",
   "tr": "güvercinler"
  },
  "dialogue:a1-arrival-intro-3": {
-  "de": "Lindenhafen hat sechs Bahnsteige. Eins, zwei, drei, vier, fünf, sechs.",
-  "tr": "Lindenhafen'in altı peronu var. Bir, iki, üç, dört, beş, altı."
+  "de": "Hier sind sechs Bahnsteige.",
+  "tr": "Burada altı peron var."
  },
  "dialogue:a1-arrival-intro-4": {
-  "de": "Du kommst von Bahnsteig sieben. Den gibt es nicht.",
-  "tr": "Sen yedinci perondan geliyorsun. Öyle bir peron yok."
+  "de": "Dein Zug steht an Bahnsteig sieben.",
+  "tr": "Trenin yedinci peronda."
  },
  "dialogue:a1-arrival-intro-5": {
-  "de": "Aber die Laterne da ist an. Sie ist nie an.",
-  "tr": "Ama şuradaki fener yanıyor. O hiç yanmaz."
+  "de": "Die Laterne ist an.",
+  "tr": "Fener yanıyor."
  },
  "gloss:laterne:lantern": {
   "en": "lantern",
   "tr": "fener"
  },
  "dialogue:a1-arrival-intro-6": {
-  "de": "Deine Fahrkarte, bitte. Ich bin hier der Chef.",
-  "tr": "Biletin, lütfen. Burada şef benim."
+  "de": "Deine Fahrkarte, bitte.",
+  "tr": "Biletin, lütfen."
  },
  "dialogue:a1-arrival-intro-7": {
-  "de": "Hier steht dein Name. Bahnsteig sieben. Und unten nur ein Buchstabe: E.",
-  "tr": "Burada adın yazıyor. Yedinci peron. Altta da tek bir harf: E."
+  "de": "Dein Name. Bahnsteig sieben. Und ein E.",
+  "tr": "Adın. Yedinci peron. Ve bir E."
  },
  "dialogue:a1-arrival-intro-8": {
-  "de": "Moment. Die Buchstaben gehen weg. Siehst du das?",
-  "tr": "Dur. Harfler siliniyor. Görüyor musun?"
+  "de": "Die Buchstaben gehen weg!",
+  "tr": "Harfler kayboluyor!"
  },
  "dialogue:a1-arrival-intro-9": {
-  "de": "Guten Morgen. Voss, Beamter. Die Fahrkarte, bitte. Sofort.",
-  "tr": "Günaydın. Voss, memur. Bilet, lütfen. Derhâl."
+  "de": "Guten Morgen. Ich bin Voss.",
+  "tr": "Günaydın. Ben Voss."
  },
  "dialogue:a1-arrival-gate-request": {
-  "de": "Fahrkarte-nicht-gültig-Bahnsteig-sieben-gibt-es-nicht-bitte-sofort-abgeben-danke!",
-  "tr": "Bilet-geçersiz-yedinci-peron-yok-lütfen-derhâl-teslim-edin-teşekkürler!"
+  "de": "Ihre Fahrkarte, bitte. Schnell!",
+  "tr": "Biletiniz, lütfen. Çabuk!"
  },
  "dialogue:a1-arrival-gate-request:variant:0": {
   "de": "Fahrkarte nicht gültig. Sofort abgeben, bitte. Danke!",
   "tr": "Bilet geçersiz. Derhâl teslim edin, lütfen. Teşekkürler!"
  },
  "dialogue:a1-arrival-gate-0": {
-  "de": "Gern. Langsam. Ihre. Fahrkarte. Ist. Nicht. Gültig.",
-  "tr": "Memnuniyetle. Yavaşça. Biletiniz. Geçerli. Değil."
+  "de": "Gern. Ihre Fahrkarte ist nicht gültig.",
+  "tr": "Elbette. Biletiniz geçerli değil."
  },
  "dialogue:a1-arrival-gate-1": {
-  "de": "Bahnsteig sieben steht nicht im Plan. Also gibt es ihn nicht.",
-  "tr": "Yedinci peron tarifede yok. Demek ki öyle bir peron yok."
+  "de": "Bahnsteig sieben steht nicht im Plan.",
+  "tr": "Yedinci peron planda yok."
  },
  "dialogue:a1-arrival-gate-2": {
-  "de": "Und der Zug? Und die Tauben? Und {name}?",
-  "tr": "Ya tren? Ya güvercinler? Ya {name}?"
+  "de": "Aber der Zug ist hier!",
+  "tr": "Ama tren burada!"
  },
  "dialogue:a1-arrival-gate-3": {
-  "de": "Die Tauben schreibe ich auf. Die Fahrkarte nehme ich mit.",
-  "tr": "Güvercinleri not ediyorum. Bileti de yanımda götürüyorum."
+  "de": "Ich nehme Ihre Fahrkarte.",
+  "tr": "Biletinizi alıyorum."
  },
  "dialogue:a1-arrival-gate-4": {
-  "de": "Gib sie ihm nicht. Ich habe eine gute Tasche.",
-  "tr": "Ona verme. Benim iyi bir cebim var."
+  "de": "Die Fahrkarte bleibt hier.",
+  "tr": "Bilet burada kalıyor."
  },
  "dialogue:a1-arrival-choice-0": {
-  "de": "Also: Bekomme ich die Fahrkarte? Oder ist sie gleich in Ottos Tasche?",
-  "tr": "Peki: Bileti bana veriyor musunuz? Yoksa birazdan Otto'nun cebine mi giriyor?"
+  "de": "Die Fahrkarte für mich? Oder für Otto?",
+  "tr": "Bilet bana mı? Yoksa Otto'ya mı?"
  },
  "choice:a1-arrival:report": {
   "de": "Hier, bitte. Die Fahrkarte ist für Sie.",
@@ -112,40 +112,40 @@
   "tr": "Bilet mi? Biletim yok."
  },
  "dialogue:a1-arrival-complete-0": {
-  "de": "Marta vom Café hat heute einen Kaffee für dich. Bezahlt. Sie kennt dich nicht.",
-  "tr": "Kafedeki Marta'da bugün senin için bir kahve var. Parası ödenmiş. Seni tanımıyor bile."
+  "de": "Marta hat einen Kaffee für dich.",
+  "tr": "Marta'nın senin için bir kahvesi var."
  },
  "dialogue:a1-arrival-report-0": {
-  "de": "Danke. Ich schreibe sie ab. Langsam. Alles richtig.",
-  "tr": "Teşekkür ederim. Kopyasını çıkarıyorum. Yavaşça. Her şey doğru."
+  "de": "Danke. Ich schreibe alles auf.",
+  "tr": "Teşekkürler. Her şeyi yazıyorum."
  },
  "dialogue:a1-arrival-report-1": {
-  "de": "Hier ist mein Buch. Lesen Sie. Bei mir ist alles richtig.",
-  "tr": "İşte defterim. Okuyun. Bende her şey doğrudur."
+  "de": "Hier ist mein Buch.",
+  "tr": "İşte kitabım."
  },
  "dialogue:a1-arrival-report-2": {
-  "de": "Er gibt dir sein Buch? Das hat er noch nie gemacht.",
-  "tr": "Sana defterini mi veriyor? Bunu daha önce hiç yapmadı."
+  "de": "Sein Buch für dich? Das ist neu.",
+  "tr": "Kitabını sana mı verdi? Bu yeni."
  },
  "dialogue:a1-arrival-protect-0": {
-  "de": "Keine Fahrkarte. So. Ich komme wieder, Herr Otto. Mit einem Formular.",
-  "tr": "Bilet yok. Peki. Geri geleceğim, Otto Bey. Bir formla."
+  "de": "Keine Fahrkarte? Ich komme wieder.",
+  "tr": "Bilet yok mu? Tekrar geleceğim."
  },
  "dialogue:a1-arrival-protect-1": {
-  "de": "Er ist weg. Hier, deine Fahrkarte. Und mein Schlüssel für Bahnsteig sieben.",
-  "tr": "Gitti. Al, biletin. Bir de benim yedinci peron anahtarım."
+  "de": "Deine Fahrkarte. Mein Schlüssel für Bahnsteig sieben.",
+  "tr": "Biletin. Yedinci peronun anahtarı."
  },
  "dialogue:a1-arrival-protect-2": {
-  "de": "Ich gebe nie Schlüssel. Heute schon. Das gefällt mir auch nicht.",
-  "tr": "Ben hiç anahtar vermem. Ama bugün verdim. Bu da hoşuma gitmiyor."
+  "de": "Der Schlüssel ist jetzt bei dir.",
+  "tr": "Anahtar artık sende."
  },
  "topic:a1-arrival:who-voss": {
   "de": "Wer ist Voss?",
   "tr": "Voss kim?"
  },
  "dialogue:a1-arrival-topic-who-voss-0": {
-  "de": "Voss ist Beamter. Er schreibt alles in sein Buch.",
-  "tr": "Voss memur. Her şeyi defterine yazar."
+  "de": "Voss schreibt alles auf.",
+  "tr": "Voss her şeyi yazıyor."
  },
  "dialogue:a1-arrival-topic-who-voss-1": {
   "de": "Auch mich. Auch die Tauben. Jeden Tag.",
@@ -160,12 +160,12 @@
   "tr": "Yedinci peron neden yok?"
  },
  "dialogue:a1-arrival-topic-why-seven-0": {
-  "de": "Er steht nicht im Plan. Der Plan hat sechs.",
-  "tr": "Tarifede yok. Tarifede altı tane var."
+  "de": "Im Plan stehen nur sechs Bahnsteige.",
+  "tr": "Planda sadece altı peron var."
  },
  "dialogue:a1-arrival-topic-why-seven-1": {
-  "de": "Aber die Laterne ist alt. Sie ist nie falsch.",
-  "tr": "Ama fener eskidir. Hiç yanılmaz."
+  "de": "Aber die Laterne steht hier.",
+  "tr": "Ama fener burada."
  },
  "topic:a1-arrival:pigeons": {
   "de": "Was machen die Tauben hier?",
@@ -176,16 +176,16 @@
   "tr": "Trene binip gidiyorlar. Her gün. Biletsiz."
  },
  "dialogue:a1-arrival-topic-pigeons-1": {
-  "de": "Heute schlafen sie. Das ist neu. Neu gefällt mir nicht.",
-  "tr": "Bugün uyuyorlar. Bu yeni bir şey. Yenilik hoşuma gitmez."
+  "de": "Heute schlafen sie. Das ist neu.",
+  "tr": "Bugün uyuyorlar. Bu yeni."
  },
  "evidence:a1-arrival:lindenhafen-platform-ticket": {
-  "de": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E. Die Buchstaben gehen weg.",
-  "tr": "Bilet: {name}. Yedinci peron. Altta: E. Harfler siliniyor."
+  "de": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E.",
+  "tr": "Bilet: {name}. Yedinci peron. Altta: E."
  },
  "evidence:a1-arrival:lindenhafen-noticeboard": {
-  "de": "Bahnsteige eins bis sechs. Sieben steht nicht im Plan. Die Laterne ist an.",
-  "tr": "Peronlar: birden altıya. Yedi tarifede yok. Fener yanıyor."
+  "de": "Bahnsteige eins bis sechs. Kein Bahnsteig sieben.",
+  "tr": "Birden altıya kadar peronlar. Yedinci peron yok."
  },
  "gate-prompt:a1-cafe": {
   "en": "Order a coffee from Marta.",
@@ -208,80 +208,80 @@
   "tr": "Fişin kimde kalacağına karar ver"
  },
  "dialogue:a1-cafe-intro-0": {
-  "de": "Da bist du! Der Wasserkocher sagt seit sechs Uhr deinen Namen.",
-  "tr": "İşte geldin! Çaydanlık saat altıdan beri senin adını söylüyor."
+  "de": "Hallo! Der Wasserkocher sagt deinen Namen.",
+  "tr": "Merhaba! Su ısıtıcısı adını söylüyor."
  },
  "gloss:wasserkocher:electric kettle": {
   "en": "electric kettle",
   "tr": "elektrikli çaydanlık"
  },
  "dialogue:a1-cafe-intro-1": {
-  "de": "Hörst du? Jetzt sagt er: Regen. Er sagt immer das Wetter von morgen.",
-  "tr": "Duyuyor musun? Şimdi “yağmur” diyor. Hep yarının havasını söyler."
+  "de": "Jetzt sagt er: Morgen kommt Regen.",
+  "tr": "Şimdi diyor ki: Yarın yağmur geliyor."
  },
  "dialogue:a1-cafe-intro-2": {
-  "de": "Aber deinen Namen? Nie. Also, wer bist du, {name}?",
-  "tr": "Ama senin adını? Hiç söylemezdi. Peki sen kimsin, {name}?"
+  "de": "Du bist {name}, ja?",
+  "tr": "Sen {name}, değil mi?"
  },
  "dialogue:a1-cafe-reported-ticket": {
-  "de": "Voss hat schon deine Fahrkarte? Der Mann ist schnell. Zu schnell.",
-  "tr": "Biletin şimdiden Voss'ta mı? Adam hızlı. Fazla hızlı."
+  "de": "Voss hat deine Fahrkarte? Er ist schnell.",
+  "tr": "Biletin Voss'ta mı? Çok hızlı."
  },
  "dialogue:a1-cafe-otto-key": {
-  "de": "Otto gibt dir einen Schlüssel? Otto gibt nie Schlüssel. Nie!",
-  "tr": "Otto sana anahtar mı verdi? Otto asla anahtar vermez. Asla!"
+  "de": "Du hast Ottos Schlüssel? Das ist neu!",
+  "tr": "Otto'nun anahtarı sende mi? Bu yeni!"
  },
  "dialogue:a1-cafe-intro-3": {
-  "de": "Gestern war eine Frau hier. Sie hat einen Kaffee für dich bezahlt.",
-  "tr": "Dün burada bir kadın vardı. Senin için bir kahvenin parasını ödedi."
+  "de": "Gestern war eine Frau hier.",
+  "tr": "Dün burada bir kadın vardı."
  },
  "dialogue:a1-cafe-intro-4": {
-  "de": "Sie hat gesagt: „Morgen kommt {name}.“ Und morgen ist heute.",
-  "tr": "Şöyle dedi: “Yarın {name} gelecek.” Yarın da bugün oldu."
+  "de": "Ein Kaffee für dich. Sie hat bezahlt.",
+  "tr": "Senin için bir kahve. Parasını ödedi."
  },
  "dialogue:a1-cafe-intro-5": {
-  "de": "Ich habe gefragt: Wer bist du? Sie hat nur gelacht.",
-  "tr": "Ona sordum: Sen kimsin? Sadece güldü."
+  "de": "Wie heißt die Frau? Ich weiß es nicht.",
+  "tr": "Kadının adı ne? Bilmiyorum."
  },
  "dialogue:a1-cafe-intro-6": {
-  "de": "Und die Kasse druckt die Rechnung nicht zu Ende. Sie wartet. Auf dich, glaube ich.",
-  "tr": "Bir de kasa fişi sonuna kadar basmıyor. Bekliyor. Seni bekliyor galiba."
+  "de": "Die Rechnung ist noch nicht fertig.",
+  "tr": "Fiş henüz hazır değil."
  },
  "dialogue:a1-cafe-gate-request": {
-  "de": "So, mein Gast. Die Frau hat bezahlt. Was möchtest du?",
-  "tr": "Pekâlâ, misafirim. Kadın parasını ödedi. Ne istersin?"
+  "de": "Kaffee oder Tee? Was möchtest du?",
+  "tr": "Kahve mi, çay mı? Ne istersin?"
  },
  "dialogue:a1-cafe-gate-request:variant:0": {
   "de": "Die Frau hat bezahlt. Was möchtest du?",
   "tr": "Kadın parasını ödedi. Ne istersin?"
  },
  "dialogue:a1-cafe-gate-0": {
-  "de": "Einen Kaffee. Gut! Und hörst du? Die Kasse druckt!",
-  "tr": "Bir kahve. Güzel! Duyuyor musun? Kasa basıyor!"
+  "de": "Ein Kaffee! Jetzt kommt die Rechnung.",
+  "tr": "Bir kahve! Şimdi fiş çıkıyor."
  },
  "dialogue:a1-cafe-gate-1": {
   "de": "Ein Kaffee. Bezahlt: gestern. Datum: morgen.",
   "tr": "Bir kahve. Ödendi: dün. Tarih: yarın."
  },
  "dialogue:a1-cafe-gate-2": {
-  "de": "Und hier unten ein Siegel. Das Siegel kenne ich. Es ist von Voss.",
-  "tr": "Burada, altta da bir mühür var. Bu mührü tanıyorum. Voss'un mührü."
+  "de": "Das Siegel ist von Voss.",
+  "tr": "Mühür Voss'un."
  },
  "gloss:siegel:seal": {
   "en": "seal",
   "tr": "mühür"
  },
  "dialogue:a1-cafe-gate-3": {
-  "de": "Warum ist das Siegel von Voss auf ihrer Rechnung? Das verstehe ich nicht.",
-  "tr": "Kadının fişinde Voss'un mührü ne arıyor? Bunu anlamıyorum."
+  "de": "Warum ist es hier?",
+  "tr": "Neden burada?"
  },
  "dialogue:a1-cafe-reported-again": {
-  "de": "Er hat schon deine Fahrkarte. Jetzt die Rechnung auch?",
-  "tr": "Biletin zaten onda. Şimdi fiş de mi?"
+  "de": "Voss hat die Fahrkarte. Jetzt die Rechnung?",
+  "tr": "Bilet Voss'ta. Şimdi de fiş mi?"
  },
  "dialogue:a1-cafe-choice-0": {
-  "de": "Voss will alles Papier. Bekommt er die Rechnung, oder nimmst du sie mit?",
-  "tr": "Voss her kâğıt parçasını istiyor. Fişi o mu alacak, yoksa sen mi götüreceksin?"
+  "de": "Die Rechnung für Voss? Oder für dich?",
+  "tr": "Fiş Voss'a mı? Yoksa sana mı?"
  },
  "choice:a1-cafe:report": {
   "de": "Voss bekommt die Rechnung. Es ist sein Siegel.",
@@ -292,56 +292,56 @@
   "tr": "Fişi yanıma alıyorum."
  },
  "dialogue:a1-cafe-complete-0": {
-  "de": "Moment. Das Siegel ist auch auf den Äpfeln von Fritz. Er steht auf dem Platz.",
-  "tr": "Dur. Bu mühür Fritz'in elmalarında da var. Meydanda tezgâhı var."
+  "de": "Fritz hat Äpfel mit dem Siegel.",
+  "tr": "Fritz’in elmalarında da bu mühür var."
  },
  "dialogue:a1-cafe-report-0": {
-  "de": "Gut. Ich schreibe sie für dich ab. Voss bekommt das Papier.",
-  "tr": "Peki. Senin için kopyasını çıkarayım. Kâğıt Voss'a gider."
+  "de": "Gut. Ich schreibe die Rechnung ab.",
+  "tr": "Tamam. Fişin bir kopyasını yazıyorum."
  },
  "dialogue:a1-cafe-report-1": {
-  "de": "Hörst du? Der Wasserkocher sagt nichts mehr. Das gefällt mir nicht.",
-  "tr": "Duyuyor musun? Çaydanlık sustu. Bu hoşuma gitmiyor."
+  "de": "Der Wasserkocher sagt nichts mehr.",
+  "tr": "Su ısıtıcısı artık hiçbir şey söylemiyor."
  },
  "dialogue:a1-cafe-protect-0": {
-  "de": "Gut. Nimm sie mit. Und kein Wort zu Voss, ja?",
-  "tr": "İyi. Al, götür. Voss'a da tek kelime yok, tamam mı?"
+  "de": "Gut. Die Rechnung bleibt bei dir.",
+  "tr": "Tamam. Fiş sende kalıyor."
  },
  "dialogue:a1-cafe-protect-1": {
-  "de": "Hörst du? Der Wasserkocher sagt wieder deinen Namen. Laut. Er ist zufrieden.",
-  "tr": "Duyuyor musun? Çaydanlık yine senin adını söylüyor. Yüksek sesle. Halinden memnun."
+  "de": "Der Wasserkocher sagt wieder deinen Namen!",
+  "tr": "Su ısıtıcısı yine adını söylüyor!"
  },
  "topic:a1-cafe:kettle": {
   "de": "Woher weiß der Wasserkocher das Wetter?",
   "tr": "Çaydanlık havayı nereden biliyor?"
  },
  "dialogue:a1-cafe-topic-kettle-0": {
-  "de": "Ich weiß es nicht. Er war vor dem Café da.",
-  "tr": "Bilmiyorum. Kafeden önce de buradaydı."
+  "de": "Er war schon vor dem Café hier.",
+  "tr": "O, kafeden önce de buradaydı."
  },
  "dialogue:a1-cafe-topic-kettle-1": {
-  "de": "Er ist nie falsch. Nur am Dienstag. Am Dienstag ist alles falsch.",
-  "tr": "Hiç yanılmaz. Bir tek salıları. Salıları her şey ters gider."
+  "de": "Am Dienstag sagt er alles falsch.",
+  "tr": "Salı günleri her şeyi yanlış söylüyor."
  },
  "topic:a1-cafe:woman": {
   "de": "Wie war die Frau?",
   "tr": "Kadın nasıl biriydi?"
  },
  "dialogue:a1-cafe-topic-woman-0": {
-  "de": "Müde, aber lieb. Und ihre Hände waren schwarz. Wie vom Schreiben.",
-  "tr": "Yorgun ama tatlı biri. Elleri de kapkaraydı. Yazı yazmaktan olmuş gibi."
+  "de": "Sie war müde. Und ihre Hände: schwarz.",
+  "tr": "Yorgundu. Ve elleri siyahtı."
  },
  "dialogue:a1-cafe-topic-woman-1": {
-  "de": "Sie hat Tee getrunken. Kaffee für dich, Tee für sie.",
-  "tr": "Çay içti. Sana kahve, kendine çay."
+  "de": "Tee für sie. Kaffee für dich.",
+  "tr": "Ona çay. Sana kahve."
  },
  "dialogue:a1-cafe-topic-woman-2": {
-  "de": "Den Namen? Ich weiß ihn nicht. Ich weiß immer alles. Nur das nicht.",
-  "tr": "Adı mı? Bilmiyorum. Ben her şeyi bilirim. Bir tek bunu bilmiyorum."
+  "de": "Den Namen weiß ich nicht.",
+  "tr": "Adını bilmiyorum."
  },
  "evidence:a1-cafe:lindenhafen-cafe-receipt": {
-  "de": "Eine Rechnung, nicht fertig: Für {name}. Bezahlt. Datum: …",
-  "tr": "Yarım kalmış bir fiş: {name} için. Ödendi. Tarih: …"
+  "de": "Für {name}. Bezahlt. Datum: …",
+  "tr": "{name} için. Ödendi. Tarih: …"
  },
  "gate-prompt:a1-market": {
   "en": "Tell Fritz you need two apples, like the order on number seven.",
@@ -364,48 +364,48 @@
   "tr": "Önce neyin yazılacağına karar ver"
  },
  "dialogue:a1-market-intro-0": {
-  "de": "Hallo! Gut, du bist da. Meine Suppe hat ein Problem.",
-  "tr": "Merhaba! İyi ki geldin. Çorbamın bir derdi var."
+  "de": "Hallo! Meine Suppe hat ein Problem.",
+  "tr": "Merhaba! Çorbamın bir sorunu var."
  },
  "gloss:suppe:soup": {
   "en": "soup",
   "tr": "çorba"
  },
  "dialogue:a1-market-intro-1": {
-  "de": "Am Freitag essen alle zusammen. Ein Tisch, eine Suppe, alle Gäste.",
-  "tr": "Cuma günleri herkes birlikte yer. Tek masa, tek çorba, bütün misafirler."
+  "de": "Am Freitag essen wir zusammen. Alle sind da.",
+  "tr": "Cuma günü birlikte yemek yiyoruz. Herkes orada."
  },
  "dialogue:a1-market-intro-2": {
-  "de": "Alle Gäste stehen hier, in meinem Gästebuch. Seit zwanzig Jahren.",
-  "tr": "Bütün misafirler burada, misafir defterimde yazılı. Yirmi yıldır."
+  "de": "Alle Namen stehen im Gästebuch.",
+  "tr": "Bütün isimler misafir defterinde."
  },
  "gloss:gästebuch:guest book": {
   "en": "guest book",
   "tr": "misafir defteri"
  },
  "dialogue:a1-market-intro-3": {
-  "de": "Aber hier: zwei Äpfel, Nummer sieben. Und kein Name. Wer ist das?",
-  "tr": "Ama şuraya bak: iki elma, yedi numara. İsim yok. Kim bu?"
+  "de": "Zwei Äpfel. Nummer sieben. Aber kein Name.",
+  "tr": "İki elma. Yedi numara. Ama isim yok."
  },
  "dialogue:a1-market-intro-4": {
-  "de": "Ich weiß es nicht mehr. Mein Kopf ist heute wie Suppe ohne Salz.",
-  "tr": "Artık hatırlamıyorum. Kafam bugün tuzsuz çorba gibi."
+  "de": "Wer ist Nummer sieben? Ich weiß es nicht.",
+  "tr": "Yedi numara kim? Bilmiyorum."
  },
  "dialogue:a1-market-voss-book": {
-  "de": "Das Buch ist richtig. Ein Name fehlt? Dann gab es ihn nie.",
-  "tr": "Defter doğrudur. Bir isim mi eksik? O hâlde o isim hiç var olmamıştır."
+  "de": "Das Buch ist richtig. Hier fehlt kein Name.",
+  "tr": "Kitap doğru. Burada eksik isim yok."
  },
  "dialogue:a1-market-marta-receipt": {
-  "de": "Marta sagt, du hast eine Rechnung von morgen. Gut! Papier bleibt.",
-  "tr": "Marta diyor ki sende yarın tarihli bir fiş varmış. Güzel! Kâğıt kalıcıdır."
+  "de": "Du hast Martas Rechnung? Gut! Papier bleibt.",
+  "tr": "Marta'nın fişi sende mi? Güzel! Kâğıt kalır."
  },
  "dialogue:a1-market-intro-5": {
-  "de": "Und meine Äpfel haben Nummern. Mit dem Siegel von Voss. Warum? Ich weiß es nicht.",
-  "tr": "Elmalarımın da numaraları var. Voss'un mührüyle. Neden? Bilmiyorum."
+  "de": "Auf den Äpfeln: Nummern. Und das Siegel von Voss.",
+  "tr": "Elmaların üstünde numaralar var. Ve Voss'un mührü."
  },
  "dialogue:a1-market-gate-request": {
-  "de": "Du stehst bei Nummer sieben, mein Gast. Also: Was brauchst du?",
-  "tr": "Yedi numaranın önündesin, misafirim. Söyle bakalım: Neye ihtiyacın var?"
+  "de": "Nummer sieben. Was brauchst du?",
+  "tr": "Yedi numara. Neye ihtiyacın var?"
  },
  "dialogue:a1-market-gate-request:variant:0": {
   "de": "Nummer sieben. Was brauchst du?",
@@ -416,24 +416,24 @@
   "tr": "İki elma. Yedi numara. İki elma… Dur!"
  },
  "dialogue:a1-market-gate-1": {
-  "de": "Frau Berg! Das sagt Frau Berg. Jeden Freitag, seit zwanzig Jahren!",
-  "tr": "Berg Hanım! Bunu Berg Hanım söyler. Her cuma, yirmi yıldır!"
+  "de": "Frau Berg! Sie kauft jeden Freitag zwei Äpfel.",
+  "tr": "Berg Hanım! Her cuma iki elma alır."
  },
  "dialogue:a1-market-gate-2": {
-  "de": "Sie wohnt im Haus mit dem Garten. Blumen, Blumen, Blumen. Nummer sieben.",
-  "tr": "Bahçeli evde oturuyor. Çiçek, çiçek, çiçek. Yedi numara."
+  "de": "Sie wohnt in Haus Nummer sieben. Mit dem Garten.",
+  "tr": "Yedi numaralı evde oturuyor. Bahçesi olan evde."
  },
  "dialogue:a1-market-gate-3": {
-  "de": "Aber ihr Name fehlt im Gästebuch. Und in meinem Kopf. Wie geht das?",
-  "tr": "Ama adı misafir defterinde yok. Kafamda da yok. Bu nasıl olur?"
+  "de": "Der Name fehlt im Gästebuch. Warum?",
+  "tr": "İsim misafir defterinde yok. Neden?"
  },
  "dialogue:a1-market-otto-names": {
-  "de": "Otto sagt, Namen gehen hier weg. Ich habe gelacht. Jetzt nicht mehr.",
-  "tr": "Otto, burada isimlerin kaybolduğunu söylüyor. Gülmüştüm. Artık gülmüyorum."
+  "de": "Otto sagt es auch: Die Namen gehen weg.",
+  "tr": "Otto da söylüyor: İsimler kayboluyor."
  },
  "dialogue:a1-market-choice-0": {
-  "de": "Was schreiben wir jetzt: die Nummer für Voss oder ihren Namen?",
-  "tr": "Şimdi ne yazıyoruz: Voss için numarayı mı, yoksa onun adını mı?"
+  "de": "Was schreiben wir: ihren Namen oder ihre Nummer?",
+  "tr": "Ne yazalım: adını mı, numarasını mı?"
  },
  "choice:a1-market:report": {
   "de": "Voss bekommt die Nummer sieben.",
@@ -444,32 +444,32 @@
   "tr": "Onun adını misafir defterine yazıyorum."
  },
  "dialogue:a1-market-complete-0": {
-  "de": "Die Nummer sieben steht auch am Bahnhof. Otto ist nicht zufrieden.",
-  "tr": "Yedi numara istasyonda da var. Otto hiç memnun değil."
+  "de": "Nummer sieben gibt es auch am Bahnhof. Otto wartet.",
+  "tr": "İstasyonda da yedi numara var. Otto bekliyor."
  },
  "dialogue:a1-market-report-0": {
-  "de": "Gut. Voss schreibt die Nummer auf. Er sagt: Alles in Ordnung.",
-  "tr": "Peki. Voss numarayı yazıyor. “Her şey yolunda” diyor."
+  "de": "Voss schreibt die Nummer auf. Alles in Ordnung?",
+  "tr": "Voss numarayı yazıyor. Her şey yolunda mı?"
  },
  "dialogue:a1-market-report-1": {
-  "de": "Aber im Gästebuch fehlt ihr Name noch. Die Suppe wartet.",
-  "tr": "Ama adı hâlâ misafir defterinde yok. Çorba bekliyor."
+  "de": "Der Name fehlt noch. Die Suppe wartet.",
+  "tr": "İsim hâlâ yok. Çorba bekliyor."
  },
  "dialogue:a1-market-protect-0": {
   "de": "Frau Berg. So! Jetzt steht sie wieder hier.",
   "tr": "Berg Hanım. İşte! Artık yine burada yazıyor."
  },
  "dialogue:a1-market-protect-1": {
-  "de": "Und hier ist ihre Adresse. Nimm sie mit. Ein Papier für mich, eins für dich.",
-  "tr": "Bu da adresi. Al, yanında götür. Bir kâğıt bana, bir kâğıt sana."
+  "de": "Hier ist ihre Adresse. Ein Papier für dich.",
+  "tr": "İşte adresi. Bu kâğıt senin için."
  },
  "topic:a1-market:numbers": {
   "de": "Warum haben die Äpfel Nummern?",
   "tr": "Elmaların neden numarası var?"
  },
  "dialogue:a1-market-topic-numbers-0": {
-  "de": "Voss bringt die Nummern. Jeden Montag, mit dem Siegel.",
-  "tr": "Numaraları Voss getiriyor. Her pazartesi, mühürle birlikte."
+  "de": "Voss bringt die Nummern. Immer am Montag.",
+  "tr": "Numaraları Voss getiriyor. Her pazartesi."
  },
  "dialogue:a1-market-topic-numbers-1": {
   "de": "Ich esse nur den Apfel. Die Nummer schmeckt nicht.",
@@ -496,16 +496,16 @@
   "tr": "Elmasız mı? Olmaz. Çorbaya elma lazım."
  },
  "dialogue:a1-market-topic-soup-1": {
-  "de": "Das sagt meine Mutter. Und ihre Mutter. Und die Suppe.",
-  "tr": "Annem öyle der. Onun annesi de. Çorba da öyle der."
+  "de": "Meine Mutter sagt das. Und meine Oma auch.",
+  "tr": "Annem öyle diyor. Büyükannem de."
  },
  "evidence:a1-market:lindenhafen-market-crate": {
   "de": "Zwei Äpfel. Nummer 7. Ein Siegel. Kein Name.",
   "tr": "İki elma. Numara 7. Bir mühür. İsim yok."
  },
  "evidence:a1-market:lindenhafen-garden": {
-  "de": "Ein Garten mit Blumen. Am Haus: Nummer 7. Der Name fehlt.",
-  "tr": "Çiçeklerle dolu bir bahçe. Evin üstünde: numara 7. İsim eksik."
+  "de": "Ein Garten. Am Haus: Nummer 7. Kein Name.",
+  "tr": "Bir bahçe. Evde: 7 numara. İsim yok."
  },
  "gate-prompt:a1-station": {
   "en": "Ask the man on the bench if the seat is free.",
@@ -528,40 +528,40 @@
   "tr": "Tabela ile eski kapı arasında seçim yap"
  },
  "dialogue:a1-station-intro-0": {
-  "de": "Heute Morgen: sechs Bahnsteige. Jetzt: sieben. Und es bleibt bei sieben.",
-  "tr": "Bu sabah: altı peron. Şimdi: yedi. Ve yedide kalıyor."
+  "de": "Heute Morgen: sechs Bahnsteige. Jetzt sind es sieben.",
+  "tr": "Bu sabah altı peron vardı. Şimdi yedi tane var."
  },
  "dialogue:a1-station-intro-1": {
   "de": "Auf dem Schild steht: Nach W… Mehr nicht.",
   "tr": "Tabelada şu yazıyor: “W… yönü.” Başka bir şey yok."
  },
  "dialogue:a1-station-intro-2": {
-  "de": "Ich kenne die Stadt. Zwanzig Jahre Fahrkarten. Aber den Namen weiß ich nicht mehr.",
-  "tr": "O şehri bilirim. Yirmi yıl oraya bilet kestim. Ama adını artık hatırlamıyorum."
+  "de": "Ich kenne die Stadt. Aber der Name fehlt.",
+  "tr": "Kasabayı biliyorum. Ama adı yok."
  },
  "dialogue:a1-station-intro-3": {
-  "de": "Und da, am Ende der Bank: der Mann. Jeden Abend um sechs. Pünktlich.",
-  "tr": "Bir de şurada, bankın ucunda: o adam. Her akşam saat altıda. Tam vaktinde."
+  "de": "Der Mann auf der Bank kommt jeden Abend.",
+  "tr": "Banktaki adam her akşam geliyor."
  },
  "dialogue:a1-station-intro-4": {
   "de": "Er hat eine alte Maschine. Die Maschine spricht. Er nicht.",
   "tr": "Eski bir makinesi var. Makine konuşur. O konuşmaz."
  },
  "dialogue:a1-station-key-in-hand": {
-  "de": "Du hast meinen Schlüssel noch? Gut. Er ist für die alte Tür hier.",
-  "tr": "Anahtarım hâlâ sende mi? Güzel. Buradaki eski kapının anahtarı o."
+  "de": "Du hast meinen Schlüssel. Er ist für die Tür.",
+  "tr": "Anahtarım sende. Kapının anahtarı."
  },
  "gloss:tür:door": {
   "en": "door",
   "tr": "kapı"
  },
  "dialogue:a1-station-ledger-in-hand": {
-  "de": "Du hast sein Buch? Dann kennst du den Mann schon.",
-  "tr": "Defteri sende mi? O zaman adamı zaten tanıyorsun."
+  "de": "Du hast sein Buch. Du kennst den Mann schon.",
+  "tr": "Kitabı sende. Adamı zaten tanıyorsun."
  },
  "dialogue:a1-station-berg-back": {
-  "de": "Fritz sagt, Frau Berg steht wieder im Gästebuch. Gut gemacht.",
-  "tr": "Fritz, Berg Hanım'ın yine misafir defterinde olduğunu söylüyor. Aferin."
+  "de": "Frau Berg steht wieder im Gästebuch. Gut gemacht!",
+  "tr": "Berg Hanım yine misafir defterinde. Aferin!"
  },
  "dialogue:a1-station-intro-5": {
   "de": "Ich sitze da nie. Der Mann sagt nie Hallo.",
@@ -612,8 +612,8 @@
   "tr": "Biletiniz hâlâ bende. Harfler artık silinmiş."
  },
  "dialogue:a1-station-choice-0": {
-  "de": "Schreibt Voss das Schild in sein Buch, oder öffnen wir die alte Tür?",
-  "tr": "Voss tabelayı defterine mi yazsın, yoksa eski kapıyı mı açalım?"
+  "de": "Schreiben wir das Schild ab? Oder öffnen wir die Tür?",
+  "tr": "Tabelayı mı yazalım? Yoksa kapıyı mı açalım?"
  },
  "choice:a1-station:report": {
   "de": "Herr Voss, schreiben Sie das Schild auf.",
@@ -636,24 +636,24 @@
   "tr": "Emil ışığını arıyor. Her akşam burada duruyor. Tek başına."
  },
  "dialogue:a1-station-report-0": {
-  "de": "Nach W. Ein Buchstabe. Ich schreibe ihn auf. Alles in Ordnung.",
-  "tr": "W yönü. Tek bir harf. Not ediyorum. Her şey yolunda."
+  "de": "Nach W. Ich schreibe den Buchstaben auf.",
+  "tr": "W'ye. Harfi yazıyorum."
  },
  "dialogue:a1-station-report-1": {
-  "de": "Ein Buchstabe im Buch. Und die Stadt ist immer noch weg.",
-  "tr": "Defterde tek bir harf. Şehir hâlâ yok."
+  "de": "Der Buchstabe bleibt. Aber die Stadt ist weg.",
+  "tr": "Harf kalıyor. Ama kasaba yok."
  },
  "dialogue:a1-station-second-key": {
-  "de": "Noch einen Schlüssel? Ich habe immer zwei. Ein Chef hat immer zwei.",
-  "tr": "Bir anahtar daha mı? Bende hep iki tane olur. Şefte hep iki tane olur."
+  "de": "Noch einen Schlüssel? Ja. Ich habe zwei.",
+  "tr": "Bir anahtar daha mı? Evet. İki tane var."
  },
  "dialogue:a1-station-voss-witness": {
   "de": "Ich komme mit. Ich lese nur. Ich schreibe nichts auf.",
   "tr": "Sizinle geliyorum. Sadece okuyacağım. Hiçbir şey yazmayacağım."
  },
  "dialogue:a1-station-protect-0": {
-  "de": "Die Tür ist auf. Hier ist mein altes Buch. Zwanzig Jahre alt.",
-  "tr": "Kapı açık. İşte eski defterim. Yirmi yıllık."
+  "de": "Die Tür ist auf. Hier ist mein altes Buch.",
+  "tr": "Kapı açık. İşte eski kitabım."
  },
  "dialogue:a1-station-protect-1": {
   "de": "Hundert Fahrkarten für Bahnsteig sieben. Und unten immer ein E.",
@@ -676,12 +676,12 @@
   "tr": "Tabelada ne yazıyor?"
  },
  "dialogue:a1-station-topic-sign-0": {
-  "de": "Nach W… Dann nichts. Gestern war der Name noch da.",
-  "tr": "W… yönü. Sonra hiçbir şey. Dün isim hâlâ oradaydı."
+  "de": "Nach W… Gestern stand hier noch der Name.",
+  "tr": "W'ye… Dün adı hâlâ buradaydı."
  },
  "dialogue:a1-station-topic-sign-1": {
-  "de": "Ich habe den Namen jeden Tag gesagt. Zwanzig Jahre. Und jetzt? Nichts.",
-  "tr": "O ismi her gün söyledim. Yirmi yıl. Ya şimdi? Hiçbir şey."
+  "de": "Zwanzig Jahre! Und jetzt fehlt mir der Name.",
+  "tr": "Yirmi yıl! Ve şimdi adı aklıma gelmiyor."
  },
  "topic:a1-station:pigeons": {
   "de": "Wo sitzen die Tauben?",
@@ -732,8 +732,8 @@
   "tr": "lamba"
  },
  "dialogue:a1-workshop-intro-1": {
-  "de": "Hallo. Ich bin Emil. Das ist meine Lampe. Sie funktioniert meist.",
-  "tr": "Merhaba. Ben Emil. Bu benim lambam. Genelde çalışır."
+  "de": "Hallo. Ich bin Emil. Das ist meine Lampe.",
+  "tr": "Merhaba. Ben Emil. Bu benim lambam."
  },
  "gloss:funktioniert:works": {
   "en": "works",
@@ -748,24 +748,24 @@
   "tr": "Normal olmayan: kaçıyor. Benden! Ben onun babasıyım!"
  },
  "dialogue:a1-workshop-intro-4": {
-  "de": "Sie geht nur zu Leuten mit einem Problem. Ohne Problem? Sie ist weg.",
-  "tr": "Sadece derdi olan insanlara gider. Dert yok mu? Hop, gitti."
+  "de": "Du hast ein Problem? Dann kommt die Lampe zu dir.",
+  "tr": "Bir sorunun mu var? O zaman lamba sana geliyor."
  },
  "dialogue:a1-workshop-intro-5": {
-  "de": "Und jeden Abend geht sie zu Adressen. Aber da sind keine Häuser mehr.",
-  "tr": "Bir de her akşam adreslere gidiyor. Ama oralarda artık ev yok."
+  "de": "Abends sucht sie alte Adressen. Aber die Häuser fehlen.",
+  "tr": "Akşamları eski adresleri arıyor. Ama evler yok."
  },
  "dialogue:a1-workshop-archive-register": {
-  "de": "Ottos altes Buch! Hundert E. Und hier, auf der Lampe: auch ein E.",
-  "tr": "Otto'nun eski defteri! Yüz tane E. Bir de burada, lambanın üstünde: yine bir E."
+  "de": "Ein E in Ottos Buch. Ein E auf meiner Lampe!",
+  "tr": "Otto'nun kitabında bir E. Lambamın üstünde de bir E!"
  },
  "dialogue:a1-workshop-voss-visit": {
   "de": "Voss war heute hier. Die Lampe war sofort unter dem Tisch.",
   "tr": "Voss bugün buradaydı. Lamba hemen masanın altına girdi."
  },
  "dialogue:a1-workshop-gate-request": {
-  "de": "Jetzt steht sie bei dir und hört zu. Brauchst du eine Lampe, oder nicht?",
-  "tr": "Şimdi senin yanında duruyor ve dinliyor. Bir lambaya ihtiyacın var mı, yok mu?"
+  "de": "Die Lampe hört zu. Brauchst du eine Lampe?",
+  "tr": "Lamba dinliyor. Bir lambaya ihtiyacın var mı?"
  },
  "dialogue:a1-workshop-gate-request:variant:0": {
   "de": "Sie hört zu. Brauchst du eine Lampe?",
@@ -776,8 +776,8 @@
   "tr": "Kalıyor! Senin yanında kalıyor! Bunu benimle hiç yapmaz!"
  },
  "dialogue:a1-workshop-gate-1": {
-  "de": "Und sie ist hell. Sehr hell. Sie geht zur Tür. Sie will zur Post.",
-  "tr": "Hem de parlak. Çok parlak. Kapıya gidiyor. Postaneye gitmek istiyor."
+  "de": "Sie ist sehr hell. Jetzt geht sie zur Post!",
+  "tr": "Çok parlak. Şimdi postaneye gidiyor!"
  },
  "dialogue:a1-workshop-gate-2": {
   "de": "Zur Post? Fehlt da eine Adresse? Das gefällt mir nicht.",
@@ -792,8 +792,8 @@
   "tr": "Voss her makine için bir numara istiyor. Benim lambam için bile."
  },
  "dialogue:a1-workshop-choice-0": {
-  "de": "Bekommt meine Lampe eine Nummer von Voss, oder geht sie mit dir?",
-  "tr": "Lambam Voss'tan bir numara mı alsın, yoksa seninle mi gelsin?"
+  "de": "Eine Nummer für die Lampe? Oder kommt sie mit dir?",
+  "tr": "Lambaya bir numara mı? Yoksa seninle mi geliyor?"
  },
  "choice:a1-workshop:report": {
   "de": "Voss darf sie in sein Buch schreiben.",
@@ -904,24 +904,24 @@
   "tr": "mürekkep"
  },
  "dialogue:a1-lost-parcel-intro-3": {
-  "de": "Ich lese. Sie geht weg. Ich lese wieder. Sie geht weg. Seit heute Morgen.",
-  "tr": "Okuyorum. Siliniyor. Tekrar okuyorum. Siliniyor. Bu sabahtan beri."
+  "de": "Ich lese die Adresse. Die Tinte geht immer wieder weg.",
+  "tr": "Adresi okuyorum. Mürekkep sürekli kayboluyor."
  },
  "dialogue:a1-lost-parcel-intro-4": {
   "de": "Absender: E. Nur E. Wie auf deiner Fahrkarte, sagt Otto.",
   "tr": "Gönderen: E. Sadece E. Otto diyor ki senin biletindeki gibi."
  },
  "dialogue:a1-lost-parcel-carried-lamp": {
-  "de": "Und deine Lampe steht seit fünf Minuten vor dem Paket. Sie wartet.",
-  "tr": "Bir de lamban beş dakikadır paketin önünde duruyor. Bekliyor."
+  "de": "Deine Lampe steht vor dem Paket. Sie wartet.",
+  "tr": "Lamban paketin önünde. Bekliyor."
  },
  "dialogue:a1-lost-parcel-registered-lamp": {
   "de": "Lampe Nummer hundert. Sie ist hier. Ich auch. Alles in Ordnung.",
   "tr": "Yüz numaralı lamba. Burada. Ben de buradayım. Her şey yolunda."
  },
  "dialogue:a1-lost-parcel-intro-5": {
-  "de": "Und Frau Berg hat heute Post. Haus Nummer sieben. Das Haus ist noch da. Noch.",
-  "tr": "Berg Hanım'ın da bugün postası var. Yedi numaralı ev. Ev hâlâ orada. Şimdilik."
+  "de": "Post für Frau Berg. Haus Nummer sieben steht noch da.",
+  "tr": "Berg Hanım'a posta var. Yedi numaralı ev hâlâ orada."
  },
  "dialogue:a1-lost-parcel-gate-request": {
   "de": "Keine Adresse, keine Post. Und allein lese ich sie nicht. Also?",
@@ -944,24 +944,24 @@
   "tr": "Waldruh mu? Öyle bir şehir yok. Ama burada yazıyor. Hem de çok net."
  },
  "dialogue:a1-lost-parcel-gate-3": {
-  "de": "Im Paket ist ein Brief. Unten steht nicht E. Unten steht: Elise.",
-  "tr": "Paketin içinde bir mektup var. Altında E yazmıyor. Altında “Elise” yazıyor."
+  "de": "Im Paket ist ein Brief. Der Name unten: Elise.",
+  "tr": "Pakette bir mektup var. Altındaki isim: Elise."
  },
  "dialogue:a1-lost-parcel-gate-4": {
   "de": "„Ich bin Elise. Ich warte in Waldruh. Bitte komm.“",
   "tr": "“Ben Elise. Waldruh'da bekliyorum. Lütfen gel.”"
  },
  "dialogue:a1-lost-parcel-receipt-hands": {
-  "de": "Marta sagt, die Frau im Café hatte schwarze Hände. Wie von Tinte.",
-  "tr": "Marta diyor ki kafedeki kadının elleri kapkaraymış. Mürekkepten olmuş gibi."
+  "de": "Marta sagt: Die Frau hatte schwarze Hände. Wie von Tinte.",
+  "tr": "Marta diyor ki: Kadının elleri siyahtı. Mürekkep gibi."
  },
  "dialogue:a1-lost-parcel-gate-5": {
-  "de": "Moment. Siehst du das Schild von Frau Berg? Die Nummer… sie geht weg.",
-  "tr": "Dur. Berg Hanım'ın tabelasını görüyor musun? Numara… siliniyor."
+  "de": "Siehst du das Schild von Frau Berg? Die Nummer geht weg!",
+  "tr": "Berg Hanım'ın tabelasını görüyor musun? Numara kayboluyor!"
  },
  "dialogue:a1-lost-parcel-choice-0": {
-  "de": "Voss will jede Adresse. Bekommt er Waldruh, oder bleibt der Brief bei dir?",
-  "tr": "Voss her adresi istiyor. Waldruh ona mı gitsin, yoksa mektup sende mi kalsın?"
+  "de": "Waldruh für Voss? Oder bleibt der Brief bei dir?",
+  "tr": "Waldruh Voss'a mı? Yoksa mektup sende mi kalıyor?"
  },
  "choice:a1-lost-parcel:report": {
   "de": "Voss bekommt die Adresse. Dann steht sie im Buch von Voss.",
@@ -976,12 +976,12 @@
   "tr": "Ya Berg Hanım? Yedi numaralı ev yok olmuş. Düpedüz yok."
  },
  "dialogue:a1-lost-parcel-berg-kept": {
-  "de": "Aber ihr Name steht im Gästebuch. Und du hast die Adresse. Das bleibt.",
-  "tr": "Ama adı misafir defterinde yazıyor. Adres de sende. Bu kalıcı."
+  "de": "Der Name steht im Gästebuch. Die Adresse ist bei dir.",
+  "tr": "İsim misafir defterinde. Adres sende."
  },
  "dialogue:a1-lost-parcel-complete-1": {
-  "de": "Unten im Brief steht noch ein Satz. Sehr klein. Ich lese nur: „… komm.“",
-  "tr": "Mektubun altında bir cümle daha var. Çok küçük. Sadece şunu okuyabiliyorum: “… gel.”"
+  "de": "Noch ein Satz im Brief. Sehr klein: „Bitte komm.“",
+  "tr": "Mektupta bir cümle daha var. Çok küçük: “Lütfen gel.”"
  },
  "dialogue:a1-lost-parcel-complete-2": {
   "de": "Otto wartet am Zug. Bahnsteig sieben, glaube ich.",
@@ -1036,8 +1036,8 @@
   "tr": "Bahçe. Çiçekler. Her cuma iki elma."
  },
  "dialogue:a1-lost-parcel-topic-berg-1": {
-  "de": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post. Alle lieben sie.",
-  "tr": "Hiç mektup yazmaz. Ama her gün postası gelir. Herkes onu sever."
+  "de": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post.",
+  "tr": "Hiç mektup yazmaz. Ama her gün posta alır."
  },
  "evidence:a1-lost-parcel:lindenhafen-parcel": {
   "de": "Für {name}. Absender: E. Adresse: … Die Tinte geht weg.",
@@ -3496,52 +3496,52 @@
   "tr": "Var olmaması gereken peron"
  },
  "act:lindenhafen:premise:0": {
-  "de": "Dein Zug kommt pünktlich an. In Lindenhafen ist das verdächtig.",
-  "tr": "Trenin tam zamanında geliyor. Lindenhafen'de bu şüphe uyandırır."
+  "de": "Dein Zug ist da. Willkommen in Lindenhafen!",
+  "tr": "Trenin geldi. Lindenhafen’e hoş geldin!"
  },
  "act:lindenhafen:premise:1": {
-  "de": "Auf deiner Fahrkarte steht ein Bahnsteig, den es nicht gibt, und nur ein Buchstabe: E.",
-  "tr": "Biletinde var olmayan bir peron yazıyor ve tek bir harf: E."
+  "de": "Deine Fahrkarte: Bahnsteig sieben. Ein Buchstabe: E.",
+  "tr": "Biletin: yedinci peron. Bir harf: E."
  },
  "act:lindenhafen:introduction:0:0": {
-  "de": "Dein Zug kommt in Lindenhafen an, mit einem Wagen voller schlafender Tauben.",
-  "tr": "Trenin, uyuyan güvercinlerle dolu bir vagonla Lindenhafen'e varıyor."
+  "de": "Dein Zug ist da. Die Tauben schlafen.",
+  "tr": "Trenin geldi. Güvercinler uyuyor."
  },
  "act:lindenhafen:introduction:0:1": {
-  "de": "Otto, der Bahnhofsvorsteher, zählt seine Bahnsteige: sechs. Dann zählt er noch einmal.",
-  "tr": "İstasyon şefi Otto peronlarını sayıyor: altı. Sonra bir kez daha sayıyor."
+  "de": "Otto zählt: eins, zwei, drei, vier, fünf, sechs.",
+  "tr": "Otto sayıyor: bir, iki, üç, dört, beş, altı."
  },
  "act:lindenhafen:introduction:0:2": {
-  "de": "Über einem siebten Bahnsteig brennt eine Laterne, die sonst nie brennt.",
-  "tr": "Yedinci bir peronun üzerinde, normalde hiç yanmayan bir fener yanıyor."
+  "de": "Aber da ist Bahnsteig sieben. Die Laterne leuchtet.",
+  "tr": "Ama orada yedinci peron var. Fener parlıyor."
  },
  "act:lindenhafen:introduction:1:0": {
-  "de": "Früher hat der Laternenatlas die Städte verbunden. Jetzt vergisst er alles, was niemand laut sagt.",
-  "tr": "Fener Atlası bir zamanlar şehirleri birbirine bağlardı. Şimdi kimsenin yüksek sesle söylemediği her şeyi unutuyor."
+  "de": "Der Atlas zeigt die Städte. Jetzt fehlen Namen.",
+  "tr": "Atlas kasabaları gösteriyor. Şimdi isimler eksik."
  },
  "act:lindenhafen:introduction:1:1": {
-  "de": "Zuerst verschwinden Buchstaben auf einem Schild, dann eine Adresse, dann ein Name.",
-  "tr": "Önce bir tabeladaki harfler kayboluyor, sonra bir adres, sonra bir isim."
+  "de": "Die Buchstaben gehen weg. Die Adressen auch.",
+  "tr": "Harfler kayboluyor. Adresler de."
  },
  "act:lindenhafen:introduction:1:2": {
-  "de": "Was du laut auf Deutsch sagst, bleibt. Niemand in Lindenhafen weiß, warum.",
-  "tr": "Almanca olarak yüksek sesle söylediğin her şey kalıcı oluyor. Lindenhafen'de kimse nedenini bilmiyor."
+  "de": "Sag die Namen laut. Dann bleiben sie.",
+  "tr": "İsimleri sesli söyle. O zaman kalırlar."
  },
  "act:lindenhafen:introduction:2:0": {
-  "de": "Sprich mit den Leuten. Lies, was noch zu lesen ist. Sag es laut.",
-  "tr": "İnsanlarla konuş. Hâlâ okunabilenleri oku. Yüksek sesle söyle."
+  "de": "Sprich mit Otto. Er hilft dir.",
+  "tr": "Otto ile konuş. Sana yardım eder."
  },
  "act:lindenhafen:introduction:2:1": {
-  "de": "Du brauchst keine Deutschkenntnisse, um anzufangen.",
-  "tr": "Başlamak için Almanca bilmen gerekmiyor."
+  "de": "Dein erstes Wort? Hallo!",
+  "tr": "İlk kelimen mi? Merhaba!"
  },
  "act:lindenhafen:introduction:2:2": {
-  "de": "Ein bisschen Hilfe gibt es immer.",
-  "tr": "Biraz yardım her zaman bulunur."
+  "de": "Du bekommst Hilfe. Ein Wort nach dem anderen.",
+  "tr": "Yardım alacaksın. Her seferinde bir kelime."
  },
  "act:lindenhafen:goal:0": {
-  "de": "Finde heraus, wer „E.“ ist, bevor die Buchstaben ganz verschwinden.",
-  "tr": "Harfler tamamen kaybolmadan önce “E.” diye imza atanın kim olduğunu bul."
+  "de": "Wer ist E.? Sprich mit den Leuten.",
+  "tr": "E. kim? İnsanlarla konuş."
  },
  "act:lindenhafen:cliffhanger:0": {
   "de": "Der Brief nennt endlich einen Namen und einen Ort: Elise. Waldruh.",

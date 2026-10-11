@@ -44,8 +44,8 @@
               "correction": {
                 "id": "a1-arrival-greeting-correction",
                 "speaker": "otto",
-                "german": "Guten Morgen! Es ist Morgen. Wir sagen: Guten Morgen!",
-                "english": "Good morning! It is morning. We say: Good morning!",
+                "german": "Es ist Morgen. Guten Morgen!",
+                "english": "It is morning. Good morning!",
                 "clipId": "dialogue-a1-arrival-greeting-correction"
               }
             }
@@ -53,15 +53,15 @@
           {
             "id": "a1-arrival-intro-1",
             "speaker": "otto",
-            "german": "Dein Zug ist pünktlich. Das ist hier nicht normal.",
-            "english": "Your train is on time. Around here, that is not normal.",
+            "german": "Dein Zug ist hier.",
+            "english": "Your train is here.",
             "clipId": "dialogue-a1-arrival-intro-1"
           },
           {
             "id": "a1-arrival-intro-2",
             "speaker": "otto",
-            "german": "Und vierzig Tauben im Wagen. Alle pünktlich. Das gefällt mir nicht.",
-            "english": "And forty pigeons in the carriage. All on time. I do not like it.",
+            "german": "Die Tauben fahren mit.",
+            "english": "The pigeons are coming along.",
             "clipId": "dialogue-a1-arrival-intro-2",
             "glosses": {
               "tauben": "pigeons"
@@ -70,22 +70,22 @@
           {
             "id": "a1-arrival-intro-3",
             "speaker": "otto",
-            "german": "Lindenhafen hat sechs Bahnsteige. Eins, zwei, drei, vier, fünf, sechs.",
-            "english": "Lindenhafen has six platforms. One, two, three, four, five, six.",
+            "german": "Hier sind sechs Bahnsteige.",
+            "english": "There are six platforms here.",
             "clipId": "dialogue-a1-arrival-intro-3"
           },
           {
             "id": "a1-arrival-intro-4",
             "speaker": "otto",
-            "german": "Du kommst von Bahnsteig sieben. Den gibt es nicht.",
-            "english": "You came in on platform seven. It does not exist.",
+            "german": "Dein Zug steht an Bahnsteig sieben.",
+            "english": "Your train is at platform seven.",
             "clipId": "dialogue-a1-arrival-intro-4"
           },
           {
             "id": "a1-arrival-intro-5",
             "speaker": "otto",
-            "german": "Aber die Laterne da ist an. Sie ist nie an.",
-            "english": "But that lantern is lit. It is never lit.",
+            "german": "Die Laterne ist an.",
+            "english": "The lantern is on.",
             "clipId": "dialogue-a1-arrival-intro-5",
             "glosses": {
               "laterne": "lantern"
@@ -94,29 +94,29 @@
           {
             "id": "a1-arrival-intro-6",
             "speaker": "otto",
-            "german": "Deine Fahrkarte, bitte. Ich bin hier der Chef.",
-            "english": "Your ticket, please. I am in charge here.",
+            "german": "Deine Fahrkarte, bitte.",
+            "english": "Your ticket, please.",
             "clipId": "dialogue-a1-arrival-intro-6"
           },
           {
             "id": "a1-arrival-intro-7",
             "speaker": "otto",
-            "german": "Hier steht dein Name. Bahnsteig sieben. Und unten nur ein Buchstabe: E.",
-            "english": "Your name is on it. Platform seven. And at the bottom, just one letter: E.",
+            "german": "Dein Name. Bahnsteig sieben. Und ein E.",
+            "english": "Your name. Platform seven. And an E.",
             "clipId": "dialogue-a1-arrival-intro-7"
           },
           {
             "id": "a1-arrival-intro-8",
             "speaker": "otto",
-            "german": "Moment. Die Buchstaben gehen weg. Siehst du das?",
-            "english": "Wait. The letters are fading. Do you see that?",
+            "german": "Die Buchstaben gehen weg!",
+            "english": "The letters are disappearing!",
             "clipId": "dialogue-a1-arrival-intro-8"
           },
           {
             "id": "a1-arrival-intro-9",
             "speaker": "inspector",
-            "german": "Guten Morgen. Voss, Beamter. Die Fahrkarte, bitte. Sofort.",
-            "english": "Good morning. Voss, official. The ticket, please. At once.",
+            "german": "Guten Morgen. Ich bin Voss.",
+            "english": "Good morning. I am Voss.",
             "clipId": "dialogue-a1-arrival-intro-9"
           }
         ],
@@ -129,8 +129,8 @@
           {
             "id": "a1-arrival-gate-request",
             "speaker": "inspector",
-            "german": "Fahrkarte-nicht-gültig-Bahnsteig-sieben-gibt-es-nicht-bitte-sofort-abgeben-danke!",
-            "english": "Ticket-not-valid-platform-seven-does-not-exist-hand-it-over-at-once-thank-you!",
+            "german": "Ihre Fahrkarte, bitte. Schnell!",
+            "english": "Your ticket, please. Quickly!",
             "clipId": "dialogue-a1-arrival-gate-request",
             "variants": [
               {
@@ -151,22 +151,22 @@
           {
             "id": "a1-arrival-gate-0",
             "speaker": "inspector",
-            "german": "Gern. Langsam. Ihre. Fahrkarte. Ist. Nicht. Gültig.",
-            "english": "Certainly. Slowly. Your. Ticket. Is. Not. Valid.",
+            "german": "Gern. Ihre Fahrkarte ist nicht gültig.",
+            "english": "Of course. Your ticket is not valid.",
             "clipId": "dialogue-a1-arrival-gate-0"
           },
           {
             "id": "a1-arrival-gate-1",
             "speaker": "inspector",
-            "german": "Bahnsteig sieben steht nicht im Plan. Also gibt es ihn nicht.",
-            "english": "Platform seven is not in the timetable. So it does not exist.",
+            "german": "Bahnsteig sieben steht nicht im Plan.",
+            "english": "Platform seven is not on the plan.",
             "clipId": "dialogue-a1-arrival-gate-1"
           },
           {
             "id": "a1-arrival-gate-2",
             "speaker": "otto",
-            "german": "Und der Zug? Und die Tauben? Und {name}?",
-            "english": "And the train? And the pigeons? And {name}?",
+            "german": "Aber der Zug ist hier!",
+            "english": "But the train is here!",
             "clipId": "dialogue-a1-arrival-gate-2",
             "glosses": {
               "tauben": "pigeons"
@@ -175,8 +175,8 @@
           {
             "id": "a1-arrival-gate-3",
             "speaker": "inspector",
-            "german": "Die Tauben schreibe ich auf. Die Fahrkarte nehme ich mit.",
-            "english": "The pigeons I will write down. The ticket I will take with me.",
+            "german": "Ich nehme Ihre Fahrkarte.",
+            "english": "I am taking your ticket.",
             "clipId": "dialogue-a1-arrival-gate-3",
             "glosses": {
               "tauben": "pigeons"
@@ -185,15 +185,15 @@
           {
             "id": "a1-arrival-gate-4",
             "speaker": "otto",
-            "german": "Gib sie ihm nicht. Ich habe eine gute Tasche.",
-            "english": "Do not give it to him. I have a good pocket.",
+            "german": "Die Fahrkarte bleibt hier.",
+            "english": "The ticket stays here.",
             "clipId": "dialogue-a1-arrival-gate-4"
           },
           {
             "id": "a1-arrival-choice-0",
             "speaker": "inspector",
-            "german": "Also: Bekomme ich die Fahrkarte? Oder ist sie gleich in Ottos Tasche?",
-            "english": "So: do I get the ticket? Or is it about to vanish into Otto’s pocket?",
+            "german": "Die Fahrkarte für mich? Oder für Otto?",
+            "english": "The ticket for me? Or for Otto?",
             "clipId": "dialogue-a1-arrival-choice-0"
           }
         ],
@@ -246,8 +246,8 @@
           {
             "id": "a1-arrival-complete-0",
             "speaker": "otto",
-            "german": "Marta vom Café hat heute einen Kaffee für dich. Bezahlt. Sie kennt dich nicht.",
-            "english": "Marta at the café has a coffee for you today. Paid for. She does not know you.",
+            "german": "Marta hat einen Kaffee für dich.",
+            "english": "Marta has a coffee for you.",
             "clipId": "dialogue-a1-arrival-complete-0"
           }
         ],
@@ -260,22 +260,22 @@
           {
             "id": "a1-arrival-report-0",
             "speaker": "inspector",
-            "german": "Danke. Ich schreibe sie ab. Langsam. Alles richtig.",
-            "english": "Thank you. I will copy it out. Slowly. All correct.",
+            "german": "Danke. Ich schreibe alles auf.",
+            "english": "Thank you. I am writing everything down.",
             "clipId": "dialogue-a1-arrival-report-0"
           },
           {
             "id": "a1-arrival-report-1",
             "speaker": "inspector",
-            "german": "Hier ist mein Buch. Lesen Sie. Bei mir ist alles richtig.",
-            "english": "Here is my ledger. Read it. With me, everything is correct.",
+            "german": "Hier ist mein Buch.",
+            "english": "Here is my book.",
             "clipId": "dialogue-a1-arrival-report-1"
           },
           {
             "id": "a1-arrival-report-2",
             "speaker": "otto",
-            "german": "Er gibt dir sein Buch? Das hat er noch nie gemacht.",
-            "english": "He is giving you his ledger? He has never done that.",
+            "german": "Sein Buch für dich? Das ist neu.",
+            "english": "His book for you? That is new.",
             "clipId": "dialogue-a1-arrival-report-2"
           }
         ],
@@ -288,22 +288,22 @@
           {
             "id": "a1-arrival-protect-0",
             "speaker": "inspector",
-            "german": "Keine Fahrkarte. So. Ich komme wieder, Herr Otto. Mit einem Formular.",
-            "english": "No ticket. I see. I will be back, Mr Otto. With a form.",
+            "german": "Keine Fahrkarte? Ich komme wieder.",
+            "english": "No ticket? I will be back.",
             "clipId": "dialogue-a1-arrival-protect-0"
           },
           {
             "id": "a1-arrival-protect-1",
             "speaker": "otto",
-            "german": "Er ist weg. Hier, deine Fahrkarte. Und mein Schlüssel für Bahnsteig sieben.",
-            "english": "He is gone. Here, your ticket. And my key to platform seven.",
+            "german": "Deine Fahrkarte. Mein Schlüssel für Bahnsteig sieben.",
+            "english": "Your ticket. My key for platform seven.",
             "clipId": "dialogue-a1-arrival-protect-1"
           },
           {
             "id": "a1-arrival-protect-2",
             "speaker": "otto",
-            "german": "Ich gebe nie Schlüssel. Heute schon. Das gefällt mir auch nicht.",
-            "english": "I never give out keys. Today I do. I do not like that either.",
+            "german": "Der Schlüssel ist jetzt bei dir.",
+            "english": "You have the key now.",
             "clipId": "dialogue-a1-arrival-protect-2"
           }
         ],
@@ -319,8 +319,8 @@
           {
             "id": "a1-arrival-topic-who-voss-0",
             "speaker": "otto",
-            "german": "Voss ist Beamter. Er schreibt alles in sein Buch.",
-            "english": "Voss is an official. He writes everything down in his ledger.",
+            "german": "Voss schreibt alles auf.",
+            "english": "Voss writes everything down.",
             "clipId": "dialogue-a1-arrival-topic-who-voss-0"
           },
           {
@@ -353,15 +353,15 @@
           {
             "id": "a1-arrival-topic-why-seven-0",
             "speaker": "otto",
-            "german": "Er steht nicht im Plan. Der Plan hat sechs.",
-            "english": "It is not in the timetable. The timetable has six.",
+            "german": "Im Plan stehen nur sechs Bahnsteige.",
+            "english": "There are only six platforms on the plan.",
             "clipId": "dialogue-a1-arrival-topic-why-seven-0"
           },
           {
             "id": "a1-arrival-topic-why-seven-1",
             "speaker": "otto",
-            "german": "Aber die Laterne ist alt. Sie ist nie falsch.",
-            "english": "But the lantern is old. It is never wrong.",
+            "german": "Aber die Laterne steht hier.",
+            "english": "But the lantern is here.",
             "clipId": "dialogue-a1-arrival-topic-why-seven-1",
             "glosses": {
               "laterne": "lantern"
@@ -384,8 +384,8 @@
           {
             "id": "a1-arrival-topic-pigeons-1",
             "speaker": "otto",
-            "german": "Heute schlafen sie. Das ist neu. Neu gefällt mir nicht.",
-            "english": "Today they are asleep. That is new. I do not like new.",
+            "german": "Heute schlafen sie. Das ist neu.",
+            "english": "Today they are sleeping. That is new.",
             "clipId": "dialogue-a1-arrival-topic-pigeons-1"
           }
         ]
@@ -394,13 +394,13 @@
     "investigations": [
       {
         "objectId": "lindenhafen-platform-ticket",
-        "german": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E. Die Buchstaben gehen weg.",
-        "english": "Ticket: {name}. Platform seven. At the bottom: E. The letters are fading."
+        "german": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E.",
+        "english": "Ticket: {name}. Platform seven. At the bottom: E."
       },
       {
         "objectId": "lindenhafen-noticeboard",
-        "german": "Bahnsteige eins bis sechs. Sieben steht nicht im Plan. Die Laterne ist an.",
-        "english": "Platforms one to six. Seven is not in the timetable. The lantern is lit."
+        "german": "Bahnsteige eins bis sechs. Kein Bahnsteig sieben.",
+        "english": "Platforms one to six. No platform seven."
       }
     ],
     "introducedWords": {
@@ -445,8 +445,8 @@
           {
             "id": "a1-cafe-intro-0",
             "speaker": "marta",
-            "german": "Da bist du! Der Wasserkocher sagt seit sechs Uhr deinen Namen.",
-            "english": "There you are! The kettle has been saying your name since six o’clock.",
+            "german": "Hallo! Der Wasserkocher sagt deinen Namen.",
+            "english": "Hello! The kettle is saying your name.",
             "clipId": "dialogue-a1-cafe-intro-0",
             "glosses": {
               "wasserkocher": "electric kettle"
@@ -455,22 +455,22 @@
           {
             "id": "a1-cafe-intro-1",
             "speaker": "marta",
-            "german": "Hörst du? Jetzt sagt er: Regen. Er sagt immer das Wetter von morgen.",
-            "english": "Hear that? Now it says: rain. It always says tomorrow’s weather.",
+            "german": "Jetzt sagt er: Morgen kommt Regen.",
+            "english": "Now it says: rain is coming tomorrow.",
             "clipId": "dialogue-a1-cafe-intro-1"
           },
           {
             "id": "a1-cafe-intro-2",
             "speaker": "marta",
-            "german": "Aber deinen Namen? Nie. Also, wer bist du, {name}?",
-            "english": "But your name? Never. So who are you, {name}?",
+            "german": "Du bist {name}, ja?",
+            "english": "You are {name}, right?",
             "clipId": "dialogue-a1-cafe-intro-2"
           },
           {
             "id": "a1-cafe-reported-ticket",
             "speaker": "marta",
-            "german": "Voss hat schon deine Fahrkarte? Der Mann ist schnell. Zu schnell.",
-            "english": "Voss already has your ticket? That man is quick. Too quick.",
+            "german": "Voss hat deine Fahrkarte? Er ist schnell.",
+            "english": "Voss has your ticket? He is quick.",
             "clipId": "dialogue-a1-cafe-reported-ticket",
             "condition": {
               "flag": "platform-reported"
@@ -479,8 +479,8 @@
           {
             "id": "a1-cafe-otto-key",
             "speaker": "marta",
-            "german": "Otto gibt dir einen Schlüssel? Otto gibt nie Schlüssel. Nie!",
-            "english": "Otto gave you a key? Otto never gives anyone keys. Never!",
+            "german": "Du hast Ottos Schlüssel? Das ist neu!",
+            "english": "You have Otto's key? That is new!",
             "clipId": "dialogue-a1-cafe-otto-key",
             "condition": {
               "flag": "platform-protected"
@@ -489,29 +489,29 @@
           {
             "id": "a1-cafe-intro-3",
             "speaker": "marta",
-            "german": "Gestern war eine Frau hier. Sie hat einen Kaffee für dich bezahlt.",
-            "english": "Yesterday a woman was here. She paid for a coffee for you.",
+            "german": "Gestern war eine Frau hier.",
+            "english": "A woman was here yesterday.",
             "clipId": "dialogue-a1-cafe-intro-3"
           },
           {
             "id": "a1-cafe-intro-4",
             "speaker": "marta",
-            "german": "Sie hat gesagt: „Morgen kommt {name}.“ Und morgen ist heute.",
-            "english": "She said: “{name} comes tomorrow.” And tomorrow is today.",
+            "german": "Ein Kaffee für dich. Sie hat bezahlt.",
+            "english": "A coffee for you. She paid.",
             "clipId": "dialogue-a1-cafe-intro-4"
           },
           {
             "id": "a1-cafe-intro-5",
             "speaker": "marta",
-            "german": "Ich habe gefragt: Wer bist du? Sie hat nur gelacht.",
-            "english": "I asked her: who are you? She only laughed.",
+            "german": "Wie heißt die Frau? Ich weiß es nicht.",
+            "english": "What is the woman's name? I do not know.",
             "clipId": "dialogue-a1-cafe-intro-5"
           },
           {
             "id": "a1-cafe-intro-6",
             "speaker": "marta",
-            "german": "Und die Kasse druckt die Rechnung nicht zu Ende. Sie wartet. Auf dich, glaube ich.",
-            "english": "And the till will not finish printing the receipt. It is waiting. For you, I think.",
+            "german": "Die Rechnung ist noch nicht fertig.",
+            "english": "The receipt is not finished yet.",
             "clipId": "dialogue-a1-cafe-intro-6"
           }
         ],
@@ -524,8 +524,8 @@
           {
             "id": "a1-cafe-gate-request",
             "speaker": "marta",
-            "german": "So, mein Gast. Die Frau hat bezahlt. Was möchtest du?",
-            "english": "Right, my guest. The woman has paid. What would you like?",
+            "german": "Kaffee oder Tee? Was möchtest du?",
+            "english": "Coffee or tea? What would you like?",
             "clipId": "dialogue-a1-cafe-gate-request",
             "variants": [
               {
@@ -546,8 +546,8 @@
           {
             "id": "a1-cafe-gate-0",
             "speaker": "marta",
-            "german": "Einen Kaffee. Gut! Und hörst du? Die Kasse druckt!",
-            "english": "A coffee. Good! And do you hear that? The till is printing!",
+            "german": "Ein Kaffee! Jetzt kommt die Rechnung.",
+            "english": "A coffee! Now the receipt is coming.",
             "clipId": "dialogue-a1-cafe-gate-0"
           },
           {
@@ -560,8 +560,8 @@
           {
             "id": "a1-cafe-gate-2",
             "speaker": "marta",
-            "german": "Und hier unten ein Siegel. Das Siegel kenne ich. Es ist von Voss.",
-            "english": "And down here, a seal. I know that seal. It is Voss’s.",
+            "german": "Das Siegel ist von Voss.",
+            "english": "The seal is Voss's.",
             "clipId": "dialogue-a1-cafe-gate-2",
             "glosses": {
               "siegel": "seal"
@@ -570,8 +570,8 @@
           {
             "id": "a1-cafe-gate-3",
             "speaker": "marta",
-            "german": "Warum ist das Siegel von Voss auf ihrer Rechnung? Das verstehe ich nicht.",
-            "english": "Why is Voss’s seal on her receipt? I do not understand it.",
+            "german": "Warum ist es hier?",
+            "english": "Why is it here?",
             "clipId": "dialogue-a1-cafe-gate-3",
             "glosses": {
               "siegel": "seal"
@@ -580,8 +580,8 @@
           {
             "id": "a1-cafe-reported-again",
             "speaker": "marta",
-            "german": "Er hat schon deine Fahrkarte. Jetzt die Rechnung auch?",
-            "english": "He already has your ticket. Now the receipt too?",
+            "german": "Voss hat die Fahrkarte. Jetzt die Rechnung?",
+            "english": "Voss has the ticket. Now the receipt?",
             "clipId": "dialogue-a1-cafe-reported-again",
             "condition": {
               "flag": "platform-reported"
@@ -590,8 +590,8 @@
           {
             "id": "a1-cafe-choice-0",
             "speaker": "marta",
-            "german": "Voss will alles Papier. Bekommt er die Rechnung, oder nimmst du sie mit?",
-            "english": "Voss wants every scrap of paper. Does he get the receipt, or do you take it with you?",
+            "german": "Die Rechnung für Voss? Oder für dich?",
+            "english": "The receipt for Voss? Or for you?",
             "clipId": "dialogue-a1-cafe-choice-0"
           }
         ],
@@ -641,8 +641,8 @@
           {
             "id": "a1-cafe-complete-0",
             "speaker": "marta",
-            "german": "Moment. Das Siegel ist auch auf den Äpfeln von Fritz. Er steht auf dem Platz.",
-            "english": "Wait. That seal is on Fritz’s apples too. He has a stall on the square.",
+            "german": "Fritz hat Äpfel mit dem Siegel.",
+            "english": "Fritz has apples with the seal.",
             "clipId": "dialogue-a1-cafe-complete-0",
             "glosses": {
               "siegel": "seal"
@@ -658,15 +658,15 @@
           {
             "id": "a1-cafe-report-0",
             "speaker": "marta",
-            "german": "Gut. Ich schreibe sie für dich ab. Voss bekommt das Papier.",
-            "english": "All right. I will copy it out for you. Voss gets the paper.",
+            "german": "Gut. Ich schreibe die Rechnung ab.",
+            "english": "Good. I will copy the receipt.",
             "clipId": "dialogue-a1-cafe-report-0"
           },
           {
             "id": "a1-cafe-report-1",
             "speaker": "marta",
-            "german": "Hörst du? Der Wasserkocher sagt nichts mehr. Das gefällt mir nicht.",
-            "english": "Hear that? The kettle has gone quiet. I do not like it.",
+            "german": "Der Wasserkocher sagt nichts mehr.",
+            "english": "The kettle says nothing now.",
             "clipId": "dialogue-a1-cafe-report-1",
             "glosses": {
               "wasserkocher": "electric kettle"
@@ -682,15 +682,15 @@
           {
             "id": "a1-cafe-protect-0",
             "speaker": "marta",
-            "german": "Gut. Nimm sie mit. Und kein Wort zu Voss, ja?",
-            "english": "Good. Take it with you. And not a word to Voss, all right?",
+            "german": "Gut. Die Rechnung bleibt bei dir.",
+            "english": "Good. The receipt stays with you.",
             "clipId": "dialogue-a1-cafe-protect-0"
           },
           {
             "id": "a1-cafe-protect-1",
             "speaker": "marta",
-            "german": "Hörst du? Der Wasserkocher sagt wieder deinen Namen. Laut. Er ist zufrieden.",
-            "english": "Hear that? The kettle is saying your name again. Loudly. It is pleased.",
+            "german": "Der Wasserkocher sagt wieder deinen Namen!",
+            "english": "The kettle is saying your name again!",
             "clipId": "dialogue-a1-cafe-protect-1",
             "glosses": {
               "wasserkocher": "electric kettle"
@@ -709,15 +709,15 @@
           {
             "id": "a1-cafe-topic-kettle-0",
             "speaker": "marta",
-            "german": "Ich weiß es nicht. Er war vor dem Café da.",
-            "english": "I do not know. It was here before the café.",
+            "german": "Er war schon vor dem Café hier.",
+            "english": "He was here before the café.",
             "clipId": "dialogue-a1-cafe-topic-kettle-0"
           },
           {
             "id": "a1-cafe-topic-kettle-1",
             "speaker": "marta",
-            "german": "Er ist nie falsch. Nur am Dienstag. Am Dienstag ist alles falsch.",
-            "english": "It is never wrong. Only on Tuesdays. On Tuesdays everything is wrong.",
+            "german": "Am Dienstag sagt er alles falsch.",
+            "english": "On Tuesdays it gets everything wrong.",
             "clipId": "dialogue-a1-cafe-topic-kettle-1"
           }
         ]
@@ -730,22 +730,22 @@
           {
             "id": "a1-cafe-topic-woman-0",
             "speaker": "marta",
-            "german": "Müde, aber lieb. Und ihre Hände waren schwarz. Wie vom Schreiben.",
-            "english": "Tired, but kind. And her hands were black. As if from writing.",
+            "german": "Sie war müde. Und ihre Hände: schwarz.",
+            "english": "She was tired. And her hands: black.",
             "clipId": "dialogue-a1-cafe-topic-woman-0"
           },
           {
             "id": "a1-cafe-topic-woman-1",
             "speaker": "marta",
-            "german": "Sie hat Tee getrunken. Kaffee für dich, Tee für sie.",
-            "english": "She drank tea. Coffee for you, tea for her.",
+            "german": "Tee für sie. Kaffee für dich.",
+            "english": "Tea for her. Coffee for you.",
             "clipId": "dialogue-a1-cafe-topic-woman-1"
           },
           {
             "id": "a1-cafe-topic-woman-2",
             "speaker": "marta",
-            "german": "Den Namen? Ich weiß ihn nicht. Ich weiß immer alles. Nur das nicht.",
-            "english": "Her name? I do not know it. I always know everything. Just not that.",
+            "german": "Den Namen weiß ich nicht.",
+            "english": "I do not know the name.",
             "clipId": "dialogue-a1-cafe-topic-woman-2"
           }
         ]
@@ -754,8 +754,8 @@
     "investigations": [
       {
         "objectId": "lindenhafen-cafe-receipt",
-        "german": "Eine Rechnung, nicht fertig: Für {name}. Bezahlt. Datum: …",
-        "english": "A receipt, not finished printing: For {name}. Paid. Date: …"
+        "german": "Für {name}. Bezahlt. Datum: …",
+        "english": "For {name}. Paid. Date: …"
       }
     ],
     "introducedWords": {
@@ -800,8 +800,8 @@
           {
             "id": "a1-market-intro-0",
             "speaker": "fritz",
-            "german": "Hallo! Gut, du bist da. Meine Suppe hat ein Problem.",
-            "english": "Hello! Good, you are here. My soup has a problem.",
+            "german": "Hallo! Meine Suppe hat ein Problem.",
+            "english": "Hello! My soup has a problem.",
             "clipId": "dialogue-a1-market-intro-0",
             "glosses": {
               "suppe": "soup"
@@ -810,8 +810,8 @@
           {
             "id": "a1-market-intro-1",
             "speaker": "fritz",
-            "german": "Am Freitag essen alle zusammen. Ein Tisch, eine Suppe, alle Gäste.",
-            "english": "On Fridays everyone eats together. One table, one soup, all the guests.",
+            "german": "Am Freitag essen wir zusammen. Alle sind da.",
+            "english": "On Friday we eat together. Everyone is there.",
             "clipId": "dialogue-a1-market-intro-1",
             "glosses": {
               "suppe": "soup"
@@ -820,8 +820,8 @@
           {
             "id": "a1-market-intro-2",
             "speaker": "fritz",
-            "german": "Alle Gäste stehen hier, in meinem Gästebuch. Seit zwanzig Jahren.",
-            "english": "All the guests are in here, in my guest book. For twenty years.",
+            "german": "Alle Namen stehen im Gästebuch.",
+            "english": "All the names are in the guest book.",
             "clipId": "dialogue-a1-market-intro-2",
             "glosses": {
               "gästebuch": "guest book"
@@ -830,15 +830,15 @@
           {
             "id": "a1-market-intro-3",
             "speaker": "fritz",
-            "german": "Aber hier: zwei Äpfel, Nummer sieben. Und kein Name. Wer ist das?",
-            "english": "But here: two apples, number seven. And no name. Who is that?",
+            "german": "Zwei Äpfel. Nummer sieben. Aber kein Name.",
+            "english": "Two apples. Number seven. But no name.",
             "clipId": "dialogue-a1-market-intro-3"
           },
           {
             "id": "a1-market-intro-4",
             "speaker": "fritz",
-            "german": "Ich weiß es nicht mehr. Mein Kopf ist heute wie Suppe ohne Salz.",
-            "english": "I do not remember. My head today is like soup without salt.",
+            "german": "Wer ist Nummer sieben? Ich weiß es nicht.",
+            "english": "Who is number seven? I do not know.",
             "clipId": "dialogue-a1-market-intro-4",
             "glosses": {
               "suppe": "soup"
@@ -847,8 +847,8 @@
           {
             "id": "a1-market-voss-book",
             "speaker": "inspector",
-            "german": "Das Buch ist richtig. Ein Name fehlt? Dann gab es ihn nie.",
-            "english": "The book is correct. A name is missing? Then it never existed.",
+            "german": "Das Buch ist richtig. Hier fehlt kein Name.",
+            "english": "The book is correct. No name is missing here.",
             "clipId": "dialogue-a1-market-voss-book",
             "condition": {
               "flag": "receipt-filed"
@@ -857,8 +857,8 @@
           {
             "id": "a1-market-marta-receipt",
             "speaker": "fritz",
-            "german": "Marta sagt, du hast eine Rechnung von morgen. Gut! Papier bleibt.",
-            "english": "Marta says you have a receipt from tomorrow. Good! Paper stays.",
+            "german": "Du hast Martas Rechnung? Gut! Papier bleibt.",
+            "english": "You have Marta's receipt? Good! Paper stays.",
             "clipId": "dialogue-a1-market-marta-receipt",
             "condition": {
               "flag": "receipt-kept"
@@ -867,8 +867,8 @@
           {
             "id": "a1-market-intro-5",
             "speaker": "fritz",
-            "german": "Und meine Äpfel haben Nummern. Mit dem Siegel von Voss. Warum? Ich weiß es nicht.",
-            "english": "And my apples have numbers. With Voss’s seal. Why? I do not know.",
+            "german": "Auf den Äpfeln: Nummern. Und das Siegel von Voss.",
+            "english": "On the apples: numbers. And Voss's seal.",
             "clipId": "dialogue-a1-market-intro-5",
             "glosses": {
               "siegel": "seal"
@@ -884,8 +884,8 @@
           {
             "id": "a1-market-gate-request",
             "speaker": "fritz",
-            "german": "Du stehst bei Nummer sieben, mein Gast. Also: Was brauchst du?",
-            "english": "You are standing at number seven, my guest. So: what do you need?",
+            "german": "Nummer sieben. Was brauchst du?",
+            "english": "Number seven. What do you need?",
             "clipId": "dialogue-a1-market-gate-request",
             "variants": [
               {
@@ -913,22 +913,22 @@
           {
             "id": "a1-market-gate-1",
             "speaker": "fritz",
-            "german": "Frau Berg! Das sagt Frau Berg. Jeden Freitag, seit zwanzig Jahren!",
-            "english": "Frau Berg! That is what Frau Berg says. Every Friday, for twenty years!",
+            "german": "Frau Berg! Sie kauft jeden Freitag zwei Äpfel.",
+            "english": "Mrs Berg! She buys two apples every Friday.",
             "clipId": "dialogue-a1-market-gate-1"
           },
           {
             "id": "a1-market-gate-2",
             "speaker": "fritz",
-            "german": "Sie wohnt im Haus mit dem Garten. Blumen, Blumen, Blumen. Nummer sieben.",
-            "english": "She lives in the house with the garden. Flowers, flowers, flowers. Number seven.",
+            "german": "Sie wohnt in Haus Nummer sieben. Mit dem Garten.",
+            "english": "She lives at number seven. With the garden.",
             "clipId": "dialogue-a1-market-gate-2"
           },
           {
             "id": "a1-market-gate-3",
             "speaker": "fritz",
-            "german": "Aber ihr Name fehlt im Gästebuch. Und in meinem Kopf. Wie geht das?",
-            "english": "But her name is missing from the guest book. And from my head. How can that be?",
+            "german": "Der Name fehlt im Gästebuch. Warum?",
+            "english": "The name is missing from the guest book. Why?",
             "clipId": "dialogue-a1-market-gate-3",
             "glosses": {
               "gästebuch": "guest book"
@@ -937,8 +937,8 @@
           {
             "id": "a1-market-otto-names",
             "speaker": "fritz",
-            "german": "Otto sagt, Namen gehen hier weg. Ich habe gelacht. Jetzt nicht mehr.",
-            "english": "Otto says names are disappearing here. I laughed. Not any more.",
+            "german": "Otto sagt es auch: Die Namen gehen weg.",
+            "english": "Otto says it too: the names are disappearing.",
             "clipId": "dialogue-a1-market-otto-names",
             "condition": {
               "flag": "platform-protected"
@@ -947,8 +947,8 @@
           {
             "id": "a1-market-choice-0",
             "speaker": "fritz",
-            "german": "Was schreiben wir jetzt: die Nummer für Voss oder ihren Namen?",
-            "english": "What do we write down now: the number for Voss, or her name?",
+            "german": "Was schreiben wir: ihren Namen oder ihre Nummer?",
+            "english": "What shall we write: her name or her number?",
             "clipId": "dialogue-a1-market-choice-0"
           }
         ],
@@ -999,8 +999,8 @@
           {
             "id": "a1-market-complete-0",
             "speaker": "fritz",
-            "german": "Die Nummer sieben steht auch am Bahnhof. Otto ist nicht zufrieden.",
-            "english": "Number seven is at the station too. Otto is not happy.",
+            "german": "Nummer sieben gibt es auch am Bahnhof. Otto wartet.",
+            "english": "There is a number seven at the station too. Otto is waiting.",
             "clipId": "dialogue-a1-market-complete-0"
           }
         ],
@@ -1013,15 +1013,15 @@
           {
             "id": "a1-market-report-0",
             "speaker": "fritz",
-            "german": "Gut. Voss schreibt die Nummer auf. Er sagt: Alles in Ordnung.",
-            "english": "All right. Voss writes the number down. He says: everything is in order.",
+            "german": "Voss schreibt die Nummer auf. Alles in Ordnung?",
+            "english": "Voss is writing down the number. Everything all right?",
             "clipId": "dialogue-a1-market-report-0"
           },
           {
             "id": "a1-market-report-1",
             "speaker": "fritz",
-            "german": "Aber im Gästebuch fehlt ihr Name noch. Die Suppe wartet.",
-            "english": "But her name is still missing from the guest book. The soup is waiting.",
+            "german": "Der Name fehlt noch. Die Suppe wartet.",
+            "english": "The name is still missing. The soup is waiting.",
             "clipId": "dialogue-a1-market-report-1",
             "glosses": {
               "suppe": "soup",
@@ -1045,8 +1045,8 @@
           {
             "id": "a1-market-protect-1",
             "speaker": "fritz",
-            "german": "Und hier ist ihre Adresse. Nimm sie mit. Ein Papier für mich, eins für dich.",
-            "english": "And here is her address. Take it with you. One copy for me, one for you.",
+            "german": "Hier ist ihre Adresse. Ein Papier für dich.",
+            "english": "Here is her address. A paper for you.",
             "clipId": "dialogue-a1-market-protect-1"
           }
         ],
@@ -1062,8 +1062,8 @@
           {
             "id": "a1-market-topic-numbers-0",
             "speaker": "fritz",
-            "german": "Voss bringt die Nummern. Jeden Montag, mit dem Siegel.",
-            "english": "Voss brings the numbers. Every Monday, with the seal.",
+            "german": "Voss bringt die Nummern. Immer am Montag.",
+            "english": "Voss brings the numbers. Always on Monday.",
             "clipId": "dialogue-a1-market-topic-numbers-0",
             "glosses": {
               "siegel": "seal"
@@ -1120,8 +1120,8 @@
           {
             "id": "a1-market-topic-soup-1",
             "speaker": "fritz",
-            "german": "Das sagt meine Mutter. Und ihre Mutter. Und die Suppe.",
-            "english": "My mother says so. And her mother. And the soup.",
+            "german": "Meine Mutter sagt das. Und meine Oma auch.",
+            "english": "My mother says so. And my grandma too.",
             "clipId": "dialogue-a1-market-topic-soup-1",
             "glosses": {
               "suppe": "soup"
@@ -1138,8 +1138,8 @@
       },
       {
         "objectId": "lindenhafen-garden",
-        "german": "Ein Garten mit Blumen. Am Haus: Nummer 7. Der Name fehlt.",
-        "english": "A garden full of flowers. On the house: number 7. The name is missing."
+        "german": "Ein Garten. Am Haus: Nummer 7. Kein Name.",
+        "english": "A garden. On the house: number 7. No name."
       }
     ],
     "introducedWords": {
@@ -1184,8 +1184,8 @@
           {
             "id": "a1-station-intro-0",
             "speaker": "otto",
-            "german": "Heute Morgen: sechs Bahnsteige. Jetzt: sieben. Und es bleibt bei sieben.",
-            "english": "This morning: six platforms. Now: seven. And it stays at seven.",
+            "german": "Heute Morgen: sechs Bahnsteige. Jetzt sind es sieben.",
+            "english": "This morning: six platforms. Now there are seven.",
             "clipId": "dialogue-a1-station-intro-0"
           },
           {
@@ -1198,15 +1198,15 @@
           {
             "id": "a1-station-intro-2",
             "speaker": "otto",
-            "german": "Ich kenne die Stadt. Zwanzig Jahre Fahrkarten. Aber den Namen weiß ich nicht mehr.",
-            "english": "I know that town. Twenty years of tickets to it. But I cannot remember its name.",
+            "german": "Ich kenne die Stadt. Aber der Name fehlt.",
+            "english": "I know the town. But the name is missing.",
             "clipId": "dialogue-a1-station-intro-2"
           },
           {
             "id": "a1-station-intro-3",
             "speaker": "otto",
-            "german": "Und da, am Ende der Bank: der Mann. Jeden Abend um sechs. Pünktlich.",
-            "english": "And there, at the end of the bench: the man. Every evening at six. On time.",
+            "german": "Der Mann auf der Bank kommt jeden Abend.",
+            "english": "The man on the bench comes every evening.",
             "clipId": "dialogue-a1-station-intro-3"
           },
           {
@@ -1219,8 +1219,8 @@
           {
             "id": "a1-station-key-in-hand",
             "speaker": "otto",
-            "german": "Du hast meinen Schlüssel noch? Gut. Er ist für die alte Tür hier.",
-            "english": "You still have my key? Good. It belongs to the old door here.",
+            "german": "Du hast meinen Schlüssel. Er ist für die Tür.",
+            "english": "You have my key. It is for the door.",
             "clipId": "dialogue-a1-station-key-in-hand",
             "condition": {
               "item": "lamplighter-key"
@@ -1232,8 +1232,8 @@
           {
             "id": "a1-station-ledger-in-hand",
             "speaker": "otto",
-            "german": "Du hast sein Buch? Dann kennst du den Mann schon.",
-            "english": "You have his ledger? Then you already know the man.",
+            "german": "Du hast sein Buch. Du kennst den Mann schon.",
+            "english": "You have his book. You already know the man.",
             "clipId": "dialogue-a1-station-ledger-in-hand",
             "condition": {
               "item": "inspector-ledger"
@@ -1242,8 +1242,8 @@
           {
             "id": "a1-station-berg-back",
             "speaker": "otto",
-            "german": "Fritz sagt, Frau Berg steht wieder im Gästebuch. Gut gemacht.",
-            "english": "Fritz says Frau Berg is back in the guest book. Well done.",
+            "german": "Frau Berg steht wieder im Gästebuch. Gut gemacht!",
+            "english": "Mrs Berg is back in the guest book. Well done!",
             "clipId": "dialogue-a1-station-berg-back",
             "condition": {
               "flag": "berg-remembered"
@@ -1353,8 +1353,8 @@
           {
             "id": "a1-station-choice-0",
             "speaker": "otto",
-            "german": "Schreibt Voss das Schild in sein Buch, oder öffnen wir die alte Tür?",
-            "english": "Does Voss write the sign into his ledger, or do we open the old door?",
+            "german": "Schreiben wir das Schild ab? Oder öffnen wir die Tür?",
+            "english": "Shall we copy the sign? Or open the door?",
             "clipId": "dialogue-a1-station-choice-0",
             "glosses": {
               "tür": "door"
@@ -1463,15 +1463,15 @@
           {
             "id": "a1-station-report-0",
             "speaker": "inspector",
-            "german": "Nach W. Ein Buchstabe. Ich schreibe ihn auf. Alles in Ordnung.",
-            "english": "To W. One letter. I write it down. Everything in order.",
+            "german": "Nach W. Ich schreibe den Buchstaben auf.",
+            "english": "To W. I will write down the letter.",
             "clipId": "dialogue-a1-station-report-0"
           },
           {
             "id": "a1-station-report-1",
             "speaker": "otto",
-            "german": "Ein Buchstabe im Buch. Und die Stadt ist immer noch weg.",
-            "english": "One letter in the ledger. And the town is still gone.",
+            "german": "Der Buchstabe bleibt. Aber die Stadt ist weg.",
+            "english": "The letter stays. But the town is gone.",
             "clipId": "dialogue-a1-station-report-1"
           }
         ],
@@ -1484,8 +1484,8 @@
           {
             "id": "a1-station-second-key",
             "speaker": "otto",
-            "german": "Noch einen Schlüssel? Ich habe immer zwei. Ein Chef hat immer zwei.",
-            "english": "Another key? I always have two. A man in charge always has two.",
+            "german": "Noch einen Schlüssel? Ja. Ich habe zwei.",
+            "english": "Another key? Yes. I have two.",
             "clipId": "dialogue-a1-station-second-key",
             "condition": {
               "missingItem": "lamplighter-key",
@@ -1505,8 +1505,8 @@
           {
             "id": "a1-station-protect-0",
             "speaker": "otto",
-            "german": "Die Tür ist auf. Hier ist mein altes Buch. Zwanzig Jahre alt.",
-            "english": "The door is open. Here is my old ledger. Twenty years old.",
+            "german": "Die Tür ist auf. Hier ist mein altes Buch.",
+            "english": "The door is open. Here is my old book.",
             "clipId": "dialogue-a1-station-protect-0",
             "glosses": {
               "tür": "door"
@@ -1553,15 +1553,15 @@
           {
             "id": "a1-station-topic-sign-0",
             "speaker": "otto",
-            "german": "Nach W… Dann nichts. Gestern war der Name noch da.",
-            "english": "To W… Then nothing. Yesterday the name was still there.",
+            "german": "Nach W… Gestern stand hier noch der Name.",
+            "english": "To W… Yesterday the name was still here.",
             "clipId": "dialogue-a1-station-topic-sign-0"
           },
           {
             "id": "a1-station-topic-sign-1",
             "speaker": "otto",
-            "german": "Ich habe den Namen jeden Tag gesagt. Zwanzig Jahre. Und jetzt? Nichts.",
-            "english": "I said that name every day. Twenty years. And now? Nothing.",
+            "german": "Zwanzig Jahre! Und jetzt fehlt mir der Name.",
+            "english": "Twenty years! And now I cannot remember the name.",
             "clipId": "dialogue-a1-station-topic-sign-1"
           }
         ]
@@ -1657,8 +1657,8 @@
           {
             "id": "a1-workshop-intro-1",
             "speaker": "emil",
-            "german": "Hallo. Ich bin Emil. Das ist meine Lampe. Sie funktioniert meist.",
-            "english": "Hello. I am Emil. This is my lamp. It mostly works.",
+            "german": "Hallo. Ich bin Emil. Das ist meine Lampe.",
+            "english": "Hello. I am Emil. This is my lamp.",
             "clipId": "dialogue-a1-workshop-intro-1",
             "glosses": {
               "lampe": "lamp",
@@ -1682,22 +1682,22 @@
           {
             "id": "a1-workshop-intro-4",
             "speaker": "emil",
-            "german": "Sie geht nur zu Leuten mit einem Problem. Ohne Problem? Sie ist weg.",
-            "english": "It only goes to people with a problem. No problem? Off it goes.",
+            "german": "Du hast ein Problem? Dann kommt die Lampe zu dir.",
+            "english": "You have a problem? Then the lamp comes to you.",
             "clipId": "dialogue-a1-workshop-intro-4"
           },
           {
             "id": "a1-workshop-intro-5",
             "speaker": "emil",
-            "german": "Und jeden Abend geht sie zu Adressen. Aber da sind keine Häuser mehr.",
-            "english": "And every evening it goes to addresses. But there are no houses there any more.",
+            "german": "Abends sucht sie alte Adressen. Aber die Häuser fehlen.",
+            "english": "In the evenings it looks for old addresses. But the houses are missing.",
             "clipId": "dialogue-a1-workshop-intro-5"
           },
           {
             "id": "a1-workshop-archive-register",
             "speaker": "emil",
-            "german": "Ottos altes Buch! Hundert E. Und hier, auf der Lampe: auch ein E.",
-            "english": "Otto’s old ledger! A hundred E’s. And here, on the lamp: another E.",
+            "german": "Ein E in Ottos Buch. Ein E auf meiner Lampe!",
+            "english": "An E in Otto's book. An E on my lamp!",
             "clipId": "dialogue-a1-workshop-archive-register",
             "condition": {
               "item": "station-register"
@@ -1729,8 +1729,8 @@
           {
             "id": "a1-workshop-gate-request",
             "speaker": "emil",
-            "german": "Jetzt steht sie bei dir und hört zu. Brauchst du eine Lampe, oder nicht?",
-            "english": "Now it is standing next to you, listening. Do you need a lamp or not?",
+            "german": "Die Lampe hört zu. Brauchst du eine Lampe?",
+            "english": "The lamp is listening. Do you need a lamp?",
             "clipId": "dialogue-a1-workshop-gate-request",
             "glosses": {
               "lampe": "lamp"
@@ -1761,8 +1761,8 @@
           {
             "id": "a1-workshop-gate-1",
             "speaker": "emil",
-            "german": "Und sie ist hell. Sehr hell. Sie geht zur Tür. Sie will zur Post.",
-            "english": "And it is bright. Very bright. It is heading for the door. It wants to go to the post office.",
+            "german": "Sie ist sehr hell. Jetzt geht sie zur Post!",
+            "english": "It is very bright. Now it is going to the post office!",
             "clipId": "dialogue-a1-workshop-gate-1",
             "glosses": {
               "tür": "door"
@@ -1801,8 +1801,8 @@
           {
             "id": "a1-workshop-choice-0",
             "speaker": "emil",
-            "german": "Bekommt meine Lampe eine Nummer von Voss, oder geht sie mit dir?",
-            "english": "Does my lamp get a number from Voss, or does it go with you?",
+            "german": "Eine Nummer für die Lampe? Oder kommt sie mit dir?",
+            "english": "A number for the lamp? Or is it coming with you?",
             "clipId": "dialogue-a1-workshop-choice-0",
             "glosses": {
               "lampe": "lamp"
@@ -2061,8 +2061,8 @@
           {
             "id": "a1-lost-parcel-intro-3",
             "speaker": "lina",
-            "german": "Ich lese. Sie geht weg. Ich lese wieder. Sie geht weg. Seit heute Morgen.",
-            "english": "I read it. It fades. I read it again. It fades. Since this morning.",
+            "german": "Ich lese die Adresse. Die Tinte geht immer wieder weg.",
+            "english": "I read the address. The ink keeps disappearing.",
             "clipId": "dialogue-a1-lost-parcel-intro-3"
           },
           {
@@ -2075,8 +2075,8 @@
           {
             "id": "a1-lost-parcel-carried-lamp",
             "speaker": "lina",
-            "german": "Und deine Lampe steht seit fünf Minuten vor dem Paket. Sie wartet.",
-            "english": "And your lamp has been standing in front of the parcel for five minutes. Waiting.",
+            "german": "Deine Lampe steht vor dem Paket. Sie wartet.",
+            "english": "Your lamp is in front of the parcel. It is waiting.",
             "clipId": "dialogue-a1-lost-parcel-carried-lamp",
             "condition": {
               "flag": "lamp-carried"
@@ -2102,8 +2102,8 @@
           {
             "id": "a1-lost-parcel-intro-5",
             "speaker": "lina",
-            "german": "Und Frau Berg hat heute Post. Haus Nummer sieben. Das Haus ist noch da. Noch.",
-            "english": "And Frau Berg has post today. House number seven. The house is still there. For now.",
+            "german": "Post für Frau Berg. Haus Nummer sieben steht noch da.",
+            "english": "Post for Mrs Berg. House number seven is still there.",
             "clipId": "dialogue-a1-lost-parcel-intro-5"
           }
         ],
@@ -2162,8 +2162,8 @@
           {
             "id": "a1-lost-parcel-gate-3",
             "speaker": "lina",
-            "german": "Im Paket ist ein Brief. Unten steht nicht E. Unten steht: Elise.",
-            "english": "There is a letter in the parcel. At the bottom it does not say E. It says: Elise.",
+            "german": "Im Paket ist ein Brief. Der Name unten: Elise.",
+            "english": "There is a letter in the parcel. The name at the bottom: Elise.",
             "clipId": "dialogue-a1-lost-parcel-gate-3",
             "glosses": {
               "paket": "parcel"
@@ -2179,8 +2179,8 @@
           {
             "id": "a1-lost-parcel-receipt-hands",
             "speaker": "lina",
-            "german": "Marta sagt, die Frau im Café hatte schwarze Hände. Wie von Tinte.",
-            "english": "Marta says the woman in the café had black hands. As if from ink.",
+            "german": "Marta sagt: Die Frau hatte schwarze Hände. Wie von Tinte.",
+            "english": "Marta says: the woman had black hands. As if from ink.",
             "clipId": "dialogue-a1-lost-parcel-receipt-hands",
             "condition": {
               "flag": "receipt-kept"
@@ -2192,15 +2192,15 @@
           {
             "id": "a1-lost-parcel-gate-5",
             "speaker": "lina",
-            "german": "Moment. Siehst du das Schild von Frau Berg? Die Nummer… sie geht weg.",
-            "english": "Wait. Do you see Frau Berg’s sign? The number… it is fading.",
+            "german": "Siehst du das Schild von Frau Berg? Die Nummer geht weg!",
+            "english": "Do you see Mrs Berg's sign? The number is disappearing!",
             "clipId": "dialogue-a1-lost-parcel-gate-5"
           },
           {
             "id": "a1-lost-parcel-choice-0",
             "speaker": "lina",
-            "german": "Voss will jede Adresse. Bekommt er Waldruh, oder bleibt der Brief bei dir?",
-            "english": "Voss wants every address. Does he get Waldruh, or does the letter stay with you?",
+            "german": "Waldruh für Voss? Oder bleibt der Brief bei dir?",
+            "english": "Waldruh for Voss? Or does the letter stay with you?",
             "clipId": "dialogue-a1-lost-parcel-choice-0"
           }
         ],
@@ -2255,8 +2255,8 @@
           {
             "id": "a1-lost-parcel-berg-kept",
             "speaker": "lina",
-            "german": "Aber ihr Name steht im Gästebuch. Und du hast die Adresse. Das bleibt.",
-            "english": "But her name is in the guest book. And you have the address. That stays.",
+            "german": "Der Name steht im Gästebuch. Die Adresse ist bei dir.",
+            "english": "The name is in the guest book. You have the address.",
             "clipId": "dialogue-a1-lost-parcel-berg-kept",
             "condition": {
               "flag": "berg-remembered"
@@ -2268,8 +2268,8 @@
           {
             "id": "a1-lost-parcel-complete-1",
             "speaker": "lina",
-            "german": "Unten im Brief steht noch ein Satz. Sehr klein. Ich lese nur: „… komm.“",
-            "english": "There is one more sentence at the bottom of the letter. Very small. I can only read: “… come.”",
+            "german": "Noch ein Satz im Brief. Sehr klein: „Bitte komm.“",
+            "english": "Another sentence in the letter. Very small: “Please come.”",
             "clipId": "dialogue-a1-lost-parcel-complete-1"
           },
           {
@@ -2389,8 +2389,8 @@
           {
             "id": "a1-lost-parcel-topic-berg-1",
             "speaker": "lina",
-            "german": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post. Alle lieben sie.",
-            "english": "She never writes letters. But she gets post every day. Everyone loves her.",
+            "german": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post.",
+            "english": "She never writes letters. But she receives post every day.",
             "clipId": "dialogue-a1-lost-parcel-topic-berg-1"
           }
         ]

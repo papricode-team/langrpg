@@ -11,8 +11,8 @@ const graphs = JSON.parse(await readFile('web/src/data/dialogue-graphs.json', 'u
 const scenes = graphs.flatMap(graph => [...graph.nodes.flatMap(node => node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)].flatMap(line=>[line,...(line.reply?[line.reply.correction]:[]),...(line.variants??[]).map(variant=>({...line,...variant,variants:undefined}))])).filter(line => !line.german.includes('{'));
 const named=graphs.flatMap(graph=>[...graph.nodes.flatMap(node=>node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)]).filter(line=>line.german.includes('{name}')).map(line=>({...line,clipId:`${line.clipId}-name-free`,german:line.german.replace(/,?\s*\{name\}/g,'').replace(/\s+([.!?,])/g,'$1')}));
 const nameFreeArtifacts={
- 'lindenhafen-platform-ticket':'Fahrkarte für dich. Bahnsteig sieben. Unten: E. Die Buchstaben gehen weg.',
- 'lindenhafen-cafe-receipt':'Eine Rechnung, nicht fertig: Für dich. Bezahlt. Datum: …',
+ 'lindenhafen-platform-ticket':'Fahrkarte für dich. Bahnsteig sieben. Unten: E.',
+ 'lindenhafen-cafe-receipt':'Für dich. Bezahlt. Datum: …',
  'lindenhafen-parcel':'Für dich. Absender: E. Adresse: … Die Tinte geht weg.',
  'waldruh-housing-board':'Mietvertrag für Zimmer 7. Mieter: du. Die Miete für ein Jahr hat Elise im Voraus bezahlt. Zwei Adressen: Gasthaus Waldruh und Martas Café in Lindenhafen. Eine Tür. Gültig seit drei Monaten. Am Papier hängt ein schwerer Schlüssel mit einer kleinen Laterne.',
  'nebelstadt-observatory':'Der Schlüssel liegt auf dem Pult, neben einem Stapel Briefentwürfe an dich. Die ersten haben nur ein paar Wörter.',

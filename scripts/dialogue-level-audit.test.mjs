@@ -75,6 +75,23 @@ test('word approval cannot bypass grammar or sentence complexity checks', () => 
   assert.ok(long.actOneGate.violations.some(error => error.includes('16-word Act I turn limit')));
 });
 
+test('the opening has a smaller word budget than the later A1 scenes on every surface', () => {
+  const text = 'Ich habe eine Fahrkarte. Die Fahrkarte ist für dich.';
+  for (const kind of ['line', 'variant', 'correction', 'investigation', 'choice']) {
+    const graph = fixture('a1-arrival', 'Ich helfe dir.');
+    const line = graph.nodes[0].lines[0];
+    if (kind === 'line') line.german = text;
+    if (kind === 'variant') line.variants = [{ german: text }];
+    if (kind === 'correction') line.reply = { correction: { id: 'correction', german: text } };
+    if (kind === 'investigation') graph.investigations = [{ objectId: 'evidence', german: text }];
+    if (kind === 'choice') graph.nodes[0].choices = [{ id: 'reply', german: text }];
+    const result = auditDialogueCorpus({ ...options, graphs: [graph] });
+    assert.ok(result.actOneGate.violations.some(error => error.includes(`/${kind}/`) && error.includes('8-word')), kind);
+    graph.questId = 'a1-workshop';
+    assert.equal(auditDialogueCorpus({ ...options, graphs: [graph] }).actOneGate.passed, true);
+  }
+});
+
 test('proper-name resolutions do not approve a higher-level common noun elsewhere', () => {
   const person = auditDialogueCorpus({ ...options, graphs: [fixture('person', 'Frau Berg ist hier.')] });
   assert.equal(person.actOneGate.passed, true);

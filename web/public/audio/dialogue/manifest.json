@@ -20,19 +20,19 @@
   "clips": [
     {
       "id": "artifact-a1-arrival-lindenhafen-noticeboard",
-      "text": "Bahnsteige eins bis sechs. Sieben steht nicht im Plan. Die Laterne ist an.",
+      "text": "Bahnsteige eins bis sechs. Kein Bahnsteig sieben.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-arrival-lindenhafen-platform-ticket-name-free",
-      "text": "Fahrkarte für dich. Bahnsteig sieben. Unten: E. Die Buchstaben gehen weg.",
+      "text": "Fahrkarte für dich. Bahnsteig sieben. Unten: E.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
     {
       "id": "artifact-a1-cafe-lindenhafen-cafe-receipt-name-free",
-      "text": "Eine Rechnung, nicht fertig: Für dich. Bezahlt. Datum: …",
+      "text": "Für dich. Bezahlt. Datum: …",
       "speaker": "Evidence",
       "voice": "Anna"
     },
@@ -44,7 +44,7 @@
     },
     {
       "id": "artifact-a1-market-lindenhafen-garden",
-      "text": "Ein Garten mit Blumen. Am Haus: Nummer 7. Der Name fehlt.",
+      "text": "Ein Garten. Am Haus: Nummer 7. Kein Name.",
       "speaker": "Evidence",
       "voice": "Anna"
     },
@@ -308,49 +308,49 @@
     },
     {
       "id": "dialogue-a1-arrival-choice-0",
-      "text": "Also: Bekomme ich die Fahrkarte? Oder ist sie gleich in Ottos Tasche?",
+      "text": "Die Fahrkarte für mich? Oder für Otto?",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-complete-0",
-      "text": "Marta vom Café hat heute einen Kaffee für dich. Bezahlt. Sie kennt dich nicht.",
+      "text": "Marta hat einen Kaffee für dich.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-0",
-      "text": "Gern. Langsam. Ihre. Fahrkarte. Ist. Nicht. Gültig.",
+      "text": "Gern. Ihre Fahrkarte ist nicht gültig.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-1",
-      "text": "Bahnsteig sieben steht nicht im Plan. Also gibt es ihn nicht.",
+      "text": "Bahnsteig sieben steht nicht im Plan.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
-      "id": "dialogue-a1-arrival-gate-2-name-free",
-      "text": "Und der Zug? Und die Tauben? Und?",
+      "id": "dialogue-a1-arrival-gate-2",
+      "text": "Aber der Zug ist hier!",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-3",
-      "text": "Die Tauben schreibe ich auf. Die Fahrkarte nehme ich mit.",
+      "text": "Ich nehme Ihre Fahrkarte.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-4",
-      "text": "Gib sie ihm nicht. Ich habe eine gute Tasche.",
+      "text": "Die Fahrkarte bleibt hier.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-gate-request",
-      "text": "Fahrkarte-nicht-gültig-Bahnsteig-sieben-gibt-es-nicht-bitte-sofort-abgeben-danke!",
+      "text": "Ihre Fahrkarte, bitte. Schnell!",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
@@ -362,7 +362,7 @@
     },
     {
       "id": "dialogue-a1-arrival-greeting-correction",
-      "text": "Guten Morgen! Es ist Morgen. Wir sagen: Guten Morgen!",
+      "text": "Es ist Morgen. Guten Morgen!",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -374,91 +374,91 @@
     },
     {
       "id": "dialogue-a1-arrival-intro-1",
-      "text": "Dein Zug ist pünktlich. Das ist hier nicht normal.",
+      "text": "Dein Zug ist hier.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-2",
-      "text": "Und vierzig Tauben im Wagen. Alle pünktlich. Das gefällt mir nicht.",
+      "text": "Die Tauben fahren mit.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-3",
-      "text": "Lindenhafen hat sechs Bahnsteige. Eins, zwei, drei, vier, fünf, sechs.",
+      "text": "Hier sind sechs Bahnsteige.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-4",
-      "text": "Du kommst von Bahnsteig sieben. Den gibt es nicht.",
+      "text": "Dein Zug steht an Bahnsteig sieben.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-5",
-      "text": "Aber die Laterne da ist an. Sie ist nie an.",
+      "text": "Die Laterne ist an.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-6",
-      "text": "Deine Fahrkarte, bitte. Ich bin hier der Chef.",
+      "text": "Deine Fahrkarte, bitte.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-7",
-      "text": "Hier steht dein Name. Bahnsteig sieben. Und unten nur ein Buchstabe: E.",
+      "text": "Dein Name. Bahnsteig sieben. Und ein E.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-8",
-      "text": "Moment. Die Buchstaben gehen weg. Siehst du das?",
+      "text": "Die Buchstaben gehen weg!",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-intro-9",
-      "text": "Guten Morgen. Voss, Beamter. Die Fahrkarte, bitte. Sofort.",
+      "text": "Guten Morgen. Ich bin Voss.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-protect-0",
-      "text": "Keine Fahrkarte. So. Ich komme wieder, Herr Otto. Mit einem Formular.",
+      "text": "Keine Fahrkarte? Ich komme wieder.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-protect-1",
-      "text": "Er ist weg. Hier, deine Fahrkarte. Und mein Schlüssel für Bahnsteig sieben.",
+      "text": "Deine Fahrkarte. Mein Schlüssel für Bahnsteig sieben.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-protect-2",
-      "text": "Ich gebe nie Schlüssel. Heute schon. Das gefällt mir auch nicht.",
+      "text": "Der Schlüssel ist jetzt bei dir.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-report-0",
-      "text": "Danke. Ich schreibe sie ab. Langsam. Alles richtig.",
+      "text": "Danke. Ich schreibe alles auf.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-report-1",
-      "text": "Hier ist mein Buch. Lesen Sie. Bei mir ist alles richtig.",
+      "text": "Hier ist mein Buch.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-report-2",
-      "text": "Er gibt dir sein Buch? Das hat er noch nie gemacht.",
+      "text": "Sein Buch für dich? Das ist neu.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -470,13 +470,13 @@
     },
     {
       "id": "dialogue-a1-arrival-topic-pigeons-1",
-      "text": "Heute schlafen sie. Das ist neu. Neu gefällt mir nicht.",
+      "text": "Heute schlafen sie. Das ist neu.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-topic-who-voss-0",
-      "text": "Voss ist Beamter. Er schreibt alles in sein Buch.",
+      "text": "Voss schreibt alles auf.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -494,31 +494,31 @@
     },
     {
       "id": "dialogue-a1-arrival-topic-why-seven-0",
-      "text": "Er steht nicht im Plan. Der Plan hat sechs.",
+      "text": "Im Plan stehen nur sechs Bahnsteige.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-arrival-topic-why-seven-1",
-      "text": "Aber die Laterne ist alt. Sie ist nie falsch.",
+      "text": "Aber die Laterne steht hier.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-cafe-choice-0",
-      "text": "Voss will alles Papier. Bekommt er die Rechnung, oder nimmst du sie mit?",
+      "text": "Die Rechnung für Voss? Oder für dich?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-complete-0",
-      "text": "Moment. Das Siegel ist auch auf den Äpfeln von Fritz. Er steht auf dem Platz.",
+      "text": "Fritz hat Äpfel mit dem Siegel.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-gate-0",
-      "text": "Einen Kaffee. Gut! Und hörst du? Die Kasse druckt!",
+      "text": "Ein Kaffee! Jetzt kommt die Rechnung.",
       "speaker": "marta",
       "voice": "Anna"
     },
@@ -530,19 +530,19 @@
     },
     {
       "id": "dialogue-a1-cafe-gate-2",
-      "text": "Und hier unten ein Siegel. Das Siegel kenne ich. Es ist von Voss.",
+      "text": "Das Siegel ist von Voss.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-gate-3",
-      "text": "Warum ist das Siegel von Voss auf ihrer Rechnung? Das verstehe ich nicht.",
+      "text": "Warum ist es hier?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-gate-request",
-      "text": "So, mein Gast. Die Frau hat bezahlt. Was möchtest du?",
+      "text": "Kaffee oder Tee? Was möchtest du?",
       "speaker": "marta",
       "voice": "Anna"
     },
@@ -554,133 +554,133 @@
     },
     {
       "id": "dialogue-a1-cafe-intro-0",
-      "text": "Da bist du! Der Wasserkocher sagt seit sechs Uhr deinen Namen.",
+      "text": "Hallo! Der Wasserkocher sagt deinen Namen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-1",
-      "text": "Hörst du? Jetzt sagt er: Regen. Er sagt immer das Wetter von morgen.",
+      "text": "Jetzt sagt er: Morgen kommt Regen.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-2-name-free",
-      "text": "Aber deinen Namen? Nie. Also, wer bist du?",
+      "text": "Du bist, ja?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-3",
-      "text": "Gestern war eine Frau hier. Sie hat einen Kaffee für dich bezahlt.",
+      "text": "Gestern war eine Frau hier.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
-      "id": "dialogue-a1-cafe-intro-4-name-free",
-      "text": "Sie hat gesagt: „Morgen kommt.“ Und morgen ist heute.",
+      "id": "dialogue-a1-cafe-intro-4",
+      "text": "Ein Kaffee für dich. Sie hat bezahlt.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-5",
-      "text": "Ich habe gefragt: Wer bist du? Sie hat nur gelacht.",
+      "text": "Wie heißt die Frau? Ich weiß es nicht.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-intro-6",
-      "text": "Und die Kasse druckt die Rechnung nicht zu Ende. Sie wartet. Auf dich, glaube ich.",
+      "text": "Die Rechnung ist noch nicht fertig.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-otto-key",
-      "text": "Otto gibt dir einen Schlüssel? Otto gibt nie Schlüssel. Nie!",
+      "text": "Du hast Ottos Schlüssel? Das ist neu!",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-protect-0",
-      "text": "Gut. Nimm sie mit. Und kein Wort zu Voss, ja?",
+      "text": "Gut. Die Rechnung bleibt bei dir.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-protect-1",
-      "text": "Hörst du? Der Wasserkocher sagt wieder deinen Namen. Laut. Er ist zufrieden.",
+      "text": "Der Wasserkocher sagt wieder deinen Namen!",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-report-0",
-      "text": "Gut. Ich schreibe sie für dich ab. Voss bekommt das Papier.",
+      "text": "Gut. Ich schreibe die Rechnung ab.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-report-1",
-      "text": "Hörst du? Der Wasserkocher sagt nichts mehr. Das gefällt mir nicht.",
+      "text": "Der Wasserkocher sagt nichts mehr.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-reported-again",
-      "text": "Er hat schon deine Fahrkarte. Jetzt die Rechnung auch?",
+      "text": "Voss hat die Fahrkarte. Jetzt die Rechnung?",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-reported-ticket",
-      "text": "Voss hat schon deine Fahrkarte? Der Mann ist schnell. Zu schnell.",
+      "text": "Voss hat deine Fahrkarte? Er ist schnell.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-topic-kettle-0",
-      "text": "Ich weiß es nicht. Er war vor dem Café da.",
+      "text": "Er war schon vor dem Café hier.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-topic-kettle-1",
-      "text": "Er ist nie falsch. Nur am Dienstag. Am Dienstag ist alles falsch.",
+      "text": "Am Dienstag sagt er alles falsch.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-topic-woman-0",
-      "text": "Müde, aber lieb. Und ihre Hände waren schwarz. Wie vom Schreiben.",
+      "text": "Sie war müde. Und ihre Hände: schwarz.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-topic-woman-1",
-      "text": "Sie hat Tee getrunken. Kaffee für dich, Tee für sie.",
+      "text": "Tee für sie. Kaffee für dich.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-cafe-topic-woman-2",
-      "text": "Den Namen? Ich weiß ihn nicht. Ich weiß immer alles. Nur das nicht.",
+      "text": "Den Namen weiß ich nicht.",
       "speaker": "marta",
       "voice": "Anna"
     },
     {
       "id": "dialogue-a1-lost-parcel-berg-kept",
-      "text": "Aber ihr Name steht im Gästebuch. Und du hast die Adresse. Das bleibt.",
+      "text": "Der Name steht im Gästebuch. Die Adresse ist bei dir.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-carried-lamp",
-      "text": "Und deine Lampe steht seit fünf Minuten vor dem Paket. Sie wartet.",
+      "text": "Deine Lampe steht vor dem Paket. Sie wartet.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
     {
       "id": "dialogue-a1-lost-parcel-choice-0",
-      "text": "Voss will jede Adresse. Bekommt er Waldruh, oder bleibt der Brief bei dir?",
+      "text": "Waldruh für Voss? Oder bleibt der Brief bei dir?",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -692,7 +692,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-complete-1",
-      "text": "Unten im Brief steht noch ein Satz. Sehr klein. Ich lese nur: „… komm.“",
+      "text": "Noch ein Satz im Brief. Sehr klein: „Bitte komm.“",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -722,7 +722,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-gate-3",
-      "text": "Im Paket ist ein Brief. Unten steht nicht E. Unten steht: Elise.",
+      "text": "Im Paket ist ein Brief. Der Name unten: Elise.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -734,7 +734,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-gate-5",
-      "text": "Moment. Siehst du das Schild von Frau Berg? Die Nummer… sie geht weg.",
+      "text": "Siehst du das Schild von Frau Berg? Die Nummer geht weg!",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -770,7 +770,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-3",
-      "text": "Ich lese. Sie geht weg. Ich lese wieder. Sie geht weg. Seit heute Morgen.",
+      "text": "Ich lese die Adresse. Die Tinte geht immer wieder weg.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -782,7 +782,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-intro-5",
-      "text": "Und Frau Berg hat heute Post. Haus Nummer sieben. Das Haus ist noch da. Noch.",
+      "text": "Post für Frau Berg. Haus Nummer sieben steht noch da.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -800,7 +800,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-receipt-hands",
-      "text": "Marta sagt, die Frau im Café hatte schwarze Hände. Wie von Tinte.",
+      "text": "Marta sagt: Die Frau hatte schwarze Hände. Wie von Tinte.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -830,7 +830,7 @@
     },
     {
       "id": "dialogue-a1-lost-parcel-topic-berg-1",
-      "text": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post. Alle lieben sie.",
+      "text": "Sie schreibt nie Briefe. Aber sie bekommt jeden Tag Post.",
       "speaker": "lina",
       "voice": "Flo (German (Germany))"
     },
@@ -860,13 +860,13 @@
     },
     {
       "id": "dialogue-a1-market-choice-0",
-      "text": "Was schreiben wir jetzt: die Nummer für Voss oder ihren Namen?",
+      "text": "Was schreiben wir: ihren Namen oder ihre Nummer?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-complete-0",
-      "text": "Die Nummer sieben steht auch am Bahnhof. Otto ist nicht zufrieden.",
+      "text": "Nummer sieben gibt es auch am Bahnhof. Otto wartet.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -878,25 +878,25 @@
     },
     {
       "id": "dialogue-a1-market-gate-1",
-      "text": "Frau Berg! Das sagt Frau Berg. Jeden Freitag, seit zwanzig Jahren!",
+      "text": "Frau Berg! Sie kauft jeden Freitag zwei Äpfel.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-gate-2",
-      "text": "Sie wohnt im Haus mit dem Garten. Blumen, Blumen, Blumen. Nummer sieben.",
+      "text": "Sie wohnt in Haus Nummer sieben. Mit dem Garten.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-gate-3",
-      "text": "Aber ihr Name fehlt im Gästebuch. Und in meinem Kopf. Wie geht das?",
+      "text": "Der Name fehlt im Gästebuch. Warum?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-gate-request",
-      "text": "Du stehst bei Nummer sieben, mein Gast. Also: Was brauchst du?",
+      "text": "Nummer sieben. Was brauchst du?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -908,49 +908,49 @@
     },
     {
       "id": "dialogue-a1-market-intro-0",
-      "text": "Hallo! Gut, du bist da. Meine Suppe hat ein Problem.",
+      "text": "Hallo! Meine Suppe hat ein Problem.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-1",
-      "text": "Am Freitag essen alle zusammen. Ein Tisch, eine Suppe, alle Gäste.",
+      "text": "Am Freitag essen wir zusammen. Alle sind da.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-2",
-      "text": "Alle Gäste stehen hier, in meinem Gästebuch. Seit zwanzig Jahren.",
+      "text": "Alle Namen stehen im Gästebuch.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-3",
-      "text": "Aber hier: zwei Äpfel, Nummer sieben. Und kein Name. Wer ist das?",
+      "text": "Zwei Äpfel. Nummer sieben. Aber kein Name.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-4",
-      "text": "Ich weiß es nicht mehr. Mein Kopf ist heute wie Suppe ohne Salz.",
+      "text": "Wer ist Nummer sieben? Ich weiß es nicht.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-intro-5",
-      "text": "Und meine Äpfel haben Nummern. Mit dem Siegel von Voss. Warum? Ich weiß es nicht.",
+      "text": "Auf den Äpfeln: Nummern. Und das Siegel von Voss.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-marta-receipt",
-      "text": "Marta sagt, du hast eine Rechnung von morgen. Gut! Papier bleibt.",
+      "text": "Du hast Martas Rechnung? Gut! Papier bleibt.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-otto-names",
-      "text": "Otto sagt, Namen gehen hier weg. Ich habe gelacht. Jetzt nicht mehr.",
+      "text": "Otto sagt es auch: Die Namen gehen weg.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -962,19 +962,19 @@
     },
     {
       "id": "dialogue-a1-market-protect-1",
-      "text": "Und hier ist ihre Adresse. Nimm sie mit. Ein Papier für mich, eins für dich.",
+      "text": "Hier ist ihre Adresse. Ein Papier für dich.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-report-0",
-      "text": "Gut. Voss schreibt die Nummer auf. Er sagt: Alles in Ordnung.",
+      "text": "Voss schreibt die Nummer auf. Alles in Ordnung?",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-report-1",
-      "text": "Aber im Gästebuch fehlt ihr Name noch. Die Suppe wartet.",
+      "text": "Der Name fehlt noch. Die Suppe wartet.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -992,7 +992,7 @@
     },
     {
       "id": "dialogue-a1-market-topic-numbers-0",
-      "text": "Voss bringt die Nummern. Jeden Montag, mit dem Siegel.",
+      "text": "Voss bringt die Nummern. Immer am Montag.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
@@ -1010,25 +1010,25 @@
     },
     {
       "id": "dialogue-a1-market-topic-soup-1",
-      "text": "Das sagt meine Mutter. Und ihre Mutter. Und die Suppe.",
+      "text": "Meine Mutter sagt das. Und meine Oma auch.",
       "speaker": "fritz",
       "voice": "Rocko (German (Germany))"
     },
     {
       "id": "dialogue-a1-market-voss-book",
-      "text": "Das Buch ist richtig. Ein Name fehlt? Dann gab es ihn nie.",
+      "text": "Das Buch ist richtig. Hier fehlt kein Name.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-berg-back",
-      "text": "Fritz sagt, Frau Berg steht wieder im Gästebuch. Gut gemacht.",
+      "text": "Frau Berg steht wieder im Gästebuch. Gut gemacht!",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-choice-0",
-      "text": "Schreibt Voss das Schild in sein Buch, oder öffnen wir die alte Tür?",
+      "text": "Schreiben wir das Schild ab? Oder öffnen wir die Tür?",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1094,7 +1094,7 @@
     },
     {
       "id": "dialogue-a1-station-intro-0",
-      "text": "Heute Morgen: sechs Bahnsteige. Jetzt: sieben. Und es bleibt bei sieben.",
+      "text": "Heute Morgen: sechs Bahnsteige. Jetzt sind es sieben.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1106,13 +1106,13 @@
     },
     {
       "id": "dialogue-a1-station-intro-2",
-      "text": "Ich kenne die Stadt. Zwanzig Jahre Fahrkarten. Aber den Namen weiß ich nicht mehr.",
+      "text": "Ich kenne die Stadt. Aber der Name fehlt.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-intro-3",
-      "text": "Und da, am Ende der Bank: der Mann. Jeden Abend um sechs. Pünktlich.",
+      "text": "Der Mann auf der Bank kommt jeden Abend.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1130,19 +1130,19 @@
     },
     {
       "id": "dialogue-a1-station-key-in-hand",
-      "text": "Du hast meinen Schlüssel noch? Gut. Er ist für die alte Tür hier.",
+      "text": "Du hast meinen Schlüssel. Er ist für die Tür.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-ledger-in-hand",
-      "text": "Du hast sein Buch? Dann kennst du den Mann schon.",
+      "text": "Du hast sein Buch. Du kennst den Mann schon.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-protect-0",
-      "text": "Die Tür ist auf. Hier ist mein altes Buch. Zwanzig Jahre alt.",
+      "text": "Die Tür ist auf. Hier ist mein altes Buch.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1154,19 +1154,19 @@
     },
     {
       "id": "dialogue-a1-station-report-0",
-      "text": "Nach W. Ein Buchstabe. Ich schreibe ihn auf. Alles in Ordnung.",
+      "text": "Nach W. Ich schreibe den Buchstaben auf.",
       "speaker": "inspector",
       "voice": "Reed (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-report-1",
-      "text": "Ein Buchstabe im Buch. Und die Stadt ist immer noch weg.",
+      "text": "Der Buchstabe bleibt. Aber die Stadt ist weg.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-second-key",
-      "text": "Noch einen Schlüssel? Ich habe immer zwei. Ein Chef hat immer zwei.",
+      "text": "Noch einen Schlüssel? Ja. Ich habe zwei.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1208,13 +1208,13 @@
     },
     {
       "id": "dialogue-a1-station-topic-sign-0",
-      "text": "Nach W… Dann nichts. Gestern war der Name noch da.",
+      "text": "Nach W… Gestern stand hier noch der Name.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
     {
       "id": "dialogue-a1-station-topic-sign-1",
-      "text": "Ich habe den Namen jeden Tag gesagt. Zwanzig Jahre. Und jetzt? Nichts.",
+      "text": "Zwanzig Jahre! Und jetzt fehlt mir der Name.",
       "speaker": "otto",
       "voice": "Grandpa (German (Germany))"
     },
@@ -1226,13 +1226,13 @@
     },
     {
       "id": "dialogue-a1-workshop-archive-register",
-      "text": "Ottos altes Buch! Hundert E. Und hier, auf der Lampe: auch ein E.",
+      "text": "Ein E in Ottos Buch. Ein E auf meiner Lampe!",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-choice-0",
-      "text": "Bekommt meine Lampe eine Nummer von Voss, oder geht sie mit dir?",
+      "text": "Eine Nummer für die Lampe? Oder kommt sie mit dir?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
@@ -1250,7 +1250,7 @@
     },
     {
       "id": "dialogue-a1-workshop-gate-1",
-      "text": "Und sie ist hell. Sehr hell. Sie geht zur Tür. Sie will zur Post.",
+      "text": "Sie ist sehr hell. Jetzt geht sie zur Post!",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
@@ -1268,7 +1268,7 @@
     },
     {
       "id": "dialogue-a1-workshop-gate-request",
-      "text": "Jetzt steht sie bei dir und hört zu. Brauchst du eine Lampe, oder nicht?",
+      "text": "Die Lampe hört zu. Brauchst du eine Lampe?",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
@@ -1286,7 +1286,7 @@
     },
     {
       "id": "dialogue-a1-workshop-intro-1",
-      "text": "Hallo. Ich bin Emil. Das ist meine Lampe. Sie funktioniert meist.",
+      "text": "Hallo. Ich bin Emil. Das ist meine Lampe.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
@@ -1304,13 +1304,13 @@
     },
     {
       "id": "dialogue-a1-workshop-intro-4",
-      "text": "Sie geht nur zu Leuten mit einem Problem. Ohne Problem? Sie ist weg.",
+      "text": "Du hast ein Problem? Dann kommt die Lampe zu dir.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },
     {
       "id": "dialogue-a1-workshop-intro-5",
-      "text": "Und jeden Abend geht sie zu Adressen. Aber da sind keine Häuser mehr.",
+      "text": "Abends sucht sie alte Adressen. Aber die Häuser fehlen.",
       "speaker": "emil",
       "voice": "Eddy (German (Germany))"
     },

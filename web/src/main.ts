@@ -258,13 +258,12 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
-    beginnerMode: () => !writingReady(),
     portrait: id => portrait(id), speak: (text, speaker, clipId, personalized, rate) => {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
     }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     glosses: text => course ? glossesForLine(text, createGlossLookup(course.courseLexicon, progress)) : undefined,
-    prepareLine: line => { if (!course) return line; const lookup = createGlossLookup(course.courseLexicon,progress); const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
+    prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); world.setInputEnabled(false); document.dispatchEvent(new Event('atlas-controls-reset')); },

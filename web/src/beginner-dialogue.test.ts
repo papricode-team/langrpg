@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { beginnerGateChoices, beginnerReplyMeaning } from './beginner-dialogue';
+import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } from './beginner-dialogue';
+import { emptyProgress, type Progress } from './api';
 import { quests } from './content';
 import { answerMatches } from './learning';
 import { questGraphs } from './quest-graph';
@@ -63,5 +64,55 @@ describe('beginner dialogue replies', () => {
     expect(beginnerReplyMeaning(greeting.answer)).toBe(greeting.english);
     expect(beginnerReplyMeaning('Guten Abend!')).toBe('Good evening!');
     expect(beginnerReplyMeaning('unknown')).toBeUndefined();
+  });
+});
+
+describe('story support follows independent learning', () => {
+  function practiced(): Progress {
+    const progress = emptyProgress();
+    progress.completedQuestIds = ['a1-arrival', 'a1-cafe', 'a1-market'];
+    for (let index = 0; index < 12; index++) {
+      progress.recentAttempts[String(index)] = {
+        id: String(index), itemId: `item-${index}`, exerciseId: `exercise-${index}`,
+        mode: index < 4 ? 'production' : 'recognition', correct: true, hinted: false,
+        at: new Date(Date.UTC(2026, 9, 11, 12, index)).toISOString(),
+      };
+    }
+    return progress;
+  }
+
+  it('keeps a new learner supported, even after completing the whole story with help', () => {
+    const progress = emptyProgress();
+    expect(needsBeginnerStorySupport(progress)).toBe(true);
+    progress.completedQuestIds = quests.map(quest => quest.id);
+    progress.xp = 10000;
+    expect(needsBeginnerStorySupport(progress)).toBe(true);
+    const helped = practiced();
+    Object.values(helped.recentAttempts).forEach(attempt => { attempt.hinted = true; });
+    expect(needsBeginnerStorySupport(helped)).toBe(true);
+  });
+
+  it('requires the three foundation quests and varied independent recognition and writing', () => {
+    const progress = practiced();
+    expect(needsBeginnerStorySupport(progress)).toBe(false);
+    progress.completedQuestIds.pop();
+    expect(needsBeginnerStorySupport(progress)).toBe(true);
+    const recognitionOnly = practiced();
+    Object.values(recognitionOnly.recentAttempts).forEach(attempt => { attempt.mode = 'recognition'; });
+    expect(needsBeginnerStorySupport(recognitionOnly)).toBe(true);
+    const repeated = practiced();
+    Object.values(repeated.recentAttempts).forEach(attempt => { attempt.itemId = 'same-item'; });
+    expect(needsBeginnerStorySupport(repeated)).toBe(true);
+  });
+
+  it('restores support when recent independent answers show difficulty', () => {
+    const progress = practiced();
+    for (let index = 12; index < 24; index++) {
+      progress.recentAttempts[String(index)] = {
+        ...progress.recentAttempts['0'], id: String(index), correct: false,
+        at: new Date(Date.UTC(2026, 9, 11, 12, index)).toISOString(),
+      };
+    }
+    expect(needsBeginnerStorySupport(progress)).toBe(true);
   });
 });

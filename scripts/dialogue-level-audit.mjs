@@ -1,5 +1,6 @@
 import './register-content-loader.mjs';
 import { auditInputLevel } from '../web/src/learning-context.ts';
+import { beginnerTurnWordLimits } from '../web/src/dialogue.ts';
 
 const levels = ['A1', 'A2', 'B1'];
 const normalize = word => word.normalize('NFC').toLowerCase();
@@ -119,7 +120,7 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
         unmappedWords: unresolved(raw.unmappedWords),
         advancedGrammar: [...new Set(grammar)],
         longSentences: raw.longSentences,
-        overlongTurn: graph.level === 'A1' && surfaces.length > 16,
+        overlongTurn: graph.level === 'A1' && surfaces.length > (beginnerTurnWordLimits[graph.questId] ?? 16),
       };
       const result = { questId: graph.questId, ...entry, level: graph.level, ...raw, resolutions, adjusted };
       entries.push(result);
@@ -127,7 +128,7 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
         for (const word of adjusted.aboveLevelWords) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: unapproved above-level word ${word}`);
         for (const word of adjusted.unmappedWords) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: unresolved word ${word}`);
         for (const flag of adjusted.advancedGrammar) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: advanced grammar ${flag}`);
-        if (adjusted.longSentences || adjusted.overlongTurn) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: exceeds the 16-word Act I turn limit`);
+        if (adjusted.longSentences || adjusted.overlongTurn) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: exceeds the ${beginnerTurnWordLimits[graph.questId] ?? 16}-word Act I turn limit`);
       }
     }
   }
@@ -135,6 +136,6 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
     entries, introductions,
     rawSummary: summarizeInput(entries),
     adjustedSummary: summarizeInput(entries, true),
-    actOneGate: { maxNewStoryWordsPerQuest: 2, maxUnapprovedAboveLevelWords: 0, maxUnresolvedWords: 0, maxAdvancedGrammarFlags: 0, maxWordsPerTurn: 16, checkedEntries: entries.filter(entry => entry.level === 'A1').length, passed: errors.length === 0, violations: errors },
+    actOneGate: { maxNewStoryWordsPerQuest: 2, maxUnapprovedAboveLevelWords: 0, maxUnresolvedWords: 0, maxAdvancedGrammarFlags: 0, maxWordsPerTurn: 16, questWordLimits: beginnerTurnWordLimits, checkedEntries: entries.filter(entry => entry.level === 'A1').length, passed: errors.length === 0, violations: errors },
   };
 }
