@@ -1,18 +1,34 @@
 import { icon, escapeHtml } from './icons';
 import { SCREEN_FILTER_PRESETS, normalizeScreenFilterSettings } from './screen-filter-settings';
 import type { ScreenFilterSettings } from './screen-filter-settings';
+import { t } from './i18n';
 import './screen-filter-controls.css';
 
 const STORAGE_KEY = 'atlas.screenFilters';
 type FilterControl = Exclude<keyof ScreenFilterSettings, 'preset'>;
-const controls: { key: FilterControl; label: string; hint: string; min?: number; max?: number; step?: number }[] = [
-  { key: 'softness', label: 'Blend edges', hint: 'Soften differences between the painted assets.' },
-  { key: 'scanlines', label: 'Screen lines', hint: 'Add the fine horizontal lines of an old television.' },
-  { key: 'grain', label: 'Fine texture', hint: 'Give the whole world a shared surface.' },
-  { key: 'warmth', label: 'Warmth', hint: 'Bring a warmer tone to the world.' },
-  { key: 'vignette', label: 'Edge shade', hint: 'Darken the edges of the screen.' },
-  { key: 'pixelSize', label: 'Pixel size', hint: 'Group the world into evenly sized screen pixels.', min: 1, max: 4, step: 0.25 },
+const controls: { key: FilterControl; label: () => string; hint: () => string; min?: number; max?: number; step?: number }[] = [
+  { key: 'softness', label: () => t('Blend edges'), hint: () => t('Soften differences between the painted assets.') },
+  { key: 'scanlines', label: () => t('Screen lines'), hint: () => t('Add the fine horizontal lines of an old television.') },
+  { key: 'grain', label: () => t('Fine texture'), hint: () => t('Give the whole world a shared surface.') },
+  { key: 'warmth', label: () => t('Warmth'), hint: () => t('Bring a warmer tone to the world.') },
+  { key: 'vignette', label: () => t('Edge shade'), hint: () => t('Darken the edges of the screen.') },
+  { key: 'pixelSize', label: () => t('Pixel size'), hint: () => t('Group the world into evenly sized screen pixels.'), min: 1, max: 4, step: 0.25 },
 ];
+
+/** Preset names and descriptions stay English in screen-filter-settings; translate where they are shown. */
+function presetText(text: string): string {
+  switch (text) {
+    case 'Original': return t('Original');
+    case 'Soft paint': return t('Soft paint');
+    case 'CRT': return t('CRT');
+    case 'Pixel CRT': return t('Pixel CRT');
+    case 'The painted world without a screen filter.': return t('The painted world without a screen filter.');
+    case 'A subtle paper texture and warm finish.': return t('A subtle paper texture and warm finish.');
+    case 'A soft, warm screen with subtle scanlines.': return t('A soft, warm screen with subtle scanlines.');
+    case 'A shared pixel grid and stronger scanlines for a retro look.': return t('A shared pixel grid and stronger scanlines for a retro look.');
+    default: return text;
+  }
+}
 
 interface ScreenFilterControlsOptions {
   apply(settings: ScreenFilterSettings): void;
@@ -40,15 +56,15 @@ export class ScreenFilterControls {
     this.element.hidden = true;
     this.element.setAttribute('aria-labelledby', 'screen-filter-title');
     this.element.innerHTML = `
-      <header class="screen-filter-header"><div><span class="screen-filter-kicker">EXPERIMENTAL</span><h2 id="screen-filter-title">Screen filters</h2></div><button type="button" class="screen-filter-close" aria-label="Close screen filters">${icon('close')}</button></header>
-      <p class="screen-filter-intro">Try a shared finish for the world. Menus stay clear.</p>
-      <div class="screen-filter-presets" role="group" aria-label="Screen filter presets">${SCREEN_FILTER_PRESETS.map(preset => `<button type="button" data-screen-preset="${preset.id}" aria-pressed="false">${escapeHtml(preset.name)}</button>`).join('')}</div>
-      <div class="screen-filter-look"><strong data-screen-look></strong><span data-screen-custom hidden>Custom</span></div>
+      <header class="screen-filter-header"><div><span class="screen-filter-kicker">${escapeHtml(t('EXPERIMENTAL'))}</span><h2 id="screen-filter-title">${escapeHtml(t('Screen filters'))}</h2></div><button type="button" class="screen-filter-close" aria-label="${escapeHtml(t('Close screen filters'))}">${icon('close')}</button></header>
+      <p class="screen-filter-intro">${escapeHtml(t('Try a shared finish for the world. Menus stay clear.'))}</p>
+      <div class="screen-filter-presets" role="group" aria-label="${escapeHtml(t('Screen filter presets'))}">${SCREEN_FILTER_PRESETS.map(preset => `<button type="button" data-screen-preset="${preset.id}" aria-pressed="false">${escapeHtml(presetText(preset.name))}</button>`).join('')}</div>
+      <div class="screen-filter-look"><strong data-screen-look></strong><span data-screen-custom hidden>${escapeHtml(t('Custom'))}</span></div>
       <p class="screen-filter-description" data-screen-description></p>
-      <p class="screen-filter-unavailable" data-screen-unavailable hidden role="status">Screen filters aren’t available on this device. Your choices are saved for next time.</p>
-      <div class="screen-filter-actions"><button type="button" class="screen-filter-compare" aria-pressed="false">Hold to compare original</button><button type="button" class="screen-filter-reset" aria-label="Reset the current screen filter preset">${icon('refresh')} Reset</button></div>
-      <div class="screen-filter-sliders">${controls.map(control => `<label class="screen-filter-slider" for="screen-filter-${control.key}"><span>${control.label}<output for="screen-filter-${control.key}" data-screen-value="${control.key}"></output></span><input id="screen-filter-${control.key}" type="range" min="${control.min ?? 0}" max="${control.max ?? 100}" step="${control.step ?? 1}" data-screen-control="${control.key}" aria-describedby="screen-filter-hint-${control.key}"><small id="screen-filter-hint-${control.key}">${control.hint}</small></label>`).join('')}</div>
-      <p class="screen-filter-footer">Saved on this device <span>·</span> <kbd>F</kbd> or <kbd>Esc</kbd> to close</p>`;
+      <p class="screen-filter-unavailable" data-screen-unavailable hidden role="status">${escapeHtml(t('Screen filters aren’t available on this device. Your choices are saved for next time.'))}</p>
+      <div class="screen-filter-actions"><button type="button" class="screen-filter-compare" aria-pressed="false">${escapeHtml(t('Hold to compare original'))}</button><button type="button" class="screen-filter-reset" aria-label="${escapeHtml(t('Reset the current screen filter preset'))}">${icon('refresh')} ${escapeHtml(t('Reset'))}</button></div>
+      <div class="screen-filter-sliders">${controls.map(control => `<label class="screen-filter-slider" for="screen-filter-${control.key}"><span>${escapeHtml(control.label())}<output for="screen-filter-${control.key}" data-screen-value="${control.key}"></output></span><input id="screen-filter-${control.key}" type="range" min="${control.min ?? 0}" max="${control.max ?? 100}" step="${control.step ?? 1}" data-screen-control="${control.key}" aria-describedby="screen-filter-hint-${control.key}"><small id="screen-filter-hint-${control.key}">${escapeHtml(control.hint())}</small></label>`).join('')}</div>
+      <p class="screen-filter-footer">${escapeHtml(t('Saved on this device'))} <span>·</span> <kbd>F</kbd> ${escapeHtml(t('or'))} <kbd>Esc</kbd> ${escapeHtml(t('to close'))}</p>`;
     host.append(this.element);
     this.bind();
     this.sync();
@@ -159,7 +175,7 @@ export class ScreenFilterControls {
     this.comparing = true;
     const button = this.element.querySelector<HTMLButtonElement>('.screen-filter-compare')!;
     button.setAttribute('aria-pressed', 'true');
-    button.textContent = 'Showing original — release';
+    button.textContent = t('Showing original — release');
     this.options.apply(normalizeScreenFilterSettings({ preset: 'original' }));
   }
 
@@ -171,7 +187,7 @@ export class ScreenFilterControls {
     if (!this.comparing) return;
     this.comparing = false;
     button.setAttribute('aria-pressed', 'false');
-    button.textContent = 'Hold to compare original';
+    button.textContent = t('Hold to compare original');
     this.options.apply(this.settings);
   }
 
@@ -185,15 +201,15 @@ export class ScreenFilterControls {
   private sync(): void {
     const preset = SCREEN_FILTER_PRESETS.find(item => item.id === this.settings.preset)!;
     this.element.querySelectorAll<HTMLButtonElement>('[data-screen-preset]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.screenPreset === preset.id)); });
-    this.element.querySelector<HTMLElement>('[data-screen-look]')!.textContent = preset.name;
+    this.element.querySelector<HTMLElement>('[data-screen-look]')!.textContent = presetText(preset.name);
     this.element.querySelector<HTMLElement>('[data-screen-custom]')!.hidden = controls.every(control => this.settings[control.key] === preset.settings[control.key]);
-    this.element.querySelector<HTMLElement>('[data-screen-description]')!.textContent = preset.description;
+    this.element.querySelector<HTMLElement>('[data-screen-description]')!.textContent = presetText(preset.description);
     for (const control of controls) {
       const value = this.settings[control.key];
       const input = this.element.querySelector<HTMLInputElement>(`[data-screen-control="${control.key}"]`)!;
       input.value = String(value);
       this.element.querySelector<HTMLOutputElement>(`[data-screen-value="${control.key}"]`)!.value = control.key === 'pixelSize' ? `${value}×` : `${value}%`;
-      input.setAttribute('aria-valuetext', control.key === 'pixelSize' ? `${value} screen pixels` : `${value} percent`);
+      input.setAttribute('aria-valuetext', control.key === 'pixelSize' ? t('{value} screen pixels', { value }) : t('{value} percent', { value }));
     }
   }
 

@@ -31,7 +31,7 @@ export interface DialogueLine {
   variants?: { german: string; english: string; clipId: string }[];
   reply?: { exerciseId: string; correction: DialogueLine };
 }
-export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; }
+export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
 /** An optional player question on the last intro line; never saved, never required. */
 export interface DialogueTopic { id: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }

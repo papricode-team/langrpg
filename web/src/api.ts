@@ -3,6 +3,7 @@ import type { MapId } from './maps';
 import { isExpeditionMap } from './expeditions';
 import { buildingEntrances, type InteriorId } from './interiors';
 import type { StoryState, StoryStage } from './dialogue';
+import { isBaseLanguage, type BaseLanguage } from './i18n';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
@@ -47,12 +48,14 @@ export interface ExposureInput { exerciseId?: string; unitId?: string; activityI
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
 export interface AccountStatus { registered: boolean; email: string; }
-export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; }
+/** Account-wide settings that follow the player across devices. */
+export interface Preferences { baseLanguage: BaseLanguage; }
+export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; }
 export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
-/** Older servers omitted account metadata for guests. Normalize at the boundary. */
+/** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {
-  const metadata = result.account;
-  return { ...result, account: { registered: metadata?.registered === true, email: typeof metadata?.email === 'string' ? metadata.email : '' } };
+  const metadata = result.account, language = result.preferences?.baseLanguage;
+  return { ...result, account: { registered: metadata?.registered === true, email: typeof metadata?.email === 'string' ? metadata.email : '' }, preferences: { baseLanguage: isBaseLanguage(language) ? language : 'en' } };
 }
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
@@ -105,14 +108,16 @@ export class Api {
     if (!response.ok) throw new ApiError(value.error ?? `Request failed (${response.status})`, response.status);
     return value as T;
   }
-  async session(name: string, avatar: Avatar) {
+  async session(name: string, avatar: Avatar, baseLanguage?: BaseLanguage) {
     let result: SessionResult;
-    try { result = await this.request('/session', { name, avatar }); }
+    // The base language is only sent for a new account; a profile edit keeps the saved preference.
+    const body = { name, avatar, ...(baseLanguage ? { baseLanguage } : {}) };
+    try { result = await this.request('/session', body); }
     catch (error) {
       if (!this.token || !(error instanceof ApiError) || error.status !== 401) throw error;
       const oldToken = this.token;
       this.token = '';
-      try { result = await this.request('/session', { name, avatar }); }
+      try { result = await this.request('/session', body); }
       catch (retryError) { this.token = oldToken; throw retryError; }
     }
     return this.rememberSession(result);
@@ -142,6 +147,11 @@ export class Api {
     const result = await this.request<SessionResult>('/account/login', { email, password });
     this.destroy();
     return this.rememberSession(result);
+  }
+  async savePreferences(preferences: Preferences): Promise<Preferences> {
+    const result = await this.request<{ preferences?: Partial<Preferences> }>('/preferences', preferences);
+    const language = result.preferences?.baseLanguage;
+    return { baseLanguage: isBaseLanguage(language) ? language : 'en' };
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }
   story() { return this.request<StoryResult>('/story'); }

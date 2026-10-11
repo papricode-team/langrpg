@@ -1,8 +1,11 @@
 import type { CourseGrammar } from './course';
+import { localizedGrammar } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 
 export interface ContextualGrammar {
   guideId: string; german: string; english: string; clipId: string;
   title?: string; explanation?: string;
+  /** A short contrastive note for Turkish speakers, when the guide has one. */
+  note?: string;
 }
 const notes: Record<string, Omit<ContextualGrammar, 'clipId'>> = {
   'a1-arrival': { guideId:'a1-requests', german:'Mit bitte wird jede Bitte höflich. Noch einmal heißt: Sag es wieder.', english:'Bitte makes any request polite. Noch einmal means: say it again.' },
@@ -27,6 +30,7 @@ const notes: Record<string, Omit<ContextualGrammar, 'clipId'>> = {
 
 export function grammarForQuest(questId: string, guides?: readonly CourseGrammar[]): ContextualGrammar | undefined {
   const note = notes[questId]; if (!note) return;
-  const guide = guides?.find(guide => guide.id === note.guideId);
-  return {...note, clipId:`grammar-${questId}`, title:guide?.title, explanation:guide?.explanation};
+  const found = guides?.find(guide => guide.id === note.guideId);
+  const guide = found ? localizedGrammar(found) : undefined;
+  return {...note, clipId:`grammar-${questId}`, title:guide?.title, explanation:guide?.explanation, ...(guide?.note ? {note:guide.note} : {})};
 }

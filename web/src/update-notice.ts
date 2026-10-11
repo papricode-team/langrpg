@@ -1,5 +1,6 @@
-import { icon } from './icons';
+import { escapeHtml, icon } from './icons';
 import './update-notice.css';
+import { t } from './i18n';
 
 /** Keep the refresh action reachable even while a native modal is open. */
 export function showUpdateNotice(onRefresh: () => void): () => void {
@@ -14,7 +15,7 @@ export function showUpdateNotice(onRefresh: () => void): () => void {
   notice.setAttribute('role', 'status');
   notice.setAttribute('aria-live', 'polite');
   notice.setAttribute('aria-atomic', 'true');
-  notice.innerHTML = `${icon('refresh')}<div class="update-notice-copy"><strong>An update is available.</strong><p>Refresh when you’re ready.</p></div><div class="update-notice-actions"><button class="update-notice-refresh" type="button">Refresh page</button><button class="update-notice-later" type="button">Later</button></div>`;
+  notice.innerHTML = `${icon('refresh')}<div class="update-notice-copy"><strong>${escapeHtml(t('An update is available.'))}</strong><p>${escapeHtml(t('Refresh when you’re ready.'))}</p></div><div class="update-notice-actions"><button class="update-notice-refresh" type="button">${escapeHtml(t('Refresh page'))}</button><button class="update-notice-later" type="button">${escapeHtml(t('Later'))}</button></div>`;
 
   // A manual popover stays in the top layer without a backdrop or autofocus.
   // Its modal ancestor keeps it interactive when the rest of the page is inert.

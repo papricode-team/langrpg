@@ -21,3 +21,7 @@
 /* Match the existing dark game panels, including unselected suggestions. */
 .account-dialog .name-suggestion { color: var(--paper); }
 .account-dialog .account-error { color: #ffc2ae; }
+.base-language-picker { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin: 10px 0 0; padding: 8px 12px; border: 1px solid #b9b08a66; border-radius: 10px; }
+.base-language-picker legend { font-weight: 600; padding: 0 4px; }
+.base-language-picker label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.base-language-picker small { flex-basis: 100%; opacity: .8; }

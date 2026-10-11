@@ -1,7 +1,7 @@
 import type { DialogueChoice } from './dialogue';
 
 /** Complete replies let new learners recognize the meaning before composing German. */
-const gateReplies: Record<string, readonly (readonly [german: string, english: string])[]> = {
+export const beginnerGateTranslations: Record<string, readonly (readonly [german: string, english: string])[]> = {
   'a1-arrival-exercise-7': [
     ['Noch einmal, bitte.', 'Once again, please.'],
     ['Guten Morgen!', 'Good morning!'],
@@ -30,12 +30,12 @@ const gateReplies: Record<string, readonly (readonly [german: string, english: s
 
 /** Choice IDs remain canonical German answers so the existing server can grade them. */
 export function beginnerGateChoices(exerciseId: string): DialogueChoice[] {
-  return (gateReplies[exerciseId] ?? []).map(([german, english]) => ({
+  return (beginnerGateTranslations[exerciseId] ?? []).map(([german, english]) => ({
     id: german, german, english, next: '', effects: [],
   }));
 }
 
-const greetingMeanings: Record<string, string> = {
+export const greetingMeanings: Record<string, string> = {
   'Guten Morgen!': 'Good morning!',
   'Guten Abend!': 'Good evening!',
   'Gute Nacht!': 'Good night!',

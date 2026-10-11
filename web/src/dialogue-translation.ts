@@ -1,5 +1,6 @@
 export interface TranslationHighlight { start: number; end: number; }
-export interface TranslationLookup { german: string; english: string; word: string; gloss: string; }
+/** `english` is the support-language sentence; `language` says which language that is. */
+export interface TranslationLookup { german: string; english: string; word: string; gloss: string; language?: 'en' | 'tr'; }
 
 const wordBoundary = '[\\p{L}\\p{M}\\p{N}_]';
 function literal(value: string): string { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
@@ -86,9 +87,23 @@ function scopes(german: string, english: string, word: string): Scope[] {
     ? [{ german: part[0], english: en[index][0], offset: en[index].index }] : []);
 }
 
-/** UTF-16 offsets into the unchanged English string. An uncertain alignment has no spans. */
-export function translationHighlights({ german, english, word, gloss }: TranslationLookup): TranslationHighlight[] {
+/**
+ * Turkish is agglutinative (lamba → lambayı), so only an exact whole-word match of the
+ * Turkish gloss is evidence of an alignment. The English-specific heuristics above
+ * (articles, möchte, Sie) never apply. No match means no highlight, never a guess.
+ */
+function turkishHighlights(sentence: string, gloss: string): TranslationHighlight[] {
+  // Turkish-locale lowercasing keeps İ/I one code unit long, so offsets stay valid.
+  const text = sentence.toLocaleLowerCase('tr');
+  const meanings = glossAlternatives(gloss).map(candidate => candidate.toLocaleLowerCase('tr'))
+    .map(candidate => occurrences(text, candidate, true)).filter(found => found.length);
+  return meanings.length === 1 ? meanings[0] : [];
+}
+
+/** UTF-16 offsets into the unchanged support-language string. An uncertain alignment has no spans. */
+export function translationHighlights({ german, english, word, gloss, language = 'en' }: TranslationLookup): TranslationHighlight[] {
   if (!occurrences(german, word, word.toLocaleLowerCase('de') === 'sie').length) return [];
+  if (language === 'tr') return gloss.trim() ? turkishHighlights(english, gloss) : [];
   const ranges: TranslationHighlight[] = [];
   for (const scope of scopes(german, english, word)) {
     const candidates = authored(word, scope.german) ?? glossAlternatives(gloss);

@@ -1,5 +1,6 @@
 import { quests } from './content';
 import type { MapId } from './maps';
+import { t } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 
 /** Existing discoveries keep previously visited story towns accessible. */
 export function routeUnlocked(mapId: MapId, completedQuestIds: readonly string[]): boolean {
@@ -14,9 +15,9 @@ export function routeUnlocked(mapId: MapId, completedQuestIds: readonly string[]
 
 export function routeLockReason(mapId: MapId, completedQuestIds: readonly string[]): string {
   if (routeUnlocked(mapId, completedQuestIds)) return '';
-  if (mapId === 'waldruh') return "Find Lina's letter and restore the name Waldruh first.";
-  if (mapId === 'nebelstadt') return "Obtain Ada's confession in Waldruh first.";
-  return 'Restore the three towns before exploring the coastline.';
+  if (mapId === 'waldruh') return t("Find Lina's letter and restore the name Waldruh first.");
+  if (mapId === 'nebelstadt') return t("Obtain Ada's confession in Waldruh first.");
+  return t('Restore the three towns before exploring the coastline.');
 }
 
 export function questUnlocked(questId: string, completedQuestIds: readonly string[]): boolean {

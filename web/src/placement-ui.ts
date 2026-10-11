@@ -1,8 +1,9 @@
 import './placement-ui.css';
 import type {Api,Progress,CourseLevel} from './api';
 import {escapeHtml as e} from './icons';
-import {modeFor} from './learning';
+import {attemptFeedback,modeFor} from './learning';
 import {placementExercises,placementRecommendation,placementDialogue,type PlacementEvidence,type PlacementExercise} from './learning-context';
+import {localized,localizedExercise,t} from './i18n';
 
 export interface PlacementResult {level:CourseLevel;answered:number;unaidedCorrect:number;}
 interface PlacementOptions {
@@ -11,7 +12,7 @@ interface PlacementOptions {
   onClose:()=>void; speak:(text:string)=>void;
 }
 export function placementCTAMarkup():string {
-  return '<button type="button" class="outline-button" data-action="placement">Find my comfortable German level</button>';
+  return `<button type="button" class="outline-button" data-action="placement">${e(t('Find my comfortable German level'))}</button>`;
 }
 
 /** A short diagnostic sample uses the server grader without recording recall. */
@@ -25,13 +26,13 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
   const finish=()=>{
     if(disposed)return;
     const result={level:placementRecommendation(results),answered:results.length,unaidedCorrect:results.filter(item=>item.correct&&!item.hinted).length};
-    host.innerHTML=`<section class="placement-panel" aria-label="Practice starting point"><span class="eyebrow">YOUR PRACTICE STARTING POINT</span><h2>Try ${result.level} practice next</h2><p>This short sample helps choose useful support. Your story route still grows from the clues you discover.</p><p>${result.unaidedCorrect} independent answers from ${result.answered} questions.</p><button class="primary-button" type="button" data-placement="close">Return to the town</button></section>`;
+    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Practice starting point'))}"><span class="eyebrow">${e(t('YOUR PRACTICE STARTING POINT'))}</span><h2>${e(t('Try {level} practice next',{level:result.level}))}</h2><p>${e(t('This short sample helps choose useful support. Your story route still grows from the clues you discover.'))}</p><p>${e(t('{correct} independent answers from {answered} questions.',{correct:result.unaidedCorrect,answered:result.answered}))}</p><button class="primary-button" type="button" data-placement="close">${e(t('Return to the town'))}</button></section>`;
     options.onComplete(result,progress);
   };
   const render=()=>{
     if(disposed)return;
-    const exercise:PlacementExercise=queue[index],turn=placementDialogue[exercise.id as keyof typeof placementDialogue];
-    host.innerHTML=`<section class="placement-panel" aria-label="Optional German placement"><header><span class="eyebrow">A COMFORTABLE START · ${index+1} / ${queue.length}</span><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>Leave</button></header><h2>Find your practice starting point</h2><p>A few short conversations, usually about two minutes. You can leave at any time.</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="de">${e(turn.german)}</p><button type="button" class="text-button" data-placement="hear">Hear this line</button>${hinted?`<p>${e(turn.english)}</p>`:''}</blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">Your German answer</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${busy?'Saving…':pending?'Retry this save':'Check answer'}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${answered?'<button type="button" class="primary-button" data-placement="next">Continue</button>':`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>A little help</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
+    const exercise:PlacementExercise=localizedExercise(queue[index]),turn=placementDialogue[exercise.id as keyof typeof placementDialogue];
+    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Optional German placement'))}"><header><span class="eyebrow">${e(t('A COMFORTABLE START · {current} / {total}',{current:index+1,total:queue.length}))}</span><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>${e(t('Leave'))}</button></header><h2>${e(t('Find your practice starting point'))}</h2><p>${e(t('A few short conversations, usually about two minutes. You can leave at any time.'))}</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="de">${e(turn.german)}</p><button type="button" class="text-button" data-placement="hear">${e(t('Hear this line'))}</button>${hinted?`<p>${e(localized(turn))}</p>`:''}</blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">${e(t('Your German answer'))}</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${e(busy?t('Saving…'):pending?t('Retry this save'):t('Check answer'))}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${answered?`<button type="button" class="primary-button" data-placement="next">${e(t('Continue'))}</button>`:`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>${e(t('A little help'))}</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
     if(exercise.mode==='type'&&!busy&&!answered)host.querySelector<HTMLInputElement>('input')?.focus();
   };
   const submit=async(answer:string)=>{
@@ -42,8 +43,8 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
     try {
       const result=await options.api.request<{correct:boolean;reason?:string}>('/attempt',{...attempt,itemId:exercise.itemId,exerciseId:exercise.id,mode:modeFor(exercise),level:exercise.level,preview:true});
       results.push({level:exercise.level,correct:result.correct,hinted:attempt.hinted});
-      pending=undefined;answered=true;feedback=result.correct?'This helps us choose useful practice.':result.reason ?? 'We will choose more support for this kind of phrase.';
-    } catch(error) {feedback=`${error instanceof Error?error.message:'The answer could not be saved.'} Retry keeps this same answer.`;}
+      pending=undefined;answered=true;feedback=result.correct?t('This helps us choose useful practice.'):attemptFeedback(exercise,attempt.answer,result.reason)||t('We will choose more support for this kind of phrase.');
+    } catch(error) {feedback=`${error instanceof Error?error.message:t('The answer could not be saved.')} ${t('Retry keeps this same answer.')}`;}
     finally {busy=false;render();}
   };
   const click=(event:Event)=>{

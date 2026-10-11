@@ -13,6 +13,7 @@
     "maps:check": "node scripts/map-editor.mjs check",
     "lint": "npm run lint --workspace web",
     "assets": "node scripts/assets.mjs",
-    "budgets": "node scripts/check-budgets.mjs"
+    "budgets": "node scripts/check-budgets.mjs",
+    "i18n": "node scripts/i18n-coverage.mjs"
   }
 }

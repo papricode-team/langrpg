@@ -28,3 +28,5 @@
 .dialogue-hint-tools button:disabled{opacity:.45;cursor:default}
 
 .dialogue-choice-prompt{font-size:14px;line-height:1.5;margin:12px 0}.dialogue-choice-prompt small{display:block;color:#adbcab;font-size:12px;margin-top:4px}
+.dialogue-word-gloss{display:block;margin-bottom:4px;font-size:13px;color:#f1dfa8}.dialogue-word-gloss strong{font-family:Fraunces,serif;font-weight:600;margin-right:6px}
+.dialogue-grammar-note{display:block;margin-top:6px;color:#e6d6a6}.dialogue-grammar-note strong{margin-right:4px}

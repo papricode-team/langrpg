@@ -1,5 +1,6 @@
 import type { Progress } from './api';
 import type { Exercise } from './content';
+import { baseLanguage, localizedExercise, t } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 
 export function normalizedAnswer(answer: string): string {
   return normalizedCaseAnswer(answer).toLocaleLowerCase('de');
@@ -50,7 +51,7 @@ export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, 
       for (const accepted of [exercise.answer,...(exercise.acceptedAnswers ?? [])]) {
         const actual = normalizedCaseAnswer(answer), expected = normalizedCaseAnswer(accepted);
         if (productionAnswerMatches(actual.toLocaleLowerCase('de'), expected.toLocaleLowerCase('de')) && !productionAnswerMatches(actual,expected)) {
-          return `Accepted. Remember capitalization: begin sentences and German nouns with a capital letter. ${exercise.explanation}`;
+          return `${t('Accepted. Remember capitalization: begin sentences and German nouns with a capital letter.')} ${exercise.explanation}`;
         }
       }
     }
@@ -58,16 +59,25 @@ export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, 
   }
   const actual = normalizedCaseAnswer(answer);
   const expected = normalizedCaseAnswer(exercise.answer);
-  if (exercise.caseSensitive && umlautKeyboardForm(actual.toLocaleLowerCase('de')) === umlautKeyboardForm(expected.toLocaleLowerCase('de'))) return 'Check capitalization: begin sentences, German nouns and formal Sie with a capital letter.';
+  if (exercise.caseSensitive && umlautKeyboardForm(actual.toLocaleLowerCase('de')) === umlautKeyboardForm(expected.toLocaleLowerCase('de'))) return t('Check capitalization: begin sentences, German nouns and formal Sie with a capital letter.');
   const a = normalizedAnswer(answer).split(' '), b = normalizedAnswer(exercise.answer).split(' ');
   const articles = new Set(['der','die','das','den','dem','des','ein','eine','einen','einem','einer','eines']);
-  if (a.length===b.length&&a.some((token,index)=>token!==b[index]&&articles.has(token)&&articles.has(b[index]))) return "Check the article: its ending must match the noun's gender and its role in the sentence.";
+  if (a.length===b.length&&a.some((token,index)=>token!==b[index]&&articles.has(token)&&articles.has(b[index]))) return t("Check the article: its ending must match the noun's gender and its role in the sentence.");
   if (a.length === b.length && [...a].sort().join(' ') === [...b].sort().join(' ')) return b.some(token=>['weil','dass','obwohl','wenn','falls'].includes(token))
-    ? 'Check word order: after weil, dass, obwohl, wenn or falls, the conjugated verb belongs at the end of that clause.'
-    : 'Check word order: in a statement, the conjugated verb normally takes the second position.';
+    ? t('Check word order: after weil, dass, obwohl, wenn or falls, the conjugated verb belongs at the end of that clause.')
+    : t('Check word order: in a statement, the conjugated verb normally takes the second position.');
   return exercise.mode === 'type' || exercise.mode === 'sentence'
-    ? `Check spelling and the requested form. Use ae, oe or ue when your keyboard cannot type an umlaut. ${exercise.explanation}`
+    ? `${t('Check spelling and the requested form. Use ae, oe or ue when your keyboard cannot type an umlaut.')} ${exercise.explanation}`
     : exercise.explanation;
+}
+
+/**
+ * Feedback for a graded attempt. The server decides correctness; its reason text mirrors
+ * gradeFeedback() in English, so other support languages rebuild it locally from the same rules.
+ */
+export function attemptFeedback(exercise: Exercise & { caseSensitive?: boolean }, answer: string, serverReason?: string): string {
+  if (baseLanguage() === 'en' && serverReason) return serverReason;
+  return gradeFeedback(localizedExercise(exercise), answer);
 }
 
 /** Add plausible grammar choices while retaining every canonical answer tile. */
@@ -99,9 +109,9 @@ export function dueItems(progress: Progress, now = Date.now()): string[] {
     .map(item => item.itemId);
 }
 export function memoryLabel(repetitions: number, stability: number): string {
-  if (repetitions < 2) return 'Taking root';
-  if (stability < 7) return 'Growing';
-  return 'Settling in';
+  if (repetitions < 2) return t('Taking root');
+  if (stability < 7) return t('Growing');
+  return t('Settling in');
 }
 export function modeFor(exercise: Exercise): 'recognition' | 'production' | 'listening' {
   return exercise.mode === 'listen' ? 'listening' : exercise.mode === 'choice' ? 'recognition' : 'production';

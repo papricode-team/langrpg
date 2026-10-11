@@ -1,6 +1,10 @@
+import { supportText } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
+
 export interface TranslatedSentence {
   german: string;
   english: string;
+  /** Set when `english` was already produced by t() for a dynamic sentence. */
+  localized?: boolean;
 }
 
 export type Narrative = readonly TranslatedSentence[];
@@ -16,9 +20,12 @@ function escapeHtml(value: string): string {
   })[character]!);
 }
 
-/** Keep each translation attached to its complete German sentence. */
+/** Keep each translation attached to its complete German sentence, in the learner's support language. */
 export function renderNarrative(sentences: Narrative): string {
-  return sentences.map(sentence => `<span class="translated-sentence" lang="de" tabindex="0" data-translation="${escapeHtml(sentence.english)}">${escapeHtml(sentence.german)}</span>`).join(' ');
+  return sentences.map(sentence => {
+    const support = supportText(sentence);
+    return `<span class="translated-sentence" lang="de" tabindex="0" data-translation="${escapeHtml(support.text)}" data-translation-lang="${support.lang}">${escapeHtml(sentence.german)}</span>`;
+  }).join(' ');
 }
 
 /** Install once on a stable root; newly rendered encounters work through delegation. */
@@ -137,6 +144,7 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     timer = undefined;
     if (!active || !isAvailable(active)) { dismiss(); return; }
     tooltip.textContent = active.dataset.translation ?? '';
+    tooltip.lang = active.dataset.translationLang ?? 'en';
     tooltip.scrollTop = 0;
     // A modal dialog is in the browser's top layer, above overlays in the body.
     (active.closest('dialog[open]') ?? page.body).append(tooltip);

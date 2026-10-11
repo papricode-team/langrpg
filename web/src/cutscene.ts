@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import { cinematicBeats,type CutsceneKind,type CameraBeat,type Beat } from './cinematic-content';
 export {cinematicBeats,type CutsceneKind,type CameraBeat} from './cinematic-content';
+import { baseLanguage, localizedName, translatedText } from './i18n';
 
 /** A real transparent Phaser scene above the live world; keyboard/click skippable. */
 export class CutsceneScene extends Phaser.Scene {
@@ -10,6 +11,8 @@ export class CutsceneScene extends Phaser.Scene {
   private elapsed = 0;
   private line?: Phaser.GameObjects.Text;
   private speaker?: Phaser.GameObjects.Text;
+  /** A support-language subtitle under the German, only where English support does not show one either. */
+  private subtitle?: Phaser.GameObjects.Text;
   private finish?: () => void;
   private kind:CutsceneKind='arrival';
   constructor(private cameraBeat: (beat: CameraBeat | undefined) => void,private voice?:(speaker:string,german:string,clipId:string)=>void) { super({ key: 'cinematic' }); }
@@ -25,13 +28,14 @@ export class CutsceneScene extends Phaser.Scene {
     bars.fillRect(0,0,width,68*density).fillRect(0,height-140*density,width,140*density);
     this.speaker = this.add.text(width*.08,height-126*density,'',{fontFamily:'Georgia, serif',fontSize:`${15*density}px`,color:'#e8cb89'});
     this.line = this.add.text(width*.08,height-98*density,'',{fontFamily:'Georgia, serif',fontSize:`${22*density}px`,color:'#fff3da',wordWrap:{width:width*.84}});
+    this.subtitle = baseLanguage()==='en' ? undefined : this.add.text(width*.08,height-34*density,'',{fontFamily:'Georgia, serif',fontSize:`${14*density}px`,color:'#e4dcc8',fontStyle:'italic',wordWrap:{width:width*.84}});
     this.add.text(width*.92,23*density,'E / ENTER · WEITER',{fontFamily:'Arial',fontSize:`${11*density}px`,color:'#e4dcc8'}).setOrigin(1,0);
     this.input.on('pointerdown',()=>this.next());
     this.input.keyboard?.on('keydown', (event:KeyboardEvent) => { if(event.code==='Escape')this.complete(); else if(['Enter','KeyE','Space'].includes(event.code))this.next(); });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{ this.cameraBeat(undefined); const done=this.finish;this.finish=undefined;done?.(); });
     this.present();
   }
-  private present() { const beat=this.beats[this.index]; this.elapsed=0;this.speaker?.setText(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker);this.line?.setText('');this.cameraBeat(beat);this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`); }
+  private present() { const beat=this.beats[this.index]; this.elapsed=0;this.speaker?.setText(localizedName(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker));this.line?.setText('');this.subtitle?.setText(translatedText({german:beat.german,english:''})??'');this.cameraBeat(beat);this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`); }
   private next() { if(++this.index>=this.beats.length)this.complete();else this.present(); }
   private complete() { this.scene.stop(); }
   update(_time:number,delta:number) {

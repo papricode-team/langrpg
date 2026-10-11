@@ -262,3 +262,5 @@
   .profile-dialog .palette-section>.form-label { margin:0; }
   .profile-dialog .palette { gap:6px; }
 }
+.grammar-route .grammar-note { border-left:3px solid #b39554; padding:6px 12px; background:#e8dfbd; color:#4d5c40; }
+.grammar-route .grammar-note strong { margin-right:6px; }

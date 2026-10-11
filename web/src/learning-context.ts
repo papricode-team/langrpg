@@ -1,8 +1,10 @@
 import type { Progress, CourseLevel } from './api';
 import type { CourseLexeme } from './course';
 import type {Exercise} from './content';
+import {baseLanguage,hasLexemeMeaning,lexemeMeaning} from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 
-export interface WordGloss { wordId:string; german:string; english:string; known:boolean; }
+/** `english` is the gloss in the support language; `translated` is false when only English exists. */
+export interface WordGloss { wordId:string; german:string; english:string; known:boolean; translated?:boolean; }
 export type GlossLookup = (surface:string) => WordGloss | undefined;
 
 /** Exact headwords win; uncertain imported inflections never gloss another word. */
@@ -25,7 +27,8 @@ export function createGlossLookup(lexicon:readonly CourseLexeme[], progress:Prog
     const entries=exact.get(key)??exact.get(key.toLocaleLowerCase('de'))??forms.get(key)??forms.get(key.toLocaleLowerCase('de'));
     if(entries?.length!==1)return;
     const word=entries[0], memory=progress.words[word.id];
-    return {wordId:word.id,german:word.article?`${word.article} ${word.lemma}`:word.lemma,english:word.english,known:memory?.evidence?.recognition?.status==='retained'};
+    const translated=baseLanguage()==='en'||hasLexemeMeaning(word);
+    return {wordId:word.id,german:word.article?`${word.article} ${word.lemma}`:word.lemma,english:lexemeMeaning(word),known:memory?.evidence?.recognition?.status==='retained',...(translated?{}:{translated:false})};
   };
 }
 
@@ -33,7 +36,8 @@ export function glossesForLine(text:string,lookup:GlossLookup):Record<string,str
   const glosses:Record<string,string>={};
   for(const surface of text.match(/\p{L}+/gu)??[]) {
     const gloss=lookup(surface);
-    if(gloss&&!gloss.known)glosses[surface.toLocaleLowerCase('de')]=`${gloss.german} — ${gloss.english}`;
+    // Without a support-language gloss the word stays tappable (it reveals the sentence) but shows no meaning.
+    if(gloss&&!gloss.known)glosses[surface.toLocaleLowerCase('de')]=gloss.translated===false?'':`${gloss.german} — ${gloss.english}`;
   }
   return glosses;
 }

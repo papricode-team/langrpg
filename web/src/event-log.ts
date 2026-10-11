@@ -1,4 +1,5 @@
 import { escapeHtml as e, icon } from './icons';
+import { baseLanguage, t } from './i18n';
 
 type LogEntry = { id: number; message: string; bad: boolean; at: Date };
 
@@ -18,8 +19,8 @@ export class EventLog {
 
   constructor() {
     this.host.className = 'event-log';
-    this.host.setAttribute('aria-label', 'Notifications and event log');
-    this.host.innerHTML = `<button type="button" class="event-log-toggle" aria-label="Open event log" aria-expanded="false" aria-controls="event-log-history">${icon('scroll')}<span class="event-log-count" hidden>0</span></button><section id="event-log-history" class="event-log-history" aria-label="Event log" hidden><header><strong>Event log</strong><button type="button" data-log-clear>Clear</button></header><ol></ol><p class="event-log-empty">Your adventure’s updates will appear here.</p></section><div class="event-log-recent"></div><div class="event-log-announcement" role="status" aria-live="polite" aria-atomic="true"></div>`;
+    this.host.setAttribute('aria-label', t('Notifications and event log'));
+    this.host.innerHTML = `<button type="button" class="event-log-toggle" aria-label="${e(t('Open event log'))}" aria-expanded="false" aria-controls="event-log-history">${icon('scroll')}<span class="event-log-count" hidden>0</span></button><section id="event-log-history" class="event-log-history" aria-label="${e(t('Event log'))}" hidden><header><strong>${e(t('Event log'))}</strong><button type="button" data-log-clear>${e(t('Clear'))}</button></header><ol></ol><p class="event-log-empty">${e(t('Your adventure’s updates will appear here.'))}</p></section><div class="event-log-recent"></div><div class="event-log-announcement" role="status" aria-live="polite" aria-atomic="true"></div>`;
     this.toggle = this.host.querySelector<HTMLButtonElement>('.event-log-toggle')!;
     this.history = this.host.querySelector<HTMLElement>('.event-log-history')!;
     this.recent = this.host.querySelector<HTMLElement>('.event-log-recent')!;
@@ -31,7 +32,7 @@ export class EventLog {
       this.entries = [];
       for (const id of this.timers.keys()) this.dismiss(id);
       this.renderHistory();
-      this.announcement.textContent = 'Event log cleared.';
+      this.announcement.textContent = t('Event log cleared.');
     });
     this.host.addEventListener('keydown', event => {
       if (event.key === 'Escape' && this.expanded) {
@@ -67,7 +68,7 @@ export class EventLog {
     const card = document.createElement('article');
     card.className = `event-log-notification${bad ? ' bad' : ''}`;
     card.dataset.logId = String(entry.id);
-    card.innerHTML = `${icon(bad ? 'clue' : 'check')}<div><small>${bad ? 'Needs attention' : 'Adventure update'} · ${this.time(entry)}</small><p>${e(message)}</p></div><button type="button" aria-label="Dismiss notification">${icon('close')}</button>`;
+    card.innerHTML = `${icon(bad ? 'clue' : 'check')}<div><small>${e(bad ? t('Needs attention') : t('Adventure update'))} · ${this.time(entry)}</small><p>${e(message)}</p></div><button type="button" aria-label="${e(t('Dismiss notification'))}">${icon('close')}</button>`;
     card.querySelector('button')!.addEventListener('click', () => this.dismiss(entry.id));
     const pause = () => window.clearTimeout(this.timers.get(entry.id));
     const resume = () => {
@@ -85,7 +86,7 @@ export class EventLog {
   }
 
   private time(entry: LogEntry) {
-    return entry.at.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return entry.at.toLocaleTimeString(baseLanguage(), { hour: '2-digit', minute: '2-digit' });
   }
 
   private renderHistory() {
@@ -101,7 +102,7 @@ export class EventLog {
     this.history.hidden = !expanded;
     this.recent.hidden = expanded;
     this.toggle.setAttribute('aria-expanded', String(expanded));
-    this.toggle.setAttribute('aria-label', expanded ? 'Close event log' : 'Open event log');
+    this.toggle.setAttribute('aria-label', expanded ? t('Close event log') : t('Open event log'));
   }
 
   private dismiss(id: number) {
@@ -126,7 +127,7 @@ export function installFormNotifications(notify: (message: string, bad: boolean)
     if (reporting) return;
     reporting = true;
     queueMicrotask(() => { reporting = false; });
-    const label = input.labels?.[0]?.textContent?.trim() || input.getAttribute('aria-label') || input.getAttribute('placeholder') || 'This field';
+    const label = input.labels?.[0]?.textContent?.trim() || input.getAttribute('aria-label') || input.getAttribute('placeholder') || t('This field');
     notify(`${label}: ${message}`, true);
     input.focus();
   };
@@ -143,7 +144,7 @@ export function installFormNotifications(notify: (message: string, bad: boolean)
     if (!input) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    report(input, input.value.trim() ? `Use at least ${input.minLength} characters.` : 'Please fill in this field.');
+    report(input, input.value.trim() ? t('Use at least {count} characters.', { count: input.minLength }) : t('Please fill in this field.'));
   };
   const input = (event: Event) => {
     if (event.target instanceof HTMLElement) event.target.removeAttribute('aria-invalid');
