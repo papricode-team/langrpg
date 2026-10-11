@@ -81,14 +81,15 @@ describe('shared simulation clock', () => {
 });
 
 describe('resident schedule reconstruction', () => {
-  it('walks continuous loops and returns home before resting for a complete day', () => {
-    for (const resident of maps.flatMap(map => createWorldResidents(map.id))) {
+  it.each(maps)('walks continuous loops and returns home before resting for a complete day in $id', map => {
+    for (const resident of createWorldResidents(map.id)) {
+      const maxStep = Math.max(...resident.segments.map(segment => Math.hypot(segment.velocityX, segment.velocityY))) / 2 + .01;
       let previous: ReturnType<typeof sampleResidentMotion> | undefined;
       for (let tick = 0; tick <= 1440; tick++) {
         const time = {elapsedSeconds: tick / 2, seed, dayLengthSeconds: 720};
         const schedule = sampleResidentSchedule(resident, time);
         const position = sampleResidentMotion(resident, schedule.sampleSeconds);
-        if (previous) expect(Math.hypot(position.x - previous.x, position.y - previous.y)).toBeLessThan(Math.max(...resident.segments.map(segment => Math.hypot(segment.velocityX, segment.velocityY))) / 2 + .01);
+        if (previous) expect(Math.hypot(position.x - previous.x, position.y - previous.y)).toBeLessThan(maxStep);
         if (schedule.homeReached) {
           expect(position.x).toBeCloseTo(resident.segments[0].from.x, 5);
           expect(position.y).toBeCloseTo(resident.segments[0].from.y, 5);
