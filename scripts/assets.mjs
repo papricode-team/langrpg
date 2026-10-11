@@ -9,7 +9,7 @@ const content = [
   ['audit-dialogue-levels.mjs'],
 ];
 const paint = [
-  ['prepare-terrain-hd.mjs'],
+  ['prepare-terrain-detail.mjs'],
   ['prepare-world-art.mjs'], ['prepare-world-variations.mjs'],
   ['prepare-world-animations.mjs', '--set', 'day'], ['prepare-world-animations.mjs', '--set', 'night'],
   ['prepare-interior-art.mjs'], ['prepare-interior-stills.mjs'], ['prepare-interior-effects.mjs'],

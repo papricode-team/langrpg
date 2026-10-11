@@ -20,7 +20,8 @@ export interface SceneryOverlay extends SceneryAnimation {
   offsetX:number;
   offsetY:number;
 }
-export interface SceneryAnimationManifest { version:number;framesPerAsset:number;terrain?:string;assets:Readonly<Record<string,SceneryAnimation>>; }
+export interface TerrainTile { key: string; x: number; y: number; width: number; height: number; crop?: { x: number; y: number; width: number; height: number }; }
+export interface SceneryAnimationManifest { version:number;framesPerAsset:number;terrain?:string;terrainTiles?:readonly TerrainTile[];assets:Readonly<Record<string,SceneryAnimation>>; }
 /** Include every layer when loading, checking the cache or releasing a period. */
 export function sceneryAnimationTextureKeys(manifest:SceneryAnimationManifest):readonly string[] {
   return [...new Set(Object.values(manifest.assets).flatMap(asset=>asset.base
@@ -34,6 +35,10 @@ export function sceneryTerrainKey(id: MapId, manifest?: SceneryAnimationManifest
   const base = manifest?.terrain === `${id}-terrain`
     || id === 'nebelstadt' && manifest?.terrain === 'nebelstadt-day-terrain';
   return base ? id : manifest?.terrain;
+}
+export function sceneryTerrainTextureKeys(id: MapId, manifest?: SceneryAnimationManifest): readonly string[] {
+  const base = sceneryTerrainKey(id, manifest);
+  return [...new Set([...(base ? [base] : []), ...(manifest?.terrainTiles ?? []).map(tile => tile.key)])];
 }
 /** Each placement has its own point in an authored cycle; all transforms stay fixed. */
 export function sampleSceneryFrame(animation:SceneryAnimation,id:string,seconds:number):string {

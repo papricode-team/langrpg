@@ -53,3 +53,9 @@ export function stitchPair(a, b, overlap, vertical = false, feather = 8) {
 export function stitchTerrain(tiles, overlap) {
   return stitchPair(stitchPair(tiles.nw, tiles.ne, overlap), stitchPair(tiles.sw, tiles.se, overlap), overlap, true);
 }
+
+export function stitchTerrainGrid(rows, overlap) {
+  if (!rows.length || rows.some(row => !row.length || row.length !== rows[0].length)) throw Error('Terrain grid must be rectangular');
+  const strips = rows.map(row => row.reduce((left, tile) => stitchPair(left, tile, overlap)));
+  return strips.reduce((top, strip) => stitchPair(top, strip, overlap, true));
+}

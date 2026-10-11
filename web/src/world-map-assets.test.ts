@@ -29,6 +29,12 @@ function fixture() {
 }
 
 describe('destination asset streaming', () => {
+  it('bypasses terrain and atlas copies cached by an earlier deployment', () => {
+    const mock = fixture();
+    mock.assets.load(getMap('waldruh'));
+    expect(mock.loader.image).toHaveBeenCalledWith('waldruh', `/assets/waldruh-terrain.webp?v=${__APP_VERSION__}`);
+    expect(mock.loader.atlas).toHaveBeenCalledWith('waldruh-props', `/assets/waldruh-props.webp?v=${__APP_VERSION__}`, `/assets/waldruh-props.json?v=${__APP_VERSION__}`);
+  });
   it('loads only terrain, local props and local people for an expedition', () => {
     expect(regionAssets(expedition('saffroncourt')).map(asset => asset.key)).toEqual(['saffroncourt', 'saffroncourt-props', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2']);
     expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations']);

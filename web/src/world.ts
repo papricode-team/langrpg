@@ -11,6 +11,7 @@ import { characterLayers, paintCharacter } from './modular-character';
 import { createWorldResidents, sampleResidentMotion } from './world-life';
 import { residentFacingLeft, residentWalkDistance, residentWalkFrame } from './resident-animation';
 import { WorldScenery } from './world-scenery';
+import { WorldTerrain } from './world-terrain';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 import { WorldMapAssets, regionPeopleKey, regionPeopleFrames } from './world-map-assets';
@@ -25,7 +26,7 @@ import { FrameTelemetry } from './world-performance';
 import { npcRoutine,residentRoutine,WorldBarkDirector,type RoutineLexeme,type WorldBark } from './world-routines';
 import type { Progress } from './api';
 import { CutsceneScene, type CutsceneKind, type CameraBeat } from './cutscene';
-import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sceneryTerrainTextureKeys, sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
 import { WorldClock, type WorldPeriod, type WorldTimeOptions, type WorldTimeState } from './world-clock';
 import { buildingEntrances, createInteriorNavigation, getInterior, interiorNpcAvailable, interiorObjectAvailable, interiors, type InteriorId, type InteriorSpec } from './interiors';
 import { WorldInterior } from './world-interior';
@@ -265,6 +266,10 @@ export class World {
     return this.scene.worldStats;
   }
 
+  getTerrainStats(): { width: number; height: number; pixelZoom: number } {
+    return this.scene.terrainStats;
+  }
+
   playCutscene(kind: CutsceneKind, ending?: string): Promise<void> {
     if (!this.scene.ready || this.motionMode === 'reduced' || this.motionMode === 'auto' && this.motionPreference.matches) return Promise.resolve();
     if (this.game.scene.isActive('cinematic')) return Promise.resolve();
@@ -476,7 +481,7 @@ class HarborScene extends Phaser.Scene {
   private lastAmbient = '';
   private periodFade?: Phaser.Tweens.Tween;
   private previousScenery?: WorldScenery;
-  private previousBackground?: Phaser.GameObjects.Image;
+  private previousBackground?: WorldTerrain | Phaser.GameObjects.Image;
   private previousPeriod?: WorldPeriod;
   private interior?: WorldInterior;
   private interiorSpec?: InteriorSpec;
@@ -492,7 +497,7 @@ class HarborScene extends Phaser.Scene {
   private reducedMotion = false;
   private navigation!: NavigationGrid;
   private mapSpec = getMap('lindenhafen');
-  private background?: Phaser.GameObjects.Image | Phaser.GameObjects.Graphics;
+  private background?: WorldTerrain | Phaser.GameObjects.Image | Phaser.GameObjects.Graphics;
   private objective?: string;
   private mapRevision = 0;
   private mapVisualsReady = false;
@@ -549,6 +554,11 @@ class HarborScene extends Phaser.Scene {
       animated: this.interior?.animatedObjectCount ?? this.scenery?.animatedObjectCount ?? 0, seconds: this.decorativeElapsed, period: this.period,...this.frames.snapshot() };
   }
 
+  get terrainStats(): { width: number; height: number; pixelZoom: number } {
+    const size = this.background instanceof WorldTerrain ? this.background.nativeSize : { width: 0, height: 0 };
+    return { ...size, pixelZoom: size.width ? this.cameras.main.zoom / (size.width / WIDTH) : 0 };
+  }
+
   constructor(private owner: World, time?: WorldTimeOptions) { super({ key: 'lindenhafen' }); this.clock = new WorldClock(time); this.period = this.clock.advance(0).period; }
 
   preload(): void {
@@ -589,8 +599,9 @@ class HarborScene extends Phaser.Scene {
       // Expedition day/night periods can share one authored detail sheet.
       if (!retainedPages.has(page) && this.textures.exists(page)) this.textures.remove(page);
     }
-    const terrain = sceneryTerrainKey(id, manifest);
-    if (terrain && terrain !== this.mapSpec.id && !retainedPages.has(terrain) && this.textures.exists(terrain)) this.textures.remove(terrain);
+    for (const terrain of sceneryTerrainTextureKeys(id, manifest)) {
+      if (terrain !== this.mapSpec.id && !retainedPages.has(terrain) && this.textures.exists(terrain)) this.textures.remove(terrain);
+    }
   }
 
   private applyPeriod(period: WorldPeriod): void {
@@ -599,7 +610,7 @@ class HarborScene extends Phaser.Scene {
     this.finishPeriodTransition();
     const previous = this.period;
     const oldScenery = this.scenery;
-    const oldBackground = this.background instanceof Phaser.GameObjects.Image ? this.background : undefined;
+    const oldBackground = this.background && 'setTexture' in this.background ? this.background : undefined;
     this.period = period;
     this.scenery = new WorldScenery(this, this.mapSpec.id, period);
     this.mapAnimationsReady = true;
@@ -611,7 +622,7 @@ class HarborScene extends Phaser.Scene {
     const terrain = requestedTerrain && this.textures.exists(requestedTerrain) ? requestedTerrain : this.mapSpec.id;
     if (oldBackground && previous !== period && this.tweens && !this.reducedMotion) {
       this.previousScenery = oldScenery; this.previousBackground = oldBackground; this.previousPeriod = previous;
-      this.background = this.add.image(0, 0, terrain).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000).setAlpha(0);
+      this.background = new WorldTerrain(this, terrain, manifest?.terrainTiles).setDepth(-1000).setAlpha(0);
       const fade = { alpha: 0 };
       this.scenery.setAlpha(0);
       this.periodFade = this.tweens.add({ targets: fade, alpha: 1, duration: 1300, ease: 'Sine.easeInOut',
@@ -619,7 +630,11 @@ class HarborScene extends Phaser.Scene {
         onComplete: () => this.finishPeriodTransition() });
     } else {
       oldScenery?.destroy();
-      if (oldBackground) oldBackground.setTexture(terrain).setDisplaySize(WIDTH, HEIGHT).setTint(timeAmbient(this.mapSpec.id, this.clock.advance(0).hour, period).terrain);
+      if (oldBackground) {
+        if (oldBackground instanceof WorldTerrain) oldBackground.setTexture(terrain, manifest?.terrainTiles);
+        else oldBackground.setTexture(terrain);
+        oldBackground.setDisplaySize(WIDTH, HEIGHT).setTint(timeAmbient(this.mapSpec.id, this.clock.advance(0).hour, period).terrain);
+      }
       if (previous !== period) this.releaseAnimationAssets(this.mapSpec.id, previous);
     }
     this.lastAmbient = '';
@@ -649,7 +664,7 @@ class HarborScene extends Phaser.Scene {
     if (ambientStamp !== this.lastAmbient && !this.interiorSpec) {
       this.lastAmbient = ambientStamp;
       const ambient = timeAmbient(this.mapSpec.id, state.hour, this.period);
-      if (this.background instanceof Phaser.GameObjects.Image) this.background.setTint(ambient.terrain);
+      if (this.background && 'setTint' in this.background) this.background.setTint(ambient.terrain);
       this.scenery?.setAmbientTint?.(ambient.scenery, ambient.light);
       for (const character of this.characters.values()) this.setCharacterAmbient(character);
       for (const { character } of this.residents) this.setCharacterAmbient(character);
@@ -766,7 +781,7 @@ class HarborScene extends Phaser.Scene {
         }
         this.background?.destroy();
         this.background = this.textures.exists(map.id)
-          ? this.add.image(0, 0, map.id).setOrigin(0).setDisplaySize(WIDTH, HEIGHT).setDepth(-1000).setTint(worldAmbient(map.id,this.period).terrain)
+          ? new WorldTerrain(this, map.id).setDepth(-1000).setTint(worldAmbient(map.id,this.period).terrain)
           : this.add.graphics().fillStyle(0x263b3c).fillRect(0, 0, WIDTH, HEIGHT).setDepth(-1000);
         this.scenery = new WorldScenery(this, map.id, this.period);
         this.scenery.setReducedMotion(this.reducedMotion);

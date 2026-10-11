@@ -10,3 +10,4 @@ art/source/terrain-hd/*-nw.png filter=lfs diff=lfs merge=lfs -text
 art/source/terrain-hd/*-ne.png filter=lfs diff=lfs merge=lfs -text
 art/source/terrain-hd/*-sw.png filter=lfs diff=lfs merge=lfs -text
 art/source/terrain-hd/*-se.png filter=lfs diff=lfs merge=lfs -text
+art/source/terrain-detail/*-[0-3]-[0-3].png filter=lfs diff=lfs merge=lfs -text

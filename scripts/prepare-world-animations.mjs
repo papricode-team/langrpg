@@ -70,6 +70,12 @@ for(const map of maps){
   await writeFile(resolve(root,`web/public/assets/${namespace}-animation-${batch.batch}.json`),JSON.stringify({frames,meta:{image:`${namespace}-animation-${batch.batch}.webp`,size:{w:1024,h:atlasH},scale:'1'}},null,2)+'\n');
   console.log(`${map}/${batch.batch}:24paintedframes →1024×${atlasH}`);
  }
+ if(set){
+  try{
+   const detail=JSON.parse(await readFile(resolve(root,`art/source/terrain-detail/${namespace}.json`),'utf8'));
+   manifest.terrainTiles=detail.runtimeTiles.map((tile,index)=>({key:tile.file.replace(/\.webp$/,''),x:index%2*768,y:Math.floor(index/2)*512,width:768,height:512,crop:tile.crop}));
+  }catch(error){if(error.code!=='ENOENT')throw error;}
+ }
  await writeFile(resolve(root,`web/public/assets/${namespace}-animations.json`),JSON.stringify(manifest,null,2)+'\n');
  console.log(`${map}:${Object.keys(manifest.assets).length}assets×6framesready`);
 }

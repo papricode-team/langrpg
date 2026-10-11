@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /** Crop references or stitch the selected ImageGen paintings. Does not generate art. */
 import sharp from 'sharp';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { stitchTerrain } from './terrain-stitch.mjs';
 
@@ -16,6 +17,13 @@ const periods = args.includes('--day') ? ['day'] : args.includes('--night') ? ['
 const corners = { nw: { left: 0, top: 0 }, ne: { left: 704, top: 0 }, sw: { left: 0, top: 448 }, se: { left: 704, top: 448 } };
 await mkdir(directory, { recursive: true });
 for (const town of towns.length ? towns : ['lindenhafen', 'waldruh', 'nebelstadt']) for (const period of periods) {
+  if (!args.includes('--references')) {
+    try {
+      await access(resolve(root, `art/source/terrain-detail/${town}-${period}.json`));
+      execFileSync(process.execPath, [resolve(root, 'scripts/prepare-terrain-detail.mjs'), town, `--${period}`], { stdio: 'inherit' });
+      continue;
+    } catch (error) { if (error.code !== 'ENOENT') throw error; }
+  }
   const name = `${town}-${period}`;
   const original = `${town}${period === 'night' || town === 'nebelstadt' ? `-${period}` : ''}-terrain`;
   const manifest = { version: 1, generator: 'Codex built-in ImageGen', original: `art/source/${original}.png`,

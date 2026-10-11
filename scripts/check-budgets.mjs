@@ -15,12 +15,12 @@ const art=assets.filter(path=>path.includes('/assets/')&&/\.(webp|png|jpg)$/.tes
 const artSizes=await Promise.all(art.map(async path=>({path,size:(await stat(path)).size})));
 for(const asset of artSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);
 const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
-// Three story towns each reserve 4 MiB for their larger day/night terrain.
+// Three story towns each reserve 16 MiB for eight detailed ground pieces.
 // Keep individual downloads bounded at 2 MiB and stream one destination.
-if(artTotal>112*1024*1024)throw new Error(`Distribution art budget exceeded: ${artTotal}`);
+if(artTotal>160*1024*1024)throw new Error(`Distribution art budget exceeded: ${artTotal}`);
 for(const town of ['lindenhafen','waldruh','nebelstadt']){
   const townBytes=artSizes.filter(item=>item.path.split('/').at(-1).startsWith(town)).reduce((sum,item)=>sum+item.size,0);
-  if(townBytes>20*1024*1024)throw new Error(`Region art budget exceeded: ${town}`);
+  if(townBytes>36*1024*1024)throw new Error(`Region art budget exceeded: ${town}`);
 }
 const audioSizes=await Promise.all(assets.filter(path=>/\.(mp3|ogg|wav)$/.test(path)).map(async path=>({path,size:(await stat(path)).size})));
 const audioTotal=audioSizes.reduce((sum,item)=>sum+item.size,0);

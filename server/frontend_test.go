@@ -16,7 +16,7 @@ func TestFrontendAndAPIShareServer(t *testing.T) {
 	if err := os.Mkdir(filepath.Join(directory, "assets"), 0755); err != nil {
 		t.Fatal(err)
 	}
-	for name, content := range map[string]string{"index.html": "<html>Game</html>", "assets/app.js": "console.log('game');", ".secret": "private"} {
+	for name, content := range map[string]string{"index.html": "<html>Game</html>", "assets/app.js": "console.log('game');", "assets/waldruh-terrain.webp": "terrain", "assets/waldruh-night-animations.json": "{}", ".secret": "private"} {
 		if err := os.WriteFile(filepath.Join(directory, name), []byte(content), 0644); err != nil {
 			t.Fatal(err)
 		}
@@ -62,6 +62,14 @@ func TestFrontendAndAPIShareServer(t *testing.T) {
 	}
 	if got := request(app, "GET", "/api/health", "", nil).Header().Get("Cache-Control"); got != "no-store" {
 		t.Fatalf("API cache: %s", got)
+	}
+	for _, asset := range []string{"/assets/waldruh-terrain.webp", "/assets/waldruh-night-animations.json"} {
+		if got := request(app, "GET", asset, "", nil).Header().Get("Cache-Control"); got != "no-cache" {
+			t.Fatalf("mutable artwork cache for %s: %s", asset, got)
+		}
+	}
+	if got := request(app, "GET", "/assets/app.js", "", nil).Header().Get("Cache-Control"); got != "public, max-age=604800" {
+		t.Fatalf("bundle cache: %s", got)
 	}
 	if _, err = newFrontendHandler(t.TempDir()); err == nil {
 		t.Fatal("missing build did not fail initialization")

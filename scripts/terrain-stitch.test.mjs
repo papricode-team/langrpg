@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { stitchPair, stitchTerrain } from './terrain-stitch.mjs';
+import { stitchPair, stitchTerrain, stitchTerrainGrid } from './terrain-stitch.mjs';
 
 test('four overlapping sections reconstruct a coordinate-labelled terrain without offsets', () => {
   const width = 56, height = 40, data = Buffer.alloc(width * height * 3);
@@ -27,4 +27,24 @@ test('stitching retains every pixel outside the overlap', () => {
     assert.ok(result.data.subarray((y * 64 + 40) * 3, (y + 1) * 64 * 3).every(c => c === 210));
   }
   assert.throws(() => stitchPair(a, { ...b, height: 29 }, 16), /matching edges/);
+});
+
+test('a sixteen-section grid retains registered coordinates across all three seams', () => {
+  const width = 72, height = 56, data = Buffer.alloc(width * height * 3);
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+    const i = (y * width + x) * 3;
+    data[i] = x * 3; data[i + 1] = y * 4; data[i + 2] = x + y;
+  }
+  const rows = Array.from({ length: 4 }, (_, row) => Array.from({ length: 4 }, (_, col) => {
+    const pixels = Buffer.alloc(24 * 20 * 3);
+    for (let y = 0; y < 20; y++) {
+      const start = ((row * 12 + y) * width + col * 16) * 3;
+      data.copy(pixels, y * 24 * 3, start, start + 24 * 3);
+    }
+    return { width: 24, height: 20, data: pixels };
+  }));
+  const result = stitchTerrainGrid(rows, 8);
+  assert.equal(result.width, width); assert.equal(result.height, height);
+  assert.deepEqual(result.data, data);
+  assert.throws(() => stitchTerrainGrid([rows[0], []], 8), /rectangular/);
 });

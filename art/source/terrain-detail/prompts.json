@@ -1,0 +1,1215 @@
+{
+  "version": 1,
+  "generator": "Codex built-in ImageGen",
+  "crop": {
+    "width": 432,
+    "height": 304,
+    "stepX": 368,
+    "stepY": 240,
+    "overlap": 64,
+    "rows": 4,
+    "columns": 4
+  },
+  "tiles": [
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 0,
+      "col": 0,
+      "stem": "lindenhafen-day-0-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 1 of 4, column 1 of 4.",
+      "file": "lindenhafen-day-0-0.png",
+      "references": [
+        "lindenhafen-day-0-0-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 0,
+      "col": 1,
+      "stem": "lindenhafen-day-0-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 1 of 4, column 2 of 4.",
+      "file": "lindenhafen-day-0-1.png",
+      "references": [
+        "lindenhafen-day-0-1-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 0,
+      "col": 2,
+      "stem": "lindenhafen-day-0-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 1 of 4, column 3 of 4.",
+      "file": "lindenhafen-day-0-2.png",
+      "references": [
+        "lindenhafen-day-0-2-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 0,
+      "col": 3,
+      "stem": "lindenhafen-day-0-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 1 of 4, column 4 of 4.",
+      "file": "lindenhafen-day-0-3.png",
+      "references": [
+        "lindenhafen-day-0-3-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 1,
+      "col": 0,
+      "stem": "lindenhafen-day-1-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 2 of 4, column 1 of 4.",
+      "file": "lindenhafen-day-1-0.png",
+      "references": [
+        "lindenhafen-day-1-0-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 1,
+      "col": 1,
+      "stem": "lindenhafen-day-1-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 2 of 4, column 2 of 4.",
+      "file": "lindenhafen-day-1-1.png",
+      "references": [
+        "lindenhafen-day-1-1-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 1,
+      "col": 2,
+      "stem": "lindenhafen-day-1-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 2 of 4, column 3 of 4.",
+      "file": "lindenhafen-day-1-2.png",
+      "references": [
+        "lindenhafen-day-1-2-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 1,
+      "col": 3,
+      "stem": "lindenhafen-day-1-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 2 of 4, column 4 of 4.",
+      "file": "lindenhafen-day-1-3.png",
+      "references": [
+        "lindenhafen-day-1-3-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 2,
+      "col": 0,
+      "stem": "lindenhafen-day-2-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 3 of 4, column 1 of 4.",
+      "file": "lindenhafen-day-2-0.png",
+      "references": [
+        "lindenhafen-day-2-0-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 2,
+      "col": 1,
+      "stem": "lindenhafen-day-2-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 3 of 4, column 2 of 4.",
+      "file": "lindenhafen-day-2-1.png",
+      "references": [
+        "lindenhafen-day-2-1-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 2,
+      "col": 2,
+      "stem": "lindenhafen-day-2-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 3 of 4, column 3 of 4.",
+      "file": "lindenhafen-day-2-2.png",
+      "references": [
+        "lindenhafen-day-2-2-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 2,
+      "col": 3,
+      "stem": "lindenhafen-day-2-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 3 of 4, column 4 of 4.",
+      "file": "lindenhafen-day-2-3.png",
+      "references": [
+        "lindenhafen-day-2-3-reference.png"
+      ]
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 3,
+      "col": 0,
+      "stem": "lindenhafen-day-3-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 4 of 4, column 1 of 4.",
+      "references": [
+        "lindenhafen-day-3-0-reference.png"
+      ],
+      "file": "lindenhafen-day-3-0.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 3,
+      "col": 1,
+      "stem": "lindenhafen-day-3-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 4 of 4, column 2 of 4.",
+      "references": [
+        "lindenhafen-day-3-1-reference.png"
+      ],
+      "file": "lindenhafen-day-3-1.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 3,
+      "col": 2,
+      "stem": "lindenhafen-day-3-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 4 of 4, column 3 of 4.",
+      "references": [
+        "lindenhafen-day-3-2-reference.png"
+      ],
+      "file": "lindenhafen-day-3-2.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "day",
+      "row": 3,
+      "col": 3,
+      "stem": "lindenhafen-day-3-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: lindenhafen, row 4 of 4, column 4 of 4.",
+      "references": [
+        "lindenhafen-day-3-3-reference.png"
+      ],
+      "file": "lindenhafen-day-3-3.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 0,
+      "col": 0,
+      "stem": "lindenhafen-night-0-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 1 of 4, column 1 of 4.",
+      "references": [
+        "lindenhafen-day-0-0.png",
+        "lindenhafen-night-0-0-reference.png"
+      ],
+      "file": "lindenhafen-night-0-0.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 0,
+      "col": 1,
+      "stem": "lindenhafen-night-0-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 1 of 4, column 2 of 4.",
+      "references": [
+        "lindenhafen-day-0-1.png",
+        "lindenhafen-night-0-1-reference.png"
+      ],
+      "file": "lindenhafen-night-0-1.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 0,
+      "col": 2,
+      "stem": "lindenhafen-night-0-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 1 of 4, column 3 of 4.",
+      "references": [
+        "lindenhafen-day-0-2.png",
+        "lindenhafen-night-0-2-reference.png"
+      ],
+      "file": "lindenhafen-night-0-2.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 0,
+      "col": 3,
+      "stem": "lindenhafen-night-0-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 1 of 4, column 4 of 4.",
+      "references": [
+        "lindenhafen-day-0-3.png",
+        "lindenhafen-night-0-3-reference.png"
+      ],
+      "file": "lindenhafen-night-0-3.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 1,
+      "col": 0,
+      "stem": "lindenhafen-night-1-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 2 of 4, column 1 of 4.",
+      "references": [
+        "lindenhafen-day-1-0.png",
+        "lindenhafen-night-1-0-reference.png"
+      ],
+      "file": "lindenhafen-night-1-0.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 1,
+      "col": 1,
+      "stem": "lindenhafen-night-1-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 2 of 4, column 2 of 4.",
+      "references": [
+        "lindenhafen-day-1-1.png",
+        "lindenhafen-night-1-1-reference.png"
+      ],
+      "file": "lindenhafen-night-1-1.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 1,
+      "col": 2,
+      "stem": "lindenhafen-night-1-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 2 of 4, column 3 of 4.",
+      "references": [
+        "lindenhafen-day-1-2.png",
+        "lindenhafen-night-1-2-reference.png"
+      ],
+      "file": "lindenhafen-night-1-2.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 1,
+      "col": 3,
+      "stem": "lindenhafen-night-1-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 2 of 4, column 4 of 4.",
+      "references": [
+        "lindenhafen-day-1-3.png",
+        "lindenhafen-night-1-3-reference.png"
+      ],
+      "file": "lindenhafen-night-1-3.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 2,
+      "col": 0,
+      "stem": "lindenhafen-night-2-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 3 of 4, column 1 of 4.",
+      "references": [
+        "lindenhafen-day-2-0.png",
+        "lindenhafen-night-2-0-reference.png"
+      ],
+      "file": "lindenhafen-night-2-0.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 2,
+      "col": 1,
+      "stem": "lindenhafen-night-2-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 3 of 4, column 2 of 4.",
+      "references": [
+        "lindenhafen-day-2-1.png",
+        "lindenhafen-night-2-1-reference.png"
+      ],
+      "file": "lindenhafen-night-2-1.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 2,
+      "col": 2,
+      "stem": "lindenhafen-night-2-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 3 of 4, column 3 of 4.",
+      "references": [
+        "lindenhafen-day-2-2.png",
+        "lindenhafen-night-2-2-reference.png"
+      ],
+      "file": "lindenhafen-night-2-2.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 2,
+      "col": 3,
+      "stem": "lindenhafen-night-2-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 3 of 4, column 4 of 4.",
+      "references": [
+        "lindenhafen-day-2-3.png",
+        "lindenhafen-night-2-3-reference.png"
+      ],
+      "file": "lindenhafen-night-2-3.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 3,
+      "col": 0,
+      "stem": "lindenhafen-night-3-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 4 of 4, column 1 of 4.",
+      "references": [
+        "lindenhafen-day-3-0.png",
+        "lindenhafen-night-3-0-reference.png"
+      ],
+      "file": "lindenhafen-night-3-0.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 3,
+      "col": 1,
+      "stem": "lindenhafen-night-3-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 4 of 4, column 2 of 4.",
+      "references": [
+        "lindenhafen-day-3-1.png",
+        "lindenhafen-night-3-1-reference.png"
+      ],
+      "file": "lindenhafen-night-3-1.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 3,
+      "col": 2,
+      "stem": "lindenhafen-night-3-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 4 of 4, column 3 of 4.",
+      "references": [
+        "lindenhafen-day-3-2.png",
+        "lindenhafen-night-3-2-reference.png"
+      ],
+      "file": "lindenhafen-night-3-2.png"
+    },
+    {
+      "town": "lindenhafen",
+      "period": "night",
+      "row": 3,
+      "col": 3,
+      "stem": "lindenhafen-night-3-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: lindenhafen, row 4 of 4, column 4 of 4.",
+      "references": [
+        "lindenhafen-day-3-3.png",
+        "lindenhafen-night-3-3-reference.png"
+      ],
+      "file": "lindenhafen-night-3-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 0,
+      "col": 0,
+      "stem": "nebelstadt-day-0-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 1 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-0-0-reference.png"
+      ],
+      "file": "nebelstadt-day-0-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 0,
+      "col": 1,
+      "stem": "nebelstadt-day-0-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 1 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-0-1-reference.png"
+      ],
+      "file": "nebelstadt-day-0-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 0,
+      "col": 2,
+      "stem": "nebelstadt-day-0-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 1 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-0-2-reference.png"
+      ],
+      "file": "nebelstadt-day-0-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 0,
+      "col": 3,
+      "stem": "nebelstadt-day-0-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 1 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-0-3-reference.png"
+      ],
+      "file": "nebelstadt-day-0-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 1,
+      "col": 0,
+      "stem": "nebelstadt-day-1-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 2 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-1-0-reference.png"
+      ],
+      "file": "nebelstadt-day-1-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 1,
+      "col": 1,
+      "stem": "nebelstadt-day-1-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 2 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-1-1-reference.png"
+      ],
+      "file": "nebelstadt-day-1-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 1,
+      "col": 2,
+      "stem": "nebelstadt-day-1-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 2 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-1-2-reference.png"
+      ],
+      "file": "nebelstadt-day-1-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 1,
+      "col": 3,
+      "stem": "nebelstadt-day-1-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 2 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-1-3-reference.png"
+      ],
+      "file": "nebelstadt-day-1-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 2,
+      "col": 0,
+      "stem": "nebelstadt-day-2-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 3 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-2-0-reference.png"
+      ],
+      "file": "nebelstadt-day-2-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 2,
+      "col": 1,
+      "stem": "nebelstadt-day-2-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 3 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-2-1-reference.png"
+      ],
+      "file": "nebelstadt-day-2-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 2,
+      "col": 2,
+      "stem": "nebelstadt-day-2-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 3 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-2-2-reference.png"
+      ],
+      "file": "nebelstadt-day-2-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 2,
+      "col": 3,
+      "stem": "nebelstadt-day-2-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 3 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-2-3-reference.png"
+      ],
+      "file": "nebelstadt-day-2-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 3,
+      "col": 0,
+      "stem": "nebelstadt-day-3-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 4 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-3-0-reference.png"
+      ],
+      "file": "nebelstadt-day-3-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 3,
+      "col": 1,
+      "stem": "nebelstadt-day-3-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 4 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-3-1-reference.png"
+      ],
+      "file": "nebelstadt-day-3-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 3,
+      "col": 2,
+      "stem": "nebelstadt-day-3-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 4 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-3-2-reference.png"
+      ],
+      "file": "nebelstadt-day-3-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "day",
+      "row": 3,
+      "col": 3,
+      "stem": "nebelstadt-day-3-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: nebelstadt, row 4 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-3-3-reference.png"
+      ],
+      "file": "nebelstadt-day-3-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 0,
+      "col": 0,
+      "stem": "nebelstadt-night-0-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 1 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-0-0.png",
+        "nebelstadt-night-0-0-reference.png"
+      ],
+      "file": "nebelstadt-night-0-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 0,
+      "col": 1,
+      "stem": "nebelstadt-night-0-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 1 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-0-1.png",
+        "nebelstadt-night-0-1-reference.png"
+      ],
+      "file": "nebelstadt-night-0-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 0,
+      "col": 2,
+      "stem": "nebelstadt-night-0-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 1 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-0-2.png",
+        "nebelstadt-night-0-2-reference.png"
+      ],
+      "file": "nebelstadt-night-0-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 0,
+      "col": 3,
+      "stem": "nebelstadt-night-0-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 1 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-0-3.png",
+        "nebelstadt-night-0-3-reference.png"
+      ],
+      "file": "nebelstadt-night-0-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 1,
+      "col": 0,
+      "stem": "nebelstadt-night-1-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 2 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-1-0.png",
+        "nebelstadt-night-1-0-reference.png"
+      ],
+      "file": "nebelstadt-night-1-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 1,
+      "col": 1,
+      "stem": "nebelstadt-night-1-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 2 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-1-1.png",
+        "nebelstadt-night-1-1-reference.png"
+      ],
+      "file": "nebelstadt-night-1-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 1,
+      "col": 2,
+      "stem": "nebelstadt-night-1-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 2 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-1-2.png",
+        "nebelstadt-night-1-2-reference.png"
+      ],
+      "file": "nebelstadt-night-1-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 1,
+      "col": 3,
+      "stem": "nebelstadt-night-1-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 2 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-1-3.png",
+        "nebelstadt-night-1-3-reference.png"
+      ],
+      "file": "nebelstadt-night-1-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 2,
+      "col": 0,
+      "stem": "nebelstadt-night-2-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 3 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-2-0.png",
+        "nebelstadt-night-2-0-reference.png"
+      ],
+      "file": "nebelstadt-night-2-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 2,
+      "col": 1,
+      "stem": "nebelstadt-night-2-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 3 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-2-1.png",
+        "nebelstadt-night-2-1-reference.png"
+      ],
+      "file": "nebelstadt-night-2-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 2,
+      "col": 2,
+      "stem": "nebelstadt-night-2-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 3 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-2-2.png",
+        "nebelstadt-night-2-2-reference.png"
+      ],
+      "file": "nebelstadt-night-2-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 2,
+      "col": 3,
+      "stem": "nebelstadt-night-2-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 3 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-2-3.png",
+        "nebelstadt-night-2-3-reference.png"
+      ],
+      "file": "nebelstadt-night-2-3.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 3,
+      "col": 0,
+      "stem": "nebelstadt-night-3-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 4 of 4, column 1 of 4.",
+      "references": [
+        "nebelstadt-day-3-0.png",
+        "nebelstadt-night-3-0-reference.png"
+      ],
+      "file": "nebelstadt-night-3-0.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 3,
+      "col": 1,
+      "stem": "nebelstadt-night-3-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 4 of 4, column 2 of 4.",
+      "references": [
+        "nebelstadt-day-3-1.png",
+        "nebelstadt-night-3-1-reference.png"
+      ],
+      "file": "nebelstadt-night-3-1.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 3,
+      "col": 2,
+      "stem": "nebelstadt-night-3-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 4 of 4, column 3 of 4.",
+      "references": [
+        "nebelstadt-day-3-2.png",
+        "nebelstadt-night-3-2-reference.png"
+      ],
+      "file": "nebelstadt-night-3-2.png"
+    },
+    {
+      "town": "nebelstadt",
+      "period": "night",
+      "row": 3,
+      "col": 3,
+      "stem": "nebelstadt-night-3-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: nebelstadt, row 4 of 4, column 4 of 4.",
+      "references": [
+        "nebelstadt-day-3-3.png",
+        "nebelstadt-night-3-3-reference.png"
+      ],
+      "file": "nebelstadt-night-3-3.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 0,
+      "col": 0,
+      "stem": "waldruh-day-0-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 1 of 4, column 1 of 4.",
+      "file": "waldruh-day-0-0.png",
+      "references": [
+        "waldruh-day-0-0-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 0,
+      "col": 1,
+      "stem": "waldruh-day-0-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 1 of 4, column 2 of 4.",
+      "file": "waldruh-day-0-1.png",
+      "references": [
+        "waldruh-day-0-1-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 0,
+      "col": 2,
+      "stem": "waldruh-day-0-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 1 of 4, column 3 of 4.",
+      "file": "waldruh-day-0-2.png",
+      "references": [
+        "waldruh-day-0-2-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 0,
+      "col": 3,
+      "stem": "waldruh-day-0-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 1 of 4, column 4 of 4.",
+      "file": "waldruh-day-0-3.png",
+      "references": [
+        "waldruh-day-0-3-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 1,
+      "col": 0,
+      "stem": "waldruh-day-1-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 2 of 4, column 1 of 4.",
+      "file": "waldruh-day-1-0.png",
+      "references": [
+        "waldruh-day-1-0-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 1,
+      "col": 1,
+      "stem": "waldruh-day-1-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 2 of 4, column 2 of 4.",
+      "file": "waldruh-day-1-1.png",
+      "references": [
+        "waldruh-day-1-1-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 1,
+      "col": 2,
+      "stem": "waldruh-day-1-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 2 of 4, column 3 of 4.",
+      "file": "waldruh-day-1-2.png",
+      "references": [
+        "waldruh-day-1-2-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 1,
+      "col": 3,
+      "stem": "waldruh-day-1-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 2 of 4, column 4 of 4.",
+      "file": "waldruh-day-1-3.png",
+      "references": [
+        "waldruh-day-1-3-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 2,
+      "col": 0,
+      "stem": "waldruh-day-2-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 3 of 4, column 1 of 4.",
+      "file": "waldruh-day-2-0.png",
+      "references": [
+        "waldruh-day-2-0-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 2,
+      "col": 1,
+      "stem": "waldruh-day-2-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 3 of 4, column 2 of 4.",
+      "file": "waldruh-day-2-1.png",
+      "references": [
+        "waldruh-day-2-1-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 2,
+      "col": 2,
+      "stem": "waldruh-day-2-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 3 of 4, column 3 of 4.",
+      "file": "waldruh-day-2-2.png",
+      "references": [
+        "waldruh-day-2-2-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 2,
+      "col": 3,
+      "stem": "waldruh-day-2-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 3 of 4, column 4 of 4.",
+      "file": "waldruh-day-2-3.png",
+      "references": [
+        "waldruh-day-2-3-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 3,
+      "col": 0,
+      "stem": "waldruh-day-3-0",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 4 of 4, column 1 of 4.",
+      "file": "waldruh-day-3-0.png",
+      "references": [
+        "waldruh-day-3-0-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 3,
+      "col": 1,
+      "stem": "waldruh-day-3-1",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 4 of 4, column 2 of 4.",
+      "file": "waldruh-day-3-1.png",
+      "references": [
+        "waldruh-day-3-1-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 3,
+      "col": 2,
+      "stem": "waldruh-day-3-2",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 4 of 4, column 3 of 4.",
+      "file": "waldruh-day-3-2.png",
+      "references": [
+        "waldruh-day-3-2-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "day",
+      "row": 3,
+      "col": 3,
+      "stem": "waldruh-day-3-3",
+      "prompt": "Use case: precise-object-edit. Asset: a small registered section of a high-resolution game terrain. Edit target: Image 1. Repaint this crop with genuinely finer native detail for a close Retina camera, with every paving stone's edges and mineral grain crisply resolved, coherent small mortar joints, distinct grass blades, natural soil grains, individual small rock facets and thin coherent water ripples. Use a large landscape raster about 1536 x 1080 (same 432:304 aspect). Keep the identical camera perspective, framing, exact path/curb outlines, water banks, retaining walls, staircase and bridge positions and silhouettes, and the same locations and sizes of every large stone. Keep all four outer edges registered exactly; this is one of sixteen overlapping sections of the same map. Match the realistic hand-painted game style, colors and DAYLIGHT of the reference. Replace blurry wormlike/melted scribbles with clearly separated plausible paving stones and crisp natural terrain texture. No new buildings, props, people, signs, lettering, leaves floating in foreground, depth of field, blur, sharpening halos, film grain, noisy overlays, vignette or watermark. Do not extend or reframe the crop. Result must read sharply at native pixel size. Section: waldruh, row 4 of 4, column 4 of 4.",
+      "file": "waldruh-day-3-3.png",
+      "references": [
+        "waldruh-day-3-3-reference.png"
+      ]
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 0,
+      "col": 0,
+      "stem": "waldruh-night-0-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 1 of 4, column 1 of 4.",
+      "references": [
+        "waldruh-day-0-0.png",
+        "waldruh-night-0-0-reference.png"
+      ],
+      "file": "waldruh-night-0-0.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 0,
+      "col": 1,
+      "stem": "waldruh-night-0-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 1 of 4, column 2 of 4.",
+      "references": [
+        "waldruh-day-0-1.png",
+        "waldruh-night-0-1-reference.png"
+      ],
+      "file": "waldruh-night-0-1.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 0,
+      "col": 2,
+      "stem": "waldruh-night-0-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 1 of 4, column 3 of 4.",
+      "references": [
+        "waldruh-day-0-2.png",
+        "waldruh-night-0-2-reference.png"
+      ],
+      "file": "waldruh-night-0-2.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 0,
+      "col": 3,
+      "stem": "waldruh-night-0-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 1 of 4, column 4 of 4.",
+      "references": [
+        "waldruh-day-0-3.png",
+        "waldruh-night-0-3-reference.png"
+      ],
+      "file": "waldruh-night-0-3.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 1,
+      "col": 0,
+      "stem": "waldruh-night-1-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 2 of 4, column 1 of 4.",
+      "references": [
+        "waldruh-day-1-0.png",
+        "waldruh-night-1-0-reference.png"
+      ],
+      "file": "waldruh-night-1-0.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 1,
+      "col": 1,
+      "stem": "waldruh-night-1-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 2 of 4, column 2 of 4.",
+      "references": [
+        "waldruh-day-1-1.png",
+        "waldruh-night-1-1-reference.png"
+      ],
+      "file": "waldruh-night-1-1.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 1,
+      "col": 2,
+      "stem": "waldruh-night-1-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 2 of 4, column 3 of 4.",
+      "references": [
+        "waldruh-day-1-2.png",
+        "waldruh-night-1-2-reference.png"
+      ],
+      "file": "waldruh-night-1-2.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 1,
+      "col": 3,
+      "stem": "waldruh-night-1-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 2 of 4, column 4 of 4.",
+      "references": [
+        "waldruh-day-1-3.png",
+        "waldruh-night-1-3-reference.png"
+      ],
+      "file": "waldruh-night-1-3.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 2,
+      "col": 0,
+      "stem": "waldruh-night-2-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 3 of 4, column 1 of 4.",
+      "references": [
+        "waldruh-day-2-0.png",
+        "waldruh-night-2-0-reference.png"
+      ],
+      "file": "waldruh-night-2-0.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 2,
+      "col": 1,
+      "stem": "waldruh-night-2-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 3 of 4, column 2 of 4.",
+      "references": [
+        "waldruh-day-2-1.png",
+        "waldruh-night-2-1-reference.png"
+      ],
+      "file": "waldruh-night-2-1.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 2,
+      "col": 2,
+      "stem": "waldruh-night-2-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 3 of 4, column 3 of 4.",
+      "references": [
+        "waldruh-day-2-2.png",
+        "waldruh-night-2-2-reference.png"
+      ],
+      "file": "waldruh-night-2-2.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 2,
+      "col": 3,
+      "stem": "waldruh-night-2-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 3 of 4, column 4 of 4.",
+      "references": [
+        "waldruh-day-2-3.png",
+        "waldruh-night-2-3-reference.png"
+      ],
+      "file": "waldruh-night-2-3.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 3,
+      "col": 0,
+      "stem": "waldruh-night-3-0",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 4 of 4, column 1 of 4.",
+      "references": [
+        "waldruh-day-3-0.png",
+        "waldruh-night-3-0-reference.png"
+      ],
+      "file": "waldruh-night-3-0.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 3,
+      "col": 1,
+      "stem": "waldruh-night-3-1",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 4 of 4, column 2 of 4.",
+      "references": [
+        "waldruh-day-3-1.png",
+        "waldruh-night-3-1-reference.png"
+      ],
+      "file": "waldruh-night-3-1.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 3,
+      "col": 2,
+      "stem": "waldruh-night-3-2",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 4 of 4, column 3 of 4.",
+      "references": [
+        "waldruh-day-3-2.png",
+        "waldruh-night-3-2-reference.png"
+      ],
+      "file": "waldruh-night-3-2.png"
+    },
+    {
+      "town": "waldruh",
+      "period": "night",
+      "row": 3,
+      "col": 3,
+      "stem": "waldruh-night-3-3",
+      "prompt": "Use case: lighting-weather. Asset: registered high-resolution nighttime game terrain section. Image 1 is the edit target: the selected crisp DAYTIME section. Image 2 is a LIGHTING/COLOR reference only: the original NIGHT crop of exactly the same area. Change only the lighting and palette of Image 1 to match the moonlit cool blue-gray night in Image 2. Keep every single path outline, paving stone, mortar edge, grass blade, soil grain, rock facet, river bank, step, wall, bridge and water ripple identical in position and crispness to Image 1. Preserve the exact framing, projection and all four registered outer edges. Native raster should remain approximately 1536 x 1080, identical 432:304 crop aspect. No additional scenery, new lanterns, buildings, props, people, moon, text, mist, depth of field, blur, broad brushstroke smudges, sharpening halos, noisy overlays, vignette or watermark. The result must have as much native small-detail resolution as the day image, with cool nocturnal illumination matching Image 2. Section: waldruh, row 4 of 4, column 4 of 4.",
+      "references": [
+        "waldruh-day-3-3.png",
+        "waldruh-night-3-3-reference.png"
+      ],
+      "file": "waldruh-night-3-3.png"
+    }
+  ]
+}

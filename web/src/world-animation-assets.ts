@@ -1,7 +1,8 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
-import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, type SceneryAnimationManifest } from './scenery-animation';
+import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sceneryTerrainTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
+import { worldAssetUrl } from './world-asset-url';
 
 /** A loader completion is only a batch boundary; failed files are not ready art. */
 export class WorldAnimationAssets {
@@ -11,9 +12,8 @@ export class WorldAnimationAssets {
   ready(id: MapId, period: WorldPeriod): boolean {
     const manifest = this.scene.cache.json.get(sceneryAnimationManifestKey(id, period)) as SceneryAnimationManifest | undefined;
     if (!manifest) return false;
-    const terrain = sceneryTerrainKey(id, manifest);
     return sceneryAnimationTextureKeys(manifest).every(key => this.scene.textures.exists(key))
-      && (!terrain || this.scene.textures.exists(terrain));
+      && sceneryTerrainTextureKeys(id, manifest).every(key => this.scene.textures.exists(key));
   }
 
   pending(id: MapId, period: WorldPeriod): boolean {
@@ -28,6 +28,7 @@ export class WorldAnimationAssets {
       if (manifest) {
         for (const key of sceneryAnimationTextureKeys(manifest)) keys.add(key);
         if (manifest.terrain) keys.add(manifest.terrain);
+        for (const tile of manifest.terrainTiles ?? []) keys.add(tile.key);
       }
     }
     return keys;
@@ -41,8 +42,7 @@ export class WorldAnimationAssets {
       const manifest = this.scene.cache.json.get(sceneryAnimationManifestKey(id, retainedPeriod)) as SceneryAnimationManifest | undefined;
       if (!manifest) continue;
       for (const key of sceneryAnimationTextureKeys(manifest)) keys.add(key);
-      const terrain = sceneryTerrainKey(id, manifest);
-      if (terrain) keys.add(terrain);
+      for (const terrain of sceneryTerrainTextureKeys(id, manifest)) keys.add(terrain);
     }
     return keys;
   }
@@ -55,10 +55,13 @@ export class WorldAnimationAssets {
     this.requests.set(key, onLoaded ? [onLoaded] : []);
     const enqueue = (manifest: SceneryAnimationManifest) => {
       for (const page of sceneryAnimationTextureKeys(manifest)) {
-        if (!this.scene.textures.exists(page)) this.scene.load.atlas(page, `/assets/${page}.webp`, `/assets/${page}.json`);
+        if (!this.scene.textures.exists(page)) this.scene.load.atlas(page, worldAssetUrl(`/assets/${page}.webp`), worldAssetUrl(`/assets/${page}.json`));
       }
       const terrain = sceneryTerrainKey(id, manifest);
-      if (terrain && !this.scene.textures.exists(terrain)) this.scene.load.image(terrain, `/assets/${manifest.terrain}.webp`);
+      if (terrain && !this.scene.textures.exists(terrain)) this.scene.load.image(terrain, worldAssetUrl(`/assets/${manifest.terrain}.webp`));
+      for (const tile of manifest.terrainTiles ?? []) {
+        if (!this.scene.textures.exists(tile.key)) this.scene.load.image(tile.key, worldAssetUrl(`/assets/${tile.key}.webp`));
+      }
     };
     const manifestEvent = `filecomplete-json-${key}`;
     const onManifestLoaded = (_key: string, _type: string, manifest: SceneryAnimationManifest) => enqueue(manifest);
@@ -66,7 +69,7 @@ export class WorldAnimationAssets {
     if (cached) enqueue(cached);
     else {
       this.scene.load.once(manifestEvent, onManifestLoaded);
-      this.scene.load.json(key, `/assets/${id}-${period}-animations.json`);
+      this.scene.load.json(key, worldAssetUrl(`/assets/${id}-${period}-animations.json`));
     }
     this.scene.load.once('complete', () => {
       this.scene.load.off(manifestEvent, onManifestLoaded);

@@ -1,6 +1,7 @@
 import type * as Phaser from 'phaser';
 import type { WorldMapSpec } from './maps';
 import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
+import { worldAssetUrl } from './world-asset-url';
 
 const originalMaps = new Set(['lindenhafen', 'waldruh', 'nebelstadt']);
 const peoplePageStarts = [0, 4, 10] as const;
@@ -47,8 +48,8 @@ export class WorldMapAssets {
     if (!missing.length) { onLoaded?.(); return; }
     this.requests.set(map.id, onLoaded ? [onLoaded] : []);
     for (const asset of missing) {
-      if (asset.atlas) this.scene.load.atlas(asset.key, asset.image, asset.atlas);
-      else this.scene.load.image(asset.key, asset.image);
+      if (asset.atlas) this.scene.load.atlas(asset.key, worldAssetUrl(asset.image), worldAssetUrl(asset.atlas));
+      else this.scene.load.image(asset.key, worldAssetUrl(asset.image));
     }
     this.scene.load.once('complete', () => {
       const callbacks = this.requests.get(map.id) ?? [];

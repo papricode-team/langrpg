@@ -1,5 +1,8 @@
 # High-resolution story terrain
 
+These first-pass four-section masters are retained for provenance. Live close-up
+terrain now uses the [sixteen-section masters](../terrain-detail/README.md).
+
 Generated on 2026-10-11 with Codex's built-in ImageGen tool. The selected
 24 opaque PNG masters cover Lindenhafen, Waldruh and Nebelstadt, with four
 overlapping sections per town for both daytime and nighttime. Exact generation

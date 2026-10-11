@@ -57,7 +57,13 @@ func newFrontendHandler(directory string) (http.Handler, error) {
 		if contentType := mime.TypeByExtension(path.Ext(name)); contentType != "" {
 			w.Header().Set("Content-Type", contentType)
 		}
-		w.Header().Set("Cache-Control", "public, max-age=604800")
+		// Named art and manifests are replaced in place; revalidate them so a
+		// refreshed client cannot combine a new renderer with last week's art.
+		if strings.HasPrefix(name, "assets/") && (path.Ext(name) == ".webp" || path.Ext(name) == ".json") {
+			w.Header().Set("Cache-Control", "no-cache")
+		} else {
+			w.Header().Set("Cache-Control", "public, max-age=604800")
+		}
 		w.Header().Add("Vary", "Accept-Encoding")
 		if acceptsGzip(r.Header.Get("Accept-Encoding")) {
 			if compressed, err := fs.Stat(public, name+".gz"); err == nil && compressed.Mode().IsRegular() {

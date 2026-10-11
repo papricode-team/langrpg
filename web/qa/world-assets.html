@@ -27,7 +27,7 @@ if(import.meta.env.DEV){
  document.querySelector('#terrain').addEventListener('change',event=>world.setTerrainOnly(event.target.checked));
  document.querySelector('#calm').addEventListener('change',event=>world.setMotionPreference(event.target.checked?'reduced':'full'));
  document.querySelector('#tour').addEventListener('change',event=>world.setWatchMode(event.target.checked));
- const timer=setInterval(()=>{const stats=world.getWorldStats(),clock=world.getWorldTime();status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${stats.seconds.toFixed(1)} animation seconds`:'Loading destination artwork…'},250);
+ const timer=setInterval(()=>{const stats=world.getWorldStats(),clock=world.getWorldTime(),ground=world.getTerrainStats();status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${stats.seconds.toFixed(1)} animation seconds`:'Loading destination artwork…'},250);
  addEventListener('pagehide',()=>{clearInterval(timer);world.destroy()},{once:true});
 }else status.textContent='This fixture is available on the development server.';
 </script></body></html>

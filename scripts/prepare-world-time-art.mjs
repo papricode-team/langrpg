@@ -8,6 +8,11 @@ for (const map of maps.length ? maps : ['lindenhafen', 'waldruh', 'nebelstadt'])
   for (const period of ['day', 'night']) {
     // Approved multi-section masters take precedence over the old small plate.
     try {
+      await access(`art/source/terrain-detail/${map}-${period}.json`);
+      execFileSync(process.execPath, ['scripts/prepare-terrain-detail.mjs', map, `--${period}`], { stdio: 'inherit' });
+      continue;
+    } catch (error) { if (error.code !== 'ENOENT') throw error; }
+    try {
       await access(`art/source/terrain-hd/${map}-${period}.json`);
       execFileSync(process.execPath, ['scripts/prepare-terrain-hd.mjs', map, `--${period}`], { stdio: 'inherit' });
       continue;

@@ -47,6 +47,29 @@ function fixture() {
 }
 
 describe('day/night asset streaming', () => {
+  it('waits for every high-resolution ground piece and retains both sides of a fade', async () => {
+    const mock = fixture(), callback = vi.fn();
+    const detail = { ...manifest('day'), terrainTiles: [{ key: 'day-ground', x: 0, y: 0, width: 1536, height: 1024 }] };
+    mock.cache.set('waldruh-day-animations', detail);
+    mock.assets.load('waldruh', 'day', callback);
+    await mock.complete(['day-ground']);
+    expect(callback).toHaveBeenCalledWith(false);
+    expect(mock.assets.ready('waldruh', 'day')).toBe(false);
+    mock.assets.load('waldruh', 'day');
+    expect(mock.queued.map(file => file.key)).toEqual(['day-ground']);
+    await mock.complete();
+    mock.cache.set('waldruh-night-animations', { ...manifest('night'), terrainTiles: [{ key: 'night-ground', x: 0, y: 0, width: 1536, height: 1024 }] });
+    expect(mock.assets.retainedTextures('waldruh', 'night', 'day')).toContain('day-ground');
+    expect(mock.assets.retainedTextures('waldruh', 'night', 'day')).toContain('night-ground');
+    expect(mock.assets.retainedTextures('waldruh', 'night')).not.toContain('day-ground');
+  });
+  it('loads the manifest and night painting from the same deployment', () => {
+    const mock = fixture();
+    mock.assets.load('waldruh', 'night');
+    expect(mock.loader.json).toHaveBeenCalledWith('waldruh-night-animations', `/assets/waldruh-night-animations.json?v=${__APP_VERSION__}`);
+    mock.manifestLoaded('night');
+    expect(mock.loader.image).toHaveBeenCalledWith('waldruh-night-terrain', `/assets/waldruh-night-terrain.webp?v=${__APP_VERSION__}`);
+  });
   it('coalesces preload requests and waits for every base, overlay and terrain', async () => {
     const mock = fixture(), first = vi.fn(), second = vi.fn();
     mock.assets.load('waldruh','night',first,false);

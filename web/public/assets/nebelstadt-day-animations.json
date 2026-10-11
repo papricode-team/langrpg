@@ -547,5 +547,59 @@
       "originY": 1
     }
   },
-  "terrain": "nebelstadt-day-terrain"
+  "terrain": "nebelstadt-day-terrain",
+  "terrainTiles": [
+    {
+      "key": "nebelstadt-day-terrain-detail-0-0",
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 512,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      }
+    },
+    {
+      "key": "nebelstadt-day-terrain-detail-0-1",
+      "x": 768,
+      "y": 0,
+      "width": 768,
+      "height": 512,
+      "crop": {
+        "x": 1,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      }
+    },
+    {
+      "key": "nebelstadt-day-terrain-detail-1-0",
+      "x": 0,
+      "y": 512,
+      "width": 768,
+      "height": 512,
+      "crop": {
+        "x": 0,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      }
+    },
+    {
+      "key": "nebelstadt-day-terrain-detail-1-1",
+      "x": 768,
+      "y": 512,
+      "width": 768,
+      "height": 512,
+      "crop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      }
+    }
+  ]
 }
