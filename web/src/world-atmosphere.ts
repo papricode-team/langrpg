@@ -7,9 +7,9 @@ import {getWorldScene} from './scene-data';
 // Weather sits above the ground plate and below people, buildings and labels.
 export const WEATHER_DEPTH = 2;
 
-export function atmosphereProfile(id: MapId, storm: boolean) {
+export function atmosphereProfile(id: MapId, storm: boolean, rain?:number) {
   return { fog: id === 'nebelstadt' ? .34 : id === 'rainmarket' ? .08 : 0,
-    rain: storm && id === 'nebelstadt' ? 1 : id === 'rainmarket' ? .55 : 0,
+    rain: storm && id === 'nebelstadt' ? 1 : rain ?? (id === 'rainmarket' ? .55 : 0),
     leaves: id === 'waldruh', dust: id !== 'rainmarket' };
 }
 const hash = (n: number) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -26,7 +26,7 @@ export class WorldAtmosphere {
   }
   setLampLights(lamps: readonly LampLight[]) { this.lamps = lamps; }
   setVisible(visible: boolean) { this.visible = visible; this.foreground.setVisible(visible); this.illumination.setVisible(visible); }
-  update(time: number, hour: number, view: SceneryView, reduced: boolean, storm: boolean) {
+  update(time: number, hour: number, view: SceneryView, reduced: boolean, storm: boolean, rain?:number) {
     this.foreground.clear(); this.illumination.clear();
     if (!this.visible) return;
     const t = reduced ? 0 : time;
@@ -41,7 +41,7 @@ export class WorldAtmosphere {
       this.illumination.fillStyle(0xffda94, night * .16).fillCircle(lamp.x, lamp.y, Math.max(1.2, lamp.width * .045));
       this.foreground.fillStyle(0xe8ae62, night * flicker * .045).fillEllipse(lamp.x, lamp.footY - 3, lamp.width * 2.4, lamp.width * .65);
     }
-    const profile = atmosphereProfile(this.id, storm);
+    const profile = atmosphereProfile(this.id, storm, rain);
     const {width,height}=this.bounds;
     const wrap=(value:number,size:number)=>((value%size)+size)%size;
     if (profile.fog) for (let i = 0; i < 12; i++) {

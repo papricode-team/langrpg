@@ -117,6 +117,7 @@ it('keeps authored tasks synchronized while reduced motion, local sky previews a
   expect(courier.actionFigure.frame).toBe('carry');expect(courier.prop.visible).toBe(false);
   expect(courier.character.layers.every((layer:any)=>!layer.visible)).toBe(true);
   world.setMotionPreference('reduced');
+  world.setWeatherPreview('shower'); // A local preview must not change shared physical state.
   scene.clock.configure({mode:'manual',hour:22});
   scene.cameras.main.worldView={x:-3000,y:-3000,right:-2000,bottom:-2000};
   const visit=scene.activityWorld.day(scene.clock.simulationTime()).plan.activities.find((visit:any)=>visit.residentId==='lindenhafen-promenade-reader'&&visit.task.id==='morning-reading');
@@ -325,6 +326,35 @@ describe('short player steps', () => {
 });
 
 describe('shared indoor rendering', () => {
+  it('lets an active conversation finish after visiting hours, then releases the visitor',()=>{
+    const {world,scene}=indoorFixture();world.enterInterior('inn');
+    const spec=getInterior('inn').npcs[0];
+    const host=scene.createCharacter(spec.id,'Greta',spec.x*1536,spec.y*1024,scene.local.avatar);
+    scene.characters.set(spec.id,host);scene.clock.configure({mode:'manual',hour:17});
+    world.setConversationTarget(spec.id);expect(scene.conversationTarget).toBe(spec.id);
+    scene.clock.configure({mode:'manual',hour:23});
+    scene.update(100,50);expect(host.root.visible).toBe(true);
+    world.setConversationTarget(undefined);scene.update(150,50);expect(host.root.visible).toBe(false);
+    world.setConversationTarget(spec.id);expect(scene.conversationTarget).toBeUndefined();
+    world.destroy();
+  });
+
+  it('holds only the conversation partner and walks back to routines after a long reading pause',()=>{
+    const {world,scene}=indoorFixture();scene.navigation={canWalkSegment:()=>true};
+    scene.mapSpec={...getMap('lindenhafen'),npcs:[{id:'marta',x:.2,y:.2},{id:'otto',x:.25,y:.2}]};
+    scene.clock.configure({mode:'manual',hour:9});
+    for(const anchor of scene.mapSpec.npcs)scene.characters.set(anchor.id,scene.createCharacter(anchor.id,anchor.id,anchor.x*scene.worldWidth,anchor.y*scene.worldHeight,scene.local.avatar));
+    const marta=scene.characters.get('marta'),otto=scene.characters.get('otto');
+    const frozen={x:marta.x,y:marta.y},passing={x:otto.x,y:otto.y};world.setConversationTarget('marta');
+    scene.clock.configure({mode:'manual',hour:14});scene.update(100,50);
+    expect({x:marta.x,y:marta.y}).toEqual(frozen);
+    expect(Math.hypot(otto.x-passing.x,otto.y-passing.y)).toBeGreaterThan(0);
+    world.setConversationTarget(undefined);scene.update(150,50);
+    const resumedDistance=Math.hypot(marta.x-frozen.x,marta.y-frozen.y);
+    expect(resumedDistance).toBeGreaterThan(0);expect(resumedDistance).toBeLessThanOrEqual(36*.05+.00001);
+    world.destroy();
+  });
+
   it('routes the inn host through a room greeting and hides both actor and station after visiting hours', () => {
     const { world, scene, npc, interiorInteract } = indoorFixture();
     world.enterInterior('inn');

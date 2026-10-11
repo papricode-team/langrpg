@@ -1,5 +1,6 @@
 import {worldDaySeconds,worldStartHour,type SharedWorldTime,type WorldSimulationTime} from './shared-world-time';
 import {ResidentActivityWorld,type ActivityResidentSample} from './resident-activities';
+import {worldRain,type WorldWeatherMode} from './world-weather';
 import {residentActionKey,residentActionPose,residentSeatedOffset,RESIDENT_ACTION_ART} from './resident-action-art';
 import type { AvatarParts } from './avatar-options';
 import * as Phaser from 'phaser';
@@ -274,6 +275,9 @@ export class World {
   }
   getActivityResidents():{id:string;name:string;state:ActivityResidentSample}[]{return this.scene.activityResidentStates;}
   observeResident(id?:string):void{this.scene.observeResident(id);}
+  /** Editor/QA weather changes cannot override a connected simulation. */
+  setWeatherPreview(mode:WorldWeatherMode):void{if(import.meta.env.DEV)this.scene.setWeatherPreview(mode);}
+  getWeather():number{return this.scene.rainIntensity();}
 
   playCutscene(kind: CutsceneKind, ending?: string): Promise<void> {
     if (!this.scene.ready || this.motionMode === 'reduced' || this.motionMode === 'auto' && this.motionPreference.matches) return Promise.resolve();
@@ -501,6 +505,7 @@ class HarborScene extends Phaser.Scene {
   private roomRevision = 0;
   private residents: { character: Character; motion: ReturnType<typeof createWorldResidents>[number]; sample: ReturnType<typeof sampleResidentMotion>;routineElapsed?:number;homeReached?:boolean }[] = [];
   private activityWorld?:ResidentActivityWorld;
+  private weatherPreview:WorldWeatherMode='regional';
   private activityResidents:{character:Character;prop:Phaser.GameObjects.Graphics;actionFigure?:Phaser.GameObjects.Image;propKind?:string;sample?:ActivityResidentSample}[]=[];
   private observedResidentId?:string;
   observeResident(id?:string):void{this.observedResidentId=id;}
@@ -970,6 +975,7 @@ class HarborScene extends Phaser.Scene {
     if (!npc.npc && this.playerArtReady) this.setCharacterFrame(npc, characterFrame(npc.facing));
   }
   private characterRevealed(character: Character): boolean {
+    if(character.id===this.conversationTarget)return true; // A reader can finish after visiting hours.
     const visitor = this.interiorSpec?.npcs.find(npc => npc.id === character.id);
     if (visitor && !interiorNpcAvailable(visitor, this.clock.gameplayHour())) return false;
     return character.id !== 'elise' || this.storyState.completedQuestIds.includes('b1-storm');
@@ -1520,13 +1526,14 @@ class HarborScene extends Phaser.Scene {
     this.local.name.setScale(labelScale).setVisible(this.controlsEnabled && !this.conversationTarget && !this.cinematicTarget);
     for (const npc of this.characters.values()) {
       let npcDx=0,npcDy=0;
-      if(!this.interiorSpec&&!this.conversationTarget){
+      if(!this.interiorSpec&&npc.id!==this.conversationTarget){
         const anchor=this.mapSpec.npcs.find(position=>position.id===npc.id);
         if(anchor){
           const routine=npcRoutine(npc.id,this.clock.gameplayHour(),this.objective);
           const desiredX=anchor.x*this.worldWidth+routine.offsetX*1536,desiredY=anchor.y*this.worldHeight+routine.offsetY*1024;
           if(this.navigation.canWalkSegment(npc.x,npc.y,desiredX,desiredY)){
-            npcDx=desiredX-npc.x;npcDy=desiredY-npc.y;npc.x=desiredX;npc.y=desiredY;
+            const step=Math.min(1,36*seconds/Math.max(.00001,Math.hypot(desiredX-npc.x,desiredY-npc.y)));
+            npcDx=(desiredX-npc.x)*step;npcDy=(desiredY-npc.y)*step;npc.x+=npcDx;npc.y+=npcDy;
           }
         }
       }
@@ -1572,7 +1579,7 @@ class HarborScene extends Phaser.Scene {
     else this.scenery?.update(this.decorativeElapsed, this.cameras.main.worldView);
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.atmosphere?.update(this.decorativeElapsed, this.clock.advance(0).hour, this.cameras.main.worldView, this.reducedMotion,
-      this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')));
+      this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')),this.rainIntensity());
     this.refreshNearby();
     if (this.marker.visible) this.marker.setScale(this.reducedMotion ? 1 : 1 + Math.sin(this.elapsed * 4) * 0.04);
     const lead = 1 - Math.exp(-5 * seconds);
@@ -1735,13 +1742,16 @@ class HarborScene extends Phaser.Scene {
     this.updateActivityResidents();
   }
 
+  setWeatherPreview(mode:WorldWeatherMode):void{this.weatherPreview=mode;this.updateActivityResidents();}
+  private weatherMode():WorldWeatherMode{return this.clock.simulationTime()?'regional':this.weatherPreview;}
+  rainIntensity():number{return worldRain(this.mapSpec.id,this.activityTime(),this.weatherMode());}
   private activityTime():WorldSimulationTime {
     return this.clock.simulationTime()??{seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:worldDaySeconds,
       elapsedSeconds:((this.clock.gameplayHour()-worldStartHour+24)%24)*worldDaySeconds/24};
   }
   private updateActivityResidents():void {
     if(!this.activityWorld||this.interiorSpec)return;
-    const samples=this.activityWorld.sample(this.activityTime()),view=this.cameras.main.worldView;
+    const samples=this.activityWorld.sample(this.activityTime(),this.weatherMode()),view=this.cameras.main.worldView;
     for(const resident of this.activityResidents){
       const sample=samples.find(sample=>sample.residentId===resident.character.id)!;resident.sample=sample;
       const character=resident.character,dx=sample.x-character.x,dy=sample.y-character.y;

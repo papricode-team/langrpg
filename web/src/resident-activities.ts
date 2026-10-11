@@ -1,6 +1,7 @@
 import {sceneActivityPlaces, type SceneActivity, type ScenePoint, type SceneResident, type SceneResidentTask, type WorldScene} from './scene-schema';
 import type {NavigationGrid} from './navigation';
-import {worldDaySeconds,worldStartHour,type WorldSimulationTime} from './shared-world-time';
+import {worldDaySeconds,type WorldSimulationTime} from './shared-world-time';
+import {rainForDay,simulationDay,type RainWindow,type WorldWeatherMode} from './world-weather';
 
 interface RouteSegment {from:ScenePoint;to:ScenePoint;start:number;duration:number;distance:number;distanceBefore:number;}
 interface Route {segments:RouteSegment[];seconds:number;length:number;start:ScenePoint;end:ScenePoint;}
@@ -11,6 +12,15 @@ export interface ActivityReservation {residentId:string;taskId:string;activityId
 export interface PlannedActivity {
   residentId:string;task:SceneResidentTask;destination:Destination;
   departure:number;arrival:number;finished:number;homeAt:number;reservation:ActivityReservation;
+  /** Weather adds physical detours while retaining completed action time. */
+  phases?:ActivityPhase[];
+  weatherOutcome?:'resumed'|'cancelled'|'deferred';
+}
+interface ActivityPhase {
+  start:number;end:number;phase:ActivityResidentSample['phase'];action:SceneResidentTask['action'];
+  route?:Route;point?:ScenePoint;activityId?:string;place?:number;reservationUntil?:number;
+  phaseOffset?:number;phaseDurationSeconds?:number;interruption?:'rain';resumed?:boolean;
+  heldObject?:SceneResidentTask['heldObject'];facingLeft?:boolean;seatedOffsetY?:number;
 }
 export interface ActivityDay {day:number;activities:PlannedActivity[];reservations:ActivityReservation[];skipped:{residentId:string;taskId:string;reason:string}[];}
 export interface ActivityResidentSample extends ScenePoint {
@@ -18,10 +28,13 @@ export interface ActivityResidentSample extends ScenePoint {
   activityId?:string;taskId?:string;place?:number;reservationUntil?:number;
   moving:boolean;velocityX:number;velocityY:number;walkDistance:number;facingLeft?:boolean;
   phaseSeconds:number;
+  /** Time since this arrival; action progress may predate a rain interruption. */
+  segmentSeconds?:number;
   phaseDurationSeconds?:number;
   /** Bench poses sit back from the walkable arrival anchor onto the furniture. */
   seatedOffsetY?:number;
   heldObject?:SceneResidentTask['heldObject'];
+  interruption?:'rain';resumed?:boolean;
 }
 const distance=(a:ScenePoint,b:ScenePoint):number=>Math.hypot(a.x-b.x,a.y-b.y);
 const hash=(value:string):number=>{let n=2166136261;for(const char of value)n=Math.imul(n^char.charCodeAt(0),16777619)>>>0;return n;};
@@ -73,6 +86,7 @@ export function compileResidentActivities(scene:WorldScene,navigation:Navigation
     });
     return {spec,tasks};
   });
+
 }
 
 function earliestReservation(point:ScenePoint,start:number,duration:number,latest:number,reservations:ActivityReservation[]):number|undefined {
@@ -114,6 +128,105 @@ export function planResidentDay(residents:readonly CompiledActivityResident[],ti
   return result;
 }
 
+function destinationAction(destination:Destination,task:SceneResidentTask):SceneResidentTask['action'] {
+  return destination.fallback?destination.activity.kind==='seat'?'sit':destination.activity.kind==='shelter'?'shelter':'wait':task.action;
+}
+function dryPhases(activity:PlannedActivity):ActivityPhase[] {
+  const {destination,task,departure,arrival,finished,homeAt}=activity,action=destinationAction(destination,task);
+  const heldObject=destination.fallback?undefined:task.heldObject;
+  const common={activityId:destination.activity.id,place:destination.place,reservationUntil:homeAt};
+  return [
+    {...common,start:departure,end:arrival,phase:'travel',action,route:destination.outbound},
+    {...common,start:arrival,end:finished,phase:'act',action,point:destination.point,heldObject,phaseDurationSeconds:task.durationSeconds,
+      facingLeft:task.facing?task.facing==='left':sampleRoute(destination.outbound,Math.max(0,destination.outbound.seconds-.00001)).facingLeft??false,
+      ...(['sit','read'].includes(action)?{seatedOffsetY:destination.seatedOffsetY}:{})},
+    {...common,start:finished,end:homeAt,phase:'return',action,route:destination.returning,heldObject:action==='carry'?heldObject:undefined},
+  ];
+}
+function activityAccess(scene:WorldScene,activity:SceneActivity,kind:'approach'|'exit',point:ScenePoint):ScenePoint {
+  const offset=activity[kind],owner=scene.scenery.find(item=>item.id===activity.ownerId)!;
+  return offset?{x:owner.x+offset.x,y:owner.y+offset.y}:point;
+}
+
+/** Replan only interrupted visits. All work happens once per shared day, not per
+ * frame. Original bookings end at interruption; resumed work must reacquire its
+ * place. Shelter overflow goes home, and no detour can overrun the task window. */
+export function planResidentWeather(scene:WorldScene,navigation:NavigationGrid,residents:readonly CompiledActivityResident[],dry:ActivityDay,rain:RainWindow,dayLengthSeconds=worldDaySeconds):ActivityDay {
+  const affected=new Set(dry.activities.filter(item=>item.destination.activity.kind!=='shelter'&&item.departure<rain.end&&item.finished>rain.start));
+  const result:ActivityDay={day:dry.day,activities:[],skipped:[...dry.skipped],reservations:dry.reservations.filter(reservation=>!dry.activities.some(item=>affected.has(item)&&item.reservation===reservation))};
+  // Install every pre-rain booking before allocating shelters or resumed work.
+  const prefixes=new Map<PlannedActivity,ActivityReservation>();
+  for(const item of affected)if(item.departure<rain.start){
+    const prefix={...item.reservation,end:rain.start};prefixes.set(item,prefix);result.reservations.push(prefix);
+  }
+  for(const item of dry.activities){
+    if(!affected.has(item)){result.activities.push(item);continue;}
+    const resident=residents.find(resident=>resident.spec.id===item.residentId)!,spec=resident.spec;
+    const {destination,task}=item,action=destinationAction(destination,task);
+    const deferred=item.departure>=rain.start,interruptedAt=deferred?item.departure:rain.start;
+    const interrupted=deferred?{...spec.home,phase:'home' as const}:sampleActivityResident(resident,dry,interruptedAt);
+    const completed=Math.max(0,Math.min(task.durationSeconds,interruptedAt-item.arrival));
+    const remaining=deferred?task.durationSeconds:task.durationSeconds-completed;
+    // Stow books and tools during the detour; collected parcels remain carried.
+    const heldObject=!deferred&&interrupted.phase==='act'&&!destination.fallback&&task.heldObject==='parcel'?'parcel' as const:undefined;
+    const deadline=task.endHour*dayLengthSeconds/24;
+    const prefixPhases=deferred?[]:dryPhases(item).filter(phase=>phase.start<interruptedAt)
+      .map(phase=>({...phase,end:Math.min(phase.end,interruptedAt),reservationUntil:rain.start,
+        ...(phase.phase==='act'?{phaseDurationSeconds:Math.min(phase.end,interruptedAt)-phase.start}:{})}));
+    const origin:ScenePoint={x:interrupted.x,y:interrupted.y};
+    const from=interrupted.phase==='act'?[origin,activityAccess(scene,destination.activity,'exit',origin)]:[origin];
+    const shelters=deferred?[]:(scene.activities??[]).filter(activity=>activity.kind==='shelter').flatMap(activity=>sceneActivityPlaces(scene,activity).flatMap((point,place)=>{
+      try {
+        const outward=route([...from,activityAccess(scene,activity,'approach',point),point],spec.speed,navigation,`${spec.id}/rain`);
+        // A shelter reached only after the shower stops is an unnecessary detour.
+        return interruptedAt+outward.seconds>=rain.end?[]:[{activity,place,point,outward}];
+      } catch { return []; } // A disconnected shelter is not a usable alternative.
+    })).sort((a,b)=>a.outward.seconds-b.outward.seconds||a.activity.id.localeCompare(b.activity.id)||a.place-b.place);
+    const homeRoute=route([...from,spec.home],spec.speed,navigation,`${spec.id}/rain-home`);
+    const choices=[...shelters,undefined];
+    let accepted=false;
+    for(const shelter of choices){
+      const point=shelter?.point??spec.home,outward=shelter?.outward??homeRoute;
+      const shelterAt=interruptedAt+outward.seconds;
+      const exit=shelter?activityAccess(scene,shelter.activity,'exit',point):point;
+      const toHome=route([point,exit,spec.home],spec.speed,navigation,`${spec.id}/rain-return`);
+      if(shelterAt+toHome.seconds>deadline+.00001)continue;
+      const resume=route([point,exit,activityAccess(scene,destination.activity,'approach',destination.point),destination.point],spec.speed,navigation,`${spec.id}/rain-resume`);
+      const duration=resume.seconds+remaining+destination.returning.seconds;
+      const resumeAt=earliestReservation(destination.point,Math.max(shelterAt,rain.end),duration,deadline,result.reservations);
+      // If work no longer fits, leave shelter in time to reach home even when
+      // rain continues. Home is the private overflow destination, never a slot.
+      const leaveAt=resumeAt??Math.max(shelterAt,Math.min(rain.end,deadline-toHome.seconds));
+      if(shelter&&earliestReservation(point,interruptedAt,leaveAt-interruptedAt,leaveAt,result.reservations)===undefined)continue;
+      const phases:ActivityPhase[]=[...prefixPhases];
+      const weather={action:'shelter' as const,interruption:'rain' as const,heldObject,
+        ...(shelter?{activityId:shelter.activity.id,place:shelter.place,reservationUntil:leaveAt}:{})};
+      if(outward.seconds>0)phases.push({...weather,start:interruptedAt,end:shelterAt,phase:'travel',route:outward});
+      phases.push({...weather,start:shelterAt,end:leaveAt,phase:shelter?'act':'home',point});
+      let homeAt:number;
+      if(resumeAt!==undefined){
+        const arrived=resumeAt+resume.seconds,finished=arrived+remaining;homeAt=finished+destination.returning.seconds;
+        const common={activityId:destination.activity.id,place:destination.place,reservationUntil:homeAt,resumed:!deferred,action};
+        phases.push({...common,start:resumeAt,end:arrived,phase:'travel',route:resume,heldObject},
+          {...dryPhases(item)[1],...common,start:arrived,end:finished,phaseOffset:deferred?0:completed},
+          {...dryPhases(item)[2],...common,start:finished,end:homeAt});
+        result.reservations.push({...item.reservation,start:resumeAt,end:homeAt});
+      }else{
+        homeAt=leaveAt+toHome.seconds;
+        if(toHome.seconds>0)phases.push({...weather,activityId:undefined,place:undefined,reservationUntil:undefined,start:leaveAt,end:homeAt,phase:'return',route:toHome});
+      }
+      if(shelter)result.reservations.push({residentId:spec.id,taskId:task.id,activityId:shelter.activity.id,place:shelter.place,point,start:interruptedAt,end:leaveAt});
+      const reservation=prefixes.get(item)??{...item.reservation,end:item.departure};
+      result.activities.push({...item,reservation,homeAt,phases:phases.filter(phase=>phase.end>phase.start),weatherOutcome:resumeAt===undefined?'cancelled':deferred?'deferred':'resumed'});
+      accepted=true;break;
+    }
+    // The original feasible route guarantees enough time to return home. Keep
+    // invalid geometry explicit rather than silently teleporting a resident.
+    if(!accepted)throw Error(`${spec.id}/${task.id}: rain response cannot return home inside its schedule window`);
+  }
+  return result;
+}
+
 function sampleRoute(route:Route,seconds:number):Pick<ActivityResidentSample,'x'|'y'|'velocityX'|'velocityY'|'moving'|'walkDistance'|'facingLeft'> {
   const index=route.segments.findIndex(segment=>seconds<segment.start+segment.duration),segment=route.segments[index];
   if(!segment)return {...route.end,moving:false,velocityX:0,velocityY:0,walkDistance:route.length};
@@ -129,7 +242,14 @@ export function sampleActivityResident(resident:CompiledActivityResident,plan:Ac
   const base:ActivityResidentSample={residentId:resident.spec.id,...resident.spec.home,phase:'home',action:'wait',moving:false,velocityX:0,velocityY:0,walkDistance:0,phaseSeconds:0};
   if(!active)return base;
   const {destination,task}=active;
-  const action=destination.fallback?destination.activity.kind==='seat'?'sit':destination.activity.kind==='shelter'?'shelter':'wait':task.action;
+  if(active.phases){
+    const phase=active.phases.find(phase=>seconds>=phase.start&&seconds<phase.end);
+    if(!phase)return base;
+    const {start,route:travel,point,end,phaseOffset,...state}=phase;
+    return {...base,...state,...(travel?sampleRoute(travel,seconds-start):point),taskId:task.id,
+      phaseSeconds:seconds-start+(phaseOffset??0),segmentSeconds:seconds-start,phaseDurationSeconds:phase.phaseDurationSeconds??end-start};
+  }
+  const action=destinationAction(destination,task);
   Object.assign(base,{taskId:task.id,activityId:destination.activity.id,place:destination.place,reservationUntil:active.reservation.end,action});
   if(seconds<active.arrival)return {...base,...sampleRoute(destination.outbound,seconds-active.departure),phase:'travel',phaseSeconds:seconds-active.departure};
   const heldObject=destination.fallback?undefined:task.heldObject;
@@ -143,19 +263,26 @@ export function sampleActivityResident(resident:CompiledActivityResident,plan:Ac
   return {...base,...sampleRoute(destination.returning,seconds-active.finished),phase:'return',phaseSeconds:seconds-active.finished,heldObject:action==='carry'?heldObject:undefined};
 }
 
-/** Cache only the most recent two days; a late join reconstructs directly. */
+/** Cache only two day/preview plans; a late join reconstructs directly. */
 export class ResidentActivityWorld {
   readonly residents:CompiledActivityResident[];
   private plans=new Map<string,ActivityDay>();
-  constructor(scene:WorldScene,navigation:NavigationGrid){this.residents=compileResidentActivities(scene,navigation);}
-  day(time:WorldSimulationTime):{plan:ActivityDay;seconds:number} {
-    const absolute=Math.max(0,time.elapsedSeconds)+worldStartHour*time.dayLengthSeconds/24,day=Math.floor(absolute/time.dayLengthSeconds);
-    const key=`${time.seed}:${time.dayLengthSeconds}:${day}`;
+  private scene:WorldScene;
+  private navigation:NavigationGrid;
+  constructor(scene:WorldScene,navigation:NavigationGrid){this.scene=scene;this.navigation=navigation;this.residents=compileResidentActivities(scene,navigation);}
+  day(time:WorldSimulationTime,weather:WorldWeatherMode='regional'):{plan:ActivityDay;seconds:number} {
+    const {day,seconds}=simulationDay(time);
+    const key=`${time.seed}:${time.dayLengthSeconds}:${day}:${weather}`;
     let plan=this.plans.get(key);
-    if(!plan){plan=planResidentDay(this.residents,time,day);this.plans.set(key,plan);if(this.plans.size>2)this.plans.delete(this.plans.keys().next().value!);}
-    return {plan,seconds:absolute-day*time.dayLengthSeconds};
+    if(!plan){
+      plan=planResidentDay(this.residents,time,day);
+      const rain=rainForDay(this.scene.id,time,day,weather);
+      if(rain)plan=planResidentWeather(this.scene,this.navigation,this.residents,plan,rain,time.dayLengthSeconds);
+      this.plans.set(key,plan);if(this.plans.size>2)this.plans.delete(this.plans.keys().next().value!);
+    }
+    return {plan,seconds};
   }
-  sample(time:WorldSimulationTime):ActivityResidentSample[] {
-    const {plan,seconds}=this.day(time);return this.residents.map(resident=>sampleActivityResident(resident,plan,seconds));
+  sample(time:WorldSimulationTime,weather:WorldWeatherMode='regional'):ActivityResidentSample[] {
+    const {plan,seconds}=this.day(time,weather);return this.residents.map(resident=>sampleActivityResident(resident,plan,seconds));
   }
 }

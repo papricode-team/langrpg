@@ -1,13 +1,15 @@
 import {sceneActivityPoint,type SceneResidentTask,type WorldScene} from './scene-schema';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art';
+import {weatherPreviewLabels,type WorldWeatherMode} from './world-weather';
 
 let selectedResidentId:string|undefined;
 let previewHour=9;
+let previewWeather:WorldWeatherMode='regional';
 const escape=(value:unknown):string=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
 const actions:Record<string,SceneResidentTask['action']>={seat:'read',work:'work',pickup:'carry',service:'serve',shelter:'shelter',wait:'wait'};
 
 /** The schedule form edits the same scene used by play and Tiled exchanges. */
-export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:ReadonlySet<string>,change:(scene:WorldScene)=>void,preview:(hour:number|undefined)=>void,error:(message:string)=>void):void {
+export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:ReadonlySet<string>,change:(scene:WorldScene)=>void,preview:(hour:number|undefined,weather:WorldWeatherMode)=>void,error:(message:string)=>void):void {
   const residents=scene.residents??[];
   const resident=residents.find(resident=>resident.id===selectedResidentId)??residents[0];
   selectedResidentId=resident?.id;
@@ -28,7 +30,7 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
       <label>Face while acting<select data-task-field="facing" aria-label="${task.id} facing"><option value="">Arrival direction</option>${['left','right'].map(direction=>`<option${task.facing===direction?' selected':''}>${direction}</option>`).join('')}</select></label>
       <button data-remove-task="${task.id}">Remove ${escape(task.id)}</button></details>`).join('')}
     <button id="add-resident-task">Add daily activity</button>`:''}
-    <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show the sampled activity positions. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
+    <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><label>Weather preview<select id="resident-preview-weather">${Object.entries(weatherPreviewLabels).map(([value,label])=>`<option value="${value}"${value===previewWeather?' selected':''}>${label}</option>`).join('')}</select></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show sampled positions; violet marks a rain response. Work resumes only if it still fits the schedule. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
   const query=<T extends HTMLElement>(selector:string)=>host.querySelector<T>(selector)!;
   const apply=(edit:(next:WorldScene)=>void)=>{const next=structuredClone(scene);edit(next);change(next);};
   query<HTMLSelectElement>('#resident-select').onchange=()=>{selectedResidentId=query<HTMLSelectElement>('#resident-select').value;renderResidentTools(host,scene,selected,change,preview,error);};
@@ -37,8 +39,8 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
     selectedResidentId=`${scene.id}-neighbor-${index}`;
     (next.residents??=[]).push({id:selectedResidentId,name:`Neighbor ${index}`,home:{...scene.spawn},speed:60,avatar:{hair:'#62412f',skin:'#c18b60',outfit:'#4e729a'},schedule:[]});
   });
-  query<HTMLButtonElement>('#preview-residents').onclick=()=>{const hour=Number(query<HTMLInputElement>('#resident-preview-hour').value);if(!Number.isFinite(hour)||hour<0||hour>=24){error('Choose an hour between 0 and 24.');return;}previewHour=hour;preview(hour);};
-  query<HTMLButtonElement>('#clear-resident-preview').onclick=()=>preview(undefined);
+  query<HTMLButtonElement>('#preview-residents').onclick=()=>{const hour=Number(query<HTMLInputElement>('#resident-preview-hour').value);if(!Number.isFinite(hour)||hour<0||hour>=24){error('Choose an hour between 0 and 24.');return;}previewHour=hour;previewWeather=query<HTMLSelectElement>('#resident-preview-weather').value as WorldWeatherMode;preview(hour,previewWeather);};
+  query<HTMLButtonElement>('#clear-resident-preview').onclick=()=>preview(undefined,previewWeather);
   if(!resident)return;
   const edit=(mutate:(resident:NonNullable<WorldScene['residents']>[number])=>void)=>apply(next=>mutate(next.residents!.find(item=>item.id===resident.id)!));
   query<HTMLSelectElement>('#resident-action-art').onchange=()=>edit(item=>{

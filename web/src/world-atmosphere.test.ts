@@ -72,4 +72,10 @@ describe('readable world weather', () => {
     for (const town of ['lindenhafen', 'waldruh', 'cedarbay'] as const) expect(atmosphereProfile(town, true).rain).toBe(0);
     expect(atmosphereProfile('rainmarket', true).rain).toBe(atmosphereProfile('rainmarket', false).rain);
   });
+
+  it('uses shared regional weather for rain while retaining the authored story storm',()=>{
+    expect(atmosphereProfile('lindenhafen',false,.75).rain).toBe(.75);
+    expect(atmosphereProfile('rainmarket',false,0).rain).toBe(0);
+    expect(atmosphereProfile('nebelstadt',true,0).rain).toBe(1);
+  });
 });

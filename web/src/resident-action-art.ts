@@ -14,17 +14,18 @@ export const residentActionKey=(mapId:string,look:ResidentActionLook):string=>`$
 export interface ResidentActionPose {frame:typeof residentActionFrames[number];bakedObject?:ActivityResidentSample['heldObject'];}
 export function residentSeatedOffset(sample:ActivityResidentSample,reducedMotion:boolean):number {
   if(sample.seatedOffsetY===undefined)return 0;
-  const blend=reducedMotion?1:Math.max(0,Math.min(1,sample.phaseSeconds/.3,((sample.phaseDurationSeconds??Infinity)-sample.phaseSeconds)/.3));
+  const blend=reducedMotion?1:Math.max(0,Math.min(1,(sample.segmentSeconds??sample.phaseSeconds)/.3,((sample.phaseDurationSeconds??Infinity)-sample.phaseSeconds)/.3));
   return sample.seatedOffsetY*blend*blend*(3-2*blend);
 }
 
 /** Shared phase time and route distance reconstruct poses without frame replay. */
 export function residentActionPose(sample:ActivityResidentSample,reducedMotion:boolean):ResidentActionPose|undefined {
-  if(sample.phase==='return'&&sample.heldObject==='parcel'){
+  if((sample.phase==='return'||sample.phase==='travel')&&sample.heldObject==='parcel'){
     const frames=['carry-left','carry-pass','carry-right','carry-pass'] as const;
     return {frame:reducedMotion||!sample.moving?'carry':frames[Math.floor(Math.max(0,sample.walkDistance)%64/16)],bakedObject:'parcel'};
   }
   if(sample.phase!=='act')return;
+  if(sample.action==='shelter'&&sample.heldObject==='parcel')return {frame:'carry',bakedObject:'parcel'};
   const seconds=reducedMotion?0:Math.max(0,sample.phaseSeconds);
   switch(sample.action){
     case 'read':return sample.heldObject==='book'?{frame:seconds%8>=6.8?'read-turn':'read',bakedObject:'book'}:{frame:'sit'};

@@ -21,21 +21,25 @@ describe('painted activity presentation',()=>{
     const carrying=sample({phase:'return',action:'carry',heldObject:'parcel',moving:true});
     expect([0,16,32,48,64].map(walkDistance=>residentActionPose({...carrying,walkDistance},false)?.frame)).toEqual(['carry-left','carry-pass','carry-right','carry-pass','carry-left']);
     expect(residentActionPose(carrying,true)?.frame).toBe('carry');
+    expect(residentActionPose({...carrying,phase:'travel',action:'shelter',interruption:'rain'},false)?.bakedObject).toBe('parcel');
+    expect(residentActionPose({...carrying,phase:'act',action:'shelter',interruption:'rain'},false)).toEqual({frame:'carry',bakedObject:'parcel'});
+    expect(residentSeatedOffset(sample({phaseSeconds:8,segmentSeconds:0,phaseDurationSeconds:40,seatedOffsetY:-20,resumed:true}),false)).toBeCloseTo(0);
+    expect(residentSeatedOffset(sample({phaseSeconds:8.3,segmentSeconds:.3,phaseDurationSeconds:40,seatedOffsetY:-20,resumed:true}),false)).toBe(-20);
     expect(residentActionPose(sample({heldObject:undefined}),false)).toEqual({frame:'sit'});
   });
   it('reconstructs the same pose and authored facing on late join and across a full visit',()=>{
     const scene=getWorldScene('lindenhafen'),simulation=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen'));
     const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
-    const visit=simulation.day(time).plan.activities.find(visit=>visit.residentId==='lindenhafen-promenade-reader'&&visit.task.id==='afternoon-reading')!;
+    const visit=simulation.day(time,'dry').plan.activities.find(visit=>visit.residentId==='lindenhafen-promenade-reader'&&visit.task.id==='afternoon-reading')!;
     const instant={...time,elapsedSeconds:visit.arrival+7-7*30};
-    const first=simulation.sample(instant).find(actor=>actor.residentId===visit.residentId)!;
-    const joined=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen')).sample(instant).find(actor=>actor.residentId===visit.residentId)!;
+    const first=simulation.sample(instant,'dry').find(actor=>actor.residentId===visit.residentId)!;
+    const joined=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen')).sample(instant,'dry').find(actor=>actor.residentId===visit.residentId)!;
     expect(first.phaseSeconds).toBeCloseTo(7);expect(first.facingLeft).toBe(true);expect(first).toEqual(joined);
     expect(residentSeatedOffset(first,false)).toBe(-16);
     expect(residentSeatedOffset({...first,phaseSeconds:0},false)).toBeCloseTo(0);
     expect(residentSeatedOffset({...first,phaseSeconds:0},true)).toBe(-16);
     expect(residentActionPose(joined,false)?.frame).toBe('read-turn');
-    const returning=simulation.sample({...instant,elapsedSeconds:visit.finished+.01-7*30}).find(actor=>actor.residentId===visit.residentId)!;
+    const returning=simulation.sample({...instant,elapsedSeconds:visit.finished+.01-7*30},'dry').find(actor=>actor.residentId===visit.residentId)!;
     expect(returning.phase).toBe('return');expect(returning.heldObject).toBeUndefined();expect(residentActionPose(returning,false)).toBeUndefined();
   });
   it('rejects missing and mismatched painted identities instead of changing appearance mid-task',()=>{

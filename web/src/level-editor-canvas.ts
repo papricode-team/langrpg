@@ -8,6 +8,7 @@ import { sceneryAnimationManifestKey, type SceneryAnimationManifest } from './sc
 import { sceneryFootprints, sceneryTextureFor } from './placed-scenery';
 import { sceneActivityPlaces, sceneEntrancePoint, type WorldScene, type SceneScenery } from './scene-schema';
 import {ResidentActivityWorld} from './resident-activities';
+import type {WorldWeatherMode} from './world-weather';
 import {NavigationGrid} from './navigation';
 import {scenerySelection,sceneryTranslation} from './level-editor-model';
 import {marqueeSelection} from './level-editor-selection';
@@ -49,8 +50,10 @@ export class LevelEditorCanvas extends Phaser.Scene {
   period: 'day' | 'night' = 'day';
   snap = 0;
   private residentHour?:number;
+  private residentWeather:WorldWeatherMode='regional';
   private residentGuide?:{world:WorldScene;simulation:ResidentActivityWorld};
-  showResidentGuide(hour:number|undefined):void{
+  showResidentGuide(hour:number|undefined,weather:WorldWeatherMode='regional'):void{
+    this.residentWeather=weather;
     if(hour!==undefined)this.residentGuide={world:this.world,simulation:new ResidentActivityWorld(this.world,new NavigationGrid(this.world.walkable,[...this.world.obstacles,...sceneryFootprints(this.world.scenery)],this.world))};
     this.residentHour=hour;this.drawGuides();
   }
@@ -210,8 +213,8 @@ export class LevelEditorCanvas extends Phaser.Scene {
     if(this.residentHour!==undefined){
       try{
         if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:new ResidentActivityWorld(world,new NavigationGrid(world.walkable,[...world.obstacles,...sceneryFootprints(world.scenery)],world))};
-        for(const sample of this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30})){
-          g.fillStyle(sample.phase==='home'?0x88988a:sample.phase==='act'?0xf4bd61:0x75cbe0,.9).fillCircle(sample.x,sample.y,6/zoom);
+        for(const sample of this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30},this.residentWeather)){
+          g.fillStyle(sample.interruption==='rain'?0xbda2ea:sample.phase==='home'?0x88988a:sample.phase==='act'?0xf4bd61:0x75cbe0,.9).fillCircle(sample.x,sample.y,6/zoom);
           if(sample.phase==='act')g.lineStyle(2/zoom,0xf4bd61,1).strokeCircle(sample.x,sample.y,11/zoom);
         }
       }catch{this.residentGuide=undefined;}

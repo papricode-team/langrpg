@@ -158,7 +158,7 @@ function refresh(): void {
   renderResidentTools(residentTools,scene(),selected,next=>{
     try{parseWorldSceneDocument({...history.document,maps:{...history.document.maps,[mapId]:next}});if(!editScene(next))return;changed();}
     catch(error){diagnostics([error instanceof Error?error.message:String(error)],true);}
-  },hour=>{try{canvas.showResidentGuide(hour);diagnostics([hour===undefined?'Schedule guide hidden.':`Schedule guide at ${hour.toFixed(1)} hours. Gold circles are acting; blue circles are traveling; grey circles are home.`]);}catch(error){diagnostics([error instanceof Error?error.message:String(error)],true);}},message=>diagnostics([message],true));
+  },(hour,weather)=>{try{canvas.showResidentGuide(hour,weather);diagnostics([hour===undefined?'Schedule guide hidden.':`Schedule guide at ${hour.toFixed(1)} hours. Gold circles are acting; blue circles are traveling; grey circles are home; violet circles are responding to rain.`]);}catch(error){diagnostics([error instanceof Error?error.message:String(error)],true);}},message=>diagnostics([message],true));
 }
 function clearPrefabPreview():void {
   if(prefabProposal){prefabProposal=undefined;canvas.preview([]);}
