@@ -4,10 +4,12 @@ import { spawnSync } from 'node:child_process';
 const content = [
   ['build-story-curriculum.mjs'],
   ['build-course.mjs'],
+  ['build-syllabus.mjs'],
   ['map-editor.mjs', 'check'],
   ['export-world-content.mjs'],
   ['scene-compiler.mjs', 'compile'],
   ['audit-dialogue-levels.mjs'],
+  ['audit-pacing.mjs'],
 ];
 const paint = [
   ['prepare-resident-action-art.mjs'],

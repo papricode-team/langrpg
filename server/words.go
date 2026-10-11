@@ -14,18 +14,31 @@ func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 	if err == nil {
 		refreshDailyPromise(&account.Progress, a.now().UTC())
 	}
-	if err != nil || account.Progress.WordExposureVersion >= 2 || len(a.curriculum.Lexicon) == 0 {
+	if err != nil {
 		return account, err
 	}
-	request := json.RawMessage(`{"version":2}`)
-	account, _, _, err = a.store.Mutate(ctx, hash, "word-exposure-migration:v2", request, func(account *Account) (Receipt, error) {
-		migrateContextExposures(&account.Progress, a.curriculum, a.now().UTC())
-		return Receipt{}, nil
-	})
-	if err == nil {
-		refreshDailyPromise(&account.Progress, a.now().UTC())
+	if account.Progress.WordExposureVersion < 2 && len(a.curriculum.Lexicon) > 0 {
+		request := json.RawMessage(`{"version":2}`)
+		account, _, _, err = a.store.Mutate(ctx, hash, "word-exposure-migration:v2", request, func(account *Account) (Receipt, error) {
+			migrateContextExposures(&account.Progress, a.curriculum, a.now().UTC())
+			return Receipt{}, nil
+		})
+		if err != nil {
+			return account, err
+		}
 	}
-	return account, err
+	if account.Progress.Intake.Version < intakeVersion && a.curriculum.Syllabus != nil {
+		request := json.RawMessage(`{"version":1}`)
+		account, _, _, err = a.store.Mutate(ctx, hash, "intake-migration:v1", request, func(account *Account) (Receipt, error) {
+			migrateIntake(&account.Progress, a.curriculum.Syllabus)
+			return Receipt{}, nil
+		})
+		if err != nil {
+			return account, err
+		}
+	}
+	refreshDailyPromise(&account.Progress, a.now().UTC())
+	return account, nil
 }
 
 // Reconstruct exposure from saved contextual practice without transferring any

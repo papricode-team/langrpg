@@ -131,7 +131,9 @@ type Progress struct {
 	WordExposureVersion int                         `json:"wordExposureVersion"`
 	// Daily learning evidence survives narrative save-slot loads.
 	DailyPromises map[string]DailyPromiseRecord `json:"dailyPromises,omitempty"`
-	Story         StoryState                    `json:"story"`
+	// Vocabulary intake: credited play and the syllabus words introduced so far.
+	Intake Intake     `json:"intake"`
+	Story  StoryState `json:"story"`
 }
 
 type Account struct {
@@ -193,6 +195,7 @@ func ensureProgress(p *Progress) {
 	if p.DailyPromises == nil {
 		p.DailyPromises = map[string]DailyPromiseRecord{}
 	}
+	ensureIntake(p)
 	ensureStory(p)
 }
 

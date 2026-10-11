@@ -52,6 +52,8 @@ type Curriculum struct {
 	NPCWordIDs      map[string][]string
 	ActivityBoards  map[string]ActivityBoardScenario
 	ActivityPrices  map[string]int
+	// Generated introduction order and pacing settings; nil when not installed.
+	Syllabus *Syllabus
 }
 
 type Lexeme struct {
@@ -101,6 +103,9 @@ func loadCurriculum() (Curriculum, error) {
 		return Curriculum{}, fmt.Errorf("activity board manifest: %w", err)
 	}
 	if err = loadActivityBoards(&merged, boards); err != nil {
+		return Curriculum{}, err
+	}
+	if merged.Syllabus, err = loadSyllabus(merged.Lexicon); err != nil {
 		return Curriculum{}, err
 	}
 	return merged, nil

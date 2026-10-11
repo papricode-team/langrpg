@@ -120,8 +120,13 @@ export interface BarkContext {
   /** Caller passes only nearby visible actors, never all actors in an offscreen map. */
   lexicon?: readonly RoutineLexeme[];
   progress?: Pick<Progress, 'words'>;
+  /** Vocabulary intake: when present, only restored words may be printed and only routine lines made of restored words are spoken. */
+  introduced?: ReadonlySet<string>;
+  lineAllowed?: (german: string) => boolean;
   now?: number;
 }
+/** Labels print content words; articles and particles are learned inside sentences, not on parcels. */
+const labelParts = new Set(['noun', 'verb', 'adj', 'adv', 'num', 'intj', 'phrase']);
 export interface BarkTelemetry { emitted: number; routine: number; dueWords: number; courseWords: number; dialogueSuppressed: number; }
 const levelRank: Record<Level, number> = { A1: 0, A2: 1, B1: 2 };
 const due = (value: string | undefined, now: number): boolean => !!value && Number.isFinite(Date.parse(value)) && Date.parse(value) <= now;
@@ -185,6 +190,7 @@ export class WorldBarkDirector {
     const now = context.now ?? Date.now();
     const available = (context.lexicon ?? []).filter(word => levelRank[word.level] <= levelRank[context.level]
       && word.lemma.trim() && word.lemma.length <= 64
+      && (!context.introduced || (context.introduced.has(word.id) && labelParts.has(word.pos)))
       && time - (this.words.get(word.id) ?? -Infinity) >= 180);
     let bark: WorldBark | undefined;
     // Work and weather remain part of town life between lexical encounters.
@@ -201,7 +207,12 @@ export class WorldBarkDirector {
         if (newWords.length) bark = lexicalBark(newWords[this.courseCursor++ % newWords.length], context, 'course-word');
       }
     }
-    bark ??= routineBark(context);
+    if (!bark) {
+      const routine = routineBark(context);
+      // A routine line full of unrestored words stays unsaid; silence is better than a word firehose.
+      if (context.lineAllowed && !context.lineAllowed(routine.german)) return undefined;
+      bark = routine;
+    }
     this.lastGlobal = time;
     this.remember(this.speakers, context.speakerId, time);
     for (const id of bark.wordIds) this.remember(this.words, id, time);
