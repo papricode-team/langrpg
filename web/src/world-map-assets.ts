@@ -40,11 +40,11 @@ export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
 /** Load one destination at a time, coalescing rapid travel and in-flight requests. */
 export class WorldMapAssets {
   private requests = new Map<string, (() => void)[]>();
-  constructor(private scene: Phaser.Scene) {}
+  constructor(private scene: Phaser.Scene, private includeTerrain = true) {}
   load(map: WorldMapSpec, onLoaded?: () => void, start = true): void {
     const pending = this.requests.get(map.id);
     if (pending) { if (onLoaded) pending.push(onLoaded); return; }
-    const missing = regionAssets(map).filter(asset => !this.scene.textures.exists(asset.key));
+    const missing = regionAssets(map).filter(asset => (this.includeTerrain || asset.key !== map.id) && !this.scene.textures.exists(asset.key));
     if (!missing.length) { onLoaded?.(); return; }
     this.requests.set(map.id, onLoaded ? [onLoaded] : []);
     for (const asset of missing) {
@@ -61,7 +61,7 @@ export class WorldMapAssets {
   /** Wait until a stale destination finishes loading before reclaiming its pages. */
   release(map: WorldMapSpec): boolean {
     if (this.requests.has(map.id)) return false;
-    for (const asset of regionAssets(map)) if (this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
+    for (const asset of regionAssets(map)) if ((this.includeTerrain || asset.key !== map.id) && this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
     return true;
   }
 }

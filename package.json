@@ -9,11 +9,14 @@
     "build": "npm run build --workspace web",
     "check": "npm run check --workspace web",
     "test": "npm run test --workspace web",
-    "test:tooling": "node --test scripts/course-word-mapping.test.mjs scripts/course-listening-distractors.test.mjs scripts/world-audio-synthesis.test.mjs scripts/dialogue-level-audit.test.mjs scripts/map-editor-format.test.mjs scripts/map-editor.test.mjs scripts/export-world-content.test.mjs scripts/course-split.test.mjs scripts/terrain-stitch.test.mjs",
+    "test:tooling": "node --test scripts/course-word-mapping.test.mjs scripts/course-listening-distractors.test.mjs scripts/world-audio-synthesis.test.mjs scripts/dialogue-level-audit.test.mjs scripts/map-editor-format.test.mjs scripts/map-editor.test.mjs scripts/export-world-content.test.mjs scripts/course-split.test.mjs scripts/terrain-stitch.test.mjs scripts/scene-compiler.test.mjs scripts/scene-authoring-service.test.mjs scripts/world-expansion-audit.test.mjs",
     "maps:check": "node scripts/map-editor.mjs check",
     "lint": "npm run lint --workspace web",
     "assets": "node scripts/assets.mjs",
     "budgets": "node scripts/check-budgets.mjs",
-    "i18n": "node scripts/i18n-coverage.mjs"
+    "i18n": "node scripts/i18n-coverage.mjs",
+    "scenes:check": "node scripts/scene-compiler.mjs check",
+    "scenes:compile": "node scripts/scene-compiler.mjs compile",
+    "worlds:check-expansion": "node docs/audits/measure-living-world-baseline.mjs . --check-expansion"
   }
 }

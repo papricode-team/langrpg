@@ -1,8 +1,10 @@
 import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid } from './navigation';
+import {getWorldScene} from './scene-data';
+import {sceneEntrancePoint, type SceneEntrance} from './scene-schema';
 
-export type InteriorId = 'cafe' | 'bakery' | 'supermarket' | 'inn';
+export type InteriorId = SceneEntrance['interiorId'];
 export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture';
 export type InteriorPolygon = readonly (readonly [number, number])[];
 export interface InteriorVocabulary {
@@ -57,8 +59,8 @@ export interface InteriorSpec {
   description: string;
   icon: 'cup' | 'basket' | 'leaf';
   asset: string;
-  width: 1536;
-  height: 1024;
+  width: number;
+  height: number;
   /** Visible adult height in painting pixels; defaults to the shop furniture scale. */
   characterHeight?: number;
   spawn: MapPosition;
@@ -76,6 +78,7 @@ export interface BuildingEntrance extends MapPosition {
   interiorId: InteriorId;
   label: string;
   description: string;
+  returnPoint: MapPosition;
 }
 
 const position = (x: number, y: number): MapPosition => ({ x: x / 1536, y: y / 1024 });
@@ -343,20 +346,14 @@ const referencedExercises = new Set(interiors.flatMap(interior => interior.objec
 /** These are the same server-graded expressions used by the existing quests. */
 export const interiorExercises: Exercise[] = quests.flatMap(quest => quest.exercises).filter(exercise => referencedExercises.has(exercise.id));
 
-/** Door markers sit on the pavement immediately outside existing storefronts. */
-const entranceLocations: Readonly<Partial<Record<MapId, Readonly<Record<InteriorId, MapPosition>>>>> = {
-  lindenhafen: { cafe: position(588, 475), bakery: position(1172, 847), supermarket: position(1230, 485), inn: position(425, 462) },
-  waldruh: { cafe: position(320, 365), bakery: position(385, 720), supermarket: position(893, 765), inn: position(285, 368) },
-  nebelstadt: { cafe: position(190, 480), bakery: position(273, 775), supermarket: position(790, 822), inn: position(245, 485) },
-};
-
+/** Scenery and its doorway share one authored transform. */
 export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
-  const locations = entranceLocations[mapId];
-  if (!locations) return [];
-  return interiors.map(interior => ({
-    id: `building:${interior.id}` as const, interiorId: interior.id, label: interior.germanName,
-    description: interior.description, ...locations[interior.id],
-  }));
+  const scene=getWorldScene(mapId);
+  return (scene.entrances ?? []).map(entrance => {
+    const interior=getInterior(entrance.interiorId), point=sceneEntrancePoint(scene,entrance), back=sceneEntrancePoint(scene,entrance,true);
+    return {id:`building:${interior.id}` as const,interiorId:interior.id,label:interior.germanName,description:interior.description,
+      x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};
+  });
 }
 
 /** Match each distinct building footprint and its partition doorways. */
@@ -365,5 +362,5 @@ export function createInteriorNavigation(id: InteriorId): NavigationGrid {
     [[x, y], [x + width, y], [x + width, y + height], [x, y + height]];
   const interior = getInterior(id);
   const obstacles = interior.props.flatMap(prop => prop.collision ? [rectangle(prop.collision.x, prop.collision.y, prop.collision.width, prop.collision.height)] : []);
-  return new NavigationGrid(interior.walkableAreas, [...(interior.barriers ?? []), ...obstacles]);
+  return new NavigationGrid(interior.walkableAreas, [...(interior.barriers ?? []), ...obstacles], interior);
 }

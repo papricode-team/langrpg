@@ -20,32 +20,14 @@ const DefaultMapID = "lindenhafen"
 // A replaced tab must not reconnect and evict the tab that took over.
 const sessionReplacedStatus websocket.StatusCode = 4001
 
-var mapIDs = []string{
-	DefaultMapID, "waldruh", "nebelstadt",
-	"saffroncourt", "rainmarket", "windplain", "riverweave", "terracielo",
-	"sunpatch", "kigalights", "cedarbay", "seoulsteps", "dunegarden",
-}
+var mapIDs = worldMapIDs(compiledWorldMaps)
 
 type MapSpawn struct {
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
 }
 
-var mapSpawns = map[string]MapSpawn{
-	DefaultMapID:   {X: .52, Y: .61},
-	"waldruh":      {X: .52, Y: .54},
-	"nebelstadt":   {X: .50, Y: .55},
-	"saffroncourt": {X: .50, Y: .72},
-	"rainmarket":   {X: .12, Y: .58},
-	"windplain":    {X: .50, Y: .76},
-	"riverweave":   {X: .15, Y: .77},
-	"terracielo":   {X: .16, Y: .83},
-	"sunpatch":     {X: .50, Y: .83},
-	"kigalights":   {X: .13, Y: .80},
-	"cedarbay":     {X: .16, Y: .81},
-	"seoulsteps":   {X: .17, Y: .84},
-	"dunegarden":   {X: .50, Y: .83},
-}
+var mapSpawns = worldMapSpawns(compiledWorldMaps)
 
 func validMapID(id string) bool { _, ok := mapSpawns[id]; return ok }
 
@@ -53,7 +35,9 @@ type worldMemory struct {
 	mapID            string
 	interiorID       string
 	interiorPosition MapSpawn
+	interiorFrame    WorldCoordinateFrame
 	positions        map[string]MapSpawn
+	positionFrames   map[string]WorldCoordinateFrame
 	chatTimes        []time.Time
 	joinTimes        []time.Time
 	lastSeen         time.Time
@@ -90,12 +74,25 @@ type World struct {
 	done           chan struct{}
 	maxPlayers     int
 	originPatterns []string
-	clockEpoch     time.Time
+	clockIdentity  WorldIdentity
+	maps           map[string]WorldMapDefinition
+	contentVersion string
 }
 
 func NewWorld(maxPlayers int, origins []string) *World {
+	identity, err := newWorldIdentity()
+	if err != nil {
+		panic(err)
+	}
+	return newWorldWithIdentity(maxPlayers, origins, identity)
+}
+
+func newWorldWithIdentity(maxPlayers int, origins []string, identity WorldIdentity) *World {
 	ctx, cancel := context.WithCancel(context.Background())
-	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockEpoch: time.Now().UTC()}
+	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]WorldMapDefinition, len(compiledWorldMaps.Maps)), contentVersion: compiledWorldMaps.ContentVersion}
+	for id, definition := range compiledWorldMaps.Maps {
+		w.maps[id] = definition
+	}
 	for _, mapID := range mapIDs {
 		w.messages[mapID] = []ChatMessage{}
 	}
@@ -199,7 +196,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	}
 	changingMap := memory != nil && memory.mapID != mapID
 	if memory == nil {
-		memory = &worldMemory{mapID: mapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: .025}
+		memory = &worldMemory{mapID: mapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: worldMoveInitialCredit}
 		w.memories[player.ID] = memory
 	} else if memory.mapID != mapID && !memory.allowJoin(now) {
 		w.mu.Unlock()
@@ -211,17 +208,19 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		memory.interiorID = ""
 	}
 	client.memory = memory
-	position, exists := memory.positions[mapID]
-	if !exists {
-		position = mapSpawns[mapID]
-	}
+	position := memory.restorePosition(mapID, w.mapDefinition(mapID))
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
+	if !validInterior(mapID, memory.interiorID) {
+		memory.interiorID = ""
+	}
 	client.player.InteriorID = memory.interiorID
 	if memory.interiorID != "" {
+		definition := w.locationDefinition(mapID, memory.interiorID)
+		memory.interiorPosition = restoreWorldPosition(memory.interiorPosition, memory.interiorFrame, definition)
+		memory.interiorFrame = definition.WorldCoordinateFrame
 		client.player.X, client.player.Y = memory.interiorPosition.X, memory.interiorPosition.Y
 	}
 	memory.mapID, memory.lastSeen = mapID, now
-	memory.positions[mapID] = position
 	w.clients[player.ID] = client
 	w.enqueueMapLocked(client, "welcome")
 	if previous != nil && previous.player.MapID != mapID {
@@ -293,12 +292,13 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			break
 		}
 		var message struct {
-			Type       string   `json:"type"`
-			X          *float64 `json:"x"`
-			Y          *float64 `json:"y"`
-			Message    string   `json:"message"`
-			MapID      string   `json:"mapId"`
-			InteriorID string   `json:"interiorId"`
+			Type              string   `json:"type"`
+			X                 *float64 `json:"x"`
+			Y                 *float64 `json:"y"`
+			Message           string   `json:"message"`
+			MapID             string   `json:"mapId"`
+			InteriorID        string   `json:"interiorId"`
+			CoordinateVersion *int     `json:"coordinateVersion"`
 		}
 		if err := json.Unmarshal(b, &message); err != nil {
 			w.clientError(client, "invalid JSON message")
@@ -310,7 +310,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 				w.clientError(client, "coordinates must be between 0 and 1")
 				continue
 			}
-			if err := w.moveInLocation(client, message.MapID, message.InteriorID, *message.X, *message.Y, now); err != "" {
+			if err := w.moveInLocationVersioned(client, message.MapID, message.InteriorID, *message.X, *message.Y, now, message.CoordinateVersion); err != "" {
 				w.clientError(client, err)
 			}
 		case "joinInterior":
@@ -336,11 +336,12 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 
 func validCoordinate(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) && v >= 0 && v <= 1 }
 
-func (w *World) nearStoryTarget(playerID, mapID string, target MapSpawn, radius float64) bool {
+func (w *World) nearStoryTarget(playerID, mapID string, target MapSpawn, radius WorldRange) bool {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	client := w.clients[playerID]
-	return client != nil && client.player.MapID == mapID && client.player.InteriorID == "" && math.Hypot(client.player.X-target.X, client.player.Y-target.Y) <= radius
+	return client != nil && client.player.MapID == mapID && client.player.InteriorID == "" &&
+		w.mapDefinition(mapID).WorldCoordinateFrame.within(MapSpawn{client.player.X, client.player.Y}, target, radius)
 }
 
 // Loading an earlier narrative slot can withdraw an earned route. Apply that
@@ -353,13 +354,11 @@ func (w *World) reconcileStoryLocation(playerID string, completed []string) {
 		return
 	}
 	oldMap := client.player.MapID
-	position := mapSpawns[DefaultMapID]
+	definition := w.mapDefinition(DefaultMapID)
+	position := definition.Spawn
 	if client.memory != nil {
-		if remembered, exists := client.memory.positions[DefaultMapID]; exists {
-			position = remembered
-		}
+		position = client.memory.restorePosition(DefaultMapID, definition)
 		client.memory.mapID, client.memory.interiorID = DefaultMapID, ""
-		client.memory.positions[DefaultMapID] = position
 		client.memory.lastMove, client.memory.lastSeen = time.Now(), time.Now()
 		client.memory.movementCredit = 0
 	}
@@ -394,6 +393,10 @@ func (w *World) moveInMap(client *worldClient, mapID string, x, y float64, now t
 }
 
 func (w *World) moveInLocation(client *worldClient, mapID, interiorID string, x, y float64, now time.Time) string {
+	return w.moveInLocationVersioned(client, mapID, interiorID, x, y, now, nil)
+}
+
+func (w *World) moveInLocationVersioned(client *worldClient, mapID, interiorID string, x, y float64, now time.Time, coordinateVersion *int) string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.clients[client.player.ID] != client {
@@ -405,23 +408,31 @@ func (w *World) moveInLocation(client *worldClient, mapID, interiorID string, x,
 	if interiorID != client.player.InteriorID {
 		return "movement belongs to another building"
 	}
+	if !validCoordinate(x) || !validCoordinate(y) {
+		return "coordinates must be between 0 and 1"
+	}
+	if err := w.coordinateVersionError(client.player.MapID, client.player.InteriorID, coordinateVersion); err != "" {
+		return err
+	}
 	memory := client.memory
-	memory.movementCredit = math.Min(.08, memory.movementCredit+math.Max(0, now.Sub(memory.lastMove).Seconds())*.24)
+	memory.movementCredit = math.Min(worldMoveCreditLimit, memory.movementCredit+math.Max(0, now.Sub(memory.lastMove).Seconds())*worldMoveUnitsPerSecond)
 	memory.lastMove = now
-	dx, dy := x-client.player.X, y-client.player.Y
-	distance := math.Hypot(dx, dy)
+	definition := w.locationDefinition(client.player.MapID, interiorID)
+	dx, dy := definition.WorldCoordinateFrame.delta(MapSpawn{client.player.X, client.player.Y}, MapSpawn{x, y})
+	distance := worldMovementDistance(dx, dy)
 	if distance == 0 {
 		return ""
 	}
 	step := math.Min(distance, memory.movementCredit)
-	client.player.X += dx / distance * step
-	client.player.Y += dy / distance * step
+	client.player.X += dx / distance * step / definition.Width
+	client.player.Y += dy / distance * step / definition.Height
 	memory.movementCredit -= step
 	position := MapSpawn{X: client.player.X, Y: client.player.Y}
 	if interiorID == "" {
-		memory.positions[client.player.MapID] = position
+		memory.rememberPosition(client.player.MapID, position, definition.WorldCoordinateFrame)
 	} else {
 		memory.interiorPosition = position
+		memory.interiorFrame = definition.WorldCoordinateFrame
 	}
 	return ""
 }
@@ -489,7 +500,7 @@ func (w *World) broadcastPlayersLocked(mapID string) {
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
 	mapID := client.player.MapID
-	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID], "clock": w.Clock()})
+	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID], "clock": w.Clock(), "scene": w.sceneMetadata(mapID, client.player.InteriorID)})
 	w.enqueueLocked(client, message)
 }
 
@@ -536,14 +547,10 @@ func (w *World) joinMap(client *worldClient, mapID string, now time.Time) string
 	if !client.memory.allowJoin(now) {
 		return "please wait before changing maps again"
 	}
-	position, exists := client.memory.positions[mapID]
-	if !exists {
-		position = mapSpawns[mapID]
-	}
+	position := client.memory.restorePosition(mapID, w.mapDefinition(mapID))
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
 	client.player.InteriorID, client.memory.interiorID = "", ""
 	client.memory.mapID, client.memory.lastSeen = mapID, now
-	client.memory.positions[mapID] = position
 	client.memory.lastMove, client.memory.movementCredit = now, 0
 	w.enqueueMapLocked(client, "map")
 	w.broadcastPlayersLocked(oldMap)

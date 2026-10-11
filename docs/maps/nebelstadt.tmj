@@ -1,16 +1,16 @@
 {
   "type": "map",
   "version": "1.10",
-  "tiledversion": "1.11.2",
+  "tiledversion": "1.12.2",
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "infinite": false,
-  "width": 96,
-  "height": 64,
-  "tilewidth": 16,
-  "tileheight": 16,
-  "nextobjectid": 42,
-  "nextlayerid": 42,
+  "width": 1536,
+  "height": 1024,
+  "tilewidth": 1,
+  "tileheight": 1,
+  "nextobjectid": 147,
+  "nextlayerid": 147,
   "properties": [
     {
       "name": "mapId",
@@ -20,27 +20,253 @@
     {
       "name": "navigationVersion",
       "type": "int",
+      "value": 2
+    },
+    {
+      "name": "kind",
+      "type": "string",
+      "value": "outdoor"
+    },
+    {
+      "name": "coordinateVersion",
+      "type": "int",
       "value": 1
+    },
+    {
+      "name": "_optionalCollections",
+      "type": "string",
+      "value": "[\"entrances\"]"
+    },
+    {
+      "name": "_jsonFields",
+      "type": "string",
+      "value": "[\"_optionalCollections\"]"
     }
   ],
   "layers": [
     {
-      "id": 1,
-      "name": "Painting",
-      "type": "imagelayer",
-      "image": "../../web/public/assets/nebelstadt-terrain.webp",
-      "visible": true
-    },
-    {
-      "id": 2,
-      "name": "Walkable",
+      "id": 101,
+      "name": "Terrain",
       "type": "objectgroup",
-      "color": "#7700aa55",
-      "opacity": 0.35,
       "visible": true,
+      "locked": true,
       "objects": [
         {
+          "id": 1,
+          "name": "core-0-0",
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 512,
+          "gid": 1,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-0-0"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-0-0.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-0-0-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-0-0-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "core-0-1",
+          "x": 768,
+          "y": 0,
+          "width": 768,
+          "height": 512,
+          "gid": 2,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-0-1"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-0-1.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-0-1-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-0-1-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
           "id": 3,
+          "name": "core-1-0",
+          "x": 0,
+          "y": 512,
+          "width": 768,
+          "height": 512,
+          "gid": 3,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-1-0"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-1-0.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-1-0-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-1-0-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "core-1-1",
+          "x": 768,
+          "y": 512,
+          "width": 768,
+          "height": 512,
+          "gid": 4,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-1-1"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-1-1.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-1-1-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-night-terrain-detail-1-1-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "name": "Walkable",
+      "type": "objectgroup",
+      "visible": true,
+      "color": "#7700aa55",
+      "opacity": 0.35,
+      "objects": [
+        {
+          "id": 102,
           "name": "walkable-1",
           "x": 0,
           "y": 0,
@@ -149,10 +375,11 @@
               "x": 429,
               "y": 468
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 4,
+          "id": 103,
           "name": "walkable-2",
           "x": 0,
           "y": 0,
@@ -233,10 +460,11 @@
               "x": 152,
               "y": 494
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 5,
+          "id": 104,
           "name": "walkable-3",
           "x": 0,
           "y": 0,
@@ -273,10 +501,11 @@
               "x": 744,
               "y": 326
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 6,
+          "id": 105,
           "name": "walkable-4",
           "x": 0,
           "y": 0,
@@ -317,10 +546,11 @@
               "x": 610,
               "y": 330
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 7,
+          "id": 106,
           "name": "walkable-5",
           "x": 0,
           "y": 0,
@@ -393,10 +623,11 @@
               "x": 910,
               "y": 342
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 8,
+          "id": 107,
           "name": "walkable-6",
           "x": 0,
           "y": 0,
@@ -457,10 +688,11 @@
               "x": 1152,
               "y": 450
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 9,
+          "id": 108,
           "name": "walkable-7",
           "x": 0,
           "y": 0,
@@ -533,10 +765,11 @@
               "x": 1028,
               "y": 552
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 10,
+          "id": 109,
           "name": "walkable-8",
           "x": 0,
           "y": 0,
@@ -621,10 +854,11 @@
               "x": 159,
               "y": 766
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 11,
+          "id": 110,
           "name": "walkable-9",
           "x": 0,
           "y": 0,
@@ -729,10 +963,11 @@
               "x": 529,
               "y": 685
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 12,
+          "id": 111,
           "name": "walkable-10",
           "x": 0,
           "y": 0,
@@ -777,10 +1012,11 @@
               "x": 882,
               "y": 620
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 13,
+          "id": 112,
           "name": "walkable-11",
           "x": 0,
           "y": 0,
@@ -817,10 +1053,11 @@
               "x": 991,
               "y": 530
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 14,
+          "id": 113,
           "name": "walkable-12",
           "x": 0,
           "y": 0,
@@ -857,21 +1094,22 @@
               "x": 804,
               "y": 627
             }
-          ]
+          ],
+          "properties": []
         }
       ]
     },
     {
-      "id": 15,
+      "id": 122,
       "name": "Obstacles",
       "type": "objectgroup",
+      "visible": true,
       "color": "#77dd5544",
       "opacity": 0.35,
-      "visible": true,
       "objects": [
         {
-          "id": 16,
-          "name": "obstacles-1",
+          "id": 115,
+          "name": "obstacle-1",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -947,11 +1185,12 @@
               "x": 794.6227867640108,
               "y": 434.3191942669732
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 17,
-          "name": "obstacles-2",
+          "id": 116,
+          "name": "obstacle-2",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1027,11 +1266,12 @@
               "x": 662.3717007612195,
               "y": 372.5016172768123
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 18,
-          "name": "obstacles-3",
+          "id": 117,
+          "name": "obstacle-3",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1107,11 +1347,12 @@
               "x": 564.2510860027913,
               "y": 498.81757699016094
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 19,
-          "name": "obstacles-4",
+          "id": 118,
+          "name": "obstacle-4",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1187,11 +1428,12 @@
               "x": 738.3113933820055,
               "y": 559.1595971334866
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 20,
-          "name": "obstacles-5",
+          "id": 119,
+          "name": "obstacle-5",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1267,11 +1509,12 @@
               "x": 977.3717007612195,
               "y": 476.81757699016094
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 21,
-          "name": "obstacles-6",
+          "id": 120,
+          "name": "obstacle-6",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1347,11 +1590,12 @@
               "x": 957.3717007612195,
               "y": 553.1595971334866
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 22,
-          "name": "obstacles-7",
+          "id": 121,
+          "name": "obstacle-7",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1387,18 +1631,5179 @@
               "x": 540,
               "y": 659
             }
+          ],
+          "properties": []
+        }
+      ]
+    },
+    {
+      "id": 123,
+      "name": "Scenery",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": [
+        {
+          "id": 5,
+          "name": "nebelstadt-council-archive",
+          "x": 51,
+          "y": -106.40298507462688,
+          "width": 426,
+          "height": 416.81592039800995,
+          "gid": 5,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-council-archive"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 264
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 309
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 426
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 51
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -106.40298507462688
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 426
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "nebelstadt-observatory-building",
+          "x": 625.5,
+          "y": 2.986725663716811,
+          "width": 235,
+          "height": 251.84513274336283,
+          "gid": 6,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-building"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 743
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 254
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 235
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 625.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 2.986725663716811
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 235
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "nebelstadt-railway-station",
+          "x": 903.5,
+          "y": -32.00984413453648,
+          "width": 375,
+          "height": 328.24036095159965,
+          "gid": 7,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-railway-station"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1091
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 295
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 375
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 903.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -32.00984413453648
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 375
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "nebelstadt-shipwright-workshop",
+          "x": 95.5,
+          "y": 388.0243055555556,
+          "width": 355,
+          "height": 340.2083333333333,
+          "gid": 8,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-shipwright-workshop"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 273
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 727
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 355
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 95.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 388.0243055555556
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 355
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "nebelstadt-east-lighthouse",
+          "x": 1311,
+          "y": 70.0257234726688,
+          "width": 250,
+          "height": 329.04608788853164,
+          "gid": 9,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-east-lighthouse"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1436
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 398
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 250
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1311
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 70.0257234726688
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 250
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "nebelstadt-glass-conservatory",
+          "x": 907,
+          "y": 528.2787456445993,
+          "width": 310,
+          "height": 320.801393728223,
+          "gid": 10,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-glass-conservatory"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1062
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 848
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 310
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 907
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 528.2787456445993
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 310
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "nebelstadt-market-canopy",
+          "x": 534.0232558139535,
+          "y": 545.9069767441861,
+          "width": 225,
+          "height": 227.09302325581396,
+          "gid": 11,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-canopy"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 646
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 773
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 225
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 534.0232558139535
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 545.9069767441861
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 225
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "nebelstadt-west-cafe-canopy",
+          "x": 95.21395348837208,
+          "y": 348.13488372093025,
+          "width": 92,
+          "height": 86.86511627906977,
+          "gid": 12,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-cafe-canopy"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 141
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 435
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 95.21395348837208
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 348.13488372093025
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "nebelstadt-market-north-stall",
+          "x": 570.050925925926,
+          "y": 535.6527777777778,
+          "width": 119,
+          "height": 117.89814814814815,
+          "gid": 2147483661,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-north-stall"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 629
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 653
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 119
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 570.050925925926
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 535.6527777777778
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 119
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "nebelstadt-garden-gateway",
+          "x": 1066,
+          "y": 306.3692946058091,
+          "width": 182,
+          "height": 166.14107883817428,
+          "gid": 14,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-garden-gateway"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1157
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 471
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 182
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1066
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 306.3692946058091
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 182
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "nebelstadt-atlas-armillary",
+          "x": 692.1830065359477,
+          "y": 327.52941176470586,
+          "width": 103,
+          "height": 153.49019607843138,
+          "gid": 15,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-atlas-armillary"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 742
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 479
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 103
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 692.1830065359477
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 327.52941176470586
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 103
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "nebelstadt-council-noticeboard",
+          "x": 348.1256544502618,
+          "y": 341.74345549738223,
+          "width": 86,
+          "height": 97.2565445026178,
+          "gid": 16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-council-noticeboard"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 390
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 439
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 86
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 348.1256544502618
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 341.74345549738223
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 86
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "nebelstadt-harbor-route-board",
+          "x": 941.7068062827225,
+          "y": 227.93193717277487,
+          "width": 54,
+          "height": 61.068062827225134,
+          "gid": 16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-harbor-route-board"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 968
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 289
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 941.7068062827225
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 227.93193717277487
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "name": "nebelstadt-station-board",
+          "x": 1187.65445026178,
+          "y": 258.4554973821989,
+          "width": 50,
+          "height": 56.544502617801044,
+          "gid": 16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-board"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1212
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 315
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1187.65445026178
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 258.4554973821989
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "nebelstadt-council-north-tree",
+          "x": -17.6322869955157,
+          "y": 30.05381165919283,
+          "width": 122,
+          "height": 106.13452914798206,
+          "gid": 17,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-council-north-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 122
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -17.6322869955157
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 30.05381165919283
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 122
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "nebelstadt-archive-west-tree",
+          "x": 41.87431693989071,
+          "y": 148.43715846994536,
+          "width": 98,
+          "height": 122.09836065573771,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-west-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 89
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 270
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 41.87431693989071
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 148.43715846994536
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "nebelstadt-archive-east-tree",
+          "x": 500.70588235294116,
+          "y": 73.52941176470588,
+          "width": 104,
+          "height": 90.3529411764706,
+          "gid": 19,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-east-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 552
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 162
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 500.70588235294116
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 73.52941176470588
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "nebelstadt-archive-terrace-tree",
+          "x": 512.273381294964,
+          "y": 202.431654676259,
+          "width": 76,
+          "height": 124.11510791366906,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-terrace-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 550
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 326
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 76
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 512.273381294964
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 202.431654676259
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 76
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "nebelstadt-west-frontage-tree",
+          "x": 172.91304347826087,
+          "y": 353.95652173913044,
+          "width": 95,
+          "height": 91.28260869565217,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-frontage-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 220
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 444
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 95
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 172.91304347826087
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 353.95652173913044
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 95
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "nebelstadt-observatory-east-tree",
+          "x": 824.103825136612,
+          "y": 76.55191256830602,
+          "width": 110,
+          "height": 137.04918032786884,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-east-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 877
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 213
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 110
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 824.103825136612
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 76.55191256830602
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 110
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "nebelstadt-station-garden-tree",
+          "x": 794.9819004524887,
+          "y": 292.60180995475116,
+          "width": 71,
+          "height": 61.68325791855204,
+          "gid": 19,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-garden-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 830
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 353
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 71
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 794.9819004524887
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 292.60180995475116
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 71
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "nebelstadt-station-north-tree",
+          "x": 1100.3525179856115,
+          "y": -11.338129496402871,
+          "width": 98,
+          "height": 160.0431654676259,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-north-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1149
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 148
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1100.3525179856115
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -11.338129496402871
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 98
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "name": "nebelstadt-east-garden-tree",
+          "x": 952.0089686098655,
+          "y": 317.31838565022423,
+          "width": 90,
+          "height": 78.29596412556054,
+          "gid": 17,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-east-garden-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 996
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 394
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 952.0089686098655
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 317.31838565022423
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 90
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "name": "nebelstadt-west-waterfront-tree",
+          "x": -22.56521739130435,
+          "y": 460.2173913043478,
+          "width": 100,
+          "height": 96.08695652173913,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-waterfront-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 555
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -22.56521739130435
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 460.2173913043478
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "nebelstadt-workshop-east-tree",
+          "x": 400.70588235294116,
+          "y": 569.5294117647059,
+          "width": 104,
+          "height": 90.3529411764706,
+          "gid": 19,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-workshop-east-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 452
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 658
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 400.70588235294116
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 569.5294117647059
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "nebelstadt-workshop-north-tree",
+          "x": 306.31654676258995,
+          "y": 422.9208633093525,
+          "width": 88,
+          "height": 143.71223021582733,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-workshop-north-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 350
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 566
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 88
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 306.31654676258995
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 422.9208633093525
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 88
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "name": "nebelstadt-market-east-tree",
+          "x": 781.0313901345291,
+          "y": 616.6143497757847,
+          "width": 92,
+          "height": 80.03587443946188,
+          "gid": 17,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-east-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 826
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 695
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 781.0313901345291
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 616.6143497757847
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "name": "nebelstadt-conservatory-west-tree",
+          "x": 813.9125683060109,
+          "y": 686.9562841530055,
+          "width": 100,
+          "height": 124.59016393442623,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-west-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 862
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 811
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 813.9125683060109
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 686.9562841530055
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "nebelstadt-conservatory-east-tree",
+          "x": 1181.3391304347826,
+          "y": 713.0695652173913,
+          "width": 78,
+          "height": 74.94782608695652,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-east-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1220
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 787
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 78
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1181.3391304347826
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 713.0695652173913
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 78
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "name": "nebelstadt-harbor-southwest-tree",
+          "x": -40.97122302158273,
+          "y": 723.9928057553957,
+          "width": 147,
+          "height": 240.06474820143885,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-harbor-southwest-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 32
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 963
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -40.97122302158273
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 723.9928057553957
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "nebelstadt-archive-west-cypress",
+          "x": 169.26,
+          "y": 182.82,
+          "width": 42,
+          "height": 98.28,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-west-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 189
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 279
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 169.26
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 182.82
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "name": "nebelstadt-archive-front-cypress",
+          "x": 320.38,
+          "y": 198.66,
+          "width": 46,
+          "height": 107.64,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-front-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 342
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 304
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 46
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 320.38
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 198.66
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 46
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "name": "nebelstadt-archive-east-cypress",
+          "x": 482.5,
+          "y": 149.5,
+          "width": 50,
+          "height": 117,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-east-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 506
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 264
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 482.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 149.5
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "name": "nebelstadt-observatory-west-cypress",
+          "x": 584.2,
+          "y": 51.400000000000006,
+          "width": 40,
+          "height": 93.6,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-west-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 603
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 143
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 584.2
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 51.400000000000006
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "name": "nebelstadt-observatory-east-cypress",
+          "x": 860.97,
+          "y": 145.79000000000002,
+          "width": 49,
+          "height": 114.66,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-east-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 884
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 258
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 860.97
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 145.79000000000002
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "name": "nebelstadt-station-side-cypress",
+          "x": 915.67,
+          "y": 193.69,
+          "width": 39,
+          "height": 91.26,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-side-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 934
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 283
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 915.67
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 193.69
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "nebelstadt-bridge-garden-cypress",
+          "x": 1187.32,
+          "y": 281.24,
+          "width": 44,
+          "height": 102.96,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-bridge-garden-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1208
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 382
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1187.32
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 281.24
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "nebelstadt-lighthouse-cypress",
+          "x": 1305.73,
+          "y": 328.11,
+          "width": 41,
+          "height": 95.94,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-lighthouse-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1325
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 422
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1305.73
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 328.11
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "name": "nebelstadt-conservatory-north-cypress",
+          "x": 945.32,
+          "y": 539.24,
+          "width": 44,
+          "height": 102.96,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-north-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 966
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 640
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 945.32
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 539.24
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "name": "nebelstadt-conservatory-west-cypress",
+          "x": 912.38,
+          "y": 675.66,
+          "width": 46,
+          "height": 107.64,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-west-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 934
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 781
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 46
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 912.38
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 675.66
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 46
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "nebelstadt-conservatory-east-cypress",
+          "x": 1120.62,
+          "y": 725.34,
+          "width": 54,
+          "height": 126.36,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-east-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1146
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 849
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1120.62
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 725.34
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "name": "nebelstadt-conservatory-south-cypress",
+          "x": 1011.85,
+          "y": 790.95,
+          "width": 45,
+          "height": 105.3,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-south-cypress"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1033
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 894
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 45
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1011.85
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 790.95
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 45
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "name": "nebelstadt-archive-west-lamp",
+          "x": 136.15625,
+          "y": 230.5625,
+          "width": 21,
+          "height": 49.875,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-west-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 146
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 280
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 136.15625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 230.5625
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "name": "nebelstadt-archive-door-lamp",
+          "x": 385.625,
+          "y": 247.91666666666669,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-door-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 395
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 295
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 385.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 247.91666666666669
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "name": "nebelstadt-archive-east-lamp",
+          "x": 514.625,
+          "y": 304.9166666666667,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-east-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 524
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 352
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 514.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 304.9166666666667
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "name": "nebelstadt-council-steps-lamp",
+          "x": 434.875,
+          "y": 353.0833333333333,
+          "width": 28,
+          "height": 66.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-council-steps-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 448
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 419
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 434.875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 353.0833333333333
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "name": "nebelstadt-west-frontage-lamp",
+          "x": 41.40625,
+          "y": 364.7291666666667,
+          "width": 29,
+          "height": 68.875,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-frontage-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 55
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 433
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 41.40625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 364.7291666666667
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "name": "nebelstadt-cafe-front-lamp",
+          "x": 233.34375,
+          "y": 413.4375,
+          "width": 27,
+          "height": 64.125,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-cafe-front-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 246
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 477
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 233.34375
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 413.4375
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "name": "nebelstadt-observatory-west-lamp",
+          "x": 627.625,
+          "y": 271.9166666666667,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-west-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 637
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 319
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 627.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 271.9166666666667
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "name": "nebelstadt-observatory-front-lamp",
+          "x": 685.03125,
+          "y": 238.97916666666666,
+          "width": 17,
+          "height": 40.375,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-front-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 693
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 279
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 17
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 685.03125
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 238.97916666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 17
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "name": "nebelstadt-observatory-east-lamp",
+          "x": 812.5625,
+          "y": 243.625,
+          "width": 18,
+          "height": 42.75,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-east-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 821
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 286
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 812.5625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 243.625
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 56,
+          "name": "nebelstadt-station-lamp",
+          "x": 1061.625,
+          "y": 248.91666666666669,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1071
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 296
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1061.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 248.91666666666669
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "name": "nebelstadt-east-square-lamp",
+          "x": 904.15625,
+          "y": 341.5625,
+          "width": 21,
+          "height": 49.875,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-east-square-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 914
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 391
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 904.15625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 341.5625
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "name": "nebelstadt-east-garden-lamp",
+          "x": 1068.75,
+          "y": 391.5,
+          "width": 24,
+          "height": 57,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-east-garden-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1080
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 448
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1068.75
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 391.5
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "name": "nebelstadt-signal-bridge-lamp",
+          "x": 1270.15625,
+          "y": 417.5625,
+          "width": 21,
+          "height": 49.875,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-signal-bridge-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1280
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 467
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1270.15625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 417.5625
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 21
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "name": "nebelstadt-lighthouse-lamp",
+          "x": 1387.625,
+          "y": 359.9166666666667,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-lighthouse-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1397
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 407
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1387.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 359.9166666666667
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 61,
+          "name": "nebelstadt-lower-bridge-lamp",
+          "x": 1108.6875,
+          "y": 514.2083333333334,
+          "width": 22,
+          "height": 52.25,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-lower-bridge-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1119
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 566
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1108.6875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 514.2083333333334
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 62,
+          "name": "nebelstadt-bridge-mid-lamp",
+          "x": 1263.5625,
+          "y": 531.625,
+          "width": 18,
+          "height": 42.75,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-bridge-mid-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1272
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 574
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1263.5625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 531.625
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 18
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 63,
+          "name": "nebelstadt-bridge-south-lamp",
+          "x": 1143.625,
+          "y": 583.9166666666666,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-bridge-south-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1153
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 631
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1143.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 583.9166666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "name": "nebelstadt-bridge-east-lamp",
+          "x": 1440.28125,
+          "y": 698.1458333333334,
+          "width": 25,
+          "height": 59.375,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-bridge-east-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1452
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 757
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 25
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1440.28125
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 698.1458333333334
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 25
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 65,
+          "name": "nebelstadt-workshop-front-lamp",
+          "x": 314.40625,
+          "y": 676.7291666666666,
+          "width": 29,
+          "height": 68.875,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-workshop-front-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 328
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 745
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 314.40625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 676.7291666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 66,
+          "name": "nebelstadt-workshop-stairs-lamp",
+          "x": 420.75,
+          "y": 705.5,
+          "width": 24,
+          "height": 57,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-workshop-stairs-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 432
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 762
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 420.75
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 705.5
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 24
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 67,
+          "name": "nebelstadt-market-stairs-lamp",
+          "x": 556.625,
+          "y": 560.9166666666666,
+          "width": 20,
+          "height": 47.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-stairs-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 566
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 608
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 556.625
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 560.9166666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 68,
+          "name": "nebelstadt-market-front-lamp",
+          "x": 619.46875,
+          "y": 739.0208333333334,
+          "width": 31,
+          "height": 73.625,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-front-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 634
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 812
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 31
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 619.46875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 739.0208333333334
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 31
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 69,
+          "name": "nebelstadt-conservatory-west-lamp",
+          "x": 836.34375,
+          "y": 645.4375,
+          "width": 27,
+          "height": 64.125,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-west-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 849
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 709
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 836.34375
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 645.4375
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 70,
+          "name": "nebelstadt-conservatory-south-lamp",
+          "x": 833.8125,
+          "y": 888.7916666666666,
+          "width": 26,
+          "height": 61.75,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-south-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 846
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 950
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 26
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 833.8125
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 888.7916666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 26
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 71,
+          "name": "nebelstadt-conservatory-dock-lamp",
+          "x": 954.6875,
+          "y": 886.2083333333334,
+          "width": 22,
+          "height": 52.25,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-dock-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 965
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 938
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 954.6875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 886.2083333333334
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "name": "nebelstadt-southwest-dock-lamp",
+          "x": 293.875,
+          "y": 790.0833333333334,
+          "width": 28,
+          "height": 66.5,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-southwest-dock-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 307
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 856
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 293.875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 790.0833333333334
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 73,
+          "name": "nebelstadt-southstairs-west-lamp",
+          "x": 430.21875,
+          "y": 836.8541666666666,
+          "width": 23,
+          "height": 54.625,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-southstairs-west-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 441
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 891
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 430.21875
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 836.8541666666666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 74,
+          "name": "nebelstadt-square-north-planter",
+          "x": 609.7065868263473,
+          "y": 327.8622754491018,
+          "width": 53,
+          "height": 70.1377245508982,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-square-north-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 637
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 398
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 609.7065868263473
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 327.8622754491018
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 75,
+          "name": "nebelstadt-square-west-planter",
+          "x": 509.88018433179724,
+          "y": 485.95391705069125,
+          "width": 55,
+          "height": 40.046082949308754,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-square-west-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 537
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 526
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 55
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 509.88018433179724
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 485.95391705069125
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 55
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 76,
+          "name": "nebelstadt-square-south-planter",
+          "x": 683.7703349282297,
+          "y": 521.0478468899521,
+          "width": 59,
+          "height": 62.952153110047846,
+          "gid": 26,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-square-south-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 712
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 584
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 59
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 683.7703349282297
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 521.0478468899521
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 59
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 77,
+          "name": "nebelstadt-square-east-planter",
+          "x": 923.2178770949721,
+          "y": 438.86033519553075,
+          "width": 56,
+          "height": 69.13966480446928,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-square-east-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 952
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 508
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 56
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 923.2178770949721
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 438.86033519553075
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 56
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 78,
+          "name": "nebelstadt-conservatory-north-planter",
+          "x": 906.251497005988,
+          "y": 513.8323353293413,
+          "width": 50,
+          "height": 66.16766467065868,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-north-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 932
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 580
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 906.251497005988
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 513.8323353293413
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 79,
+          "name": "nebelstadt-board-planter",
+          "x": 432.7972350230415,
+          "y": 435.6912442396313,
+          "width": 43,
+          "height": 31.308755760368662,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-board-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 454
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 467
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 43
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 432.7972350230415
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 435.6912442396313
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 43
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 80,
+          "name": "nebelstadt-observatory-door-planter",
+          "x": 639.4258373205741,
+          "y": 215.1196172248804,
+          "width": 43,
+          "height": 45.880382775119614,
+          "gid": 26,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-door-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 660
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 261
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 43
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 639.4258373205741
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 215.1196172248804
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 43
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 81,
+          "name": "nebelstadt-archive-front-planter",
+          "x": 255.7877094972067,
+          "y": 270.0335195530726,
+          "width": 51,
+          "height": 62.96648044692738,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-front-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 282
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 333
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 51
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 255.7877094972067
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 270.0335195530726
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 51
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 82,
+          "name": "nebelstadt-market-east-planter",
+          "x": 738.5868263473054,
+          "y": 717.2754491017964,
+          "width": 61,
+          "height": 80.72455089820359,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-east-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 770
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 798
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 61
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 738.5868263473054
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 717.2754491017964
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 61
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 83,
+          "name": "nebelstadt-conservatory-south-planter",
+          "x": 1146.442396313364,
+          "y": 840.4009216589861,
+          "width": 64,
+          "height": 46.59907834101382,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-south-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1178
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 887
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1146.442396313364
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 840.4009216589861
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 84,
+          "name": "nebelstadt-conservatory-west-planter",
+          "x": 865.1626794258373,
+          "y": 878.3827751196172,
+          "width": 54,
+          "height": 57.61722488038278,
+          "gid": 26,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-west-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 891
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 936
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 865.1626794258373
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 878.3827751196172
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 54
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 85,
+          "name": "nebelstadt-workshop-west-planter",
+          "x": 23.70391061452514,
+          "y": 633.6256983240223,
+          "width": 57,
+          "height": 70.37430167597765,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-workshop-west-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 704
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 57
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 23.70391061452514
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 633.6256983240223
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 57
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 86,
+          "name": "nebelstadt-archive-terrace-bench",
+          "x": 549,
+          "y": 296.42477876106193,
+          "width": 56,
+          "height": 47.823008849557525,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-archive-terrace-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 577
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 344
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 56
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 549
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 296.42477876106193
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 56
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 87,
+          "name": "nebelstadt-west-cafe-bench",
+          "x": 260.5,
+          "y": 427.3716814159292,
+          "width": 49,
+          "height": 41.84513274336283,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-cafe-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 285
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 469
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 260.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 427.3716814159292
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 88,
+          "name": "nebelstadt-board-side-bench",
+          "x": 456.5,
+          "y": 437.3716814159292,
+          "width": 49,
+          "height": 41.84513274336283,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-board-side-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 481
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 479
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 456.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 437.3716814159292
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 89,
+          "name": "nebelstadt-station-garden-bench",
+          "x": 831.5,
+          "y": 330.27433628318585,
+          "width": 55,
+          "height": 46.969026548672566,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-station-garden-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 859
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 377
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 55
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 831.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 330.27433628318585
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 55
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 90,
+          "name": "nebelstadt-market-east-bench",
+          "x": 804,
+          "y": 662.5221238938053,
+          "width": 50,
+          "height": 42.69911504424779,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-market-east-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 829
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 705
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 804
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 662.5221238938053
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 91,
+          "name": "nebelstadt-conservatory-south-bench",
+          "x": 1043.5,
+          "y": 858.1769911504425,
+          "width": 61,
+          "height": 52.0929203539823,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-south-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1074
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 910
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 61
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1043.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 858.1769911504425
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 61
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 92,
+          "name": "nebelstadt-conservatory-west-bench",
+          "x": 867.5,
+          "y": 733.9734513274336,
+          "width": 53,
+          "height": 45.26106194690266,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-west-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 894
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 779
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 867.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 733.9734513274336
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 93,
+          "name": "nebelstadt-west-fishing-boat",
+          "x": -4.702928870292887,
+          "y": 767.1338912133891,
+          "width": 97,
+          "height": 73.86610878661088,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-west-fishing-boat"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 841
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 97
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -4.702928870292887
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 767.1338912133891
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 97
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 94,
+          "name": "nebelstadt-southwest-fishing-boat",
+          "x": 73.76569037656904,
+          "y": 878.7112970711297,
+          "width": 112,
+          "height": 85.2887029288703,
+          "gid": 2147483677,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-southwest-fishing-boat"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 130
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 964
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 112
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 73.76569037656904
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 878.7112970711297
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 112
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 95,
+          "name": "nebelstadt-conservatory-fishing-boat",
+          "x": 1139.652719665272,
+          "y": 873.5899581589958,
+          "width": 166,
+          "height": 126.41004184100419,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-conservatory-fishing-boat"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1223
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1000
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 166
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1139.652719665272
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 873.5899581589958
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 166
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 96,
+          "name": "nebelstadt-east-harbor-boat",
+          "x": 1429.7573221757323,
+          "y": 874.6652719665271,
+          "width": 116,
+          "height": 88.3347280334728,
+          "gid": 2147483677,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-east-harbor-boat"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1488
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 963
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 116
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1429.7573221757323
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 874.6652719665271
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 116
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
           ]
         }
       ]
     },
     {
-      "id": 23,
+      "id": 125,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 24,
+          "id": 124,
           "name": "spawn",
           "point": true,
           "x": 768,
@@ -1414,13 +6819,13 @@
       ]
     },
     {
-      "id": 25,
+      "id": 135,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 26,
+          "id": 126,
           "name": "marta",
           "point": true,
           "x": 454.65599999999995,
@@ -1434,7 +6839,7 @@
           ]
         },
         {
-          "id": 27,
+          "id": 127,
           "name": "otto",
           "point": true,
           "x": 1070.5919999999999,
@@ -1448,7 +6853,7 @@
           ]
         },
         {
-          "id": 28,
+          "id": 128,
           "name": "lina",
           "point": true,
           "x": 1320.96,
@@ -1462,7 +6867,7 @@
           ]
         },
         {
-          "id": 29,
+          "id": 129,
           "name": "emil",
           "point": true,
           "x": 394.752,
@@ -1476,7 +6881,7 @@
           ]
         },
         {
-          "id": 30,
+          "id": 130,
           "name": "ada",
           "point": true,
           "x": 525.312,
@@ -1490,7 +6895,7 @@
           ]
         },
         {
-          "id": 31,
+          "id": 131,
           "name": "fritz",
           "point": true,
           "x": 791.04,
@@ -1504,7 +6909,7 @@
           ]
         },
         {
-          "id": 32,
+          "id": 132,
           "name": "greta",
           "point": true,
           "x": 967.6800000000001,
@@ -1518,7 +6923,7 @@
           ]
         },
         {
-          "id": 33,
+          "id": 133,
           "name": "inspector",
           "point": true,
           "x": 416.25600000000003,
@@ -1532,7 +6937,7 @@
           ]
         },
         {
-          "id": 34,
+          "id": 134,
           "name": "elise",
           "point": true,
           "x": 769.5360000000001,
@@ -1548,13 +6953,13 @@
       ]
     },
     {
-      "id": 35,
+      "id": 142,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 36,
+          "id": 136,
           "name": "nebelstadt-repair-ledger",
           "point": true,
           "x": 437.76,
@@ -1568,7 +6973,7 @@
           ]
         },
         {
-          "id": 37,
+          "id": 137,
           "name": "nebelstadt-council-board",
           "point": true,
           "x": 388.608,
@@ -1582,7 +6987,7 @@
           ]
         },
         {
-          "id": 38,
+          "id": 138,
           "name": "nebelstadt-signal-lantern",
           "point": true,
           "x": 1354.752,
@@ -1596,7 +7001,7 @@
           ]
         },
         {
-          "id": 39,
+          "id": 139,
           "name": "nebelstadt-observatory",
           "point": true,
           "x": 769.5360000000001,
@@ -1610,7 +7015,7 @@
           ]
         },
         {
-          "id": 40,
+          "id": 140,
           "name": "nebelstadt-evidence-crate",
           "point": true,
           "x": 228.86399999999998,
@@ -1624,7 +7029,7 @@
           ]
         },
         {
-          "id": 41,
+          "id": 141,
           "name": "nebelstadt-harbor-chart",
           "point": true,
           "x": 961.5360000000001,
@@ -1634,6 +7039,1594 @@
               "name": "key",
               "type": "string",
               "value": "nebelstadt-harbor-chart"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 143,
+      "name": "Districts",
+      "type": "objectgroup",
+      "visible": true,
+      "opacity": 0.25,
+      "objects": []
+    },
+    {
+      "id": 144,
+      "name": "Activities",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": []
+    },
+    {
+      "id": 145,
+      "name": "Entrances",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": [
+        {
+          "id": 97,
+          "name": "cafe-entrance",
+          "point": true,
+          "x": 190,
+          "y": 480,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "cafe-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "nebelstadt-west-cafe-canopy"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "cafe"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 45
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 190
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 480
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 98,
+          "name": "bakery-entrance",
+          "point": true,
+          "x": 273,
+          "y": 775,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "bakery-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "nebelstadt-shipwright-workshop"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "bakery"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 48
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 273
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 775
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 355
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 99,
+          "name": "supermarket-entrance",
+          "point": true,
+          "x": 790,
+          "y": 822,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "supermarket-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "nebelstadt-market-canopy"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "supermarket"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 144
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 790
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 822
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 225
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 100,
+          "name": "inn-entrance",
+          "point": true,
+          "x": 245,
+          "y": 485,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "inn-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "nebelstadt-west-cafe-canopy"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "inn"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 50
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 245
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 485
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 92
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 146,
+      "name": "Generation zones",
+      "type": "objectgroup",
+      "visible": true,
+      "opacity": 0.2,
+      "objects": []
+    }
+  ],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "nebelstadt-scene-images",
+      "columns": 0,
+      "objectalignment": "topleft",
+      "tilewidth": 3072,
+      "tileheight": 2048,
+      "tilecount": 29,
+      "tiles": [
+        {
+          "id": 0,
+          "image": "../../web/public/assets/nebelstadt-day-terrain-detail-0-0.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-0-0.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "../../web/public/assets/nebelstadt-day-terrain-detail-0-1.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 1,
+          "y": 0,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-0-1.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "../../web/public/assets/nebelstadt-day-terrain-detail-1-0.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 0,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-1-0.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "../../web/public/assets/nebelstadt-day-terrain-detail-1-1.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/nebelstadt-day-terrain-detail-1-1.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "image": "../../web/public/assets/nebelstadt-day-building-archive.webp",
+          "imagewidth": 1206,
+          "imageheight": 1180,
+          "x": 0,
+          "y": 0,
+          "width": 1206,
+          "height": 1180,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "archive"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9966101694915255
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1206
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1180
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1206
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "image": "../../web/public/assets/nebelstadt-day-building-cafe.webp",
+          "imagewidth": 1130,
+          "imageheight": 1211,
+          "x": 0,
+          "y": 0,
+          "width": 1130,
+          "height": 1211,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "cafe"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9966969446738233
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1130
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1211
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1130
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "image": "../../web/public/assets/nebelstadt-day-building-station.webp",
+          "imagewidth": 1219,
+          "imageheight": 1067,
+          "x": 0,
+          "y": 0,
+          "width": 1219,
+          "height": 1067,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "station"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9962511715089035
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1219
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1067
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1219
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "image": "../../web/public/assets/nebelstadt-day-building-workshop.webp",
+          "imagewidth": 1152,
+          "imageheight": 1104,
+          "x": 0,
+          "y": 0,
+          "width": 1152,
+          "height": 1104,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "workshop"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9963768115942029
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1152
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1104
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1152
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "image": "../../web/public/assets/nebelstadt-day-building-house.webp",
+          "imagewidth": 933,
+          "imageheight": 1228,
+          "x": 0,
+          "y": 0,
+          "width": 933,
+          "height": 1228,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "house"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.996742671009772
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 933
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1228
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 933
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "image": "../../web/public/assets/nebelstadt-day-building-greenhouse.webp",
+          "imagewidth": 1148,
+          "imageheight": 1188,
+          "x": 0,
+          "y": 0,
+          "width": 1148,
+          "height": 1188,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "greenhouse"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9966329966329966
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1148
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1188
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1148
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "image": "../../web/public/assets/nebelstadt-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1276,
+          "x": 2,
+          "y": 2,
+          "width": 215,
+          "height": 217,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49767441860465117
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 215
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 217
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 215
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "image": "../../web/public/assets/nebelstadt-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1276,
+          "x": 440,
+          "y": 223,
+          "width": 215,
+          "height": 203,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49767441860465117
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 215
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 203
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 215
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "image": "../../web/public/assets/nebelstadt-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1276,
+          "x": 2,
+          "y": 651,
+          "width": 216,
+          "height": 214,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-3"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49537037037037035
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9953271028037384
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 216
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 214
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 216
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "image": "../../web/public/assets/nebelstadt-day-building-bases.webp",
+          "imagewidth": 2048,
+          "imageheight": 1047,
+          "x": 1476,
+          "y": 4,
+          "width": 482,
+          "height": 440,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "arch"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.990909090909091
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 482
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 440
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 482
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "image": "../../web/public/assets/nebelstadt-day-animation-1.webp",
+          "imagewidth": 1024,
+          "imageheight": 1308,
+          "x": 686,
+          "y": 472,
+          "width": 153,
+          "height": 228,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "fountain"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.48366013071895425
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9868421052631579
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 153
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 228
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 153
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "image": "../../web/public/assets/nebelstadt-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1280,
+          "x": 464,
+          "y": 842,
+          "width": 191,
+          "height": 216,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "sign"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4869109947643979
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 191
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 216
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 191
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "image": "../../web/public/assets/nebelstadt-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1089,
+          "x": 2,
+          "y": 2,
+          "width": 223,
+          "height": 194,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.48878923766816146
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.979381443298969
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 223
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 194
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 223
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "image": "../../web/public/assets/nebelstadt-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1089,
+          "x": 456,
+          "y": 200,
+          "width": 183,
+          "height": 228,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4808743169398907
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9956140350877193
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 183
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 228
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 183
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "image": "../../web/public/assets/nebelstadt-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1089,
+          "x": 563,
+          "y": 432,
+          "width": 221,
+          "height": 192,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-3"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49321266968325794
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9791666666666666
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 221
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 192
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 221
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "image": "../../web/public/assets/nebelstadt-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1089,
+          "x": 2,
+          "y": 860,
+          "width": 139,
+          "height": 227,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-4"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49640287769784175
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9955947136563876
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 139
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 227
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 139
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "image": "../../web/public/assets/nebelstadt-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1123,
+          "x": 2,
+          "y": 2,
+          "width": 230,
+          "height": 221,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4956521739130435
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9864253393665159
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 230
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 221
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 230
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "image": "../../web/public/assets/nebelstadt-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1123,
+          "x": 470,
+          "y": 227,
+          "width": 100,
+          "height": 234,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "cypress"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.47
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9786324786324786
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 100
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 234
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 100
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "image": "../../web/public/assets/nebelstadt-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1123,
+          "x": 106,
+          "y": 465,
+          "width": 96,
+          "height": 228,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.46875
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9912280701754386
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 96
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 228
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 96
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "image": "../../web/public/assets/nebelstadt-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1356,
+          "x": 2,
+          "y": 2,
+          "width": 167,
+          "height": 221,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "planter-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5149700598802395
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 167
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 221
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 167
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "image": "../../web/public/assets/nebelstadt-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1356,
+          "x": 173,
+          "y": 227,
+          "width": 217,
+          "height": 158,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "planter-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4930875576036866
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 217
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 217
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "image": "../../web/public/assets/nebelstadt-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1356,
+          "x": 665,
+          "y": 452,
+          "width": 209,
+          "height": 223,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "garden-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4784688995215311
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 209
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 223
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 209
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "image": "../../web/public/assets/nebelstadt-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1356,
+          "x": 215,
+          "y": 906,
+          "width": 179,
+          "height": 221,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "garden-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5139664804469274
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 179
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 221
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 179
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "image": "../../web/public/assets/nebelstadt-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1280,
+          "x": 462,
+          "y": 217,
+          "width": 226,
+          "height": 193,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "bench"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9948186528497409
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 226
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 193
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 226
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "image": "../../web/public/assets/nebelstadt-day-animation-1.webp",
+          "imagewidth": 1024,
+          "imageheight": 1308,
+          "x": 630,
+          "y": 706,
+          "width": 239,
+          "height": 182,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.502092050209205
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 239
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 182
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 239
             }
           ]
         }

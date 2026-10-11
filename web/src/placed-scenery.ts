@@ -1,8 +1,5 @@
 import type { MapId } from './maps';
-import { lindenhafenPlacements } from './placed-lindenhafen';
-import { waldruhPlacements } from './placed-waldruh';
-import { nebelstadtPlacements } from './placed-nebelstadt';
-import { expeditionPlacements } from './expeditions';
+import {getWorldScene} from './scene-data';
 
 /** Each frame is reusable transparent artwork, independent of the terrain. */
 export const sceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp',
@@ -15,7 +12,7 @@ export interface PlacedScenerySpec {
   /** Artistic silhouette may differ from the physical role used for navigation. */
   frame?: string;
   variant?: boolean;
-  /** Pixel foot anchor in the 1536 × 1024 region. */
+  /** World-unit foot anchor, independent of terrain texture resolution. */
   x: number;
   y: number;
   width: number;
@@ -26,11 +23,7 @@ export interface PlacedScenerySpec {
   collidable?: boolean;
 }
 
-const placements: Readonly<Record<MapId, readonly PlacedScenerySpec[]>> = {
-  lindenhafen: lindenhafenPlacements, waldruh: waldruhPlacements, nebelstadt: nebelstadtPlacements,
-  ...expeditionPlacements,
-};
-export const getPlacedScenery = (mapId: MapId): readonly PlacedScenerySpec[] => placements[mapId];
+export const getPlacedScenery = (mapId: MapId): readonly PlacedScenerySpec[] => getWorldScene(mapId).scenery;
 /** Match the feet-depth convention used by every character root. */
 export const sceneryDepth = (baseY: number): number => baseY + 10.5;
 export const sceneryTextureKey = (mapId: MapId): string => `${mapId}-props`;
@@ -47,11 +40,16 @@ export function sceneryPhase(id: string): number {
 
 /** Solid bases belong to placed assets. The swaying crown never blocks a road. */
 export function placedSceneryFootprints(mapId: MapId): readonly (readonly (readonly [number, number])[])[] {
+  return sceneryFootprints(getPlacedScenery(mapId));
+}
+
+/** Drafts and released scenes use exactly the same physical footprints. */
+export function sceneryFootprints(placements: readonly PlacedScenerySpec[]): readonly (readonly (readonly [number, number])[])[] {
   const ellipse = (x: number, y: number, rx: number, ry: number) => Array.from({ length: 8 }, (_, index) => {
     const angle = index / 8 * Math.PI * 2;
     return [x + Math.cos(angle) * rx, y + Math.sin(angle) * ry] as const;
   });
-  return getPlacedScenery(mapId).flatMap(spec => {
+  return placements.flatMap(spec => {
     if (spec.collidable === false) return [];
     if (spec.asset === 'boat') return []; // Floating scenery never blocks pavement.
     if (spec.asset === 'arch') {

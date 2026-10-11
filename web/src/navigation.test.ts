@@ -80,7 +80,7 @@ describe('painted scenery foot collisions', () => {
     for (const { mapId, behind } of fixtures) {
       const map = getMap(mapId);
       const navigation = createMapNavigation(mapId);
-      const start = { x: map.spawn.x * MAP_WIDTH, y: map.spawn.y * MAP_HEIGHT };
+      const start = { x: map.spawn.x * map.width, y: map.spawn.y * map.height };
       expect(navigation.isWalkable(behind.x, behind.y), `${mapId} rear pavement at ${behind.x},${behind.y}`).toBe(true);
       const route = navigation.findPath(start, behind);
       expect(route.length, `${mapId} rear pavement has no route`).toBeGreaterThan(0);

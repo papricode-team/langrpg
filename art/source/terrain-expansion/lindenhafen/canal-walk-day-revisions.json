@@ -1,0 +1,22 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "reason": "The four first close-up outputs were 1515–1516×1038, outside the existing aspect-ratio tolerance. Replaced from the original registered references without weakening validation.",
+  "sections": [
+    {
+      "position": "0-0",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio MUST be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high, at least 1450 by 1024. Keep the exact full-frame composition of the attached geometry reference. Paint a richly detailed ground-only game terrain source: tiny irregular cobbles with fine mortar and subtle weathering, low curbs, granular soil, delicate grass blades, canal water and bridge masonry. This depicts exactly a 432x304 world-unit section. Preserve ALL paths, water boundaries, banks, bridge decks, arches, grass patches and frame-edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm natural daylight, painterly perspective and SMALL paving scale; no thick cartoon outlines, oversaturated yellow, plastic stones or enlarged cobbles. No objects, people, buildings, trees, furniture, text or UI. Output one image with width/height 1.42105, NOT 1.46 or 1.5; the previous output was too wide."
+    },
+    {
+      "position": "0-1",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio MUST be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high, at least 1450 by 1024. Keep the exact full-frame composition of the attached geometry reference. Paint a richly detailed ground-only game terrain source: tiny irregular cobbles with fine mortar and subtle weathering, low curbs, granular soil, delicate grass blades, canal water and bridge masonry. This depicts exactly a 432x304 world-unit section. Preserve ALL paths, water boundaries, banks, bridge decks, arches, grass patches and frame-edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm natural daylight, painterly perspective and SMALL paving scale; no thick cartoon outlines, oversaturated yellow, plastic stones or enlarged cobbles. No objects, people, buildings, trees, furniture, text or UI. Output one image with width/height 1.42105, NOT 1.46 or 1.5; the previous output was too wide."
+    },
+    {
+      "position": "1-0",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio MUST be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high, at least 1450 by 1024. Keep the exact full-frame composition of the attached geometry reference. Paint a richly detailed ground-only game terrain source: tiny irregular cobbles with fine mortar and subtle weathering, low curbs, granular soil, delicate grass blades, canal water and bridge masonry. This depicts exactly a 432x304 world-unit section. Preserve ALL paths, water boundaries, banks, bridge decks, arches, grass patches and frame-edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm natural daylight, painterly perspective and SMALL paving scale; no thick cartoon outlines, oversaturated yellow, plastic stones or enlarged cobbles. No objects, people, buildings, trees, furniture, text or UI. Output one image with width/height 1.42105, NOT 1.46 or 1.5; the previous output was too wide."
+    },
+    {
+      "position": "1-1",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio MUST be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high, at least 1450 by 1024. Keep the exact full-frame composition of the attached geometry reference. Paint a richly detailed ground-only game terrain source: tiny irregular cobbles with fine mortar and subtle weathering, low curbs, granular soil, delicate grass blades, canal water and bridge masonry. This depicts exactly a 432x304 world-unit section. Preserve ALL paths, water boundaries, banks, bridge decks, arches, grass patches and frame-edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm natural daylight, painterly perspective and SMALL paving scale; no thick cartoon outlines, oversaturated yellow, plastic stones or enlarged cobbles. No objects, people, buildings, trees, furniture, text or UI. Output one image with width/height 1.42105, NOT 1.46 or 1.5; the previous output was too wide."
+    }
+  ]
+}

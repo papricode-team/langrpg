@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "0de830d09171e714",
+  "maps": {
+    "lindenhafen": {
+      "width": 3072,
+      "height": 1024,
+      "spawn": {
+        "x": 0.26,
+        "y": 0.61
+      },
+      "coordinateVersion": 2,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "cafe",
+          "approach": {
+            "x": 0.19140625,
+            "y": 0.4638671875
+          },
+          "return": {
+            "x": 0.19140625,
+            "y": 0.4638671875
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "riverside-house",
+          "approach": {
+            "x": 0.3815104166666667,
+            "y": 0.8271484375
+          },
+          "return": {
+            "x": 0.3815104166666667,
+            "y": 0.8271484375
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "market-east-stall",
+          "approach": {
+            "x": 0.400390625,
+            "y": 0.4736328125
+          },
+          "return": {
+            "x": 0.400390625,
+            "y": 0.4736328125
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "cafe",
+          "approach": {
+            "x": 0.13834635416666666,
+            "y": 0.451171875
+          },
+          "return": {
+            "x": 0.13834635416666666,
+            "y": 0.451171875
+          }
+        }
+      }
+    },
+    "waldruh": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.52,
+        "y": 0.54
+      },
+      "coordinateVersion": 1,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "waldruh-inn",
+          "approach": {
+            "x": 0.20833333333333334,
+            "y": 0.3564453125
+          },
+          "return": {
+            "x": 0.20833333333333334,
+            "y": 0.3564453125
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "waldruh-west-workshop",
+          "approach": {
+            "x": 0.2506510416666667,
+            "y": 0.703125
+          },
+          "return": {
+            "x": 0.2506510416666667,
+            "y": 0.703125
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "waldruh-market-east",
+          "approach": {
+            "x": 0.5813802083333334,
+            "y": 0.7470703125
+          },
+          "return": {
+            "x": 0.5813802083333334,
+            "y": 0.7470703125
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "waldruh-inn",
+          "approach": {
+            "x": 0.185546875,
+            "y": 0.359375
+          },
+          "return": {
+            "x": 0.185546875,
+            "y": 0.359375
+          }
+        }
+      }
+    },
+    "nebelstadt": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.5,
+        "y": 0.55
+      },
+      "coordinateVersion": 1,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "nebelstadt-west-cafe-canopy",
+          "approach": {
+            "x": 0.12369791666666667,
+            "y": 0.46875
+          },
+          "return": {
+            "x": 0.12369791666666667,
+            "y": 0.46875
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "nebelstadt-shipwright-workshop",
+          "approach": {
+            "x": 0.177734375,
+            "y": 0.7568359375
+          },
+          "return": {
+            "x": 0.177734375,
+            "y": 0.7568359375
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "nebelstadt-market-canopy",
+          "approach": {
+            "x": 0.5143229166666666,
+            "y": 0.802734375
+          },
+          "return": {
+            "x": 0.5143229166666666,
+            "y": 0.802734375
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "nebelstadt-west-cafe-canopy",
+          "approach": {
+            "x": 0.15950520833333334,
+            "y": 0.4736328125
+          },
+          "return": {
+            "x": 0.15950520833333334,
+            "y": 0.4736328125
+          }
+        }
+      }
+    },
+    "saffroncourt": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "rainmarket": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.12,
+        "y": 0.58
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "windplain": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.5,
+        "y": 0.76
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "riverweave": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.15,
+        "y": 0.77
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "terracielo": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.16,
+        "y": 0.83
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "sunpatch": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.5,
+        "y": 0.83
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "kigalights": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.13,
+        "y": 0.8
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "cedarbay": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.16,
+        "y": 0.81
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "seoulsteps": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.17,
+        "y": 0.84
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    },
+    "dunegarden": {
+      "width": 1536,
+      "height": 1024,
+      "spawn": {
+        "x": 0.5,
+        "y": 0.83
+      },
+      "coordinateVersion": 1,
+      "entrances": {}
+    }
+  }
+}

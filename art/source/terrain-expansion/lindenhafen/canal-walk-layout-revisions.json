@@ -1,0 +1,6 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "revisions": [
+    "Use case: precise-object-edit. Input image 1 is the terrain edit target, a 1024:640 neighbor board. Input image 2 is the original border registration reference. Make ONE targeted change: connect the existing left-middle bridge deck to the curving cobbled promenade on the right bank by extending the bridge over the turquoise canal. In normalized 1024x640 board coordinates the new bridge runs from roughly (158,332) to (360,332), with a 55-unit-wide walkable stone deck, centered near y332. It must join the EXISTING left deck naturally and have an open, flat end where it reaches the right promenade; do not terminate against a tall parapet or wall. Put low masonry parapets only on the two outer sides of the bridge and stone arches below; use the original stone scale and elevated orthographic camera. New construction only inside the central missing district rectangle x128..895,y128..639. Preserve all the rest of the terrain, water boundaries, grass islands, east garden road exit, south road exit, all border strips and exact board aspect ratio. No added objects, people, lamps, trees, writing, UI or guides. Output the complete board at approximately1536x960 pixels, no crop."
+  ]
+}

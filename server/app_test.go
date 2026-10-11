@@ -402,7 +402,14 @@ func TestConcurrentPlayersChatAndAuthoritativeMovement(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer one.CloseNow()
-	readWorld(t, ctx, one, "welcome")
+	arrival := readWorld(t, ctx, one, "welcome")
+	var arrivals []Player
+	_ = json.Unmarshal(arrival["players"], &arrivals)
+	for _, player := range arrivals {
+		if player.ID == playerOne.ID {
+			playerOne = player
+		}
+	}
 	two, _, err := websocket.Dial(ctx, url+tokenTwo, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -421,14 +428,16 @@ func TestConcurrentPlayersChatAndAuthoritativeMovement(t *testing.T) {
 	if chat.PlayerID != playerOne.ID || chat.Text != "Guten Tag, Mira!" {
 		t.Fatalf("chat delivery %+v", chat)
 	}
-	writeWorld(t, ctx, one, map[string]any{"type": "move", "x": 1, "y": 1})
+	writeWorld(t, ctx, one, map[string]any{"type": "move", "coordinateVersion": compiledWorldMaps.Maps[DefaultMapID].CoordinateVersion, "x": 1, "y": 1})
 	for {
 		message = readWorld(t, ctx, two, "players")
 		_ = json.Unmarshal(message["players"], &players)
 		moved := false
 		for _, player := range players {
 			if player.ID == playerOne.ID {
-				distance := math.Hypot(player.X-playerOne.X, player.Y-playerOne.Y)
+				definition := compiledWorldMaps.Maps[DefaultMapID]
+				dx, dy := definition.delta(MapSpawn{playerOne.X, playerOne.Y}, MapSpawn{player.X, player.Y})
+				distance := math.Hypot(dx/1536, dy/1024)
 				if distance > 0 {
 					moved = true
 					if distance > .081 {

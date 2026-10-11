@@ -241,7 +241,7 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 		return &APIError{409, "open this conversation's current German request first"}
 	}
 	rule, _ := storyRule(questID)
-	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, .15) {
+	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk back to this conversation's character first"}
 	}
 	return nil
@@ -255,7 +255,7 @@ func (a *App) requireStoryReply(account *Account, questID string) error {
 		return &APIError{409, "open this character's greeting first"}
 	}
 	rule, _ := storyRule(questID)
-	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, .15) {
+	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk to this conversation's character first"}
 	}
 	return nil
@@ -357,7 +357,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		if storyNode(&account.Progress, input.QuestID) != input.NodeID {
 			return Receipt{}, &APIError{409, "the conversation has moved on; reopen the current line"}
 		}
-		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, .15) {
+		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
 			return Receipt{}, &APIError{409, "walk back to this conversation's character first"}
 		}
 		s := &account.Progress.Story
@@ -598,7 +598,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || storyNode(&account.Progress, input.QuestID) != "intro" {
 			return Receipt{}, &APIError{409, "this investigation has already moved on"}
 		}
-		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, target, .12) {
+		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, target, storyEvidenceRange) {
 			return Receipt{}, &APIError{409, "walk to this piece of evidence first"}
 		}
 		inspected := account.Progress.Story.Inspections[input.QuestID]

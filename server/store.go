@@ -17,6 +17,7 @@ import (
 )
 
 type Store interface {
+	WorldIdentity() WorldIdentity
 	Create(context.Context, string, Account) error
 	Get(context.Context, string) (Account, error)
 	UpdateProfile(context.Context, string, string, Avatar) (Account, error)
@@ -32,6 +33,7 @@ type Store interface {
 }
 
 type diskState struct {
+	World    *WorldIdentity                    `json:"world,omitempty"`
 	Version  int                               `json:"version"`
 	Accounts map[string]Account                `json:"accounts"`
 	Sessions map[string]string                 `json:"sessions"`
@@ -48,11 +50,11 @@ type JSONStore struct {
 func NewJSONStore(path string) (*JSONStore, error) {
 	s := &JSONStore{path: path, state: diskState{Version: 1, Accounts: map[string]Account{}, Sessions: map[string]string{}, Actions: map[string]map[string]SavedAction{}}}
 	if path == "" {
-		return s, nil
+		return s, s.initializeWorld()
 	}
 	b, err := os.ReadFile(path)
 	if errors.Is(err, os.ErrNotExist) {
-		return s, nil
+		return s, s.initializeWorld()
 	}
 	if err != nil {
 		return nil, err
@@ -63,7 +65,7 @@ func NewJSONStore(path string) (*JSONStore, error) {
 	if s.state.Version != 1 || s.state.Accounts == nil || s.state.Sessions == nil || s.state.Actions == nil {
 		return nil, errors.New("unsupported development state file")
 	}
-	return s, nil
+	return s, s.initializeWorld()
 }
 
 func (s *JSONStore) save() error {
@@ -228,7 +230,10 @@ func (s *JSONStore) Health(context.Context) error { return nil }
 func (s *JSONStore) Kind() string                 { return "json-development" }
 func (s *JSONStore) Close()                       {}
 
-type PGStore struct{ pool *pgxpool.Pool }
+type PGStore struct {
+	pool          *pgxpool.Pool
+	worldIdentity WorldIdentity
+}
 
 func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	pool, err := pgxpool.New(ctx, url)
@@ -242,13 +247,18 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	}
 	_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS accounts (id TEXT PRIMARY KEY, data JSONB NOT NULL);
 	CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id), created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
-	CREATE TABLE IF NOT EXISTS learning_events (account_id TEXT NOT NULL REFERENCES accounts(id), event_key TEXT NOT NULL, request JSONB NOT NULL, receipt JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (account_id,event_key));`)
+	CREATE TABLE IF NOT EXISTS learning_events (account_id TEXT NOT NULL REFERENCES accounts(id), event_key TEXT NOT NULL, request JSONB NOT NULL, receipt JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (account_id,event_key));
+	CREATE TABLE IF NOT EXISTS world_state (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);`)
 	if err != nil {
 		pool.Close()
 		return nil, err
 	}
 	_, err = pool.Exec(ctx, `CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique ON accounts ((data->>'email')) WHERE data->>'email' IS NOT NULL`)
 	if err != nil {
+		pool.Close()
+		return nil, err
+	}
+	if err = s.initializeWorld(ctx); err != nil {
 		pool.Close()
 		return nil, err
 	}

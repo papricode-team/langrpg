@@ -1,4 +1,5 @@
 import data from './data/world-navigation.json';
+import {getWorldScene} from './scene-data';
 import type {WorldMapSpec} from './maps';
 
 export type AuthoredPolygon=readonly (readonly [number,number])[];
@@ -50,11 +51,20 @@ export function parseMapNavigationDocument(value:unknown):MapNavigationDocument 
 }
 
 export const authoredNavigation=parseMapNavigationDocument(data);
-export function applyAuthoredMapPlacements(spec:WorldMapSpec,document:MapNavigationDocument=authoredNavigation):WorldMapSpec {
+export function applyAuthoredMapPlacements(spec:WorldMapSpec,document?:MapNavigationDocument):WorldMapSpec {
+  if(!document) {
+    const scene=getWorldScene(spec.id);
+    const place=<T extends {id:string;x:number;y:number}>(values:readonly T[],positions:readonly AuthoredPosition[]):T[]=>values.map(value=>{
+      const position=positions.find(point=>point.id===value.id);
+      if(!position)throw new Error(`Missing ${value.id} in canonical scene ${scene.id}`);
+      return {...value,x:position.x/scene.width,y:position.y/scene.height};
+    });
+    return {...spec,width:scene.width,height:scene.height,spawn:{x:scene.spawn.x/scene.width,y:scene.spawn.y/scene.height},npcs:place(spec.npcs,scene.npcs),objects:place(spec.objects,scene.objects)};
+  }
   const authored=document.maps[spec.id];if(!authored)return spec;
   const place=<T extends {id:string;x:number;y:number}>(values:readonly T[],positions:readonly AuthoredPosition[]):T[]=>values.map(value=>{
     const position=positions.find(position=>position.id===value.id);
     return position?{...value,x:position.x/document.width,y:position.y/document.height}:value;
   });
-  return {...spec,spawn:{x:authored.spawn.x/document.width,y:authored.spawn.y/document.height},npcs:place(spec.npcs,authored.npcs),objects:place(spec.objects,authored.objects)};
+  return {...spec,width:document.width,height:document.height,spawn:{x:authored.spawn.x/document.width,y:authored.spawn.y/document.height},npcs:place(spec.npcs,authored.npcs),objects:place(spec.objects,authored.objects)};
 }

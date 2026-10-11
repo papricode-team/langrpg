@@ -147,7 +147,7 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 		}
 	}
 	app.world.mu.Unlock()
-	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "x": 1, "y": 1})
+	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "coordinateVersion": compiledWorldMaps.Maps[id].CoordinateVersion, "x": 1, "y": 1})
 	for {
 		packet := readWorld(t, ctx, conn, "players")
 		var moved []Player
@@ -163,7 +163,7 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 			break
 		}
 		// Allow the zero-credit arrival to earn movement normally.
-		writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "x": 1, "y": 1})
+		writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "coordinateVersion": compiledWorldMaps.Maps[id].CoordinateVersion, "x": 1, "y": 1})
 	}
 }
 
@@ -176,7 +176,7 @@ func TestMapReconnectRestoresPositionAndChatLimits(t *testing.T) {
 	defer cancel()
 	one := dialMap(t, ctx, server, token, "waldruh")
 	_, spawn, _, _ := mapValue(t, readWorld(t, ctx, one, "welcome"))
-	writeWorld(t, ctx, one, map[string]any{"type": "move", "mapId": "waldruh", "x": 1, "y": 1})
+	writeWorld(t, ctx, one, map[string]any{"type": "move", "mapId": "waldruh", "coordinateVersion": compiledWorldMaps.Maps["waldruh"].CoordinateVersion, "x": 1, "y": 1})
 	var expected MapSpawn
 	for {
 		packet := readWorld(t, ctx, one, "players")

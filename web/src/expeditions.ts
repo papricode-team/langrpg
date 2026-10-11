@@ -421,7 +421,7 @@ export const expeditionRegions: readonly ExpeditionRegion[] = seeds.map(seed => 
 });
 
 export const expeditionMaps: readonly WorldMapSpec[] = expeditionRegions.map((region, index) => ({
-  id: region.id, name: region.name, subtitle: region.subtitle, level: seeds[index].level, description: region.description,
+  id: region.id, width:1536, height:1024, name: region.name, subtitle: region.subtitle, level: seeds[index].level, description: region.description,
   asset: `/assets/${region.id}-terrain.webp`, previewAsset: `/assets/${region.id}-preview.webp`,
   sceneryAsset: `/assets/${region.id}-props.webp`, sceneryAtlas: `/assets/${region.id}-props.json`,
   variationAsset: `/assets/${region.id}-props.webp`, variationAtlas: `/assets/${region.id}-props.json`,

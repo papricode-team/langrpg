@@ -10,25 +10,33 @@ import (
 )
 
 type SharedWorldClock struct {
-	Hour       float64   `json:"hour"`
-	Label      string    `json:"label"`
-	Period     string    `json:"period"`
-	Day        int       `json:"day"`
-	ServerTime time.Time `json:"serverTime"`
+	Epoch            time.Time `json:"epoch"`
+	Seed             string    `json:"seed"`
+	ElapsedSeconds   float64   `json:"elapsedSeconds"`
+	DayLengthSeconds int       `json:"dayLengthSeconds"`
+	Hour             float64   `json:"hour"`
+	Label            string    `json:"label"`
+	Period           string    `json:"period"`
+	Day              int       `json:"day"`
+	ServerTime       time.Time `json:"serverTime"`
 }
 
 func sharedClockAt(epoch, now time.Time) SharedWorldClock {
 	elapsed := math.Max(0, now.Sub(epoch).Seconds())
-	hour := math.Mod(7+elapsed*24/720, 24)
+	hour := math.Mod(7+elapsed*24/worldDaySeconds, 24)
 	minute := int(math.Floor(hour * 60))
 	period := "night"
 	if hour >= 7 && hour < 19 {
 		period = "day"
 	}
-	return SharedWorldClock{hour, fmt.Sprintf("%02d:%02d", minute/60, minute%60), period, 1 + int(elapsed/720), now.UTC()}
+	return SharedWorldClock{Hour: hour, Label: fmt.Sprintf("%02d:%02d", minute/60, minute%60), Period: period, Day: 1 + int(elapsed/worldDaySeconds), ServerTime: now.UTC(), Epoch: epoch.UTC(), ElapsedSeconds: elapsed, DayLengthSeconds: worldDaySeconds}
 }
 
-func (w *World) Clock() SharedWorldClock { return sharedClockAt(w.clockEpoch, time.Now()) }
+func (w *World) Clock() SharedWorldClock {
+	clock := sharedClockAt(w.clockIdentity.Epoch, time.Now())
+	clock.Seed = w.clockIdentity.Seed
+	return clock
+}
 
 func (a *App) worldClock(w http.ResponseWriter, r *http.Request) { writeJSON(w, 200, a.world.Clock()) }
 

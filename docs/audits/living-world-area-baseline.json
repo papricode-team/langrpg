@@ -1,0 +1,151 @@
+{
+  "sourceCommit": "1b84904c836b312e39820f682241872ace6b7e0c",
+  "method": "14-unit grid centers; flood from spawn-visible closest node using runtime allowed cells, diagonal corner rule, and edgeClear segment collision; area=count*196 is sampled proxy, not exact polygon union. Includes placed-scenery collision.",
+  "caveat": "Diagnostic accesses TypeScript-private NavigationGrid fields/methods after Node type stripping; tied to current implementation. Production gate should use supported navigation audit API. Existing fixed 1536\u00d71024 outdoor footprint assumed.",
+  "maps": [
+    {
+      "id": "lindenhafen",
+      "npcs": 8,
+      "objects": 8,
+      "scenery": 96,
+      "residents": 3,
+      "totalWalkableCells": 1689,
+      "spawnConnectedCells": 1628,
+      "approxConnectedArea": 319088,
+      "minExpandedConnectedArea": 638176
+    },
+    {
+      "id": "waldruh",
+      "npcs": 8,
+      "objects": 5,
+      "scenery": 88,
+      "residents": 3,
+      "totalWalkableCells": 1614,
+      "spawnConnectedCells": 1614,
+      "approxConnectedArea": 316344,
+      "minExpandedConnectedArea": 632688
+    },
+    {
+      "id": "nebelstadt",
+      "npcs": 9,
+      "objects": 6,
+      "scenery": 92,
+      "residents": 3,
+      "totalWalkableCells": 1422,
+      "spawnConnectedCells": 1413,
+      "approxConnectedArea": 276948,
+      "minExpandedConnectedArea": 553896
+    },
+    {
+      "id": "saffroncourt",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1817,
+      "spawnConnectedCells": 1817,
+      "approxConnectedArea": 356132,
+      "minExpandedConnectedArea": 712264
+    },
+    {
+      "id": "rainmarket",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1796,
+      "spawnConnectedCells": 1796,
+      "approxConnectedArea": 352016,
+      "minExpandedConnectedArea": 704032
+    },
+    {
+      "id": "windplain",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 4512,
+      "spawnConnectedCells": 4512,
+      "approxConnectedArea": 884352,
+      "minExpandedConnectedArea": 1768704
+    },
+    {
+      "id": "riverweave",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 2070,
+      "spawnConnectedCells": 2070,
+      "approxConnectedArea": 405720,
+      "minExpandedConnectedArea": 811440
+    },
+    {
+      "id": "terracielo",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1779,
+      "spawnConnectedCells": 1779,
+      "approxConnectedArea": 348684,
+      "minExpandedConnectedArea": 697368
+    },
+    {
+      "id": "sunpatch",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 2679,
+      "spawnConnectedCells": 2679,
+      "approxConnectedArea": 525084,
+      "minExpandedConnectedArea": 1050168
+    },
+    {
+      "id": "kigalights",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1959,
+      "spawnConnectedCells": 1959,
+      "approxConnectedArea": 383964,
+      "minExpandedConnectedArea": 767928
+    },
+    {
+      "id": "cedarbay",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1843,
+      "spawnConnectedCells": 1843,
+      "approxConnectedArea": 361228,
+      "minExpandedConnectedArea": 722456
+    },
+    {
+      "id": "seoulsteps",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 1937,
+      "spawnConnectedCells": 1937,
+      "approxConnectedArea": 379652,
+      "minExpandedConnectedArea": 759304
+    },
+    {
+      "id": "dunegarden",
+      "npcs": 8,
+      "objects": 10,
+      "scenery": 114,
+      "residents": 8,
+      "totalWalkableCells": 2015,
+      "spawnConnectedCells": 2015,
+      "approxConnectedArea": 394940,
+      "minExpandedConnectedArea": 789880
+    }
+  ],
+  "measuredOn": "2026-10-11"
+}

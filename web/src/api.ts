@@ -1,7 +1,10 @@
 import type { Avatar, WorldPlayer } from './world';
+import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
 import type { MapId } from './maps';
 import { isExpeditionMap } from './expeditions';
-import { buildingEntrances, type InteriorId } from './interiors';
+import { buildingEntrances, getInterior, type InteriorId } from './interiors';
+import {getWorldScene} from './scene-data';
+import sceneVersion from './data/world-scene-version.json';
 import type { StoryState, StoryStage } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
 
@@ -46,7 +49,7 @@ export interface CompletionResult { xpAdded: number; duplicate: boolean; progres
 export interface ActivityCompletionResult extends CompletionResult { reason: string; activity: ActivityProgress; }
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
-export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced';
+export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced' | 'incompatible';
 export interface AccountStatus { registered: boolean; email: string; }
 /** Account-wide settings that follow the player across devices. */
 export interface Preferences { baseLanguage: BaseLanguage; }
@@ -68,6 +71,15 @@ const validSpawn = (value: unknown): value is { x: number; y: number } => {
   return typeof point.x === 'number' && Number.isFinite(point.x) && point.x >= 0 && point.x <= 1
     && typeof point.y === 'number' && Number.isFinite(point.y) && point.y >= 0 && point.y <= 1;
 };
+/** Geometry edits can change authority without changing the coordinate frame. */
+export function compatibleScene(value: unknown, mapId: MapId, interiorId?: InteriorId): boolean {
+  const expected=interiorId?{...getInterior(interiorId),coordinateVersion:1}:getWorldScene(mapId);
+  if(value===undefined)return expected.coordinateVersion===1&&expected.width===1536&&expected.height===1024;
+  if(!value||typeof value!=='object')return false;
+  const scene=value as {width?:unknown;height?:unknown;coordinateVersion?:unknown;contentVersion?:unknown};
+  return scene.width===expected.width&&scene.height===expected.height&&scene.coordinateVersion===expected.coordinateVersion
+    &&scene.contentVersion===sceneVersion.contentVersion;
+}
 const initialMap = (): MapId => {
   try { const value = localStorage.getItem('atlas.map'); return isMapId(value) ? value : 'lindenhafen'; }
   catch { return 'lindenhafen'; }
@@ -87,11 +99,13 @@ export class Api {
   private reconnectTimer?: number;
   private reconnectCount = 0;
   private stopped = false;
+  private worldReady = false;
+  private incompatible = false;
   private chatTimes: number[] = [];
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
-  onClock?: (clock: { hour: number; serverTime?: string; day?: number }) => void;
+  onClock?: (clock: SharedWorldTime) => void;
   onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
@@ -162,7 +176,11 @@ export class Api {
   completeActivity(input: ActivityCompletionInput) { return this.request<ActivityCompletionResult>('/activity/complete', input); }
   expose(input: ExposureInput) { return this.request<CompletionResult>('/exposure', input); }
   connect() {
+    // A reload supplies the matching compiled scene. Automatic retries with the
+    // same incompatible bundle would only keep replacing the current session.
+    if (this.incompatible) return;
     this.stopped = false;
+    this.worldReady = false;
     if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
     this.socket?.close();
     this.pendingMap = undefined;
@@ -170,20 +188,23 @@ export class Api {
     this.onStatus?.('connecting');
     const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/world?token=${encodeURIComponent(this.token)}&mapId=${encodeURIComponent(this.mapId)}`);
     this.socket = ws;
-    ws.onopen = () => { if (this.stopped || this.socket !== ws) return; this.reconnectCount = 0; this.onStatus?.('online'); };
+    ws.onopen = () => { if (this.stopped || this.socket !== ws) return; this.reconnectCount = 0; };
     ws.onmessage = event => {
       if (this.stopped || this.socket !== ws) return;
       try {
         const value = JSON.parse(event.data);
-        const clock = value.clock;
-        const publishClock = () => { if (clock && typeof clock.hour === 'number' && Number.isFinite(clock.hour) && clock.hour >= 0 && clock.hour < 24) this.onClock?.({ hour: clock.hour, ...(typeof clock.serverTime === 'string' ? {serverTime:clock.serverTime} : {}), ...(Number.isInteger(clock.day) && clock.day >= 1 ? {day:clock.day} : {}) }); };
+        if (!this.worldReady && value.type !== 'welcome' && value.type !== 'error') return;
+        const clock = parseSharedWorldTime(value.clock);
+        const publishClock = () => { if (clock) this.onClock?.(clock); };
         if (value.type === 'welcome' || value.type === 'map') {
           if (!isMapId(value.mapId) || !validInterior(value.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
+          if(!compatibleScene(value.scene,value.mapId,value.interiorId||undefined)) { this.rejectWorldVersion(); return; }
           if (typeof value.selfId === 'string') this.selfId = value.selfId;
           this.mapId = value.mapId;
           this.interiorId = value.interiorId || undefined;
           this.pendingInterior = undefined;
           if (value.type === 'map' || this.pendingMap === value.mapId) this.pendingMap = undefined;
+          this.worldReady = true;
           try { localStorage.setItem('atlas.map', this.mapId); } catch { /* Storage availability must not prevent entering a map. */ }
           this.onMap?.(this.mapId, value.spawn);
           this.onInterior?.(this.interiorId);
@@ -192,8 +213,10 @@ export class Api {
           for (const message of Array.isArray(value.messages) ? value.messages : []) {
             if (message?.mapId === this.mapId) this.onChat?.(message);
           }
+          if (value.type === 'welcome') this.onStatus?.('online');
         } else if (value.type === 'interior' && value.mapId === this.mapId) {
           if (!validInterior(this.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
+          if(!compatibleScene(value.scene,this.mapId,value.interiorId||undefined)) { this.rejectWorldVersion(); return; }
           const id = value.interiorId || undefined;
           if (this.pendingInterior && this.pendingInterior.id !== id) return;
           this.interiorId = id;
@@ -218,8 +241,10 @@ export class Api {
     };
     ws.onclose = event => {
       if (this.socket !== ws) return;
+      this.worldReady = false;
       this.pendingMap = undefined;
       this.pendingInterior = undefined;
+      if (this.incompatible) return;
       if (!this.stopped && event.code === 4001) {
         this.stopped = true;
         this.onStatus?.('replaced');
@@ -247,7 +272,7 @@ export class Api {
   }
   move(x: number, y: number) {
     if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
-      ...(this.interiorId ? { interiorId: this.interiorId } : {}), x, y });
+      ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y });
   }
   chat(message: string) {
     if (this.pendingMap) throw new Error('Arriving in the next region. Your message is still here.');
@@ -259,9 +284,20 @@ export class Api {
     this.chatTimes.push(now);
   }
   private send(message: unknown) {
-    if (this.socket?.readyState !== WebSocket.OPEN || this.socket.bufferedAmount >= 32768) return false;
+    if (!this.worldReady || this.stopped || this.incompatible || this.socket?.readyState !== WebSocket.OPEN || this.socket.bufferedAmount >= 32768) return false;
     this.socket.send(JSON.stringify(message));
     return true;
   }
-  destroy() { this.stopped = true; clearTimeout(this.reconnectTimer); this.socket?.close(); }
+  private rejectWorldVersion() {
+    this.incompatible = true;
+    this.stopped = true;
+    this.worldReady = false;
+    this.pendingMap = undefined;
+    this.pendingInterior = undefined;
+    clearTimeout(this.reconnectTimer);
+    this.onStatus?.('incompatible');
+    this.onError?.('The world has changed. Reload to load the matching map before continuing.');
+    this.socket?.close();
+  }
+  destroy() { this.stopped = true; this.worldReady = false; clearTimeout(this.reconnectTimer); this.socket?.close(); }
 }

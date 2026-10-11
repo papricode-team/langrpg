@@ -1,6 +1,8 @@
 import type { MapId } from './maps';
-import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, type MapPoint, type NavigationGrid } from './navigation';
+import { createMapNavigation, type MapPoint, type NavigationGrid } from './navigation';
 import { expeditionResidentSpecs } from './expeditions';
+import {getWorldScene} from './scene-data';
+import {worldStartHour, type WorldSimulationTime} from './shared-world-time';
 
 export interface ResidentAvatar { hair: string; skin: string; outfit: string; }
 export interface ResidentStop extends MapPoint { pauseSeconds: number; }
@@ -113,7 +115,7 @@ export const worldResidentSpecs: Readonly<Record<MapId, readonly ResidentSpec[]>
 /** Resolve the painting's exact collision geometry once, never during update. */
 export function compileResident(spec: ResidentSpec, navigation: NavigationGrid): WorldResident | undefined {
   if (spec.stops.length < 2 || !Number.isFinite(spec.speed) || spec.speed <= 0) return undefined;
-  const positions = spec.stops.map(point => navigation.closestPoint(point.x * MAP_WIDTH, point.y * MAP_HEIGHT));
+  const positions = spec.stops.map(point => navigation.closestPoint(point.x * navigation.width, point.y * navigation.height));
   if (positions.some(point => !navigation.isWalkable(point.x, point.y))) return undefined;
   const segments: ResidentSegment[] = [];
   let cycleSeconds = 0;
@@ -145,15 +147,17 @@ export function compileResident(spec: ResidentSpec, navigation: NavigationGrid):
   return { id: spec.id, name: spec.name, avatar: spec.avatar, artVariant: spec.artVariant, segments, cycleSeconds, phaseSeconds: Math.max(0, Math.min(.999, spec.phase)) * cycleSeconds };
 }
 
-export function createWorldResidents(mapId: MapId, navigation = createMapNavigation(mapId)): WorldResident[] {
+export function createWorldResidents(mapId: MapId, navigation = createMapNavigation(mapId), coreOffset = getWorldScene(mapId).legacyOffset ?? {x: 0, y: 0}): WorldResident[] {
   return worldResidentSpecs[mapId].flatMap(spec => {
-    const resident = compileResident(spec, navigation);
+    // Existing authored routes belong to the preserved core, not the full
+    // expanded rectangle. New scene activity routes use world coordinates.
+    const resident = compileResident({...spec,stops:spec.stops.map(point=>({...point,x:(point.x*1536+coreOffset.x)/navigation.width,y:(point.y*1024+coreOffset.y)/navigation.height}))}, navigation);
     return resident ? [resident] : [];
   });
 }
 
 /**
- * Use the scene's elapsed seconds (which pause with the world), not Date.now().
+ * Sample route time supplied by the schedule, never a browser wall clock.
  * Supplying an output object lets the render loop avoid per-frame allocations.
  */
 export function sampleResidentMotion(resident: WorldResident, elapsedSeconds: number, output: ResidentMotion = { x: 0, y: 0, velocityX: 0, velocityY: 0, moving: false }): ResidentMotion {
@@ -167,4 +171,38 @@ export function sampleResidentMotion(resident: WorldResident, elapsedSeconds: nu
   output.velocityY = segment.velocityY;
   output.moving = segment.moving;
   return output;
+}
+
+export interface ResidentScheduleSample { sampleSeconds: number; homeReached: boolean; pace: number; }
+
+/** Reconstruct the whole routine directly, including its route home at closing.
+ * No missed-frame replay or resident creation order affects the result. */
+export function sampleResidentSchedule(resident: WorldResident, time: WorldSimulationTime): ResidentScheduleSample {
+  const early = /commuter|courier|sailor|port-worker/.test(resident.id);
+  const start = early ? 6 : 8, finish = early ? 22 : 20;
+  const secondsPerHour = time.dayLengthSeconds / 24;
+  const absoluteHour = worldStartHour + Math.max(0, time.elapsedSeconds) / secondsPerHour;
+  const day = Math.floor((absoluteHour - start) / 24);
+  const sinceWake = (absoluteHour - start - day * 24) * secondsPerHour;
+  // Small, stable departure variation starts at home instead of shifting the
+  // person's initial position into the middle of the street.
+  let hash = 2166136261;
+  for (const char of `${time.seed}:${resident.id}:${day}`) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+  const delay = (hash % 12000) / 1000;
+  const t = Math.max(0, sinceWake - delay);
+  const morningEnd = secondsPerHour - delay;
+  const eveningStart = (finish - start - 2) * secondsPerHour - delay;
+  const closing = (finish - start) * secondsPerHour - delay;
+  const travel = Math.min(t, morningEnd) * .55
+    + Math.max(0, Math.min(t, eveningStart) - morningEnd)
+    + Math.max(0, Math.min(t, closing) - eveningStart) * .55;
+  const returnDistance = (resident.cycleSeconds - travel % resident.cycleSeconds) % resident.cycleSeconds;
+  const returning = Math.max(0, t - closing) * .8;
+  const homeReached = sinceWake < delay || (t >= closing && returning >= returnDistance);
+  const routeTime = travel + Math.min(returning, returnDistance);
+  return {
+    sampleSeconds: resident.cycleSeconds - resident.phaseSeconds + routeTime,
+    homeReached,
+    pace: homeReached ? 0 : t >= closing ? .8 : t < morningEnd || t >= eveningStart ? .55 : 1,
+  };
 }

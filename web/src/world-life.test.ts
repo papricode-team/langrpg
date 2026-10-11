@@ -51,6 +51,21 @@ describe('painted town resident routes', () => {
     expect(compileResident(spec, navigation)).toBeUndefined();
   });
 
+  it('adds the core origin offset without scaling legacy resident errands', () => {
+    const open = new NavigationGrid([[[14,14],[3058,14],[3058,2034],[14,2034]]], [], {width:3072, height:2048});
+    const base = createWorldResidents('lindenhafen', open);
+    const shifted = createWorldResidents('lindenhafen', open, {x:768,y:512});
+    for (let index = 0; index < base.length; index++) {
+      expect(shifted[index].cycleSeconds).toBeCloseTo(base[index].cycleSeconds);
+      for (let tick = 0; tick < 10; tick++) {
+        const before = sampleResidentMotion(base[index], tick);
+        const after = sampleResidentMotion(shifted[index], tick);
+        expect(after.x - before.x).toBeCloseTo(768);
+        expect(after.y - before.y).toBeCloseTo(512);
+      }
+    }
+  });
+
   it('preserves the authored character identity when compiling routes in another order', () => {
     const specs = worldResidentSpecs.saffroncourt;
     const navigation = createMapNavigation('saffroncourt');

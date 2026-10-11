@@ -1,0 +1,14 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "reason": "First upper sections were 1514×1039 and 1515×1038, exceeding the accepted aspect tolerance. Replacements use the original registered references.",
+  "sections": [
+    {
+      "position": "0-0",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio must be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high. Keep the exact full-frame composition of the attached reference. Paint a crisp, richly detailed ground-only game terrain source from this reference: tiny individual cobbles with fine mortar, low garden curbs, granular soil and grass. This depicts a 432x304 world-unit section. Preserve ALL path boundaries, garden-bed rectangles, curbs and edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm daylight, perspective and small paving scale. No objects, people, buildings, trees, text or UI. Output a single image with width/height 1.42105, not 1.46 or 1.5; the previous output was too wide."
+    },
+    {
+      "position": "0-1",
+      "prompt": "Use case: precise-object-edit. Output aspect ratio must be 1.42105:1 (432:304), approximately 1494 pixels wide by 1052 pixels high. Keep the exact full-frame composition of the attached reference. Paint a crisp, richly detailed ground-only game terrain source from this reference: tiny individual cobbles with fine mortar, low garden curbs, granular soil and grass. This depicts a 432x304 world-unit section. Preserve ALL path boundaries, garden-bed rectangles, curbs and edge intersections at their exact normalized positions. No zoom, crop, added borders or moved geometry. Match the warm daylight, perspective and small paving scale. No objects, people, buildings, trees, text or UI. Output a single image with width/height 1.42105, not 1.46 or 1.5; the previous output was too wide."
+    }
+  ]
+}

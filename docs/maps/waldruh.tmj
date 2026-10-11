@@ -1,16 +1,16 @@
 {
   "type": "map",
   "version": "1.10",
-  "tiledversion": "1.11.2",
+  "tiledversion": "1.12.2",
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "infinite": false,
-  "width": 96,
-  "height": 64,
-  "tilewidth": 16,
-  "tileheight": 16,
-  "nextobjectid": 37,
-  "nextlayerid": 37,
+  "width": 1536,
+  "height": 1024,
+  "tilewidth": 1,
+  "tileheight": 1,
+  "nextobjectid": 138,
+  "nextlayerid": 138,
   "properties": [
     {
       "name": "mapId",
@@ -20,27 +20,253 @@
     {
       "name": "navigationVersion",
       "type": "int",
+      "value": 2
+    },
+    {
+      "name": "kind",
+      "type": "string",
+      "value": "outdoor"
+    },
+    {
+      "name": "coordinateVersion",
+      "type": "int",
       "value": 1
+    },
+    {
+      "name": "_optionalCollections",
+      "type": "string",
+      "value": "[\"entrances\"]"
+    },
+    {
+      "name": "_jsonFields",
+      "type": "string",
+      "value": "[\"_optionalCollections\"]"
     }
   ],
   "layers": [
     {
-      "id": 1,
-      "name": "Painting",
-      "type": "imagelayer",
-      "image": "../../web/public/assets/waldruh-terrain.webp",
-      "visible": true
-    },
-    {
-      "id": 2,
-      "name": "Walkable",
+      "id": 97,
+      "name": "Terrain",
       "type": "objectgroup",
-      "color": "#7700aa55",
-      "opacity": 0.35,
       "visible": true,
+      "locked": true,
       "objects": [
         {
+          "id": 1,
+          "name": "core-0-0",
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 512,
+          "gid": 1,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-0-0"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-0-0.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-0-0-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-0-0-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "core-0-1",
+          "x": 768,
+          "y": 0,
+          "width": 768,
+          "height": 512,
+          "gid": 2,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-0-1"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-0-1.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":0,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-0-1-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-0-1-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
           "id": 3,
+          "name": "core-1-0",
+          "x": 0,
+          "y": 512,
+          "width": 768,
+          "height": 512,
+          "gid": 3,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-1-0"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-1-0.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":0,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-1-0-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-1-0-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "core-1-1",
+          "x": 768,
+          "y": 512,
+          "width": 768,
+          "height": 512,
+          "gid": 4,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "core-1-1"
+            },
+            {
+              "name": "nightAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-1-1.webp"
+            },
+            {
+              "name": "dayCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "nightCrop",
+              "type": "string",
+              "value": "{\"x\":1,\"y\":1,\"width\":3072,\"height\":2048}"
+            },
+            {
+              "name": "pixelDensity",
+              "type": "int",
+              "value": 4
+            },
+            {
+              "name": "dayPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-1-1-overview.webp"
+            },
+            {
+              "name": "nightPreviewAsset",
+              "type": "string",
+              "value": "/assets/waldruh-night-terrain-detail-1-1-overview.webp"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"dayCrop\",\"nightCrop\"]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "name": "Walkable",
+      "type": "objectgroup",
+      "visible": true,
+      "color": "#7700aa55",
+      "opacity": 0.35,
+      "objects": [
+        {
+          "id": 98,
           "name": "walkable-1",
           "x": 0,
           "y": 0,
@@ -185,10 +411,11 @@
               "x": 498,
               "y": 485
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 4,
+          "id": 99,
           "name": "walkable-2",
           "x": 0,
           "y": 0,
@@ -253,10 +480,11 @@
               "x": 190,
               "y": 378
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 5,
+          "id": 100,
           "name": "walkable-3",
           "x": 0,
           "y": 0,
@@ -321,10 +549,11 @@
               "x": 909,
               "y": 292
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 6,
+          "id": 101,
           "name": "walkable-4",
           "x": 0,
           "y": 0,
@@ -377,10 +606,11 @@
               "x": 955,
               "y": 510
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 7,
+          "id": 102,
           "name": "walkable-5",
           "x": 0,
           "y": 0,
@@ -425,10 +655,11 @@
               "x": 1125,
               "y": 616
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 8,
+          "id": 103,
           "name": "walkable-6",
           "x": 0,
           "y": 0,
@@ -461,10 +692,11 @@
               "x": 1355,
               "y": 659
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 9,
+          "id": 104,
           "name": "walkable-7",
           "x": 0,
           "y": 0,
@@ -509,10 +741,11 @@
               "x": 340,
               "y": 717
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 10,
+          "id": 105,
           "name": "walkable-8",
           "x": 0,
           "y": 0,
@@ -617,10 +850,11 @@
               "x": 422,
               "y": 747
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 11,
+          "id": 106,
           "name": "walkable-9",
           "x": 0,
           "y": 0,
@@ -673,10 +907,11 @@
               "x": 369,
               "y": 803
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 12,
+          "id": 107,
           "name": "walkable-10",
           "x": 0,
           "y": 0,
@@ -709,10 +944,11 @@
               "x": 409,
               "y": 798
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 13,
+          "id": 108,
           "name": "walkable-11",
           "x": 0,
           "y": 0,
@@ -765,21 +1001,22 @@
               "x": 885,
               "y": 782
             }
-          ]
+          ],
+          "properties": []
         }
       ]
     },
     {
-      "id": 14,
+      "id": 115,
       "name": "Obstacles",
       "type": "objectgroup",
+      "visible": true,
       "color": "#77dd5544",
       "opacity": 0.35,
-      "visible": true,
       "objects": [
         {
-          "id": 15,
-          "name": "obstacles-1",
+          "id": 110,
+          "name": "obstacle-1",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -855,11 +1092,12 @@
               "x": 825.2455735280217,
               "y": 428.05858996720315
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 16,
-          "name": "obstacles-2",
+          "id": 111,
+          "name": "obstacle-2",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -887,11 +1125,12 @@
               "x": 549,
               "y": 704
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 17,
-          "name": "obstacles-3",
+          "id": 112,
+          "name": "obstacle-3",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -919,11 +1158,12 @@
               "x": 755,
               "y": 705
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 18,
-          "name": "obstacles-4",
+          "id": 113,
+          "name": "obstacle-4",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -951,11 +1191,12 @@
               "x": 680,
               "y": 767
             }
-          ]
+          ],
+          "properties": []
         },
         {
-          "id": 19,
-          "name": "obstacles-5",
+          "id": 114,
+          "name": "obstacle-5",
           "x": 0,
           "y": 0,
           "polygon": [
@@ -1031,18 +1272,4955 @@
               "x": 332.25108600279134,
               "y": 844.4755568468353
             }
+          ],
+          "properties": []
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "name": "Scenery",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": [
+        {
+          "id": 5,
+          "name": "waldruh-inn",
+          "x": 125,
+          "y": -45.160305343511425,
+          "width": 390,
+          "height": 370.4834605597964,
+          "gid": 5,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 320
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 324
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 390
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 125
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -45.160305343511425
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 390
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "waldruh-station",
+          "x": 914,
+          "y": -41.633663366336634,
+          "width": 396,
+          "height": 332.94059405940595,
+          "gid": 6,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-station"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1112
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 290
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 396
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 914
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -41.633663366336634
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 396
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "waldruh-clockmill",
+          "x": 1068,
+          "y": 256.70864197530864,
+          "width": 294,
+          "height": 301.25925925925924,
+          "gid": 7,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-clockmill"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1215
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 557
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 294
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1068
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 256.70864197530864
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 294
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "waldruh-west-workshop",
+          "x": 72,
+          "y": 374.67779632721204,
+          "width": 328,
+          "height": 318.4173622704507,
+          "gid": 8,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-workshop"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 236
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 692
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 328
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 374.67779632721204
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 328
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "waldruh-archive",
+          "x": 476,
+          "y": -26.811881188118804,
+          "width": 134,
+          "height": 171.8118811881188,
+          "gid": 9,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-archive"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 543
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 476
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -26.811881188118804
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "waldruh-north-chapel",
+          "x": 764.5,
+          "y": -62.915841584158414,
+          "width": 145,
+          "height": 185.91584158415841,
+          "gid": 9,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-chapel"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 837
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 123
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 764.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -62.915841584158414
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "waldruh-east-cottage",
+          "x": 1251.5,
+          "y": 28.808848080133544,
+          "width": 117,
+          "height": 113.58180300500835,
+          "gid": 10,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-cottage"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1310
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 142
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 117
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1251.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 28.808848080133544
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 117
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "waldruh-north-cottage",
+          "x": 382,
+          "y": -46.188481675392666,
+          "width": 128,
+          "height": 164.5235602094241,
+          "gid": 11,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-cottage"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 446
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 118
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 128
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 382
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -46.188481675392666
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 128
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "waldruh-conservatory",
+          "x": 981,
+          "y": 578.1230388109001,
+          "width": 268,
+          "height": 271.7621800165153,
+          "gid": 12,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-conservatory"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1115
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 849
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 268
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 981
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 578.1230388109001
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 268
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "waldruh-plaza-fountain",
+          "x": 650.6757990867579,
+          "y": 343.42922374429224,
+          "width": 142,
+          "height": 133.57077625570776,
+          "gid": 13,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-plaza-fountain"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "water"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 722
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 477
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 142
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 650.6757990867579
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 343.42922374429224
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 142
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "waldruh-market-west",
+          "x": 552.1689497716895,
+          "y": 583.634703196347,
+          "width": 145,
+          "height": 141.02739726027397,
+          "gid": 14,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-west"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 625
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 724
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 552.1689497716895
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 583.634703196347
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "waldruh-market-east",
+          "x": 755.5,
+          "y": 559.3,
+          "width": 154,
+          "height": 163.1,
+          "gid": 15,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-east"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 829
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 721
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 154
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 755.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 559.3
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 154
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "waldruh-market-south",
+          "x": 677.3390557939914,
+          "y": 625.931330472103,
+          "width": 158,
+          "height": 163.42489270386267,
+          "gid": 16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-south"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 756
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 788
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 677.3390557939914
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 625.931330472103
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 158
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "name": "waldruh-garden-arch",
+          "x": 891.5,
+          "y": 677.0650602409638,
+          "width": 127,
+          "height": 140.15903614457832,
+          "gid": 17,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-garden-arch"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "cloth"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 955
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 816
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 127
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 891.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 677.0650602409638
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 127
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "waldruh-housing-board",
+          "x": 554.6813186813187,
+          "y": 312.9340659340659,
+          "width": 58,
+          "height": 71.06593406593407,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-housing-board"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 584
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 384
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 58
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 554.6813186813187
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 312.9340659340659
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 58
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "waldruh-route-board",
+          "x": 935.7362637362637,
+          "y": 267.1868131868132,
+          "width": 48,
+          "height": 58.81318681318681,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-route-board"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 960
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 326
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 48
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 935.7362637362637
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 267.1868131868132
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 48
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "waldruh-archive-board",
+          "x": 271.75824175824175,
+          "y": 811.0879120879121,
+          "width": 44,
+          "height": 53.91208791208791,
+          "gid": 18,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-archive-board"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 294
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 865
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 271.75824175824175
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 811.0879120879121
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "waldruh-river-boat-north",
+          "x": 1444.774193548387,
+          "y": 169.5483870967742,
+          "width": 64,
+          "height": 39.74193548387097,
+          "gid": 19,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-river-boat-north"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1476
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 208
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1444.774193548387
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 169.5483870967742
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "waldruh-river-boat-south",
+          "x": 1381.991935483871,
+          "y": 717.733870967742,
+          "width": 82,
+          "height": 50.91935483870968,
+          "gid": 2147483667,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-river-boat-south"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1422
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 767
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 82
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1381.991935483871
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 717.733870967742
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 82
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "waldruh-inn-lamp",
+          "x": 342.20754716981133,
+          "y": 312.92452830188677,
+          "width": 22,
+          "height": 90.0754716981132,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 353
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 403
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 342.20754716981133
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 312.92452830188677
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "waldruh-west-garden-lamp",
+          "x": 159.20754716981133,
+          "y": 304.92452830188677,
+          "width": 22,
+          "height": 90.0754716981132,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-garden-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 170
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 395
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 159.20754716981133
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 304.92452830188677
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 22
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "waldruh-board-west-lamp",
+          "x": 618.188679245283,
+          "y": 223.1132075471698,
+          "width": 20,
+          "height": 81.88679245283019,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-board-west-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 628
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 305
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 618.188679245283
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 223.1132075471698
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "name": "waldruh-board-east-lamp",
+          "x": 638.188679245283,
+          "y": 245.1132075471698,
+          "width": 20,
+          "height": 81.88679245283019,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-board-east-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 648
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 327
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 638.188679245283
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 245.1132075471698
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 20
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "name": "waldruh-north-garden-lamp",
+          "x": 833.7169811320755,
+          "y": 264.8301886792453,
+          "width": 23,
+          "height": 94.16981132075472,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-garden-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 845
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 359
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 833.7169811320755
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 264.8301886792453
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "waldruh-station-lamp",
+          "x": 1052.7169811320755,
+          "y": 220.83018867924528,
+          "width": 23,
+          "height": 94.16981132075472,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-station-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1064
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 315
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1052.7169811320755
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 220.83018867924528
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 23
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "waldruh-workshop-lamp",
+          "x": 478.2641509433962,
+          "y": 471.35849056603774,
+          "width": 28,
+          "height": 114.64150943396227,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-workshop-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 492
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 586
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 478.2641509433962
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 471.35849056603774
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "name": "waldruh-mill-road-lamp",
+          "x": 933.7547169811321,
+          "y": 463.45283018867923,
+          "width": 27,
+          "height": 110.54716981132076,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-mill-road-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 947
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 574
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 933.7547169811321
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 463.45283018867923
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "name": "waldruh-market-lamp",
+          "x": 528.7547169811321,
+          "y": 684.4528301886793,
+          "width": 27,
+          "height": 110.54716981132076,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 542
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 795
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 528.7547169811321
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 684.4528301886793
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 27
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "waldruh-east-bridge-lamp",
+          "x": 1383.2641509433963,
+          "y": 519.3584905660377,
+          "width": 28,
+          "height": 114.64150943396227,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-bridge-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1397
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 634
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1383.2641509433963
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 519.3584905660377
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "name": "waldruh-conservatory-lamp",
+          "x": 1009.7735849056604,
+          "y": 826.2641509433962,
+          "width": 29,
+          "height": 118.73584905660377,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-conservatory-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1024
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 945
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1009.7735849056604
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 826.2641509433962
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "waldruh-north-path-lamp",
+          "x": 636.6792452830189,
+          "y": 114.20754716981132,
+          "width": 19,
+          "height": 77.79245283018868,
+          "gid": 20,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-path-lamp"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 646
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 192
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 19
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 636.6792452830189
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 114.20754716981132
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 19
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "name": "waldruh-inn-planter",
+          "x": 473,
+          "y": 339.80555555555554,
+          "width": 42,
+          "height": 35.19444444444444,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 494
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 375
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 473
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 339.80555555555554
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 42
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "name": "waldruh-inn-step-planter",
+          "x": 332.1744186046512,
+          "y": 293.75581395348837,
+          "width": 30,
+          "height": 39.24418604651163,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn-step-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 347
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 333
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 332.1744186046512
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 293.75581395348837
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "name": "waldruh-inn-west-planter",
+          "x": 107.19534883720931,
+          "y": 297.4325581395349,
+          "width": 28,
+          "height": 26.567441860465117,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn-west-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 121
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 324
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 107.19534883720931
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 297.4325581395349
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "name": "waldruh-station-planter-west",
+          "x": 897.5454545454545,
+          "y": 255.75757575757575,
+          "width": 30,
+          "height": 34.24242424242424,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-station-planter-west"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 913
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 290
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 897.5454545454545
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 255.75757575757575
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 30
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "name": "waldruh-station-planter-east",
+          "x": 1275,
+          "y": 256.53703703703707,
+          "width": 28,
+          "height": 23.462962962962962,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-station-planter-east"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1289
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 280
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1275
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 256.53703703703707
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "waldruh-fountain-planter-west",
+          "x": 610.7151162790698,
+          "y": 420.5988372093023,
+          "width": 37,
+          "height": 48.401162790697676,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-fountain-planter-west"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 629
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 469
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 610.7151162790698
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 420.5988372093023
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "waldruh-fountain-planter-east",
+          "x": 777.2651162790697,
+          "y": 447.9441860465116,
+          "width": 38,
+          "height": 36.055813953488375,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-fountain-planter-east"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 796
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 484
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 38
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 777.2651162790697
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 447.9441860465116
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 38
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "name": "waldruh-fountain-planter-north",
+          "x": 770.060606060606,
+          "y": 380.8989898989899,
+          "width": 29,
+          "height": 33.101010101010104,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-fountain-planter-north"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 785
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 414
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 770.060606060606
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 380.8989898989899
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 29
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "name": "waldruh-market-road-planter",
+          "x": 473.5,
+          "y": 733.6435185185185,
+          "width": 41,
+          "height": 34.35648148148148,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-road-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 494
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 768
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 473.5
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 733.6435185185185
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "waldruh-market-step-planter",
+          "x": 575.1976744186046,
+          "y": 761.5232558139535,
+          "width": 34,
+          "height": 44.47674418604651,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-market-step-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 592
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 806
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 575.1976744186046
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 761.5232558139535
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "name": "waldruh-west-workshop-planter",
+          "x": 401.25116279069766,
+          "y": 658.8418604651163,
+          "width": 36,
+          "height": 34.15813953488372,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-workshop-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 419
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 693
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 36
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 401.25116279069766
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 658.8418604651163
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 36
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "name": "waldruh-clockmill-planter",
+          "x": 1063.909090909091,
+          "y": 485.4848484848485,
+          "width": 39,
+          "height": 44.515151515151516,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-clockmill-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1084
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 530
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1063.909090909091
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 485.4848484848485
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "name": "waldruh-east-bridge-planter",
+          "x": 1415,
+          "y": 645.4814814814815,
+          "width": 40,
+          "height": 33.51851851851852,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-bridge-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1435
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 679
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 1415
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 645.4814814814815
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 40
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "name": "waldruh-herb-garden-planter",
+          "x": 997.7267441860465,
+          "y": 781.9825581395348,
+          "width": 39,
+          "height": 51.01744186046512,
+          "gid": 22,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-herb-garden-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1017
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 833
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 997.7267441860465
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 781.9825581395348
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 39
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "name": "waldruh-conservatory-planter-west",
+          "x": 990.7581395348838,
+          "y": 846.893023255814,
+          "width": 37,
+          "height": 35.10697674418605,
+          "gid": 23,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-conservatory-planter-west"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1009
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 882
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 990.7581395348838
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 846.893023255814
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "name": "waldruh-conservatory-planter-east",
+          "x": 1244.939393939394,
+          "y": 784.7676767676768,
+          "width": 37,
+          "height": 42.23232323232323,
+          "gid": 24,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-conservatory-planter-east"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1264
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 827
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1244.939393939394
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 784.7676767676768
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "name": "waldruh-archive-planter",
+          "x": 247,
+          "y": 876.5092592592592,
+          "width": 34,
+          "height": 28.49074074074074,
+          "gid": 21,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-archive-planter"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 264
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 905
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "int",
+              "value": 247
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 876.5092592592592
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 34
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "name": "waldruh-north-square-bench",
+          "x": 752.6915887850467,
+          "y": 288.9158878504673,
+          "width": 74,
+          "height": 67.08411214953271,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-square-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 789
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 356
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 752.6915887850467
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 288.9158878504673
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "name": "waldruh-fountain-bench",
+          "x": 608.1822429906542,
+          "y": 427.8224299065421,
+          "width": 73,
+          "height": 66.17757009345794,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-fountain-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 644
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 494
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 73
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 608.1822429906542
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 427.8224299065421
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 73
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "name": "waldruh-inn-garden-bench",
+          "x": 245.10747663551402,
+          "y": 361.0747663551402,
+          "width": 65,
+          "height": 58.925233644859816,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-inn-garden-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 277
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 420
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 65
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 245.10747663551402
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 361.0747663551402
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 65
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 56,
+          "name": "waldruh-west-garden-bench",
+          "x": 202.6728971962617,
+          "y": 780.7289719626168,
+          "width": 72,
+          "height": 65.27102803738318,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-garden-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 238
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 846
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 202.6728971962617
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 780.7289719626168
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "name": "waldruh-herb-garden-bench",
+          "x": 1023.7102803738318,
+          "y": 794.1028037383178,
+          "width": 76,
+          "height": 68.89719626168224,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-herb-garden-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1061
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 863
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 76
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1023.7102803738318
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 794.1028037383178
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 76
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "name": "waldruh-river-bench",
+          "x": 1441.107476635514,
+          "y": 557.0747663551401,
+          "width": 65,
+          "height": 58.925233644859816,
+          "gid": 25,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-river-bench"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "still"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1473
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 616
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 65
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1441.107476635514
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 557.0747663551401
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 65
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "name": "waldruh-square-autumn-tree",
+          "x": 668.5806451612904,
+          "y": 19.32258064516131,
+          "width": 189,
+          "height": 234.7258064516129,
+          "gid": 26,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-square-autumn-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 758
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 251
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 189
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 668.5806451612904
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 19.32258064516131
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 189
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "name": "waldruh-clockmill-autumn-tree",
+          "x": 937.2564102564103,
+          "y": 355.8461538461538,
+          "width": 132,
+          "height": 120.71794871794872,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-clockmill-autumn-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1001
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 476
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 132
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 937.2564102564103
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 355.8461538461538
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 132
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 61,
+          "name": "waldruh-workshop-autumn-tree",
+          "x": 378.41059602649005,
+          "y": 354.65562913907286,
+          "width": 104,
+          "height": 160.47682119205297,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-workshop-autumn-tree"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 428
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 511
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 378.41059602649005
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 354.65562913907286
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 104
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 62,
+          "name": "waldruh-south-route-fir",
+          "x": 349.2269938650307,
+          "y": 769.8527607361963,
+          "width": 74,
+          "height": 102.14723926380368,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-route-fir"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 386
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 872
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 349.2269938650307
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 769.8527607361963
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 74
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 63,
+          "name": "waldruh-north-tree-01",
+          "x": -31.19911504424779,
+          "y": -18.243362831858406,
+          "width": 147,
+          "height": 137.2433628318584,
+          "gid": 30,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-01"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 119
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -31.19911504424779
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -18.243362831858406
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "name": "waldruh-north-tree-02",
+          "x": 69.30044843049328,
+          "y": -28.399103139013448,
+          "width": 134,
+          "height": 133.39910313901345,
+          "gid": 2147483679,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-02"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 136
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 105
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 69.30044843049328
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -28.399103139013448
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 65,
+          "name": "waldruh-north-tree-03",
+          "x": 176.33128834355827,
+          "y": -76.079754601227,
+          "width": 108,
+          "height": 149.079754601227,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-03"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 230
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 73
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 108
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 176.33128834355827
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -76.079754601227
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 108
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 66,
+          "name": "waldruh-north-tree-04",
+          "x": 269.84188034188037,
+          "y": -52.70512820512822,
+          "width": 137,
+          "height": 125.2905982905983,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-04"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 336
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 72
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 137
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 269.84188034188037
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -52.70512820512822
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 137
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 67,
+          "name": "waldruh-north-tree-05",
+          "x": 529.7218543046358,
+          "y": -123.96026490066225,
+          "width": 139,
+          "height": 214.48344370860926,
+          "gid": 2147483676,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-05"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 596
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 85
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 139
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 529.7218543046358
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -123.96026490066225
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 139
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 68,
+          "name": "waldruh-north-tree-06",
+          "x": 612.8008849557522,
+          "y": -14.243362831858406,
+          "width": 147,
+          "height": 137.2433628318584,
+          "gid": 30,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-06"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 685
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 123
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 612.8008849557522
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -14.243362831858406
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 69,
+          "name": "waldruh-north-tree-07",
+          "x": 861.8834355828221,
+          "y": -59.54601226993864,
+          "width": 125,
+          "height": 172.54601226993864,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-07"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 924
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 113
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 125
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 861.8834355828221
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -59.54601226993864
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 125
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 70,
+          "name": "waldruh-north-tree-08",
+          "x": 938.7096774193549,
+          "y": -78.16129032258064,
+          "width": 138,
+          "height": 171.38709677419354,
+          "gid": 2147483674,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-08"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1004
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 91
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 138
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 938.7096774193549
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -78.16129032258064
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 138
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 71,
+          "name": "waldruh-north-tree-09",
+          "x": 1092.3680981595091,
+          "y": -81.64417177914112,
+          "width": 120,
+          "height": 165.64417177914112,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-09"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1152
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 84
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 120
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1092.3680981595091
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": -81.64417177914112
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 120
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "name": "waldruh-north-tree-10",
+          "x": 1370.2914798206277,
+          "y": 2.5829596412555986,
+          "width": 130,
+          "height": 129.4170403587444,
+          "gid": 31,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-north-tree-10"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1435
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 132
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 130
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1370.2914798206277
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 2.5829596412555986
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 130
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 73,
+          "name": "waldruh-west-tree-01",
+          "x": -20.147239263803684,
+          "y": 78.25766871165644,
+          "width": 115,
+          "height": 158.74233128834356,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-01"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 37
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 237
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 115
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -20.147239263803684
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 78.25766871165644
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 115
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 74,
+          "name": "waldruh-west-tree-02",
+          "x": -10.125827814569533,
+          "y": 148.58940397350995,
+          "width": 124,
+          "height": 191.33774834437085,
+          "gid": 2147483676,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-02"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 49
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 335
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 124
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -10.125827814569533
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 148.58940397350995
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 124
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 75,
+          "name": "waldruh-west-tree-03",
+          "x": -12.814159292035399,
+          "y": 330.8938053097345,
+          "width": 134,
+          "height": 125.10619469026548,
+          "gid": 30,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-03"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 456
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -12.814159292035399
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 330.8938053097345
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 76,
+          "name": "waldruh-west-tree-04",
+          "x": 275.77914110429447,
+          "y": 391.3865030674847,
+          "width": 91,
+          "height": 125.61349693251533,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-04"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 321
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 517
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 91
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 275.77914110429447
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 391.3865030674847
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 91
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 77,
+          "name": "waldruh-west-tree-05",
+          "x": -1.2365591397849443,
+          "y": 555.3870967741935,
+          "width": 140,
+          "height": 173.8709677419355,
+          "gid": 2147483674,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-05"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 65
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 727
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 140
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -1.2365591397849443
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 555.3870967741935
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 140
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 78,
+          "name": "waldruh-west-tree-06",
+          "x": 68.91411042944785,
+          "y": 619.6503067484663,
+          "width": 135,
+          "height": 186.34969325153375,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-06"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 136
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 806
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 135
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 68.91411042944785
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 619.6503067484663
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 135
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 79,
+          "name": "waldruh-west-tree-07",
+          "x": -26.196581196581192,
+          "y": 786.7179487179487,
+          "width": 164,
+          "height": 149.98290598290598,
+          "gid": 27,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-west-tree-07"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 936
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 164
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": -26.196581196581192
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 786.7179487179487
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 164
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 80,
+          "name": "waldruh-south-tree-01",
+          "x": 54.4170403587444,
+          "y": 827.8340807174889,
+          "width": 186,
+          "height": 185.1659192825112,
+          "gid": 31,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-01"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 147
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1013
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 186
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 54.4170403587444
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 827.8340807174889
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 186
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 81,
+          "name": "waldruh-south-tree-02",
+          "x": 224.23893805309734,
+          "y": 867.2920353982302,
+          "width": 140,
+          "height": 130.7079646017699,
+          "gid": 2147483678,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-02"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 293
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 998
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 140
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 224.23893805309734
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 867.2920353982302
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 140
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 82,
+          "name": "waldruh-south-tree-03",
+          "x": 439.47852760736197,
+          "y": 814.6625766871166,
+          "width": 156,
+          "height": 215.33742331288343,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-03"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 517
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1030
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 156
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 439.47852760736197
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 814.6625766871166
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 156
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 83,
+          "name": "waldruh-south-tree-04",
+          "x": 427.6989247311828,
+          "y": 752.1290322580645,
+          "width": 119,
+          "height": 147.79032258064515,
+          "gid": 26,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-04"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 484
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 898
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 119
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 427.6989247311828
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 752.1290322580645
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 119
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 84,
+          "name": "waldruh-south-tree-05",
+          "x": 738.1794871794872,
+          "y": 812.6923076923076,
+          "width": 186,
+          "height": 170.10256410256412,
+          "gid": 2147483675,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-05"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 828
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 982
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 186
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 738.1794871794872
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 812.6923076923076
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 186
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 85,
+          "name": "waldruh-south-tree-06",
+          "x": 877.9815950920246,
+          "y": 813.282208588957,
+          "width": 157,
+          "height": 216.71779141104295,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-06"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 956
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 1030
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 157
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 877.9815950920246
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 813.282208588957
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 157
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 86,
+          "name": "waldruh-south-tree-07",
+          "x": 850.8609271523179,
+          "y": 761.0198675496688,
+          "width": 145,
+          "height": 223.74172185430464,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-south-tree-07"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 920
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 979
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 850.8609271523179
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 761.0198675496688
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 145
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 87,
+          "name": "waldruh-garden-tree-01",
+          "x": 1135.7757847533633,
+          "y": 779.5515695067264,
+          "width": 123,
+          "height": 122.44843049327355,
+          "gid": 31,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-garden-tree-01"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1197
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 902
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 123
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1135.7757847533633
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 779.5515695067264
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 123
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 88,
+          "name": "waldruh-garden-tree-02",
+          "x": 1255.8924731182797,
+          "y": 713.9032258064516,
+          "width": 89,
+          "height": 110.53225806451613,
+          "gid": 2147483674,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-garden-tree-02"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1298
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 823
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 89
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1255.8924731182797
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 713.9032258064516
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 89
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 89,
+          "name": "waldruh-east-tree-01",
+          "x": 1453.8282208588957,
+          "y": 57.30061349693253,
+          "width": 107,
+          "height": 147.69938650306747,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-tree-01"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1507
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 205
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 107
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1453.8282208588957
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 57.30061349693253
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 107
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 90,
+          "name": "waldruh-east-tree-02",
+          "x": 1458.1196581196582,
+          "y": 247.12820512820514,
+          "width": 124,
+          "height": 113.4017094017094,
+          "gid": 2147483675,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-tree-02"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1518
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 360
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 124
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1458.1196581196582
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 247.12820512820514
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 124
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 91,
+          "name": "waldruh-east-tree-03",
+          "x": 1454.2119205298013,
+          "y": 374.1125827814569,
+          "width": 117,
+          "height": 180.53642384105962,
+          "gid": 28,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-tree-03"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1510
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 550
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 117
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1454.2119205298013
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 374.1125827814569
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 117
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 92,
+          "name": "waldruh-east-tree-04",
+          "x": 1413.4110429447853,
+          "y": 733.0306748466257,
+          "width": 134,
+          "height": 184.96932515337423,
+          "gid": 29,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-east-tree-04"
+            },
+            {
+              "name": "motion",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 1480
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 918
+            },
+            {
+              "name": "_sourceObjectWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_sourceDisplayX",
+              "type": "float",
+              "value": 1413.4110429447853
+            },
+            {
+              "name": "_sourceDisplayY",
+              "type": "float",
+              "value": 733.0306748466257
+            },
+            {
+              "name": "_sourceDisplayWidth",
+              "type": "int",
+              "value": 134
+            },
+            {
+              "name": "_explicitFlip",
+              "type": "bool",
+              "value": false
+            }
           ]
         }
       ]
     },
     {
-      "id": 20,
+      "id": 118,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 21,
+          "id": 117,
           "name": "spawn",
           "point": true,
           "x": 798.72,
@@ -1058,13 +6236,13 @@
       ]
     },
     {
-      "id": 22,
+      "id": 127,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 23,
+          "id": 119,
           "name": "marta",
           "point": true,
           "x": 430.08000000000004,
@@ -1078,7 +6256,7 @@
           ]
         },
         {
-          "id": 24,
+          "id": 120,
           "name": "otto",
           "point": true,
           "x": 1121.28,
@@ -1092,7 +6270,7 @@
           ]
         },
         {
-          "id": 25,
+          "id": 121,
           "name": "lina",
           "point": true,
           "x": 660.48,
@@ -1106,7 +6284,7 @@
           ]
         },
         {
-          "id": 26,
+          "id": 122,
           "name": "emil",
           "point": true,
           "x": 460.79999999999995,
@@ -1120,7 +6298,7 @@
           ]
         },
         {
-          "id": 27,
+          "id": 123,
           "name": "ada",
           "point": true,
           "x": 371.712,
@@ -1134,7 +6312,7 @@
           ]
         },
         {
-          "id": 28,
+          "id": 124,
           "name": "fritz",
           "point": true,
           "x": 909.3119999999999,
@@ -1148,7 +6326,7 @@
           ]
         },
         {
-          "id": 29,
+          "id": 125,
           "name": "greta",
           "point": true,
           "x": 978.432,
@@ -1162,7 +6340,7 @@
           ]
         },
         {
-          "id": 30,
+          "id": 126,
           "name": "inspector",
           "point": true,
           "x": 1147.392,
@@ -1178,13 +6356,13 @@
       ]
     },
     {
-      "id": 31,
+      "id": 133,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 32,
+          "id": 128,
           "name": "waldruh-clock",
           "point": true,
           "x": 1184.256,
@@ -1198,7 +6376,7 @@
           ]
         },
         {
-          "id": 33,
+          "id": 129,
           "name": "waldruh-housing-board",
           "point": true,
           "x": 582.144,
@@ -1212,7 +6390,7 @@
           ]
         },
         {
-          "id": 34,
+          "id": 130,
           "name": "waldruh-herb-garden",
           "point": true,
           "x": 978.432,
@@ -1226,7 +6404,7 @@
           ]
         },
         {
-          "id": 35,
+          "id": 131,
           "name": "waldruh-route-sign",
           "point": true,
           "x": 961.5360000000001,
@@ -1240,7 +6418,7 @@
           ]
         },
         {
-          "id": 36,
+          "id": 132,
           "name": "waldruh-memory-stone",
           "point": true,
           "x": 299.52,
@@ -1250,6 +6428,1708 @@
               "name": "key",
               "type": "string",
               "value": "waldruh-memory-stone"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 134,
+      "name": "Districts",
+      "type": "objectgroup",
+      "visible": true,
+      "opacity": 0.25,
+      "objects": []
+    },
+    {
+      "id": 135,
+      "name": "Activities",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": []
+    },
+    {
+      "id": 136,
+      "name": "Entrances",
+      "type": "objectgroup",
+      "visible": true,
+      "objects": [
+        {
+          "id": 93,
+          "name": "cafe-entrance",
+          "point": true,
+          "x": 320,
+          "y": 365,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "cafe-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-inn"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "cafe"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 41
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 320
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 365
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 390
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 94,
+          "name": "bakery-entrance",
+          "point": true,
+          "x": 385,
+          "y": 720,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "bakery-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-west-workshop"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "bakery"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 149
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 28
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 385
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 720
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 328
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 95,
+          "name": "supermarket-entrance",
+          "point": true,
+          "x": 893,
+          "y": 765,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "supermarket-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-market-east"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "supermarket"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 893
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 765
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 154
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 96,
+          "name": "inn-entrance",
+          "point": true,
+          "x": 285,
+          "y": 368,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "inn-entrance"
+            },
+            {
+              "name": "ownerId",
+              "type": "string",
+              "value": "waldruh-inn"
+            },
+            {
+              "name": "interiorId",
+              "type": "string",
+              "value": "inn"
+            },
+            {
+              "name": "offsetX",
+              "type": "int",
+              "value": -35
+            },
+            {
+              "name": "offsetY",
+              "type": "int",
+              "value": 44
+            },
+            {
+              "name": "_sourceX",
+              "type": "int",
+              "value": 285
+            },
+            {
+              "name": "_sourceY",
+              "type": "int",
+              "value": 368
+            },
+            {
+              "name": "_ownerSourceWidth",
+              "type": "int",
+              "value": 390
+            },
+            {
+              "name": "_ownerSourceFlip",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 137,
+      "name": "Generation zones",
+      "type": "objectgroup",
+      "visible": true,
+      "opacity": 0.2,
+      "objects": []
+    }
+  ],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "waldruh-scene-images",
+      "columns": 0,
+      "objectalignment": "topleft",
+      "tilewidth": 3072,
+      "tileheight": 2048,
+      "tilecount": 31,
+      "tiles": [
+        {
+          "id": 0,
+          "image": "../../web/public/assets/waldruh-day-terrain-detail-0-0.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-0-0.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "../../web/public/assets/waldruh-day-terrain-detail-0-1.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 1,
+          "y": 0,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-0-1.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "../../web/public/assets/waldruh-day-terrain-detail-1-0.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 0,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-1-0.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "../../web/public/assets/waldruh-day-terrain-detail-1-1.webp",
+          "imagewidth": 3073,
+          "imageheight": 2049,
+          "x": 1,
+          "y": 1,
+          "width": 3072,
+          "height": 2048,
+          "properties": [
+            {
+              "name": "dayAsset",
+              "type": "string",
+              "value": "/assets/waldruh-day-terrain-detail-1-1.webp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 0
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 3072
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 2048
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 3072
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "image": "../../web/public/assets/waldruh-day-building-cafe.webp",
+          "imagewidth": 1179,
+          "imageheight": 1120,
+          "x": 0,
+          "y": 0,
+          "width": 1179,
+          "height": 1120,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "cafe"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9964285714285714
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1179
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1120
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1179
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "image": "../../web/public/assets/waldruh-day-building-station.webp",
+          "imagewidth": 1212,
+          "imageheight": 1019,
+          "x": 0,
+          "y": 0,
+          "width": 1212,
+          "height": 1019,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "station"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9960745829244357
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1212
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1019
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1212
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "image": "../../web/public/assets/waldruh-day-building-workshop.webp",
+          "imagewidth": 1215,
+          "imageheight": 1245,
+          "x": 0,
+          "y": 0,
+          "width": 1215,
+          "height": 1245,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "workshop"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9967871485943776
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1215
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1245
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1215
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "image": "../../web/public/assets/waldruh-day-building-house-1.webp",
+          "imagewidth": 1198,
+          "imageheight": 1163,
+          "x": 0,
+          "y": 0,
+          "width": 1198,
+          "height": 1163,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "workshop"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "house-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9965606190885641
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1198
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1163
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1198
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "image": "../../web/public/assets/waldruh-day-building-bases.webp",
+          "imagewidth": 2048,
+          "imageheight": 1025,
+          "x": 4,
+          "y": 4,
+          "width": 404,
+          "height": 518,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "archive"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 404
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 518
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 404
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "image": "../../web/public/assets/waldruh-day-building-house-1.webp",
+          "imagewidth": 1198,
+          "imageheight": 1163,
+          "x": 0,
+          "y": 0,
+          "width": 1198,
+          "height": 1163,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "house"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "house-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9965606190885641
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1198
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1163
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1198
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "image": "../../web/public/assets/waldruh-day-building-bases.webp",
+          "imagewidth": 2048,
+          "imageheight": 1025,
+          "x": 4,
+          "y": 530,
+          "width": 382,
+          "height": 491,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "house"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "house-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9979633401221996
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 382
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 491
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 382
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "image": "../../web/public/assets/waldruh-day-building-greenhouse.webp",
+          "imagewidth": 1211,
+          "imageheight": 1228,
+          "x": 0,
+          "y": 0,
+          "width": 1211,
+          "height": 1228,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "greenhouse"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.996742671009772
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 1211
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 1228
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 1211
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "image": "../../web/public/assets/waldruh-day-animation-1.webp",
+          "imagewidth": 1024,
+          "imageheight": 1277,
+          "x": 2,
+          "y": 701,
+          "width": 219,
+          "height": 206,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "fountain"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.502283105022831
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 219
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 206
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 219
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "image": "../../web/public/assets/waldruh-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1398,
+          "x": 2,
+          "y": 2,
+          "width": 219,
+          "height": 213,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.502283105022831
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9953051643192489
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 219
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 213
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 219
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "image": "../../web/public/assets/waldruh-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1398,
+          "x": 448,
+          "y": 219,
+          "width": 220,
+          "height": 233,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4772727272727273
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9914163090128756
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 220
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 233
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 220
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "image": "../../web/public/assets/waldruh-day-animation-6.webp",
+          "imagewidth": 1024,
+          "imageheight": 1398,
+          "x": 2,
+          "y": 693,
+          "width": 233,
+          "height": 241,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "stall"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "stall-3"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4978540772532189
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.991701244813278
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 233
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 241
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 233
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "image": "../../web/public/assets/waldruh-day-building-bases.webp",
+          "imagewidth": 2048,
+          "imageheight": 1025,
+          "x": 394,
+          "y": 530,
+          "width": 415,
+          "height": 458,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "arch"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9912663755458515
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 415
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 458
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 415
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "image": "../../web/public/assets/waldruh-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1294,
+          "x": 416,
+          "y": 842,
+          "width": 182,
+          "height": 223,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "sign"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5054945054945055
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 182
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 223
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 182
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "image": "../../web/public/assets/waldruh-day-animation-1.webp",
+          "imagewidth": 1024,
+          "imageheight": 1277,
+          "x": 448,
+          "y": 911,
+          "width": 248,
+          "height": 154,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "boat"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4879032258064516
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9675324675324676
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 248
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 154
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 248
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "image": "../../web/public/assets/waldruh-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1142,
+          "x": 503,
+          "y": 457,
+          "width": 53,
+          "height": 217,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "lamp"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49056603773584906
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 53
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 217
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 53
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "image": "../../web/public/assets/waldruh-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1311,
+          "x": 2,
+          "y": 2,
+          "width": 216,
+          "height": 181,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "planter-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 216
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 181
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 216
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "image": "../../web/public/assets/waldruh-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1311,
+          "x": 442,
+          "y": 187,
+          "width": 172,
+          "height": 225,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "planter-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4941860465116279
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 172
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 225
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 172
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "image": "../../web/public/assets/waldruh-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1311,
+          "x": 530,
+          "y": 416,
+          "width": 215,
+          "height": 204,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "garden-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4930232558139535
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 215
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 204
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 215
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "image": "../../web/public/assets/waldruh-day-animation-7.webp",
+          "imagewidth": 1024,
+          "imageheight": 1311,
+          "x": 2,
+          "y": 853,
+          "width": 198,
+          "height": 226,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "planter"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "garden-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.5151515151515151
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 198
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 226
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 198
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "image": "../../web/public/assets/waldruh-day-animation-3.webp",
+          "imagewidth": 1024,
+          "imageheight": 1294,
+          "x": 446,
+          "y": 213,
+          "width": 214,
+          "height": 194,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "bench"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49065420560747663
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 214
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 194
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 214
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "image": "../../web/public/assets/waldruh-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1374,
+          "x": 2,
+          "y": 2,
+          "width": 186,
+          "height": 231,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-1"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4731182795698925
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.987012987012987
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 186
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 231
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 186
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "image": "../../web/public/assets/waldruh-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1374,
+          "x": 192,
+          "y": 237,
+          "width": 234,
+          "height": 214,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-2"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4829059829059829
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9953271028037384
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 234
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 214
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 234
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "image": "../../web/public/assets/waldruh-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1374,
+          "x": 716,
+          "y": 472,
+          "width": 151,
+          "height": 233,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-3"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4768211920529801
+            },
+            {
+              "name": "_pivotY",
+              "type": "float",
+              "value": 0.9742489270386266
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 151
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 233
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 151
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "image": "../../web/public/assets/waldruh-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1142,
+          "x": 456,
+          "y": 228,
+          "width": 163,
+          "height": 225,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "cypress"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.49693251533742333
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 163
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 225
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 163
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "image": "../../web/public/assets/waldruh-day-animation-5.webp",
+          "imagewidth": 1024,
+          "imageheight": 1374,
+          "x": 622,
+          "y": 709,
+          "width": 226,
+          "height": 211,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "frame",
+              "type": "string",
+              "value": "tree-4"
+            },
+            {
+              "name": "variant",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4911504424778761
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 226
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 211
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 226
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "image": "../../web/public/assets/waldruh-day-animation-2.webp",
+          "imagewidth": 1024,
+          "imageheight": 1142,
+          "x": 2,
+          "y": 2,
+          "width": 223,
+          "height": 222,
+          "properties": [
+            {
+              "name": "asset",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "_pivotX",
+              "type": "float",
+              "value": 0.4977578475336323
+            },
+            {
+              "name": "_pivotY",
+              "type": "int",
+              "value": 1
+            },
+            {
+              "name": "_sourceWidth",
+              "type": "int",
+              "value": 223
+            },
+            {
+              "name": "_sourceHeight",
+              "type": "int",
+              "value": 222
+            },
+            {
+              "name": "_referenceWidth",
+              "type": "int",
+              "value": 223
             }
           ]
         }

@@ -12,7 +12,10 @@ server/.data/
 .DS_Store
 playwright-report/
 test-results/
+output/
 
 .runtime/
 art/source/terrain-hd/*-reference.png
 art/source/terrain-detail/*-reference.png
+art/source/terrain-expansion/**/*-reference.png
+art/source/terrain-expansion/**/*-reference-*.png

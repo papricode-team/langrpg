@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { readFile, stat } from 'node:fs/promises';
-import { storyMaps } from './maps';
+import { getMap, storyMaps } from './maps';
 import { sceneryTerrainKey } from './scenery-animation';
 
 describe('high-resolution story terrain exports', () => {
@@ -42,7 +42,8 @@ describe('high-resolution story terrain exports', () => {
       }
       expect((await stat(runtime)).size).toBeLessThanOrEqual(2 * 1024 * 1024);
       const preview = await sharp(new URL(`../public/assets/${map.id}-preview.webp`, import.meta.url).pathname).metadata();
-      expect([preview.width, preview.height]).toEqual([1536, 1024]);
+      const bounds=getMap(map.id), scale=Math.min(1,1536/bounds.width,1024/bounds.height);
+      expect([preview.width, preview.height]).toEqual([Math.round(bounds.width*scale),Math.round(bounds.height*scale)]);
     });
   }
   it('uses high-resolution terrain on initial arrival in every story town', async () => {

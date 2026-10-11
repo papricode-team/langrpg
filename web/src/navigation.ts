@@ -1,7 +1,7 @@
 import type { MapId } from './maps';
-import { authoredNavigation, type MapNavigationDocument } from './map-authoring';
+import type { MapNavigationDocument } from './map-authoring';
 import { placedSceneryFootprints } from './placed-scenery';
-import { expeditionWalkablePolygons, isExpeditionMap } from './expeditions';
+import {getWorldScene} from './scene-data';
 
 export interface MapPoint { x: number; y: number; }
 type Polygon = readonly (readonly [number, number])[];
@@ -25,6 +25,7 @@ function includes(area: Region, x: number, y: number): boolean {
 
 export const MAP_WIDTH = 1536;
 export const MAP_HEIGHT = 1024;
+export interface NavigationBounds { width: number; height: number; }
 
 // Foot-level paths traced from the Lindenhafen painting. Roofs, gardens outside
 // their gravel paths, stalls, fountains, and waterways are deliberately excluded.
@@ -89,17 +90,27 @@ class MinHeap {
 
 export class NavigationGrid {
   private readonly cell = 14;
-  private readonly columns = Math.ceil(MAP_WIDTH / this.cell);
-  private readonly rows = Math.ceil(MAP_HEIGHT / this.cell);
-  private readonly allowed = new Uint8Array(this.columns * this.rows);
+  readonly width: number;
+  readonly height: number;
+  private readonly columns: number;
+  private readonly rows: number;
+  private readonly allowed: Uint8Array;
   private readonly nodes: number[] = [];
-  private readonly checkedEdges = new Uint8Array(this.columns * this.rows);
-  private readonly clearEdges = new Uint8Array(this.columns * this.rows);
+  private readonly checkedEdges: Uint8Array;
+  private readonly clearEdges: Uint8Array;
   private readonly streets: readonly Region[];
   private readonly barriers: readonly Region[];
   private readonly geometry: readonly Region[];
 
-  constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = []) {
+  constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = [], bounds: NavigationBounds = {width:MAP_WIDTH,height:MAP_HEIGHT}) {
+    if (!Number.isFinite(bounds.width) || !Number.isFinite(bounds.height) || bounds.width < 28 || bounds.height < 28 || bounds.width > 16384 || bounds.height > 16384) throw new Error('Invalid navigation dimensions');
+    this.width = bounds.width;
+    this.height = bounds.height;
+    this.columns = Math.ceil(this.width / this.cell);
+    this.rows = Math.ceil(this.height / this.cell);
+    this.allowed = new Uint8Array(this.columns * this.rows);
+    this.checkedEdges = new Uint8Array(this.allowed.length);
+    this.clearEdges = new Uint8Array(this.allowed.length);
     this.streets = areas.map(region);
     this.barriers = obstacles.map(region);
     this.geometry = [...this.streets, ...this.barriers];
@@ -114,7 +125,7 @@ export class NavigationGrid {
 
   isWalkable(x: number, y: number): boolean {
     if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
-    if (x < 14 || x > MAP_WIDTH - 14 || y < 14 || y > MAP_HEIGHT - 14) return false;
+    if (x < 14 || x > this.width - 14 || y < 14 || y > this.height - 14) return false;
     return this.streets.some(area => includes(area, x, y)) && !this.barriers.some(area => includes(area, x, y));
   }
 
@@ -122,6 +133,27 @@ export class NavigationGrid {
    * travel. Endpoint checks alone let keyboard or joystick movement tunnel. */
   canWalkSegment(startX: number, startY: number, endX: number, endY: number): boolean {
     return this.lineClear({ x: startX, y: startY }, { x: endX, y: endY });
+  }
+
+  /** Repeatable area proxy using the exact collision-safe movement graph. */
+  auditConnectedArea(spawn: MapPoint): {cellSize:number; totalWalkableCells:number; connectedCells:number; connectedArea:number} {
+    const start = this.isWalkable(spawn.x,spawn.y) ? this.closestIndex(spawn.x,spawn.y,spawn) : undefined;
+    const queue: number[] = start === undefined ? [] : [start];
+    const seen = new Uint8Array(this.allowed.length);
+    if(start !== undefined) seen[start] = 1;
+    for(let head=0;head<queue.length;head++) {
+      const current=queue[head],column=current%this.columns,row=Math.floor(current/this.columns);
+      for(let direction=0;direction<DIRECTIONS.length;direction++) {
+        const [dx,dy]=DIRECTIONS[direction];
+        if(column+dx<0||column+dx>=this.columns||row+dy<0||row+dy>=this.rows)continue;
+        const next=(row+dy)*this.columns+column+dx;
+        if(seen[next]||!this.allowed[next])continue;
+        if(dx&&dy&&(!this.allowed[row*this.columns+column+dx]||!this.allowed[(row+dy)*this.columns+column]))continue;
+        if(!this.edgeClear(current,next,direction))continue;
+        seen[next]=1;queue.push(next);
+      }
+    }
+    return {cellSize:this.cell,totalWalkableCells:this.nodes.length,connectedCells:queue.length,connectedArea:queue.length*this.cell*this.cell};
   }
 
   closestPoint(x: number, y: number): MapPoint {
@@ -281,7 +313,7 @@ export class NavigationGrid {
 // A canopy can cover a clear street while the trunk, pot or lamp plinth blocks
 // feet. Share only the painted object's ground footprint with navigation; its
 // wider silhouette belongs to depth rendering rather than collision.
-export const createTownNavigation = (): NavigationGrid => new NavigationGrid(authoredNavigation.maps.lindenhafen.walkable, [...authoredNavigation.maps.lindenhafen.obstacles, ...placedSceneryFootprints('lindenhafen')]);
+export const createTownNavigation = (): NavigationGrid => createMapNavigation('lindenhafen');
 
 // These foot-level paths are traced independently from the two paintings.
 // A shared rectangle would allow walking through the clockmill, greenhouses,
@@ -293,9 +325,8 @@ export const createTownNavigation = (): NavigationGrid => new NavigationGrid(aut
 
 
 export function createMapNavigation(id: MapId): NavigationGrid {
-  if (isExpeditionMap(id)) return new NavigationGrid(expeditionWalkablePolygons(id), placedSceneryFootprints(id));
-  const authored = authoredNavigation.maps[id];
-  return new NavigationGrid(authored.walkable, [...authored.obstacles, ...placedSceneryFootprints(id)]);
+  const scene = getWorldScene(id);
+  return new NavigationGrid(scene.walkable, [...scene.obstacles, ...placedSceneryFootprints(id)], scene);
 }
 
 export function createFallbackNavigation(): NavigationGrid {
@@ -311,7 +342,7 @@ export function createFallbackNavigation(): NavigationGrid {
 export function validateAuthoredReachability(document: MapNavigationDocument): string[] {
   const errors: string[] = [];
   for (const [id, map] of Object.entries(document.maps)) {
-    const grid = new NavigationGrid(map.walkable, [...map.obstacles, ...placedSceneryFootprints(id as MapId)]);
+    const grid = new NavigationGrid(map.walkable, [...map.obstacles, ...placedSceneryFootprints(id as MapId)], document);
     if (!grid.isWalkable(map.spawn.x, map.spawn.y)) { errors.push(`${id}: spawn is outside walkable ground`); continue; }
     for (const target of [...map.npcs, ...map.objects]) {
       const approach = grid.closestPoint(target.x, target.y);

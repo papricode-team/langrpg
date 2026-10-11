@@ -8,7 +8,7 @@ export class WorldTerrain {
   key: string;
   tint = 0xffffff;
   destroyed = false;
-  constructor(private scene: Phaser.Scene, key: string, tiles?: readonly TerrainTile[]) {
+  constructor(private scene: Phaser.Scene, key: string, tiles?: readonly TerrainTile[], private bounds = { width: 1536, height: 1024 }) {
     this.root = scene.add.container(0, 0);
     this.key = key;
     this.setTexture(key, tiles);
@@ -17,13 +17,13 @@ export class WorldTerrain {
   get visible(): boolean { return this.root.visible; }
   get nativeSize(): { width: number; height: number } {
     const image = this.images[0], ratio = image?.frame?.width / image?.displayWidth;
-    return Number.isFinite(ratio) ? { width: Math.round(1536 * ratio), height: Math.round(1024 * ratio) } : { width: 0, height: 0 };
+    return Number.isFinite(ratio) ? { width: Math.round(this.bounds.width * ratio), height: Math.round(this.bounds.height * ratio) } : { width: 0, height: 0 };
   }
   setTexture(key: string, tiles?: readonly TerrainTile[]): this {
     for (const image of this.images) image.destroy();
     this.key = key;
     const sections: readonly TerrainTile[] = tiles?.length && tiles.every(tile => this.scene.textures.exists(tile.key))
-      ? tiles : [{ key, x: 0, y: 0, width: 1536, height: 1024 }];
+      ? tiles : [{ key, x: 0, y: 0, width: this.bounds.width, height: this.bounds.height }];
     this.images = sections.map(tile => {
       if (tile.crop) {
         const texture = this.scene.textures.get(tile.key);
@@ -35,7 +35,7 @@ export class WorldTerrain {
     this.root.add(this.images);
     return this;
   }
-  setDisplaySize(width: number, height: number): this { this.root.setScale(width / 1536, height / 1024); return this; }
+  setDisplaySize(width: number, height: number): this { this.root.setScale(width / this.bounds.width, height / this.bounds.height); return this; }
   setDepth(depth: number): this { this.root.setDepth(depth); return this; }
   setAlpha(alpha: number): this { this.root.setAlpha(alpha); return this; }
   setVisible(visible: boolean): this { this.root.setVisible(visible); return this; }

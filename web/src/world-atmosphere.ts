@@ -2,6 +2,7 @@ import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { LampLight, SceneryView } from './world-scenery';
 import { nightIntensity } from './world-clock';
+import {getWorldScene} from './scene-data';
 
 // Weather sits above the ground plate and below people, buildings and labels.
 export const WEATHER_DEPTH = 2;
@@ -18,7 +19,7 @@ export class WorldAtmosphere {
   private foreground: Phaser.GameObjects.Graphics;
   private illumination: Phaser.GameObjects.Graphics;
   private visible = true;
-  constructor(scene: Phaser.Scene, private id: MapId, private lamps: readonly LampLight[]) {
+  constructor(scene: Phaser.Scene, private id: MapId, private lamps: readonly LampLight[], private bounds = getWorldScene(id)) {
     this.foreground = scene.add.graphics().setDepth(WEATHER_DEPTH);
     // Source-over alpha stays bounded in both renderers, including at camera zoom.
     this.illumination = scene.add.graphics().setDepth(2000);
@@ -41,9 +42,11 @@ export class WorldAtmosphere {
       this.foreground.fillStyle(0xe8ae62, night * flicker * .045).fillEllipse(lamp.x, lamp.footY - 3, lamp.width * 2.4, lamp.width * .65);
     }
     const profile = atmosphereProfile(this.id, storm);
+    const {width,height}=this.bounds;
+    const wrap=(value:number,size:number)=>((value%size)+size)%size;
     if (profile.fog) for (let i = 0; i < 12; i++) {
-      const x = (hash(i + 1) * 2100 + t * (4 + hash(i + 2) * 3)) % 2100 - 280;
-      const y = hash(i + 21) * 1024;
+      const x = wrap(hash(i + 1) * (width+560) + t * (4 + hash(i + 2) * 3),width+560) - 280;
+      const y = hash(i + 21) * height;
       // Broad low mist hugs the streets; layers overlap softly at the edges.
       for (let edge = 3; edge > 0; edge--) this.foreground.fillStyle(0xd1dfe3, profile.fog * .1)
         .fillEllipse(x, y, 510 + edge * 60, 75 + edge * 25);
@@ -51,14 +54,14 @@ export class WorldAtmosphere {
     if (profile.rain) {
       this.foreground.lineStyle(.7, 0xc4d8e7, .26 * profile.rain);
       for (let i = 0; i < 130 * profile.rain; i++) {
-        const x = (hash(i + 90) * 1536 - t * 90 + 1536 * 1000) % 1536;
-        const y = (hash(i + 200) * 1024 + t * 460) % 1024;
+        const x = wrap(hash(i + 90) * width - t * 90,width);
+        const y = wrap(hash(i + 200) * height + t * 460,height);
         if (x < view.x || x > view.right || y < view.y || y > view.bottom) continue;
         this.foreground.lineBetween(x, y, x - 5, y + 16);
       }
     }
     if (profile.dust) for (let i = 0; i < 34; i++) {
-      const x = (hash(i + 400) * 1536 + t * 4) % 1536, y = hash(i + 500) * 1024 + Math.sin(t * .35 + i) * 18;
+      const x = wrap(hash(i + 400) * width + t * 4,width), y = hash(i + 500) * height + Math.sin(t * .35 + i) * 18;
       if (x < view.x || x > view.right || y < view.y || y > view.bottom) continue;
       this.foreground.fillStyle(profile.leaves ? 0xe5b969 : night > .5 ? 0xdfffa9 : 0xffeed0, profile.leaves ? .45 : .18 + night * .18)
         .fillEllipse(x, y, profile.leaves ? 4 : 1.5, profile.leaves ? 2 : 1.5);

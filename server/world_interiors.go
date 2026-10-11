@@ -11,12 +11,17 @@ var interiorSpawns = map[string]MapSpawn{
 	"inn":         {X: .50, Y: .75},
 }
 
+func knownInterior(id string) bool {
+	// Keep this independent of the registry's package initialization.
+	return id == "cafe" || id == "bakery" || id == "supermarket" || id == "inn"
+}
+
 func validInterior(mapID, interiorID string) bool {
 	if interiorID == "" {
 		return true
 	}
-	_, exists := interiorSpawns[interiorID]
-	return exists && (mapID == DefaultMapID || mapID == "waldruh" || mapID == "nebelstadt")
+	_, exists := compiledWorldMaps.Maps[mapID].Entrances[interiorID]
+	return exists && knownInterior(interiorID)
 }
 
 func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now time.Time) string {
@@ -28,13 +33,19 @@ func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now 
 	if mapID != client.player.MapID {
 		return "building belongs to another map"
 	}
-	if !validInterior(mapID, interiorID) {
+	_, entranceExists := w.mapDefinition(mapID).Entrances[interiorID]
+	if interiorID != "" && (!entranceExists || !knownInterior(interiorID)) {
 		return "unknown building in this region"
 	}
 	if client.player.InteriorID != interiorID {
-		position := client.memory.positions[mapID]
+		position := client.memory.restorePosition(mapID, w.mapDefinition(mapID))
 		if interiorID != "" {
-			position = interiorSpawns[interiorID]
+			definition := w.locationDefinition(mapID, interiorID)
+			position = definition.Spawn
+			client.memory.interiorFrame = definition.WorldCoordinateFrame
+		} else if entrance, exists := w.mapDefinition(mapID).Entrances[client.player.InteriorID]; exists {
+			position = entrance.Return
+			client.memory.rememberPosition(mapID, position, w.mapDefinition(mapID).WorldCoordinateFrame)
 		}
 		client.player.InteriorID, client.memory.interiorID = interiorID, interiorID
 		client.player.X, client.player.Y = position.X, position.Y

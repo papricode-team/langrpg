@@ -52,4 +52,12 @@ describe('bounded high-resolution terrain rendering', () => {
     terrain.destroy();
     expect(mock.root.destroy).toHaveBeenCalledOnce();
   });
+  it('preserves chunk scale and coordinates inside doubled map bounds', () => {
+    const mock = fixture();
+    const expanded = [...tiles, {...tiles[0], key: 'new-district', x: 2304, y: 1536}];
+    new WorldTerrain(mock.scene, 'base', expanded, {width: 3072, height: 2048}).setDisplaySize(3072, 2048);
+    expect(mock.root.scale).toEqual([1, 1]);
+    expect(mock.images.map(({x, y, width, height}) => ({x, y, width, height})))
+      .toEqual(expanded.map(({x, y, width, height}) => ({x, y, width, height})));
+  });
 });

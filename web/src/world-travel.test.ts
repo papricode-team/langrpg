@@ -5,12 +5,13 @@ import { timeAmbient } from './world-lighting';
 import { getExpedition } from './expeditions';
 import { createMapNavigation } from './navigation';
 import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
-import { getInterior, type InteriorId } from './interiors';
+import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import { sampleResidentMotion, type WorldResident } from './world-life';
 import { sampleSceneryFrame } from './scenery-animation';
 import type { WorldPlayer } from './world';
 import { characterFrame, MODULAR_ART } from './avatar-options';
 import { explorationZoom } from './world-camera';
+import {WorldClock} from './world-clock';
 
 const harness = vi.hoisted(() => {
   class Picture {
@@ -23,7 +24,7 @@ const harness = vi.hoisted(() => {
     alpha = 1;
     resolution = 1;
     constructor(public key = '', public frame?: string | number) {}
-    fillStyle() { return this; } fillRect() { return this; }
+    fillStyle() { return this; } fillRect() { return this; } clear() { return this; }
     setDepth() { return this; }
     setOrigin(x = .5, y = x) { this.originX = x; this.originY = y; return this; }
     setTint(tint: number) { this.tint = tint; return this; }
@@ -47,12 +48,13 @@ const harness = vi.hoisted(() => {
     requests: Task[] = [];
     frameGeometry = { width: 100, height: 180, customPivot: true, pivotX: .5, pivotY: .97 };
     input = { keyboard: undefined };
+    events = {once: vi.fn(),off: vi.fn()};
     time = { now: 0 };
     textures = { exists: (key: string) => this.textureKeys.has(key), remove: (key: string) => this.textureKeys.delete(key),
       get: (key: string) => ({ has: (frame: string) => {
         const variant = Number(frame.split('-')[1]);
         return key.endsWith(variant < 4 ? '-people' : variant < 10 ? '-people-1' : '-people-2');
-      }, get: () => this.frameGeometry }),
+      }, get: () => this.frameGeometry, add: vi.fn(), getSourceImage: () => ({width:3073,height:2049}) }),
     };
     cache = { json: { get: (key: string) => this.manifests.get(key) } };
     add = { graphics: () => new Picture(), image: (_x: number, _y: number, key: string, frame?: string | number) => new Picture(key, frame),
@@ -63,6 +65,9 @@ const harness = vi.hoisted(() => {
       json: (key: string) => this.enqueue(key, 'json'), isLoading: () => this.loading,
       start: () => { this.loading = true; },
       once: (event: string, callback: (...args: unknown[]) => void) => {
+        this.listeners.set(event, [...(this.listeners.get(event) ?? []), callback]);
+      },
+      on: (event: string, callback: (...args: unknown[]) => void) => {
         this.listeners.set(event, [...(this.listeners.get(event) ?? []), callback]);
       },
       off: (event: string, callback: (...args: unknown[]) => void) => {
@@ -77,8 +82,8 @@ const harness = vi.hoisted(() => {
     finishLoad(failed: string[] = []) {
       while (this.queued.length) {
         const task = this.queued.shift()!;
-        if (failed.includes(task.key)) continue;
-        if (task.kind !== 'json') { this.textureKeys.add(task.key); continue; }
+        if (failed.includes(task.key)) {this.emit('loaderror',{key:task.key});continue;}
+        if (task.kind !== 'json') { this.textureKeys.add(task.key);this.emit(`filecomplete-${task.kind}-${task.key}`);continue; }
         const id = task.key.replace(/-(day|night)-animations$/, '');
         const animation = { key: `${id}-motions`, frames: ['motion-tree-0'], width: 100, height: 120, referenceWidth: 100, originX: .5, originY: 1, fps: 4 };
         const manifest = { version: 1, framesPerAsset: 1, terrain: `${id}-terrain`, assets: { 'motion-tree': animation } };
@@ -95,6 +100,30 @@ const harness = vi.hoisted(() => {
     destroy() {}
   }
   return { Scene, Game, Picture, state };
+});
+
+it('keeps authored tasks synchronized while reduced motion, local sky previews and culling change',()=>{
+  const {world,scene}=fixture(),renderer=Object.getPrototypeOf(scene);
+  let now=0;
+  scene.navigation=createMapNavigation('lindenhafen');scene.playerArtReady=true;
+  scene.clock=new WorldClock({mode:'cycle',hour:12},()=>now);
+  scene.clock.setSharedTime({epoch:'2026-10-11T00:00:00.000Z',seed:'0123456789abcdef0123456789abcdef',serverTime:'2026-10-11T00:00:45.000Z',elapsedSeconds:45,dayLengthSeconds:720,day:1,hour:8.5});
+  renderer.createResidents.call(scene);
+  expect(world.getWorldStats().residents).toBe(7);
+  const first=world.getActivityResidents();
+  expect(first.find(resident=>resident.name==='Ella')?.state).toMatchObject({phase:'act',action:'carry',heldObject:'parcel'});
+  world.setMotionPreference('reduced');
+  scene.clock.configure({mode:'manual',hour:22});
+  scene.cameras.main.worldView={x:-3000,y:-3000,right:-2000,bottom:-2000};
+  now=60000;renderer.updateActivityResidents.call(scene);
+  const expected=scene.activityWorld.sample(scene.clock.simulationTime());
+  expect(world.getActivityResidents().map(resident=>resident.state)).toEqual(expected);
+  expect(world.getActivityResidents()).not.toEqual(first);
+  expect(scene.activityResidents.every((resident:any)=>!resident.character.root.visible)).toBe(true);
+  scene.cameras.main.worldView={x:0,y:0,right:3072,bottom:1024};
+  world.setMotionPreference('full');renderer.updateActivityResidents.call(scene);
+  expect(world.getActivityResidents().map(resident=>resident.state)).toEqual(expected);
+  world.destroy();
 });
 vi.mock('phaser', () => ({ AUTO: 0, Scene: harness.Scene, Game: harness.Game,
   Loader: { Events: { COMPLETE: 'complete' } }, GameObjects: { Image: harness.Picture } }));
@@ -124,6 +153,7 @@ function fixture() {
   // Exercise real scene travel and animation loading, with graphics-only work
   // replaced so network/lifecycle behavior can be tested without a browser GPU.
   const scene = harness.state.scene! as typeof harness.Scene.prototype & Record<string, any>;
+  scene.cameras = { main: { width:900, height:600, zoom:1, setBounds:vi.fn(), setZoom(zoom:number){this.zoom=zoom;}, worldView:{x:0,y:0,width:1536,height:1024,right:1536,bottom:1024} } };
   scene.ready = true;
   scene.local = { x: 0, y: 0, facing: 0, walkDistance: 0 };
   scene.animateCharacter = vi.fn(); scene.frameCamera = vi.fn(); scene.setTerrainOnly = vi.fn();
@@ -133,11 +163,14 @@ function fixture() {
 }
 
 async function finishLoads(scene: typeof harness.Scene.prototype) {
-  scene.finishLoad();
-  await Promise.resolve();
-  scene.finishLoad();
-  await Promise.resolve();
-  await Promise.resolve();
+  const live = scene as typeof scene & Record<string, any>;
+  for (let frame=0; frame<12;frame++) {
+    scene.finishLoad();
+    await Promise.resolve();await Promise.resolve();await Promise.resolve();
+    live.background?.update?.(live.cameras.main.worldView,live.cameras.main.zoom);
+    live.pendingTerrain?.update(live.cameras.main.worldView,live.cameras.main.zoom);
+    live.updateWorldTime(0);
+  }
 }
 
 function indoorFixture() {
@@ -146,7 +179,7 @@ function indoorFixture() {
   scene.local = scene.createCharacter('self', 'You', 800, 640, { hair: '#000000', skin: '#ccaa99', outfit: '#557755' });
   for (const method of ['clearControls', 'createInteriorPropTargets', 'createPortal', 'transitionRoom', 'refreshNearby', 'updateResidents', 'updateWorldTime']) scene[method] = vi.fn();
   scene.marker = new harness.Picture(); scene.marker.visible = false;
-  scene.cameras = { main: { width: 900, height: 600, zoom: 1, setZoom(zoom: number) { this.zoom = zoom; }, worldView: { x: 0, y: 0, right: 1536, bottom: 1024 } } };
+  scene.cameras = { main: { width: 900, height: 600, zoom: 1, setBounds:vi.fn(), setZoom(zoom: number) { this.zoom = zoom; }, worldView: { x: 0, y: 0, width:1536, height:1024, right: 1536, bottom: 1024 } } };
   return result;
 }
 
@@ -384,6 +417,8 @@ describe('shared indoor rendering', () => {
     world.leaveInterior();
     expect(friend.root.destroyed).toBe(true);
     expect([...scene.peers.keys()]).toEqual(['outside']);
+    const door=buildingEntrances('lindenhafen').find(value=>value.interiorId==='cafe')!;
+    expect({x:scene.local.x,y:scene.local.y}).toEqual({x:door.returnPoint.x*getMap('lindenhafen').width,y:door.returnPoint.y*getMap('lindenhafen').height});
     world.setPlayers([player('self'), player('outside')], 'self');
     expect(scene.local.x).not.toBe(indoors.x);
     world.destroy();
@@ -412,7 +447,7 @@ describe('scene travel while destination art streams', () => {
     world.destroy();
   });
 
-  it('keeps the existing painting opaque while the next period fades over it', () => {
+  it('keeps the existing painting opaque while the next period fades over it', async () => {
     const { world, scene } = indoorFixture();
     scene.textureKeys.add('lindenhafen');
     scene.manifests.set('lindenhafen-night-animations', { assets: {}, terrain: 'lindenhafen-terrain' });
@@ -423,6 +458,8 @@ describe('scene travel while destination art streams', () => {
     let tween: { targets: { alpha: number }; onUpdate: () => void; onComplete: () => void };
     scene.tweens = { add: (options: typeof tween) => { tween = options; return { stop() {} }; } };
     scene.applyPeriod('night');
+    expect(scene.background).toBe(oldBackground);
+    await finishLoads(scene);scene.applyPeriod('night');
     oldScenery.setAlpha.mockClear();
     tween!.targets.alpha = .5; tween!.onUpdate();
     expect(oldBackground.alpha).toBe(1);
@@ -456,13 +493,13 @@ describe('scene travel while destination art streams', () => {
     expect(scene.queued.map(task=>task.key)).toEqual(['waldruh-night-trees']);
     await finishLoads(scene);
     expect(scene.period).toBe('night');
-    expect(scene.background.key).toBe('waldruh-night-terrain');
+    expect(scene.background.period).toBe('night');
     expect(scene.scenery).not.toBe(dayScenery);
     expect(destroy).toHaveBeenCalledOnce();
     world.destroy();
   });
 
-  it('keeps the fading terrain and scenery alive when the camera changes to mobile', () => {
+  it('keeps the fading terrain and scenery alive when the camera changes to mobile', async () => {
     const { world, scene } = indoorFixture();
     for (const period of ['day','night']) {
       scene.manifests.set(`lindenhafen-${period}-animations`, {terrain:`lindenhafen-${period}-terrain`,assets:{
@@ -475,13 +512,14 @@ describe('scene travel while destination art streams', () => {
     let complete!: () => void;
     scene.tweens = {add: (options:{onComplete:()=>void}) => {complete=options.onComplete;return {stop(){}};}};
     scene.applyPeriod('night');
+    await finishLoads(scene);scene.applyPeriod('night');
     scene.fitCamera(600,900,1);
     expect(scene.mobileCamera).toBe(true);
     expect(scene.textureKeys.has('lindenhafen-day-trees')).toBe(true);
     expect(scene.textureKeys.has('lindenhafen-day-terrain')).toBe(true);
     complete();
     expect(scene.textureKeys.has('lindenhafen-day-trees')).toBe(false);
-    expect(scene.textureKeys.has('lindenhafen-day-terrain')).toBe(false);
+    expect(scene.previousBackground).toBeUndefined();
     expect(scene.textureKeys.has('lindenhafen-night-trees')).toBe(true);
     expect(scene.textureKeys.has('lindenhafen-night-terrain')).toBe(true);
     world.destroy();
@@ -490,12 +528,12 @@ describe('scene travel while destination art streams', () => {
   it('shows the newest arrival when returning to a destination whose first load is in flight', async () => {
     const { world, scene, ready } = fixture();
     world.setMap('saffroncourt'); world.setMap('rainmarket'); world.setMap('saffroncourt');
-    expect(scene.requests.filter(task => task.key === 'saffroncourt')).toHaveLength(1);
+    expect(scene.requests.filter(task => task.key === 'saffroncourt-props')).toHaveLength(1);
     await finishLoads(scene);
     expect(ready.mock.calls).toEqual([['saffroncourt']]);
     expect(scene.createMapCharacters).toHaveBeenCalledOnce();
     expect(scene.createMapCharacters).toHaveBeenCalledWith(getMap('saffroncourt'));
-    expect([...scene.textureKeys].sort()).toEqual(['saffroncourt', 'saffroncourt-motions', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2', 'saffroncourt-props']);
+    expect([...scene.textureKeys].sort()).toEqual(['saffroncourt-motions', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2', 'saffroncourt-props','saffroncourt-terrain']);
     world.destroy();
   });
   it('releases a departed destination when its detail sheet finishes after travel', async () => {
@@ -503,7 +541,7 @@ describe('scene travel while destination art streams', () => {
     world.setMap('windplain'); scene.finishLoad();
     world.setMap('cedarbay'); await finishLoads(scene);
     expect(ready.mock.calls).toEqual([['cedarbay']]);
-    expect([...scene.textureKeys].sort()).toEqual(['cedarbay', 'cedarbay-motions', 'cedarbay-people', 'cedarbay-people-1', 'cedarbay-people-2', 'cedarbay-props']);
+    expect([...scene.textureKeys].sort()).toEqual(['cedarbay-motions', 'cedarbay-people', 'cedarbay-people-1', 'cedarbay-people-2', 'cedarbay-props','cedarbay-terrain']);
     world.destroy();
   });
   it('keeps the active motion atlas when day and night share the same region sheet', async () => {
@@ -517,7 +555,7 @@ describe('scene travel while destination art streams', () => {
     expect(neighbor.tint).toBe(timeAmbient('seoulsteps',22,'night').people);
     expect(world.getWorldTime().period).toBe('night');
     expect(scene.textureKeys.has('seoulsteps-motions')).toBe(true);
-    expect(scene.textureKeys.has('seoulsteps')).toBe(true);
+    expect(scene.textureKeys.has('seoulsteps-terrain')).toBe(true);
     expect(scene.requests.filter(task => task.key === 'seoulsteps-motions')).toHaveLength(1);
     world.setTimePreference({mode:'manual',hour:12}); await finishLoads(scene);
     expect(scene.background.tint).toBe(0xffffff);
@@ -563,7 +601,7 @@ function regionalFixture() {
   const result = fixture(), { scene } = result;
   scene.mapSpec = getMap('windplain');
   scene.playerArtReady = true;
-  scene.cameras = { main: { worldView: { x: 0, y: 0, right: 1536, bottom: 1024 } } };
+  scene.cameras = { main: { worldView: { x: 0, y: 0, width:1536, height:1024, right: 1536, bottom: 1024 } } };
   scene.textureKeys.add(regionPeopleKey('windplain', 8));
   const renderer = Object.getPrototypeOf(scene);
   scene.animateCharacter = renderer.animateCharacter.bind(scene);
@@ -589,6 +627,31 @@ function regionalFixture() {
 }
 
 describe('regional human motion', () => {
+  it('keeps connected resident positions current in reduced motion and after a late visit', () => {
+    const first = regionalFixture(), second = regionalFixture();
+    let now = 0;
+    const epoch = '2026-10-11T00:00:00.000Z';
+    const sync = (scene: any, elapsedSeconds: number) => {
+      scene.clock = new WorldClock({mode: 'manual', hour: 2}, () => now);
+      scene.setSharedClock({epoch, seed: '0123456789abcdef0123456789abcdef', elapsedSeconds,
+        hour: (7 + elapsedSeconds / 30) % 24, day: 1 + Math.floor(elapsedSeconds / 720), dayLengthSeconds: 720,
+        serverTime: new Date(Date.parse(epoch) + elapsedSeconds * 1000).toISOString()});
+    };
+    sync(first.scene, 100);
+    first.world.setMotionPreference('reduced');
+    first.renderer.updateResidents.call(first.scene, .016);
+    const before = {x: first.person.x, y: first.person.y};
+    now = 1700;
+    sync(second.scene, 101.7);
+    first.renderer.updateResidents.call(first.scene, .016);
+    second.renderer.updateResidents.call(second.scene, .016);
+    const position = (fixture: typeof first) => ({x: fixture.person.x, y: fixture.person.y, visible: fixture.person.root.visible});
+    expect(position(first)).toEqual(position(second));
+    expect({x: first.person.x, y: first.person.y}).not.toEqual(before);
+    expect(first.scene.clock.advance(0).hour).toBe(2);
+    first.world.destroy(); second.world.destroy();
+  });
+
   it('walks home along the route at closing time, disappears there and returns in the morning', () => {
     const { world, scene, renderer, person, motion, render } = regionalFixture();
     render(3.5);

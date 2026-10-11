@@ -7,7 +7,7 @@ import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoi
 import type { SceneryAnimationManifest } from './scenery-animation';
 import { INTERIOR_CHARACTER_HEIGHT } from './character-art';
 
-const pixels = (point: MapPoint): MapPoint => ({ x: point.x * MAP_WIDTH, y: point.y * MAP_HEIGHT });
+const pixels = (point: MapPoint, bounds={width:MAP_WIDTH,height:MAP_HEIGHT}): MapPoint => ({ x: point.x * bounds.width, y: point.y * bounds.height });
 
 function expectReachable(navigation: NavigationGrid, start: MapPoint, destination: MapPoint, label: string): void {
   expect(navigation.isWalkable(destination.x, destination.y), `${label} approach is blocked; nearest pavement ${JSON.stringify(navigation.closestPoint(destination.x, destination.y))}`).toBe(true);
@@ -45,13 +45,13 @@ describe('enterable learning spaces', () => {
 
   it.each(maps)('offers the stores and inn on connected streets in $name', map => {
       const navigation = createMapNavigation(map.id);
-      const start = pixels(getMap(map.id).spawn);
+      const start = pixels(getMap(map.id).spawn, navigation);
       const entrances = buildingEntrances(map.id);
       expect(entrances.map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
       expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(4);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
-        expectReachable(navigation, start, pixels(entrance), `${map.name} ${entrance.label}`);
+        expectReachable(navigation, start, pixels(entrance, navigation), `${map.name} ${entrance.label}`);
       }
   });
 

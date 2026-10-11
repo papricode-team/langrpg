@@ -1,6 +1,6 @@
 import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
-import { storyMaps as maps } from './maps';
+import { getMap, storyMaps as maps } from './maps';
 import { getPlacedScenery,sceneryAssets,placedSceneryFootprints } from './placed-scenery';
 import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
@@ -107,7 +107,7 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
 }
 
 it('keeps tree and cypress silhouettes stable with one gently swaying sprite, including still scenery and fades',()=>{
-  const view={x:0,y:0,right:1536,bottom:1124};
+  const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   for(const period of ['day','night'] as const){
     const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen',period);
     const specs=getPlacedScenery('lindenhafen').filter(spec=>spec.asset==='tree'||spec.asset==='cypress');
@@ -168,7 +168,7 @@ it('bounds tree motion and its speed across instances, with quieter nights and s
 it('changes painted sprite frames, keeps foundations upright, freezes, culls and cleans up',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
   expect(scenery.animatedObjectCount).toBe(scenery.objectCount);
-  const view={x:0,y:0,right:1536,bottom:1124};
+  const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   scenery.update(.32,view);
   const first=mock.sprites.map(sprite=>sprite.frame);
   scenery.update(.62,view);
@@ -190,7 +190,7 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
 
 it('keeps architecture fixed while registered details animate and mirror with their base',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  const view={x:0,y:0,right:1536,bottom:1124};
+  const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   for(const spec of getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset))){
     const base=mock.sprites.find(sprite=>sprite.key==='bases'&&sprite.x===spec.x&&sprite.y===spec.y)!;
     const scale=spec.width/200;
@@ -234,7 +234,7 @@ it('keeps one high resolution static sprite per building throughout animation, f
   expect(bases.every(sprite=>!sprite.blend)).toBe(true);
   expect(mock.sprites.some(sprite=>sprite.key==='details')).toBe(false);
   expect(scenery.animatedObjectCount).toBe(scenery.objectCount-buildingSpecs.length);
-  const initial=bases.map(sprite=>sprite.frame),view={x:0,y:0,right:1536,bottom:1124};
+  const initial=bases.map(sprite=>sprite.frame),view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   for(const time of [0,.2,1,7,30,400])scenery.update(time,view);
   scenery.setAlpha(.35);
   scenery.setReducedMotion(true);scenery.update(900,view);
@@ -251,7 +251,7 @@ it('keeps one high resolution static sprite per building throughout animation, f
 
 it('freezes whole-building legacy animations if layered assets are unavailable',()=>{
   const mock=mockScene(false),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  scenery.update(5,{x:0,y:0,right:1536,bottom:1124});
+  scenery.update(5,{x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100});
   getPlacedScenery('lindenhafen').forEach((spec,i)=>{
     if(isBuildingScenery(spec.frame??spec.asset))expect(mock.sprites.filter(sprite=>!sprite.blend)[i].setFrame).not.toHaveBeenCalled();
   });
@@ -269,7 +269,7 @@ it('loads and releases the complete layer set without requiring unused architect
 
 it('keeps animated scenery opaque throughout frame blends and honors the world fade',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  const view={x:0,y:0,right:1536,bottom:1124};
+  const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   const stall=getPlacedScenery('lindenhafen').find(spec=>spec.asset==='stall')!;
   const sprites=mock.sprites.filter(sprite=>sprite.x===stall.x&&sprite.y===stall.y);
   expect(sprites).toHaveLength(2);
@@ -301,7 +301,7 @@ it('selects the requested time-of-day manifest when creating scenery',()=>{
 
 it('hides exterior sprites immediately while room rendering pauses exterior updates',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  const view={x:0,y:0,right:1536,bottom:1124};
+  const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   scenery.update(1,view);
   expect(mock.sprites.some(sprite=>sprite.visible)).toBe(true);
   scenery.setVisible(false);

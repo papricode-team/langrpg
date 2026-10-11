@@ -6,7 +6,7 @@
       "npcId": "otto",
       "npc": {
         "id": "otto",
-        "x": 0.815,
+        "x": 0.4075,
         "y": 0.299
       },
       "gateExerciseId": "a1-arrival-exercise-7",
@@ -59,12 +59,12 @@
       "objects": [
         {
           "id": "lindenhafen-platform-ticket",
-          "x": 0.8370000000000001,
+          "x": 0.41850000000000004,
           "y": 0.347
         },
         {
           "id": "lindenhafen-noticeboard",
-          "x": 0.809,
+          "x": 0.4045,
           "y": 0.328
         }
       ]
@@ -75,7 +75,7 @@
       "npcId": "marta",
       "npc": {
         "id": "marta",
-        "x": 0.442,
+        "x": 0.221,
         "y": 0.459
       },
       "gateExerciseId": "a1-cafe-exercise-1",
@@ -122,7 +122,7 @@
       "objects": [
         {
           "id": "lindenhafen-cafe-receipt",
-          "x": 0.458,
+          "x": 0.229,
           "y": 0.489
         }
       ]
@@ -133,7 +133,7 @@
       "npcId": "fritz",
       "npc": {
         "id": "fritz",
-        "x": 0.775,
+        "x": 0.3875,
         "y": 0.475
       },
       "gateExerciseId": "a1-market-exercise-1",
@@ -182,12 +182,12 @@
       "objects": [
         {
           "id": "lindenhafen-market-crate",
-          "x": 0.762,
+          "x": 0.381,
           "y": 0.509
         },
         {
           "id": "lindenhafen-garden",
-          "x": 0.415,
+          "x": 0.2075,
           "y": 0.677
         }
       ]
@@ -198,7 +198,7 @@
       "npcId": "otto",
       "npc": {
         "id": "otto",
-        "x": 0.815,
+        "x": 0.4075,
         "y": 0.299
       },
       "gateExerciseId": "a1-station-exercise-5",
@@ -283,7 +283,7 @@
       "objects": [
         {
           "id": "lindenhafen-noticeboard",
-          "x": 0.809,
+          "x": 0.4045,
           "y": 0.328
         }
       ]
@@ -294,7 +294,7 @@
       "npcId": "emil",
       "npc": {
         "id": "emil",
-        "x": 0.228,
+        "x": 0.114,
         "y": 0.738
       },
       "gateExerciseId": "a1-workshop-exercise-2",
@@ -341,7 +341,7 @@
       "objects": [
         {
           "id": "lindenhafen-workbench",
-          "x": 0.241,
+          "x": 0.1205,
           "y": 0.763
         }
       ]
@@ -352,7 +352,7 @@
       "npcId": "lina",
       "npc": {
         "id": "lina",
-        "x": 0.603,
+        "x": 0.3015,
         "y": 0.68
       },
       "gateExerciseId": "a1-lost-parcel-exercise-2",
@@ -397,7 +397,7 @@
       "objects": [
         {
           "id": "lindenhafen-parcel",
-          "x": 0.665,
+          "x": 0.3325,
           "y": 0.743
         }
       ]

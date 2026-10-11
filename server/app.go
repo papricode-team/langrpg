@@ -50,7 +50,7 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 			allowed = append(allowed, origin)
 		}
 	}
-	a.world = NewWorld(maxPlayers, allowed)
+	a.world = newWorldWithIdentity(maxPlayers, allowed, store.WorldIdentity())
 	return a
 }
 

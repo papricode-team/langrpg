@@ -1,6 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Api, emptyProgress } from '../src/api';
 import type { MapId } from '../src/maps';
+import {getWorldScene} from '../src/scene-data';
+import {getInterior} from '../src/interiors';
+import sceneVersion from '../src/data/world-scene-version.json';
 
 class MockSocket {
   static OPEN = 1;
@@ -24,7 +27,8 @@ let clients: Api[];
 function createApi() { const api = new Api(); clients.push(api); return api; }
 function latestSocket() { return MockSocket.instances.at(-1)!; }
 function packet(mapId: MapId = 'lindenhafen', type = 'welcome') {
-  return { type, selfId: 'self', mapId, spawn: { x: .52, y: .61 }, players: [{ id: 'self', mapId }], messages: [] };
+  const {width,height,coordinateVersion}=getWorldScene(mapId);
+  return { type, selfId: 'self', mapId, scene:{width,height,coordinateVersion,contentVersion:sceneVersion.contentVersion}, spawn: { x: .52, y: .61 }, players: [{ id: 'self', mapId }], messages: [] };
 }
 function onlineApi(mapId: MapId = 'lindenhafen') {
   const api = createApi(); api.connect(); const socket = latestSocket(); socket.open(); socket.receive(packet(mapId));
@@ -73,7 +77,7 @@ describe('map-aware multiplayer API', () => {
     expect(api.mapId).toBe('lindenhafen'); expect(api.joinMap('nebelstadt')).toBe(false);
     api.move(.7, .7); expect(socket.sent).toHaveLength(1); expect(() => api.chat('hello')).toThrow(/Arriving/);
     socket.receive(packet('waldruh', 'map')); expect(api.mapId).toBe('waldruh');
-    api.move(.7, .7); expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'waldruh', x: .7, y: .7 });
+    api.move(.7, .7); expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'waldruh', coordinateVersion: 1, x: .7, y: .7 });
     api.chat('hello'); expect(socket.sent.at(-1)).toEqual({ type: 'chat', mapId: 'waldruh', message: 'hello' });
   });
 
@@ -162,7 +166,9 @@ describe('map-aware multiplayer API', () => {
 
 describe('shared building presence', () => {
   function indoorPacket(id = 'cafe', type = 'interior') {
-    return { ...packet('lindenhafen', type), interiorId: id,
+    const room=id?getInterior(id as 'cafe'):getWorldScene('lindenhafen');
+    const coordinateVersion=id?1:getWorldScene('lindenhafen').coordinateVersion;
+    return { ...packet('lindenhafen', type), interiorId: id, scene:{width:room.width,height:room.height,coordinateVersion,contentVersion:sceneVersion.contentVersion},
       players: [{ id: 'self', mapId: 'lindenhafen', interiorId: id, x: .4, y: .75 }] };
   }
 
@@ -177,14 +183,14 @@ describe('shared building presence', () => {
     socket.receive(indoorPacket());
     expect(order).toEqual(['room:cafe', 'players']);
     api.move(.4, .75);
-    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', interiorId: 'cafe', x: .4, y: .75 });
+    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', interiorId: 'cafe', coordinateVersion: 1, x: .4, y: .75 });
     expect(api.joinInterior()).toBe(true);
     api.move(.52, .61);
     expect(socket.sent.at(-1)).toEqual({ type: 'joinInterior', mapId: 'lindenhafen', interiorId: '' });
     socket.receive(indoorPacket(''));
     api.move(.52, .61);
     expect(api.interiorId).toBeUndefined();
-    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', x: .52, y: .61 });
+    expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'lindenhafen', coordinateVersion: getWorldScene('lindenhafen').coordinateVersion, x: .52, y: .61 });
   });
 
   it('ignores an earlier entry acknowledgement when the player has already left', () => {

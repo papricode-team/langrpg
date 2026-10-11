@@ -28,9 +28,9 @@ export class WorldScenery {
   private reducedMotion=false;
   private motionTime=0;
   private opacity=1;
-  constructor(private scene:Phaser.Scene,mapId:MapId,private period:WorldPeriod='day'){
+  constructor(private scene:Phaser.Scene,mapId:MapId,private period:WorldPeriod='day',placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId)){
     const manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
-    for(const spec of getPlacedScenery(mapId)){
+    for(const spec of placements){
       const name=spec.frame??spec.asset;
       const authored=manifest?.assets[name];
       const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;

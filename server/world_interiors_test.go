@@ -30,9 +30,10 @@ func TestSharedInteriorPresenceMovementExitAndReconnect(t *testing.T) {
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
 			one := dialMap(t, ctx, server, tokenA, DefaultMapID)
-			_, outsideA, _, _ := mapValue(t, readWorld(t, ctx, one, "welcome"))
+			readWorld(t, ctx, one, "welcome")
 			two := dialMap(t, ctx, server, tokenB, DefaultMapID)
-			_, outsideB, _, _ := mapValue(t, readWorld(t, ctx, two, "welcome"))
+			readWorld(t, ctx, two, "welcome")
+			returnPoint := compiledWorldMaps.Maps[DefaultMapID].Entrances[room].Return
 			writeWorld(t, ctx, one, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": room})
 			id, spawn, players := interiorValue(t, readWorld(t, ctx, one, "interior"))
 			if id != room || spawn != interiorSpawns[room] || len(players) != 2 {
@@ -67,8 +68,8 @@ func TestSharedInteriorPresenceMovementExitAndReconnect(t *testing.T) {
 			}
 			writeWorld(t, ctx, one, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": ""})
 			id, returned, players := interiorValue(t, readWorld(t, ctx, one, "interior"))
-			if id != "" || returned != outsideA {
-				t.Fatalf("indoor movement replaced outdoor position: %s %+v", id, returned)
+			if id != "" || returned != returnPoint {
+				t.Fatalf("exit missed the authored storefront return: %s %+v", id, returned)
 			}
 			for _, p := range players {
 				if p.ID == playerA.ID && p.InteriorID != "" {
@@ -86,7 +87,7 @@ func TestSharedInteriorPresenceMovementExitAndReconnect(t *testing.T) {
 			}
 			writeWorld(t, ctx, reconnected, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": ""})
 			id, returned, _ = interiorValue(t, readWorld(t, ctx, reconnected, "interior"))
-			if id != "" || returned != outsideB {
+			if id != "" || returned != returnPoint {
 				t.Fatalf("reconnect lost outdoor return: %s %+v", id, returned)
 			}
 		})
