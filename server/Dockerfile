@@ -6,7 +6,11 @@ RUN npm ci --workspace web
 COPY web web
 # Rebuild the shared release ID for backend changes as well as frontend changes.
 COPY server server
-COPY scripts/precompress-web.mjs scripts/precompress-web.mjs
+# Vite imports the development-only editor plugin while loading its build config.
+# Include its module and TypeScript declaration in this build stage only.
+COPY scripts/precompress-web.mjs scripts/scene-authoring-service.mjs scripts/scene-authoring-service.d.mts scripts/
+# The frontend typecheck includes regression tests that import these fixtures.
+COPY docs/audits/living-world-area-baseline.json docs/audits/lindenhafen-core-v1.json docs/audits/waldruh-core-v1.json docs/audits/
 RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
 
 FROM golang:1.26-alpine AS build
