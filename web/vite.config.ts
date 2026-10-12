@@ -2,12 +2,13 @@ import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { gameDistributionPlugin } from '../scripts/optimize-game-distribution.mjs';
 import { sceneAuthoringPlugin } from '../scripts/scene-authoring-service.mjs';
+import { compactTranslationsPlugin } from '../scripts/compact-translations.mjs';
 
 export default defineConfig(({ command }) => {
   const version = command === 'build' ? crypto.randomUUID() : 'development';
   return {
     define: { __APP_VERSION__: JSON.stringify(version) },
-    plugins: [sceneAuthoringPlugin(fileURLToPath(new URL('..', import.meta.url))), gameDistributionPlugin(fileURLToPath(new URL('..', import.meta.url))), {
+    plugins: [sceneAuthoringPlugin(fileURLToPath(new URL('..', import.meta.url))), gameDistributionPlugin(fileURLToPath(new URL('..', import.meta.url))), compactTranslationsPlugin(fileURLToPath(new URL('..', import.meta.url))), {
       name: 'app-version',
       generateBundle() {
         this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ version }) });
