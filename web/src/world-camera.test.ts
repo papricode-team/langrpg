@@ -6,14 +6,14 @@ import { timeAmbient } from './world-lighting';
 describe('world presentation', () => {
   it('preserves CSS person scale on Retina while doubling canvas detail', () => {
     const css = explorationZoom(1920, 1080, 1), retina = explorationZoom(3840, 2160, 2);
-    expect(css.zoom * 72).toBeCloseTo(162);
+    expect(css.zoom * 72).toBeCloseTo(129.6);
     expect(retina.zoom / 2).toBe(css.zoom);
     expect(canvasSize(1920, 1080, 3)).toEqual({ width: 3840, height: 2160, density: 2 });
   });
-  it('frames an outdoor person at 140–180 pixels at 1080p and accounts for the taller indoor bodies', () => {
+  it('pulls exploration framing back 20% and accounts for the taller indoor bodies', () => {
     for (const [width,height,indoor] of [[1920,1080,false],[1440,900,true],[390,844,false]] as const) {
       const mobile=width<760||width<1000&&height<520;
-      const personHeight=Math.max(mobile?88:110,Math.min(indoor?180:162,height*.15));
+      const personHeight=Math.max(mobile?88:110,Math.min(indoor?180:162,height*.15))*.8;
       const bodyHeight=indoor?132:72;
       const zoom=explorationZoom(width,height,1,indoor).zoom;
       expect(zoom).toBeCloseTo(Math.max(width/1536,height/1024,personHeight/bodyHeight));
@@ -34,7 +34,7 @@ describe('world presentation', () => {
     for (const [width, height] of [[1920, 1080], [390, 844], [844, 390]]) {
       const zoom = explorationZoom(width, height, 1, true, 240).zoom;
       const mobile = explorationZoom(width, height).mobile;
-      const personHeight = Math.max(mobile ? 88 : 110, Math.min(180, height * .15));
+      const personHeight = Math.max(mobile ? 88 : 110, Math.min(180, height * .15)) * .8;
       expect(zoom).toBeCloseTo(Math.max(width / 1536, height / 1024, personHeight / 240));
       expect(explorationZoom(width * 2, height * 2, 2, true, 240).zoom / 2).toBeCloseTo(zoom);
     }
