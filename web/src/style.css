@@ -1946,6 +1946,9 @@ kbd {
   color:#395036;
   font-size:19px
 }
+.typed-scaffold { display:flex; flex-direction:column; gap:4px; margin:0 0 10px; }
+.typed-scaffold span { font-size:12px; letter-spacing:.12em; text-transform:uppercase; opacity:.75; }
+.typed-scaffold strong { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:20px; font-weight:500; letter-spacing:.18em; overflow-wrap:anywhere; }
 .typed-answer::placeholder {
   color:#a39b7b;
   font-size:15px
