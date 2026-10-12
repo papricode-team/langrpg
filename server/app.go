@@ -454,7 +454,7 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		migrateContextExposures(&account.Progress, a.curriculum, now)
 		migrateIntake(&account.Progress, a.curriculum.Syllabus)
 		// Pacing: a word drill needs its word restored. Phrase practice and the
-		// placement sample stay open; scenes are gated by requireStoryGate above.
+		// placement sample and story conversations stay open regardless of intake.
 		if err := a.requireWordIntroduced(exercise, &account.Progress); err != nil {
 			return Receipt{}, err
 		}

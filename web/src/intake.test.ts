@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { emptyProgress, type Progress, type WordMemory } from './api';
-import { IntakeClock, intakeStatus, missingQuestWords, missingWordCount, questVocabulary, secondsPerWord, syllabus, syllabusPosition, todaysWords, wordScheduled } from './intake';
+import { IntakeClock, intakeStatus, missingWordCount, questVocabulary, secondsPerWord, syllabus, syllabusPosition, todaysWords, wordScheduled } from './intake';
 import { courseLexicon, courseUnits, lexemeById } from './course';
 import { quests } from './content';
 import { questGraphs } from './quest-graph';
-import { questAvailable, questLockReason } from './progression';
 import serverSyllabus from '../../server/syllabus.json';
 
 const words = (ids: readonly string[], creditSeconds = ids.length * secondsPerWord()): Progress => ({ ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds, lastBeatAt: '', wordIds: [...ids] } });
@@ -25,7 +24,7 @@ describe('the vocabulary syllabus', () => {
     expect(secondsPerWord()).toBe(360);
   });
 
-  it('gates every story conversation on vocabulary that unlocks in clue order', () => {
+  it('records vocabulary coverage milestones in clue order for every story conversation', () => {
     let previous = 0;
     for (const quest of quests) {
       const gate = questVocabulary(quest.id);
@@ -36,13 +35,13 @@ describe('the vocabulary syllabus', () => {
       expect(milestone).toBeGreaterThanOrEqual(previous);
       previous = milestone;
     }
-    // Story-first ordering: most of every block serves the first locked conversation; the rest are core words.
+    // Story-first ordering: most of every block serves the earliest scene's vocabulary; the rest are core words.
     const arrival = questVocabulary('a1-arrival')!;
     expect(syllabus.wordIds.slice(0, syllabus.wordsPerHour).filter(id => arrival.wordIds.includes(id)).length).toBeGreaterThanOrEqual(syllabus.storyShare);
   });
 
   it('keeps the story graphs inside their declared vocabulary (names and glossed story words aside)', () => {
-    // Every quest gate must be derivable from the graphs that ship: a graph edit without rebuilding the syllabus is a drift.
+    // Every vocabulary entry must match the graphs that ship.
     for (const graph of questGraphs) expect(questVocabulary(graph.questId)!.level).toBe(graph.level);
   });
 });
@@ -76,20 +75,7 @@ describe('intake status', () => {
   });
 });
 
-describe('what the restored vocabulary opens', () => {
-  it('locks a conversation until its last word and explains how many are missing', () => {
-    const arrival = questVocabulary('a1-arrival')!;
-    const almost = words(arrival.wordIds.slice(0, -1));
-    expect(questAvailable('a1-arrival', almost)).toBe(false);
-    expect(missingQuestWords('a1-arrival', almost)).toEqual([arrival.wordIds.at(-1)]);
-    expect(questLockReason('a1-arrival', almost)).toContain('1 more restored word before');
-    expect(questAvailable('a1-arrival', words(arrival.wordIds))).toBe(true);
-    expect(questLockReason('a1-arrival', words(arrival.wordIds))).toBe('');
-    expect(questLockReason('a1-cafe', words(arrival.wordIds))).toContain('Follow the current witness');
-    const done: Progress = { ...words([]), completedQuestIds: ['a1-arrival'] };
-    expect(missingQuestWords('a1-arrival', done)).toEqual([]);
-  });
-
+describe('what the restored vocabulary opens for optional practice', () => {
   it('counts the scheduled words a learning route still needs, ignoring story-only words', () => {
     const unit = courseUnits.find(item => item.id === 'course-a1-food-1')!;
     expect(missingWordCount(unit.wordIds, words([]))).toBe(unit.wordIds.length);

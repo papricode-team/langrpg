@@ -9,7 +9,7 @@ import (
 
 // Syllabus is the generated introduction order for the course lexicon
 // (scripts/build-syllabus.mjs). The server introduces words from it at a
-// bounded rate; story conversations open only once their words are in.
+// bounded rate for optional practice, independently of story access.
 type Syllabus struct {
 	Version      string `json:"version"`
 	WordsPerHour int    `json:"wordsPerHour"`
@@ -83,8 +83,8 @@ func parseSyllabus(b []byte, lexicon map[string]Lexeme) (*Syllabus, error) {
 // SecondsPerWord is the active play needed to earn one new word.
 func (s *Syllabus) SecondsPerWord() int { return 3600 / s.WordsPerHour }
 
-// QuestWordIDs reports the lexemes a conversation needs, or nil when the
-// syllabus does not gate that quest.
+// QuestWordIDs reports the lexemes used by a conversation for content audits
+// and migration. It does not restrict story access.
 func (s *Syllabus) QuestWordIDs(questID string) []string {
 	if s == nil {
 		return nil

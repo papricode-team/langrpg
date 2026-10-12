@@ -200,43 +200,67 @@ func TestIntakePausesUntilRestoredWordsAreRecognisedAndBanksAtMostFifteen(t *tes
 	}
 }
 
-func TestConversationsWaitForTheirVocabulary(t *testing.T) {
-	app, _ := pacedStoryTestApp(t)
-	token, player := createSession(t, app, "Ada")
-	beat(t, app, token, "sync", 0)
-	rule, _ := storyRule("a1-arrival")
-	placeStoryPlayer(app, player, rule.MapID, rule.NPC)
-	ex := app.curriculum.Exercises[rule.ReplyExerciseIDs[0]]
-	greeting := AttemptInput{ID: "early-greeting", QuestID: rule.QuestID, ItemID: ex.ItemID, ExerciseID: ex.ID, Answer: ex.Answer, Mode: "recognition", SceneAttempt: true}
-	if r := request(app, "POST", "/api/attempt", token, greeting); r.Code != 409 || !strings.Contains(r.Body.String(), "restored") {
-		t.Fatalf("locked scene reply: %d %s", r.Code, r.Body.String())
-	}
-	// Optional practice of a phrase is not intake; only the scene itself waits.
-	greeting.ID, greeting.SceneAttempt = "early-practice", false
-	if r := request(app, "POST", "/api/attempt", token, greeting); r.Code != 200 {
-		t.Fatalf("phrase practice must stay open: %d %s", r.Code, r.Body.String())
-	}
-	object := rule.Objects[0]
-	placeStoryPlayer(app, player, rule.MapID, MapSpawn{object.X, object.Y})
-	if r := request(app, "POST", "/api/story/inspect", token, map[string]string{"id": "early-look", "questId": rule.QuestID, "objectId": object.ID}); r.Code != 409 {
-		t.Fatalf("locked evidence: %d %s", r.Code, r.Body.String())
-	}
-	placeStoryPlayer(app, player, rule.MapID, rule.NPC)
-	if r := request(app, "POST", "/api/story/transition", token, StoryTransitionInput{ID: "early-intro", QuestID: rule.QuestID, NodeID: "intro"}); r.Code != 409 {
-		t.Fatalf("locked transition: %d %s", r.Code, r.Body.String())
-	}
-	words := app.curriculum.Syllabus.QuestWordIDs(rule.QuestID)
-	restoreVocabulary(t, app, token, words[:len(words)-1]...)
-	if r := request(app, "POST", "/api/story/transition", token, StoryTransitionInput{ID: "almost-intro", QuestID: rule.QuestID, NodeID: "intro"}); r.Code != 409 || !strings.Contains(r.Body.String(), "(1 more)") {
-		t.Fatalf("one missing word must still lock the scene: %d %s", r.Code, r.Body.String())
-	}
-	restoreVocabulary(t, app, token, words...)
-	investigateStory(t, app, token, player, rule.QuestID, "ready-")
-	if r := request(app, "POST", "/api/story/transition", token, StoryTransitionInput{ID: "ready-intro", QuestID: rule.QuestID, NodeID: "intro"}); r.Code != 200 {
-		t.Fatalf("restored scene stayed locked: %d %s", r.Code, r.Body.String())
-	}
-	if p := storyProgress(t, app, token); p.Story.Nodes[rule.QuestID] != "gate" {
-		t.Fatalf("scene did not open: %+v", p.Story.Nodes)
+func TestWholeStoryRemainsPlayableWithoutWaitingForVocabulary(t *testing.T) {
+	for _, paused := range []string{"", "practise", "review"} {
+		name := paused
+		if name == "" {
+			name = "opening words"
+		}
+		t.Run(name, func(t *testing.T) {
+			app, _ := pacedStoryTestApp(t)
+			token, player := createSession(t, app, "Ada")
+			beat(t, app, token, "sync", 0)
+			s := app.curriculum.Syllabus
+			if paused != "" {
+				count := s.Brake.MaxUnsettled
+				if paused == "review" {
+					count = s.Brake.MaxDue
+				}
+				restoreVocabulary(t, app, token, s.WordIDs[:count]...)
+				if paused == "review" {
+					settleWords(t, app, token)
+					_, _, _, err := app.store.Mutate(context.Background(), tokenHash(token), "test-overdue", json.RawMessage(`{}`), func(a *Account) (Receipt, error) {
+						for _, id := range a.Progress.Intake.WordIDs {
+							word := a.Progress.Words[id]
+							word.DirectAttempts, word.DueAt = 1, app.now().Add(-time.Minute)
+							a.Progress.Words[id] = word
+						}
+						return Receipt{}, nil
+					})
+					if err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			before := storyProgress(t, app, token)
+			if status := intakeStatus(&before, s, app.now()); status.Paused != paused {
+				t.Fatalf("wrong intake fixture: %+v", status)
+			}
+			for _, questID := range storyQuestOrder {
+				rule, _ := storyRule(questID)
+				p := storyProgress(t, app, token)
+				choiceID := ""
+				for _, choice := range rule.Choices {
+					if choice.Condition.met(&p.Story) {
+						choiceID = choice.ID
+						break
+					}
+				}
+				if choiceID == "" {
+					t.Fatalf("%s has no available consequence", questID)
+				}
+				// Exercises, evidence, transitions and choices all use the real
+				// syllabus, without earning time or restoring the scene's words.
+				finishStoryQuest(t, app, token, player, questID, questID+"-", choiceID)
+			}
+			after := storyProgress(t, app, token)
+			if len(after.CompletedQuestIDs) != len(storyQuestOrder) || after.Story.Nodes["b1-atlas"] != "complete" {
+				t.Fatalf("story did not reach the finale: %+v", after.CompletedQuestIDs)
+			}
+			if after.Intake.ActiveSeconds != 0 || after.Intake.CreditSeconds != before.Intake.CreditSeconds || len(after.Intake.WordIDs) != len(before.Intake.WordIDs) {
+				t.Fatalf("story access changed optional vocabulary pacing: before %+v, after %+v", before.Intake, after.Intake)
+			}
+		})
 	}
 }
 
@@ -313,7 +337,7 @@ func TestExistingAdventuresKeepTheirConversationsAfterMigration(t *testing.T) {
 		t.Fatalf("the conversation in progress stayed locked: %v", err)
 	}
 	if err := app.requireQuestAccess("a1-market", &p); err == nil {
-		t.Fatal("a later conversation opened without its vocabulary")
+		t.Fatal("a later conversation opened before the current discovery was complete")
 	}
 }
 
@@ -330,7 +354,7 @@ func TestSyllabusManifestMatchesTheLexiconAndStory(t *testing.T) {
 	for _, questID := range storyQuestOrder {
 		quest := s.questWords[questID]
 		if len(quest) == 0 {
-			t.Fatalf("%s has no vocabulary gate", questID)
+			t.Fatalf("%s has no vocabulary entry", questID)
 		}
 		milestone := 0
 		for _, id := range quest {

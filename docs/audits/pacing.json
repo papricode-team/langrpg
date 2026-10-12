@@ -1,5 +1,5 @@
 {
-  "method": "Every German surface of a scene (lines, simpler variants, corrections, choices, optional questions and evidence) is mapped to course lexemes with the conservative exposure mapper. Names, Frau/Herr surnames, single-letter clues and explicitly glossed story words are excluded. A scene unlocks when all of its lexemes have been introduced; the syllabus introduces story vocabulary first, so unlockHour is the earliest hour of active play at which the scene can open. newWordsAboveBudget counts new lexemes plus glossed story words and unmapped words beyond one hour of intake. These are content measurements, not learner outcomes.",
+  "method": "Every German surface of a scene (lines, simpler variants, corrections, choices, optional questions and evidence) is mapped to course lexemes with the conservative exposure mapper. Names, Frau/Herr surnames, single-letter clues and explicitly glossed story words are excluded. The syllabus introduces story vocabulary first, so vocabularyReadyHour is the earliest hour of optional intake that covers every lexeme in the scene, assuming intake never pauses. This is a vocabulary coverage metric, not a story access requirement; story conversations remain available in clue order regardless of intake. newWordsAboveBudget counts new lexemes plus glossed story words and unmapped words beyond one hour of intake. These are content measurements, not learner outcomes.",
   "budget": {
     "wordsPerHour": 10,
     "openingWords": 10,
@@ -21,7 +21,7 @@
       "B1": 560
     },
     "storyLexemes": 797,
-    "storyUnlockedByHour": 89.1
+    "storyVocabularyReadyByHour": 89.1
   },
   "quests": [
     {
@@ -45,7 +45,7 @@
         "im"
       ],
       "milestone": 92,
-      "unlockHour": 8.2,
+      "vocabularyReadyHour": 8.2,
       "newWordsAboveBudget": 71,
       "levels": {
         "A1": 73,
@@ -65,7 +65,7 @@
       "unmapped": [],
       "ambiguous": [],
       "milestone": 128,
-      "unlockHour": 11.8,
+      "vocabularyReadyHour": 11.8,
       "newWordsAboveBudget": 28,
       "levels": {
         "A1": 70,
@@ -93,7 +93,7 @@
         "meine"
       ],
       "milestone": 166,
-      "unlockHour": 15.6,
+      "vocabularyReadyHour": 15.6,
       "newWordsAboveBudget": 26,
       "levels": {
         "A1": 83,
@@ -124,7 +124,7 @@
         "sein"
       ],
       "milestone": 207,
-      "unlockHour": 19.7,
+      "vocabularyReadyHour": 19.7,
       "newWordsAboveBudget": 36,
       "levels": {
         "A1": 107,
@@ -155,7 +155,7 @@
         "zur"
       ],
       "milestone": 228,
-      "unlockHour": 21.8,
+      "vocabularyReadyHour": 21.8,
       "newWordsAboveBudget": 20,
       "levels": {
         "A1": 99,
@@ -183,7 +183,7 @@
         "im"
       ],
       "milestone": 245,
-      "unlockHour": 23.5,
+      "vocabularyReadyHour": 23.5,
       "newWordsAboveBudget": 14,
       "levels": {
         "A1": 104,
@@ -227,7 +227,7 @@
         "meine"
       ],
       "milestone": 348,
-      "unlockHour": 33.8,
+      "vocabularyReadyHour": 33.8,
       "newWordsAboveBudget": 101,
       "levels": {
         "A1": 132,
@@ -281,7 +281,7 @@
         "rollen"
       ],
       "milestone": 414,
-      "unlockHour": 40.4,
+      "vocabularyReadyHour": 40.4,
       "newWordsAboveBudget": 79,
       "levels": {
         "A1": 126,
@@ -333,7 +333,7 @@
         "meine"
       ],
       "milestone": 473,
-      "unlockHour": 46.3,
+      "vocabularyReadyHour": 46.3,
       "newWordsAboveBudget": 66,
       "levels": {
         "A1": 120,
@@ -391,7 +391,7 @@
         "meine"
       ],
       "milestone": 532,
-      "unlockHour": 52.2,
+      "vocabularyReadyHour": 52.2,
       "newWordsAboveBudget": 76,
       "levels": {
         "A1": 125,
@@ -451,7 +451,7 @@
         "im"
       ],
       "milestone": 586,
-      "unlockHour": 57.6,
+      "vocabularyReadyHour": 57.6,
       "newWordsAboveBudget": 74,
       "levels": {
         "A1": 125,
@@ -502,7 +502,7 @@
         "beim"
       ],
       "milestone": 628,
-      "unlockHour": 61.8,
+      "vocabularyReadyHour": 61.8,
       "newWordsAboveBudget": 62,
       "levels": {
         "A1": 130,
@@ -577,7 +577,7 @@
         "zur"
       ],
       "milestone": 676,
-      "unlockHour": 66.6,
+      "vocabularyReadyHour": 66.6,
       "newWordsAboveBudget": 78,
       "levels": {
         "A1": 116,
@@ -630,7 +630,7 @@
         "zur"
       ],
       "milestone": 722,
-      "unlockHour": 71.2,
+      "vocabularyReadyHour": 71.2,
       "newWordsAboveBudget": 56,
       "levels": {
         "A1": 119,
@@ -688,7 +688,7 @@
         "mittel"
       ],
       "milestone": 771,
-      "unlockHour": 76.1,
+      "vocabularyReadyHour": 76.1,
       "newWordsAboveBudget": 68,
       "levels": {
         "A1": 129,
@@ -745,7 +745,7 @@
         "zur"
       ],
       "milestone": 818,
-      "unlockHour": 80.8,
+      "vocabularyReadyHour": 80.8,
       "newWordsAboveBudget": 64,
       "levels": {
         "A1": 120,
@@ -795,7 +795,7 @@
         "im"
       ],
       "milestone": 864,
-      "unlockHour": 85.4,
+      "vocabularyReadyHour": 85.4,
       "newWordsAboveBudget": 59,
       "levels": {
         "A1": 124,
@@ -851,7 +851,7 @@
         "paar"
       ],
       "milestone": 901,
-      "unlockHour": 89.1,
+      "vocabularyReadyHour": 89.1,
       "newWordsAboveBudget": 52,
       "levels": {
         "A1": 142,

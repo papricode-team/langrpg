@@ -1,7 +1,6 @@
 import { quests } from './content';
 import type { MapId } from './maps';
 import type { Progress } from './api';
-import { missingQuestWords } from './intake.ts'; // explicit extension: Node tooling also loads this module without a resolver
 import { t } from './i18n.ts';
 
 /** Existing discoveries keep previously visited story towns accessible. */
@@ -28,15 +27,13 @@ export function questUnlocked(questId: string, completedQuestIds: readonly strin
   return index >= 0 && quests.slice(0, index).every(q => completedQuestIds.includes(q.id));
 }
 
-/** A conversation opens in clue order and only once the Atlas has restored every word it uses. */
-export function questAvailable(questId: string, progress: Pick<Progress, 'completedQuestIds' | 'intake'>): boolean {
-  return questUnlocked(questId, progress.completedQuestIds) && missingQuestWords(questId, progress).length === 0;
+/** Story access follows the clue chain independently of optional vocabulary pacing. */
+export function questAvailable(questId: string, progress: Pick<Progress, 'completedQuestIds'>): boolean {
+  return questUnlocked(questId, progress.completedQuestIds);
 }
-export function questLockReason(questId: string, progress: Pick<Progress, 'completedQuestIds' | 'intake'>): string {
+export function questLockReason(questId: string, progress: Pick<Progress, 'completedQuestIds'>): string {
   if (!questUnlocked(questId, progress.completedQuestIds)) return t('Follow the current witness before beginning this investigation.');
-  const missing = missingQuestWords(questId, progress).length;
-  if (!missing) return '';
-  return missing === 1 ? t('The Atlas needs {count} more restored word before this conversation.', { count: missing }) : t('The Atlas needs {count} more restored words before this conversation.', { count: missing });
+  return '';
 }
 
 export function firstAvailableMap(savedMapId: MapId, completedQuestIds: readonly string[]): MapId {

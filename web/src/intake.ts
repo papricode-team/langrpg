@@ -5,8 +5,8 @@ import type { Progress } from './api';
 /**
  * Vocabulary intake, mirrored from server/intake.go. The server is the only
  * writer: it credits visible play through heartbeats and appends syllabus words
- * at a bounded rate. The client reads the same state to decide what German it
- * may show, which conversations are open and what to practise today.
+ * at a bounded rate. The client reads the same state to pace optional practice
+ * and ambient German. Story conversations remain available regardless of intake.
  */
 export interface SyllabusQuest { questId: string; level: Level; wordIds: string[]; milestone: number; }
 export interface Syllabus {
@@ -62,14 +62,6 @@ export function intakeStatus(progress: EvidenceProgress, now = Date.now()): Inta
 }
 
 export function questVocabulary(questId: string): SyllabusQuest | undefined { return questById.get(questId); }
-/** Lexemes a conversation still needs, in syllabus order. Completed discoveries need nothing. */
-export function missingQuestWords(questId: string, progress: Pick<Progress, 'completedQuestIds' | 'intake'>): string[] {
-  const quest = questById.get(questId);
-  if (!quest || progress.completedQuestIds.includes(questId)) return [];
-  const introduced = introducedWords(progress);
-  return quest.wordIds.filter(id => !introduced.has(id));
-}
-export function questVocabularyReady(questId: string, progress: Pick<Progress, 'completedQuestIds' | 'intake'>): boolean { return missingQuestWords(questId, progress).length === 0; }
 /** How many scheduled words a route, scene or object still needs. */
 export function missingWordCount(wordIds: readonly string[], progress: IntakeProgress): number {
   const introduced = introducedWords(progress);
