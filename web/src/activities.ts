@@ -4,10 +4,12 @@ import type { Progress } from './api';
 import { escapeHtml as e, icon } from './icons';
 import {
   activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
-  initialActivityState, inventory, marketTotal, money, selectActivityScenarios, shuffledDetectiveBoard,
+  initialActivityState, inventory, marketTotal, money, selectActivityScenarios, shuffledDetectiveBoard, shuffledCafeActions,
   type ActivityAction, type ActivityId, type ActivityMode, type ActivityScenario, type ActivityState,
   type CafeState, type DetectiveState, type DeliveryBoard, type DeliveryState, type MarketState,
 } from './activity-engine';
+import { seededShuffle } from './game-shuffle';
+import { itemSpriteByLemma, itemSpriteManifest } from './minigames/item-manifest';
 export { activityDefinitions, activityScenarios, activityAudioJobs } from './activity-engine';
 export type { ActivityId, ActivityMode } from './activity-engine';
 
@@ -35,7 +37,7 @@ interface PendingAttempt { answer:string; hinted:boolean; context:ActivityContex
 interface SavedRun {
   version:1; runId:string; id:ActivityId; level:Level; scenarioIds:string[]; index:number; state:ActivityState;
   hinted:boolean; stage:'playing'|'scene-complete'|'complete'; exerciseIds:string[]; attemptIds:string[];
-  discoveries:string[]; xp:number; reward:number; familiar:boolean; pending?:PendingAttempt;
+  discoveries:string[]; layoutRevision?:number; xp:number; reward:number; familiar:boolean; pending?:PendingAttempt;
 }
 const kitchen:Record<string,{label:string;icon:string}> = {
   cup:{label:'Tasse nehmen',icon:'cup'},glass:{label:'Glas nehmen',icon:'cup'},brew:{label:'Kochen / brühen',icon:'lantern'},
@@ -46,6 +48,10 @@ const kitchen:Record<string,{label:string;icon:string}> = {
 const cellKey=(cell:{x:number;y:number})=>`${cell.x},${cell.y}`;
 const uuid=()=>crypto.randomUUID();
 const titleCase=(value:string)=>value.charAt(0).toUpperCase()+value.slice(1);
+const itemVisual=(german:string,fallbackIcon:string)=>{
+  const frame=itemSpriteByLemma(german),sprite=frame?itemSpriteManifest[frame]:undefined;
+  return sprite?`<img class="activity-item-sprite" src="${e(sprite.url)}" width="72" height="72" alt="" draggable="false"/>`:icon(fallbackIcon);
+};
 const items=(values:Record<string,number>)=>Object.entries(values).map(([id,quantity])=>({item:inventory[id],quantity})).filter(value=>value.item);
 const nextDeliveryDirection=(board:DeliveryBoard,state:DeliveryState):string|undefined=>{
   const index=board.path.findIndex(cell=>cellKey(cell)===cellKey(state.position));
@@ -105,6 +111,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
   const definition=found;
   const storageKey=`atlas.activity.v1:${options.sessionKey??'visitor'}:${options.id}:${options.level}`;
   let disposed=false, paused=false, busy=false, selectedCard='', feedback:string[]=[], error='', success=false;
+  let layoutRevision=0;
   let panel=options.id==='market'?'goods':'counter', guideOpen=false, routeOpen=false, feedbackOpen=false, referenceTrigger='guide';
   const seenScenes=new Set<string>();
   let progress=options.progress;
@@ -127,23 +134,24 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
       }
     }
   } catch { /* Unavailable or corrupt storage starts a fresh safe session. */ }
+  layoutRevision=typeof run.layoutRevision==='number'&&Number.isSafeInteger(run.layoutRevision)?Math.max(0,run.layoutRevision):0;
   const scenario=()=>activityScenarios.find(scene=>scene.id===run.scenarioIds[run.index])!;
-  const persist=()=>{try{localStorage.setItem(storageKey,JSON.stringify(run));}catch{/* The game still works without local storage. */}};
+  const persist=()=>{run.layoutRevision=layoutRevision;try{localStorage.setItem(storageKey,JSON.stringify(run));}catch{/* The game still works without local storage. */}};
   const locked=()=>busy||!!run.pending;
   const focusKey=()=>container.contains(document.activeElement)?(document.activeElement as HTMLElement).dataset.focusKey:undefined;
   const actionButton=(action:string,label:string,extra='',className='activity-tool')=>`<button type="button" class="${className}" data-act="${action}" data-focus-key="${e(`${action}:${/data-value="([^"]*)"/.exec(extra)?.[1]??''}`)}" ${extra} ${locked()?'disabled':''}>${label}</button>`;
   const choice=(action:string,value:string,label:string,active:boolean)=>actionButton(action,label,`data-value="${e(value)}" aria-pressed="${active}"`,active?'activity-choice selected':'activity-choice');
   const panelTabs=(panels:[string,string][])=>`<nav class="activity-panel-tabs" aria-label="Mission panels">${panels.map(([value,label])=>`<button type="button" data-act="panel" data-value="${value}" data-focus-key="panel:${value}" aria-pressed="${panel===value}">${label}</button>`).join('')}</nav>`;
   const closeReferences=()=>{guideOpen=false;routeOpen=false;feedbackOpen=false;};
-  const renderItems=(bag:Record<string,number>,empty:string)=>items(bag).length?items(bag).map(({item,quantity})=>`<button type="button" class="activity-inventory-piece ${e(item.id)}" data-act="remove-item" data-value="${e(item.id)}" data-focus-key="remove:${e(item.id)}" aria-label="Remove one ${e(item.german)}" ${locked()?'disabled':''}>${icon(item.icon)}<span>${e(item.german)}</span><b>×${quantity}</b><i>${icon('minus')}</i></button>`).join(''):`<span class="activity-empty">${e(empty)}</span>`;
-  const renderStock=(stock:string[],bag:Record<string,number>)=>stock.map(id=>{
-    const item=inventory[id];return actionButton('add-item',`${icon(item.icon)}<span>${e(item.german)}${scenario().board.kind==='market'?`<small>${money(item.price??0)}</small>`:''}</span><b>${bag[id]??0}</b>${icon('plus')}`,`data-value="${e(id)}"`,'activity-stock-item');
+  const renderItems=(bag:Record<string,number>,empty:string)=>items(bag).length?items(bag).map(({item,quantity})=>`<button type="button" class="activity-inventory-piece ${e(item.id)}" data-act="remove-item" data-value="${e(item.id)}" data-focus-key="remove:${e(item.id)}" aria-label="Remove one ${e(item.german)}" ${locked()?'disabled':''}>${itemVisual(item.german,item.icon)}<span>${e(item.german)}</span><b>×${quantity}</b><i>${icon('minus')}</i></button>`).join(''):`<span class="activity-empty">${e(empty)}</span>`;
+  const renderStock=(stock:string[],bag:Record<string,number>)=>seededShuffle(stock,`${run.runId}:${scenario().id}:${layoutRevision}:stock`).map(id=>{
+    const item=inventory[id];return actionButton('add-item',`${itemVisual(item.german,item.icon)}<span>${e(item.german)}${scenario().board.kind==='market'?`<small>${money(item.price??0)}</small>`:''}</span><b>${bag[id]??0}</b>${icon('plus')}`,`data-value="${e(id)}" draggable="${!locked()}"`,'activity-stock-item');
   }).join('');
 
   function cafeBoard(scene:ActivityScenario,state:CafeState):string {
     if(scene.board.kind!=='cafe')return '';
     const board=scene.board;
-    return `${panelTabs([['counter','Order'],['kitchen','Kitchen'],...(board.goal.venue||board.goal.service||board.goal.slot?[['service','Service']] as [string,string][]:[])])}<div class="activity-cafe-counter"><div class="activity-bench-label">${icon('cup')} DEINE BESTELLUNG</div><div class="activity-tray" aria-label="Your assembled tray">${renderItems(state.tray,'Your tray is empty. Tap ingredients below.')}</div><div class="activity-pantry">${renderStock(board.stock,state.tray)}</div></div><div class="activity-kitchen"><div class="activity-bench-label">${icon('lantern')} IN DER KÜCHE <span>${state.steps.length} steps</span></div><ol class="activity-recipe-track">${state.steps.map((step,index)=>`<li><b>${index+1}</b>${icon(kitchen[step]?.icon??'cup')}<span>${e(kitchen[step]?.label??step)}</span></li>`).join('')||'<li class="activity-empty">Build your preparation sequence.</li>'}</ol><div class="activity-kitchen-tools">${board.actions.map(step=>actionButton('step',`${icon(kitchen[step]?.icon??'cup')}<span>${e(kitchen[step]?.label??step)}</span>`,`data-value="${e(step)}"`)).join('')}</div>${actionButton('undo-step',`${icon('refresh')} Undo the last step`,'','activity-link')}</div>${board.goal.venue||board.goal.service||board.goal.slot?`<div class="activity-service-settings">${board.goal.venue?`<div><span>WO?</span>${choice('venue','inside','Drinnen',state.venue==='inside')}${choice('venue','outside','Draußen',state.venue==='outside')}</div>`:''}${board.goal.service?`<div><span>WIE?</span>${choice('service','table','Am Tisch',state.service==='table')}${choice('service','takeaway','Zum Mitnehmen',state.service==='takeaway')}</div>`:''}${board.goal.slot?`<div><span>WANN?</span>${['09:00','18:00','18:30','19:30'].map(slot=>choice('slot',slot,slot,state.slot===slot)).join('')}</div>`:''}</div>`:''}`;
+    return `${panelTabs([['counter','Order'],['kitchen','Kitchen'],...(board.goal.venue||board.goal.service||board.goal.slot?[['service','Service']] as [string,string][]:[])])}<div class="activity-cafe-counter"><div class="activity-bench-label">${icon('cup')} DEINE BESTELLUNG</div><div class="activity-tray" aria-label="Your assembled tray">${renderItems(state.tray,'Your tray is empty. Tap or drag ingredients onto it.')}</div><div class="activity-pantry">${renderStock(board.stock,state.tray)}</div></div><div class="activity-kitchen"><div class="activity-bench-label">${icon('lantern')} IN DER KÜCHE <span>${state.steps.length} steps</span></div><ol class="activity-recipe-track">${state.steps.map((step,index)=>`<li><b>${index+1}</b>${icon(kitchen[step]?.icon??'cup')}<span>${e(kitchen[step]?.label??step)}</span></li>`).join('')||'<li class="activity-empty">Build your preparation sequence.</li>'}</ol><div class="activity-kitchen-tools">${shuffledCafeActions(board,`${run.runId}:${scene.id}:${layoutRevision}`).map(step=>actionButton('step',`${icon(kitchen[step]?.icon??'cup')}<span>${e(kitchen[step]?.label??step)}</span>`,`data-value="${e(step)}"`)).join('')}</div>${actionButton('undo-step',`${icon('refresh')} Undo the last step`,'','activity-link')}</div>${board.goal.venue||board.goal.service||board.goal.slot?`<div class="activity-service-settings">${board.goal.venue?`<div><span>WO?</span>${choice('venue','inside','Drinnen',state.venue==='inside')}${choice('venue','outside','Draußen',state.venue==='outside')}</div>`:''}${board.goal.service?`<div><span>WIE?</span>${choice('service','table','Am Tisch',state.service==='table')}${choice('service','takeaway','Zum Mitnehmen',state.service==='takeaway')}</div>`:''}${board.goal.slot?`<div><span>WANN?</span>${['09:00','18:00','18:30','19:30'].map(slot=>choice('slot',slot,slot,state.slot===slot)).join('')}</div>`:''}</div>`:''}`;
   }
 
   function marketBoard(scene:ActivityScenario,state:MarketState):string {
@@ -154,8 +162,8 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
 
   function detectiveBoard(scene:ActivityScenario,state:DetectiveState):string {
     if(scene.board.kind!=='detective')return '';
-    const board=shuffledDetectiveBoard(scene.board,`${run.runId}:${scene.id}`);
-    return `<div class="activity-evidence-room"><div class="activity-evidence-pile"><div class="activity-bench-label">${icon('clue')} BEWEISE</div>${board.cards.map(card=>actionButton('select-card',`${icon(card.icon)}<span lang="de">${e(card.german)}</span><small>${Object.values(state.links).includes(card.id)?'On the board':'Select, then place'}</small>`,`data-value="${e(card.id)}" aria-pressed="${selectedCard===card.id}"`,selectedCard===card.id?'activity-evidence selected':'activity-evidence')).join('')}</div><div class="activity-investigation-board"><div class="activity-bench-label">${icon('scroll')} DIE REKONSTRUKTION</div><p>${selectedCard?'Choose where this evidence belongs.':'Select an evidence slip from the desk.'}</p>${board.slots.map((slot,index)=>{const card=board.cards.find(item=>item.id===state.links[slot.id]);return `<div class="activity-evidence-link"><span class="activity-link-number">${index+1}</span>${actionButton('place-card',`<strong lang="de">${e(slot.german)}</strong><span>${card?`${icon(card.icon)} ${e(card.german)}`:'Place an evidence slip here'}</span>`,`data-value="${e(slot.id)}"`,'activity-evidence-slot')}${card?actionButton('unlink',icon('close'),`data-value="${e(slot.id)}" aria-label="Remove evidence from ${e(slot.german)}"`,'activity-unpin'):''}</div>`;}).join('')}</div></div>`;
+    const board=shuffledDetectiveBoard(scene.board,`${run.runId}:${scene.id}${layoutRevision?`:${layoutRevision}`:''}`);
+    return `<div class="activity-evidence-room"><div class="activity-evidence-pile"><div class="activity-bench-label">${icon('clue')} BEWEISE</div>${board.cards.map(card=>actionButton('select-card',`${itemVisual(card.german,card.icon)}<span lang="de">${e(card.german)}</span><small>${Object.values(state.links).includes(card.id)?'On the board':'Select, then place'}</small>`,`data-value="${e(card.id)}" draggable="${!locked()}" aria-pressed="${selectedCard===card.id}"`,selectedCard===card.id?'activity-evidence selected':'activity-evidence')).join('')}</div><div class="activity-investigation-board"><div class="activity-bench-label">${icon('scroll')} DIE REKONSTRUKTION</div><p>${selectedCard?'Choose where this evidence belongs.':'Select an evidence slip from the desk.'}</p>${board.slots.map((slot,index)=>{const card=board.cards.find(item=>item.id===state.links[slot.id]);return `<div class="activity-evidence-link"><span class="activity-link-number">${index+1}</span>${actionButton('place-card',`<strong lang="de">${e(slot.german)}</strong><span>${card?`${itemVisual(card.german,card.icon)} ${e(card.german)}`:'Place an evidence slip here'}</span>`,`data-value="${e(slot.id)}"`,'activity-evidence-slot')}${card?actionButton('unlink',icon('close'),`data-value="${e(slot.id)}" aria-label="Remove evidence from ${e(slot.german)}"`,'activity-unpin'):''}</div>`;}).join('')}</div></div>`;
   }
 
   function deliveryBoard(scene:ActivityScenario,state:DeliveryState):string {
@@ -170,7 +178,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
 
   function render(focusTarget?:string):void {
     if(disposed)return;
-    const activeFocus=focusTarget??focusKey(),scene=scenario(),npc=npcs.find(item=>item.id===(options.venue?.npcId??definition.npcId)),image=options.venue?.asset??`/assets/${{A1:'lindenhafen',A2:'waldruh',B1:'nebelstadt'}[options.level]}.webp`;
+    const activeFocus=focusTarget??focusKey(),scene=scenario(),npc=npcs.find(item=>item.id===(options.venue?.npcId??definition.npcId)),image=options.venue?.asset??(definition.id==='cafe'?'/assets/interior-cafe-room.webp':definition.id==='market'?'/assets/interior-supermarket-room.webp':`/assets/${{A1:'lindenhafen',A2:'waldruh',B1:'nebelstadt'}[options.level]}.webp`);
     let content:string;
     if(paused) content=`<div class="activity-intermission">${icon('lantern')}<span class="activity-kicker">YOUR PLACE IS KEPT</span><h2>A moment by the lantern.</h2><p>Your ${definition.id==='delivery'?'parcel':'work'} stays exactly where you left it. There is no clock to race.</p><button type="button" class="activity-primary" data-act="resume">Return to the mission ${icon('arrow')}</button><button type="button" class="activity-link" data-act="leave">Save and leave</button></div>`;
     else if(run.familiar&&run.stage==='playing'&&run.index===0&&!run.pending) content=`<div class="activity-intermission">${icon('leaf')}<span class="activity-kicker">FAMILIAR WORDS ARE RESTING</span><h2>${e(npc?.name??'Your host')} remembers your help.</h2><p>These expressions are comfortable in your memory right now. You can keep exploring, or choose another shift for the story.</p><button type="button" class="activity-primary" data-act="free-play">Play another mission ${icon('arrow')}</button><button type="button" class="activity-link" data-act="leave">Back to exploring</button></div>`;
@@ -178,7 +186,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
     else if(run.stage==='scene-complete') content=`<div class="activity-intermission activity-discovery"><span class="activity-discovery-stamp">${icon('check')}</span><span class="activity-kicker">${definition.id==='delivery'?'DELIVERED':definition.id==='detective'?'RECONSTRUCTION ACCEPTED':definition.id==='market'?'DEAL COMPLETE':'ORDER SERVED'}</span><h2>${e(titleCase(scene.title))}</h2><blockquote lang="de">${e(exerciseForScenario(scene).answer)}</blockquote><p>${e(scene.discovery)}</p><div class="activity-reward"><strong>✓</strong><span>Saved to your learning record${run.hinted?' · with help':''}</span></div>${error?`<p class="activity-error" role="alert">${e(error)}</p>`:''}<button type="button" class="activity-primary" data-act="next" ${busy?'disabled':''}>${busy?'Saving the mission…':run.index===2?'Follow the new lead':'The next task'} ${icon('arrow')}</button><button type="button" class="activity-link" data-act="pause" ${busy?'disabled':''}>Pause here</button></div>`;
     else {
       const board=run.state.kind==='cafe'?cafeBoard(scene,run.state):run.state.kind==='market'?marketBoard(scene,run.state):run.state.kind==='detective'?detectiveBoard(scene,run.state):deliveryBoard(scene,run.state);
-      content=`<div class="activity-task-header"><div><span class="activity-kicker">${e(npc?.name??'Your host')} · ${options.level}</span><h2>${e(titleCase(scene.title))}</h2></div></div><div class="activity-order"><div>${icon(definition.icon)}<span>${definition.id==='detective'?'DIE AUSSAGE':definition.id==='delivery'?'DER AUFTRAG':'DIE BESTELLUNG'}</span><button type="button" data-act="speak" aria-label="Hear the German ${definition.id==='detective'?'statement':'instructions'}">${icon('volume')}</button></div><p lang="de">${e(scene.german)}</p></div><div class="activity-scene-board activity-${definition.id}-board" data-panel="${e(panel)}">${board}</div><div class="activity-response ${success?'positive':''}" role="status" aria-live="polite">${busy?`${icon('clock')} Saving your actions…`:error?`<p class="activity-error">${e(error)}</p>`:feedback.length?`<p>${icon('clue')}<span>${e(feedback[0])}</span></p>${feedback.length>1?'<button type="button" class="activity-link" data-act="feedback" data-focus-key="feedback" aria-label="Read all feedback">Details</button>':''}`:''}</div><footer class="activity-task-actions">${actionButton('hint',`${icon('chat')} Clarify`,'','activity-link')}${actionButton('reset-board',`${icon('refresh')} Reset`,'','activity-link')}<button type="button" class="activity-primary" data-act="submit" ${busy?'disabled':''}>${busy?'Saving…':run.pending?'Retry this save':definition.id==='cafe'?'Serve the order':definition.id==='market'?'Close the deal':definition.id==='detective'?'Present the evidence':'Deliver the parcel'} ${icon('arrow')}</button></footer>`;
+      content=`<div class="activity-task-header">${npc?`<span class="activity-portrait" style="background-position:${npcs.indexOf(npc)%4*100/3}% ${npcs.indexOf(npc)<4?0:100}%" aria-hidden="true"></span>`:''}<div><span class="activity-kicker">${e(npc?.name??'Your host')} · ${options.level}</span><h2>${e(titleCase(scene.title))}</h2></div></div><div class="activity-order"><div>${icon(definition.icon)}<span>${definition.id==='detective'?'DIE AUSSAGE':definition.id==='delivery'?'DER AUFTRAG':'DIE BESTELLUNG'}</span><button type="button" data-act="speak" aria-label="Hear the German ${definition.id==='detective'?'statement':'instructions'}">${icon('volume')}</button></div><p lang="de">${e(scene.german)}</p></div><div class="activity-scene-board activity-${definition.id}-board" data-panel="${e(panel)}">${board}</div><div class="activity-response ${success?'positive':''}" role="status" aria-live="polite">${busy?`${icon('clock')} Saving your actions…`:error?`<p class="activity-error">${e(error)}</p>`:feedback.length?`<p>${icon('clue')}<span>${e(feedback[0])}</span></p>${feedback.length>1?'<button type="button" class="activity-link" data-act="feedback" data-focus-key="feedback" aria-label="Read all feedback">Details</button>':''}`:''}</div><footer class="activity-task-actions">${actionButton('hint',`${icon('chat')} Clarify`,'','activity-link')}${actionButton('reset-board',`${icon('refresh')} Reset`,'','activity-link')}<button type="button" class="activity-primary" data-act="submit" ${busy?'disabled':''}>${busy?'Saving…':run.pending?'Retry this save':definition.id==='cafe'?'Serve the order':definition.id==='market'?'Close the deal':definition.id==='detective'?'Present the evidence':'Deliver the parcel'} ${icon('arrow')}</button></footer>`;
     }
     const reference=guideOpen?`<aside class="activity-guide" role="dialog" aria-modal="true" aria-label="Mission help"><header><h3>How to play</h3><button type="button" data-act="guide" data-focus-key="guide-close" aria-label="Close mission help">${icon('close')}</button></header><p>${e(options.venue?.briefing??scene.briefing)}</p>${run.hinted?`<div class="activity-clarification">${icon('sparkles')}<p>${e(scene.hint)}</p></div>`:''}<p class="activity-no-pressure">No time limit. Mistakes keep the scene open. Clarification counts as help.</p></aside>`:feedbackOpen?`<aside class="activity-feedback-details" role="dialog" aria-modal="true" aria-label="Task feedback"><header><h3>Check your actions</h3><button type="button" data-act="feedback" data-focus-key="feedback-close" aria-label="Close feedback">${icon('close')}</button></header>${feedback.map(line=>`<p>${icon('clue')}<span>${e(line)}</span></p>`).join('')}</aside>`:routeOpen&&scene.board.kind==='delivery'?`<aside class="activity-route-list" role="dialog" aria-modal="true" aria-label="Full delivery route"><header><h3>The full route</h3><button type="button" data-act="route" data-focus-key="route-close" aria-label="Close full route">${icon('close')}</button></header><p>From the start, facing ${['north','east','south','west'][scene.board.heading]}.</p><ol>${scene.board.directions.map((line,index)=>`<li><span lang="de">${e(line)}</span><button type="button" data-act="speak-direction" data-value="${index}" aria-label="Hear direction ${index+1}">${icon('volume')}</button></li>`).join('')}</ol></aside>`:'';
     container.innerHTML=`<section class="activity-shell ${definition.id}" data-saving="${busy}" style="--activity-art:url('${e(image)}')"><header class="activity-banner" ${reference?'inert':''}><span>${icon(definition.icon)}<b>${e(options.venue?.title??definition.title)}</b></span><div class="activity-rounds" aria-label="${Math.min(run.index+1,3)} of 3 tasks">${[0,1,2].map(index=>`<i class="${index<run.exerciseIds.length?'done':index===run.index?'current':''}">${icon('lantern')}</i>`).join('')}</div><button type="button" class="activity-guide-toggle" data-act="guide" data-focus-key="guide" aria-expanded="${guideOpen}" aria-label="How to play">${icon('book')}</button><button type="button" class="activity-pause" data-act="pause" aria-label="Pause activity" ${busy?'disabled':''}>${icon('clock')}</button></header><div class="activity-content" ${reference?'inert':''}>${content}</div>${reference}</section>`;
@@ -211,6 +219,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
         success=true;
       } else {
         success=false;
+        layoutRevision++;
         active.hinted=true; // Corrective English feedback is support on the retry.
         feedback=evaluation.feedback.length?evaluation.feedback:[result.reason??'The town could not confirm that answer. Try again or ask for clarification.'];
       }
@@ -235,7 +244,7 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
   }
 
   function reset():void {if(disposed||busy||run.pending)return;run=newRun();paused=false;selectedCard='';panel=options.id==='market'?'goods':'counter';closeReferences();feedback=[];error='';success=false;persist();render();}
-  function dispatch(action:ActivityAction):void {if(locked()||run.stage!=='playing'||paused)return;run.state=applyActivityAction(scenario(),run.state,action);feedbackOpen=false;feedback=[];error='';persist();render();}
+  function dispatch(action:ActivityAction):void {if(locked()||run.stage!=='playing'||paused)return;if(action.type==='reset')layoutRevision++;run.state=applyActivityAction(scenario(),run.state,action);feedbackOpen=false;feedback=[];error='';persist();render();}
   const click=(event:MouseEvent)=>{
     const button=(event.target as HTMLElement).closest<HTMLButtonElement>('button[data-act]');
     if(!button||!container.contains(button)||button.disabled)return;
@@ -284,10 +293,34 @@ export function mountActivity(container:HTMLElement,options:MountActivityOptions
     const turns:Record<string,'left'|'straight'|'right'|'back'>={ArrowUp:'straight',ArrowDown:'back',ArrowLeft:'left',ArrowRight:'right'};
     dispatch({type:'turn',value:turns[event.key]});
   };
+  let dragged: {kind:'item'|'evidence';id:string} | undefined;
+  const dragstart=(event:DragEvent)=>{
+    if(locked()||paused||run.stage!=='playing'){event.preventDefault();return;}
+    const button=(event.target as HTMLElement).closest<HTMLButtonElement>('[draggable="true"]');if(!button||!container.contains(button))return;
+    if(button.dataset.act==='add-item')dragged={kind:'item',id:button.dataset.value!};
+    else if(button.dataset.act==='select-card')dragged={kind:'evidence',id:button.dataset.value!};
+    if(dragged&&event.dataTransfer){event.dataTransfer.effectAllowed='copy';event.dataTransfer.setData('text/plain',dragged.id);}
+  };
+  const dragover=(event:DragEvent)=>{
+    if(!dragged||locked()||paused)return;
+    const target=(event.target as HTMLElement).closest<HTMLElement>(dragged.kind==='item'?'.activity-tray':'[data-act="place-card"]');
+    if(target&&container.contains(target))event.preventDefault();
+  };
+  const drop=(event:DragEvent)=>{
+    if(!dragged||locked()||paused)return;
+    const target=(event.target as HTMLElement).closest<HTMLElement>(dragged.kind==='item'?'.activity-tray':'[data-act="place-card"]');
+    if(!target||!container.contains(target))return;
+    event.preventDefault();
+    if(dragged.kind==='item')dispatch({type:'item',id:dragged.id,delta:1});
+    else if(target.dataset.value)dispatch({type:'link',slotId:target.dataset.value,cardId:dragged.id});
+    dragged=undefined;
+  };
+  const dragend=()=>{dragged=undefined;};
   container.addEventListener('click',click);container.addEventListener('keydown',keydown);
+  container.addEventListener('dragstart',dragstart);container.addEventListener('dragover',dragover);container.addEventListener('drop',drop);container.addEventListener('dragend',dragend);
   persist();render();
   return {
-    destroy(){if(disposed)return;persist();disposed=true;container.removeEventListener('click',click);container.removeEventListener('keydown',keydown);container.replaceChildren();},
+    destroy(){if(disposed)return;persist();disposed=true;container.removeEventListener('click',click);container.removeEventListener('keydown',keydown);container.removeEventListener('dragstart',dragstart);container.removeEventListener('dragover',dragover);container.removeEventListener('drop',drop);container.removeEventListener('dragend',dragend);container.replaceChildren();},
     pause(){if(!disposed){paused=true;closeReferences();persist();render();}},resume(){if(!disposed){paused=false;render();}},reset,
   };
 }

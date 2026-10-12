@@ -1,0 +1,24 @@
+Use case: stylized-concept
+Asset type: transparent painterly game item sprite sheet
+Primary request: Paint 16 distinct isolated object sprites for the Lantern Atlas near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
+Style/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.
+Scene/backdrop: genuinely transparent alpha, no painted backdrop.
+Composition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.
+Subjects in row-major order:
+1. one plain round wooden table with no objects
+2. one upright wooden chair with a green cushion
+3. one small green upholstered sofa
+4. one single wooden bed with white blanket and pillow
+5. one wooden wardrobe with two closed doors
+6. one brass desk lamp with a green shade
+7. one freestanding wooden door in its frame
+8. one wooden window frame with clear glass
+9. one framed painted landscape picture
+10. one folded cream towel
+11. one ivory bar of soap
+12. one shower head spraying water over a small shower tray
+13. one white toilet with closed lid
+14. one white cast iron radiator
+15. one small wrought iron balcony with its stone floor
+16. one cream railway fare ticket with a red punched corner and illegible ink
+Constraints: exactly 16 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label.

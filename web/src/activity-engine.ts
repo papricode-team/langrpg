@@ -1,5 +1,6 @@
 import { quests, type Exercise, type Level } from './content.ts';
 import type { Progress } from './api';
+import { seededShuffle } from './game-shuffle.ts';
 
 export type ActivityId = 'cafe' | 'market' | 'detective' | 'delivery';
 export type ActivityMode = 'recognition' | 'production' | 'listening';
@@ -278,21 +279,20 @@ export function evaluateActivity(scenario:ActivityScenario,state:ActivityState):
 
 const seededHash = (text:string):number => {let value=2166136261;for(const char of text)value=Math.imul(value^char.charCodeAt(0),16777619);return value>>>0;};
 
+/** The action palette must never print the recipe's steps in solution order. */
+export function shuffledCafeActions(board: CafeBoard, seed: string): string[] {
+  const actions = seededShuffle(board.actions, seed);
+  const recipe = actions.filter(action => board.goal.steps.includes(action));
+  if (recipe.length > 1 && recipe.every((action, index) => action === board.goal.steps[index])) {
+    const a = actions.indexOf(recipe[0]), b = actions.indexOf(recipe[1]);
+    [actions[a], actions[b]] = [actions[b], actions[a]];
+  }
+  return actions;
+}
+
 /** Keep each case's layout stable without exposing the authored answer order. */
 export function shuffledDetectiveBoard(board:DetectiveBoard,seed:string):DetectiveBoard {
-  const shuffle=<T>(values:T[],key:string):T[]=>{
-    const result=[...values];
-    let value=seededHash(`${seed}:${key}`);
-    for(let i=result.length-1;i>0;i--) {
-      value=(value+0x6d2b79f5)>>>0;
-      let random=Math.imul(value^(value>>>15),value|1);
-      random^=random+Math.imul(random^(random>>>7),random|61);
-      const j=Math.floor(((random^(random>>>14))>>>0)/4294967296*(i+1));
-      [result[i],result[j]]=[result[j],result[i]];
-    }
-    return result;
-  };
-  const cards=shuffle(board.cards,'cards'),slots=shuffle(board.slots,'slots');
+  const cards=seededShuffle(board.cards,`${seed}:cards`),slots=seededShuffle(board.slots,`${seed}:slots`);
   // Even after ignoring distractors, pairing top to bottom must not solve a case.
   const evidence=cards.filter(card=>slots.some(slot=>slot.expected===card.id));
   if(evidence.length>1&&evidence.length===slots.length&&evidence.every((card,index)=>card.id===slots[index].expected)) {

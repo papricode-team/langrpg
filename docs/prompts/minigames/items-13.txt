@@ -1,0 +1,24 @@
+Use case: stylized-concept
+Asset type: transparent painterly game item sprite sheet
+Primary request: Paint 16 distinct isolated object sprites for the Lantern Atlas near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
+Style/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.
+Scene/backdrop: genuinely transparent alpha, no painted backdrop.
+Composition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.
+Subjects in row-major order:
+1. one thick raw red cut of meat with a white fat edge, lying on a plain small plate
+2. one quirky brass desk lamp with two short articulated brass legs, side view, left leg forward and right leg back
+3. the same quirky brass walking desk lamp, side view, legs together beneath its body
+4. the same quirky brass walking desk lamp, side view, right leg forward and left leg back
+5. the same quirky brass walking desk lamp, side view, both legs bent in a small jaunty step
+6. one brass-framed station flip-board cell, blank dark green face fully closed, front view
+7. the same brass-framed station flip-board cell, dark green upper flap tilted outward by twenty degrees
+8. the same brass-framed station flip-board cell, dark green upper flap tilted outward by forty degrees
+9. the same brass-framed station flip-board cell, dark green upper flap tilted outward by sixty degrees
+10. the same brass-framed station flip-board cell, dark green upper flap horizontal at ninety degrees
+11. the same brass-framed station flip-board cell, upper flap rotating downward past horizontal
+12. the same brass-framed station flip-board cell, upper flap almost against lower dark green half
+13. the same brass-framed station flip-board cell, upper flap completing its rotation downward
+14. the same brass-framed station flip-board cell, blank dark green face closed again after its flip
+15. one red-handled brass lever on a small square brass base
+16. one blue electrical plug and socket connector joined by a short blue wire
+Constraints: exactly 16 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label.

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Story mini-game QA · Lantern Atlas</title>
+    <style>body{margin:0;background:#183b31;color:#f4e8ca}#qa-controls{padding:20px}#qa-controls a{color:inherit;margin:10px}#qa-status{font-size:12px}</style>
+  </head>
+  <body>
+    <div id="qa-controls"><a href="?game=lost-hour">Lost Hour</a><a href="?game=seed-packets">Seed Packets</a><a href="?game=17-59">17:59</a><p id="qa-status">Isolated development fixture. No player record is changed.</p></div>
+    <dialog class="dialog minigame-dialog activity-dialog" id="qa-dialog" aria-label="Story game preview"><button type="button" class="dialog-close" id="qa-close" aria-label="Close">×</button><div id="minigame-root"></div></dialog>
+    <script type="module">
+      import '../src/style.css';
+      import '../src/activities.css';
+      import { miniGameById } from '../src/minigames/catalogue.ts';
+      import { createScriptedStoryGame, scriptedStoryData, scriptedStoryExercises, canonicalStoryExercises } from '../src/minigames/scripted-stories.ts';
+      import { createMiniGameHost } from '../src/minigames/host.ts';
+      import { emptyProgress } from '../src/api.ts';
+      if (import.meta.env.DEV) {
+        const gameId=new URLSearchParams(location.search).get('game')??'lost-hour';
+        const definition=miniGameById.get(gameId),script=scriptedStoryData.games[gameId];
+        if (definition && script) {
+          const status=document.querySelector('#qa-status'),dialog=document.querySelector('#qa-dialog');
+          let progress={...emptyProgress(),intake:{version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:script.requiredWordIds}};
+          const api={selfId:'story-qa',token:'isolated-fixture',async expose(){return {progress};},async request(path,body){
+            if(path!=='/attempt')throw new Error('Fixture only supports isolated answers');
+            const results=body.map(row=>{
+              const exercise=canonicalStoryExercises.find(ex=>ex.id===row.exerciseId);
+              const normal=text=>text.normalize('NFKC').toLowerCase().replace(/[.!?]+$/,'').trim();
+              const correct=exercise && [exercise.answer,...exercise.acceptedAnswers??[]].some(answer=>normal(answer)===normal(row.answer));
+              return {attemptId:row.id,correct:Boolean(correct),xpAdded:0,duplicate:false,correctedAnswer:exercise?.answer??'',reason:exercise?.explanation??''};
+            });
+            progress={...progress,revision:progress.revision+1};return {results,progress};
+          }};
+          const host=createMiniGameHost({api,gameId,lexicon:[],exercises:scriptedStoryExercises,progress:()=>progress,onProgress:value=>{progress=value;},onEnd:summary=>{status.textContent=JSON.stringify(summary);},playerName:'QA',silent:false,muted:false,reducedMotion:false,narration:()=>{}});
+          const game=createScriptedStoryGame(definition);
+          dialog.showModal();game.mount(document.querySelector('#minigame-root'),host,{level:'A2',seed:7126});
+          const close=()=>{game.destroy();host.destroy();dialog.close();};
+          document.querySelector('#qa-close').addEventListener('click',close);
+          dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+          window.addEventListener('pagehide',close,{once:true});
+        }
+      }
+    </script>
+  </body>
+</html>

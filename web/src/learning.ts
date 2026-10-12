@@ -1,6 +1,7 @@
 import type { Progress } from './api';
 import type { Exercise } from './content';
 import { baseLanguage, localizedExercise, t } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
+import { seededShuffle } from './game-shuffle.ts';
 
 export function normalizedAnswer(answer: string): string {
   return normalizedCaseAnswer(answer).toLocaleLowerCase('de');
@@ -101,6 +102,16 @@ export function sentenceTiles(exercise: Exercise): string[] {
   }
   for (const value of ['nicht','morgen','bitte']) if (!tokens.includes(value) && !distractors.includes(value)) distractors.push(value);
   return [...tokens, ...distractors.slice(0,3)];
+}
+
+/** Keep duplicate tiles individually addressable and vary the tray on every retry. */
+export function shuffledSentenceTiles(exercise: Exercise, seed: string): {token:string;i:number}[] {
+  const tiles = seededShuffle(sentenceTiles(exercise).map((token, i) => ({token,i})), `${seed}:${exercise.id}`);
+  const answer = exercise.tokens ?? exercise.answer.split(' ');
+  if (answer.length > 1 && tiles.slice(0,answer.length).every((tile,index) => tile.token === answer[index])) {
+    [tiles[0],tiles[tiles.length-1]] = [tiles[tiles.length-1],tiles[0]];
+  }
+  return tiles;
 }
 export function dueItems(progress: Progress, now = Date.now()): string[] {
   return Object.values(progress.items)

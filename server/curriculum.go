@@ -52,13 +52,21 @@ type Curriculum struct {
 	NPCWordIDs      map[string][]string
 	ActivityBoards  map[string]ActivityBoardScenario
 	ActivityPrices  map[string]int
+	MiniGameContent map[string]MiniGameContentBinding
 	// Generated introduction order and pacing settings; nil when not installed.
 	Syllabus *Syllabus
 }
 
 type Lexeme struct {
-	ID    string `json:"id"`
-	Level string `json:"level"`
+	ID           string   `json:"id"`
+	Level        string   `json:"level"`
+	Lemma        string   `json:"lemma"`
+	Article      string   `json:"article,omitempty"`
+	ArticleForm  string   `json:"articleForm,omitempty"`
+	Plural       string   `json:"plural,omitempty"`
+	Topic        string   `json:"topic"`
+	POS          string   `json:"pos"`
+	SurfaceForms []string `json:"surfaceForms,omitempty"`
 }
 
 type CourseUnit struct {
@@ -107,6 +115,15 @@ func loadCurriculum() (Curriculum, error) {
 	}
 	if merged.Syllabus, err = loadSyllabus(merged.Lexicon); err != nil {
 		return Curriculum{}, err
+	}
+	for _, source := range []struct{ file, kind string }{{"minigame_stories.json", "story"}, {"expedition_learning.json", "expedition"}} {
+		data, readErr := curriculumFiles.ReadFile(source.file)
+		if readErr != nil {
+			return Curriculum{}, fmt.Errorf("%s: %w", source.file, readErr)
+		}
+		if err := loadMiniGameExercises(&merged, data, source.kind); err != nil {
+			return Curriculum{}, fmt.Errorf("%s: %w", source.file, err)
+		}
 	}
 	return merged, nil
 }

@@ -2,6 +2,7 @@ import type { Level } from './content';
 import type { MapId, MapPosition, WorldMapSpec, WorldObjectSpec } from './maps';
 import type { PlacedScenerySpec, SceneryAsset } from './placed-scenery';
 import type { ResidentSpec } from './world-life';
+import { seededShuffle } from './game-shuffle.ts';
 
 export const expeditionIds = ['saffroncourt', 'rainmarket', 'windplain', 'riverweave', 'terracielo', 'sunpatch', 'kigalights', 'cedarbay', 'seoulsteps', 'dunegarden'] as const;
 export type ExpeditionId = typeof expeditionIds[number];
@@ -11,6 +12,10 @@ export interface ExpeditionChoice { text: string; correct: boolean; response: st
 export interface ExpeditionEncounter {
   id: string; title: string; prompt: string; german: string; translation: string;
   choices: readonly ExpeditionChoice[]; languageFocus: string; difficulty: Level; gameKind: ExpeditionGameKind;
+}
+/** Shuffle presentation only: the server and saved outcomes use canonical indices. */
+export function shuffledExpeditionChoices(encounter: ExpeditionEncounter, seed: string): {choice:ExpeditionChoice;index:number}[] {
+  return seededShuffle(encounter.choices.map((choice,index) => ({choice,index})), `${seed}:${encounter.id}`);
 }
 export interface ExpeditionNpc {
   id: string; name: string; role: string; artVariant: number;
@@ -128,7 +133,7 @@ const seeds: readonly RegionSeed[] = [
       ['trailer','Bat’s departure inspection','instrument','The trailer checklist connects an apparently small repair to everyone’s departure plans.','Bremsen prüfen, Ladung sichern, dann fahren.','Check brakes, secure load, then drive.','Prüfen, sichern, fahren.','Fahren, prüfen, sichern.','sequence'],
       ['radio','The shared radio','instrument','A radio report has a timestamp so that residents can distinguish the newest plan from an old one.','Diese Nachricht ist von heute Morgen. Die alte gilt nicht mehr.','This message is from this morning. The old one no longer applies.','Wir folgen der neuen Nachricht.','Wir folgen immer der ältesten Nachricht.','memory'],
       ['kitchen','Oyun’s kitchen boxes','parcel','Kitchen labels preserve the order of a shared meal and the move that follows it.','Küche erst nach dem Mittagessen einpacken.','Pack the kitchen only after lunch.','Zuerst essen wir gemeinsam.','Wir packen die Küche vor dem Kochen ein.','sequence'],
-      ['hill-map','Nomin’s fixed landmark','noticeboard','A map uses a hill and two permanent stones instead of a tent that will move tomorrow.','Zwischen den Steinen, südlich vom Hügel.','Between the stones, south of the hill.','Ich suche südlich vom Hügel.','Ich suche nördlich vom Hügel.','directions'],
+      ['hill-map','Nomin’s fixed landmark','noticeboard','A map uses a hill and two permanent stones instead of a tent that will move tomorrow.','Zwischen den Steinen, südlich vom Hügel.','Between the stones, south of the hill.','Ich suche zwischen den Steinen südlich vom Hügel.','Ich suche vor den Steinen nördlich vom Hügel.','directions'],
       ['books','Tuya’s sketchbook crate','parcel','A carefully packed drawing box waits beside tools that must be loaded below it.','Leicht und zerbrechlich. Nicht unter schwere Kisten stellen.','Light and fragile. Do not put under heavy crates.','Diese Kiste steht oben.','Diese Kiste kommt unter die Werkzeuge.','trade'],
       ['solar','The charger agreement','instrument','A shared solar charger has different borrowing windows for the mechanic and radio organizer.','Bat bis zwölf, Erdene ab zwölf.','Bat until twelve, Erdene from twelve.','Um eins kann Erdene laden.','Um eins hat Bat Vorrang bis morgen.','memory'],
       ['water','The well roster','fountain','A roster helps visitors find the person responsible for today’s water containers.','Heute füllt Ariun die Kanister, morgen übernimmt Nomin.','Today Ariun fills the canisters, tomorrow Nomin takes over.','Heute frage ich Ariun.','Heute frage ich ausschließlich Nomin.','dialogue'],

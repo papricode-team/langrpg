@@ -1,0 +1,725 @@
+{
+  "version": 1,
+  "encounters": {
+    "saffroncourt-encounter-salma": {
+      "targetWordId": "hinter-prep",
+      "rationale": "Behind the blue gate contrasts with in front of it."
+    },
+    "saffroncourt-encounter-youssef": {
+      "targetWordId": "fertig-adj",
+      "rationale": "The bicycle is ready, rather than being offered for sale."
+    },
+    "saffroncourt-encounter-amina": {
+      "targetWordId": "bevor-conj",
+      "rationale": "Permission must be requested before taking a shared plant."
+    },
+    "saffroncourt-encounter-idriss": {
+      "targetWordId": "nicht-adv",
+      "rationale": "The key is available but the address is explicitly missing."
+    },
+    "saffroncourt-encounter-leila": {
+      "targetWordId": "zuerst-adv",
+      "rationale": "Salma is the first stop; the competing reply reverses the order."
+    },
+    "saffroncourt-encounter-karim": {
+      "targetWordId": "reparieren-verb",
+      "rationale": "Karim repaired the pump while Amina paid; keep the past actions attached to their actors."
+    },
+    "saffroncourt-encounter-nour": {
+      "targetWordId": "links-adv",
+      "rationale": "The real door is left; waiting at the invented door fails the direction."
+    },
+    "saffroncourt-encounter-sami": {
+      "targetWordId": "fehlen-verb",
+      "rationale": "Find the missing street rather than denying ownership of the plan."
+    },
+    "saffroncourt-encounter-gate": {
+      "targetWordId": "tor-noun",
+      "rationale": "Deliver through the gate rather than through the closed window."
+    },
+    "saffroncourt-encounter-pump": {
+      "targetWordId": "sparsam-adv",
+      "rationale": "Use only needed water rather than leaving it running."
+    },
+    "saffroncourt-encounter-bench": {
+      "targetWordId": "giessen-verb",
+      "rationale": "The watering duties belong to the named gardeners; do not swap their assigned times."
+    },
+    "saffroncourt-encounter-parcel": {
+      "targetWordId": "fuer-prep",
+      "rationale": "The parcel is for Salma and explicitly not for Sami."
+    },
+    "saffroncourt-encounter-bicycle": {
+      "targetWordId": "abholen-verb",
+      "rationale": "Collection is Leila's task; repairing and collecting are different actions."
+    },
+    "saffroncourt-encounter-tea-table": {
+      "targetWordId": "fehlen-verb",
+      "rationale": "A cup is missing, so adding one differs from removing two."
+    },
+    "saffroncourt-encounter-sound-map": {
+      "targetWordId": "links-adv",
+      "rationale": "The first direction is left, followed by right, rather than the reversed turns."
+    },
+    "saffroncourt-encounter-seed-box": {
+      "targetWordId": "anderer-adj",
+      "rationale": "Take one bag and leave another; taking the whole box breaks the exchange."
+    },
+    "saffroncourt-encounter-key-hook": {
+      "targetWordId": "bis-conj",
+      "rationale": "The loan lasts until tomorrow, rather than permanently."
+    },
+    "saffroncourt-encounter-roof-sign": {
+      "targetWordId": "vorher-adv",
+      "rationale": "Ask first before entering the rooftop garden."
+    },
+    "rainmarket-encounter-haru": {
+      "targetWordId": "beenden-verb",
+      "rationale": "Music must end at ten rather than continue until three."
+    },
+    "rainmarket-encounter-aiko": {
+      "targetWordId": "hinten-adv",
+      "rationale": "Collection is at the back entrance, not the closed front."
+    },
+    "rainmarket-encounter-jun": {
+      "targetWordId": "halb-adv",
+      "rationale": "Half past seven is available before the nine o'clock shift; ten is too late."
+    },
+    "rainmarket-encounter-mei": {
+      "targetWordId": "regen-noun",
+      "rationale": "Rain requires a covered location rather than exposed equipment."
+    },
+    "rainmarket-encounter-ren": {
+      "targetWordId": "zurueckgeben-verb",
+      "rationale": "The borrowed cable must be returned rather than treated as a gift."
+    },
+    "rainmarket-encounter-sora": {
+      "targetWordId": "falsch-adj",
+      "rationale": "The remaining fault is the displayed time, not the working screen."
+    },
+    "rainmarket-encounter-ken": {
+      "targetWordId": "trotzdem-adv",
+      "rationale": "A usable main road remains despite the closed short alley."
+    },
+    "rainmarket-encounter-yui": {
+      "targetWordId": "eingang-noun",
+      "rationale": "Find the additional entrance instead of declaring collection impossible."
+    },
+    "rainmarket-encounter-side-door": {
+      "targetWordId": "ab-prep",
+      "rationale": "Tomorrow's sale beginning at nine differs from tonight's limited collection window."
+    },
+    "rainmarket-encounter-event-board": {
+      "targetWordId": "nur-adv",
+      "rationale": "After ten only cleanup is allowed; music cannot continue during it."
+    },
+    "rainmarket-encounter-umbrella": {
+      "targetWordId": "zurueckbringen-verb",
+      "rationale": "Return the umbrella rather than discard it after rain."
+    },
+    "rainmarket-encounter-display": {
+      "targetWordId": "einstellen-verb",
+      "rationale": "Set the clock after repairing the device; changing its color does not correct time."
+    },
+    "rainmarket-encounter-bicycle": {
+      "targetWordId": "bis-conj",
+      "rationale": "The alley closure lasts until tomorrow, requiring today's alternative route."
+    },
+    "rainmarket-encounter-rehearsal": {
+      "targetWordId": "leihen-verb",
+      "rationale": "A loan requires return to Sora, not resale of the cable."
+    },
+    "rainmarket-encounter-meal-box": {
+      "targetWordId": "nicht-adv",
+      "rationale": "The reserved meal must not be sold to another guest."
+    },
+    "rainmarket-encounter-rain-bell": {
+      "targetWordId": "unter-prep",
+      "rationale": "The gathering moves under the roof in rain, rather than being canceled."
+    },
+    "rainmarket-encounter-quiet-stairs": {
+      "targetWordId": "leise-adj",
+      "rationale": "Voices must be quiet after ten rather than as loud as during daytime."
+    },
+    "rainmarket-encounter-invitation": {
+      "targetWordId": "bevor-conj",
+      "rationale": "Add location and ending time before printing, not afterward."
+    },
+    "windplain-encounter-sarnai": {
+      "targetWordId": "alt-adj",
+      "rationale": "Today's visitor still uses the old camp location, not the new one."
+    },
+    "windplain-encounter-bat": {
+      "targetWordId": "erst-adv",
+      "rationale": "Departure is possible only after inspection, not without inspection."
+    },
+    "windplain-encounter-tuya": {
+      "targetWordId": "aktuell-adj",
+      "rationale": "Check whether the written address is still current; an old note is not permanent proof."
+    },
+    "windplain-encounter-erdene": {
+      "targetWordId": "vor-prep",
+      "rationale": "The message is needed before departure, not afterward."
+    },
+    "windplain-encounter-nomin": {
+      "targetWordId": "bleiben-verb",
+      "rationale": "The hill remains fixed while the tents change their place."
+    },
+    "windplain-encounter-munkh": {
+      "targetWordId": "trocken-adj",
+      "rationale": "Compare dry and short routes; the shortest route is not automatically best."
+    },
+    "windplain-encounter-oyun": {
+      "targetWordId": "dann-adv",
+      "rationale": "Eat first, then pack the kitchen rather than packing away the meal equipment first."
+    },
+    "windplain-encounter-ariun": {
+      "targetWordId": "leicht-adj",
+      "rationale": "Put the light box above rather than heavy tools on the books."
+    },
+    "windplain-encounter-address": {
+      "targetWordId": "ab-prep",
+      "rationale": "The new address applies from tomorrow; today's visit remains at the well."
+    },
+    "windplain-encounter-trailer": {
+      "targetWordId": "dann-adv",
+      "rationale": "Inspection and securing the load precede driving."
+    },
+    "windplain-encounter-radio": {
+      "targetWordId": "nicht-adv",
+      "rationale": "The old message is explicitly no longer valid."
+    },
+    "windplain-encounter-kitchen": {
+      "targetWordId": "nach-prep",
+      "rationale": "Packing the kitchen follows lunch rather than preceding cooking."
+    },
+    "windplain-encounter-hill-map": {
+      "targetWordId": "zwischen-prep",
+      "rationale": "Search between the stones; the alternative places the search in front of them."
+    },
+    "windplain-encounter-books": {
+      "targetWordId": "unter-prep",
+      "rationale": "Do not put the fragile box under heavy objects."
+    },
+    "windplain-encounter-solar": {
+      "targetWordId": "bis-conj",
+      "rationale": "Bat's charging window ends at noon, when Erdene's begins."
+    },
+    "windplain-encounter-water": {
+      "targetWordId": "heute-adv",
+      "rationale": "Today's water contact is Ariun; Nomin takes over tomorrow."
+    },
+    "windplain-encounter-weather": {
+      "targetWordId": "trocken-adj",
+      "rationale": "The loaded wagon needs the dry route rather than the wet shortcut."
+    },
+    "windplain-encounter-arrival": {
+      "targetWordId": "heute-adv",
+      "rationale": "Today's visit is at the old camp; the new place is tomorrow's address."
+    },
+    "riverweave-encounter-linh": {
+      "targetWordId": "zehn-num",
+      "rationale": "Ten available spaces cannot carry the twelve ordered crates; two remain."
+    },
+    "riverweave-encounter-mai": {
+      "targetWordId": "zuerst-adv",
+      "rationale": "Cook rice first rather than waiting for the delayed vegetables."
+    },
+    "riverweave-encounter-phuc": {
+      "targetWordId": "fertig-adj",
+      "rationale": "The order is ready; only the boat's meeting point has changed."
+    },
+    "riverweave-encounter-bao": {
+      "targetWordId": "reparieren-verb",
+      "rationale": "The middle landing is under repair, so loading uses the alternative landing."
+    },
+    "riverweave-encounter-trang": {
+      "targetWordId": "spaeter-adv",
+      "rationale": "Rehearsal begins later to allow eating beforehand, not earlier."
+    },
+    "riverweave-encounter-huy": {
+      "targetWordId": "leihen-verb",
+      "rationale": "The folder was lent by Chi, not transferred to the group."
+    },
+    "riverweave-encounter-chi": {
+      "targetWordId": "nur-adv",
+      "rationale": "The new arrow is valid only today, rather than permanently."
+    },
+    "riverweave-encounter-an": {
+      "targetWordId": "grund-noun",
+      "rationale": "The notice explains the reason for the changed landing instead of concealing the meeting point."
+    },
+    "riverweave-encounter-landing": {
+      "targetWordId": "wegen-prep",
+      "rationale": "Repair is the reason for changing the landing."
+    },
+    "riverweave-encounter-order": {
+      "targetWordId": "zwoelf-num",
+      "rationale": "Twelve ordered crates minus ten spaces leaves two, not one."
+    },
+    "riverweave-encounter-rice": {
+      "targetWordId": "zuerst-adv",
+      "rationale": "Rice precedes the later vegetables, not the other way around."
+    },
+    "riverweave-encounter-receipts": {
+      "targetWordId": "klein-adj",
+      "rationale": "The boat is too small, so changing only the landing cannot solve the load."
+    },
+    "riverweave-encounter-repair": {
+      "targetWordId": "nach-prep",
+      "rationale": "Use the landing after repair, not during it."
+    },
+    "riverweave-encounter-folder": {
+      "targetWordId": "zurueckgeben-verb",
+      "rationale": "Return the folder after rehearsal instead of selling it."
+    },
+    "riverweave-encounter-rehearsal": {
+      "targetWordId": "statt-prep",
+      "rationale": "Seven replaces six for the meeting; it does not create two starts."
+    },
+    "riverweave-encounter-market-scale": {
+      "targetWordId": "zusammen-adv",
+      "rationale": "Eight kilos is the combined weight, not the weight of each crate."
+    },
+    "riverweave-encounter-boat-bell": {
+      "targetWordId": "nach-prep",
+      "rationale": "Collection follows unloading rather than preceding arrival."
+    },
+    "riverweave-encounter-garden": {
+      "targetWordId": "stattdessen-adv",
+      "rationale": "Vegetables replace unavailable herbs, requiring an agreed substitution."
+    },
+    "terracielo-encounter-rosa": {
+      "targetWordId": "hell-adj",
+      "rationale": "Lighten the blue shade rather than increase the cloth's size."
+    },
+    "terracielo-encounter-mateo": {
+      "targetWordId": "nur-adv",
+      "rationale": "The second sample was only a trial, not a confirmed commission."
+    },
+    "terracielo-encounter-ana": {
+      "targetWordId": "schmal-adj",
+      "rationale": "Narrow the border while retaining the pattern."
+    },
+    "terracielo-encounter-pilar": {
+      "targetWordId": "vereinbaren-verb",
+      "rationale": "Agree on a revised deadline before promising delivery."
+    },
+    "terracielo-encounter-diego": {
+      "targetWordId": "lang-adv",
+      "rationale": "The longer open route is usable while the shorter staircase is closed."
+    },
+    "terracielo-encounter-elena": {
+      "targetWordId": "bis-conj",
+      "rationale": "Borrowed tools may be used until Friday, then must return."
+    },
+    "terracielo-encounter-tomas": {
+      "targetWordId": "pruefen-verb",
+      "rationale": "The screws were checked in response to a report; the bench was not called new."
+    },
+    "terracielo-encounter-luz": {
+      "targetWordId": "treppe-noun",
+      "rationale": "Two staircases lie between the seemingly near points, so picture distance does not imply direct access."
+    },
+    "terracielo-encounter-samples": {
+      "targetWordId": "bestaetigen-verb",
+      "rationale": "Only the first sample is confirmed; comparison does not approve the second."
+    },
+    "terracielo-encounter-commission": {
+      "targetWordId": "bleiben-verb",
+      "rationale": "The approved pattern stays while border width and blue shade change."
+    },
+    "terracielo-encounter-delivery": {
+      "targetWordId": "statt-prep",
+      "rationale": "Friday replaces Wednesday rather than leaving the original delivery date in effect."
+    },
+    "terracielo-encounter-stairs": {
+      "targetWordId": "unterer-adj",
+      "rationale": "The lower staircase is closed; use the alternative terrace route."
+    },
+    "terracielo-encounter-tools": {
+      "targetWordId": "bis-conj",
+      "rationale": "The tools are a loan until Friday; keeping favorites would make the return incomplete."
+    },
+    "terracielo-encounter-bench": {
+      "targetWordId": "pruefen-verb",
+      "rationale": "The reported problem was checked before the bench became usable."
+    },
+    "terracielo-encounter-view-map": {
+      "targetWordId": "zwischen-prep",
+      "rationale": "Show the two stairs between the landmarks rather than erase the height differences."
+    },
+    "terracielo-encounter-class-invite": {
+      "targetWordId": "ohne-prep",
+      "rationale": "Participation is possible without owning tools, rather than excluded by their absence."
+    },
+    "terracielo-encounter-garden-plan": {
+      "targetWordId": "klasse-noun",
+      "rationale": "The class plants while Elena explains and Tomas demonstrates; one person does not do every task."
+    },
+    "terracielo-encounter-receipt": {
+      "targetWordId": "nach-prep",
+      "rationale": "The remaining payment follows confirmed delivery, not the deposit alone."
+    },
+    "sunpatch-encounter-ines": {
+      "targetWordId": "bevor-conj",
+      "rationale": "Collect ideas before painting, rather than requesting them afterward."
+    },
+    "sunpatch-encounter-pablo": {
+      "targetWordId": "frei-adj",
+      "rationale": "Keep the entrance unobstructed while painting the wall."
+    },
+    "sunpatch-encounter-carmen": {
+      "targetWordId": "kuemmern-verb",
+      "rationale": "Carmen handles food and Nico tables; responsibilities are distributed."
+    },
+    "sunpatch-encounter-nico": {
+      "targetWordId": "nach-prep",
+      "rationale": "Use the repaired table after the glue dries, not immediately."
+    },
+    "sunpatch-encounter-alma": {
+      "targetWordId": "aufnehmen-verb",
+      "rationale": "Recording requires the person's agreement instead of being automatic."
+    },
+    "sunpatch-encounter-diego": {
+      "targetWordId": "kabel-noun",
+      "rationale": "The faulty cable must be checked; the microphone already works."
+    },
+    "sunpatch-encounter-luz": {
+      "targetWordId": "dafuer-adv",
+      "rationale": "Repair is given in exchange for the paper, rather than a lamp sale."
+    },
+    "sunpatch-encounter-valeria": {
+      "targetWordId": "beide-pron",
+      "rationale": "Both compatible proposals belong in the plan rather than being discarded."
+    },
+    "sunpatch-encounter-mural": {
+      "targetWordId": "frei-adj",
+      "rationale": "The door must remain usable while motifs connect on its sides."
+    },
+    "sunpatch-encounter-ideas": {
+      "targetWordId": "dann-adv",
+      "rationale": "Collect and select ideas before painting."
+    },
+    "sunpatch-encounter-table": {
+      "targetWordId": "bis-conj",
+      "rationale": "Drying lasts until tomorrow, so today is too soon for heavy loads."
+    },
+    "sunpatch-encounter-print": {
+      "targetWordId": "bestaetigen-verb",
+      "rationale": "Confirm the time before printing instead of printing an estimate."
+    },
+    "sunpatch-encounter-recording": {
+      "targetWordId": "freiwillig-adj",
+      "rationale": "Recording is voluntary, not implied by attendance."
+    },
+    "sunpatch-encounter-cable": {
+      "targetWordId": "pruefen-verb",
+      "rationale": "Test the cable before replacing a functioning sound system."
+    },
+    "sunpatch-encounter-paint": {
+      "targetWordId": "blau-adj",
+      "rationale": "Blue is the two-part larger share, not white."
+    },
+    "sunpatch-encounter-exchange": {
+      "targetWordId": "gegen-prep",
+      "rationale": "Paper is exchanged for lamp repair; both sides contribute."
+    },
+    "sunpatch-encounter-meal": {
+      "targetWordId": "alle-adj",
+      "rationale": "Cleanup belongs to everyone, not only the two food/table hosts."
+    },
+    "sunpatch-encounter-game-wall": {
+      "targetWordId": "neben-prep",
+      "rationale": "The ladder stands beside the brush rather than beside the microphone."
+    },
+    "kigalights-encounter-aline": {
+      "targetWordId": "damit-adv",
+      "rationale": "The delay serves the purpose of including late bus passengers rather than excluding them."
+    },
+    "kigalights-encounter-eric": {
+      "targetWordId": "zuerst-adv",
+      "rationale": "Josiane sees the film preview first, before public release."
+    },
+    "kigalights-encounter-chantal": {
+      "targetWordId": "aenderung-noun",
+      "rationale": "The old announcement needs a clear change notice rather than a contradictory addition."
+    },
+    "kigalights-encounter-patrick": {
+      "targetWordId": "ohne-prep",
+      "rationale": "The accessible route has no steps; the shorter staircase does not meet that condition."
+    },
+    "kigalights-encounter-grace": {
+      "targetWordId": "wenn-conj",
+      "rationale": "Borrowing is conditional on charging the battery before return."
+    },
+    "kigalights-encounter-samuel": {
+      "targetWordId": "pruefen-verb",
+      "rationale": "The battery has been checked, rather than remaining unknown."
+    },
+    "kigalights-encounter-diane": {
+      "targetWordId": "verschieden-adj",
+      "rationale": "Similar-looking cables have different functions; color alone cannot determine their connections."
+    },
+    "kigalights-encounter-josiane": {
+      "targetWordId": "gemeinsam-adv",
+      "rationale": "The neighbors care for the garden together rather than one person doing all of it."
+    },
+    "kigalights-encounter-screening": {
+      "targetWordId": "statt-prep",
+      "rationale": "Twenty replaces nineteen as the start, making the screening later."
+    },
+    "kigalights-encounter-ramp": {
+      "targetWordId": "ohne-prep",
+      "rationale": "The requested route is without steps rather than the staircase."
+    },
+    "kigalights-encounter-battery": {
+      "targetWordId": "danach-adv",
+      "rationale": "Charging follows use and precedes tomorrow's return."
+    },
+    "kigalights-encounter-preview": {
+      "targetWordId": "vor-prep",
+      "rationale": "Show the preview before publication rather than after it."
+    },
+    "kigalights-encounter-cables": {
+      "targetWordId": "kabel-noun",
+      "rationale": "Connect the picture and charging cables by their labels and functions rather than their colors."
+    },
+    "kigalights-encounter-garden": {
+      "targetWordId": "und-conj",
+      "rationale": "Josiane and the neighborhood both contribute; crediting only one person omits the second contributor."
+    },
+    "kigalights-encounter-seating": {
+      "targetWordId": "frei-adj",
+      "rationale": "Keep the central aisle clear instead of occupying it with every bench."
+    },
+    "kigalights-encounter-bus": {
+      "targetWordId": "bestaetigen-verb",
+      "rationale": "The confirmed arrival replaces the earlier estimate."
+    },
+    "kigalights-encounter-repair-desk": {
+      "targetWordId": "beschreiben-verb",
+      "rationale": "Describe the problem before making a repair appointment."
+    },
+    "kigalights-encounter-signal": {
+      "targetWordId": "warten-verb",
+      "rationale": "Yellow means wait rather than enter immediately."
+    },
+    "cedarbay-encounter-meera": {
+      "targetWordId": "statt-prep",
+      "rationale": "Rain changes the location to the reading room instead of the garden."
+    },
+    "cedarbay-encounter-ravi": {
+      "targetWordId": "nach-prep",
+      "rationale": "The question phase follows reading instead of preceding it."
+    },
+    "cedarbay-encounter-anjali": {
+      "targetWordId": "zurueckbringen-verb",
+      "rationale": "Return the borrowed lamp in a charged condition rather than keep it."
+    },
+    "cedarbay-encounter-arun": {
+      "targetWordId": "rueckfahrt-noun",
+      "rationale": "Plants travel on the return journey, not the outbound guest trip."
+    },
+    "cedarbay-encounter-dev": {
+      "targetWordId": "fuenf-num",
+      "rationale": "Five prepared plants minus three requested leaves two extra."
+    },
+    "cedarbay-encounter-latha": {
+      "targetWordId": "kueche-noun",
+      "rationale": "The herbs are for kitchen use rather than decoration."
+    },
+    "cedarbay-encounter-farah": {
+      "targetWordId": "vor-prep",
+      "rationale": "Guests must return before the last departure, not think about it afterward."
+    },
+    "cedarbay-encounter-nila": {
+      "targetWordId": "regen-noun",
+      "rationale": "Rain changes the reading location; the weather does not leave it unchanged."
+    },
+    "cedarbay-encounter-reading": {
+      "targetWordId": "regen-noun",
+      "rationale": "Rain selects the indoor reading room, not a delayed garden session."
+    },
+    "cedarbay-encounter-lamp": {
+      "targetWordId": "zurueckgeben-verb",
+      "rationale": "Return the lamp already charged, rather than charging after its return."
+    },
+    "cedarbay-encounter-boat": {
+      "targetWordId": "zurueck-adv",
+      "rationale": "Plants belong on the return leg rather than displacing the outbound guests."
+    },
+    "cedarbay-encounter-plants": {
+      "targetWordId": "drei-num",
+      "rationale": "Three ordered out of five prepared leaves two rather than requiring three more."
+    },
+    "cedarbay-encounter-herbs": {
+      "targetWordId": "nicht-adv",
+      "rationale": "The kitchen herbs explicitly must not be used as decoration."
+    },
+    "cedarbay-encounter-questions": {
+      "targetWordId": "nach-prep",
+      "rationale": "Collect questions for after reading rather than interrupt each sentence."
+    },
+    "cedarbay-encounter-last-trip": {
+      "targetWordId": "vorher-adv",
+      "rationale": "Be at the landing ten minutes before departure, rather than still traveling then."
+    },
+    "cedarbay-encounter-repair": {
+      "targetWordId": "vor-prep",
+      "rationale": "Charging must precede switching on, even after repair."
+    },
+    "cedarbay-encounter-bridge": {
+      "targetWordId": "erst-adv",
+      "rationale": "Pedestrians cross first; the transport wagon waits its turn."
+    },
+    "cedarbay-encounter-books": {
+      "targetWordId": "oder-conj",
+      "rationale": "Loan and exchange are alternative agreements with different return obligations."
+    },
+    "seoulsteps-encounter-minji": {
+      "targetWordId": "bis-conj",
+      "rationale": "Laundry retains the space until six, so table setup must wait."
+    },
+    "seoulsteps-encounter-jisoo": {
+      "targetWordId": "nachmittag-noun",
+      "rationale": "The surface remains in use during the afternoon rather than free all day."
+    },
+    "seoulsteps-encounter-hana": {
+      "targetWordId": "wenn-conj",
+      "rationale": "A changed rehearsal time permits shared use after discussion, not cancellation without consent."
+    },
+    "seoulsteps-encounter-soo": {
+      "targetWordId": "solange-conj",
+      "rationale": "The earlier rehearsal depends on Eun agreeing to the new time."
+    },
+    "seoulsteps-encounter-eun": {
+      "targetWordId": "danach-adv",
+      "rationale": "Rehearsal follows the quiet recording hour rather than happening simultaneously."
+    },
+    "seoulsteps-encounter-dae": {
+      "targetWordId": "mehrere-pron",
+      "rationale": "Several households use the terrace, not a sole decision-maker."
+    },
+    "seoulsteps-encounter-joon": {
+      "targetWordId": "falsch-adj",
+      "rationale": "The house number is right but the entrance is wrong."
+    },
+    "seoulsteps-encounter-yuna": {
+      "targetWordId": "stockwerk-noun",
+      "rationale": "Add floor and entrance details instead of removing location information."
+    },
+    "seoulsteps-encounter-roof": {
+      "targetWordId": "ab-prep",
+      "rationale": "Tables start from six after the laundry allocation ends."
+    },
+    "seoulsteps-encounter-address": {
+      "targetWordId": "unterer-adj",
+      "rationale": "The lower entrance is excluded by the upper-entrance address."
+    },
+    "seoulsteps-encounter-sound": {
+      "targetWordId": "danach-adv",
+      "rationale": "Rehearsal starts after recording ends, rather than during it."
+    },
+    "seoulsteps-encounter-tables": {
+      "targetWordId": "vor-prep",
+      "rationale": "Confirm availability before setting up, not after occupying the roof."
+    },
+    "seoulsteps-encounter-garden": {
+      "targetWordId": "mittwoch-noun",
+      "rationale": "The Wednesday allocation names Jisoo rather than Hana."
+    },
+    "seoulsteps-encounter-jacket": {
+      "targetWordId": "ersetzen-verb",
+      "rationale": "Replacing the zipper repairs the existing jacket instead of buying a new whole jacket."
+    },
+    "seoulsteps-encounter-request": {
+      "targetWordId": "wenn-conj",
+      "rationale": "An earlier time is possible only if Eun agrees; possibility alone is not consent."
+    },
+    "seoulsteps-encounter-arrows": {
+      "targetWordId": "links-adv",
+      "rationale": "The route begins left and upward, then turns right, not the reversed descent."
+    },
+    "seoulsteps-encounter-interview": {
+      "targetWordId": "mehrere-pron",
+      "rationale": "Recognize the several households sharing care and use rather than crediting only the visible organizer."
+    },
+    "seoulsteps-encounter-clean-up": {
+      "targetWordId": "nach-prep",
+      "rationale": "After the gathering, clear the tables and release the route rather than leaving them permanently."
+    },
+    "dunegarden-encounter-maryam": {
+      "targetWordId": "bis-conj",
+      "rationale": "Salim's window ends at ten when Huda's begins, not tomorrow."
+    },
+    "dunegarden-encounter-salim": {
+      "targetWordId": "vorbei-adj",
+      "rationale": "The allocated window is over; a stuck gate does not extend ownership of the water."
+    },
+    "dunegarden-encounter-huda": {
+      "targetWordId": "zeit-noun",
+      "rationale": "The waiting time has been lost and needs replacement; dismissing that time denies the request."
+    },
+    "dunegarden-encounter-khalid": {
+      "targetWordId": "danach-adv",
+      "rationale": "The seal check follows the lever check; neither is a claim that repair is already proven."
+    },
+    "dunegarden-encounter-saif": {
+      "targetWordId": "vor-prep",
+      "rationale": "Compare the pre-repair photograph with a new post-repair one."
+    },
+    "dunegarden-encounter-noura": {
+      "targetWordId": "erklaeren-verb",
+      "rationale": "Explain the change and its reason rather than silently changing the clock."
+    },
+    "dunegarden-encounter-aisha": {
+      "targetWordId": "zurueckbringen-verb",
+      "rationale": "Return the four pots tomorrow instead of throwing away the plants."
+    },
+    "dunegarden-encounter-hamad": {
+      "targetWordId": "jetzt-adv",
+      "rationale": "The cloth is already secured, so the ladder can be released now."
+    },
+    "dunegarden-encounter-schedule": {
+      "targetWordId": "halb-adv",
+      "rationale": "Half past ten falls inside Huda's ten-to-eleven allocation, not Salim's earlier one."
+    },
+    "dunegarden-encounter-gate": {
+      "targetWordId": "bevor-conj",
+      "rationale": "Repair is required before the schedule can work again, rather than blaming Huda."
+    },
+    "dunegarden-encounter-compensation": {
+      "targetWordId": "stunde-noun",
+      "rationale": "Half an hour requires thirty minutes, not a quarter-hour replacement."
+    },
+    "dunegarden-encounter-repair": {
+      "targetWordId": "pruefen-verb",
+      "rationale": "Check both components and test the gate rather than merely claiming success."
+    },
+    "dunegarden-encounter-photos": {
+      "targetWordId": "nach-prep",
+      "rationale": "The right photograph is after repair; the two images are not future predictions."
+    },
+    "dunegarden-encounter-seedlings": {
+      "targetWordId": "vier-num",
+      "rationale": "Return four pots rather than one plant; preserve both quantity and object."
+    },
+    "dunegarden-encounter-shade": {
+      "targetWordId": "tuch-noun",
+      "rationale": "The cloth task is already complete, so the ladder is available rather than reserved for a future cloth task."
+    },
+    "dunegarden-encounter-change": {
+      "targetWordId": "wegen-prep",
+      "rationale": "Repair causes the new time; a new water order is explicitly excluded."
+    },
+    "dunegarden-encounter-well": {
+      "targetWordId": "niedrig-adj",
+      "rationale": "A lower water level requires comparing need with supply rather than raising every request."
+    },
+    "dunegarden-encounter-meeting": {
+      "targetWordId": "erst-adv",
+      "rationale": "Clarify the fault first and then agree on replacement time, rather than changing times without explanation."
+    }
+  }
+}

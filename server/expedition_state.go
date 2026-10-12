@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -34,6 +35,35 @@ type ExpeditionPlanState struct {
 	Order     []string       `json:"order"`
 	Completed bool           `json:"completed"`
 	Attempts  int            `json:"attempts"`
+}
+
+// Completed agreements predate these flexible timing fields. Keep the earned
+// route/order and annotate only the newly introduced field with its default;
+// unfinished drafts must still choose a time themselves.
+func migrateExpeditionPlans(plans map[string]ExpeditionPlanState) {
+	defaults := map[string]struct {
+		field string
+		value int
+	}{
+		"saffroncourt": {"arrival", 17},
+		"terracielo":   {"pickup", 15},
+		"sunpatch":     {"broadcast", 7},
+	}
+	for key, plan := range plans {
+		mapID, level, ok := strings.Cut(key, ":")
+		entry, known := defaults[mapID]
+		if !ok || !validLevel(level) || !known || !plan.Completed {
+			continue
+		}
+		if _, exists := plan.Values[entry.field]; exists {
+			continue
+		}
+		if plan.Values == nil {
+			plan.Values = map[string]int{}
+		}
+		plan.Values[entry.field] = entry.value
+		plans[key] = plan
+	}
 }
 
 func expeditionContent() (expeditionManifest, error) {

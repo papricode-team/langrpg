@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Expedition recall QA · Lantern Atlas</title></head>
+<body><p>Isolated development fixture. No player record is changed.</p><dialog class="dialog expedition-dialog" id="qa-dialog"><button type="button" class="dialog-close" id="qa-close" aria-label="Close">×</button><div class="expedition-encounter"><header class="expedition-encounter-heading"><div><div class="eyebrow">Saffron Court · A1</div><h2>Salma</h2><span>Repair cooperative organizer</span></div></header><div id="encounter-root"></div></div></dialog>
+<script type="module">
+import '../src/style.css';
+import '../src/expedition-games.css';
+import {expeditionRegions} from '../src/expeditions.ts';
+import {mountExpeditionEncounter} from '../src/expedition-encounter.ts';
+import {ExpeditionLearning,encounterLearning} from '../src/expedition-learning.ts';
+import expeditionLearningManifest from '../src/data/expedition-learning.json';
+import {createMiniGameHost} from '../src/minigames/host.ts';
+import {emptyProgress} from '../src/api.ts';
+if(import.meta.env.DEV){
+ const encounter=expeditionRegions[0].encounters[0],mapping=encounterLearning.get(encounter.id);
+ let progress={...emptyProgress(),intake:{version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:mapping.wordIds}};
+ const api={selfId:'expedition-qa',token:'isolated-fixture',async expose(){return {progress};},async request(path,row){if(path!=='/attempt')throw Error('Fixture only supports isolated answers');const exercise=expeditionLearningManifest.exercises.find(ex=>ex.id===row.exerciseId);progress={...progress,revision:progress.revision+1};return {attemptId:row.id,correct:exercise.answer===row.answer,xpAdded:0,duplicate:false,correctedAnswer:exercise.answer,reason:'',progress};}};
+ const onProgress=next=>{progress=next;};
+ const learning=new ExpeditionLearning({api,progress:()=>progress,onProgress});
+ const host=createMiniGameHost({api,gameId:'expedition-encounters',lexicon:[],exercises:[],progress:()=>progress,onProgress,onEnd:()=>{},playerName:'QA',silent:false,muted:false,reducedMotion:false,narration:()=>{}});
+ const controller=mountExpeditionEncounter(document.querySelector('#encounter-root'),encounter,{learning,progress:()=>progress,onProgress,saveStory:async()=>({progress}),speak:(text,path)=>host.speakText(text,path),stopSpeech:()=>host.audio.stop(),silent:false,previouslyAnswered:false});
+ const dialog=document.querySelector('#qa-dialog');dialog.showModal();const close=()=>{controller.destroy();host.destroy();dialog.close();};document.querySelector('#qa-close').addEventListener('click',close);dialog.addEventListener('cancel',event=>{event.preventDefault();close();});window.addEventListener('pagehide',close,{once:true});
+}
+</script></body></html>

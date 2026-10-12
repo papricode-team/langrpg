@@ -27,6 +27,8 @@ export interface WordMemory extends Omit<MemoryItem, 'itemId'> {
 export interface ExerciseEvidence extends ModeEvidence { lastAttemptAt: string; lastCorrectAt: string; }
 export interface AttemptEvidence {
   id: string; exerciseId: string; itemId: string; mode: LearningMode; correct: boolean; hinted: boolean;
+  miniGameId?: string; answerKind?: LexicalAnswerKind; contextExerciseId?: string;
+  contentId?: string; regionId?: string; level?: CourseLevel; selectedValue?: number;
   activityId?: ActivityId; runId?: string; at: string;
 }
 export interface ActivityProgress {
@@ -41,11 +43,18 @@ export interface Progress {
   items: Record<string, MemoryItem>;
   words: Record<string, WordMemory>; completedUnitIds: string[]; activities: Record<string, ActivityProgress>;
   exerciseStats: Record<string, ExerciseEvidence>; recentAttempts: Record<string, AttemptEvidence>;
+  miniGameStats?: Record<string, ModeEvidence>;
+  formStats?: Record<string, Partial<Record<LexicalAnswerKind, ModeEvidence>>>;
   intake?: IntakeState;
   story?: StoryState;
 }
 export interface AttemptResult {
   attemptId: string; correct: boolean; xpAdded: number; duplicate: boolean; correctedAnswer: string; reason: string; progress: Progress;
+}
+export type LexicalAnswerKind = 'lexeme' | 'article' | 'plural' | 'initial' | 'topic' | 'surface';
+export interface RetrievalMetrics {
+  graded: number; correct: number; unaided: number; creditedSeconds: number; perCreditedHour: number | null;
+  modalities: Partial<Record<LearningMode, ModeEvidence>>; miniGames: Record<string, ModeEvidence>;
 }
 export interface ActivityCompletionInput { id: string; activityId: ActivityId; level: CourseLevel; exerciseIds: string[]; attemptIds: string[]; }
 export interface CompletionResult { xpAdded: number; duplicate: boolean; progress: Progress; }
@@ -184,6 +193,7 @@ export class Api {
   saveStory(slot: string, name: string) { return this.request<StoryResult>('/story/save', { slot, name }); }
   loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }
   completeActivity(input: ActivityCompletionInput) { return this.request<ActivityCompletionResult>('/activity/complete', input); }
+  retrievals() { return this.request<RetrievalMetrics>('/retrievals'); }
   expose(input: ExposureInput) { return this.request<CompletionResult>('/exposure', input); }
   /** Credit up to two minutes of visible play; the server introduces any words the budget now allows. */
   heartbeat(id: string, seconds: number) { return this.request<{ progress: Progress; introduced: string[]; duplicate: boolean }>('/intake/heartbeat', { id, seconds }); }

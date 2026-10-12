@@ -2,7 +2,7 @@ import {residentActionLooks,type ResidentActionLook} from './resident-action-art
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
 export type ScenePolygon = readonly (readonly [number, number])[];
-export interface SceneAnchor extends ScenePoint { id: string; }
+export interface SceneAnchor extends ScenePoint { id: string; minigame?: string; }
 export const sceneSceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp', 'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
 export interface SceneScenery extends SceneAnchor {
   asset: typeof sceneSceneryAssets[number];

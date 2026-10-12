@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "atlas": {
+    "key": "minigame-actions",
+    "image": "/assets/minigames/actions.webp",
+    "data": "/assets/minigames/actions.json"
+  },
+  "backdrops": {
+    "workbench": "/assets/minigames/workbench.webp"
+  },
+  "frames": {
+    "action-fritz-pointing": {
+      "name": "action-fritz-pointing",
+      "subject": "fritz-pointing",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-fritz-pointing.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-fritz-pointing": {
+      "name": "portrait-fritz-pointing",
+      "subject": "fritz-pointing",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-fritz-pointing.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 0,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "action-otto-watch": {
+      "name": "action-otto-watch",
+      "subject": "otto-watch",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-otto-watch.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-otto-watch": {
+      "name": "portrait-otto-watch",
+      "subject": "otto-watch",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-otto-watch.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 256,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "action-voss-stamping": {
+      "name": "action-voss-stamping",
+      "subject": "voss-stamping",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-voss-stamping.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-voss-stamping": {
+      "name": "portrait-voss-stamping",
+      "subject": "voss-stamping",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-voss-stamping.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 512,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "action-lina-sorting": {
+      "name": "action-lina-sorting",
+      "subject": "lina-sorting",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-lina-sorting.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-lina-sorting": {
+      "name": "portrait-lina-sorting",
+      "subject": "lina-sorting",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-lina-sorting.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 768,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "action-ada-filing": {
+      "name": "action-ada-filing",
+      "subject": "ada-filing",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-ada-filing.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 1024,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-ada-filing": {
+      "name": "portrait-ada-filing",
+      "subject": "ada-filing",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-ada-filing.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 1024,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "action-greta-watering": {
+      "name": "action-greta-watering",
+      "subject": "greta-watering",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/action-greta-watering.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 1280,
+        "y": 0,
+        "w": 256,
+        "h": 384
+      }
+    },
+    "portrait-greta-watering": {
+      "name": "portrait-greta-watering",
+      "subject": "greta-watering",
+      "kind": "character",
+      "source": "art/source/minigames/scenes/action-poses.png",
+      "sheet": "action-poses",
+      "url": "/assets/minigames/sprites/portrait-greta-watering.webp",
+      "atlasKey": "minigame-actions",
+      "atlasFrame": {
+        "x": 1280,
+        "y": 384,
+        "w": 256,
+        "h": 256
+      }
+    }
+  },
+  "provenance": {
+    "tool": "Built-in image_gen",
+    "source": "art/source/minigames/scenes/action-poses.png",
+    "backdropSource": "art/source/minigames/scenes/workbench.png",
+    "prompts": [
+      "docs/prompts/minigames/action-poses.txt",
+      "docs/prompts/minigames/workbench.txt"
+    ],
+    "references": [
+      "art/source/characters-painted.png",
+      "web/public/assets/story-cast/inspector-portrait.webp"
+    ],
+    "worldRegistration": "unchanged; game-only action sprites"
+  }
+}

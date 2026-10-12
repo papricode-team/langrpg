@@ -83,3 +83,74 @@
 @keyframes expedition-place { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
 @media(max-width:640px) { .dialog.expedition-dialog:not(.interior-dialog) { width:calc(100vw - 16px); max-height:calc(100dvh - 16px); } }
 @media(prefers-reduced-motion:reduce) { .expedition-order-result li { animation:none; } }
+
+/* Places and resources live over the neighborhood painting; paper is reserved
+   for the spoken brief and evidence props. */
+.dialog.expedition-dialog:not(.interior-dialog){color:#eee6cf;background:linear-gradient(135deg,#132b25f5,#0c1e1bee);border:2px solid #b69859;box-shadow:0 24px 90px #071712aa}
+.dialog.expedition-dialog:not(.interior-dialog) h2,.expedition-game{color:#f4e6be}
+.dialog.expedition-dialog:not(.interior-dialog) .eyebrow{color:#d7b976}
+.dialog.expedition-dialog:not(.interior-dialog) .text-button,.dialog.expedition-dialog:not(.interior-dialog) .outline-button{color:#dfd6b8}
+.expedition-game{padding:30px;}
+.expedition-game button{min-width:44px;min-height:44px;touch-action:manipulation}
+.expedition-game button:focus-visible{outline:3px solid #f2ce79;outline-offset:3px}
+.expedition-game-heading>p,.expedition-glossary,.expedition-order>p{color:#bbcbbb}
+.expedition-levels button{background:#203e32;color:#e5deca;border-color:#ae935266}
+.expedition-levels button.selected{background:#456046;color:#fff3ce;border-color:#dbbd70}
+.expedition-levels>span{color:#bdcbb7}
+.expedition-brief{color:#314332;background:#f1e5c7;border-left:3px solid #ce9b48}
+.expedition-brief .icon-button{color:#314332;background:#ddcfaa;border-radius:50%}
+.expedition-workbench{padding:0;background:none;border:0}
+.expedition-region-board{padding:16px;border:2px solid #ae9352;border-radius:18px;background:linear-gradient(180deg,#12342855,#0c201999),var(--expedition-preview) center/cover;box-shadow:inset 0 0 50px #07171288;min-height:290px}
+.expedition-board-eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 25px;font-size:10px;letter-spacing:.14em;color:#fff0cb;text-shadow:0 2px 3px #071712}
+.expedition-board-eyebrow .icon{width:19px;height:19px}
+.expedition-plan-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-content:center}
+.expedition-placement{display:flex;align-items:center;gap:12px;min-width:0;min-height:94px;padding:13px;border:1px solid #e0c78977;border-radius:12px;background:linear-gradient(120deg,#102c25ed,#193529d9);color:#f3e8c5;box-shadow:0 7px 18px #06161055;text-align:left;cursor:pointer;backdrop-filter:blur(7px)}
+.expedition-placement.selected{border:2px solid #f4ce78;padding:12px;box-shadow:0 0 22px #ecc26844}
+.expedition-placement>.icon:first-child{color:#dbbd79;width:28px;height:28px;flex:none}
+.expedition-placement>.icon:last-child{width:16px;height:16px;margin-left:auto;flex:none}
+.expedition-placement span{display:flex;flex-direction:column;gap:6px;min-width:0}
+.expedition-placement small{font-size:11px;color:#d1d5ba}
+.expedition-placement strong{font:500 18px/1.2 Fraunces,serif}
+.expedition-placement em{font-size:10px;font-style:normal;color:#adbea7}
+.expedition-placement:disabled{opacity:1;cursor:default}
+.expedition-token-tray{margin-top:14px;padding:16px;background:#132d25d9;border:1px solid #ae935255;border-radius:14px}
+.expedition-token-tray h3{display:flex;gap:8px;align-items:center;margin:0;font:500 20px/1.2 Fraunces,serif;color:#f1e4bd}
+.expedition-token-tray h3 .icon{width:20px;height:20px}
+.expedition-token-tray>p{color:#bbcab8;font-size:12px;line-height:1.5;margin:8px 0 13px}
+.expedition-resource-tokens{display:flex;flex-wrap:wrap;gap:9px}
+.expedition-resource-token{display:flex;flex:1 1 100px;max-width:220px;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:88px;padding:12px;border:2px solid #bea15c66;border-radius:14px;background:linear-gradient(#3d563d,#233c2c);color:#f3e6c2;box-shadow:0 4px 0 #06171177;text-align:center;cursor:grab;transition:transform 120ms ease,border-color 120ms ease}
+.expedition-resource-token .icon{width:26px;height:26px;color:#dbbd76}
+.expedition-resource-token strong{font-size:13px;line-height:1.4}
+.expedition-resource-token small{font-size:10px;line-height:1.3;color:#c6d0b6}
+.expedition-resource-token.selected{border-color:#eed08c;background:linear-gradient(#536342,#344a30)}
+.expedition-resource-token:hover:not(:disabled){transform:translateY(-3px);border-color:#eed08c}
+.expedition-resource-token:active{cursor:grabbing}
+.expedition-resource-token:disabled{opacity:.65;cursor:default}
+.expedition-resource{color:#e4dfc6;background:#102a20;border-color:#ae935277}
+.expedition-order h3{color:#f2e4bd}
+.expedition-order-result{padding:10px;min-height:80px;border:1px dashed #bf9f6266;border-radius:12px;background:#0b231b99}
+.expedition-order-result li>button{color:#eae7c8;background:#294335;border-color:#ae935277}
+.expedition-order-result li>button>span{color:#f5e3b1;background:#536442}
+.expedition-order-result li>button>small,.expedition-order-empty{color:#bbccb5}
+.expedition-order-empty{border:0}
+.expedition-order-pieces button{color:#f0e5c0;background:#304b35;border-color:#ae935277;cursor:grab}
+.expedition-order-pieces button>.icon{width:21px;height:21px;color:#d9b978}
+.expedition-order-pieces button small{color:#beccb5}
+.expedition-order-pieces button:hover:not(:disabled){background:#41583b}
+.expedition-plan-feedback.retry{background:#493b2699;color:#f2dbb8;border-color:#d1a66788}
+.expedition-plan-feedback.good{background:#24482e99;color:#e6ebc5;border-color:#abc68077}
+.expedition-save-note,.expedition-translation p{color:#b4c4b0}
+.expedition-translation summary{color:#c2cead}
+.expedition-relationship{color:#d9ddc3;background:#284231aa}
+.expedition-encounter-choices button{color:#eee8cf;background:#294333;border-color:#ae935266}
+.expedition-encounter-choices button.chosen{background:#455d3b;border-color:#d7be7b}
+.expedition-encounter-result{color:#e4e8c9;background:#2a4331}
+.expedition-stat-row>span,.expedition-cast button{color:#e7e4c8;background:#2c4332;border-color:#ae935266}
+.expedition-cast small{color:#bdcbb6}
+@media(max-width:640px){.expedition-game{padding:24px 16px}.expedition-region-board{padding:11px;min-height:250px}.expedition-board-eyebrow{margin-bottom:15px}.expedition-plan-fields{gap:10px}.expedition-placement{padding:10px;min-height:90px;gap:6px}.expedition-placement.selected{padding:9px}.expedition-placement strong{font-size:15px}.expedition-placement>.icon:first-child{width:21px;height:21px}.expedition-placement>.icon:last-child{display:none}.expedition-placement small{font-size:10px}.expedition-token-tray{padding:12px}.expedition-resource-token{flex-basis:85px;min-height:82px;padding:9px}.expedition-resource-token strong{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.expedition-resource-token{transition:none}.expedition-resource-token:hover:not(:disabled){transform:none}}
+.expedition-placement-prompt{font:500 17px/1.5 Fraunces,serif;color:#f0e3bd!important;border-top:1px solid #b99a5a55;padding-top:12px}
+.expedition-learning-state{font-size:12px;line-height:1.6;color:#d8d8ba;margin:14px 0}
+.expedition-encounter-learning button{min-width:44px;min-height:44px;touch-action:manipulation}
+.expedition-encounter-learning .expedition-levels{margin:14px 0}
+.expedition-encounter-learning .expedition-encounter-result:empty{display:none}

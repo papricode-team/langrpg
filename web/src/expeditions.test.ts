@@ -1,11 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { expeditionIds, expeditionLandPlots, expeditionLayouts, expeditionMaps, expeditionRegions, getExpedition, getExpeditionEncounter, getExpeditionNpc, isExpeditionMap } from './expeditions';
+import { expeditionIds, expeditionLandPlots, expeditionLayouts, expeditionMaps, expeditionRegions, getExpedition, getExpeditionEncounter, getExpeditionNpc, isExpeditionMap, shuffledExpeditionChoices } from './expeditions';
 import { maps, storyMaps } from './maps';
 import { getPlacedScenery, placedSceneryFootprints, sceneryAssets } from './placed-scenery';
 import { createWorldResidents } from './world-life';
 import { buildingEntrances } from './interiors';
 
 describe('ten culturally distinct exploration communities', () => {
+  it('varies encounter answer positions while preserving canonical server indices',()=>{
+    for(const encounter of expeditionRegions.flatMap(region=>region.encounters)) {
+      const positions=new Set<number>();
+      for(let retry=0;retry<30;retry++) {
+        const seed=`retry-${retry}`,choices=shuffledExpeditionChoices(encounter,seed);
+        expect(shuffledExpeditionChoices(encounter,seed)).toEqual(choices);
+        for(const entry of choices)expect(encounter.choices[entry.index]).toBe(entry.choice);
+        positions.add(choices.findIndex(entry=>entry.choice.correct));
+      }
+      expect(positions.size,encounter.id).toBe(2);
+    }
+  });
   it('adds ten places without changing the original three story arrivals', () => {
     expect(expeditionRegions).toHaveLength(10);
     expect(maps).toHaveLength(13);

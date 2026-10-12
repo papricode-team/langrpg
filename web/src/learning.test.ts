@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizedAnswer, answerMatches, gradeFeedback, sentenceTiles, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
+import { normalizedAnswer, answerMatches, gradeFeedback, sentenceTiles, shuffledSentenceTiles, dueItems, modeFor, practiceExercises, remainingQuestExercises, skipListeningExercises } from './learning';
 import { emptyProgress } from './api';
 import { quests } from './content';
 import gradingFixtures from '../../server/grading-fixtures.json';
@@ -93,6 +93,18 @@ describe('language answers', () => {
       expect(tiles.length).toBeGreaterThan(exercise.tokens!.length);
       expect(tiles.slice(exercise.tokens!.length).every(tile=>!exercise.tokens!.includes(tile))).toBe(true);
     }
+  });
+  it('varies sentence trays on retries while preserving every individual tile',()=>{
+    const exercise=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.mode==='sentence')!;
+    const canonical=sentenceTiles(exercise),layouts=new Set<string>();
+    for(let retry=0;retry<30;retry++) {
+      const seed=`session-${retry}`,tiles=shuffledSentenceTiles(exercise,seed);
+      expect(shuffledSentenceTiles(exercise,seed)).toEqual(tiles);
+      expect([...tiles].sort((a,b)=>a.i-b.i).map(tile=>tile.token)).toEqual(canonical);
+      expect(tiles.slice(0,exercise.tokens!.length).map(tile=>tile.token)).not.toEqual(exercise.tokens);
+      layouts.add(tiles.map(tile=>tile.i).join(','));
+    }
+    expect(layouts.size).toBeGreaterThan(1);
   });
   it('guides noun capitals while preserving formal Sie in authored story production',()=>{
     const exercise=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a2-apartment-exercise-6')!;

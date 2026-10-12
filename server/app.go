@@ -65,6 +65,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/preferences", a.updatePreferences)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)
+	mux.HandleFunc("GET /api/retrievals", a.retrievals)
 	mux.HandleFunc("POST /api/exposure", a.exposure)
 	mux.HandleFunc("POST /api/intake/heartbeat", a.heartbeat)
 	mux.HandleFunc("POST /api/quest/complete", a.completeQuest)
@@ -191,6 +192,10 @@ func validName(name string) bool {
 }
 
 func (a *App) allow(key string, limit int) bool {
+	return a.allowCount(key, limit, 1)
+}
+
+func (a *App) allowCount(key string, limit, count int) bool {
 	a.rateMu.Lock()
 	defer a.rateMu.Unlock()
 	now := time.Now()
@@ -209,7 +214,7 @@ func (a *App) allow(key string, limit int) bool {
 	if now.Sub(window.At) > time.Minute {
 		window = rateWindow{At: now}
 	}
-	window.Count++
+	window.Count += count
 	a.limits[key] = window
 	return window.Count <= limit
 }
@@ -318,23 +323,29 @@ func (a *App) progress(w http.ResponseWriter, r *http.Request) {
 }
 
 type AttemptInput struct {
-	ID             string          `json:"id"`
-	ItemID         string          `json:"itemId"`
-	ExerciseID     string          `json:"exerciseId"`
-	Answer         string          `json:"answer"`
-	Hinted         bool            `json:"hinted"`
-	Mode           string          `json:"mode"`
-	QuestID        string          `json:"questId,omitempty"`
-	ActivityID     string          `json:"activityId,omitempty"`
-	RunID          string          `json:"runId,omitempty"`
-	Level          string          `json:"level,omitempty"`
-	Rating         string          `json:"rating,omitempty"`
-	ResponseTimeMs int             `json:"responseTimeMs,omitempty"`
-	ScenarioID     string          `json:"scenarioId,omitempty"`
-	BoardState     json.RawMessage `json:"boardState,omitempty"`
-	SceneAttempt   bool            `json:"sceneAttempt,omitempty"`
-	GuidedChoice   bool            `json:"guidedChoice,omitempty"`
-	Preview        bool            `json:"preview,omitempty"`
+	ID                string          `json:"id"`
+	MiniGameID        string          `json:"miniGameId,omitempty"`
+	AnswerKind        string          `json:"answerKind,omitempty"`
+	ContextExerciseID string          `json:"contextExerciseId,omitempty"`
+	RegionID          string          `json:"regionId,omitempty"`
+	ContentID         string          `json:"contentId,omitempty"`
+	SelectedValue     *int            `json:"selectedValue,omitempty"`
+	ItemID            string          `json:"itemId"`
+	ExerciseID        string          `json:"exerciseId"`
+	Answer            string          `json:"answer"`
+	Hinted            bool            `json:"hinted"`
+	Mode              string          `json:"mode"`
+	QuestID           string          `json:"questId,omitempty"`
+	ActivityID        string          `json:"activityId,omitempty"`
+	RunID             string          `json:"runId,omitempty"`
+	Level             string          `json:"level,omitempty"`
+	Rating            string          `json:"rating,omitempty"`
+	ResponseTimeMs    int             `json:"responseTimeMs,omitempty"`
+	ScenarioID        string          `json:"scenarioId,omitempty"`
+	BoardState        json.RawMessage `json:"boardState,omitempty"`
+	SceneAttempt      bool            `json:"sceneAttempt,omitempty"`
+	GuidedChoice      bool            `json:"guidedChoice,omitempty"`
+	Preview           bool            `json:"preview,omitempty"`
 }
 
 // Opening A1 conversations offer authored replies to tap. They prove supported
@@ -345,175 +356,6 @@ func (a *App) isGuidedStoryGate(input AttemptInput) bool {
 	return input.GuidedChoice && input.SceneAttempt && input.Mode == "recognition" && input.Hinted &&
 		known && installed && exercise.Mode == "production" && input.ExerciseID == rule.GateExerciseID &&
 		a.curriculum.Items[exercise.ItemID].Level == "A1" && input.ActivityID == "" && input.RunID == ""
-}
-
-func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
-	hash, err := bearer(r)
-	if err != nil {
-		apiFailure(w, err)
-		return
-	}
-	if !a.allow("attempt:"+hash, 120) {
-		writeError(w, 429, "too many attempts; try again in a minute")
-		return
-	}
-	var input AttemptInput
-	if err = decodeJSON(w, r, &input); err != nil {
-		apiFailure(w, err)
-		return
-	}
-	if input.Preview && input.SceneAttempt {
-		writeError(w, 400, "story replies must be answered in their scene")
-		return
-	}
-	if !safeID.MatchString(input.ID) || len(input.Answer) > 1024 || strings.TrimSpace(input.Answer) == "" || !validMode(input.Mode) {
-		writeError(w, 400, "send a unique attempt ID, answer, and valid exercise mode")
-		return
-	}
-	if (input.Rating != "" && input.Rating != "hard" && input.Rating != "good" && input.Rating != "easy") || input.ResponseTimeMs < 0 || input.ResponseTimeMs > 600000 || ((input.ScenarioID != "" || len(input.BoardState) > 0) && input.ActivityID == "") {
-		writeError(w, 400, "send a valid recall rating, response time and mission context")
-		return
-	}
-	exercise, ok := a.curriculum.Exercises[input.ExerciseID]
-	guidedGate := a.isGuidedStoryGate(input)
-	if input.GuidedChoice && !guidedGate {
-		writeError(w, 400, "guided choices must be supported replies to an A1 conversation's current request")
-		return
-	}
-	transcriptFallback := exercise.Mode == "listening" && input.Mode == "recognition" && input.Hinted
-	missionRecognition := exercise.Mode == "production" && input.Mode == "recognition" && input.Hinted && input.ActivityID != "" && safeID.MatchString(input.RunID) && activityContains(input.ActivityID, a.curriculum.Items[exercise.ItemID].Level, exercise.ID)
-	if !ok || exercise.ItemID != input.ItemID || (exercise.Mode != input.Mode && !transcriptFallback && !missionRecognition && !guidedGate) {
-		writeError(w, 400, "exercise, item and mode do not match the curriculum")
-		return
-	}
-	if input.Level != "" && (!validLevel(input.Level) || a.curriculum.Items[exercise.ItemID].Level != input.Level) {
-		writeError(w, 400, "exercise does not belong to this level")
-		return
-	}
-	if input.ActivityID != "" || input.RunID != "" {
-		level := a.curriculum.Items[exercise.ItemID].Level
-		if !safeID.MatchString(input.RunID) || !activityContains(input.ActivityID, level, exercise.ID) {
-			writeError(w, 400, "activity run and exercise do not match a known mission")
-			return
-		}
-		// Board actions submit authored sentences rather than independent German
-		// output. They can establish comprehension, never unaided production.
-		if exercise.Mode == "production" {
-			input.Hinted = true
-		}
-	}
-	if input.QuestID != "" {
-		quest, ok := a.curriculum.Quests[input.QuestID]
-		if !ok || !contains(quest.RequiredItemIDs, input.ItemID) {
-			writeError(w, 400, "item does not belong to this quest")
-			return
-		}
-	}
-	if input.SceneAttempt {
-		rule, known := storyRule(input.QuestID)
-		gate := input.ExerciseID == rule.GateExerciseID && (input.Mode == "production" || guidedGate)
-		reply := contains(rule.ReplyExerciseIDs, input.ExerciseID) && input.Mode == "recognition"
-		if !known || (!gate && !reply) || input.ActivityID != "" {
-			writeError(w, 400, "the scene answer must match its authored German request")
-			return
-		}
-	}
-	boardCorrect, boardHandled, boardErr := a.curriculum.activityBoardGrade(input)
-	if boardErr != nil {
-		apiFailure(w, boardErr)
-		return
-	}
-	request, _ := json.Marshal(input)
-	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
-	defer cancel()
-	if input.Preview {
-		// Preview is read-only, including for accounts awaiting exposure
-		// migration. It supplies no answer, explanation, receipt or evidence.
-		if _, err := a.store.Get(ctx, hash); err != nil {
-			apiFailure(w, err)
-			return
-		}
-		correct := exercise.Grade(input.Answer)
-		if boardHandled {
-			correct = boardCorrect
-		}
-		writeJSON(w, 200, map[string]any{"attemptId": input.ID, "preview": true, "correct": correct})
-		return
-	}
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
-		if input.SceneAttempt {
-			check := a.requireStoryGate
-			if input.Mode == "recognition" && !guidedGate {
-				check = a.requireStoryReply
-			}
-			if err := check(account, input.QuestID); err != nil {
-				return Receipt{}, err
-			}
-		}
-		now := a.now().UTC()
-		migrateContextExposures(&account.Progress, a.curriculum, now)
-		migrateIntake(&account.Progress, a.curriculum.Syllabus)
-		// Pacing: a word drill needs its word restored. Phrase practice and the
-		// placement sample and story conversations stay open regardless of intake.
-		if err := a.requireWordIntroduced(exercise, &account.Progress); err != nil {
-			return Receipt{}, err
-		}
-		correct := exercise.Grade(input.Answer)
-		if boardHandled {
-			correct = boardCorrect
-		}
-		gradedInput := input
-		if input.SceneAttempt && input.Mode == "recognition" && !guidedGate && account.Progress.Story.Flags["reply-help:"+input.ExerciseID] {
-			gradedInput.Hinted = true
-		}
-		sourceMode := exercise.Mode
-		if guidedGate {
-			sourceMode = "recognition"
-		}
-		receipt, err := recordRatedAttempt(&account.Progress, input.ItemID, input.Mode, correct, gradedInput.Hinted, now, sourceMode, input.Rating, input.ResponseTimeMs)
-		if err != nil {
-			return Receipt{}, err
-		}
-		recordWordEvidence(&account.Progress, exercise, gradedInput, correct, now)
-		recordPromiseAttempt(&account.Progress, correct, gradedInput.Hinted, now, input.ItemID+":"+input.Mode)
-		if input.SceneAttempt && input.Mode == "recognition" && !guidedGate {
-			if correct {
-				account.Progress.Story.Flags["reply:"+input.ExerciseID] = true
-			} else {
-				account.Progress.Story.Flags["reply-help:"+input.ExerciseID] = true
-			}
-		}
-		if input.SceneAttempt && input.Mode == "production" && !correct {
-			recordStoryGateFailure(&account.Progress.Story, input.QuestID)
-		}
-		if input.SceneAttempt && (input.Mode == "production" || guidedGate) && correct {
-			proofs := append(account.Progress.Story.GateAttempts[input.QuestID], input.ID)
-			if len(proofs) > 32 {
-				proofs = proofs[len(proofs)-32:]
-			}
-			account.Progress.Story.GateAttempts[input.QuestID] = proofs
-		}
-		return receipt, nil
-	})
-	if err != nil {
-		apiFailure(w, err)
-		return
-	}
-	added := receipt.XPAdded
-	if duplicate {
-		added = 0
-	}
-	reason := exercise.Feedback(input.Answer)
-	if boardHandled && !boardCorrect {
-		reason = "Check the German instructions against your items, actions and route. The mission board is not complete yet."
-	}
-	if reason == "" {
-		reason = "The answer matches the authored target."
-		if receipt.Correct == nil || !*receipt.Correct {
-			reason = "Compare your answer with the authored target, then try again."
-		}
-	}
-	writeJSON(w, 200, map[string]any{"attemptId": input.ID, "correct": receipt.Correct, "correctedAnswer": exercise.Answer, "reason": reason, "xpAdded": added, "duplicate": duplicate, "progress": account.Progress})
 }
 
 func contains(values []string, value string) bool {

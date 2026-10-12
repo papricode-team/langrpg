@@ -95,15 +95,22 @@ type ExerciseEvidence struct {
 }
 
 type AttemptEvidence struct {
-	ID         string    `json:"id"`
-	ExerciseID string    `json:"exerciseId"`
-	ItemID     string    `json:"itemId"`
-	Mode       string    `json:"mode"`
-	Correct    bool      `json:"correct"`
-	Hinted     bool      `json:"hinted"`
-	ActivityID string    `json:"activityId,omitempty"`
-	RunID      string    `json:"runId,omitempty"`
-	At         time.Time `json:"at"`
+	ID                string    `json:"id"`
+	ExerciseID        string    `json:"exerciseId"`
+	ItemID            string    `json:"itemId"`
+	Mode              string    `json:"mode"`
+	Correct           bool      `json:"correct"`
+	Hinted            bool      `json:"hinted"`
+	MiniGameID        string    `json:"miniGameId,omitempty"`
+	AnswerKind        string    `json:"answerKind,omitempty"`
+	ContextExerciseID string    `json:"contextExerciseId,omitempty"`
+	RegionID          string    `json:"regionId,omitempty"`
+	ContentID         string    `json:"contentId,omitempty"`
+	Level             string    `json:"level,omitempty"`
+	SelectedValue     *int      `json:"selectedValue,omitempty"`
+	ActivityID        string    `json:"activityId,omitempty"`
+	RunID             string    `json:"runId,omitempty"`
+	At                time.Time `json:"at"`
 }
 
 type ActivityProgress struct {
@@ -117,18 +124,20 @@ type ActivityProgress struct {
 }
 
 type Progress struct {
-	Revision            int64                       `json:"revision"`
-	XP                  int                         `json:"xp"`
-	CompletedQuestIDs   []string                    `json:"completedQuestIds"`
-	Attempts            int                         `json:"attempts"`
-	CorrectAttempts     int                         `json:"correctAttempts"`
-	Items               map[string]Memory           `json:"items"`
-	Words               map[string]WordMemory       `json:"words"`
-	CompletedUnitIDs    []string                    `json:"completedUnitIds"`
-	Activities          map[string]ActivityProgress `json:"activities"`
-	ExerciseStats       map[string]ExerciseEvidence `json:"exerciseStats"`
-	RecentAttempts      map[string]AttemptEvidence  `json:"recentAttempts"`
-	WordExposureVersion int                         `json:"wordExposureVersion"`
+	Revision            int64                           `json:"revision"`
+	XP                  int                             `json:"xp"`
+	CompletedQuestIDs   []string                        `json:"completedQuestIds"`
+	Attempts            int                             `json:"attempts"`
+	CorrectAttempts     int                             `json:"correctAttempts"`
+	Items               map[string]Memory               `json:"items"`
+	Words               map[string]WordMemory           `json:"words"`
+	CompletedUnitIDs    []string                        `json:"completedUnitIds"`
+	Activities          map[string]ActivityProgress     `json:"activities"`
+	ExerciseStats       map[string]ExerciseEvidence     `json:"exerciseStats"`
+	RecentAttempts      map[string]AttemptEvidence      `json:"recentAttempts"`
+	MiniGameStats       map[string]ModeStats            `json:"miniGameStats,omitempty"`
+	FormStats           map[string]map[string]ModeStats `json:"formStats,omitempty"`
+	WordExposureVersion int                             `json:"wordExposureVersion"`
 	// Daily learning evidence survives narrative save-slot loads.
 	DailyPromises map[string]DailyPromiseRecord `json:"dailyPromises,omitempty"`
 	// Vocabulary intake: credited play and the syllabus words introduced so far.
@@ -191,6 +200,12 @@ func ensureProgress(p *Progress) {
 	}
 	if p.RecentAttempts == nil {
 		p.RecentAttempts = map[string]AttemptEvidence{}
+	}
+	if p.MiniGameStats == nil {
+		p.MiniGameStats = map[string]ModeStats{}
+	}
+	if p.FormStats == nil {
+		p.FormStats = map[string]map[string]ModeStats{}
 	}
 	if p.DailyPromises == nil {
 		p.DailyPromises = map[string]DailyPromiseRecord{}

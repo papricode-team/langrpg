@@ -2,6 +2,7 @@
 // Audio provenance: locally synthesized macOS Anna (de_DE), 145 words/minute.
 // Requires Node 24+, macOS with the Anna voice installed, and ffmpeg/libmp3lame.
 // Run from any directory: node scripts/generate-audio.mjs
+import './register-content-loader.mjs';
 import { spawn } from 'node:child_process';
 import { access, copyFile, mkdir, mkdtemp, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { constants } from 'node:fs';
@@ -63,7 +64,7 @@ async function main() {
   if (!/^Anna\s+de_DE\b/m.test(voices)) throw new Error('The German Anna voice is missing. Install Anna in macOS System Settings → Accessibility → Read & Speak → System voice before regenerating audio.');
 
   const { quests, npcs } = await import(new URL('../web/src/content.ts', import.meta.url).href);
-  const jobs = [
+  const jobs = process.argv.includes('--minigames-only') ? [] : [
     ...quests.flatMap(quest => quest.exercises.map(exercise => ({ id: exercise.id, text: exercise.german }))),
     ...npcs.map(npc => ({ id: `npc-${npc.id}`, text: npc.greeting })),
   ];
@@ -84,6 +85,10 @@ async function main() {
   if (process.argv.includes('--activities')) {
     const { activityAudioJobs } = await import(new URL('../web/src/activity-engine.ts', import.meta.url).href);
     for (const job of activityAudioJobs) addJob(job);
+  }
+  if (process.argv.includes('--minigames') || process.argv.includes('--minigames-only')) {
+    const { minigameAudioJobs } = await import('./minigame-audio-content.mjs');
+    for (const job of await minigameAudioJobs()) if (!jobs.some(existing => existing.id === job.id)) jobs.push(job);
   }
   let previous;
   try { previous = JSON.parse(await readFile(path.join(outputDirectory, 'manifest.json'), 'utf8')); } catch { /* A first run creates the manifest. */ }
@@ -149,8 +154,14 @@ async function main() {
     await writeFile(path.join(outputDirectory, 'manifest.json'), JSON.stringify({
       languagePair: 'de-en', sourceLanguage: 'en', targetLanguage: 'de', voices: [voice],
       rate, generatedAt: new Date().toISOString(),
-      clips: jobs.map(job => ({ ...job, path: `/audio/${job.id}.mp3` })),
+      clips: [...new Map([...(previous?.clips ?? []), ...jobs.map(job => ({ ...job, path: `/audio/${job.id}.mp3` }))].map(job => [job.id, job])).values()],
     }, null, 2) + '\n');
+    if (process.argv.includes('--minigames') || process.argv.includes('--minigames-only')) {
+      const miniManifest = JSON.stringify({version:1, clips:jobs.filter(job=>job.id.startsWith('minigame-')||job.id.startsWith('expedition-')||job.id.startsWith('story-')).map(job=>({...job,path:`/audio/${job.id}.mp3`}))},null,2)+'\n';
+      await writeFile(path.join(outputDirectory, 'minigames-manifest.json'), miniManifest);
+      await mkdir(path.join(root, 'web/src/minigames'), {recursive:true});
+      await writeFile(path.join(root, 'web/src/minigames/audio-data.json'), miniManifest);
+    }
     console.log(`Saved ${completed} clips (${(totalBytes / 1024 / 1024).toFixed(2)} MiB) to ${path.relative(root, outputDirectory)} in ${((Date.now() - started) / 1000).toFixed(1)}s.`);
   } finally {
     process.off('SIGINT', interrupt);

@@ -501,3 +501,51 @@
  .activity-investigation-board{grid-template-rows:16px repeat(3,minmax(44px,1fr));padding:5px;gap:4px}
  .activity-investigation-board>.activity-bench-label{min-height:16px;font-size:9px;letter-spacing:.07em}
 }
+
+/* Mission boards share the world's forest glass HUD; orders and evidence retain
+   their paper surfaces. The room painting now remains visible behind the play. */
+.dialog.activity-dialog{background:#102a22;border:2px solid #ba9a59;color:#f0e8cb}
+.activity-shell{color:#eee5c9;background:linear-gradient(130deg,#0d231deb,#112d23ce),var(--activity-art) center/cover}
+.activity-shell button:focus-visible{outline-color:#f1cf79}
+.activity-banner{border-bottom:2px solid #b89d61}
+.activity-task-header h2,.activity-intermission h2{color:#f3e3b8}
+.activity-task-header p,.activity-no-pressure,.activity-navigation>p{color:#c1cbb4}
+.activity-kicker,.activity-bench-label,.activity-service-settings>div>span{color:#dbbd79}
+.activity-kitchen,.activity-change-purse,.activity-route-instructions{background:#132e23e6;border:1px solid #b99a5a66;backdrop-filter:blur(8px)}
+.activity-stock-item,.activity-tool,.activity-choice{color:#eee3bf;background:linear-gradient(#38523c,#233d2e);border-color:#b99a5a77;box-shadow:0 3px 0 #071a1277;transition:transform 120ms ease,border-color 120ms ease}
+.activity-stock-item:hover:not(:disabled),.activity-tool:hover:not(:disabled){transform:translateY(-2px);border-color:#dfbf77}
+.activity-stock-item>.icon:first-child,.activity-tool .icon{color:#d2b16c}
+.activity-stock-item small,.activity-stock-item b{color:#d9ca9e}
+.activity-choice.selected{background:#506445;border-color:#e2c47c;color:#fff0c9}
+.activity-panel-tabs button{color:#d4dac0;background:#203b2f;border-color:#b99a5a77}
+.activity-panel-tabs button[aria-pressed='true']{background:#4b603e;border-color:#e0bf74;color:#fff0c9}
+.activity-market-ledger>span,.activity-market-ledger b{color:#e2d9b4}
+.activity-market-ledger .over-budget b{color:#ffbe96}
+.activity-trade-offer{color:#e8e3c5;background:#394c2f99;border-color:#b99a5a88}
+.activity-trade-offer strong{color:#e1c27a}
+.activity-recipe-track li{color:#e9e4c5;background:#314b36;border-color:#b99a5a66}
+.activity-recipe-track li.activity-empty{color:#bbcab1}
+.activity-link,.activity-response{color:#dcc79a}
+.activity-active-direction b{color:#f0e3bc}
+.activity-active-direction small{color:#bdc9ae}
+.activity-active-direction>button{color:#e4c882;border-color:#b99a5a88}
+.activity-task-actions{border-color:#b99a5a66}
+.activity-intermission>p,.activity-reward,.activity-reward>strong{color:#d2d9b4}
+.activity-guide,.activity-feedback-details,.activity-route-list{color:#eee5c6;background:#152f25f5;border:2px solid #bea160;box-shadow:0 16px 45px #04100ccc}
+.activity-guide h3,.activity-feedback-details h3,.activity-route-list h3,.activity-clarification{color:#efdba9}
+.activity-guide>header>button,.activity-feedback-details>header>button,.activity-route-list>header>button{color:#e8d39c;background:#2a4533;border-color:#b99a5a77}
+.activity-route-list li,.activity-route-list li button{color:#d7dcba}
+.activity-guide .activity-no-pressure{color:#bdcbb4}
+.activity-inventory-piece{animation:activity-place 150ms ease-out}
+.activity-stock-item[draggable='true'],.activity-evidence[draggable='true']{cursor:grab}
+.activity-stock-item[draggable='true']:active,.activity-evidence[draggable='true']:active{cursor:grabbing}
+.activity-tray.drag-target{outline:3px solid #f2cf78;outline-offset:2px;filter:brightness(1.1)}
+@keyframes activity-place{from{transform:translateY(-7px);opacity:.6}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.activity-inventory-piece{animation:none}.activity-stock-item:hover:not(:disabled),.activity-tool:hover:not(:disabled){transform:none}}
+.activity-item-sprite{display:block;width:58px;height:58px;object-fit:contain;flex:none;filter:drop-shadow(0 3px 4px #061a1566);pointer-events:none}
+.activity-stock-item>.activity-item-sprite{width:58px;height:58px}
+.activity-inventory-piece>.activity-item-sprite{width:64px;height:64px}
+.activity-evidence>.activity-item-sprite{width:35px;height:35px}
+.activity-evidence-slot .activity-item-sprite{display:inline-block;width:32px;height:32px;vertical-align:middle}
+@media(max-width:760px){.activity-stock-item>.activity-item-sprite{width:42px;height:42px}.activity-inventory-piece>.activity-item-sprite{width:52px;height:52px}}
+@media(max-height:600px) and (min-width:650px){.activity-stock-item>.activity-item-sprite{width:36px;height:36px}.activity-inventory-piece>.activity-item-sprite{width:38px;height:38px}}

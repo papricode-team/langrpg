@@ -65,6 +65,7 @@ export interface WorldOptions {
   onReady?: () => void;
   onNearby?: (id: string | undefined) => void;
   onObject?: (id: string) => void;
+  onMiniGame?: (id:string)=>void;
   onMapReady?: (id: MapId) => void;
   onInteriorChange?: (id: InteriorId | undefined) => void;
   onInteriorInteract?: (id: string) => void;
@@ -312,6 +313,11 @@ export class World {
   barkShown(bark:WorldBark):void {this.options.onBarkShown?.(bark);}
   setTimePreference(options: WorldTimeOptions): void { this.scene.setTimePreference(options); }
   getWorldTime(): WorldTimeState { return this.scene.worldTime; }
+  getPlayerPosition():MapPoint|undefined {return this.scene.ready?this.scene.playerPosition():undefined;}
+  deliveryRoute():{recipient:string;points:MapPoint[]}|undefined {return this.scene.ready?this.scene.deliveryRoute():undefined;}
+  deliveryChoices(origin:MapPoint,target:MapPoint):MapPoint[]{return this.scene.ready?this.scene.deliveryChoices(origin,target):[target];}
+  showDeliveryCheckpoints(points:readonly MapPoint[],lit:number):void {if(this.scene.ready)this.scene.showDeliveryCheckpoints(points,lit);}
+  showDeliveryArrival(recipient:string):void {if(this.scene.ready)this.scene.showDeliveryArrival(recipient);}
   timeChanged(state: WorldTimeState): void { this.options.onTimeChange?.(state); }
 
   /** Draw the same painted south-facing avatar used in the game, CPU only. */
@@ -466,6 +472,7 @@ export class World {
     this.options.onInteriorChange?.(id);
   }
   interiorInteract(id: string): void { this.options.onInteriorInteract?.(id); }
+  playMiniGame(id:string):void {this.options.onMiniGame?.(id);}
 
   private clearHeldInput(): void {
     this.joystick = { x: 0, y: 0 };
@@ -514,6 +521,45 @@ class HarborScene extends Phaser.Scene {
   }
   private reducedMotion = false;
   private navigation!: NavigationGrid;
+  private deliveryMarkers:Phaser.GameObjects.Container[]=[];
+  playerPosition():MapPoint{return{x:this.local.x,y:this.local.y};}
+  deliveryChoices(origin:MapPoint,target:MapPoint):MapPoint[]{
+    const distance=Math.max(55,Math.min(130,Math.hypot(target.x-origin.x,target.y-origin.y))),points:MapPoint[]=[target];
+    for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){
+      const point=this.navigation.closestPoint(origin.x+dx*distance,origin.y+dy*distance);
+      if(Math.hypot(point.x-origin.x,point.y-origin.y)<45||points.some(existing=>Math.hypot(existing.x-point.x,existing.y-point.y)<45)||!this.navigation.canWalkSegment(origin.x,origin.y,point.x,point.y))continue;
+      points.push(point);
+    }
+    return points;
+  }
+  deliveryRoute():{recipient:string;points:MapPoint[]}|undefined {
+    if(this.interiorSpec)return;
+    const candidates=[...this.characters.values()].filter(npc=>this.characterRevealed(npc)).sort((a,b)=>Math.abs(Math.hypot(a.x-this.local.x,a.y-this.local.y)-450)-Math.abs(Math.hypot(b.x-this.local.x,b.y-this.local.y)-450));
+    for(const npc of candidates){
+      const endpoint=this.navigation.closestPoint(npc.x,npc.y+45),path=this.navigation.findPath(this.local,endpoint);
+      if(!path.length||Math.hypot(endpoint.x-this.local.x,endpoint.y-this.local.y)<180)continue;
+      const points:MapPoint[]=[this.playerPosition()];let previous=this.playerPosition();
+      for(const point of path){const distance=Math.hypot(point.x-previous.x,point.y-previous.y),pieces=Math.max(1,Math.ceil(distance/120));for(let i=1;i<=pieces;i++)points.push({x:previous.x+(point.x-previous.x)*i/pieces,y:previous.y+(point.y-previous.y)*i/pieces});previous=point;}
+      if(points.length>2)return{recipient:npc.id,points};
+    }
+  }
+  showDeliveryCheckpoints(points:readonly MapPoint[],lit:number):void {
+    this.deliveryMarkers.forEach(marker=>marker.destroy());this.deliveryMarkers=[];
+    for(const [index,point]of points.entries()){
+      const glow=this.add.ellipse(0,0,45,24,index<lit?0xffdc81:0x847856,index<lit?.6:.15).setStrokeStyle(2,0xe5c37c,.65);
+      const marker=this.add.image(0,-18,'discovery').setTint(index<lit?0xffdc81:0x948567).setAlpha(index<lit?1:.45);
+      const size=Math.max(52,44/this.fitZoom),hit=this.add.zone(0,-10,size,size).setInteractive({useHandCursor:true});
+      hit.on('pointerdown',(_pointer:Phaser.Input.Pointer,_x:number,_y:number,event:Phaser.Types.Input.EventData)=>{event.stopPropagation();if(this.controlsEnabled&&!this.watching&&!document.hidden)this.walkTo(point.x,point.y);});
+      this.deliveryMarkers.push(this.add.container(point.x,point.y,[glow,marker,hit]).setDepth(point.y+10));
+    }
+  }
+  showDeliveryArrival(recipient:string):void {
+    const npc=[...this.characters.values()].find(npc=>npc.id===recipient||npcs.find(spec=>spec.id===npc.id)?.name.toLocaleLowerCase()===recipient.toLocaleLowerCase());
+    if(!npc)return;
+    const parcel=this.add.image(this.local.x,this.local.y-35,'discovery').setDepth(Math.max(this.local.y,npc.y)+100).setTint(0xf7d38a);
+    this.tweens.add({targets:parcel,x:npc.x,y:npc.y-35,scale:.3,alpha:0,duration:this.reducedMotion?1:800,onComplete:()=>parcel.destroy()});
+    npc.halo?.setAlpha(.7);this.audio?.effect('bell');
+  }
   private mapSpec = getMap('lindenhafen');
   private get worldWidth(): number { return (this.interiorSpec ?? this.mapSpec).width; }
   private get worldHeight(): number { return (this.interiorSpec ?? this.mapSpec).height; }
@@ -1083,7 +1129,8 @@ class HarborScene extends Phaser.Scene {
   }
 
   private createMapObjects(map: Pick<WorldMapSpec, 'objects'>, prefix = 'object'): void {
-    for (const spec of map.objects) {
+    const lampHosts:WorldObjectSpec[]=prefix==='object'?getWorldScene(this.mapSpec.id).scenery.filter(prop=>prop.asset==='lamp').map(prop=>({id:`lantern-drill-${prop.id}`,label:'Die Laterne',kind:'lantern',x:prop.x/this.worldWidth,y:prop.y/this.worldHeight,exerciseIds:[],prompt:'Listen to the whisper in the lantern.',description:'The ink answers after dusk.',minigame:'lantern-lighting'})):[];
+    for (const spec of [...map.objects,...lampHosts]) {
       const x = spec.x * this.worldWidth, y = spec.y * this.worldHeight;
       const halo = this.add.ellipse(0, 0, 36, 17, 0xeecf8a, .06).setStrokeStyle(1, 0xf5d896, .35);
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
@@ -1392,6 +1439,7 @@ class HarborScene extends Phaser.Scene {
       const object = this.objects.get(id.slice(7));
       if (!object) return;
       object.activatedUntil = this.elapsed + 4;
+      if(object.spec.id.startsWith('lantern-drill-')&&object.spec.minigame){this.owner.playMiniGame(object.spec.minigame);return;}
       this.owner.investigate(object.spec.id);
     } else {
       const npc = this.characters.get(id);

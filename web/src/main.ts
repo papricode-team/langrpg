@@ -30,6 +30,8 @@ import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
 import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions } from './expeditions';
+import { ExpeditionLearning, placementLearning } from './expedition-learning';
+import { mountExpeditionEncounter } from './expedition-encounter';
 import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
 import { adventureHome } from './game-panels';
 import './interiors.css';
@@ -41,7 +43,7 @@ import { Api, emptyProgress } from './api';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
 import type { Progress, ChatMessage, ExposureInput, ConnectionStatus, SessionResult, AccountStatus } from './api';
-import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, sentenceTiles } from './learning';
+import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
 import { reviewExercises,wordReadyForReview } from './review';
@@ -60,6 +62,12 @@ import { ScreenFilterControls } from './screen-filter-controls';
 import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors } from './interiors';
 import type { InteriorId, InteriorObjectSpec } from './interiors';
 
+import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
+import type { MiniGame } from './minigames/types';
+import './minigames/minigames.css';
+import { MiniGameInput } from './minigames/input';
+import minigameAudio from './minigames/audio-data.json';
+
 type View = 'world' | 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
 type CourseModule = typeof import('./course');
 type ActivityModule = typeof import('./activities');
@@ -70,6 +78,15 @@ let activities: ActivityModule | undefined;
 let activitiesPromise: Promise<ActivityModule> | undefined;
 let activityController: { destroy(): void; pause(): void; resume(): void; reset(): void } | undefined;
 let activityLoading = 0;
+let accountKeptActivityPaused=false;
+let miniGameController: MiniGame | undefined;
+let miniGameHost: (import('./minigames/types').MiniGameHost & {destroy():void}) | undefined;
+let miniGameLoading = 0;
+let exerciseInputCleanup:(()=>void)|undefined;
+let exerciseChoiceTimer:ReturnType<typeof setTimeout>|undefined;
+let pendingExerciseChoice:string|undefined;
+let deliveryController:import('./minigames/delivery').WorldDeliveryRun|undefined;
+let deliveryHost:(import('./minigames/types').MiniGameHost&{destroy():void})|undefined;
 let courseLevel: Level = 'A1';
 try { const saved:unknown=JSON.parse(localStorage.getItem('atlas.placement')??'null'); if(saved && typeof saved==='object' && 'level' in saved && ['A1','A2','B1'].includes(String(saved.level))) courseLevel=saved.level as Level; } catch { /* A fresh practice preference starts at A1. */ }
 let courseTab: 'topics' | 'grammar' | 'lexicon' = 'topics';
@@ -182,7 +199,7 @@ let screenFilterControls: ScreenFilterControls | undefined;
 type Submission = AttemptSubmission;
 let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; correct: number; targetCount: number; hinted: boolean; audioHeard: boolean; answered: boolean; answer: string; tokenOrder: number[]; review: boolean; objectId?: string; interiorObjectId?: string; label?: string; started: number; submission?: Submission; reviewAttempt?: ReviewAttempt; skipListening?: boolean; shownAt?: number } | undefined;
 let attemptBusy = false;
-function cancelRun() { run?.reviewAttempt?.cancel(); run = undefined; }
+function cancelRun() { exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;run?.reviewAttempt?.cancel(); run = undefined; }
 let progressOwner: string | undefined;
 function acceptProgress(value: Progress, owner?: string) {
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
@@ -278,6 +295,7 @@ function renderShell() {
     },
     onNpc: showNpc,
     onObject: showObject,
+    onMiniGame: id=>void startMiniGame(id),
     onInteriorChange: onInteriorChange,
     onInteriorInteract: showInteriorObject,
     onMapReady: id => { regionReady = true; onRegionReady(id); },
@@ -305,7 +323,7 @@ function renderShell() {
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(next.objectId); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
-    onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
+    onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
     onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
@@ -318,7 +336,7 @@ function renderShell() {
   bindGlobalEvents(); bindJoystick(); updateProgress();
   const accountDialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   accountDialog.addEventListener('cancel', event => { if (!started) event.preventDefault(); });
-  accountDialog.addEventListener('close', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); world.setInputEnabled(worldCanInteract()); if (started && regionReady) onRegionReady(mapId); });
+  accountDialog.addEventListener('close', () => { if(!document.hidden){if(!accountKeptActivityPaused)activityController?.resume();miniGameController?.resume();deliveryController?.resume();}accountKeptActivityPaused=false;accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); world.setInputEnabled(worldCanInteract()); if (started && regionReady) onRegionReady(mapId); });
   world.setInputEnabled(false);
 }
 function watchWorld(watching: boolean): void {
@@ -409,7 +427,7 @@ function showInteriorObject(id: string) {
   if (interiorId === 'inn') {
     if (id === 'interior:inn:review') { void startAdaptiveReview(); return; }
     if (id === 'interior:inn:evidence') { setView('story'); return; }
-    if (id === 'interior:inn:bed') { openDialog(`<div class="completion"><div class="eyebrow">${upper(t('Your room at the inn'))} · ${upper(t('Day {day}', { day: storyState(progress.story).day }))}</div><h2>${t('The lantern can rest.')}</h2><p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
+    if (id === 'interior:inn:bed') { openDialog(`<div class="completion"><div class="eyebrow">${upper(t('Your room at the inn'))} · ${upper(t('Day {day}', { day: storyState(progress.story).day }))}</div><h2>${t('The lantern can rest.')}</h2>${miniGameHostLinks("re-ink")}<p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
   }
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
@@ -419,7 +437,7 @@ function showInteriorObject(id: string) {
   const game = object.activityId ? activityInfo.find(item => item.id === object.activityId) : undefined;
   const gameCopy = interiorGameCopy(room.id);
   const words = object.vocabulary.map(word => `<article class="interior-word"><div><span class="interior-word-article">${e(word.article)}</span><strong>${e(word.lemma)}</strong><button class="icon-button" data-speak="${e(`${word.article} ${word.lemma}`)}" aria-label="${e(t('Hear {word}', { word: word.lemma }))}">${icon('volume')}</button></div><p>${e(word.english)}</p><small><span>${t('PLURAL')}</span> ${e(word.plural)}</small></article>`).join('');
-  openDialog(`<div class="interior-encounter"><header class="interior-encounter-heading">${npc ? portrait(npc.id, 'large-portrait') : `<span class="interior-object-emblem">${icon(interiorIcon(room.id))}</span>`}<div><div class="eyebrow">${e(room.name.toUpperCase())} · ${npc ? t('A FRIENDLY FACE') : t('LOOK A LITTLE CLOSER')}</div><h2>${e(object.label)}</h2></div></header><p class="interior-description">${e(object.description)}</p>${object.dialogue ? `<blockquote class="interior-dialogue"><span>“${e(object.dialogue)}”</span><button class="icon-button" data-speak="${e(object.dialogue)}" aria-label="${e(t('Hear this German greeting'))}">${icon('volume')}</button></blockquote>` : ''}<div class="interior-word-heading"><span>${icon('book')} ${t('Words you can use here')}</span><small>${t('ARTICLE · WORD · PLURAL')}</small></div><div class="interior-words">${words}</div><section class="interior-practice-card"><span>${icon('chat')}</span><div><small>${t('A FOCUSED LEARNING SESSION')}</small><h3>${e(object.sessionTitle)}</h3><p>${e(object.prompt)}</p><span>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })} · ${t('Answers saved as you go')}</span></div>${queue.length ? `<button class="primary-button" data-practice-interior="${e(id)}">${t('Practise here')} ${icon('arrow')}</button>` : ''}</section>${game ? `<section class="interior-game-card"><small>${t('PLAY A LITTLE · A1 EVERYDAY GERMAN')}</small><h3>${e(gameCopy.title)}</h3><p>${e(gameCopy.description)}</p><button class="outline-button interior-activity" data-interior-activity="${e(id)}">${icon(game.icon)} ${e(gameCopy.action)} ${icon('arrow')}</button></section>` : ''}<button class="text-button interior-back" data-action="close-dialog">${e(t('Keep exploring {place}', { place: room.name }))} ${icon('arrow')}</button></div>`, 'interior-dialog', npc?.id);
+  openDialog(`<div class="interior-encounter"><header class="interior-encounter-heading">${npc ? portrait(npc.id, 'large-portrait') : `<span class="interior-object-emblem">${icon(interiorIcon(room.id))}</span>`}<div><div class="eyebrow">${e(room.name.toUpperCase())} · ${npc ? t('A FRIENDLY FACE') : t('LOOK A LITTLE CLOSER')}</div><h2>${e(object.label)}</h2></div></header>${miniGameHostLinks(id==='interior:inn:evidence'?'re-ink':id==='interior:inn:review'?'word-chain':id==='interior:cafe:coffee'?'tray-rush':id==='interior:cafe:tea'?'kettle-forecast':id==='interior:supermarket:scales'?'numbered-apples':undefined)}<p class="interior-description">${e(object.description)}</p>${object.dialogue ? `<blockquote class="interior-dialogue"><span>“${e(object.dialogue)}”</span><button class="icon-button" data-speak="${e(object.dialogue)}" aria-label="${e(t('Hear this German greeting'))}">${icon('volume')}</button></blockquote>` : ''}<div class="interior-word-heading"><span>${icon('book')} ${t('Words you can use here')}</span><small>${t('ARTICLE · WORD · PLURAL')}</small></div><div class="interior-words">${words}</div><section class="interior-practice-card"><span>${icon('chat')}</span><div><small>${t('A FOCUSED LEARNING SESSION')}</small><h3>${e(object.sessionTitle)}</h3><p>${e(object.prompt)}</p><span>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })} · ${t('Answers saved as you go')}</span></div>${queue.length ? `<button class="primary-button" data-practice-interior="${e(id)}">${t('Practise here')} ${icon('arrow')}</button>` : ''}</section>${game ? `<section class="interior-game-card"><small>${t('PLAY A LITTLE · A1 EVERYDAY GERMAN')}</small><h3>${e(gameCopy.title)}</h3><p>${e(gameCopy.description)}</p><button class="outline-button interior-activity" data-interior-activity="${e(id)}">${icon(game.icon)} ${e(gameCopy.action)} ${icon('arrow')}</button></section>` : ''}<button class="text-button interior-back" data-action="close-dialog">${e(t('Keep exploring {place}', { place: room.name }))} ${icon('arrow')}</button></div>`, 'interior-dialog', npc?.id);
 }
 function startInteriorPractice(id: string) {
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
@@ -481,7 +499,7 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return started && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
 function setView(next: View) {
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
@@ -638,27 +656,19 @@ type ExpeditionEncounterRecord = { selected: number; successful?: number; attemp
 function expeditionEncounterResult(id: string): { selected: number; correct: boolean; attempts: number } | undefined {
   return progress.story?.expeditions?.[id];
 }
-const pendingExpeditionAnswers = new Map<string, { id: string; selected: number }>();
-async function answerExpeditionEncounter(encounterId: string, selected: number) {
-  const region = expeditionRegions.find(region => region.encounters.some(encounter => encounter.id === encounterId));
-  if (!region || !routeUnlocked(region.id, progress.completedQuestIds)) return;
-  let command = pendingExpeditionAnswers.get(encounterId);
-  if (!command || command.selected !== selected) { command = {id:crypto.randomUUID(),selected}; pendingExpeditionAnswers.set(encounterId, command); }
-  try { const result = await api.request<{ progress: Progress }>('/expedition/answer', { ...command, encounterId }); acceptProgress(result.progress); pendingExpeditionAnswers.delete(encounterId); const target = region.npcs.find(npc => npc.encounterId === encounterId)?.id ?? region.objects.find(object => getExpeditionEncounter(region.id, object.id)?.id === encounterId)?.id; if (target) showExpeditionEncounter(target, selected); updateProgress(); } catch (error) { toast((error as Error).message, true); }
-}
-function showExpeditionEncounter(targetId: string, selected?: number) {
-  const region = expeditionRegions.find(region => !!getExpeditionEncounter(region.id, targetId));
-  if (!region) return;
-  const encounter = getExpeditionEncounter(region.id, targetId)!;
-  const npc = getExpeditionNpc(targetId), object = region.objects.find(object => object.id === targetId);
-  if (object) rememberSeen('objects', object.id);
-  const result = expeditionEncounterResult(encounter.id), chosen = selected ?? result?.selected;
-  const choice = chosen !== undefined ? encounter.choices[chosen] : undefined;
-  openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc ? portrait(npc.id, 'large-portrait') : `<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${e(t('{level} LANGUAGE ENCOUNTER', { level: encounter.difficulty }))}</div><h2>${e(npc?.name ?? object?.label ?? encounter.title)}</h2>${npc ? `<span>${e(npc.role)}</span>` : ''}</div></header>${object ? `<p>${e(object.description)}</p>` : ''}${npc ? `<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>` : ''}<p>${e(encounter.prompt)}</p><blockquote class="expedition-brief"><span>${e(encounter.german)}</span><button class="icon-button" data-speak="${e(encounter.german)}" aria-label="${e(t('Listen to this German message'))}">${icon('volume')}</button></blockquote><details class="expedition-translation" ${level === 'A1' ? 'open' : ''}><summary>${t('English support')}</summary><p>${e(encounter.translation)}</p></details><div class="expedition-encounter-choices">${encounter.choices.map((choice, index) => `<button class="${chosen === index ? 'chosen' : ''}" data-expedition-answer="${index}" data-expedition-encounter="${encounter.id}">${e(choice.text)}</button>`).join('')}</div>${choice ? `<div class="expedition-encounter-result" role="status"><strong>${choice.correct ? t('A connection made.') : t('Listen to what changes.')}</strong><p>${e(choice.response)}</p><small>${!choice.correct ? t('You can choose another reply. The explanation helps you revise the message.') : t('This relationship outcome is saved with your adventure.')}</small></div>` : ''}<p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button>${region.id !== mapId ? `<button class="primary-button" data-travel="${region.id}">${e(t('Travel to {place}', { place: region.name }))} ${icon('arrow')}</button>` : ''}<button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`, 'expedition-dialog');
-  if (selected !== undefined) {
-    const feedback = document.querySelector<HTMLElement>('.expedition-encounter-result');
-    if (feedback) { feedback.tabIndex = -1; feedback.focus({ preventScroll: true }); feedback.scrollIntoView({ block: 'nearest' }); }
-  }
+const expeditionLearning = new ExpeditionLearning({api,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();}});
+async function showExpeditionEncounter(targetId:string) {
+  const region=expeditionRegions.find(region=>!!getExpeditionEncounter(region.id,targetId));if(!region)return;
+  const encounter=getExpeditionEncounter(region.id,targetId)!,npc=getExpeditionNpc(targetId),object=region.objects.find(object=>object.id===targetId);
+  if(object)rememberSeen('objects',object.id);
+  activityController?.destroy();activityController=undefined;
+  openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${encounter.difficulty}</div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button>${region.id!==mapId?`<button class="primary-button" data-travel="${region.id}">${e(t('Travel to {place}',{place:region.name}))} ${icon('arrow')}</button>`:''}<button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
+  const root=document.querySelector<HTMLElement>('#expedition-encounter-learning-root')!;let alive=true,paused=document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open;const runtime:{controller?:ReturnType<typeof mountExpeditionEncounter>;speechHost?:ReturnType<typeof import('./minigames/host').createMiniGameHost>}={};
+  const currentPlayer=expeditionLearning.captureOwner();
+  activityController={destroy(){alive=false;runtime.controller?.destroy();runtime.speechHost?.destroy();root.replaceChildren();},pause(){paused=true;runtime.controller?.pause();},resume(){paused=false;runtime.controller?.resume();},reset(){runtime.controller?.reset();}};
+  const {createMiniGameHost}=await import('./minigames/host');if(!alive||!root.isConnected||!currentPlayer())return;
+  runtime.speechHost=createMiniGameHost({api,gameId:'expedition-encounters',lexicon:[],exercises:[],progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},onEnd:()=>{},playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
+  runtime.controller=mountExpeditionEncounter(root,encounter,{learning:expeditionLearning,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},saveStory:(selected,id)=>api.request<{progress:Progress}>('/expedition/answer',{id,selected,encounterId:encounter.id}),speak:(text,path)=>runtime.speechHost!.speakText(text,path),stopSpeech:()=>runtime.speechHost?.audio.stop(),silent:silentMode,initialPaused:paused||document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open,previouslyAnswered:!!expeditionEncounterResult(encounter.id)?.attempts});
 }
 function expeditionActivityBoard() {
   if (!routeUnlocked('windplain', progress.completedQuestIds)) return '';
@@ -686,10 +696,11 @@ function startExpeditionGame(id: string, requestedLevel?: Level) {
   setView('world'); run = undefined;
   activityController?.destroy(); activityController = undefined;
   openDialog('<div id="expedition-game-root"></div>', 'activity-dialog expedition-dialog');
-  activityController = mountExpeditionGame(document.querySelector<HTMLElement>('#expedition-game-root')!, game, { level, speak, initialPlan: value => progress.story?.expeditionPlans?.[`${game.id}:${value}`], submitPlan: async plan => { const result = await api.request<{correct:boolean;plan:import('./expedition-games').ServerExpeditionPlan;progress:Progress}>('/expedition/plan', {id:crypto.randomUUID(),mapId:game.id,level:plan.level,values:plan.values,order:plan.order}); acceptProgress(result.progress); updateProgress(); return result; }, onLevelChange: value => { level = value; localStorage.setItem('atlas.level', value); updateProgress(); }, onComplete: () => { updateProgress(); playCue(true); toast(t('An agreement remembered in your expedition notebook.')); } });
+  activityController = mountExpeditionGame(document.querySelector<HTMLElement>('#expedition-game-root')!, game, { level, speak, onExposure: context => recordExpeditionExposure(context.text), onPlacement: context => expeditionLearning.place(context), placementPrompt:(value,fieldId)=>placementLearning.get(`${game.id}:${value}:${fieldId}`)?.prompt??'', placementReady:(value,fieldId)=>{const mapping=placementLearning.get(`${game.id}:${value}:${fieldId}`);return !!mapping&&expeditionLearning.ready(mapping.exerciseId);},pendingLearning:()=>expeditionLearning.pendingPlacements(),retryLearning:()=>expeditionLearning.retryPlacements(), initialPlan: value => progress.story?.expeditionPlans?.[`${game.id}:${value}`], submitPlan: plan => expeditionLearning.submitPlan({mapId:game.id,level:plan.level,values:plan.values,order:plan.order}), onLevelChange: value => { level = value; localStorage.setItem('atlas.level', value); updateProgress(); }, onComplete: () => { updateProgress(); playCue(true); toast(t('An agreement remembered in your expedition notebook.')); } });
   document.querySelector<HTMLDialogElement>('#dialog')!.scrollTop = 0;
 }
 function showObject(id: string) {
+  if(deliveryController)return;
   const active = currentQuest(), graph = questGraph(active.id);
   if (graph?.investigations.some(item => item.objectId === id) && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (questController?.inspect(active.id, id)) return; }
   if (expeditionRegions.some(region => getExpeditionEncounter(region.id, id))) { showExpeditionEncounter(id); return; }
@@ -698,7 +709,8 @@ function showObject(id: string) {
   const objectMap = maps.find(map => map.objects.some(item => item.id === id))!;
   const lore = objectStories[id], queue = objectMap.id === mapId ? availableObjectExercises(object) : [];
   const game = activityInfo.find(game => game.id === activityForObject(object))!;
-  openDialog(`<div class="object-encounter"><div class="object-crest">${icon(object.kind === 'clock' ? 'clock' : object.kind === 'garden' ? 'leaf' : object.kind === 'noticeboard' ? 'scroll' : 'lantern')}</div><div class="eyebrow">${t('A LITTLE THING THAT REMEMBERS')}</div><h2>${e(object.label)}</h2>${translationHelp()}<p>${lore ? renderNarrative(lore.detail) : e(object.description)}</p><blockquote>${id === 'nebelstadt-observatory' && !progress.completedQuestIds.includes('b1-atlas') ? renderNarrative(journalNarratives.observatoryWaiting) : lore ? renderNarrative(lore.secret) : e(localized(object.prompt))}</blockquote>${objectMap.id === mapId ? `<div class="object-games"><span class="eyebrow">${t('OPTIONAL SIDE ACTIVITY')}</span><button class="outline-button" data-activity="${game.id}">${icon(game.icon)} ${e(game.action)} ${icon('arrow')}</button></div>` : ''}<div class="object-language"><span>${icon('book')} ${e(localized(object.prompt))}</span>${objectMap.id !== mapId ? `<button class="primary-button" data-travel="${objectMap.id}">${e(t('Travel to {place}', { place: objectMap.name }))} ${icon('arrow')}</button>` : queue.length ? `<button class="text-button" data-practice-object="${id}">${t('Try a short language encounter')} <small>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })}</small> ${icon('arrow')}</button>` : `<p class="resting-note">${t('Lore is always here. Familiar expressions rest until their next encounter.')}</p>`}</div><button class="text-button" data-action="close-dialog">${t('Back to exploring')} ${icon('arrow')}</button></div>`, 'object-dialog');
+  const miniGames = miniGameHostLinks(object.minigame);
+  openDialog(`<div class="object-encounter"><div class="object-crest">${icon(object.kind === 'clock' ? 'clock' : object.kind === 'garden' ? 'leaf' : object.kind === 'noticeboard' ? 'scroll' : 'lantern')}</div><div class="eyebrow">${t('A LITTLE THING THAT REMEMBERS')}</div><h2>${e(object.label)}</h2>${translationHelp()}<p>${lore ? renderNarrative(lore.detail) : e(object.description)}</p><blockquote>${id === 'nebelstadt-observatory' && !progress.completedQuestIds.includes('b1-atlas') ? renderNarrative(journalNarratives.observatoryWaiting) : lore ? renderNarrative(lore.secret) : e(localized(object.prompt))}</blockquote>${objectMap.id === mapId ? `${miniGames}<div class="object-games"><span class="eyebrow">${t('OPTIONAL SIDE ACTIVITY')}</span><button class="outline-button" data-activity="${game.id}">${icon(game.icon)} ${e(game.action)} ${icon('arrow')}</button></div>` : ''}<div class="object-language"><span>${icon('book')} ${e(localized(object.prompt))}</span>${objectMap.id !== mapId ? `<button class="primary-button" data-travel="${objectMap.id}">${e(t('Travel to {place}', { place: objectMap.name }))} ${icon('arrow')}</button>` : queue.length ? `<button class="text-button" data-practice-object="${id}">${t('Try a short language encounter')} <small>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })}</small> ${icon('arrow')}</button>` : `<p class="resting-note">${t('Lore is always here. Familiar expressions rest until their next encounter.')}</p>`}</div><button class="text-button" data-action="close-dialog">${t('Back to exploring')} ${icon('arrow')}</button></div>`, 'object-dialog');
 }
 function startObjectPractice(id: string) {
   const object = findObject(id); if (!object) return;
@@ -734,8 +746,76 @@ function requestCourseRender(el: Element) {
 }
 function renderActivities(el: Element) {
   const region = getMap(mapId);
-  if (getExpedition(mapId)) { el.innerHTML = expeditionOverview() + expeditionActivityBoard(); return; }
-  el.innerHTML = `<div class="route-heading">${icon('star')}<div><div class="eyebrow">${e(upper(t('Act {number}', { number: actFor(mapId).number })))} · ${level} · ${e(region.name.toUpperCase())}</div><h2>${t('A little detour.')}</h2><p>${t('Take a break from the main story. Serve a customer, strike a deal, investigate evidence or deliver a letter. These optional activities let you practise German at your own pace.')}</p></div></div><div class="activity-board">${activityInfo.map((game, index) => { const saved = progress.activities?.[`${game.id}:${level}`]; return `<article class="activity-entry" style="--activity-art:url('${region.previewAsset}');--activity-position:${['35% 45%','70% 55%','10% 25%','85% 25%'][index]}">${icon(game.icon)}<small>${e(localizedName(npcs.find(n => n.id === game.npcId)!.name))} · ${level} · ${saved ? t('DISCOVERED') : t('OPTIONAL ACTIVITY')}</small><h3>${e(game.title)}</h3><p>${e(game.description)}</p><button class="primary-button" data-activity="${game.id}">${e(game.action)} ${icon('arrow')}</button></article>`; }).join('')}</div>` + expeditionActivityBoard();
+  if (getExpedition(mapId)) { el.innerHTML = expeditionOverview() + miniGameBoard() + expeditionActivityBoard(); return; }
+  el.innerHTML = `<div class="route-heading">${icon('star')}<div><div class="eyebrow">${e(upper(t('Act {number}', { number: actFor(mapId).number })))} · ${level} · ${e(region.name.toUpperCase())}</div><h2>${t('A little detour.')}</h2><p>${t('Take a break from the main story. Serve a customer, strike a deal, investigate evidence or deliver a letter. These optional activities let you practise German at your own pace.')}</p></div></div><div class="activity-board">${activityInfo.map((game, index) => { const saved = progress.activities?.[`${game.id}:${level}`]; return `<article class="activity-entry" style="--activity-art:url('${region.previewAsset}');--activity-position:${['35% 45%','70% 55%','10% 25%','85% 25%'][index]}">${icon(game.icon)}<small>${e(localizedName(npcs.find(n => n.id === game.npcId)!.name))} · ${level} · ${saved ? t('DISCOVERED') : t('OPTIONAL ACTIVITY')}</small><h3>${e(game.title)}</h3><p>${e(game.description)}</p><button class="primary-button" data-activity="${game.id}">${e(game.action)} ${icon('arrow')}</button></article>`; }).join('')}</div>` + miniGameBoard() + expeditionActivityBoard();
+}
+function miniGameHostLinks(id?:string):string {
+  const game=id&&miniGameById.get(id);if(!game)return '';
+  return `<div class="minigame-host-links"><button data-minigame="${e(game.id)}">${icon('lantern')} ${e(game.title)} · ${game.seconds}s ${icon('arrow')}</button></div>`;
+}
+function miniGameBoard(storyOnly=false):string {
+  const levels:Level[]=['A1','A2','B1'];
+  const choices=miniGameDefinitions.filter(game=>game.levels.some(value=>levels.indexOf(value)<=levels.indexOf(level))&&(!storyOnly||game.tier==='B'));
+  return `<section class="lantern-games"><div class="eyebrow">LANTERN ROUNDS</div><h3>${storyOnly?'Scenes you can play again':'Keep the ink alive.'}</h3><div class="minigame-grid">${choices.map(game=>{
+    const gameLevel=game.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1)!;
+    const quest=game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0];
+    const unlocked=!quest||questUnlocked(quest,progress.completedQuestIds);
+    return `<article class="minigame-entry"><small>${e(game.host)} · ${game.modalities.join(' / ')} · ${game.seconds}s</small><h3>${e(game.title)}</h3><p>${e(game.instruction)}</p><button class="outline-button" data-minigame="${e(game.id)}" ${unlocked?'':'disabled'}>${unlocked?'Play a lantern round':'Follow the story to this scene'} ${icon('arrow')}</button></article>`;
+  }).join('')}</div></section>`;
+}
+function recordExpeditionExposure(text:string):void {
+  void loadCourse().then(module=>{
+    const restored=introducedSet(),tokens=new Set(text.toLocaleLowerCase('de').match(/\p{L}+/gu)??[]);
+    const wordIds=module.courseLexicon.filter(word=>restored.has(word.id)&&[word.lemma,...(word.surfaceForms??[])].some(form=>tokens.has(form.toLocaleLowerCase('de')))).map(word=>word.id);
+    if(wordIds.length)recordExposure({wordIds});
+  }).catch(()=>{});
+}
+async function startMiniGame(id:string):Promise<void>{
+  const definition=miniGameById.get(id);if(!definition)return;
+  if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
+  if(id==='neighborhood-boards'){
+    if(getExpedition(mapId))startExpeditionGame(mapId);
+    else{setView('activities');toast('Choose a neighborhood in the expedition atlas.');}
+    return;
+  }
+  if(id==='delivery-run'){try{await startWorldDelivery();}catch(error){toast((error as Error).message,true);}return;}
+  const levels:Level[]=['A1','A2','B1'],gameLevel=definition.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1);
+  if(!gameLevel){toast(`This lantern round belongs to ${definition.levels.join(' / ')}.`);return;}
+  if(definition.modalities.every(mode=>mode==='production')&&!writingReady()){showOpeningPracticeNotice(true);return;}
+  if(['lantern-lighting','word-chain'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
+  const questId=definition.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??definition.questIds?.[0];
+  if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
+  deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
+  setView('world');cancelRun();activityController?.destroy();activityController=undefined;
+  openDialog('<div class="route-loading"><h2>Opening the lantern round…</h2></div>','minigame-dialog activity-dialog');
+  const generation=miniGameLoading,owner=api.selfId;
+  try{
+    const [courseModule,{loadMiniGame,loadMiniGameExercises},{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames'),import('./minigames/host')]);
+    const [game,authoredExercises]=await Promise.all([loadMiniGame(id),loadMiniGameExercises(id)]),dialog=document.querySelector<HTMLDialogElement>('#dialog')!;
+    if(generation!==miniGameLoading||!dialog.open||owner!==api.selfId)return;
+    dialog.innerHTML=`<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div id="minigame-root"></div>`;
+    const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level,kind:'writing' as const,unitId:quest.id,wordIds:courseModule.courseContextWordIds[exercise.id]??[]})));
+    miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
+      onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>{if(summary.attempts)toast(`${summary.correct} / ${summary.attempts} answers remembered.`);},
+      playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced'||worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
+    miniGameController=game;
+    const fixedPool=questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
+    game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId).asset:getMap(mapId).previewAsset});
+    if(document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open)game.pause();
+  }catch(error){if(generation===miniGameLoading){toast((error as Error).message,true);document.querySelector<HTMLDialogElement>('#dialog')!.close();}}
+}
+async function startWorldDelivery():Promise<void>{
+  if(silentMode){toast('Turn off silent mode to hear Lina’s directions.');return;}
+  if(interiorId){toast('Meet Lina outside for the courtyard delivery.');return;}
+  const owner=api.selfId,startingMap=mapId;
+  const [module,{WorldDeliveryRun},{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames/delivery'),import('./minigames/host')]);
+  if(owner!==api.selfId)return;
+  deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
+  const host=createMiniGameHost({api,gameId:'delivery-run',lexicon:module.courseLexicon,exercises:module.courseExercises,progress:()=>progress,onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>toast(`${summary.correct} / ${summary.attempts} spoken directions remembered.`),playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
+  document.querySelector<HTMLDialogElement>('#dialog')!.close();setView('world');world.setVisible(true);world.setInputEnabled(true);
+  const controller=new WorldDeliveryRun(world,host,()=>{deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;world.setInputEnabled(worldCanInteract());},()=>mapId===startingMap&&!interiorId&&view==='world'&&!document.hidden&&connection==='online'&&!document.querySelector<HTMLDialogElement>('#account-dialog')!.open&&!document.querySelector<HTMLDialogElement>('#dialog')!.open);
+  if(!controller.mount(document.querySelector<HTMLElement>('#game-shell')!)){host.destroy();world.setInputEnabled(worldCanInteract());toast('Restore Lina’s direction words (links, rechts, oben and unten), then try a delivery outside.');return;}
+  deliveryController=controller;deliveryHost=host;
 }
 async function startActivity(id: ActivityId, source?: {roomId:InteriorId; stationId:string}) {
   if (!activityInfo.some(game => game.id === id)) return;
@@ -758,6 +838,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
     activityController = module.mountActivity(document.querySelector<HTMLElement>('#activity-root')!, {
       id, level: regionLevel, progress, sessionKey: venue ? `${api.selfId}:interior:${venue.id}` : api.selfId, venue,
       speak,
+      onDelivery: destination => { world.showDeliveryArrival(destination.recipient); toast(`${destination.name} · ${destination.recipient}`); },
       onSceneVisible: (_exerciseId, context) => recordExposure(context),
       onClose: () => dialog.close(),
       onProgress: value => { acceptProgress(value); updateProgress(); },
@@ -850,7 +931,7 @@ function renderWordJournal(el: Element) {
   const seen = course.courseLexicon.filter(word => introduced.has(word.id) || progress.words?.[word.id]);
   const due = seen.filter(word => progress.words?.[word.id] && wordReadyForReview(progress.words[word.id]));
   const retained = seen.filter(word => progress.words[word.id].mastery === 'retained');
-  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><div class="eyebrow">${t('YOUR GERMAN, GROWING WITH YOU')}</div><h2>${t('Every word has its own story.')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words restored')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${todaysWordsCard()}${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
+  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><div class="eyebrow">${t('YOUR GERMAN, GROWING WITH YOU')}</div><h2>${t('Every word has its own story.')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words restored')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${todaysWordsCard()}${miniGameHostLinks("re-ink")}${miniGameBoard(true)}${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
   if (seen.length) bindLexiconSearch(seen);
 }
 async function startWordPractice(id: string) {
@@ -1009,6 +1090,8 @@ async function startPlacement() {
   try { placementController = await mountOptionalPlacement(host, { api, progress, speak, onClose: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(), onComplete: (result, value) => { acceptProgress(value); courseLevel = result.level; localStorage.setItem('atlas.placement', JSON.stringify(result)); updateProgress(); } }); if (!host.isConnected) { placementController.destroy(); placementController = undefined; } } catch (error) { toast((error as Error).message, true); }
 }
 function openDialog(html: string, className = '', speakerId?:string) {
+  deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
+  miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined;
   if(!questController?.isOpen)world.setConversationTarget(speakerId);
   screenFilterControls?.close(false);
   const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
@@ -1024,6 +1107,7 @@ function openDialog(html: string, className = '', speakerId?:string) {
   dialog.scrollTop = 0;
 }
 function showNpc(id: string) {
+  if(deliveryController)return;
   if (getExpeditionNpc(id)) { showExpeditionEncounter(id); return; }
   const npc = npcs.find(n => n.id === id);
   if (!npc) return;
@@ -1070,6 +1154,7 @@ function startReview() {
   openDialog('', 'quest-dialog'); renderExercise();
 }
 function renderExercise() {
+  exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;
   if (!run) return;
   if (silentMode) { skipListeningExercises(run); run.skipListening = true; }
   if (run.index >= run.queue.length) { void finishRun(); return; }
@@ -1081,11 +1166,21 @@ function renderExercise() {
   const shown = localizedExercise(ex);
   const scaffold = ex.mode === 'type' ? typedScaffold(ex) : '';
   const label = { choice: t('MAKE YOURSELF UNDERSTOOD'), listen: t('LISTEN FOR A LITTLE CLUE'), sentence: t('FIND THE RIGHT WORDS'), type: t('YOUR WORDS, YOUR WAY') }[ex.mode];
-  const optionMarkup = exerciseOptionsMarkup(ex, [...(ex.options ?? [])].map((option, i) => ({ option, seed: hash(`${ex.id}:${run!.index}:${i}`) })).sort((a, b) => a.seed - b.seed).map(({ option }) => option));
-  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close adventure'))}">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? t('A familiar face, a new encounter') : e(run.quest ? localized(run.quest.title) : t('Your learning route'))}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><div class="eyebrow">${e(label)}</div><h2>${e(shown.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="${e(t('Play German audio'))}">${icon('volume')}</button><div><strong>${e(t('A voice from {place}', { place: interiorId ? getInterior(interiorId).name : getMap(mapId).name }))}</strong><span>${t('Listen, then choose your answer. Replay any time.')}</span></div></div><button class="text-button transcript-button" data-action="transcript">${t('Show transcript')}</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="${e(t('Your sentence'))}"><span class="sentence-placeholder">${t('Tap the words to build your answer')}</span></div><div class="word-tokens" id="word-tokens">${[...sentenceTiles(ex)].map((token, i) => ({ token, i })).sort((a, b) => hash(`${ex.id}-${a.i}`) - hash(`${ex.id}-${b.i}`)).map(({ token, i }) => `<button class="word-token" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} ${t('Start the sentence again')}</button>` : `<form id="typed-answer-form">${scaffold ? `<p class="typed-scaffold"><span>${t('Letter guide')}</span><strong lang="de">${e(scaffold)}</strong></p>` : ''}<input class="typed-answer" id="typed-answer" placeholder="${e(t('Write your answer in German…'))}" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="${e(t('Your German answer'))}"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div><small class="typed-spelling-help">${t('Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.')}</small></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} ${t('A little help')}</button>${ex.mode === 'sentence' || ex.mode === 'type' ? `<button class="primary-button" data-action="check-answer" id="check-answer">${t('Check my answer')} ${icon('arrow')}</button>` : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>${t('On with the story')} ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(shown.hint)}</p></div>`;
+  const optionMarkup = exerciseOptionsMarkup(ex, [...(ex.options ?? [])].map((option, i) => ({ option, seed: hash(`${run!.started}:${ex.id}:${run!.index}:${i}`) })).sort((a, b) => a.seed - b.seed).map(({ option }) => option));
+  document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close adventure'))}">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? t('A familiar face, a new encounter') : e(run.quest ? localized(run.quest.title) : t('Your learning route'))}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><div class="eyebrow">${e(label)}</div><h2>${e(shown.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="${e(t('Play German audio'))}">${icon('volume')}</button><div><strong>${e(t('A voice from {place}', { place: interiorId ? getInterior(interiorId).name : getMap(mapId).name }))}</strong><span>${t('Listen, then choose your answer. Replay any time.')}</span></div></div><button class="text-button transcript-button" data-action="transcript">${t('Show transcript')}</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="${e(t('Your sentence'))}"><span class="sentence-placeholder">${t('Tap the words to build your answer')}</span></div><div class="word-tokens" id="word-tokens">${shuffledSentenceTiles(ex, `${run.started}:${run.index}:${ex.id}`).map(({ token, i }) => `<button class="word-token" data-game-option="${i}" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} ${t('Start the sentence again')}</button>` : `<form id="typed-answer-form">${scaffold ? `<p class="typed-scaffold"><span>${t('Letter guide')}</span><strong lang="de">${e(scaffold)}</strong></p>` : ''}<input class="typed-answer" id="typed-answer" placeholder="${e(t('Write your answer in German…'))}" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="${e(t('Your German answer'))}"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div><small class="typed-spelling-help">${t('Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.')}</small></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} ${t('A little help')}</button>${ex.mode === 'sentence' || ex.mode === 'type' ? `<button class="primary-button" data-action="check-answer" id="check-answer">${t('Check my answer')} ${icon('arrow')}</button>` : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>${t('On with the story')} ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(shown.hint)}</p></div>`;
   document.querySelector('#typed-answer-form')?.addEventListener('submit', event => { event.preventDefault(); void submitAnswer(); });
   if (ex.mode === 'choice' || ex.mode === 'sentence') recordExposure({exerciseId:ex.id});
   if (ex.mode === 'type') document.querySelector<HTMLInputElement>('#typed-answer')?.focus();
+  const inputRoot=document.querySelector<HTMLElement>('.exercise-content');if(inputRoot)exerciseInputCleanup=new MiniGameInput().bind(inputRoot);
+}
+function chooseExerciseAnswer(answer:string):void {
+  if(!run||run.answered||run.submission)return;
+  if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}
+  if(pendingExerciseChoice===answer){pendingExerciseChoice=undefined;void submitAnswer(answer);return;}
+  pendingExerciseChoice=answer;
+  document.querySelectorAll<HTMLElement>('.answer-option').forEach(button=>button.classList.toggle('answer-pending',button.dataset.answer===answer));
+  const session=run,index=run.index;
+  exerciseChoiceTimer=setTimeout(()=>{exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;if(run===session&&run.index===index)void submitAnswer(answer);},300);
 }
 function hash(text: string) {
   let value = 2166136261;
@@ -1247,6 +1342,7 @@ function bindProfileForm() {
 }
 function showProfile() { openDialog(`<div class="profile-dialog-heading"><div class="eyebrow">${t('LET’S MAKE THIS YOUR ADVENTURE.')}</div><h2>${t('Nice to meet you.')}</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
 const audioPaths = new Map([
+  ...minigameAudio.clips.map(clip=>[clip.text,clip.path] as const),
   ...quests.flatMap(q => q.exercises.map(ex => [ex.german, `/audio/${ex.id}.mp3`] as const)),
   ...npcs.map(npc => [npc.greeting, `/audio/npc-${npc.id}.mp3`] as const),
 ]);
@@ -1337,7 +1433,7 @@ function bindGlobalEvents() {
     if (questController?.isOpen) { if (event.key === 'Escape') { event.preventDefault(); questController.close(); } return; }
     if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
     const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
-    if (event.key === 'Escape') { event.preventDefault(); if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
+    if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;world.setInputEnabled(worldCanInteract());return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
     if (view !== 'world' && event.key === 'Tab') {
       const targets = [...document.querySelectorAll<HTMLElement>('#menu-layer button, #menu-layer input, #menu-layer select')].filter(el => !el.hasAttribute('disabled') && !el.hidden && el.getClientRects().length);
       const first = targets[0], last = targets[targets.length - 1];
@@ -1358,6 +1454,7 @@ function bindGlobalEvents() {
     if (!target || (target instanceof HTMLButtonElement && target.disabled)) return;
     if (target.matches('a.brand')) { event.preventDefault(); setView('world'); return; }
     if (target.dataset.view) { cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView(target.dataset.view as View); return; }
+    if (target.dataset.minigame) { void startMiniGame(target.dataset.minigame); return; }
     if (target.dataset.activity) { void startActivity(target.dataset.activity as ActivityId); return; }
     if (target.dataset.coursePage) { coursePage = Math.max(0, Number(target.dataset.coursePage)); renderOther(); return; }
     if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; renderOther(); return; }
@@ -1367,7 +1464,6 @@ function bindGlobalEvents() {
     if (target.dataset.wordPractice) { void startWordPractice(target.dataset.wordPractice); return; }
     if (target.dataset.expeditionGame) { startExpeditionGame(target.dataset.expeditionGame, target.dataset.expeditionLevel as Level | undefined); return; }
     if (target.dataset.expeditionTarget) { showExpeditionEncounter(target.dataset.expeditionTarget); return; }
-    if (target.dataset.expeditionAnswer !== undefined) { answerExpeditionEncounter(target.dataset.expeditionEncounter!, Number(target.dataset.expeditionAnswer)); return; }
     if (target.dataset.level) { const region = maps.find(map => map.level === target.dataset.level); if (region) travelMap(region.id); return; }
     if (target.dataset.travel) { const region = maps.find(map => map.id === target.dataset.travel); if (region) travelMap(region.id); return; }
     if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (!q) return; if (!questAvailable(q.id, progress)) { toast(questLockReason(q.id, progress)); return; } travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
@@ -1386,7 +1482,7 @@ function bindGlobalEvents() {
     if (target.dataset.loadStory) { void api.loadStory(target.dataset.loadStory).then(() => location.reload()).catch(error => toast(error.message, true)); return; }
     if (target.dataset.startQuest) { startQuest(target.dataset.startQuest); return; }
     if (target.dataset.speak) { speak(target.dataset.speak); return; }
-    if (target.dataset.answer) { void submitAnswer(target.dataset.answer); return; }
+    if (target.dataset.answer) { chooseExerciseAnswer(target.dataset.answer); return; }
     if (target.dataset.recallRating && ['hard','good','easy'].includes(target.dataset.recallRating)) { void submitAnswer(undefined, target.dataset.recallRating as RecallRating); return; }
     if (target.dataset.token) { assembleSentence(Number(target.dataset.token)); return; }
     if (target.dataset.removeToken && run && !run.answered && !run.submission) {
@@ -1444,7 +1540,7 @@ function bindGlobalEvents() {
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { cancelRun(); pendingDestination = undefined; dialog.close(); }
   });
-  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); world.setVisible(view === 'world' && !document.hidden); world.setInputEnabled(worldCanInteract()); placementController?.destroy(); placementController = undefined; cancelRun(); activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } } });
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); world.setVisible(view === 'world' && !document.hidden); world.setInputEnabled(worldCanInteract()); placementController?.destroy(); placementController = undefined; cancelRun(); miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined; activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } if(view==='world')document.querySelector<HTMLElement>('#world-container')?.focus({preventScroll:true}); } });
   const menu = document.querySelector<HTMLDialogElement>('#menu-layer')!;
   menu.addEventListener('close', () => { if (!menu.open && view !== 'world') setView('world'); });
   menu.addEventListener('click', event => { if (event.target === menu) setView('world'); });
@@ -1477,6 +1573,11 @@ function renderChat() {
 }
 function showAccountDialog(html: string) {
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  if(!dialog.open){
+    accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
+    activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
+    if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
+  }
   dialog.innerHTML = html;
   if (!dialog.open) dialog.showModal();
   document.dispatchEvent(new Event('atlas-controls-reset'));
@@ -1645,6 +1746,7 @@ async function boot() {
   }
   api.onMap = id => {
     const changed = id !== mapId;
+    if(changed){deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;}
     if (changed) regionReady = false;
     mapId = id; pendingMap = undefined; mapConfirmed = true;
     if (!getExpedition(id)) level = getMap(id).level; localStorage.setItem('atlas.level', level);
@@ -1697,6 +1799,6 @@ function updateConnection() {
   el.className = `connection-pill ${connection}`;
   el.innerHTML = `<span></span>${connection === 'online' ? (count === 1 ? t('{count} wanderer here', { count }) : t('{count} wanderers here', { count })) : connection === 'connecting' ? t('Connecting') : connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting')}`;
 }
-document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); world?.setVisible(view === 'world' && !document.hidden && !activityController); if (document.hidden) { activityController?.pause(); stopSpeech(); } else activityController?.resume(); if (!document.hidden && regionReady) onRegionReady(mapId); });
+document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); world?.setVisible(view === 'world' && !document.hidden && !activityController && !miniGameController); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
 window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

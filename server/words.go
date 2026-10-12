@@ -157,7 +157,7 @@ func recordWordEvidence(p *Progress, exercise Exercise, input AttemptInput, corr
 		}
 	}
 	p.ExerciseStats[exercise.ID] = stats
-	p.RecentAttempts[input.ID] = AttemptEvidence{ID: input.ID, ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: input.Mode, Correct: correct, Hinted: input.Hinted, ActivityID: input.ActivityID, RunID: input.RunID, At: now.UTC()}
+	p.RecentAttempts[input.ID] = AttemptEvidence{ID: input.ID, ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: input.Mode, Correct: correct, Hinted: input.Hinted, MiniGameID: input.MiniGameID, AnswerKind: input.AnswerKind, ContextExerciseID: input.ContextExerciseID, RegionID: input.RegionID, ContentID: input.ContentID, Level: input.Level, SelectedValue: input.SelectedValue, ActivityID: input.ActivityID, RunID: input.RunID, At: now.UTC()}
 	// Progress carries a bounded recent history. Mission completion, idempotency
 	// and auditing use full immutable receipts in the durable learning-event store.
 	if len(p.RecentAttempts) > 256 {

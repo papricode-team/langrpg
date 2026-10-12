@@ -153,6 +153,7 @@ describe('Turkish generated word practice', () => {
     const buttons = [...host.querySelectorAll<HTMLButtonElement>('button')];
     expect(buttons.map(button => button.textContent?.slice(1))).toEqual(['olmak', 'bisiklete binmek', 'duş almak', 'kapatmak; kapanmak']);
     expect(buttons.map(button => button.dataset.answer)).toEqual(source.options);
+    expect(buttons.map(button => button.dataset.gameOption)).toEqual(['0', '1', '2', '3']);
     expect(answerMatches(source, buttons[0].dataset.answer!)).toBe(true);
     expect(answerMatches(source, buttons[1].dataset.answer!)).toBe(false);
     expect(attemptFeedback(source, source.answer, source.explanation)).toBe(shown.explanation);

@@ -1,9 +1,51 @@
 import { describe, expect, it } from 'vitest';
-import { checkExpeditionPlan, expeditionGames, expeditionGameStatus, expeditionNotebook, freshExpeditionPlan, loadExpeditionPlan, saveExpeditionPlan } from './expedition-games';
+import { checkExpeditionPlan, expeditionGames, expeditionGameStatus, expeditionNotebook, freshExpeditionPlan, loadExpeditionPlan, saveExpeditionPlan, shuffledExpeditionSteps, expeditionGameAudioJobs, expeditionAgreement } from './expedition-games';
 import type { Level } from './content';
 
 function memoryStorage() { const values = new Map<string,string>(); return { getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>{values.set(key,value);} }; }
 describe('ten neighborhood planning games',()=>{
+  it('accepts two or three meaningful allocations per scaffold while keeping hard constraints',()=>{
+    const variants:Record<string,Record<string,number>[]>={
+      saffroncourt:[{arrival:16},{arrival:18}],rainmarket:[{end:19},{start:19}],windplain:[{water:5},{food:3}],
+      riverweave:[{veg:3}],terracielo:[{pickup:14},{pickup:16}],sunpatch:[{broadcast:6}],kigalights:[{edit:17}],
+      cedarbay:[{time:12},{time:13}],seoulsteps:[{end:20},{start:20}],dunegarden:[{shared:5,young:2},{shared:5,trees:2}],
+    };
+    for(const game of expeditionGames) {
+      const valid:Record<string,number>[]=[];
+      const visit=(index:number,values:Record<string,number>)=>{
+        if(index===game.fields.length){if(!game.validate(values).length)valid.push({...values});return;}
+        for(const option of game.fields[index].options)visit(index+1,{...values,[game.fields[index].id]:option.value});
+      };
+      visit(0,{});
+      expect(valid.length,game.id).toBe(variants[game.id].length+1);
+      for(const level of ['A1','A2','B1'] as const)for(const change of [{},...variants[game.id]]) {
+        const plan=freshExpeditionPlan(game,level);plan.values={...game.solution,...change};plan.order=game.steps.map(step=>step.id);
+        expect(checkExpeditionPlan(game,plan).correct,`${game.id}:${level}:${JSON.stringify(change)}`).toBe(true);
+        expect(expeditionAgreement(game,plan.values).length).toBeGreaterThan(30);
+      }
+    }
+    const garden=expeditionGames.find(game=>game.id==='dunegarden')!;
+    expect(garden.validate({...garden.solution,shared:6,young:2,trees:2})).not.toEqual([]);
+    const camp=expeditionGames.find(game=>game.id==='windplain')!;
+    expect(camp.validate({...camp.solution,water:5,food:3})).not.toEqual([]);
+    const studio=expeditionGames.find(game=>game.id==='kigalights')!;
+    expect(studio.validate({...studio.solution,entrance:1,edit:17})).not.toEqual([]);
+  });
+  it('varies the pieces on replay without printing a complete solution',()=>{
+    for(const game of expeditionGames) {
+      const original=game.steps.map(step=>step.id),layouts=new Set<string>();
+      for(let retry=0;retry<40;retry++) {
+        const seed=`run-${retry}`,pieces=shuffledExpeditionSteps(game,seed);
+        expect(shuffledExpeditionSteps(game,seed)).toEqual(pieces);
+        expect(pieces.map(piece=>piece.id)).not.toEqual(original);
+        expect(pieces.map(piece=>piece.id).sort()).toEqual([...original].sort());
+        layouts.add(pieces.map(piece=>piece.id).join(','));
+      }
+      expect(layouts.size).toBeGreaterThan(1);expect(game.steps.map(step=>step.id)).toEqual(original);
+    }
+    expect(expeditionGameAudioJobs).toHaveLength(30);
+    expect(new Set(expeditionGameAudioJobs.map(job=>job.id)).size).toBe(30);
+  });
   it('requires a workable resource plan and a fully assembled sequence in every region and scaffold',()=>{
     expect(expeditionGames).toHaveLength(10);
     expect(new Set(expeditionGames.map(game=>game.id)).size).toBe(10);

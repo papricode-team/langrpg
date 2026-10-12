@@ -148,6 +148,7 @@ func ensureStory(p *Progress) {
 	if s.ExpeditionPlans == nil {
 		s.ExpeditionPlans = map[string]ExpeditionPlanState{}
 	}
+	migrateExpeditionPlans(s.ExpeditionPlans)
 	if s.Inspections == nil {
 		s.Inspections = map[string][]string{}
 	}

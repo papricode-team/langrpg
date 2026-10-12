@@ -48,8 +48,10 @@ time. Formal Sie and grammatical distinctions remain meaningful. Reviews ask for
 Hard/Good/Easy after answering, through an authenticated read-only preview;
 the saved reply creates one SRS event. Placement uses the same preview and cannot
 create cards or XP. Placement still recommends practice locally; server-persisted
-placement and story entry at later acts remain open. Expedition recall remains
-open until its encounters have reviewable lexeme mappings.
+placement and story entry at later acts remain open. All 180 expedition encounters
+now have reviewed lexical targets in separate recognition/listening modes. The
+129 planning fields across thirty scaffolds submit supported recognition with
+exact server context; unrestored vocabulary remains explicitly exposure-only.
 
 ## What is playable
 

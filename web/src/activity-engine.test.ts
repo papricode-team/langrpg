@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { emptyProgress, type MemoryItem } from './api';
 import {
   activityAudioJobs, activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
-  initialActivityState, marketTotal, selectActivityScenarios, shuffledDetectiveBoard, type ActivityAction, type ActivityScenario, type ActivityState,
+  initialActivityState, marketTotal, selectActivityScenarios, shuffledDetectiveBoard, shuffledCafeActions, type ActivityAction, type ActivityScenario, type ActivityState,
 } from './activity-engine';
 
 /** Solve by the same actions the player can perform, rather than assigning goal state. */
@@ -83,6 +83,20 @@ describe('the authored activity catalog',()=>{
 
 describe('café consequences',()=>{
   const scene=activityScenarios.find(scene=>scene.id==='cafe-a1-milk-and-secrets')!;
+  it('never gives away the recipe in the action palette, and changes replay layouts',()=>{
+    for(const scenario of activityScenarios.filter(scenario=>scenario.board.kind==='cafe')) {
+      if(scenario.board.kind!=='cafe')throw new Error('Wrong board.');
+      const board=scenario.board,original=[...board.actions],layouts=new Set<string>();
+      for(let retry=0;retry<40;retry++) {
+        const seed=`retry-${retry}`,actions=shuffledCafeActions(board,seed);
+        expect(shuffledCafeActions(board,seed)).toEqual(actions);
+        expect([...actions].sort()).toEqual([...original].sort());
+        expect(actions.filter(action=>board.goal.steps.includes(action))).not.toEqual(board.goal.steps);
+        layouts.add(actions.join(','));
+      }
+      expect(layouts.size).toBeGreaterThan(1);expect(board.actions).toEqual(original);
+    }
+  });
   it('rejects the wrong quantity, missing milk and wrong cooking sequence even if one feature is right',()=>{
     const complete=solve(scene);
     expect(complete.kind).toBe('cafe');

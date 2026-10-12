@@ -10,8 +10,19 @@ import {getPlacedScenery,sceneryFootprints} from './placed-scenery';
 import {buildingEntrances,createInteriorNavigation} from './interiors';
 import {explorationZoom} from './world-camera';
 import {createWorldResidents} from './world-life';
+import {miniGameById} from './minigames/catalogue';
 
 describe('canonical scenes in the game runtime',()=>{
+  it('binds authored mini-game hosts to installed games without moving their feet',()=>{
+    for(const id of ['lindenhafen','waldruh','nebelstadt'] as const){
+      const map=getMap(id),scene=sceneDocument.maps[id];
+      for(const kind of ['npcs','objects'] as const)for(const host of map[kind]){
+        if(!host.minigame)continue;
+        expect(miniGameById.has(host.minigame),host.id).toBe(true);
+        expect(scene[kind].find(anchor=>anchor.id===host.id)?.minigame,host.id).toBe(host.minigame);
+      }
+    }
+  });
   it('preserves the original connected areas while allowing authored expansions',()=>{
     for(const measured of baseline.maps){
       const id=measured.id as MapId,scene=sceneDocument.maps[id];
@@ -41,7 +52,8 @@ describe('canonical scenes in the game runtime',()=>{
   it('preserves Waldruh’s core and connects the detailed mill terraces across the bridge',()=>{
     const core=parseWorldSceneDocument({version:2,maps:{waldruh:waldruhCore}}).maps.waldruh;
     const scene=sceneDocument.maps.waldruh,navigation=createMapNavigation('waldruh');
-    for(const key of ['spawn','npcs','objects','entrances','obstacles'] as const)expect(scene[key]).toEqual(core[key]);
+    for(const key of ['spawn','entrances','obstacles'] as const)expect(scene[key]).toEqual(core[key]);
+    for(const key of ['npcs','objects'] as const)expect(scene[key].map(({id,x,y})=>({id,x,y}))).toEqual(core[key].map(({id,x,y})=>({id,x,y})));
     for(const key of ['walkable','scenery','terrain'] as const)expect(scene[key].slice(0,core[key].length)).toEqual(core[key]);
     expect(scene.width).toBeGreaterThanOrEqual(2304);expect(scene.coordinateVersion).toBeGreaterThanOrEqual(2);
     for(const [id,y]of [['mill-supply-terrace',0],['mill-service-yard',512]] as const)
@@ -76,7 +88,8 @@ describe('canonical scenes in the game runtime',()=>{
     const original=new NavigationGrid(core.walkable,[...core.obstacles,...sceneryFootprints(core.scenery)],core);
     expect(original.auditConnectedArea(core.spawn).connectedCells).toBe(1628);
     const scene=sceneDocument.maps.lindenhafen,navigation=createMapNavigation('lindenhafen');
-    for(const key of ['spawn','npcs','objects','entrances','obstacles'] as const)expect(scene[key]).toEqual(core[key]);
+    for(const key of ['spawn','entrances','obstacles'] as const)expect(scene[key]).toEqual(core[key]);
+    for(const key of ['npcs','objects'] as const)expect(scene[key].map(({id,x,y})=>({id,x,y}))).toEqual(core[key].map(({id,x,y})=>({id,x,y})));
     expect(scene.walkable.slice(0,core.walkable.length)).toEqual(core.walkable);
     expect(scene.scenery.slice(0,core.scenery.length)).toEqual(core.scenery);
     expect(scene.terrain.slice(0,core.terrain.length)).toEqual(core.terrain);

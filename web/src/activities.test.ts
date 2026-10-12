@@ -74,7 +74,7 @@ function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
 }
 
 describe('playable mission controller',()=>{
-  it('keeps shuffled evidence and slots stable through placement, reset, pause and reopening',async()=>{
+  it('keeps evidence stable through edits and reopening, then shuffles a new attempt',async()=>{
     const root=new EventRoot(),{controller}=mount(root,{id:'detective'});
     const current=scene(),board=current.board;
     if(board.kind!=='detective')throw new Error('Wrong board.');
@@ -94,14 +94,17 @@ describe('playable mission controller',()=>{
     controller.destroy();
     const resumed=new EventRoot();mount(resumed,{id:'detective'});unchanged(resumed);
     expect(run().state).toEqual(linked);
-    resumed.click('reset-board');unchanged(resumed);
+    resumed.click('reset-board');
+    const retried=shuffledDetectiveBoard(board,`${run().runId}:${current.id}:1`);
+    expect(order(resumed,'select-card')).toEqual(retried.cards.map(card=>card.id));
+    expect(order(resumed,'place-card')).toEqual(retried.slots.map(slot=>slot.id));
     expect(run().state).toEqual({kind:'detective',links:{}});
     solveViaControls(resumed,current);resumed.click('submit');await flush();
     expect(run().stage).toBe('scene-complete');
     resumed.click('next');await flush();
     const next=scene();
     if(next.board.kind!=='detective')throw new Error('Wrong board.');
-    const nextLayout=shuffledDetectiveBoard(next.board,`${run().runId}:${next.id}`);
+    const nextLayout=shuffledDetectiveBoard(next.board,`${run().runId}:${next.id}:1`);
     expect(order(resumed,'select-card')).toEqual(nextLayout.cards.map(card=>card.id));
     expect(order(resumed,'place-card')).toEqual(nextLayout.slots.map(slot=>slot.id));
   });

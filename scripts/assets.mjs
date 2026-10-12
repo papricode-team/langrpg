@@ -7,6 +7,8 @@ const content = [
   ['build-syllabus.mjs'],
   ['map-editor.mjs', 'check'],
   ['export-world-content.mjs'],
+  ['expedition-learning.mjs'],
+  ['author-minigame-stories.mjs'],
   ['scene-compiler.mjs', 'compile'],
   ['audit-dialogue-levels.mjs'],
   ['audit-pacing.mjs'],

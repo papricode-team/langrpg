@@ -16,7 +16,7 @@ test('server investigation proof follows the actual edited runtime placements an
     const quest = quests.find(quest => quest.id === graph.questId);
     const map = getMap(rule.mapId);
     const npc = map.npcs.find(npc => npc.id === quest.npcId);
-    assert.deepEqual(rule.npc, npc, `${graph.questId} NPC moved without regenerating server proof`);
+    assert.deepEqual(rule.npc, {id:npc.id,x:npc.x,y:npc.y}, `${graph.questId} NPC moved without regenerating server proof`);
     assert.equal(rule.npcId, quest.npcId);
     assert.equal(rule.gateExerciseId, graph.gateExerciseId);
     assert.deepEqual(rule.replyExerciseIds, [...new Set(graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : [])))]);
