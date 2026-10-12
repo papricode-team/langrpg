@@ -7,6 +7,8 @@
  * falls back to the English source and records the miss; nothing throws.
  * See docs/turkish-route.md.
  */
+import { generatedLexicalExerciseText, generatedLexicalOption, translatedLexemeForm } from './i18n-lexical.ts';
+
 export type BaseLanguage = 'en' | 'tr';
 export const baseLanguages: readonly BaseLanguage[] = ['en', 'tr'];
 export const baseLanguageNames: Record<BaseLanguage, string> = { en: 'English', tr: 'Türkçe' };
@@ -16,7 +18,8 @@ export interface OverlayEntry { de?: string; en?: string; tr: string; }
 export interface CourseOverlay {
   lexicon: Record<string, { en: string; tr: string }>;
   grammar: Record<string, { title: [string, string]; explanation: [string, string]; examples: Record<string, string>; note?: string }>;
-  exercises: Record<string, { german: string; source: ExerciseText; tr: ExerciseText }>;
+  exercises: Record<string, { german: string; source: ExerciseText; tr: ExerciseText; options?: Record<string, string> }>;
+  texts?: Record<string, string>;
 }
 export interface ExerciseText { prompt: string; hint: string; explanation: string; english: string; }
 export interface LanguageOverlay {
@@ -31,6 +34,7 @@ let overlay: LanguageOverlay | undefined;
 let sentences = new Map<string, string>();
 let texts = new Map<string, string>();
 let exerciseMeanings = new Map<string, string>();
+let lexemeMeanings = new Map<string, string>();
 let loading: Promise<LanguageOverlay> | undefined;
 const missing = new Map<string, number>();
 const listeners = new Set<(language: BaseLanguage) => void>();
@@ -51,11 +55,13 @@ export function cachedBaseLanguage(): BaseLanguage {
 
 function index(value: LanguageOverlay): void {
   sentences = new Map(); texts = new Map(); exerciseMeanings = new Map();
+  lexemeMeanings = new Map(Object.values(value.course.lexicon).filter(entry => entry.tr).map(entry => [entry.en, entry.tr]));
   for (const entry of Object.values(value.story)) {
     if (!entry.tr) continue;
     if (entry.de !== undefined && !sentences.has(entry.de)) sentences.set(entry.de, entry.tr);
     if (entry.en !== undefined && entry.de === undefined && !texts.has(entry.en)) texts.set(entry.en, entry.tr);
   }
+  for (const [source, tr] of Object.entries(value.course.texts ?? {})) if (tr && !texts.has(source)) texts.set(source, tr);
   for (const { source, tr } of Object.values(value.course.exercises)) {
     for (const field of ['prompt', 'hint', 'explanation', 'english'] as const) {
       if (source[field] && tr[field] && !texts.has(source[field])) texts.set(source[field], tr[field]);
@@ -79,7 +85,7 @@ export async function loadBaseLanguage(language: BaseLanguage): Promise<void> {
 /** For tests and tools: install an overlay without the dynamic import. */
 export function installOverlay(value: LanguageOverlay | undefined): void {
   overlay = value; loading = undefined;
-  if (value) index(value); else { sentences = new Map(); texts = new Map(); exerciseMeanings = new Map(); }
+  if (value) index(value); else { sentences = new Map(); texts = new Map(); exerciseMeanings = new Map(); lexemeMeanings = new Map(); }
 }
 
 /**
@@ -187,9 +193,53 @@ export function hasLexemeMeaning(word: { id: string; english: string }): boolean
 export function localizedExercise<T extends { id: string; prompt: string; hint: string; explanation: string; english: string }>(exercise: T): T {
   if (current === 'en') return exercise;
   const entry = overlay?.course.exercises[exercise.id];
-  if (!entry) { miss('exercise', exercise.id); return exercise; }
+  if (!entry) {
+    const generated = overlay && generatedLexicalExerciseText(exercise, overlay.course.lexicon, t);
+    if (generated) return { ...exercise, ...generated };
+    miss('exercise', exercise.id); return exercise;
+  }
   const pick = (field: keyof ExerciseText) => entry.source[field] === exercise[field] && entry.tr[field] ? entry.tr[field] : exercise[field];
   return { ...exercise, prompt: pick('prompt'), hint: pick('hint'), explanation: pick('explanation'), english: pick('english') };
+}
+
+/** Recognition meanings are localized for display; German listening options stay German. */
+export function localizedExerciseOption(exercise: { id: string; mode: string }, option: string): string {
+  if (current === 'en') return option;
+  const options = overlay?.course.exercises[exercise.id]?.options;
+  if (options) {
+    if (options[option]) return options[option];
+    miss('exercise-option', `${exercise.id}:${option}`);
+    return option;
+  }
+  if (exercise.mode !== 'choice' || !/^lex-.+-recognition$/.test(exercise.id)) return option;
+  const translated = generatedLexicalOption(option, lexemeMeanings, t);
+  if (translated !== undefined) return translated;
+  miss('exercise-option', `${exercise.id}:${option}`);
+  return option;
+}
+
+export function localizedLexemeForm(form: string): string {
+  return current === 'en' ? form : translatedLexemeForm(form, t);
+}
+
+export function localizedLexemePartOfSpeech(pos: string): string {
+  if (current === 'en') return pos;
+  switch (pos) {
+    case 'noun': return t('Noun');
+    case 'verb': return t('Verb');
+    case 'article': return t('Article');
+    case 'adj': return t('Adjective');
+    case 'adv': return t('Adverb');
+    case 'pron': return t('Pronoun');
+    case 'conj': return t('Conjunction');
+    case 'prep': return t('Preposition');
+    case 'intj': return t('Interjection');
+    case 'num': return t('Numeral');
+    case 'det': return t('Determiner');
+    case 'name': return t('Proper name');
+    case 'phrase': return t('Expression');
+    default: return pos;
+  }
 }
 
 export interface GrammarText { id: string; title: string; explanation: string; examples: { german: string; english: string }[]; }

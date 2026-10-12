@@ -36,7 +36,7 @@ English data files stay canonical. Turkish lives in `web/src/data/i18n/`:
 
 - `tr-story.json` — `{ "<unit id>": { "de" | "en": <source>, "tr": <Turkish> } }`. Unit ids are stable (`dialogue:<line id>`, `choice:<quest>:<choice id>`, `topic:<quest>:<topic id>`, `evidence:<quest>:<object id>`, `clue:<quest>:letter:<n>`, …). Sentence units record the **German** source, text units their **English** source.
 - `tr-ui.json` — `{ "<English UI string>": "<Turkish>" }`.
-- `tr-course.json` — lexicon glosses by lexeme id (with the English gloss they translate), grammar guides and story-quest exercises by id.
+- `tr-course.json` — every A1–B1 lexicon gloss by lexeme id (with its English source), grammar guides, all authored exercises by id, and route titles/summaries by English source. An exercise's optional `options` map translates visible answer labels; its canonical answer and submitted values remain unchanged. Generated lexical exercises use shared templates rather than individual overlay entries.
 
 Why the source text is stored next to each translation: `scripts/i18n-coverage.mjs` and `web/src/i18n-coverage.test.ts` enumerate every story unit from the live data (`web/src/i18n-units.ts`) and **fail** when a unit has no Turkish entry, or when its stored source no longer matches the current German/English (the story changed and the translation is stale). Turkish cannot silently rot. The same check verifies `{name}` placeholders, that identical German sentences have one Turkish meaning, and that every `t('…')` key in the source has a Turkish entry.
 
@@ -68,26 +68,26 @@ Coverage figures are produced by `node scripts/i18n-coverage.mjs` (see §4).
 
 - **Story** (required to be 100%, enforced): every dialogue line, simpler A1 variant and reply correction; topic questions and answers; choices; evidence texts; objectives and gate prompts; introduced words and line glosses; act texts; clue titles, texts and leads; Elise's letters; object lore; quest introductions, titles and objectives; NPC roles and greetings; resident greetings, callbacks and title greetings; cinematic captions (shown as Turkish subtitles under the German); contextual grammar notes; guided A1 gate replies.
 - **Interface**: every string routed through `t()` (HUD, menu, settings, first run, dialogue tools, quest log, discoveries, journal, toasts, exercise/review chrome). Surfaces not yet routed through `t()` are listed in §5.
-- **Course**: all story-quest exercises (prompts, hints, explanations, meanings — including the 18 gate exercises); all grammar-guide titles, explanations and example meanings; Turkish glosses for the A1 lexicon and the story vocabulary. Other course text falls back to English with a note in Settings: “Turkish support covers the story and A1 basics; other course text is still English.”
+- **Course** (required to be 100%): every A1, A2 and B1 word meaning, exercise prompt, hint, explanation and support answer label; all route titles/summaries and grammar guides. Generated recognition, listening and production exercises use glosses and shared Turkish templates (`i18n-lexical.ts`). Authored grammar, reading, listening, writing, checkpoint and reference-form exercises have source-checked overlays. Answer buttons show Turkish support text and submit the canonical values; German content stays German. Word cards translate inflection and part-of-speech labels. Review recall prompts use the selected support language.
 - **Turkish-speaker notes** (“Türkçe konuşanlar için”): short contrastive notes in a few grammar guides — no grammatical gender/articles in Turkish; German verb-second vs Turkish verb-final order; *Sie/du* ≈ *siz/sen*; German case on articles vs Turkish case suffixes.
 
 ## 4. Coverage
 
-Measured by `npm run i18n` (`scripts/i18n-coverage.mjs`), which also runs in CI and fails on any missing/stale story unit, lost placeholder, inconsistent meaning or untranslated `t()` key. The rounded figures shown in Settings live in `web/src/data/i18n/tr-coverage.json`; a test fails if they drift from the measurement (`npm run i18n -- --write` refreshes them).
+Measured by `npm run i18n` (`scripts/i18n-coverage.mjs`), which also runs in CI and fails on incomplete course support, missing/stale story units, lost placeholders, inconsistent meanings or untranslated `t()` keys. The rounded figures shown in Settings live in `web/src/data/i18n/tr-coverage.json`; a test fails if they drift from the measurement (`npm run i18n -- --write` refreshes them).
 
 | Area | Turkish | Required |
 | --- | --- | --- |
 | Story units (dialogue, variants, corrections, topics, choices, evidence, objectives, gate prompts, glosses, acts, clues, letters, lore, quest intros, NPC roles/greetings, resident lines, cinematics, grammar notes, guided replies, placement lines) | 1,732 / 1,732 (100%) | yes — build fails otherwise |
-| Interface strings routed through `t()` | 798 / 798 (100%) | yes |
+| Interface strings routed through `t()` | 864 / 864 (100%) | yes |
 | A1 lexicon glosses | 811 / 811 (100%) | yes |
-| All lexicon glosses (A1 + every word the story dialogue or story exercises use) | 1,369 / 3,283 (41.7%) | no |
+| All A1–B1 lexicon glosses | 3,283 / 3,283 (100%) | yes |
 | Grammar guides (title, explanation, example meanings) | 39 / 39 (100%) | yes |
 | Story-quest exercises (prompt, hint, explanation, meaning; includes the 18 gate exercises) | 126 / 126 (100%) | yes |
-| Other course tasks (topic routes) | 0 / 10,266 (0%) | no — English fallback |
+| Other course tasks (topic routes, including generated word practice) | 10,266 / 10,266 (100%) | yes |
+| Course route titles and summaries | 405 / 405 (100%) | yes |
 
 ## 5. Known gaps
 
-- **Course routes**: the 10,266 route tasks, 405 route titles/summaries and the A2/B1 words the story never uses fall back to English. Settings says so: “Turkish support covers the story and A1 basics; other course text is still English.”
 - **Not routed through `t()` yet** (their text stays English in the Turkish route): the café/market/detective/delivery mini-games (`activities.ts`, `activity-engine.ts`, `activity-stories.ts`), the ten coastal expeditions and their neighbourhood games (`expeditions.ts`, `expedition-games.ts`; the encounter panel is labelled “İngilizce destek”), interior rooms and their word cards (`interiors.ts`), and world-map labels inside the Phaser canvas (`world.ts`). Their chrome labels in `main.ts` are translated.
 - **Server messages**: errors coming from the server (`toast(error.message)`) are English. Answer feedback is rebuilt locally from the same rules (`attemptFeedback`), so grading feedback is Turkish.
 - **Highlighting**: Turkish rarely matches a gloss word exactly, so most taps show the gloss line without a highlight — by design (never a wrong highlight).
@@ -110,6 +110,7 @@ Everything Turkish here is machine-authored and needs a native-speaker pass. Run
 
 - Adding or changing a German line makes `npm test` and `npm run i18n` fail until the Turkish entry in `web/src/data/i18n/tr-story.json` is added or updated (the stored `de` source must match).
 - New interface text: wrap it as `t('English text', { vars })` with a literal string and add the Turkish to `tr-ui.json`.
+- Course authoring: update `scripts/turkish-course-texts.json` and the source-checked lexicon/grammar entries, then run `node scripts/sync-turkish-course.mjs`. Missing source translations stop the refresh. Run `npm run i18n -- --write` to refresh the Settings figures. Tests visit every A1–B1 task, verify localized feedback/options, and require complete coverage while keeping grading values intact.
 - Use `upper()`/`lower()` from `i18n.ts` for support text; never `toUpperCase()`.
 
 ## Findings outside scope (not changed)

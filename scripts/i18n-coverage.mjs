@@ -34,7 +34,7 @@ const keys = uiKeys(sources);
 const uiMissing = keys.filter(key => !ui[key]?.trim());
 const uiPlaceholders = keys.filter(key => ui[key] && (key.match(/\{\w+\}/g) ?? []).sort().join() !== (ui[key].match(/\{\w+\}/g) ?? []).sort().join());
 const report = storyCoverage(units, story);
-const courseReport = courseCoverage(course);
+const courseReport = courseCoverage(course, ui);
 const pct = (part, whole) => whole ? `${(part / whole * 100).toFixed(1)}%` : '—';
 
 console.log(`Story:  ${report.translated} / ${report.total} units (${pct(report.translated, report.total)})`);
@@ -47,6 +47,7 @@ const problems = [
   ...report.inconsistent.map(pair => `one German sentence, two Turkish meanings: ${pair}`),
   ...uiMissing.map(key => `missing UI string: ${key}`),
   ...uiPlaceholders.map(key => `placeholder mismatch in UI string: ${key}`),
+  ...Object.entries(courseReport).filter(([, part]) => part.translated !== part.total).map(([name, part]) => `incomplete Turkish ${name}: ${part.translated} / ${part.total}`),
 ];
 const summary = coverageSummary({ story: report, uiTotal: keys.length, uiTranslated: keys.length - uiMissing.length, course: courseReport });
 const summaryPath = join(root, 'web/src/data/i18n/tr-coverage.json');

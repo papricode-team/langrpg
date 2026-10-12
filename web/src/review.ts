@@ -1,6 +1,7 @@
 import type { Exercise } from './content';
 import type { Progress,WordMemory } from './api';
 import { dueItems, modeFor, practiceExercises } from './learning';
+import { localizedExercise, t } from './i18n';
 
 type ReviewExercise = Exercise & { targetWordId?: string };
 const ready = (date: string | undefined, now: number) => !!date && Number.isFinite(Date.parse(date)) && Date.parse(date)>0 && Date.parse(date) <= now;
@@ -30,7 +31,7 @@ export function reviewExercises(progress: Progress, course: readonly ReviewExerc
   for (const id of dueItems(progress, now)) {
     const exercise = contextual.get(id);
     if (!exercise) continue;
-    queue.push(exercise.mode === 'sentence' ? {...exercise, mode:'type', prompt:`Write in German: ${exercise.english}`} : exercise);
+    queue.push(exercise.mode === 'sentence' ? {...exercise, mode:'type', prompt:t('Write in German: {english}', { english: localizedExercise(exercise).english })} : exercise);
     if (queue.length === 8) break;
   }
   return queue;

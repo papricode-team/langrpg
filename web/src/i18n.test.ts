@@ -4,16 +4,20 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   baseLanguage, cachedBaseLanguage, clearMissingTranslations, installOverlay, lexemeMeaning, localized, localizedExercise,
-  localizedGrammar, missingTranslations, setBaseLanguage, supportText, t, upper, type LanguageOverlay,
+  localizedGrammar, localizedExerciseOption, localizedLexemeForm, missingTranslations, setBaseLanguage, supportText, t, upper, type LanguageOverlay,
 } from './i18n';
 import { turkishOverlay } from './i18n-tr';
 import { storyCoverage, storyUnits, uiKeys } from './i18n-units';
 import { courseCoverage, coverageSummary } from './i18n-course-coverage';
 import recordedCoverage from './data/i18n/tr-coverage.json';
-import { Api, normalizeSession, type SessionResult } from './api';
+import { Api, normalizeSession, emptyProgress, type SessionResult } from './api';
 import { renderNarrative } from './sentence-translations';
 import { translationHighlights } from './dialogue-translation';
 import { quests } from './content';
+import { courseExercises, courseExerciseById, courseLexicon, courseUnits } from './course';
+import { exerciseOptionsMarkup } from './exercise-options';
+import { attemptFeedback, answerMatches } from './learning';
+import { reviewExercises } from './review';
 
 const emptyOverlay = (): LanguageOverlay => ({ story: {}, ui: {}, course: { lexicon: {}, grammar: {}, exercises: {} } });
 
@@ -105,14 +109,14 @@ describe('Turkish coverage', () => {
     const walk = (dir: string) => { for (const item of readdirSync(dir, { withFileTypes: true })) { const path = join(dir, item.name); if (item.isDirectory()) walk(path); else if (item.name.endsWith('.ts') && !item.name.endsWith('.test.ts')) sources.push(readFileSync(path, 'utf8')); } };
     walk(root);
     const keys = uiKeys(sources);
-    const summary = coverageSummary({ story: storyCoverage(units, turkishOverlay.story), uiTotal: keys.length, uiTranslated: keys.filter(key => turkishOverlay.ui[key]).length, course: courseCoverage(turkishOverlay.course) });
+    const summary = coverageSummary({ story: storyCoverage(units, turkishOverlay.story), uiTotal: keys.length, uiTranslated: keys.filter(key => turkishOverlay.ui[key]).length, course: courseCoverage(turkishOverlay.course, turkishOverlay.ui) });
     // Out of date? Run: node scripts/i18n-coverage.mjs --write
     expect(recordedCoverage).toEqual(summary);
   });
 
-  it('covers the A1 lexicon, the grammar guides and every story-quest exercise', () => {
-    const report = courseCoverage(turkishOverlay.course);
-    for (const part of ['A1 lexicon glosses', 'grammar guides', 'story quest exercises']) expect(report[part].translated, part).toBe(report[part].total);
+  it('requires complete Turkish course support across A1, A2 and B1', () => {
+    const report = courseCoverage(turkishOverlay.course, turkishOverlay.ui);
+    for (const [part, counts] of Object.entries(report)) expect(counts.translated, part).toBe(counts.total);
   });
 
   it('localizes gate exercises and guides without touching answers', async () => {
@@ -127,6 +131,135 @@ describe('Turkish coverage', () => {
     const guide = localizedGrammar({ id: 'a1-nouns', title: 'x', explanation: 'y', examples: [] });
     // Stale sources fall back to the canonical English text.
     expect(guide.title).toBe('x');
+  });
+});
+
+describe('Turkish generated word practice', () => {
+  const exercise = (word: string, mode = 'recognition') => courseExerciseById.get(`lex-${word}-${mode}`)!;
+  const turkish = async () => { installOverlay(turkishOverlay); await setBaseLanguage('tr'); };
+
+  it('localizes the pictured sein question, answer labels, hint and feedback while preserving grading values', async () => {
+    await turkish();
+    const source = exercise('sein-verb'), shown = localizedExercise(source);
+    expect(shown.prompt).toBe('“sein” ne anlama geliyor?');
+    expect(shown.english).toBe('olmak');
+    expect(shown.explanation).toBe('sein — olmak. Biçimler: şimdiki zaman (er/sie/es): ist; geçmiş zaman ortacı: gewesen.');
+    expect(shown.hint).toBe(shown.explanation);
+    expect(shown.answer).toBe(source.answer);
+    expect(shown.options).toEqual(source.options);
+    expect(shown.german).toBe(source.german);
+    const host = document.createElement('div');
+    host.innerHTML = exerciseOptionsMarkup(source, source.options!);
+    const buttons = [...host.querySelectorAll<HTMLButtonElement>('button')];
+    expect(buttons.map(button => button.textContent?.slice(1))).toEqual(['olmak', 'bisiklete binmek', 'duş almak', 'kapatmak; kapanmak']);
+    expect(buttons.map(button => button.dataset.answer)).toEqual(source.options);
+    expect(answerMatches(source, buttons[0].dataset.answer!)).toBe(true);
+    expect(answerMatches(source, buttons[1].dataset.answer!)).toBe(false);
+    expect(attemptFeedback(source, source.answer, source.explanation)).toBe(shown.explanation);
+    expect(attemptFeedback(source, source.options![1], source.explanation)).toBe(shown.explanation);
+    expect(missingTranslations().size).toBe(0);
+  });
+
+  it('localizes production and listening instructions while keeping German answers and forms', async () => {
+    await turkish();
+    const production = exercise('sein-verb', 'production'), listening = exercise('sein-verb', 'listening');
+    expect(localizedExercise(production).prompt).toBe('“olmak” anlamına gelen Almanca fiilin mastarını yaz.');
+    expect(localizedExercise(production).answer).toBe('sein');
+    expect(localizedExercise(listening).prompt).toBe('Dinle, sonra duyduğun Almanca kelimeyi veya ifadeyi seç.');
+    expect(localizedExercise(listening).hint).toMatch(/^Sesi tekrar dinle\. sein — olmak\./);
+    expect(listening.options!.map(option => localizedExerciseOption(listening, option))).toEqual(listening.options);
+    const noun = localizedExercise(exercise('tisch-noun', 'production'));
+    expect(noun.prompt).toContain('Artikeli yazmak isteğe bağlıdır; ismi büyük harfle başlat.');
+    expect(noun.explanation).toContain('Çoğul: Tische.');
+    expect(localizedLexemeForm('past participle: gewesen')).toBe('geçmiş zaman ortacı: gewesen');
+    expect(localizedLexemeForm('gereift')).toBe('gereift');
+  });
+
+  it('covers every generated word task and its recognition distractors across all three levels', async () => {
+    await turkish();
+    for (const source of courseExercises.filter(ex => ex.targetWordId)) {
+      const shown = localizedExercise(source);
+      expect(shown.prompt, source.id).not.toBe(source.prompt);
+      expect(shown.english, source.id).toBe(turkishOverlay.course.lexicon[source.targetWordId!].tr);
+      expect(shown.hint, source.id).not.toContain(' Forms: ');
+      expect(shown.explanation, source.id).not.toContain(' Plural: ');
+      for (const option of source.options ?? []) localizedExerciseOption(source, option);
+    }
+    expect([...missingTranslations().keys()]).toEqual([]);
+  });
+
+  it('keeps English unchanged and rejects changed generator sources or stale Turkish glosses', async () => {
+    const source = exercise('sein-verb');
+    expect(localizedExercise(source)).toBe(source);
+    expect(exerciseOptionsMarkup(source, source.options!)).toContain('>A</span>to be</button>');
+    await turkish();
+    const changed = { ...source, prompt: 'A newly authored question' };
+    expect(localizedExercise(changed)).toBe(changed);
+    const stale = { ...source, english: 'a changed sense' };
+    expect(localizedExercise(stale)).toBe(stale);
+    expect(localizedExerciseOption({ id: 'story-choice', mode: 'choice' }, 'to be')).toBe('to be');
+  });
+});
+
+describe('complete Turkish course route', () => {
+  beforeEach(async () => { installOverlay(turkishOverlay); await setBaseLanguage('tr'); });
+
+  it.each(['A1', 'A2', 'B1'])('renders every %s task and feedback without English fallback while preserving submitted answers', level => {
+    const exercises = courseExercises.filter(exercise => exercise.level === level);
+    expect(exercises.length).toBeGreaterThan(100);
+    for (const source of exercises) {
+      const shown = localizedExercise(source);
+      expect(shown.prompt, source.id).not.toBe(source.prompt);
+      expect(shown).toMatchObject({ id: source.id, itemId: source.itemId, german: source.german, answer: source.answer, mode: source.mode });
+      expect(shown.options, source.id).toEqual(source.options);
+      expect(shown.acceptedAnswers, source.id).toEqual(source.acceptedAnswers);
+      const options = source.options?.map(option => localizedExerciseOption(source, option));
+      if (options) expect(new Set(options).size, source.id).toBe(options.length);
+      for (const value of [shown.prompt, shown.hint, shown.explanation, shown.english]) expect(value, source.id).not.toMatch(/Read the (?:note|new text)|Write:|Build:|What does|Forms:|past participle:|Model:|Relevant answer:|The detail you need is:/);
+      const feedback = attemptFeedback(source, source.answer, 'An English server reason.');
+      expect(feedback, source.id).not.toContain('An English server reason.');
+      expect(attemptFeedback(source, '__wrong_answer__', 'An English server reason.'), source.id).not.toContain('An English server reason.');
+    }
+    for (const word of courseLexicon.filter(word => word.level === level)) expect(lexemeMeaning(word), word.id).toBe(turkishOverlay.course.lexicon[word.id].tr);
+    for (const unit of courseUnits.filter(unit => unit.level === level)) { localized(unit.title); localized(unit.summary); }
+    expect([...missingTranslations().keys()]).toEqual([]);
+  });
+
+  it('shows Turkish comprehension choices and keeps their canonical values for grading', () => {
+    const source = courseExercises.find(exercise => exercise.level === 'A2' && exercise.answer === 'rain is expected')!;
+    const host = document.createElement('div');
+    host.innerHTML = exerciseOptionsMarkup(source, source.options!);
+    const buttons = [...host.querySelectorAll<HTMLButtonElement>('button')];
+    expect(buttons[0].textContent).toContain('yağmur bekleniyor');
+    expect(buttons.map(button => button.dataset.answer)).toEqual(source.options);
+    expect(answerMatches(source, buttons[0].dataset.answer!)).toBe(true);
+    const reference = courseExercises.find(exercise => exercise.level === 'B1' && exercise.unitId.includes('-reference-forms-'))!;
+    expect(localizedExercise(reference).explanation).toContain('Anlamı:');
+    expect(reference.options!.map(option => localizedExerciseOption(reference, option))).not.toEqual(reference.options);
+  });
+
+  it('keeps review prompts Turkish after a sentence becomes a recall task', () => {
+    const source = courseExerciseById.get('course-b1-passive-exercise-3')!;
+    const progress = emptyProgress(), due = '2026-10-10T00:00:00Z';
+    progress.items[source.itemId] = { itemId: source.itemId, dueAt: due, lastSeenAt: due, stabilityDays: 1, difficulty: 5, repetitions: 1, lapses: 0, modeStats: {} };
+    const [review] = reviewExercises(progress, [source], [], Date.parse('2026-10-12T00:00:00Z'));
+    expect(review.mode).toBe('type');
+    expect(localizedExercise(review).prompt).toContain('Güzergâh kapatıldı.');
+    expect(localizedExercise(review).prompt).not.toContain('Write in German');
+    expect(review.answer).toBe(source.answer);
+  });
+
+  it('detects missing A2/B1 glosses, stale task text and untranslated comprehension options', () => {
+    const course = structuredClone(turkishOverlay.course);
+    const word = courseLexicon.find(word => word.level === 'B1')!;
+    delete course.lexicon[word.id];
+    const source = courseExercises.find(exercise => exercise.level === 'A2' && exercise.kind === 'reading')!;
+    delete course.exercises[source.id].options![source.options![0]];
+    const task = courseExercises.find(exercise => exercise.level === 'B1' && !exercise.targetWordId)!;
+    course.exercises[task.id].source.prompt = 'An older source';
+    const report = courseCoverage(course, turkishOverlay.ui);
+    expect(report['all lexicon glosses'].translated).toBe(report['all lexicon glosses'].total - 1);
+    expect(report['other course tasks'].translated).toBeLessThan(report['other course tasks'].total);
   });
 });
 
