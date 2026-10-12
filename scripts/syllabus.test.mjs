@@ -26,7 +26,7 @@ test('the checked-in syllabus is the deterministic build of the current lexicon 
   assert.equal(new Set(built.wordIds).size, built.wordIds.length);
 });
 
-test('story vocabulary comes first and every conversation gate is monotone in clue order', () => {
+test('story vocabulary comes first and every vocabulary coverage milestone is monotone in clue order', () => {
   const demand = questVocabularyDemand({ graphs, lexicon: course.lexicon, questOrder, properNames });
   const arrival = new Set(demand.get('a1-arrival').wordIds);
   assert.ok(shipped.wordIds.slice(0, shipped.wordsPerHour).filter(id => arrival.has(id)).length >= shipped.storyShare, 'most opening words belong to the first conversation');
@@ -35,7 +35,7 @@ test('story vocabulary comes first and every conversation gate is monotone in cl
     const position = new Map(shipped.wordIds.map((id, index) => [id, index]));
     assert.deepEqual(new Set(quest.wordIds), new Set(demand.get(quest.questId).wordIds), quest.questId);
     assert.equal(quest.milestone, Math.max(...quest.wordIds.map(id => position.get(id) + 1)));
-    assert.ok(quest.milestone >= previous, `${quest.questId} unlocks before an earlier scene`);
+    assert.ok(quest.milestone >= previous, `${quest.questId} has vocabulary coverage before an earlier scene`);
     previous = quest.milestone;
   }
   // Names, Frau/Herr surnames and glossed story words never borrow a lexeme.
@@ -51,7 +51,7 @@ test('the pacing audit matches the checked-in report and measures hours at the b
   assert.equal(secondsUntilPosition(shipped, shipped.openingWords), 360);
   assert.equal(report.totals.wordsAtTarget, Math.min(shipped.wordIds.length, shipped.openingWords + 200 * shipped.wordsPerHour));
   for (const quest of report.quests) {
-    assert.equal(quest.unlockHour, Number((secondsUntilPosition(shipped, quest.milestone - 1) / 3600).toFixed(2)));
+    assert.equal(quest.vocabularyReadyHour, Number((secondsUntilPosition(shipped, quest.milestone - 1) / 3600).toFixed(2)));
     assert.ok(quest.newLexemes <= quest.lexemes);
   }
 });

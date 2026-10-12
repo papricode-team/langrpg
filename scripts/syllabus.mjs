@@ -4,8 +4,8 @@ import { dialogueEntries } from './dialogue-level-audit.mjs';
 
 /**
  * The vocabulary syllabus: one ordered list of lexeme IDs that the server
- * introduces at a bounded rate. Story conversations unlock only once every
- * word they use has been introduced, so the story can never outrun intake.
+ * introduces at a bounded rate for optional practice. Story vocabulary guides
+ * the introduction order and content audits without restricting story access.
  *
  * Numbers are the design target the team asked for: about ten new words per
  * hour of active play, two thousand words across two hundred hours.
@@ -16,7 +16,7 @@ export const syllabusDefaults = Object.freeze({
   openingWords: 10,
   /** Unused intake never banks more than this many words; pacing stays per hour, not per binge. */
   bankCap: 15,
-  /** Of every ten scheduled words, this many serve the next locked conversation; the rest are high-frequency core words. */
+  /** Of every ten scheduled words, this many serve the earliest scene with unscheduled vocabulary; the rest are high-frequency core words. */
   storyShare: 8,
   /** Intake pauses while this many introduced words have never been recognised unaided, or this many practised words wait for review. */
   brake: Object.freeze({ maxUnsettled: 12, maxDue: 20 }),
@@ -131,23 +131,23 @@ export function pacingReport({ syllabus, lexicon, demand, questOrder = syllabus.
     const quest = syllabus.quests.find(item => item.questId === questId), scene = demand.get(questId);
     const newWords = quest.wordIds.filter(id => !seen.has(id));
     for (const id of quest.wordIds) seen.add(id);
-    const unlockSeconds = secondsUntilPosition(syllabus, quest.milestone - 1);
+    const coverageSeconds = secondsUntilPosition(syllabus, quest.milestone - 1);
     return {
       questId, level: quest.level,
       lexemes: quest.wordIds.length, newLexemes: newWords.length,
       storyWords: scene.storyWords.map(word => word.german), unmapped: scene.unmapped, ambiguous: scene.ambiguous,
       milestone: quest.milestone,
-      unlockHour: Number((unlockSeconds / 3600).toFixed(2)),
+      vocabularyReadyHour: Number((coverageSeconds / 3600).toFixed(2)),
       newWordsAboveBudget: Math.max(0, newWords.length + scene.storyWords.length + scene.unmapped.length - syllabus.wordsPerHour),
       levels: Object.fromEntries(['A1', 'A2', 'B1'].map(level => [level, quest.wordIds.filter(id => lexemeById.get(id).level === level).length])),
     };
   });
-  const storyHours = quests.length ? Math.max(...quests.map(quest => quest.unlockHour)) : 0;
+  const storyHours = quests.length ? Math.max(...quests.map(quest => quest.vocabularyReadyHour)) : 0;
   const wordsAtTarget = Math.min(syllabus.wordIds.length, syllabus.openingWords + hourTarget * syllabus.wordsPerHour);
   const levelsAtTarget = Object.fromEntries(['A1', 'A2', 'B1'].map(level => [level, syllabus.wordIds.slice(0, wordsAtTarget).filter(id => lexemeById.get(id).level === level).length]));
   return {
     budget: { wordsPerHour: syllabus.wordsPerHour, openingWords: syllabus.openingWords, bankCap: syllabus.bankCap, storyShare: syllabus.storyShare, brake: syllabus.brake },
-    totals: { lexemes: syllabus.wordIds.length, hoursForWholeLexicon: Number((secondsUntilPosition(syllabus, syllabus.wordIds.length - 1) / 3600).toFixed(1)), hourTarget, wordsAtTarget, levelsAtTarget, storyLexemes: seen.size, storyUnlockedByHour: storyHours },
+    totals: { lexemes: syllabus.wordIds.length, hoursForWholeLexicon: Number((secondsUntilPosition(syllabus, syllabus.wordIds.length - 1) / 3600).toFixed(1)), hourTarget, wordsAtTarget, levelsAtTarget, storyLexemes: seen.size, storyVocabularyReadyByHour: storyHours },
     quests,
   };
 }

@@ -190,33 +190,6 @@ func migrateIntake(p *Progress, s *Syllabus) {
 	p.Intake.Version = intakeVersion
 }
 
-// requireQuestVocabulary keeps a conversation closed until the Atlas has
-// restored every word it uses. Completed discoveries stay readable.
-func (a *App) requireQuestVocabulary(questID string, p *Progress) error {
-	words := a.curriculum.Syllabus.QuestWordIDs(questID)
-	if len(words) == 0 || contains(p.CompletedQuestIDs, questID) {
-		return nil
-	}
-	introduced := introducedSet(p)
-	missing := 0
-	for _, id := range words {
-		if !introduced[id] {
-			missing++
-		}
-	}
-	if missing == 0 {
-		return nil
-	}
-	return &APIError{409, fmt.Sprintf("the Atlas has not restored every word for this conversation yet (%d more)", missing)}
-}
-
-func (a *App) requireQuestAccess(questID string, p *Progress) error {
-	if err := requireQuestOrder(questID, p.CompletedQuestIDs); err != nil {
-		return err
-	}
-	return a.requireQuestVocabulary(questID, p)
-}
-
 // requireUnitVocabulary: a learning route opens once every word it teaches or
 // uses has been introduced, so optional practice cannot outrun the budget.
 func (a *App) requireUnitVocabulary(unit CourseUnit, p *Progress) error {

@@ -68,3 +68,8 @@ func requireQuestOrder(questID string, completed []string) error {
 	}
 	return nil
 }
+
+// Story access follows the clue chain, never the optional vocabulary budget.
+func (a *App) requireQuestAccess(questID string, p *Progress) error {
+	return requireQuestOrder(questID, p.CompletedQuestIDs)
+}
