@@ -873,141 +873,6 @@ kbd {
 .touch-controls {
   display:none
 }
-/* Atlas screens are game overlays, with the painted world beneath. */
-.menu-layer {
-  position:absolute;
-  inset:0;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:36px;
-  background:#0c221c9e;
-  animation:appear .18s ease-out
-}
-.menu-frame {
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  width:min(1080px,100%);
-  height:min(850px,100%);
-  background:linear-gradient(150deg,#243d30,#162c24);
-  border:1px solid #bea169;
-  box-shadow:0 0 0 4px #182d24,0 0 0 5px #c4a5675e,0 20px 80px #0317119c;
-  min-height:0
-}
-.menu-frame::before {
-  content:'';
-  position:absolute;
-  inset:7px;
-  border:1px solid #bda26825;
-  pointer-events:none
-}
-.menu-header {
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:25px 30px 22px;
-  border-bottom:1px solid #bba36839;
-  flex:none
-}
-.menu-crest {
-  display:grid;
-  place-items:center;
-  width:43px;
-  height:52px;
-  color:#e6c788;
-  border:1px solid #b69a6057;
-  background:#b99b5910
-}
-.menu-crest .icon {
-  width:27px;
-  height:27px;
-  stroke-width:1.1
-}
-.menu-kicker {
-  font-size:8px;
-  letter-spacing:2.3px;
-  color:#c1ad7c
-}
-.menu-header h1 {
-  font-size:30px;
-  letter-spacing:.3px;
-  margin-top:7px;
-  color:#f3e7c5
-}
-.menu-close {
-  margin-left:auto;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  background:transparent;
-  width:44px;
-  height:48px;
-  color:#deceab
-}
-.menu-close .icon {
-  width:22px;
-  height:22px
-}
-.menu-close kbd {
-  font-size:8px;
-  color:#a89c7a
-}
-.menu-tabs {
-  display:flex;
-  padding:0 30px;
-  border-bottom:1px solid #bca0683c;
-  gap:26px;
-  flex:none
-}
-.menu-tabs button {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:15px 2px 12px;
-  background:transparent;
-  border-bottom:2px solid transparent;
-  color:#aabb9f;
-  font-size:12px
-}
-.menu-tabs .icon {
-  width:16px;
-  height:16px
-}
-.menu-tabs button.active {
-  border-color:#dbc084;
-  color:#f0d8a4
-}
-.menu-content {
-  overflow:auto;
-  flex:1;
-  min-height:0;
-  padding:26px 30px 35px;
-  scrollbar-width:thin;
-  scrollbar-color:#b9a57566 #203629
-}
-.menu-footer {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:13px 30px;
-  font-size:8px;
-  letter-spacing:1.2px;
-  color:#9dac93;
-  border-top:1px solid #c1a76b33;
-  flex:none
-}
-.menu-footer-right {
-  margin-left:auto;
-  color:#bcaf8a;
-  letter-spacing:0;
-  font-family:'Fraunces',serif;
-  font-size:11px
-}
 .page-heading {
   display:flex;
   align-items:center;
@@ -2288,21 +2153,6 @@ kbd {
     max-width:210px;
     font-size:10px
   }
-  .menu-layer {
-    padding:24px
-  }
-  .menu-header {
-    padding:20px 24px
-  }
-  .menu-tabs {
-    padding:0 24px
-  }
-  .menu-content {
-    padding:23px 24px
-  }
-  .menu-footer {
-    padding:12px 24px
-  }
   .chapter-grid {
     gap:14px
   }
@@ -2619,68 +2469,6 @@ kbd {
   .memory-nudge .icon {
     width:13px;
     height:13px
-  }
-  .menu-layer {
-    padding:max(15px,env(safe-area-inset-top)) 12px max(15px,env(safe-area-inset-bottom));
-    background:#0b241bd9
-  }
-  .menu-frame {
-    height:100%;
-    width:100%;
-    box-shadow:0 0 0 3px #192e24,0 0 0 4px #c4a5675e,0 15px 40px #071d14
-  }
-  .menu-header {
-    padding:19px 18px 17px;
-    gap:12px
-  }
-  .menu-crest {
-    width:34px;
-    height:43px
-  }
-  .menu-crest .icon {
-    width:23px;
-    height:23px
-  }
-  .menu-kicker {
-    font-size:7px;
-    letter-spacing:1.8px
-  }
-  .menu-header h1 {
-    font-size:25px;
-    margin-top:6px
-  }
-  .menu-close {
-    width:44px;
-    height:44px
-  }
-  .menu-close kbd {
-    display:none
-  }
-  .menu-tabs {
-    padding:0 15px;
-    gap:0;
-    justify-content:space-between
-  }
-  .menu-tabs button {
-    font-size:11px;
-    gap:5px;
-    min-height:48px;
-    padding:12px 2px
-  }
-  .menu-tabs .icon {
-    width:15px;
-    height:15px
-  }
-  .menu-content {
-    padding:22px 17px 28px
-  }
-  .menu-footer {
-    padding:12px 18px;
-    font-size:7px;
-    letter-spacing:.7px
-  }
-  .menu-footer-right {
-    display:none
   }
   .page-heading {
     gap:13px;
@@ -3125,14 +2913,6 @@ kbd {
     height:74px;
     right:19px
   }
-  .menu-tabs button {
-    font-size:10px;
-    gap:4px
-  }
-  .menu-tabs .icon {
-    width:13px;
-    height:13px
-  }
   .character-options {
     padding:23px 16px
   }
@@ -3250,30 +3030,6 @@ kbd {
   }
   .game-signature {
     display:none
-  }
-  .menu-layer {
-    padding:16px 24px
-  }
-  .menu-header {
-    padding:14px 22px
-  }
-  .menu-crest {
-    height:39px;
-    width:32px
-  }
-  .menu-header h1 {
-    font-size:24px;
-    margin-top:5px
-  }
-  .menu-tabs button {
-    padding:10px 0;
-    font-size:11px
-  }
-  .menu-content {
-    padding:18px 22px
-  }
-  .menu-footer {
-    padding:9px 22px
   }
   .dialog {
     max-height:calc(100dvh - 35px);
@@ -3507,22 +3263,6 @@ kbd {
 .chat-messages { max-height:min(220px,calc(100dvh - var(--update-notice-height,0px) - 160px)); min-height:95px; padding:16px; }
 .chat-input input { font-size:14px; }
 .game-shell.chat-open .touch-controls { visibility:hidden; }
-
-/* Native Atlas menu and paper-and-brass pages. */
-.menu-layer { position:fixed; inset:0; margin:0; width:100%; max-width:none; height:100dvh; max-height:none; overflow:hidden; border:0; color:#f2e8cf; padding:30px; background:#0b211bba; }
-.menu-layer::backdrop { background:transparent; }
-.menu-frame { width:min(1080px,100%); height:min(850px,100%); }
-.menu-header { padding:18px 26px; gap:13px; }
-.menu-crest { width:34px; height:42px; }
-.menu-crest>.icon { width:26px; height:26px; }
-.menu-kicker { font-size:8px; }
-.menu-header h1 { font-size:27px; margin-top:5px; }
-.menu-close { width:48px; height:48px; }
-.menu-tabs { padding:0 20px; gap:0; }
-.menu-tabs button { flex:1; min-height:48px; gap:8px; font-size:12px; padding:12px 8px; }
-.menu-tabs .icon { width:17px; height:17px; }
-.menu-content { padding:25px 30px 30px; }
-.menu-footer { padding:11px 26px; gap:9px; }
 .menu-footer .connection-pill { margin-left:auto; background:none; border:0; font-size:9px; letter-spacing:0; }
 .camp-heading { max-width:680px; padding:5px 0 24px; }
 .camp-heading h2,.quest-log-heading h2,.story-journal-heading h2,.atlas-heading h2 { font-size:32px; color:#efe0b7; line-height:1.2; margin:9px 0 12px; }
@@ -3677,19 +3417,6 @@ kbd {
   .chat-input { margin:0 12px 12px; }
   .chat-input input { font-size:16px; padding:12px 3px; }
   .chat-input button { width:44px; height:44px; }
-  .menu-layer { padding:max(11px,env(safe-area-inset-top)) 10px max(11px,env(safe-area-inset-bottom)); }
-  .menu-header { padding:15px 16px; gap:10px; }
-  .menu-kicker { font-size:7px; letter-spacing:1.4px; }
-  .menu-header h1 { font-size:24px; }
-  .menu-crest { width:28px; height:36px; }
-  .menu-crest>.icon { width:23px; height:23px; }
-  .menu-close { width:44px; height:44px; }
-  .menu-close kbd { display:none; }
-  .menu-tabs { padding:0 5px; }
-  .menu-tabs button { min-height:48px; padding:8px 3px; flex-direction:column; gap:4px; font-size:8px; }
-  .menu-tabs .icon { width:17px; height:17px; }
-  .menu-content { padding:20px 17px 25px; }
-  .menu-footer { padding:10px 16px; font-size:7px; }
   .menu-footer .connection-pill { font-size:7px; }
   .camp-heading h2,.quest-log-heading h2,.story-journal-heading h2,.atlas-heading h2 { font-size:27px; }
   .camp-heading p,.quest-log-heading p,.story-journal-heading p,.atlas-heading p { font-size:13px; }
@@ -3773,14 +3500,6 @@ kbd {
   .chat-card { display:none; }
   .chat-card.open { display:block; left:12px; bottom:82px; width:310px; max-height:calc(100dvh - var(--update-notice-height,0px) - 115px); }
   .chat-messages { min-height:36px; max-height:calc(100dvh - var(--update-notice-height,0px) - 229px); }
-  .menu-layer { padding:10px max(15px,env(safe-area-inset-right)) 10px max(15px,env(safe-area-inset-left)); }
-  .menu-header { padding:10px 18px; }
-  .menu-crest { width:25px; height:31px; }
-  .menu-header h1 { font-size:23px; margin-top:3px; }
-  .menu-tabs button { min-height:42px; flex-direction:row; font-size:10px; gap:6px; }
-  .menu-tabs .icon { width:14px; height:14px; }
-  .menu-content { padding:18px 21px; }
-  .menu-footer { padding:7px 19px; }
   .camp-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .camp-options button { min-height:80px; padding:15px; }
   .region-cards { grid-template-columns:repeat(3,minmax(0,1fr)); }
