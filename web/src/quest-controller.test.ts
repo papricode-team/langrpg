@@ -46,7 +46,7 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-choice="Guten Morgen!"]');
     await vi.waitFor(() => expect(f.api.request).toHaveBeenCalled());
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { mode: 'recognition', hinted: true }]);
-    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Dein Zug ist da.'));
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
   });
@@ -126,7 +126,7 @@ describe('conversation scene lifecycle', () => {
 
   it('toggles meanings both ways and preserves the choice while replaying or refreshing the line', async () => {
     const f = fixture('gate');
-    await f.controller.open('a1-arrival');
+    await f.controller.open('a1-arrival'); until('#dialogue-answer');
     const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
     input.value = 'Noch einmal, bitte.';
     expect(document.querySelector('.dialogue-translation')).toBeNull();
