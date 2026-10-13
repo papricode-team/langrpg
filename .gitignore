@@ -19,3 +19,12 @@ art/source/terrain-hd/*-reference.png
 art/source/terrain-detail/*-reference.png
 art/source/terrain-expansion/**/*-reference.png
 art/source/terrain-expansion/**/*-reference-*.png
+
+*.log
+.idea/
+.vscode/
+coverage/
+*.swp
+
+# Local Go build output
+/server/server
