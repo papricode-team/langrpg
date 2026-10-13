@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import { npcs, quests } from './content';
 import { buildingEntrances, createInteriorNavigation, getInterior, getInteriorObject, interiorExercises, interiorNpcAvailable, interiorObjectAvailable, interiors, type InteriorId } from './interiors';
 import { getMap, storyMaps as maps } from './maps';
-import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, type MapPoint } from './navigation';
+import { createMapNavigation, MAP_HEIGHT, MAP_WIDTH, NavigationGrid, PLAYER_RADIUS, type MapPoint } from './navigation';
 import type { SceneryAnimationManifest } from './scenery-animation';
 import { INTERIOR_CHARACTER_HEIGHT } from './character-art';
 
@@ -23,6 +23,15 @@ function expectReachable(navigation: NavigationGrid, start: MapPoint, destinatio
     }
     previous = point;
   }
+}
+
+function expectReachableApproach(navigation: NavigationGrid, pointNavigation: NavigationGrid, start: MapPoint, anchor: MapPoint, label: string): void {
+  // Art and door triggers keep their authored positions; the player's body
+  // needs a nearby safe centre rather than standing directly on the visual.
+  expect(pointNavigation.isWalkable(anchor.x, anchor.y), `${label} authored feet leave the floor`).toBe(true);
+  const approach = navigation.closestPoint(anchor.x, anchor.y);
+  expect(Math.hypot(approach.x - anchor.x, approach.y - anchor.y), `${label} has no nearby safe approach`).toBeLessThan(60);
+  expectReachable(navigation, start, approach, label);
 }
 
 describe('enterable learning spaces', () => {
@@ -45,24 +54,27 @@ describe('enterable learning spaces', () => {
 
   it.each(maps)('offers the stores and inn on connected streets in $name', map => {
       const navigation = createMapNavigation(map.id);
+      const pointNavigation = createMapNavigation(map.id, {agentRadius:0});
       const start = pixels(getMap(map.id).spawn, navigation);
       const entrances = buildingEntrances(map.id);
       expect(entrances.map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
       expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(4);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
-        expectReachable(navigation, start, pixels(entrance, navigation), `${map.name} ${entrance.label}`);
+        expectReachableApproach(navigation, pointNavigation, start, pixels(entrance, navigation), `${map.name} ${entrance.label}`);
       }
   });
 
   it('keeps room arrival, every conversation, every station, and the exit connected', () => {
     for (const interior of interiors) {
       const navigation = createInteriorNavigation(interior.id);
-      const start = pixels(interior.spawn);
+      const pointNavigation = createInteriorNavigation(interior.id, {agentRadius:0});
+      const start = pixels(interior.spawn, interior);
+      expect(navigation.agentRadius).toBe(PLAYER_RADIUS);
       expect(navigation.isWalkable(start.x, start.y)).toBe(true);
-      expectReachable(navigation, start, pixels(interior.exit), `${interior.name} exit`);
-      for (const object of interior.objects) expectReachable(navigation, start, pixels(object), object.label);
-      for (const npc of interior.npcs) expectReachable(navigation, start, pixels(npc), `${interior.name} ${npc.id}`);
+      expectReachableApproach(navigation, pointNavigation, start, pixels(interior.exit, interior), `${interior.name} exit`);
+      for (const object of interior.objects) expectReachableApproach(navigation, pointNavigation, start, pixels(object, interior), object.label);
+      for (const npc of interior.npcs) expectReachableApproach(navigation, pointNavigation, start, pixels(npc, interior), `${interior.name} ${npc.id}`);
       const backWallY = interior.id === 'cafe' ? 200 : interior.id === 'bakery' ? 120 : 180;
       expect(navigation.isWalkable(768, backWallY), `${interior.name} back wall must block movement`).toBe(false);
       expect(navigation.isWalkable(80, 650), `${interior.name} side wall must block movement`).toBe(false);
@@ -78,10 +90,11 @@ describe('enterable learning spaces', () => {
       const navigation = createInteriorNavigation(interior.id);
       const start = pixels(interior.spawn);
       expectReachable(navigation, start, aisle[interior.id], `${interior.name} central aisle`);
-      const architecture = new NavigationGrid(interior.walkableAreas, interior.barriers);
+      const architecture = new NavigationGrid(interior.floorAreas, interior.barriers);
       for (const prop of interior.props) {
         if (!prop.collision) continue;
-        const { x, y, width, height } = prop.collision;
+        const { offsetX, offsetY, width, height } = prop.collision;
+        const x=prop.x+offsetX,y=prop.y+offsetY;
         // Ground furniture on the painted floor, rather than accidentally
         // treating a wall or a void as a furniture collision that passes QA.
         for (const [cornerX, cornerY] of [[x,y],[x+width,y],[x+width,y+height],[x,y+height]]) {
@@ -92,6 +105,21 @@ describe('enterable learning spaces', () => {
         const edge = navigation.closestPoint(point.x, point.y);
         expectReachable(navigation, start, edge, `${prop.id} furniture edge`);
       }
+    }
+  });
+
+  it('moves a furniture footprint with its owner without leaving a blocker behind', () => {
+    const table = getInterior('inn').props.find(prop => prop.id === 'inn-tea-table')!;
+    const x = table.x, y = table.y;
+    const before = createInteriorNavigation('inn');
+    expect(before.isWalkable(x, y - 40)).toBe(false);
+    try {
+      table.x -= 220;
+      const after = createInteriorNavigation('inn');
+      expect(after.isWalkable(x, y - 40)).toBe(true);
+      expect(after.isWalkable(table.x, y - 40)).toBe(false);
+    } finally {
+      table.x = x;
     }
   });
 

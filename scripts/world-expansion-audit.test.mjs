@@ -23,6 +23,13 @@ test('finer cells are compared through area rather than the historical node coun
   assert.equal(report.maps[0].minimum.connectedArea,19600);
 });
 
+test('clear land permits empty isolated terraces while requiring reachable content',()=>{
+  const map={...complete[0],navigationModel:'clear-land',reachableSamples:900,requiredTargetsReachable:true};
+  assert.equal(assessExpansion(withFirst(map),baseline).passed,true);
+  assert.equal(assessExpansion(withFirst({...map,requiredTargetsReachable:false}),baseline).passed,false);
+  assert.equal(assessExpansion(withFirst({...map,requiredTargetsReachable:undefined}),baseline).passed,false);
+});
+
 test('missing maps, duplicates, retired maps and inconsistent sampling cannot accidentally pass', () => {
   assert.equal(assessExpansion([],baseline).passed,false);
   assert.equal(assessExpansion([...complete,complete[0]],baseline).passed,false);

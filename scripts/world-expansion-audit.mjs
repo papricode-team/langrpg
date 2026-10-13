@@ -30,7 +30,9 @@ export function assessExpansion(current, baseline) {
       }
       if (!Number.isInteger(map.walkableSamples) || map.walkableSamples < 1 || !Number.isInteger(map.reachableSamples)
         || map.reachableSamples < 0 || map.reachableSamples > map.walkableSamples) failures.push('walkable sample counts are missing or invalid');
-      else if (map.reachableSamples / map.walkableSamples < minimum.reachableRatio) failures.push('spawn reaches less than 99.5% of walkable samples');
+      else if (map.navigationModel==='clear-land') {
+        if(map.requiredTargetsReachable!==true) failures.push('a required interaction has no reachable player approach');
+      } else if (map.reachableSamples / map.walkableSamples < minimum.reachableRatio) failures.push('spawn reaches less than 99.5% of walkable samples');
     }
     return {id, passed:!failures.length, minimum, failures};
   });

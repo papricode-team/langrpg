@@ -2,6 +2,7 @@
 import sharp from 'sharp';
 import {access,mkdir,readFile,writeFile} from 'node:fs/promises';
 import {resolve,relative} from 'node:path';
+import {exportClearLandMasks} from './terrain-land-mask.mjs';
 
 const exists=async path=>{try{await access(path);return true;}catch(error){if(error.code==='ENOENT')return false;throw error;}};
 /** Merge identical horizontal runs between rows into exact non-overlapping rectangles. */
@@ -25,6 +26,7 @@ export function walkableMaskPolygons(data,width,height,offsetX=0,offsetY=0){
 export async function exportAuthoredWalkableMasks(root,town){
   const scene=JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8')).maps[town];
   if(!scene)throw Error(`Unknown mask town ${town}`);
+  if(scene.navigation?.model==='clear-land')return exportClearLandMasks(root,scene);
   const source=resolve(root,'art/source/terrain-detail'),out=resolve(root,'web/public/assets/walkable-masks');
   const wholePath=resolve(source,`${town}-walkable.png`),wholeExists=await exists(wholePath),tiles=[];
   if(wholeExists){const size=await sharp(wholePath).metadata();if(size.width!==scene.width||size.height!==scene.height)throw Error(`${town}: walkable mask must match ${scene.width} × ${scene.height} world units exactly`);}

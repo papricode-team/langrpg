@@ -779,6 +779,7 @@ class HarborScene extends Phaser.Scene {
     ]).setDepth(1).setVisible(false);
 
     const spawn = this.navigation.closestPoint(this.worldWidth * this.mapSpec.spawn.x, this.worldHeight * this.mapSpec.spawn.y);
+    this.navigation.prepareReachability(spawn);
     this.local = this.createCharacter('self', 'You', spawn.x, spawn.y, DEFAULT_AVATAR);
     this.local.name.setColor('#fff2ca');
     this.local.root.addAt(this.add.ellipse(0, 1, 31, 15).setStrokeStyle(1, 0xf6dd9a, 0.55), 1);
@@ -898,6 +899,7 @@ class HarborScene extends Phaser.Scene {
       queueMicrotask(() => { if (this.ready && revision === this.mapRevision) this.owner.mapReady(map.id); });
     }
     const spawn = this.navigation.closestPoint(map.spawn.x * this.worldWidth, map.spawn.y * this.worldHeight);
+    this.navigation.prepareReachability(spawn);
     this.local.x = this.local.targetX = spawn.x;
     this.local.y = this.local.targetY = spawn.y;
     this.local.facing = 0;
@@ -963,6 +965,7 @@ class HarborScene extends Phaser.Scene {
     this.createPortal(`exit:${id}`, spec.exit.x * this.worldWidth, spec.exit.y * this.worldHeight, 'Return to town', true);
     this.silhouette?.setVisible(false);
     const spawn = this.navigation.closestPoint(spec.spawn.x * this.worldWidth, spec.spawn.y * this.worldHeight);
+    this.navigation.prepareReachability(spawn);
     this.local.x = this.local.targetX = spawn.x;
     this.local.y = this.local.targetY = spawn.y;
     this.local.facing = 2;
@@ -1008,8 +1011,9 @@ class HarborScene extends Phaser.Scene {
     this.characters = outdoors.characters;
     this.objects = outdoors.objects;
     this.portals = outdoors.portals;
-    this.local.x = this.local.targetX = outdoors.x;
-    this.local.y = this.local.targetY = outdoors.y;
+    const returnPoint = this.navigation.closestPoint(outdoors.x, outdoors.y);
+    this.local.x = this.local.targetX = returnPoint.x;
+    this.local.y = this.local.targetY = returnPoint.y;
     this.local.facing = outdoors.facing;
     this.local.walkDistance = 0;
     this.local.lastWalkTime = undefined;
@@ -1102,8 +1106,11 @@ class HarborScene extends Phaser.Scene {
   private createResidents(): void {
     if (!this.playerArtReady) return;
     const authored=getWorldScene(this.mapSpec.id);
-    this.activityWorld=new ResidentActivityWorld(authored,this.navigation);
-    for (const motion of createWorldResidents(this.mapSpec.id, this.navigation).filter(motion=>!authored.residents?.some(resident=>resident.id===motion.id))) {
+    // Authored sitting and working poses use exact prop anchors. Residents
+    // keep their point routes while the player walks with body clearance.
+    const actorNavigation=createMapNavigation(this.mapSpec.id,{agentRadius:0});
+    this.activityWorld=new ResidentActivityWorld(authored,actorNavigation);
+    for (const motion of createWorldResidents(this.mapSpec.id, actorNavigation).filter(motion=>!authored.residents?.some(resident=>resident.id===motion.id))) {
       const sharedTime = this.clock.simulationTime();
       const schedule = sharedTime ? sampleResidentSchedule(motion, sharedTime) : undefined;
       const homeReached = schedule?.homeReached ?? (residentRoutine(motion.id, this.clock.gameplayHour()).action === 'rest');
@@ -1505,12 +1512,18 @@ class HarborScene extends Phaser.Scene {
       return;
     }
     const angle = Math.atan2(this.local.y - target.y, this.local.x - target.x);
-    if (this.walkTo(target.x + Math.cos(angle) * 58, target.y + Math.sin(angle) * 58)) this.pendingInteraction = id;
+    let approach = this.navigation.closestPoint(target.x + Math.cos(angle) * 58, target.y + Math.sin(angle) * 58, this.local);
+    if (Math.hypot(approach.x - target.x, approach.y - target.y) > INTERACTION_DISTANCE) {
+      approach = this.navigation.closestPoint(target.x, target.y, this.local);
+    }
+    if (Math.hypot(approach.x - target.x, approach.y - target.y) > INTERACTION_DISTANCE) { this.cancelRoute(); return; }
+    if (this.walkTo(approach.x, approach.y)) this.pendingInteraction = id;
   }
 
   private walkTo(x: number, y: number): boolean {
     this.pendingInteraction = undefined;
-    const path = this.navigation.findPath(this.local, { x, y });
+    const requested = this.navigation.closestPoint(x, y, this.local);
+    const path = this.navigation.findPath(this.local, requested);
     if (!path.length) {
       this.target = undefined;
       this.waypoints = [];
@@ -1568,34 +1581,48 @@ class HarborScene extends Phaser.Scene {
       this.cancelRoute();
     }
     if (!this.controlsEnabled || this.watching) { vx = 0; vy = 0; }
-    if (!vx && !vy && this.target) {
-      const dx = this.target.x - this.local.x;
-      const dy = this.target.y - this.local.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance <= WALK_SPEED * seconds + 1) {
-        this.local.x = this.target.x;
-        this.local.y = this.target.y;
+    if (roomRevision !== this.roomRevision) return;
+    if (vx || vy) {
+      const next = this.navigation.move(this.local, { x: vx * WALK_SPEED * seconds, y: vy * WALK_SPEED * seconds });
+      this.local.x = next.x;
+      this.local.y = next.y;
+    } else if (this.controlsEnabled && !this.watching && this.target) {
+      // Spend the same movement budget across waypoints, including the final
+      // short step. Every route step uses the same swept body as held input.
+      let remaining = WALK_SPEED * seconds;
+      while (this.target && remaining > 0) {
+        const dx = this.target.x - this.local.x;
+        const dy = this.target.y - this.local.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 1e-6) {
+          const step = Math.min(distance, remaining);
+          const expected = { x: this.local.x + dx / distance * step, y: this.local.y + dy / distance * step };
+          const next = this.navigation.move(this.local, { x: expected.x - this.local.x, y: expected.y - this.local.y });
+          this.local.x = next.x;
+          this.local.y = next.y;
+          remaining -= step;
+          // A changed map can invalidate an active route. Clear its marker and
+          // interaction instead of retrying a blocked waypoint forever.
+          if (Math.hypot(next.x - expected.x, next.y - expected.y) > 0.1) {
+            this.cancelRoute();
+            break;
+          }
+          if (Math.hypot(this.target.x - next.x, this.target.y - next.y) > 1e-6) break;
+        }
         this.target = this.waypoints.shift();
-        if (!this.target) this.marker.setVisible(false);
-        if (!this.target && this.pendingInteraction) {
+        if (!this.target) {
+          this.marker.setVisible(false);
           arrivedInteraction = this.pendingInteraction;
           this.pendingInteraction = undefined;
         }
-      } else { vx = dx / distance; vy = dy / distance; }
-    }
-    if (roomRevision !== this.roomRevision) return;
-    const nextX = this.local.x + vx * WALK_SPEED * seconds;
-    const nextY = this.local.y + vy * WALK_SPEED * seconds;
-    if (this.navigation.canWalkSegment(this.local.x, this.local.y, nextX, nextY)) {
-      this.local.x = nextX;
-      this.local.y = nextY;
-    } else {
-      // Let keyboard movement slide gently along walls and planting beds.
-      if (this.navigation.canWalkSegment(this.local.x, this.local.y, nextX, this.local.y)) this.local.x = nextX;
-      if (this.navigation.canWalkSegment(this.local.x, this.local.y, this.local.x, nextY)) this.local.y = nextY;
+      }
     }
     const localDx = this.local.x - previousX;
     const localDy = this.local.y - previousY;
+    // Camera anticipation follows actual wall sliding rather than the part of
+    // the input vector stopped by a wall.
+    vx = seconds ? localDx / (WALK_SPEED * seconds) : 0;
+    vy = seconds ? localDy / (WALK_SPEED * seconds) : 0;
     const moving = Math.hypot(localDx, localDy) > 0.05;
     this.animateCharacter(this.local, localDx, localDy, this.elapsed);
     this.audio?.footsteps(Math.hypot(localDx, localDy), !!this.interiorSpec);

@@ -1,6 +1,7 @@
-import { sceneryFootprints } from './placed-scenery';
+import { sceneryFootprints,withSceneryCollision } from './placed-scenery';
+import {sceneNavigationGeometry} from './scene-navigation';
 import {sceneInstanceIds} from './level-editor-prefabs';
-import {sceneActivityPoint,sceneEntrancePoint,getSceneryGeometryMap,type SceneGenerationZone, type ScenePolygon, type SceneScenery, type WorldScene} from './scene-schema';
+import {sceneActivityPlaces,sceneEntrancePoint,getSceneryGeometryMap,type ScenePoint,type SceneGenerationZone, type ScenePolygon, type SceneScenery, type WorldScene} from './scene-schema';
 
 export interface ScatterTemplate { asset: SceneScenery['asset']; frame: string; variant?: boolean; width: number; motion?: SceneScenery['motion']; }
 export interface ScatterSettings { count: number; minSpacing: number; clearance: number; minScale: number; maxScale: number; }
@@ -41,7 +42,7 @@ function randomFor(seed:number):()=>number {
 }
 const circle = (x:number,y:number,radius:number):ScenePolygon => Array.from({length:12},(_,i)=>[x+Math.cos(i*Math.PI/6)*radius,y+Math.sin(i*Math.PI/6)*radius] as const);
 
-/** Conservative scatter: generation never occupies an authored walking polygon. */
+/** Protect terrain, object foundations and approaches; legacy streets stay clear. */
 export function generateScatter(scene:WorldScene,zone:SceneGenerationZone,templates:readonly ScatterTemplate[],settings:ScatterSettings):ScatterProposal {
   if(zone.rulesVersion!==1)throw new Error(`Unsupported scatter rules version ${zone.rulesVersion}.`);
   if(!Number.isSafeInteger(zone.seed)||!Number.isInteger(settings.count)||settings.count<1||settings.count>300)throw new Error('Use an integer seed and a requested count between 1 and 300.');
@@ -56,15 +57,18 @@ export function generateScatter(scene:WorldScene,zone:SceneGenerationZone,templa
   const removable=scene.scenery.filter(item=>item.generatorId===zone.id&&!item.pinned&&!pinned.has(item.id)&&!owners.has(item.id));
   const removed=new Set(removable.map(item=>item.id));
   const retained=scene.scenery.filter(item=>!removed.has(item.id));
+  const geometry=sceneNavigationGeometry({...scene,scenery:retained});
+  const occupied=[...geometry.objects];
+  const manifest=getSceneryGeometryMap(scene.id);
   const preserved=retained.filter(item=>item.generatorId===zone.id);
   const usedIds=sceneInstanceIds({...scene,scenery:retained});
   const proposals:SceneScenery[]=[];
   const minX=Math.min(...zone.polygon.map(p=>p[0])),maxX=Math.max(...zone.polygon.map(p=>p[0]));
   const minY=Math.min(...zone.polygon.map(p=>p[1])),maxY=Math.max(...zone.polygon.map(p=>p[1]));
   const rejected={outsideZone:0,pathClearance:0,occupied:0};
-  const protectedPoints=[scene.spawn,...scene.npcs,...scene.objects,
+  const protectedPoints=[scene.spawn,...scene.npcs,...scene.objects,...(scene.residents??[]).map(resident=>resident.home),
     ...(scene.entrances??[]).flatMap(entrance=>[sceneEntrancePoint(scene,entrance),sceneEntrancePoint(scene,entrance,true)]),
-    ...(scene.activities??[]).flatMap(slot=>{const owner=scene.scenery.find(item=>item.id===slot.ownerId)!;return [sceneActivityPoint(scene,slot),...(slot.approach?[{x:owner.x+slot.approach.x,y:owner.y+slot.approach.y}]:[])];})];
+    ...(scene.activities??[]).flatMap(slot=>{const owner=scene.scenery.find(item=>item.id===slot.ownerId)!;return [...sceneActivityPlaces(scene,slot),...[slot.approach,slot.exit].filter((p):p is ScenePoint=>!!p).map(p=>({x:owner.x+p.x,y:owner.y+p.y}))];})];
   let attempts=0;
   for(;attempts<Math.min(12000,settings.count*100)&&proposals.length<settings.count;attempts++) {
     const template=templates[Math.floor(random()*templates.length)];
@@ -72,17 +76,18 @@ export function generateScatter(scene:WorldScene,zone:SceneGenerationZone,templa
     const width=Math.round(template.width*(settings.minScale+random()*(settings.maxScale-settings.minScale))*10)/10;
     const flipX=random()<.5;
     let index=proposals.length+1;while(usedIds.has(`${zone.id}-${index}`))index++;
-    const item:SceneScenery={id:`${zone.id}-${index}`,asset:template.asset,frame:template.frame,variant:!!template.variant,x,y,width,flipX,motion:template.motion??(template.asset==='tree'||template.asset==='cypress'?'tree':'still'),generatorId:zone.id};
+    const item=withSceneryCollision<SceneScenery>({id:`${zone.id}-${index}`,asset:template.asset,frame:template.frame,variant:!!template.variant,x,y,width,flipX,motion:template.motion??(template.asset==='tree'||template.asset==='cypress'?'tree':'still'),generatorId:zone.id},manifest);
     const radius=Math.max(6,width*.13)+settings.clearance;
     const envelope=circle(x,y,radius);
-    if(envelope.some(([px,py])=>px<0||py<0||px>scene.width||py>scene.height||!contains(zone.polygon,px,py))){rejected.outsideZone++;continue;}
-    const footprints=sceneryFootprints([item],getSceneryGeometryMap(scene.id));
-    if(scene.walkable.some(path=>polygonsIntersect(envelope,path)||footprints.some(footprint=>polygonsIntersect(footprint,path)))||protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<120+radius)){rejected.pathClearance++;continue;}
-    if([...retained,...proposals].some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(settings.minSpacing,(width+other.width)*.3))||scene.obstacles.some(obstacle=>polygonsIntersect(envelope,obstacle))){rejected.occupied++;continue;}
-    proposals.push(item);usedIds.add(item.id);
+    const footprints=sceneryFootprints([item],manifest);
+    if([...envelope,...footprints.flat()].some(([px,py])=>px<0||py<0||px>scene.width||py>scene.height||!contains(zone.polygon,px,py))){rejected.outsideZone++;continue;}
+    const approachClearance=scene.navigation?24:120;
+    if((!scene.navigation&&geometry.ground.some(path=>polygonsIntersect(envelope,path)||footprints.some(footprint=>polygonsIntersect(footprint,path))))||protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<approachClearance+radius||footprints.some(footprint=>polygonsIntersect(footprint,circle(p.x,p.y,approachClearance))))){rejected.pathClearance++;continue;}
+    if([...retained,...proposals].some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(settings.minSpacing,(width+other.width)*.3))||[...geometry.terrain,...occupied].some(obstacle=>polygonsIntersect(envelope,obstacle)||footprints.some(footprint=>polygonsIntersect(footprint,obstacle)))){rejected.occupied++;continue;}
+    proposals.push(item);occupied.push(...footprints);usedIds.add(item.id);
   }
   const diagnostics=[`${proposals.length} of ${settings.count} requested objects fit. ${removable.length} prior generated objects would be replaced; ${preserved.length} protected objects stay.`];
-  if(proposals.length<settings.count)diagnostics.push('The zone is too crowded or too close to walking paths. Enlarge the land-only zone, lower the count, or reduce spacing.');
+  if(proposals.length<settings.count)diagnostics.push('The zone is too crowded or too close to terrain hazards or activity approaches. Enlarge the land-only zone, lower the count, or reduce spacing.');
   return {source:JSON.stringify(scene),zone:{...zone,...settings,palette:templates.map(item=>item.frame)},added:proposals,removedIds:[...removed],preservedIds:preserved.map(item=>item.id),requested:settings.count,attempts,rejected,diagnostics};
 }
 

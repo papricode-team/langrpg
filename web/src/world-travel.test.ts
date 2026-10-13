@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { World } from './world';
 import { getMap } from './maps';
 import { timeAmbient } from './world-lighting';
-import { createMapNavigation } from './navigation';
+import { createMapNavigation, NavigationGrid, PLAYER_RADIUS } from './navigation';
 import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import { sampleResidentMotion, type WorldResident } from './world-life';
@@ -239,9 +239,9 @@ describe('short player steps', () => {
     scene.local.x = 0; scene.local.y = 300;
     const witness = scene.createCharacter('otto', 'Otto', 200, 300, scene.local.avatar);
     scene.characters.set('otto', witness); scene.objective = 'otto';
-    scene.navigation = { canWalkSegment: () => true, findPath: (_from: unknown, to: { x: number; y: number }) => [
+    scene.navigation = { canWalkSegment: () => true, closestPoint: (x: number, y: number) => ({ x, y }), findPath: (_from: unknown, to: { x: number; y: number }) => [
       { x: to.x, y: to.y + 30 }, to,
-    ] };
+    ], move: (from: { x: number; y: number }, delta: { x: number; y: number }) => ({ x: from.x + delta.x, y: from.y + delta.y }) };
     const renderer = Object.getPrototypeOf(scene);
     scene.animateCharacter = renderer.animateCharacter.bind(scene);
     world.focusNpc('otto');
@@ -333,7 +333,8 @@ describe('short player steps', () => {
     scene.playerArtReady = true;
     const renderer = Object.getPrototypeOf(scene);
     scene.animateCharacter = renderer.animateCharacter.bind(scene);
-    scene.navigation = { findPath: (_from: unknown, to: { x: number; y: number }) => [to], canWalkSegment: () => true };
+    scene.navigation = { closestPoint: (x: number, y: number) => ({ x, y }), findPath: (_from: unknown, to: { x: number; y: number }) => [to], canWalkSegment: () => true,
+      move: (from: { x: number; y: number }, delta: { x: number; y: number }) => ({ x: from.x + delta.x, y: from.y + delta.y }) };
     const character = scene.local, seen = new Set<number>();
     let time = 1;
     for (let click = 0; click < 40; click++) {
@@ -358,6 +359,27 @@ describe('short player steps', () => {
 });
 
 describe('shared indoor rendering', () => {
+  it('restores a safe outdoor footprint when a saved doorway return is too close to scenery', () => {
+    const { world, scene } = indoorFixture();
+    scene.mapSpec = getMap('nebelstadt');
+    const returnPoint = buildingEntrances('nebelstadt').find(entrance => entrance.interiorId === 'supermarket')!.returnPoint;
+    const x = returnPoint.x * scene.mapSpec.width, y = returnPoint.y * scene.mapSpec.height;
+    // A newly placed object comes within three units of an old door return.
+    scene.navigation = new NavigationGrid([[[0,0],[2304,0],[2304,1024],[0,1024]]],
+      [[[x+3,y-20],[x+33,y-20],[x+33,y+20],[x+3,y+20]]], scene.mapSpec, {agentRadius:PLAYER_RADIUS});
+    world.enterInterior('supermarket');
+    const outdoors = scene.outdoors;
+    expect(outdoors.navigation.isWalkable(outdoors.x, outdoors.y)).toBe(false);
+    world.leaveInterior();
+    expect(scene.navigation).toBe(outdoors.navigation);
+    expect(scene.navigation.isWalkable(scene.local.x, scene.local.y)).toBe(true);
+    expect(scene.navigation.clearanceAt(scene.local.x, scene.local.y)).toBeGreaterThanOrEqual(PLAYER_RADIUS);
+    expect(Math.hypot(scene.local.x - outdoors.x, scene.local.y - outdoors.y)).toBeLessThan(PLAYER_RADIUS + scene.navigation.cellSize);
+    expect(scene.local.targetX).toBe(scene.local.x);
+    expect(scene.local.targetY).toBe(scene.local.y);
+    world.destroy();
+  });
+
   it('walks into the doorway for 250ms and preserves an input change during the transition',()=>{
     const {world,scene,interiorChange}=indoorFixture();scene.reducedMotion=false;
     let options:any;scene.tweens={add:(value:any)=>{options=value;return{stop:vi.fn()};}};

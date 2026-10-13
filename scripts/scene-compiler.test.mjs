@@ -5,8 +5,18 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {compileSceneDocument, saveSceneDocument, sceneContentVersion} from './scene-compiler.mjs';
 const {sceneEntrancePoint}=await import('../web/src/scene-schema.ts');
+const {NavigationGrid}=await import('../web/src/navigation.ts');
+const {sceneNavigationGeometry}=await import('../web/src/scene-navigation.ts');
 
 const source = JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json', import.meta.url), 'utf8'));
+
+// Draft barriers belong to a registered object. Express their world vertices
+// in that owner's local coordinates so these tests exercise the save contract.
+const attachCollision = (scene, polygons) => {
+  const owner = scene.objects[0];
+  owner.collision = {referenceWidth: 1, polygons: polygons.map(polygon =>
+    polygon.map(([x, y]) => [x - owner.x, y - owner.y]))};
+};
 
 test('compiles all regions and aligns server spawns and story evidence with draft anchors', async () => {
   const value = structuredClone(source), scene = value.maps.lindenhafen;
@@ -34,6 +44,21 @@ test('rejects missing content, unknown artwork and collision introduced by a dra
   const blocked = structuredClone(source), scene = blocked.maps.lindenhafen;
   scene.scenery.push({id: 'blocked-spawn', asset: 'house', x: scene.spawn.x, y: scene.spawn.y + 18, width: 200});
   await assert.rejects(compileSceneDocument(blocked), /spawn is outside walkable ground/);
+});
+
+test('rejects a draft spawn that is clear for feet but too close to a solid for the player body', async () => {
+  const value = structuredClone(source), scene = value.maps.lindenhafen;
+  const {x, y} = scene.spawn;
+  // A two-unit object base leaves the authored centre clear while entering the
+  // player's ten-unit footprint. Point-only authoring validation accepted it.
+  attachCollision(scene, [[[x+8,y-2],[x+10,y-2],[x+10,y+2],[x+8,y+2]]]);
+  const geometry=sceneNavigationGeometry(scene);
+  assert.equal(new NavigationGrid(geometry.ground, geometry.barriers, scene).isWalkable(x, y), true);
+  await assert.rejects(compileSceneDocument(value), error => {
+    assert.match(error.message, /lindenhafen: spawn needs 10 units of player clearance/);
+    assert.doesNotMatch(error.message, /lindenhafen: spawn is outside walkable ground/);
+    return true;
+  });
 });
 
 test('invalid saves leave every published file untouched and successful saves preserve IDs', async () => {
@@ -83,7 +108,7 @@ test('compiles attached doors from draft owner positions and rejects obstructed 
   const compiled=await compileSceneDocument(value),point=sceneEntrancePoint(scene,door);
   assert.deepEqual(compiled.registry.maps.lindenhafen.entrances.cafe.approach,{x:point.x/scene.width,y:point.y/scene.height});
   const blocked=structuredClone(value);
-  blocked.maps.lindenhafen.obstacles.push([[point.x-4,point.y-4],[point.x+4,point.y-4],[point.x+4,point.y+4],[point.x-4,point.y+4]]);
+  attachCollision(blocked.maps.lindenhafen, [[[point.x-4,point.y-4],[point.x+4,point.y-4],[point.x+4,point.y+4],[point.x-4,point.y+4]]]);
   await assert.rejects(compileSceneDocument(blocked),/cafe-entrance approach is not on reachable/);
   door.returnOffset={x:1-owner.x,y:1-owner.y};
   await assert.rejects(compileSceneDocument(value),/cafe-entrance return is not on reachable/);
@@ -103,12 +128,15 @@ test('rejects activity feet, approaches and exits that would require path projec
   }
 });
 
-test('rejects navigation painted over water outside the authored ground masks',async()=>{
+test('rejects removed water hazards when their terrain masks have not been regenerated',async()=>{
   for(const scene of Object.values(source.maps))for(const tile of scene.terrain){
     assert.ok(tile.walkableMaskAsset,`${scene.id}/${tile.id} needs its traced ground mask`);
   }
   const water=structuredClone(source);
-  water.maps.lindenhafen.walkable.push([[1580,740],[1620,740],[1620,780],[1580,780]]);
+  const scene=water.maps.lindenhafen;
+  const waterHazard=scene.navigation.terrainCollision.find(hazard=>hazard.kind==='water');
+  assert.ok(waterHazard, 'the water audit needs an authored water blocker');
+  scene.navigation.terrainCollision=scene.navigation.terrainCollision.filter(hazard=>hazard!==waterHazard);
   await assert.rejects(compileSceneDocument(water),/navigation crosses .* outside its painted walkable mask/);
   const missing=structuredClone(source);
   delete missing.maps.lindenhafen.terrain[0].walkableMaskAsset;
@@ -138,14 +166,41 @@ test('requires distinct real doors and rejects offsets detached from painted ope
   await assert.rejects(compileSceneDocument(tent),/owner has no painted door/);
 });
 
-test('rejects empty chunks and substantial disconnected walkable ground',async()=>{
+test('rejects empty chunks and a required interaction isolated by owned collision',async()=>{
   const sparse=structuredClone(source),scene=sparse.maps.nebelstadt;
   scene.scenery=scene.scenery.filter(item=>item.x<1536||item.y<512||!['tree','cypress','lamp','planter','sign','stall'].includes(item.asset));
   await assert.rejects(compileSceneDocument(sparse),/harbour-supply needs at least 18 composed objects/);
   const island=structuredClone(source);
-  island.maps.lindenhafen.width+=300;island.maps.lindenhafen.coordinateVersion++;
-  island.maps.lindenhafen.walkable.push([[2400,100],[2520,100],[2520,220],[2400,220]]);
-  await assert.rejects(compileSceneDocument(island),/walkable samples; at least 99.5% is required/);
+  const town=island.maps.lindenhafen,target=town.npcs.find(npc=>npc.id==='otto'),{x,y}=target;
+  // The wall ring leaves the actor's feet on clear ground but separates their
+  // approach from the spawn. Empty isolated land alone is allowed in this model.
+  attachCollision(town, [
+    [[x-150,y-150],[x+150,y-150],[x+150,y-130],[x-150,y-130]],
+    [[x-150,y+130],[x+150,y+130],[x+150,y+150],[x-150,y+150]],
+    [[x-150,y-150],[x-130,y-150],[x-130,y+150],[x-150,y+150]],
+    [[x+130,y-150],[x+150,y-150],[x+150,y+150],[x+130,y+150]],
+  ]);
+  await assert.rejects(compileSceneDocument(island),/otto has no reachable approach with 10 units of player clearance/);
+});
+
+test('rejects legacy street whitelists and loose obstacles in clear-land scenes',async()=>{
+  for(const field of ['walkable','obstacles']) {
+    const value=structuredClone(source),scene=value.maps.lindenhafen;
+    scene[field].push([[20,20],[40,20],[40,40],[20,40]]);
+    await assert.rejects(compileSceneDocument(value),/clear-land scenes must use terrain collision and object-owned footprints/);
+  }
+});
+
+test('rejects malformed terrain hazards and object-owned collision before compiling',async()=>{
+  const terrain=structuredClone(source);
+  terrain.maps.waldruh.navigation.terrainCollision[0].kind='grass';
+  await assert.rejects(compileSceneDocument(terrain),/invalid collision kind/);
+  const collision=structuredClone(source);
+  collision.maps.waldruh.scenery[0].collision.referenceWidth=0;
+  await assert.rejects(compileSceneDocument(collision),/collision reference width must be positive/);
+  const polygon=structuredClone(source);
+  polygon.maps.waldruh.objects[0].collision={referenceWidth:1,polygons:[[[0,0],[1,0]]]};
+  await assert.rejects(compileSceneDocument(polygon),/collision 0 needs 3–256 vertices/);
 });
 
 test('requires the latest-main high-resolution format for expansion terrain',async()=>{

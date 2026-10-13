@@ -8,19 +8,30 @@ body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{positi
 <script type="module">
 import { World } from '../src/world.ts';
 import { interiors } from '../src/interiors.ts';
-import { maps } from '../src/maps.ts';
+import { maps, getMap } from '../src/maps.ts';
 import {weatherPreviewLabels} from '../src/world-weather.ts';
 let world, shownRegion='', sharedStatus='';
 const status=document.querySelector('#status');
+const quayTest=new URLSearchParams(location.search).get('test')==='station-quay';
+const landTest=new URLSearchParams(location.search).get('test')==='clear-land';
+const walkingTest=quayTest||landTest;
+const landStarts={lindenhafen:[360,115],waldruh:[103,416],nebelstadt:[560,435]};
 if(import.meta.env.DEV){
  document.querySelector('#region').innerHTML=maps.map(map=>`<option value="${map.id}">${map.name}</option>`).join('');
- world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{world.setInputEnabled(false)},onMapReady:id=>{shownRegion=id}});
+ world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{
+  if(quayTest)world.setPlayers([{id:'quay-qa',name:'Quay QA',mapId:'lindenhafen',x:1285.632/2304,y:355.328/1536,avatar:{hair:'#53462d',skin:'#d5ad86',outfit:'#397c78'}}],'quay-qa');
+  world.setInputEnabled(walkingTest);
+ },onMapReady:id=>{
+  shownRegion=id;
+  if(landTest){const map=getMap(id),[x,y]=landStarts[id];world.setPlayers([{id:'land-qa',name:'Land QA',mapId:id,x:x/map.width,y:y/map.height,avatar:{hair:'#53462d',skin:'#d5ad86',outfit:'#397c78'}}],'land-qa');}
+ }});
  world.setInputEnabled(false);
  const rooms = document.createElement('select'); rooms.id = 'interior'; rooms.setAttribute('aria-label', 'Interior');
  rooms.innerHTML = '<option value="">Outdoors</option>' + interiors.map(room => `<option value="${room.id}">${room.name}</option>`).join('');
  document.querySelector('header').insertBefore(rooms, status);
  rooms.addEventListener('change', () => rooms.value ? world.enterInterior(rooms.value) : world.leaveInterior());
  const controls = document.createElement('label'); controls.innerHTML = '<input type="checkbox" id="controls">Walk & interact';
+ controls.querySelector('input').checked=walkingTest;
  document.querySelector('header').insertBefore(controls, status);
  controls.querySelector('input').addEventListener('change', event => world.setInputEnabled(event.target.checked));
  document.querySelector('#region').addEventListener('change',event=>{shownRegion='';world.setMap(event.target.value)});
@@ -59,7 +70,9 @@ if(import.meta.env.DEV){
   const ids=residents.map(resident=>resident.id).join(',');if(ids!==residentIds){residentIds=ids;observer.replaceChildren(new Option('Follow player',''),...residents.map(resident=>new Option(resident.name,resident.id)));}
   const observed=residents.find(resident=>resident.id===observer.value);
   const activity=observed?` · ${observed.name}: ${observed.state.phase} ${observed.state.action}${observed.state.activityId?' at '+observed.state.activityId:''}${observed.state.interruption?' · rain response':observed.state.resumed?' · resumed':''}${observed.state.exchange?' · '+observed.state.exchange.stage+' · '+observed.state.exchange.german:''}`:'';
-  status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${ground.textures} ground textures / ${(ground.pixels*4/1024/1024).toFixed(1)} MiB RGBA · ${ground.pending} pending · ${stats.p95FrameMs} ms p95 · ${world.getWeather()?'rain':'dry'}${sharedStatus}${activity}`:'Loading destination artwork…'},250);
+  const player=walkingTest?world.getPlayerPosition():undefined;
+  const walking=player?` · Player ${player.x.toFixed(1)}, ${player.y.toFixed(1)}`:'';
+  status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${ground.textures} ground textures / ${(ground.pixels*4/1024/1024).toFixed(1)} MiB RGBA · ${ground.pending} pending · ${stats.p95FrameMs} ms p95 · ${world.getWeather()?'rain':'dry'}${sharedStatus}${activity}${walking}`:'Loading destination artwork…'},250);
  addEventListener('pagehide',()=>{clearInterval(timer);clearInterval(sharedTimer);sharedAbort.abort();world.destroy()},{once:true});
 }else status.textContent='This fixture is available on the development server.';
 </script></body></html>

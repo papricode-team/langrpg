@@ -28,12 +28,12 @@ describe('painted activity presentation',()=>{
     expect(residentActionPose(sample({heldObject:undefined}),false)).toEqual({frame:'sit'});
   });
   it('reconstructs the same pose and authored facing on late join and across a full visit',()=>{
-    const scene=getWorldScene('lindenhafen'),simulation=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen'));
+    const scene=getWorldScene('lindenhafen'),simulation=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen', {agentRadius:0}));
     const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
     const visit=simulation.day(time,'dry').plan.activities.find(visit=>visit.residentId==='lindenhafen-promenade-reader'&&visit.task.id==='afternoon-reading')!;
     const instant={...time,elapsedSeconds:visit.arrival+7-7*30};
     const first=simulation.sample(instant,'dry').find(actor=>actor.residentId===visit.residentId)!;
-    const joined=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen')).sample(instant,'dry').find(actor=>actor.residentId===visit.residentId)!;
+    const joined=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen', {agentRadius:0})).sample(instant,'dry').find(actor=>actor.residentId===visit.residentId)!;
     expect(first.phaseSeconds).toBeCloseTo(7);expect(first.facingLeft).toBe(true);expect(first).toEqual(joined);
     expect(residentSeatedOffset(first,false)).toBe(-16);
     expect(residentSeatedOffset({...first,phaseSeconds:0},false)).toBeCloseTo(0);

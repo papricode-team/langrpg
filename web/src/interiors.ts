@@ -1,6 +1,6 @@
 import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
-import { NavigationGrid } from './navigation';
+import { NavigationGrid, PLAYER_RADIUS, type NavigationOptions } from './navigation';
 import {getWorldScene} from './scene-data';
 import {sceneEntrancePoint, type SceneEntrance} from './scene-schema';
 
@@ -39,8 +39,8 @@ export interface InteriorPropSpec {
   depth?: number;
   /** An object encounter to open when this prop is selected. */
   interactive?: string;
-  /** Solid footprint, excluding steam, glass reflections, and tall silhouettes. */
-  collision?: { x: number; y: number; width: number; height: number };
+  /** Solid footprint relative to this prop's anchor; moves with the furniture. */
+  collision?: { offsetX: number; offsetY: number; width: number; height: number };
   /** Detail-only overlays, positioned relative to the fixed furniture anchor. */
   effects?: readonly { asset: 'steam' | 'flame'; x: number; y: number; width: number; alpha: number }[];
 }
@@ -66,7 +66,7 @@ export interface InteriorSpec {
   spawn: MapPosition;
   exit: MapPosition;
   /** Architectural floor boundaries in painting pixels, independent of furniture. */
-  walkableAreas: readonly InteriorPolygon[];
+  floorAreas: readonly InteriorPolygon[];
   /** Solid partition walls. Gaps in these polygons are actual room doorways. */
   barriers?: readonly InteriorPolygon[];
   npcs: readonly InteriorNpcSpec[];
@@ -85,7 +85,7 @@ const position = (x: number, y: number): MapPosition => ({ x: x / 1536, y: y / 1
 const vocabulary = (article: string, lemma: string, plural: string, english: string): InteriorVocabulary => ({ article, lemma, plural, english });
 const cafeExercise = (...numbers: number[]): string[] => numbers.map(number => `a1-cafe-exercise-${number}`);
 const marketExercise = (...numbers: number[]): string[] => numbers.map(number => `a1-market-exercise-${number}`);
-const footprint = (x: number, y: number, width: number, height: number) => ({ x, y, width, height });
+const footprint = (offsetX: number, offsetY: number, width: number, height: number) => ({ offsetX, offsetY, width, height });
 
 /** Focused everyday encounters stay available alongside the longer Atlas story. */
 export const interiors: readonly InteriorSpec[] = [
@@ -94,7 +94,7 @@ export const interiors: readonly InteriorSpec[] = [
     description: 'Coffee hisses, a sleepy clock ticks, and Marta remembers how you like your drink. Explore a cosy café and practise one small conversation at a time.',
     asset: '/assets/interior-cafe-room.webp', width: 1536, height: 1024,
     spawn: position(548, 800), exit: position(548, 845),
-    walkableAreas: [[[160,222],[268,222],[268,288],[1020,288],[1020,530],[1360,530],[1360,850],[160,850]]],
+    floorAreas: [[[160,222],[268,222],[268,288],[1020,288],[1020,530],[1360,530],[1360,850],[160,850]]],
     npcs: [
       { id: 'marta', ...position(685, 550), interactionId: 'interior:cafe:coffee', role: 'Café owner' },
       { id: 'lina', ...position(1060, 795), interactionId: 'interior:cafe:table', role: 'A customer on her break' },
@@ -134,25 +134,25 @@ export const interiors: readonly InteriorSpec[] = [
       },
     ],
     props: [
-      { id: 'cafe-service-bar-left', sheet: 'interior-furniture', asset: 'coffee-bar', x: 590, y: 490, width: 160, interactive: 'interior:cafe:coffee', collision: footprint(525, 445, 270, 48) },
+      { id: 'cafe-service-bar-left', sheet: 'interior-furniture', asset: 'coffee-bar', x: 590, y: 490, width: 160, interactive: 'interior:cafe:coffee', collision: footprint(-65, -45, 270, 48) },
       { id: 'cafe-service-bar-right', sheet: 'interior-furniture', asset: 'coffee-bar', x: 730, y: 490, width: 160, interactive: 'interior:cafe:tea' },
       { id: 'cafe-espresso', sheet: 'interior-cafe-objects', asset: 'espresso', x: 565, y: 415, width: 60, depth: 500, interactive: 'interior:cafe:coffee', effects: [{ asset: 'steam', x: 18, y: -30, width: 16, alpha: .22 }] },
       { id: 'cafe-grinder', sheet: 'interior-cafe-objects', asset: 'grinder', x: 660, y: 415, width: 38, depth: 501, interactive: 'interior:cafe:coffee' },
       { id: 'cafe-kettle', sheet: 'interior-cafe-objects', asset: 'kettle', x: 750, y: 415, width: 28, depth: 502, interactive: 'interior:cafe:tea', effects: [{ asset: 'steam', x: 10, y: -21, width: 12, alpha: .22 }] },
-      { id: 'cafe-pastry-case', sheet: 'interior-cafe-objects', asset: 'pastry-case', x: 915, y: 490, width: 170, interactive: 'interior:cafe:pastries', collision: footprint(840, 445, 150, 47) },
-      { id: 'cafe-reading-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 310, y: 675, width: 140, interactive: 'interior:cafe:table', collision: footprint(254, 632, 112, 45) },
-      { id: 'cafe-central-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 640, y: 670, width: 140, interactive: 'interior:cafe:table', collision: footprint(584, 627, 112, 45) },
-      { id: 'cafe-front-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 305, y: 805, width: 140, interactive: 'interior:cafe:table', collision: footprint(249, 762, 112, 45) },
-      { id: 'cafe-window-banquette', sheet: 'interior-furniture', asset: 'banquette', x: 1200, y: 655, width: 145, interactive: 'interior:cafe:table', collision: footprint(1136, 620, 128, 37) },
-      { id: 'cafe-window-table-south', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1185, y: 780, width: 140, interactive: 'interior:cafe:table', collision: footprint(1129, 737, 112, 45) },
+      { id: 'cafe-pastry-case', sheet: 'interior-cafe-objects', asset: 'pastry-case', x: 915, y: 490, width: 170, interactive: 'interior:cafe:pastries', collision: footprint(-75, -45, 150, 47) },
+      { id: 'cafe-reading-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 310, y: 675, width: 140, interactive: 'interior:cafe:table', collision: footprint(-56, -43, 112, 45) },
+      { id: 'cafe-central-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 640, y: 670, width: 140, interactive: 'interior:cafe:table', collision: footprint(-56, -43, 112, 45) },
+      { id: 'cafe-front-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 305, y: 805, width: 140, interactive: 'interior:cafe:table', collision: footprint(-56, -43, 112, 45) },
+      { id: 'cafe-window-banquette', sheet: 'interior-furniture', asset: 'banquette', x: 1200, y: 655, width: 145, interactive: 'interior:cafe:table', collision: footprint(-64, -35, 128, 37) },
+      { id: 'cafe-window-table-south', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1185, y: 780, width: 140, interactive: 'interior:cafe:table', collision: footprint(-56, -43, 112, 45) },
       { id: 'cafe-reading-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 330, y: 620, width: 12, depth: 682 },
       { id: 'cafe-central-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 660, y: 615, width: 12, depth: 677 },
       { id: 'cafe-window-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1205, y: 725, width: 12, depth: 787, interactive: 'interior:cafe:table' },
-      { id: 'cafe-candle', sheet: 'interior-decor', asset: 'candle', x: 1300, y: 715, width: 55, collision: footprint(1278, 694, 44, 23), effects: [{ asset: 'flame', x: 0, y: -51, width: 8, alpha: .35 }] },
-      { id: 'cafe-window-plant', sheet: 'interior-decor', asset: 'plant', x: 225, y: 510, width: 60, collision: footprint(211, 494, 28, 18) },
+      { id: 'cafe-candle', sheet: 'interior-decor', asset: 'candle', x: 1300, y: 715, width: 55, collision: footprint(-22, -21, 44, 23), effects: [{ asset: 'flame', x: 0, y: -51, width: 8, alpha: .35 }] },
+      { id: 'cafe-window-plant', sheet: 'interior-decor', asset: 'plant', x: 225, y: 510, width: 60, collision: footprint(-14, -16, 28, 18) },
       { id: 'cafe-clock', sheet: 'interior-decor', asset: 'pendulum-clock', x: 980, y: 285, width: 32 },
-      { id: 'cafe-reading-shelf', sheet: 'interior-decor', asset: 'bookshelf', x: 1300, y: 590, width: 95, collision: footprint(1258, 564, 84, 28) },
-      { id: 'cafe-menu-board', sheet: 'interior-furniture', asset: 'menu-board', x: 470, y: 780, width: 45, interactive: 'interior:cafe:coffee', collision: footprint(459, 764, 22, 18) },
+      { id: 'cafe-reading-shelf', sheet: 'interior-decor', asset: 'bookshelf', x: 1300, y: 590, width: 95, collision: footprint(-42, -26, 84, 28) },
+      { id: 'cafe-menu-board', sheet: 'interior-furniture', asset: 'menu-board', x: 470, y: 780, width: 45, interactive: 'interior:cafe:coffee', collision: footprint(-11, -16, 22, 18) },
     ],
   },
   {
@@ -160,7 +160,7 @@ export const interiors: readonly InteriorSpec[] = [
     description: 'An amber oven, warm wooden shelves, and a baker with time for your questions. Discover the names of everyday baked goods and practise buying a little something.',
     asset: '/assets/interior-bakery-room.webp', width: 1536, height: 1024,
     spawn: position(1000, 800), exit: position(1000, 845),
-    walkableAreas: [
+    floorAreas: [
       [[218,500],[1340,500],[1340,850],[218,850]],
       [[620,188],[1340,188],[1340,449],[620,449]],
       [[842,438],[966,438],[966,505],[842,505]],
@@ -208,20 +208,20 @@ export const interiors: readonly InteriorSpec[] = [
       },
     ],
     props: [
-      { id: 'bakery-bread-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 340, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(297, 675, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
-      { id: 'bakery-roll-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 505, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(462, 675, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
-      { id: 'bakery-dough-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 725, y: 350, width: 145, collision: footprint(662, 310, 126, 42) },
+      { id: 'bakery-bread-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 340, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(-43, -30, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
+      { id: 'bakery-roll-rack', sheet: 'interior-bakery-objects', asset: 'bread-rack', x: 505, y: 705, width: 100, interactive: 'interior:bakery:bread', collision: footprint(-43, -30, 86, 32), effects: [{ asset: 'steam', x: 0, y: -108, width: 22, alpha: .22 }] },
+      { id: 'bakery-dough-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 725, y: 350, width: 145, collision: footprint(-63, -40, 126, 42) },
       { id: 'bakery-dough-bench', sheet: 'interior-bakery-objects', asset: 'dough-bench', x: 725, y: 275, width: 46, depth: 360 },
-      { id: 'bakery-mixing-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 975, y: 350, width: 145, collision: footprint(912, 310, 126, 42) },
+      { id: 'bakery-mixing-counter', sheet: 'interior-furniture', asset: 'prep-bench', x: 975, y: 350, width: 145, collision: footprint(-63, -40, 126, 42) },
       { id: 'bakery-mixer', sheet: 'interior-bakery-objects', asset: 'mixer', x: 975, y: 262, width: 45, depth: 361 },
-      { id: 'bakery-oven', sheet: 'interior-bakery-objects', asset: 'oven', x: 1200, y: 365, width: 145, interactive: 'interior:bakery:oven', collision: footprint(1137, 316, 126, 51), effects: [{ asset: 'flame', x: 0, y: -62, width: 25, alpha: .4 }] },
-      { id: 'bakery-pantry', sheet: 'interior-furniture', asset: 'pantry', x: 675, y: 270, width: 80, collision: footprint(640, 247, 70, 25) },
-      { id: 'bakery-sink', sheet: 'interior-furniture', asset: 'sink', x: 1060, y: 270, width: 90, collision: footprint(1021, 244, 78, 28) },
-      { id: 'bakery-pastry-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 685, y: 725, width: 155, interactive: 'interior:bakery:pastries', collision: footprint(617, 681, 136, 46) },
+      { id: 'bakery-oven', sheet: 'interior-bakery-objects', asset: 'oven', x: 1200, y: 365, width: 145, interactive: 'interior:bakery:oven', collision: footprint(-63, -49, 126, 51), effects: [{ asset: 'flame', x: 0, y: -62, width: 25, alpha: .4 }] },
+      { id: 'bakery-pantry', sheet: 'interior-furniture', asset: 'pantry', x: 675, y: 270, width: 80, collision: footprint(-35, -23, 70, 25) },
+      { id: 'bakery-sink', sheet: 'interior-furniture', asset: 'sink', x: 1060, y: 270, width: 90, collision: footprint(-39, -26, 78, 28) },
+      { id: 'bakery-pastry-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 685, y: 725, width: 155, interactive: 'interior:bakery:pastries', collision: footprint(-68, -44, 136, 46) },
       { id: 'bakery-pastry-tray', sheet: 'interior-bakery-objects', asset: 'pastry-tray', x: 710, y: 670, width: 45, depth: 735, interactive: 'interior:bakery:pastries', effects: [{ asset: 'steam', x: 0, y: -32, width: 16, alpha: .22 }] },
-      { id: 'bakery-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 1060, y: 735, width: 175, interactive: 'interior:bakery:counter', collision: footprint(984, 688, 152, 49) },
-      { id: 'bakery-coat-stand', sheet: 'interior-decor', asset: 'coat-stand', x: 1250, y: 810, width: 60, collision: footprint(1235, 792, 30, 22) },
-      { id: 'bakery-window-plant', sheet: 'interior-decor', asset: 'plant', x: 265, y: 805, width: 55, collision: footprint(252, 789, 26, 18) },
+      { id: 'bakery-counter', sheet: 'interior-bakery-objects', asset: 'bakery-counter', x: 1060, y: 735, width: 175, interactive: 'interior:bakery:counter', collision: footprint(-76, -47, 152, 49) },
+      { id: 'bakery-coat-stand', sheet: 'interior-decor', asset: 'coat-stand', x: 1250, y: 810, width: 60, collision: footprint(-15, -18, 30, 22) },
+      { id: 'bakery-window-plant', sheet: 'interior-decor', asset: 'plant', x: 265, y: 805, width: 55, collision: footprint(-13, -16, 26, 18) },
     ],
   },
   {
@@ -229,7 +229,7 @@ export const interiors: readonly InteriorSpec[] = [
     description: 'Colourful produce, familiar shelves, and a wonderfully unhurried checkout. Gather useful grocery words and handle one everyday shopping task at a time.',
     asset: '/assets/interior-supermarket-room.webp', width: 1536, height: 1024,
     spawn: position(1230, 790), exit: position(1230, 845),
-    walkableAreas: [
+    floorAreas: [
       [[548,260],[1380,260],[1380,842],[160,842],[160,456],[548,456]],
       [[146,215],[498,215],[498,382],[146,382]],
       [[264,372],[369,372],[369,458],[264,458]],
@@ -279,18 +279,18 @@ export const interiors: readonly InteriorSpec[] = [
       },
     ],
     props: [
-      { id: 'supermarket-produce', sheet: 'interior-supermarket-objects', asset: 'produce', x: 325, y: 625, width: 140, interactive: 'interior:supermarket:produce', collision: footprint(263, 584, 124, 43) },
-      { id: 'supermarket-scales', sheet: 'interior-supermarket-objects', asset: 'scales', x: 460, y: 655, width: 85, interactive: 'interior:supermarket:scales', collision: footprint(423, 628, 74, 29) },
-      { id: 'supermarket-refrigerator', sheet: 'interior-supermarket-objects', asset: 'refrigerator', x: 1210, y: 430, width: 100, collision: footprint(1166, 399, 88, 33) },
-      { id: 'supermarket-aisle-one-north', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 620, y: 535, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(572, 500, 96, 37) },
-      { id: 'supermarket-aisle-two-north', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 835, y: 535, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(787, 500, 96, 37) },
-      { id: 'supermarket-aisle-one-south', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 620, y: 735, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(572, 700, 96, 37) },
-      { id: 'supermarket-aisle-two-south', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 835, y: 735, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(787, 700, 96, 37) },
-      { id: 'supermarket-checkout', sheet: 'interior-supermarket-objects', asset: 'checkout', x: 1125, y: 760, width: 155, interactive: 'interior:supermarket:checkout', collision: footprint(1058, 716, 134, 46) },
-      { id: 'supermarket-basket', sheet: 'interior-supermarket-objects', asset: 'basket', x: 1290, y: 815, width: 45, collision: footprint(1274, 802, 32, 15) },
-      { id: 'supermarket-stockroom-basket', sheet: 'interior-supermarket-objects', asset: 'basket', x: 210, y: 335, width: 45, collision: footprint(194, 322, 32, 15) },
-      { id: 'supermarket-stockroom-aquarium', sheet: 'interior-decor', asset: 'aquarium', x: 425, y: 330, width: 65, collision: footprint(397, 309, 56, 23) },
-      { id: 'supermarket-entrance-plant', sheet: 'interior-decor', asset: 'plant', x: 1345, y: 805, width: 55, collision: footprint(1332, 789, 26, 18) },
+      { id: 'supermarket-produce', sheet: 'interior-supermarket-objects', asset: 'produce', x: 325, y: 625, width: 140, interactive: 'interior:supermarket:produce', collision: footprint(-62, -41, 124, 43) },
+      { id: 'supermarket-scales', sheet: 'interior-supermarket-objects', asset: 'scales', x: 460, y: 655, width: 85, interactive: 'interior:supermarket:scales', collision: footprint(-37, -27, 74, 29) },
+      { id: 'supermarket-refrigerator', sheet: 'interior-supermarket-objects', asset: 'refrigerator', x: 1210, y: 430, width: 100, collision: footprint(-44, -31, 88, 33) },
+      { id: 'supermarket-aisle-one-north', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 620, y: 535, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(-48, -35, 96, 37) },
+      { id: 'supermarket-aisle-two-north', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 835, y: 535, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(-48, -35, 96, 37) },
+      { id: 'supermarket-aisle-one-south', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 620, y: 735, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(-48, -35, 96, 37) },
+      { id: 'supermarket-aisle-two-south', sheet: 'interior-supermarket-objects', asset: 'grocery-shelf', x: 835, y: 735, width: 110, interactive: 'interior:supermarket:shelves', collision: footprint(-48, -35, 96, 37) },
+      { id: 'supermarket-checkout', sheet: 'interior-supermarket-objects', asset: 'checkout', x: 1125, y: 760, width: 155, interactive: 'interior:supermarket:checkout', collision: footprint(-67, -44, 134, 46) },
+      { id: 'supermarket-basket', sheet: 'interior-supermarket-objects', asset: 'basket', x: 1290, y: 815, width: 45, collision: footprint(-16, -13, 32, 15) },
+      { id: 'supermarket-stockroom-basket', sheet: 'interior-supermarket-objects', asset: 'basket', x: 210, y: 335, width: 45, collision: footprint(-16, -13, 32, 15) },
+      { id: 'supermarket-stockroom-aquarium', sheet: 'interior-decor', asset: 'aquarium', x: 425, y: 330, width: 65, collision: footprint(-28, -21, 56, 23) },
+      { id: 'supermarket-entrance-plant', sheet: 'interior-decor', asset: 'plant', x: 1345, y: 805, width: 55, collision: footprint(-13, -16, 26, 18) },
     ],
   },
 
@@ -301,13 +301,13 @@ export const interiors: readonly InteriorSpec[] = [
     // The painted bed and desk are larger than the modular shop furniture.
     characterHeight: 240,
     spawn: position(780, 805), exit: position(780, 885),
-    walkableAreas: [[[150,365],[1380,365],[1380,830],[970,830],[970,950],[620,950],[620,830],[150,830]]],
+    floorAreas: [[[150,365],[1380,365],[1380,830],[970,830],[970,950],[620,950],[620,830],[150,830]]],
     barriers: [[[150,365],[580,365],[580,550],[150,550]], [[1070,365],[1380,365],[1380,465],[1070,465]], [[700,365],[930,365],[930,410],[700,410]], [[1340,465],[1380,465],[1380,730],[1340,730]]],
     npcs: [
       { id: 'greta', ...position(1040, 705), interactionId: 'interior:inn:welcome', role: 'Your inn host · tea until 21:00', hours: [7, 21] },
     ],
     props: [
-      { id: 'inn-tea-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1140, y: 690, width: 190, collision: footprint(1064, 618, 152, 68) },
+      { id: 'inn-tea-table', sheet: 'interior-cafe-objects', asset: 'cafe-table', x: 1140, y: 690, width: 190, collision: footprint(-76, -72, 152, 68) },
       { id: 'inn-host-kettle', sheet: 'interior-cafe-objects', asset: 'kettle', x: 1112, y: 608, width: 35, depth: 696, effects: [{ asset: 'steam', x: 10, y: -28, width: 17, alpha: .2 }] },
       { id: 'inn-tea-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1170, y: 608, width: 17, depth: 697 },
     ],
@@ -357,10 +357,10 @@ export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
 }
 
 /** Match each distinct building footprint and its partition doorways. */
-export function createInteriorNavigation(id: InteriorId): NavigationGrid {
+export function createInteriorNavigation(id: InteriorId, options: NavigationOptions = {}): NavigationGrid {
   const rectangle = (x: number, y: number, width: number, height: number): readonly (readonly [number, number])[] =>
     [[x, y], [x + width, y], [x + width, y + height], [x, y + height]];
   const interior = getInterior(id);
-  const obstacles = interior.props.flatMap(prop => prop.collision ? [rectangle(prop.collision.x, prop.collision.y, prop.collision.width, prop.collision.height)] : []);
-  return new NavigationGrid(interior.walkableAreas, [...(interior.barriers ?? []), ...obstacles], interior);
+  const obstacles = interior.props.flatMap(prop => prop.collision ? [rectangle(prop.x + prop.collision.offsetX, prop.y + prop.collision.offsetY, prop.collision.width, prop.collision.height)] : []);
+  return new NavigationGrid(interior.floorAreas, [...(interior.barriers ?? []), ...obstacles], interior, {agentRadius:PLAYER_RADIUS,...options});
 }

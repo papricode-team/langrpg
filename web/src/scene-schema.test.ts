@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {parseWorldSceneDocument, sceneActivityPoint, sceneEntrancePoint, type WorldScene, type WorldSceneDocument} from './scene-schema';
+import {parseWorldSceneDocument, sceneActivityPoint, sceneEntrancePoint, type SceneScenery, type WorldScene, type WorldSceneDocument} from './scene-schema';
 import {getWorldScene, sceneDocument} from './scene-data';
 
 function room(): WorldSceneDocument {
@@ -76,5 +76,29 @@ describe('canonical scene contract', () => {
     expect(()=>parseWorldSceneDocument(value)).toThrow('distinct x');
     value.maps.room.scenery[0].sortLine=[[0,0],[10,Infinity]];
     expect(()=>parseWorldSceneDocument(value)).toThrow('finite pairs');
+  });
+  it.each(['npcs','objects'] as const)('requires %s collision offsets to use world units',kind=>{
+    const value=room();
+    value.maps.room[kind]=[{id:'anchor',x:100,y:100,collision:{referenceWidth:1,polygons:[[[-8,-6],[8,-6],[8,6],[-8,6]]]}}];
+    expect(parseWorldSceneDocument(value)).toBe(value);
+    value.maps.room[kind][0].collision!.referenceWidth=80;
+    expect(()=>parseWorldSceneDocument(value)).toThrow('reference width must be 1 for world-unit offsets');
+  });
+  it('allows scenery collision to use its authored reference width',()=>{
+    const value=room();
+    value.maps.room.scenery[0].collision={referenceWidth:512,polygons:[[[-64,-32],[64,-32],[64,32],[-64,32]]]};
+    expect(parseWorldSceneDocument(value)).toBe(value);
+  });
+  it.each(['catalog','baseline'] as const)('validates %s prefab child collision',source=>{
+    const value=room(),child:SceneScenery={...value.maps.room.scenery[0],collision:{referenceWidth:80,polygons:[[[-30,-10],[30,-10],[30,10],[-30,10]]]}};
+    value.prefabs=[{id:'bench-prefab',name:'Bench',revision:1,scenery:[structuredClone(child)],activities:[]}];
+    value.maps.room.prefabInstances=[{id:'bench-instance',prefabId:'bench-prefab',revision:1,origin:{x:0,y:0},members:[{key:'bench',id:'bench',base:structuredClone(child)}],activities:[]}];
+    expect(parseWorldSceneDocument(value)).toBe(value);
+    const collision=source==='catalog'?value.prefabs![0].scenery[0].collision!:value.maps.room.prefabInstances![0].members[0].base.collision!;
+    collision.referenceWidth=0;
+    expect(()=>parseWorldSceneDocument(value)).toThrow('collision reference width must be positive');
+    collision.referenceWidth=80;
+    collision.polygons=[[[-30,-10],[30,-10]]];
+    expect(()=>parseWorldSceneDocument(value)).toThrow('collision 0 needs 3–256 vertices');
   });
 });

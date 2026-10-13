@@ -7,7 +7,9 @@ import { isExpeditionMap } from './expeditions';
 describe('painted town resident routes', () => {
   for (const map of maps) {
     it(`keeps all ${map.name} resident loops on connected painted roads`, () => {
-      const navigation = createMapNavigation(map.id);
+      // Residents' authored feet and seated poses use point geometry. The
+      // player footprint is verified separately by navigation/map tests.
+      const navigation = createMapNavigation(map.id, {agentRadius:0});
       const residents = createWorldResidents(map.id, navigation);
       expect(residents).toHaveLength(isExpeditionMap(map.id) ? 8 : 3);
       for (const resident of residents) {
