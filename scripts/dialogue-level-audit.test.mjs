@@ -37,17 +37,17 @@ test('the optional practice introduction cannot bypass the Act I lexical gate', 
   assert.ok(result.actOneGate.violations.some(error => error.includes('/quest-intro/') && error.includes('Wahrheit')));
 });
 
-test('only the exact, always translated parcel quotation has a supported-artifact exception', () => {
+test('only the exact parcel quotation with an on-demand meaning has a supported-artifact exception', () => {
   const graph = fixture('a1-lost-parcel', 'Bevor du uns wieder auslöschst, komm.');
   const line = graph.nodes[0].lines[0];
-  Object.assign(line, { id: 'a1-lost-parcel-complete-1', english: 'Before you erase us again, come.', alwaysTranslate: true });
+  Object.assign(line, { id: 'a1-lost-parcel-complete-1', english: 'Before you erase us again, come.' });
   const audit = () => auditDialogueCorpus({ ...options, graphs: [graph] });
   assert.equal(audit().actOneGate.passed, true);
   assert.ok(audit().entries[0].aboveLevelWords.includes('Bevor'), 'preserve raw difficulty');
   assert.equal(audit().entries[0].supportedArtifact, true);
-  line.alwaysTranslate = false;
+  delete line.english;
   assert.equal(audit().actOneGate.passed, false);
-  line.alwaysTranslate = true;
+  line.english = 'Before you erase us again, come.';
   line.german = 'Bevor du uns wieder auslöschst, warte.';
   assert.equal(audit().actOneGate.passed, false);
 });

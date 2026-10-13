@@ -28,8 +28,6 @@ export interface DialogueLine {
   german: string;
   english: string;
   clipId: string;
-  /** A plot-critical quotation carries its meaning even when learner support is hidden. */
-  alwaysTranslate?: boolean;
   /** Distinguish formal speech to an official from speech to the player. */
   addressedTo?: string;
   condition?: DialogueCondition;

@@ -21,9 +21,25 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
 }
 
 describe('conversation word lookup', () => {
-  it('keeps the meaning of the plot-critical letter visible without beginner support', () => {
-    const f = fixture({ help: false, line: { id: 'letter', speaker: 'lina', german: 'Bevor du uns wieder auslöschst, komm.', english: 'Before you erase us again, come.', clipId: 'letter', alwaysTranslate: true } });
+  it('keeps the plot-critical letter meaning hidden until requested', () => {
+    const f = fixture({ line: { id: 'letter', speaker: 'lina', german: 'Bevor du uns wieder auslöschst, komm.', english: 'Before you erase us again, come.', clipId: 'letter' } });
+    expect(f.translation()).toBeNull();
+    expect(f.view.host.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
+    f.view.render({ ...f.presentation, help: true });
     expect(f.translation()?.textContent).toBe('Before you erase us again, come.');
+  });
+  it('shows the translation toggle state and preserves keyboard focus when toggled', () => {
+    const f = fixture();
+    const toggle = () => f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!;
+    toggle().focus(); toggle().click();
+    expect(f.actions.action).toHaveBeenCalledWith('translate');
+    f.view.render({ ...f.presentation, help: true });
+    expect(toggle().getAttribute('aria-pressed')).toBe('true');
+    expect(document.activeElement).toBe(toggle());
+    f.view.render(f.presentation);
+    expect(toggle().getAttribute('aria-pressed')).toBe('false');
+    expect(document.activeElement).toBe(toggle());
+    expect(f.translation()).toBeNull();
   });
   it('shows an icon audio toggle outside the text and preserves its keyboard focus', () => {
     const f = fixture({ audioEnabled: false });
@@ -86,6 +102,10 @@ describe('conversation word lookup', () => {
     expect(f.translation()?.querySelector('mark')?.textContent).toBe('coffee');
     expect(f.word('Kaffee').getAttribute('aria-pressed')).toBe('true');
     expect(f.actions.gloss).toHaveBeenCalledTimes(1);
+    f.view.render({ ...f.presentation, help: false });
+    expect(f.translation()).toBeNull();
+    expect(f.view.host.querySelector('.dialogue-word.is-selected')).toBeNull();
+    expect(f.view.host.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Einen Kaffee, bitte.');
   });
 
   it('clears lookup when a new line is displayed or a closed conversation is opened again', () => {

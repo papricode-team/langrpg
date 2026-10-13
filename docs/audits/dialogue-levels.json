@@ -1,5 +1,5 @@
 {
-  "method": "Raw dictionary matches are retained beside adjusted flags. Explicitly English-glossed story vocabulary carries forward in canonical quest order, with at most two new story words per Act I quest. Bounded resolutions cover registered character/town names, surnames after Frau/Herr, single-letter clues, standard contractions and level-tagged surface forms. Act I checks every dialogue line, simpler variant, reply correction, investigation, choice and optional-practice quest introduction; all unapproved above-level words, unresolved words, listed advanced patterns and turns over the quest limit (8, 8, 10, 10, 12, 12 words) fail. The exact parcel warning has one always-translated artifact exception with raw difficulty retained; it grants no vocabulary approval to other lines. Level tags, homographs, imported inflections and grammar heuristics still require editorial review. A zero result is not CEFR certification or measured learner known-word coverage; placement is reported separately and is outside this story gate.",
+  "method": "Raw dictionary matches are retained beside adjusted flags. Explicitly English-glossed story vocabulary carries forward in canonical quest order, with at most two new story words per Act I quest. Bounded resolutions cover registered character/town names, surnames after Frau/Herr, single-letter clues, standard contractions and level-tagged surface forms. Act I checks every dialogue line, simpler variant, reply correction, investigation, choice and optional-practice quest introduction; all unapproved above-level words, unresolved words, listed advanced patterns and turns over the quest limit (8, 8, 10, 10, 12, 12 words) fail. The exact parcel warning has one artifact exception with its complete meaning available on demand and raw difficulty retained; it grants no vocabulary approval to other lines. Level tags, homographs, imported inflections and grammar heuristics still require editorial review. A zero result is not CEFR certification or measured learner known-word coverage; placement is reported separately and is outside this story gate.",
   "summary": {
     "A1": {
       "lines": 173,
@@ -4984,7 +4984,6 @@
       "lineId": "a1-lost-parcel-complete-1",
       "german": "Bevor du uns wieder auslöschst, komm.",
       "english": "Before you erase us again, come.",
-      "alwaysTranslate": true,
       "level": "A1",
       "aboveLevelWords": [
         "Bevor"
@@ -4998,15 +4997,15 @@
       "resolutions": [
         {
           "word": "Bevor",
-          "reason": "always-translated-letter-quotation"
+          "reason": "on-demand-translated-letter-quotation"
         },
         {
           "word": "uns",
-          "reason": "always-translated-letter-quotation"
+          "reason": "on-demand-translated-letter-quotation"
         },
         {
           "word": "auslöschst",
-          "reason": "always-translated-letter-quotation"
+          "reason": "on-demand-translated-letter-quotation"
         }
       ],
       "supportedArtifact": true,
