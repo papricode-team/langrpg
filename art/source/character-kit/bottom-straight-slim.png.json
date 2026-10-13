@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "7b01f7babfa92da16593a3263b6bf0d38a36baf3b784185b071cd38974dac9e6",
+  "baseSha256": "2df046f2e40b9b1f8edc3ae79d94a4779e23186cd7941dffcbe7d73bd02dfbf4",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "6a6e79b70e561b8722436e2e8648b3ca39e22d28b5971ecbce006c00b8f5a899",
+  "promptSha256": "c40adadb4ee5d061844f1b946f79064352d4f9af205bc4c564a8f459cb091867",
+  "generationPromptSha256": "b657ad4c1dce7fdf3b46507c69e255464ae940297bf4c4d8d195825e2cefe6f3",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "fringeMaterials": [
+      "detail"
+    ],
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ]
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A hand occludes a small hip patch in left idle; the crossing foreground foot occludes part of the rear cuff in right walking pose 7. Both visible garment regions touch the mannequin."
+  },
+  "candidate": "art/source/character-kit/bottom-straight-slim-candidate-1.png",
+  "lockedSha256": "73a290820f06bc838f3f991f41f4eb4478ecd92d65d8011c6cc075475842331c"
+}

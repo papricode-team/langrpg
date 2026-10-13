@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "candidateSha256": "f951f4b798ee53e943844fb7ff61906f232d3483efda5d51c0c27fd3acba9915",
+  "baseSha256": "71d6a39c8354c037d4aee2d1b661f231f22adaec9f8c5a86dbd50388ffe7ebd2",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "f4c48d3e1ae79aad4b7e5bd98544cec461fc57bde4644a4a86e69143318b5abc",
+  "promptSha256": "b7a5da59d8970fb6c5a54f230f1cec779600b146d990cdb6613a4a50cfbadbd5",
+  "generationPromptSha256": "970458b52e795e9a63033e8e050d4fb6d27fa30311329d6afa57dc79e8bdff9b",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 4
+  },
+  "preparationSha256": "0f9d3a3810a4dae0f7aeb6c1d1e90bec7124d8e0882d10f8e5a87731d2be80a7",
+  "candidate": "art/source/character-kit/prepared/body-broad-grid-v2.png",
+  "lockedSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371"
+}

@@ -12,6 +12,12 @@ export const residentActionFrames=['idle','read','read-turn','sit','work','work-
 export const RESIDENT_ACTION_ART={width:128,height:192,bodyHeight:142,footY:.9,columns:4,rows:3};
 export const residentActionKey=(mapId:string,look:ResidentActionLook):string=>`${mapId}-resident-actions-${look}`;
 export interface ResidentActionPose {frame:typeof residentActionFrames[number];bakedObject?:ActivityResidentSample['heldObject'];}
+/** Component poses must match the action and leave authored props in their hands. */
+export function residentComponentPose(sample:ActivityResidentSample):'wave'|'seated'|undefined {
+  if(sample.phase!=='act'||sample.moving||sample.heldObject)return;
+  if(sample.action==='greet')return 'wave';
+  if(sample.action==='sit'||sample.action==='read')return 'seated';
+}
 export function residentSeatedOffset(sample:ActivityResidentSample,reducedMotion:boolean):number {
   if(sample.seatedOffsetY===undefined)return 0;
   const blend=reducedMotion?1:Math.max(0,Math.min(1,(sample.segmentSeconds??sample.phaseSeconds)/.3,((sample.phaseDurationSeconds??Infinity)-sample.phaseSeconds)/.3));

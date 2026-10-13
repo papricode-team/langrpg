@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "5079f741eb5bb22748e5e05c4c643d5f99c7bcf104214f504410a3a2ebdf8347",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "285a5007e36034e104d37e8db67282774e2f1a0805c058bb1545637a0121ed20",
+  "generationPromptSha256": "ff0722289a399db7a6bedf0fe76b20ddfe1b3c6afda2afefcfbede78540fd315",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/headwear-beanie-candidate-1.png",
+  "lockedSha256": "8822f7badfb4e23d2d88b1463eef843e88bb5ce9f775220a112beae70df53b31"
+}

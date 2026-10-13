@@ -21,3 +21,15 @@ art/source/map-quality/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Character voice references for local TTS (scripts/tts); transcripts stay plain text.
 art/source/voices/*.wav filter=lfs diff=lfs merge=lfs -text
+
+# Character masters and visual review evidence retain their native resolution.
+art/source/character-kit/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/character-kit/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/character-portraits/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/player-portraits/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.webp filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.webp filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.gif filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.gif filter=lfs diff=lfs merge=lfs -text

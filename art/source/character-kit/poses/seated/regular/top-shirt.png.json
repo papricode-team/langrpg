@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "88d73f063dbc40a9e220e84ef6221fc6880b09ed9003dfa6cd76f0949d52b152",
+  "baseSha256": "523ea9bb413b5de41861dac8d1808739e4a6fefcc24e2f74f50bfd5a7aa1bb73",
+  "registrationSha256": "f57aee4952942f12571da9f34198ab105a207db32c568a265085736126ee0b02",
+  "maskSha256": "391b05404fa4b6452b445104b5fd1a3a92f073475fe784fef914399d657f2f47",
+  "promptSha256": "99a996efbb2b333e501dc6dc2c7c9eda01f95740c6e359928239fc7b2a7ba87e",
+  "generationPromptSha256": "3333fe6c1ae2c1557770e3013985e736c75d9e2face415aafe131161cc961475",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-shirt-seated-candidate-1.png",
+  "lockedSha256": "946c5b51a8faad42ee4846767488b60f43327605c213fe488ce888a28236fa5a"
+}

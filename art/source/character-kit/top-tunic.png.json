@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "9dcbb978e900af2a5b84235671f93499038452b282d732b045306d4079859286",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "5d3d923717c9eab82c329ab94b00bc639cb2d5ebaf4d7e80b1f2c7796008d478",
+  "promptSha256": "e8e876d2e447213e7fbdc50ee433ef704b9f4d28993cff9d993c8dbbfec51397",
+  "generationPromptSha256": "6b25a8defec3ccbc6a42c46cedff564b276e3df18cc77a2caa40ace2a0735d62",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "Foreground forearms and hands divide narrow rear-tunic sections into up to three visible regions in profile views."
+  },
+  "candidate": "art/source/character-kit/top-tunic-candidate-2.png",
+  "lockedSha256": "643684655c29d0c15fdc6f568e1374d9589e12b1523bdf867a54fc559d51a816"
+}

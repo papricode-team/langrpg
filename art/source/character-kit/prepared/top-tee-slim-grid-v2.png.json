@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/top-tee-slim-candidate-1.png",
+      "sha256": "0faad6755ca5a2e16bedb28241bca0657d7573955342411a29d285fa4195cf1a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/outfit-reference.registration.json",
+      "sha256": "127c8c412631079e80b0690a6a2a1dab284b856cbd794ad5bd9e0dcbb98073c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/top-tee-slim-grid-v2.png",
+  "outputSha256": "7df4b40e7206fcdfde3d4a7905030559d80f7758f5c46781c2c3aab255b6f63c"
+}

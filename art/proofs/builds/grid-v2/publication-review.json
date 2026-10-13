@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-13",
+  "assetVersion": "df13fa66433fcfbb",
+  "components": 100,
+  "builds": [
+    "broad",
+    "regular",
+    "slim"
+  ],
+  "checks": {
+    "pipeline": 57,
+    "web": 772,
+    "cast": 3,
+    "goAvatar": "passed",
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "audioAndTravelRegression": 47
+  },
+  "browser": {
+    "url": "http://localhost:5193/",
+    "apiPort": 8099,
+    "actions": [
+      "Selected slim with tee, skirt, waves and travel jacket",
+      "Changed skirt and jacket colours and previewed walking",
+      "Saved slim and reopened the character editor",
+      "Switched to broad with compatible outfit preserved",
+      "Saved broad and reloaded the page",
+      "Verified broad remained selected after reload"
+    ],
+    "consoleErrors": [],
+    "screenshot": "art/proofs/builds/grid-v2/builder-broad-browser.png",
+    "teardownRegression": "The first asset hot reload exposed a late narration callback after Phaser teardown. World.setNarrationActive now ignores callbacks after destruction; the regression test and browser reload pass."
+  },
+  "cast": {
+    "rebaked": 192,
+    "proofHashesUnchanged": true
+  },
+  "remaining": [
+    "seated pose set",
+    "wave pose set",
+    "lantern-raise pose set",
+    "dialogue expression variants"
+  ]
+}

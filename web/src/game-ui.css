@@ -304,3 +304,8 @@
 .ink-badge { display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:999px; background:#2b4a3e; color:#f3e9c8; font-size:11px; letter-spacing:.4px; white-space:nowrap; }
 .ink-badge[data-paused="practise"], .ink-badge[data-paused="review"] { background:#6e4a2a; }
 .ink-badge .icon { width:12px; height:12px; }
+/* Reserve the floating event-log control when the menu header is narrow. */
+@media(max-width:650px){
+  .menu-header>div{min-width:0}
+  .menu-header .menu-close{margin-right:52px;flex:none}
+}

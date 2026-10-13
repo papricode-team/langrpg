@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "73984a20b2cecc933dc85ed8323825b7a06f99f451bdda0e7703e7d689f391c3",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "610769524e8a06d0350f8e68faabc0a2376e662d965fef15ad49272f460873d3",
+  "promptSha256": "6ff06b3584f78ecd0b7ae8c71abc05a3b7c375fb017aa64ff228812c7e53e9db",
+  "generationPromptSha256": "f2aa7a09c1280edaab987944f4e13e909831f6ec2045d4658779166602518f20",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-dress-long-candidate-1.png",
+  "lockedSha256": "4e02de472ea52c0ea4cb02925ce4601132a655205acd4a6e9361a6a215029fa7"
+}

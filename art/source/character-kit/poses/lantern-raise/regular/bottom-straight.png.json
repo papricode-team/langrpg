@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "8554dede3c2348aa329b4bd9a22acab7d55d7c91de61456487ef8e67ef61841d",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "f04840d5720f4bda0f1b62eef1610c2eb2860c18c98bde4546f8871c01c9b83e",
+  "promptSha256": "0ba154885b9134797d243c8f9334695688318372a9ce8007b804ca535a158c22",
+  "generationPromptSha256": "9d1a1d476f1d8c4ae810d1ac2dc4ca02a34db0e4aa53bc1a6d32d5cbd4f238f5",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/bottom-straight-lantern-raise-candidate-1.png",
+  "lockedSha256": "e85c6df7901ed022bb4367f436c7d73f33fd0f417c199ead41f17ac3a4635caf"
+}

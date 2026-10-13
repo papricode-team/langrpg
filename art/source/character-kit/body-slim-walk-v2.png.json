@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "candidateSha256": "be68ff06f72ac75d2857223bd8f812af55ed748ead9f20176ef863abd60e993e",
+  "baseSha256": "71d6a39c8354c037d4aee2d1b661f231f22adaec9f8c5a86dbd50388ffe7ebd2",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "f4c48d3e1ae79aad4b7e5bd98544cec461fc57bde4644a4a86e69143318b5abc",
+  "promptSha256": "39c970c09f25fc498c4cb22a257d721a4c107f458c4455589e2ce685e3c08a33",
+  "generationPromptSha256": "3ff03c88a3a662bda86cae8a0013517ee2a2229750b248259d3bbfc9b8719aee",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 6
+  },
+  "preparationSha256": "0c6428cfb99f1905408ac880f8a83e111ccabb7d0ba7e945f71a875a8f8fd8f8",
+  "candidate": "art/source/character-kit/prepared/body-slim-grid-v2.png",
+  "lockedSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598"
+}

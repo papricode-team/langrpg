@@ -1,0 +1,601 @@
+{
+  "spec": "art/source/character-kit/builds/slim/grid-v2/outfit-reference.json",
+  "specSha256": "04e3e37214649756e805453a7326f672c274acf22bd67232201818a90f361524",
+  "registration": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+  "registrationSha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf",
+  "sources": [
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/body-slim.skin.editor.webp",
+      "sha256": "2e9e2710be6585978c292d0aa35dd3d98078cc4edf1993e0fc20adeec0279b32",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/bottom-straight-slim.primary.editor.webp",
+      "sha256": "15e66a0b0145aeb1a525167c4c1de01008c4e27058075a9968ee037245a43179",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/bottom-straight-slim.detail.editor.webp",
+      "sha256": "af2417fcf30aba1249e0863cdfb37ea53dc2b352210779220f4c9ffeac3cbdc7"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/footwear-boots-slim.primary.editor.webp",
+      "sha256": "5cb525686a9b3c2fb475be541b140d157539d8b713e19f9aa8a8366caa1b4bf5",
+      "tint": "#744b35"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/top-shirt-slim.primary.editor.webp",
+      "sha256": "ca3c616632a6d26b883645910da5944dcb8adf53e614d27da2038a076f52a8f9",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/reference-layers/top-shirt-slim.detail.editor.webp",
+      "sha256": "3671396e27d4c5edaa209539ac1981b94b97f6b83381dbb0558d4a394f18c2b2"
+    }
+  ],
+  "adjustments": [
+    {
+      "index": 9,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 10,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 11,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 12,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 13,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 14,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 9,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 15,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 16,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 17,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.875
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 28,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 11.375,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 29,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 30,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 31,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 32,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 33,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 34,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.875,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 35,
+      "before": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      },
+      "after": {
+        "scale": 0.625,
+        "offset": {
+          "x": 10.5625,
+          "y": 18.625
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      }
+    }
+  ],
+  "sourceSha256": "058e3c3350d865723802bd98585d104c3899e533ae918cee883e575044b05b83",
+  "note": "Painting reference imported through one whole-frame affine transform. No per-limb transforms. This is not an approved component."
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/footwear-boots-broad-candidate-3.png",
+      "sha256": "a4687fe3bdb5a928d1f0565da25d592055814f276ed9337e5e54ee04017a63c5"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/outfit-reference.registration.json",
+      "sha256": "19c49e8cf87fcd310070fdf6f5c47414e6d0ad59a387daf4210caef9d1a4c464"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/footwear-boots-broad-grid-v2.png",
+  "outputSha256": "34a24e41b612d714187f7039ed14ab3a5eb99c395335c88800bf17fb72246363"
+}

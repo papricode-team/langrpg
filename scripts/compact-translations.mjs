@@ -38,9 +38,9 @@ export function unpackTranslationJSON(encoded){
  return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
 }
 export function translationModule(value){return `export default (${unpackTranslationJSON.toString()})(${JSON.stringify(packTranslationJSON(value))});`;}
-/** Only production imports of the three authored Turkish overlays are replaced. */
-export function compactTranslationsPlugin(root){
- const sources=new Set(['tr-course.json','tr-story.json','tr-ui.json'].map(name=>resolve(root,'web/src/data/i18n',name))),prefix='\0atlas-packed-translation:';
+/** Lossless production imports; optional catalogues use the same bounded decoder. */
+export function compactTranslationsPlugin(root,additionalSources=[]){
+ const sources=new Set(['tr-course.json','tr-story.json','tr-ui.json'].map(name=>resolve(root,'web/src/data/i18n',name)).concat(additionalSources.map(path=>resolve(root,path)))),prefix='\0atlas-packed-translation:';
  return {name:'atlas-compact-translations',apply:'build',enforce:'pre',
   resolveId(source,importer){if(!importer||!source.endsWith('.json'))return null;const path=resolve(dirname(importer.split('?')[0]),source);return sources.has(path)?`${prefix}${path}.mjs`:null;},
   async load(id){if(!id.startsWith(prefix))return null;const path=id.slice(prefix.length,-4);if(!sources.has(path))throw new Error('Unknown packed translation source.');const data=JSON.parse(await readFile(path,'utf8'));return {code:translationModule(data),map:null};}

@@ -1,3 +1,6 @@
+import { castPortraitMarkup } from './cast-portrait';
+import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
+import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement, placementCTAMarkup } from './placement-ui';
 import { createGlossLookup, glossesForLine, selectInputVariant, filterKnownGlosses } from './learning-context';
 import { QuestController } from './quest-controller';
@@ -160,15 +163,14 @@ let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
 if (!['A1', 'A2', 'B1'].includes(level)) level = 'A1';
 let view: View = 'world';
 let players: WorldPlayer[] = [];
+let portraitPlayersKey = '';
 let connection: ConnectionStatus = 'connecting';
 let profile: { name: string; avatar: Avatar };
 try { profile = JSON.parse(localStorage.getItem('atlas.profile') || 'null') || { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077', outfit: '#326a65' } }; }
 catch { profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077', outfit: '#326a65' } }; }
 if (!profile || typeof profile.name !== 'string' || !profile.avatar || typeof profile.avatar !== 'object' || Array.isArray(profile.avatar)) profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077', outfit: '#326a65' } };
 profile.name = profile.name.trim().slice(0, 24) || 'Wanderer';
-for (const [key, fallback] of Object.entries({ hair: '#48372e', skin: '#d8a077', outfit: '#326a65' })) {
-  if (!/^#[0-9a-f]{6}$/i.test(profile.avatar[key as 'hair' | 'skin' | 'outfit'])) profile.avatar[key as 'hair' | 'skin' | 'outfit'] = fallback;
-}
+profile.avatar = normalizeAvatar(profile.avatar);
 let worldMotion: WorldMotion = (localStorage.getItem('atlas.worldMotion') as WorldMotion) || 'auto';
 let watchingWorld = false;
 let worldTimeMode = (localStorage.getItem('atlas.worldTimeMode') as WorldTimeMode) || 'cycle';
@@ -241,14 +243,17 @@ function observeVisibleWords() {
 }
 
 
-function portrait(id: string, className = '') {
+function portrait(id: string, className = '', expression = 'neutral') {
+  if (id === 'self' || id === 'player' || id === 'You') return avatarPortraitMarkup(profile.avatar, `portrait ${className}`, true, expression);
+  const painted = castPortraitMarkup(id,className,expression);
+  if (painted) return painted;
   if (id === 'inspector' || id === 'elise') return `<span class="story-portrait ${id} ${className}" style="background-image:url('/assets/story-cast/${id}-portrait.webp');background-size:cover;background-position:center" aria-hidden="true"></span>`;
   const local = getExpeditionNpc(id);
   if (local) {
     const region = expeditionRegions.find(region => region.npcs.some(npc => npc.id === local.id))!;
     return `<span class="expedition-portrait ${className}" style="background-image:url('/assets/${region.id}-portraits.webp?v=2');background-size:800% 100%;background-position:${local.artVariant / 7 * 100}% 50%" aria-hidden="true"></span>`;
   }
-  const index = id === 'self' ? 7 : Math.max(0, npcs.findIndex(n => n.id === id));
+  const index = Math.max(0, npcs.findIndex(n => n.id === id));
   return `<span class="portrait ${className}" style="--portrait-x:${(index % 4) * 100 / 3}%;--portrait-y:${index < 4 ? 0 : 100}%" aria-hidden="true"></span>`;
 }
 function currentQuest() { return quests.find(q => q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => q.level === level)!; }
@@ -309,7 +314,7 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
-    portrait: id => portrait(id), speak: (text, speaker, clipId, personalized, rate) => {
+    portrait: (id, expression) => portrait(id, '', expression), speak: (text, speaker, clipId, personalized, rate) => {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
     }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
@@ -328,6 +333,7 @@ function renderShell() {
   });
   world.setAudioPreferences({ silent: silentMode, muted });
   world.setAvatar(profile.avatar);
+  updateSelfPortraits(document, profile.avatar);
   screenFilterControls = new ScreenFilterControls(document.querySelector<HTMLElement>('#game-hud')!, {
     apply: settings => world.setScreenFilter(settings),
     supported: () => world.screenFiltersSupported(),
@@ -427,7 +433,7 @@ function showInteriorObject(id: string) {
   if (interiorId === 'inn') {
     if (id === 'interior:inn:review') { void startAdaptiveReview(); return; }
     if (id === 'interior:inn:evidence') { setView('story'); return; }
-    if (id === 'interior:inn:bed') { openDialog(`<div class="completion"><div class="eyebrow">${upper(t('Your room at the inn'))} · ${upper(t('Day {day}', { day: storyState(progress.story).day }))}</div><h2>${t('The lantern can rest.')}</h2>${miniGameHostLinks("re-ink")}<p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
+    if (id === 'interior:inn:bed') { openDialog(`<div class="completion">${portrait('self')}<div class="eyebrow">${upper(t('Your room at the inn'))} · ${upper(t('Day {day}', { day: storyState(progress.story).day }))}</div><h2>${t('The lantern can rest.')}</h2>${miniGameHostLinks("re-ink")}<p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
   }
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
@@ -1343,6 +1349,7 @@ function bindProfileForm() {
       localStorage.setItem('atlas.profile', JSON.stringify(profile));
       acceptProgress(result.progress, result.player.id);
       world.setAvatar(profile.avatar);
+  updateSelfPortraits(document, profile.avatar);
       document.querySelector('#profile-name')!.textContent = profile.name;
       api.connect();
       document.querySelector<HTMLDialogElement>('#dialog')!.close();
@@ -1577,10 +1584,15 @@ function toggleChat(open?: boolean) {
   if (!body.hidden) document.querySelector<HTMLInputElement>('#chat-input')!.focus();
   else { const header = document.querySelector<HTMLButtonElement>('.chat-header')!; (header.getClientRects().length ? header : document.querySelector<HTMLButtonElement>('.game-menu-button')!).focus(); }
 }
+function chatPortrait(message: ChatMessage): string {
+  const self = message.playerId === api.selfId;
+  const avatar = self ? profile.avatar : players.find(player => player.id === message.playerId)?.avatar;
+  return avatar ? avatarPortraitMarkup(avatar, 'message-avatar', self) : `<span class="message-avatar" style="background:#a67552">${e(message.name.slice(0, 1).toUpperCase())}</span>`;
+}
 function renderChat() {
   const el = document.querySelector<HTMLElement>('#chat-messages')!;
   if (!chatMessages.length) { el.innerHTML = `<p class="chat-welcome">${t('Say Hallo. Every wanderer has a story.')}</p>`; return; }
-  el.innerHTML = chatMessages.slice(-40).map(message => `<div class="chat-message"><span class="message-avatar" style="background:${message.playerId === api.selfId ? e(profile.avatar.outfit) : '#a67552'}">${e(message.name.slice(0, 1).toUpperCase())}</span><p><strong>${e(message.name)}${message.playerId === api.selfId ? `<small>${t('you')}</small>` : ''}</strong><span>${e(message.text)}</span></p><time>${new Date(message.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}</time></div>`).join('');
+  el.innerHTML = chatMessages.slice(-40).map(message => `<div class="chat-message">${chatPortrait(message)}<p><strong>${e(message.name)}${message.playerId === api.selfId ? `<small>${t('you')}</small>` : ''}</strong><span>${e(message.text)}</span></p><time>${new Date(message.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}</time></div>`).join('');
   el.scrollTop = el.scrollHeight;
 }
 function showAccountDialog(html: string) {
@@ -1632,13 +1644,14 @@ function showNameEntry(restoreName = false) {
   const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
   const input = document.querySelector<HTMLInputElement>('#entry-name')!;
   const getAvatar = bindCharacterBuilder(form, profile.avatar);
+  if (!restoreName && !typed) getAvatar.applyPreset(selected);
   const sync = () => {
     const name = input.value.trim();
     input.setCustomValidity(/^[\p{L}\p{N}\p{M} _'-]{2,24}$/u.test(name) ? '' : t('Choose a name with 2–24 letters, numbers, spaces, dashes, underscores or apostrophes.'));
     form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.suggestedName === name)));
   };
   input.addEventListener('input', sync);
-  form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; sync(); }; });
+  form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; getAvatar.applyPreset(input.value); sync(); }; });
   document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => showLogin();
   form.querySelectorAll<HTMLInputElement>('input[name="base-language"]').forEach(radio => { radio.onchange = () => {
     if (!radio.checked) return;
@@ -1672,6 +1685,7 @@ function enterGame(result: SessionResult) {
   document.querySelector('#profile-name')!.textContent = profile.name;
   world.setPlayers([result.player], result.player.id);
   world.setAvatar(profile.avatar);
+  updateSelfPortraits(document, profile.avatar);
   api.mapId = firstAvailableMap(api.mapId, progress.completedQuestIds);
   updateProgress(); api.connect();
   void sendHeartbeat(0);
@@ -1750,6 +1764,8 @@ async function boot() {
   // Paint in the cached support language; the account's saved choice is applied once the session resumes.
   await setBaseLanguage(cachedBaseLanguage(), { persist: false });
   renderShell();
+  const stopPortraits = observeAvatarPortraits(document.body);
+  window.addEventListener('beforeunload', stopPortraits, { once: true });
   if (import.meta.env.PROD) {
     stopUpdateChecks = watchForUpdates(__APP_VERSION__, () => {
       removeUpdateNotice = showUpdateNotice(() => window.location.reload());
@@ -1772,7 +1788,11 @@ async function boot() {
   };
   api.onInterior = applyInterior;
   api.onClock = clock => world.setSharedClock(clock);
-  api.onPlayers = (value, selfId) => { players = value; world.setPlayers(players, selfId); updateConnection(); };
+  api.onPlayers = (value, selfId) => {
+    players = value; world.setPlayers(players, selfId); updateConnection();
+    const key = JSON.stringify(players.map(player => [player.id, player.avatar]));
+    if (key !== portraitPlayersKey) { portraitPlayersKey = key; renderChat(); }
+  };
   api.onChat = message => { if (!chatMessages.some(m => m.id === message.id)) { chatMessages.push(message); if (chatMessages.length > 100) chatMessages.shift(); renderChat(); } };
   api.onStatus = value => {
     connection = value;

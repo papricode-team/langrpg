@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "64b38e185540506f9dd4e8b5efe197fdc9afd64563739490fb1c1734419014d7",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "05ffd5249892dc939012788c74cb25c0829b88d84a0e490d4a7386bf19c946c8",
+  "promptSha256": "33b2e5c4eeb996235a79a73b86746581aa4e093ec17315b6a0d9a823568e219d",
+  "generationPromptSha256": "17f07f410cd0b565d338a63aca32ffce64a9f25be8f05006c5c2b5d62f8f6194",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+  },
+  "candidate": "art/source/character-kit/footwear-boots-lantern-raise-candidate-1.png",
+  "lockedSha256": "817e4c56f41506765c1e5ba46005f845cb891784f57803994d5e3787adce823a"
+}

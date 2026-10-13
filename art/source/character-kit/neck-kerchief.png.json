@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "1bdfdab4a957f3c8c6fc6329a69f420f330e7f55701e7de9e0acc210a71a579b",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "0a5a20a08e4cfe574b63d49683e6de9fa4d04398b2d69b3dd466e02aef8a5959",
+  "promptSha256": "aa64e1cf3ad1bcb533e2917948696ccb202a4a9397244624073b71e46d33ec56",
+  "generationPromptSha256": "faa85f0bf29c200dee94fe22dda65bff7edfb3fddf6da53a6e1af81cd1688d77",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/neck-kerchief-candidate-1.png",
+  "lockedSha256": "5b298b98f484cf680c7f1461df6ede78c4ab531572126e2fbba18ecf75b36cba"
+}

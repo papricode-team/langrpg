@@ -1,0 +1,34 @@
+{
+  "v": 2,
+  "build": "regular",
+  "skin": "#b88e61",
+  "hair": "#30251b",
+  "parts": {
+    "face": "oval",
+    "markings": null,
+    "facial-hair": null,
+    "hair": null,
+    "headwear": "turban",
+    "top": "tunic",
+    "outer": "trench",
+    "bottom": "straight",
+    "footwear": "shoes",
+    "eyewear": "square",
+    "neck": "cowl",
+    "bag": "tote",
+    "held": null
+  },
+  "colors": {
+    "bag.primary": "#b6984e",
+    "bottom.primary": "#d1b1b3",
+    "eyewear.primary": "#3d3b30",
+    "footwear.primary": "#d8cbb2",
+    "headwear.primary": "#a08eb4",
+    "headwear.secondary": "#a08eb4",
+    "neck.primary": "#a08eb4",
+    "outer.primary": "#454d51",
+    "outer.secondary": "#454d51",
+    "top.primary": "#d9b6b9",
+    "top.secondary": "#d9b6b9"
+  }
+}

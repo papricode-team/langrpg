@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "b5c09c59220105b1610010ee85106aaef5a48546249140b3eca98d04fd308942",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "582b8c8a23f3c2f532ad65787eeaf913e2d56e60be6e40e94fbac3cd618dfea2",
+  "promptSha256": "7a80a34e6d465893c799cf09f1867800030abfb41bfece1f25df4d0570a80ab7",
+  "generationPromptSha256": "096fb63f3378d4b3cb45de80d5b0596d812af975bd0d6677e9b711773b85418f",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 12
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The near arm divides the shoulder tote and strap; the far-side tote peeks around both the torso and swinging arm. Rear tote and strap remain connected."
+  },
+  "candidate": "art/source/character-kit/bag-tote-candidate-3.png",
+  "lockedSha256": "f04e8f83bcedf7f73070effcd1381eae04fb79df8ebd3bbb5e5857108899c24b"
+}

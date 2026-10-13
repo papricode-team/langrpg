@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "560b33eac3777c1b4fbbd91e561678b1ac15761b83ce92075ea0fd0817325985",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "e89c823bc8f04c05348e2d8bfa598f24a30414650bb6e83b6af1320ef042dee9",
+  "promptSha256": "039e19f9fb5e25b295294e3a6de29b21c591903d9944c03a9724be03b535dd59",
+  "generationPromptSha256": "b19fb92061337e093cc5a3432f976ffc0d041eae33c07826191e96c972bc8b28",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/hair-straight-candidate-1.png",
+  "lockedSha256": "c5e388618e49af1c611f7dfa29a7baaf3993ede6d0571e779dcd7d8b077dd8ec"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "bd7e53de8005e8050d7a82e0f5a4b588d1571141359801dce223457474b30aea",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "625642498bd47448268bc043b213cd5b783e59dce9ea6b52f3b64e685801c5fc",
+  "promptSha256": "92fc195ee5af347b330f31b133a0cec90fb6b8b65038cb6c65023e1c3fdc57c4",
+  "generationPromptSha256": "fe223e729108d18d649dc0b061faae0c3bdfda6e6cc4cf8a334bf379a3e89bab",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 6
+  },
+  "validation": {},
+  "candidate": "art/source/character-kit/outer-raincoat-candidate-2.png",
+  "lockedSha256": "fb9a6e77a1dc74546c426399b2c85f59dcfa46c19ed8d76c7c5f6fef69680d19"
+}

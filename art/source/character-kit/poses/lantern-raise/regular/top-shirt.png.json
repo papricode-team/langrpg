@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "4c5f4cf2d935b06b3cb9c79cfc09da855dee4762d38a6705ee1652a00bd9bf52",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "3095cf75dc61ed4bff0180ff286bcf3fa24a45ccd10ddac6190a1020c4de5f84",
+  "promptSha256": "436f6bf1ee655a5a6dbbf88bf895701131399fedd8836935e7701ffc1feb1310",
+  "generationPromptSha256": "9d1cd17b55bb33fe53725d634fcb8f285560a16659e557539ee1f78a9c85051e",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-shirt-lantern-raise-candidate-1.png",
+  "lockedSha256": "46ed7a097b0430e2a412c022b72adf4f2cbc5a3f9bc1a71561d24fd46a129dac"
+}

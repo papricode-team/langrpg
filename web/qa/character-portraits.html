@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Player portrait review</title>
+<style>
+html,body{overflow:auto!important;height:auto!important}body{font:15px system-ui;background:#f2eddf!important;color:#263e34!important;margin:24px auto!important;max-width:1000px;padding:0 20px!important}h1{font:30px Georgia}.review-grid{display:flex;gap:20px;flex-wrap:wrap;align-items:start}.review-grid section{min-width:135px;padding:16px;background:#fffaf0;border-radius:12px}.review-grid h2{font:18px Georgia;margin:0 0 16px}.review-grid .player-medallion{display:inline-block}.review-grid .inn-dialog{min-width:0}#status{margin:20px 0;line-height:1.6}.measurement{font-size:12px;margin-top:14px;color:#596c60}button{cursor:pointer}#controls{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0}label{display:grid;gap:6px;font-size:12px}select,button{font:inherit;padding:8px;border:1px solid #b8b09a;border-radius:6px;background:#fffaf0;color:#263e34}#gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:20px}figure{margin:0;min-height:110px}figure img{width:80px;height:80px;display:block;border-radius:50%;background:#ddd3bb}figcaption{font-size:11px;margin-top:6px}details{margin-top:24px}#native img{width:256px;height:256px}#error{color:#a02020}
+</style>
+<h1>Player portraits · actual game sizes</h1><p>Detailed 256 × 256 component portraits. These samples use the game’s responsive styles. Customizations here are temporary.</p>
+<div id="controls"></div><div class="review-grid" id="samples"></div><p id="status" role="status"></p><p id="error" role="alert"></p>
+<details><summary>Inspect native 256 × 256 pixels</summary><div id="native"></div></details>
+<h2>Entire customizable set</h2><p>Every visible component, shown at the inn panel’s 80-pixel size.</p><div id="gallery"></div>
+<script type="module">
+import '/src/style.css';
+import '/src/dialogue.css';
+import {avatarPortraitMarkup,bakeAvatarPortrait} from '/src/avatar-portrait.ts';
+import {normalizeAvatar,characterCatalogue as cat,availableFaceExpressions} from '/src/character-recipe.mjs';
+import art from '/src/data/player-portraits.json';
+let saved;try{saved=JSON.parse(localStorage.getItem('atlas.profile')??'null')?.avatar;}catch{}
+let recipe=normalizeAvatar(saved??{hair:'#48372e',skin:'#d8a077',outfit:'#326a65'}),expression='neutral',generation=0;
+const controls=document.querySelector('#controls'),samples=document.querySelector('#samples'),status=document.querySelector('#status');
+function controlsMarkup(){
+ controls.innerHTML=`<label>Build<select id="build">${cat.builds.map(id=>`<option ${id===recipe.build?'selected':''}>${id}</option>`).join('')}</select></label><label>Skin<input type="color" id="skin" value="${recipe.skin}"></label><label>Hair color<input type="color" id="hair-color" value="${recipe.hair}"></label><label>Expression<select id="expression">${['neutral',...availableFaceExpressions(recipe)].map(id=>`<option ${id===expression?'selected':''}>${id}</option>`).join('')}</select></label>`;
+ for(const slot of cat.slots.filter(s=>s.id!=='body')){
+  const parts=cat.components.filter(p=>p.build===recipe.build&&p.slot===slot.id&&!art.components[p.id].outsideCrop);if(!parts.length)continue;
+  const label=document.createElement('label');label.textContent=slot.label;const select=document.createElement('select');select.dataset.slot=slot.id;
+  if(slot.optional){const option=new Option('None','');select.append(option);}
+  for(const part of parts)select.append(new Option(part.label,part.optionId));select.value=recipe.parts[slot.id]??'';label.append(select);controls.append(label);
+ }
+ controls.insertAdjacentHTML('beforeend','<button id="palette" type="button">Alternate clothing colors</button>');
+}
+function measure(){for(const section of samples.children){const rect=section.querySelector('img').getBoundingClientRect();section.querySelector('.measurement').textContent=`${rect.width} × ${rect.height} CSS px · ${Math.ceil(rect.width*devicePixelRatio)} device px`;}}
+async function render(){const ticket=++generation;status.textContent='Composing player…';const portrait=(classes='portrait')=>avatarPortraitMarkup(recipe,classes,true,expression);
+ samples.innerHTML=`<section><h2>HUD</h2><button class="player-medallion" aria-label="Player portrait">${portrait()}</button><p class="measurement"></p></section><section><h2>Chat</h2>${portrait('message-avatar')}<p class="measurement"></p></section><section><h2>Dialogue</h2><div class="dialogue-heading">${portrait()}</div><p class="measurement"></p></section><section><h2>Inn</h2><div class="inn-dialog">${portrait()}</div><p class="measurement"></p></section>`;
+ try{const url=await bakeAvatarPortrait(recipe,expression);if(ticket!==generation)return;for(const image of samples.querySelectorAll('img')){image.src=url;await image.decode();}document.querySelector('#native').innerHTML=`<img src="${url}" alt="Native player portrait">`;measure();status.textContent=`256 × 256 native composition · ${devicePixelRatio}× display density · ${recipe.build} build · ${expression} expression. 80 visible components covered; 22 lower-body/held components are outside this crop.`;}catch(error){document.querySelector('#error').textContent=error.message;}
+}
+controls.addEventListener('change',event=>{const target=event.target;if(target.id==='build')recipe=normalizeAvatar({...recipe,build:target.value});else if(target.id==='skin')recipe.skin=target.value;else if(target.id==='hair-color')recipe.hair=target.value;else if(target.id==='expression')expression=target.value;else if(target.dataset.slot)recipe=normalizeAvatar({...recipe,parts:{...recipe.parts,[target.dataset.slot]:target.value||null}});if(!availableFaceExpressions(recipe).includes(expression))expression='neutral';controlsMarkup();void render();});
+let palette=false;controls.addEventListener('click',event=>{if(event.target.id!=='palette')return;palette=!palette;for(const key of Object.keys(recipe.colors))recipe.colors[key]=palette?(key.endsWith('secondary')?'#e3b653':'#5a83bf'):cat.defaultColors[key];void render();});
+addEventListener('resize',measure);controlsMarkup();await render();
+const gallery=document.querySelector('#gallery');
+for(const part of cat.components.filter(p=>!art.components[p.id].outsideCrop)){
+ const parts={face:'oval',hair:'waves',outer:'travel',[part.slot]:part.optionId};if(part.slot==='top')parts.outer=null;if(part.slot==='body')parts.face='soft';
+ const value=normalizeAvatar({v:2,build:part.build,skin:'#d8a077',hair:'#48372e',parts,colors:{'outer.primary':'#326a65'}});
+ const figure=document.createElement('figure'),image=new Image(256,256),caption=document.createElement('figcaption');caption.textContent=part.label+' · '+part.build;image.alt=caption.textContent;figure.append(image,caption);gallery.append(figure);
+ try{image.src=await bakeAvatarPortrait(value);await image.decode();}catch(error){caption.textContent+=' · ERROR: '+error.message;}
+}
+</script></html>

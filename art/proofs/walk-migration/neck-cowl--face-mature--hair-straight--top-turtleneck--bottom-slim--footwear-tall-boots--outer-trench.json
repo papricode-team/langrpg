@@ -1,0 +1,785 @@
+{
+  "id": "neck-cowl",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 589,
+        "detail": 102
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 172
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 624,
+        "detail": 107
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 156
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 640,
+        "detail": 98
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 166
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 607,
+        "detail": 106
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 149
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 620,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 150
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 619,
+        "detail": 105
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 159
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 625,
+        "detail": 106
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 160
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 629,
+        "detail": 106
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 169
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 621,
+        "detail": 99
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 150
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 615,
+        "detail": 93
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 277
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 597,
+        "detail": 92
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 275
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 591,
+        "detail": 97
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 275
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 582,
+        "detail": 88
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 250
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 574,
+        "detail": 88
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 256
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 570,
+        "detail": 94
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 273
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 585,
+        "detail": 88
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 252
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 563,
+        "detail": 86
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 220
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 577,
+        "detail": 97
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 249
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 705,
+        "detail": 75
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 174
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 711,
+        "detail": 74
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 167
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 629,
+        "detail": 74
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 160
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 640,
+        "detail": 77
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 151
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 707,
+        "detail": 83
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 162
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 729,
+        "detail": 69
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 180
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 709,
+        "detail": 76
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 168
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 615,
+        "detail": 80
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 154
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 626,
+        "detail": 83
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 148
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 557,
+        "detail": 100
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 238
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 551,
+        "detail": 87
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 172
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 555,
+        "detail": 99
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 167
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 564,
+        "detail": 88
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 178
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 553,
+        "detail": 94
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 166
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 555,
+        "detail": 98
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 163
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 563,
+        "detail": 87
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 152
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 564,
+        "detail": 94
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 160
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 556,
+        "detail": 98
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 171
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "neck-cowl",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-mature",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-straight",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-turtleneck",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-tall-boots",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "outer-trench",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-mature",
+    "hair-straight",
+    "top-turtleneck",
+    "bottom-slim",
+    "footwear-tall-boots",
+    "outer-trench"
+  ],
+  "sources": {
+    "neck-cowl": {
+      "path": "art/source/character-kit/neck-cowl.png",
+      "sha256": "55f5f31d42eb268883537fa9c79863b7a0973e9bf784beae8308662b99acf52a"
+    },
+    "face-mature": {
+      "path": "art/source/character-kit/face-mature.png",
+      "sha256": "c256da29e5fc8fccbf97050c17917e19826d2a73b752642741f6c92e308d75b4"
+    },
+    "hair-straight": {
+      "path": "art/source/character-kit/hair-straight.png",
+      "sha256": "12324df6232cc9061d20dcba6e9194049c1dc795362218042ca489b0d5f43b57"
+    },
+    "top-turtleneck": {
+      "path": "art/source/character-kit/top-turtleneck.png",
+      "sha256": "9bf3986d46688b4f8420ce1c2b693787dda8257372adff57049c1eafd2152b27"
+    },
+    "bottom-slim": {
+      "path": "art/source/character-kit/bottom-slim.png",
+      "sha256": "2f7c25416fa65f49b486544588b593b05c6a8c4cb7cbeedcc6918608dbe9fe71"
+    },
+    "footwear-tall-boots": {
+      "path": "art/source/character-kit/footwear-tall-boots.png",
+      "sha256": "ffb3d1dcd334f8f5658625d8c679b923cbe04c9711cf2bc74a532b964978387d"
+    },
+    "outer-trench": {
+      "path": "art/source/character-kit/outer-trench.png",
+      "sha256": "d28fc91b58379561ac81cd4d5af5c702fd5e66ba96c381d3915045091c553e7b"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "neck-cowl",
+        "hair-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "neck-cowl",
+        "hair-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "neck-cowl",
+        "hair-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "neck-cowl",
+        "hair-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-mature",
+        "bottom-slim",
+        "footwear-tall-boots",
+        "top-turtleneck",
+        "outer-trench",
+        "hair-straight",
+        "neck-cowl"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

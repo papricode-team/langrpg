@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-page-1-candidate-1.png",
+      "sha256": "5a2965cc54b00bfff05ff69fd254a23ebd849468fc3e47a60beaed45aab829bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-page-1-candidate-1.txt",
+      "sha256": "0f3653c6199a0b8c33747425f2b993c81c4d9268eb177ba86140ebf754a8fad6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/headwear-cap-crops-1.json",
+      "sha256": "5a79ca7f40fd3354301a7b705c14acae2d8fa7fa9794663b14f9b6c002b1092a"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-page-2-candidate-1.png",
+      "sha256": "76b53dc744562f52ede869649d0ec3743e02af9796df15781a2e044ba0865801"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-page-2-candidate-1.txt",
+      "sha256": "059f35d9a595e21035c773f755a1b3c6fe4c09cfc59d5e479c646bdbd06c644d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/headwear-cap-crops-2.json",
+      "sha256": "f57f43180917d607edc176c99e649fe2d8d90d64c09fa6b18b936e1b2f213cf8"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "2cae5598e3ccb1fade8d0168b5a5d3190aa55a972158c31b9443bcba9acc3ceb"
+}

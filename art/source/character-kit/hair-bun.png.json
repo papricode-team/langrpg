@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "792605ca7fcdfa6b808dc969c86e7108e29bc17f76293f7e2e925e5b07d91cd5",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "c3599c66562a172c7985f84493d8460cecbf646e4a683b163ac78c86a88ea8be",
+  "generationPromptSha256": "0e4d043a835d28dc1575c10bb54a8ed547d4d3cf113ac71fb8efe7e3a36e918c",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 15
+  },
+  "candidate": "art/source/character-kit/hair-bun-candidate-1.png",
+  "lockedSha256": "8297410fb1e1aae3e9870a492bdc0e7d6eb4e635988f80a04c3d81a5e0918631"
+}

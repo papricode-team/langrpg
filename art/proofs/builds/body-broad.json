@@ -1,0 +1,908 @@
+{
+  "id": "body-broad",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 12829,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1220,
+      "pose": {
+        "silhouetteIoU": 0.8836087609709813,
+        "headIoU": 0.8767885532591415,
+        "crownDrift": 0.625551,
+        "groundDrift": 1.876653,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 13111,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1377,
+      "pose": {
+        "silhouetteIoU": 0.878220502901354,
+        "headIoU": 0.8762057877813505,
+        "crownDrift": 0,
+        "groundDrift": 0.60251,
+        "headHorizontalDrift": 0.60251
+      }
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 12664,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1410,
+      "pose": {
+        "silhouetteIoU": 0.87809585075587,
+        "headIoU": 0.8854771784232365,
+        "crownDrift": 0,
+        "groundDrift": 0.607595,
+        "headHorizontalDrift": 0.3037975
+      }
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 12669,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1639,
+      "pose": {
+        "silhouetteIoU": 0.8465519987259118,
+        "headIoU": 0.8730031948881789,
+        "crownDrift": 0.612766,
+        "groundDrift": 0.612766,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 12942,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1651,
+      "pose": {
+        "silhouetteIoU": 0.8545311887014515,
+        "headIoU": 0.8623778501628665,
+        "crownDrift": 0.62069,
+        "groundDrift": 1.86207,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 13065,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1298,
+      "pose": {
+        "silhouetteIoU": 0.8838555332613057,
+        "headIoU": 0.8843430369787569,
+        "crownDrift": 0.605042,
+        "groundDrift": 0.605042,
+        "headHorizontalDrift": 0.302521
+      }
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 12666,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1523,
+      "pose": {
+        "silhouetteIoU": 0.866426282051282,
+        "headIoU": 0.8890688259109312,
+        "crownDrift": 0.618026,
+        "groundDrift": 1.236052,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 12719,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1548,
+      "pose": {
+        "silhouetteIoU": 0.8620388040712468,
+        "headIoU": 0.8722538649308381,
+        "crownDrift": 0.607595,
+        "groundDrift": 0.607595,
+        "headHorizontalDrift": 0.3037975
+      }
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 13137,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1912,
+      "pose": {
+        "silhouetteIoU": 0.8428305977082688,
+        "headIoU": 0.8258555133079848,
+        "crownDrift": 1.251102,
+        "groundDrift": 1.876653,
+        "headHorizontalDrift": 0.3127755
+      }
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 10281,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 996,
+      "pose": {
+        "silhouetteIoU": 0.8981270439005054,
+        "headIoU": 0.8510959939531368,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.303419
+      }
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 14892,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2482,
+      "pose": {
+        "silhouetteIoU": 0.8240252175700679,
+        "headIoU": 0.8650306748466258,
+        "crownDrift": 1.213676,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 13740,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2452,
+      "pose": {
+        "silhouetteIoU": 0.8103307925701176,
+        "headIoU": 0.8351145038167939,
+        "crownDrift": 1.213676,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.303419
+      }
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 10890,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1634,
+      "pose": {
+        "silhouetteIoU": 0.8436533957845433,
+        "headIoU": 0.8358092259577795,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.606838
+      }
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 15062,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2719,
+      "pose": {
+        "silhouetteIoU": 0.8096460416103756,
+        "headIoU": 0.8346518987341772,
+        "crownDrift": 0.606838,
+        "groundDrift": 1.213676,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 14927,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2547,
+      "pose": {
+        "silhouetteIoU": 0.8218681619256017,
+        "headIoU": 0.8392715756136183,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.606838
+      }
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 13964,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2454,
+      "pose": {
+        "silhouetteIoU": 0.8139501054622155,
+        "headIoU": 0.8422291993720565,
+        "crownDrift": 1.213676,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.606838
+      }
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 11222,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1570,
+      "pose": {
+        "silhouetteIoU": 0.8539376873467163,
+        "headIoU": 0.819433817903596,
+        "crownDrift": 1.213676,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 14641,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2355,
+      "pose": {
+        "silhouetteIoU": 0.8299518929094332,
+        "headIoU": 0.8217592592592593,
+        "crownDrift": 1.213676,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 13661,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1541,
+      "pose": {
+        "silhouetteIoU": 0.8737489806509008,
+        "headIoU": 0.8048561151079137,
+        "crownDrift": 1.245614,
+        "groundDrift": 2.491228,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 14551,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1784,
+      "pose": {
+        "silhouetteIoU": 0.8690584848697606,
+        "headIoU": 0.8172138420585625,
+        "crownDrift": 1.24138,
+        "groundDrift": 1.24138,
+        "headHorizontalDrift": 0.310345
+      }
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 14530,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1457,
+      "pose": {
+        "silhouetteIoU": 0.887195974280123,
+        "headIoU": 0.8118279569892473,
+        "crownDrift": 0.615385,
+        "groundDrift": 0.615385,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 14415,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1688,
+      "pose": {
+        "silhouetteIoU": 0.8701756861638327,
+        "headIoU": 0.8003533568904594,
+        "crownDrift": 0.612766,
+        "groundDrift": 1.225532,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 14736,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1848,
+      "pose": {
+        "silhouetteIoU": 0.8657834500936394,
+        "headIoU": 0.8076572470373746,
+        "crownDrift": 0.618026,
+        "groundDrift": 0.618026,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 14782,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1426,
+      "pose": {
+        "silhouetteIoU": 0.8941977175855905,
+        "headIoU": 0.8053097345132744,
+        "crownDrift": 1.225532,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 14769,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1402,
+      "pose": {
+        "silhouetteIoU": 0.8933608531131751,
+        "headIoU": 0.8187556357078449,
+        "crownDrift": 0.610169,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 14501,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1304,
+      "pose": {
+        "silhouetteIoU": 0.8985852360274548,
+        "headIoU": 0.8038360941586749,
+        "crownDrift": 1.220338,
+        "groundDrift": 0.610169,
+        "headHorizontalDrift": 0.3050845
+      }
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 14907,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1261,
+      "pose": {
+        "silhouetteIoU": 0.9037451395047411,
+        "headIoU": 0.813953488372093,
+        "crownDrift": 0.610169,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.610169
+      }
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 10767,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1247,
+      "pose": {
+        "silhouetteIoU": 0.8807044120431736,
+        "headIoU": 0.8388059701492537,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.303419
+      }
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 15602,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2457,
+      "pose": {
+        "silhouetteIoU": 0.8314628735482187,
+        "headIoU": 0.8394675019577134,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.303419
+      }
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 14268,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2261,
+      "pose": {
+        "silhouetteIoU": 0.8277508551881414,
+        "headIoU": 0.8510158013544018,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 11692,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1719,
+      "pose": {
+        "silhouetteIoU": 0.8441830065359477,
+        "headIoU": 0.826865671641791,
+        "crownDrift": 0.606838,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.606838
+      }
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 15062,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2478,
+      "pose": {
+        "silhouetteIoU": 0.8236327992969648,
+        "headIoU": 0.8272251308900523,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 15294,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2397,
+      "pose": {
+        "silhouetteIoU": 0.834145364746713,
+        "headIoU": 0.8387596899224806,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0.303419
+      }
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 14591,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2414,
+      "pose": {
+        "silhouetteIoU": 0.8238901665621298,
+        "headIoU": 0.8324567993989481,
+        "crownDrift": 0.606838,
+        "groundDrift": 1.213676,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 12258,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1687,
+      "pose": {
+        "silhouetteIoU": 0.8455109640049648,
+        "headIoU": 0.8327024981074943,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 15254,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2491,
+      "pose": {
+        "silhouetteIoU": 0.8283098309162601,
+        "headIoU": 0.8412112259970458,
+        "crownDrift": 0.606838,
+        "groundDrift": 1.213676,
+        "headHorizontalDrift": 0.303419
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "body-broad",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "body-broad": {
+      "path": "art/source/character-kit/body-broad-walk.png",
+      "sha256": "7c138d86749ba43a0233d48742d07358449b91915511d3eb989d945edb55d7f2"
+    },
+    "bottom-detail": {
+      "path": "web/public/assets/player-layers/bottom-detail-preview.webp",
+      "sha256": "81c869b012809119e3a6e1d2b4f2737db60ccccc2a8dbb45581dc9c31f0fa9f3"
+    },
+    "bottom-fabric": {
+      "path": "web/public/assets/player-layers/bottom-fabric-preview.webp",
+      "sha256": "0a04854ebd69855585cfd0a8f74afdeabd248d5123337f1c42a6fcab9aed43bb"
+    },
+    "jacket-detail": {
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "sha256": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358"
+    },
+    "jacket-fabric": {
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "sha256": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1"
+    },
+    "hair-waves": {
+      "path": "web/public/assets/player-layers/hair-waves-preview.webp",
+      "sha256": "076a878efcdbd7824f5c94f7343d0f179ff60aa059e92c697e582ed785feac17"
+    },
+    "legacy-body-skin": {
+      "path": "web/public/assets/player-layers/body-skin-preview.webp",
+      "sha256": "66c10e95243c1e22161b5b50f7bc34798ec5acc282eb665cf44fa5f534962d16"
+    },
+    "legacy-head-detail": {
+      "path": "web/public/assets/player-layers/head-detail-preview.webp",
+      "sha256": "ca3b54fae7b1d633cf5cd357292d50ae0f66e6f3e75d4e3d117eff4cca4572d5"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-broad"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

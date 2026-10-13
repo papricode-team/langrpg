@@ -1,0 +1,564 @@
+{
+  "id": "outer-apron",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 4269,
+        "secondary": 162,
+        "detail": 561
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 310
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 4423,
+        "secondary": 195,
+        "detail": 578
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 314
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 4291,
+        "secondary": 180,
+        "detail": 559
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 311
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 4094,
+        "secondary": 184,
+        "detail": 561
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 171
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 4531,
+        "secondary": 158,
+        "detail": 529
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 505
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 4492,
+        "secondary": 163,
+        "detail": 583
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 380
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 4388,
+        "secondary": 163,
+        "detail": 564
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 369
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 4422,
+        "secondary": 182,
+        "detail": 545
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 377
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 4636,
+        "secondary": 191,
+        "detail": 526
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 555
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 2851,
+        "secondary": 223,
+        "detail": 494
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 378
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 2589,
+        "secondary": 259,
+        "detail": 382
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 539
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 2740,
+        "secondary": 298,
+        "detail": 422
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 697
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 2206,
+        "secondary": 299,
+        "detail": 415
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 213
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 2053,
+        "secondary": 309,
+        "detail": 310
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 485
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 2037,
+        "secondary": 285,
+        "detail": 300
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 483
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 2515,
+        "secondary": 283,
+        "detail": 367
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 366
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 2432,
+        "secondary": 221,
+        "detail": 412
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 159
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 2437,
+        "secondary": 291,
+        "detail": 387
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 420
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 0,
+        "secondary": 601,
+        "detail": 83
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 17
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 8,
+        "secondary": 597,
+        "detail": 107
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 13
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 2,
+        "secondary": 584,
+        "detail": 118
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 17
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 2,
+        "secondary": 595,
+        "detail": 105
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 4,
+        "secondary": 612,
+        "detail": 101
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 9,
+        "secondary": 603,
+        "detail": 125
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 16
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 2,
+        "secondary": 592,
+        "detail": 118
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 12
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 6,
+        "secondary": 583,
+        "detail": 106
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 3,
+        "secondary": 610,
+        "detail": 111
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 2688,
+        "secondary": 196,
+        "detail": 440
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 321
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 3171,
+        "secondary": 262,
+        "detail": 459
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 466
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 2792,
+        "secondary": 245,
+        "detail": 424
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 518
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 2749,
+        "secondary": 188,
+        "detail": 444
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 270
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 3119,
+        "secondary": 262,
+        "detail": 458
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 497
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 3216,
+        "secondary": 245,
+        "detail": 425
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 584
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 3330,
+        "secondary": 247,
+        "detail": 495
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 507
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 2888,
+        "secondary": 458,
+        "detail": 470
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 203
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 3113,
+        "secondary": 260,
+        "detail": 418
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 577
+    }
+  ],
+  "errors": [
+    "Frame 0: expected one connected paint region, found 2",
+    "Frame 1: expected one connected paint region, found 2",
+    "Frame 2: expected one connected paint region, found 2",
+    "Frame 3: expected one connected paint region, found 2",
+    "Frame 4: expected one connected paint region, found 2",
+    "Frame 5: expected one connected paint region, found 2",
+    "Frame 6: expected one connected paint region, found 2",
+    "Frame 7: expected one connected paint region, found 2",
+    "Frame 8: expected one connected paint region, found 2",
+    "Frame 9: expected one connected paint region, found 4",
+    "Frame 10: expected one connected paint region, found 3",
+    "Frame 11: expected one connected paint region, found 3",
+    "Frame 12: expected one connected paint region, found 4",
+    "Frame 13: expected one connected paint region, found 3",
+    "Frame 14: expected one connected paint region, found 3",
+    "Frame 15: expected one connected paint region, found 3",
+    "Frame 16: expected one connected paint region, found 4",
+    "Frame 17: expected one connected paint region, found 2",
+    "Frame 18: expected one connected paint region, found 2",
+    "Frame 18: missing primary key paint",
+    "Frame 19: expected one connected paint region, found 2",
+    "Frame 20: expected one connected paint region, found 4",
+    "Frame 20: missing primary key paint",
+    "Frame 21: expected one connected paint region, found 4",
+    "Frame 21: missing primary key paint",
+    "Frame 22: expected one connected paint region, found 3",
+    "Frame 22: missing primary key paint",
+    "Frame 23: expected one connected paint region, found 4",
+    "Frame 24: expected one connected paint region, found 4",
+    "Frame 24: missing primary key paint",
+    "Frame 25: expected one connected paint region, found 2",
+    "Frame 26: expected one connected paint region, found 3",
+    "Frame 26: missing primary key paint",
+    "Frame 27: expected one connected paint region, found 4",
+    "Frame 28: expected one connected paint region, found 3",
+    "Frame 29: expected one connected paint region, found 2",
+    "Frame 30: expected one connected paint region, found 3",
+    "Frame 31: expected one connected paint region, found 3",
+    "Frame 32: expected one connected paint region, found 4",
+    "Frame 33: expected one connected paint region, found 2",
+    "Frame 34: expected one connected paint region, found 2",
+    "Frame 35: expected one connected paint region, found 3",
+    "Frame 18: primary count 0 outside 0.25–4× median 2744.5",
+    "Frame 19: primary count 8 outside 0.25–4× median 2744.5",
+    "Frame 20: primary count 2 outside 0.25–4× median 2744.5",
+    "Frame 21: primary count 2 outside 0.25–4× median 2744.5",
+    "Frame 22: primary count 4 outside 0.25–4× median 2744.5",
+    "Frame 23: primary count 9 outside 0.25–4× median 2744.5",
+    "Frame 24: primary count 2 outside 0.25–4× median 2744.5",
+    "Frame 25: primary count 6 outside 0.25–4× median 2744.5",
+    "Frame 26: primary count 3 outside 0.25–4× median 2744.5"
+  ]
+}

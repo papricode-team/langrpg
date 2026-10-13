@@ -1,0 +1,700 @@
+{
+  "id": "bottom-straight",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 5085,
+        "skin": 33,
+        "detail": 295
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.00282461696482068,
+      "outsideSilhouette": 183
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 4899,
+        "skin": 34,
+        "detail": 258
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0028701671450278576,
+      "outsideSilhouette": 123
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 4579,
+        "skin": 27,
+        "detail": 261
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0023815824292140776,
+      "outsideSilhouette": 116
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 4340,
+        "skin": 44,
+        "detail": 238
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.003935247294517485,
+      "outsideSilhouette": 55
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 4857,
+        "skin": 30,
+        "detail": 219
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0026262803116519303,
+      "outsideSilhouette": 127
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 4982,
+        "skin": 24,
+        "detail": 290
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002013253921650868,
+      "outsideSilhouette": 130
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 4544,
+        "skin": 31,
+        "detail": 248
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0027604630454140695,
+      "outsideSilhouette": 124
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 4489,
+        "skin": 35,
+        "detail": 226
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0031025618296250334,
+      "outsideSilhouette": 92
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 4803,
+        "skin": 24,
+        "detail": 244
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002116588764441309,
+      "outsideSilhouette": 143
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 3792,
+        "skin": 34,
+        "detail": 198
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.003659061558329746,
+      "outsideSilhouette": 95
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 5661,
+        "skin": 22,
+        "detail": 234
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0017667844522968198,
+      "outsideSilhouette": 313
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 4287,
+        "skin": 20,
+        "detail": 176
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0017593244194229415,
+      "outsideSilhouette": 191
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 3819,
+        "skin": 68,
+        "detail": 280
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.007341826819261499,
+      "outsideSilhouette": 98
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 5763,
+        "skin": 27,
+        "detail": 238
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002175314212052852,
+      "outsideSilhouette": 299
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 5885,
+        "skin": 36,
+        "detail": 224
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0029029916942182083,
+      "outsideSilhouette": 340
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 4868,
+        "skin": 18,
+        "detail": 188
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015511892450879006,
+      "outsideSilhouette": 186
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 3484,
+        "skin": 97,
+        "detail": 289
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.010035174839644114,
+      "outsideSilhouette": 68
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 5334,
+        "skin": 14,
+        "detail": 216
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0011349817592217267,
+      "outsideSilhouette": 175
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 4345,
+        "skin": 16,
+        "detail": 158
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001316764052341371,
+      "outsideSilhouette": 65
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 4268,
+        "skin": 20,
+        "detail": 199
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015639662183296842,
+      "outsideSilhouette": 90
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 4154,
+        "skin": 27,
+        "detail": 185
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002052763628069642,
+      "outsideSilhouette": 24
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 3680,
+        "skin": 31,
+        "detail": 181
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002425854918225213,
+      "outsideSilhouette": 38
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 4588,
+        "skin": 12,
+        "detail": 210
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009267124874507684,
+      "outsideSilhouette": 53
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 4065,
+        "skin": 36,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002677376171352075,
+      "outsideSilhouette": 30
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 3962,
+        "skin": 27,
+        "detail": 199
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0020105741306128528,
+      "outsideSilhouette": 30
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 3898,
+        "skin": 35,
+        "detail": 206
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0026395173453996985,
+      "outsideSilhouette": 29
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 5074,
+        "skin": 22,
+        "detail": 207
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001596980255516841,
+      "outsideSilhouette": 31
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 3794,
+        "skin": 44,
+        "detail": 212
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.004620392733382338,
+      "outsideSilhouette": 88
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 5991,
+        "skin": 24,
+        "detail": 247
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001816392946340725,
+      "outsideSilhouette": 213
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 4961,
+        "skin": 22,
+        "detail": 198
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0018181818181818182,
+      "outsideSilhouette": 156
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 3622,
+        "skin": 56,
+        "detail": 211
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.005610098176718092,
+      "outsideSilhouette": 67
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 5495,
+        "skin": 14,
+        "detail": 226
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0011078578776608373,
+      "outsideSilhouette": 178
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 5799,
+        "skin": 24,
+        "detail": 246
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0018550007729169888,
+      "outsideSilhouette": 247
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 5079,
+        "skin": 33,
+        "detail": 223
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0026921194322075378,
+      "outsideSilhouette": 175
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 4374,
+        "skin": 24,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002260738507912585,
+      "outsideSilhouette": 80
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 5593,
+        "skin": 23,
+        "detail": 225
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0017960331094799312,
+      "outsideSilhouette": 226
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "bottom-straight",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "bottom-straight": {
+      "path": "art/source/character-kit/bottom-straight.png",
+      "sha256": "8ddcadc82485d1a25068b7c7d98e71f1555a8b46576e97c6fb6e0dfedef770d8"
+    },
+    "jacket-detail": {
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "sha256": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358"
+    },
+    "jacket-fabric": {
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "sha256": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1"
+    },
+    "hair-waves": {
+      "path": "web/public/assets/player-layers/hair-waves-preview.webp",
+      "sha256": "076a878efcdbd7824f5c94f7343d0f179ff60aa059e92c697e582ed785feac17"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "bottom-straight"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "bottom-straight",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

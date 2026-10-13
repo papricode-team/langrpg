@@ -12,7 +12,7 @@ describe('registered sprite layers', () => {
       expect(layers.every(layer=>!('rotation' in layer)&&!('x' in layer)&&!('y' in layer))).toBe(true);
     }
   });
-  it('changes independent textures without baking a combined avatar', () => {
+  it('resolves component materials independently before baking', () => {
     const before=characterLayers({...avatar,hairstyle:'bald'},12),after=characterLayers({...avatar,hairstyle:'waves'},12);
     expect(after.filter(layer=>!layer.id.startsWith('hair-'))).toEqual(before.filter(layer=>!layer.id.startsWith('hair-')));
     expect(after.some(layer=>layer.id==='hair-waves')).toBe(true);
@@ -26,14 +26,14 @@ describe('registered sprite layers', () => {
     const before=characterLayers(avatar,1),after=characterLayers({...avatar,outfit:'#ab5e51',pants:'#354d70'},1);
     for(let index=0;index<before.length;index++) {
       const layer=before[index];
-      if(['jacket-fabric','bottom-fabric'].includes(layer.id))expect(after[index].tint).not.toBe(layer.tint);
+      if(['outer-travel','bottom-straight'].includes(layer.id) && layer.material === 'primary')expect(after[index].tint).not.toBe(layer.tint);
       else expect(after[index]).toEqual(layer);
     }
   });
   it('draws the master head and omits hair for a bald selection',()=>{
     const layers=characterLayers({...avatar,hairstyle:'bald'},0);
     expect(layers.some(layer=>layer.id.startsWith('hair-'))).toBe(false);
-    expect(layers.find(layer=>layer.id==='body-skin')?.tint).toBe(0xd8a077);
+    expect(layers.find(layer=>layer.id==='body-regular')?.tint).toBe(0xd8a077);
     expect(layers.some(layer=>['head-skin','hands-skin'].includes(layer.id))).toBe(false);
     expect(normalizeParts({jacket:'../bad',build:'invalid'})).toEqual(defaultParts);
   });

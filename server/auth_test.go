@@ -6,6 +6,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"sync"
 	"testing"
@@ -61,7 +62,7 @@ func TestAccountLoginRestoresIdentityAndProgressAfterRestart(t *testing.T) {
 	if err = json.Unmarshal(login.Body.Bytes(), &result); err != nil {
 		t.Fatal(err)
 	}
-	if result.Token == token || result.Player != player || result.Progress.XP != before.Progress.XP || !result.Account.Registered || result.Account.Email != "player@example.com" {
+	if result.Token == token || !reflect.DeepEqual(result.Player, player) || result.Progress.XP != before.Progress.XP || !result.Account.Registered || result.Account.Email != "player@example.com" {
 		t.Fatal("login did not restore identity and progress")
 	}
 	if request(app2, "GET", "/api/progress", result.Token, nil).Code != 200 || request(app2, "GET", "/api/progress", token, nil).Code != 200 {

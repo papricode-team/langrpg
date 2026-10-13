@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "f34748c123536cc4fedf39c4571bd702b05978909f0a87b8fb164a9d7960b98c",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "e9d281d33f5f041f23663c053a9c06b8b6db3abc154313128bb64f520d409c86",
+  "promptSha256": "3657a26880f78b29e187aa905f5f26abf00e0e57e7519a3df42555ae71458306",
+  "generationPromptSha256": "75658539a8903874effe0c515df887d2e20f7d4985e0d6aa525527fd581da40e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "50329b06813ed591ac4cc9576890d642d27a66c68748cd4cde3a6157201637f1",
+  "candidate": "art/source/character-kit/prepared/top-shirt-slim-grid-v2.png",
+  "lockedSha256": "2c8cfa063d6de607015bf11f83f0923b8547a373c68ef4c5cbcdbc1fdb2541eb"
+}

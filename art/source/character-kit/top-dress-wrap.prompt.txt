@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-top-dress-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: standing then eight walking poses. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only from the neck through the torso, arms and full dress skirt to the feet. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. Paint secondary in the #5a9a6a key-colour family, preserving hue in highlights and shadows. Natural-colour detail is allowed only where explicitly described.
+Add a modest mid-calf wrap dress with three-quarter sleeves, a high overlapping V-neck bodice and a softly flared skirt. Muted violet #7a5a9a main fabric with a narrow muted green #5a9a6a waistband integral to the garment. The crossover seam is subtly painted into the fabric; no loose tie, bow, slit, jewellery or exposed chest. The dress hem clears the ankles and feet in all poses. Preserve exposed cyan forearms, hands and lower legs.

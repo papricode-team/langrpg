@@ -1,0 +1,3598 @@
+{
+  "schemaVersion": 1,
+  "sourceCatalogue": "f023205a1a21d51f",
+  "cell": 256,
+  "assetBase": "/assets/player-portraits/",
+  "components": {
+    "bag-belt-pouch": {
+      "outsideCrop": true
+    },
+    "bottom-cargo": {
+      "outsideCrop": true
+    },
+    "bottom-cropped": {
+      "outsideCrop": true
+    },
+    "bottom-shorts": {
+      "outsideCrop": true
+    },
+    "bottom-skirt": {
+      "outsideCrop": true
+    },
+    "bottom-skirt-broad": {
+      "outsideCrop": true
+    },
+    "bottom-skirt-long": {
+      "outsideCrop": true
+    },
+    "bottom-skirt-slim": {
+      "outsideCrop": true
+    },
+    "bottom-slim": {
+      "outsideCrop": true
+    },
+    "bottom-straight": {
+      "outsideCrop": true
+    },
+    "bottom-straight-broad": {
+      "outsideCrop": true
+    },
+    "bottom-straight-slim": {
+      "outsideCrop": true
+    },
+    "bottom-wide": {
+      "outsideCrop": true
+    },
+    "footwear-boots": {
+      "outsideCrop": true
+    },
+    "footwear-boots-broad": {
+      "outsideCrop": true
+    },
+    "footwear-boots-slim": {
+      "outsideCrop": true
+    },
+    "footwear-clogs": {
+      "outsideCrop": true
+    },
+    "footwear-flats": {
+      "outsideCrop": true
+    },
+    "footwear-sandals": {
+      "outsideCrop": true
+    },
+    "footwear-shoes": {
+      "outsideCrop": true
+    },
+    "footwear-tall-boots": {
+      "outsideCrop": true
+    },
+    "held-lantern": {
+      "outsideCrop": true
+    },
+    "body-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "skin": {
+          "path": "body-broad.skin.webp",
+          "sha256": "24f794d72699ab73d10346f6ea3cd9709cdc95db95ec9e8c10fe48a9f857755e"
+        },
+        "detail": {
+          "path": "body-broad.detail.webp",
+          "sha256": "6216e7358486d8477ffbc7cfe96523ba66509b9622fac02db2a2d55e983e7806"
+        }
+      },
+      "source": "body-0",
+      "sourceSha256": "be6e985f0d473fb883705d41bb2fecec2bea91c9cc08680522a653fcc0c59800",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 11,
+          "top": 52,
+          "width": 404,
+          "height": 366
+        },
+        "target": {
+          "left": 15,
+          "top": 34,
+          "width": 224,
+          "height": 222
+        }
+      },
+      "tints": {}
+    },
+    "body-regular": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "skin": {
+          "path": "body-regular.skin.webp",
+          "sha256": "7df7c0fbe404f29684cdff46b2d598d951f735d78ec4785ab091c75dd64ba7d5"
+        },
+        "detail": {
+          "path": "body-regular.detail.webp",
+          "sha256": "37da756d056e3abc0c22fcf90f0e301ab07f5e98bb2d0554607eb30a0281dc8b"
+        }
+      },
+      "source": "body-0",
+      "sourceSha256": "be6e985f0d473fb883705d41bb2fecec2bea91c9cc08680522a653fcc0c59800",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 35,
+          "top": 61,
+          "width": 366,
+          "height": 357
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "tints": {}
+    },
+    "body-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "skin": {
+          "path": "body-slim.skin.webp",
+          "sha256": "81513a06f3c6bdcc9ae3c336630d3daec35d2e4d358d844a899523a18fdd4208"
+        },
+        "detail": {
+          "path": "body-slim.detail.webp",
+          "sha256": "a21e836189566df280221c18ec1dfccf6c4c8ab66c76e775b2f75761ee646880"
+        }
+      },
+      "source": "body-0",
+      "sourceSha256": "be6e985f0d473fb883705d41bb2fecec2bea91c9cc08680522a653fcc0c59800",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 54,
+          "top": 57,
+          "width": 328,
+          "height": 361
+        },
+        "target": {
+          "left": 39,
+          "top": 34,
+          "width": 184,
+          "height": 222
+        }
+      },
+      "tints": {}
+    },
+    "face-almond": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-almond.detail.webp",
+          "sha256": "5d0ce1820d615b5efc0af440c74abdecb3a17d7534a131a314c87a8ef46ed6c2"
+        },
+        "skin": {
+          "path": "face-almond.skin.webp",
+          "sha256": "853ae16864e4ea3fcdf05d7e950dccadcfe183b5c6f734f35100ce01db6f46eb"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 18,
+          "top": 55,
+          "width": 376,
+          "height": 363
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-angular": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-angular.detail.webp",
+          "sha256": "f733a97f9c4242f826e78dc863b587317657ef6eab9ee47684f9f7a4d3675cb0"
+        },
+        "skin": {
+          "path": "face-angular.skin.webp",
+          "sha256": "1e18c5a35d5a745b331accb1ac3c2c39c2d585065f41e8b942c24bdab59b99b0"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 55,
+          "width": 385,
+          "height": 363
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-mature": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-mature.detail.webp",
+          "sha256": "f1d921200f31c81622cc33e97507e87d011c7ffae81f40f8fca8178501dfdc98"
+        },
+        "skin": {
+          "path": "face-mature.skin.webp",
+          "sha256": "ee9d24f7cd385a62a2e4ee084a1cb9cebeff49d721239a9a890fbbd8b20991be"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 28,
+          "top": 55,
+          "width": 376,
+          "height": 363
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-oval": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-oval.detail.webp",
+          "sha256": "2279dff9ff99ec914d2c504bccfb061e10ff557f12542df2ae795b065ef9f749"
+        },
+        "skin": {
+          "path": "face-oval.skin.webp",
+          "sha256": "03ee2288a5f12839c8f88302f2514ee296945737d997178601f754dec99cca0d"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 18,
+          "top": 50,
+          "width": 377,
+          "height": 364
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-round": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-round.detail.webp",
+          "sha256": "7a7ffdfd7dba97c186b5e758f27b7532060c6b309023af394058251276f5aca8"
+        },
+        "skin": {
+          "path": "face-round.skin.webp",
+          "sha256": "555a383d46b7d33995f33ee693a22ab52ff7327e55d3907a698dc79550773685"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 51,
+          "width": 383,
+          "height": 363
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-soft": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-soft.detail.webp",
+          "sha256": "c8d3212205cda5d27fb659c657f6bc380bb047cec3456b379815feb993fb4542"
+        },
+        "skin": {
+          "path": "face-soft.skin.webp",
+          "sha256": "51958ad6232b5714c2b67b923d37b57f2342911f15733039ef0d9169aca60028"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 28,
+          "top": 50,
+          "width": 378,
+          "height": 364
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-soft-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-soft-broad.detail.webp",
+          "sha256": "35a7d215c7694cf5c3ad9deffc9f308086752296ab01b4157cc6579c17c01a67"
+        },
+        "skin": {
+          "path": "face-soft-broad.skin.webp",
+          "sha256": "17e48ab62ae5d5daae79246345eb62295eec2c51a2400ce6b9dfd071bf63ba9d"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 6,
+          "top": 46,
+          "width": 404,
+          "height": 372
+        },
+        "target": {
+          "left": 15,
+          "top": 34,
+          "width": 224,
+          "height": 222
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-soft-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-soft-slim.detail.webp",
+          "sha256": "df2dc40fd0c0b453eecd4f57a94c5c1611b91fda04487517ec9a59604a81033d"
+        },
+        "skin": {
+          "path": "face-soft-slim.skin.webp",
+          "sha256": "41d4db2054ebcf365807fb9ffee24b7d568c326d334ada68045e2fa542a7f3d2"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 42,
+          "top": 47,
+          "width": 336,
+          "height": 371
+        },
+        "target": {
+          "left": 39,
+          "top": 34,
+          "width": 184,
+          "height": 222
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-soft-smile": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-soft-smile.detail.webp",
+          "sha256": "4a14c2a6aafd4e79b87560dda40970fd6c576399f5ed3b72fbfb281408e2a4c2"
+        },
+        "skin": {
+          "path": "face-soft-smile.skin.webp",
+          "sha256": "605f6b9fa7e77d237d6e9be6dbf51a990e86ab4b2f6e0087dc3d722018675987"
+        }
+      },
+      "source": "face-0",
+      "sourceSha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 27,
+          "top": 49,
+          "width": 380,
+          "height": 369
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-soft-worried": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-soft-worried.detail.webp",
+          "sha256": "fff07677256fb8d4f656a6e0536443a2e9d7f0f4a47cd00333ba515ccbf4fb6a"
+        },
+        "skin": {
+          "path": "face-soft-worried.skin.webp",
+          "sha256": "d93faafd7070d1dfb13592e005c193fcbcb4113736bc5141790dc9b66a73f826"
+        }
+      },
+      "source": "face-1",
+      "sourceSha256": "505717cc1ef5fceb657c957302319567c9558b5c772621c76663911068426924",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 37,
+          "top": 58,
+          "width": 365,
+          "height": 354
+        },
+        "target": {
+          "left": 24,
+          "top": 39,
+          "width": 209,
+          "height": 217
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "hair-afro": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-afro.primary.webp",
+          "sha256": "92080d95fa4dd5a0f8ac2a29ac87b4976175dc5ccb6ca530c601b1aff1dece3b"
+        },
+        "detail": {
+          "path": "hair-afro.detail.webp",
+          "sha256": "40386351cc38c029edf5ba3f1a8b20dff0aa95691dbf4e7591b46ce3ae480899"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 40,
+          "top": 29,
+          "width": 378,
+          "height": 333
+        },
+        "target": {
+          "left": 44,
+          "top": 5,
+          "width": 164,
+          "height": 149
+        }
+      },
+      "tints": {}
+    },
+    "hair-bob": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bob.primary.webp",
+          "sha256": "e7ddcf7c7d9ef54afea9f90584a4b293409070d6403acf32daf57e7e07a4b30c"
+        },
+        "detail": {
+          "path": "hair-bob.detail.webp",
+          "sha256": "8e5fd57690f99d61550dd537eaac60bbac072d540d178cb26c5ca71e869b360d"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 75,
+          "top": 69,
+          "width": 292,
+          "height": 286
+        },
+        "target": {
+          "left": 64,
+          "top": 29,
+          "width": 124,
+          "height": 125
+        }
+      },
+      "tints": {}
+    },
+    "hair-braids": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-braids.primary.webp",
+          "sha256": "40ae928f8b54d8c0e6f269a50834e967305cca49bd968780ade8ea106fa52d61"
+        },
+        "detail": {
+          "path": "hair-braids.detail.webp",
+          "sha256": "dac71d0bef5f8414f211b7ba11c935884b73a386f1e9b2ae2fc7708b4188a592"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 502
+        },
+        "paint": {
+          "left": 96,
+          "top": 60,
+          "width": 258,
+          "height": 423
+        },
+        "target": {
+          "left": 46,
+          "top": 24,
+          "width": 152,
+          "height": 229
+        }
+      },
+      "tints": {}
+    },
+    "hair-bun": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bun.primary.webp",
+          "sha256": "eee3280e8b764b427feb2e100bcdf2a93f60a4c3f4237f8f4f0fba2a491387e3"
+        },
+        "detail": {
+          "path": "hair-bun.detail.webp",
+          "sha256": "bf3d8ae7f39e56b2a70f545c7e4e71054df87afdddc9643347686a3347e432c6"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 118,
+          "top": 34,
+          "width": 232,
+          "height": 335
+        },
+        "target": {
+          "left": 83,
+          "top": 19,
+          "width": 93,
+          "height": 86
+        }
+      },
+      "tints": {}
+    },
+    "hair-buzz": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-buzz.primary.webp",
+          "sha256": "d8a7a9a420dcb7c62ae6af067ee4fe0c7a6bbd91511234d352e1296ac6ca5a4e"
+        },
+        "detail": {
+          "path": "hair-buzz.detail.webp",
+          "sha256": "d72ac27d14441b231875b61e6d5881b5b5d3c453682e20cf1e7a76c495b22138"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 116,
+          "top": 138,
+          "width": 226,
+          "height": 174
+        },
+        "target": {
+          "left": 87,
+          "top": 34,
+          "width": 86,
+          "height": 46
+        }
+      },
+      "tints": {}
+    },
+    "hair-coils": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-coils.primary.webp",
+          "sha256": "df825424cc9105441e667753376ccbeec8c7538eee0033f759cdeb6ba7b008f3"
+        },
+        "detail": {
+          "path": "hair-coils.detail.webp",
+          "sha256": "92c9fb88e25ae8fc99252631ff0cf8197878090f20197a4102fbbd27d79c6dbd"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 502,
+          "width": 418,
+          "height": 334
+        },
+        "paint": {
+          "left": 102,
+          "top": 24,
+          "width": 261,
+          "height": 202
+        },
+        "target": {
+          "left": 78,
+          "top": 29,
+          "width": 105,
+          "height": 76
+        }
+      },
+      "tints": {}
+    },
+    "hair-crop": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-crop.primary.webp",
+          "sha256": "b271037b30ebb6162518e0694b184cc1de529d92edcfd557a84f8c33223eb9d2"
+        },
+        "detail": {
+          "path": "hair-crop.detail.webp",
+          "sha256": "369662c5d03158fd4c40925fff365990acede04509f24df3cb2e6abc41d20eb5"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 110,
+          "top": 98,
+          "width": 251,
+          "height": 186
+        },
+        "target": {
+          "left": 79,
+          "top": 34,
+          "width": 95,
+          "height": 71
+        }
+      },
+      "tints": {}
+    },
+    "hair-curls": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-curls.primary.webp",
+          "sha256": "927a920c29bfda1827bc2cc4c7a4d88c993581bb1be624590b3e5572d557aee0"
+        },
+        "detail": {
+          "path": "hair-curls.detail.webp",
+          "sha256": "cd7120fc8d6434174156cb7a1eb367414deaae43e9a5611a297a08c3befac087"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 46,
+          "top": 45,
+          "width": 372,
+          "height": 343
+        },
+        "target": {
+          "left": 44,
+          "top": 29,
+          "width": 164,
+          "height": 162
+        }
+      },
+      "tints": {}
+    },
+    "hair-locs": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-locs.primary.webp",
+          "sha256": "c0740a782787df7d6718ce0eaa962f517137ddb38e4d88e8ebb468fdf104b290"
+        },
+        "detail": {
+          "path": "hair-locs.detail.webp",
+          "sha256": "407b1aaa4d04cdce0a8dcf57803c9f5fc4a38a84c4d3e1e0101598123be418c1"
+        }
+      },
+      "source": "hair-0",
+      "sourceSha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 75,
+          "top": 39,
+          "width": 329,
+          "height": 354
+        },
+        "target": {
+          "left": 53,
+          "top": 22,
+          "width": 150,
+          "height": 177
+        }
+      },
+      "tints": {}
+    },
+    "hair-mohawk": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-mohawk.primary.webp",
+          "sha256": "8774c25e2d75d4972461d74201c364239275b7828eebc12e432042116964d783"
+        },
+        "detail": {
+          "path": "hair-mohawk.detail.webp",
+          "sha256": "a085dffa7bd5699a694190d02c4e322e7c2e9e83c1eb9945b71ab02eed1f91dd"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 172,
+          "top": 21,
+          "width": 85,
+          "height": 140
+        },
+        "target": {
+          "left": 108,
+          "top": 15,
+          "width": 41,
+          "height": 55
+        }
+      },
+      "tints": {}
+    },
+    "hair-pixie": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-pixie.primary.webp",
+          "sha256": "eab989e5467b687dc87d332af906d00d09eba273e8eeeab35c472a63ca7c4765"
+        },
+        "detail": {
+          "path": "hair-pixie.detail.webp",
+          "sha256": "2706fa6373cef748cb43722e8b9cdc263e6cedb00224468a3150c2a9b4d754f2"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 94,
+          "top": 48,
+          "width": 229,
+          "height": 213
+        },
+        "target": {
+          "left": 71,
+          "top": 24,
+          "width": 113,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "hair-ponytail": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-ponytail.primary.webp",
+          "sha256": "1d023e75e1e1ea5ced07344bafc87701668d66a8023baf5ce97f6558deddf8d4"
+        },
+        "detail": {
+          "path": "hair-ponytail.detail.webp",
+          "sha256": "89a6af0a765fe2b1f4d7784ae47e1e0b188fe50998fc152102f0664b6feacc0d"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 110,
+          "top": 32,
+          "width": 266,
+          "height": 319
+        },
+        "target": {
+          "left": 78,
+          "top": 29,
+          "width": 96,
+          "height": 125
+        }
+      },
+      "tints": {}
+    },
+    "hair-straight": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-straight.primary.webp",
+          "sha256": "9f68327ce0f245c3de1ccb32a2896468edb391c7f6b9de3e03a06e574611ad96"
+        },
+        "detail": {
+          "path": "hair-straight.detail.webp",
+          "sha256": "e554134beda8b8521e3378911367a45129b549018a5df3c9c10aa22755036f75"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 64,
+          "top": 45,
+          "width": 292,
+          "height": 339
+        },
+        "target": {
+          "left": 58,
+          "top": 34,
+          "width": 140,
+          "height": 164
+        }
+      },
+      "tints": {}
+    },
+    "hair-waves": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-waves.primary.webp",
+          "sha256": "145f28691bf00da221b758596ce6abb43e3e607bfd205acde837a158a057248e"
+        },
+        "detail": {
+          "path": "hair-waves.detail.webp",
+          "sha256": "968a3318bc0dae33451660926a282954251244324136742a84bdd5d0bb193812"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 49,
+          "top": 54,
+          "width": 334,
+          "height": 327
+        },
+        "target": {
+          "left": 29,
+          "top": 24,
+          "width": 204,
+          "height": 175
+        }
+      },
+      "tints": {}
+    },
+    "hair-waves-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-waves-broad.primary.webp",
+          "sha256": "438d8cd6a69bf7f89450e9c75b41bef98d5a31c39c9d5a3db46e1cacbfa7c800"
+        },
+        "detail": {
+          "path": "hair-waves-broad.detail.webp",
+          "sha256": "3501e09120205136510004059b437082feec8ae034b0425d3530368194366c45"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 41,
+          "top": 41,
+          "width": 342,
+          "height": 342
+        },
+        "target": {
+          "left": 30,
+          "top": 12,
+          "width": 191,
+          "height": 174
+        }
+      },
+      "tints": {}
+    },
+    "hair-waves-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-waves-slim.primary.webp",
+          "sha256": "7c1b7f4fffeb0ac8c3a5c003c2df2a5c4a861da1dbb954124d79b3719646facc"
+        },
+        "detail": {
+          "path": "hair-waves-slim.detail.webp",
+          "sha256": "951edede4bf0611b4e79c1cfd5413c223e6e7135d20d269049d473c6b4e9aa5e"
+        }
+      },
+      "source": "hair-1",
+      "sourceSha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 44,
+          "top": 42,
+          "width": 323,
+          "height": 341
+        },
+        "target": {
+          "left": 33,
+          "top": 21,
+          "width": 194,
+          "height": 181
+        }
+      },
+      "tints": {}
+    },
+    "headwear-beanie": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beanie.primary.webp",
+          "sha256": "235a114ccc57c76df79801d5650132cfc41e105c5aec9a53ce37b2c305b06bf2"
+        },
+        "secondary": {
+          "path": "headwear-beanie.secondary.webp",
+          "sha256": "423189607cfcc24302b815172265494c8680ad463ee13018e1196539f565f6fc"
+        },
+        "detail": {
+          "path": "headwear-beanie.detail.webp",
+          "sha256": "3ac1389f655d3b7915276a3e9ae6e16580325e084977546b86933cfda7f97905"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 102,
+          "top": 93,
+          "width": 234,
+          "height": 206
+        },
+        "target": {
+          "left": 78,
+          "top": 22,
+          "width": 106,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "headwear-beret": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beret.primary.webp",
+          "sha256": "878704ae8bad95d2d2927fd2da520787f74cdb4ad719285b6a65de466cac15a3"
+        },
+        "secondary": {
+          "path": "headwear-beret.secondary.webp",
+          "sha256": "4b9915325bca4f3a417a50b1158c21e0e44678e6b9476401140cf09178841107"
+        },
+        "detail": {
+          "path": "headwear-beret.detail.webp",
+          "sha256": "c690a4f100281ef56b78d35a67134176924e3f08574d0ef61f52e8c5240db35d"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 59,
+          "top": 115,
+          "width": 300,
+          "height": 175
+        },
+        "target": {
+          "left": 68,
+          "top": 30,
+          "width": 123,
+          "height": 75
+        }
+      },
+      "tints": {}
+    },
+    "headwear-brimmed": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-brimmed.primary.webp",
+          "sha256": "387da20881eccb27b93889e85334d0ded1d7fd0995984fcd45e3726c635c023d"
+        },
+        "secondary": {
+          "path": "headwear-brimmed.secondary.webp",
+          "sha256": "7ba5dfa15835f1924e905dfa720ac5a2a17959762ff50e8e98eabf00929131d2"
+        },
+        "detail": {
+          "path": "headwear-brimmed.detail.webp",
+          "sha256": "ec0c8ed7906cac437e706b770b1ee3662f16725eb549041bfd407b687b7b7e5e"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 10,
+          "top": 103,
+          "width": 399,
+          "height": 199
+        },
+        "target": {
+          "left": 15,
+          "top": 30,
+          "width": 228,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "headwear-bucket": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-bucket.primary.webp",
+          "sha256": "8025640548549793b4b9b67d00cdcc8e55f1da091d9e14c221bbb18e0738a75d"
+        },
+        "secondary": {
+          "path": "headwear-bucket.secondary.webp",
+          "sha256": "ad6f7575a18bb74de272855f887e20107c82c551a6a7fb179e3fd9720de90159"
+        },
+        "detail": {
+          "path": "headwear-bucket.detail.webp",
+          "sha256": "d7dcef8f81f765d38ee16f18eafb711ffec67aa4dca9d3559613b6a7675dd9f5"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 60,
+          "top": 106,
+          "width": 321,
+          "height": 223
+        },
+        "target": {
+          "left": 63,
+          "top": 30,
+          "width": 136,
+          "height": 103
+        }
+      },
+      "tints": {}
+    },
+    "headwear-cap": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-cap.primary.webp",
+          "sha256": "19da3e308a574dfa99b804fa8b312cd3a8f000cc35ae6c88fc96dd0067506c4b"
+        },
+        "secondary": {
+          "path": "headwear-cap.secondary.webp",
+          "sha256": "4c3fcf8497a5cd145d48e0a35f7a0c5923ec46ef335902c290788aa00944fddd"
+        },
+        "skin": {
+          "path": "headwear-cap.skin.webp",
+          "sha256": "cd428d3cb9a4c061392a34fcc5cbc25882a815faa6f71e2a815469fe112ad479"
+        },
+        "detail": {
+          "path": "headwear-cap.detail.webp",
+          "sha256": "f36a1ee33d733565897a6d5ccf555ca2712df26b884c91c0d802c4287889edf8"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 93,
+          "top": 101,
+          "width": 249,
+          "height": 179
+        },
+        "target": {
+          "left": 80,
+          "top": 33,
+          "width": 104,
+          "height": 67
+        }
+      },
+      "tints": {}
+    },
+    "headwear-headband": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-headband.primary.webp",
+          "sha256": "87b8e50c50ab1a30cdeba8faf45965d33e22807549a77fa34820e8477b383e03"
+        },
+        "secondary": {
+          "path": "headwear-headband.secondary.webp",
+          "sha256": "5431852d0a9e10c7e9d974b572185262da2d353f5abee59f8306bf1999db5da8"
+        },
+        "detail": {
+          "path": "headwear-headband.detail.webp",
+          "sha256": "5ffc247fd2b2c48f03c8e61b19911e5b86849d942a5af73aa34405bc17b2ad94"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 107,
+          "top": 160,
+          "width": 213,
+          "height": 116
+        },
+        "target": {
+          "left": 83,
+          "top": 47,
+          "width": 96,
+          "height": 53
+        }
+      },
+      "tints": {}
+    },
+    "headwear-sunhat": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-sunhat.primary.webp",
+          "sha256": "56a6e0aa64c364d5bcad21f2a7c5e96373e685f2f36317e7e4e28a64ebdec340"
+        },
+        "secondary": {
+          "path": "headwear-sunhat.secondary.webp",
+          "sha256": "542f22c12ee9e7afb6bf855349069e1e270b2f1baf45d1b33f472a25263f3f3e"
+        },
+        "detail": {
+          "path": "headwear-sunhat.detail.webp",
+          "sha256": "ed5a11d180aa0f11aad2d49d632d71a60ebf1cfdc8f1b1dbb589a65aa9a45f53"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 477,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 78,
+          "width": 445,
+          "height": 232
+        },
+        "target": {
+          "left": 0,
+          "top": 34,
+          "width": 256,
+          "height": 130
+        }
+      },
+      "tints": {}
+    },
+    "headwear-turban": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-turban.primary.webp",
+          "sha256": "4a1209539943a971ebdd868ca94b280ee64283e0d8fbdc8c87df00e445be186e"
+        },
+        "secondary": {
+          "path": "headwear-turban.secondary.webp",
+          "sha256": "11653fb8da14de7dac90f0eb013317ec49e4baef210d2bcb94323e9c8c763f85"
+        },
+        "detail": {
+          "path": "headwear-turban.detail.webp",
+          "sha256": "2fb42db101b386024edfdf1f5f159424e5b09784c64c84b539aa0dd53aeacce9"
+        }
+      },
+      "source": "headwear-0",
+      "sourceSha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "registration": {
+        "source": {
+          "left": 489,
+          "top": 836,
+          "width": 347,
+          "height": 418
+        },
+        "paint": {
+          "left": 38,
+          "top": 56,
+          "width": 239,
+          "height": 213
+        },
+        "target": {
+          "left": 78,
+          "top": 22,
+          "width": 106,
+          "height": 78
+        }
+      },
+      "tints": {}
+    },
+    "top-blouse": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-blouse.primary.webp",
+          "sha256": "6a8269e90c148ac34f89af2b29a9ed14c06712430d23c79f3e74546b6c2921d9"
+        },
+        "secondary": {
+          "path": "top-blouse.secondary.webp",
+          "sha256": "e1cd6596248788c02c54e2490648ab0f5fe735e6ea025506f4ae257244713dd8"
+        },
+        "detail": {
+          "path": "top-blouse.detail.webp",
+          "sha256": "ecaab196af3d9139ddcdb7fa9276a553cd0dd881e10ea3193f7f7a9b5352ceb3"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 253,
+          "width": 390,
+          "height": 165
+        },
+        "target": {
+          "left": 14,
+          "top": 161,
+          "width": 229,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-day": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-day.primary.webp",
+          "sha256": "9cdcae0a841ddd13dfb5f9e27b311ffd070f4252bd714f6fbb8c189817cfed72"
+        },
+        "secondary": {
+          "path": "top-dress-day.secondary.webp",
+          "sha256": "8eff5d6bcd0fe68d06288bc4e29ecf7e220ce0234ff9fe1a09d8b29a871b8f7b"
+        },
+        "detail": {
+          "path": "top-dress-day.detail.webp",
+          "sha256": "d4269bd65f6ee20d9d0f0b51e0ef4f96bfb22ee8b26cded67da4967f8d4d6e12"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 17,
+          "top": 265,
+          "width": 383,
+          "height": 153
+        },
+        "target": {
+          "left": 14,
+          "top": 162,
+          "width": 229,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-long": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-long.primary.webp",
+          "sha256": "9fcd9c3f630b8a5109af611596dc4d40f4a4fd15d96e1a246e161338467c215f"
+        },
+        "detail": {
+          "path": "top-dress-long.detail.webp",
+          "sha256": "94ee5c782eaa5aabd92960147f1230143bf50aa6436d85dec984a64ae2b23577"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 27,
+          "top": 262,
+          "width": 377,
+          "height": 156
+        },
+        "target": {
+          "left": 24,
+          "top": 162,
+          "width": 214,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-pinafore": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-pinafore.primary.webp",
+          "sha256": "289ceb9dcc41c36a064ec6fec9f7902a4668232df342adaad0dbab0260b455d5"
+        },
+        "secondary": {
+          "path": "top-dress-pinafore.secondary.webp",
+          "sha256": "76b3b6c975e99e2537536a2a1445e82a54f88f25bb80126e2cbe4b3cb22234ad"
+        },
+        "detail": {
+          "path": "top-dress-pinafore.detail.webp",
+          "sha256": "4f3495fbadfc00c98750601f283877e95652d9c5f34ff055b0188e51f3539096"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 242,
+          "width": 393,
+          "height": 176
+        },
+        "target": {
+          "left": 20,
+          "top": 157,
+          "width": 218,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-wrap": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-wrap.primary.webp",
+          "sha256": "65e9bbc45fc230acc81506ef51fd52c6389334b6e28e54a865ea46ed7dcced87"
+        },
+        "secondary": {
+          "path": "top-dress-wrap.secondary.webp",
+          "sha256": "8eff5d6bcd0fe68d06288bc4e29ecf7e220ce0234ff9fe1a09d8b29a871b8f7b"
+        },
+        "detail": {
+          "path": "top-dress-wrap.detail.webp",
+          "sha256": "51297debc9792dd0eee0515837b8a1a498f5d44f51b470d57aff5c7cc8a8d586"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 15,
+          "top": 248,
+          "width": 388,
+          "height": 170
+        },
+        "target": {
+          "left": 24,
+          "top": 162,
+          "width": 209,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "top-henley": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-henley.primary.webp",
+          "sha256": "d5bc825f563babe781406fc9405cb94ec5031183db4030dc212bc1e05cd9e262"
+        },
+        "detail": {
+          "path": "top-henley.detail.webp",
+          "sha256": "7c07ed1352fad6c8fd9892f0eac6b1770a48508d32bcd6220a1610713d2bac87"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 24,
+          "top": 261,
+          "width": 382,
+          "height": 157
+        },
+        "target": {
+          "left": 21,
+          "top": 170,
+          "width": 212,
+          "height": 86
+        }
+      },
+      "tints": {}
+    },
+    "top-shirt": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-shirt.primary.webp",
+          "sha256": "e9fe06430980fbdc84e5f7b9fa734a42d1a04b7310af88acd5f642adc77db491"
+        },
+        "skin": {
+          "path": "top-shirt.skin.webp",
+          "sha256": "d76e933e317ff646bb8093f76f1a16624bc14b97235646f55ecccb4a1056bd74"
+        },
+        "detail": {
+          "path": "top-shirt.detail.webp",
+          "sha256": "8f7cef446133c03a16198aed1f4c6b6b9790748dcc03d19a17c4069d0eec35bd"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 11,
+          "top": 215,
+          "width": 393,
+          "height": 197
+        },
+        "target": {
+          "left": 14,
+          "top": 152,
+          "width": 219,
+          "height": 104
+        }
+      },
+      "tints": {}
+    },
+    "top-shirt-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-shirt-broad.primary.webp",
+          "sha256": "2dc41a391c22d8e81ab9ed224b24358fd30b0257fb457043aafe79058e063d71"
+        },
+        "detail": {
+          "path": "top-shirt-broad.detail.webp",
+          "sha256": "ebee6f46814fef9e8126e2b9203900c16aaf329b7e6e45b619a7128514594173"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 1,
+          "top": 220,
+          "width": 414,
+          "height": 192
+        },
+        "target": {
+          "left": 14,
+          "top": 159,
+          "width": 228,
+          "height": 97
+        }
+      },
+      "tints": {}
+    },
+    "top-shirt-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-shirt-slim.primary.webp",
+          "sha256": "dfdaac7d59a369b0f0118e6595d7e836a5d0f4b3e88a379285974081e22e9ab1"
+        },
+        "detail": {
+          "path": "top-shirt-slim.detail.webp",
+          "sha256": "00d8bcf5c56a7c20ed36595a8abbd8496d06f54dee04ec980893abe13a6d8b86"
+        }
+      },
+      "source": "top-0",
+      "sourceSha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 21,
+          "top": 224,
+          "width": 386,
+          "height": 188
+        },
+        "target": {
+          "left": 36,
+          "top": 163,
+          "width": 192,
+          "height": 93
+        }
+      },
+      "tints": {}
+    },
+    "top-sleeveless": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sleeveless.primary.webp",
+          "sha256": "0967dbed1e22f0a5f2e0d7a0740f49dda8c7db2fd293ba1539c6c6bd616f447b"
+        },
+        "detail": {
+          "path": "top-sleeveless.detail.webp",
+          "sha256": "8ab20f778415d98f6a9c997d4968795a85db226d1d38816439d0324a8483d988"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 100,
+          "top": 264,
+          "width": 233,
+          "height": 154
+        },
+        "target": {
+          "left": 64,
+          "top": 161,
+          "width": 134,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "top-sweater": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sweater.primary.webp",
+          "sha256": "9f9481f563b3c5ece0c05bd11ad0ba940b2a0f04993a6a5c442ede715d6c0ced"
+        },
+        "detail": {
+          "path": "top-sweater.detail.webp",
+          "sha256": "b8278f49826bf6292e42c7626ce5025af772ce5e96a2acb0adf623ddf8736363"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 24,
+          "top": 260,
+          "width": 372,
+          "height": 158
+        },
+        "target": {
+          "left": 21,
+          "top": 157,
+          "width": 219,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "top-tee": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tee.primary.webp",
+          "sha256": "e6bee896ef6593f187a348d3a2755e4ad1180814025cc13189ad455d70cbedeb"
+        },
+        "detail": {
+          "path": "top-tee.detail.webp",
+          "sha256": "8d83f7fb3efa5d00a2318c62705c43d9bb1d99af42be5b940243145a7d21b688"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 21,
+          "top": 264,
+          "width": 374,
+          "height": 154
+        },
+        "target": {
+          "left": 20,
+          "top": 157,
+          "width": 218,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "top-tee-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tee-broad.primary.webp",
+          "sha256": "ee13a2ac246aa95c163536613391c04bde427933df201e021b3aaa1841c392bf"
+        },
+        "detail": {
+          "path": "top-tee-broad.detail.webp",
+          "sha256": "e505e8f7d997f45e4a1695f5176f7922e2e1130b8da1f98230d36d96591a2d2e"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 2,
+          "top": 259,
+          "width": 416,
+          "height": 159
+        },
+        "target": {
+          "left": 0,
+          "top": 162,
+          "width": 256,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "top-tee-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tee-slim.primary.webp",
+          "sha256": "d4aa82b05adb68dd2f643b99caea8592866d109c42f2b3c7060974ae7de8b16d"
+        },
+        "detail": {
+          "path": "top-tee-slim.detail.webp",
+          "sha256": "8b8176f126b3d5d5d604c7f81afe92aad3e585c3fc2f89e7e175967b55253e62"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 35,
+          "top": 271,
+          "width": 351,
+          "height": 147
+        },
+        "target": {
+          "left": 19,
+          "top": 167,
+          "width": 223,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "top-tunic": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tunic.primary.webp",
+          "sha256": "88062278217ef90f6e858f56b4ad3027975a35464e60bdbbc667010cf7f0f77d"
+        },
+        "secondary": {
+          "path": "top-tunic.secondary.webp",
+          "sha256": "bf890873873c1b47e6e1be18965a9453763d2b52c3ef0f3db03d1424ab0775a2"
+        },
+        "detail": {
+          "path": "top-tunic.detail.webp",
+          "sha256": "920a542c684084b8f6f8beef7315fc5793968a22efabb54c51c3bd3278b25cc9"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 24,
+          "top": 268,
+          "width": 375,
+          "height": 150
+        },
+        "target": {
+          "left": 16,
+          "top": 163,
+          "width": 224,
+          "height": 93
+        }
+      },
+      "tints": {}
+    },
+    "top-turtleneck": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-turtleneck.primary.webp",
+          "sha256": "b69e6088a34068bcb332fb746de22b8a8e930c64b064755fa4a1b2a47ea391b1"
+        },
+        "detail": {
+          "path": "top-turtleneck.detail.webp",
+          "sha256": "051ed4a486bf3c248c8d816680104a25b5f94d063d5640dbab3beac3c92e05a3"
+        }
+      },
+      "source": "top-1",
+      "sourceSha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 32,
+          "top": 229,
+          "width": 367,
+          "height": 189
+        },
+        "target": {
+          "left": 23,
+          "top": 141,
+          "width": 215,
+          "height": 115
+        }
+      },
+      "tints": {}
+    },
+    "outer-apron": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-apron.primary.webp",
+          "sha256": "cb0ba6852381be14f5b100e3ff727f5fa6dd2b18bd0ac87e9dcf427b51b4be46"
+        },
+        "secondary": {
+          "path": "outer-apron.secondary.webp",
+          "sha256": "a950f34aa460d73c036e1679ecb49e96d12ba8aa0f76b9f6fad134990ef8905d"
+        },
+        "detail": {
+          "path": "outer-apron.detail.webp",
+          "sha256": "88fc75c984cf4f154872a9aa1524794edd24a2c83ebab7361ea4e524942a217d"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 95,
+          "top": 250,
+          "width": 223,
+          "height": 168
+        },
+        "target": {
+          "left": 73,
+          "top": 156,
+          "width": 111,
+          "height": 100
+        }
+      },
+      "tints": {}
+    },
+    "outer-blazer": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-blazer.primary.webp",
+          "sha256": "967188a610fa05a3e42590f9ec04ea1ea5b4a76cc0ef7756a89e0d37cd8008be"
+        },
+        "secondary": {
+          "path": "outer-blazer.secondary.webp",
+          "sha256": "d9df23bfc50654f93f08826f8c2c7ec396d94922244e92b53925a79bc0467150"
+        },
+        "detail": {
+          "path": "outer-blazer.detail.webp",
+          "sha256": "4f1a5976ac257d0716226bf77f8e329809e717b886c281423197da9ee8bf4808"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 241,
+          "width": 379,
+          "height": 177
+        },
+        "target": {
+          "left": 22,
+          "top": 152,
+          "width": 216,
+          "height": 104
+        }
+      },
+      "tints": {}
+    },
+    "outer-cardigan": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cardigan.primary.webp",
+          "sha256": "b75ed4aede4cad9b542f2eee7b9b0369f7d22f987b8d433b0482a9fce3755301"
+        },
+        "secondary": {
+          "path": "outer-cardigan.secondary.webp",
+          "sha256": "6673df4f0bb3b396a08f0deef81b9cd750d3859aee8cff13c2774edbb7f38335"
+        },
+        "detail": {
+          "path": "outer-cardigan.detail.webp",
+          "sha256": "a4c448b5317af10b7644d3015308b87d276278cfe4188eb58d0f49ee418c7e0c"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 16,
+          "top": 241,
+          "width": 385,
+          "height": 177
+        },
+        "target": {
+          "left": 20,
+          "top": 154,
+          "width": 220,
+          "height": 102
+        }
+      },
+      "tints": {}
+    },
+    "outer-cloak": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cloak.primary.webp",
+          "sha256": "36b53cee7c6fbc803713db5f32db5c0da816d9e1692c5ae174d54f5f5acfeb0f"
+        },
+        "secondary": {
+          "path": "outer-cloak.secondary.webp",
+          "sha256": "9ae08df16848db8a19c8d0ddfe5c1794f5bc5763a5ae3d18b3e4ea8b182aa7d1"
+        },
+        "detail": {
+          "path": "outer-cloak.detail.webp",
+          "sha256": "521e25880a492fcb5e2de7f83df804021489d7ca2213bec8555f62e2636abb55"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 9,
+          "top": 229,
+          "width": 397,
+          "height": 189
+        },
+        "target": {
+          "left": 21,
+          "top": 138,
+          "width": 215,
+          "height": 118
+        }
+      },
+      "tints": {}
+    },
+    "outer-raincoat": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-raincoat.primary.webp",
+          "sha256": "84dd5ecaf41928e913c63632f2fc7e8de69425ca04e00fece0ea53771d4d4d87"
+        },
+        "secondary": {
+          "path": "outer-raincoat.secondary.webp",
+          "sha256": "61f154610eb78716df11832b1be68f26a3425e289f2625665ff3a3b4f391d655"
+        },
+        "detail": {
+          "path": "outer-raincoat.detail.webp",
+          "sha256": "e3993bc25985c61eb3151db2f5d94ee2c7b3450ad8f777963fee1514b6efb100"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 240,
+          "width": 394,
+          "height": 178
+        },
+        "target": {
+          "left": 21,
+          "top": 148,
+          "width": 212,
+          "height": 108
+        }
+      },
+      "tints": {}
+    },
+    "outer-travel": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-travel.primary.webp",
+          "sha256": "5de2cb86ad1f52686ac81ef577ab911671d661c45844fe526ea64799f8b3e973"
+        },
+        "secondary": {
+          "path": "outer-travel.secondary.webp",
+          "sha256": "9baf9ddbfa92ec534bc53d4606b9f75370fa70009beb99b6945e07b345255d5d"
+        },
+        "skin": {
+          "path": "outer-travel.skin.webp",
+          "sha256": "bdefb52f9d8f5dcaeaed342606ff464c57ecb0efe8222ca16ccac7f336c10689"
+        },
+        "detail": {
+          "path": "outer-travel.detail.webp",
+          "sha256": "44bc2727466cb3ccf0053acddf8230e198c14bec2c667be4b50666d4816f6fd7"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 240,
+          "width": 396,
+          "height": 178
+        },
+        "target": {
+          "left": 24,
+          "top": 154,
+          "width": 214,
+          "height": 102
+        }
+      },
+      "tints": {}
+    },
+    "outer-travel-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-travel-broad.primary.webp",
+          "sha256": "119c4bdfe0ab1f50ee660406ec132f1dfa56ef38032db81157506a12b2f73c5c"
+        },
+        "secondary": {
+          "path": "outer-travel-broad.secondary.webp",
+          "sha256": "050732453124b20588fe52d4bd725b747cea27633c2d6b87ff9cef205a4b95b7"
+        },
+        "detail": {
+          "path": "outer-travel-broad.detail.webp",
+          "sha256": "1d0ef48a0d1e0b2006f75c8c3a9cfd7a900e062250bdff9a7bc8c516b4433b07"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 0,
+          "top": 221,
+          "width": 418,
+          "height": 197
+        },
+        "target": {
+          "left": 6,
+          "top": 167,
+          "width": 245,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "outer-travel-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-travel-slim.primary.webp",
+          "sha256": "94b6df45b6f2bab9cb7103faa3968934bf0d1e16f8e159bd7ac9524a3625c645"
+        },
+        "secondary": {
+          "path": "outer-travel-slim.secondary.webp",
+          "sha256": "7fd467a9115a991993f811fa043e3a4c8a1df96a12cb6f94f4d5d7a7239b7288"
+        },
+        "detail": {
+          "path": "outer-travel-slim.detail.webp",
+          "sha256": "3a2baa9ea8480946beb28ef2120bacadd742c423011ed48eee23c6656bc71440"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 22,
+          "top": 223,
+          "width": 378,
+          "height": 195
+        },
+        "target": {
+          "left": 26,
+          "top": 167,
+          "width": 205,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "outer-trench": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-trench.primary.webp",
+          "sha256": "e21c0c708b91781e01e83f098c2e7899a8b55c33895cf1e98410bc7a5469789e"
+        },
+        "secondary": {
+          "path": "outer-trench.secondary.webp",
+          "sha256": "0e2d8a3e6f649f5ac06f2d702e4ae4172930304a919f5c45e47f3e108d1fc976"
+        },
+        "detail": {
+          "path": "outer-trench.detail.webp",
+          "sha256": "27d84ebd81ae23360ca802304d8f63dc174c486f2460484ec43bc57b74aa481f"
+        }
+      },
+      "source": "outer-0",
+      "sourceSha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 0,
+          "top": 188,
+          "width": 418,
+          "height": 230
+        },
+        "target": {
+          "left": 20,
+          "top": 143,
+          "width": 218,
+          "height": 113
+        }
+      },
+      "tints": {}
+    },
+    "outer-waistcoat": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-waistcoat.primary.webp",
+          "sha256": "e461694ad6f644edd2aa7631b647b0e7d56cc6e2e150b06e55c644947ff9be7e"
+        },
+        "secondary": {
+          "path": "outer-waistcoat.secondary.webp",
+          "sha256": "80dd100f3fbe5167073412e529b180fd70d40acf3ad2a3f1d34ac240e8d960f2"
+        },
+        "detail": {
+          "path": "outer-waistcoat.detail.webp",
+          "sha256": "3b62b2096f8f1ca5efd08485bb75b2e3fd962a1756949c716d48cb724814c4aa"
+        }
+      },
+      "source": "outer-1",
+      "sourceSha256": "a1ec177847b24fa6cd14ea2387b7d3667dbb82f4b675b2e589339ed64f876717",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 34,
+          "top": 247,
+          "width": 357,
+          "height": 171
+        },
+        "target": {
+          "left": 63,
+          "top": 166,
+          "width": 136,
+          "height": 90
+        }
+      },
+      "tints": {}
+    },
+    "bag-backpack": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-backpack.primary.webp",
+          "sha256": "598833263c6f545937936b77d9213eea3c89ec780c920edf966fe661701029c4"
+        },
+        "detail": {
+          "path": "bag-backpack.detail.webp",
+          "sha256": "ccfcbd3c1453cef734ae2421b55271a1943d8f73179756d7ece4087a977066e6"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 83,
+          "top": 271,
+          "width": 259,
+          "height": 147
+        },
+        "target": {
+          "left": 54,
+          "top": 172,
+          "width": 154,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "bag-satchel": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-satchel.primary.webp",
+          "sha256": "156565c4e23152b398a3843a38837d4a0d90bcb2de11d145b0f77baff1173efa"
+        },
+        "detail": {
+          "path": "bag-satchel.detail.webp",
+          "sha256": "ae7c042c50ad59229a2ae491470310d39492ee8c7e0bb07c0bea0b8442d44d85"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 107,
+          "top": 268,
+          "width": 129,
+          "height": 150
+        },
+        "target": {
+          "left": 66,
+          "top": 167,
+          "width": 73,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "bag-tote": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-tote.primary.webp",
+          "sha256": "520fc0000e6af598dfbdc8381487ffa6228f7fd2913a1f712e991e796aeb7d4e"
+        },
+        "detail": {
+          "path": "bag-tote.detail.webp",
+          "sha256": "103902d0e663f1031fec8771c2fc3da98d1cec124d9df7197922e7cb4c386cd7"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 273,
+          "top": 268,
+          "width": 84,
+          "height": 150
+        },
+        "target": {
+          "left": 157,
+          "top": 162,
+          "width": 42,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-cat-eye": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-cat-eye.primary.webp",
+          "sha256": "2ac1d76035ef823c4ef940372bf43d4a3d84a3512f85227cef1f011495c59129"
+        },
+        "detail": {
+          "path": "eyewear-cat-eye.detail.webp",
+          "sha256": "3116a3fdf99c79718cf4132cebc2b3934c7d48b7ab3a804c19a5535ba3894c0c"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 94,
+          "top": 160,
+          "width": 243,
+          "height": 79
+        },
+        "target": {
+          "left": 78,
+          "top": 88,
+          "width": 110,
+          "height": 39
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-round": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-round.primary.webp",
+          "sha256": "3e40830da946b56012e76b95b8a3814fd7b5658f02df02bcbaf94ad4a3af1243"
+        },
+        "detail": {
+          "path": "eyewear-round.detail.webp",
+          "sha256": "3a8bee5ed1a3375fa453b300a17462b2cfbc987cf274307c69b7beed1315fcd2"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 125,
+          "top": 160,
+          "width": 212,
+          "height": 85
+        },
+        "target": {
+          "left": 87,
+          "top": 88,
+          "width": 87,
+          "height": 46
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-square": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-square.primary.webp",
+          "sha256": "21787138536fdc52a6c9a87e66d801be7ffe31f30ef6b65b83705d0973237f7f"
+        },
+        "detail": {
+          "path": "eyewear-square.detail.webp",
+          "sha256": "6216e6cd58a795a6d6457065a09c80e327e068cff5c2cc7b151e346e31dfb62e"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 128,
+          "top": 164,
+          "width": 226,
+          "height": 78
+        },
+        "target": {
+          "left": 78,
+          "top": 88,
+          "width": 110,
+          "height": 41
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-sunglasses": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-sunglasses.primary.webp",
+          "sha256": "06d9fe271710ccf5b176807c259449b2bb78255f5d9db6515436cd544d6cb2a7"
+        },
+        "detail": {
+          "path": "eyewear-sunglasses.detail.webp",
+          "sha256": "c7cf5e24094099d37690393832b8980f353e57022738b65f3c1c60ad57ea4821"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 82,
+          "top": 100,
+          "width": 259,
+          "height": 96
+        },
+        "target": {
+          "left": 79,
+          "top": 73,
+          "width": 103,
+          "height": 47
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-full-beard": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-full-beard.primary.webp",
+          "sha256": "390c4d41aa5b136028ef6b86098710c67e8a3b07a668a472bec35ecba831588c"
+        },
+        "detail": {
+          "path": "facial-hair-full-beard.detail.webp",
+          "sha256": "1c07e8107ab0f1d9be33d6467af00d8558a78f3ae8a433895b8c8eda6a439d64"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 144,
+          "top": 136,
+          "width": 210,
+          "height": 170
+        },
+        "target": {
+          "left": 87,
+          "top": 114,
+          "width": 87,
+          "height": 55
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-goatee": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-goatee.primary.webp",
+          "sha256": "523ca9de1c4d31354695608fb4d28d0dddc1b63ee04a5b97338f0678055ce969"
+        },
+        "detail": {
+          "path": "facial-hair-goatee.detail.webp",
+          "sha256": "f18b19b18aa656a4f0e111da1b2b4d0a939eed8ae9bf73597ecf357d4e51e2d3"
+        }
+      },
+      "source": "accessories-0",
+      "sourceSha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 209,
+          "top": 209,
+          "width": 100,
+          "height": 92
+        },
+        "target": {
+          "left": 112,
+          "top": 137,
+          "width": 36,
+          "height": 36
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-moustache": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-moustache.primary.webp",
+          "sha256": "eb387072dc037dc72408af57b1493da1cfbb75201b0c6209d8534aa9332b4159"
+        },
+        "detail": {
+          "path": "facial-hair-moustache.detail.webp",
+          "sha256": "67e5ae88bff170b8897724961f20d99c8e6687d7a641b991181be0b390185f4c"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 117,
+          "top": 195,
+          "width": 185,
+          "height": 52
+        },
+        "target": {
+          "left": 103,
+          "top": 128,
+          "width": 62,
+          "height": 25
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-short-beard": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-short-beard.primary.webp",
+          "sha256": "24e444a686dba77f96e376c3e21b26991dd466a9c36ced72ac5dc62041accf6f"
+        },
+        "detail": {
+          "path": "facial-hair-short-beard.detail.webp",
+          "sha256": "aa7649c8fdec340293d86be26cd2b36d123b0925bd24aeaf234abdf8d1100f8f"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 121,
+          "top": 152,
+          "width": 201,
+          "height": 148
+        },
+        "target": {
+          "left": 88,
+          "top": 120,
+          "width": 86,
+          "height": 46
+        }
+      },
+      "tints": {}
+    },
+    "markings-beauty-mark": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-beauty-mark.detail.webp",
+          "sha256": "b4c9f361d2a445de4c9f2f8a95a2c62f4284c24726685d13fa58ead468dc9c51"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 236,
+          "top": 190,
+          "width": 31,
+          "height": 29
+        },
+        "target": {
+          "left": 151,
+          "top": 123,
+          "width": 4,
+          "height": 4
+        }
+      },
+      "tints": {}
+    },
+    "markings-blush": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-blush.detail.webp",
+          "sha256": "767b5db65478f83144e33eb0af5746a899deff4bd6dfe1a66ea9327e223e1194"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 99,
+          "top": 170,
+          "width": 219,
+          "height": 69
+        },
+        "target": {
+          "left": 100,
+          "top": 118,
+          "width": 64,
+          "height": 14
+        }
+      },
+      "tints": {}
+    },
+    "markings-freckles": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-freckles.detail.webp",
+          "sha256": "e3ef08cec4ceec2ac1e35931d13bab772bbf1662bf3ded1bdf3a8dbdff8eaf17"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 103,
+          "top": 167,
+          "width": 242,
+          "height": 74
+        },
+        "target": {
+          "left": 104,
+          "top": 117,
+          "width": 54,
+          "height": 11
+        }
+      },
+      "tints": {}
+    },
+    "neck-cowl": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-cowl.primary.webp",
+          "sha256": "579735f79ab8eec0a58aec561dd456c3716c06bb9d0d4aefc968612ae4f053ee"
+        },
+        "detail": {
+          "path": "neck-cowl.detail.webp",
+          "sha256": "010ffb73d10ab53feb112115f0f243e1bed35c4fb07fe36bdd607ce0bbb753be"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 90,
+          "top": 190,
+          "width": 271,
+          "height": 188
+        },
+        "target": {
+          "left": 64,
+          "top": 138,
+          "width": 129,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "neck-kerchief": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-kerchief.primary.webp",
+          "sha256": "f8579f83cd5938976ccaa9a274faeb74c306c35d49ee0d8e59b33052dd1e8b51"
+        },
+        "detail": {
+          "path": "neck-kerchief.detail.webp",
+          "sha256": "f3cbfdf939c8c988956cacf7671c20b2382a24daedf48d9f32bac6f9a871dbf7"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 91,
+          "top": 147,
+          "width": 234,
+          "height": 181
+        },
+        "target": {
+          "left": 78,
+          "top": 154,
+          "width": 105,
+          "height": 86
+        }
+      },
+      "tints": {}
+    },
+    "neck-scarf": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-scarf.primary.webp",
+          "sha256": "e398f1a0fe8820eaf64a71bf04fac351c4926f3260a781767078ed3b6ed77863"
+        },
+        "detail": {
+          "path": "neck-scarf.detail.webp",
+          "sha256": "09ceb85126f2817340836515bb9bf38425f9ea143bb51e7b23ef7e103d6e8c3f"
+        }
+      },
+      "source": "accessories-1",
+      "sourceSha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 119,
+          "top": 120,
+          "width": 207,
+          "height": 294
+        },
+        "target": {
+          "left": 78,
+          "top": 141,
+          "width": 105,
+          "height": 115
+        }
+      },
+      "tints": {}
+    }
+  },
+  "sources": [
+    {
+      "page": "body-0",
+      "path": "art/source/player-portraits/candidates/body-0.png",
+      "sha256": "be6e985f0d473fb883705d41bb2fecec2bea91c9cc08680522a653fcc0c59800",
+      "prompt": "art/source/player-portraits/prompts/body-0.txt",
+      "promptSha256": "199420b4fb1313a6b60b7fa793e9aa4b0a1733eb86afe9037f96d8a0f2cac97d",
+      "nativeCell": 418
+    },
+    {
+      "page": "face-0",
+      "path": "art/source/player-portraits/candidates/face-0.png",
+      "sha256": "bf642b6de8af3366f97986d6c66f51c3f7e20009079ac01959e812f0a2bd6e2d",
+      "prompt": "art/source/player-portraits/prompts/face-0.txt",
+      "promptSha256": "b41ad9164179447020f149f15cceffbbe9abe35060e856dfd517e0786e1d3b64",
+      "nativeCell": 418
+    },
+    {
+      "page": "face-1",
+      "path": "art/source/player-portraits/candidates/face-1.png",
+      "sha256": "505717cc1ef5fceb657c957302319567c9558b5c772621c76663911068426924",
+      "prompt": "art/source/player-portraits/prompts/face-1.txt",
+      "promptSha256": "b79ee0e25c781355e40c9156c0b2449682520ca9f0bc597a44bd19d39f6361d1",
+      "nativeCell": 418
+    },
+    {
+      "page": "hair-0",
+      "path": "art/source/player-portraits/candidates/hair-0.png",
+      "sha256": "3e1a7dd221da3010ef94d6772ccd859cd9781b3bd77abe181840274b82e73ca0",
+      "prompt": "art/source/player-portraits/prompts/hair-0.txt",
+      "promptSha256": "20fc3d89b0582e55e802f025cfce33a971143a38ef596cefb0468ac87fc57a44",
+      "nativeCell": 418
+    },
+    {
+      "page": "hair-1",
+      "path": "art/source/player-portraits/candidates/hair-1.png",
+      "sha256": "57603cc5624baffac97211694502dc593430598ac1efa1ab2d4462530942f9c2",
+      "prompt": "art/source/player-portraits/prompts/hair-1.txt",
+      "promptSha256": "340cd473672844083a004b28d4a40cb2e217638fc3ea7377709cf67818b5a0c5",
+      "nativeCell": 418
+    },
+    {
+      "page": "headwear-0",
+      "path": "art/source/player-portraits/candidates/headwear-0.png",
+      "sha256": "5793d143e3ab084216b80a15d17c3925ca99ed66f442dbf2462b686f64ad2a4a",
+      "prompt": "art/source/player-portraits/prompts/headwear-0.txt",
+      "promptSha256": "6e31f40053f2f63a6cedfd0c5ec43de24cf20d225211a99b241e130b052441f9",
+      "nativeCell": 418
+    },
+    {
+      "page": "top-0",
+      "path": "art/source/player-portraits/candidates/top-0.png",
+      "sha256": "fbd9f669ad60c6539bc96ed6c264cb4138c967db93330392a07b1f1b8de81755",
+      "prompt": "art/source/player-portraits/prompts/top-0.txt",
+      "promptSha256": "38f8c497fcf6991658424905a659e6e1e04b08cdc5ca0f0f1f842a6963cb6bd4",
+      "nativeCell": 418
+    },
+    {
+      "page": "top-1",
+      "path": "art/source/player-portraits/candidates/top-1.png",
+      "sha256": "5250058ad834ec16d119bccfdbe11598fbdf6dcff22aa743117d5d6b829688e1",
+      "prompt": "art/source/player-portraits/prompts/top-1.txt",
+      "promptSha256": "b87e4e18aa528676c19bb5b44d17529146baf3236514c0b92164429372ba19c1",
+      "nativeCell": 418
+    },
+    {
+      "page": "outer-0",
+      "path": "art/source/player-portraits/candidates/outer-0.png",
+      "sha256": "7aadaaf887baecf7b9965d8f3991899d7a0b609e95ba931d19159a1e3fc24877",
+      "prompt": "art/source/player-portraits/prompts/outer-0.txt",
+      "promptSha256": "6f8e125fe816199f068204b25d60d30d871679178886df20b6613d20f71e6477",
+      "nativeCell": 418
+    },
+    {
+      "page": "outer-1",
+      "path": "art/source/player-portraits/candidates/outer-1.png",
+      "sha256": "a1ec177847b24fa6cd14ea2387b7d3667dbb82f4b675b2e589339ed64f876717",
+      "prompt": "art/source/player-portraits/prompts/outer-1.txt",
+      "promptSha256": "5ba5f7ec72f5f02c23cd9a8deacc28c89519473d504a7880c486e6c50c51a469",
+      "nativeCell": 418
+    },
+    {
+      "page": "accessories-0",
+      "path": "art/source/player-portraits/candidates/accessories-0-v2.png",
+      "sha256": "b36a469a56c3f7a309de1eac055db1a236acbb48bf195159b86a33c4d31e8c46",
+      "prompt": "art/source/player-portraits/prompts/accessories-0-v2.txt",
+      "promptSha256": "4b576c241de630ea4fd84478d092c0449e0ff690af65439056d54046596fa0b7",
+      "nativeCell": 418
+    },
+    {
+      "page": "accessories-1",
+      "path": "art/source/player-portraits/candidates/accessories-1.png",
+      "sha256": "c1899faff0dfb942809dde909b4cc42ada8d3a10ba0b9261fd09c29b743dec4d",
+      "prompt": "art/source/player-portraits/prompts/accessories-1.txt",
+      "promptSha256": "562dc503830bce192e8c45d759c3f32e4d98dfae540cecee51c8d01cef461e08",
+      "nativeCell": 418
+    }
+  ],
+  "assetVersion": "f8f5ae1b24404b1c"
+}

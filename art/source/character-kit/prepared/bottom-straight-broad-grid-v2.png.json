@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/bottom-straight-broad-candidate-1.png",
+      "sha256": "09bfef4bc64618ed0d7bd18b4948f6733093440b7fa98383417587451e2adea1"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/bottom-straight-broad-grid-v2.png",
+  "outputSha256": "ae9f65e0975a052b6ae2d0a7a3c833451e9a8f7b63f654a192b57975d01193e5"
+}

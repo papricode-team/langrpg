@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/top-tee-broad-candidate-1.png",
+      "sha256": "39a2a6d632d878380a5f016254523af6ce8a86ec2245bfe26761644034558d2e"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/outfit-reference.registration.json",
+      "sha256": "a2d606aac5635f9964a5aaaf1bef525096bdd9e36d46e9b68f3f7ca190787363"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/top-tee-broad-grid-v2.png",
+  "outputSha256": "7fe2770bbf41e533b4d1281c1f4f359b606e3da3934c13aa6ef16b4fd6fcf557"
+}

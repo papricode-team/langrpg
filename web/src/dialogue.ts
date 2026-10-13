@@ -23,6 +23,8 @@ export interface DialogueEffect { flag?: string; item?: string; faction?: Factio
 export interface DialogueLine {
   id: string;
   speaker: string;
+  /** Authored visual cue; never inferred from translated text. */
+  expression?: 'neutral' | 'smile' | 'worried';
   german: string;
   english: string;
   clipId: string;

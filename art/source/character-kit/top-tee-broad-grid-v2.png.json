@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "7fe2770bbf41e533b4d1281c1f4f359b606e3da3934c13aa6ef16b4fd6fcf557",
+  "baseSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "e9d281d33f5f041f23663c053a9c06b8b6db3abc154313128bb64f520d409c86",
+  "promptSha256": "68cf3a6ee666f338cf9333b6d6d313b6634d7f9497d732c70a8f98041debcd0f",
+  "generationPromptSha256": "8bd3058f3ea66023e2374086b0e95357570159c083d697bc090a02b5c4226645",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 12,
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The foreground arm occludes the connection between the torso and a visible rear hem section in profile views."
+  },
+  "preparationSha256": "f8f26776fd23ea015b20ffec8702155365b8487041e67c1a7451895efd6ee981",
+  "candidate": "art/source/character-kit/prepared/top-tee-broad-grid-v2.png",
+  "lockedSha256": "6c38f96fcf2d74728476921c6bd748f2521f00e93aa294688fbb308fe5871c8f"
+}

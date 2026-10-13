@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {residentActionPose,residentSeatedOffset} from './resident-action-art';
+import {residentActionPose,residentComponentPose,residentSeatedOffset} from './resident-action-art';
 import {ResidentActivityWorld,type ActivityResidentSample} from './resident-activities';
 import {getWorldScene,sceneDocument} from './scene-data';
 import {parseWorldSceneDocument} from './scene-schema';
@@ -48,4 +48,12 @@ describe('painted activity presentation',()=>{
     expect(()=>parseWorldSceneDocument(doc)).toThrow(/unknown action artwork/);
     actor.actionArt='anne';expect(()=>parseWorldSceneDocument(doc)).toThrow(/match its avatar colors/);
   });
+});
+
+it('uses component actions only for stationary, empty-handed matching tasks',()=>{
+  expect(residentComponentPose(sample({action:'greet',heldObject:undefined}))).toBe('wave');
+  expect(residentComponentPose(sample({action:'sit',heldObject:undefined}))).toBe('seated');
+  expect(residentComponentPose(sample({action:'read',heldObject:undefined}))).toBe('seated');
+  for(const fields of [{action:'greet',heldObject:'parcel'},{action:'read',heldObject:'book'},{action:'work',heldObject:'tool'},{phase:'return',action:'greet',heldObject:undefined},{moving:true,action:'greet',heldObject:undefined},{action:'serve',heldObject:undefined}] as Partial<ActivityResidentSample>[])
+    expect(residentComponentPose(sample(fields))).toBeUndefined();
 });

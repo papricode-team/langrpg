@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "87330e86ae2f3eba17130d30f6815548dbfd676dd5a276a0d93c6288d17f3f95",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "5abf25747b7726f7006fa98dceb8a92b8e94cfe7602a1ef1eb62ba29a62525f2",
+  "promptSha256": "ad5c562de50bbf4f803d7aafe2da69df1b067ab4ab60d9b0f97e39c28cf06f51",
+  "generationPromptSha256": "e18dfbbfe166f1a4b6c9f89420c7b837058684e8e4074fc649e5b69fbb74c476",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 5,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "candidate": "art/source/character-kit/eyewear-sunglasses-candidate-2.png",
+  "lockedSha256": "55d0cbe98fd2e02e8cd8a267a482ce16a082ad6bf6568017ad4df6b197bddba8"
+}

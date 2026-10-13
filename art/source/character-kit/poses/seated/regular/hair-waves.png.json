@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "079f5ddd65168003f5a4b31998302a0689a4c937344e4efd1e508dcda3871083",
+  "baseSha256": "523ea9bb413b5de41861dac8d1808739e4a6fefcc24e2f74f50bfd5a7aa1bb73",
+  "registrationSha256": "f57aee4952942f12571da9f34198ab105a207db32c568a265085736126ee0b02",
+  "maskSha256": "2e219f3a7b03d96c00554d0a9e1a03bf62aead3f0eb5b79f55a0e9c4e9408b7e",
+  "promptSha256": "495f8e81777c35861e7c9700a18a9be952ce7790aa9aae6092f49224661643b8",
+  "generationPromptSha256": "6255713b159df02a000282f7ac9d17180e470dec9201debe131e9f1cfd2a1190",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "candidate": "art/source/character-kit/hair-waves-seated-candidate-1.png",
+  "lockedSha256": "8798ed3c2619a1048a8f8b402e1da6abbf58854f0846f02ed1f32353c1def3c9"
+}

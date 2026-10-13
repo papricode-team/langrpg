@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "e725c94e376e6696a0fc94eb6575de1d80ae2abf6a57dd15d545e041daac0384",
+  "baseSha256": "1078594f60cc334941ce87ea6fe41ff593e9098bc150f99e29eefe3811fad814",
+  "registrationSha256": "f57aee4952942f12571da9f34198ab105a207db32c568a265085736126ee0b02",
+  "maskSha256": "def90f913870cf2591aefd3954572b028e24272ff92d7f2d3f3760f5158954a8",
+  "promptSha256": "5d4e9d39cf4af87466160e83954c7f52b06323b930a655bdcb1749038e1a2a41",
+  "generationPromptSha256": "9cd6533efcea987768daeb3ea8d3503c7570a6ea894e9ca6ccd6e6843eb87844",
+  "materials": [
+    "skin"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 4
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "31d78dba10f86ef2fb20962a337c6d044ea828ce532e12675ede1e9133a9e48f",
+  "candidate": "art/source/character-kit/poses/seated/regular/master.png",
+  "lockedSha256": "523ea9bb413b5de41861dac8d1808739e4a6fefcc24e2f74f50bfd5a7aa1bb73"
+}

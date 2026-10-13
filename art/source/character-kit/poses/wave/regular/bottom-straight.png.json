@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "e32e30086fcdfd7721cf0c8771d6e7f0340374af535093e65b82edfa20d42ff2",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "f04840d5720f4bda0f1b62eef1610c2eb2860c18c98bde4546f8871c01c9b83e",
+  "promptSha256": "cf92bc20f2bc783b35699bddec0288710434a3c1b9c5d2cb76885aae4498d1c5",
+  "generationPromptSha256": "c87dd96a3d986a6edf146dfc743f3d60fec9d36d6629036e50a06395a6d45c40",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/bottom-straight-wave-candidate-1.png",
+  "lockedSha256": "f1dd18d176beb873c873a28416bbded63cd785ba133222b4d6b3f9b997832d22"
+}

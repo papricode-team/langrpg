@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "fe0a39472063a39861a814e7dcb5f1146b0fbdbdf2e88d6c01ad81214fac1e38",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "b64521c63e2c5b0d55253bdfa6be55aad416d68fe3a2180ed45484d9c32a1b26",
+  "promptSha256": "c9c6ed3963c15794ebab6850b809bbc63f18eada3605bbd9b7fcf498cc3a13ca",
+  "generationPromptSha256": "de592c7c24e955c67ee3d1ca4c4b832fd1a056e9be38e9b4e01d4dd4aaa9335a",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-sweater-candidate-2.png",
+  "lockedSha256": "9849e1ca88a931c95e9707997b8c7801f330914e8de07cf94d2ee0c5b41db31d"
+}

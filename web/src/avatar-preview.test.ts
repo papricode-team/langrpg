@@ -1,24 +1,36 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import sharp from 'sharp';
 import { paintCharacter } from './modular-character';
+import { releaseAvatarPreview } from './avatar-baker';
 
- afterEach(() => vi.unstubAllGlobals());
+afterEach(() => vi.unstubAllGlobals());
 describe('avatar preview asset recovery', () => {
-  it('retries a failed character layer instead of caching a blank preview forever', async () => {
+  it('retries failed sheets and retains equipped editor sheets throughout the walk', async () => {
     let failed = false;
-    class Asset {
-      onload?: () => void;
-      onerror?: () => void;
-      set src(path: string) { queueMicrotask(() => { if (!failed && path.includes('body-skin')) { failed = true; this.onerror?.(); } else this.onload?.(); }); }
-    }
-    vi.stubGlobal('Image', Asset);
-    const context = {clearRect:vi.fn(),save:vi.fn(),restore:vi.fn(),translate:vi.fn(),scale:vi.fn(),drawImage:vi.fn(),fillRect:vi.fn(),globalCompositeOperation:'source-over',fillStyle:''};
-    const canvas = {width:256,height:384,getContext:()=>context} as unknown as HTMLCanvasElement;
+    const fetchSheet = vi.fn(async (url: string) => {
+      if (!failed && url.includes('body-regular.skin')) { failed = true; return new Response(null, {status:503}); }
+      return new Response(await readFile(resolve(import.meta.dirname,'../public',url.split('?')[0].replace(/^\//,''))));
+    });
+    vi.stubGlobal('fetch', fetchSheet);
+    vi.stubGlobal('createImageBitmap', async (blob: Blob) => {
+      const {data,info}=await sharp(Buffer.from(await blob.arrayBuffer())).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+      return {data,width:info.width,height:info.height,close:vi.fn()};
+    });
+    vi.stubGlobal('ImageData', class { constructor(public data:Uint8ClampedArray, public width:number, public height:number){} });
+    const context = {image:null as any,drawImage:vi.fn((image:any)=>{context.image=image;}),getImageData:()=>({data:context.image.data}),putImageData:vi.fn(),clearRect:vi.fn()};
+    const canvas={width:256,height:384,getContext:()=>context} as unknown as HTMLCanvasElement;
     vi.stubGlobal('document',{createElement:()=>({width:0,height:0,getContext:()=>context})});
     const avatar={skin:'#d8a077',hair:'#48372e',outfit:'#326a65'};
-    await expect(paintCharacter(canvas,avatar)).rejects.toThrow('Missing character piece body-skin');
-    expect(context.drawImage).not.toHaveBeenCalled();
-    await expect(paintCharacter(canvas,avatar)).resolves.toBeUndefined();
-    expect(context.drawImage).toHaveBeenCalled();
-    expect(context.restore).toHaveBeenCalled();
+    try {
+      await expect(paintCharacter(canvas,avatar)).rejects.toThrow('Missing character sheet');
+      expect(context.putImageData).not.toHaveBeenCalled();
+      await expect(paintCharacter(canvas,avatar)).resolves.toBeUndefined();
+      expect(context.putImageData).toHaveBeenCalled();
+      const count=fetchSheet.mock.calls.length;
+      for(const frame of [1,8,9,18,27,35])await paintCharacter(canvas,avatar,frame);
+      expect(fetchSheet).toHaveBeenCalledTimes(count);
+    } finally { releaseAvatarPreview(canvas); }
   });
 });

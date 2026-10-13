@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-13",
+  "assetVersion": "f023205a1a21d51f",
+  "walkingComponents": 100,
+  "actionComponents": 26,
+  "expressions": [
+    {
+      "id": "face-soft-smile",
+      "expression": "smile",
+      "build": "regular",
+      "face": "soft",
+      "candidate": "art/source/character-kit/face-soft-smile-candidate-1.png",
+      "lockedSha256": "ddfc14f576393bf6f68d3b8615b915928eae204a7de5d7be871c5805f59e9035",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "ddfc14f576393bf6f68d3b8615b915928eae204a7de5d7be871c5805f59e9035",
+        "notes": "Reviewed all 36 frames in two palettes on the bare mannequin and clothed composition, enlarged four-facing head crops and actual Marta portrait. Matching soft identity; relaxed brows and closed smile. Declared brown pigment recovery removes cyan underpaint; rear heads have no facial paint. Candidate 1 accepted. No validation thresholds were relaxed.",
+        "proofs": [
+          {
+            "image": "art/proofs/expressions/soft-smile.png",
+            "imageSha256": "47d8486320afcd153f78f50f93f0bc22f49f878618a420834d289a6f55b14f7c",
+            "report": "art/proofs/expressions/soft-smile.json",
+            "reportSha256": "bba404576d0104f5f1e00346e52413f581032c7066261b85c477fc830ef6118d",
+            "walk": "art/proofs/expressions/soft-smile.gif",
+            "walkSha256": "6255b465cd749eb8cf06d65947beb0eba17fab2a6cb8be0ef40f4020107841d8"
+          },
+          {
+            "image": "art/proofs/expressions/soft-smile-bare.png",
+            "imageSha256": "a2cf0e387b6825006bb1dc476fad70e3984a9bf1e0c8880b0ead4a27227f1214",
+            "report": "art/proofs/expressions/soft-smile-bare.json",
+            "reportSha256": "49359807f3d59ec4ae62f03334ce0a2479d454d46ccc7fa3b2897e443cdaff73",
+            "walk": "art/proofs/expressions/soft-smile-bare.gif",
+            "walkSha256": "a87db25ce9320d67b0e05e967e73ac11d0dc6dca87e1aceaacd2e558133bff53"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-soft-worried",
+      "expression": "worried",
+      "build": "regular",
+      "face": "soft",
+      "candidate": "art/source/character-kit/face-soft-worried-candidate-2.png",
+      "lockedSha256": "9048ec061a8e37622ed19dc1fd49c740e5719d17689429a35658c10f8522c965",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "9048ec061a8e37622ed19dc1fd49c740e5719d17689429a35658c10f8522c965",
+        "notes": "Reviewed all 36 frames in two palettes on the bare mannequin and clothed composition, enlarged four-facing head crops and actual Marta portrait. Matching soft identity; raised inner brows and downturned mouth. Declared brown pigment recovery removes cyan underpaint; rear heads have no facial paint. Candidate 2 accepted. No validation thresholds were relaxed.",
+        "proofs": [
+          {
+            "image": "art/proofs/expressions/soft-worried.png",
+            "imageSha256": "fe7e91326c5c768491c5e27ed4dee183e995ca5bb8f8752f3960e10c74f9ff6f",
+            "report": "art/proofs/expressions/soft-worried.json",
+            "reportSha256": "8928185fe62e14acc0149a45fe17ef411681dd21830943e7168585222b0dc51e",
+            "walk": "art/proofs/expressions/soft-worried.gif",
+            "walkSha256": "8f5df7a5ee20561298d0aca6841a5d15bf990308321c780598c6c51d8f012664"
+          },
+          {
+            "image": "art/proofs/expressions/soft-worried-bare.png",
+            "imageSha256": "c75fa3c9d0c740feb2bd2d9f57ef4157626c455a5e6e4a1c573e1d1ed578e12a",
+            "report": "art/proofs/expressions/soft-worried-bare.json",
+            "reportSha256": "90db81b23a50bf64f5f3733c1604f68f1994ec4f5abecd81532c03b7c4c7a770",
+            "walk": "art/proofs/expressions/soft-worried-bare.gif",
+            "walkSha256": "7490bf8b69b6d253a41053e079dfb3025680df957cdbe66c53b2e5e4b0b42441"
+          }
+        ]
+      }
+    }
+  ],
+  "cast": {
+    "walkingActors": 192,
+    "actionActors": 4,
+    "approvedProofHashesUnchanged": true,
+    "publicationValidated": true
+  },
+  "browser": {
+    "page": "web/qa/character-portraits.html",
+    "consoleErrors": 0,
+    "screenshot": "art/proofs/expressions/dialogue-browser.png",
+    "screenshotSha256": "0dfc6baeb229f9671d50cb1ffbffcf602ede129478997bc6d5ee01ffa5dcd420",
+    "verified": [
+      "All three Marta portraits load at 128×128",
+      "Authored smile and worried cues select matching preview pixels",
+      "Uncued next line resets to the neutral face",
+      "Otto lacks matching expression art and all three previews retain exactly his neutral pixels"
+    ],
+    "scope": "Actual production portrait renderer and authored dialogue data exercised through isolated QA page; QuestController cue forwarding covered by unit test."
+  },
+  "tests": {
+    "web": 794,
+    "pipelineAndReference": 44,
+    "publishedAssets": 16,
+    "cast": 4,
+    "typescript": "passed",
+    "goAvatar": "passed",
+    "productionBuild": "passed",
+    "diffWhitespace": "passed",
+    "webCommand": "npm test --workspace web -- --maxWorkers=2 --testTimeout=15000"
+  },
+  "limitations": [
+    "Expression artwork currently covers regular/soft only; other identities retain neutral or painted portraits.",
+    "Build and action wardrobes are the reduced matching sets documented in the plan."
+  ],
+  "remainingRequiredWork": []
+}

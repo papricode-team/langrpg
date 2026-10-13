@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "7224e72905a3180f80d9adee4b0fd6297598c26e31b368eed28c125fa68b4c09",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "e61784fcd973d3013efc0c2d8ed4274371c8dbdb63eef47a3b27764f31a36080",
+  "generationPromptSha256": "684cf5068cd33cad122af386a7bd9e90672b23bd494a5092a94843a190215a88",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/hair-buzz-candidate-1.png",
+  "lockedSha256": "abc688d381507cd9f5bbc8ada1dc3f558cd093d792f8da6096d1272b53487f9c"
+}

@@ -1,0 +1,310 @@
+{
+  "date": "2026-10-13",
+  "resolved": true,
+  "previous": "art/proofs/builds/hair-headroom-review.json",
+  "note": "New hair candidates use the shared padded build grid. All 36 frames pass the one-pixel cell clearance gate, connectivity and attachment checks.",
+  "builds": [
+    {
+      "build": "slim",
+      "component": "hair-waves-slim",
+      "frames": [
+        {
+          "index": 0,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 1,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 2,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 3,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 4,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 5,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 6,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 7,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 8,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 9,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 10,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 11,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 12,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 13,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 14,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 15,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 16,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 17,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 18,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 19,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 20,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 21,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 22,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 23,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 24,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 25,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 26,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 27,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 28,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 29,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 30,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 31,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 32,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 33,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 34,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 35,
+          "cellEdgePaint": 0
+        }
+      ],
+      "valid": true
+    },
+    {
+      "build": "broad",
+      "component": "hair-waves-broad",
+      "frames": [
+        {
+          "index": 0,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 1,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 2,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 3,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 4,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 5,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 6,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 7,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 8,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 9,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 10,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 11,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 12,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 13,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 14,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 15,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 16,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 17,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 18,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 19,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 20,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 21,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 22,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 23,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 24,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 25,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 26,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 27,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 28,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 29,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 30,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 31,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 32,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 33,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 34,
+          "cellEdgePaint": 0
+        },
+        {
+          "index": 35,
+          "cellEdgePaint": 0
+        }
+      ],
+      "valid": true
+    }
+  ]
+}

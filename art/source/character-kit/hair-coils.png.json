@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "c405f9e2a69ffb0bd1c280a685f55ba0e34686c1efee8b30ab91edc7d15a8c78",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "8183639e97f3a68cec1514c96a6851ec842e49f7f45fd5a96660e09327709fea",
+  "generationPromptSha256": "23e260dd306197f0a006865dedbe655b861219552d1631af863f8b04e8f33ec0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 15
+  },
+  "candidate": "art/source/character-kit/hair-coils-candidate-1.png",
+  "lockedSha256": "4c9e7438647c4027414936f6d219edc817e92e8201610db06a346e17b024d545"
+}

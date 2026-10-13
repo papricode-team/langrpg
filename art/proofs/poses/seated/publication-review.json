@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-13",
+  "poseSet": "seated",
+  "assetVersion": "c37ff80d15a9c2cc",
+  "walkingComponents": 100,
+  "actionComponents": 14,
+  "poseComponents": 7,
+  "checks": [
+    {
+      "id": "body-regular-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "bottom-straight-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "face-soft-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "footwear-boots-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "hair-waves-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "outer-travel-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "top-shirt-seated",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    }
+  ],
+  "reviewedAll36Frames": true,
+  "reviewedTwoPalettes": true,
+  "reviewedContrastingOutfits": true,
+  "browserOfflinePixelParity": true,
+  "tests": {
+    "web": 781,
+    "pipeline": 59,
+    "cast": 3,
+    "publishedAssetTests": 15,
+    "goAvatar": "passed",
+    "typescript": "passed",
+    "productionBuild": "passed"
+  },
+  "cast": {
+    "approved": 192,
+    "proofHashesUnchanged": true,
+    "assetVersion": "c37ff80d15a9c2cc"
+  },
+  "browser": {
+    "consoleErrors": 0,
+    "screenshot": "art/proofs/poses/seated/builder-seated-browser.png",
+    "screenshotSha256": "f88400fe985cb00a49e552dade358e26fef9bc6bfb372b97ad0cde2464ea551f",
+    "seatedAndFourFacingsVerified": true
+  },
+  "remaining": [
+    "lantern-raise art",
+    "world action playback",
+    "dialogue expression variants"
+  ]
+}

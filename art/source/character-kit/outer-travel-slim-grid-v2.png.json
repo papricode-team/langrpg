@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "candidateSha256": "d13546cf1f26afaa5d679ee539f45fe4e63ce62ed7826b0644f625d3f277f640",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "a24da41afad0ad2ff4eae8b9ba20205f8ce94c7a0583bf039f4b747bc07f4e56",
+  "promptSha256": "a4cf1b8b749ddaed3a7773f777b18b30caff09bfb9c00fd0511fa484a212e871",
+  "generationPromptSha256": "f4e5e624cf92375b2b6caacfe721c56b2e74623d6b069f808b7fe8821042a88b",
+  "materials": [
+    "primary",
+    "secondary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 16,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 4,
+    "regionReason": "In profile, the torso and foreground arm separate the open jacket into a main panel, far lapel, far hem and a small visible tail. Each region remains attached to the mannequin."
+  },
+  "preparationSha256": "8a2fb70e0e466fdba72daff2778ed54ef7f9e5cf9e65753053cc1151707bc2f0",
+  "candidate": "art/source/character-kit/prepared/outer-travel-slim-grid-v2.png",
+  "lockedSha256": "23b947c665e2d380b016dd0118426e455e91da13ed83ad1e4e645d9423d2d882"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/bottom-straight-slim-candidate-1.png",
+      "sha256": "7b01f7babfa92da16593a3263b6bf0d38a36baf3b784185b071cd38974dac9e6"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/bottom-straight-slim-grid-v2.png",
+  "outputSha256": "06f24c0291d5fa691235c1860b46726b09ec37c63caf0efcca902f934434045f"
+}

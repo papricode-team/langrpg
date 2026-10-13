@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "0dda810c564f6eb6600f5847e70faee7fbff11b651506db02495327c24c828f6",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "b4e42358f17eeede716d8329511816d4b9363b7eaf26f7586162f383ab0bfe5f",
+  "generationPromptSha256": "1cf8728f3e4ce9efc47a152e495017817477b745e81926daf90c825796e04996",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/headwear-beret-candidate-1.png",
+  "lockedSha256": "0f1d71b93f2e8d005daec65311d1f9dc03d8152634ff8b7aab4014daa662a6de"
+}

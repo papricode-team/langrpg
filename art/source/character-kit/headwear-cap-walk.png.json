@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "5e4c4f681a2c01cb2ef4b7d6b360ffb39c46b08ad52a48c8c8e8fbc092cbcc3c",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "9d2bea7f26c530c39be85c67593f3b150549a16b2713179797d36026d8cc6698",
+  "generationPromptSha256": "9abfdb054377d2daf69c398c8c42dd266a22e8833586ab27774e1bfcb607ef5f",
+  "materials": [
+    "primary",
+    "secondary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "anchorMaterial": "primary",
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ]
+  },
+  "preparationSha256": "edba5ba41082c98e4199a76b454010f9b60dc8cc4a0c65560637e176599d2092",
+  "candidate": "art/source/character-kit/prepared/headwear-cap-walk.png",
+  "lockedSha256": "43044ddb9d75116fa989b1ae0e3c11cdb86d4b877d0a3abeca84fa55577aa9c4"
+}

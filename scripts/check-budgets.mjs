@@ -16,7 +16,13 @@ const artSizes=await Promise.all(art.map(async path=>({path,size:(await stat(pat
 for(const asset of artSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);
 const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
 const expansionPrefix=resolve(root,'assets/world-expansions')+'/';
-const baseArt=artSizes.filter(item=>!item.path.startsWith(expansionPrefix));
+// Character sheets are loaded per recipe or destination. Reserve a separate
+// 64 MiB package for native portraits, component atlases and staged HD proofs.
+const characterPrefixes=['character-kit','character-kit-hd','character-cast','character-portraits','player-portraits'].map(name=>resolve(root,'assets',name)+'/');
+const characterArt=artSizes.filter(item=>characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
+const characterArtTotal=characterArt.reduce((sum,item)=>sum+item.size,0);
+if(characterArtTotal>64*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
+const baseArt=artSizes.filter(item=>!item.path.startsWith(expansionPrefix)&&!characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const expansionArt=artSizes.filter(item=>item.path.startsWith(expansionPrefix));
 const baseArtTotal=baseArt.reduce((sum,item)=>sum+item.size,0);
 // Three story towns each reserve 16 MiB for eight detailed ground pieces.
@@ -61,4 +67,4 @@ for (const line of jobs) {
   const clip = await stat(resolve(root, 'audio/dialogue', `${line.clipId}.mp3`));
   if (!clip.size) throw new Error(`Empty dialogue clip: ${line.clipId}`);
 }
-console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${((artTotal-baseArtTotal)/1024/1024).toFixed(2)} expansion, ${chunkCount} chunks); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);
+console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters + ${((artTotal-baseArtTotal-characterArtTotal)/1024/1024).toFixed(2)} expansion, ${chunkCount} chunks); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);

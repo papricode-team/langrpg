@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "876adbb4571ad3186baa521fca19e56de6d1855741ea3f044937f8655079d213",
+  "baseSha256": "efb553982c5645369a808da46327fb767e428cd6b6a690ee406271d27d90c5ab",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "e59431a8de62b1a56bd278921f7085ed320a6e8c474ff758482e2cfab1c121af",
+  "promptSha256": "6b99f208cdedc4473ce14f3046bc6493e18737a76c2964b72ffdc33b8b91c201",
+  "generationPromptSha256": "aa565b65cc47eafd477de938442dea5c10edaf34572d721669f2dc47e7e8bcc5",
+  "materials": [
+    "skin"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 4
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "78e5e6625d621ff117efe40faf407f17a8687c487845437d08b053b92fdbf292",
+  "candidate": "art/source/character-kit/poses/wave/regular/master.png",
+  "lockedSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c"
+}

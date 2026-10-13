@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "bcec6ef0d1e9bd17e444e171f492b15a49a61509ce7877228e226cdb51884527",
+  "baseSha256": "f7a4005452b3dedf7ca386d1fbb13ad9cbf6261bf15b55c391f7cbe1d84b3f59",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "e89c823bc8f04c05348e2d8bfa598f24a30414650bb6e83b6af1320ef042dee9",
+  "promptSha256": "6a01499d554ccd05c01e31d8b90636d0b247dd6648796442764fbb7de9da20d0",
+  "generationPromptSha256": "1614d0ef508d28e9d06328992492464ba64a6cabb08aff4849bbc0c8961ed38b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "43fd325b6b639008e0e24fc9c1601e7283637f800ec40641fe0d0b33b8746d7b",
+  "candidate": "art/source/character-kit/prepared/hair-waves-broad.png",
+  "lockedSha256": "8e5a9a0bf2c4d6e23cd0bd9dd311d8d9370de659b517d836670ff56f0750ec4f"
+}

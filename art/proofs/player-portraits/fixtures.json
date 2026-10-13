@@ -1,0 +1,3156 @@
+[
+  {
+    "id": "bag-backpack",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": "backpack",
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "bag-satchel",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": "satchel",
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "bag-tote",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": "tote",
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "body-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "body-regular",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "body-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "eyewear-cat-eye",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": "cat-eye",
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "eyewear-round",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": "round",
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "eyewear-square",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": "square",
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "eyewear-sunglasses",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": "sunglasses",
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-almond",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "almond",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-angular",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "angular",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-mature",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "mature",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-oval",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-round",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "round",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-soft",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-soft-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "face-soft-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "facial-hair-full-beard",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": "full-beard",
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "facial-hair-goatee",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": "goatee",
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "facial-hair-moustache",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": "moustache",
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "facial-hair-short-beard",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": "short-beard",
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-afro",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "afro",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-bob",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "bob",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-braids",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "braids",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-bun",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "bun",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-buzz",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "buzz",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-coils",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "coils",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-crop",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "crop",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-curls",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "curls",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-locs",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "locs",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-mohawk",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "mohawk",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-pixie",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "pixie",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-ponytail",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "ponytail",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-straight",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "straight",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-waves",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-waves-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "hair-waves-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-beanie",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "beanie",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-beret",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "beret",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-brimmed",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "brimmed",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-bucket",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "bucket",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-cap",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "cap",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-headband",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "headband",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-sunhat",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "sunhat",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "headwear-turban",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": "turban",
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "markings-beauty-mark",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": "beauty-mark",
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "markings-blush",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": "blush",
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "markings-freckles",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": "freckles",
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "neck-cowl",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": "cowl",
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "neck-kerchief",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": "kerchief",
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "neck-scarf",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": "scarf",
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-apron",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "apron",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-blazer",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "blazer",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-cardigan",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "cardigan",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-cloak",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "cloak",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-raincoat",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "raincoat",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-travel",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-travel-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-travel-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-trench",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "trench",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "outer-waistcoat",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": "waistcoat",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-blouse",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "blouse",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-dress-day",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "dress-day",
+        "outer": null,
+        "bottom": null,
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-dress-long",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "dress-long",
+        "outer": null,
+        "bottom": null,
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-dress-pinafore",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "dress-pinafore",
+        "outer": null,
+        "bottom": null,
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-dress-wrap",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "dress-wrap",
+        "outer": null,
+        "bottom": null,
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-henley",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "henley",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-shirt",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-shirt-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-shirt-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "shirt",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-sleeveless",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "sleeveless",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-sweater",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "sweater",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-tee",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "tee",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-tee-broad",
+    "recipe": {
+      "v": 2,
+      "build": "broad",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "tee",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-tee-slim",
+    "recipe": {
+      "v": 2,
+      "build": "slim",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "tee",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-tunic",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "tunic",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "top-turtleneck",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "oval",
+        "markings": null,
+        "facial-hair": null,
+        "hair": null,
+        "headwear": null,
+        "top": "turtleneck",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "smile",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "smile"
+  },
+  {
+    "id": "worried",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#d8a077",
+      "hair": "#48372e",
+      "parts": {
+        "face": "soft",
+        "markings": null,
+        "facial-hair": null,
+        "hair": "waves",
+        "headwear": null,
+        "top": "shirt",
+        "outer": "travel",
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "worried"
+  },
+  {
+    "id": "skin-palette-0",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#6b3c29",
+      "hair": "#221812",
+      "parts": {
+        "face": "round",
+        "markings": "freckles",
+        "facial-hair": null,
+        "hair": "curls",
+        "headwear": null,
+        "top": "blouse",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "skin-palette-1",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#f4cfaf",
+      "hair": "#cfb06a",
+      "parts": {
+        "face": "round",
+        "markings": "freckles",
+        "facial-hair": null,
+        "hair": "curls",
+        "headwear": null,
+        "top": "blouse",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  },
+  {
+    "id": "skin-palette-2",
+    "recipe": {
+      "v": 2,
+      "build": "regular",
+      "skin": "#b37752",
+      "hair": "#cfb06a",
+      "parts": {
+        "face": "round",
+        "markings": "freckles",
+        "facial-hair": null,
+        "hair": "curls",
+        "headwear": null,
+        "top": "blouse",
+        "outer": null,
+        "bottom": "straight",
+        "footwear": "boots",
+        "eyewear": null,
+        "neck": null,
+        "bag": null,
+        "held": null
+      },
+      "colors": {
+        "bag.primary": "#694731",
+        "bottom.primary": "#44464d",
+        "eyewear.primary": "#48372e",
+        "footwear.primary": "#48372e",
+        "headwear.primary": "#354d70",
+        "headwear.secondary": "#c99167",
+        "neck.primary": "#854a5b",
+        "outer.primary": "#326a65",
+        "outer.secondary": "#2a4436",
+        "top.primary": "#d4c7aa",
+        "top.secondary": "#a88e67"
+      }
+    },
+    "expression": "neutral"
+  }
+]

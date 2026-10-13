@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "c007fb30bf947a9138126d4d7c9713da6e8b032ab3ac51b5f5e65eb7f8ef87eb",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "119e292209f370e5b50c54e41a88dc4fae0d72443855a9e835d0f03f6efd6a3f",
+  "generationPromptSha256": "140b40592cb2e83b1621d207594d5ea69a7864ebaf506b5bc45c3214a190ab1e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/hair-crop-candidate-1.png",
+  "lockedSha256": "1d62dfe3c3028d8319e9ce3261adc86c3413a253089a8d6659d5db620b9d3834"
+}

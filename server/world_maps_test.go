@@ -319,7 +319,7 @@ func TestProfileUpdatePreservesCurrentMapAndPosition(t *testing.T) {
 	if err := json.Unmarshal(response.Body.Bytes(), &updated); err != nil {
 		t.Fatal(err)
 	}
-	if updated.Player.ID != player.ID || updated.Player.MapID != "nebelstadt" || updated.Player.X != spawn.X || updated.Player.Y != spawn.Y || updated.Player.Avatar != avatar {
+	if updated.Player.ID != player.ID || updated.Player.MapID != "nebelstadt" || updated.Player.X != spawn.X || updated.Player.Y != spawn.Y || !sameAvatar(updated.Player.Avatar, normalizeAvatar(avatar)) {
 		t.Fatalf("profile update changed map position %+v", updated.Player)
 	}
 }

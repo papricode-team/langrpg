@@ -1,0 +1,33 @@
+{
+  "registration": "art/source/character-kit/builds/broad/walk.registration.json",
+  "layers": [
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/body-broad.skin.editor.webp",
+      "sha256": "d777ce51c9568f8d6c3625c0bb53ef27f1fcfd51fb15f01c3bcd330557837e9d",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/bottom-straight-broad.primary.editor.webp",
+      "sha256": "70b24fef562af551ca25c3db842ff12ba654488014759217dfe0f4a4f439ff1d",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/bottom-straight-broad.detail.editor.webp",
+      "sha256": "8dbf619d83f43ceb92b54906ce8eab9044ecbdadccc5768be167b0f5139c7736"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.primary.editor.webp",
+      "sha256": "3d45bc0601d469bfea4486ba26955af08e41911271915661375ddd6b3bd530f8",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.skin.editor.webp",
+      "sha256": "da6647e23d1ce81b82a4cc90e87ed38a636c3d18f43ec835db340ec80c4acce9",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.detail.editor.webp",
+      "sha256": "17fd64cc693bd1600e712e5b83d301c809dd74a2f4305eb4f2c072715065901c"
+    }
+  ]
+}

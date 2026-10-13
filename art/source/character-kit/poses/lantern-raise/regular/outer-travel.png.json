@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "2925863f9af7596b026128fad5c80d61d2e97cc7539b1e79dcd9a13e8fa32e34",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "e4cb5cb37d3e40cd735f8429902855269ef5b00b4e363d029ade31f5f6d53d46",
+  "promptSha256": "8c32f94fa7ecc782441cc2f09ee3288c7c458595724bd4998e0aaace96011bd9",
+  "generationPromptSha256": "0979403cd920ab3b781d70626206938fddfd3b9fc94899ca53746be69d02d7b8",
+  "materials": [
+    "primary",
+    "secondary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3,
+      "left": 2
+    },
+    "regionReason": "Open front panels are separate. When the right forearm points toward the viewer, cyan skin occludes the sleeve and leaves a visible rolled cuff as a third attached region. In left profile the resting arm can occlude the small far hem. Every region must still touch the mannequin."
+  },
+  "candidate": "art/source/character-kit/outer-travel-lantern-raise-candidate-1.png",
+  "lockedSha256": "026da9bbee22c472a9b2016910bc6eb5c9dbc4b31ae98ef94f764e890658c24a"
+}

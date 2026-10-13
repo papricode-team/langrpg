@@ -177,7 +177,7 @@ export class World {
   setObjective(npcId: string | undefined): void { this.set('objective', npcId); }
   setInputEnabled(enabled: boolean): void { this.set('inputEnabled', enabled); }
   setAudioPreferences(preferences: { silent: boolean; muted: boolean }): void { this.audio.setPreferences(preferences); }
-  setNarrationActive(active: boolean): void { this.audio.setNarration(active); }
+  setNarrationActive(active: boolean): void { if (this.alive) this.audio.setNarration(active); }
   setSharedClock(state: Parameters<WorldClock['setSharedTime']>[0]): void { this.clock.setSharedTime(state); }
   setLearningContext(lexicon: readonly RoutineLexeme[], progress: Pick<Progress, 'words'>, introduced?: ReadonlySet<string>, lineAllowed?: (german: string) => boolean): void {
     this.set('learning', { lexicon, progress, introduced, lineAllowed });

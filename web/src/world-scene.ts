@@ -2,11 +2,13 @@ import * as Phaser from 'phaser';
 import { worldDaySeconds, worldStartHour, type WorldSimulationTime } from './shared-world-time';
 import { ResidentActivityWorld, type ActivityResidentSample } from './resident-activities';
 import { worldRain, type WorldWeatherMode } from './world-weather';
-import { residentActionKey, residentActionPose, residentSeatedOffset, RESIDENT_ACTION_ART } from './resident-action-art';
+import { residentActionKey, residentActionPose, residentComponentPose, residentSeatedOffset, RESIDENT_ACTION_ART } from './resident-action-art';
 import { npcs } from './content';
 import { createMapNavigation, type MapPoint, type NavigationGrid } from './navigation';
 import { getMap, maps, type MapId, type WorldMapSpec, type WorldObjectSpec } from './maps';
-import { MODULAR_ART } from './avatar-options';
+import { castActor } from './character-cast';
+import { poseColumn } from './character-pose';
+import { characterFrame, MODULAR_ART } from './avatar-options';
 import { createWorldResidents, sampleResidentMotion, sampleResidentSchedule } from './world-life';
 import { residentFacingLeft, residentWalkDistance } from './resident-animation';
 import { WorldScenery } from './world-scenery';
@@ -423,6 +425,8 @@ export class WorldScene extends ExploreScene {
   private applyAmbient(): void {
     const tint = timeAmbient(this.mapSpec.id, this.clock.advance(0).hour, this.period).people;
     for (const character of this.characters.values()) this.setCharacterAmbient(character, tint);
+    if (this.local) this.setCharacterAmbient(this.local, tint);
+    for (const peer of this.peers.values()) this.setCharacterAmbient(peer, tint);
     for (const { character } of this.residents) this.setCharacterAmbient(character, tint);
     for (const { character } of this.activityResidents) this.setCharacterAmbient(character, tint);
   }
@@ -585,21 +589,37 @@ export class WorldScene extends ExploreScene {
     if (!this.activityWorld) return;
     const samples = this.activityWorld.sample(this.activityTime(), this.weatherMode()), view = this.cameras.main.worldView;
     const bySpeaker = new Map(samples.map(sample => [sample.residentId, sample]));
-    const people = timeAmbient(this.mapSpec.id, this.clock.gameplayHour(), this.period).people;
     for (const resident of this.activityResidents) {
       const sample = bySpeaker.get(resident.character.id)!; resident.sample = sample;
       const character = resident.character, dx = sample.x - character.x, dy = sample.y - character.y;
       character.x = sample.x; character.y = sample.y;
       if (sample.facingLeft !== undefined && !sample.moving) character.facing = sample.facingLeft ? 3 : 1;
-      this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed, Infinity,
-        { moving: sample.moving, distance: sample.walkDistance, velocityX: sample.velocityX, velocityY: sample.velocityY, facingLeft: sample.facingLeft });
-      const pose = resident.actionFigure ? residentActionPose(sample, this.reducedMotion) : undefined;
-      for (const layer of character.layers) layer.setVisible(!pose);
+      const actor=character.componentCast?castActor(character.id):undefined,poseSet=residentComponentPose(sample);
+      const candidate=poseSet?actor?.poses?.[poseSet]:undefined;
+      const componentPose=candidate&&this.textures.exists(candidate.key)?candidate:undefined;
+      if(componentPose){
+        this.fitCharacterToRoom(character);
+        character.root.setPosition(character.x,character.y).setDepth(worldDepth(character.y, 'character'));
+        const frame=character.facing*9+(this.reducedMotion?3:poseColumn(sample.phaseSeconds*1000,componentPose.frameDurations));
+        if(character.componentPoseSet!==poseSet)character.figure!.setTexture(componentPose.key,frame);
+        character.componentPoseSet=poseSet;
+        character.figure!.setFrame(frame).setFlipX(false).setTint(timeAmbient(this.mapSpec.id,this.clock.gameplayHour(),this.period).people);
+      }else{
+        if(character.componentPoseSet){
+          character.figure!.setTexture(actor!.key,characterFrame(character.facing)).setPosition(0,0).setFlipX(false);
+          character.componentPoseSet=undefined;character.frame=-1;
+        }
+        this.animateCharacter(character,this.reducedMotion?0:dx,this.reducedMotion?0:dy,this.elapsed,Infinity,
+          {moving:sample.moving,distance:sample.walkDistance,velocityX:sample.velocityX,velocityY:sample.velocityY,facingLeft:sample.facingLeft});
+      }
+      const pose=!componentPose&&resident.actionFigure?residentActionPose(sample,this.reducedMotion):undefined;
+      for(const layer of character.layers)layer.setVisible(!pose);
       resident.actionFigure?.setVisible(!!pose);
-      const seatedOffset = pose ? residentSeatedOffset(sample, this.reducedMotion) : 0;
-      if (pose) resident.actionFigure!.setFrame(pose.frame).setPosition(0, seatedOffset).setFlipX(sample.facingLeft ?? character.facing === 3).setTint(people);
-      character.shadow.setPosition(0, 2 + seatedOffset);
-      character.name.setY((pose && sample.seatedOffsetY !== undefined ? -62 : -79) + seatedOffset);
+      const seatedOffset=pose||componentPose&&poseSet==='seated'?residentSeatedOffset(sample,this.reducedMotion):0;
+      if(componentPose)character.figure!.setPosition(0,seatedOffset);
+      if(pose)resident.actionFigure!.setFrame(pose.frame).setPosition(0,seatedOffset).setFlipX(sample.facingLeft??character.facing===3).setTint(timeAmbient(this.mapSpec.id,this.clock.gameplayHour(),this.period).people);
+      character.shadow.setPosition(0,2+seatedOffset);
+      character.name.setY(((pose||componentPose&&poseSet==='seated')&&sample.seatedOffsetY!==undefined?-62:-79)+seatedOffset);
       const visible = !this.terrainOnly && sample.phase !== 'home' && sample.x >= view.x - 90 && sample.x <= view.right + 90 && sample.y >= view.y - 100 && sample.y <= view.bottom + 100;
       character.root.setVisible(visible);
       character.name.setScale(this.labelScale).setVisible(!sample.exchange && sample.phase === 'act' && (character.id === this.observedResidentId || this.controlsEnabled && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100));

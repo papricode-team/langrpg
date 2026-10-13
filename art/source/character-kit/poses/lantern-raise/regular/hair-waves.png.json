@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "3f3e64ec35cf6a43762a3947760929de2b6efcf283f786ac2a7ac652b6e8a2fc",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "b8912fd064680bcaf272cf3966b02fdfaf458cc23bb80fad3d31a9395a39c96b",
+  "promptSha256": "7bd3fdc6ead6e2329cbe7cdf9c42be5418e4c5b85356f160bb7570ec6325a3ea",
+  "generationPromptSha256": "514c004b6dd5f84fcdb9f21105e0cfd24882eece2c113784388dd24a522909d0",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "candidate": "art/source/character-kit/hair-waves-lantern-raise-candidate-1.png",
+  "lockedSha256": "1d74ecf8e4acd0cadb4906410ab5a5c4ce197e2323cab14b8d8074b9adf62401"
+}

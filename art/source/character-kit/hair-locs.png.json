@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "e4d2ff8573c2aa89823483508f9cacf951b6ea23148bf2bd397e0b865a7e1831",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "e89c823bc8f04c05348e2d8bfa598f24a30414650bb6e83b6af1320ef042dee9",
+  "promptSha256": "b67bd5177a89104801b2994b87006c267948090e7a6868302e71309691fe5d37",
+  "generationPromptSha256": "266f3e66c5b176e9e1a6ef5d6072fe998cc7082112595f68110e0c76711e3c36",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/hair-locs-candidate-2.png",
+  "lockedSha256": "9ea4cfd5b141078287532bc1c519a46af34097b276b880c7055bf1ef20a7cb1b"
+}

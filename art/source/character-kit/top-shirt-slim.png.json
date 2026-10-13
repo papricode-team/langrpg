@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "8d263cdccdf5c25903523153ca4b34eea995b2183b4de7cee1d430d359fd22db",
+  "baseSha256": "2df046f2e40b9b1f8edc3ae79d94a4779e23186cd7941dffcbe7d73bd02dfbf4",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "b64521c63e2c5b0d55253bdfa6be55aad416d68fe3a2180ed45484d9c32a1b26",
+  "promptSha256": "3657a26880f78b29e187aa905f5f26abf00e0e57e7519a3df42555ae71458306",
+  "generationPromptSha256": "75658539a8903874effe0c515df887d2e20f7d4985e0d6aa525527fd581da40e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "candidate": "art/source/character-kit/top-shirt-slim-candidate-2.png",
+  "lockedSha256": "eb7e9ff788a8929e568d5eb6b058085249fa6570824da8aeb24152906a513475"
+}

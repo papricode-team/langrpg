@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "candidateSha256": "9865953b80c6e4739515f9193335b6a93ff020a07265dd1f5bd625e16b0ecaef",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "9619f0741bb82b015f1893c64d0958a63dd13ea1e1b30ffe0f1a6448f4f7a0d5",
+  "promptSha256": "eccc3765c019e4de03e5e0fba13ca9dd973213a64b85f1348d9dbd0208c401a8",
+  "generationPromptSha256": "f2f6de4e5d1288090315c95426cf2fd719b6635505910bf969e6d41eab54894d",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 16,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ]
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+  },
+  "preparationSha256": "d77c68c858647c99c29f2b87cbcc892c9b538c31d139b3910e4e97828655c848",
+  "candidate": "art/source/character-kit/prepared/footwear-boots-slim-grid-v2.png",
+  "lockedSha256": "4b04cfb5a9875fdb399a83916431e353547f4cad0d8d5f83b3d62dd2407fff2f"
+}

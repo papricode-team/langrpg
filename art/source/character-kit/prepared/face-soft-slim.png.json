@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/face-soft-slim-candidate-2.png",
+      "sha256": "fc0ac395433a94c947655e117bf7f456b3c3925a33a141541dc85046e3dbcda2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/outfit-reference.registration.json",
+      "sha256": "7ebbab93eb19dac04938f4424c1c3e45994bab6a53363de4290039089c704d1d"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/face-soft-slim.png",
+  "outputSha256": "00394a68184247185c491014184bc3b638090b74fd3136c32e821468a7c3cc74"
+}

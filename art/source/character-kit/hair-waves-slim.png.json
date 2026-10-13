@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "b788fd7ea5cbde52745ff44902a0e861d43e0cd97e8852d27deb84cbe847cd39",
+  "baseSha256": "2df046f2e40b9b1f8edc3ae79d94a4779e23186cd7941dffcbe7d73bd02dfbf4",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "e89c823bc8f04c05348e2d8bfa598f24a30414650bb6e83b6af1320ef042dee9",
+  "promptSha256": "6a01499d554ccd05c01e31d8b90636d0b247dd6648796442764fbb7de9da20d0",
+  "generationPromptSha256": "f6f7890d478c365e54c23b6b8ca603ea2b11d9bb85be537b4f6a2afc52e49cc2",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "d5d775ced72f17bdfd08420f4f8dbf7de07e2bfbdf1e641e7068aa8b54b93c9a",
+  "candidate": "art/source/character-kit/prepared/hair-waves-slim.png",
+  "lockedSha256": "7310df09c72fda068a6f08fbd01c8c7b6e135f93e776654534cd2e3e39a3bd8e"
+}

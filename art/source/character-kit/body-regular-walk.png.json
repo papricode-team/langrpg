@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "candidateSha256": "c7de8d68263f27eee2d5776506c92d4bde9de1a18e688ddd321a633b4ef3b5f0",
+  "baseSha256": "8f1d28e3395f71f467a86940e493db3d0485812a810c4f2228ae74eee95f7b65",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "3511bf44a64cbcad80fc52344e9090f94950a5da297f6f79071b4e70d75d8eb6",
+  "promptSha256": "52592dd48f8ef1a600c2e8ec0ab230247e353f0873c92b48e50f2986d1eebc7e",
+  "generationPromptSha256": "a0e5f670483ae1eb08e58a2f63ebd64e03ca82a96e9fc8d230d8a0b80fdf70f1",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 4
+  },
+  "candidate": "art/source/character-kit/body-regular-candidate-4.png",
+  "lockedSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf"
+}

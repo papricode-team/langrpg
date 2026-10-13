@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/outer-travel-slim-candidate-3.png",
+      "sha256": "ac101dffb26cd1ea3771e784994a2ac9b9e774a0d575011794f9eb978e33f9d0"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/outfit-reference.registration.json",
+      "sha256": "127c8c412631079e80b0690a6a2a1dab284b856cbd794ad5bd9e0dcbb98073c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/outer-travel-slim-grid-v2.png",
+  "outputSha256": "d13546cf1f26afaa5d679ee539f45fe4e63ce62ed7826b0644f625d3f277f640"
+}

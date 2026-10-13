@@ -14,6 +14,9 @@ playwright-report/
 test-results/
 output/
 
+# Reproducible character edit boards; masks are authored in masks.json.
+art/source/character-kit/kits/
+
 .runtime/
 art/source/terrain-hd/*-reference.png
 art/source/terrain-detail/*-reference.png

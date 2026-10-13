@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/body-regular-wave-candidate-1.png",
+      "sha256": "d57f5aad37ecaaeef2f65dd0d2c621ea28c8d0aa2eb468d174acb932f67be735"
+    },
+    {
+      "path": "art/source/character-kit/poses/wave/regular/candidate-1.registration.json",
+      "sha256": "4a0c85a0198cfc4e0912a3f18e0c793f7a188fce18ca293cfbf94ca6ca7af620"
+    },
+    {
+      "path": "art/source/character-kit/poses/wave/regular/template.registration.json",
+      "sha256": "726ae4408b2d7bf0225efafb9f2455a35b3a7a83a9629a3f6a74641f10ac4c1b"
+    }
+  ],
+  "output": "art/source/character-kit/poses/wave/regular/master.png",
+  "outputSha256": "876adbb4571ad3186baa521fca19e56de6d1855741ea3f044937f8655079d213"
+}

@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "0652cb27a602b60b39fb3e412577e8601ea9c25ccc5c644ef1d4fa425583ae7e",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "0a5a20a08e4cfe574b63d49683e6de9fa4d04398b2d69b3dd466e02aef8a5959",
+  "promptSha256": "9e57613d71c5b57504bcc32c06db2ac71fce09d09c7c5c267138b35e2147f980",
+  "generationPromptSha256": "86edf26bcac711e076f43cf2cb9ce9b5e24b2453bbbee7c909986ca233f14ddf",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/neck-cowl-candidate-1.png",
+  "lockedSha256": "5c8baa44ca4357a58bc11461ffb8df3d3e708a892de4d29f347163dad16ab04e"
+}

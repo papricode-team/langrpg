@@ -1,0 +1,601 @@
+{
+  "spec": "art/source/character-kit/builds/slim/outfit-reference.json",
+  "specSha256": "c9829ea43f4b306edb342836ef881d883efab4aa6e233e432115a736669a8492",
+  "registration": "art/source/character-kit/builds/slim/walk.registration.json",
+  "registrationSha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2",
+  "sources": [
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/body-slim.skin.editor.webp",
+      "sha256": "22a63dae5fa1e980f73af446c26dbeabaa6e91c751ad198eee8bd461e0d656c0",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/bottom-straight-slim.primary.editor.webp",
+      "sha256": "3a969f51ff630f16d41581798d71f7d76062be14d6f46bf41da23dc9d567b7ee",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/bottom-straight-slim.detail.editor.webp",
+      "sha256": "326f2aaec8e72b6cd69292d6c2db08283d8aa7c1f52f7ce467c3459a535dd829"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.primary.editor.webp",
+      "sha256": "b6b2358a0dd33154bc60398186fcfc1a90c1d13c22170916b9e4e5aef93c7b90",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.skin.editor.webp",
+      "sha256": "763a01819f2e2f8094014e6d72e9cfcc64efadcd93187800a8576a0d6a472589",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.detail.editor.webp",
+      "sha256": "62f9ca03ae23aa41e2ef52f4794c6cb0c2a5fb8be309aa3c3589630dc300dbd2"
+    }
+  ],
+  "adjustments": [
+    {
+      "index": 2,
+      "before": {
+        "scale": 0.607595,
+        "offset": {
+          "x": 12.485802,
+          "y": 18.470886
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 0,
+          "width": 171,
+          "height": 258
+        },
+        "originalHeightVariation": 6.255507,
+        "heightVariation": 2
+      },
+      "after": {
+        "scale": 0.607595,
+        "offset": {
+          "x": 12.485802,
+          "y": 18.848084999999998
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 0,
+          "width": 171,
+          "height": 258
+        },
+        "originalHeightVariation": 6.255507,
+        "heightVariation": 2
+      }
+    },
+    {
+      "index": 5,
+      "before": {
+        "scale": 0.605042,
+        "offset": {
+          "x": 9.459784,
+          "y": 17.909244
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 0,
+          "width": 171,
+          "height": 258
+        },
+        "originalHeightVariation": 6.881057,
+        "heightVariation": 2
+      },
+      "after": {
+        "scale": 0.605042,
+        "offset": {
+          "x": 9.459784,
+          "y": 18.50420600000001
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 0,
+          "width": 171,
+          "height": 258
+        },
+        "originalHeightVariation": 6.881057,
+        "heightVariation": 2
+      }
+    },
+    {
+      "index": 7,
+      "before": {
+        "scale": 0.607595,
+        "offset": {
+          "x": 7.628692,
+          "y": 18.470886
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 0,
+          "width": 170,
+          "height": 258
+        },
+        "originalHeightVariation": 6.255507,
+        "heightVariation": 2
+      },
+      "after": {
+        "scale": 0.607595,
+        "offset": {
+          "x": 7.628692,
+          "y": 18.848084999999998
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 0,
+          "width": 170,
+          "height": 258
+        },
+        "originalHeightVariation": 6.255507,
+        "heightVariation": 2
+      }
+    },
+    {
+      "index": 10,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 5.444378,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 5.444378,
+          "y": 23.469986000000006
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 11,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.663671,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.663671,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 12,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 7.643788,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 7.643788,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 14,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.8375400000000042,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.8375400000000042,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 15,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": -0.246679,
+          "y": 24.124786
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": -0.246679,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 27,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 11.696378,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 11.696378,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 28,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.025961,
+          "y": 28.979487
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.025961,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 29,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.910127,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.910127,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 30,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 21.887873,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 21.887873,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 31,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 22.27694,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 22.27694,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 32,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.624264,
+          "y": 28.979487
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.624264,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 33,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 17.193819,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 17.193819,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 34,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.134223,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.134223,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 35,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.557879,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.557879,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      }
+    }
+  ],
+  "sourceSha256": "0cb0beb3680621e8ec1514295cdcf94a5c2131193665577879138775bd5f00fc",
+  "note": "Painting reference imported through one whole-frame affine transform. No per-limb transforms. This is not an approved component."
+}

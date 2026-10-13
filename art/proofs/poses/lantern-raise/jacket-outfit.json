@@ -1,0 +1,750 @@
+{
+  "id": "held-lantern-lantern-raise",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "detail": 1061
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 905
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "detail": 1067
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 764
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "detail": 1155
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 427
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "detail": 1125
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 411
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "detail": 1147
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 420
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "detail": 1138
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 433
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "detail": 1126
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 443
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "detail": 1049
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 757
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "detail": 1076
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 918
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "detail": 1022
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 60
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "detail": 1105
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1093
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "detail": 998
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 920
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "detail": 1033
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 969
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "detail": 1005
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 934
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "detail": 980
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 926
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "detail": 1010
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 941
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "detail": 1056
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1030
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "detail": 1009
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 78
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "detail": 1059
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1033
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "detail": 954
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 419
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "detail": 962
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 624
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "detail": 944
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 546
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "detail": 993
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 526
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "detail": 946
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 618
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "detail": 902
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 479
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "detail": 1025
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 497
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "detail": 1088
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1074
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "detail": 1049
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "detail": 915
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 799
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "detail": 995
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 901
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "detail": 999
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 923
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "detail": 1019
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 900
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "detail": 1038
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 964
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "detail": 1040
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 958
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "detail": 950
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 881
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "detail": 1056
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 49
+    }
+  ],
+  "errors": [],
+  "poseSet": "lantern-raise",
+  "checks": [
+    {
+      "id": "held-lantern-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-lantern-raise",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "outer-travel-lantern-raise",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "top-shirt-lantern-raise",
+    "bottom-straight-lantern-raise",
+    "footwear-boots-lantern-raise",
+    "hair-waves-lantern-raise",
+    "face-soft-lantern-raise",
+    "outer-travel-lantern-raise"
+  ],
+  "sources": {
+    "held-lantern-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/held-lantern.png",
+      "sha256": "bcd6f1551c5094f632c5a5d9f5e27e3167eecda77561c3986201ea0ce6d0fbc5"
+    },
+    "top-shirt-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/top-shirt.png",
+      "sha256": "11a68b31d8f4ebfc3ed1b3333a20d86119e1b46d5480d11d88d078c22dff4cb7"
+    },
+    "bottom-straight-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/bottom-straight.png",
+      "sha256": "eaba9fd384ebf07a0b8da72c5228ac18b442995d2df17c54945f368e1bf7403f"
+    },
+    "footwear-boots-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/footwear-boots.png",
+      "sha256": "c6dea3c3c7a111d5ba1199840818c13c6d110e3303a40d7a9f4210759b9abd57"
+    },
+    "hair-waves-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/hair-waves.png",
+      "sha256": "2f63594b180decb3dad3fefebc34316a9c07328fb3c5f45298f178a17fe64c82"
+    },
+    "face-soft-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/face-soft.png",
+      "sha256": "7d9e6f4cc7fc15c944995a4c2ad33d92712ffe190f68a43af41abef77496562e"
+    },
+    "outer-travel-lantern-raise": {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/outer-travel.png",
+      "sha256": "50472102f2acf097cca8b47f3cefc1c0802b4457f213921665db930f38ec141c"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise",
+        "held-lantern-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "held-lantern-lantern-raise",
+        "face-soft-lantern-raise",
+        "bottom-straight-lantern-raise",
+        "footwear-boots-lantern-raise",
+        "top-shirt-lantern-raise",
+        "outer-travel-lantern-raise",
+        "hair-waves-lantern-raise"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

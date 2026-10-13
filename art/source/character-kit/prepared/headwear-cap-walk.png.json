@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/headwear-cap-candidate-1.png",
+      "sha256": "b0a447d1db3f3a67393e0da13b43b33a6d11566666c5313e8cbf59031f252e11"
+    },
+    {
+      "path": "web/public/assets/player-layers/manifest.json",
+      "sha256": "2c273217cae99fadbea140474b2d048a7feee0b8f2ff8239921631d24d92196c"
+    },
+    {
+      "path": "art/source/character-kit/references/regular-walk.registration.json",
+      "sha256": "d5122e6c123057dfa47eb6a5be60bb92f914f979c3c9c969fb0ac8e0a6051cf7"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/headwear-cap-walk.png",
+  "outputSha256": "5e4c4f681a2c01cb2ef4b7d6b360ffb39c46b08ad52a48c8c8e8fbc092cbcc3c"
+}

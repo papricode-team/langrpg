@@ -1,0 +1,201 @@
+{
+  "date": "2026-10-13",
+  "assetVersion": "41c6ee26875d17e2",
+  "walkingComponents": 100,
+  "actionComponents": 18,
+  "checks": [
+    {
+      "id": "top-blouse-wave",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "companions": [
+        {
+          "id": "top-blouse-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-wave",
+          "valid": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "outer-blazer-wave",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "companions": [
+        {
+          "id": "outer-blazer-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-wave",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "top-blouse-wave",
+          "valid": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "top-blouse-seated",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "companions": [
+        {
+          "id": "top-blouse-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-seated",
+          "valid": true,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "outer-blazer-seated",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "companions": [
+        {
+          "id": "outer-blazer-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "top-blouse-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-seated",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-seated",
+          "valid": true,
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "reviewedAll36Frames": true,
+  "reviewedTwoPalettes": true,
+  "cast": {
+    "walkingActors": 192,
+    "walkingProofHashesUnchanged": true,
+    "actionActors": [
+      {
+        "id": "lindenhafen-library-keeper",
+        "poses": [
+          "wave"
+        ]
+      },
+      {
+        "id": "lindenhafen-ferry-attendant",
+        "poses": [
+          "wave"
+        ]
+      },
+      {
+        "id": "lindenhafen-riverside-vendor",
+        "poses": [
+          "wave"
+        ]
+      },
+      {
+        "id": "waldruh-supply-keeper",
+        "poses": [
+          "wave"
+        ]
+      }
+    ]
+  },
+  "tests": {
+    "web": 783,
+    "cast": 4,
+    "pipelineAndReference": 44,
+    "publishedAssets": 15,
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "goAvatar": "passed"
+  },
+  "browser": {
+    "consoleErrors": 0,
+    "observed": "Bea: act greet at library-gathering, 15:00, reduced motion",
+    "screenshot": "art/proofs/poses/wave/world-bea-wave-browser.png",
+    "screenshotSha256": "c5ef56b440322aa3834069abd27af52c2d272080e6b5e468658a86b6db746fbf"
+  },
+  "remaining": [
+    "lantern-raise art",
+    "dialogue expression variants"
+  ]
+}

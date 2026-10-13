@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "30b45c8611cb5c53a2646296d43f088bb3f1460a9409e896ee278e34fa1a98f5",
+  "baseSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "e9d281d33f5f041f23663c053a9c06b8b6db3abc154313128bb64f520d409c86",
+  "promptSha256": "3657a26880f78b29e187aa905f5f26abf00e0e57e7519a3df42555ae71458306",
+  "generationPromptSha256": "3158200d4330d36fa088d25a16edd2fc47c3bce0c3f8a565de5a82001e24a423",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2
+    },
+    "regionReason": "The foreground arm separates a 25-source-pixel visible far-cuff sliver in right-facing walk pose 7. Both visible fabric regions remain attached to the mannequin."
+  },
+  "preparationSha256": "80038e8225631c371c0c147a7b5351a1f8f987b04ef61f581120f37969b54e61",
+  "candidate": "art/source/character-kit/prepared/top-shirt-broad-grid-v2.png",
+  "lockedSha256": "67fb5b3ebec88b34fe59a1c920a4ceacdddae7cf4d599119ed428299e457570c"
+}

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "f97bf44db66b76806a88abad30644b7ee0119e72b12ab24a5f9cbb40b4cc9668",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "2eda08dc4966d82b4597251ee2c84b108b7f1440a96292afd479f3c221fcc137",
+  "promptSha256": "e27334c4f86b4b43937928ae16360a8aa4660215eb663bf69680b09b10701f35",
+  "generationPromptSha256": "cd75753f10f97a51fd0b428931146f87b4d2f4e567fef28e537524711427e4c1",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "maxSpeckPixels": 1
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "candidate": "art/source/character-kit/face-soft-wave-candidate-2.png",
+  "lockedSha256": "ec276ef78be54022103efe9324b53b0c216bee6fd0a3fb841f2358e9b2646bc3"
+}

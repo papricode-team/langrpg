@@ -17,7 +17,7 @@ Created for the Lantern Atlas concept on 2026-10-08, with separate world terrain
 | `web/public/assets/characters.webp` | 1024 × 768 | Four-column, two-row full-body NPC atlas; 256 × 384 cells |
 | `web/public/assets/player-walk.webp` | 1536 × 1440 | Eight-column, five-row player atlas; 192 × 288 cells, 36 valid frames |
 
-The portrait order is fixed: top row Marta, Otto, Lina, Emil; bottom row Ada, Fritz, Greta, wanderer. It must match `npcs` order and the portrait CSS indexing. The full-body NPC atlas uses the same order. The wanderer portrait represents the player in interface panels. The first four player rows face down, right, up and left, in that order; each row contains eight walking frames. The fifth row contains four grounded standing views in its first four cells: down, right, up and left, at frame indices 32–35. Its last four cells are transparent and unused. Idle views come from their own generated turnaround rather than replacing a walking pose.
+The portrait order is fixed: top row Marta, Otto, Lina, Emil; bottom row Ada, Fritz, Greta, wanderer. It must match `npcs` order and the portrait CSS indexing. The full-body NPC atlas uses the same order. The wanderer tile is retained as historical artwork. Player interface portraits now come from the selected component recipe’s down-facing standing frame. The first four player rows face down, right, up and left, in that order; each row contains eight walking frames. The fifth row contains four grounded standing views in its first four cells: down, right, up and left, at frame indices 32–35. Its last four cells are transparent and unused. Idle views come from their own generated turnaround rather than replacing a walking pose.
 
 Lossless source masters are included in `art/source/lindenhafen.png`, `art/source/portraits.png`, `art/source/characters-painted.png`, `art/source/player-walk-painted.png` and `art/source/player-idle-painted.png`. The NPC and walk sheets are 1448 × 1086 PNGs; the two-column, two-row idle sheet is 1237 × 1271. All three use genuine transparency. These repository copies preserve the selected generated artwork without requiring access to the original machine's image cache.
 
@@ -97,6 +97,11 @@ Original longer listening passages and mission instructions are included. Varied
 
 ### Modular player characters
 
+The [character components plan](character-components-plan.md) supersedes this
+prototype as the intended direction. Its [phase-zero spike](../art/source/character-kit/README.md)
+now passes mannequin, cap and skirt validation and visual review. The workflow
+below remains the live game pipeline until phase-one runtime integration.
+
 Players are assembled by overlaying independent head, hair, jacket, trouser
 and material spritesheets. `web/src/avatar-options.ts` is the active catalogue;
 `characterLayers()` in `web/src/modular-character.ts` supplies the same layers
@@ -155,38 +160,25 @@ exact copy of the registration master in
 `art/source/player-customizations/motion.png`. The edit kit's short and long
 masks identify where hair may be added. The built-in ImageGen tool is available
 in this workflow and does not require an API key. The raw long-waves result is
-preserved as `hair-waves-candidate-1.png`; `scripts/lock-player-hair-edit.mjs`
-derives `hair-waves.png` by copying only keyed violet paint inside the allowed
+preserved as `hair-waves-candidate-1.png`; the retired `scripts/lock-player-hair-edit.mjs`
+derived `hair-waves.png` by copying only keyed violet paint inside the allowed
 head regions onto the original master. Every other source RGBA pixel remains
 the master's exact pixel. This prevents repainting of faces, garments or
 background in a generated candidate from changing the assembled character.
 The selected prompt and complete edit workflow are recorded in
 [player-edits/README.md](prompts/player-edits/README.md).
 
-Rebuild the body with `node scripts/prepare-player-layers.mjs`, then run
-`node scripts/finalize-player-layer-assets.mjs` to create its 64×96 runtime
-cells and preserve its 128×192 editor cells. Next run
-`node scripts/prepare-player-head-edits.mjs` to extract the master's head,
-merge the full-size skin material and export validated hair edits. This last
-command writes both sizes itself; do not run a second finalization pass for
-these sheets. Runtime and preview assets are
-saved in `web/public/assets/player-layers/`, whose manifest records the shared
-frame transforms and source provenance. After rebuilding the original body
-and head, re-export and review the walking bottoms as described in the walk
-workflow. Running the original body exporter or finalizer after that would
-replace the revised walking bottoms.
+The bespoke body, hair and walk exporters have been retired. Their source
+candidates, original manifests and exported reference sheets are retained as
+historical evidence; the scripts remain recoverable from Git history. Do not
+regenerate these legacy assets over the component kit.
 
-Before exporting a hair edit, run
-`node scripts/prepare-player-head-edits.mjs --check --input <edited-sheet.png> --id hair-<style>`.
-This read-only check rejects incorrect dimensions, excessive visible drift in
-protected pixels and missing or detached hair in any of the 36 frames. A
-failed validation emits no assets. Run
-`node --test scripts/prepare-player-head-edits.test.mjs` for the extractor's
-validation checks. Inspect actual assembled standing and walking overlays
-before enabling any new option; geometric checks do not establish visual
-quality. New faces, jackets, trousers and body builds must match the same
-painted master poses and frame origins. No combined player sheets or catalogue
-permutations are exported.
+All new character work uses [the generic kit](../art/source/character-kit/README.md):
+`kit`, `prompt`, `lock`, `check`, `export`, `proof`, `batch`, `build-catalogue`
+and `bake`. The kit’s shared whole-frame sampler and visible-pixel comparison
+live in `scripts/character-kit-pixels.mjs`. Hair and revised trousers were
+regenerated on the corrected mannequin after legacy re-locks failed; their
+raw attempts and proof review are documented there.
 
 ## High-resolution static architecture (2026-10-10)
 
