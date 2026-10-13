@@ -1,0 +1,33 @@
+{
+  "registration": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+  "layers": [
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/body-broad.skin.editor.webp",
+      "sha256": "75e0ba42200346663da1809d20d9d3a8d9539884c399d537482d345d5268f661",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/bottom-straight-broad.primary.editor.webp",
+      "sha256": "d0bb7dcb56055b9055170d266ca0e58bcdbb42f7cc921e5a6f768fb072afe8b6",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/bottom-straight-broad.detail.editor.webp",
+      "sha256": "0eb744fb9e815ee314b109edf9851e8ea2cc6bff8e822e979701a8e22274085c"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/footwear-boots-broad.primary.editor.webp",
+      "sha256": "2f16d5fcef4a8acb806154a8cdfb4386471aaab639d0a68111d4a194edad3a8d",
+      "tint": "#744b35"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/top-shirt-broad.primary.editor.webp",
+      "sha256": "cf4c846f52ab8a58b2405ef95c3b58f646a4e5b95baef0e49e534231369afeb2",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/reference-layers/top-shirt-broad.detail.editor.webp",
+      "sha256": "972f387ba818044de33a285e1f784180e207e6dc6feb1c36a45122ced37166cf"
+    }
+  ]
+}

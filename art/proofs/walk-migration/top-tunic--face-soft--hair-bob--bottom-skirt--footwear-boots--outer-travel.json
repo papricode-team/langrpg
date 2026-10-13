@@ -1,0 +1,795 @@
+{
+  "id": "top-tunic",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 4489,
+        "secondary": 800,
+        "detail": 388
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 232
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 4248,
+        "secondary": 723,
+        "detail": 393
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 145
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 4035,
+        "secondary": 723,
+        "detail": 378
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 111
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 4251,
+        "secondary": 726,
+        "detail": 364
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 110
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 4177,
+        "secondary": 783,
+        "detail": 379
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 132
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 4283,
+        "secondary": 732,
+        "detail": 388
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 130
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 4019,
+        "secondary": 684,
+        "detail": 374
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 104
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 4202,
+        "secondary": 734,
+        "detail": 373
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 142
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 4171,
+        "secondary": 756,
+        "detail": 372
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 121
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 3137,
+        "secondary": 484,
+        "detail": 313
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 109
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 3617,
+        "secondary": 692,
+        "detail": 329
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 242
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 3632,
+        "secondary": 643,
+        "detail": 284
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 177
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 2699,
+        "secondary": 434,
+        "detail": 310
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 113
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 3560,
+        "secondary": 774,
+        "detail": 298
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 228
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 3700,
+        "secondary": 690,
+        "detail": 278
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 243
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 3643,
+        "secondary": 695,
+        "detail": 302
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 255
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 2823,
+        "secondary": 477,
+        "detail": 303
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 96
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 3636,
+        "secondary": 735,
+        "detail": 296
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 216
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 5093,
+        "secondary": 822,
+        "detail": 331
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 135
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 5299,
+        "secondary": 864,
+        "detail": 387
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 167
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 5361,
+        "secondary": 915,
+        "detail": 340
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 122
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 5121,
+        "secondary": 867,
+        "detail": 356
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 83
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 5331,
+        "secondary": 928,
+        "detail": 337
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 143
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 5215,
+        "secondary": 883,
+        "detail": 341
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 106
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 5276,
+        "secondary": 891,
+        "detail": 349
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 92
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 5237,
+        "secondary": 896,
+        "detail": 383
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 127
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 5330,
+        "secondary": 896,
+        "detail": 358
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 67
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 3047,
+        "secondary": 461,
+        "detail": 326
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 105
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 4230,
+        "secondary": 809,
+        "detail": 326
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 251
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 4038,
+        "secondary": 742,
+        "detail": 320
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 242
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 3102,
+        "secondary": 545,
+        "detail": 306
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 96
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 4062,
+        "secondary": 764,
+        "detail": 305
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 303
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 4103,
+        "secondary": 763,
+        "detail": 314
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 229
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 4061,
+        "secondary": 732,
+        "detail": 322
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 294
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 3851,
+        "secondary": 668,
+        "detail": 333
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 154
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 4076,
+        "secondary": 769,
+        "detail": 312
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 186
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "top-tunic",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-bob",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-skirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "outer-travel",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-soft",
+    "hair-bob",
+    "bottom-skirt",
+    "footwear-boots",
+    "outer-travel"
+  ],
+  "sources": {
+    "top-tunic": {
+      "path": "art/source/character-kit/top-tunic.png",
+      "sha256": "34a42e8bf34c16773154796dbb8104f94a564d238dd1e184edb294104380e1e9"
+    },
+    "face-soft": {
+      "path": "art/source/character-kit/face-soft.png",
+      "sha256": "245d2cb020c3619ec909a8eff1ece287be456bc459a3cd7a165387107c2f4b2f"
+    },
+    "hair-bob": {
+      "path": "art/source/character-kit/hair-bob.png",
+      "sha256": "e6575cd619b3cab0a9aa2643081e239056c2b60dd6326f5dc6b2736671fe376b"
+    },
+    "bottom-skirt": {
+      "path": "art/source/character-kit/bottom-skirt-walk.png",
+      "sha256": "824c34db912ae9ee87c56d3a4562b8dcd23bc894b24e3f5d154542527c9b2a3c"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/footwear-boots.png",
+      "sha256": "2aaf1f52419f629c1db62de338fac2f732af58289307c03c3d0d750ef4a15614"
+    },
+    "outer-travel": {
+      "path": "art/source/character-kit/outer-travel.png",
+      "sha256": "486358083aead31c5d72d69e3ee386e0aec59b2eeacbe460845c28df15c75368"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-tunic",
+        "outer-travel",
+        "hair-bob"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

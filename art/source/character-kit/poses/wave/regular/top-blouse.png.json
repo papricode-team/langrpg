@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "baef6ab008fb91f8e26c9869e546f553b9fcfab0f008abd5bd10926c6699b122",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "3095cf75dc61ed4bff0180ff286bcf3fa24a45ccd10ddac6190a1020c4de5f84",
+  "promptSha256": "b503e74ee8ec3ab1c609acc04e45529acfc9bfd7d288940d31ab2570e897b552",
+  "generationPromptSha256": "0406acd442a8a48315663371833a22e114d0ae1b6f6c0237c7a3cc411e233536",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "detailReach": 1,
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "Foreground arms occlude the connection to narrow visible rear-hem sections in profile views."
+  },
+  "candidate": "art/source/character-kit/top-blouse-wave-candidate-1.png",
+  "lockedSha256": "209b4573926b4f96828638db093ab0829d05fd4a1ef343ceb304800056b2b8fe"
+}

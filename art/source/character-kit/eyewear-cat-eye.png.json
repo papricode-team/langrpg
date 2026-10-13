@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "1a0a0e063714af848d8b86bdedff4bfd1158b2ff58d1d0c4f8d55db7246ae8c3",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "5abf25747b7726f7006fa98dceb8a92b8e94cfe7602a1ef1eb62ba29a62525f2",
+  "promptSha256": "7fd90155b3257ccbf3046d5c2cb04819e65a8feabecc7d9128afbca9bf4002ef",
+  "generationPromptSha256": "642fa579d571e3fadbb783b97705bf4cb75c89581e20aedea523200c9bf3cea9",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "candidate": "art/source/character-kit/eyewear-cat-eye-candidate-3.png",
+  "lockedSha256": "e639c26fcd3683e172df7c4ac615994bda038926d47ade471b8eb6d8691f3b55"
+}

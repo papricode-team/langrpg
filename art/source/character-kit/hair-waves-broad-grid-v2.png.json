@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "bd17bfa0f0859ad9a3345cb524528c6bea6bee63158c927c169a0b31b28d3f8c",
+  "baseSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "9aa874b7a35d82790812389f0f0eba10ee3ea876628f0d6402a0dadf7a6e71db",
+  "promptSha256": "3b5ab83f2f4b0e8257704c333d9e43b4ec8c8c16f6506951c48965feb29a3b08",
+  "generationPromptSha256": "d1fac2f15bf6fb696d9ef54de86ebe3db004c3f54b5ab2567a5fc9af13560f0c",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "afe83b35777a7ce5f7637fd61766c5704a453c8f8dca448c5c561eb0dc1ad7ec",
+  "candidate": "art/source/character-kit/prepared/hair-waves-broad-grid-v2.png",
+  "lockedSha256": "bfae1ea2837b49b26a71ec86c903a8fb058b445c0ef2f6e7eb00579bae22948e"
+}

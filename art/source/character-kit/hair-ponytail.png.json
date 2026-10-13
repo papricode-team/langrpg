@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "507c657a9a9ec2d0576de99dfee9e307d50f43a94763b01d868c51e58c0324ac",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "53bbbc9dd4558839c6098e50a11aa210846c821bbf0da01659257b146a355cd0",
+  "generationPromptSha256": "fb662a39253f69227772ad0952c19aff7807babb69337a784cc18f103a32ca5b",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 20
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2
+    },
+    "regionReason": "Front-facing head/ears occlude the connection between the crown and visible tail edge."
+  },
+  "candidate": "art/source/character-kit/hair-ponytail-candidate-4.png",
+  "lockedSha256": "e416d6206c34e3e5d043371353565c6d5344cdc4d7e1b3e61872241a0ddaa5aa"
+}

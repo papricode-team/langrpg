@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "b304c7ad9b16bdd842e39d5e3454c75954c208503a57735bf4648abcdb9bd882",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "7f8238c750ef5c72df8069fb387ba8e03d055e555a84752b94ecc3eb927949ca",
+  "promptSha256": "2dd74d3cc2bba0341b7c9dc4db4dc6e8af930bd7bb6c1160e2f9edc8094cd883",
+  "generationPromptSha256": "7f8fe1982106e0ab5bc804e674d1ffcb72b96f9d59a883ac5e6495251219ad08",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The foreground hand occludes the connection to a narrow visible hip patch in the permitted profile facing. Both regions touch the mannequin."
+  },
+  "candidate": "art/source/character-kit/bottom-cargo-candidate-1.png",
+  "lockedSha256": "be462960bf12f382dbb1a2eb82a304237073cfde98c3beaecc5438b05a53e57e"
+}

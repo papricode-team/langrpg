@@ -1,0 +1,793 @@
+{
+  "id": "top-blouse",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 4131,
+        "secondary": 311,
+        "detail": 273
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 295
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 4309,
+        "secondary": 332,
+        "detail": 253
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 317
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 4142,
+        "secondary": 321,
+        "detail": 286
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 252
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 4151,
+        "secondary": 325,
+        "detail": 247
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 247
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 4188,
+        "secondary": 305,
+        "detail": 274
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 348
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 4284,
+        "secondary": 308,
+        "detail": 255
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 332
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 4142,
+        "secondary": 311,
+        "detail": 249
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 253
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 4136,
+        "secondary": 317,
+        "detail": 248
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 244
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 4240,
+        "secondary": 307,
+        "detail": 253
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 304
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 2729,
+        "secondary": 231,
+        "detail": 208
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 85
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 3327,
+        "secondary": 298,
+        "detail": 226
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 249
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 3319,
+        "secondary": 287,
+        "detail": 224
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 195
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 2728,
+        "secondary": 239,
+        "detail": 233
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 158
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 3546,
+        "secondary": 277,
+        "detail": 180
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 298
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 3548,
+        "secondary": 262,
+        "detail": 176
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 259
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 3304,
+        "secondary": 285,
+        "detail": 216
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 218
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 2943,
+        "secondary": 245,
+        "detail": 207
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 73
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 3442,
+        "secondary": 296,
+        "detail": 231
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 271
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 4760,
+        "secondary": 330,
+        "detail": 235
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 258
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 5052,
+        "secondary": 346,
+        "detail": 241
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 353
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 5120,
+        "secondary": 353,
+        "detail": 226
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 270
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 4866,
+        "secondary": 326,
+        "detail": 247
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 230
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 5171,
+        "secondary": 371,
+        "detail": 214
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 313
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 5066,
+        "secondary": 340,
+        "detail": 238
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 234
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 5046,
+        "secondary": 355,
+        "detail": 237
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 276
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 4995,
+        "secondary": 351,
+        "detail": 224
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 216
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 5092,
+        "secondary": 345,
+        "detail": 242
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 215
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 2889,
+        "secondary": 215,
+        "detail": 240
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 185
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 4067,
+        "secondary": 326,
+        "detail": 246
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 477
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 3933,
+        "secondary": 320,
+        "detail": 257
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 406
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 3195,
+        "secondary": 263,
+        "detail": 228
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 262
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 3977,
+        "secondary": 314,
+        "detail": 235
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 497
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 3905,
+        "secondary": 319,
+        "detail": 260
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 430
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 3979,
+        "secondary": 321,
+        "detail": 238
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 461
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 3699,
+        "secondary": 287,
+        "detail": 229
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 288
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 3916,
+        "secondary": 330,
+        "detail": 248
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 422
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "top-blouse",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-bob",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-skirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-soft",
+    "hair-bob",
+    "bottom-skirt",
+    "footwear-boots"
+  ],
+  "sources": {
+    "top-blouse": {
+      "path": "art/source/character-kit/top-blouse.png",
+      "sha256": "f0e22a5bf922bef9d5b40d10b432bc66f59505a78731539c1590a25baedc5caa"
+    },
+    "face-soft": {
+      "path": "art/source/character-kit/face-soft.png",
+      "sha256": "245d2cb020c3619ec909a8eff1ece287be456bc459a3cd7a165387107c2f4b2f"
+    },
+    "hair-bob": {
+      "path": "art/source/character-kit/hair-bob.png",
+      "sha256": "e6575cd619b3cab0a9aa2643081e239056c2b60dd6326f5dc6b2736671fe376b"
+    },
+    "bottom-skirt": {
+      "path": "art/source/character-kit/bottom-skirt-walk.png",
+      "sha256": "824c34db912ae9ee87c56d3a4562b8dcd23bc894b24e3f5d154542527c9b2a3c"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/footwear-boots.png",
+      "sha256": "2aaf1f52419f629c1db62de338fac2f732af58289307c03c3d0d750ef4a15614"
+    },
+    "jacket-detail": {
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "sha256": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358"
+    },
+    "jacket-fabric": {
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "sha256": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-soft",
+        "bottom-skirt",
+        "footwear-boots",
+        "top-blouse",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-bob"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

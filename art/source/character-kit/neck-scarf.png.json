@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "40436f7d962a3182648b4b5d579c6f21f799aeab4de8b3c67bd210e0f0f42bf9",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "0a5a20a08e4cfe574b63d49683e6de9fa4d04398b2d69b3dd466e02aef8a5959",
+  "promptSha256": "04bc41698c07bde9f22e3ad686ce9d527fc0df41b9881e7e3531ac5d201b4b7b",
+  "generationPromptSha256": "fa3e909861f8015f89f1f9db7b0004734e6ab4cac0e1a97ad4113ba976ceadeb",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/neck-scarf-candidate-1.png",
+  "lockedSha256": "2c54c2c656157d2c1c81d1aec767ffe07fd943c41540d3486dfe409a9348cc46"
+}

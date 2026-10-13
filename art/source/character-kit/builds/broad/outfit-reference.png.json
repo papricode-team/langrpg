@@ -1,0 +1,502 @@
+{
+  "spec": "art/source/character-kit/builds/broad/outfit-reference.json",
+  "specSha256": "91afe36dd73bf97095fcc32d68505ae6e582a2f4394d313a2296872d02ad43fc",
+  "registration": "art/source/character-kit/builds/broad/walk.registration.json",
+  "registrationSha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2",
+  "sources": [
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/body-broad.skin.editor.webp",
+      "sha256": "d777ce51c9568f8d6c3625c0bb53ef27f1fcfd51fb15f01c3bcd330557837e9d",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/bottom-straight-broad.primary.editor.webp",
+      "sha256": "70b24fef562af551ca25c3db842ff12ba654488014759217dfe0f4a4f439ff1d",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/bottom-straight-broad.detail.editor.webp",
+      "sha256": "8dbf619d83f43ceb92b54906ce8eab9044ecbdadccc5768be167b0f5139c7736"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.primary.editor.webp",
+      "sha256": "3d45bc0601d469bfea4486ba26955af08e41911271915661375ddd6b3bd530f8",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.skin.editor.webp",
+      "sha256": "da6647e23d1ce81b82a4cc90e87ed38a636c3d18f43ec835db340ec80c4acce9",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/reference-layers/top-shirt-broad.detail.editor.webp",
+      "sha256": "17fd64cc693bd1600e712e5b83d301c809dd74a2f4305eb4f2c072715065901c"
+    }
+  ],
+  "adjustments": [
+    {
+      "index": 10,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 5.444378,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 6.444378,
+          "y": 23.469986000000006
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 258,
+          "width": 170,
+          "height": 254
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 11,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.663671,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.663671,
+          "y": 23.469986000000006
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 12,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 7.643788,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 7.643788,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 14,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 0.8375400000000042,
+          "y": 22.911111
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 1.8375400000000042,
+          "y": 23.469986000000006
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 1.820513,
+        "heightVariation": 1.820513
+      }
+    },
+    {
+      "index": 15,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": -0.246679,
+          "y": 24.124786
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": -0.246679,
+          "y": 24.469986000000006
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 258,
+          "width": 171,
+          "height": 254
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 27,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 11.696378,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 11.696378,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 0,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 28,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.025961,
+          "y": 28.979487
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.025961,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 171,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 1.213675,
+        "heightVariation": 1.213675
+      }
+    },
+    {
+      "index": 29,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.910127,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.910127,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 341,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 30,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 21.887873,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 21.887873,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 512,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 31,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 22.27694,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 22.27694,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 683,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 32,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.624264,
+          "y": 28.979487
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 19.624264,
+          "y": 28
+        },
+        "sourceCell": {
+          "left": 853,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0.606838,
+        "heightVariation": 0.606838
+      }
+    },
+    {
+      "index": 33,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 17.193819,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 17.193819,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1024,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 34,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.134223,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.134223,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1195,
+          "top": 768,
+          "width": 170,
+          "height": 256
+        },
+        "originalHeightVariation": 0,
+        "heightVariation": 0
+      }
+    },
+    {
+      "index": 35,
+      "before": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.557879,
+          "y": 30
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      },
+      "after": {
+        "scale": 0.606838,
+        "offset": {
+          "x": 18.557879,
+          "y": 29
+        },
+        "sourceCell": {
+          "left": 1365,
+          "top": 768,
+          "width": 171,
+          "height": 256
+        },
+        "originalHeightVariation": -0.606838,
+        "heightVariation": -0.606838
+      }
+    }
+  ],
+  "sourceSha256": "84c16ef2f3eead23aa078ef6ce4923f3e76a0eeb684f6d09f32ac18a768fc91c",
+  "note": "Painting reference imported through one whole-frame affine transform. No per-limb transforms. This is not an approved component."
+}

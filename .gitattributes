@@ -18,3 +18,15 @@ art/source/resident-actions/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Shared map-quality masters retain native alpha and exact crop provenance.
 art/source/map-quality/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Character masters and visual review evidence retain their native resolution.
+art/source/character-kit/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/character-kit/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/character-portraits/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/player-portraits/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.png filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.webp filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.webp filter=lfs diff=lfs merge=lfs -text
+art/proofs/**/*.gif filter=lfs diff=lfs merge=lfs -text
+art/proofs/*.gif filter=lfs diff=lfs merge=lfs -text

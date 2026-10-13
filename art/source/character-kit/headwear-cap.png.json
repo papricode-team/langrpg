@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "candidateSha256": "b0a447d1db3f3a67393e0da13b43b33a6d11566666c5313e8cbf59031f252e11",
+  "baseSha256": "1198bc22e78edb4541796cd2d6a702d473585cf8c881cf7eafceaf8e459ff603",
+  "registrationSha256": "edc9ef7498b0760983c5ad77438154d0a3583e44b60e14658334dd1dbaa9b1eb",
+  "maskSha256": "23d3759ad37d4b75685813b08580e3aba0a0124e7e51518eb99cfd1fe265cf22",
+  "promptSha256": "9d2bea7f26c530c39be85c67593f3b150549a16b2713179797d36026d8cc6698",
+  "generationPromptSha256": "9abfdb054377d2daf69c398c8c42dd266a22e8833586ab27774e1bfcb607ef5f",
+  "materials": [
+    "primary",
+    "secondary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "anchorMaterial": "primary",
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ]
+  },
+  "candidate": "art/source/character-kit/headwear-cap-candidate-1.png",
+  "lockedSha256": "7d8a2d1e9ec288055bd559c1c031b7e549ed163cab313de944f50edcf02d01f4"
+}

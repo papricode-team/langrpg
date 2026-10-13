@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "b20fe767a4f7f943d8c89670084b0bd88fcc3015acd3a424612ab07063944829",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "5abf25747b7726f7006fa98dceb8a92b8e94cfe7602a1ef1eb62ba29a62525f2",
+  "promptSha256": "3e880b076386eceaf90669cf2ecb2d86a7f96b01f24d2f37003b4d6f52f3a20a",
+  "generationPromptSha256": "35c1d740a3bbd0fe3442b3366b7a098a2193f37fecacce05ec223e264786eb7b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "candidate": "art/source/character-kit/eyewear-round-candidate-3.png",
+  "lockedSha256": "a635f5fae2114ac1b3b68b2223a3c3d51cf62b68c350c539d1d72f1be9ccfeac"
+}

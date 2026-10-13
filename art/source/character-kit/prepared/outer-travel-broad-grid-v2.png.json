@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/outer-travel-broad-candidate-1.png",
+      "sha256": "dc247de3e8f9c2c58f4d76baef569b6245542d8f95635cd65c564f91126e1acb"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/outfit-reference.registration.json",
+      "sha256": "a2d606aac5635f9964a5aaaf1bef525096bdd9e36d46e9b68f3f7ca190787363"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/outer-travel-broad-grid-v2.png",
+  "outputSha256": "27d5eb60668d716881832af3553ba6d1f6f654eb5f0f69b39a1ad94a2ee3a2ea"
+}

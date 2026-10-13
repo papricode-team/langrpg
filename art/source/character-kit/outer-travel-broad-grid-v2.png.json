@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "candidateSha256": "27d5eb60668d716881832af3553ba6d1f6f654eb5f0f69b39a1ad94a2ee3a2ea",
+  "baseSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "a24da41afad0ad2ff4eae8b9ba20205f8ce94c7a0583bf039f4b747bc07f4e56",
+  "promptSha256": "a4cf1b8b749ddaed3a7773f777b18b30caff09bfb9c00fd0511fa484a212e871",
+  "generationPromptSha256": "aeb3556f5c679ea324e50ba7647d340de975b998f7c347fe7658988d72f74916",
+  "materials": [
+    "primary",
+    "secondary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 4,
+    "regionReason": "In profile, the torso and foreground arm separate the open jacket into a main panel, far lapel, far hem and a small visible tail. Each region remains attached to the mannequin."
+  },
+  "preparationSha256": "4a673d4b537d7294e0f53bf5077382812006984889065d18bce3b97fcf623d59",
+  "candidate": "art/source/character-kit/prepared/outer-travel-broad-grid-v2.png",
+  "lockedSha256": "159bc27d13d3e3c258a1f54c238035226ae04f36f7b855417e2c553ff84c1a55"
+}

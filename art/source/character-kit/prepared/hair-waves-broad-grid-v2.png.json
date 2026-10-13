@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hair-waves-broad-candidate-2.png",
+      "sha256": "20ee53aff3e1e5a4e92f945c235007942f64d9806a1260a8a4348705b51074f7"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/outfit-reference.registration.json",
+      "sha256": "a2d606aac5635f9964a5aaaf1bef525096bdd9e36d46e9b68f3f7ca190787363"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/hair-waves-broad-grid-v2.png",
+  "outputSha256": "bd17bfa0f0859ad9a3345cb524528c6bea6bee63158c927c169a0b31b28d3f8c"
+}

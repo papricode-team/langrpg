@@ -22,7 +22,7 @@ function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arr
     inspectStory:vi.fn(async (input:{objectId:string}) => { progress.story!.inspections[questId] = [...(progress.story!.inspections[questId]??[]),input.objectId]; return {story:progress.story!,progress:bump()}; }),
     storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes[questId] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push(questId);progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
-  const options = {beginnerMode:()=>beginner,api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:()=>'',speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
+  const options = {beginnerMode:()=>beginner,api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:vi.fn((_id:string,_expression?:string)=>''),speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
   controller = new QuestController(options);
   const click = (selector:string) => document.querySelector<HTMLButtonElement>(selector)!.click();
   return {api,options,controller,get progress(){return progress;},click};
@@ -359,4 +359,15 @@ describe('optional conversation topics', () => {
     expect(document.querySelectorAll('[data-dialogue-choice^="topic:"]')).toHaveLength(graph.topics!.length);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
   });
+});
+
+
+it('passes authored expressions to portraits and resets uncued lines to neutral', async () => {
+  const f=fixture('intro','a1-cafe');
+  await f.controller.open('a1-cafe');
+  expect(f.options.portrait).toHaveBeenLastCalledWith('marta','smile');
+  f.click('[data-dialogue-action="next"]');
+  expect(f.options.portrait).toHaveBeenLastCalledWith('marta','worried');
+  f.click('[data-dialogue-action="next"]');
+  expect(f.options.portrait).toHaveBeenLastCalledWith('marta','neutral');
 });

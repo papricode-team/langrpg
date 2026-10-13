@@ -245,7 +245,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// An empty profile resumes; a supplied profile updates this same account.
-		if input.Name != "" || input.Avatar != (Avatar{}) {
+		if input.Name != "" || !input.Avatar.empty() {
 			input.Name = strings.TrimSpace(input.Name)
 			if !validName(input.Name) || !validAvatar(input.Avatar) {
 				writeError(w, 400, "provide a valid name and complete avatar")

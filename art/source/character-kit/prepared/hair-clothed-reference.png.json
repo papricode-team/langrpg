@@ -1,0 +1,33 @@
+{
+  "purpose": "Clothed edit reference for hair; exact source grid and cyan mannequin head retained. No registration transform.",
+  "mannequin": "art/source/character-kit/body-regular-walk.png",
+  "mannequinSha256": "707abdfaf4810fdde074d96dca6da12385738fc1b6aea119eefb75ec89746cf2",
+  "sources": [
+    {
+      "id": "bottom-straight",
+      "locked": "art/source/character-kit/bottom-straight.png",
+      "sha256": "8ddcadc82485d1a25068b7c7d98e71f1555a8b46576e97c6fb6e0dfedef770d8"
+    },
+    {
+      "id": "footwear-boots",
+      "locked": "art/source/character-kit/footwear-boots.png",
+      "sha256": "2aaf1f52419f629c1db62de338fac2f732af58289307c03c3d0d750ef4a15614"
+    },
+    {
+      "id": "top-shirt",
+      "locked": "art/source/character-kit/top-shirt.png",
+      "sha256": "54aba9ac37c894158c338b795787ef80f08b35ba1b25ba001732028cb92e82e0"
+    }
+  ],
+  "primary": [
+    100,
+    100,
+    100
+  ],
+  "secondary": [
+    65,
+    65,
+    65
+  ],
+  "sha256": "b5b3c11f32cdb548417d3f93e43b5c1f01d83f94a550049f3f037cd27bd3d8dc"
+}

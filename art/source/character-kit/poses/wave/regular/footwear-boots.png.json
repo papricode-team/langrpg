@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "1450c58a95c7f12c565fbfa5a171eb976b93b6e61c1d8b9e562cef7a63349498",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "05ffd5249892dc939012788c74cb25c0829b88d84a0e490d4a7386bf19c946c8",
+  "promptSha256": "4dcc9e080137fdf30831e0fcfd2d35d443f9077e805bdd075981d357ffa4233d",
+  "generationPromptSha256": "1ff3e432b06c5567078ada3b2c7a47d06ef70a8fd7f259d367f3fd3d39be71f7",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+  },
+  "candidate": "art/source/character-kit/footwear-boots-wave-candidate-1.png",
+  "lockedSha256": "39900d011aea1971afb67d083c2e34010a9ef7b39a30aa20b5400a07f64445cf"
+}

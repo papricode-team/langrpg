@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/body-regular-lantern-raise-candidate-1.png",
+      "sha256": "afa7b4d1cc1fe2751793bf8471c45c6ffb720024acc457b6d196184cdce38d89"
+    },
+    {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/candidate-1.registration.json",
+      "sha256": "af33a62e9d08aecffb3ff17d96e0633e89ea45c8d6b6e1a5478861c4fca5e5a9"
+    },
+    {
+      "path": "art/source/character-kit/poses/lantern-raise/regular/template.registration.json",
+      "sha256": "bbc39041af27b759004f8ec824e6431722f5516a4feb910533aac52e770efed7"
+    }
+  ],
+  "output": "art/source/character-kit/poses/lantern-raise/regular/master.png",
+  "outputSha256": "304d13e359194b887a61b0ef5d36b66bdd8da810c9ffc06e287c65df6218dcad"
+}

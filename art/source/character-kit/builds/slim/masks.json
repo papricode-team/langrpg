@@ -1,0 +1,295 @@
+{
+  "body-full": {
+    "slot": "body",
+    "region": "the entire figure from crown to feet",
+    "anchor": "body",
+    "padding": 4
+  },
+  "headwear": {
+    "slot": "headwear",
+    "region": "the scalp and a generous region immediately above and beside the head",
+    "anchor": "head",
+    "paddingX": 1.15,
+    "paddingTop": 0.75,
+    "reach": 0.15
+  },
+  "bottom": {
+    "slot": "bottom",
+    "region": "from the natural waist through the hips to the feet, including skirt volume and exposed legs",
+    "anchor": "lower",
+    "padding": 18
+  },
+  "hair-short": {
+    "slot": "hair",
+    "region": "the scalp and short hair volume beside the head, ending just below the neck",
+    "anchor": "head",
+    "paddingX": 1.15,
+    "paddingTop": 0.75,
+    "reach": 0.65,
+    "materials": [
+      "primary",
+      "detail"
+    ]
+  },
+  "hair-long": {
+    "slot": "hair",
+    "region": "the scalp and shoulder-length hair beside the face and across the upper shoulders, excluding forearms and hands",
+    "anchor": "head",
+    "paddingX": 1.15,
+    "paddingTop": 0.75,
+    "reach": 1.4,
+    "materials": [
+      "primary",
+      "detail"
+    ]
+  },
+  "face": {
+    "slot": "face",
+    "region": "the facial features inside the head; keep the head silhouette and ears unchanged",
+    "anchor": "head",
+    "paddingX": 0.1,
+    "paddingTop": 0,
+    "reach": 0,
+    "materials": [
+      "detail"
+    ],
+    "facings": [
+      "down",
+      "right",
+      "left"
+    ]
+  },
+  "markings": {
+    "slot": "markings",
+    "region": "the face only; preserve the eyes, mouth, head shape and skin outside the markings",
+    "anchor": "head",
+    "paddingX": 0.1,
+    "paddingTop": 0,
+    "reach": 0,
+    "materials": [
+      "detail"
+    ],
+    "facings": [
+      "down",
+      "right",
+      "left"
+    ]
+  },
+  "facial-hair": {
+    "slot": "facial-hair",
+    "region": "the cheeks, chin and short beard area just below the jaw",
+    "anchor": "head",
+    "paddingX": 0.25,
+    "paddingTop": 0,
+    "reach": 0.5,
+    "materials": [
+      "primary",
+      "detail"
+    ],
+    "facings": [
+      "down",
+      "right",
+      "left"
+    ]
+  },
+  "top": {
+    "slot": "top",
+    "region": "from the neck through the torso and arms to just below the waist",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -8
+    },
+    "bottom": {
+      "from": "waist",
+      "offset": 14
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "skin",
+      "detail"
+    ]
+  },
+  "top-dress": {
+    "slot": "top",
+    "region": "from the neck through the torso, arms and full dress skirt to the feet",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -8
+    },
+    "bottom": {
+      "from": "ground",
+      "offset": 4
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "skin",
+      "detail"
+    ]
+  },
+  "outer-short": {
+    "slot": "outer",
+    "region": "from the neck across the shoulders and arms through the hip-length outer hem",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -12
+    },
+    "bottom": {
+      "from": "waist",
+      "to": "ground",
+      "fraction": 0.4,
+      "offset": 8
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "skin",
+      "detail"
+    ]
+  },
+  "outer-long": {
+    "slot": "outer",
+    "region": "from the neck across the shoulders, arms and full coat or cloak hem",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -12
+    },
+    "bottom": {
+      "from": "ground",
+      "offset": 4
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "skin",
+      "detail"
+    ]
+  },
+  "footwear": {
+    "slot": "footwear",
+    "region": "the lower calves, ankles and feet, following each planted or lifted foot",
+    "anchor": "span",
+    "top": {
+      "from": "waist",
+      "to": "ground",
+      "fraction": 0.3,
+      "offset": -4
+    },
+    "bottom": {
+      "from": "ground",
+      "offset": 5
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "detail"
+    ]
+  },
+  "neck": {
+    "slot": "neck",
+    "region": "around the neck and shoulders with scarf ends over the upper torso",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -8
+    },
+    "bottom": {
+      "from": "waist",
+      "offset": 4
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "detail"
+    ]
+  },
+  "bag": {
+    "slot": "bag",
+    "region": "the shoulder straps, torso and hip area beside the body for the bag",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -6
+    },
+    "bottom": {
+      "from": "waist",
+      "to": "ground",
+      "fraction": 0.6,
+      "offset": 4
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "detail"
+    ]
+  },
+  "held": {
+    "slot": "held",
+    "region": "the hands and space beside the body for a held item; preserve every limb",
+    "anchor": "span",
+    "top": {
+      "from": "waist",
+      "offset": -25
+    },
+    "bottom": {
+      "from": "ground",
+      "offset": 5
+    },
+    "materials": [
+      "detail"
+    ]
+  },
+  "eyewear": {
+    "slot": "eyewear",
+    "region": "the eyes, bridge of the nose and temples for fitted eyewear; preserve the remaining face",
+    "anchor": "head",
+    "paddingX": 0.25,
+    "paddingTop": 0,
+    "reach": 0,
+    "materials": [
+      "primary",
+      "detail"
+    ],
+    "facings": [
+      "down",
+      "right",
+      "left"
+    ]
+  },
+  "hair-shoulder": {
+    "slot": "hair",
+    "region": "the scalp and hair falling to the shoulders, excluding the lower chest and sleeves",
+    "anchor": "head",
+    "paddingX": 1.15,
+    "paddingTop": 0.75,
+    "reach": 1.2,
+    "materials": [
+      "primary",
+      "detail"
+    ]
+  },
+  "top-long": {
+    "slot": "top",
+    "region": "from the neck through torso and arms to the upper thigh for a long tunic",
+    "anchor": "span",
+    "top": {
+      "from": "neck",
+      "offset": -8
+    },
+    "bottom": {
+      "from": "waist",
+      "offset": 30
+    },
+    "materials": [
+      "primary",
+      "secondary",
+      "skin",
+      "detail"
+    ]
+  }
+}

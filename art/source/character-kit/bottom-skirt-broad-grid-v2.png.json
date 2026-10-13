@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "94eed603a61d3ec8c8cc2cfc470efffee2c6060794588259e2153505bcd84f7a",
+  "baseSha256": "83f0745e80256fa6b93d85b5d6b78ed8511833d9547e0d7b9577bd6732f29371",
+  "registrationSha256": "4158ec79404ca1edf12578936809b9f8c3830a8b69d24e523b0662e7c02d26ec",
+  "maskSha256": "07a086271d97f6b97d152db73d1abe2978176779c220aa66849028869588f07a",
+  "promptSha256": "897e0d6da37952f68d347e048f924ae5e08f4467e0724888d53d28164c0a828d",
+  "generationPromptSha256": "37edde5b5a2192a1dd9b4238eff22583dc4b20a5c885df74a39d55bc06846406",
+  "materials": [
+    "primary",
+    "skin"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "keepMaterials": [
+      "skin"
+    ],
+    "ignoreKeys": [
+      "secondary"
+    ],
+    "materialRegions": {
+      "skin": {
+        "from": "waist",
+        "to": "ground",
+        "start": 0.3
+      }
+    },
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "0cc6f29b5fd861e22baeed773a6c5c90117b2944b27a2f9bdb8d9f0e0b2e6d6f",
+  "candidate": "art/source/character-kit/prepared/bottom-skirt-broad-grid-v2.png",
+  "lockedSha256": "5d379a15db62970b8da3ae8ccd3148b3c261399229adcc34ca1ced051c2e1941"
+}

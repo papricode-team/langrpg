@@ -1,0 +1,511 @@
+{
+  "id": "hair-braids",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 916,
+        "detail": 341
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 461
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 903,
+        "detail": 328
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 382
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 898,
+        "detail": 349
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 392
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 926,
+        "detail": 330
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 405
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 941,
+        "detail": 303
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 381
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 919,
+        "detail": 317
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 401
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 911,
+        "detail": 338
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 406
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 890,
+        "detail": 354
+      },
+      "regions": 7,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 399
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 921,
+        "detail": 312
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 364
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 1189,
+        "detail": 313
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 326
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 1194,
+        "detail": 288
+      },
+      "regions": 5,
+      "detached": 1,
+      "coverage": 0,
+      "outsideSilhouette": 373
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 1166,
+        "detail": 270
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 293
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 1152,
+        "detail": 237
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 275
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 1110,
+        "detail": 212
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 278
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 1130,
+        "detail": 247
+      },
+      "regions": 7,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 299
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 1149,
+        "detail": 237
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 282
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 1120,
+        "detail": 286
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 241
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 1068,
+        "detail": 240
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 246
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 1674,
+        "detail": 302
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 348
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 1740,
+        "detail": 248
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 335
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 1697,
+        "detail": 291
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 322
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 1707,
+        "detail": 274
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 333
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 1651,
+        "detail": 282
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 307
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 1711,
+        "detail": 267
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 340
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 1690,
+        "detail": 290
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 327
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 1736,
+        "detail": 260
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 349
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 1659,
+        "detail": 271
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 301
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 1233,
+        "detail": 278
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 299
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 1164,
+        "detail": 274
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 234
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 1136,
+        "detail": 291
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 222
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 1118,
+        "detail": 291
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 210
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 1126,
+        "detail": 293
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 224
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 1173,
+        "detail": 264
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 223
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 1166,
+        "detail": 301
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 209
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 1154,
+        "detail": 312
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 248
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 1119,
+        "detail": 287
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 233
+    }
+  ],
+  "errors": [
+    "Frame 0: expected one connected paint region, found 4",
+    "Frame 1: expected one connected paint region, found 4",
+    "Frame 2: expected one connected paint region, found 5",
+    "Frame 3: expected one connected paint region, found 5",
+    "Frame 4: expected one connected paint region, found 5",
+    "Frame 5: expected one connected paint region, found 4",
+    "Frame 6: expected one connected paint region, found 6",
+    "Frame 7: expected one connected paint region, found 7",
+    "Frame 8: expected one connected paint region, found 4",
+    "Frame 9: expected one connected paint region, found 4",
+    "Frame 10: expected one connected paint region, found 5",
+    "Frame 10: 1 floating paint regions",
+    "Frame 11: expected one connected paint region, found 4",
+    "Frame 12: expected one connected paint region, found 3",
+    "Frame 13: expected one connected paint region, found 3",
+    "Frame 14: expected one connected paint region, found 7",
+    "Frame 15: expected one connected paint region, found 4",
+    "Frame 16: expected one connected paint region, found 6",
+    "Frame 18: expected one connected paint region, found 3",
+    "Frame 19: expected one connected paint region, found 2",
+    "Frame 20: expected one connected paint region, found 2",
+    "Frame 21: expected one connected paint region, found 3",
+    "Frame 22: expected one connected paint region, found 2",
+    "Frame 24: expected one connected paint region, found 2",
+    "Frame 25: expected one connected paint region, found 3",
+    "Frame 27: expected one connected paint region, found 4",
+    "Frame 28: expected one connected paint region, found 5",
+    "Frame 29: expected one connected paint region, found 5",
+    "Frame 30: expected one connected paint region, found 3",
+    "Frame 31: expected one connected paint region, found 5",
+    "Frame 32: expected one connected paint region, found 4",
+    "Frame 33: expected one connected paint region, found 6",
+    "Frame 34: expected one connected paint region, found 4",
+    "Frame 35: expected one connected paint region, found 6"
+  ]
+}

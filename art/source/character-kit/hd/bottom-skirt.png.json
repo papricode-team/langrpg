@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "candidateSha256": "66abaadd6654ffae67480843699d3dc3ec3172a593a768c9cbe30871b88ea00e",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a8c256dfd7c339b7291efb6085a471b3aaf15fb252bbba08468d31de449d00f4",
+  "promptSha256": "5900e34af5f757ea20e87fa12c856178db3eb69aad74b49cb2821c2a793e9ce7",
+  "generationPromptSha256": "82ca5d6c7ce56377cb7bf3a20667e2bb976475bd02f85fb17cf0e59ac0155966",
+  "materials": [
+    "primary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 108,
+    "keepMaterials": [
+      "skin"
+    ],
+    "materialRegions": {
+      "skin": {
+        "from": "waist",
+        "to": "ground",
+        "start": 0.3
+      }
+    },
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "preserveMaterials": [
+      "skin"
+    ]
+  },
+  "preparationSha256": "5899958dc0f5362cb5a2e6c08edf0a6bfa0f534975cd855cdaf2597516bd1620",
+  "candidate": "art/source/character-kit/hd/bottom-skirt-candidate.png",
+  "lockedSha256": "82850f3f10d8a29b7b0579f62f1f2f8bd4172fd9858860eb8d646fc2ef3ea3dd"
+}

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "6072543078ee6cffd3faed4c33d20d24b3d0e3a68ede746507dd92756a603448",
+  "baseSha256": "523ea9bb413b5de41861dac8d1808739e4a6fefcc24e2f74f50bfd5a7aa1bb73",
+  "registrationSha256": "f57aee4952942f12571da9f34198ab105a207db32c568a265085736126ee0b02",
+  "maskSha256": "36b908f8dac82f4c2413d68defa81efae4915a793a25b0c1b5699e452a8223e5",
+  "promptSha256": "44bd7e5821328418c2299e130305db76671bfdbaefd76cfc957576c4247365be",
+  "generationPromptSha256": "4aa40413c6e0416e1ad2cba1a6736e3d230aad08fbfbf4bb0f37af6d5ec04430",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/bottom-straight-seated-candidate-1.png",
+  "lockedSha256": "5444ad8a0fe47727c2424aeaab9ee8a1dba67f88ddb7e59fdc77ef9dc9fd9f85"
+}

@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "format": {
+    "columns": 9,
+    "rows": 4,
+    "frames": 36,
+    "runtimeCell": [
+      384,
+      576
+    ],
+    "editorCell": [
+      512,
+      768
+    ],
+    "luminanceReference": 180
+  },
+  "assets": [
+    {
+      "id": "body-regular",
+      "optionId": "regular",
+      "slot": "body",
+      "build": "regular",
+      "source": "art/source/character-kit/hd/body-regular.png",
+      "sourceSha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2",
+      "provenance": {
+        "version": 2,
+        "candidateSha256": "bdbea9ff7745168ea626ff7d0deb29113c6c8c8b702eb4f558cb594275da1c34",
+        "baseSha256": "4c15fc126c5334cbec4b637563eb224542507f38f46ac39b5b853b42dea154a4",
+        "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+        "maskSha256": "a85bf4cdfa26ab1b5ccd12e3b0172b64ce89cb7ccc90b5d9867acd7c5b2299e9",
+        "promptSha256": "52592dd48f8ef1a600c2e8ec0ab230247e353f0873c92b48e50f2986d1eebc7e",
+        "generationPromptSha256": "7479ca94bba64cf15d0befcb4afdbf350bd809eace342122161c62475e07ca55",
+        "materials": [
+          "skin",
+          "detail"
+        ],
+        "lock": {
+          "operation": "replace",
+          "maxSpeckPixels": 4,
+          "matte": {
+            "color": "#ffffff",
+            "tolerance": 32
+          }
+        },
+        "preparationSha256": "6a99ab22319394e512e3822e6e541d33354691946260b5bc0a9b0a1290883465",
+        "candidate": "art/source/character-kit/hd/body-regular-candidate.png",
+        "lockedSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8"
+      },
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "skin": {
+          "runtime": "regular/body-regular.skin.webp",
+          "editor": "regular/body-regular.skin.editor.webp",
+          "runtimeSha256": "ce547d7b09c4ff66dbdfcb5d01527a88f2ce49c735b276ef843d3211d4104435",
+          "editorSha256": "aeb698207b112648fc156a7b42aff8cb453ec0bc1bcc2386bb894b526922ffdd"
+        },
+        "detail": {
+          "runtime": "regular/body-regular.detail.webp",
+          "editor": "regular/body-regular.detail.editor.webp",
+          "runtimeSha256": "b56fdbd8d49c43b0b8b93fde2c87ce730a8db5fb48ed0f46406a85c398cd4ca9",
+          "editorSha256": "e5415e7ee17e5f299a695a2a814b4798c28a86ee69816b7465a7f7610625f5b6"
+        }
+      },
+      "thumbnail": "regular/body-regular.thumb.webp",
+      "thumbnailSha256": "b93636c76f66f0da510cbe52962f096115d18a2e590e758b276ec0ca668c2468"
+    },
+    {
+      "id": "bottom-skirt",
+      "optionId": "skirt",
+      "slot": "bottom",
+      "build": "regular",
+      "source": "art/source/character-kit/hd/bottom-skirt.png",
+      "sourceSha256": "8d86ad7d06f98d8a9842263376612fd2f2e785b9252eba1ffada0cb37461d7e5",
+      "provenance": {
+        "version": 2,
+        "candidateSha256": "66abaadd6654ffae67480843699d3dc3ec3172a593a768c9cbe30871b88ea00e",
+        "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+        "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+        "maskSha256": "a8c256dfd7c339b7291efb6085a471b3aaf15fb252bbba08468d31de449d00f4",
+        "promptSha256": "5900e34af5f757ea20e87fa12c856178db3eb69aad74b49cb2821c2a793e9ce7",
+        "generationPromptSha256": "82ca5d6c7ce56377cb7bf3a20667e2bb976475bd02f85fb17cf0e59ac0155966",
+        "materials": [
+          "primary",
+          "skin",
+          "detail"
+        ],
+        "lock": {
+          "detailReach": 1,
+          "maxSpeckPixels": 108,
+          "keepMaterials": [
+            "skin"
+          ],
+          "materialRegions": {
+            "skin": {
+              "from": "waist",
+              "to": "ground",
+              "start": 0.3
+            }
+          },
+          "matte": {
+            "color": "#ffffff",
+            "tolerance": 32,
+            "includeEnclosed": true
+          },
+          "preserveMaterials": [
+            "skin"
+          ]
+        },
+        "preparationSha256": "5899958dc0f5362cb5a2e6c08edf0a6bfa0f534975cd855cdaf2597516bd1620",
+        "candidate": "art/source/character-kit/hd/bottom-skirt-candidate.png",
+        "lockedSha256": "82850f3f10d8a29b7b0579f62f1f2f8bd4172fd9858860eb8d646fc2ef3ea3dd"
+      },
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "runtime": "regular/bottom-skirt.primary.webp",
+          "editor": "regular/bottom-skirt.primary.editor.webp",
+          "runtimeSha256": "b706675849bc595387503807091157f0f9023a35c603b997a1445f0f876a6e7d",
+          "editorSha256": "93865b62c9f587b6df8da8e703bfd82680c33b4c0a0ce810b3ed10a997ace9dc"
+        },
+        "skin": {
+          "runtime": "regular/bottom-skirt.skin.webp",
+          "editor": "regular/bottom-skirt.skin.editor.webp",
+          "runtimeSha256": "e42f1ed6bf7916d8938d2b9405d42062766ae83bcdfc2ec1786eb005d8fe896d",
+          "editorSha256": "60fa7fc89127e12b954415dcda83d17f273545f67f1db32d19ddc606b51e7581"
+        },
+        "detail": {
+          "runtime": "regular/bottom-skirt.detail.webp",
+          "editor": "regular/bottom-skirt.detail.editor.webp",
+          "runtimeSha256": "b42d7756e3522b60ce02750163d084a870f58f5ddc42662944f50ddcfd175d56",
+          "editorSha256": "b90c9f24ab644ff1deeb28a8659dfe385a2b732891fff7070dcbbaab56fbf7e2"
+        }
+      },
+      "thumbnail": "regular/bottom-skirt.thumb.webp",
+      "thumbnailSha256": "119566399bd94193b3604c70307eaa68e8cea2f743ac3a8262462420db290320"
+    },
+    {
+      "id": "headwear-cap",
+      "optionId": "cap",
+      "slot": "headwear",
+      "build": "regular",
+      "source": "art/source/character-kit/hd/headwear-cap.png",
+      "sourceSha256": "44f8dfb39dc6ffc62533e1ab8f4a82ba8d21eb203539b0105936b38e9f7225bb",
+      "provenance": {
+        "version": 2,
+        "candidateSha256": "2cae5598e3ccb1fade8d0168b5a5d3190aa55a972158c31b9443bcba9acc3ceb",
+        "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+        "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+        "maskSha256": "58eed95e01b4bc420e9662e6237836b50017882d929435c750d5743fc9184486",
+        "promptSha256": "9d2bea7f26c530c39be85c67593f3b150549a16b2713179797d36026d8cc6698",
+        "generationPromptSha256": "0f3653c6199a0b8c33747425f2b993c81c4d9268eb177ba86140ebf754a8fad6",
+        "materials": [
+          "primary",
+          "secondary",
+          "skin",
+          "detail"
+        ],
+        "lock": {
+          "detailReach": 1,
+          "maxSpeckPixels": 12,
+          "anchorMaterial": "primary",
+          "fringeMaterials": [
+            "skin",
+            "detail"
+          ],
+          "matte": {
+            "color": "#ffffff",
+            "tolerance": 32
+          }
+        },
+        "preparationSha256": "e71f56f6071d5ca4a9af27ad1c479c8aae99b19e6b7c128414b8da9f9721989c",
+        "candidate": "art/source/character-kit/hd/headwear-cap-candidate.png",
+        "lockedSha256": "bbdf9b1f371b750b53fc8cca769c97216876d316944d3c3830f59ecc04cb6e68"
+      },
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "runtime": "regular/headwear-cap.primary.webp",
+          "editor": "regular/headwear-cap.primary.editor.webp",
+          "runtimeSha256": "a3955e878acbe450609abf7af5004ca98e9d1639fd5cce629c4d2ea6bde49f41",
+          "editorSha256": "f778fdc231d5fe11b46f512a36eb70db35526f445ea8f4cd560af3c3e7cd7446"
+        },
+        "secondary": {
+          "runtime": "regular/headwear-cap.secondary.webp",
+          "editor": "regular/headwear-cap.secondary.editor.webp",
+          "runtimeSha256": "47ac056b7f536cb7119bcc4b3c252f73d35e008e77823544ca4aa0dd8a37fdd4",
+          "editorSha256": "f12c3ecb601594b0414376942526d1bfad239533f7618fadf145fed77daf3881"
+        },
+        "skin": {
+          "runtime": "regular/headwear-cap.skin.webp",
+          "editor": "regular/headwear-cap.skin.editor.webp",
+          "runtimeSha256": "f3f35370739f12a09286f7fc13e963b7aa85e3dbb9984cc8a8e5d0df67f918a3",
+          "editorSha256": "c8cfd26d46c097824147db98179535923151b1931d2eea98a5677fd18555c287"
+        },
+        "detail": {
+          "runtime": "regular/headwear-cap.detail.webp",
+          "editor": "regular/headwear-cap.detail.editor.webp",
+          "runtimeSha256": "245f81b1fc16f582386565f574b33aea7bfb2a904a17c6bdbcef38590210677b",
+          "editorSha256": "c94c0f9f7cee90c4123453e92d4cd4782c8ae07ee467291059dc96a5f1625fe0"
+        }
+      },
+      "thumbnail": "regular/headwear-cap.thumb.webp",
+      "thumbnailSha256": "c721d62c8d48875708e1ac06570669e6643014bfed855a942d23bd130080b89f"
+    }
+  ],
+  "assetVersion": "be3059dd0fd8e809"
+}

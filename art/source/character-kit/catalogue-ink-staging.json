@@ -1,0 +1,1203 @@
+{
+  "version": 1,
+  "promptVersion": 1,
+  "registration": "art/source/character-kit/references/regular-walk.registration.json",
+  "builds": {
+    "regular": {
+      "master": "art/source/character-kit/references/regular-walk.png",
+      "mannequin": "art/source/character-kit/body-regular-walk.png"
+    }
+  },
+  "entries": [
+    {
+      "id": "body-regular",
+      "slot": "body",
+      "build": "regular",
+      "label": "Regular mannequin",
+      "mask": "body-full",
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/body-regular-candidate-4.png",
+      "locked": "art/source/character-kit/body-regular-walk.png",
+      "prompt": "Replace the clothes with a plain opaque cyan #5a9a9a fitted work suit, matching gloves and fitted foot coverings. Preserve every alternating support-leg pose, bent knee, raised foot, planted sole, arm and head from the revised-walk reference. Erase obsolete clothing protrusions, retain tiny neutral face features and painterly shading; preserve the exact grid and transparent background.",
+      "lock": {
+        "operation": "replace",
+        "maxSpeckPixels": 4
+      },
+      "generationPrompt": "art/source/character-kit/prompts/body-regular-candidate-4.txt",
+      "optionId": "regular",
+      "labelTr": "Standart manken",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "707abdfaf4810fdde074d96dca6da12385738fc1b6aea119eefb75ec89746cf2",
+        "notes": "Reviewed all 36 revised walking poses in two skin tints, and composited the legacy revised trousers to confirm removal of doubled legs. No skin threshold or pose limit was relaxed.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/body-regular.png",
+            "imageSha256": "aefc98d9b521a36077ba0aecd3c0daeb9d3d54a3e4105370c98488138fc042ac",
+            "report": "art/proofs/walk-migration/body-regular.json",
+            "reportSha256": "163e9c12145b852a6479df9adad5c4967fbd5b9b7a3221994cbf16fed046c112",
+            "walk": "art/proofs/walk-migration/body-regular.gif",
+            "walkSha256": "4af9bc8f06eca14c7b6422fafeac8fb56d58d2fc240c0c9c25a1e6448f6de210"
+          }
+        ]
+      }
+    },
+    {
+      "id": "headwear-cap",
+      "slot": "headwear",
+      "build": "regular",
+      "label": "Soft cap",
+      "mask": "headwear",
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "hides": [
+        "hair"
+      ],
+      "zOrder": {
+        "default": 80
+      },
+      "status": "approved",
+      "candidate": "art/source/character-kit/prepared/headwear-cap-walk.png",
+      "locked": "art/source/character-kit/headwear-cap-walk.png",
+      "prompt": "Add one simple soft round cap on each scalp, primary muted violet #7a5a9a with a narrow secondary muted green #5a9a6a band. Fit it tightly on the bald head and cover the crown without covering the eyes. Keep the same cap design through all four facings and all walking poses. Change only the cap; all mannequin pixels outside it stay unchanged.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "anchorMaterial": "primary",
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ]
+      },
+      "generationPrompt": "art/source/character-kit/prompts/headwear-cap-candidate-1.txt",
+      "optionId": "cap",
+      "labelTr": "Yumuşak bere",
+      "preparedCandidate": "art/source/character-kit/prepared/headwear-cap-walk.png.json",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "6a3e6923cd27675735cfd5243fd18def04208fce3ab82f077c37c1999863fb3b",
+        "notes": "Re-registered complete candidate frames and reviewed cap/scalp fit, full hair hiding, and skirt/jacket overlap on the revised walk.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.png",
+            "imageSha256": "54b8a5b8d9f9beee6fb5581e4496c77b5485b912d63bd34372d37a8ecb96ab9f",
+            "report": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.json",
+            "reportSha256": "b71e80d4be58065c7e76b560d0e567937513339832be1105439b00e58378a1cd",
+            "walk": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.gif",
+            "walkSha256": "0410096e12f3af52ad973d61b33fee8463f6a968c1b4b349a529c20d753c428b"
+          },
+          {
+            "image": "art/proofs/walk-migration/bottom-skirt--headwear-cap.png",
+            "imageSha256": "6599492950a6ca443521309cc5cf42fd78374f2a9e0fd27077632d8c1156cf2c",
+            "report": "art/proofs/walk-migration/bottom-skirt--headwear-cap.json",
+            "reportSha256": "a84bf02d4a14850985858713f2cdf5ccdde9fb9e24cfd425d80524626bac18a5",
+            "walk": "art/proofs/walk-migration/bottom-skirt--headwear-cap.gif",
+            "walkSha256": "57c20deb6ffcd04ae22529c9bdf5bf50dc4880a3a81fc6f4284c12406480e23d"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hair-waves",
+      "optionId": "waves",
+      "slot": "hair",
+      "build": "regular",
+      "label": "Waves",
+      "labelTr": "Dalgalı saç",
+      "mask": "hair-long",
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/prepared/hair-waves-walk.png",
+      "locked": "art/source/character-kit/hair-waves-walk.png",
+      "prompt": "Add soft shoulder-length wavy hair in muted violet #7a5a9a. Keep the forehead and face visible in the down-facing row; paint the back of the hairstyle in the up-facing row. Follow every existing head position. Preserve the mannequin, face and all poses exactly. Natural-colour detail is limited to seams immediately bordering the hair.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12
+      },
+      "sourceNotes": "Legacy candidate re-lock and targeted repair both failed connected-region validation. Candidate 3 was generated directly on the corrected mannequin, using the legacy candidate as a hairstyle reference. Raw attempts and exact repair prompts are retained.",
+      "zOrder": {
+        "default": 60,
+        "up": 75
+      },
+      "generationPrompt": "art/source/character-kit/prompts/hair-waves-candidate-3.txt",
+      "preparedCandidate": "art/source/character-kit/prepared/hair-waves-walk.png.json",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "d6a8ff2aa2ce3636832fe69881cf40abd37de64b95d98d28086ac19adb52cf5b",
+        "notes": "Reviewed all re-registered waves poses on the revised mannequin and legacy outfit, plus cap hide interaction. No new hair generation or per-limb adjustment.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/hair-waves.png",
+            "imageSha256": "8f28673b795b64a1b5e8f207afb4493e13bf3c34a4cdba30e97a6f88a844b8e3",
+            "report": "art/proofs/walk-migration/hair-waves.json",
+            "reportSha256": "29dbf5c5465ec5accb8f84cf89718dfc5694d9f470a921fab4a32394e44b93ef",
+            "walk": "art/proofs/walk-migration/hair-waves.gif",
+            "walkSha256": "4dcbd1a501b2c89d35d38b4a4986ee7c06857d4c2f5a48d83eb3bbf3f073262b"
+          },
+          {
+            "image": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.png",
+            "imageSha256": "54b8a5b8d9f9beee6fb5581e4496c77b5485b912d63bd34372d37a8ecb96ab9f",
+            "report": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.json",
+            "reportSha256": "b71e80d4be58065c7e76b560d0e567937513339832be1105439b00e58378a1cd",
+            "walk": "art/proofs/walk-migration/headwear-cap--hair-waves--rules.gif",
+            "walkSha256": "0410096e12f3af52ad973d61b33fee8463f6a968c1b4b349a529c20d753c428b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bottom-skirt",
+      "slot": "bottom",
+      "build": "regular",
+      "label": "Knee-length skirt",
+      "mask": "bottom",
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "zOrder": {
+        "default": 30
+      },
+      "status": "approved",
+      "candidate": "art/source/character-kit/bottom-skirt-candidate-2.png",
+      "locked": "art/source/character-kit/bottom-skirt-walk.png",
+      "prompt": "Add a simple knee-length A-line skirt in muted violet #7a5a9a from the waist to the knees, with painterly folds following the exact walking pose. Paint exposed lower legs and feet in cyan #5a9a9a, aligned exactly with the mannequin. No trousers or boots. Preserve torso, arms, hands and head. Keep a consistent hem length and skirt design in every frame.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "keepMaterials": [
+          "skin"
+        ],
+        "materialRegions": {
+          "skin": {
+            "from": "waist",
+            "to": "ground",
+            "start": 0.3
+          }
+        }
+      },
+      "generationPrompt": "art/source/character-kit/prompts/bottom-skirt-candidate-2.txt",
+      "optionId": "skirt",
+      "labelTr": "Diz boyu etek",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "824c34db912ae9ee87c56d3a4562b8dcd23bc894b24e3f5d154542527c9b2a3c",
+        "notes": "Regenerated on the revised walk, preserving raised soles and support-leg alternation. Skin region begins at 30% of waist-to-ground to include the raised legs immediately beneath the hem. All 36 frames remain connected; reviewed with cap and jacket in two palettes.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/bottom-skirt--headwear-cap.png",
+            "imageSha256": "6599492950a6ca443521309cc5cf42fd78374f2a9e0fd27077632d8c1156cf2c",
+            "report": "art/proofs/walk-migration/bottom-skirt--headwear-cap.json",
+            "reportSha256": "a84bf02d4a14850985858713f2cdf5ccdde9fb9e24cfd425d80524626bac18a5",
+            "walk": "art/proofs/walk-migration/bottom-skirt--headwear-cap.gif",
+            "walkSha256": "57c20deb6ffcd04ae22529c9bdf5bf50dc4880a3a81fc6f4284c12406480e23d"
+          }
+        ]
+      }
+    },
+    {
+      "id": "top-shirt",
+      "optionId": "shirt",
+      "slot": "top",
+      "build": "regular",
+      "label": "Collared shirt",
+      "labelTr": "Yakalı gömlek",
+      "mask": "top",
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/top-shirt-candidate-1.png",
+      "locked": "art/source/character-kit/top-shirt.png",
+      "generationPrompt": "art/source/character-kit/prompts/top-shirt-candidate-1.txt",
+      "prompt": "Add a simple fitted collared button-front shirt with long sleeves rolled neatly to mid-forearm, in muted violet #7a5a9a, with tiny neutral buttons. Keep a tidy waist-length hem, painterly fabric folds, cyan #5a9a9a exposed forearms and hands, and exactly preserve all 36 poses.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ],
+        "matte": {
+          "color": "#ffffff",
+          "tolerance": 32
+        }
+      },
+      "sourceNotes": "Generated on the revised-walk mannequin with the existing outfit as a style reference; this is a new component painting, not a lossless re-lock of the legacy sheets.",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "54aba9ac37c894158c338b795787ef80f08b35ba1b25ba001732028cb92e82e0",
+        "notes": "Reviewed all 36 frames in two tint palettes and the default-colour foundation preview. Checked shirt/jacket layering, leg alternation, raised boot soles, cuffs and skirt/boot overlap. White input matte is excluded; enclosed neutral buttons are retained. Documented region allowances preserve mannequin attachment.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "ab1b6e37978532f13d566779b8f833647150cfe7e1245dd4c1ca026ba1dbbcb2",
+            "report": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "82112e6cdc10280229441e214c8f014e46127c80dacebacab6d5c70fa278f3f0",
+            "walk": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "85ba3365d98984de3b13b5be4369f8dd1770d5c37059a095bf84ee6b1fc1da39"
+          },
+          {
+            "image": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.png",
+            "imageSha256": "60b814155ce90eef5cd5b0f4273ed73dec9f754c4ae4f3bb39068940e11dd754",
+            "report": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.json",
+            "reportSha256": "b904a9dbb6bb2e42c746ff67b1487b944bbfa0f32fc4cee8e39bf5c6b7e8d3ea",
+            "walk": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.gif",
+            "walkSha256": "6c66a8e9c2443f1926c721c44cd89978cfb6cfc245c403cc044efc49012b0b45"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bottom-straight",
+      "optionId": "straight",
+      "slot": "bottom",
+      "build": "regular",
+      "label": "Straight trousers",
+      "labelTr": "Düz pantolon",
+      "mask": "bottom",
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/bottom-straight-candidate-1.png",
+      "locked": "art/source/character-kit/bottom-straight.png",
+      "generationPrompt": "art/source/character-kit/prompts/bottom-straight-candidate-1.txt",
+      "prompt": "Add straight tailored trousers in muted violet #7a5a9a, with a fitted waistband, restrained painterly creases and tidy ankle cuffs. Keep the mannequin feet cyan #5a9a9a and uncovered. Preserve every alternating support-leg pose, raised knee, raised foot and planted sole of the revised walk.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ],
+        "matte": {
+          "color": "#ffffff",
+          "tolerance": 32
+        }
+      },
+      "validation": {
+        "maxRegions": 2,
+        "regionReason": "A hand occludes a small hip patch in left idle; the crossing foreground foot occludes part of the rear cuff in right walking pose 7. Both visible garment regions touch the mannequin."
+      },
+      "sourceNotes": "Generated on the revised-walk mannequin with the existing outfit as a style reference; this is a new component painting, not a lossless re-lock of the legacy sheets.",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "8ddcadc82485d1a25068b7c7d98e71f1555a8b46576e97c6fb6e0dfedef770d8",
+        "notes": "Reviewed all 36 frames in two tint palettes and the default-colour foundation preview. Checked shirt/jacket layering, leg alternation, raised boot soles, cuffs and skirt/boot overlap. White input matte is excluded; enclosed neutral buttons are retained. Documented region allowances preserve mannequin attachment.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "ab1b6e37978532f13d566779b8f833647150cfe7e1245dd4c1ca026ba1dbbcb2",
+            "report": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "82112e6cdc10280229441e214c8f014e46127c80dacebacab6d5c70fa278f3f0",
+            "walk": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "85ba3365d98984de3b13b5be4369f8dd1770d5c37059a095bf84ee6b1fc1da39"
+          }
+        ]
+      }
+    },
+    {
+      "id": "footwear-boots",
+      "optionId": "boots",
+      "slot": "footwear",
+      "build": "regular",
+      "label": "Walking boots",
+      "labelTr": "Yürüyüş botları",
+      "mask": "footwear",
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/footwear-boots-candidate-1.png",
+      "locked": "art/source/character-kit/footwear-boots.png",
+      "generationPrompt": "art/source/character-kit/prompts/footwear-boots-candidate-1.txt",
+      "prompt": "Add practical ankle-high lace-up walking boots with a small folded cuff, matching the reference outfit, entirely in muted violet #7a5a9a including the shaded soles and laces. Preserve every planted and raised foot, with soles visible in the appropriate back-facing poses. Keep legs cyan and unchanged above the cuffs.",
+      "validation": {
+        "maxRegions": 2,
+        "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+      },
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ],
+        "matte": {
+          "color": "#ffffff",
+          "tolerance": 32
+        }
+      },
+      "sourceNotes": "Generated on the revised-walk mannequin with the existing outfit as a style reference; this is a new component painting, not a lossless re-lock of the legacy sheets.",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "2aaf1f52419f629c1db62de338fac2f732af58289307c03c3d0d750ef4a15614",
+        "notes": "Reviewed all 36 frames in two tint palettes and the default-colour foundation preview. Checked shirt/jacket layering, leg alternation, raised boot soles, cuffs and skirt/boot overlap. White input matte is excluded; enclosed neutral buttons are retained. Documented region allowances preserve mannequin attachment.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "ab1b6e37978532f13d566779b8f833647150cfe7e1245dd4c1ca026ba1dbbcb2",
+            "report": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "82112e6cdc10280229441e214c8f014e46127c80dacebacab6d5c70fa278f3f0",
+            "walk": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "85ba3365d98984de3b13b5be4369f8dd1770d5c37059a095bf84ee6b1fc1da39"
+          },
+          {
+            "image": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.png",
+            "imageSha256": "60b814155ce90eef5cd5b0f4273ed73dec9f754c4ae4f3bb39068940e11dd754",
+            "report": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.json",
+            "reportSha256": "b904a9dbb6bb2e42c746ff67b1487b944bbfa0f32fc4cee8e39bf5c6b7e8d3ea",
+            "walk": "art/proofs/walk-migration/top-shirt--bottom-skirt--footwear-boots--headwear-cap.gif",
+            "walkSha256": "6c66a8e9c2443f1926c721c44cd89978cfb6cfc245c403cc044efc49012b0b45"
+          }
+        ]
+      }
+    },
+    {
+      "id": "outer-travel",
+      "optionId": "travel",
+      "slot": "outer",
+      "build": "regular",
+      "label": "Travel jacket",
+      "labelTr": "Seyahat ceketi",
+      "mask": "outer-short",
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/outer-travel-candidate-1.png",
+      "locked": "art/source/character-kit/outer-travel.png",
+      "generationPrompt": "art/source/character-kit/prompts/outer-travel-candidate-1.txt",
+      "prompt": "Add the existing short open travel jacket with notched lapels, fitted waist, small hip-length tails and rolled mid-forearm cuffs. Primary cloth is muted violet #7a5a9a; collar, lapels and cuff facings are muted green #5a9a6a. Leave the open center cyan; do not paint an undershirt. Preserve all poses.",
+      "covers": {
+        "bottom": "upper"
+      },
+      "validation": {
+        "maxRegions": 4,
+        "regionReason": "In profile, the torso and foreground arm separate the open jacket into a main panel, far lapel, far hem and a small visible tail. Each region remains attached to the mannequin."
+      },
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ],
+        "matte": {
+          "color": "#ffffff",
+          "tolerance": 32
+        }
+      },
+      "sourceNotes": "Generated on the revised-walk mannequin with the existing outfit as a style reference; this is a new component painting, not a lossless re-lock of the legacy sheets.",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "486358083aead31c5d72d69e3ee386e0aec59b2eeacbe460845c28df15c75368",
+        "notes": "Reviewed all 36 frames in two tint palettes and the default-colour foundation preview. Checked shirt/jacket layering, leg alternation, raised boot soles, cuffs and skirt/boot overlap. White input matte is excluded; enclosed neutral buttons are retained. Documented region allowances preserve mannequin attachment.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "ab1b6e37978532f13d566779b8f833647150cfe7e1245dd4c1ca026ba1dbbcb2",
+            "report": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "82112e6cdc10280229441e214c8f014e46127c80dacebacab6d5c70fa278f3f0",
+            "walk": "art/proofs/walk-migration/outer-travel--top-shirt--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "85ba3365d98984de3b13b5be4369f8dd1770d5c37059a095bf84ee6b1fc1da39"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-oval",
+      "optionId": "oval",
+      "slot": "face",
+      "build": "regular",
+      "label": "Default face",
+      "labelTr": "Varsayılan yüz",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-oval-candidate-3.png",
+      "locked": "art/source/character-kit/face-oval.png",
+      "generationPrompt": "art/source/character-kit/prompts/face-oval-candidate-3.txt",
+      "prompt": "Paint subtle neutral default facial features only: dark brown eyes and eyebrows, a small nose accent and closed relaxed mouth. Keep the exact head outline and position, cyan skin, bald scalp and every walking pose. Profiles show only the visible eye. Back-facing heads must have no facial features. No cosmetics, facial hair, jewellery or skin-colour patches.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "5bc53283791377dfa35a4271db7322927c0f413cd8a70c71c9e35ef022e0da97",
+        "notes": "Reviewed bare mannequin and full generic outfit in both skin/tint palettes across all 36 frames. Candidate 3 adds neutral visible features; the rear row is intentionally empty. Base-alpha clipping excludes flattened silhouette fringe without deleting or moving facial marks.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-oval.png",
+            "imageSha256": "e5cb2a11941b96c91267a302985a8a81afb1e2b6e4d9ff3c7f7f7a7b49079329",
+            "report": "art/proofs/walk-migration/face-oval.json",
+            "reportSha256": "5e2bf66b48f7aeaeaf7a03cae67c1143f73ba8b2daab1d370561367bf7aff082",
+            "walk": "art/proofs/walk-migration/face-oval.gif",
+            "walkSha256": "88f2b25673814a69d9ab9295baa2b9e23272f0da2281dba3b1983792d4d014f8"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-oval--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "5647c611c0f39ddd47f3ebef0254f52302080768a640dbbf20ed3d6de7416781",
+            "report": "art/proofs/walk-migration/face-oval--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "3c581c360977f168d7e994c0c4a685cc7ab7b29ebae5c141d4209da4fda99e54",
+            "walk": "art/proofs/walk-migration/face-oval--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "c27271fd2df319d3bc4c6eb03ac59a37542da4c5b81931c7fce45e5e8aa5f2ed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-soft",
+      "optionId": "soft",
+      "slot": "face",
+      "build": "regular",
+      "label": "Soft features",
+      "labelTr": "Yumuşak yüz hatları",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-soft-candidate-1.png",
+      "locked": "art/source/character-kit/face-soft.png",
+      "prompt": "Paint only this facial feature set in neutral dark brown: Soft rounded eyebrows, gently open eyes, a small nose accent and a tiny relaxed upward-curving closed smile. Keep the exact head outline, feature placement, cyan skin, bald scalp and every pose. Side profiles show only their visible eye and matching nose/mouth accents. All nine back-facing heads remain untouched. No skin-colour patches, facial hair, cosmetics or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/face-soft-candidate-1.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "245d2cb020c3619ec909a8eff1ece287be456bc459a3cd7a165387107c2f4b2f",
+        "notes": "Reviewed all 36 cells on bare mannequin and full outfit in two skin/tint palettes, including enlarged head crops. Soft brows and subtle closed smile are aligned through the walk; both profiles retain visible features, the rear row remains empty, and no floating marks or background fringe are present. Candidate 1 passes unchanged face validation.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-soft.png",
+            "imageSha256": "399f2650f75ae2ef2e255648435eb57c8f2e014e91ec490acf1e030eb51bcf01",
+            "report": "art/proofs/walk-migration/face-soft.json",
+            "reportSha256": "4b900553338f920a02683f52acc89ceae4c54632d204951d99ce6daf82ff601b",
+            "walk": "art/proofs/walk-migration/face-soft.gif",
+            "walkSha256": "fdbeed5a98349e1531142f1dbb34c74a9da0243293f9b2d18d4aefb246940fb2"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-soft--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "226585b1c751981d7c5c732950605016943437664bc0decf2b307129c93dd1fd",
+            "report": "art/proofs/walk-migration/face-soft--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "f54f57b6f807e339f52166db70c7b1bd7aeb9d250dc64405a4cae09b65851405",
+            "walk": "art/proofs/walk-migration/face-soft--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "a395f5adde17feb140ef3c2a1ffe1174348fb02f3e117a3c7a60d93306e458f7"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-angular",
+      "optionId": "angular",
+      "slot": "face",
+      "build": "regular",
+      "label": "Angular features",
+      "labelTr": "Keskin yüz hatları",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-angular-candidate-1.png",
+      "locked": "art/source/character-kit/face-angular.png",
+      "prompt": "Paint only this facial feature set in neutral dark brown: Strong straight eyebrows, slightly narrow eyes, a crisp narrow nose accent and a straight relaxed closed mouth. Keep the exact head outline, feature placement, cyan skin, bald scalp and every pose. Side profiles show only their visible eye and matching nose/mouth accents. All nine back-facing heads remain untouched. No skin-colour patches, facial hair, cosmetics or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/face-angular-candidate-1.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "7b931a2dbd80d2db30664e5fe34bc168010259e15839cfc95bb629497b04b933",
+        "notes": "Reviewed all 36 frames in bare head contact sheets and with the full generic outfit in two palettes. Straight brows and narrow eyes remain aligned. Both profiles have visible features, rear-facing cells have no feature paint, and the unchanged eight-region face gate passes with zero protected drift.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-angular.png",
+            "imageSha256": "e6235faa9a5c54b749e6c98d16288a6bdd2ea9c058ded5bed6ca728dc54f0775",
+            "report": "art/proofs/walk-migration/face-angular.json",
+            "reportSha256": "c8339587154091d1532ba562d99a792fe9be367ca153f8b5274edd28ef36b200",
+            "walk": "art/proofs/walk-migration/face-angular.gif",
+            "walkSha256": "97c5fe85619514ce951a1a5deebe16c232c58cab1e2d6cd8e08267408233c134"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-angular--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "e55bba8588cbd6987b195854d23c6e3654d5e5c8e4790e2c9d3f38980a0bfab1",
+            "report": "art/proofs/walk-migration/face-angular--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "e4569209c52a032b783b431007d2a13e96c78dd1bf5e005ec0b2ffc8e2812024",
+            "walk": "art/proofs/walk-migration/face-angular--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "befdc7190de3022bdb2de95bbe9ad6e5c979fdfb8a1191bf65a8781b5bfc1aae"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-round",
+      "optionId": "round",
+      "slot": "face",
+      "build": "regular",
+      "label": "Round features",
+      "labelTr": "Yuvarlak yüz hatları",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-round-candidate-2.png",
+      "locked": "art/source/character-kit/face-round.png",
+      "prompt": "Paint only this facial feature set in neutral dark brown: Round open eyes, gently arched brows, a broad short nose accent and a small curved closed mouth. Keep the exact head outline, feature placement, cyan skin, bald scalp and every pose. Side profiles show only their visible eye and matching nose/mouth accents. All nine back-facing heads remain untouched. No skin-colour patches, facial hair, cosmetics or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/face-round-candidate-2.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "7d20299998b2b6dfa1a88dcc61296a29b40873b26f5647603c81d69b78469e52",
+        "notes": "Reviewed all 36 frames in bare head contact sheets and with the full generic outfit in two palettes. Round eyes and curved mouth remain readable; candidate 2 removes the extra disconnected front mark. Both profiles have visible features, rear-facing cells have no feature paint, and the unchanged eight-region face gate passes with zero protected drift.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-round.png",
+            "imageSha256": "703bf2efc8fcc915130ee5132ad5ff1bd4f1d2cb725a609a7be114b1d1e41472",
+            "report": "art/proofs/walk-migration/face-round.json",
+            "reportSha256": "e0097e6e3e6ea52c48b0f41e629c44c6dd597486cbfc3b2d948d78d7f1998204",
+            "walk": "art/proofs/walk-migration/face-round.gif",
+            "walkSha256": "6c0bf3052b158ed9dcc3e47d7ab457ceed6a26a8d520f861b656349a58dec79c"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-round--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "d770a62a65fe1a7e891e340b335d602bba2e37034c91aa359dd85f8585d8c70d",
+            "report": "art/proofs/walk-migration/face-round--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "55b776da17c991963f530be2d0ae0c4c968270866d765f3aa0b121579268ab16",
+            "walk": "art/proofs/walk-migration/face-round--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "3f8b2162d0c0a51a849029a7d71e982c9a168d97cdced5b67367f8c736ae1beb"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-almond",
+      "optionId": "almond",
+      "slot": "face",
+      "build": "regular",
+      "label": "Almond eyes",
+      "labelTr": "Badem gözler",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-almond-candidate-2.png",
+      "locked": "art/source/character-kit/face-almond.png",
+      "prompt": "Paint only this facial feature set in neutral dark brown: Elongated almond-shaped eyes, fine tapered brows, a narrow nose accent and a calm closed mouth. Keep the exact head outline, feature placement, cyan skin, bald scalp and every pose. Side profiles show only their visible eye and matching nose/mouth accents. All nine back-facing heads remain untouched. No skin-colour patches, facial hair, cosmetics or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/face-almond-candidate-2.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "cbe3a7d99587a3b330970c8acb91d6f81c1cf5d39948c12b12c43a0ed40dd12a",
+        "notes": "Reviewed all 36 frames in bare head contact sheets and with the full generic outfit in two palettes. Elongated eyes remain readable; candidate 2 restores all nine right-profile feature sets and simplifies stray front marks. Both profiles have visible features, rear-facing cells have no feature paint, and the unchanged eight-region face gate passes with zero protected drift.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-almond.png",
+            "imageSha256": "32d0b0db5ee53197aeb2b9492f6b4b6153f7ff8dcc9065c1210afeaba7ceb418",
+            "report": "art/proofs/walk-migration/face-almond.json",
+            "reportSha256": "caf4819b9b290fcb364da70d0fbc4b83d5111da56c4a9218ab2c2dec996e13b4",
+            "walk": "art/proofs/walk-migration/face-almond.gif",
+            "walkSha256": "6c8bec04b78c05577f69d15397b3ddae6fa4941603a40f1f2df6b4a26e6af6ac"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-almond--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "6afe6c265181a32a22948874a0ab210bcba8784f73c6b84ace3719926ef5447e",
+            "report": "art/proofs/walk-migration/face-almond--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "53035c830c067e68a0cf4c0733182084dc0f560472d36db1747b4c6f040228ee",
+            "walk": "art/proofs/walk-migration/face-almond--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "a83d20955a9c40ff70ff453155d801117800036c55ea671a05ec7e418f9e09f9"
+          }
+        ]
+      }
+    },
+    {
+      "id": "face-mature",
+      "optionId": "mature",
+      "slot": "face",
+      "build": "regular",
+      "label": "Mature features",
+      "labelTr": "Olgun yüz hatları",
+      "mask": "face",
+      "materials": [
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-mature-candidate-1.png",
+      "locked": "art/source/character-kit/face-mature.png",
+      "prompt": "Paint only this facial feature set in neutral dark brown: Soft mature eyes with a few fine outer-corner lines, gently uneven natural brows, a defined nose accent and a subtle closed smile. Keep the exact head outline, feature placement, cyan skin, bald scalp and every pose. Side profiles show only their visible eye and matching nose/mouth accents. All nine back-facing heads remain untouched. No skin-colour patches, facial hair, cosmetics or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/face-mature-candidate-1.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "c256da29e5fc8fccbf97050c17917e19826d2a73b752642741f6c92e308d75b4",
+        "notes": "Reviewed all 36 frames in bare head contact sheets and with the full generic outfit in two palettes. Fine eye accents and relaxed mouth remain aligned. Both profiles have visible features, rear-facing cells have no feature paint, and the unchanged eight-region face gate passes with zero protected drift.",
+        "proofs": [
+          {
+            "image": "art/proofs/walk-migration/face-mature.png",
+            "imageSha256": "ec09845cee24b9bae19ca51c670bd3a198e17e4b96197918fd92cefec7e8f90c",
+            "report": "art/proofs/walk-migration/face-mature.json",
+            "reportSha256": "8c18ac14b57c04d82b66108d32609e989f9802d050df5c648764a6685f91f599",
+            "walk": "art/proofs/walk-migration/face-mature.gif",
+            "walkSha256": "f4fdccee2f5ffa829645cbbd15c7ba3b365b275837f5deaf6669b9ea1d81ce84"
+          },
+          {
+            "image": "art/proofs/walk-migration/face-mature--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.png",
+            "imageSha256": "606540af426c6b77075c76d73c23ab3bd570e48ebfff44fe07ceefb702ec334d",
+            "report": "art/proofs/walk-migration/face-mature--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.json",
+            "reportSha256": "51aae5f1fc207829ac0aa610f9cd63746fd6593483c6ff7b3ca9e7cc08f4a978",
+            "walk": "art/proofs/walk-migration/face-mature--top-shirt--outer-travel--bottom-straight--footwear-boots--hair-waves.gif",
+            "walkSha256": "31172ff1dd9e66875600e2512e204018525fa1ca0f6d591dc17ae776e4d6e175"
+          }
+        ]
+      }
+    },
+    {
+      "id": "markings-freckles",
+      "optionId": "freckles",
+      "slot": "markings",
+      "build": "regular",
+      "label": "Freckles",
+      "labelTr": "Çiller",
+      "mask": "markings",
+      "materials": [
+        "detail"
+      ],
+      "status": "candidate",
+      "candidate": "art/source/character-kit/markings-freckles-candidate-2.png",
+      "locked": "art/source/character-kit/prepared/markings-freckles-ink.png",
+      "prompt": "Paint six small warm brown freckles, three on each cheek, grouped below the eye level and beside the nose. In each side profile show only three freckles on the visible cheek. Keep the sparse pattern stable across all nine poses. No other facial marks. Preserve the cyan mannequin skin, head outline and all existing cyan facial shading. Never add eyes, brows, nose lines, a mouth, hair or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240,
+        "detailInk": {
+          "color": "#60351f",
+          "tolerance": 12
+        }
+      },
+      "validation": {
+        "maxRegions": 8,
+        "regionReason": "Freckles are separate small spots; every spot must lie on the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Cheek markings are visible on the front and both profiles, never on the back of the head."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/markings-freckles-candidate-2.txt"
+    },
+    {
+      "id": "markings-blush",
+      "optionId": "blush",
+      "slot": "markings",
+      "build": "regular",
+      "label": "Blush",
+      "labelTr": "Allık",
+      "mask": "markings",
+      "materials": [
+        "detail"
+      ],
+      "status": "candidate",
+      "candidate": "art/source/character-kit/markings-blush-candidate-2.png",
+      "locked": "art/source/character-kit/prepared/markings-blush-ink.png",
+      "prompt": "Paint two small softly shaded warm dusty-rose cheek patches below the eyes, one per cheek. In profiles show only the visible cheek patch. Keep the patches restrained and away from the eyes, nose and mouth; no foundation, lip colour or other facial marks. Preserve the cyan mannequin skin, head outline and all existing cyan facial shading. Never add eyes, brows, nose lines, a mouth, hair or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240,
+        "detailInk": {
+          "color": "#a06955",
+          "tolerance": 12,
+          "opacity": 0.35
+        }
+      },
+      "validation": {
+        "maxRegions": 2,
+        "regionReason": "The two cheek patches are separate regions, each attached to the head.",
+        "visibleFacings": [
+          "down",
+          "right",
+          "left"
+        ],
+        "visibilityReason": "Cheek markings are visible on the front and both profiles, never on the back of the head."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/markings-blush-candidate-2.txt"
+    },
+    {
+      "id": "markings-beauty-mark",
+      "optionId": "beauty-mark",
+      "slot": "markings",
+      "build": "regular",
+      "label": "Beauty mark",
+      "labelTr": "Ben",
+      "mask": "markings",
+      "materials": [
+        "detail"
+      ],
+      "status": "candidate",
+      "candidate": "art/source/character-kit/markings-beauty-mark-candidate-2.png",
+      "locked": "art/source/character-kit/prepared/markings-beauty-mark-ink.png",
+      "prompt": "Paint one small warm dark-brown beauty mark on the character's LEFT cheek, beside and slightly above the mouth corner. This is the viewer's RIGHT cheek in the front row. Show it also on the visible cheek in the RIGHT-facing second row. Do not paint any mark in the rear third row or LEFT-facing fourth row, where this cheek is hidden. A single compact softly edged spot, about three source pixels across, consistent in every visible pose; no other marks. Preserve the cyan mannequin skin, head outline and all existing cyan facial shading. Never add eyes, brows, nose lines, a mouth, hair or accessories.",
+      "lock": {
+        "ignoreKeys": [
+          "primary",
+          "secondary",
+          "skin"
+        ],
+        "matte": {
+          "color": "#fafafa",
+          "tolerance": 32
+        },
+        "minBaseAlpha": 240,
+        "detailInk": {
+          "color": "#694525",
+          "tolerance": 12
+        }
+      },
+      "validation": {
+        "maxRegions": 1,
+        "regionReason": "A single beauty mark lies on the left cheek.",
+        "visibleFacings": [
+          "down",
+          "right"
+        ],
+        "visibilityReason": "The left cheek is visible only from the front and right-facing view; the rear and opposite profile must contain no mark."
+      },
+      "generationPrompt": "art/source/character-kit/prompts/markings-beauty-mark-candidate-2.txt"
+    }
+  ],
+  "proofFixtures": {
+    "bottom-detail": {
+      "slot": "bottom",
+      "path": "web/public/assets/player-layers/bottom-detail-preview.webp",
+      "zOrder": {
+        "default": 30
+      }
+    },
+    "bottom-fabric": {
+      "slot": "bottom",
+      "path": "web/public/assets/player-layers/bottom-fabric-preview.webp",
+      "zOrder": {
+        "default": 30
+      },
+      "tint": [
+        68,
+        70,
+        77
+      ]
+    },
+    "jacket-detail": {
+      "slot": "outer",
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "zOrder": {
+        "default": 50
+      }
+    },
+    "jacket-fabric": {
+      "slot": "outer",
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "zOrder": {
+        "default": 50
+      },
+      "tint": [
+        50,
+        106,
+        101
+      ]
+    },
+    "hair-waves": {
+      "slot": "hair",
+      "path": "web/public/assets/player-layers/hair-waves-preview.webp",
+      "zOrder": {
+        "default": 60
+      },
+      "tint": [
+        72,
+        55,
+        46
+      ]
+    },
+    "legacy-body-skin": {
+      "slot": "body",
+      "path": "web/public/assets/player-layers/body-skin-preview.webp",
+      "zOrder": {
+        "default": 20
+      },
+      "tintMaterial": "skin"
+    },
+    "legacy-head-detail": {
+      "slot": "face",
+      "path": "web/public/assets/player-layers/head-detail-preview.webp",
+      "zOrder": {
+        "default": 25
+      }
+    }
+  },
+  "defaultProofOutfit": [
+    "bottom-detail",
+    "bottom-fabric",
+    "jacket-detail",
+    "jacket-fabric",
+    "hair-waves"
+  ],
+  "defaultProofBody": [
+    "legacy-body-skin",
+    "legacy-head-detail"
+  ],
+  "slots": [
+    {
+      "id": "body",
+      "label": "Body",
+      "labelTr": "Vücut",
+      "optional": false,
+      "tab": "Body",
+      "zOrder": {
+        "default": 20
+      }
+    },
+    {
+      "id": "face",
+      "label": "Face",
+      "labelTr": "Yüz",
+      "optional": false,
+      "tab": "Face",
+      "zOrder": {
+        "default": 25
+      },
+      "defaultOption": "oval"
+    },
+    {
+      "id": "markings",
+      "label": "Markings",
+      "labelTr": "Yüz işaretleri",
+      "optional": true,
+      "tab": "Face",
+      "zOrder": {
+        "default": 25
+      }
+    },
+    {
+      "id": "facial-hair",
+      "label": "Facial hair",
+      "labelTr": "Sakal ve bıyık",
+      "optional": true,
+      "tab": "Hair",
+      "zOrder": {
+        "default": 55
+      }
+    },
+    {
+      "id": "hair",
+      "label": "Hair",
+      "labelTr": "Saç",
+      "optional": true,
+      "tab": "Hair",
+      "zOrder": {
+        "default": 60,
+        "up": 75
+      }
+    },
+    {
+      "id": "headwear",
+      "label": "Headwear",
+      "labelTr": "Başlık",
+      "optional": true,
+      "tab": "Head",
+      "zOrder": {
+        "default": 80
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top",
+      "labelTr": "Üst giysi",
+      "optional": false,
+      "tab": "Top",
+      "zOrder": {
+        "default": 40
+      },
+      "defaultOption": "shirt"
+    },
+    {
+      "id": "outer",
+      "label": "Outer",
+      "labelTr": "Dış giyim",
+      "optional": true,
+      "tab": "Outer",
+      "zOrder": {
+        "default": 50
+      }
+    },
+    {
+      "id": "bottom",
+      "label": "Bottom",
+      "labelTr": "Alt giysi",
+      "optional": false,
+      "tab": "Bottom",
+      "zOrder": {
+        "default": 30
+      },
+      "defaultOption": "straight"
+    },
+    {
+      "id": "footwear",
+      "label": "Footwear",
+      "labelTr": "Ayakkabı",
+      "optional": false,
+      "tab": "Feet",
+      "zOrder": {
+        "default": 35
+      },
+      "defaultOption": "boots"
+    },
+    {
+      "id": "eyewear",
+      "label": "Eyewear",
+      "labelTr": "Gözlük",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 70
+      }
+    },
+    {
+      "id": "neck",
+      "label": "Neck accessories",
+      "labelTr": "Boyun aksesuarları",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 65
+      }
+    },
+    {
+      "id": "bag",
+      "label": "Bag",
+      "labelTr": "Çanta",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 10,
+        "up": 85
+      }
+    },
+    {
+      "id": "held",
+      "label": "Held item",
+      "labelTr": "Elde tutulan eşya",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 90,
+        "up": 5
+      }
+    }
+  ],
+  "defaultColors": {
+    "skin": "#d6a07d",
+    "hair": "#48372e",
+    "top.primary": "#d4c7aa",
+    "top.secondary": "#a88e67",
+    "outer.primary": "#326a65",
+    "outer.secondary": "#2a4436",
+    "bottom.primary": "#44464d",
+    "footwear.primary": "#48372e",
+    "headwear.primary": "#354d70",
+    "headwear.secondary": "#c99167",
+    "neck.primary": "#854a5b",
+    "bag.primary": "#694731",
+    "eyewear.primary": "#48372e"
+  },
+  "proofDirectory": "art/proofs/walk-migration"
+}

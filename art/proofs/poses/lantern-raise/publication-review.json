@@ -1,0 +1,217 @@
+{
+  "date": "2026-10-13",
+  "assetVersion": "7e8d2d6ebd74dcae",
+  "walkingComponents": 100,
+  "actionComponents": 26,
+  "poseSet": "lantern-raise",
+  "requiredParts": {
+    "held": "lantern"
+  },
+  "components": [
+    {
+      "id": "body-regular-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/poses/lantern-raise/regular/master.png",
+      "lockedSha256": "7bc77f573ca20ed3a98d3b893b9ad87fef2b54e8f4572c2ee0947697941f3e83"
+    },
+    {
+      "id": "top-shirt-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/top-shirt-lantern-raise-candidate-1.png",
+      "lockedSha256": "11a68b31d8f4ebfc3ed1b3333a20d86119e1b46d5480d11d88d078c22dff4cb7"
+    },
+    {
+      "id": "bottom-straight-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/bottom-straight-lantern-raise-candidate-1.png",
+      "lockedSha256": "eaba9fd384ebf07a0b8da72c5228ac18b442995d2df17c54945f368e1bf7403f"
+    },
+    {
+      "id": "footwear-boots-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/footwear-boots-lantern-raise-candidate-1.png",
+      "lockedSha256": "c6dea3c3c7a111d5ba1199840818c13c6d110e3303a40d7a9f4210759b9abd57"
+    },
+    {
+      "id": "hair-waves-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/hair-waves-lantern-raise-candidate-1.png",
+      "lockedSha256": "2f63594b180decb3dad3fefebc34316a9c07328fb3c5f45298f178a17fe64c82"
+    },
+    {
+      "id": "face-soft-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/face-soft-lantern-raise-candidate-1.png",
+      "lockedSha256": "7d9e6f4cc7fc15c944995a4c2ad33d92712ffe190f68a43af41abef77496562e"
+    },
+    {
+      "id": "outer-travel-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/outer-travel-lantern-raise-candidate-1.png",
+      "lockedSha256": "50472102f2acf097cca8b47f3cefc1c0802b4457f213921665db930f38ec141c"
+    },
+    {
+      "id": "held-lantern-lantern-raise",
+      "status": "approved",
+      "candidate": "art/source/character-kit/held-lantern-lantern-raise-candidate-2.png",
+      "lockedSha256": "bcd6f1551c5094f632c5a5d9f5e27e3167eecda77561c3986201ea0ce6d0fbc5"
+    }
+  ],
+  "proofs": [
+    {
+      "name": "body-regular",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "checks": [
+        {
+          "id": "body-regular-lantern-raise",
+          "valid": true,
+          "errors": []
+        }
+      ],
+      "imageSha256": "81d7984ff40f651f1b2ef396c2021ac0d61599e6e84792e4cd25a4880f649e40",
+      "reportSha256": "8e94a22fa4eb6f19e3578f487e805edeb62eb168eb4aa1eb83449ae3c5ad8b4e",
+      "animationSha256": "587cb1d36e11ac5f5026ec46551a5338604245e98d5c3a4406f36badb3a7d728"
+    },
+    {
+      "name": "face-soft",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "checks": [
+        {
+          "id": "face-soft-lantern-raise",
+          "valid": true,
+          "errors": []
+        }
+      ],
+      "imageSha256": "04abde7a972a24e01e614983c3f68f0d2b0bad7aa13544ef8f405f569b131b00",
+      "reportSha256": "c61ebcea7b49e038fd3b7ef1d762f6f43e81d192f2521d9af65e8077bb08966d",
+      "animationSha256": "84b7153a37549428bedab131ab24e9fddc78e72f4eb7a16439c50f70ad65b5c3"
+    },
+    {
+      "name": "shirt-outfit",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "checks": [
+        {
+          "id": "held-lantern-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "top-shirt-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-lantern-raise",
+          "valid": true,
+          "errors": []
+        }
+      ],
+      "imageSha256": "6339816030fd60fe7e73196fa3f9490e495a590f84c17195ef9d8e24e42e5f99",
+      "reportSha256": "43237471bccbf74d7da8631695e8d04ab88e40584f4fe991a7555e3a09f7a31b",
+      "animationSha256": "56cb11e071793605fd526e4289367132944d000bf6bc36b7179df369dfba7f57"
+    },
+    {
+      "name": "jacket-outfit",
+      "valid": true,
+      "frames": 36,
+      "protectedDrift": 0,
+      "checks": [
+        {
+          "id": "held-lantern-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "top-shirt-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "bottom-straight-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "footwear-boots-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "hair-waves-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "face-soft-lantern-raise",
+          "valid": true,
+          "errors": []
+        },
+        {
+          "id": "outer-travel-lantern-raise",
+          "valid": true,
+          "errors": []
+        }
+      ],
+      "imageSha256": "c215823b27c82e0fa12b0821f5dcacc5b33116871e65dbca2299c92f9742f1d5",
+      "reportSha256": "9a1fdbc85c28f9aa3729026b878ab31408fb4e06bf2b5161404942fbef81dbb1",
+      "animationSha256": "276ed67caea8326650916b4603fe2cb0d306c19f1d69251101eb8e1fd5221c47"
+    }
+  ],
+  "reviewedAll36Frames": true,
+  "reviewedTwoPalettes": true,
+  "reviewedFullColourAtlases": true,
+  "cast": {
+    "walkingActors": 192,
+    "actionActors": 4,
+    "reviewedProofHashesUnchanged": true,
+    "publicationValidated": true
+  },
+  "tests": {
+    "web": 787,
+    "webCommand": "npm test --workspace web -- --maxWorkers=2 --testTimeout=15000",
+    "pipelineAndReference": 44,
+    "publishedAssets": 15,
+    "cast": 4,
+    "goAvatar": "passed",
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "diffWhitespace": "passed",
+    "timingNote": "The rainy-day simulation exceeded the default 5-second timeout in concurrent runs. Its isolated seven-test file passed in 2.53 seconds. The final full suite passed with a 15-second timeout; application/test source timing limits were not changed."
+  },
+  "browser": {
+    "consoleErrors": 0,
+    "verified": [
+      "four facings",
+      "equipped lantern required",
+      "removing lantern returns to Standing",
+      "other clothing preserved",
+      "full action label readable"
+    ],
+    "screenshot": "art/proofs/poses/lantern-raise/builder-lantern-browser.png",
+    "screenshotSha256": "a6de8ab81bdc632e1b03db1f3cae8369d532fcdbf4449ce100ee020eb041e0f7"
+  },
+  "remaining": [
+    "dialogue expression variants"
+  ]
+}

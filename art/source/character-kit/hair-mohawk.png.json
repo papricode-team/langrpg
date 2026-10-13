@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "7a4d70cc086a476651cc198b8cb33c122b72b5a3db859a51d7527e0368bd1b9b",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "36f756afd8e91d5a9227842926e24312f97d8c731a15cfd421ca53274cb63aff",
+  "generationPromptSha256": "e0cf388b6a1d09c100edbde444bf34023f6284fc028d768e22b4d377b8057867",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 8
+  },
+  "candidate": "art/source/character-kit/hair-mohawk-candidate-1.png",
+  "lockedSha256": "21892765e8294544b603a01e637ae54bc89a503a3e9c07c0c937c96bdf762318"
+}

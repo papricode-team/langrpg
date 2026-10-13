@@ -1,5 +1,11 @@
 # Walking leg edits
 
+> Historical workflow, retired 2026-10-13. Commands below describe the original
+> prototype and are no longer active scripts. Source candidates and reference
+> exports are retained; use the [generic character kit](../../../art/source/character-kit/README.md)
+> for all new components. The old implementation is recoverable from Git history.
+
+
 The 2026-10-09 revision slows the outdoor walk cycle from approximately
 0.22 seconds to 0.87 seconds without changing movement speed. The editor uses
 `requestAnimationFrame` timestamps for a one-second cycle. Hidden previews and

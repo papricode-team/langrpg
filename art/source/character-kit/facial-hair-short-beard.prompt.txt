@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-facial-hair-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: standing then eight walking poses. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only the cheeks, chin and short beard area just below the jaw. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. Natural-colour detail is allowed only where explicitly described.
+Add a closely trimmed short beard along the lower cheeks and jaw, wrapping around the chin, with a neat short moustache. Follow the head silhouette without a long hanging chin tuft. Keep the upper cheeks, nose, eyes and mouth opening visible. Paint every hair strand, highlight and shadow in the muted violet #7a5a9a key family. The same style follows each head through all front/right/left poses. No facial hair is visible on any rear-facing head. Preserve the bald scalp, cyan mannequin features and all body poses. Natural detail is limited to dark hair seams immediately beside the violet paint.

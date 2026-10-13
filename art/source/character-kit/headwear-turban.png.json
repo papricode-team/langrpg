@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "3f7a364fb83962b472a56593831611fd939b4e5213dd2b7450232fdbe63aa563",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "78471f2673e8590d9498cfa3019044417c6e5b5e295f844dc38d9bfd121965b4",
+  "generationPromptSha256": "ddeff3eec4c34a88d8a5b148269bee63b581e365c4690dc2337b8e1d70f783dc",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/headwear-turban-candidate-1.png",
+  "lockedSha256": "f09508a72cf6ae1512d7db39205585c3c215dac7db1661c4a0b80763606a357c"
+}

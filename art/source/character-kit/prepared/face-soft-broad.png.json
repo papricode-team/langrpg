@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/face-soft-broad-candidate-1.png",
+      "sha256": "86da436d96bf022facf3c85e588b2528571b234d19eb47b4c5794088333bd821"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/outfit-reference.registration.json",
+      "sha256": "19c49e8cf87fcd310070fdf6f5c47414e6d0ad59a387daf4210caef9d1a4c464"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/face-soft-broad.png",
+  "outputSha256": "8d1e056e2c32204fc5418dbfe4943ce78c87de104b94d270b639de8e6660eaa9"
+}

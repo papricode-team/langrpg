@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/body-regular-walk.png",
+      "sha256": "707abdfaf4810fdde074d96dca6da12385738fc1b6aea119eefb75ec89746cf2"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/template.registration.json",
+      "sha256": "ec79b7bc82b5e98eefb136e137b4b163494f588ff0dabc07126c63d122bc1dc6"
+    }
+  ],
+  "output": "art/source/character-kit/builds/broad/grid-v2/regular-master.png",
+  "outputSha256": "3deda3b9bcc6ab88fa26bc46c15f79a7a7ad3710e4105beb6c20d39c7f4880fd"
+}

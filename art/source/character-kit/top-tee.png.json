@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "d299635006e338d4148227da86254b68694d7e3ab52285854020a7455a50cdf0",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "b64521c63e2c5b0d55253bdfa6be55aad416d68fe3a2180ed45484d9c32a1b26",
+  "promptSha256": "dcb73149feef73e8bb744e447269aa6e094f70152f4c99a5bf1e81186a4aa203",
+  "generationPromptSha256": "2d61fcacee93bd87cb55de4366c6bdcf46a5fb0093668623d2d3289817b455cf",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The foreground arm occludes the connection between the torso and a visible rear hem section in profile views."
+  },
+  "candidate": "art/source/character-kit/top-tee-candidate-2.png",
+  "lockedSha256": "48d05a4bede93546bf4381204d9700d7502d489cf47e9aea46e50f892ae5135f"
+}

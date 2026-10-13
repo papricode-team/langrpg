@@ -1,0 +1,7 @@
+Use case: precise-object-edit.
+Asset type: painterly 36-frame game mannequin spritesheet, 1536×1024.
+Input image 1 is the edit target: the approved regular-build mannequin walking grid.
+Create the slim build by repainting only the body's proportions inside each existing cell. Make the torso, waist, hips, upper arms and thighs visibly slender, about 12% narrower than the reference, with a gentle natural outline. Keep the exact same head size and location, facial features, neck, hands, feet, height, joint positions, leg bends and arm swings. Do not scale the complete figure or move any pose.
+Preserve exactly nine columns and four rows: down, right, up, left. Each row contains standing followed by the eight existing walk poses in exactly their present order. Preserve every alternating support leg, raised foot and planted sole. No extra figures, missing figures, repeated substitute poses, cropping, labels or grid lines.
+The mannequin wears an opaque, smooth, seam-free fitted base suit over its entire body, including hands, face and feet, painted entirely in the cyan #5a9a9a skin-key family. Keep the reference's soft painted shading and upper-left lighting; all highlights and shadows must remain cyan. Retain tiny neutral facial details. No clothing, hair, accessories or anatomy details.
+Keep the existing transparent background genuinely transparent, without shadows, checkerboard, colour fringe or detached specks. Change only the build; preserve the exact canvas, grid, poses and rendering style.

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "candidateSha256": "739dfbcf12fc8976b6c5a85b73f1dd6e407873eb5d854a21c67e19fa50ce3085",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "3511bf44a64cbcad80fc52344e9090f94950a5da297f6f79071b4e70d75d8eb6",
+  "promptSha256": "39c970c09f25fc498c4cb22a257d721a4c107f458c4455589e2ce685e3c08a33",
+  "generationPromptSha256": "3ff03c88a3a662bda86cae8a0013517ee2a2229750b248259d3bbfc9b8719aee",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 6
+  },
+  "preparationSha256": "d4a28e35d114cc46fd5cc76233bafbcc658684a756cc21ff01a4e6f4f4a6e69e",
+  "candidate": "art/source/character-kit/prepared/body-slim-walk.png",
+  "lockedSha256": "2df046f2e40b9b1f8edc3ae79d94a4779e23186cd7941dffcbe7d73bd02dfbf4"
+}

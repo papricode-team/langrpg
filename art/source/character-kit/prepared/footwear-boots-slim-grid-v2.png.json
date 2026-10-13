@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/footwear-boots-slim-candidate-3.png",
+      "sha256": "302061b5ea717c9ce5b2d9701990643b5e33975b8a9e9d7da0ba3252d5c5a595"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/outfit-reference.registration.json",
+      "sha256": "7ebbab93eb19dac04938f4424c1c3e45994bab6a53363de4290039089c704d1d"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/footwear-boots-slim-grid-v2.png",
+  "outputSha256": "9865953b80c6e4739515f9193335b6a93ff020a07265dd1f5bd625e16b0ecaef"
+}

@@ -1,0 +1,33 @@
+{
+  "registration": "art/source/character-kit/builds/slim/walk.registration.json",
+  "layers": [
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/body-slim.skin.editor.webp",
+      "sha256": "22a63dae5fa1e980f73af446c26dbeabaa6e91c751ad198eee8bd461e0d656c0",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/bottom-straight-slim.primary.editor.webp",
+      "sha256": "3a969f51ff630f16d41581798d71f7d76062be14d6f46bf41da23dc9d567b7ee",
+      "tint": "#44464d"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/bottom-straight-slim.detail.editor.webp",
+      "sha256": "326f2aaec8e72b6cd69292d6c2db08283d8aa7c1f52f7ce467c3459a535dd829"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.primary.editor.webp",
+      "sha256": "b6b2358a0dd33154bc60398186fcfc1a90c1d13c22170916b9e4e5aef93c7b90",
+      "tint": "#c5b795"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.skin.editor.webp",
+      "sha256": "763a01819f2e2f8094014e6d72e9cfcc64efadcd93187800a8576a0d6a472589",
+      "tint": "#5a9a9a"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/reference-layers/top-shirt-slim.detail.editor.webp",
+      "sha256": "62f9ca03ae23aa41e2ef52f4794c6cb0c2a5fb8be309aa3c3589630dc300dbd2"
+    }
+  ]
+}

@@ -55,3 +55,22 @@ test('actual Vite production bundling decodes the lazy overlay and leaves author
   assert.deepEqual(await Promise.all(paths.map(path=>readFile(path,'utf8'))),source);
  }finally{await rm(output,{recursive:true,force:true});}
 });
+
+
+test('character catalogues retain every component, pixel hash and registration through production packing',async()=>{
+ const catalogues=['character-kit','character-cast','player-portraits'].map(name=>`web/src/data/${name}.json`);
+ const plugin=compactTranslationsPlugin(root,catalogues);
+ let savings=0;
+ for(const path of catalogues){
+  const value=JSON.parse(await readFile(resolve(root,path),'utf8'));
+  const packed=packTranslationJSON(value);
+  assert.deepEqual(unpackTranslationJSON(packed),value);
+  const id=plugin.resolveId(resolve(root,path),resolve(root,'web/src/main.ts'));
+  assert(id);
+  const {code}=await plugin.load(id);
+  const module=await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
+  assert.deepEqual(module.default,value);
+  savings+=Buffer.byteLength(JSON.stringify(value))-Buffer.byteLength(code);
+ }
+ assert(savings>130000,`catalogue transport saves ${savings} bytes without changing data`);
+});

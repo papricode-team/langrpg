@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "0baea0dd79e586057fe673c890623d927e6cdb87123e1dce41ea810a71e2bc4e",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "e89c823bc8f04c05348e2d8bfa598f24a30414650bb6e83b6af1320ef042dee9",
+  "promptSha256": "0a17122184b29c615bc8585b06d18d9b7f7a149556ac7d8300a4d5da8bcea8a0",
+  "generationPromptSha256": "3952a2304844f3a4f10f856bd1cac0a896d560948c14bd1c90f801f1e0b584da",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 20
+  },
+  "candidate": "art/source/character-kit/hair-curls-candidate-2.png",
+  "lockedSha256": "549c1913c7e1787131dd7562fe2849abd9291eafe92b72370bfd55c763afafda"
+}

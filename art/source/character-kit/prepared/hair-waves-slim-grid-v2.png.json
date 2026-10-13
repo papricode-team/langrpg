@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hair-waves-slim-candidate-3.png",
+      "sha256": "1809e7af0cc2fa6be7d8ad92b804b877f33c779e3997c3dfe581e75f28e21c82"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/outfit-reference.registration.json",
+      "sha256": "127c8c412631079e80b0690a6a2a1dab284b856cbd794ad5bd9e0dcbb98073c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/hair-waves-slim-grid-v2.png",
+  "outputSha256": "28bb25309ce9698e2edab65827cb6f2bd51010cd3a44084babbd6a4ace76c364"
+}

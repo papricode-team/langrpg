@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-13",
+  "browser": "Codex in-app browser",
+  "assetVersion": "449a5111a0b54e2d",
+  "reference": "art/proofs/foundation-outfit-preview.webp",
+  "referenceSha256": "4239a77675ec99b0f286618eb1ad83d4ec7ab42265c5cd8251e0a05ebd95af8b",
+  "frames": 36,
+  "editor": [
+    1152,
+    768
+  ],
+  "runtime": [
+    576,
+    384
+  ],
+  "maxAlphaDifference": 0,
+  "maxPremultipliedDifference": 3.1215686274509835,
+  "channelsDifferingByMoreThan2": 241,
+  "review": "All four facings of the default outfit and cap/skirt variant visually inspected. Browser canvas decode rounding differs slightly from Sharp; shared-decoder unit test matches visible RGBA exactly.",
+  "preview": true,
+  "scope": "Browser baking module only. Face, world/builder integration and v2 persistence remain incomplete."
+}

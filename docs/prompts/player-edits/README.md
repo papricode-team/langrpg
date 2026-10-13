@@ -1,5 +1,11 @@
 # Hair and face edits of the registration master
 
+> Historical workflow, retired 2026-10-13. Commands below describe the original
+> prototype and are no longer active scripts. Source candidates and reference
+> exports are retained; use the [generic character kit](../../../art/source/character-kit/README.md)
+> for all new components. The old implementation is recoverable from Git history.
+
+
 New head options must be edits of `art/source/player-edits/base.png`, an exact
 copy of `art/source/player-customizations/motion.png`. Their poses, head size,
 body proportions and nine-column, four-row grid must match that master. Each

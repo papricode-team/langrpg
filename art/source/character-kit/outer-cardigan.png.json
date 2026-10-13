@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "3d8cd03c41cdb2db8633c583b16997ecf9e19c3d3fca5fd8d324b6839af509a8",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "a4725071660739027ace66746162b1502b7704906f4233ada9051927e439f20d",
+  "promptSha256": "0eb4e324318fb95f3080760001eddfaf2e3d7f0ca94a7cbbee0a58188bece92c",
+  "generationPromptSha256": "4a3e7e76cb05ccfc7e1bfec4cd121ca663ebd96d8ce9c80d6f3bb43249372ccd",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 13
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 2,
+      "left": 3
+    },
+    "regionReason": "The open front forms two panels. The far collar and lower panel may be separated by the torso in left profile; every section touches the mannequin."
+  },
+  "candidate": "art/source/character-kit/outer-cardigan-candidate-2.png",
+  "lockedSha256": "1e0cb592263f16bcc0212ccee3c39d31a240b2fbe02210a871de39d0d612122e"
+}

@@ -1,0 +1,463 @@
+{
+  "version": 1,
+  "promptVersion": 1,
+  "registration": "web/public/assets/player-layers/manifest.json",
+  "builds": {
+    "regular": {
+      "master": "art/source/player-customizations/motion.png",
+      "mannequin": "art/source/character-kit/body-regular.png"
+    }
+  },
+  "entries": [
+    {
+      "id": "body-regular",
+      "slot": "body",
+      "build": "regular",
+      "label": "Regular mannequin",
+      "mask": "body-full",
+      "materials": [
+        "skin",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/body-regular-candidate-3.png",
+      "locked": "art/source/character-kit/body-regular.png",
+      "prompt": "Replace the clothed master inside the full-body mask with a plain opaque cyan #5a9a9a base suit and cyan head. Preserve poses, head and foot positions. Remove old jacket tails and all garment boundaries. Use smooth modest fabric shading and tiny neutral facial features. Erase the old clothes silhouette where it protrudes beyond the new suit; keep all protected pixels unchanged.",
+      "lock": {
+        "operation": "replace",
+        "maxSpeckPixels": 4
+      },
+      "generationPrompt": "art/source/character-kit/prompts/body-regular-candidate-3.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "ce7cdfa198588847d1fa5050cf06146b875cf58810e454d8ccb293cb31cf7929",
+        "notes": "Reviewed 36 registered poses in warm and cool skin tints: clean transparent replacement, no coat tails or backdrop, stable head and feet.",
+        "proofs": [
+          {
+            "image": "art/proofs/body-regular.png",
+            "imageSha256": "f80a668eefc5dd843eb2418a92ab490b673f9bc527ae0fc3cbe7d06e5ee0e5d8",
+            "report": "art/proofs/body-regular.json",
+            "reportSha256": "9311f3a619f8ce0441f5ecbaaded033472115f318ac4c7a0b963f8ff7254def2",
+            "walk": "art/proofs/body-regular.gif",
+            "walkSha256": "90d4779af74915b1327e5a013028b1b23115c009523b3e98c160b0fcf4abad40"
+          }
+        ]
+      },
+      "optionId": "regular",
+      "labelTr": "Standart manken"
+    },
+    {
+      "id": "headwear-cap",
+      "slot": "headwear",
+      "build": "regular",
+      "label": "Soft cap",
+      "mask": "headwear",
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "hides": [
+        "hair"
+      ],
+      "zOrder": {
+        "default": 80
+      },
+      "status": "approved",
+      "candidate": "art/source/character-kit/headwear-cap-candidate-1.png",
+      "locked": "art/source/character-kit/headwear-cap.png",
+      "prompt": "Add one simple soft round cap on each scalp, primary muted violet #7a5a9a with a narrow secondary muted green #5a9a6a band. Fit it tightly on the bald head and cover the crown without covering the eyes. Keep the same cap design through all four facings and all walking poses. Change only the cap; all mannequin pixels outside it stay unchanged.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "anchorMaterial": "primary",
+        "fringeMaterials": [
+          "skin",
+          "detail"
+        ]
+      },
+      "generationPrompt": "art/source/character-kit/prompts/headwear-cap-candidate-1.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "9a7ad5d4497578c7287687ea686377ebe7d2552c0cbd0dd6edc842ef983cb516",
+        "notes": "Reviewed all facings and walking frames on mannequin and current outfit. Cap fits scalp, cyan fringe follows skin tint, and the waves comparison confirms full hair hiding.",
+        "proofs": [
+          {
+            "image": "art/proofs/headwear-cap.png",
+            "imageSha256": "fd7c08e1eaa54c295d72da8717f60d4b5b2c4e21351a132063a0c1df1ffc6300",
+            "report": "art/proofs/headwear-cap.json",
+            "reportSha256": "2e39112b7ab8f8153823707f8bedbad58a3214f95b49f98f528995ed6416261d",
+            "walk": "art/proofs/headwear-cap.gif",
+            "walkSha256": "397853875f05b4b45d6445050863afc8c5db4c16797d502f31a756cf87ac5057"
+          },
+          {
+            "image": "art/proofs/headwear-cap--hair-waves--rules.png",
+            "imageSha256": "be64ea16fa42b9baa7f77e7fc89c28d10350f6906d01534e5cde268fe3eeb482",
+            "report": "art/proofs/headwear-cap--hair-waves--rules.json",
+            "reportSha256": "e6c614c834e9715af69fb3372431ec03621c15f11679b6722f7222507e851387",
+            "walk": "art/proofs/headwear-cap--hair-waves--rules.gif",
+            "walkSha256": "39b9311bb3139df89830d9a541ea6afd1713bdefe18df5a7bdc55ed2ff85a71f"
+          },
+          {
+            "image": "art/proofs/bottom-skirt--headwear-cap.png",
+            "imageSha256": "760f4dea6274764307d97a9d5b7c9cd1056021dfee51bb8312914b80f39c50a8",
+            "report": "art/proofs/bottom-skirt--headwear-cap.json",
+            "reportSha256": "2bf33c4dbeed4f12e7ec275d6788b8aa806c6e274b9e7e8bcd08deb5fa152874",
+            "walk": "art/proofs/bottom-skirt--headwear-cap.gif",
+            "walkSha256": "209f511d43e1f8e49d4010bdd12d1473645c57ffeb36081a331180a96df65214"
+          }
+        ]
+      },
+      "optionId": "cap",
+      "labelTr": "Yumuşak bere"
+    },
+    {
+      "id": "bottom-skirt",
+      "slot": "bottom",
+      "build": "regular",
+      "label": "Knee-length skirt",
+      "mask": "bottom",
+      "materials": [
+        "primary",
+        "skin",
+        "detail"
+      ],
+      "zOrder": {
+        "default": 30
+      },
+      "status": "approved",
+      "candidate": "art/source/character-kit/bottom-skirt-candidate-1.png",
+      "locked": "art/source/character-kit/bottom-skirt.png",
+      "prompt": "Add a simple knee-length A-line skirt in muted violet #7a5a9a from the waist to the knees, with painterly folds following the exact walking pose. Paint exposed lower legs and feet in cyan #5a9a9a, aligned exactly with the mannequin. No trousers or boots. Preserve torso, arms, hands and head. Keep a consistent hem length and skirt design in every frame.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12,
+        "keepMaterials": [
+          "skin"
+        ],
+        "materialRegions": {
+          "skin": {
+            "from": "waist",
+            "to": "ground",
+            "start": 0.38
+          }
+        }
+      },
+      "generationPrompt": "art/source/character-kit/prompts/bottom-skirt-candidate-1.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "25468ec9f0c5fdbbc4da50d22297cbc4ac07de594088ea49daba2e1e3de14ed4",
+        "notes": "Reviewed all facings and walking frames with cap and jacket in two palettes. Carried legs stay continuous, hem follows the gait, jacket is above the waistband; no old trousers are composited beneath the skirt.",
+        "proofs": [
+          {
+            "image": "art/proofs/bottom-skirt--headwear-cap.png",
+            "imageSha256": "760f4dea6274764307d97a9d5b7c9cd1056021dfee51bb8312914b80f39c50a8",
+            "report": "art/proofs/bottom-skirt--headwear-cap.json",
+            "reportSha256": "2bf33c4dbeed4f12e7ec275d6788b8aa806c6e274b9e7e8bcd08deb5fa152874",
+            "walk": "art/proofs/bottom-skirt--headwear-cap.gif",
+            "walkSha256": "209f511d43e1f8e49d4010bdd12d1473645c57ffeb36081a331180a96df65214"
+          }
+        ]
+      },
+      "optionId": "skirt",
+      "labelTr": "Diz boyu etek"
+    },
+    {
+      "id": "hair-waves",
+      "optionId": "waves",
+      "slot": "hair",
+      "build": "regular",
+      "label": "Waves",
+      "labelTr": "Dalgalı saç",
+      "mask": "hair-long",
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "status": "approved",
+      "candidate": "art/source/character-kit/hair-waves-candidate-3.png",
+      "locked": "art/source/character-kit/hair-waves.png",
+      "prompt": "Add soft shoulder-length wavy hair in muted violet #7a5a9a. Keep the forehead and face visible in the down-facing row; paint the back of the hairstyle in the up-facing row. Follow every existing head position. Preserve the mannequin, face and all poses exactly. Natural-colour detail is limited to seams immediately bordering the hair.",
+      "lock": {
+        "detailReach": 1,
+        "maxSpeckPixels": 12
+      },
+      "sourceNotes": "Legacy candidate re-lock and targeted repair both failed connected-region validation. Candidate 3 was generated directly on the corrected mannequin, using the legacy candidate as a hairstyle reference. Raw attempts and exact repair prompts are retained.",
+      "zOrder": {
+        "default": 60,
+        "up": 75
+      },
+      "generationPrompt": "art/source/character-kit/prompts/hair-waves-candidate-3.txt",
+      "review": {
+        "result": "approved",
+        "date": "2026-10-13",
+        "reviewer": "Codex visual review",
+        "lockedSha256": "bbfb0d7db38926a2109f1288d8083b18fdde0ff24188444fd524b94cbfd34af1",
+        "notes": "Reviewed all 36 poses in two palettes on the mannequin and legacy outfit. Continuous waves without chin locks or floating strands; stable scalp attachment and back-facing hair above the jacket. Cap interaction reviewed with the new component, not the legacy fixture.",
+        "proofs": [
+          {
+            "image": "art/proofs/hair-waves.png",
+            "imageSha256": "f1f3de2c1bd632fbda032f94d59b2255789948879c79c6ba861a437509c8d492",
+            "report": "art/proofs/hair-waves.json",
+            "reportSha256": "186626d24a39ee0f96d536cf6a2b8b393df8be76eca67345af005d44b3655b94",
+            "walk": "art/proofs/hair-waves.gif",
+            "walkSha256": "38a39503f6ee3971b589cde0e99a1b180d16adb364aaffa217e33ae0514b3631"
+          },
+          {
+            "image": "art/proofs/headwear-cap--hair-waves--rules.png",
+            "imageSha256": "be64ea16fa42b9baa7f77e7fc89c28d10350f6906d01534e5cde268fe3eeb482",
+            "report": "art/proofs/headwear-cap--hair-waves--rules.json",
+            "reportSha256": "e6c614c834e9715af69fb3372431ec03621c15f11679b6722f7222507e851387",
+            "walk": "art/proofs/headwear-cap--hair-waves--rules.gif",
+            "walkSha256": "39b9311bb3139df89830d9a541ea6afd1713bdefe18df5a7bdc55ed2ff85a71f"
+          }
+        ]
+      }
+    }
+  ],
+  "proofFixtures": {
+    "bottom-detail": {
+      "slot": "bottom",
+      "path": "web/public/assets/player-layers/bottom-detail-preview.webp",
+      "zOrder": {
+        "default": 30
+      }
+    },
+    "bottom-fabric": {
+      "slot": "bottom",
+      "path": "web/public/assets/player-layers/bottom-fabric-preview.webp",
+      "zOrder": {
+        "default": 30
+      },
+      "tint": [
+        68,
+        70,
+        77
+      ]
+    },
+    "jacket-detail": {
+      "slot": "outer",
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "zOrder": {
+        "default": 50
+      }
+    },
+    "jacket-fabric": {
+      "slot": "outer",
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "zOrder": {
+        "default": 50
+      },
+      "tint": [
+        50,
+        106,
+        101
+      ]
+    },
+    "hair-waves": {
+      "slot": "hair",
+      "path": "web/public/assets/player-layers/hair-waves-preview.webp",
+      "zOrder": {
+        "default": 60
+      },
+      "tint": [
+        72,
+        55,
+        46
+      ]
+    },
+    "legacy-body-skin": {
+      "slot": "body",
+      "path": "web/public/assets/player-layers/body-skin-preview.webp",
+      "zOrder": {
+        "default": 20
+      },
+      "tintMaterial": "skin"
+    },
+    "legacy-head-detail": {
+      "slot": "face",
+      "path": "web/public/assets/player-layers/head-detail-preview.webp",
+      "zOrder": {
+        "default": 25
+      }
+    }
+  },
+  "defaultProofOutfit": [
+    "bottom-detail",
+    "bottom-fabric",
+    "jacket-detail",
+    "jacket-fabric",
+    "hair-waves"
+  ],
+  "defaultProofBody": [
+    "legacy-body-skin",
+    "legacy-head-detail"
+  ],
+  "slots": [
+    {
+      "id": "body",
+      "label": "Body",
+      "labelTr": "Vücut",
+      "optional": false,
+      "tab": "Body",
+      "zOrder": {
+        "default": 20
+      }
+    },
+    {
+      "id": "face",
+      "label": "Face",
+      "labelTr": "Yüz",
+      "optional": false,
+      "tab": "Face",
+      "zOrder": {
+        "default": 25
+      }
+    },
+    {
+      "id": "markings",
+      "label": "Markings",
+      "labelTr": "Yüz işaretleri",
+      "optional": true,
+      "tab": "Face",
+      "zOrder": {
+        "default": 25
+      }
+    },
+    {
+      "id": "facial-hair",
+      "label": "Facial hair",
+      "labelTr": "Sakal ve bıyık",
+      "optional": true,
+      "tab": "Hair",
+      "zOrder": {
+        "default": 55
+      }
+    },
+    {
+      "id": "hair",
+      "label": "Hair",
+      "labelTr": "Saç",
+      "optional": true,
+      "tab": "Hair",
+      "zOrder": {
+        "default": 60,
+        "up": 75
+      }
+    },
+    {
+      "id": "headwear",
+      "label": "Headwear",
+      "labelTr": "Başlık",
+      "optional": true,
+      "tab": "Head",
+      "zOrder": {
+        "default": 80
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top",
+      "labelTr": "Üst giysi",
+      "optional": false,
+      "tab": "Top",
+      "zOrder": {
+        "default": 40
+      }
+    },
+    {
+      "id": "outer",
+      "label": "Outer",
+      "labelTr": "Dış giyim",
+      "optional": true,
+      "tab": "Outer",
+      "zOrder": {
+        "default": 50
+      }
+    },
+    {
+      "id": "bottom",
+      "label": "Bottom",
+      "labelTr": "Alt giysi",
+      "optional": false,
+      "tab": "Bottom",
+      "zOrder": {
+        "default": 30
+      }
+    },
+    {
+      "id": "footwear",
+      "label": "Footwear",
+      "labelTr": "Ayakkabı",
+      "optional": false,
+      "tab": "Feet",
+      "zOrder": {
+        "default": 35
+      }
+    },
+    {
+      "id": "eyewear",
+      "label": "Eyewear",
+      "labelTr": "Gözlük",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 70
+      }
+    },
+    {
+      "id": "neck",
+      "label": "Neck accessories",
+      "labelTr": "Boyun aksesuarları",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 65
+      }
+    },
+    {
+      "id": "bag",
+      "label": "Bag",
+      "labelTr": "Çanta",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 10,
+        "up": 85
+      }
+    },
+    {
+      "id": "held",
+      "label": "Held item",
+      "labelTr": "Elde tutulan eşya",
+      "optional": true,
+      "tab": "Extras",
+      "zOrder": {
+        "default": 90,
+        "up": 5
+      }
+    }
+  ],
+  "defaultColors": {
+    "skin": "#d6a07d",
+    "hair": "#48372e",
+    "top.primary": "#d4c7aa",
+    "top.secondary": "#a88e67",
+    "outer.primary": "#326a65",
+    "outer.secondary": "#2a4436",
+    "bottom.primary": "#44464d",
+    "footwear.primary": "#48372e",
+    "headwear.primary": "#354d70",
+    "headwear.secondary": "#c99167",
+    "neck.primary": "#854a5b",
+    "bag.primary": "#694731",
+    "eyewear.primary": "#48372e"
+  }
+}

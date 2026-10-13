@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-13",
+  "poseSet": "wave",
+  "assetVersion": "c37ff80d15a9c2cc",
+  "walkingComponents": 100,
+  "actionComponents": 14,
+  "poseComponents": 7,
+  "checks": [
+    {
+      "id": "bottom-straight-wave",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "face-soft-wave",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "footwear-boots-wave",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "outer-travel-wave",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    },
+    {
+      "id": "top-shirt-wave",
+      "frames": 36,
+      "protectedDrift": 0,
+      "valid": true
+    }
+  ],
+  "reviewedAll36Frames": true,
+  "reviewedTwoPalettes": true,
+  "reviewedContrastingOutfits": true,
+  "browserOfflinePixelParity": true,
+  "tests": {
+    "web": 781,
+    "pipeline": 59,
+    "cast": 3,
+    "publishedAssetTests": 15,
+    "goAvatar": "passed",
+    "typescript": "passed",
+    "productionBuild": "passed"
+  },
+  "cast": {
+    "approved": 192,
+    "proofHashesUnchanged": true,
+    "assetVersion": "c37ff80d15a9c2cc"
+  },
+  "browser": {
+    "consoleErrors": 0,
+    "screenshot": "art/proofs/poses/wave/builder-wave-browser.png",
+    "screenshotSha256": "1b6873000c13ce9d5218d1f3610ca16906ddfb54d98cd44b0c7dc42e424b4843",
+    "mobileWidth": 390,
+    "unsupportedSkirtReturnsToStanding": true
+  },
+  "remaining": [
+    "lantern-raise art",
+    "world action playback",
+    "dialogue expression variants"
+  ]
+}

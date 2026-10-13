@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "0d45fc7de3f9c8b694451455fa9c1807051dc36f66c6d14bcaee3f59280a1d48",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "7f8238c750ef5c72df8069fb387ba8e03d055e555a84752b94ecc3eb927949ca",
+  "promptSha256": "cb0f200f2dde6ffece6defde51a6e98edff4449d472c1e0e3d45c09b134b3d1f",
+  "generationPromptSha256": "5d9e6b1a57330d0d43e63a5e26e8e4a2551f260e1d9961289d994a51b40ff5ee",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The foreground hand occludes the connection to a narrow visible hip patch in the permitted profile facing. Both regions touch the mannequin."
+  },
+  "candidate": "art/source/character-kit/bottom-shorts-candidate-1.png",
+  "lockedSha256": "d1a485c782a121a4ce1d0731a9a8355e3162fc7a71df9e92c0b9cc6a8d76e488"
+}

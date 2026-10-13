@@ -18,15 +18,18 @@ var (
 )
 
 type Avatar struct {
-	Face      string `json:"face,omitempty"`
-	Hairstyle string `json:"hairstyle,omitempty"`
-	Jacket    string `json:"jacket,omitempty"`
-	Bottom    string `json:"bottom,omitempty"`
-	Build     string `json:"build,omitempty"`
-	Pants     string `json:"pants,omitempty"`
-	Hair      string `json:"hair"`
-	Skin      string `json:"skin"`
-	Outfit    string `json:"outfit"`
+	V         int                `json:"v,omitempty"`
+	Parts     map[string]*string `json:"parts,omitempty"`
+	Colors    map[string]string  `json:"colors,omitempty"`
+	Face      string             `json:"face,omitempty"`
+	Hairstyle string             `json:"hairstyle,omitempty"`
+	Jacket    string             `json:"jacket,omitempty"`
+	Bottom    string             `json:"bottom,omitempty"`
+	Build     string             `json:"build,omitempty"`
+	Pants     string             `json:"pants,omitempty"`
+	Hair      string             `json:"hair"`
+	Skin      string             `json:"skin"`
+	Outfit    string             `json:"outfit,omitempty"`
 }
 
 type Player struct {

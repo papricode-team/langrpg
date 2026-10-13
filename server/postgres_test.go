@@ -138,7 +138,7 @@ func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if updated.Progress.XP != 6 || updated.Player.Avatar != avatar {
+	if updated.Progress.XP != 6 || !sameAvatar(updated.Player.Avatar, normalizeAvatar(avatar)) {
 		t.Fatal("profile edit lost PostgreSQL progress")
 	}
 	if updated.Preferences.BaseLanguage != "" && updated.Preferences.BaseLanguage != "en" {

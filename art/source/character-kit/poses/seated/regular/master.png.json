@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/body-regular-seated-candidate-1.png",
+      "sha256": "29fe42f4a73558dbed92af5548254829d5c22f55ff0dfc3880246abfb3cb2d4e"
+    },
+    {
+      "path": "art/source/character-kit/poses/seated/regular/candidate-1.registration.json",
+      "sha256": "81087f2a8c4ed241637d3e23578617462ed307e004e29b6f3cd000b40864270a"
+    },
+    {
+      "path": "art/source/character-kit/poses/seated/regular/template.registration.json",
+      "sha256": "1006820bc1f87341f30ff9cd93182ecc3406a18cb33729d288f03904401c3958"
+    }
+  ],
+  "output": "art/source/character-kit/poses/seated/regular/master.png",
+  "outputSha256": "e725c94e376e6696a0fc94eb6575de1d80ae2abf6a57dd15d545e041daac0384"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hair-waves-candidate-3.png",
+      "sha256": "04f1673be638776a759ca9884208234ed77d1ee59a5d5e537bfef894844e89c6"
+    },
+    {
+      "path": "web/public/assets/player-layers/manifest.json",
+      "sha256": "2c273217cae99fadbea140474b2d048a7feee0b8f2ff8239921631d24d92196c"
+    },
+    {
+      "path": "art/source/character-kit/references/regular-walk.registration.json",
+      "sha256": "d5122e6c123057dfa47eb6a5be60bb92f914f979c3c9c969fb0ac8e0a6051cf7"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/hair-waves-walk.png",
+  "outputSha256": "4aea1e5c001eb09ab021e29ca2b1db5a1f6140c12a2cf3c32da6918ed2593bb1"
+}

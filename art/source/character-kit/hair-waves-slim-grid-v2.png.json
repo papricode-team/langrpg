@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "28bb25309ce9698e2edab65827cb6f2bd51010cd3a44084babbd6a4ace76c364",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "9aa874b7a35d82790812389f0f0eba10ee3ea876628f0d6402a0dadf7a6e71db",
+  "promptSha256": "3b5ab83f2f4b0e8257704c333d9e43b4ec8c8c16f6506951c48965feb29a3b08",
+  "generationPromptSha256": "d007c45b1e96a739a9cc8ee2a793dd78cc32ab37d51ca3ac47447b2b243a144f",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1,
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "In the left-facing standing pose, the visible ear separates the small front curl from the main hair mass. Both painted regions remain attached to the head."
+  },
+  "preparationSha256": "798b3650936f49555a900d24481b7c7dfda4802e0346aafbf46068674e940a77",
+  "candidate": "art/source/character-kit/prepared/hair-waves-slim-grid-v2.png",
+  "lockedSha256": "063055a75865ed0d5d4426cfd808765a048c798acaa9cf10a5ad584207e1482a"
+}

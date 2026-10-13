@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/prepared/body-slim-walk.png",
+      "sha256": "739dfbcf12fc8976b6c5a85b73f1dd6e407873eb5d854a21c67e19fa50ce3085"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/walk.registration.json",
+      "sha256": "deda8a0afb0173480eacdeb14f91111785c1bb7fc28883ae462967881d2f21c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/body-slim-grid-v2.png",
+  "outputSha256": "be68ff06f72ac75d2857223bd8f812af55ed748ead9f20176ef863abd60e993e"
+}

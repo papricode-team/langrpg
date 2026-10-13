@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "f679238e24fc49d7a4cfa7c6c3361ba902dfa3eea3e99c7e00bedba45edd6955",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "bed40ddbcf9838785b74cf53b0b8e50e0d28cd6f3d5ef5cf1037578a5767fd91",
+  "generationPromptSha256": "52e35f3a5a4082edfbf8161216211afcf37b3d9747165326787b33d2b7276e06",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/headwear-sunhat-candidate-1.png",
+  "lockedSha256": "9b0d3b64885812299f5c77f58f61da327e2fa605ab3bbb752b435703a989caad"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/bottom-skirt-broad-candidate-1.png",
+      "sha256": "75ec21b0e397e799ac5399f6e6273fae10f3fd383f8fb444af961cbe7acf152d"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/outfit-reference.registration.json",
+      "sha256": "a2d606aac5635f9964a5aaaf1bef525096bdd9e36d46e9b68f3f7ca190787363"
+    },
+    {
+      "path": "art/source/character-kit/builds/broad/grid-v2/walk.registration.json",
+      "sha256": "20b28e553363ce4430a08bd1b5f319139fb411b7df85b85f940c84cbdfe94a12"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/bottom-skirt-broad-grid-v2.png",
+  "outputSha256": "94eed603a61d3ec8c8cc2cfc470efffee2c6060794588259e2153505bcd84f7a"
+}

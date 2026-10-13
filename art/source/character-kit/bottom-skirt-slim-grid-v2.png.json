@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "11f3b17ced026e83e25bb16eb6d7f2e3805f0a1e92dcf5d121124af3c77cc3ad",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "07a086271d97f6b97d152db73d1abe2978176779c220aa66849028869588f07a",
+  "promptSha256": "897e0d6da37952f68d347e048f924ae5e08f4467e0724888d53d28164c0a828d",
+  "generationPromptSha256": "89479dfd6d168d27ea6bf2d61163ac3c55a8d5c17fcfb5e2ac13ff524e9771aa",
+  "materials": [
+    "primary",
+    "skin"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "keepMaterials": [
+      "skin"
+    ],
+    "ignoreKeys": [
+      "secondary"
+    ],
+    "materialRegions": {
+      "skin": {
+        "from": "waist",
+        "to": "ground",
+        "start": 0.3
+      }
+    },
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "30e703cea690a9736f27d0dd782f6cc49948a90d2850466789bc25488737f89e",
+  "candidate": "art/source/character-kit/prepared/bottom-skirt-slim-grid-v2.png",
+  "lockedSha256": "fb8cadb23064c823f87d484a4ebfb07c52a26d263da2c41a59fd9c21a6fbac25"
+}

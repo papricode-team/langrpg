@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
-import { getMap } from './maps';
+import { getMap, type MapId } from './maps';
 import { regionAssets, regionPeopleFrames, regionPeopleKey, WorldMapAssets } from './world-map-assets';
+import {castActorsForMap,castAssetUrl,castAssets} from './character-cast';
 
 function fixture() {
   const textures = new Set<string>();
@@ -11,6 +12,7 @@ function fixture() {
   const loader = {
     image: vi.fn((key: string) => { queued.push(key); }),
     atlas: vi.fn((key: string) => { queued.push(key); }),
+    spritesheet: vi.fn((key:string)=>{queued.push(key);}),
     once: vi.fn((_event: string, callback: () => void) => { listeners.push(callback); }),
     start: vi.fn(() => { loading = true; }),
     isLoading: () => loading,
@@ -30,20 +32,27 @@ describe('destination asset streaming', () => {
     expect(mock.loader.atlas).toHaveBeenCalledWith('waldruh-props', `/assets/waldruh-props.webp?v=${__APP_VERSION__}`, `/assets/waldruh-props.json?v=${__APP_VERSION__}`);
   });
   it('loads the town terrain, props and authored resident activities', () => {
-    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`)]);
+    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`),...castActorsForMap('lindenhafen').flatMap(actor=>castAssets(actor).map(asset=>asset.key))]);
   });
   it('coalesces requests while delivering every arrival callback', () => {
     const mock = fixture(), map = getMap('lindenhafen');
     const first = vi.fn(), second = vi.fn();
     mock.assets.load(map, first); mock.assets.load(map, second);
     expect(mock.loader.image).toHaveBeenCalledTimes(1);
-    expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).length - 1);
+    expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas).length);
     expect(mock.loader.start).toHaveBeenCalledTimes(1);
     expect(first).not.toHaveBeenCalled();
     mock.complete();
     expect(first).toHaveBeenCalledTimes(1); expect(second).toHaveBeenCalledTimes(1);
     const cached = vi.fn(); mock.assets.load(map, cached);
-    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).length - 1);
+    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas).length);
+  });
+  it.each(['lindenhafen','waldruh','nebelstadt','saffroncourt','rainmarket','windplain','riverweave','terracielo','sunpatch','kigalights','cedarbay','seoulsteps','dunegarden'] as MapId[])('loads and releases %s cast bakes without releasing the shared main cast',(mapId)=>{
+    const mock=fixture(),map=getMap(mapId),shared=castActorsForMap(null)[0];
+    mock.textures.add(shared.key);mock.assets.load(map);
+    for(const actor of castActorsForMap(map.id))for(const asset of castAssets(actor))expect(mock.loader.spritesheet).toHaveBeenCalledWith(asset.key,castAssetUrl(asset),{frameWidth:64,frameHeight:96});
+    mock.complete();expect(mock.assets.release(map)).toBe(true);
+    expect([...mock.textures]).toEqual([shared.key]);
   });
   it('reclaims a departed destination after its in-flight load completes', () => {
     const mock = fixture(), oldMap = getMap('lindenhafen'), newMap = getMap('waldruh');

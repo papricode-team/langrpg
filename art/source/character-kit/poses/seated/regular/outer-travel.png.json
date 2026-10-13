@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "807415b303cea88566d864c4a735e759157c4f911327f66179d5652b668beb9a",
+  "baseSha256": "523ea9bb413b5de41861dac8d1808739e4a6fefcc24e2f74f50bfd5a7aa1bb73",
+  "registrationSha256": "f57aee4952942f12571da9f34198ab105a207db32c568a265085736126ee0b02",
+  "maskSha256": "f2e904bf8fceded55f41dbcafebdec1bf194d8b8b5dcc194fe69ad0517351f71",
+  "promptSha256": "e7c822f066ff20eb6a73522ffdd104e3d90ee120123789e08d8d9ea106336eea",
+  "generationPromptSha256": "8db4742f6f686eeb0e39634b77b79f54b0bab32ca6b903105cec1dc6d4defaed",
+  "materials": [
+    "primary",
+    "secondary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 18,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2
+    },
+    "regionReason": "The open front separates the jacket into two panels, one on each side of the cyan centre. Both panels remain attached to the mannequin. Profiles and rear require one connected region."
+  },
+  "candidate": "art/source/character-kit/outer-travel-seated-candidate-1.png",
+  "lockedSha256": "10ca40927f38ca8d1b0d6f6adc72412fb6b6ef950fd3e2e8bb7298778fac7c5e"
+}

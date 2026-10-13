@@ -1,0 +1,34 @@
+{
+  "v": 2,
+  "build": "regular",
+  "skin": "#b0865b",
+  "hair": "#2b2119",
+  "parts": {
+    "face": "angular",
+    "markings": null,
+    "facial-hair": "short-beard",
+    "hair": "crop",
+    "headwear": null,
+    "top": "henley",
+    "outer": null,
+    "bottom": "shorts",
+    "footwear": "shoes",
+    "eyewear": null,
+    "neck": null,
+    "bag": "backpack",
+    "held": null
+  },
+  "colors": {
+    "bag.primary": "#717e8b",
+    "bottom.primary": "#626d7b",
+    "eyewear.primary": "#48372e",
+    "footwear.primary": "#554739",
+    "headwear.primary": "#354d70",
+    "headwear.secondary": "#c99167",
+    "neck.primary": "#854a5b",
+    "outer.primary": "#326a65",
+    "outer.secondary": "#2a4436",
+    "top.primary": "#c27942",
+    "top.secondary": "#c27942"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "candidateSha256": "1aa6c5c2dc80a3c59fb04819db7f633821c61e8fd6150fb2e01f1bb761c28012",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "9d4a79bb6016e53d4554448c80172057175a86985bd39897018a22526a2a062d",
+  "maskSha256": "3511bf44a64cbcad80fc52344e9090f94950a5da297f6f79071b4e70d75d8eb6",
+  "promptSha256": "b7a5da59d8970fb6c5a54f230f1cec779600b146d990cdb6613a4a50cfbadbd5",
+  "generationPromptSha256": "970458b52e795e9a63033e8e050d4fb6d27fa30311329d6afa57dc79e8bdff9b",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 4
+  },
+  "preparationSha256": "fc616a1e1e68e007b754dcad6a0dbc191ec061b69464f0c84f57031f265f834a",
+  "candidate": "art/source/character-kit/prepared/body-broad-walk.png",
+  "lockedSha256": "f7a4005452b3dedf7ca386d1fbb13ad9cbf6261bf15b55c391f7cbe1d84b3f59"
+}

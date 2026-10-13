@@ -1,0 +1,37 @@
+{
+  "recipe": {
+    "v": 2,
+    "build": "regular",
+    "skin": "#d6a07d",
+    "hair": "#48372e",
+    "parts": {
+      "face": null,
+      "markings": null,
+      "facial-hair": null,
+      "hair": null,
+      "headwear": "cap",
+      "top": null,
+      "outer": null,
+      "bottom": "skirt",
+      "footwear": null,
+      "eyewear": null,
+      "neck": null,
+      "bag": null,
+      "held": null
+    },
+    "colors": {
+      "bottom.primary": "#44464d",
+      "headwear.primary": "#354d70",
+      "headwear.secondary": "#c99167"
+    }
+  },
+  "assetVersion": "6178c8ad4b5b1a33",
+  "recipeKey": "avatar-v2:6178c8ad4b5b1a33:[\"regular\",\"#d6a07d\",\"#48372e\",[[\"bag\",null],[\"bottom\",\"skirt\"],[\"eyewear\",null],[\"face\",null],[\"facial-hair\",null],[\"footwear\",null],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",null]],[[\"bottom.primary\",\"#44464d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"]]]",
+  "preview": true,
+  "frames": 36,
+  "cell": [
+    128,
+    192
+  ],
+  "sha256": "ecae45065fd26dab82389803a5e50e1a7bfabf44028b61460cf158277e725a7f"
+}

@@ -1,0 +1,1152 @@
+{
+  "id": "body-regular",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 103697,
+        "detail": 2996
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9719194323901287,
+      "outsideSilhouette": 4025,
+      "pose": {
+        "silhouetteIoU": 0.9319514472455649,
+        "headIoU": 0.9505532164887888,
+        "crownDrift": 0.6304381171875,
+        "groundDrift": 0.6304381171875,
+        "headHorizontalDrift": 0.10507301953124999
+      }
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 103898,
+        "detail": 1573
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9850859477960766,
+      "outsideSilhouette": 1893,
+      "pose": {
+        "silhouetteIoU": 0.9547440170215971,
+        "headIoU": 0.9573319755600814,
+        "crownDrift": 0.40481140625,
+        "groundDrift": 0.8096228125,
+        "headHorizontalDrift": 0.1012028515625
+      }
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 99942,
+        "detail": 1202
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.988115953492051,
+      "outsideSilhouette": 2013,
+      "pose": {
+        "silhouetteIoU": 0.9525183810898097,
+        "headIoU": 0.949934389825376,
+        "crownDrift": 0.408227890625,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.2041139453125
+      }
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 98276,
+        "detail": 972
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9902063517652748,
+      "outsideSilhouette": 1770,
+      "pose": {
+        "silhouetteIoU": 0.9540878050731376,
+        "headIoU": 0.9521829521829522,
+        "crownDrift": 0.8234043125,
+        "groundDrift": 0.205851078125,
+        "headHorizontalDrift": 0.1029255390625
+      }
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 100153,
+        "detail": 1489
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9853505440664292,
+      "outsideSilhouette": 1776,
+      "pose": {
+        "silhouetteIoU": 0.9567159792299402,
+        "headIoU": 0.9566908979215727,
+        "crownDrift": 0.6255391406249999,
+        "groundDrift": 0.208513046875,
+        "headHorizontalDrift": 0.208513046875
+      }
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 106166,
+        "detail": 2110
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9805127636780081,
+      "outsideSilhouette": 3847,
+      "pose": {
+        "silhouetteIoU": 0.9352128146453089,
+        "headIoU": 0.8558947862846407,
+        "crownDrift": 0.8130251875,
+        "groundDrift": 0.203256296875,
+        "headHorizontalDrift": 1.21953778125
+      }
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 98850,
+        "detail": 1243
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9875815491592819,
+      "outsideSilhouette": 1552,
+      "pose": {
+        "silhouetteIoU": 0.9609813363046679,
+        "headIoU": 0.950367827366356,
+        "crownDrift": 0.41523621875,
+        "groundDrift": 0.207618109375,
+        "headHorizontalDrift": 0.3114271640625
+      }
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 100241,
+        "detail": 1171
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9884530430323828,
+      "outsideSilhouette": 2161,
+      "pose": {
+        "silhouetteIoU": 0.9549634520160339,
+        "headIoU": 0.9338981381144715,
+        "crownDrift": 0.6123418359374999,
+        "groundDrift": 0.2041139453125,
+        "headHorizontalDrift": 0.408227890625
+      }
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 97932,
+        "detail": 567
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9942435963816891,
+      "outsideSilhouette": 409,
+      "pose": {
+        "silhouetteIoU": 0.9689594285484971,
+        "headIoU": 0.9586578789694428,
+        "crownDrift": 0.21014603906249998,
+        "groundDrift": 0.21014603906249998,
+        "headHorizontalDrift": 0.21014603906249998
+      }
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 81189,
+        "detail": 351
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9956953642384105,
+      "outsideSilhouette": 35,
+      "pose": {
+        "silhouetteIoU": 0.9868435465222418,
+        "headIoU": 0.9684886208908773,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.30401161523437503
+      }
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 110886,
+        "detail": 712
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9936199573469059,
+      "outsideSilhouette": 628,
+      "pose": {
+        "silhouetteIoU": 0.9702174570153447,
+        "headIoU": 0.9661661281125261,
+        "crownDrift": 0.2014891796875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.30223376953125
+      }
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 100010,
+        "detail": 619
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9938486917290245,
+      "outsideSilhouette": 295,
+      "pose": {
+        "silhouetteIoU": 0.9752459599352009,
+        "headIoU": 0.9733267228557263,
+        "crownDrift": 0.4053488203125,
+        "groundDrift": 0.20267441015625,
+        "headHorizontalDrift": 0.101337205078125
+      }
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 81522,
+        "detail": 568
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.993080765014009,
+      "outsideSilhouette": 542,
+      "pose": {
+        "silhouetteIoU": 0.9672073852680293,
+        "headIoU": 0.9675850891410048,
+        "crownDrift": 0.20267441015625,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.101337205078125
+      }
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 108702,
+        "detail": 814
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9925672961028525,
+      "outsideSilhouette": 744,
+      "pose": {
+        "silhouetteIoU": 0.9607236159324339,
+        "headIoU": 0.9380425022448369,
+        "crownDrift": 0.2014891796875,
+        "groundDrift": 0.2014891796875,
+        "headHorizontalDrift": 0.402978359375
+      }
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 109060,
+        "detail": 818
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9925553796028322,
+      "outsideSilhouette": 949,
+      "pose": {
+        "silhouetteIoU": 0.961440327739246,
+        "headIoU": 0.9375624375624375,
+        "crownDrift": 0.6080232304687501,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.30401161523437503
+      }
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 102093,
+        "detail": 786
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9923599568425043,
+      "outsideSilhouette": 761,
+      "pose": {
+        "silhouetteIoU": 0.966894109268687,
+        "headIoU": 0.9336156800945533,
+        "crownDrift": 0.6080232304687501,
+        "groundDrift": 0.20267441015625,
+        "headHorizontalDrift": 0.30401161523437503
+      }
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 85565,
+        "detail": 490
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.994305967114055,
+      "outsideSilhouette": 876,
+      "pose": {
+        "silhouetteIoU": 0.9612089644301282,
+        "headIoU": 0.878531342147817,
+        "crownDrift": 0.402978359375,
+        "groundDrift": 0.2014891796875,
+        "headHorizontalDrift": 1.208935078125
+      }
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 106586,
+        "detail": 737
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9931328792523504,
+      "outsideSilhouette": 501,
+      "pose": {
+        "silhouetteIoU": 0.969509290138161,
+        "headIoU": 0.9528690583860918,
+        "crownDrift": 0.810697640625,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.20267441015625
+      }
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 107513,
+        "detail": 2182
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9801084826108756,
+      "outsideSilhouette": 1214,
+      "pose": {
+        "silhouetteIoU": 0.9644954836366938,
+        "headIoU": 0.954551037956025,
+        "crownDrift": 0.41601561328125003,
+        "groundDrift": 0.20800780664062501,
+        "headHorizontalDrift": 0.10400390332031251
+      }
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 110898,
+        "detail": 703
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.993700773290562,
+      "outsideSilhouette": 330,
+      "pose": {
+        "silhouetteIoU": 0.9725801618219958,
+        "headIoU": 0.9108450540509124,
+        "crownDrift": 0.4137933333333333,
+        "groundDrift": 0.4137933333333333,
+        "headHorizontalDrift": 0.5172416666666666
+      }
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 112950,
+        "detail": 1434
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.987463281577843,
+      "outsideSilhouette": 916,
+      "pose": {
+        "silhouetteIoU": 0.9615410912074388,
+        "headIoU": 0.9679448409338333,
+        "crownDrift": 0.41105794921875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.41105794921875
+      }
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 111848,
+        "detail": 2156
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9810883828637592,
+      "outsideSilhouette": 2063,
+      "pose": {
+        "silhouetteIoU": 0.9562474034067304,
+        "headIoU": 0.9034037558685446,
+        "crownDrift": 0.20465426953125002,
+        "groundDrift": 0.20465426953125002,
+        "headHorizontalDrift": 0.716289943359375
+      }
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 114821,
+        "detail": 700
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9939404956674543,
+      "outsideSilhouette": 1285,
+      "pose": {
+        "silhouetteIoU": 0.9626681989314169,
+        "headIoU": 0.934050348658551,
+        "crownDrift": 0.618026,
+        "groundDrift": 0.20600866666666665,
+        "headHorizontalDrift": 0.20600866666666665
+      }
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 118480,
+        "detail": 2079
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9827553314144941,
+      "outsideSilhouette": 1792,
+      "pose": {
+        "silhouetteIoU": 0.9594889731842291,
+        "headIoU": 0.9359713890170743,
+        "crownDrift": 0.6139628085937501,
+        "groundDrift": 0.40930853906250003,
+        "headHorizontalDrift": 0.10232713476562501
+      }
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 115297,
+        "detail": 1483
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9873009076896729,
+      "outsideSilhouette": 1426,
+      "pose": {
+        "silhouetteIoU": 0.9472831774614197,
+        "headIoU": 0.9638715977053582,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.3056803681640625
+      }
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 116486,
+        "detail": 1461
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9876130804513892,
+      "outsideSilhouette": 2949,
+      "pose": {
+        "silhouetteIoU": 0.9314030410742496,
+        "headIoU": 0.8870094722598105,
+        "crownDrift": 0.20338966666666666,
+        "groundDrift": 0.20338966666666666,
+        "headHorizontalDrift": 1.0169483333333333
+      }
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 123052,
+        "detail": 1798
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9855987184621546,
+      "outsideSilhouette": 2914,
+      "pose": {
+        "silhouetteIoU": 0.9489216348254359,
+        "headIoU": 0.891747296528173,
+        "crownDrift": 1.426508384765625,
+        "groundDrift": 0.40757382421875,
+        "headHorizontalDrift": 0.5094672802734375
+      }
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 84960,
+        "detail": 363
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9957455785661545,
+      "outsideSilhouette": 1143,
+      "pose": {
+        "silhouetteIoU": 0.9695487057617483,
+        "headIoU": 0.9809261626192115,
+        "crownDrift": 0,
+        "groundDrift": 0.6080232304687501,
+        "headHorizontalDrift": 0.101337205078125
+      }
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 115713,
+        "detail": 713
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9938759383642829,
+      "outsideSilhouette": 709,
+      "pose": {
+        "silhouetteIoU": 0.964908716959094,
+        "headIoU": 0.9521953221173574,
+        "crownDrift": 0.8091173333333334,
+        "groundDrift": 0.606838,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 105834,
+        "detail": 673
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9936811664960988,
+      "outsideSilhouette": 2010,
+      "pose": {
+        "silhouetteIoU": 0.9441669034676835,
+        "headIoU": 0.9614544009537055,
+        "crownDrift": 0.4053488203125,
+        "groundDrift": 0.6080232304687501,
+        "headHorizontalDrift": 0.101337205078125
+      }
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 87362,
+        "detail": 518
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9941055985434684,
+      "outsideSilhouette": 494,
+      "pose": {
+        "silhouetteIoU": 0.9741864972056967,
+        "headIoU": 0.9752887995981918,
+        "crownDrift": 0.20267441015625,
+        "groundDrift": 0.4053488203125,
+        "headHorizontalDrift": 0.20267441015625
+      }
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 111286,
+        "detail": 691
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9938290899023907,
+      "outsideSilhouette": 887,
+      "pose": {
+        "silhouetteIoU": 0.9665971694612788,
+        "headIoU": 0.9719791564251302,
+        "crownDrift": 0.20227933333333334,
+        "groundDrift": 0.20227933333333334,
+        "headHorizontalDrift": 0.10113966666666667
+      }
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 115352,
+        "detail": 759
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9934631516393796,
+      "outsideSilhouette": 890,
+      "pose": {
+        "silhouetteIoU": 0.969082798277507,
+        "headIoU": 0.9663413662617009,
+        "crownDrift": 0.4053488203125,
+        "groundDrift": 0.20267441015625,
+        "headHorizontalDrift": 0.101337205078125
+      }
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 109812,
+        "detail": 684
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9938097306689835,
+      "outsideSilhouette": 1515,
+      "pose": {
+        "silhouetteIoU": 0.9620889818286703,
+        "headIoU": 0.9635432062272145,
+        "crownDrift": 0.4053488203125,
+        "groundDrift": 0.4053488203125,
+        "headHorizontalDrift": 0.20267441015625
+      }
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 94881,
+        "detail": 1680
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9826016714822755,
+      "outsideSilhouette": 1593,
+      "pose": {
+        "silhouetteIoU": 0.9581911086286435,
+        "headIoU": 0.9538627662707372,
+        "crownDrift": 0.606838,
+        "groundDrift": 0.20227933333333334,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 115381,
+        "detail": 769
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9933792509685752,
+      "outsideSilhouette": 2201,
+      "pose": {
+        "silhouetteIoU": 0.9565001157595974,
+        "headIoU": 0.9544064232460333,
+        "crownDrift": 0.6080232304687501,
+        "groundDrift": 0.6080232304687501,
+        "headHorizontalDrift": 0.30401161523437503
+      }
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-0.png",
+      "imageSha256": "112434a3a6b748375a8484dd0f7c16e290cbccc364cfc64fbeeaf2036de18bc1",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-1.png",
+      "imageSha256": "39094875c3b6c54cdfff21be7abf430f15b34f02e7d787be63e37a446e68416a",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-2.png",
+      "imageSha256": "6379f6a4deacfdcb4d5527acca39362e4af12c3f1cb72e3b82bf34607558af16",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-3.png",
+      "imageSha256": "06b968e6733b46a2cd36665bd97d555ac885cae2b309765697abc1ed42de63b6",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-4.png",
+      "imageSha256": "784014e3fa6646257ce15a1b28a257b5d9e301c62d3a5ddd973ab2976dddcba6",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-5.png",
+      "imageSha256": "01db5c4c0f77ab302f377d66bd7595158b68cf1d959ad2612e5023e11ea487bc",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-6.png",
+      "imageSha256": "c777ae551c85a9ea005baf9189ac3952cac1482adbed8f64a419ed81734e1cf5",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-7.png",
+      "imageSha256": "db1ba46178d15ff40536527692ca5475d411dd0cd83e9a9b1a33b999afb04851",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-8.png",
+      "imageSha256": "10aab0bb5eef3d6c9fdcf2024d73ccd9592d98ef2bd1a8dfab608328cdede432",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-9.png",
+      "imageSha256": "00da5d15e06924879f015a47faaa84c64c94a8eb37aea35932239520a63c6530",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-10.png",
+      "imageSha256": "47c1578fe4fe6316089f0fad983553cc2c4a69b10e47fd9928682507eb26d666",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-11.png",
+      "imageSha256": "ba389fc49b36ce47ebbc70dbb505d77f27ed9c2a9ea9a9fa98e135e01ff8537e",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-12.png",
+      "imageSha256": "6981786d65abe9eccf6c7578fc5ef600f314c8780c2fcc1c155d8566ff42c6bd",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-13.png",
+      "imageSha256": "042f8ca6a8c4901cf67b4b333d2e7b2d618142fea2b27e07e27b3ec9a401ba3c",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-14.png",
+      "imageSha256": "0b7b7b3ff0ef4cc789e80df7012febbe7eeb1ca061c0aa96995f0628ebca2ff8",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-15.png",
+      "imageSha256": "1135a2a1f77764c9f82738ee8e2665153b7629d992f8de6d3ce8c1e32ab17d0c",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-16.png",
+      "imageSha256": "68a504988d7a8635a93fe89abcb2cda0370e4bd5c6576d1cdeacc3a172491b1d",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular.native-17.png",
+      "imageSha256": "cd5291c7b85d4da96bad3074d6ddb23d8057da42e4a245d7d22e6265e57ac149",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "body-regular",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "body-regular": {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

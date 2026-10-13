@@ -1,0 +1,770 @@
+{
+  "id": "top-blouse-wave",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 3967,
+        "secondary": 526,
+        "detail": 231
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 236
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 3783,
+        "secondary": 554,
+        "detail": 332
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 330
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 4131,
+        "secondary": 616,
+        "detail": 281
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 421
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 4094,
+        "secondary": 595,
+        "detail": 295
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 452
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 4020,
+        "secondary": 593,
+        "detail": 285
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 375
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 4113,
+        "secondary": 618,
+        "detail": 303
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 415
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 4038,
+        "secondary": 586,
+        "detail": 276
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 307
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 3783,
+        "secondary": 569,
+        "detail": 331
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 376
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 4146,
+        "secondary": 557,
+        "detail": 242
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 347
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 2503,
+        "secondary": 382,
+        "detail": 192
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 387
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 2577,
+        "secondary": 341,
+        "detail": 187
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 477
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 2889,
+        "secondary": 380,
+        "detail": 195
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 556
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 2842,
+        "secondary": 371,
+        "detail": 172
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 521
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 2817,
+        "secondary": 379,
+        "detail": 190
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 553
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 2865,
+        "secondary": 381,
+        "detail": 198
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 521
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 2730,
+        "secondary": 343,
+        "detail": 173
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 498
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 2697,
+        "secondary": 329,
+        "detail": 195
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 479
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 2538,
+        "secondary": 387,
+        "detail": 204
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 472
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 4747,
+        "secondary": 626,
+        "detail": 206
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 480
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 5091,
+        "secondary": 618,
+        "detail": 246
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 726
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 5083,
+        "secondary": 658,
+        "detail": 235
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 775
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 5251,
+        "secondary": 653,
+        "detail": 256
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 924
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 5265,
+        "secondary": 670,
+        "detail": 236
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 914
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 5322,
+        "secondary": 669,
+        "detail": 229
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 882
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 5185,
+        "secondary": 646,
+        "detail": 261
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 848
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 5190,
+        "secondary": 622,
+        "detail": 273
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 830
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 4798,
+        "secondary": 637,
+        "detail": 217
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 530
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 2688,
+        "secondary": 402,
+        "detail": 181
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 500
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 2921,
+        "secondary": 304,
+        "detail": 194
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 551
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 3041,
+        "secondary": 362,
+        "detail": 194
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 687
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 3100,
+        "secondary": 360,
+        "detail": 171
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 727
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 3018,
+        "secondary": 366,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 675
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 3002,
+        "secondary": 359,
+        "detail": 195
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 649
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 3010,
+        "secondary": 340,
+        "detail": 181
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 663
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 2954,
+        "secondary": 312,
+        "detail": 185
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 607
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 2715,
+        "secondary": 397,
+        "detail": 192
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 582
+    }
+  ],
+  "errors": [],
+  "poseSet": "wave",
+  "checks": [
+    {
+      "id": "top-blouse-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-wave",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-soft-wave",
+    "hair-waves-wave",
+    "bottom-straight-wave",
+    "footwear-boots-wave"
+  ],
+  "sources": {
+    "top-blouse-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/top-blouse.png",
+      "sha256": "3a475a77d6444946ccbbc50446bc882e36e72910ea6fa04858ba4cd4036d5f11"
+    },
+    "face-soft-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/face-soft.png",
+      "sha256": "034904a47741e1f1a591793b90e4b45352c851adf2842457ad0d61ea52502ef3"
+    },
+    "hair-waves-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/hair-waves.png",
+      "sha256": "ccbc5272ff0a177bca16b2bbe1d8343ad80d0e24fc1fb28334223c4fd60939ff"
+    },
+    "bottom-straight-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/bottom-straight.png",
+      "sha256": "36737a4daf82d599469d058f6e10d2e08780913bc26c2c1421b8437c92052cb5"
+    },
+    "footwear-boots-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/footwear-boots.png",
+      "sha256": "201bbb0fc6fa40ba1527ac1d9caa69a38ec4f5d3f5c007642551e4ed2082dd8f"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-blouse-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

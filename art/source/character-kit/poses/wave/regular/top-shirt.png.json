@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "03851003ef28cc115491b58ddfc21edcda9e42e6ca251708d3a2f435973fef16",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "3095cf75dc61ed4bff0180ff286bcf3fa24a45ccd10ddac6190a1020c4de5f84",
+  "promptSha256": "58dd3797e8e7f263a1e664a70df82b6021417d6f8190b09a2c2575cabc039cbd",
+  "generationPromptSha256": "6a6f07d3a3d9586ce20edca84a3df6ba61d084b94c933ec34a91e8269e7bfc3e",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-shirt-wave-candidate-1.png",
+  "lockedSha256": "683e19410f84f51c27d3bf771b2871939fd22d3ee48b5efd95c0478dd9e5500b"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation": "whole-frame-registration",
+  "sources": [
+    {
+      "path": "art/source/character-kit/bottom-skirt-slim-candidate-1.png",
+      "sha256": "63c133e8ef274c74c2e3673970f80f7c384ac4a04a17a1749068b7600b076f3f"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/outfit-reference.registration.json",
+      "sha256": "127c8c412631079e80b0690a6a2a1dab284b856cbd794ad5bd9e0dcbb98073c2"
+    },
+    {
+      "path": "art/source/character-kit/builds/slim/grid-v2/walk.registration.json",
+      "sha256": "84be401d05bcc44a5c7c44845694f03b552dacd5e222696a5d4b18f282c1a1bf"
+    }
+  ],
+  "output": "art/source/character-kit/prepared/bottom-skirt-slim-grid-v2.png",
+  "outputSha256": "11f3b17ced026e83e25bb16eb6d7f2e3805f0a1e92dcf5d121124af3c77cc3ad"
+}

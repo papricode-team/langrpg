@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "007cb75ac323c6ace9aa8989b39aa85941246bc5501920ecea8cb94efc80028e",
+  "baseSha256": "838e71fdd772e6c8ab59715b69d5df6376824b974dd26fff6fa971b92f30cd8d",
+  "registrationSha256": "4677fae04264937067dd012d415c604891115dc88b2a8380fd1d4cb1f6d3fcf3",
+  "maskSha256": "a73e7e996fbe1fda24706c32279fa09beefc194062dd457cfd131c827d7433ea",
+  "promptSha256": "66f8118a7143f07978d85180431dfe5d45ce73897e36e50904cde382fb3e3e0f",
+  "generationPromptSha256": "928dd4395b4893eab6962b6190dc80946664c87faaf52810d8788d0e81aa2eea",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "maxSpeckPixels": 20
+  },
+  "candidate": "art/source/character-kit/held-lantern-lantern-raise-candidate-2.png",
+  "lockedSha256": "8932c12df4233a8808d69837755015ebf8602398d53c145d9d3b32a27de3ada0"
+}

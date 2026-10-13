@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "5cf452c58d9939e7dbfdb611933168e7813c8dff598f7e5cde86fe8a1ea0a293",
+  "baseSha256": "baf5ce944fc20dfd2cf314b9eced8a0330a4f18af665be84ff84f3611691950c",
+  "registrationSha256": "b5319827ccc4c8e2362e6cb04531645dd3b185b43567f36860c5645e2113a982",
+  "maskSha256": "c600eb79cd2be6700b7dcb3bae795f0646738f819ef5650193607e8abca5e551",
+  "promptSha256": "877c1ec83401393e0b3f3734a733edac93d74056ec44484188ef62d3befb63a2",
+  "generationPromptSha256": "a442b628cc120938faf5a8d3bb651ed81fd60b357b475602c1e8c6119d6fe43c",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "maxSpeckPixels": 12,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "candidate": "art/source/character-kit/hair-waves-wave-candidate-1.png",
+  "lockedSha256": "e11dd52dc20e2f81b2561e92c12dee8feded298c6e65f44ae84973fb66133b52"
+}

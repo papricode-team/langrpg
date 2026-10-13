@@ -2,7 +2,9 @@ import { afterEach, vi } from 'vitest';
 import * as Phaser from 'phaser';
 import { phaserHarness, seedJson, seedTexture, settle, trackGame, type PhaserHarness } from './phaser-harness';
 import { World, type WorldOptions } from '../world';
-import { MODULAR_ART, modularAssets, partTextureKey } from '../avatar-options';
+import { MODULAR_ART } from '../avatar-options';
+import * as avatarBaker from '../avatar-baker';
+import { avatarTextureKey } from '../character-recipe.mjs';
 import { getInterior, type InteriorId } from '../interiors';
 import type { MapId } from '../maps';
 import { SceneKeys, type WorldPlayer } from '../world-state';
@@ -28,13 +30,17 @@ export interface Fixture {
 /** Seed the art a scene needs so Phaser's loader skips it; everything else fails without a network. */
 export function seedSharedArt(game: Phaser.Game, playerArt = true): void {
   seedJson(game, 'residents-animations', { version: 1, framesPerAsset: 1, assets: {} });
-  if (playerArt) for (const asset of modularAssets) seedTexture(game, partTextureKey(asset.id, ''), Array.from({ length: MODULAR_ART.frameCount }, (_, index) => index));
+  if (playerArt && !vi.isMockFunction(avatarBaker.bakeAvatarTexture)) vi.spyOn(avatarBaker, 'bakeAvatarTexture').mockImplementation(async (scene, recipe) => {
+    const key = avatarTextureKey(recipe);
+    if (!scene.textures.exists(key)) seedTexture(game, key, Array.from({ length: MODULAR_ART.frameCount }, (_, index) => index), MODULAR_ART.width, MODULAR_ART.height);
+    return { value: key, release: vi.fn() };
+  });
   seedTexture(game, 'main-cast', Array.from({ length: 28 }, (_, index) => index));
   seedTexture(game, 'story-cast', Array.from({ length: 8 }, (_, index) => index));
 }
 
 const fixtures: Fixture[] = [];
-afterEach(() => { for (const fixture of fixtures.splice(0)) { fixture.world.destroy(); fixture.harness.restore(); } document.body.replaceChildren(); });
+afterEach(() => { for (const fixture of fixtures.splice(0)) { fixture.world.destroy(); fixture.harness.restore(); } document.body.replaceChildren(); vi.restoreAllMocks(); });
 
 export async function bootWorld(options: Partial<WorldOptions> & { mapId?: MapId; playerArt?: boolean; seed?: (game: Phaser.Game) => void } = {}): Promise<Fixture> {
   const harness = phaserHarness();

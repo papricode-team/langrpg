@@ -1,0 +1,881 @@
+{
+  "id": "body-regular-wave",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 12122
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 12078
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 12746
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 12687
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 12588
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 12855
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 12720
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 12037
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 12307
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 8117
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 8302
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 8830
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 8565
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 8488
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 8768
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 8406
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 8316
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 8052
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 12700
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 13073
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 13059
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 13148
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 13115
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 13267
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 13133
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 13113
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 12615
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 8292
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 8387
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 8768
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 8887
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 8643
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 8646
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 8636
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 8347
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 8073
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 0,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 1,
+        "headIoU": 1,
+        "crownDrift": 0,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    }
+  ],
+  "errors": [],
+  "poseSet": "wave",
+  "checks": [
+    {
+      "id": "body-regular-wave",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "body-regular-wave": {
+      "path": "art/source/character-kit/poses/wave/regular/body.png",
+      "sha256": "7be044f250bbcd9632f1e2e2b7f53c0799380cbe33eb2a7dbe59683929449592"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

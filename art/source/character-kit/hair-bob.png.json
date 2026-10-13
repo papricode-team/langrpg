@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "d27180224f79dd32da15d6591fb93456eaefe122194a1f934c53d5bdcd746677",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "c55f97e23d7453581894528891b9a44bb1d9a4308441c392f4ef7ef964fdea2b",
+  "promptSha256": "b05a5c020e1793cacc64fd8a3c89c6714fd529851cff5c70aec43e0e98d9e20f",
+  "generationPromptSha256": "4b1fcf7b38b904ce9728494ff7deca5fcffece9c9612dc850fe18a9a770e7c90",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 9
+  },
+  "candidate": "art/source/character-kit/hair-bob-candidate-3.png",
+  "lockedSha256": "647a66dfae63ef62d3870c61faabdd47f0579b5aeef8e064e97751637dc90f07"
+}

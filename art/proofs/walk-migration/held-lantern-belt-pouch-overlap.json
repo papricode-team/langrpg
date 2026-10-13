@@ -1,0 +1,747 @@
+{
+  "id": "held-lantern",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "detail": 632
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 564
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "detail": 654
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 615
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "detail": 649
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 605
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "detail": 610
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 410
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "detail": 658
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 636
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "detail": 624
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 522
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "detail": 645
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 525
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "detail": 645
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 550
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "detail": 658
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 652
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "detail": 580
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 219
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "detail": 615
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 576
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "detail": 620
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 593
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "detail": 592
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 85
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "detail": 631
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 603
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "detail": 633
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 609
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "detail": 646
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 627
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "detail": 592
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 126
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "detail": 643
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 624
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "detail": 624
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 569
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "detail": 608
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 583
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "detail": 604
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 592
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "detail": 453
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 423
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "detail": 628
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 600
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "detail": 567
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 499
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "detail": 528
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 480
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "detail": 479
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 440
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "detail": 609
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 582
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "detail": 650
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 590
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "detail": 628
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 619
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "detail": 626
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 614
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "detail": 599
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 547
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "detail": 627
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 613
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "detail": 629
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 601
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "detail": 623
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 605
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "detail": 618
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 573
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "detail": 620
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 616
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "held-lantern",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bag-belt-pouch",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-tee",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-shorts",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-sandals",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-buzz",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "bag-belt-pouch",
+    "top-tee",
+    "bottom-shorts",
+    "footwear-sandals",
+    "hair-buzz"
+  ],
+  "sources": {
+    "held-lantern": {
+      "path": "art/source/character-kit/held-lantern.png",
+      "sha256": "9372e50930446b92cc811e3392f5bb5640d44c9f1c51765c8c6da8594a575488"
+    },
+    "bag-belt-pouch": {
+      "path": "art/source/character-kit/bag-belt-pouch.png",
+      "sha256": "376bb869b9d9e32309ee362a286bb6ab01f56db02739d4fdbee803c6c073336f"
+    },
+    "top-tee": {
+      "path": "art/source/character-kit/top-tee.png",
+      "sha256": "5cd481914305b812a7de3721730a99809980b5c46d975ca03d280675fe2ed6ae"
+    },
+    "bottom-shorts": {
+      "path": "art/source/character-kit/bottom-shorts.png",
+      "sha256": "b15f2190c5be9dfe02849e7cbdc3e83c70926ed4cc01507815566a48158fc9c9"
+    },
+    "footwear-sandals": {
+      "path": "art/source/character-kit/footwear-sandals.png",
+      "sha256": "8ce09087e056091d342a02b8be4528f0e5a69da4b94320f8279e96bcb676ba21"
+    },
+    "hair-buzz": {
+      "path": "art/source/character-kit/hair-buzz.png",
+      "sha256": "bf5396e2be1d415a7a72f325dac5ef2ca9c8e960b5185652968c076a324b4da1"
+    },
+    "jacket-detail": {
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "sha256": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358"
+    },
+    "jacket-fabric": {
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "sha256": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch",
+        "held-lantern"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "held-lantern",
+        "bottom-shorts",
+        "footwear-sandals",
+        "top-tee",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-buzz",
+        "bag-belt-pouch"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

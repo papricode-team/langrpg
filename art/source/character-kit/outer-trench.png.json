@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "757165f22a0be38d5706eb9b7ea39bef7893fef1015c54362400da936362780c",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "625642498bd47448268bc043b213cd5b783e59dce9ea6b52f3b64e685801c5fc",
+  "promptSha256": "437d7e5f25268d298a9b88133345b50808a50a7ba76e3b53fe266f20338917e7",
+  "generationPromptSha256": "bea1206d871b733078eea1341185eefb77eca363931884b97b00a40e6876dfec",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 22
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2
+    },
+    "regionReason": "The near cuff edge in the right stride can be separated from the sleeve by the wrist tab and exposed wrist."
+  },
+  "candidate": "art/source/character-kit/outer-trench-candidate-3.png",
+  "lockedSha256": "1a3b0a6396112b8f2f11d06639893221a8b7ece2cac386d9c17ebc539aa34504"
+}

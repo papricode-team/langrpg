@@ -1,38 +1,94 @@
-import { avatarColors, characterFrame, normalizeParts, partOptions } from './avatar-options';
-import { paintCharacter, type ModularAvatar } from './modular-character';
+import { avatarColors, characterFrame } from './avatar-options';
+import { paintAvatar, releaseAvatarPreview } from './avatar-baker';
+import { characterCatalogue, catalogueForPose, normalizeAvatar, resolveRecipe, avatarTextureKey } from './character-recipe.mjs';
+import type { AvatarRecipe } from './character-recipe.mjs';
+import { characterPresets, randomAvatar } from './character-presets';
 import { advanceWalkClock, type WalkClock } from './walk-animation';
-import { escapeHtml } from './icons';
+import { advancePoseClock, availableCharacterPoses, poseColumn, type PoseClock } from './character-pose';
+import { escapeHtml as e } from './icons';
 import { t } from './i18n';
 import './character-builder.css';
-const pieceLabel=(field:string)=>{switch(field){case 'face':return t('Face');case 'hairstyle':return t('Hair & headwear');case 'jacket':return t('Jacket');case 'bottom':return t('Trousers');case 'build':return t('Build');default:return field;}};
-const colourLegend=(field:string)=>{switch(field){case 'skin':return t('Skin tone');case 'hair':return t('Hair / headwear colour');case 'outfit':return t('Jacket colour');case 'pants':return t('Trouser colour');default:return field;}};
-const customColourLabel=(field:string)=>{switch(field){case 'skin':return t('Custom skin colour');case 'hair':return t('Custom hair colour');case 'outfit':return t('Custom outfit colour');case 'pants':return t('Custom pants colour');default:return t('Custom {field} colour',{field});}};
-/** Display names for avatar-options labels; the data stays English because saved values and tests use it. */
-const optionLabel=(label:string)=>{switch(label){
- case 'Default':return t('Default');case 'No hair':return t('No hair');case 'Long waves':return t('Long waves');case 'Travel jacket':return t('Travel jacket');case 'Straight trousers':return t('Straight trousers');case 'Medium':return t('Medium');
- case 'Porcelain':return t('Porcelain');case 'Ivory':return t('Ivory');case 'Peach':return t('Peach');case 'Sand':return t('Sand');case 'Honey':return t('Honey');case 'Golden':return t('Golden');case 'Warm brown':return t('Warm brown');case 'Copper':return t('Copper');case 'Umber':return t('Umber');case 'Deep brown':return t('Deep brown');case 'Espresso':return t('Espresso');case 'Ebony':return t('Ebony');
- case 'Ink':return t('Ink');case 'Brown black':return t('Brown black');case 'Dark brown':return t('Dark brown');case 'Chestnut':return t('Chestnut');case 'Auburn':return t('Auburn');case 'Golden blond':return t('Golden blond');case 'Pale blond':return t('Pale blond');case 'Silver':return t('Silver');case 'White':return t('White');case 'Rose':return t('Rose');case 'Plum':return t('Plum');case 'Ocean':return t('Ocean');case 'Forest':return t('Forest');
- case 'Teal':return t('Teal');case 'Sage':return t('Sage');case 'Navy':return t('Navy');case 'Sky':return t('Sky');case 'Lavender':return t('Lavender');case 'Wine':return t('Wine');case 'Terracotta':return t('Terracotta');case 'Sunflower':return t('Sunflower');case 'Clay':return t('Clay');case 'Cream':return t('Cream');case 'Charcoal':return t('Charcoal');case 'Rust':return t('Rust');case 'Mint':return t('Mint');
- default:return label;}};
-export function characterBuilderMarkup(){return `<section class="character-builder" aria-label="${escapeHtml(t('Character builder'))}"><div class="builder-preview"><canvas width="256" height="384" aria-label="${escapeHtml(t('Your assembled character'))}" role="img"></canvas><div class="builder-turns"><button type="button" data-turn="-1" aria-label="${escapeHtml(t('Turn character left'))}">↶</button><button type="button" data-walk aria-pressed="true">${escapeHtml(t('Walking'))}</button><button type="button" data-turn="1" aria-label="${escapeHtml(t('Turn character right'))}">↷</button></div><p>${escapeHtml(t('Make yourself at home.'))}</p></div><div class="builder-controls">${Object.entries(partOptions).map(([field,options])=>`<label>${escapeHtml(pieceLabel(field))}<select data-piece="${field}">${options.map(([id,label])=>`<option value="${id}">${escapeHtml(optionLabel(label))}</option>`).join('')}</select></label>`).join('')}${['skin','hair','outfit','pants'].map(field=>`<fieldset><legend>${escapeHtml(colourLegend(field))}</legend><div class="builder-colours">${(field==='pants'?avatarColors.outfit:avatarColors[field as keyof typeof avatarColors]).map(([label,color])=>`<button type="button" data-colour-field="${field}" data-colour="${color}" style="--swatch:${color}" aria-label="${escapeHtml(optionLabel(label))}" title="${escapeHtml(optionLabel(label))}" aria-pressed="false"></button>`).join('')}<input type="color" data-custom-colour="${field}" aria-label="${escapeHtml(customColourLabel(field))}"/></div></fieldset>`).join('')}</div></section>`;}
-export function bindCharacterBuilder(host:HTMLElement,initial:ModularAvatar):()=>ModularAvatar {
- const root=host.querySelector<HTMLElement>('.character-builder')!,canvas=root.querySelector<HTMLCanvasElement>('canvas')!;
- const draft={...initial,...normalizeParts(initial)};let facing=0,walking=false,clock:WalkClock={phase:0,lastTimeMs:null},lastPaintKey='',pendingPaintKey='',retryAfter=0;
- root.querySelectorAll<HTMLSelectElement>('[data-piece]').forEach(select=>{select.closest('label')!.hidden=select.options.length<2;});
- const walkButton=root.querySelector<HTMLButtonElement>('[data-walk]')!;walkButton.textContent=t('Standing');walkButton.setAttribute('aria-pressed','false');
- const visible=()=>!document.hidden&&(!root.closest('dialog')||root.closest('dialog')!.open);
- const paint=()=>{if(!visible())return;const frame=characterFrame(facing,walking?clock.phase:undefined),key=[frame,draft.face,draft.hairstyle,draft.jacket,draft.bottom,draft.build,draft.skin,draft.hair,draft.outfit,draft.pants].join('|');if(key===lastPaintKey||key===pendingPaintKey||performance.now()<retryAfter)return;pendingPaintKey=key;void paintCharacter(canvas,{...draft},frame).then(()=>{lastPaintKey=key;canvas.setAttribute('aria-label',t('Your assembled character'));}).catch(()=>{retryAfter=performance.now()+1000;canvas.setAttribute('aria-label',t('Character artwork is reconnecting'));}).finally(()=>{if(pendingPaintKey===key)pendingPaintKey='';});};
- const sync=()=>{root.querySelectorAll<HTMLSelectElement>('[data-piece]').forEach(select=>{select.value=draft[select.dataset.piece as keyof typeof partOptions];});root.querySelectorAll<HTMLButtonElement>('[data-colour-field]').forEach(b=>b.setAttribute('aria-pressed',String(draft[b.dataset.colourField as keyof typeof draft]===b.dataset.colour)));root.querySelectorAll<HTMLInputElement>('[data-custom-colour]').forEach(input=>input.value=draft[input.dataset.customColour as keyof typeof draft]);paint();};
- root.querySelectorAll<HTMLSelectElement>('[data-piece]').forEach(select=>select.onchange=()=>{draft[select.dataset.piece as keyof typeof partOptions]=select.value;sync();});
- root.querySelectorAll<HTMLButtonElement>('[data-colour-field]').forEach(b=>b.onclick=()=>{draft[b.dataset.colourField as keyof typeof draft]=b.dataset.colour!;sync();});
- root.querySelectorAll<HTMLInputElement>('[data-custom-colour]').forEach(input=>input.oninput=()=>{draft[input.dataset.customColour as keyof typeof draft]=input.value;sync();});
- root.querySelectorAll<HTMLButtonElement>('[data-turn]').forEach(b=>b.onclick=()=>{facing=(facing+Number(b.dataset.turn)+4)%4;paint();});
- root.querySelector<HTMLButtonElement>('[data-walk]')!.onclick=event=>{walking=!walking;clock={phase:0,lastTimeMs:null};const b=event.currentTarget as HTMLButtonElement;b.textContent=walking?t('Walking'):t('Standing');b.setAttribute('aria-pressed',String(walking));paint();};
- let request=0,disposed=false;
- const stop=()=>{disposed=true;cancelAnimationFrame(request);request=0;document.removeEventListener('visibilitychange',visibilityChanged);};
- const schedule=()=>{if(!root.isConnected){stop();return;}if(!disposed&&!document.hidden&&!request)request=requestAnimationFrame(tick);};
- const tick=(timestamp:number)=>{request=0;if(!root.isConnected){stop();return;}clock=advanceWalkClock(clock,timestamp,{active:walking&&visible()});paint();schedule();};
- const visibilityChanged=()=>{clock={...clock,lastTimeMs:null};if(document.hidden){cancelAnimationFrame(request);request=0;}else schedule();};
- document.addEventListener('visibilitychange',visibilityChanged);sync();schedule();
- return ()=>({...draft});
+const tabs = [...new Set(characterCatalogue.slots.map(slot => slot.tab))];
+const tabLabel = (tab: string) => ({ Body:t('Body'), Face:t('Face'), Hair:t('Hair'), Head:t('Head'), Top:t('Top'), Outer:t('Outer'), Bottom:t('Bottom'), Feet:t('Feet'), Extras:t('Extras') }[tab] ?? tab);
+const colorLabel = (key: string) => key === 'skin' ? t('Skin tone') : key === 'hair' ? t('Hair colour') : key.endsWith('.secondary') ? t('Secondary colour') : t('Primary colour');
+const swatches = (key: string) => key === 'skin' ? avatarColors.skin : key === 'hair' ? avatarColors.hair : avatarColors.outfit;
+export function characterBuilderMarkup(): string {
+  return `<section class="character-builder" aria-label="${e(t('Character builder'))}"><div class="builder-preview"><canvas width="256" height="384" data-main-preview aria-label="${e(t('Your assembled character'))}" role="img"></canvas><div class="builder-turns"><button type="button" data-turn="-1" aria-label="${e(t('Turn character left'))}">↶</button><select data-motion aria-label="${e(t('Character animation'))}"><option value="standing">${e(t('Standing'))}</option><option value="walking">${e(t('Walking'))}</option>${Object.entries(characterCatalogue.poseSets??{}).map(([id,pose])=>`<option value="${e(id)}">${e(t(pose.label))}</option>`).join('')}</select><button type="button" data-turn="1" aria-label="${e(t('Turn character right'))}">↷</button></div><div class="builder-facing-strip">${[t('Front view'),t('Right view'),t('Back view'),t('Left view')].map((label,index)=>`<canvas width="128" height="192" data-facing="${index}" aria-label="${e(label)}" role="img"></canvas>`).join('')}</div><p>${e(t('Make yourself at home.'))}</p></div><div class="builder-editor"><div class="builder-actions"><button type="button" data-random>${e(t('Randomise'))}</button><select data-preset aria-label="${e(t('Presets'))}"><option value="">${e(t('Presets'))}</option>${characterPresets.map(p=>`<option value="${e(p.name)}">${e(p.name)}</option>`).join('')}</select></div><div class="builder-browser"><div class="builder-tabs" role="tablist" aria-label="${e(t('Character parts'))}">${tabs.map((tab,index)=>`<button type="button" role="tab" data-tab="${e(tab)}" aria-selected="${index===0}" tabindex="${index===0?0:-1}">${e(tabLabel(tab))}</button>`).join('')}</div><div class="builder-panel" role="tabpanel"></div></div></div></section>`;
+}
+export interface CharacterBuilderValue { (): AvatarRecipe; applyPreset(name: string): void; }
+export function bindCharacterBuilder(host: HTMLElement, initial: unknown): CharacterBuilderValue {
+  const root=host.querySelector<HTMLElement>('.character-builder')!, canvas=root.querySelector<HTMLCanvasElement>('[data-main-preview]')!;
+  const strip=[...root.querySelectorAll<HTMLCanvasElement>('[data-facing]')], panel=root.querySelector<HTMLElement>('.builder-panel')!;
+  let draft=normalizeAvatar(initial), active=tabs[0], facing=0, motion='standing', clock:WalkClock={phase:0,lastTimeMs:null}, poseClock:PoseClock={elapsedMs:0,lastTimeMs:null};
+  const motionSelect=root.querySelector<HTMLSelectElement>('[data-motion]')!;
+  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const poseSet=()=>motion==='standing'||motion==='walking'?'walk':motion;
+  const recipeIdentity=()=>avatarTextureKey(draft,catalogueForPose(poseSet()));
+  let lastPaintKey='',pendingPaintKey='',stripKey='',pendingStripKey='',paintSerial=0,retryAfter=0,request=0,disposed=false;
+  const visible=()=>!document.hidden&&(!root.closest('dialog')||root.closest('dialog')!.open);
+  const paint=()=>{
+    if(!visible())return;
+    const action=characterCatalogue.poseSets?.[poseSet()];
+    const frame=action?facing*9+(reducedMotion.matches?3:poseColumn(poseClock.elapsedMs,action.frameDurations)):characterFrame(facing,motion==='walking'&&!reducedMotion.matches?clock.phase:undefined);
+    const recipeKey=recipeIdentity(),key=recipeKey+':'+frame;
+    if((key===lastPaintKey&&!pendingPaintKey)||key===pendingPaintKey||performance.now()<retryAfter)return;
+    const serial=++paintSerial;
+    pendingPaintKey=key;
+    const snapshot=structuredClone(draft);
+    const options={poseSet:poseSet()},work=[paintAvatar(canvas,snapshot,frame,options)];
+    if(stripKey!==recipeKey||(pendingStripKey&&pendingStripKey!==recipeKey)){pendingStripKey=recipeKey;work.push(...strip.map((target,index)=>paintAvatar(target,snapshot,index*9+(action?3:0),options)));}
+    void Promise.all(work).then(()=>{if(serial===paintSerial&&recipeIdentity()===recipeKey){lastPaintKey=key;stripKey=recipeKey;canvas.setAttribute('aria-label',t('Your assembled character'));}}).catch(()=>{if(serial===paintSerial){retryAfter=performance.now()+1000;canvas.setAttribute('aria-label',t('Character artwork is reconnecting'));}}).finally(()=>{if(serial===paintSerial){pendingPaintKey='';pendingStripKey='';}});
+  };
+  const render=()=>{
+    const available=availableCharacterPoses(draft);
+    if(poseSet()!=='walk'&&!available.includes(motion)){motion='standing';poseClock={elapsedMs:0,lastTimeMs:null};}
+    for(const option of motionSelect.options){
+      const action=characterCatalogue.poseSets?.[option.value];if(!action)continue;
+      option.disabled=!available.includes(option.value);
+      option.textContent=option.disabled?t('{pose} (unavailable for this outfit)',{pose:t(action.label)}):t(action.label);
+    }
+    motionSelect.value=motion;
+    const rules=resolveRecipe(draft), colorKeys=new Set<string>();
+    if(active==='Body')colorKeys.add('skin');if(active==='Hair')colorKeys.add('hair');
+    panel.setAttribute('aria-label',tabLabel(active));
+    panel.innerHTML=characterCatalogue.slots.filter(slot=>slot.tab===active).map(slot=>{
+      const options=characterCatalogue.components.filter(part=>part.slot===slot.id&&(slot.id==='body'||part.build===draft.build));
+      const selected=slot.id==='body'?draft.build:draft.parts[slot.id],disabled=rules.disabled[slot.id];
+      const piece=options.find(part=>part.optionId===selected);
+      for(const key of Object.values(piece?.tints??{}))if(key&&key!=='skin'&&key!=='hair')colorKeys.add(key);
+      const cause=disabled&&characterCatalogue.components.find(part=>part.id===disabled.by);
+      const note=disabled?t('Unavailable while {piece} is selected.',{piece:t(cause?.label??'')}):rules.hidden.includes(slot.id)?t('Covered by your selected clothing.'):'';
+      const tile=(id:string|null,label:string,thumbnail?:string)=>`<button type="button" class="builder-tile" data-slot="${e(slot.id)}" data-option="${e(id??'')}" aria-pressed="${selected===id}" ${disabled?'disabled':''}>${thumbnail?`<img src="${e(characterCatalogue.assetBase+thumbnail)}?v=${e(characterCatalogue.assetVersion)}" alt="" loading="lazy" width="64" height="96"/>`:'<span class="builder-none" aria-hidden="true">∅</span>'}<span>${e(t(label))}</span></button>`;
+      return `<section class="builder-slot"><h3>${e(t(slot.label))}</h3>${note?`<p class="builder-rule" role="status">${e(note)}</p>`:''}<div class="builder-tiles">${slot.optional?tile(null,'None'):''}${options.map(part=>tile(part.optionId,part.label,part.thumbnail)).join('')}${!options.length&&!slot.optional?`<p>${e(t('No options for this build yet.'))}</p>`:''}</div></section>`;
+    }).join('')+[...colorKeys].map(key=>`<fieldset><legend>${e(colorLabel(key))}</legend><div class="builder-colours">${swatches(key).map(([label,color])=>`<button type="button" data-colour-key="${e(key)}" data-colour="${color}" style="--swatch:${color}" aria-label="${e(t(label))}" aria-pressed="${(key==='skin'?draft.skin:key==='hair'?draft.hair:draft.colors[key])===color}"></button>`).join('')}<input type="color" data-custom-colour="${e(key)}" value="${e(key==='skin'?draft.skin:key==='hair'?draft.hair:draft.colors[key]??'#ffffff')}" aria-label="${e(t('Custom colour: {field}',{field:colorLabel(key)}))}"/></div></fieldset>`).join('');
+    root.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach(button=>{const selected=button.dataset.tab===active;button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1;});
+    paint();
+  };
+  const setColor=(key:string,value:string)=>{if(key==='skin')draft.skin=value;else if(key==='hair')draft.hair=value;else draft.colors[key]=value;paint();};
+  const applyPreset=(name:string)=>{const preset=characterPresets.find(p=>p.name===name);if(preset){draft=structuredClone(preset.recipe);render();}};
+  root.addEventListener('click',event=>{
+    const button=(event.target as Element).closest<HTMLButtonElement>('button');if(!button||button.disabled)return;
+    if(button.dataset.tab){active=button.dataset.tab;render();}
+    else if(button.dataset.slot){const slot=button.dataset.slot;if(slot==='body')draft.build=button.dataset.option!;else draft.parts[slot]=button.dataset.option||null;draft=normalizeAvatar(draft);for(const blocked of Object.keys(resolveRecipe(draft).disabled))draft.parts[blocked]=null;render();}
+    else if(button.dataset.colourKey){setColor(button.dataset.colourKey,button.dataset.colour!);render();}
+    else if(button.hasAttribute('data-random')){draft=randomAvatar();render();}
+    else if(button.dataset.turn){facing=(facing+Number(button.dataset.turn)+4)%4;paint();}
+  });
+  root.addEventListener('keydown',event=>{
+    if(!(event.target instanceof HTMLElement)||!event.target.matches('[data-tab]')||!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();const index=tabs.indexOf(active);active=tabs[event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(['ArrowUp','ArrowLeft'].includes(event.key)?-1:1)+tabs.length)%tabs.length];render();root.querySelector<HTMLButtonElement>(`[data-tab="${active}"]`)?.focus();
+  });
+  root.addEventListener('input',event=>{const input=event.target as HTMLInputElement;if(input.dataset.customColour){setColor(input.dataset.customColour,input.value);panel.querySelectorAll<HTMLButtonElement>('[data-colour-key]').forEach(button=>{if(button.dataset.colourKey===input.dataset.customColour)button.setAttribute('aria-pressed',String(button.dataset.colour===input.value));});}});
+  root.querySelector<HTMLSelectElement>('[data-preset]')!.onchange=event=>applyPreset((event.target as HTMLSelectElement).value);
+  motionSelect.onchange=()=>{
+    const requested=motionSelect.value;
+    motion=['standing','walking',...availableCharacterPoses(draft)].includes(requested)?requested:'standing';
+    clock={phase:0,lastTimeMs:null};poseClock={elapsedMs:0,lastTimeMs:null};motionSelect.value=motion;paint();
+  };
+  const stop=()=>{disposed=true;cancelAnimationFrame(request);request=0;document.removeEventListener('visibilitychange',visibilityChanged);for(const target of [canvas,...strip])releaseAvatarPreview(target);};
+  const schedule=()=>{if(!root.isConnected){stop();return;}if(!disposed&&!document.hidden&&!request)request=requestAnimationFrame(tick);};
+  const tick=(timestamp:number)=>{request=0;if(!root.isConnected){stop();return;}clock=advanceWalkClock(clock,timestamp,{active:motion==='walking'&&visible()&&!reducedMotion.matches});const action=characterCatalogue.poseSets?.[poseSet()];if(action)poseClock=advancePoseClock(poseClock,timestamp,action.frameDurations,visible()&&!reducedMotion.matches);paint();schedule();};
+  const visibilityChanged=()=>{clock={...clock,lastTimeMs:null};poseClock={...poseClock,lastTimeMs:null};if(document.hidden){cancelAnimationFrame(request);request=0;}else schedule();};
+  document.addEventListener('visibilitychange',visibilityChanged);render();schedule();
+  return Object.assign(()=>structuredClone(draft),{applyPreset});
 }

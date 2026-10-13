@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "actors": [
+    {
+      "id": "marta",
+      "source": "art/source/character-portraits/marta-expressions-candidate-1.png",
+      "sourceSha256": "9be298c15bedd32ef9b7ab22fd2b4e58860110fa71ef80f1ed1a8dd33b9d548e",
+      "prompt": "art/source/character-portraits/prompts/marta-expressions-candidate-1.txt",
+      "promptSha256": "f0c0b6d71e5ad5e9db871dadece31cb8f03bb18efff92daca2f469d10eee7b17",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "otto",
+      "source": "art/source/character-portraits/otto-expressions-candidate-1.png",
+      "sourceSha256": "f85e58681db65020c4c62b6ebe84f0d447d7dbde9cc1754bcacbc036ae11f88e",
+      "prompt": "art/source/character-portraits/prompts/otto-expressions-candidate-1.txt",
+      "promptSha256": "88b6b40d91ccda29b7a496917bfbcf4787bb947e8162aaae773a7c9fa74dfcee",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "lina",
+      "source": "art/source/character-portraits/lina-expressions-candidate-1.png",
+      "sourceSha256": "276cb23a028d50fd0e94b9b5968b318b65c541c3fe87a1cab92f9f5a4ce30af2",
+      "prompt": "art/source/character-portraits/prompts/lina-expressions-candidate-1.txt",
+      "promptSha256": "58135f4d9d4740dcc44c720452ddc1f05d91eab2fe17c1b4042cce1f381d9df7",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "emil",
+      "source": "art/source/character-portraits/emil-expressions-candidate-1.png",
+      "sourceSha256": "a4586a783d9dbc5e9d1ecaead589d4ba8a0460741a00089b4a11f7862b45e521",
+      "prompt": "art/source/character-portraits/prompts/emil-expressions-candidate-1.txt",
+      "promptSha256": "f56edc66f76066debc757106fbcc5c470b89a6e0f9957db06d80cdbeb5ff61eb",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "ada",
+      "source": "art/source/character-portraits/ada-expressions-candidate-1.png",
+      "sourceSha256": "5ded7032d60a0f780e56f472d922805e7171d882e9ef6ac915ffbd8c5e5cea74",
+      "prompt": "art/source/character-portraits/prompts/ada-expressions-candidate-1.txt",
+      "promptSha256": "2364494ab9e3a212892e122fd857453e52c050378fa068900524a0ba577d600e",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "fritz",
+      "source": "art/source/character-portraits/fritz-expressions-candidate-1.png",
+      "sourceSha256": "2b4f8832ee62adddc3e25e450d887321ffcaeb2d15b696ac68d31c558a5d873c",
+      "prompt": "art/source/character-portraits/prompts/fritz-expressions-candidate-1.txt",
+      "promptSha256": "8151236a901b56eff3468ac50ba2fd19dcf5867ef52c392f7c9775b1c3a220bb",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
+    },
+    {
+      "id": "greta",
+      "source": "art/source/character-portraits/greta-expressions-candidate-1.png",
+      "sourceSha256": "6306b99d07a736ac3fede360dc7f1936b90db3f638b3cf61c2d8fb7815a5d791",
+      "prompt": "art/source/character-portraits/prompts/greta-expressions-candidate-1.txt",
+      "promptSha256": "8b65f6f229ceffca16a21d0f268e562d75bc0a846d40ac0097826ede97bee889",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-13",
+        "notes": "Reviewed the generated native portrait triptych against the original identity; neutral, smile and worried expressions retain character appearance."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 1,
+          "width": 723,
+          "height": 723
+        },
+        "smile": {
+          "left": 723,
+          "top": 1,
+          "width": 723,
+          "height": 723
+        },
+        "worried": {
+          "left": 1446,
+          "top": 1,
+          "width": 723,
+          "height": 723
+        }
+      }
+    }
+  ]
+}

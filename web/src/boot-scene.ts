@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { NPC_ART } from './character-art';
-import { MODULAR_ART, modularAssets, partTextureKey } from './avatar-options';
+import { MODULAR_ART } from './avatar-options';
+import { castActorsForMap, castAssets, castAssetUrl } from './character-cast';
 import { loadWorldAudio } from './world-audio';
 import { sceneryAnimationTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
 import { getMap } from './maps';
@@ -25,7 +26,7 @@ export class BootScene extends Phaser.Scene {
     this.load.spritesheet('main-cast', '/assets/story-cast/main-directions.webp', { frameWidth: 256, frameHeight: 384 });
     this.load.image('greenhouse-train', '/assets/story-cast/greenhouse-train.webp');
     this.load.spritesheet(NPC_ART.key, '/assets/characters.webp', { frameWidth: NPC_ART.width, frameHeight: NPC_ART.height });
-    for (const asset of modularAssets) this.load.spritesheet(partTextureKey(asset.id, ''), `/assets/player-layers/${asset.id}-preview.webp?v=layers12`, { frameWidth: MODULAR_ART.width, frameHeight: MODULAR_ART.height });
+    for (const actor of castActorsForMap(null)) for (const asset of castAssets(actor)) this.load.spritesheet(asset.key, castAssetUrl(asset), { frameWidth: MODULAR_ART.width, frameHeight: MODULAR_ART.height });
   }
 
   create(): void {

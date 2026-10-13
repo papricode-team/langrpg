@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "1f265fce02973ec0d1b9d1baeb2727e7d9462fd999e5850c72b86a5606267e85",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "a4725071660739027ace66746162b1502b7704906f4233ada9051927e439f20d",
+  "promptSha256": "c3a607cedb68e20a4d939f0b9c70cf826f2c8e1a224c767a516a22f1e5258954",
+  "generationPromptSha256": "d9afdff890cedee101940978e7d66489c27db1c9297aa5d6cbfee6e0d37ce0c2",
+  "materials": [
+    "primary",
+    "secondary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ],
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 4,
+    "regionReason": "In profile, the torso and foreground arm separate the open jacket into a main panel, far lapel, far hem and a small visible tail. Each region remains attached to the mannequin."
+  },
+  "candidate": "art/source/character-kit/outer-travel-candidate-1.png",
+  "lockedSha256": "240ef22f125e50374298854d7f5a3dc7f2bafd22071ebe6913ee57a95a6c9387"
+}

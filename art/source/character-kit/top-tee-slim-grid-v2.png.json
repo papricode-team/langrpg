@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "candidateSha256": "7df4b40e7206fcdfde3d4a7905030559d80f7758f5c46781c2c3aab255b6f63c",
+  "baseSha256": "a773abf309b521e39e4c5bfc29bd9c404eabad0ef1c0d3e1fc1b28fc1572d598",
+  "registrationSha256": "c866211e45faf86abff8dbef0d5f33d0db6c88c2994bb57f29f5dfe064d33d7c",
+  "maskSha256": "e9d281d33f5f041f23663c053a9c06b8b6db3abc154313128bb64f520d409c86",
+  "promptSha256": "68cf3a6ee666f338cf9333b6d6d313b6634d7f9497d732c70a8f98041debcd0f",
+  "generationPromptSha256": "d45da72da92658ad525e09dca4676c2d36337fbb0dc0b9b7197a01f805f02262",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 12,
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The foreground arm occludes the connection between the torso and a visible rear hem section in profile views."
+  },
+  "preparationSha256": "dce0d77631ea216f32e227896c7602ecd7e987608e72304e79487716b75b7f65",
+  "candidate": "art/source/character-kit/prepared/top-tee-slim-grid-v2.png",
+  "lockedSha256": "306df5f2c4c1f73111904ddd32527ed51f61b45615fbd68534c7e35cf0a9490c"
+}

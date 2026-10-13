@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "d3ae9807ca1029d88dd115db38d92055b910946db310ef8815b90f8b10aa943b",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "b64521c63e2c5b0d55253bdfa6be55aad416d68fe3a2180ed45484d9c32a1b26",
+  "promptSha256": "80cd85cd3e9166b0305d876d89873fddb72d0f906d3395f2601f83b1967ed67e",
+  "generationPromptSha256": "18c4773538d55aee8bce4b641a038945090643d290002f9c6341032842d1d842",
+  "materials": [
+    "primary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ],
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/top-shirt-candidate-1.png",
+  "lockedSha256": "23fc7aa067402f4cb95fef82bee7b4e2e2c4d864cd67ad1ec8af73d8f0cf74fd"
+}

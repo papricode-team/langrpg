@@ -7,7 +7,7 @@
 //   node scripts/i18n-coverage.mjs --review   print a de/en/tr TSV for native-speaker review
 //   node scripts/i18n-coverage.mjs --write    refresh web/src/data/i18n/tr-coverage.json (shown in Settings)
 import './register-content-loader.mjs';
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
@@ -30,7 +30,10 @@ if (process.argv.includes('--review')) {
 const sources = [];
 const walk = dir => { for (const item of readdirSync(dir, { withFileTypes: true })) { const path = join(dir, item.name); if (item.isDirectory()) walk(path); else if (/\.ts$/.test(item.name) && !/\.test\.ts$/.test(item.name)) sources.push(readFileSync(path, 'utf8')); } };
 walk(join(root, 'web/src'));
-const keys = uiKeys(sources);
+// Catalogue labels are runtime data, so static t('…') scanning cannot see them.
+const characterKit = existsSync(join(root, 'web/src/data/character-kit.json')) ? read('web/src/data/character-kit.json') : null;
+const characterKeys = characterKit ? [...characterKit.slots, ...characterKit.components].map(item => item.labelKey).concat(Object.values(characterKit.poseSets ?? {}).map(pose => pose.label)) : [];
+const keys = [...new Set([...uiKeys(sources), ...characterKeys])].sort();
 const uiMissing = keys.filter(key => !ui[key]?.trim());
 const uiPlaceholders = keys.filter(key => ui[key] && (key.match(/\{\w+\}/g) ?? []).sort().join() !== (ui[key].match(/\{\w+\}/g) ?? []).sort().join());
 const report = storyCoverage(units, story);

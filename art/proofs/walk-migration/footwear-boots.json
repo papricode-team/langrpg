@@ -1,0 +1,748 @@
+{
+  "id": "footwear-boots",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 1235,
+        "skin": 18,
+        "detail": 135
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015407001626294616,
+      "outsideSilhouette": 157
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 1286,
+        "skin": 22,
+        "detail": 124
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.001857166976194496,
+      "outsideSilhouette": 92
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 1248,
+        "skin": 17,
+        "detail": 130
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0014995148628384933,
+      "outsideSilhouette": 93
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 1210,
+        "skin": 21,
+        "detail": 124
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0018781862087469815,
+      "outsideSilhouette": 95
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 1205,
+        "skin": 18,
+        "detail": 155
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015757681869911582,
+      "outsideSilhouette": 170
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 1308,
+        "skin": 24,
+        "detail": 142
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.002013253921650868,
+      "outsideSilhouette": 152
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 1188,
+        "skin": 26,
+        "detail": 118
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.002315227070347284,
+      "outsideSilhouette": 142
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 1232,
+        "skin": 22,
+        "detail": 109
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0019501817214785924,
+      "outsideSilhouette": 101
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 1201,
+        "skin": 17,
+        "detail": 143
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0014992503748125937,
+      "outsideSilhouette": 179
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 1379,
+        "skin": 16,
+        "detail": 92
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0017219113215669393,
+      "outsideSilhouette": 130
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 2010,
+        "skin": 18,
+        "detail": 150
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0014455509155155799,
+      "outsideSilhouette": 186
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 1848,
+        "skin": 25,
+        "detail": 146
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.002199155524278677,
+      "outsideSilhouette": 190
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 1299,
+        "skin": 21,
+        "detail": 106
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0022673288706542864,
+      "outsideSilhouette": 132
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 1964,
+        "skin": 20,
+        "detail": 153
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0016113438607798904,
+      "outsideSilhouette": 187
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 1931,
+        "skin": 24,
+        "detail": 143
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0019353277961454722,
+      "outsideSilhouette": 189
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 1884,
+        "skin": 23,
+        "detail": 139
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0019820751465012064,
+      "outsideSilhouette": 176
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 1666,
+        "skin": 26,
+        "detail": 112
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0026898406786674944,
+      "outsideSilhouette": 92
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 1985,
+        "skin": 23,
+        "detail": 160
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0018646128901499796,
+      "outsideSilhouette": 186
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 1217,
+        "skin": 9,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0007406797794420212,
+      "outsideSilhouette": 49
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 1574,
+        "skin": 12,
+        "detail": 132
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0009383797309978105,
+      "outsideSilhouette": 60
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 2154,
+        "skin": 29,
+        "detail": 137
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0022048201931118374,
+      "outsideSilhouette": 59
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 2152,
+        "skin": 15,
+        "detail": 142
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0011738007668831677,
+      "outsideSilhouette": 39
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 1289,
+        "skin": 19,
+        "detail": 97
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.00146729477179705,
+      "outsideSilhouette": 47
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 2159,
+        "skin": 21,
+        "detail": 161
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0015618027666220438,
+      "outsideSilhouette": 65
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 2188,
+        "skin": 24,
+        "detail": 159
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0017871770049892024,
+      "outsideSilhouette": 42
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 2160,
+        "skin": 28,
+        "detail": 143
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0021116138763197585,
+      "outsideSilhouette": 29
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 1883,
+        "skin": 21,
+        "detail": 168
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.001524390243902439,
+      "outsideSilhouette": 54
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 1611,
+        "skin": 18,
+        "detail": 81
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0018901606636564107,
+      "outsideSilhouette": 138
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 2165,
+        "skin": 23,
+        "detail": 162
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0017407099069098615,
+      "outsideSilhouette": 284
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 2132,
+        "skin": 20,
+        "detail": 156
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.001652892561983471,
+      "outsideSilhouette": 311
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 1597,
+        "skin": 15,
+        "detail": 93
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015027048687637748,
+      "outsideSilhouette": 135
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 2131,
+        "skin": 20,
+        "detail": 175
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0015826541109440532,
+      "outsideSilhouette": 299
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 2168,
+        "skin": 27,
+        "detail": 141
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.0020868758695316123,
+      "outsideSilhouette": 256
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 2176,
+        "skin": 25,
+        "detail": 152
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.002039484418339044,
+      "outsideSilhouette": 275
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 1228,
+        "skin": 11,
+        "detail": 81
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0010361718161266014,
+      "outsideSilhouette": 141
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 2149,
+        "skin": 19,
+        "detail": 152
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0.001483679525222552,
+      "outsideSilhouette": 255
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "footwear-boots": {
+      "path": "art/source/character-kit/footwear-boots.png",
+      "sha256": "2aaf1f52419f629c1db62de338fac2f732af58289307c03c3d0d750ef4a15614"
+    },
+    "bottom-detail": {
+      "path": "web/public/assets/player-layers/bottom-detail-preview.webp",
+      "sha256": "81c869b012809119e3a6e1d2b4f2737db60ccccc2a8dbb45581dc9c31f0fa9f3"
+    },
+    "bottom-fabric": {
+      "path": "web/public/assets/player-layers/bottom-fabric-preview.webp",
+      "sha256": "0a04854ebd69855585cfd0a8f74afdeabd248d5123337f1c42a6fcab9aed43bb"
+    },
+    "jacket-detail": {
+      "path": "web/public/assets/player-layers/jacket-detail-preview.webp",
+      "sha256": "f0746d4590900a86485faa2ce3595f416cefca3995935455fddd1c01a987c358"
+    },
+    "jacket-fabric": {
+      "path": "web/public/assets/player-layers/jacket-fabric-preview.webp",
+      "sha256": "e67e596b2e4a057db7ccadb7626b0fcc48fc1e73726f510ebcb47cb583685cb1"
+    },
+    "hair-waves": {
+      "path": "web/public/assets/player-layers/hair-waves-preview.webp",
+      "sha256": "076a878efcdbd7824f5c94f7343d0f179ff60aa059e92c697e582ed785feac17"
+    },
+    "legacy-body-skin": {
+      "path": "web/public/assets/player-layers/body-skin-preview.webp",
+      "sha256": "66c10e95243c1e22161b5b50f7bc34798ec5acc282eb665cf44fa5f534962d16"
+    },
+    "legacy-head-detail": {
+      "path": "web/public/assets/player-layers/head-detail-preview.webp",
+      "sha256": "ca3b54fae7b1d633cf5cd357292d50ae0f66e6f3e75d4e3d117eff4cca4572d5"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "footwear-boots"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "legacy-body-skin",
+        "legacy-head-detail",
+        "bottom-detail",
+        "bottom-fabric",
+        "footwear-boots",
+        "jacket-detail",
+        "jacket-fabric",
+        "hair-waves"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

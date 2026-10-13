@@ -240,7 +240,7 @@ func TestSessionProfileUpdatePreservesLearning(t *testing.T) {
 		Progress Progress `json:"progress"`
 	}
 	_ = json.Unmarshal(w.Body.Bytes(), &response)
-	if response.Token != token || response.Player.ID != player.ID || response.Player.Avatar != avatar || response.Player.Name != "Mira" || response.Progress.XP != 6 {
+	if response.Token != token || response.Player.ID != player.ID || !sameAvatar(response.Player.Avatar, normalizeAvatar(avatar)) || response.Player.Name != "Mira" || response.Progress.XP != 6 {
 		t.Fatalf("profile update replaced progress %+v", response)
 	}
 }

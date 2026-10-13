@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "candidateSha256": "00b1a27f90b658c39ea515c3eb6ed552d5b1c2a92b12508f6864b25de1c246b0",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "60978e9e3d50919590abe526ead68f00415d86e7de704aa0b9f593afa984262b",
+  "promptSha256": "041cd5a5f583900b9b6c19ae8933de47a716a0f660085f48d9d98cd503bd3750",
+  "generationPromptSha256": "14b4bea8ce803801f558cafad0dbdd94f39a4d2bb4e1be277e502995e2f517d2",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 2,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    }
+  },
+  "candidate": "art/source/character-kit/headwear-headband-candidate-3.png",
+  "lockedSha256": "9a2754f8add5b6aa12b782647f8c580208e45ffcbd2fd3d2aab248cbe639f4d5"
+}

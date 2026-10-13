@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "candidateSha256": "a21e2afa823f209200fc60c037d5128d8b293b6005e00bbd69395e2782ea56e4",
+  "baseSha256": "7c99c1e24ade349265dae56a6fbe2d618a795b75abc021b358b23efde8836bdf",
+  "registrationSha256": "c63f393c3b85a65d2c4e6d320488da22ba36ee7df6471b31495f445bae5c2255",
+  "maskSha256": "625642498bd47448268bc043b213cd5b783e59dce9ea6b52f3b64e685801c5fc",
+  "promptSha256": "b4c95d2dfc21c8f702f32b376b9d4f452f71617f152788b675f9fbda1fbe928d",
+  "generationPromptSha256": "f7b285b50beaad016ed0ec08e6d7a9e42f5eb3f8817e2645a21908b933ff1cc0",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 8
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "up": 2,
+      "left": 3
+    },
+    "regionReason": "Rear neck loop and waist ties are separate. Profile ties and hand-occluded apron cloth may form up to three attached regions.",
+    "materialFacings": {
+      "primary": [
+        "down",
+        "right",
+        "left"
+      ]
+    },
+    "materialReason": "The violet bib and skirt face forward and are occluded by the body in rear views; only green neck and waist straps remain visible."
+  },
+  "candidate": "art/source/character-kit/outer-apron-candidate-3.png",
+  "lockedSha256": "be3384a14b5b8ae9665ba6e161fe7ddbd7915bf67e658a85d679da3cc063ba5e"
+}

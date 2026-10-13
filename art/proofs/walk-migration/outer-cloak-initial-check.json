@@ -1,0 +1,549 @@
+{
+  "id": "outer-cloak",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 2842,
+        "secondary": 1180,
+        "detail": 1092
+      },
+      "regions": 8,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1368
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 3312,
+        "secondary": 1205,
+        "detail": 1021
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1897
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 3016,
+        "secondary": 1203,
+        "detail": 1019
+      },
+      "regions": 4,
+      "detached": 1,
+      "coverage": 0,
+      "outsideSilhouette": 1805
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 2647,
+        "secondary": 1174,
+        "detail": 1048
+      },
+      "regions": 8,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1435
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 3479,
+        "secondary": 1251,
+        "detail": 939
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2299
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 3021,
+        "secondary": 1268,
+        "detail": 1097
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1748
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 3081,
+        "secondary": 1123,
+        "detail": 1066
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1793
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 2753,
+        "secondary": 1250,
+        "detail": 984
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1622
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 3160,
+        "secondary": 1140,
+        "detail": 930
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2153
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 4751,
+        "secondary": 1042,
+        "detail": 764
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2940
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 4481,
+        "secondary": 1005,
+        "detail": 715
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1698
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 5336,
+        "secondary": 995,
+        "detail": 775
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2413
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 4873,
+        "secondary": 985,
+        "detail": 779
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2794
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 6099,
+        "secondary": 622,
+        "detail": 540
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2153
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 6047,
+        "secondary": 640,
+        "detail": 580
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2058
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 5156,
+        "secondary": 1081,
+        "detail": 537
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1891
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 4862,
+        "secondary": 1007,
+        "detail": 858
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2584
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 5642,
+        "secondary": 993,
+        "detail": 603
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2352
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 9048,
+        "secondary": 177,
+        "detail": 310
+      },
+      "regions": 7,
+      "detached": 1,
+      "coverage": 0,
+      "outsideSilhouette": 1949
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 9322,
+        "secondary": 175,
+        "detail": 292
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2105
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 8494,
+        "secondary": 177,
+        "detail": 320
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1554
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 8383,
+        "secondary": 172,
+        "detail": 346
+      },
+      "regions": 7,
+      "detached": 2,
+      "coverage": 0,
+      "outsideSilhouette": 1252
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 9393,
+        "secondary": 171,
+        "detail": 275
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2107
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 8732,
+        "secondary": 189,
+        "detail": 319
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1342
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 8350,
+        "secondary": 168,
+        "detail": 310
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1349
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 8427,
+        "secondary": 170,
+        "detail": 298
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1255
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 9195,
+        "secondary": 165,
+        "detail": 276
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1828
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 5192,
+        "secondary": 950,
+        "detail": 745
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3008
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 4632,
+        "secondary": 1156,
+        "detail": 622
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2118
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 5813,
+        "secondary": 1046,
+        "detail": 721
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2323
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 6237,
+        "secondary": 930,
+        "detail": 914
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3230
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 4783,
+        "secondary": 1126,
+        "detail": 679
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2247
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 5791,
+        "secondary": 939,
+        "detail": 653
+      },
+      "regions": 6,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2014
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 5118,
+        "secondary": 1093,
+        "detail": 584
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2128
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 5881,
+        "secondary": 1031,
+        "detail": 820
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2403
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 4687,
+        "secondary": 1065,
+        "detail": 572
+      },
+      "regions": 5,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1962
+    }
+  ],
+  "errors": [
+    "Frame 0: expected one connected paint region, found 8",
+    "Frame 1: expected one connected paint region, found 4",
+    "Frame 2: expected one connected paint region, found 4",
+    "Frame 2: 1 floating paint regions",
+    "Frame 3: expected one connected paint region, found 8",
+    "Frame 4: expected one connected paint region, found 6",
+    "Frame 5: expected one connected paint region, found 5",
+    "Frame 6: expected one connected paint region, found 5",
+    "Frame 7: expected one connected paint region, found 5",
+    "Frame 8: expected one connected paint region, found 4",
+    "Frame 9: expected one connected paint region, found 2",
+    "Frame 10: expected one connected paint region, found 2",
+    "Frame 11: expected one connected paint region, found 2",
+    "Frame 16: expected one connected paint region, found 2",
+    "Frame 18: expected one connected paint region, found 7",
+    "Frame 18: 1 floating paint regions",
+    "Frame 20: expected one connected paint region, found 2",
+    "Frame 21: expected one connected paint region, found 7",
+    "Frame 21: 2 floating paint regions",
+    "Frame 22: expected one connected paint region, found 2",
+    "Frame 23: expected one connected paint region, found 4",
+    "Frame 28: expected one connected paint region, found 5",
+    "Frame 29: expected one connected paint region, found 4",
+    "Frame 31: expected one connected paint region, found 6",
+    "Frame 32: expected one connected paint region, found 6",
+    "Frame 33: expected one connected paint region, found 4",
+    "Frame 35: expected one connected paint region, found 5",
+    "Frame 18: secondary count 177 outside 0.25–4× median 1006",
+    "Frame 19: secondary count 175 outside 0.25–4× median 1006",
+    "Frame 20: secondary count 177 outside 0.25–4× median 1006",
+    "Frame 21: secondary count 172 outside 0.25–4× median 1006",
+    "Frame 22: secondary count 171 outside 0.25–4× median 1006",
+    "Frame 23: secondary count 189 outside 0.25–4× median 1006",
+    "Frame 24: secondary count 168 outside 0.25–4× median 1006",
+    "Frame 25: secondary count 170 outside 0.25–4× median 1006",
+    "Frame 26: secondary count 165 outside 0.25–4× median 1006"
+  ]
+}

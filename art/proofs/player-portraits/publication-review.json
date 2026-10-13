@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-13",
+  "assetVersion": "f8f5ae1b24404b1c",
+  "sourceCatalogue": "f023205a1a21d51f",
+  "result": "reviewed",
+  "outputCell": [
+    256,
+    256
+  ],
+  "visibleEntries": 80,
+  "outsideCropEntries": 22,
+  "fixtures": 83,
+  "regularHairHatPairs": 112,
+  "checks": [
+    "Native detail and registration visually reviewed across seven proof pages",
+    "Desktop actual CSS sizes 46/25/56/80 at DPR 2",
+    "Narrow actual CSS sizes 42/25/44/80 at DPR 1",
+    "All 78 base-component browser gallery portraits loaded at 256x256; no browser errors",
+    "Six portrait pipeline tests and thirteen existing portrait/cache tests passed",
+    "TypeScript check and production build passed"
+  ],
+  "proofs": [
+    {
+      "path": "art/proofs/player-portraits/page-0.png",
+      "sha256": "db9d3d226fcafb1e788dcfd9853d5449a85c4f4ca8e8d4da5659ca7167d56d94"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-1.png",
+      "sha256": "7278190328c347a604faa7a2cb9f2d7957de9b1c0ecca7f297a55efdf3740406"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-2.png",
+      "sha256": "54ddc0e1fc61f65d4f2b9c50fb87c93ace741fe92d098fce6994521067c7f04c"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-3.png",
+      "sha256": "6bf108a4a6c5a3fb04c1ecb3fea271a192f13bdf9d67d4dac742244ce43a4e4e"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-4.png",
+      "sha256": "ea9271ffc251c1a7f427eb24f7861f4338703bb0ba574d4593a0197a97acc2d4"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-5.png",
+      "sha256": "3df5d4a13b43ffc6a1586a05a174eed865e539a3f1226e272089606fd7c34fca"
+    },
+    {
+      "path": "art/proofs/player-portraits/page-6.png",
+      "sha256": "9d1d6c8ab7b0aa2d7f0f95214973c493a9ed1fed416504e6bb717f456bf367c9"
+    },
+    {
+      "path": "art/proofs/player-portraits/browser-desktop.png",
+      "sha256": "15706bffd613cc1e9eda7d40762ff0f04a880a6890d0a80074aedb761a9fd14e"
+    },
+    {
+      "path": "art/proofs/player-portraits/browser-mobile.png",
+      "sha256": "ae696af04f1f206c128c73ac317fe6781563d5186a42db056156160dba6b252d"
+    },
+    {
+      "path": "art/proofs/player-portraits/browser-mobile-broad.png",
+      "sha256": "35408a7b934c25f8407ebf255b8015061cca094b8e367011b9b3bcf7855d4589"
+    }
+  ]
+}

@@ -8,13 +8,9 @@ import type { WorldAudio } from './world-audio';
 import type { CameraBeat } from './cutscene';
 import type { RoutineLexeme, WorldBark } from './world-routines';
 import type { WorldWeatherMode } from './world-weather';
-import type { AvatarParts } from './avatar-options';
+import type { ModularAvatar } from './modular-character';
 
-export interface Avatar extends Partial<AvatarParts> {
-  hair: string;
-  skin: string;
-  outfit: string;
-}
+export type Avatar = ModularAvatar;
 
 export interface WorldPlayer {
   id: string;

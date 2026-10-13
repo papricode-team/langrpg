@@ -4,6 +4,7 @@ import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
 import { worldAssetUrl } from './world-asset-url';
 import {getWorldScene} from './scene-data';
 import {residentActionKey} from './resident-action-art';
+import {castActorsForMap,castAssetUrl,castAssets,castCell} from './character-cast';
 
 const originalMaps = new Set(['lindenhafen', 'waldruh', 'nebelstadt']);
 const peoplePageStarts = [0, 4, 10] as const;
@@ -21,7 +22,7 @@ export const regionPeopleFrames = (variant: number): readonly string[] => {
 };
 export const hasRegionPeople = (id: string): boolean => !originalMaps.has(id);
 
-interface RegionAsset { key: string; image: string; atlas?: string; }
+interface RegionAsset { key: string; image: string; atlas?: string; cell?: readonly [number,number]; }
 /** A region's complete visual budget; shared player and interior art is separate. */
 export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
   const assets: RegionAsset[] = [
@@ -38,6 +39,7 @@ export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
   }
   for(const look of new Set((getWorldScene(map.id).residents??[]).flatMap(resident=>resident.actionArt?[resident.actionArt]:[])))
     assets.push({key:residentActionKey(map.id,look),image:`/assets/resident-actions/${look}.webp`,atlas:`/assets/resident-actions/${look}.json`});
+  for(const actor of castActorsForMap(map.id))for(const asset of castAssets(actor))assets.push({key:asset.key,image:castAssetUrl(asset),cell:[...castCell]});
   return assets;
 }
 
@@ -52,7 +54,8 @@ export class WorldMapAssets {
     if (!missing.length) { onLoaded?.(); return; }
     this.requests.set(map.id, onLoaded ? [onLoaded] : []);
     for (const asset of missing) {
-      if (asset.atlas) this.scene.load.atlas(asset.key, worldAssetUrl(asset.image), worldAssetUrl(asset.atlas));
+      if (asset.cell) this.scene.load.spritesheet(asset.key,asset.image,{frameWidth:asset.cell[0],frameHeight:asset.cell[1]});
+      else if (asset.atlas) this.scene.load.atlas(asset.key, worldAssetUrl(asset.image), worldAssetUrl(asset.atlas));
       else this.scene.load.image(asset.key, worldAssetUrl(asset.image));
     }
     this.scene.load.once('complete', () => {

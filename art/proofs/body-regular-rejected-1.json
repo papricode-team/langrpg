@@ -1,0 +1,606 @@
+{
+  "id": "body-regular",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 10510,
+        "detail": 24571
+      },
+      "regions": 5,
+      "detached": 4,
+      "coverage": 0.8871524779830772,
+      "outsideSilhouette": 23715
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 10612,
+        "detail": 28114
+      },
+      "regions": 3,
+      "detached": 2,
+      "coverage": 0.8744307640411536,
+      "outsideSilhouette": 27085
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 10078,
+        "detail": 29523
+      },
+      "regions": 5,
+      "detached": 4,
+      "coverage": 0.8818953323903819,
+      "outsideSilhouette": 28484
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 9958,
+        "detail": 30185
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.8912274335480359,
+      "outsideSilhouette": 29298
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 9192,
+        "detail": 29972
+      },
+      "regions": 3,
+      "detached": 2,
+      "coverage": 0.8312794490757521,
+      "outsideSilhouette": 28385
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 10408,
+        "detail": 28967
+      },
+      "regions": 5,
+      "detached": 4,
+      "coverage": 0.8728141260769428,
+      "outsideSilhouette": 27896
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 9970,
+        "detail": 28538
+      },
+      "regions": 4,
+      "detached": 3,
+      "coverage": 0.8762840553818669,
+      "outsideSilhouette": 27522
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 9991,
+        "detail": 28633
+      },
+      "regions": 22,
+      "detached": 21,
+      "coverage": 0.8837502249415152,
+      "outsideSilhouette": 27738
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 9490,
+        "detail": 29070
+      },
+      "regions": 16,
+      "detached": 15,
+      "coverage": 0.8359015232022671,
+      "outsideSilhouette": 27512
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 9624,
+        "detail": 26327
+      },
+      "regions": 3,
+      "detached": 2,
+      "coverage": 0.9209621993127147,
+      "outsideSilhouette": 26756
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 11983,
+        "detail": 30126
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.857307781112907,
+      "outsideSilhouette": 29301
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 12306,
+        "detail": 30237
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.8568752926486656,
+      "outsideSilhouette": 29923
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 10439,
+        "detail": 32033
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9174986286341196,
+      "outsideSilhouette": 33494
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 11270,
+        "detail": 30742
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.832707648991084,
+      "outsideSilhouette": 29500
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 12681,
+        "detail": 29644
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.8610138529456538,
+      "outsideSilhouette": 29570
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 12273,
+        "detail": 29699
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.8707975749940949,
+      "outsideSilhouette": 29428
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 10542,
+        "detail": 31195
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.916844122657581,
+      "outsideSilhouette": 32467
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 12015,
+        "detail": 30143
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.844713825379776,
+      "outsideSilhouette": 29298
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 12191,
+        "detail": 25333
+      },
+      "regions": 6,
+      "detached": 5,
+      "coverage": 0.9210109266827926,
+      "outsideSilhouette": 25643
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 12511,
+        "detail": 27591
+      },
+      "regions": 8,
+      "detached": 7,
+      "coverage": 0.9241962774957699,
+      "outsideSilhouette": 28393
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 13010,
+        "detail": 26179
+      },
+      "regions": 11,
+      "detached": 10,
+      "coverage": 0.9110600590744995,
+      "outsideSilhouette": 27169
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 11446,
+        "detail": 28636
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.9232931362770876,
+      "outsideSilhouette": 29192
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 11838,
+        "detail": 28799
+      },
+      "regions": 4,
+      "detached": 3,
+      "coverage": 0.8990977568082112,
+      "outsideSilhouette": 28676
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 11939,
+        "detail": 28487
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.9183168316831684,
+      "outsideSilhouette": 28895
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 13105,
+        "detail": 26668
+      },
+      "regions": 6,
+      "detached": 5,
+      "coverage": 0.9157128842380641,
+      "outsideSilhouette": 27675
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 12085,
+        "detail": 27945
+      },
+      "regions": 7,
+      "detached": 6,
+      "coverage": 0.9197055588459261,
+      "outsideSilhouette": 28313
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 12207,
+        "detail": 28368
+      },
+      "regions": 17,
+      "detached": 16,
+      "coverage": 0.8972364719510177,
+      "outsideSilhouette": 28659
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 13088,
+        "detail": 15737
+      },
+      "regions": 3,
+      "detached": 2,
+      "coverage": 0.9470826235093697,
+      "outsideSilhouette": 19496
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 17318,
+        "detail": 20522
+      },
+      "regions": 4,
+      "detached": 3,
+      "coverage": 0.8805767343549483,
+      "outsideSilhouette": 24776
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 16832,
+        "detail": 22174
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.8796066893775163,
+      "outsideSilhouette": 26303
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 11682,
+        "detail": 23077
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.9027877790350787,
+      "outsideSilhouette": 25151
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 16613,
+        "detail": 20608
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.871848903457426,
+      "outsideSilhouette": 24595
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 16809,
+        "detail": 21538
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.8774836919847042,
+      "outsideSilhouette": 25222
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 17029,
+        "detail": 21091
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.8774992310058444,
+      "outsideSilhouette": 25331
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 12571,
+        "detail": 23845
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.8943939810991834,
+      "outsideSilhouette": 25706
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 16751,
+        "detail": 21822
+      },
+      "regions": 2,
+      "detached": 1,
+      "coverage": 0.8722362481830005,
+      "outsideSilhouette": 25695
+    }
+  ],
+  "errors": [
+    "Frame 0: expected one connected paint region, found 5",
+    "Frame 0: 4 floating paint regions",
+    "Frame 0: full-body skin coverage 88.7% below 95%",
+    "Frame 0: 23715 paint pixels outside the reference silhouette",
+    "Frame 1: expected one connected paint region, found 3",
+    "Frame 1: 2 floating paint regions",
+    "Frame 1: full-body skin coverage 87.4% below 95%",
+    "Frame 1: 27085 paint pixels outside the reference silhouette",
+    "Frame 2: expected one connected paint region, found 5",
+    "Frame 2: 4 floating paint regions",
+    "Frame 2: full-body skin coverage 88.2% below 95%",
+    "Frame 2: 28484 paint pixels outside the reference silhouette",
+    "Frame 3: expected one connected paint region, found 2",
+    "Frame 3: 1 floating paint regions",
+    "Frame 3: full-body skin coverage 89.1% below 95%",
+    "Frame 3: 29298 paint pixels outside the reference silhouette",
+    "Frame 4: expected one connected paint region, found 3",
+    "Frame 4: 2 floating paint regions",
+    "Frame 4: full-body skin coverage 83.1% below 95%",
+    "Frame 4: 28385 paint pixels outside the reference silhouette",
+    "Frame 5: expected one connected paint region, found 5",
+    "Frame 5: 4 floating paint regions",
+    "Frame 5: full-body skin coverage 87.3% below 95%",
+    "Frame 5: 27896 paint pixels outside the reference silhouette",
+    "Frame 6: expected one connected paint region, found 4",
+    "Frame 6: 3 floating paint regions",
+    "Frame 6: full-body skin coverage 87.6% below 95%",
+    "Frame 6: 27522 paint pixels outside the reference silhouette",
+    "Frame 7: expected one connected paint region, found 22",
+    "Frame 7: 21 floating paint regions",
+    "Frame 7: full-body skin coverage 88.4% below 95%",
+    "Frame 7: 27738 paint pixels outside the reference silhouette",
+    "Frame 8: expected one connected paint region, found 16",
+    "Frame 8: 15 floating paint regions",
+    "Frame 8: full-body skin coverage 83.6% below 95%",
+    "Frame 8: 27512 paint pixels outside the reference silhouette",
+    "Frame 9: expected one connected paint region, found 3",
+    "Frame 9: 2 floating paint regions",
+    "Frame 9: full-body skin coverage 92.1% below 95%",
+    "Frame 9: 26756 paint pixels outside the reference silhouette",
+    "Frame 10: full-body skin coverage 85.7% below 95%",
+    "Frame 10: 29301 paint pixels outside the reference silhouette",
+    "Frame 11: full-body skin coverage 85.7% below 95%",
+    "Frame 11: 29923 paint pixels outside the reference silhouette",
+    "Frame 12: full-body skin coverage 91.7% below 95%",
+    "Frame 12: 33494 paint pixels outside the reference silhouette",
+    "Frame 13: full-body skin coverage 83.3% below 95%",
+    "Frame 13: 29500 paint pixels outside the reference silhouette",
+    "Frame 14: full-body skin coverage 86.1% below 95%",
+    "Frame 14: 29570 paint pixels outside the reference silhouette",
+    "Frame 15: full-body skin coverage 87.1% below 95%",
+    "Frame 15: 29428 paint pixels outside the reference silhouette",
+    "Frame 16: full-body skin coverage 91.7% below 95%",
+    "Frame 16: 32467 paint pixels outside the reference silhouette",
+    "Frame 17: full-body skin coverage 84.5% below 95%",
+    "Frame 17: 29298 paint pixels outside the reference silhouette",
+    "Frame 18: expected one connected paint region, found 6",
+    "Frame 18: 5 floating paint regions",
+    "Frame 18: full-body skin coverage 92.1% below 95%",
+    "Frame 18: 25643 paint pixels outside the reference silhouette",
+    "Frame 19: expected one connected paint region, found 8",
+    "Frame 19: 7 floating paint regions",
+    "Frame 19: full-body skin coverage 92.4% below 95%",
+    "Frame 19: 28393 paint pixels outside the reference silhouette",
+    "Frame 20: expected one connected paint region, found 11",
+    "Frame 20: 10 floating paint regions",
+    "Frame 20: full-body skin coverage 91.1% below 95%",
+    "Frame 20: 27169 paint pixels outside the reference silhouette",
+    "Frame 21: expected one connected paint region, found 2",
+    "Frame 21: 1 floating paint regions",
+    "Frame 21: full-body skin coverage 92.3% below 95%",
+    "Frame 21: 29192 paint pixels outside the reference silhouette",
+    "Frame 22: expected one connected paint region, found 4",
+    "Frame 22: 3 floating paint regions",
+    "Frame 22: full-body skin coverage 89.9% below 95%",
+    "Frame 22: 28676 paint pixels outside the reference silhouette",
+    "Frame 23: full-body skin coverage 91.8% below 95%",
+    "Frame 23: 28895 paint pixels outside the reference silhouette",
+    "Frame 24: expected one connected paint region, found 6",
+    "Frame 24: 5 floating paint regions",
+    "Frame 24: full-body skin coverage 91.6% below 95%",
+    "Frame 24: 27675 paint pixels outside the reference silhouette",
+    "Frame 25: expected one connected paint region, found 7",
+    "Frame 25: 6 floating paint regions",
+    "Frame 25: full-body skin coverage 92.0% below 95%",
+    "Frame 25: 28313 paint pixels outside the reference silhouette",
+    "Frame 26: expected one connected paint region, found 17",
+    "Frame 26: 16 floating paint regions",
+    "Frame 26: full-body skin coverage 89.7% below 95%",
+    "Frame 26: 28659 paint pixels outside the reference silhouette",
+    "Frame 27: expected one connected paint region, found 3",
+    "Frame 27: 2 floating paint regions",
+    "Frame 27: full-body skin coverage 94.7% below 95%",
+    "Frame 27: 19496 paint pixels outside the reference silhouette",
+    "Frame 28: expected one connected paint region, found 4",
+    "Frame 28: 3 floating paint regions",
+    "Frame 28: full-body skin coverage 88.1% below 95%",
+    "Frame 28: 24776 paint pixels outside the reference silhouette",
+    "Frame 29: expected one connected paint region, found 2",
+    "Frame 29: 1 floating paint regions",
+    "Frame 29: full-body skin coverage 88.0% below 95%",
+    "Frame 29: 26303 paint pixels outside the reference silhouette",
+    "Frame 30: expected one connected paint region, found 2",
+    "Frame 30: 1 floating paint regions",
+    "Frame 30: full-body skin coverage 90.3% below 95%",
+    "Frame 30: 25151 paint pixels outside the reference silhouette",
+    "Frame 31: full-body skin coverage 87.2% below 95%",
+    "Frame 31: 24595 paint pixels outside the reference silhouette",
+    "Frame 32: full-body skin coverage 87.7% below 95%",
+    "Frame 32: 25222 paint pixels outside the reference silhouette",
+    "Frame 33: full-body skin coverage 87.7% below 95%",
+    "Frame 33: 25331 paint pixels outside the reference silhouette",
+    "Frame 34: expected one connected paint region, found 2",
+    "Frame 34: 1 floating paint regions",
+    "Frame 34: full-body skin coverage 89.4% below 95%",
+    "Frame 34: 25706 paint pixels outside the reference silhouette",
+    "Frame 35: expected one connected paint region, found 2",
+    "Frame 35: 1 floating paint regions",
+    "Frame 35: full-body skin coverage 87.2% below 95%",
+    "Frame 35: 25695 paint pixels outside the reference silhouette"
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}
