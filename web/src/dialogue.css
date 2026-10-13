@@ -15,6 +15,9 @@
 .dialogue-audio+.dialogue-close{margin-left:0;flex:none}
 .dialogue-audio:focus-visible{outline:2px solid #eedba6;outline-offset:3px}
 .dialogue-tools button:disabled{opacity:.45;cursor:default}
+.dialogue-tools [data-dialogue-action="translate"]{padding:7px 10px;border:1px solid transparent;border-radius:6px;cursor:pointer}
+.dialogue-tools [data-dialogue-action="translate"][aria-pressed="true"]{border-color:#dbc58b80;background:#dbc89222;color:#f5e7c6}
+.dialogue-tools [data-dialogue-action="translate"]:focus-visible{outline:2px solid #eedba6;outline-offset:3px}
 .dialogue-translation{margin:12px 0;padding:10px 14px;border-left:2px solid #d9c17d;border-radius:0 8px 8px 0;background:#dbc89214;color:#e1e6d8;font-size:15px;line-height:1.65}
 .dialogue-translation mark{background:#e7ce8d;color:#18372f;border-radius:3px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 

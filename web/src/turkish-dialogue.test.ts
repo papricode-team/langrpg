@@ -31,12 +31,16 @@ function fixture(stage: 'intro' | 'gate' = 'intro', questId = 'a1-arrival', begi
 }
 
 describe('dialogue with Turkish support', () => {
-  it('shows Turkish meanings and Turkish tool labels, with the German unchanged', async () => {
+  it('shows requested Turkish meanings and Turkish tool labels, with the German unchanged', async () => {
     const f = fixture('intro', 'a1-arrival', true);
     await f.controller.open('a1-arrival');
     const line = document.querySelector('.dialogue-line')!;
     expect(line.getAttribute('lang')).toBe('de');
     expect(line.textContent).toBe('Guten Morgen! Willkommen in Lindenhafen.');
+    expect(document.querySelector('.dialogue-translation')).toBeNull();
+    expect(document.querySelector('[data-dialogue-choice] small')).toBeNull();
+    expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
+    document.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!.click();
     const meaning = document.querySelector('.dialogue-translation')!;
     expect(meaning.getAttribute('lang')).toBe('tr');
     expect(meaning.textContent).toBe(turkishOverlay.story['dialogue:a1-arrival-intro-0'].tr);
@@ -49,6 +53,11 @@ describe('dialogue with Turkish support', () => {
     const reply = document.querySelector<HTMLButtonElement>('[data-dialogue-choice="Guten Morgen!"]')!;
     expect(reply.querySelector('small')!.getAttribute('lang')).toBe('tr');
     expect(reply.querySelector('small')!.textContent).not.toBe('Good morning!');
+    document.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!.click();
+    expect(document.querySelector('.dialogue-translation')).toBeNull();
+    expect(document.querySelector('[data-dialogue-choice] small')).toBeNull();
+    expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
+    expect(document.querySelector('.dialogue-line')!.textContent).toBe(line.textContent);
   });
 
   it('records assistance exactly as in English when the meaning is revealed', async () => {

@@ -11,7 +11,7 @@ export function dialogueEntries(graph) {
   const entries = [];
   for (const node of graph.nodes) {
     for (const line of node.lines) {
-      entries.push({ kind: 'line', lineId: line.id, german: line.german, english: line.english, alwaysTranslate: line.alwaysTranslate });
+      entries.push({ kind: 'line', lineId: line.id, german: line.german, english: line.english });
       for (const [index, variant] of (line.variants ?? []).entries()) entries.push({ kind: 'variant', lineId: line.id, variant: index + 1, german: variant.german });
       if (line.reply) entries.push({ kind: 'correction', lineId: line.reply.correction.id, german: line.reply.correction.german });
     }
@@ -85,16 +85,16 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
     for (const entry of graphEntries) {
       const raw = auditInputLevel(entry.german, graph.level, lexicon), surfaces = tokens(entry.german), resolutions = [];
       // This one immutable letter is deliberately beyond A1. Its complete meaning
-      // is always visible; it teaches no production response or later vocabulary.
-      // A changed quotation, hidden translation or another line gets the full gate.
+      // is available on demand; it teaches no production response or later vocabulary.
+      // A changed quotation, missing translation or another line gets the full gate.
       const translatedArtifact = graph.questId === 'a1-lost-parcel' && entry.kind === 'line'
-        && entry.lineId === 'a1-lost-parcel-complete-1' && entry.alwaysTranslate === true
+        && entry.lineId === 'a1-lost-parcel-complete-1'
         && entry.german === 'Bevor du uns wieder auslöschst, komm.'
         && entry.english === 'Before you erase us again, come.';
       const namedPeople = new Set([...entry.german.matchAll(/\b(?:Frau|Herr)\s+(\p{Lu}\p{L}*)/gu)].map(match => normalize(match[1])));
       const resolve = surface => {
         const key = normalize(surface), story = introduced.get(key);
-        if (translatedArtifact) return { word: surface, reason: 'always-translated-letter-quotation' };
+        if (translatedArtifact) return { word: surface, reason: 'on-demand-translated-letter-quotation' };
         if (story) return { word: surface, reason: 'introduced-story-word', english: story.english, introducedIn: story.questId };
         if (names.has(key) || namedPeople.has(key)) return { word: surface, reason: 'proper-name' };
         if (key.endsWith('s') && names.has(key.slice(0, -1))) return { word: surface, reason: 'proper-name-genitive' };

@@ -48,7 +48,7 @@ describe('story continuity across paths and surfaces', () => {
   it('delivers the letter warning before the archive and finale pay it off', () => {
     const warning = 'Bevor du uns wieder auslöschst, komm.';
     const parcel = scene('a1-lost-parcel').nodes.find(node => node.id === 'complete')!.lines;
-    expect(parcel.at(-1)).toMatchObject({ german: warning, english: 'Before you erase us again, come.', alwaysTranslate: true });
+    expect(parcel.at(-1)).toMatchObject({ german: warning, english: 'Before you erase us again, come.' });
     expect(storyClues.find(clue => clue.questId === 'a1-lost-parcel')!.letter.some(sentence => sentence.german.includes(warning))).toBe(true);
     expect(spoken('a2-archive').some(line => line.german.includes('auslöschst'))).toBe(true);
     expect(spoken('b1-atlas').some(line => line.german.includes('auslöschst'))).toBe(true);

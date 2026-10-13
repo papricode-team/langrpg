@@ -47,7 +47,9 @@ class SceneryOcclusionNode extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterS
       const dx = circle.x - sprite.x, dy = circle.y - sprite.y;
       const x = (cosine * dx + sine * dy) / sprite.scaleX + sprite.width * sprite.originX;
       const y = (-sine * dx + cosine * dy) / sprite.scaleY + sprite.height * sprite.originY;
-      program.setUniform(`uCircle${index}`, [sprite.flipX ? sprite.width - x : x, sprite.flipY ? sprite.height - y : y, circle.strength]);
+      // Filter textures use a bottom-left origin; sprite/world coordinates
+      // use a top-left origin. Convert the centre, leaving texture sampling intact.
+      program.setUniform(`uCircle${index}`, [sprite.flipX ? sprite.width - x : x, sprite.flipY ? y : sprite.height - y, circle.strength]);
     }
   }
 }
