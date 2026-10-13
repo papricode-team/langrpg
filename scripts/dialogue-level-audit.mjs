@@ -11,7 +11,7 @@ export function dialogueEntries(graph) {
   const entries = [];
   for (const node of graph.nodes) {
     for (const line of node.lines) {
-      entries.push({ kind: 'line', lineId: line.id, german: line.german });
+      entries.push({ kind: 'line', lineId: line.id, german: line.german, english: line.english, alwaysTranslate: line.alwaysTranslate });
       for (const [index, variant] of (line.variants ?? []).entries()) entries.push({ kind: 'variant', lineId: line.id, variant: index + 1, german: variant.german });
       if (line.reply) entries.push({ kind: 'correction', lineId: line.reply.correction.id, german: line.reply.correction.german });
     }
@@ -43,7 +43,7 @@ export function summarizeInput(entries, adjusted = false) {
  * Introductions are editorial vocabulary with an English gloss, not evidence
  * that an individual learner knows a word. Quest order follows content.ts.
  */
-export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(graph => graph.questId), properNames = [] }) {
+export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(graph => graph.questId), properNames = [], quests = [] }) {
   const exact = new Map(), forms = new Map();
   const index = (map, surface, word) => {
     if (!/^\p{L}+$/u.test(surface)) return;
@@ -64,7 +64,8 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
   const errors = [], introductions = [], entries = [], introduced = new Map();
   if (ordered.length !== graphs.length || new Set(questOrder).size !== questOrder.length) errors.push('Quest order must include every dialogue graph exactly once');
   for (const graph of ordered) {
-    const graphEntries = dialogueEntries(graph), newWords = [];
+    const intro = quests.find(quest => quest.id === graph.questId)?.story ?? [];
+    const graphEntries = [...dialogueEntries(graph), ...intro.map((sentence, index) => ({ kind: 'quest-intro', lineId: `story:${index}`, german: sentence.german }))], newWords = [];
     const visible = new Set(graphEntries.flatMap(entry => tokens(entry.german)).map(normalize));
     for (const [surface, english] of Object.entries(graph.introducedWords ?? {})) {
       const key = normalize(surface);
@@ -83,9 +84,17 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
     if (graph.level === 'A1' && newWords.length > 2) errors.push(`${graph.questId}: introduces ${newWords.length} new story words; Act I permits at most 2`);
     for (const entry of graphEntries) {
       const raw = auditInputLevel(entry.german, graph.level, lexicon), surfaces = tokens(entry.german), resolutions = [];
+      // This one immutable letter is deliberately beyond A1. Its complete meaning
+      // is always visible; it teaches no production response or later vocabulary.
+      // A changed quotation, hidden translation or another line gets the full gate.
+      const translatedArtifact = graph.questId === 'a1-lost-parcel' && entry.kind === 'line'
+        && entry.lineId === 'a1-lost-parcel-complete-1' && entry.alwaysTranslate === true
+        && entry.german === 'Bevor du uns wieder auslöschst, komm.'
+        && entry.english === 'Before you erase us again, come.';
       const namedPeople = new Set([...entry.german.matchAll(/\b(?:Frau|Herr)\s+(\p{Lu}\p{L}*)/gu)].map(match => normalize(match[1])));
       const resolve = surface => {
         const key = normalize(surface), story = introduced.get(key);
+        if (translatedArtifact) return { word: surface, reason: 'always-translated-letter-quotation' };
         if (story) return { word: surface, reason: 'introduced-story-word', english: story.english, introducedIn: story.questId };
         if (names.has(key) || namedPeople.has(key)) return { word: surface, reason: 'proper-name' };
         if (key.endsWith('s') && names.has(key.slice(0, -1))) return { word: surface, reason: 'proper-name-genitive' };
@@ -118,11 +127,11 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
       const adjusted = {
         aboveLevelWords: unresolved(raw.aboveLevelWords),
         unmappedWords: unresolved(raw.unmappedWords),
-        advancedGrammar: [...new Set(grammar)],
+        advancedGrammar: translatedArtifact ? [] : [...new Set(grammar)],
         longSentences: raw.longSentences,
         overlongTurn: graph.level === 'A1' && surfaces.length > (beginnerTurnWordLimits[graph.questId] ?? 16),
       };
-      const result = { questId: graph.questId, ...entry, level: graph.level, ...raw, resolutions, adjusted };
+      const result = { questId: graph.questId, ...entry, level: graph.level, ...raw, resolutions, ...(translatedArtifact ? { supportedArtifact: true } : {}), adjusted };
       entries.push(result);
       if (graph.level === 'A1') {
         for (const word of adjusted.aboveLevelWords) errors.push(`${graph.questId}/${entry.kind}/${entry.lineId}: unapproved above-level word ${word}`);

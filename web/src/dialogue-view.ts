@@ -41,7 +41,7 @@ export function dialogueMarkup(p: DialoguePresentation): string {
   translated += e(english.slice(cursor));
   // Turkish suffixes rarely let a gloss match a whole word, so the tapped word's meaning is shown on its own.
   const wordGloss = language !== 'en' && p.lookup?.gloss ? `<span class="dialogue-word-gloss"><strong lang="de">${e(p.lookup.word)}</strong> ${e(p.lookup.gloss)}</span>` : '';
-  const translation = p.help || p.lookup ? `<p class="dialogue-translation" lang="${support.lang}" role="status">${wordGloss}${translated}</p>` : '';
+  const translation = p.help || p.lookup || p.line.alwaysTranslate ? `<p class="dialogue-translation" lang="${support.lang}" role="status">${wordGloss}${translated}</p>` : '';
   const audioEnabled = p.audioEnabled !== false;
   const audioToggle = `<button type="button" class="dialogue-audio" data-dialogue-action="audio" aria-label="${e(t('Dialogue audio'))}" aria-pressed="${audioEnabled}" title="${e(audioEnabled ? t('Audio on. Click to disable.') : t('Audio off. Click to enable.'))}">${icon(audioEnabled ? 'volume' : 'muted')}</button>`;
   const gateMeaning = p.gate ? supportText({ german: p.gate.answer, english: p.gate.english }) : undefined;

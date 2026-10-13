@@ -1,4 +1,5 @@
 import { validateDialogue, type DialogueLine, type QuestGraph } from './dialogue';
+import type { Quest } from './content';
 
 export interface StoryRule { questId: string; gateExerciseId: string; choiceIds: string[]; choices: { id: string; effects: unknown[] }[]; investigationObjectIds: string[]; }
 
@@ -33,7 +34,7 @@ const textOf = (graph: QuestGraph) => [
   ...(graph.topics ?? []).map(topic => topic.german),
 ].join('\n');
 
-export function lintStory(graphs: QuestGraph[], rules: StoryRule[]): string[] {
+export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick<Quest, 'id' | 'story'>[] = []): string[] {
   const errors: string[] = [];
   const prompts = new Map<string, string>();
   if (graphs.map(graph => graph.questId).join() !== order.join()) errors.push('graphs are not in canonical quest order');
@@ -75,14 +76,17 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[]): string[] {
     const maxWords = graph.level === 'A1' ? 16 : 19;
     for (const { line } of lines) if (line.german.split(/\s+/).length > maxWords) errors.push(`${id}/${line.id}: over ${maxWords} words`);
 
-    // Address: Voss says Sie until the confession; residents never say Sie to the player.
+    // Address: Voss offers du at the council. A capitalised sentence-initial
+    // possessive can mean "her" ("Ihr Haus") and cannot establish formal address.
     for (const { line } of lines) {
-      if (line.speaker === 'inspector' && index < order.indexOf('b1-work') && informalAddress.test(line.german)) errors.push(`${id}/${line.id}: Voss must use Sie before his confession`);
-      if (!['inspector', 'ada'].includes(line.speaker) && line.speaker !== 'elise' && formalAddress.test(line.german.replace(/^Ihre\b/, '')) && !/\b(Ihr|Ihre|Ihnen)\b.*\bVoss\b/.test(line.german)) errors.push(`${id}/${line.id}: residents say du, not Sie: ${line.german}`);
+      if (line.speaker === 'inspector' && index < order.indexOf('b1-council') && informalAddress.test(line.german)) errors.push(`${id}/${line.id}: Voss must use Sie before the council`);
+      const addressText = line.german.replace(/(^|[.!?]\s+)(Ihr(?:e[mnrs]?)?)\b/g, (_, boundary: string, possessive: string) => boundary + possessive.toLowerCase());
+      const formalContext = id === 'b1-witness' || line.addressedTo === 'inspector' || /\b(?:Ihr(?:e[mnrs]?)?|Ihnen)\b.*\bVoss\b/.test(line.german);
+      if (!['inspector', 'ada'].includes(line.speaker) && line.speaker !== 'elise' && formalAddress.test(addressText) && !formalContext) errors.push(`${id}/${line.id}: residents say du, not Sie: ${line.german}`);
     }
 
     // Reveals appear no earlier than their row of the reveal map.
-    const text = textOf(graph);
+    const text = [textOf(graph), ...quests.find(quest => quest.id === id)?.story.map(sentence => sentence.german) ?? []].join('\n');
     for (const reveal of reveals) if (index < order.indexOf(reveal.firstIn) && reveal.word.test(text)) errors.push(`${id}: mentions ${reveal.label} before ${reveal.firstIn}`);
     if (index < order.indexOf('a2-archive') && lines.some(item => item.line.speaker === 'ada') && id !== 'a2-archive') errors.push(`${id}: Ada speaks before her archive scene`);
   }

@@ -14,9 +14,9 @@ export const specialItems: Record<string, { title: string; text: string }> = {
   'restored-atlas': { title: 'The restored Lantern Atlas', text: 'Three towns keep their names. The route now rests on a public promise, and an unnamed coastline appears beyond it.' },
 };
 export const endings: Record<string, { title: string; text: string }> = {
-  'routes-reopened': { title: 'The routes reopen', text: 'The Lamplighters keep the restored routes open. Otto and Marta publish a timetable, while the towns can question every change.' },
-  'towns-consent': { title: 'The towns choose', text: 'The Unwritten Circle keeps each town’s consent at the heart of the Atlas. Greta and Lina gather the residents’ voices before the coastline opens.' },
-  'brass-reformed': { title: 'The Brass Office changes', text: 'The public evidence reshapes the Brass Office. Ada helps replace the inspector’s sealed orders with records that every resident can read and challenge.' },
+  'routes-reopened': { title: 'The routes reopen', text: 'Otto and Marta reopen the routes and publish the timetable. Families can return today; the towns must still resolve each disputed change. The unnamed coast has no safe timetable yet.' },
+  'towns-consent': { title: 'The towns choose', text: 'Each town has a voice in the Atlas; the key stays in public custody. Greta and Lina seek answers from the coast before opening its route. Nobody can decide for its residents, even when waiting is difficult.' },
+  'brass-reformed': { title: 'The Brass Office changes', text: 'Ada opens the records to public challenge. Voss gives up his stamp, but his signatures remain as evidence. The towns gain an accountable office; keeping it honest becomes their daily work.' },
 };
 export function evidenceBoard(progress: Progress): string {
   const state = storyState(progress.story);

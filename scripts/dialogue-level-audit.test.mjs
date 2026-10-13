@@ -16,7 +16,7 @@ const fixture = (questId, german, introducedWords = {}) => ({
 });
 
 test('Act I is comprehensible on every authored surface while retaining raw evidence', () => {
-  const result = auditDialogueCorpus({ ...options, graphs, questOrder: quests.map(quest => quest.id) });
+  const result = auditDialogueCorpus({ ...options, graphs, quests, questOrder: quests.map(quest => quest.id) });
   assert.deepEqual(result.actOneGate.violations, []);
   assert.equal(result.actOneGate.passed, true);
   assert.ok(result.actOneGate.checkedEntries > result.entries.filter(entry => entry.level === 'A1' && entry.kind === 'line').length, 'the gate must inspect more than NPC lines');
@@ -28,7 +28,28 @@ test('Act I is comprehensible on every authored surface while retaining raw evid
     assert.ok(introduction.newWords.length <= 2, introduction.questId);
     for (const word of introduction.newWords) assert.ok(word.english.trim());
   }
-  assert.deepEqual(new Set(result.entries.filter(entry => entry.level === 'A1').map(entry => entry.kind)), new Set(['line', 'variant', 'correction', 'choice', 'investigation']));
+  assert.deepEqual(new Set(result.entries.filter(entry => entry.level === 'A1').map(entry => entry.kind)), new Set(['line', 'variant', 'correction', 'choice', 'investigation', 'quest-intro']));
+});
+
+test('the optional practice introduction cannot bypass the Act I lexical gate', () => {
+  const graph = fixture('a1-arrival', 'Ich helfe dir.');
+  const result = auditDialogueCorpus({ ...options, graphs: [graph], quests: [{ id: graph.questId, story: [{ german: 'Die Wahrheit fehlt.' }] }] });
+  assert.ok(result.actOneGate.violations.some(error => error.includes('/quest-intro/') && error.includes('Wahrheit')));
+});
+
+test('only the exact, always translated parcel quotation has a supported-artifact exception', () => {
+  const graph = fixture('a1-lost-parcel', 'Bevor du uns wieder auslöschst, komm.');
+  const line = graph.nodes[0].lines[0];
+  Object.assign(line, { id: 'a1-lost-parcel-complete-1', english: 'Before you erase us again, come.', alwaysTranslate: true });
+  const audit = () => auditDialogueCorpus({ ...options, graphs: [graph] });
+  assert.equal(audit().actOneGate.passed, true);
+  assert.ok(audit().entries[0].aboveLevelWords.includes('Bevor'), 'preserve raw difficulty');
+  assert.equal(audit().entries[0].supportedArtifact, true);
+  line.alwaysTranslate = false;
+  assert.equal(audit().actOneGate.passed, false);
+  line.alwaysTranslate = true;
+  line.german = 'Bevor du uns wieder auslöschst, warte.';
+  assert.equal(audit().actOneGate.passed, false);
 });
 
 test('introduced vocabulary carries forward in canonical quest order and never backwards', () => {
@@ -116,8 +137,8 @@ test('later acts have selective simpler variants and speakers do not narrate the
   const names = Object.fromEntries(npcs.map(npc => [npc.id, npc.id === 'inspector' ? 'Voss' : npc.name.split(' ')[0]]));
   for (const graph of later) for (const node of graph.nodes) for (const line of node.lines) {
     const name = names[line.speaker];
-    // A first-person introduction (Ich bin X / Ich heiße X / Hier spricht X) is not third-person narration.
-    const spoken = line.german.replace(new RegExp(`(Ich bin|Ich heiße|Hier spricht) ${name}\\b`, 'g'), '');
+    // A first-person introduction, including Voss offering his name, is not narration.
+    const spoken = line.german.replace(new RegExp(`(Ich bin|Ich heiße|Hier spricht|Mein Name ist) ${name}\\b`, 'g'), '');
     assert.ok(!new RegExp(`\\b${name}\\b`).test(spoken), `${line.id}: third-person self-narration`);
     for (const variant of line.variants ?? []) assert.ok(variant.english.trim() && variant.clipId, `${line.id}: incomplete translation or voice reference`);
   }

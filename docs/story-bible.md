@@ -2,6 +2,8 @@
 
 Single source of truth for the main story (18 quests, three acts). Dialogue, clues, letters and cinematics must agree with it. `scripts/story-lint` style checks live in `web/src/story-lint.test.ts`.
 
+The dramatic spine is a ticket carrying the player's name → a neighbour whose place stays empty → evidence that the closure was imposed → choosing who may reopen a route. Every discovery must change a relationship or a practical decision. Humour belongs to how people cope; it must leave room for the loss to land.
+
 ## 1. Core conceit
 
 **The Atlas forgets whatever nobody says aloud.** Names, addresses, timetables and routes only stay real while somebody says, writes or reads them. The Atlas's ink answers only to German — Elise wrote its rules that way — so every German sentence the player says is an act of restoring something. This is why the language gates exist in the fiction: ordering the coffee prints the receipt, counting the apples brings Frau Berg's name back, asking for the address makes the ink hold.
@@ -59,6 +61,8 @@ Address rule (**du / Sie**): residents say *du* to the player and to each other 
 
 Voss arc: **obstruction** (a1-arrival confiscates the ticket) → **hidden humanity** (a1-station recording) → **doubt** (a2-clinic: his own memory contradicts his file; a2-archive) → **confession** (b1-work, with cinematic) → **accountability** (b1-council, b1-atlas ending lines).
 
+His authorisation of the permanent closure and all three replacement coils is confessed on the common path before the work scene's choices. Publishing a ledger provides documentary accountability; it cannot be required to hear the truth. Elise gives up unilateral authority and answers for both the emergency closure and continuing it. Neither confession automatically earns forgiveness.
+
 Elise arc: absent but audible — one **letter** (2–4 short sentences) is unlocked by each completed quest and shown in the journal and the discovery card (`letter` in `story.ts`). Level of letter German follows the act. The finale scene pays them off.
 
 ## 5. Tone
@@ -99,7 +103,7 @@ Not every scene may be "monologue → gate → choice". Each scene has one of th
 5. **Every scene has 1–3 `topics`** (see §8): optional player questions (*Wer…? Was…? Wo…? Warum…?*) with 1–3 NPC lines. They deepen the world; they never carry a reveal row on their own.
 6. **Callbacks**: at least one conditional line per scene reacts to an earlier flag, item or faction; the `after-*` lines announce the consequence on screen (who arrives, what opens, what disappears).
 7. **No one refers to a person, place or event before it has been introduced** (use the reveal map and the act order).
-8. **A1 lexical gate** (Act I only, enforced by `node scripts/audit-dialogue-levels.mjs --check`): every A1 word must be in the A1 lexicon, or be glossed in `introducedWords` (maximum two new words per quest); turns are capped at 8 words in arrival/café, 10 in market/station and 12 in workshop/parcel (including variants, corrections, choices and evidence); names of characters/towns are free. A2/B1 are not gated but sentences stay ≤19 words and abstract vocabulary (*Beschluss, Akte, Zustimmung*) is introduced through objects and letters before NPCs use it.
+8. **A1 lexical gate** (Act I only, enforced by `node scripts/audit-dialogue-levels.mjs --check`): every A1 word must be in the A1 lexicon, or be glossed in `introducedWords` (maximum two new words per quest); turns are capped at 8 words in arrival/café, 10 in market/station and 12 in workshop/parcel (including variants, corrections, choices, evidence and the optional-practice intro); names of characters/towns are free. One explicit exception is the exact parcel-letter quotation *„Bevor du uns wieder auslöschst, komm.“*: its complete English or Turkish meaning is always visible, its raw difficulty remains in the audit, and its vocabulary is not approved elsewhere. Changing the text, translation, line ID or visibility removes this exception. A2/B1 are not gated but sentences stay ≤19 words and abstract vocabulary (*Beschluss, Akte, Zustimmung*) is introduced through objects and letters before NPCs use it.
 9. **Line shape**: `{id, speaker, german, english, clipId: "dialogue-"+id, condition?, glosses?, variants?}`; `{name}` is allowed; English is natural, not word-by-word.
 
 ## 8. Schema additions
@@ -133,6 +137,8 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 - The ticket says *Bahnsteig sieben*, is signed **E.**, and carries the player's name.
 - The brass seal belongs to the Brass Office (Voss). The receipt's date is *morgen*.
 - The recording on the bench belongs to Voss; the voice is a woman's (it is Elise — never named in A1).
+- Its exact words are *„Ist da jemand? Ich bin noch hier.“* in the station, cinematic and witness hearing. Voss can hear her; she cannot hear him.
+- The parcel delivers the actual warning before the archive and finale quote it. Earlier unlocked messages are short notes, not that full letter.
 - Frau Berg's name is missing from Fritz's guest book; her house vanishes in a1-lost-parcel.
 - The route closure: temporary order (Ada, apprentice, at Elise's request) → permanent order (Elise's key + the Brass Office stamp, Voss authorising). Voss's ledger holds his signature.
 - Elise closed the route from inside the Atlas at 17:59; the connection leaves one minute early so that no witness arrives.
@@ -140,6 +146,8 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 - The eraser machine's maintenance was authorised by Voss personally (three new coils).
 - The kettle knew the player's name because Elise's message travelled through Marta's old lantern.
 - The finale must keep: *Wasserkocher*, *Schlüssel*, `{name}`, *meinen ersten Fehler*.
+- *„Wer schweigt, stimmt zu.“* is a coercive Brass Office rule, explicitly challenged by the residents. It is not a moral or natural rule of the Atlas.
+- The three endings preserve different commitments: immediate family reunions with disputed changes still to resolve; town consent with the cost of waiting; or public institutional accountability that requires continued scrutiny. Their cinematics and case-board text must agree.
 
 ## 11. Scene-by-scene beats
 
@@ -158,7 +166,7 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 
 7. **a2-apartment** (Marta; Voss). Gate `a2-apartment-exercise-6` *„Könnten Sie das bitte reparieren?“* — spoken to **Voss**, who has come to inspect the building: the stuck door joins Marta's Lindenhafen café and the Waldruh inn, and he cannot repair what is not in the register. Marta explains why the café and inn share a door. Lease: Room 7, tenant **{name}**, rented in advance by Elise (no "successor" yet).
 8. **a2-evening-plans** (Fritz; Greta, Lina). Gate `a2-evening-plans-exercise-1` *„Hast du morgen Zeit?“* — to **Fritz**, who always says he is busy with soup; the Unwritten Circle wants a fixed time. The Circle were never asked about the closure (R8).
-9. **a2-rail-trip** (Otto; Voss). Gate (see exercise list) *„Ich habe meinen Anschluss verpasst.“* Shape: deduction. The player tries to board and misses the 17:59 connection; complaints only count in the register when said aloud (conceit). Ticket says 18:00 (R9). No Ada yet.
+9. **a2-rail-trip** (Otto; Voss). Gate (see exercise list) *„Ich habe meinen Anschluss verpasst.“* Shape: deduction. The ticket promises 18:00; the player hears a departure and reports missing the connection. Otto then compares the station log and discovers 17:59 (R9). Intro, optional questions and pre-gate evidence cannot give away that conclusion. The complaint creates a witnessed discrepancy; no repeated "only counts aloud" explanation. No Ada yet.
 10. **a2-broken-clock** (Emil). Gate *„Kannst du mir die Anleitung erklären?“* Shape: technical walkthrough. Red lever, blue connection, the hour before midnight; the borrowed-tools thank-you note is in **Elise's handwriting** (R10). Cinematic `clockmill` after (one hour, not minutes).
 11. **a2-clinic** (Greta; **Voss as patient**). Gate *„Sie sollten sich ausruhen.“* — to Voss. Exhausted after a journey he says he never made; his own memory matches three old addresses on the seed packets (R11). Care scene; Voss's first doubt.
 12. **a2-archive** (Ada; Voss). Gate *„Können Sie mir das genauer erklären?“* — Ada uses Sie; at the end of her confession she offers *du* (cinematic `confession`). R12: Ada signed the temporary order; the permanent order bears Elise's key **and** the Brass Office's stamp; the player is the successor; the warning concerns the key.

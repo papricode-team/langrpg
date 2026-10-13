@@ -118,7 +118,7 @@ Before claiming an A1, A2 or B1 outcome, add a reviewed syllabus with sufficient
 
 ### Vocabulary pacing
 
-New words reach the player through a server-held intake budget: ten restored words at the start, one more per 360 seconds of visible play, at most fifteen banked, paused while twelve restored words have never been recognised unaided or twenty practised words are due. The generated syllabus (`web/src/data/syllabus.json`, `server/syllabus.json`) fixes the introduction order and records the lexemes every story scene uses; a scene, a learning route or a word drill opens only once its words are restored. `npm run pacing` reports where each scene lands under that budget; the current graphs demand 75 lexemes in the first scene, which is why a story rewrite is planned. See [Pacing](pacing.md).
+New words reach the player through a server-held optional-practice intake budget: ten restored words at the start, one more per 360 seconds of visible play, at most fifteen banked, paused while twelve restored words have never been recognised unaided or twenty practised words are due. The generated syllabus (`web/src/data/syllabus.json`, `server/syllabus.json`) fixes the introduction order and records the lexemes every story scene uses. Learning routes and word drills follow restored vocabulary; story scenes open in clue order regardless of intake. `npm run pacing` measures vocabulary coverage, not story unlock times. The revised opening uses 80 lexemes; the narrative revision does not meet the separate ten-new-lexemes-per-scene learning target. See [Pacing](pacing.md).
 
 ### Beginner story support
 

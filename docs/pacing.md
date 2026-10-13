@@ -40,15 +40,15 @@ The authored scenes contain more vocabulary than one hour of optional intake pro
 
 | Scene | Lexemes | New | Vocabulary coverage | Intake hour |
 | --- | --- | --- | --- | --- |
-| a1-arrival | 75 | 75 | 92 words | 8.2 |
-| a1-cafe | 71 | 36 | 128 words | 11.8 |
-| a1-market | 87 | 33 | 166 words | 15.6 |
-| a1-station | 111 | 39 | 207 words | 19.7 |
-| a1-workshop | 100 | 26 | 228 words | 21.8 |
-| a1-lost-parcel | 106 | 17 | 245 words | 23.5 |
-| a2-apartment | 189 | 89 | 348 words | 33.8 |
-| a2-archive | 190 | 43 | 628 words | 61.8 |
-| b1-atlas | 232 | 31 | 901 words | 89.1 |
+| a1-arrival | 80 | 80 | 98 words | 8.8 |
+| a1-cafe | 76 | 39 | 141 words | 13.1 |
+| a1-market | 93 | 29 | 174 words | 16.4 |
+| a1-station | 116 | 36 | 211 words | 20.1 |
+| a1-workshop | 106 | 25 | 234 words | 22.4 |
+| a1-lost-parcel | 98 | 18 | 255 words | 24.5 |
+| a2-apartment | 220 | 111 | 383 words | 37.3 |
+| a2-archive | 203 | 33 | 673 words | 66.3 |
+| b1-atlas | 243 | 27 | 885 words | 87.5 |
 
 The full table, including glossed story words and words the lexicon cannot place, is in `docs/audits/pacing.json`.
 

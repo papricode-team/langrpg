@@ -21,6 +21,10 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
 }
 
 describe('conversation word lookup', () => {
+  it('keeps the meaning of the plot-critical letter visible without beginner support', () => {
+    const f = fixture({ help: false, line: { id: 'letter', speaker: 'lina', german: 'Bevor du uns wieder auslöschst, komm.', english: 'Before you erase us again, come.', clipId: 'letter', alwaysTranslate: true } });
+    expect(f.translation()?.textContent).toBe('Before you erase us again, come.');
+  });
   it('shows an icon audio toggle outside the text and preserves its keyboard focus', () => {
     const f = fixture({ audioEnabled: false });
     const toggle = () => f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-action="audio"]')!;

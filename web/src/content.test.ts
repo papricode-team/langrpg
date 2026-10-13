@@ -26,7 +26,7 @@ describe('canonical language content', () => {
 
   it('provides an English translation for every German narrative sentence', () => {
     for (const quest of quests) {
-      expect(quest.story.length).toBeGreaterThanOrEqual(5);
+      expect(quest.story.length).toBeGreaterThanOrEqual(2);
       for (const sentence of quest.story) {
         expect(sentence.german.trim()).toBe(sentence.german);
         expect(sentence.english.trim()).toBe(sentence.english);
@@ -36,11 +36,11 @@ describe('canonical language content', () => {
       }
     }
     const arrival = quests.find(quest => quest.id === 'a1-arrival')!.story;
-    expect(arrival.some(sentence => sentence.german.includes('vierzig Tauben') && sentence.english.includes('Forty pigeons'))).toBe(true);
-    expect(arrival.some(sentence => sentence.german.includes('siebte Glocke') && sentence.english.includes('seventh bell'))).toBe(true);
-    expect(arrival.some(sentence => sentence.german.includes('ohne Deutschkenntnisse') && sentence.english.includes('no German'))).toBe(true);
+    expect(arrival.some(sentence => sentence.german.includes('Bahnsteig sieben') && sentence.english.includes('platform seven'))).toBe(true);
+    expect(arrival.map(sentence => sentence.german).join(' ')).not.toMatch(/Elise|siebte Glocke/);
     const conclusion = quests.find(quest => quest.id === 'b1-atlas')!.story;
-    expect(conclusion.some(sentence => sentence.german.includes('ohne Schaden') && sentence.english.includes('harmlessly'))).toBe(true);
+    expect(conclusion.some(sentence => sentence.german.includes('Schlüssel') && sentence.english.includes('key'))).toBe(true);
+    expect(conclusion.map(sentence => sentence.german).join(' ')).not.toContain('Küste');
   });
 
   it('pairs every greeting sentence with a translation without changing the spoken greeting', () => {

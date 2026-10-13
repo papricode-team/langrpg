@@ -74,7 +74,7 @@ describe('authored in-world investigations', () => {
     const finale=questGraphs.find(g=>g.questId==='b1-atlas')!.nodes.find(n=>n.id==='complete')!;
     for(const ending of ['routes-reopened','towns-consent','brass-reformed']) {
       state.ending=ending;
-      expect(dialogueLines(finale,state).filter(l=>l.condition?.ending).map(l=>l.condition!.ending)).toEqual([ending]);
+      expect([...new Set(dialogueLines(finale,state).filter(l=>l.condition?.ending).map(l=>l.condition!.ending))]).toEqual([ending]);
     }
   });
   it('keeps revisions ordered within an owner and permits a fresh account state', () => {
