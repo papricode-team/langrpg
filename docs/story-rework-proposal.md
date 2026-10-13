@@ -1,5 +1,15 @@
 # The Lantern Atlas — story rework proposal
 
+> **Status (2026-10-13).** **Act I is implemented** (commit `7dd9507`, "Rebuild Act I as one clear path of eighteen A1 scenes"): the six main scenes were rewritten to the simplified spine and twelve everyday scenes were added, for 18 A1 scenes and 30 quests overall. The one magic rule is "names fade unless somebody says them aloud"; platform seven is a real old platform; the kettle and the tomorrow-dated receipt are gone; Frau Berg is a retired teacher at Gartenstraße 7 who carries the act; Greta runs Lindenhafen's pharmacy and garden. The current rules are in `docs/story-bible.md`, the scenes in `docs/screenplay.md`.
+>
+> **Where Act I differs from this proposal.**
+> - The everyday scenes are **part of the linear chain**, not optional side scenes: the player passes through all 18 in order (6 story scenes and 12 errands). A save already past an inserted errand may skip it (`everydayQuestIds` in `web/src/progression.ts`).
+> - The twelve errands are: `a1-timetable`, `a1-room`, `a1-shopping`, `a1-neighbour`, `a1-pharmacy`, `a1-directions`, `a1-weather`, `a1-bike`, `a1-phone`, `a1-invitation`, `a1-lost-found`, `a1-departure`. They use plain `a1-` ids rather than the proposed `a1-e01-…` ids, and the set differs from the table below (for example there is no separate breakfast errand, and the act closes on a ticket-buying errand).
+> - Errand choices set one flag each (no faction or item effects); the story scenes keep their choice ids and effects.
+> - Voss appears in more Act I scenes (station, phone, departure) than the table assumes.
+>
+> **Still pending:** Acts II and III (their 18 everyday scenes, simplified magic and whimsy trimming, Elise's earlier motive hint). The pacing audit still shows several Act I scenes above the ten-new-lexemes target (see `docs/pacing.md`).
+
 Goal set by the team on 2026-10-13: make the story **consistent**, **easy to follow**, **easy to understand**, and **wider**, because the game exists to teach German. This document proposes how. It changes no files yet. Companion documents: `docs/screenplay.md` (the current story, scene by scene, with the whimsy audit in Appendix C) and `docs/story-bible.md` (the current rules).
 
 ---

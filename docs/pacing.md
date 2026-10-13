@@ -36,25 +36,46 @@ Constants live in the syllabus file (`wordsPerHour`, `openingWords`, `bankCap`, 
 
 ## What the current story needs
 
-The authored scenes contain more vocabulary than one hour of optional intake provides. The audit (`npm run pacing`) measures the earliest hour at which that intake could cover every lexeme in a scene, assuming the practice and review brakes never engage. These are vocabulary coverage measurements, not story unlock times; every next scene is available immediately:
+The authored scenes contain more vocabulary than one hour of optional intake provides. The audit (`npm run pacing`, 2026-10-13, after the Act I rebuild to 18 scenes) counts "above budget" as new lexemes plus glossed story words and unmapped words, minus one hour of intake (10). It measures the earliest hour at which that intake could cover every lexeme in a scene, assuming the practice and review brakes never engage. These are vocabulary coverage measurements, not story unlock times; every next scene is available immediately:
 
-| Scene | Lexemes | New | Vocabulary coverage | Intake hour |
-| --- | --- | --- | --- | --- |
-| a1-arrival | 80 | 80 | 98 words | 8.8 |
-| a1-cafe | 76 | 39 | 141 words | 13.1 |
-| a1-market | 93 | 29 | 174 words | 16.4 |
-| a1-station | 116 | 36 | 211 words | 20.1 |
-| a1-workshop | 106 | 25 | 234 words | 22.4 |
-| a1-lost-parcel | 98 | 18 | 255 words | 24.5 |
-| a2-apartment | 220 | 111 | 383 words | 37.3 |
-| a2-archive | 203 | 33 | 673 words | 66.3 |
-| b1-atlas | 243 | 27 | 885 words | 87.5 |
+| Scene | Lexemes | New | Story and unmapped words | Vocabulary coverage | Intake hour | Above budget |
+| --- | --- | --- | --- | --- | --- | --- |
+| a1-arrival | 100 | 100 | 7 | 122 words | 11.2 | 97 |
+| a1-timetable | 94 | 35 | 3 | 153 words | 14.3 | 28 |
+| a1-cafe | 87 | 36 | 5 | 188 words | 17.8 | 31 |
+| a1-room | 98 | 26 | 2 | 217 words | 20.7 | 18 |
+| a1-shopping | 82 | 13 | 6 | 233 words | 22.3 | 9 |
+| a1-market | 93 | 6 | 5 | 241 words | 23.1 | 1 |
+| a1-neighbour | 91 | 15 | 5 | 256 words | 24.6 | 10 |
+| a1-pharmacy | 79 | 10 | 3 | 265 words | 25.5 | 3 |
+| a1-directions | 83 | 12 | 5 | 275 words | 26.5 | 7 |
+| a1-station | 104 | 14 | 5 | 288 words | 27.8 | 9 |
+| a1-weather | 80 | 10 | 4 | 301 words | 29.1 | 4 |
+| a1-workshop | 100 | 9 | 5 | 312 words | 30.2 | 4 |
+| a1-bike | 79 | 8 | 3 | 322 words | 31.2 | 1 |
+| a1-phone | 92 | 13 | 6 | 336 words | 32.6 | 9 |
+| a1-invitation | 89 | 8 | 5 | 346 words | 33.6 | 3 |
+| a1-lost-found | 83 | 7 | 4 | 355 words | 34.5 | 1 |
+| a1-lost-parcel | 97 | 5 | 8 | 362 words | 35.2 | 3 |
+| a1-departure | 81 | 6 | 4 | 368 words | 35.8 | 0 |
+| a2-apartment | 211 | 90 | 32 | 472 words | 46.2 | 112 |
+| a2-evening-plans | 201 | 53 | 39 | 532 words | 52.2 | 82 |
+| a2-rail-trip | 183 | 40 | 47 | 575 words | 56.5 | 77 |
+| a2-broken-clock | 208 | 60 | 44 | 645 words | 63.5 | 94 |
+| a2-clinic | 212 | 49 | 45 | 703 words | 69.3 | 84 |
+| a2-archive | 203 | 31 | 34 | 736 words | 72.6 | 55 |
+| b1-witness | 185 | 36 | 43 | 782 words | 77.2 | 69 |
+| b1-new-route | 194 | 29 | 32 | 813 words | 80.3 | 51 |
+| b1-work | 193 | 27 | 47 | 842 words | 83.2 | 64 |
+| b1-council | 205 | 28 | 30 | 873 words | 86.3 | 48 |
+| b1-storm | 183 | 25 | 32 | 902 words | 89.2 | 47 |
+| b1-atlas | 240 | 22 | 45 | 926 words | 91.6 | 57 |
 
-The full table, including glossed story words and words the lexicon cannot place, is in `docs/audits/pacing.json`.
+The 3,283-lexeme course schedule at 10 words an hour reaches 2,010 words by hour 200; the authored story uses 823 lexemes and optional intake covers its last scene (`b1-atlas`) at hour 91.6, and Act I's last scene at hour 35.8. The full table, including glossed story words and words the lexicon cannot place, is in `docs/audits/pacing.json`.
 
 Content rewrites can reduce learning load while keeping the story continuously playable:
 
-- **Each scene introduces at most 10 new lexemes** beyond what earlier scenes and routes established (`newWordsAboveBudget` in the audit is zero). The first scene must work with the 10 opening words, which means a first conversation of greetings, the player's name and one request.
+- **Each scene introduces at most 10 new lexemes** beyond what earlier scenes and routes established (`newWordsAboveBudget` in the audit is zero). Only `a1-departure` meets that today. After the rebuild, `a1-market` (6 new), `a1-workshop` (9), `a1-bike` (8), `a1-invitation` (8), `a1-lost-found` (7) and `a1-lost-parcel` (5) are close (1 to 4 above budget); the largest overruns are `a1-arrival` (100 new), `a1-cafe` (36), `a1-timetable` (35) and `a1-room` (26), and Acts II and III have not been re-paced. The first scene must work with the 10 opening words, which means a first conversation of greetings, the player's name and one request.
 - **Offer optional everyday life between scenes** (routes, interiors, review and barks), while allowing the player to continue the story immediately. Vocabulary pacing must never become a mandatory wait or practice requirement for the next conversation.
 - **Story-only words glossed in the graph** (`introducedWords`) stay at two per scene, as the dialogue audit already enforces; unmapped words in the audit either become lexicon entries or are rewritten.
 
