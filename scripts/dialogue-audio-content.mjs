@@ -6,7 +6,8 @@ const { grammarForQuest } = await import('../web/src/contextual-grammar.ts');
 const { residentConversation,earnedTitleGreeting,ambientCallbackLines } = await import('../web/src/npc-dialogue.ts');
 const { emptyStory } = await import('../web/src/dialogue.ts');
 const { cinematicBeats, endingIds } = await import('../web/src/cinematic-content.ts');
-export const cast = { marta: 'Anna', otto: 'Grandpa (German (Germany))', lina: 'Flo (German (Germany))', emil: 'Eddy (German (Germany))', ada: 'Grandma (German (Germany))', fritz: 'Rocko (German (Germany))', greta: 'Sandy (German (Germany))', inspector: 'Reed (German (Germany))', elise: 'Shelley (German (Germany))', stimme: 'Shelley (German (Germany))', Evidence:'Anna' };
+/** Story speaker → character voice in scripts/tts/voices.json. */
+export const cast = { marta: 'marta', otto: 'otto', lina: 'lina', emil: 'emil', ada: 'ada', fritz: 'fritz', greta: 'greta', inspector: 'inspector', elise: 'elise', stimme: 'stimme', berg: 'berg', Evidence: 'narrator' };
 const graphs = JSON.parse(await readFile('web/src/data/dialogue-graphs.json', 'utf8'));
 const scenes = graphs.flatMap(graph => [...graph.nodes.flatMap(node => node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)].flatMap(line=>[line,...(line.reply?[line.reply.correction]:[]),...(line.variants??[]).map(variant=>({...line,...variant,variants:undefined}))])).filter(line => !line.german.includes('{'));
 const named=graphs.flatMap(graph=>[...graph.nodes.flatMap(node=>node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)]).filter(line=>line.german.includes('{name}')).map(line=>({...line,clipId:`${line.clipId}-name-free`,german:line.german.replace(/,?\s*\{name\}/g,'').replace(/\s+([.!?,])/g,'$1')}));

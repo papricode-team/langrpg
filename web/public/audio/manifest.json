@@ -11,667 +11,800 @@
     {
       "id": "a1-arrival-exercise-1",
       "text": "Guten Morgen!",
-      "path": "/audio/a1-arrival-exercise-1.mp3"
+      "path": "/audio/a1-arrival-exercise-1.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-2",
       "text": "Ich heiße Alex.",
-      "path": "/audio/a1-arrival-exercise-2.mp3"
+      "path": "/audio/a1-arrival-exercise-2.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-3",
       "text": "Ich komme aus England.",
-      "path": "/audio/a1-arrival-exercise-3.mp3"
+      "path": "/audio/a1-arrival-exercise-3.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-4",
       "text": "Wie heißen Sie?",
-      "path": "/audio/a1-arrival-exercise-4.mp3"
+      "path": "/audio/a1-arrival-exercise-4.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-5",
       "text": "Ich spreche Englisch.",
-      "path": "/audio/a1-arrival-exercise-5.mp3"
+      "path": "/audio/a1-arrival-exercise-5.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-6",
       "text": "Helfen Sie mir bitte.",
-      "path": "/audio/a1-arrival-exercise-6.mp3"
+      "path": "/audio/a1-arrival-exercise-6.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-arrival-exercise-7",
       "text": "Noch einmal, bitte.",
-      "path": "/audio/a1-arrival-exercise-7.mp3"
+      "path": "/audio/a1-arrival-exercise-7.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-cafe-exercise-1",
       "text": "Ich möchte einen Kaffee.",
-      "path": "/audio/a1-cafe-exercise-1.mp3"
+      "path": "/audio/a1-cafe-exercise-1.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-2",
       "text": "Mit Milch, bitte.",
-      "path": "/audio/a1-cafe-exercise-2.mp3"
+      "path": "/audio/a1-cafe-exercise-2.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-3",
       "text": "Was kostet der Tee?",
-      "path": "/audio/a1-cafe-exercise-3.mp3"
+      "path": "/audio/a1-cafe-exercise-3.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-4",
       "text": "Der Tee kostet drei Euro.",
-      "path": "/audio/a1-cafe-exercise-4.mp3"
+      "path": "/audio/a1-cafe-exercise-4.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-5",
       "text": "Ich nehme ein Wasser.",
-      "path": "/audio/a1-cafe-exercise-5.mp3"
+      "path": "/audio/a1-cafe-exercise-5.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-6",
       "text": "Die Rechnung, bitte.",
-      "path": "/audio/a1-cafe-exercise-6.mp3"
+      "path": "/audio/a1-cafe-exercise-6.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-cafe-exercise-7",
       "text": "Danke, das ist alles.",
-      "path": "/audio/a1-cafe-exercise-7.mp3"
+      "path": "/audio/a1-cafe-exercise-7.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a1-market-exercise-1",
       "text": "Ich brauche zwei Äpfel.",
-      "path": "/audio/a1-market-exercise-1.mp3"
+      "path": "/audio/a1-market-exercise-1.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-2",
       "text": "Haben Sie Brot?",
-      "path": "/audio/a1-market-exercise-2.mp3"
+      "path": "/audio/a1-market-exercise-2.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-3",
       "text": "Ein Kilo Kartoffeln, bitte.",
-      "path": "/audio/a1-market-exercise-3.mp3"
+      "path": "/audio/a1-market-exercise-3.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-4",
       "text": "Das kostet fünf Euro fünfzig.",
-      "path": "/audio/a1-market-exercise-4.mp3"
+      "path": "/audio/a1-market-exercise-4.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-5",
       "text": "Die Tomaten sind frisch.",
-      "path": "/audio/a1-market-exercise-5.mp3"
+      "path": "/audio/a1-market-exercise-5.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-6",
       "text": "Ich bezahle mit Karte.",
-      "path": "/audio/a1-market-exercise-6.mp3"
+      "path": "/audio/a1-market-exercise-6.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-market-exercise-7",
       "text": "Das ist zu teuer.",
-      "path": "/audio/a1-market-exercise-7.mp3"
+      "path": "/audio/a1-market-exercise-7.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a1-station-exercise-1",
       "text": "Wo ist der Bahnhof?",
-      "path": "/audio/a1-station-exercise-1.mp3"
+      "path": "/audio/a1-station-exercise-1.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-2",
       "text": "Der Zug fährt um neun Uhr.",
-      "path": "/audio/a1-station-exercise-2.mp3"
+      "path": "/audio/a1-station-exercise-2.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-3",
       "text": "Ein Ticket nach Berlin, bitte.",
-      "path": "/audio/a1-station-exercise-3.mp3"
+      "path": "/audio/a1-station-exercise-3.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-4",
       "text": "Der Zug fährt von Gleis zwei ab.",
-      "path": "/audio/a1-station-exercise-4.mp3"
+      "path": "/audio/a1-station-exercise-4.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-5",
       "text": "Ist dieser Platz frei?",
-      "path": "/audio/a1-station-exercise-5.mp3"
+      "path": "/audio/a1-station-exercise-5.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-6",
       "text": "Ich muss heute nach Hause.",
-      "path": "/audio/a1-station-exercise-6.mp3"
+      "path": "/audio/a1-station-exercise-6.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-station-exercise-7",
       "text": "Der Zug hat zehn Minuten Verspätung.",
-      "path": "/audio/a1-station-exercise-7.mp3"
+      "path": "/audio/a1-station-exercise-7.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a1-workshop-exercise-1",
       "text": "Der Schlüssel ist auf dem Tisch.",
-      "path": "/audio/a1-workshop-exercise-1.mp3"
+      "path": "/audio/a1-workshop-exercise-1.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-2",
       "text": "Ich brauche eine Lampe.",
-      "path": "/audio/a1-workshop-exercise-2.mp3"
+      "path": "/audio/a1-workshop-exercise-2.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-3",
       "text": "Die Tür ist offen.",
-      "path": "/audio/a1-workshop-exercise-3.mp3"
+      "path": "/audio/a1-workshop-exercise-3.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-4",
       "text": "Das Fenster ist geschlossen.",
-      "path": "/audio/a1-workshop-exercise-4.mp3"
+      "path": "/audio/a1-workshop-exercise-4.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-5",
       "text": "Kann ich den Stift haben?",
-      "path": "/audio/a1-workshop-exercise-5.mp3"
+      "path": "/audio/a1-workshop-exercise-5.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-6",
       "text": "Bitte warten Sie hier.",
-      "path": "/audio/a1-workshop-exercise-6.mp3"
+      "path": "/audio/a1-workshop-exercise-6.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-workshop-exercise-7",
       "text": "Das funktioniert nicht.",
-      "path": "/audio/a1-workshop-exercise-7.mp3"
+      "path": "/audio/a1-workshop-exercise-7.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a1-lost-parcel-exercise-1",
       "text": "Das Paket ist für Marta.",
-      "path": "/audio/a1-lost-parcel-exercise-1.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-1.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-2",
       "text": "Wie ist die Adresse?",
-      "path": "/audio/a1-lost-parcel-exercise-2.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-2.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-3",
       "text": "Die Apotheke ist links.",
-      "path": "/audio/a1-lost-parcel-exercise-3.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-3.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-4",
       "text": "Gehen Sie geradeaus.",
-      "path": "/audio/a1-lost-parcel-exercise-4.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-4.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-5",
       "text": "Ich suche die Post.",
-      "path": "/audio/a1-lost-parcel-exercise-5.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-5.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-6",
       "text": "Hier ist Ihr Paket.",
-      "path": "/audio/a1-lost-parcel-exercise-6.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-6.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a1-lost-parcel-exercise-7",
       "text": "Entschuldigung, ich bin zu spät.",
-      "path": "/audio/a1-lost-parcel-exercise-7.mp3"
+      "path": "/audio/a1-lost-parcel-exercise-7.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "a2-apartment-exercise-1",
       "text": "Ich suche eine Wohnung.",
-      "path": "/audio/a2-apartment-exercise-1.mp3"
+      "path": "/audio/a2-apartment-exercise-1.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-2",
       "text": "Die Miete ist zu hoch.",
-      "path": "/audio/a2-apartment-exercise-2.mp3"
+      "path": "/audio/a2-apartment-exercise-2.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-3",
       "text": "Die Wohnung hat zwei Zimmer und einen Balkon.",
-      "path": "/audio/a2-apartment-exercise-3.mp3"
+      "path": "/audio/a2-apartment-exercise-3.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-4",
       "text": "Ich wohne seit drei Monaten hier.",
-      "path": "/audio/a2-apartment-exercise-4.mp3"
+      "path": "/audio/a2-apartment-exercise-4.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-5",
       "text": "Der Kühlschrank ist kaputt.",
-      "path": "/audio/a2-apartment-exercise-5.mp3"
+      "path": "/audio/a2-apartment-exercise-5.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-6",
       "text": "Könnten Sie das bitte reparieren?",
-      "path": "/audio/a2-apartment-exercise-6.mp3"
+      "path": "/audio/a2-apartment-exercise-6.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-apartment-exercise-7",
       "text": "Ich ziehe um, weil die Wohnung zu klein ist.",
-      "path": "/audio/a2-apartment-exercise-7.mp3"
+      "path": "/audio/a2-apartment-exercise-7.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "a2-evening-plans-exercise-1",
       "text": "Hast du morgen Zeit?",
-      "path": "/audio/a2-evening-plans-exercise-1.mp3"
+      "path": "/audio/a2-evening-plans-exercise-1.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-2",
       "text": "Wir treffen uns am Samstag um halb sieben.",
-      "path": "/audio/a2-evening-plans-exercise-2.mp3"
+      "path": "/audio/a2-evening-plans-exercise-2.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-3",
       "text": "Ich würde gern mitkommen.",
-      "path": "/audio/a2-evening-plans-exercise-3.mp3"
+      "path": "/audio/a2-evening-plans-exercise-3.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-4",
       "text": "Leider kann ich nicht.",
-      "path": "/audio/a2-evening-plans-exercise-4.mp3"
+      "path": "/audio/a2-evening-plans-exercise-4.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-5",
       "text": "Ich esse lieber Gemüse als Fleisch.",
-      "path": "/audio/a2-evening-plans-exercise-5.mp3"
+      "path": "/audio/a2-evening-plans-exercise-5.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-6",
       "text": "Wir bleiben zu Hause, weil es regnet.",
-      "path": "/audio/a2-evening-plans-exercise-6.mp3"
+      "path": "/audio/a2-evening-plans-exercise-6.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-evening-plans-exercise-7",
       "text": "Können wir den Termin verschieben?",
-      "path": "/audio/a2-evening-plans-exercise-7.mp3"
+      "path": "/audio/a2-evening-plans-exercise-7.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "a2-rail-trip-exercise-1",
       "text": "Muss ich in Hamburg umsteigen?",
-      "path": "/audio/a2-rail-trip-exercise-1.mp3"
+      "path": "/audio/a2-rail-trip-exercise-1.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-2",
       "text": "Der Anschlusszug fährt in zwanzig Minuten ab.",
-      "path": "/audio/a2-rail-trip-exercise-2.mp3"
+      "path": "/audio/a2-rail-trip-exercise-2.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-3",
       "text": "Ich habe meinen Anschluss verpasst.",
-      "path": "/audio/a2-rail-trip-exercise-3.mp3"
+      "path": "/audio/a2-rail-trip-exercise-3.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-4",
       "text": "Welche Verbindung ist schneller?",
-      "path": "/audio/a2-rail-trip-exercise-4.mp3"
+      "path": "/audio/a2-rail-trip-exercise-4.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-5",
       "text": "Ist die Rückfahrt im Preis enthalten?",
-      "path": "/audio/a2-rail-trip-exercise-5.mp3"
+      "path": "/audio/a2-rail-trip-exercise-5.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-6",
       "text": "Ich möchte das Ticket stornieren.",
-      "path": "/audio/a2-rail-trip-exercise-6.mp3"
+      "path": "/audio/a2-rail-trip-exercise-6.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-rail-trip-exercise-7",
       "text": "Wegen einer Störung fährt der Bus heute nicht.",
-      "path": "/audio/a2-rail-trip-exercise-7.mp3"
+      "path": "/audio/a2-rail-trip-exercise-7.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "a2-broken-clock-exercise-1",
       "text": "Ich habe gestern den Schlüssel gefunden.",
-      "path": "/audio/a2-broken-clock-exercise-1.mp3"
+      "path": "/audio/a2-broken-clock-exercise-1.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-2",
       "text": "Zuerst habe ich aufgeräumt, dann habe ich gekocht.",
-      "path": "/audio/a2-broken-clock-exercise-2.mp3"
+      "path": "/audio/a2-broken-clock-exercise-2.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-3",
       "text": "Kannst du mir die Anleitung erklären?",
-      "path": "/audio/a2-broken-clock-exercise-3.mp3"
+      "path": "/audio/a2-broken-clock-exercise-3.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-4",
       "text": "Leg das Werkzeug auf den Tisch.",
-      "path": "/audio/a2-broken-clock-exercise-4.mp3"
+      "path": "/audio/a2-broken-clock-exercise-4.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-5",
       "text": "Das Werkzeug liegt unter dem Stuhl.",
-      "path": "/audio/a2-broken-clock-exercise-5.mp3"
+      "path": "/audio/a2-broken-clock-exercise-5.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-6",
       "text": "Ich habe vergessen, das Fenster zu schließen.",
-      "path": "/audio/a2-broken-clock-exercise-6.mp3"
+      "path": "/audio/a2-broken-clock-exercise-6.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-broken-clock-exercise-7",
       "text": "Otto hat die Lampe zurückgebracht.",
-      "path": "/audio/a2-broken-clock-exercise-7.mp3"
+      "path": "/audio/a2-broken-clock-exercise-7.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "a2-clinic-exercise-1",
       "text": "Ich habe seit gestern Kopfschmerzen.",
-      "path": "/audio/a2-clinic-exercise-1.mp3"
+      "path": "/audio/a2-clinic-exercise-1.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-2",
       "text": "Ich brauche einen Termin beim Arzt.",
-      "path": "/audio/a2-clinic-exercise-2.mp3"
+      "path": "/audio/a2-clinic-exercise-2.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-3",
       "text": "Die Praxis öffnet um Viertel nach acht.",
-      "path": "/audio/a2-clinic-exercise-3.mp3"
+      "path": "/audio/a2-clinic-exercise-3.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-4",
       "text": "Wie lange soll ich warten?",
-      "path": "/audio/a2-clinic-exercise-4.mp3"
+      "path": "/audio/a2-clinic-exercise-4.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-5",
       "text": "Sie sollten sich ausruhen.",
-      "path": "/audio/a2-clinic-exercise-5.mp3"
+      "path": "/audio/a2-clinic-exercise-5.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-6",
       "text": "Mir geht es schon besser.",
-      "path": "/audio/a2-clinic-exercise-6.mp3"
+      "path": "/audio/a2-clinic-exercise-6.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-clinic-exercise-7",
       "text": "Bitte bringen Sie Ihre Versicherungskarte mit.",
-      "path": "/audio/a2-clinic-exercise-7.mp3"
+      "path": "/audio/a2-clinic-exercise-7.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "a2-archive-exercise-1",
       "text": "Früher war der Bahnhof kleiner.",
-      "path": "/audio/a2-archive-exercise-1.mp3"
+      "path": "/audio/a2-archive-exercise-1.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-2",
       "text": "Als Kind bin ich oft mit dem Zug gefahren.",
-      "path": "/audio/a2-archive-exercise-2.mp3"
+      "path": "/audio/a2-archive-exercise-2.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-3",
       "text": "Seit wann arbeiten Sie hier?",
-      "path": "/audio/a2-archive-exercise-3.mp3"
+      "path": "/audio/a2-archive-exercise-3.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-4",
       "text": "Diese Karte ist älter als die andere.",
-      "path": "/audio/a2-archive-exercise-4.mp3"
+      "path": "/audio/a2-archive-exercise-4.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-5",
       "text": "Ich interessiere mich für Geschichte.",
-      "path": "/audio/a2-archive-exercise-5.mp3"
+      "path": "/audio/a2-archive-exercise-5.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-6",
       "text": "Können Sie mir das genauer erklären?",
-      "path": "/audio/a2-archive-exercise-6.mp3"
+      "path": "/audio/a2-archive-exercise-6.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "a2-archive-exercise-7",
       "text": "Die Bibliothek ist inzwischen in die Altstadt umgezogen.",
-      "path": "/audio/a2-archive-exercise-7.mp3"
+      "path": "/audio/a2-archive-exercise-7.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-witness-exercise-1",
       "text": "Als ich am Bahnhof ankam, war der Zug schon weg.",
-      "path": "/audio/b1-witness-exercise-1.mp3"
+      "path": "/audio/b1-witness-exercise-1.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-2",
       "text": "Ich konnte ihr Gesicht nicht erkennen, weil es zu dunkel war.",
-      "path": "/audio/b1-witness-exercise-2.mp3"
+      "path": "/audio/b1-witness-exercise-2.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-3",
       "text": "Ich bin mir nicht sicher, ob das stimmt.",
-      "path": "/audio/b1-witness-exercise-3.mp3"
+      "path": "/audio/b1-witness-exercise-3.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-4",
       "text": "Zuerst hat sie gewartet, danach ist sie gegangen.",
-      "path": "/audio/b1-witness-exercise-4.mp3"
+      "path": "/audio/b1-witness-exercise-4.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-5",
       "text": "Das widerspricht der Aussage des Zeugen.",
-      "path": "/audio/b1-witness-exercise-5.mp3"
+      "path": "/audio/b1-witness-exercise-5.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-6",
       "text": "Könnten Sie beschreiben, was Sie gesehen haben?",
-      "path": "/audio/b1-witness-exercise-6.mp3"
+      "path": "/audio/b1-witness-exercise-6.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-witness-exercise-7",
       "text": "Vielleicht hat sie den falschen Zug genommen.",
-      "path": "/audio/b1-witness-exercise-7.mp3"
+      "path": "/audio/b1-witness-exercise-7.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "b1-new-route-exercise-1",
       "text": "Wenn der Zug ausfällt, nehmen wir den Bus.",
-      "path": "/audio/b1-new-route-exercise-1.mp3"
+      "path": "/audio/b1-new-route-exercise-1.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-2",
       "text": "Wir müssen eine Lösung finden, die für alle passt.",
-      "path": "/audio/b1-new-route-exercise-2.mp3"
+      "path": "/audio/b1-new-route-exercise-2.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-3",
       "text": "Die neue Strecke wäre kürzer, aber die Fahrkarten wären teurer.",
-      "path": "/audio/b1-new-route-exercise-3.mp3"
+      "path": "/audio/b1-new-route-exercise-3.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-4",
       "text": "Statt zu warten, könnten wir zu Fuß gehen.",
-      "path": "/audio/b1-new-route-exercise-4.mp3"
+      "path": "/audio/b1-new-route-exercise-4.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-5",
       "text": "Wir sollten die Vor- und Nachteile vergleichen.",
-      "path": "/audio/b1-new-route-exercise-5.mp3"
+      "path": "/audio/b1-new-route-exercise-5.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-6",
       "text": "Obwohl die Strecke länger ist, ist sie günstiger.",
-      "path": "/audio/b1-new-route-exercise-6.mp3"
+      "path": "/audio/b1-new-route-exercise-6.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-new-route-exercise-7",
       "text": "Ich schlage vor, dass wir früher losfahren.",
-      "path": "/audio/b1-new-route-exercise-7.mp3"
+      "path": "/audio/b1-new-route-exercise-7.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "b1-work-exercise-1",
       "text": "Ich habe Erfahrung im Umgang mit Kunden.",
-      "path": "/audio/b1-work-exercise-1.mp3"
+      "path": "/audio/b1-work-exercise-1.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-2",
       "text": "Zu meinen Aufgaben gehört die Planung der Termine.",
-      "path": "/audio/b1-work-exercise-2.mp3"
+      "path": "/audio/b1-work-exercise-2.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-3",
       "text": "Die Arbeitszeit beginnt um acht, aber freitags arbeiten wir von zu Hause.",
-      "path": "/audio/b1-work-exercise-3.mp3"
+      "path": "/audio/b1-work-exercise-3.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-4",
       "text": "Ich würde gern mehr Verantwortung übernehmen.",
-      "path": "/audio/b1-work-exercise-4.mp3"
+      "path": "/audio/b1-work-exercise-4.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-5",
       "text": "Könnten Sie mir sagen, worauf es bei der Arbeit ankommt?",
-      "path": "/audio/b1-work-exercise-5.mp3"
+      "path": "/audio/b1-work-exercise-5.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-6",
       "text": "Bevor ich anfange, möchte ich die Bedingungen klären.",
-      "path": "/audio/b1-work-exercise-6.mp3"
+      "path": "/audio/b1-work-exercise-6.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-work-exercise-7",
       "text": "Ich lerne schnell und arbeite gern im Team.",
-      "path": "/audio/b1-work-exercise-7.mp3"
+      "path": "/audio/b1-work-exercise-7.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "b1-council-exercise-1",
       "text": "Meiner Meinung nach sollten wir die Strecke wieder öffnen.",
-      "path": "/audio/b1-council-exercise-1.mp3"
+      "path": "/audio/b1-council-exercise-1.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-2",
       "text": "Ich bin dafür, weil die Verbindung wichtig ist.",
-      "path": "/audio/b1-council-exercise-2.mp3"
+      "path": "/audio/b1-council-exercise-2.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-3",
       "text": "Ich verstehe den Vorschlag, trotzdem mache ich mir Sorgen um die Kosten.",
-      "path": "/audio/b1-council-exercise-3.mp3"
+      "path": "/audio/b1-council-exercise-3.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-4",
       "text": "Da stimme ich Ihnen zu.",
-      "path": "/audio/b1-council-exercise-4.mp3"
+      "path": "/audio/b1-council-exercise-4.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-5",
       "text": "Ich sehe das anders, weil wir noch nicht genug wissen.",
-      "path": "/audio/b1-council-exercise-5.mp3"
+      "path": "/audio/b1-council-exercise-5.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-6",
       "text": "Wir könnten zunächst eine Woche lang testen.",
-      "path": "/audio/b1-council-exercise-6.mp3"
+      "path": "/audio/b1-council-exercise-6.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-council-exercise-7",
       "text": "Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.",
-      "path": "/audio/b1-council-exercise-7.mp3"
+      "path": "/audio/b1-council-exercise-7.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "b1-storm-exercise-1",
       "text": "Wegen des Sturms wurde die Veranstaltung abgesagt.",
-      "path": "/audio/b1-storm-exercise-1.mp3"
+      "path": "/audio/b1-storm-exercise-1.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-2",
       "text": "Es wäre besser, die Gäste vorher zu informieren.",
-      "path": "/audio/b1-storm-exercise-2.mp3"
+      "path": "/audio/b1-storm-exercise-2.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-3",
       "text": "Falls es weiter regnet, findet das Fest in der Halle statt.",
-      "path": "/audio/b1-storm-exercise-3.mp3"
+      "path": "/audio/b1-storm-exercise-3.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-4",
       "text": "Wir sollten vermeiden, unnötig Müll zu produzieren.",
-      "path": "/audio/b1-storm-exercise-4.mp3"
+      "path": "/audio/b1-storm-exercise-4.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-5",
       "text": "Je weniger wir verschwenden, desto mehr sparen wir.",
-      "path": "/audio/b1-storm-exercise-5.mp3"
+      "path": "/audio/b1-storm-exercise-5.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-6",
       "text": "Wenn ich an deiner Stelle wäre, würde ich Hilfe holen.",
-      "path": "/audio/b1-storm-exercise-6.mp3"
+      "path": "/audio/b1-storm-exercise-6.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-storm-exercise-7",
       "text": "Wir können das Problem nur gemeinsam lösen.",
-      "path": "/audio/b1-storm-exercise-7.mp3"
+      "path": "/audio/b1-storm-exercise-7.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "b1-atlas-exercise-1",
       "text": "Der Bericht zeigt, dass beide Seiten Fehler gemacht haben.",
-      "path": "/audio/b1-atlas-exercise-1.mp3"
+      "path": "/audio/b1-atlas-exercise-1.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-2",
       "text": "Sie wollte verhindern, dass der Streit schlimmer wird.",
-      "path": "/audio/b1-atlas-exercise-2.mp3"
+      "path": "/audio/b1-atlas-exercise-2.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-3",
       "text": "Die Bewohner wünschen sich eine Verbindung, auf die sie sich verlassen können.",
-      "path": "/audio/b1-atlas-exercise-3.mp3"
+      "path": "/audio/b1-atlas-exercise-3.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-4",
       "text": "Habe ich Sie richtig verstanden, dass Sie mehr Zeit brauchen?",
-      "path": "/audio/b1-atlas-exercise-4.mp3"
+      "path": "/audio/b1-atlas-exercise-4.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-5",
       "text": "Entschuldigung, das habe ich anders gemeint.",
-      "path": "/audio/b1-atlas-exercise-5.mp3"
+      "path": "/audio/b1-atlas-exercise-5.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-6",
       "text": "Wir vereinbaren, dass wir Probleme frühzeitig besprechen.",
-      "path": "/audio/b1-atlas-exercise-6.mp3"
+      "path": "/audio/b1-atlas-exercise-6.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "b1-atlas-exercise-7",
       "text": "Ich freue mich darauf, die neue Strecke gemeinsam zu entdecken.",
-      "path": "/audio/b1-atlas-exercise-7.mp3"
+      "path": "/audio/b1-atlas-exercise-7.mp3",
+      "voice": "qwen3:elise"
     },
     {
       "id": "npc-marta",
       "text": "Willkommen! Möchtest du einen Kaffee?",
-      "path": "/audio/npc-marta.mp3"
+      "path": "/audio/npc-marta.mp3",
+      "voice": "qwen3:marta"
     },
     {
       "id": "npc-otto",
       "text": "Guten Tag! Wohin möchtest du fahren?",
-      "path": "/audio/npc-otto.mp3"
+      "path": "/audio/npc-otto.mp3",
+      "voice": "qwen3:otto"
     },
     {
       "id": "npc-lina",
       "text": "Hallo! Kannst du mir mit diesem Paket helfen?",
-      "path": "/audio/npc-lina.mp3"
+      "path": "/audio/npc-lina.mp3",
+      "voice": "qwen3:lina"
     },
     {
       "id": "npc-emil",
       "text": "Hallo! Suchst du etwas?",
-      "path": "/audio/npc-emil.mp3"
+      "path": "/audio/npc-emil.mp3",
+      "voice": "qwen3:emil"
     },
     {
       "id": "npc-ada",
       "text": "Willkommen in der Bibliothek. Was möchtest du wissen?",
-      "path": "/audio/npc-ada.mp3"
+      "path": "/audio/npc-ada.mp3",
+      "voice": "qwen3:ada"
     },
     {
       "id": "npc-fritz",
       "text": "Guten Morgen! Was darf es sein?",
-      "path": "/audio/npc-fritz.mp3"
+      "path": "/audio/npc-fritz.mp3",
+      "voice": "qwen3:fritz"
     },
     {
       "id": "npc-greta",
       "text": "Hallo! Schön, dich zu sehen.",
-      "path": "/audio/npc-greta.mp3"
+      "path": "/audio/npc-greta.mp3",
+      "voice": "qwen3:greta"
     },
     {
       "id": "word-ich-pron",
@@ -20792,6 +20925,522 @@
       "id": "expedition-dunegarden-encounter-meeting",
       "text": "Erst Fehler klären, dann Ersatzzeit vereinbaren.",
       "path": "/audio/expedition-dunegarden-encounter-meeting.mp3"
+    },
+    {
+      "id": "a1-timetable-exercise-1",
+      "text": "Wann fährt der Zug?",
+      "path": "/audio/a1-timetable-exercise-1.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-2",
+      "text": "Wie spät ist es?",
+      "path": "/audio/a1-timetable-exercise-2.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-3",
+      "text": "Der Zug fährt um halb neun.",
+      "path": "/audio/a1-timetable-exercise-3.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-4",
+      "text": "Der Zug fährt um acht Uhr.",
+      "path": "/audio/a1-timetable-exercise-4.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-5",
+      "text": "Ich fahre um zehn Uhr.",
+      "path": "/audio/a1-timetable-exercise-5.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-6",
+      "text": "Wo ist Bahnsteig drei?",
+      "path": "/audio/a1-timetable-exercise-6.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-timetable-exercise-7",
+      "text": "Der Zug kommt um achtzehn Uhr.",
+      "path": "/audio/a1-timetable-exercise-7.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-room-exercise-1",
+      "text": "Hast du ein Zimmer frei?",
+      "path": "/audio/a1-room-exercise-1.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-2",
+      "text": "Hat das Zimmer ein Bad?",
+      "path": "/audio/a1-room-exercise-2.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-3",
+      "text": "Das Zimmer kostet vierzig Euro.",
+      "path": "/audio/a1-room-exercise-3.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-4",
+      "text": "Das Zimmer ist ruhig.",
+      "path": "/audio/a1-room-exercise-4.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-5",
+      "text": "Ich bleibe zwei Tage.",
+      "path": "/audio/a1-room-exercise-5.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-6",
+      "text": "Wo ist das Bad?",
+      "path": "/audio/a1-room-exercise-6.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-room-exercise-7",
+      "text": "Dein Zimmer ist oben.",
+      "path": "/audio/a1-room-exercise-7.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-shopping-exercise-1",
+      "text": "Was kostet das Brot?",
+      "path": "/audio/a1-shopping-exercise-1.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-2",
+      "text": "Das ist teuer.",
+      "path": "/audio/a1-shopping-exercise-2.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-3",
+      "text": "Der Fisch kostet sechs Euro.",
+      "path": "/audio/a1-shopping-exercise-3.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-4",
+      "text": "Ich nehme das Brot.",
+      "path": "/audio/a1-shopping-exercise-4.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-5",
+      "text": "Ich möchte Milch und Brot.",
+      "path": "/audio/a1-shopping-exercise-5.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-6",
+      "text": "Hast du Eier?",
+      "path": "/audio/a1-shopping-exercise-6.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-shopping-exercise-7",
+      "text": "Das macht sieben Euro, bitte.",
+      "path": "/audio/a1-shopping-exercise-7.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-neighbour-exercise-1",
+      "text": "Wie ist Frau Berg?",
+      "path": "/audio/a1-neighbour-exercise-1.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-2",
+      "text": "Sie ist alt.",
+      "path": "/audio/a1-neighbour-exercise-2.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-3",
+      "text": "Sie ist lieb und streng.",
+      "path": "/audio/a1-neighbour-exercise-3.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-4",
+      "text": "Er ist groß.",
+      "path": "/audio/a1-neighbour-exercise-4.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-5",
+      "text": "Meine Lehrerin war streng.",
+      "path": "/audio/a1-neighbour-exercise-5.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-6",
+      "text": "Wer ist die Frau?",
+      "path": "/audio/a1-neighbour-exercise-6.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-neighbour-exercise-7",
+      "text": "Sie liest jeden Morgen ein Buch.",
+      "path": "/audio/a1-neighbour-exercise-7.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-1",
+      "text": "Ich habe Kopfschmerzen.",
+      "path": "/audio/a1-pharmacy-exercise-1.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-2",
+      "text": "Mir geht es nicht gut.",
+      "path": "/audio/a1-pharmacy-exercise-2.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-3",
+      "text": "Nimm den Tee dreimal am Tag.",
+      "path": "/audio/a1-pharmacy-exercise-3.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-4",
+      "text": "Mein Hals tut weh.",
+      "path": "/audio/a1-pharmacy-exercise-4.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-5",
+      "text": "Ich bin krank.",
+      "path": "/audio/a1-pharmacy-exercise-5.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-6",
+      "text": "Mein Bauch tut weh.",
+      "path": "/audio/a1-pharmacy-exercise-6.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-pharmacy-exercise-7",
+      "text": "Du hast Fieber. Bleib heute im Bett.",
+      "path": "/audio/a1-pharmacy-exercise-7.mp3",
+      "voice": "qwen3:greta"
+    },
+    {
+      "id": "a1-directions-exercise-1",
+      "text": "Wo ist die Gartenstraße?",
+      "path": "/audio/a1-directions-exercise-1.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-2",
+      "text": "Geh links.",
+      "path": "/audio/a1-directions-exercise-2.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-3",
+      "text": "Die Post ist gegenüber vom Café.",
+      "path": "/audio/a1-directions-exercise-3.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-4",
+      "text": "Geh geradeaus, dann rechts.",
+      "path": "/audio/a1-directions-exercise-4.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-5",
+      "text": "Wo ist der Bahnhof?",
+      "path": "/audio/a1-directions-exercise-5.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-6",
+      "text": "Das Haus ist gegenüber vom Park.",
+      "path": "/audio/a1-directions-exercise-6.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-directions-exercise-7",
+      "text": "Nimm die erste Straße links.",
+      "path": "/audio/a1-directions-exercise-7.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-weather-exercise-1",
+      "text": "Wie ist das Wetter morgen?",
+      "path": "/audio/a1-weather-exercise-1.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-2",
+      "text": "Es regnet.",
+      "path": "/audio/a1-weather-exercise-2.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-3",
+      "text": "Heute ist es kalt. Morgen ist es warm.",
+      "path": "/audio/a1-weather-exercise-3.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-4",
+      "text": "Heute ist es kalt.",
+      "path": "/audio/a1-weather-exercise-4.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-5",
+      "text": "Heute ist es warm.",
+      "path": "/audio/a1-weather-exercise-5.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-6",
+      "text": "Der Wind ist stark.",
+      "path": "/audio/a1-weather-exercise-6.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-weather-exercise-7",
+      "text": "Morgen regnet es nicht. Es gibt viel Sonne.",
+      "path": "/audio/a1-weather-exercise-7.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-bike-exercise-1",
+      "text": "Wann ist das Fahrrad fertig?",
+      "path": "/audio/a1-bike-exercise-1.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-2",
+      "text": "Das Fahrrad ist kaputt.",
+      "path": "/audio/a1-bike-exercise-2.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-3",
+      "text": "Das Fahrrad ist morgen fertig.",
+      "path": "/audio/a1-bike-exercise-3.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-4",
+      "text": "Wie viel kostet das?",
+      "path": "/audio/a1-bike-exercise-4.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-5",
+      "text": "Ich bezahle jetzt.",
+      "path": "/audio/a1-bike-exercise-5.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-6",
+      "text": "Kannst du das reparieren?",
+      "path": "/audio/a1-bike-exercise-6.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-bike-exercise-7",
+      "text": "Das macht zwanzig Euro.",
+      "path": "/audio/a1-bike-exercise-7.mp3",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "a1-phone-exercise-1",
+      "text": "Kann ich bitte Otto sprechen?",
+      "path": "/audio/a1-phone-exercise-1.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-2",
+      "text": "Hallo, hier ist Marta.",
+      "path": "/audio/a1-phone-exercise-2.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-3",
+      "text": "Ich buchstabiere meinen Namen.",
+      "path": "/audio/a1-phone-exercise-3.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-4",
+      "text": "Die Nummer ist drei, vier, sieben.",
+      "path": "/audio/a1-phone-exercise-4.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-5",
+      "text": "Ich rufe später an.",
+      "path": "/audio/a1-phone-exercise-5.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-6",
+      "text": "Können Sie das bitte wiederholen?",
+      "path": "/audio/a1-phone-exercise-6.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-phone-exercise-7",
+      "text": "Ich heiße Lina. L, I, N, A.",
+      "path": "/audio/a1-phone-exercise-7.mp3",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "a1-invitation-exercise-1",
+      "text": "Ja, ich komme gern.",
+      "path": "/audio/a1-invitation-exercise-1.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-2",
+      "text": "Das ist nett, danke!",
+      "path": "/audio/a1-invitation-exercise-2.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-3",
+      "text": "Am Freitag um sieben.",
+      "path": "/audio/a1-invitation-exercise-3.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-4",
+      "text": "Die Suppe gibt es um sieben Uhr.",
+      "path": "/audio/a1-invitation-exercise-4.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-5",
+      "text": "Ich bringe Brot mit.",
+      "path": "/audio/a1-invitation-exercise-5.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-6",
+      "text": "Leider habe ich keine Zeit.",
+      "path": "/audio/a1-invitation-exercise-6.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-invitation-exercise-7",
+      "text": "Leider kommt Emil nicht.",
+      "path": "/audio/a1-invitation-exercise-7.mp3",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "a1-lost-found-exercise-1",
+      "text": "Meine Tasche ist blau.",
+      "path": "/audio/a1-lost-found-exercise-1.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-2",
+      "text": "Sie ist groß und alt.",
+      "path": "/audio/a1-lost-found-exercise-2.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-3",
+      "text": "Der Handschuh ist schwarz.",
+      "path": "/audio/a1-lost-found-exercise-3.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-4",
+      "text": "Meine Tasche ist klein und grün.",
+      "path": "/audio/a1-lost-found-exercise-4.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-5",
+      "text": "Das ist nicht meine Tasche.",
+      "path": "/audio/a1-lost-found-exercise-5.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-6",
+      "text": "Das Buch ist neu.",
+      "path": "/audio/a1-lost-found-exercise-6.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-lost-found-exercise-7",
+      "text": "Der Schirm ist gelb.",
+      "path": "/audio/a1-lost-found-exercise-7.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a1-departure-exercise-1",
+      "text": "Eine Fahrkarte nach Waldruh, bitte.",
+      "path": "/audio/a1-departure-exercise-1.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-2",
+      "text": "Hin und zurück, bitte.",
+      "path": "/audio/a1-departure-exercise-2.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-3",
+      "text": "Um wie viel Uhr fährt der Zug?",
+      "path": "/audio/a1-departure-exercise-3.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-4",
+      "text": "Der Zug fährt von Gleis sieben.",
+      "path": "/audio/a1-departure-exercise-4.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-5",
+      "text": "Ich möchte eine Fahrkarte.",
+      "path": "/audio/a1-departure-exercise-5.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-6",
+      "text": "Wo ist Gleis sieben?",
+      "path": "/audio/a1-departure-exercise-6.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-departure-exercise-7",
+      "text": "Der Zug fährt um achtzehn Uhr.",
+      "path": "/audio/a1-departure-exercise-7.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "npc-inspector",
+      "text": "Ihre Fahrkarte, bitte. Das Messingamt prüft jede Reise.",
+      "path": "/audio/npc-inspector.mp3",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "npc-elise",
+      "text": "Du bist gekommen. Lass uns die Namen gemeinsam bewahren.",
+      "path": "/audio/npc-elise.mp3",
+      "voice": "qwen3:elise"
     }
   ]
 }

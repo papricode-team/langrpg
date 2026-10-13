@@ -1,0 +1,58 @@
+{
+  "_comment": "Cast for scripts/tts/qwen_tts.py. 'description' feeds Qwen3-TTS VoiceDesign (English). 'referenceText' is spoken once to create art/source/voices/<speaker>.wav. 'aliases' maps story speaker names to a voice. 'sameVoiceAs' reuses another voice's reference and applies an ffmpeg 'effect'.",
+  "language": "german",
+  "aliases": {
+    "Evidence": "narrator"
+  },
+  "voices": {
+    "otto": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A man around 60, the village stationmaster. Low, slightly gravelly voice, dry, calm, measured and precise delivery, with a faint northern German tone.",
+      "referenceText": "Der Zug nach Lindenhafen fährt um acht Uhr ab. Bitte halten Sie Ihre Fahrkarte bereit. Pünktlichkeit ist hier keine Kunst, sondern eine Gewohnheit."
+    },
+    "marta": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A woman around 50, owner of a café and inn. Warm, friendly, lively, smiling voice with medium-low pitch.",
+      "referenceText": "Guten Tag, kommen Sie herein! Setzen Sie sich ruhig ans Fenster. Der Kuchen ist heute ganz frisch, und der Kaffee ist gleich fertig."
+    },
+    "fritz": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A man around 55, a market trader and cook. Hearty, jovial, round warm voice, speaking a little fast but still clearly.",
+      "referenceText": "Frische Äpfel, frisches Brot, alles direkt vom Feld! Probieren Sie ruhig ein Stück. Heute bekommen Sie zwei Kilo zum Preis von einem."
+    },
+    "lina": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A woman around 25, a postal courier. Bright, crisp, quick and efficient, with very clear articulation.",
+      "referenceText": "Post für Sie, bitte hier unterschreiben. Das Paket kommt aus Hamburg. Ich muss leider gleich weiter, die nächste Lieferung wartet schon."
+    },
+    "emil": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A man around 35, an inventor. Enthusiastic, energetic, slightly higher voice, excitable but still intelligible.",
+      "referenceText": "Sehen Sie nur, die Maschine läuft endlich! Gestern Abend habe ich noch ein kleines Zahnrad ausgetauscht. Jetzt funktioniert alles wunderbar."
+    },
+    "greta": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A woman around 45, a gardener and nurse. Calm, soft, gentle and practical.",
+      "referenceText": "Setzen Sie sich bitte einen Moment hin. Ich hole Ihnen ein Glas Wasser. Ruhen Sie sich aus, es ist nichts Schlimmes."
+    },
+    "ada": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A woman around 40, an archivist. Precise, careful, quiet voice with a dry sense of humour.",
+      "referenceText": "Die Akte liegt im dritten Regal, ganz unten. Bitte fassen Sie nichts an, ohne zu fragen. Ordnung ist mein einziges Hobby, falls Sie sich das gefragt haben."
+    },
+    "inspector": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. Inspector Voss, a man around 50, an official of the Brass Office. Deep, formal, controlled, clipped official tone; he never raises his voice.",
+      "referenceText": "Guten Tag. Mein Name ist Voss, ich komme vom Messingamt. Ich habe einige Fragen an Sie. Bitte antworten Sie kurz und genau."
+    },
+    "elise": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. Elise, a woman around 60, the Keeper of the Atlas. Warm but tired, soft, a little sad.",
+      "referenceText": "Ich habe diesen Atlas sehr lange behütet. Manche Orte vergisst man nie, auch wenn man sie nicht mehr besuchen kann. Es freut mich, dass Sie endlich gekommen sind."
+    },
+    "stimme": {
+      "sameVoiceAs": "elise",
+      "effect": "bandpass",
+      "note": "Elise's voice as a crackly old recording."
+    },
+    "berg": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. Frau Berg, a woman around 75, a retired teacher. Kind, clear, slow, teacherly voice.",
+      "referenceText": "Sehr gut, das war schon fast richtig. Wir wiederholen es noch einmal, langsam und deutlich. Nur Mut, Übung macht den Meister."
+    },
+    "narrator": {
+      "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A neutral, clear, calm adult voice with medium pace, like a documentary narrator.",
+      "referenceText": "Auf dem Zettel steht eine Adresse in der Lindenstraße. Darunter finden sich ein Datum und eine kurze Notiz. Der Brief wurde vor drei Tagen abgestempelt."
+    }
+  }
+}

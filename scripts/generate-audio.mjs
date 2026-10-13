@@ -93,6 +93,8 @@ async function main() {
   let previous;
   try { previous = JSON.parse(await readFile(path.join(outputDirectory, 'manifest.json'), 'utf8')); } catch { /* A first run creates the manifest. */ }
   const previousTexts = new Map((previous?.clips ?? []).map(job => [job.id, job.text]));
+  // Character-voiced clips (scripts/generate-dialogue-audio.mjs) stay unless their German changed.
+  const characterVoiced = new Map((previous?.clips ?? []).filter(job => job.voice?.startsWith('qwen3:')).map(job => [job.id, job]));
   const ids = new Set();
   for (const job of jobs) {
     if (!/^[a-z0-9_-]+$/i.test(job.id)) throw new Error(`Unsafe audio asset ID: ${job.id}`);
@@ -119,7 +121,7 @@ async function main() {
         const destination = path.join(outputDirectory, `${job.id}.mp3`);
         const staged = `${destination}.tmp`;
         try {
-          if (previousTexts.get(job.id) === job.text && (previous?.voices ?? []).includes(voice)) {
+          if (previousTexts.get(job.id) === job.text && ((previous?.voices ?? []).includes(voice) || characterVoiced.has(job.id))) {
             const info = await stat(destination).catch(() => undefined);
             if (info && info.size >= 500) { totalBytes += info.size; completed++; continue; }
           }
@@ -154,7 +156,7 @@ async function main() {
     await writeFile(path.join(outputDirectory, 'manifest.json'), JSON.stringify({
       languagePair: 'de-en', sourceLanguage: 'en', targetLanguage: 'de', voices: [voice],
       rate, generatedAt: new Date().toISOString(),
-      clips: [...new Map([...(previous?.clips ?? []), ...jobs.map(job => ({ ...job, path: `/audio/${job.id}.mp3` }))].map(job => [job.id, job])).values()],
+      clips: [...new Map([...(previous?.clips ?? []), ...jobs.map(job => ({ ...job, path: `/audio/${job.id}.mp3`, ...(characterVoiced.get(job.id)?.text === job.text ? { voice: characterVoiced.get(job.id).voice } : {}) }))].map(job => [job.id, job])).values()],
     }, null, 2) + '\n');
     if (process.argv.includes('--minigames') || process.argv.includes('--minigames-only')) {
       const miniManifest = JSON.stringify({version:1, clips:jobs.filter(job=>job.id.startsWith('minigame-')||job.id.startsWith('expedition-')||job.id.startsWith('story-')).map(job=>({...job,path:`/audio/${job.id}.mp3`}))},null,2)+'\n';
