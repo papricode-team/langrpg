@@ -145,3 +145,23 @@ describe('conversation word lookup', () => {
     expect(f.actions.gloss).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('conversation history', () => {
+  it('keeps earlier lines and chosen replies above the current line and clears on close', () => {
+    const f = fixture({ choices: [{ id: 'yes', german: 'Ja, gern.', english: 'Yes, please.', next: '', effects: [] }] });
+    expect(f.view.host.querySelector('.dialogue-history')).toBeNull();
+    f.view.render({ ...f.presentation, help: true });
+    expect(f.view.host.querySelector('.dialogue-history')).toBeNull();
+    f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-choice="yes"]')!.click();
+    expect(f.actions.choice).toHaveBeenCalledWith('yes');
+    f.view.render({ ...f.presentation, busy: true });
+    f.view.render({ ...f.presentation, choices: [], index: 1, line: { id: 'milk', speaker: 'marta', german: 'Mit Milch?', english: 'With milk?', clipId: 'milk' } });
+    const entries = [...f.view.host.querySelectorAll('.dialogue-history li')].map(li => li.textContent);
+    expect(entries).toEqual(['marta' + 'Möchtest du einen Kaffee?', 'You' + 'Ja, gern.']);
+    expect(f.view.host.querySelector('.dialogue-history')!.nextElementSibling?.classList.contains('dialogue-line')).toBe(true);
+    f.view.close();
+    f.view.render(f.presentation);
+    expect(f.view.host.querySelector('.dialogue-history')).toBeNull();
+  });
+});
+

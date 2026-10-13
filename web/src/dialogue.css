@@ -33,3 +33,9 @@
 .dialogue-choice-prompt{font-size:14px;line-height:1.5;margin:12px 0}.dialogue-choice-prompt small{display:block;color:#adbcab;font-size:12px;margin-top:4px}
 .dialogue-word-gloss{display:block;margin-bottom:4px;font-size:13px;color:#f1dfa8}.dialogue-word-gloss strong{font-family:Fraunces,serif;font-weight:600;margin-right:6px}
 .dialogue-grammar-note{display:block;margin-top:6px;color:#e6d6a6}.dialogue-grammar-note strong{margin-right:4px}
+
+.dialogue-history{list-style:none;margin:14px 0 0;padding:0 4px 0 0;max-height:min(9.5em,22dvh);overflow-y:auto;display:grid;gap:6px;font-size:13px;line-height:1.45;color:#b7c5b1;border-bottom:1px solid #dbc58b30;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:#dbc58b50 transparent}
+.dialogue-history li{display:flex;gap:8px;align-items:baseline}.dialogue-history small{flex:none;font-size:11px;font-weight:600;letter-spacing:.04em;color:#9fb6a4}.dialogue-history span{font-family:Fraunces,serif}
+.dialogue-history li.is-player{justify-content:flex-end;text-align:right;color:#d8c591}.dialogue-history li.is-player small{order:1;color:#b9a774}
+.dialogue-history+.dialogue-line{margin-top:12px}
+@media(max-width:760px){.dialogue-history{max-height:min(7.5em,18dvh);font-size:12px}}
