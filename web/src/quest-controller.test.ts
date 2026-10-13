@@ -370,6 +370,9 @@ it('passes authored expressions to portraits and resets uncued lines to neutral'
   await f.controller.open('a1-cafe');
   expect(f.options.portrait).toHaveBeenLastCalledWith('marta','smile');
   f.click('[data-dialogue-action="next"]');
+  expect(f.options.portrait).toHaveBeenLastCalledWith('marta','neutral');
+  // Marta turns worried when she cannot recall the woman's name.
+  for (let step = 0; step < 6 && f.options.portrait.mock.lastCall?.[1] !== 'worried'; step++) f.click('[data-dialogue-action="next"]');
   expect(f.options.portrait).toHaveBeenLastCalledWith('marta','worried');
   f.click('[data-dialogue-action="next"]');
   expect(f.options.portrait).toHaveBeenLastCalledWith('marta','neutral');
