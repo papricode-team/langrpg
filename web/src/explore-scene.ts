@@ -1,0 +1,1078 @@
+import * as Phaser from 'phaser';
+import { npcs } from './content';
+import type { NavigationGrid, MapPoint } from './navigation';
+import type { WorldObjectSpec, WorldMapSpec } from './maps';
+import { NPC_ART, INTERIOR_CHARACTER_HEIGHT, characterArtScale, createContactShadow } from './character-art';
+import { buildWidth, characterFrame, MODULAR_ART, modularAssets, normalizeParts, partTextureKey } from './avatar-options';
+import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
+import { characterLayers } from './modular-character';
+import { residentWalkFrame } from './resident-animation';
+import { worldDepth } from './world-depth';
+import { regionPeopleKey, regionPeopleFrames } from './world-map-assets';
+import { getExpeditionNpc } from './expeditions';
+import { explorationZoom, conversationZoom } from './world-camera';
+import type { WorldAudio } from './world-audio';
+import { gamepadInput } from './world-gamepad';
+import { FrameTelemetry } from './world-performance';
+import { sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import type { WorldClock, WorldTimeState } from './world-clock';
+import type { CameraBeat } from './cutscene';
+import { createScreenFilter, type ScreenFilterController } from './screen-filters';
+import { emitWorld, followWorld, readWorld, WorldEvents, type Avatar, type WorldPlayer, type WorldStoryState } from './world-state';
+
+export interface Character {
+  id: string;
+  root: Phaser.GameObjects.Container;
+  figure: Phaser.GameObjects.Image;
+  layers: Phaser.GameObjects.Image[];
+  /** Horizontal build scale per modular layer, cached when the avatar changes. */
+  layerWidths: number[];
+  shadow: Phaser.GameObjects.Image;
+  name: Phaser.GameObjects.Text;
+  role?: Phaser.GameObjects.Text;
+  marker?: Phaser.GameObjects.Text;
+  halo?: Phaser.GameObjects.Ellipse;
+  hint?: Phaser.GameObjects.Text;
+  x: number;
+  y: number;
+  targetX: number;
+  targetY: number;
+  phase: number;
+  facing: number;
+  walkDistance: number;
+  lastWalkTime?: number;
+  frame: number;
+  npc: boolean;
+  artScale: number;
+  breathe: number;
+  avatar: Avatar;
+  hovered?: boolean;
+  interactionId?: string;
+  idleAnimation?: SceneryAnimation;
+  walkingAnimation?: SceneryAnimation;
+  idleFrame?: string;
+  localArtVariant?: number;
+  castRow?: number;
+}
+
+export interface WorldObject {
+  spec: WorldObjectSpec;
+  x: number;
+  y: number;
+  root: Phaser.GameObjects.Container;
+  halo: Phaser.GameObjects.Ellipse;
+  marker: Phaser.GameObjects.Image;
+  label: Phaser.GameObjects.Text;
+  hit: Phaser.GameObjects.Zone;
+  hovered: boolean;
+  activatedUntil: number;
+  interactionId: string;
+}
+
+export interface WorldPortal {
+  id: string;
+  x: number;
+  y: number;
+  root: Phaser.GameObjects.Container;
+  halo: Phaser.GameObjects.Ellipse;
+  label: Phaser.GameObjects.Text;
+  glyph: Phaser.GameObjects.Text;
+  hit: Phaser.GameObjects.Zone;
+  hovered: boolean;
+}
+
+export interface ResidentGait { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }
+
+export const WALK_SPEED = 225;
+export const INTERACTION_DISTANCE = 140;
+export const DEFAULT_AVATAR: Avatar = { hair: '#4d3229', skin: '#dfad85', outfit: '#497d75' };
+const COLORS: Record<string, string> = {
+  chestnut: '#62412f', brown: '#62412f', black: '#302b2d', blonde: '#d7ae61', auburn: '#9e543f',
+  silver: '#d0c9b9', fair: '#ecc4a2', light: '#ecc4a2', medium: '#c18b60', tan: '#b07a55',
+  dark: '#744c38', teal: '#477e77', sage: '#75855f', blue: '#4e729a', green: '#59704f',
+  purple: '#797197', red: '#a55c50', gold: '#b18b4d', ivory: '#e6d5b0',
+};
+export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+const color = (value: string, fallback: string) => /^#[0-9a-f]{6}$/i.test(value) ? value : COLORS[value] || fallback;
+const legacyAvatarKey = (avatar: Avatar) => `${color(avatar.hair, DEFAULT_AVATAR.hair)}:${color(avatar.skin, DEFAULT_AVATAR.skin)}:${color(avatar.outfit, DEFAULT_AVATAR.outfit)}`;
+export const avatarKey = (avatar: Avatar) => JSON.stringify([legacyAvatarKey(avatar), avatar.face, avatar.hairstyle, avatar.jacket, avatar.bottom, avatar.build, avatar.pants]);
+export const isTyping = () => {
+  const focused = typeof document === 'undefined' ? null : document.activeElement;
+  return typeof HTMLElement !== 'undefined' && focused instanceof HTMLElement && (focused.matches('input, textarea, select') || focused.isContentEditable);
+};
+
+/** Walking, talking and the camera: everything an outdoor map and a room share. */
+export abstract class ExploreScene extends Phaser.Scene {
+  ready = false;
+  protected local!: Character;
+  protected peers = new Map<string, Character>();
+  protected characters = new Map<string, Character>();
+  protected objects = new Map<string, WorldObject>();
+  protected portals = new Map<string, WorldPortal>();
+  protected navigation!: NavigationGrid;
+  protected clock!: WorldClock;
+  protected audio?: WorldAudio;
+  protected storyState: WorldStoryState = { completedQuestIds: [], bellCount: 0 };
+  protected conversationTarget?: string;
+  protected cinematicTarget?: CameraBeat;
+  protected objective?: string;
+  protected density = 1;
+  protected coverZoom = 1;
+  protected fitZoom = 1;
+  protected mobileCamera = false;
+  protected elapsed = 0;
+  protected decorativeElapsed = 0;
+  protected controlsEnabled = false;
+  protected inputAllowed = false;
+  protected windowFocused = true;
+  protected queuedKeyboardInteraction = false;
+  protected joystick: MapPoint = { x: 0, y: 0 };
+  protected smoothJoystick: MapPoint = { x: 0, y: 0 };
+  protected nearbyInteraction?: string;
+  protected cameraLead: MapPoint = { x: 0, y: 0 };
+  protected playerArtReady = false;
+  protected screenFilter?: ScreenFilterController;
+  protected watching = false;
+  protected terrainOnly = false;
+  protected tourTime = 0;
+  protected reducedMotion = false;
+  protected keys?: Record<string, Phaser.Input.Keyboard.Key>;
+  protected target?: MapPoint;
+  protected waypoints: MapPoint[] = [];
+  protected pendingInteraction?: string;
+  protected marker!: Phaser.GameObjects.Container;
+  protected lastX = -1;
+  protected lastY = -1;
+  protected initializedSelf = false;
+  protected frames = new FrameTelemetry();
+  /** Set while another scene takes over (a room opening); cleared when this scene resumes. */
+  protected suspended = false;
+  /** The camera follows this point; each mode decides where it should be. */
+  protected focus = new Phaser.Math.Vector2();
+  private padMove: MapPoint = { x: 0, y: 0 };
+  private markerTweens: Phaser.Tweens.Tween[] = [];
+
+  abstract get worldWidth(): number;
+  abstract get worldHeight(): number;
+  /** The region whose painted locals and props this scene shows. */
+  protected regionId = 'lindenhafen';
+  /** Prefix for objects addressed by bare ID from menus and quest leads. */
+  protected abstract readonly objectPrefix: 'object' | 'interior';
+  protected abstract createNavigation(): NavigationGrid;
+  protected abstract spawnPoint(): MapPoint;
+  protected abstract spawnFacing(): number;
+  /** Build the room or map once its assets are loaded. */
+  protected abstract buildScene(): void;
+  /** A portal was reached: a doorway outdoors, the exit indoors. */
+  protected abstract usePortal(id: string): void;
+  /** Subclasses add their own per-frame systems after shared movement. */
+  protected abstract updateScene(seconds: number): void;
+  /** Bodies inside rooms use the room painting's adult height. */
+  protected get indoor(): boolean { return false; }
+  protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
+
+  /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
+  init(_data?: unknown): void {
+    this.ready = false;
+    this.peers = new Map(); this.characters = new Map(); this.objects = new Map(); this.portals = new Map();
+    this.target = undefined; this.waypoints = []; this.pendingInteraction = undefined; this.nearbyInteraction = undefined;
+    this.lastX = this.lastY = -1; this.initializedSelf = false; this.elapsed = 0; this.decorativeElapsed = 0;
+    this.queuedKeyboardInteraction = false; this.joystick = { x: 0, y: 0 }; this.smoothJoystick = { x: 0, y: 0 };
+    this.cameraLead = { x: 0, y: 0 }; this.tourTime = 0; this.markerTweens = []; this.frames = new FrameTelemetry(); this.suspended = false;
+  }
+
+  create(): void {
+    const registry = this.registry;
+    this.clock = readWorld(registry, 'clock');
+    this.audio = readWorld(registry, 'audio');
+    this.density = readWorld(registry, 'density') ?? 1;
+    this.storyState = readWorld(registry, 'storyState');
+    this.objective = readWorld(registry, 'objective');
+    this.reducedMotion = readWorld(registry, 'reducedMotion');
+    this.watching = readWorld(registry, 'watching');
+    this.terrainOnly = readWorld(registry, 'terrainOnly');
+    this.inputAllowed = readWorld(registry, 'inputEnabled');
+    this.windowFocused = readWorld(registry, 'windowFocused');
+    this.cinematicTarget = readWorld(registry, 'cinematicBeat');
+    this.navigation = this.createNavigation();
+    createContactShadow(this);
+    createDiscoveryTexture(this);
+    this.playerArtReady = modularAssets.every(asset => this.textures.exists(partTextureKey(asset.id, '')));
+    this.screenFilter = createScreenFilter(this);
+    this.screenFilter?.configure(readWorld(registry, 'screenFilter'));
+    this.marker = this.add.container(0, 0, [
+      this.add.ellipse(0, 0, 37, 18).setStrokeStyle(1.5, 0xf5e4ac, 0.8),
+      this.add.ellipse(0, 0, 6, 3, 0xf5e4ac, 0.8),
+    ]).setDepth(1).setVisible(false);
+    const spawn = this.spawnPoint();
+    this.navigation.prepareReachability(spawn);
+    this.local = this.createCharacter('self', 'You', spawn.x, spawn.y, readWorld(registry, 'avatar') ?? DEFAULT_AVATAR);
+    this.local.facing = this.spawnFacing();
+    this.local.name.setColor('#fff2ca');
+    this.local.root.addAt(this.add.ellipse(0, 1, 31, 15).setStrokeStyle(1, 0xf6dd9a, 0.55), 1);
+    this.bindInput();
+    this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
+    this.cameras.main.startFollow(this.focus, false, 1, 1);
+    this.buildScene();
+    this.followRegistry();
+    this.applyConversationTarget(readWorld(registry, 'conversationTarget'));
+    const snapshot = readWorld(registry, 'players');
+    if (snapshot) this.syncPlayers(snapshot.players, snapshot.selfId);
+    this.scale.on(Phaser.Scale.Events.RESIZE, this.handleResize, this);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.ready = false;
+      this.scale.off(Phaser.Scale.Events.RESIZE, this.handleResize, this);
+      this.input.gamepad?.off('down', this.handlePadDown, this);
+    });
+    this.refreshControls();
+    this.applyMarkerMotion();
+    this.fitCamera(this.scale.width, this.scale.height, this.density);
+    this.ready = true;
+    // Subclasses finish their own create first; announce on the next tick of this scene's clock.
+    this.time.delayedCall(0, () => emitWorld(this.game, WorldEvents.ExploreReady, this.sys.settings.key));
+  }
+
+  private followRegistry(): void {
+    followWorld(this, 'players', snapshot => this.syncPlayers(snapshot.players, snapshot.selfId));
+    followWorld(this, 'avatar', avatar => this.changeAvatar(avatar));
+    followWorld(this, 'objective', id => { this.objective = id; });
+    followWorld(this, 'storyState', state => this.setStoryState(state));
+    followWorld(this, 'conversationTarget', id => this.applyConversationTarget(id));
+    followWorld(this, 'cinematicBeat', beat => { this.cinematicTarget = beat; this.refreshControls(); });
+    followWorld(this, 'inputEnabled', enabled => { this.inputAllowed = enabled; this.refreshControls(); });
+    followWorld(this, 'windowFocused', focused => { this.windowFocused = focused; this.refreshControls(); });
+    followWorld(this, 'reducedMotion', reduced => this.setReducedMotion(reduced));
+    followWorld(this, 'watching', watching => this.setWatchMode(watching));
+    followWorld(this, 'terrainOnly', terrainOnly => this.setTerrainOnly(terrainOnly));
+    followWorld(this, 'screenFilter', settings => this.screenFilter?.configure(settings));
+    followWorld(this, 'density', density => { this.density = density; });
+  }
+
+  private bindInput(): void {
+    this.keys = this.input.keyboard?.addKeys({
+      up: Phaser.Input.Keyboard.KeyCodes.W, down: Phaser.Input.Keyboard.KeyCodes.S,
+      left: Phaser.Input.Keyboard.KeyCodes.A, right: Phaser.Input.Keyboard.KeyCodes.D,
+      arrowUp: Phaser.Input.Keyboard.KeyCodes.UP, arrowDown: Phaser.Input.Keyboard.KeyCodes.DOWN,
+      arrowLeft: Phaser.Input.Keyboard.KeyCodes.LEFT, arrowRight: Phaser.Input.Keyboard.KeyCodes.RIGHT,
+      interact: Phaser.Input.Keyboard.KeyCodes.E,
+    }, false) as Record<string, Phaser.Input.Keyboard.Key> | undefined;
+    // A key event keeps a short tap that ends before the next frame polls it.
+    this.keys?.interact.on('down', (_key: Phaser.Input.Keyboard.Key, event?: KeyboardEvent) => {
+      if (!event?.repeat && !isTyping()) this.queueKeyboardInteraction();
+    });
+    this.input.gamepad?.on('down', this.handlePadDown, this);
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, objects: Phaser.GameObjects.GameObject[]) => {
+      if (!this.controlsEnabled || this.watching || objects.length || pointer.rightButtonDown()) return;
+      const destination = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
+      this.walkTo(destination.x, destination.y);
+    });
+  }
+
+  private handlePadDown(_pad: Phaser.Input.Gamepad.Gamepad, button: Phaser.Input.Gamepad.Button): void {
+    if (button.index === 0) this.queueKeyboardInteraction();
+  }
+
+  private handleResize(gameSize: Phaser.Structs.Size): void {
+    this.fitCamera(gameSize.width, gameSize.height, this.density);
+  }
+
+  /** The registry permission, window focus and transient scene states all gate control. */
+  protected refreshControls(): void {
+    const enabled = this.inputAllowed && this.windowFocused && !this.cinematicTarget && !this.controlsHeld();
+    if (enabled === this.controlsEnabled) { if (!enabled) this.clearControls(); return; }
+    this.controlsEnabled = enabled;
+    if (this.input.keyboard) this.input.keyboard.enabled = enabled;
+    if (!enabled) this.clearControls();
+    this.refreshNearby();
+  }
+  /** Doorway walk-ins and similar short transitions hold input. */
+  protected controlsHeld(): boolean { return false; }
+
+  setJoystick(x: number, y: number): void {
+    const length = Math.hypot(x, y);
+    if (!this.controlsEnabled || length <= 0.12) {
+      this.joystick = { x: 0, y: 0 };
+      this.smoothJoystick = { x: 0, y: 0 };
+      return;
+    }
+    const strength = clamp((Math.min(length, 1) - 0.12) / 0.88, 0, 1);
+    this.joystick = { x: x / length * strength, y: y / length * strength };
+    this.cancelRoute();
+  }
+
+  clearControls(): void {
+    this.queuedKeyboardInteraction = false;
+    this.joystick = { x: 0, y: 0 };
+    this.smoothJoystick = { x: 0, y: 0 };
+    this.input?.keyboard?.resetKeys();
+    this.cancelRoute();
+    this.setNearby(undefined);
+  }
+
+  interactNearest(): boolean {
+    if (!this.controlsEnabled || this.watching) return false;
+    const nearest = this.findNearestInteraction();
+    if (!nearest) return false;
+    this.approachInteraction(nearest.id);
+    return true;
+  }
+
+  queueKeyboardInteraction(): void {
+    if (this.controlsEnabled) this.queuedKeyboardInteraction = true;
+  }
+
+  protected cancelRoute(): void {
+    this.target = undefined;
+    this.waypoints = [];
+    this.pendingInteraction = undefined;
+    this.marker?.setVisible(false);
+  }
+
+  protected characterRevealed(character: Character): boolean {
+    if (character.id === this.conversationTarget) return true; // A reader can finish after visiting hours.
+    return character.id !== 'elise' || this.storyState.completedQuestIds.includes('b1-storm');
+  }
+  protected objectAvailable(_object: WorldObject): boolean { return true; }
+
+  protected findNearestInteraction(): { id: string; x: number; y: number } | undefined {
+    let nearest: { id: string; x: number; y: number } | undefined;
+    let distance = INTERACTION_DISTANCE;
+    for (const npc of this.characters.values()) {
+      if (!this.characterRevealed(npc)) continue;
+      const separation = Math.hypot(npc.x - this.local.x, npc.y - this.local.y);
+      if (separation < distance) { distance = separation; nearest = { id: npc.interactionId ?? npc.id, x: npc.x, y: npc.y }; }
+    }
+    for (const object of this.objects.values()) {
+      if (!this.objectAvailable(object)) continue;
+      const separation = Math.hypot(object.x - this.local.x, object.y - this.local.y);
+      if (separation < distance) { distance = separation; nearest = { id: object.interactionId, x: object.x, y: object.y }; }
+    }
+    for (const portal of this.portals.values()) {
+      const separation = Math.hypot(portal.x - this.local.x, portal.y - this.local.y);
+      if (separation < distance) { distance = separation; nearest = { id: portal.id, x: portal.x, y: portal.y }; }
+    }
+    return nearest;
+  }
+
+  private setNearby(id: string | undefined): void {
+    if (id === this.nearbyInteraction) return;
+    this.nearbyInteraction = id;
+    emitWorld(this.game, WorldEvents.Nearby, id);
+  }
+
+  protected refreshNearby(): void {
+    if (!this.local) return;
+    this.setNearby(this.controlsEnabled && !this.watching ? this.findNearestInteraction()?.id : undefined);
+  }
+
+  changeAvatar(avatar: Avatar): void {
+    if (!this.local || avatarKey(this.local.avatar) === avatarKey(avatar)) return;
+    this.local.avatar = avatar;
+    this.tintCharacter(this.local);
+  }
+
+  setStoryState(state: WorldStoryState): void {
+    this.storyState = state;
+    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) npc.root.setVisible(false);
+    this.refreshNearby();
+  }
+
+  protected applyConversationTarget(id: string | undefined): void {
+    const npc = id ? this.characters.get(id) : undefined;
+    this.conversationTarget = npc && this.characterRevealed(npc) ? id : undefined;
+    if (npc && this.local && this.characterRevealed(npc)) this.faceCharacters(this.local, npc);
+  }
+
+  protected faceCharacters(player: Character, npc: Character): void {
+    const dx = npc.x - player.x, dy = npc.y - player.y;
+    player.facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 0 : 2;
+    if (!player.npc && this.playerArtReady) this.setCharacterFrame(player, characterFrame(player.facing));
+    npc.facing = (player.facing + 2) % 4;
+    if (!npc.npc && this.playerArtReady) this.setCharacterFrame(npc, characterFrame(npc.facing));
+  }
+
+  setReducedMotion(reduced: boolean): void {
+    this.reducedMotion = reduced;
+    this.applyMarkerMotion();
+  }
+
+  setWatchMode(watching: boolean): void {
+    this.watching = watching;
+    this.tourTime = 0;
+    this.clearControls();
+    this.local?.root.setVisible(!watching && !this.terrainOnly);
+    this.snapCamera();
+  }
+
+  setTerrainOnly(terrainOnly: boolean): void {
+    this.terrainOnly = terrainOnly;
+    this.local?.root.setVisible(!terrainOnly && !this.watching);
+    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly && this.characterRevealed(character));
+    for (const character of this.peers.values()) character.root.setVisible(!terrainOnly);
+  }
+
+  /** A snapshot is authoritative for peers; the local player only snaps on first sight or large drift. */
+  syncPlayers(players: readonly WorldPlayer[], selfId: string): void {
+    const present = new Set<string>();
+    for (const player of players) {
+      if (!this.ownsPlayer(player)) continue;
+      if (!Number.isFinite(player.x) || !Number.isFinite(player.y)) continue;
+      const rawX = clamp(player.x * this.worldWidth, 14, this.worldWidth - 14);
+      const rawY = clamp(player.y * this.worldHeight, 14, this.worldHeight - 14);
+      const { x, y } = this.navigation.closestPoint(rawX, rawY);
+      if (player.id === selfId) {
+        this.local.name.setText(player.name || 'You');
+        if (!this.initializedSelf) {
+          this.local.x = x;
+          this.local.y = y;
+          this.local.root.setPosition(x, y);
+          this.initializedSelf = true;
+          this.snapCamera();
+        } else if (Math.hypot(this.local.x - x, this.local.y - y) > 230) {
+          this.local.x = x;
+          this.local.y = y;
+        }
+        continue;
+      }
+      present.add(player.id);
+      let peer = this.peers.get(player.id);
+      if (!peer) {
+        peer = this.createCharacter(player.id, player.name, x, y, player.avatar || DEFAULT_AVATAR);
+        peer.name.setColor('#e1ecd9');
+        peer.root.setVisible(!this.terrainOnly);
+        this.peers.set(player.id, peer);
+      }
+      peer.targetX = x;
+      peer.targetY = y;
+      peer.name.setText(player.name);
+      if (player.avatar && avatarKey(peer.avatar) !== avatarKey(player.avatar)) {
+        peer.avatar = player.avatar;
+        this.tintCharacter(peer);
+      }
+    }
+    for (const [id, peer] of this.peers) {
+      if (!present.has(id)) { peer.root.destroy(); this.peers.delete(id); }
+    }
+  }
+  /** Each scene shows only the players standing in its own map and room. */
+  protected abstract ownsPlayer(player: WorldPlayer): boolean;
+
+  resetPlayerPosition(): void {
+    this.initializedSelf = false;
+    this.lastX = this.lastY = -1;
+  }
+
+  approachNpc(id: string): void {
+    this.approachInteraction(this.characters.get(id)?.interactionId ?? id);
+  }
+
+  approachObject(id: string): void {
+    this.approachInteraction(id.includes(':') ? id : `${this.objectPrefix}:${id}`);
+  }
+
+  protected interactionPosition(id: string): MapPoint | undefined {
+    const portal = this.portals.get(id);
+    if (portal) return portal;
+    if (id.startsWith('object:')) return this.objects.get(id.slice(7));
+    const character = this.characters.get(id);
+    return character && this.characterRevealed(character) ? character : undefined;
+  }
+
+  protected triggerInteraction(id: string): void {
+    this.cancelRoute();
+    if (this.portals.has(id)) { this.usePortal(id); return; }
+    if (id.startsWith('object:')) {
+      const object = this.objects.get(id.slice(7));
+      if (!object) return;
+      object.activatedUntil = this.elapsed + 4;
+      if (object.spec.id.startsWith('lantern-drill-') && object.spec.minigame) { emitWorld(this.game, WorldEvents.MiniGame, object.spec.minigame); return; }
+      emitWorld(this.game, WorldEvents.Object, object.spec.id);
+      return;
+    }
+    const npc = this.characters.get(id);
+    if (!npc || !this.characterRevealed(npc)) return;
+    this.faceCharacters(this.local, npc);
+    emitWorld(this.game, WorldEvents.Npc, id);
+  }
+
+  protected approachInteraction(id: string): void {
+    if (!this.controlsEnabled || this.watching) return;
+    const target = this.interactionPosition(id);
+    if (!target) return;
+    if (Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) {
+      this.triggerInteraction(id);
+      return;
+    }
+    const angle = Math.atan2(this.local.y - target.y, this.local.x - target.x);
+    // Prefer the offset on this side of the target, else any connected ground within speaking distance.
+    let approach = this.navigation.closestPoint(target.x + Math.cos(angle) * 58, target.y + Math.sin(angle) * 58, this.local);
+    if (Math.hypot(approach.x - target.x, approach.y - target.y) > INTERACTION_DISTANCE) approach = this.navigation.closestPoint(target.x, target.y, this.local);
+    if (Math.hypot(approach.x - target.x, approach.y - target.y) > INTERACTION_DISTANCE) { this.cancelRoute(); return; }
+    if (this.walkTo(approach.x, approach.y)) this.pendingInteraction = id;
+  }
+
+  protected walkTo(x: number, y: number): boolean {
+    this.pendingInteraction = undefined;
+    const requested = this.navigation.closestPoint(x, y, this.local);
+    const path = this.navigation.findPath(this.local, requested);
+    if (!path.length) {
+      this.target = undefined;
+      this.waypoints = [];
+      this.marker.setVisible(false);
+      return false;
+    }
+    this.target = path[0];
+    this.waypoints = path.slice(1);
+    const destination = path[path.length - 1];
+    this.marker.setPosition(destination.x, destination.y).setAlpha(0.9).setVisible(true);
+    return true;
+  }
+
+  update(_time: number, delta: number): void {
+    if (!this.ready || this.suspended) return;
+    this.frames.add(delta);
+    const seconds = Math.min(delta, 50) / 1000;
+    this.elapsed += seconds;
+    if (!this.reducedMotion) this.decorativeElapsed += seconds;
+    const step = this.movePlayer(seconds);
+    this.audio?.footsteps(Math.hypot(step.dx, step.dy), this.indoor);
+    this.audio?.update(seconds);
+    // The final walk frame must be painted before the conversation turns both
+    // people toward each other; otherwise that step overwrites their facing.
+    if (step.arrived) {
+      const target = this.interactionPosition(step.arrived);
+      if (target && Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) this.triggerInteraction(step.arrived);
+    }
+    // An interaction can hand the frame to another scene; this one stops for the rest of it.
+    if (!this.ready || this.suspended) return;
+    this.sendPosition();
+    const labelScale = this.labelScale;
+    this.local.name.setScale(labelScale).setVisible(this.controlsEnabled && !this.conversationTarget && !this.cinematicTarget);
+    this.updateCharacters(seconds);
+    this.updatePeers(seconds);
+    this.tickClock(seconds);
+    this.updateScene(seconds);
+    this.updateObjects(this.elapsed);
+    this.updatePortals();
+    if (this.watching && !this.reducedMotion) this.tourTime += seconds;
+    this.refreshNearby();
+    const lead = 1 - Math.exp(-5 * seconds);
+    this.cameraLead.x += ((step.moving ? step.vx * 80 : 0) - this.cameraLead.x) * lead;
+    this.cameraLead.y += ((step.moving ? step.vy * 48 : 0) - this.cameraLead.y) * lead;
+    this.frameCamera(seconds);
+  }
+
+  protected get labelScale(): number { return this.density / (this.cameras.main.zoom || 1); }
+
+  /** Keyboard, pad, stick and click-to-walk resolve into one step against the navigation grid. */
+  private movePlayer(seconds: number): { dx: number; dy: number; vx: number; vy: number; moving: boolean; arrived?: string } {
+    let vx = 0, vy = 0, arrived: string | undefined;
+    const previousX = this.local.x, previousY = this.local.y;
+    const keys = this.keys;
+    const pad = gamepadInput(this.input.gamepad?.pad1 ? [this.input.gamepad.pad1.pad] : []);
+    this.padMove = { x: pad.x, y: pad.y };
+    const pressedInteract = this.queuedKeyboardInteraction;
+    this.queuedKeyboardInteraction = false;
+    const typing = isTyping();
+    if (this.controlsEnabled && keys && !typing) {
+      vx = Number(keys.right.isDown || keys.arrowRight.isDown) - Number(keys.left.isDown || keys.arrowLeft.isDown);
+      vy = Number(keys.down.isDown || keys.arrowDown.isDown) - Number(keys.up.isDown || keys.arrowUp.isDown);
+      if (vx || vy) {
+        const length = Math.hypot(vx, vy);
+        vx /= length; vy /= length;
+        this.cancelRoute();
+      }
+    }
+    if (this.controlsEnabled && !typing) {
+      if (!vx && !vy && (this.padMove.x || this.padMove.y)) { vx = this.padMove.x; vy = this.padMove.y; this.cancelRoute(); }
+      if (pressedInteract) this.interactNearest();
+    }
+    if (this.controlsEnabled && !vx && !vy && (this.joystick.x || this.joystick.y)) {
+      const smooth = 1 - Math.exp(-18 * seconds);
+      this.smoothJoystick.x += (this.joystick.x - this.smoothJoystick.x) * smooth;
+      this.smoothJoystick.y += (this.joystick.y - this.smoothJoystick.y) * smooth;
+      vx = this.smoothJoystick.x; vy = this.smoothJoystick.y;
+      this.cancelRoute();
+    }
+    if (!this.controlsEnabled || this.watching) { vx = 0; vy = 0; }
+    if (vx || vy) {
+      const next = this.navigation.move(this.local, { x: vx * WALK_SPEED * seconds, y: vy * WALK_SPEED * seconds });
+      this.local.x = next.x; this.local.y = next.y;
+    } else if (this.controlsEnabled && !this.watching && this.target) {
+      // Spend the same movement budget across waypoints, including the final
+      // short step. Every route step uses the same swept body as held input.
+      let remaining = WALK_SPEED * seconds;
+      while (this.target && remaining > 0) {
+        const dx = this.target.x - this.local.x, dy = this.target.y - this.local.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 1e-6) {
+          const step = Math.min(distance, remaining);
+          const expected = { x: this.local.x + dx / distance * step, y: this.local.y + dy / distance * step };
+          const next = this.navigation.move(this.local, { x: expected.x - this.local.x, y: expected.y - this.local.y });
+          this.local.x = next.x; this.local.y = next.y;
+          remaining -= step;
+          // A changed map can invalidate an active route. Clear its marker and
+          // interaction instead of retrying a blocked waypoint forever.
+          if (Math.hypot(next.x - expected.x, next.y - expected.y) > 0.1) { this.cancelRoute(); break; }
+          if (Math.hypot(this.target.x - next.x, this.target.y - next.y) > 1e-6) break;
+        }
+        this.target = this.waypoints.shift();
+        if (!this.target) {
+          this.marker.setVisible(false);
+          arrived = this.pendingInteraction;
+          this.pendingInteraction = undefined;
+        }
+      }
+    }
+    const dx = this.local.x - previousX, dy = this.local.y - previousY;
+    // Camera anticipation follows actual wall sliding rather than the part of
+    // the input vector stopped by a wall.
+    vx = seconds ? dx / (WALK_SPEED * seconds) : 0;
+    vy = seconds ? dy / (WALK_SPEED * seconds) : 0;
+    const moving = Math.hypot(dx, dy) > 0.05;
+    this.animateCharacter(this.local, dx, dy, this.elapsed);
+    return { dx, dy, vx, vy, moving, arrived };
+  }
+
+  private nextSendAt = 0;
+  private sendPosition(): void {
+    if (this.elapsed < this.nextSendAt) return;
+    const x = this.local.x / this.worldWidth, y = this.local.y / this.worldHeight;
+    if (Math.hypot((x - this.lastX) * this.worldWidth, (y - this.lastY) * this.worldHeight) <= 0.4) return;
+    this.nextSendAt = this.elapsed + 1 / 15;
+    this.lastX = x; this.lastY = y;
+    emitWorld(this.game, WorldEvents.Move, x, y);
+  }
+
+  /** Story characters; the outdoor map adds daily routines through this hook. */
+  protected routineStep(_npc: Character, _seconds: number): MapPoint { return { x: 0, y: 0 }; }
+  protected afterCharacter(_npc: Character): void {}
+
+  private updateCharacters(seconds: number): void {
+    const view = this.cameras.main.worldView, labelScale = this.labelScale;
+    for (const npc of this.characters.values()) {
+      const step = npc.id === this.conversationTarget ? { x: 0, y: 0 } : this.routineStep(npc, seconds);
+      const visible = npc.x >= view.x - 100 && npc.x <= view.right + 100 && npc.y >= view.y - 110 && npc.y <= view.bottom + 100;
+      const revealed = this.characterRevealed(npc);
+      npc.root.setVisible(visible && revealed && !this.terrainOnly);
+      if (!visible || !revealed) continue;
+      this.animateCharacter(npc, step.x, step.y, this.elapsed + npc.phase);
+      const near = this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
+      const show = this.controlsEnabled && (near || !!npc.hovered);
+      npc.halo?.setVisible(show).setAlpha(near ? 1 : .65);
+      npc.name.setScale(labelScale).setVisible(show);
+      npc.role?.setScale(labelScale).setVisible(show && !this.mobileCamera);
+      npc.hint?.setScale(labelScale).setVisible(show);
+      npc.marker?.setVisible(!this.watching && !this.indoor && this.objective === npc.id && !show);
+      this.afterCharacter(npc);
+    }
+  }
+
+  private updatePeers(seconds: number): void {
+    const interpolation = 1 - Math.exp(-12 * seconds), labelScale = this.labelScale;
+    for (const peer of this.peers.values()) {
+      const dx = (peer.targetX - peer.x) * interpolation, dy = (peer.targetY - peer.y) * interpolation;
+      peer.x += dx; peer.y += dy;
+      this.animateCharacter(peer, dx, dy, this.elapsed + peer.phase, WALK_SPEED * seconds);
+      peer.name.setScale(labelScale).setVisible(this.controlsEnabled && (Math.hypot(peer.x - this.local.x, peer.y - this.local.y) < 180 || !!peer.hovered));
+    }
+  }
+
+  private lastClockLabel = '';
+  /** One shared clock; each label change is announced once for the HUD. */
+  protected tickClock(seconds: number): WorldTimeState {
+    const state = this.clock.advance(seconds);
+    this.audio?.setHour(state.hour);
+    const label = state.label + state.period + state.mode;
+    if (label !== this.lastClockLabel) {
+      this.lastClockLabel = label;
+      emitWorld(this.game, WorldEvents.Time, state);
+    }
+    return state;
+  }
+
+  private updatePortals(): void {
+    const view = this.cameras.main.worldView, scale = Math.min(2, this.density) / this.cameras.main.zoom;
+    for (const portal of this.portals.values()) {
+      const visible = portal.x >= view.x - 100 && portal.x <= view.right + 100 && portal.y >= view.y - 100 && portal.y <= view.bottom + 100;
+      portal.root.setVisible(visible && !this.terrainOnly);
+      const near = this.controlsEnabled && Math.hypot(portal.x - this.local.x, portal.y - this.local.y) < INTERACTION_DISTANCE;
+      const lit = near || portal.hovered;
+      // The halo breathes through a tween while lit; the state only decides whether it is lit.
+      if (portal.halo.getData('lit') !== lit) {
+        portal.halo.setData('lit', lit);
+        this.tweens.killTweensOf(portal.halo);
+        portal.halo.setAlpha(lit ? .42 : .12);
+        if (lit && !this.reducedMotion) this.tweens.add({ targets: portal.halo, alpha: .5, duration: 1050, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      }
+      portal.glyph.setVisible(lit);
+      portal.label.setVisible(lit && !this.conversationTarget);
+      portal.label.setScale(scale);
+    }
+  }
+
+  private updateObjects(time: number): void {
+    const view = this.cameras.main.worldView, scale = Math.min(2, this.density) / this.cameras.main.zoom;
+    const nearestId = this.indoor ? this.findNearestInteraction()?.id : undefined;
+    for (const object of this.objects.values()) {
+      const visible = object.x >= view.x - 100 && object.x <= view.right + 100 && object.y >= view.y - 100 && object.y <= view.bottom + 100;
+      const available = this.objectAvailable(object);
+      object.root.setVisible(visible && available && !this.terrainOnly && !this.watching);
+      if (!visible || !available) continue;
+      const near = this.controlsEnabled && Math.hypot(object.x - this.local.x, object.y - this.local.y) < INTERACTION_DISTANCE;
+      const highlighted = this.controlsEnabled && (near || object.hovered);
+      const objective = this.objective === object.spec.id || this.objective === `object:${object.spec.id}`;
+      const active = Math.max(objective ? .6 : 0, Math.max(0, object.activatedUntil - time) / 4);
+      object.label.setVisible(highlighted && (!this.indoor || object.hovered || nearestId === object.interactionId));
+      object.label.setScale(scale);
+      object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setScale(this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15);
+      // The idle bob and glow run as tweens on the marker's container; state adds emphasis.
+      object.marker.setAlpha(highlighted ? .95 : .58 + active * .3);
+      object.marker.setScale(.65 + active * .4);
+    }
+  }
+
+  /** Idle ambient motion is tween-driven so it pauses with the scene and stops for reduced motion. */
+  protected applyMarkerMotion(): void {
+    for (const tween of this.markerTweens) tween.remove();
+    this.markerTweens = [];
+    if (!this.marker) return;
+    this.marker.setScale(1);
+    for (const object of this.objects.values()) object.marker.setY(-8);
+    for (const npc of this.characters.values()) npc.marker?.setY(-96);
+    if (this.reducedMotion) return;
+    this.markerTweens.push(this.tweens.add({ targets: this.marker, scale: 1.04, duration: 785, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }));
+    for (const object of this.objects.values()) {
+      this.markerTweens.push(this.tweens.add({ targets: object.marker, y: -6.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: (object.x / 170 % 3.14) * 500 }));
+    }
+    for (const npc of this.characters.values()) {
+      if (npc.marker) this.markerTweens.push(this.tweens.add({ targets: npc.marker, y: -94.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: npc.phase * 250 }));
+    }
+  }
+
+  // Camera ------------------------------------------------------------------
+
+  fitCamera(width: number, height: number, density = this.density): void {
+    this.density = density;
+    const camera = this.cameras.main;
+    camera.setBounds(0, 0, this.worldWidth, this.worldHeight);
+    this.coverZoom = Math.max(width / this.worldWidth, height / this.worldHeight);
+    this.fitZoom = explorationZoom(width, height, density, this.indoor, this.indoorCharacterHeight, { width: this.worldWidth, height: this.worldHeight }).zoom;
+    const previousMobile = this.mobileCamera;
+    this.mobileCamera = explorationZoom(width, height, density).mobile;
+    if (previousMobile !== this.mobileCamera) {
+      for (const npc of this.characters.values()) npc.hint?.setText(this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E');
+      this.mobileCameraChanged();
+    }
+    for (const actor of this.actors()) {
+      for (const label of [actor?.name, actor?.role, actor?.hint, actor?.marker]) label?.setResolution(density);
+    }
+    for (const object of this.objects.values()) object.label.setResolution(density);
+    for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph.setResolution(density); }
+    this.resizeHitTargets();
+    this.snapCamera();
+  }
+  protected mobileCameraChanged(): void {}
+  protected actors(): Character[] { return [this.local, ...this.characters.values(), ...this.peers.values()]; }
+
+  /** Zoom and focus for the current mode: cinematic beat, quiet tour, conversation or play. */
+  protected cameraTarget(): { x: number; y: number; zoom: number; deadzone: boolean; ratio: number } {
+    if (this.cinematicTarget) {
+      const beat = this.cinematicTarget;
+      return { x: beat.x, y: beat.y, zoom: Math.max(this.coverZoom, beat.zoom * this.density), deadzone: false, ratio: .5 };
+    }
+    if (this.watching) {
+      const width = this.worldWidth, height = this.worldHeight;
+      return { x: width / 2 + Math.sin(this.tourTime * .036) * width * .286, y: height * .527 + Math.sin(this.tourTime * .027) * height * .151,
+        zoom: this.coverZoom * (1.12 + Math.sin(this.tourTime * .045) * .04), deadzone: false, ratio: .5 };
+    }
+    const npc = this.conversationTarget ? this.characters.get(this.conversationTarget) : undefined;
+    const observed = this.observedCharacter();
+    const zoom = conversationZoom(this.fitZoom, !!npc);
+    if (observed) return { x: observed.x, y: observed.y, zoom, deadzone: false, ratio: .54 };
+    if (npc) return { x: (this.local.x + npc.x) / 2, y: (this.local.y + npc.y) / 2, zoom, deadzone: false, ratio: .38 };
+    return { x: this.local.x + this.cameraLead.x, y: this.local.y + this.cameraLead.y, zoom, deadzone: true, ratio: this.mobileCamera ? .56 : .54 };
+  }
+  protected observedCharacter(): Character | undefined { return undefined; }
+
+  /** Phaser's follow camera does the tracking, dead zone and bounds; we only steer its target. */
+  protected frameCamera(seconds: number, snap = false): void {
+    const camera = this.cameras.main;
+    const follow = snap ? 1 : 1 - Math.exp(-5 * seconds);
+    const target = this.cameraTarget();
+    camera.setZoom(snap ? target.zoom : camera.zoom + (target.zoom - camera.zoom) * follow);
+    const viewWidth = camera.width / camera.zoom, viewHeight = camera.height / camera.zoom;
+    this.focus.set(target.x, target.y);
+    // The player sits slightly below centre so the path ahead stays in view.
+    camera.setFollowOffset(0, viewHeight * (target.ratio - .5));
+    camera.setLerp(follow, follow);
+    if (target.deadzone && !snap) camera.setDeadzone(viewWidth * .14, viewHeight * .11);
+    else camera.setDeadzone();
+    if (snap) camera.centerOn(target.x, target.y - viewHeight * (target.ratio - .5));
+  }
+
+  snapCamera(): void {
+    if (!this.local || !this.cameras?.main) return;
+    this.frameCamera(0, true);
+  }
+
+  protected resizeHitTargets(): void {
+    for (const npc of this.characters.values()) {
+      const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
+      const animation = npc.walkingAnimation ?? npc.idleAnimation;
+      const frameWidth = animation?.width ?? NPC_ART.width;
+      const frameHeight = animation?.height ?? NPC_ART.height;
+      const footY = animation?.originY ?? NPC_ART.footY;
+      const width = Math.max(frameWidth + 80, 44 / (npc.artScale * this.fitZoom));
+      hit?.setTo((frameWidth - width) / 2, 12, width, frameHeight * footY - 12);
+    }
+    for (const object of this.objects.values()) { const size = Math.max(52, 44 / this.fitZoom); object.hit.setSize(size, size, true); }
+    for (const portal of this.portals.values()) { const size = Math.max(76, 44 / this.fitZoom); portal.hit.setSize(size, size, true); }
+  }
+
+  // Content -----------------------------------------------------------------
+
+  protected createMapCharacters(map: Pick<WorldMapSpec, 'npcs'>, configure?: (character: Character) => void): void {
+    for (const position of map.npcs) {
+      const index = npcs.findIndex(npc => npc.id === position.id);
+      const localNpc = getExpeditionNpc(position.id);
+      const npc = localNpc ?? npcs[index];
+      if (!npc) continue;
+      const { x, y } = this.navigation.closestPoint(position.x * this.worldWidth, position.y * this.worldHeight);
+      const special = npc.id === 'inspector' || npc.id === 'elise';
+      const avatar = npc.id === 'inspector' ? { hair: '#68656a', skin: '#d6a07d', outfit: '#80612e', hairstyle: 'bald', pants: '#383438' } : npc.id === 'elise' ? { hair: '#c8c5bf', skin: '#bb825a', outfit: '#596d86' } : DEFAULT_AVATAR;
+      const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? avatar, npc.role.split('·')[0].trim(), special ? -1 : localNpc ? localNpc.artVariant : index, localNpc?.artVariant);
+      configure?.(character);
+      character.halo = this.add.ellipse(0, 2, 37, 17, 0xf5dda0, 0.08).setStrokeStyle(1, 0xf3d286, 0.6).setVisible(false);
+      character.root.addAt(character.halo, 1);
+      character.marker = this.add.text(0, -96, '✦', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
+      character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
+      character.root.add([character.marker, character.hint]);
+      const animation = character.walkingAnimation ?? character.idleAnimation;
+      character.figure.setInteractive({
+        useHandCursor: true,
+        hitArea: new Phaser.Geom.Rectangle(-40, 12, (animation?.width ?? NPC_ART.width) + 80, (animation?.height ?? NPC_ART.height) * (animation?.originY ?? NPC_ART.footY) - 12),
+        hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+      });
+      character.figure.on('pointerover', () => { character.hovered = true; });
+      character.figure.on('pointerout', () => { character.hovered = false; });
+      character.figure.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+        event.stopPropagation();
+        this.approachInteraction(character.interactionId ?? npc.id);
+      });
+      this.characters.set(npc.id, character);
+      character.root.setVisible(this.characterRevealed(character) && !this.terrainOnly);
+    }
+    this.resizeHitTargets();
+  }
+
+  protected createMapObjects(specs: readonly WorldObjectSpec[], prefix: 'object' | 'interior' = 'object'): void {
+    for (const spec of specs) {
+      const x = spec.x * this.worldWidth, y = spec.y * this.worldHeight;
+      const halo = this.add.ellipse(0, 0, 36, 17, 0xeecf8a, .06).setStrokeStyle(1, 0xf5d896, .35);
+      const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
+      const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
+      const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
+      const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(y, 'shadow'));
+      const object: WorldObject = { spec, x, y, root, halo, marker, label, hit, hovered: false, activatedUntil: 0,
+        interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
+      this.bindHover(hit, object, () => this.approachInteraction(object.interactionId));
+      this.objects.set(spec.id, object);
+      root.setVisible(!this.terrainOnly && this.objectAvailable(object));
+    }
+  }
+
+  protected bindHover(hit: Phaser.GameObjects.Zone, target: { hovered: boolean }, activate: () => void): void {
+    hit.on('pointerover', () => { target.hovered = true; });
+    hit.on('pointerout', () => { target.hovered = false; });
+    hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      event.stopPropagation();
+      activate();
+    });
+  }
+
+  protected createPortal(id: string, x: number, y: number, label: string, sign?: Phaser.GameObjects.Image, exit = false): void {
+    const halo = this.add.ellipse(0, 6, 44, 16, 0xffd996, .24);
+    const mat = this.add.rectangle(0, 7, 38, 11, 0x685442, .8).setStrokeStyle(1, 0xe4c185, .5);
+    const glyph = this.add.text(0, -29, exit ? 'Exit' : label.split(' · ')[0], {
+      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '9px', color: '#fff1cd', backgroundColor: '#594a36', padding: { x: 5, y: 3 },
+    }).setOrigin(.5);
+    const name = this.add.text(0, exit ? 24 : -50, label, {
+      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
+    }).setOrigin(.5);
+    const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
+    const root = this.add.container(x, y, [mat, halo, ...(sign ? [sign] : []), glyph, name, hit]).setDepth(worldDepth(y, 'label'));
+    const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hit, hovered: false };
+    this.bindHover(hit, portal, () => this.approachInteraction(id));
+    this.portals.set(id, portal);
+  }
+
+  // Characters --------------------------------------------------------------
+
+  protected animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: ResidentGait): void {
+    this.fitCharacterToRoom(character);
+    character.root.setPosition(character.x, character.y).setDepth(worldDepth(character.y, 'character'));
+    const distance = Math.hypot(dx, dy);
+    if (!character.npc && this.playerArtReady) {
+      if (distance > 0.05) {
+        // Keep the facing stable around diagonal direction boundaries.
+        const horizontal = Math.abs(dx) > Math.abs(dy) * (character.facing % 2 ? 0.88 : 1.12);
+        character.facing = horizontal ? (dx >= 0 ? 1 : 3) : (dy >= 0 ? 0 : 2);
+        const cycleDistance = MODULAR_ART.cycleDistance * character.artScale * buildWidth(normalizeParts(character.avatar).build);
+        character.walkDistance = advanceWalkDistance(character.walkDistance, distance, cycleDistance, maxGaitDistance);
+        character.lastWalkTime = time;
+        this.setCharacterFrame(character, characterFrame(character.facing, character.walkDistance / cycleDistance * WALK_POSE_COLUMNS.length));
+      } else if (!this.controlsEnabled || this.watching || time - (character.lastWalkTime ?? -Infinity) >= .1) {
+        // A single-frame click still needs a visible step. Idle pauses retain
+        // distance so repeated short clicks advance through the painted gait.
+        this.setCharacterFrame(character, characterFrame(character.facing));
+      }
+    }
+    if (character.castRow !== undefined) {
+      if (Math.hypot(character.x - this.local.x, character.y - this.local.y) < 170 || this.conversationTarget === character.id) {
+        // Passers-by can draw a glance without changing the player's gait.
+        const lookX = this.local.x - character.x, lookY = this.local.y - character.y;
+        character.facing = Math.abs(lookX) > Math.abs(lookY) ? lookX > 0 ? 1 : 3 : lookY > 0 ? 0 : 2;
+      }
+      character.figure.setFrame(character.castRow * 4 + character.facing);
+      character.figure.setScale(character.artScale, character.artScale * (this.reducedMotion ? 1 : 1 + Math.sin(time * 1.7 + character.phase) * .0015));
+      return;
+    }
+    if (character.walkingAnimation) {
+      // Still-world mode holds the currently planted pose and facing. Regional
+      // paintings are walking poses; stationary neighbors keep one painting.
+      if (this.reducedMotion) return;
+      const moving = residentGait?.moving ?? distance > .05;
+      if (residentGait?.facingLeft !== undefined) character.figure.setFlipX(residentGait.facingLeft);
+      if (moving) {
+        character.walkDistance = residentGait?.distance ?? character.walkDistance + distance;
+        const velocityX = residentGait?.velocityX ?? dx;
+        const velocityY = residentGait?.velocityY ?? dy;
+        // Near-vertical travel has no authored direction; retain the last
+        // horizontal facing instead of flipping for small lateral drift.
+        if (residentGait?.facingLeft === undefined && Math.abs(velocityX) > Math.abs(velocityY) * .25 && Math.abs(velocityX) > .05) character.figure.setFlipX(velocityX < 0);
+      } else character.walkDistance = 0;
+      const frame = residentWalkFrame(character.walkingAnimation.frames, character.walkDistance, moving);
+      if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
+      return;
+    }
+    if (character.idleAnimation) {
+      const frame = this.indoor ? character.idleAnimation.frames[0] : sampleSceneryFrame(character.idleAnimation, character.id, this.decorativeElapsed);
+      if (frame !== character.idleFrame) { character.figure.setFrame(frame); character.idleFrame = frame; }
+      return;
+    }
+    // The ground pivot never moves. Breathing is deliberately smaller than a
+    // pixel, with no spinning, bobbing, detached feet or stretched strides.
+    const breathe = distance > 0.05 || this.reducedMotion ? 1 : 1 + Math.sin(time * 1.7 + character.phase) * 0.002;
+    if (Math.abs(breathe - character.breathe) < .0002) return;
+    character.breathe = breathe;
+    character.layers.forEach((layer, index) => layer.setScale(character.artScale * (character.layerWidths[index] ?? 1), character.artScale * breathe));
+  }
+
+  protected setCharacterFrame(character: Character, frame: number): void {
+    if (character.frame === frame) return;
+    character.frame = frame;
+    for (const layer of character.layers) layer.setFrame(frame);
+  }
+
+  protected fitCharacterToRoom(character: Character): void {
+    const art = character.npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
+    const animation = character.walkingAnimation ?? character.idleAnimation;
+    const canvasHeight = animation?.height ?? art.height;
+    const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
+    const indoors = this.indoor;
+    const indoorHeight = this.indoorCharacterHeight;
+    const scale = !character.npc && this.playerArtReady && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight);
+    if (character.artScale === scale) return;
+    character.artScale = scale;
+    character.breathe = 1;
+    character.layers.forEach((layer, index) => layer.setScale(scale * (character.layerWidths[index] ?? 1), scale));
+    const groundScale = indoorHeight / INTERIOR_CHARACTER_HEIGHT;
+    character.shadow.setDisplaySize(indoors ? 43 * groundScale : 31, indoors ? 17 * groundScale : 12);
+    character.name.setY(indoors ? -indoorHeight - 12 : -79);
+  }
+
+  protected tintCharacter(character: Character): void {
+    if (character.npc || !this.playerArtReady) return;
+    const recipe = characterLayers(character.avatar, character.frame);
+    if (character.layers.length !== recipe.length) {
+      for (const image of character.layers) image.destroy();
+      character.layers = recipe.map(layer => this.add.image(0, 0, layer.key, layer.frame).setOrigin(0.5, MODULAR_ART.footY));
+      character.figure = character.layers[0];
+      character.root.addAt(character.layers, 1);
+    }
+    character.layerWidths = recipe.map(layer => layer.width);
+    recipe.forEach((layer, index) => {
+      character.layers[index].setTexture(layer.key, layer.frame).setTint(layer.tint).setScale(character.artScale * layer.width, character.artScale * character.breathe);
+    });
+  }
+
+  /** Regional paintings take the period's people tint; layered avatars keep their own colours. */
+  protected setCharacterAmbient(character: Character, tint: number): void {
+    if (character.localArtVariant !== undefined) character.figure.setTint(tint);
+  }
+
+  protected createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
+    const mainCast = ['marta', 'otto', 'lina', 'emil', 'ada', 'fritz', 'greta'].indexOf(id);
+    const mainCastRow = mainCast >= 0 && this.textures.exists('main-cast') ? mainCast : undefined;
+    const castRow = mainCastRow ?? (this.textures.exists('story-cast') ? id === 'inspector' ? 0 : id === 'elise' ? 1 : undefined : undefined);
+    const npc = castRow !== undefined || npcFrame >= 0;
+    const shadow = this.add.image(0, 2, 'character-shadow').setDisplaySize(31, 12);
+    // A neutral placeholder handles a failed regional page download; its global
+    // identity is never interpreted as an index into the original story sheet.
+    const frame = castRow !== undefined ? castRow * 4 : npc ? (localArtVariant === undefined ? npcFrame : 7) : 0;
+    const art = npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
+    const recipe = !npc && this.playerArtReady ? characterLayers(avatar, frame) : undefined;
+    const keys = castRow !== undefined ? [mainCastRow === undefined ? 'story-cast' : 'main-cast'] : recipe ? recipe.map(layer => layer.key) : [NPC_ART.key];
+    const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
+    const localKey = localArtVariant === undefined ? undefined : regionPeopleKey(this.regionId, localArtVariant);
+    const localFrames = localArtVariant === undefined ? undefined : regionPeopleFrames(localArtVariant);
+    const hasLocalArt = localKey !== undefined && this.textures.exists(localKey) && localFrames!.every(name => this.textures.get(localKey).has(name));
+    const localFrameSize = hasLocalArt ? this.textures.get(localKey!).get(localFrames![0]) : undefined;
+    const walkingAnimation: SceneryAnimation | undefined = hasLocalArt ? {
+      key: localKey!, frames: localFrames!, fps: 3,
+      width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width,
+      originX: localFrameSize!.customPivot ? localFrameSize!.pivotX : .5,
+      originY: localFrameSize!.customPivot ? localFrameSize!.pivotY : 1,
+    } : undefined;
+    const authoredIdle = npc && castRow === undefined && !walkingAnimation ? idleManifest?.assets[id] : undefined;
+    const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
+    const animation = walkingAnimation ?? idleAnimation;
+    const idleFrame = walkingAnimation?.frames[0] ?? (idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined);
+    const artScale = !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
+    const layers = animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)]
+      : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
+    const figure = layers[0];
+    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
+    const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y, 'character'));
+    let roleText: Phaser.GameObjects.Text | undefined;
+    if (role) {
+      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
+      root.add(roleText);
+    }
+    const character: Character = { id, root, figure, layers, layerWidths: recipe?.map(layer => layer.width) ?? [],
+      shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, breathe: 1,
+      avatar, idleAnimation, walkingAnimation, idleFrame, localArtVariant, castRow };
+    this.fitCharacterToRoom(character);
+    this.tintCharacter(character);
+    return character;
+  }
+}
+
+/** The discovery star is drawn once into a canvas texture shared by every scene. */
+export function createDiscoveryTexture(scene: Phaser.Scene): void {
+  if (scene.textures.exists('discovery')) return;
+  const texture = scene.textures.createCanvas('discovery', 32, 32);
+  if (!texture) return;
+  const context = texture.context;
+  context.fillStyle = 'rgba(255,229,171,.8)';
+  context.beginPath();
+  for (const [x, y] of [[16, 2], [20, 12], [30, 16], [20, 20], [16, 30], [12, 20], [2, 16], [12, 12]]) context.lineTo(x, y);
+  context.closePath();
+  context.fill();
+  context.fillStyle = 'rgb(255,246,217)';
+  context.beginPath();
+  context.arc(16, 16, 2, 0, Math.PI * 2);
+  context.fill();
+  texture.refresh();
+}

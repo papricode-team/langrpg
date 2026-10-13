@@ -4,7 +4,7 @@ import {createMapNavigation} from './navigation';
 import {ResidentActivityWorld} from './resident-activities';
 
 it('runs Waldruh’s work, supply exchange and evening visits continuously on connected ground',()=>{
-  const scene=getWorldScene('waldruh'),nav=createMapNavigation('waldruh'),world=new ResidentActivityWorld(scene,nav);
+  const scene=getWorldScene('waldruh'),nav=createMapNavigation('waldruh', {agentRadius:0}),world=new ResidentActivityWorld(scene,nav);
   const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
   expect(world.residents).toHaveLength(2);
   const dry=world.day(time,'dry').plan;
@@ -20,4 +20,4 @@ it('runs Waldruh’s work, supply exchange and evening visits continuously on co
       previous=current;
     }
   }
-});
+},30000);

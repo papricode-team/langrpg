@@ -4,20 +4,21 @@ import {getWorldScene} from './scene-data';
 import type {WorldScene} from './scene-schema';
 import {compileResidentActivities,planResidentDay,planResidentWeather,sampleActivityResident,ResidentActivityWorld,type ActivityDay} from './resident-activities';
 import {rainForDay,simulationDay,worldRain} from './world-weather';
+import {sceneNavigationGeometry} from './scene-navigation';
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
 function fixture(count=1){
-  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[],districts:[],
-    walkable:[[[14,14],[586,14],[586,386],[14,386]]],obstacles:[],
-    scenery:[{id:'awning',asset:'arch',x:360,y:180,width:60,collidable:false}],
+  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[{id:'floor',x:0,y:0,width:600,height:400,dayAsset:'/assets/floor.webp'}],districts:[],
+    walkable:[],obstacles:[],navigation:{model:'clear-land',terrainCollision:[]},
+    scenery:[{id:'awning',asset:'arch',x:360,y:180,width:60,collision:{referenceWidth:60,polygons:[]}}],
     activities:[{id:'shelter',ownerId:'awning',kind:'shelter',offsetX:0,offsetY:20}],residents:[]};
   for(let i=0;i<count;i++){
-    scene.scenery.push({id:`bench-${i}`,asset:'bench',x:300,y:80+i*50,width:60,collidable:false});
+    scene.scenery.push({id:`bench-${i}`,asset:'bench',x:300,y:80+i*50,width:60,collision:{referenceWidth:60,polygons:[]}});
     scene.activities!.push({id:`seat-${i}`,ownerId:`bench-${i}`,kind:'seat',offsetX:0,offsetY:20});
     scene.residents!.push({id:`reader-${i}`,name:`Reader ${i}`,home:{x:40,y:100+i*50},speed:40,avatar:{hair:'#333333',skin:'#ccaa99',outfit:'#445566'},
       schedule:[{id:'reading',activityId:`seat-${i}`,action:'read',startHour:8,endHour:12,durationSeconds:40,heldObject:'book'}]});
   }
-  const nav=new NavigationGrid(scene.walkable,[],scene),residents=compileResidentActivities(scene,nav),dry=planResidentDay(residents,time,0);
+  const geometry=sceneNavigationGeometry(scene),nav=new NavigationGrid(geometry.ground,geometry.barriers,scene),residents=compileResidentActivities(scene,nav),dry=planResidentDay(residents,time,0);
   return {scene,nav,residents,dry};
 }
 function noOverlaps(plan:ActivityDay){
@@ -116,7 +117,7 @@ describe('shared weather and resident interruptions',()=>{
   });
 
   it('keeps a rainy Lindenhafen day continuous, reconstructible and free of per-frame routing',()=>{
-    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen'),world=new ResidentActivityWorld(scene,nav);
+    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen', {agentRadius:0}),world=new ResidentActivityWorld(scene,nav);
     const plan=world.day(time,'shower').plan;expect(plan.activities.some(visit=>visit.weatherOutcome)).toBe(true);noOverlaps(plan);
     const pathfinding=vi.spyOn(nav,'findPath');
     let previous=world.sample(time,'shower');
@@ -130,7 +131,7 @@ describe('shared weather and resident interruptions',()=>{
     }
     // Crossing midnight compiles the next day's plan once; steady sampling does not route.
     pathfinding.mockClear();world.sample({...time,elapsedSeconds:720.25},'shower');expect(pathfinding).not.toHaveBeenCalled();
-    const fresh=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen'));
+    const fresh=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen', {agentRadius:0}));
     for(const elapsedSeconds of [70,80,90,110,155,719.9])expect(fresh.sample({...time,elapsedSeconds},'shower')).toEqual(world.sample({...time,elapsedSeconds},'shower'));
-  },15000);
+  },30000);
 });

@@ -1,6 +1,7 @@
 import {duplicatePrefabInstances,sceneInstanceIds} from './level-editor-prefabs';
 import {nextSceneryId,removeScenery,scenerySelection,sceneryTranslation} from './level-editor-model';
-import {sceneryFootprints,sceneryAssets} from './placed-scenery';
+import {sceneryFootprints,sceneryAssets,withSceneryCollision} from './placed-scenery';
+import {sceneNavigationGeometry} from './scene-navigation';
 import {polygonsIntersect} from './level-editor-generation';
 import {sceneActivityPlaces,sceneEntrancePoint,getSceneryGeometryMap,scaleCanon,PERSON_HEIGHT,type ScenePoint,type ScenePrefab,type SceneScenery,type WorldScene} from './scene-schema';
 import type {EditorViewState,SelectionBounds} from './level-editor-selection';
@@ -163,13 +164,16 @@ export class ObjectPaintStroke {
     const width=template.width*(1+(((hash>>>0)/4294967296)*2-1)*s.variation/100);
     const x=s.snap?Math.round(point.x/s.snap)*s.snap:point.x,y=s.snap?Math.round(point.y/s.snap)*s.snap:point.y;
     if(x<0||y<0||x>this.scene.width||y>this.scene.height){this.skipped.add('outside map');return;}
-    const item:SceneScenery={id:nextSceneryId(this.scene,template.asset),asset:template.asset,frame:template.frame,variant:template.variant,motion:template.motion,x,y,width};
+    const manifest=getSceneryGeometryMap(this.scene.id);
+    const item=withSceneryCollision<SceneScenery>({id:nextSceneryId(this.scene,template.asset),asset:template.asset,frame:template.frame,variant:template.variant,motion:template.motion,x,y,width},manifest);
     const radius=Math.max(6,width*.13)+s.clearance;
     const envelope=Array.from({length:12},(_,i)=>[x+Math.cos(i*Math.PI/6)*radius,y+Math.sin(i*Math.PI/6)*radius] as const);
-    const bases=sceneryFootprints([item],getSceneryGeometryMap(this.scene.id));
-    if(this.scene.obstacles.some(area=>polygonsIntersect(area,envelope))){this.skipped.add('solid obstacles');return;}
-    if(s.protectPaths&&(this.scene.walkable.some(area=>polygonsIntersect(area,envelope)||bases.some(base=>polygonsIntersect(area,base)))||this.protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<radius+24))){this.skipped.add('paths or activity approaches');return;}
-    if(this.scene.scenery.some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(8,(width+other.width)*.25,s.spacing*.4))){this.skipped.add('existing objects');return;}
+    const bases=sceneryFootprints([item],manifest);
+    if([...envelope,...bases.flat()].some(([px,py])=>px<0||py<0||px>this.scene.width||py>this.scene.height)){this.skipped.add('outside map');return;}
+    const geometry=sceneNavigationGeometry(this.scene,manifest);
+    if(geometry.terrain.some(area=>polygonsIntersect(area,envelope)||bases.some(base=>polygonsIntersect(area,base)))){this.skipped.add('solid terrain');return;}
+    if(s.protectPaths&&((!this.scene.navigation&&geometry.ground.some(area=>polygonsIntersect(area,envelope)||bases.some(base=>polygonsIntersect(area,base))))||this.protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<radius+24||bases.some(base=>polygonsIntersect(base,Array.from({length:12},(_,i)=>[p.x+Math.cos(i*Math.PI/6)*24,p.y+Math.sin(i*Math.PI/6)*24] as const)))))){this.skipped.add('paths or activity approaches');return;}
+    if(this.scene.scenery.some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(8,(width+other.width)*.25,s.spacing*.4))||geometry.objects.some(area=>polygonsIntersect(area,envelope)||bases.some(base=>polygonsIntersect(area,base)))){this.skipped.add('existing objects');return;}
     this.scene.scenery.push(item);this.changedIds.add(item.id);
   }
   private erase(a:ScenePoint,b:ScenePoint):void {

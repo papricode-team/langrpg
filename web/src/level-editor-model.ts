@@ -92,7 +92,12 @@ export function removeScenery(scene:WorldScene, selected:ReadonlySet<string>):Wo
 /** An object edit also transforms its authored usable positions in one undo step. */
 export function editScenery(scene:WorldScene, selected:ReadonlySet<string>, changes:Partial<SceneScenery>):WorldScene {
   assertPrefabEditable(scene,selected);
-  const scenery=scene.scenery.map(item=>selected.has(item.id)?{...item,...changes,...(item.generatorId&&changes.pinned===undefined?{pinned:true}:{})}:item);
+  const scenery=scene.scenery.map(item=>{
+    if(!selected.has(item.id))return item;
+    const next={...item,...changes,...(item.generatorId&&changes.pinned===undefined?{pinned:true}:{})};
+    if((changes.asset!==undefined||changes.frame!==undefined)&&changes.collision===undefined)delete next.collision;
+    return next;
+  });
   const transform=<T extends {ownerId:string;offsetX:number;offsetY:number;approach?:{x:number;y:number};exit?:{x:number;y:number};returnOffset?:{x:number;y:number};places?:{x:number;y:number}[]}>(item:T):T=>{
     if(!selected.has(item.ownerId))return item;
     const before=scene.scenery.find(value=>value.id===item.ownerId)!,after=scenery.find(value=>value.id===item.ownerId)!;

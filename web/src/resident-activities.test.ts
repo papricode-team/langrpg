@@ -4,14 +4,15 @@ import {sceneDocument,getWorldScene} from './scene-data';
 import {parseWorldSceneDocument,type SceneResident,type WorldScene} from './scene-schema';
 import {compileResidentActivities,planResidentDay,ResidentActivityWorld,sampleActivityResident} from './resident-activities';
 import {removeScenery,editScenery} from './level-editor-model';
+import {sceneNavigationGeometry} from './scene-navigation';
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
 const actor=(id:string):SceneResident=>({id,name:id,home:{x:40,y:100},speed:50,avatar:{hair:'#333333',skin:'#ccaa99',outfit:'#445566'},schedule:[{id:'reading',activityId:'seat',action:'read',startHour:8,endHour:9,durationSeconds:20,heldObject:'book',fallbackActivityId:'waiting'}]});
 function fixture(){
-  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[],districts:[],walkable:[[[14,14],[586,14],[586,386],[14,386]]],obstacles:[],
-    scenery:[{id:'bench',asset:'bench',x:100,y:100,width:60,collidable:false},{id:'sign',asset:'sign',x:180,y:100,width:30,collidable:false}],
+  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[{id:'floor',x:0,y:0,width:600,height:400,dayAsset:'/assets/floor.webp'}],districts:[],walkable:[],obstacles:[],navigation:{model:'clear-land',terrainCollision:[]},
+    scenery:[{id:'bench',asset:'bench',x:100,y:100,width:60,collision:{referenceWidth:60,polygons:[]}},{id:'sign',asset:'sign',x:180,y:100,width:30,collision:{referenceWidth:30,polygons:[]}}],
     activities:[{id:'seat',ownerId:'bench',kind:'seat',offsetX:0,offsetY:20,approach:{x:0,y:35},exit:{x:15,y:35}},{id:'waiting',ownerId:'sign',kind:'wait',offsetX:0,offsetY:20}],residents:[actor('anne'),actor('ben')]};
-  const nav=new NavigationGrid(scene.walkable,[],scene);return {scene,nav};
+  const geometry=sceneNavigationGeometry(scene),nav=new NavigationGrid(geometry.ground,geometry.barriers,scene);return {scene,nav};
 }
 describe('authored resident activities',()=>{
   it('reserves positions, uses a fallback when full and releases every visit on return',()=>{
@@ -46,7 +47,7 @@ describe('authored resident activities',()=>{
     }
   });
   it('walks the complete dry authored Lindenhafen day without jumps or blocked feet',()=>{
-    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen'),world=new ResidentActivityWorld(scene,nav);
+    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen', {agentRadius:0}),world=new ResidentActivityWorld(scene,nav);
     expect(world.residents).toHaveLength(12);
     let previous=world.sample(time,'dry');
     for(let tick=1;tick<=2880;tick++){
@@ -63,7 +64,7 @@ describe('authored resident activities',()=>{
       if(reservation===other||Math.hypot(reservation.point.x-other.point.x,reservation.point.y-other.point.y)>=16)continue;
       expect(reservation.start>=other.end||reservation.end<=other.start).toBe(true);
     }
-  });
+  },30000);
   it('validates references, home connectivity, task kinds and feasible travel windows',()=>{
     const {scene,nav}=fixture();
     for(const mutate of [

@@ -181,7 +181,9 @@ function pixelMaterial(pixels: Uint8ClampedArray, offset: number, x: number, y: 
   return 0;
 }
 
+/** One shared shadow texture; every scene that starts afterwards reuses it. */
 export function createContactShadow(scene: Phaser.Scene): void {
+  if (scene.textures.exists('character-shadow')) return;
   const texture = scene.textures.createCanvas('character-shadow', 160, 64);
   if (!texture) return;
   const context = texture.context;

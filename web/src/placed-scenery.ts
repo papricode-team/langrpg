@@ -1,6 +1,7 @@
 import type { MapId } from './maps';
 import {getWorldScene} from './scene-data';
 import {getSceneryGeometryMap} from './scene-schema';
+import type {SceneCollision} from './scene-schema';
 import {worldDepth} from './world-depth';
 
 /** Each frame is reusable transparent artwork, independent of the terrain. */
@@ -25,6 +26,7 @@ export interface PlacedScenerySpec {
   flipX?: boolean;
   /** Decorative motion props placed beside paths do not close their approaches. */
   collidable?: boolean;
+  collision?: SceneCollision;
 }
 
 export const getPlacedScenery = (mapId: MapId): readonly PlacedScenerySpec[] => getWorldScene(mapId).scenery;
@@ -59,6 +61,10 @@ export function sceneryFootprints(placements: readonly PlacedScenerySpec[], mani
   });
   return placements.flatMap(spec => {
     if (spec.collidable === false) return [];
+    if(spec.collision) {
+      const scale=spec.width/spec.collision.referenceWidth;
+      return spec.collision.polygons.map(polygon=>polygon.map(([x,y])=>[spec.x+x*scale*(spec.flipX?-1:1),spec.y+y*scale] as const));
+    }
     const geometry = manifest?.assets[spec.frame ?? spec.asset];
     if (geometry?.footprint && geometry.referenceWidth > 0) {
       const scale = spec.width / geometry.referenceWidth;
@@ -82,4 +88,16 @@ export function sceneryFootprints(placements: readonly PlacedScenerySpec[], mani
     const ry = spec.width * (spec.asset === 'stall' || spec.asset === 'fountain' ? .1 : .08);
     return [ellipse(spec.x, spec.y - ry - 2, rx, ry)];
   });
+}
+
+/** Resolve the asset base once, then keep the collider with the placed object. */
+export function withSceneryCollision<T extends PlacedScenerySpec>(spec:T,manifest?:SceneryFootprintManifest):T {
+  if(spec.collision)return spec;
+  const polygons=sceneryFootprints([spec],manifest).map(polygon=>{
+    const points=polygon.map(([x,y])=>[(x-spec.x)*(spec.flipX?-1:1),y-spec.y] as const);
+    // Some art manifests explicitly close contours by repeating the first
+    // vertex. Scene polygons close implicitly and validate distinct vertices.
+    return points.filter((point,index)=>!points.slice(0,index).some(other=>Math.hypot(point[0]-other[0],point[1]-other[1])<1e-7));
+  });
+  return {...spec,collision:{referenceWidth:spec.width,polygons}};
 }

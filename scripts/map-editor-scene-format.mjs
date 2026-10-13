@@ -1,4 +1,7 @@
 import {preservePrefabPlacement} from '../web/src/level-editor-prefabs.ts';
+import './register-content-loader.mjs';
+const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
+import {getSceneryGeometryMap} from '../web/src/scene-schema.ts';
 /** Tiled v2 interchange. Source records remain lossless, with native editable geometry. */
 const omit = (value, keys) => Object.fromEntries(Object.entries(value).filter(([key]) => !keys.includes(key)));
 const property = (name, value) => ({name, type: typeof value === 'number' ? Number.isInteger(value) ? 'int' : 'float' : typeof value === 'boolean' ? 'bool' : 'string', value});
@@ -72,10 +75,12 @@ export function sceneToTiled(mapId, document, {images = {}, imagePath = asset =>
   const layers = [layer('Terrain', terrain, {locked: true}),
     layer('Walkable', scene.walkable.map((polygon, i) => shape({polygon}, `walkable-${i + 1}`)), {color: '#7700aa55', opacity: .35}),
     layer('Obstacles', scene.obstacles.map((polygon, i) => shape({polygon}, `obstacle-${i + 1}`)), {color: '#77dd5544', opacity: .35}),
+    ...(scene.navigation?[layer('Terrain collision',scene.navigation.terrainCollision.map(value=>shape(value)),{color:'#77dd8844',opacity:.35})]:[]),
     layer('Scenery', scenery), layer('Spawn', [point({id: 'spawn', ...scene.spawn})]), layer('NPCs', scene.npcs.map(point)), layer('Objects', scene.objects.map(point)),
     layer('Districts', scene.districts.map(value => shape(value)), {opacity: .25}), layer('Activities', activities), layer('Entrances', entrances),
     layer('Generation zones', (scene.generationZones ?? []).map(value => shape(value)), {opacity: .2})];
-  const metadata = omit(scene, ['id', 'width', 'height', 'walkable', 'obstacles', 'scenery', 'spawn', 'npcs', 'objects', 'terrain', 'districts', 'activities', 'entrances', 'generationZones']);
+  const metadata = {...omit(scene, ['id', 'width', 'height', 'walkable', 'obstacles', 'scenery', 'spawn', 'npcs', 'objects', 'terrain', 'districts', 'activities', 'entrances', 'generationZones']),
+    ...(scene.navigation?{navigation:{model:scene.navigation.model}}:{})};
   return {type: 'map', version: '1.10', tiledversion: '1.12.2', orientation: 'orthogonal', renderorder: 'right-down', infinite: false,
     width: scene.width, height: scene.height, tilewidth: 1, tileheight: 1, nextobjectid: nextId, nextlayerid: nextId,
     properties: properties({mapId, navigationVersion: 2, ...metadata, _optionalCollections: ['activities', 'entrances', 'generationZones'].filter(key => scene[key] !== undefined)}), layers,
@@ -89,7 +94,7 @@ export function sceneFromTiled(tiled, document) {
   const names = ['Terrain', 'Walkable', 'Obstacles', 'Scenery', 'Spawn', 'NPCs', 'Objects', 'Districts', 'Activities', 'Generation zones', 'Entrances'];
   const groups = new Map();
   for (const layer of tiled.layers ?? []) {
-    if (layer.type !== 'objectgroup' || !names.includes(layer.name) || groups.has(layer.name) || !Array.isArray(layer.objects)) throw new Error(`Unsupported or duplicate Tiled layer ${layer.name}`);
+    if (layer.type !== 'objectgroup' || ![...names,'Terrain collision'].includes(layer.name) || groups.has(layer.name) || !Array.isArray(layer.objects)) throw new Error(`Unsupported or duplicate Tiled layer ${layer.name}`);
     if (layer.properties?.length || (layer.parallaxx ?? 1) !== 1 || (layer.parallaxy ?? 1) !== 1) throw new Error(`Unsupported custom/parallax properties on layer ${layer.name}`);
     for (const object of layer.objects) {
       if (object.template) throw new Error(`Resolve Tiled template ${object.template} before import`);
@@ -101,6 +106,8 @@ export function sceneFromTiled(tiled, document) {
   // Pre-entrance v2 exports stored unfamiliar collections in map metadata.
   if (!groups.has('Entrances')) groups.set('Entrances',{objects:[]});
   for (const name of names) if (!groups.has(name)) throw new Error(`Missing Tiled layer ${name}`);
+  if(metadata.navigation&&!groups.has('Terrain collision'))throw new Error('Missing Tiled layer Terrain collision');
+  if(!metadata.navigation&&groups.has('Terrain collision'))throw new Error('Terrain collision needs a clear-land navigation model');
   const imageInfo = object => {
     if (!Number.isInteger(object.gid) || !object.gid) throw new Error(`${object.name} needs a registered image tile`);
     if ((object.gid & 0x70000000) !== 0) throw new Error(`${object.name} uses an unsupported tile flip/rotation`);
@@ -129,9 +136,20 @@ export function sceneFromTiled(tiled, document) {
     const tile = imageInfo(object);
     return {...parseRecord(object), ...worldPoint(object, group), width: object.width, height: object.height, dayAsset: tile.dayAsset};
   });
+  const refreshSceneryCollision = result => {
+    const source = document.maps[mapId].scenery.find(item => item.id === result.id);
+    // Tiled carries the old collider as a property even when the artwork changes.
+    // An explicit collider edit takes precedence over refreshing the asset base.
+    if (source?.collision !== undefined && (source.asset !== result.asset || source.frame !== result.frame)
+      && JSON.stringify(source.collision) === JSON.stringify(result.collision)) {
+      delete result.collision;
+      return withSceneryCollision(result, getSceneryGeometryMap(mapId));
+    }
+    return result;
+  };
   const scenery = objects('Scenery', (object, group) => {
     if (object.rotation) throw new Error(`${object.name}: use an authored facing variant instead of rotating scenery`);
-    if (object.point) return {...parseRecord(object), ...worldPoint(object, group)};
+    if (object.point) return refreshSceneryCollision({...parseRecord(object), ...worldPoint(object, group)});
     const info = imageInfo(object), value = parseRecord(object), position = worldPoint(object, group);
     if (Math.abs(object.width / info._sourceWidth - object.height / info._sourceHeight) > 1e-7) throw new Error(`${object.name}: scenery must keep its painted aspect ratio`);
     const result = {...omit(info, ['_pivotX', '_pivotY', '_sourceWidth', '_sourceHeight', '_referenceWidth']), ...omit(value, ['_sourceX', '_sourceY', '_sourceObjectWidth', '_sourceDisplayX', '_sourceDisplayY', '_sourceDisplayWidth', '_explicitFlip']),
@@ -139,7 +157,7 @@ export function sceneFromTiled(tiled, document) {
       y: position.y === value._sourceDisplayY && object.width === value._sourceDisplayWidth ? value._sourceY : position.y + info._pivotY * object.height,
       width: object.width === value._sourceDisplayWidth ? value._sourceObjectWidth : object.width / info._sourceWidth * info._referenceWidth};
     if (value._explicitFlip || (object.gid & 0x80000000) !== 0) result.flipX = (object.gid & 0x80000000) !== 0;
-    return result;
+    return refreshSceneryCollision(result);
   });
   const ownedPoints = name => objects(name, (object, group) => {
     if (!object.point || object.rotation) throw new Error(`${name} must be unrotated points`);
@@ -161,6 +179,7 @@ export function sceneFromTiled(tiled, document) {
     width: tiled.width * tiled.tilewidth, height: tiled.height * tiled.tileheight,
     terrain, scenery, spawn: omit(spawn[0], ['id']), npcs: points('NPCs'), objects: points('Objects'),
     walkable: collision('Walkable'), obstacles: collision('Obstacles'),
+    ...(metadata.navigation?{navigation:{...metadata.navigation,terrainCollision:objects('Terrain collision',(object,group)=>({...parseRecord(object),polygon:objectPolygon(object,group)}))}}:{}),
     districts: objects('Districts', (object, group) => ({...parseRecord(object), polygon: objectPolygon(object, group)})),
     ...(optional.includes('activities') || activities.length ? {activities} : {}),
     ...(optional.includes('entrances') || entrances.length ? {entrances} : {}),

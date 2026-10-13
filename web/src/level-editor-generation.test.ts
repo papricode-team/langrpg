@@ -1,10 +1,12 @@
 import {describe,expect,it} from 'vitest';
-import {applyScatter,generateScatter} from './level-editor-generation';
+import {applyScatter,generateScatter,polygonsIntersect} from './level-editor-generation';
+import {sceneryFootprints} from './placed-scenery';
 import type {WorldScene,SceneGenerationZone} from './scene-schema';
 const scene=():WorldScene=>({id:'lindenhafen',coordinateVersion:1,width:1000,height:800,spawn:{x:50,y:50},npcs:[],objects:[],walkable:[[[14,14],[150,14],[150,750],[14,750]]],obstacles:[],scenery:[{id:'manual-tree',asset:'tree',x:400,y:400,width:80}],terrain:[{id:'core',x:0,y:0,width:1000,height:800,dayAsset:'/assets/test.webp'}],districts:[]});
 const zone:SceneGenerationZone={id:'woodland',seed:42,rulesVersion:1,polygon:[[200,20],[980,20],[980,780],[200,780]],palette:['tree']};
 const templates=[{asset:'tree' as const,frame:'tree',width:80}];
 const settings={count:12,minSpacing:60,clearance:16,minScale:.9,maxScale:1.1};
+const clearLand=():WorldScene=>({...scene(),id:'source',walkable:[],scenery:[],navigation:{model:'clear-land',terrainCollision:[]}});
 
 describe('seeded scenery generation',()=>{
   it('reproduces accepted proposals and keeps the source immutable',()=>{
@@ -48,5 +50,35 @@ describe('seeded scenery generation',()=>{
       const draft=structuredClone(existing);change(draft);
       expect(()=>applyScatter(draft,preview)).toThrow(/fresh preview/);
     }
+  });
+  it('allows scatter on clear grass while keeping generated collision on each object',()=>{
+    const source=clearLand(),grass={...zone,polygon:[[20,200],[140,200],[140,750],[20,750]] as const};
+    const proposal=generateScatter(source,grass,templates,{...settings,count:5,minSpacing:30,clearance:0});
+    expect(proposal.added).toHaveLength(5);expect(proposal.rejected.pathClearance).toBe(0);
+    expect(proposal.added.every(item=>!!item.collision?.polygons.length)).toBe(true);
+    const item=proposal.added[0],moved={...item,x:item.x+400,y:item.y+10};
+    const original=sceneryFootprints([item])[0],translated=sceneryFootprints([moved])[0];
+    for(const [index,[x,y]] of original.entries()){expect(translated[index][0]).toBeCloseTo(x+400);expect(translated[index][1]).toBeCloseTo(y+10);}
+  });
+  it('rejects water and an owned foundation far from its anchor',()=>{
+    const water=clearLand();water.navigation!.terrainCollision=[{id:'pond',kind:'water',polygon:[[200,180],[900,180],[900,760],[200,760]]}];
+    const pondZone={...zone,polygon:[[250,230],[850,230],[850,710],[250,710]] as const};
+    const flooded=generateScatter(water,pondZone,templates,{...settings,count:2});
+    expect(flooded.added).toHaveLength(0);expect(flooded.rejected.occupied).toBeGreaterThan(0);
+    const occupied=clearLand();occupied.scenery=[{id:'offset-foundation',asset:'house',x:450,y:500,width:80,collision:{referenceWidth:80,polygons:[[[150,-120],[380,-120],[380,120],[150,120]]]}}];
+    const foundationZone={...zone,polygon:[[620,410],[810,410],[810,590],[620,590]] as const};
+    const blocked=generateScatter(occupied,foundationZone,templates,{...settings,count:2,minSpacing:30,clearance:0});
+    expect(blocked.added).toHaveLength(0);expect(blocked.rejected.occupied).toBeGreaterThan(0);
+    const adjacent=generateScatter(occupied,zone,templates,{...settings,count:8,minSpacing:30,clearance:0});
+    const foundation=sceneryFootprints(occupied.scenery)[0];
+    expect(adjacent.added).toHaveLength(8);
+    expect(adjacent.added.every(item=>sceneryFootprints([item]).every(base=>!polygonsIntersect(base,foundation)))).toBe(true);
+  });
+  it('protects separate activity places when land has no street whitelist',()=>{
+    const source=clearLand();source.scenery=[{id:'bench',asset:'bench',x:450,y:200,width:64}];
+    source.activities=[{id:'seat',ownerId:'bench',kind:'seat',offsetX:0,offsetY:0,places:[{x:300,y:400}]}];
+    const seating={...zone,polygon:[[726,576],[774,576],[774,624],[726,624]] as const};
+    const proposal=generateScatter(source,seating,[{asset:'tree',frame:'tree',width:20}],{...settings,count:2,minSpacing:8,clearance:0,minScale:1,maxScale:1});
+    expect(proposal.added).toHaveLength(0);expect(proposal.rejected.pathClearance).toBeGreaterThan(0);
   });
 });

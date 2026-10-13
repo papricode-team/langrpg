@@ -18,7 +18,9 @@ interface Sound {
 }
 interface Layer { sound: Sound; volume: number; target: number; }
 
-/** Scene-owned audio. Phaser handles autoplay unlocking after the first gesture. */
+/** Any holder of Phaser's global sound and cache managers: the game itself or a scene. */
+export type AudioHost = Pick<Phaser.Scene, 'sound' | 'cache'>;
+/** One game-wide audio mix shared by every map and room. Phaser handles autoplay unlocking after the first gesture. */
 export class WorldAudio {
   private layers = new Map<string, Layer>();
   private region = '';
@@ -27,7 +29,7 @@ export class WorldAudio {
   private narration = false;
   private stepDistance = 0;
   private night=false;
-  constructor(private scene: Phaser.Scene) {}
+  constructor(private scene: AudioHost) {}
   setRegion(id: MapId) {
     this.region = towns.includes(id as typeof towns[number]) ? id : 'nebelstadt';
     this.refresh();

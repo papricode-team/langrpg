@@ -16,8 +16,3 @@ export function explorationZoom(width: number, height: number, density = 1, indo
 export function conversationZoom(baseZoom: number, talking: boolean) {
   return baseZoom * (talking ? 1.12 : 1);
 }
-
-/** Phaser zooms around the camera center; scroll is not the world-view edge. */
-export function cameraScroll(viewStart: number, viewportSize: number, zoom: number) {
-  return viewStart + (viewportSize / zoom - viewportSize) / 2;
-}

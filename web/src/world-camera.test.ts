@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canvasSize, cameraScroll, explorationZoom, conversationZoom } from './world-camera';
+import { canvasSize, explorationZoom, conversationZoom } from './world-camera';
 import { atmosphereProfile } from './world-atmosphere';
 import { timeAmbient } from './world-lighting';
 
@@ -37,14 +37,6 @@ describe('world presentation', () => {
       const personHeight = Math.max(mobile ? 88 : 110, Math.min(180, height * .15)) * .8;
       expect(zoom).toBeCloseTo(Math.max(width / 1536, height / 1024, personHeight / 240));
       expect(explorationZoom(width * 2, height * 2, 2, true, 240).zoom / 2).toBeCloseTo(zoom);
-    }
-  });
-  it('keeps the followed person centered when Phaser zooms around a physical camera', () => {
-    for (const density of [1, 2]) {
-      const width = 1920 * density, zoom = explorationZoom(width, 1080 * density, density).zoom;
-      const left = 800 - width / zoom / 2, scroll = cameraScroll(left, width, zoom);
-      const worldCenter = scroll + width / 2;
-      expect(worldCenter).toBeCloseTo(800);
     }
   });
   it('changes light continuously across both art boundaries', () => {

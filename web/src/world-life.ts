@@ -147,7 +147,7 @@ export function compileResident(spec: ResidentSpec, navigation: NavigationGrid):
   return { id: spec.id, name: spec.name, avatar: spec.avatar, artVariant: spec.artVariant, segments, cycleSeconds, phaseSeconds: Math.max(0, Math.min(.999, spec.phase)) * cycleSeconds };
 }
 
-export function createWorldResidents(mapId: MapId, navigation = createMapNavigation(mapId), coreOffset = getWorldScene(mapId).legacyOffset ?? {x: 0, y: 0}): WorldResident[] {
+export function createWorldResidents(mapId: MapId, navigation = createMapNavigation(mapId,{agentRadius:0}), coreOffset = getWorldScene(mapId).legacyOffset ?? {x: 0, y: 0}): WorldResident[] {
   return worldResidentSpecs[mapId].flatMap(spec => {
     // Existing authored routes belong to the preserved core, not the full
     // expanded rectangle. New scene activity routes use world coordinates.

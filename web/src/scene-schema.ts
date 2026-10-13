@@ -3,6 +3,9 @@ import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
 export type ScenePolygon = readonly (readonly [number, number])[];
+/** Object-local polygons, scaled and mirrored with their owning placement. */
+export interface SceneCollision { referenceWidth: number; polygons: readonly ScenePolygon[]; }
+export interface SceneTerrainCollision { id: string; kind: 'water'|'cliff'|'rock'|'wall'; polygon: ScenePolygon; }
 export interface SceneryGeometry {
   referenceWidth: number;
   footprint?: ScenePolygon;
@@ -22,7 +25,7 @@ export const scaleCanon:Readonly<Record<string,readonly [number,number]>>={
   greenhouse:[2.6,3.5],tree:[1.5,3],cypress:[1.5,3],lamp:[1.2,1.4],bench:[.5,.7],
   stall:[1.6,2],fountain:[1.2,2.2],arch:[2,3.5],planter:[.5,1.1],sign:[.8,1.5],boat:[.7,1.8],
 };
-export interface SceneAnchor extends ScenePoint { id: string; minigame?: string; }
+export interface SceneAnchor extends ScenePoint { id: string; minigame?: string; collision?: SceneCollision; }
 export const sceneSceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp', 'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
 export interface SceneScenery extends SceneAnchor {
   asset: typeof sceneSceneryAssets[number];
@@ -97,6 +100,8 @@ export interface WorldScene {
   coordinateVersion: number; legacyOffset?: ScenePoint;
   spawn: ScenePoint; npcs: SceneAnchor[]; objects: SceneAnchor[];
   walkable: ScenePolygon[]; obstacles: ScenePolygon[]; scenery: SceneScenery[];
+  /** Clear land is the default; only explicit terrain and owned objects block. */
+  navigation?: {model:'clear-land'; terrainCollision:SceneTerrainCollision[]};
   terrain: SceneTerrain[]; districts: SceneDistrict[];
   activities?: SceneActivity[]; entrances?: SceneEntrance[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
@@ -138,6 +143,19 @@ function point(value: unknown, label: string, width?: number, height?: number): 
 function positive(value: unknown, label: string, max = 65536): asserts value is number {
   if (!finite(value) || value <= 0 || value > max) fail(`${label} must be positive and at most ${max}`);
 }
+function collision(value:unknown,label:string,worldUnits=false):void {
+  if(value===undefined)return;
+  if(!record(value))fail(`${label} collision must be an object`);
+  positive(value.referenceWidth,`${label} collision reference width`,8192);
+  if(worldUnits&&value.referenceWidth!==1)fail(`${label} collision reference width must be 1 for world-unit offsets`);
+  if(!Array.isArray(value.polygons)||value.polygons.length>16)fail(`${label} collision needs at most 16 polygons`);
+  const extent=Math.max(1024,value.referenceWidth*4);
+  for(const [index,shape]of value.polygons.entries()) {
+    if(!Array.isArray(shape))fail(`${label} collision ${index} needs a polygon`);
+    const translated=shape.map(vertex=>Array.isArray(vertex)?[vertex[0]+extent,vertex[1]+extent]:vertex);
+    polygon(translated,`${label} collision ${index}`,extent*2,extent*2);
+  }
+}
 function polygon(value: unknown, label: string, width: number, height: number): asserts value is ScenePolygon {
   if (!Array.isArray(value) || value.length < 3 || value.length > 256) fail(`${label} needs 3–256 vertices`);
   const vertices = value as unknown[];
@@ -178,6 +196,7 @@ function prefabScenery(value:unknown,label:string):asserts value is SceneScenery
   if(value.frame!==undefined&&!validId(value.frame))fail(`${label} has invalid frame`);
   if(value.depth!==undefined&&!finite(value.depth))fail(`${label} has invalid depth`);
   sortLine(value.sortLine,label);
+  collision(value.collision,label);
   if(value.motion!==undefined&&!['tree','cloth','boat','lamp','building','water','still'].includes(String(value.motion)))fail(`${label} has invalid motion`);
   for(const key of ['variant','flipX','collidable','pinned'])if(value[key]!==undefined&&typeof value[key]!=='boolean')fail(`${label} has invalid ${key}`);
 }
@@ -233,19 +252,31 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
     if (!Number.isInteger(input.coordinateVersion) || Number(input.coordinateVersion) < 1) fail(`${id} has an invalid coordinate version`);
     if (input.legacyOffset !== undefined) point(input.legacyOffset, `${id} legacy offset`);
     point(input.spawn, `${id} spawn`, input.width, input.height);
+    const clearLand=input.navigation!==undefined;
+    if(clearLand) {
+      if(!record(input.navigation)||input.navigation.model!=='clear-land')fail(`${id} has an invalid navigation model`);
+      list(input.navigation.terrainCollision,`${id} terrain collision`);
+      for(const hazard of input.navigation.terrainCollision) {
+        if(!['water','cliff','rock','wall'].includes(String(hazard.kind)))fail(`${id} terrain ${hazard.id} has an invalid collision kind`);
+        polygon(hazard.polygon,`${id} terrain ${hazard.id}`,input.width,input.height);
+      }
+      if(!Array.isArray(input.walkable)||!Array.isArray(input.obstacles)||input.walkable.length||input.obstacles.length)
+        fail(`${id}: clear-land scenes must use terrain collision and object-owned footprints; legacy walkable and obstacles must be empty`);
+    }
     for (const kind of ['walkable', 'obstacles'] as const) {
       const shapes = input[kind];
-      if (!Array.isArray(shapes) || (kind === 'walkable' && !shapes.length)) fail(`${id} needs ${kind} polygons`);
+      if (!Array.isArray(shapes) || (kind === 'walkable' && !shapes.length&&!clearLand)) fail(`${id} needs ${kind} polygons`);
       shapes.forEach((shape, index) => polygon(shape, `${id} ${kind} ${index}`, input.width as number, input.height as number));
     }
     for (const kind of ['npcs', 'objects'] as const) {
       list(input[kind], `${id} ${kind}`);
-      for (const anchor of input[kind]) point(anchor, `${id} ${kind} ${anchor.id}`, input.width, input.height);
+      for (const anchor of input[kind]) {point(anchor, `${id} ${kind} ${anchor.id}`, input.width, input.height);collision(anchor.collision,`${id} ${kind} ${anchor.id}`,true);}
     }
     list(input.scenery, `${id} scenery`);
     for (const item of input.scenery) {
       point(item, `${id} scenery ${item.id}`);
       positive(item.width, `${id} scenery ${item.id} width`, 8192);
+      collision(item.collision,`${id} scenery ${item.id}`);
       // Edge dressing may legitimately extend beyond playable bounds.
       if (item.x < -item.width || item.x > input.width + item.width || item.y < -item.width || item.y > input.height + item.width) fail(`${id} scenery ${item.id} exceeds decorative overscan`);
       if (!sceneSceneryAssets.includes(item.asset as SceneScenery['asset'])) fail(`${id} scenery ${item.id} has unknown asset`);

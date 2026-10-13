@@ -5,8 +5,9 @@ import { StreamedWorldTerrain } from './streamed-world-terrain';
 import { WorldMapAssets } from './world-map-assets';
 import { WorldAnimationAssets } from './world-animation-assets';
 import { sceneryAnimationManifestKey, type SceneryAnimationManifest } from './scenery-animation';
-import { sceneryFootprints, sceneryTextureFor } from './placed-scenery';
-import { sceneActivityPlaces, sceneEntrancePoint, getSceneryGeometryMap, type WorldScene, type SceneScenery } from './scene-schema';
+import { sceneryTextureFor } from './placed-scenery';
+import {sceneNavigationGeometry} from './scene-navigation';
+import { sceneActivityPlaces, sceneEntrancePoint, type WorldScene, type SceneScenery } from './scene-schema';
 import {ResidentActivityWorld} from './resident-activities';
 import type {WorldWeatherMode} from './world-weather';
 import {NavigationGrid} from './navigation';
@@ -52,10 +53,15 @@ export class LevelEditorCanvas extends Phaser.Scene {
   private residentHour?:number;
   private residentWeather:WorldWeatherMode='regional';
   private residentGuide?:{world:WorldScene;simulation:ResidentActivityWorld};
+  private guideWorld?:WorldScene;
   showResidentGuide(hour:number|undefined,weather:WorldWeatherMode='regional'):void{
     this.residentWeather=weather;
-    if(hour!==undefined)this.residentGuide={world:this.world,simulation:new ResidentActivityWorld(this.world,new NavigationGrid(this.world.walkable,[...this.world.obstacles,...sceneryFootprints(this.world.scenery,getSceneryGeometryMap(this.world.id))],this.world))};
+    if(hour!==undefined){const world=this.guideWorld??this.world;this.residentGuide={world,simulation:this.residentSimulation(world)};}
     this.residentHour=hour;this.drawGuides();
+  }
+  private residentSimulation(world:WorldScene):ResidentActivityWorld{
+    const geometry=sceneNavigationGeometry(world);
+    return new ResidentActivityWorld(world,new NavigationGrid(geometry.ground,geometry.barriers,world));
   }
   private scenery?: WorldScenery;
   private terrain?: StreamedWorldTerrain;
@@ -115,6 +121,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
   }
   paint(world: WorldScene): void {
     this.world = world;
+    this.guideWorld=this.authoredPreview??(this.generationPreview.length||this.previewRemoved.size?{...world,scenery:[...world.scenery.filter(item=>!this.previewRemoved.has(item.id)),...this.generationPreview]}:world);
     this.scenery?.destroy();
     this.scenery = new WorldScenery(this, world.id as MapId, this.period, [...world.scenery.filter(item=>!this.previewRemoved.has(item.id)),...this.generationPreview].filter(item=>!this.hidden.has(item.id)));
     this.drawGuides();
@@ -200,7 +207,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
   }
   drawGuides(): void {
     if (!this.guides || !this.world) return;
-    const world=this.authoredPreview??this.world;
+    const world=this.guideWorld??this.world;
     const g = this.guides, zoom = this.cameras.main.zoom; g.clear();
     if (this.gridVisible) {
       g.lineStyle(.7/zoom,0xffffff,.2);
@@ -211,8 +218,9 @@ export class LevelEditorCanvas extends Phaser.Scene {
       const vertices=points.map(([x,y])=>new Phaser.Math.Vector2(x,y));g.fillStyle(color,alpha).fillPoints(vertices,true);g.lineStyle(1/zoom,color,.85).strokePoints(vertices,true);
     };
     if (this.navigationVisible) {
-      for (const area of world.walkable) polygon(area,0x65bf9d,.12);
-      for (const obstacle of [...world.obstacles,...sceneryFootprints(world.scenery,getSceneryGeometryMap(world.id))]) polygon(obstacle,0xe6785f,.26);
+      const geometry=sceneNavigationGeometry(world);
+      for (const area of geometry.ground) polygon(area,0x65bf9d,.12);
+      for (const obstacle of geometry.barriers) polygon(obstacle,0xe6785f,.26);
       for (const target of world.npcs) g.lineStyle(1.5/zoom,0x67b4e6,1).strokeCircle(target.x,target.y,8/zoom);
       for (const target of world.objects) g.lineStyle(1.5/zoom,0xf0bc60,1).strokeRect(target.x-5/zoom,target.y-5/zoom,10/zoom,10/zoom);
       g.fillStyle(0xffffff,1).fillCircle(world.spawn.x,world.spawn.y,5/zoom);
@@ -227,7 +235,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
     }
     if(this.residentHour!==undefined){
       try{
-        if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:new ResidentActivityWorld(world,new NavigationGrid(world.walkable,[...world.obstacles,...sceneryFootprints(world.scenery,getSceneryGeometryMap(world.id))],world))};
+        if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:this.residentSimulation(world)};
         const samples=this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30},this.residentWeather);
         for(const sample of samples){
           if(sample.exchange&&sample.residentId<sample.exchange.partnerId){const partner=samples.find(item=>item.residentId===sample.exchange!.partnerId)!;g.lineStyle(2/zoom,0xeea87a,.9).lineBetween(sample.x,sample.y,partner.x,partner.y);}

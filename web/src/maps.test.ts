@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { maps, storyMaps, getMap, type StoryMapId } from './maps';
 import { expeditionIds, expeditionMaps, getExpedition, getExpeditionEncounter } from './expeditions';
 import { npcs, quests } from './content';
-import { createMapNavigation, MAP_WIDTH, MAP_HEIGHT, type MapPoint, type NavigationGrid } from './navigation';
+import { createMapNavigation, type MapPoint, type NavigationGrid } from './navigation';
 
-const position = (point: MapPoint): MapPoint => ({ x: point.x * MAP_WIDTH, y: point.y * MAP_HEIGHT });
+const position = (point: MapPoint, bounds: { width: number; height: number }): MapPoint => ({ x: point.x * bounds.width, y: point.y * bounds.height });
 
 function verifyRoute(navigation: NavigationGrid, start: MapPoint, route: MapPoint[]): void {
   let previous = start;
@@ -48,22 +48,26 @@ describe('painted region definitions', () => {
   });
 });
 
-for (const map of maps) describe(`${map.name} paths`, () => {
+for (const map of maps.map(map => getMap(map.id))) describe(`${map.name} paths`, () => {
   const navigation = createMapNavigation(map.id);
-  const spawn = position(map.spawn);
+  const actorNavigation = createMapNavigation(map.id, {agentRadius:0});
+  const spawn = position(map.spawn, map);
 
-  it('places arrivals and every NPC’s feet directly on pavement', () => {
+  it('places arrivals on clear ground and keeps authored NPC feet beside a safe player approach', () => {
     expect(navigation.isWalkable(spawn.x, spawn.y)).toBe(true);
     for (const npc of map.npcs) {
-      const point = position(npc);
-      expect(navigation.isWalkable(point.x, point.y), npc.id).toBe(true);
+      const point = position(npc, map);
+      expect(actorNavigation.isWalkable(point.x, point.y), npc.id).toBe(true);
+      const approach = navigation.closestPoint(point.x, point.y, spawn);
+      expect(Math.hypot(approach.x - point.x, approach.y - point.y), npc.id).toBeLessThan(60);
+      expect(navigation.isWalkable(approach.x, approach.y), npc.id).toBe(true);
     }
   });
 
-  it('reaches every story character and discovery without crossing roofs or water', () => {
+  it('reaches every story character and discovery without crossing foundations or water', () => {
     for (const item of [...map.npcs, ...map.objects]) {
-      const raw = position(item);
-      const destination = navigation.closestPoint(raw.x, raw.y);
+      const raw = position(item, map);
+      const destination = navigation.closestPoint(raw.x, raw.y, spawn);
       // An object may sit inside a fountain or on a noticeboard; its pavement
       // approach must stay close enough for the contextual action to activate.
       expect(Math.hypot(raw.x - destination.x, raw.y - destination.y), item.id).toBeLessThan(60);
@@ -83,8 +87,8 @@ for (const map of maps) describe(`${map.name} paths`, () => {
 
 describe('region-specific scenery barriers', () => {
   const blocked: Record<StoryMapId, number[][]> = {
-    lindenhafen: [[1390,750],[597,258],[1037,464],[818,535]],
-    waldruh: [[1400,820],[300,160],[1250,430],[650,650],[1070,610],[720,452]],
+    lindenhafen: [[1390,750],[600,415],[1153,433],[818,535]],
+    waldruh: [[1400,820],[332,284],[1103,235],[239,658],[1022,655],[720,452]],
     nebelstadt: [[1450,830],[264,280],[743,215],[1091,260],[1110,850],[642,785],[742,448]],
   };
   it('excludes each painting’s own buildings, monuments, stalls and open water', () => {
@@ -96,10 +100,10 @@ describe('region-specific scenery barriers', () => {
 
   it('connects the woodland stream bridge and both harbor bridges', () => {
     const crossings: Record<StoryMapId, number[][]> = {
-      lindenhafen: [[1430,355],[1330,948]], waldruh: [[1280,590]], nebelstadt: [[1330,400],[1340,652]],
+      lindenhafen: [[1430,310],[1330,948]], waldruh: [[1280,590]], nebelstadt: [[1330,400],[1340,652]],
     };
     for (const map of storyMaps) {
-      const navigation = createMapNavigation(map.id), spawn = position(map.spawn);
+      const navigation = createMapNavigation(map.id), activeMap = getMap(map.id), spawn = position(activeMap.spawn, activeMap);
       for (const [x, y] of crossings[map.id as StoryMapId]) {
         expect(navigation.isWalkable(x, y), `${map.id} bridge`).toBe(true);
         const route = navigation.findPath(spawn, { x, y });

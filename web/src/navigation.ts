@@ -2,10 +2,15 @@ import type { MapId } from './maps';
 import type { MapNavigationDocument } from './map-authoring';
 import { placedSceneryFootprints } from './placed-scenery';
 import {getWorldScene} from './scene-data';
+import {sceneNavigationGeometry} from './scene-navigation';
 
 export interface MapPoint { x: number; y: number; }
 type Polygon = readonly (readonly [number, number])[];
 interface Region { polygon: Polygon; minX: number; minY: number; maxX: number; maxY: number; }
+interface Boundary { a: MapPoint; b: MapPoint; minX: number; minY: number; maxX: number; maxY: number; }
+export interface NavigationOptions { agentRadius?: number; }
+/** Ground footprint shared by keyboard, touch, gamepad and click routes. */
+export const PLAYER_RADIUS = 10;
 const GEOMETRY_EPSILON = 1e-7;
 const DIRECTIONS = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]] as const;
 
@@ -37,8 +42,8 @@ export interface NavigationReachability {
   unreachableBounds?: {minX: number; minY: number; maxX: number; maxY: number};
 }
 
-// Foot-level paths traced from the Lindenhafen painting. Roofs, gardens outside
-// their gravel paths, stalls, fountains, and waterways are deliberately excluded.
+// Canonical towns use registered land minus named terrain hazards and owned
+// object footprints. Generic grids also support architectural floor polygons.
 
 
 const ellipse = (x: number, y: number, rx: number, ry: number): Polygon =>
@@ -63,6 +68,73 @@ function contains(polygon: Polygon, x: number, y: number): boolean {
     if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
   }
   return inside;
+}
+
+function boundary(a: MapPoint, b: MapPoint): Boundary {
+  return {a, b, minX: Math.min(a.x,b.x), minY: Math.min(a.y,b.y), maxX: Math.max(a.x,b.x), maxY: Math.max(a.y,b.y)};
+}
+
+function polygonEdges(polygon: Polygon): Boundary[] {
+  return polygon.map(([x,y], index) => {
+    const [bx,by] = polygon[(index+1)%polygon.length];
+    return boundary({x,y}, {x:bx,y:by});
+  });
+}
+
+function nearestOnEdge(point: MapPoint, edge: Boundary): MapPoint {
+  const dx=edge.b.x-edge.a.x, dy=edge.b.y-edge.a.y, length=dx*dx+dy*dy;
+  const t=length ? Math.max(0,Math.min(1,((point.x-edge.a.x)*dx+(point.y-edge.a.y)*dy)/length)) : 0;
+  return {x:edge.a.x+dx*t, y:edge.a.y+dy*t};
+}
+
+function edgeDistance(point: MapPoint, edge: Boundary): number {
+  const nearest=nearestOnEdge(point,edge);
+  return Math.hypot(point.x-nearest.x,point.y-nearest.y);
+}
+
+function segmentDistance(a: Boundary, b: Boundary): number {
+  const dx=a.b.x-a.a.x, dy=a.b.y-a.a.y, ex=b.b.x-b.a.x, ey=b.b.y-b.a.y;
+  const qx=b.a.x-a.a.x, qy=b.a.y-a.a.y, cross=dx*ey-dy*ex;
+  if (Math.abs(cross)>GEOMETRY_EPSILON) {
+    const t=(qx*ey-qy*ex)/cross, u=(qx*dy-qy*dx)/cross;
+    if(t>=0&&t<=1&&u>=0&&u<=1)return 0;
+  }
+  return Math.min(edgeDistance(a.a,b),edgeDistance(a.b,b),edgeDistance(b.a,a),edgeDistance(b.b,a));
+}
+
+/** Split street edges at intersections, then discard edges inside the union.
+ * Shrinking each authored polygon separately would create walls at street seams. */
+function streetBoundaries(streets: readonly Region[]): Boundary[] {
+  const edges=streets.flatMap(area=>polygonEdges(area.polygon)), output: Boundary[]=[];
+  for(const edge of edges) {
+    const dx=edge.b.x-edge.a.x, dy=edge.b.y-edge.a.y, length=dx*dx+dy*dy;
+    if(!length)continue;
+    const cuts=[0,1];
+    for(const other of edges) {
+      if(other===edge||other.maxX<edge.minX||other.minX>edge.maxX||other.maxY<edge.minY||other.minY>edge.maxY)continue;
+      const ex=other.b.x-other.a.x, ey=other.b.y-other.a.y, qx=other.a.x-edge.a.x, qy=other.a.y-edge.a.y;
+      const cross=dx*ey-dy*ex;
+      if(Math.abs(cross)>GEOMETRY_EPSILON) {
+        const t=(qx*ey-qy*ex)/cross, u=(qx*dy-qy*dx)/cross;
+        if(t>0&&t<1&&u>=0&&u<=1)cuts.push(t);
+      }else if(Math.abs(qx*dy-qy*dx)<=GEOMETRY_EPSILON) {
+        for(const point of [other.a,other.b]) {
+          const t=((point.x-edge.a.x)*dx+(point.y-edge.a.y)*dy)/length;
+          if(t>0&&t<1)cuts.push(t);
+        }
+      }
+    }
+    cuts.sort((a,b)=>a-b);
+    const offset=1e-4/Math.sqrt(length), nx=-dy*offset, ny=dx*offset;
+    for(let i=1;i<cuts.length;i++) {
+      const from=cuts[i-1], to=cuts[i];
+      if(to-from<GEOMETRY_EPSILON)continue;
+      const x=edge.a.x+dx*(from+to)/2, y=edge.a.y+dy*(from+to)/2;
+      if(streets.some(area=>includes(area,x+nx,y+ny))&&streets.some(area=>includes(area,x-nx,y-ny)))continue;
+      output.push(boundary({x:edge.a.x+dx*from,y:edge.a.y+dy*from},{x:edge.a.x+dx*to,y:edge.a.y+dy*to}));
+    }
+  }
+  return output;
 }
 
 interface HeapEntry { index: number; score: number; }
@@ -99,8 +171,9 @@ class MinHeap {
 }
 
 export class NavigationGrid {
-  readonly cellSize = 8;
-  private readonly cell = this.cellSize;
+  readonly cellSize: number;
+  readonly agentRadius: number;
+  private readonly cell: number;
   readonly width: number;
   readonly height: number;
   private readonly columns: number;
@@ -112,20 +185,41 @@ export class NavigationGrid {
   private readonly streets: readonly Region[];
   private readonly barriers: readonly Region[];
   private readonly geometry: readonly Region[];
+  private readonly boundaries: readonly Boundary[];
+  private readonly boundaryBins = new Map<number, number[]>();
+  private readonly boundaryBinSize = 64;
+  private readonly boundaryColumns: number;
   private readonly closestCandidates = new Map<number, readonly number[]>();
+  private readonly components: Uint32Array;
+  private readonly componentCounts: number[] = [0];
 
-  constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = [], bounds: NavigationBounds = {width:MAP_WIDTH,height:MAP_HEIGHT}) {
+  constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = [], bounds: NavigationBounds = {width:MAP_WIDTH,height:MAP_HEIGHT}, options: NavigationOptions = {}) {
     if (!Number.isFinite(bounds.width) || !Number.isFinite(bounds.height) || bounds.width < 28 || bounds.height < 28 || bounds.width > 16384 || bounds.height > 16384) throw new Error('Invalid navigation dimensions');
     this.width = bounds.width;
     this.height = bounds.height;
+    this.agentRadius=options.agentRadius??0;
+    if(!Number.isFinite(this.agentRadius)||this.agentRadius<0||this.agentRadius>128)throw new Error('Invalid navigation agent radius');
+    this.cellSize=this.cell=this.agentRadius?4:8;
+    this.boundaryColumns=Math.ceil(this.width/this.boundaryBinSize);
     this.columns = Math.ceil(this.width / this.cell);
     this.rows = Math.ceil(this.height / this.cell);
     this.allowed = new Uint8Array(this.columns * this.rows);
+    this.components=new Uint32Array(this.allowed.length);
     this.checkedEdges = new Uint8Array(this.allowed.length);
     this.clearEdges = new Uint8Array(this.allowed.length);
     this.streets = areas.map(region);
     this.barriers = obstacles.map(region);
     this.geometry = [...this.streets, ...this.barriers];
+    this.boundaries=this.agentRadius ? [
+      ...streetBoundaries(this.streets), ...this.barriers.flatMap(area=>polygonEdges(area.polygon)),
+      ...polygonEdges([[4,4],[this.width-4,4],[this.width-4,this.height-4],[4,this.height-4]]),
+    ] : [];
+    this.boundaries.forEach((edge,index)=>{
+      this.visitBoundaryBins(edge.minX,edge.minY,edge.maxX,edge.maxY,key=>{
+        const bin=this.boundaryBins.get(key);
+        if(bin)bin.push(index);else this.boundaryBins.set(key,[index]);
+      });
+    });
     for (let index = 0; index < this.allowed.length; index++) {
       const point = this.point(index);
       if (this.isWalkable(point.x, point.y)) {
@@ -138,7 +232,66 @@ export class NavigationGrid {
   isWalkable(x: number, y: number): boolean {
     if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
     if (x < 4 || x > this.width - 4 || y < 4 || y > this.height - 4) return false;
-    return this.streets.some(area => includes(area, x, y)) && !this.barriers.some(area => includes(area, x, y));
+    if(!this.streets.some(area => includes(area, x, y)) || this.barriers.some(area => includes(area, x, y)))return false;
+    if(!this.agentRadius)return true;
+    return this.nearbyBoundaries(x-this.agentRadius,y-this.agentRadius,x+this.agentRadius,y+this.agentRadius)
+      .every(edge=>edgeDistance({x,y},edge)>=this.agentRadius-GEOMETRY_EPSILON);
+  }
+
+  /** Distance from a ground point to the nearest solid or outer street edge. */
+  clearanceAt(x: number, y: number): number {
+    if(!Number.isFinite(x)||!Number.isFinite(y)||x<4||y<4||x>this.width-4||y>this.height-4
+      ||!this.streets.some(area=>includes(area,x,y))||this.barriers.some(area=>includes(area,x,y)))return 0;
+    const edges=this.agentRadius?this.boundaries:[...streetBoundaries(this.streets),...this.barriers.flatMap(area=>polygonEdges(area.polygon))];
+    return Math.min(x-4,y-4,this.width-4-x,this.height-4-y,...edges.map(edge=>edgeDistance({x,y},edge)));
+  }
+
+  /** Sweep the footprint to contact, then project remaining input along walls.
+   * Every accepted segment uses the same clearance check as the path planner. */
+  move(start: MapPoint, delta: MapPoint): MapPoint {
+    if(!Number.isFinite(delta.x)||!Number.isFinite(delta.y)||!Number.isFinite(start.x)||!Number.isFinite(start.y))return {...start};
+    let position=this.isWalkable(start.x,start.y)?{...start}:this.closestPoint(start.x,start.y);
+    if(!this.isWalkable(position.x,position.y))return position;
+    let remaining={...delta};
+    for(let contact=0;contact<4;contact++) {
+      const length=Math.hypot(remaining.x,remaining.y);
+      if(length<1e-6)break;
+      const end={x:position.x+remaining.x,y:position.y+remaining.y};
+      if(this.lineClear(position,end))return end;
+      let low=0, high=1;
+      for(let iteration=0;iteration<20;iteration++) {
+        const fraction=(low+high)/2;
+        if(this.lineClear(position,{x:position.x+remaining.x*fraction,y:position.y+remaining.y*fraction}))low=fraction;else high=fraction;
+      }
+      const fraction=Math.max(0,low-.001/length);
+      position={x:position.x+remaining.x*fraction,y:position.y+remaining.y*fraction};
+      remaining={x:remaining.x*(1-fraction),y:remaining.y*(1-fraction)};
+      if(!this.agentRadius)break;
+      const normals=this.nearbyBoundaries(position.x-this.agentRadius-.02,position.y-this.agentRadius-.02,
+        position.x+this.agentRadius+.02,position.y+this.agentRadius+.02).flatMap(edge=>{
+        const nearest=nearestOnEdge(position,edge), dx=position.x-nearest.x, dy=position.y-nearest.y, distance=Math.hypot(dx,dy);
+        return distance>0&&distance<=this.agentRadius+.02?[{x:dx/distance,y:dy/distance}]:[];
+      });
+      let projected=false;
+      for(let pass=0;pass<2;pass++)for(const normal of normals) {
+        const into=remaining.x*normal.x+remaining.y*normal.y;
+        if(into<0){remaining.x-=normal.x*into;remaining.y-=normal.y*into;projected=true;}
+      }
+      if(!projected)break;
+    }
+    return position;
+  }
+
+  private visitBoundaryBins(minX:number,minY:number,maxX:number,maxY:number,visit:(key:number)=>void): void {
+    const size=this.boundaryBinSize;
+    for(let y=Math.max(0,Math.floor(minY/size));y<=Math.min(Math.ceil(this.height/size)-1,Math.floor(maxY/size));y++)
+      for(let x=Math.max(0,Math.floor(minX/size));x<=Math.min(this.boundaryColumns-1,Math.floor(maxX/size));x++)visit(y*this.boundaryColumns+x);
+  }
+
+  private nearbyBoundaries(minX:number,minY:number,maxX:number,maxY:number): Boundary[] {
+    const indices=new Set<number>();
+    this.visitBoundaryBins(minX,minY,maxX,maxY,key=>{for(const index of this.boundaryBins.get(key)??[])indices.add(index);});
+    return Array.from(indices,index=>this.boundaries[index]).filter(edge=>edge.minX<=maxX&&edge.maxX>=minX&&edge.minY<=maxY&&edge.maxY>=minY);
   }
 
   /** Check the complete feet movement, including bases narrower than a frame's
@@ -151,6 +304,13 @@ export class NavigationGrid {
   auditConnectedArea(spawn: MapPoint): {cellSize:number; totalWalkableCells:number; connectedCells:number; connectedArea:number} {
     const {count} = this.connectedNodes(spawn);
     return {cellSize:this.cell,totalWalkableCells:this.nodes.length,connectedCells:count,connectedArea:count*this.cell*this.cell};
+  }
+
+  /** Prepare component-aware click snapping during room setup, before input. */
+  prepareReachability(spawn: MapPoint): void {
+    if(!this.isWalkable(spawn.x,spawn.y))return;
+    const index=this.closestIndex(spawn.x,spawn.y,spawn);
+    if(index!==undefined)this.componentAt(index);
   }
 
   /** Audit every walkable lattice sample without repeating A* for each sample. */
@@ -192,31 +352,49 @@ export class NavigationGrid {
 
   private connectedNodes(spawn: MapPoint): {seen: Uint8Array; count: number} {
     const start = this.isWalkable(spawn.x,spawn.y) ? this.closestIndex(spawn.x,spawn.y,spawn) : undefined;
-    const queue: number[] = start === undefined ? [] : [start];
-    const seen = new Uint8Array(this.allowed.length);
-    if(start !== undefined) seen[start] = 1;
+    const component=start===undefined?0:this.componentAt(start);
+    const seen=new Uint8Array(this.allowed.length);
+    if(component)for(const index of this.nodes)if(this.components[index]===component)seen[index]=1;
+    return {seen,count:this.componentCounts[component]};
+  }
+
+  private componentAt(start: number): number {
+    if(this.components[start])return this.components[start];
+    const component=this.componentCounts.length;
+    this.componentCounts.push(0);
+    const queue=[start];
+    this.components[start]=component;
     for(let head=0;head<queue.length;head++) {
       const current=queue[head],column=current%this.columns,row=Math.floor(current/this.columns);
       for(let direction=0;direction<DIRECTIONS.length;direction++) {
         const [dx,dy]=DIRECTIONS[direction];
         if(column+dx<0||column+dx>=this.columns||row+dy<0||row+dy>=this.rows)continue;
         const next=(row+dy)*this.columns+column+dx;
-        if(seen[next]||!this.allowed[next])continue;
+        if(this.components[next]||!this.allowed[next])continue;
         if(!this.edgeClear(current,next,direction))continue;
-        seen[next]=1;queue.push(next);
+        this.components[next]=component;queue.push(next);
       }
     }
-    return {seen, count: queue.length};
+    this.componentCounts[component]=queue.length;
+    return component;
   }
 
-  closestPoint(x: number, y: number): MapPoint {
-    if (this.isWalkable(x, y)) return { x, y };
-    const index = this.closestIndex(x, y);
+  closestPoint(x: number, y: number, reachableFrom?: MapPoint): MapPoint {
+    const anchor=reachableFrom&&this.isWalkable(reachableFrom.x,reachableFrom.y)?this.closestIndex(reachableFrom.x,reachableFrom.y,reachableFrom):undefined;
+    const component=anchor===undefined?undefined:this.componentAt(anchor);
+    if(reachableFrom&&component===undefined)return {...reachableFrom};
+    if (this.isWalkable(x, y)) {
+      if(!component)return {x,y};
+      const target=this.closestIndex(x,y,{x,y});
+      if(target!==undefined&&this.components[target]===component)return {x,y};
+    }
+    const index = this.closestIndex(x, y, undefined,component);
     return index === undefined ? { x, y } : this.point(index);
   }
 
   findPath(start: MapPoint, destination: MapPoint): MapPoint[] {
-    const target = this.closestPoint(destination.x, destination.y);
+    if(!this.isWalkable(start.x,start.y))return [];
+    const target = this.isWalkable(destination.x,destination.y)?destination:this.closestPoint(destination.x, destination.y,start);
     if (!this.isWalkable(start.x, start.y) || !this.isWalkable(target.x, target.y)) return [];
     if (this.lineClear(start, target)) return [target];
     // The nearest cell can sit across a thin wall from an exact endpoint.
@@ -224,6 +402,7 @@ export class NavigationGrid {
     const startIndex = this.closestIndex(start.x, start.y, start);
     const goalIndex = this.closestIndex(target.x, target.y, target);
     if (startIndex === undefined || goalIndex === undefined) return [];
+    if(this.components[startIndex]&&this.components[goalIndex]&&this.components[startIndex]!==this.components[goalIndex])return [];
     const scores = new Float64Array(this.allowed.length).fill(Infinity);
     const parents = new Int32Array(this.allowed.length).fill(-1);
     const visited = new Uint8Array(this.allowed.length);
@@ -266,7 +445,7 @@ export class NavigationGrid {
     return { x: (index % this.columns + 0.5) * this.cell, y: (Math.floor(index / this.columns) + 0.5) * this.cell };
   }
 
-  private closestIndex(x: number, y: number, visibleFrom?: MapPoint): number | undefined {
+  private closestIndex(x: number, y: number, visibleFrom?: MapPoint, component?:number): number | undefined {
     if (!this.nodes.length || !Number.isFinite(x) || !Number.isFinite(y)) return undefined;
     const column = Math.max(0, Math.min(this.columns - 1, Math.floor(x / this.cell)));
     const row = Math.max(0, Math.min(this.rows - 1, Math.floor(y / this.cell)));
@@ -297,6 +476,7 @@ export class NavigationGrid {
     let bestDistance = Infinity;
     let nearestCandidateDistance = Infinity;
     const consider = (index: number): void => {
+      if(component!==undefined&&this.components[index]!==component)return;
       const point = this.point(index);
       const distance = (x - point.x) ** 2 + (y - point.y) ** 2;
       nearestCandidateDistance = Math.min(nearestCandidateDistance, distance);
@@ -355,6 +535,11 @@ export class NavigationGrid {
     const dy = end.y - start.y;
     const squaredLength = dx * dx + dy * dy;
     if (squaredLength < GEOMETRY_EPSILON ** 2) return true;
+    if(this.agentRadius) {
+      const sweep=boundary(start,end), radius=this.agentRadius;
+      return this.nearbyBoundaries(sweep.minX-radius,sweep.minY-radius,sweep.maxX+radius,sweep.maxY+radius)
+        .every(edge=>segmentDistance(sweep,edge)>=radius-GEOMETRY_EPSILON);
+    }
     const cuts = [0, 1];
     const minX = Math.min(start.x, end.x), maxX = Math.max(start.x, end.x);
     const minY = Math.min(start.y, end.y), maxY = Math.max(start.y, end.y);
@@ -421,18 +606,17 @@ export class NavigationGrid {
 // wider silhouette belongs to depth rendering rather than collision.
 export const createTownNavigation = (): NavigationGrid => createMapNavigation('lindenhafen');
 
-// These foot-level paths are traced independently from the two paintings.
-// A shared rectangle would allow walking through the clockmill, greenhouses,
-// stalls and open harbor water. Bridges and stairways are explicit corridors.
+// Play, authoring previews and compilation share sceneNavigationGeometry.
 
 
 
 
 
 
-export function createMapNavigation(id: MapId): NavigationGrid {
+export function createMapNavigation(id: MapId, options: NavigationOptions = {}): NavigationGrid {
   const scene = getWorldScene(id);
-  return new NavigationGrid(scene.walkable, [...scene.obstacles, ...placedSceneryFootprints(id)], scene);
+  const geometry=sceneNavigationGeometry(scene);
+  return new NavigationGrid(geometry.ground,geometry.barriers,scene,{agentRadius:PLAYER_RADIUS,...options});
 }
 
 export function createFallbackNavigation(): NavigationGrid {
@@ -441,10 +625,11 @@ export function createFallbackNavigation(): NavigationGrid {
     rectangle(280, 220, 285, 205), rectangle(660, 170, 275, 225),
     rectangle(865, 360, 240, 190), rectangle(175, 680, 245, 195),
     rectangle(790, 730, 275, 215), ellipse(687, 545, 56, 31),
-  ]);
+  ], {width:MAP_WIDTH,height:MAP_HEIGHT}, {agentRadius:PLAYER_RADIUS});
 }
 
-/** Validate editor targets with the exact grid and collision rules used in play. */
+/** Validate legacy point-foot documents. Canonical scenes additionally audit
+ * player clearance in scene-compiler.mjs before an editor save. */
 export function validateAuthoredReachability(document: MapNavigationDocument): string[] {
   const errors: string[] = [];
   for (const [id, map] of Object.entries(document.maps)) {

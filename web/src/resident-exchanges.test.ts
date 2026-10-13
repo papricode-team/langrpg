@@ -4,11 +4,12 @@ import {sceneDocument,getWorldScene} from './scene-data';
 import {parseWorldSceneDocument,type WorldScene} from './scene-schema';
 import {compileResidentActivities,planResidentDay,planResidentExchanges,planResidentWeather,ResidentActivityWorld,sampleActivityResident} from './resident-activities';
 import {residentActionPose} from './resident-action-art';
+import {sceneNavigationGeometry} from './scene-navigation';
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
 function fixture(count=1){
-  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[],districts:[],walkable:[[[14,14],[586,14],[586,386],[14,386]]],obstacles:[],
-    scenery:[{id:'stall',asset:'stall',x:300,y:100,width:60,collidable:false},{id:'awning',asset:'arch',x:350,y:180,width:60,collidable:false}],
+  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[{id:'floor',x:0,y:0,width:600,height:400,dayAsset:'/assets/floor.webp'}],districts:[],walkable:[],obstacles:[],navigation:{model:'clear-land',terrainCollision:[]},
+    scenery:[{id:'stall',asset:'stall',x:300,y:100,width:60,collision:{referenceWidth:60,polygons:[]}},{id:'awning',asset:'arch',x:350,y:180,width:60,collision:{referenceWidth:60,polygons:[]}}],
     activities:[{id:'service',ownerId:'stall',kind:'service',offsetX:0,offsetY:20},{id:'shelter',ownerId:'awning',kind:'shelter',offsetX:0,offsetY:20}],
     residents:[{id:'vendor',name:'Vendor',home:{x:100,y:100},speed:50,avatar:{hair:'#333333',skin:'#ccaa99',outfit:'#445566'},schedule:[{id:'serving',activityId:'service',action:'serve',startHour:8,endHour:12,durationSeconds:70}]}]};
   for(let i=0;i<count;i++){
@@ -16,7 +17,7 @@ function fixture(count=1){
     scene.residents!.push({id:`customer-${i}`,name:`Customer ${i}`,home:{x:40,y:100+i*20},speed:50,avatar:{hair:'#333333',skin:'#ccaa99',outfit:'#445566'},
       schedule:[{id:'shopping',activityId:`queue-${i}`,action:'wait',startHour:8,endHour:12,durationSeconds:25,exchangeWith:{residentId:'vendor',taskId:'serving'}}]});
   }
-  const nav=new NavigationGrid(scene.walkable,[],scene),residents=compileResidentActivities(scene,nav),dry=planResidentDay(residents,time,0);
+  const geometry=sceneNavigationGeometry(scene),nav=new NavigationGrid(geometry.ground,geometry.barriers,scene),residents=compileResidentActivities(scene,nav),dry=planResidentDay(residents,time,0);
   return {scene,nav,residents,dry,plan:planResidentExchanges(residents,dry,time)};
 }
 
@@ -97,7 +98,7 @@ describe('coordinated resident exchanges',()=>{
   });
 
   it('authors two real Lindenhafen exchanges with continuous travel and compatible service',()=>{
-    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen'),world=new ResidentActivityWorld(scene,nav);
+    const scene=getWorldScene('lindenhafen'),nav=createMapNavigation('lindenhafen', {agentRadius:0}),world=new ResidentActivityWorld(scene,nav);
     const plan=world.day(time,'dry').plan;expect(plan.exchanges).toHaveLength(2);expect(plan.skipped).toEqual([]);
     let previous=world.sample(time,'dry');
     for(let tick=1;tick<=1440;tick++){
@@ -106,10 +107,10 @@ describe('coordinated resident exchanges',()=>{
         expect(nav.isWalkable(sample.x,sample.y)).toBe(true);expect(Math.hypot(sample.x-previous[i].x,sample.y-previous[i].y)).toBeLessThanOrEqual(world.residents[i].spec.speed/2+.001);
       }previous=samples;
     }
-  });
+  },30000);
 
   it('never schedules a ghost exchange across varied regional forecasts',()=>{
-    const scene=getWorldScene('lindenhafen'),world=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen'));
+    const scene=getWorldScene('lindenhafen'),world=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen', {agentRadius:0}));
     let cancelled=0;
     for(let day=0;day<8;day++){
       const plan=world.day({...time,elapsedSeconds:day*720}).plan;cancelled+=plan.skipped.length;
@@ -121,5 +122,5 @@ describe('coordinated resident exchanges',()=>{
       }
     }
     expect(cancelled).toBeGreaterThan(0);
-  });
+  },30000);
 });

@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {toTiled,fromTiled} from './map-editor-format.mjs';
+import {getSceneryGeometryMap} from '../web/src/scene-schema.ts';
+const {withSceneryCollision,sceneryFootprints}=await import('../web/src/placed-scenery.ts');
 const document=JSON.parse(await readFile(new URL('../web/src/data/world-navigation.json',import.meta.url),'utf8'));
 const scenes=JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json',import.meta.url),'utf8'));
 test('Tiled roundtrip preserves canonical geometry and foot placements',()=>{
@@ -58,12 +60,43 @@ test('Tiled furniture resizing and mirroring carry its usable positions',()=>{
   assert.deepEqual(moved.entrances[0].returnOffset,{x:-30,y:70});
 });
 test('unsupported v2 content cannot disappear silently',()=>{
-  const tiled=toTiled('lindenhafen',scenes);
+  const source=structuredClone(scenes);delete source.maps.lindenhafen.navigation;
+  source.maps.lindenhafen.walkable=[[[20,20],[200,20],[200,200],[20,200]]];
+  const tiled=toTiled('lindenhafen',source);
   tiled.layers.find(layer=>layer.name==='Walkable').objects[0].properties=[{name:'lost',type:'string',value:'no'}];
   assert.throws(()=>fromTiled(tiled,scenes),/custom properties/);
   tiled.layers.find(layer=>layer.name==='Walkable').objects[0].properties=[];
   tiled.layers.find(layer=>layer.name==='Scenery').objects[0].template='unresolved.tx';
   assert.throws(()=>fromTiled(tiled,scenes),/Resolve Tiled template/);
+});
+
+test('Tiled artwork edits refresh inherited collision for point and image scenery',()=>{
+  for(const image of [false,true])for(const change of [{asset:'bench'},{frame:'house-1'}]){
+    const source=structuredClone(scenes),scene=source.maps.lindenhafen,owner=scene.scenery[0];
+    const images=image?{scenery:{[owner.id]:{asset:'/assets/example.webp',imageWidth:2048,imageHeight:2048,frame:{x:12,y:16,w:400,h:500},originX:.45,originY:.95,referenceWidth:300}}}:undefined;
+    const tiled=toTiled(scene.id,source,{images}),object=tiled.layers.find(layer=>layer.name==='Scenery').objects[0];
+    for(const [name,value]of Object.entries(change)){
+      const entry=object.properties.find(property=>property.name===name);
+      if(entry)entry.value=value;else object.properties.push({name,type:'string',value});
+    }
+    const imported=fromTiled(tiled,source).maps[scene.id].scenery[0];
+    const expected={...owner,...change};delete expected.collision;
+    assert.deepEqual(imported.collision,withSceneryCollision(expected,getSceneryGeometryMap(scene.id)).collision);
+    assert.notDeepEqual(imported.collision,owner.collision);
+    assert.deepEqual(sceneryFootprints([imported]),sceneryFootprints([withSceneryCollision(expected,getSceneryGeometryMap(scene.id))]));
+  }
+});
+
+test('Tiled retains explicitly edited collision when changing the artwork',()=>{
+  const source=structuredClone(scenes),scene=source.maps.lindenhafen,owner=scene.scenery[0];
+  const before=structuredClone(owner.collision);
+  const tiled=toTiled(scene.id,source),object=tiled.layers.find(layer=>layer.name==='Scenery').objects[0];
+  const custom={referenceWidth:100,polygons:[[[-5,-7],[5,-7],[5,0],[-5,0]]]};
+  object.properties.find(property=>property.name==='asset').value='bench';
+  object.properties.find(property=>property.name==='collision').value=JSON.stringify(custom);
+  const imported=fromTiled(tiled,source).maps[scene.id].scenery[0];
+  assert.equal(imported.asset,'bench');assert.deepEqual(imported.collision,custom);
+  assert.deepEqual(owner.collision,before,'import must not mutate the original collider');
 });
 test('editor position and polygon offset edits reach the canonical pixel data',()=>{
   const tiled=toTiled('lindenhafen',document);

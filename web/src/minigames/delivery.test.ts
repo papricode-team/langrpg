@@ -5,17 +5,12 @@ import type { MapPoint } from '../navigation';
 import { directionForSegment, reachedDeliveryNode, WorldDeliveryRun } from './delivery';
 import type { GameItem, MiniGameHost, RoundResult } from './types';
 
-let frames: FrameRequestCallback[], clock: number;
+let frames: ((deltaMs: number) => void)[];
 let controller: WorldDeliveryRun | undefined;
-beforeEach(() => {
-  frames = []; clock = 0;
-  vi.spyOn(performance, 'now').mockImplementation(() => clock);
-  vi.stubGlobal('requestAnimationFrame', vi.fn((callback: FrameRequestCallback) => { frames.push(callback); return frames.length; }));
-  vi.stubGlobal('cancelAnimationFrame', vi.fn());
-});
+beforeEach(() => { frames = []; });
 afterEach(() => { controller?.destroy(); controller = undefined; document.body.replaceChildren(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 const settle = async () => { for (let i = 0; i < 5; i++) await Promise.resolve(); };
-async function frame(ms = 100) { clock += ms; frames.shift()?.(clock); await settle(); }
+async function frame(ms = 100) { for (const callback of [...frames]) callback(ms); await settle(); }
 const directionItem = (lemma: string): GameItem => ({ lexemeId: `${lemma}-adv`, lemma, english: lemma, topic: 'travel', level: 'A1', pos: 'adv', audio: `/audio/${lemma}.mp3`, exerciseIds: { recognition: '', listening: '', production: '' }, stability: 0, due: { recognition: false, listening: false, production: false }, seen: { recognition: false, listening: false, production: false }, recalls: { recognition: 0, listening: 0, production: 0 } });
 function receipt(correct: boolean): AttemptResult { return { attemptId: 'receipt', correct, correctedAnswer: 'rechts', reason: '', xpAdded: correct ? 6 : 0, duplicate: false, progress: emptyProgress() }; }
 
@@ -24,6 +19,7 @@ function harness(points: MapPoint[] = [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 10
   const world = {
     deliveryRoute: vi.fn(() => ({ recipient: 'marta', points })), getPlayerPosition: vi.fn(() => position),
     showDeliveryCheckpoints: vi.fn(), showDeliveryArrival: vi.fn(), setInputEnabled: vi.fn(),
+    onFrame: vi.fn((callback: (deltaMs: number) => void) => { frames.push(callback); return () => { frames = frames.filter(item => item !== callback); }; }),
     deliveryChoices: vi.fn((origin: MapPoint) => [origin, { x: origin.x - 100, y: origin.y }, { x: origin.x, y: origin.y - 100 }, { x: origin.x, y: origin.y + 100 }]),
   };
   const host = {
@@ -32,7 +28,7 @@ function harness(points: MapPoint[] = [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 10
     audio: { stop: vi.fn(), sfx: vi.fn() }, expose: vi.fn(), end: vi.fn(), silent: false,
   };
   const finish = vi.fn(), root = document.createElement('section'); document.body.append(root);
-  controller = new WorldDeliveryRun(world, host as unknown as MiniGameHost, finish, () => active);
+  controller = new WorldDeliveryRun(world, host as unknown as MiniGameHost, finish, () => active, enabled => world.setInputEnabled(enabled));
   return { world, host, root, finish, run: controller, move: (point: MapPoint) => { position = point; }, active: (value: boolean) => { active = value; } };
 }
 

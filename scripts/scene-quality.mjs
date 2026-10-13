@@ -28,7 +28,7 @@ export function auditSceneQuality(scene,manifest){
     const landmark=buildings.some(item=>['archive','cafe','station','workshop'].includes(item.asset));
     const owners=new Set(objects.map(item=>item.id));
     let paved=0,total=0;
-    for(let y=tile.y+8;y<tile.y+tile.height;y+=16)for(let x=tile.x+8;x<tile.x+tile.width;x+=16){total++;if(scene.walkable.some(polygon=>inside(polygon,x,y)))paved++;}
+    for(let y=tile.y+8;y<tile.y+tile.height;y+=16)for(let x=tile.x+8;x<tile.x+tile.width;x+=16){total++;if(scene.navigation?!scene.navigation.terrainCollision.some(hazard=>inside(hazard.polygon,x,y)):scene.walkable.some(polygon=>inside(polygon,x,y)))paved++;}
     const activities=(scene.activities??[]).filter(item=>owners.has(item.ownerId)).length;
     const coverage=paved/total;
     if(objects.length<18)issues.push(`${scene.id}: ${tile.id} needs at least 18 composed objects (has ${objects.length})`);

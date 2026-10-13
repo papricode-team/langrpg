@@ -11,8 +11,10 @@ import {auditSceneQuality} from './scene-quality.mjs';
 import {validateSceneryGeometry} from './scenery-geometry.mjs';
 const {compileResidentActivities} = await import('../web/src/resident-activities.ts');
 const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resident-action-art.ts');
-const {NavigationGrid} = await import('../web/src/navigation.ts');
-const {sceneryFootprints} = await import('../web/src/placed-scenery.ts');
+const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
+const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
+const {getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
+const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -23,6 +25,10 @@ export const sceneContentVersion = document => createHash('sha256').update(JSON.
 /** Performs no writes. Draft collision is validated from the draft's own scenery. */
 export async function compileSceneDocument(value, {root = projectRoot, strictQuality=true} = {}) {
   const document = parseWorldSceneDocument(structuredClone(value));
+  for(const scene of Object.values(document.maps))if(scene.navigation) {
+    scene.scenery=scene.scenery.map(item=>withSceneryCollision(item,getSceneryGeometryMap(scene.id)));
+    scene.objects=scene.objects.map(item=>({...item,collision:item.collision??{referenceWidth:1,polygons:[]}}));
+  }
   const errors = [], warnings=[], quality={}, registry = {schemaVersion: 1, contentVersion: sceneContentVersion(document), maps: {}};
   const files = new Map();
   const imageSizes = new Map();
@@ -97,20 +103,40 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
         if (!atlas.frames?.[frame] && !manifests.every(manifest => manifest.assets?.[frame])) errors.push(`${scene.id}: scenery ${item.id} has no registered frame ${frame}`);
       }
     }
-    const grid = new NavigationGrid(scene.walkable, [...scene.obstacles, ...sceneryFootprints(scene.scenery,sceneryManifest)], scene);
+    const geometry=sceneNavigationGeometry(scene,sceneryManifest);
+    const grid = new NavigationGrid(geometry.ground,geometry.barriers,scene);
+    const groundGrid = new NavigationGrid(geometry.ground,geometry.terrain,scene);
+    const playerGrid = new NavigationGrid(geometry.ground,geometry.barriers,scene,{agentRadius:PLAYER_RADIUS});
+    if(!playerGrid.isWalkable(scene.spawn.x,scene.spawn.y))errors.push(`${scene.id}: spawn needs ${PLAYER_RADIUS} units of player clearance`);
+    // Actor poses and painted doors stay attached to their props. Check that a
+    // player can approach each with a full footprint, without moving the anchor.
+    const playerTargets=[...scene.npcs,...scene.objects,
+      ...(scene.entrances??[]).flatMap(door=>[false,true].map(returning=>({id:`${door.id} ${returning?'return':'approach'}`,...sceneEntrancePoint(scene,door,returning)}))),
+      ...(scene.activities??[]).map(activity=>({id:activity.id,...sceneActivityPoint(scene,activity)}))];
+    for(const target of playerTargets) {
+      const approach=playerGrid.closestPoint(target.x,target.y,scene.spawn);
+      if(Math.hypot(approach.x-target.x,approach.y-target.y)>120||!playerGrid.findPath(scene.spawn,approach).length)
+        errors.push(`${scene.id}: ${target.id} has no reachable approach with ${PLAYER_RADIUS} units of player clearance`);
+    }
     for(const tile of scene.terrain.filter(tile=>tile.walkableMaskAsset)){
       try{
         const {data,info}=await sharp(resolve(root,'web/public',tile.walkableMaskAsset.slice(1))).removeAlpha().greyscale().raw().toBuffer({resolveWithObject:true});
         if(info.width!==tile.width||info.height!==tile.height)errors.push(`${scene.id}: ${tile.id} walkable mask must be one pixel per world unit`);
         else {
           let offGround=0;
-          for(let y=3;y<tile.height;y+=6)for(let x=3;x<tile.width;x+=6)if(data[y*info.width+x]<128&&grid.isWalkable(tile.x+x,tile.y+y))offGround++;
+          const groundPixel=(x,y)=>x>=0&&y>=0&&x<info.width&&y<info.height&&data[y*info.width+x]>=128;
+          // Mask pixels describe unit squares. Sample their centres so a closed
+          // white-cell boundary is not mistaken for its black neighbour. Float
+          // contours rasterize with up to one pixel of edge quantization.
+          for(let y=3;y<tile.height;y+=6)for(let x=3;x<tile.width;x+=6)
+            if(!groundPixel(x,y)&&!groundPixel(x-1,y)&&!groundPixel(x+1,y)&&!groundPixel(x,y-1)&&!groundPixel(x,y+1)
+              &&(scene.navigation?groundGrid:grid).isWalkable(tile.x+x+.5,tile.y+y+.5))offGround++;
           if(offGround)errors.push(`${scene.id}: ${tile.id} navigation crosses ${offGround} samples outside its painted walkable mask`);
         }
       }catch{errors.push(`${scene.id}: missing or unreadable walkable mask ${tile.walkableMaskAsset}`);}
     }
     const reachability=grid.auditReachability(scene.spawn);
-    if(reachability.reachableRatio<.995)errors.push(`${scene.id}: spawn reaches ${(100*reachability.reachableRatio).toFixed(2)}% of walkable samples; at least 99.5% is required`);
+    if(reachability.reachableRatio<.995)(scene.navigation?warnings:errors).push(`${scene.id}: spawn reaches ${(100*reachability.reachableRatio).toFixed(2)}% of walkable samples; ${scene.navigation?'isolated clear land is allowed, interaction targets must be reachable':'at least 99.5% is required'}`);
     if (['lindenhafen','waldruh','nebelstadt'].includes(scene.id)) for (const interior of sceneInteriorIds) {
       if (!scene.entrances?.some(entrance=>entrance.interiorId===interior)) errors.push(`${scene.id}: missing required ${interior} entrance; reassign it to a storefront`);
     }
