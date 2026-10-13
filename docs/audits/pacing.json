@@ -20,36 +20,69 @@
       "A2": 639,
       "B1": 560
     },
-    "storyLexemes": 786,
-    "storyVocabularyReadyByHour": 87.5
+    "storyLexemes": 823,
+    "storyVocabularyReadyByHour": 91.6
   },
   "quests": [
     {
       "questId": "a1-arrival",
       "level": "A1",
-      "lexemes": 80,
-      "newLexemes": 80,
+      "lexemes": 100,
+      "newLexemes": 100,
       "storyWords": [
         "Laterne",
-        "Tauben"
+        "Messingamt"
       ],
       "unmapped": [
         "Jeden",
-        "Keine",
         "jeden",
-        "keine",
+        "mir",
+        "uns",
+        "vom"
+      ],
+      "ambiguous": [
+        "Abgeben",
+        "Bahnsteig",
+        "Fahrkarte",
+        "Ihr",
+        "Plan",
+        "bitte",
+        "danke",
+        "gültig",
+        "im",
+        "nicht",
+        "sieben"
+      ],
+      "milestone": 122,
+      "vocabularyReadyHour": 11.2,
+      "newWordsAboveBudget": 97,
+      "levels": {
+        "A1": 98,
+        "A2": 1,
+        "B1": 1
+      }
+    },
+    {
+      "questId": "a1-timetable",
+      "level": "A1",
+      "lexemes": 94,
+      "newLexemes": 35,
+      "storyWords": [
+        "Tafel",
+        "Laterne"
+      ],
+      "unmapped": [
         "mir"
       ],
       "ambiguous": [
-        "Im",
-        "Sie",
-        "im"
+        "ihren",
+        "sein"
       ],
-      "milestone": 98,
-      "vocabularyReadyHour": 8.8,
-      "newWordsAboveBudget": 77,
+      "milestone": 153,
+      "vocabularyReadyHour": 14.3,
+      "newWordsAboveBudget": 28,
       "levels": {
-        "A1": 78,
+        "A1": 92,
         "A2": 1,
         "B1": 1
       }
@@ -57,27 +90,75 @@
     {
       "questId": "a1-cafe",
       "level": "A1",
-      "lexemes": 76,
-      "newLexemes": 39,
+      "lexemes": 87,
+      "newLexemes": 36,
       "storyWords": [
-        "Wasserkocher",
-        "Siegel"
+        "Stempel",
+        "Gutschein"
       ],
       "unmapped": [
-        "mich",
-        "mir"
+        "Messingamt",
+        "jeden",
+        "vom"
       ],
       "ambiguous": [
         "Ihr",
-        "Sie",
-        "sein"
+        "im"
       ],
-      "milestone": 141,
-      "vocabularyReadyHour": 13.1,
-      "newWordsAboveBudget": 33,
+      "milestone": 188,
+      "vocabularyReadyHour": 17.8,
+      "newWordsAboveBudget": 31,
       "levels": {
-        "A1": 74,
+        "A1": 87,
+        "A2": 0,
+        "B1": 0
+      }
+    },
+    {
+      "questId": "a1-room",
+      "level": "A1",
+      "lexemes": 98,
+      "newLexemes": 26,
+      "storyWords": [
+        "Gästebuch"
+      ],
+      "unmapped": [
+        "uns"
+      ],
+      "ambiguous": [
+        "Im"
+      ],
+      "milestone": 217,
+      "vocabularyReadyHour": 20.7,
+      "newWordsAboveBudget": 18,
+      "levels": {
+        "A1": 95,
         "A2": 1,
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-shopping",
+      "level": "A1",
+      "lexemes": 82,
+      "newLexemes": 13,
+      "storyWords": [
+        "Suppe"
+      ],
+      "unmapped": [
+        "Jeden",
+        "Keiner",
+        "jeden",
+        "mich",
+        "mir"
+      ],
+      "ambiguous": [],
+      "milestone": 233,
+      "vocabularyReadyHour": 22.3,
+      "newWordsAboveBudget": 9,
+      "levels": {
+        "A1": 81,
+        "A2": 0,
         "B1": 1
       }
     },
@@ -85,128 +166,361 @@
       "questId": "a1-market",
       "level": "A1",
       "lexemes": 93,
-      "newLexemes": 29,
+      "newLexemes": 6,
       "storyWords": [
         "Suppe",
-        "Gästebuch"
+        "Gartenstraße"
       ],
       "unmapped": [
+        "Jeden",
         "jeden",
-        "keiner"
+        "keine"
       ],
       "ambiguous": [
         "Ihr",
-        "Im",
-        "Meine",
+        "ihr",
+        "ihren",
+        "im",
+        "meine",
+        "sein"
+      ],
+      "milestone": 241,
+      "vocabularyReadyHour": 23.1,
+      "newWordsAboveBudget": 1,
+      "levels": {
+        "A1": 91,
+        "A2": 0,
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-neighbour",
+      "level": "A1",
+      "lexemes": 91,
+      "newLexemes": 15,
+      "storyWords": [
+        "Lehrerin",
+        "streng"
+      ],
+      "unmapped": [
+        "ihrer",
+        "jeden",
+        "mir"
+      ],
+      "ambiguous": [
         "Sie",
+        "ihr",
         "ihren",
         "meine"
       ],
-      "milestone": 174,
-      "vocabularyReadyHour": 16.4,
-      "newWordsAboveBudget": 23,
+      "milestone": 256,
+      "vocabularyReadyHour": 24.6,
+      "newWordsAboveBudget": 10,
       "levels": {
-        "A1": 89,
+        "A1": 88,
         "A2": 1,
-        "B1": 3
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-pharmacy",
+      "level": "A1",
+      "lexemes": 79,
+      "newLexemes": 10,
+      "storyWords": [
+        "Apotheke",
+        "Beutel"
+      ],
+      "unmapped": [
+        "jeden"
+      ],
+      "ambiguous": [
+        "Sie",
+        "ihr",
+        "ihren",
+        "meine"
+      ],
+      "milestone": 265,
+      "vocabularyReadyHour": 25.5,
+      "newWordsAboveBudget": 3,
+      "levels": {
+        "A1": 78,
+        "A2": 0,
+        "B1": 1
+      }
+    },
+    {
+      "questId": "a1-directions",
+      "level": "A1",
+      "lexemes": 83,
+      "newLexemes": 12,
+      "storyWords": [
+        "Gartenstraße",
+        "gegenüber"
+      ],
+      "unmapped": [
+        "Keiner",
+        "mir",
+        "vom"
+      ],
+      "ambiguous": [
+        "ihren",
+        "zum"
+      ],
+      "milestone": 275,
+      "vocabularyReadyHour": 26.5,
+      "newWordsAboveBudget": 7,
+      "levels": {
+        "A1": 82,
+        "A2": 0,
+        "B1": 1
       }
     },
     {
       "questId": "a1-station",
       "level": "A1",
-      "lexemes": 116,
-      "newLexemes": 36,
+      "lexemes": 104,
+      "newLexemes": 14,
       "storyWords": [
         "jemand",
-        "Tür"
+        "Büro"
       ],
       "unmapped": [
-        "Gästebuch",
         "jeden",
-        "mich",
-        "mir"
+        "keine",
+        "mich"
       ],
       "ambiguous": [
         "Ihr",
         "Sie",
-        "gehört",
-        "im",
-        "sein"
+        "im"
       ],
-      "milestone": 211,
-      "vocabularyReadyHour": 20.1,
-      "newWordsAboveBudget": 32,
+      "milestone": 288,
+      "vocabularyReadyHour": 27.8,
+      "newWordsAboveBudget": 9,
       "levels": {
-        "A1": 111,
-        "A2": 3,
-        "B1": 2
+        "A1": 101,
+        "A2": 2,
+        "B1": 1
+      }
+    },
+    {
+      "questId": "a1-weather",
+      "level": "A1",
+      "lexemes": 80,
+      "newLexemes": 10,
+      "storyWords": [
+        "Schirm",
+        "Laterne"
+      ],
+      "unmapped": [
+        "jeden",
+        "mir"
+      ],
+      "ambiguous": [
+        "im"
+      ],
+      "milestone": 301,
+      "vocabularyReadyHour": 29.1,
+      "newWordsAboveBudget": 4,
+      "levels": {
+        "A1": 78,
+        "A2": 1,
+        "B1": 1
       }
     },
     {
       "questId": "a1-workshop",
       "level": "A1",
-      "lexemes": 106,
-      "newLexemes": 25,
+      "lexemes": 100,
+      "newLexemes": 9,
       "storyWords": [
         "Lampe",
         "funktioniert"
       ],
       "unmapped": [
-        "Vom",
-        "keine",
+        "Gartenstraße",
         "mich",
         "mir"
       ],
       "ambiguous": [
         "Meine",
-        "Sie",
-        "Zur",
-        "gehört",
-        "meine",
+        "ihr",
         "sein",
         "zur"
       ],
-      "milestone": 234,
-      "vocabularyReadyHour": 22.4,
-      "newWordsAboveBudget": 21,
+      "milestone": 312,
+      "vocabularyReadyHour": 30.2,
+      "newWordsAboveBudget": 4,
       "levels": {
-        "A1": 103,
+        "A1": 92,
+        "A2": 6,
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-bike",
+      "level": "A1",
+      "lexemes": 79,
+      "newLexemes": 8,
+      "storyWords": [
+        "meistens",
+        "Laterne"
+      ],
+      "unmapped": [
+        "keine"
+      ],
+      "ambiguous": [
+        "ihr",
+        "sein"
+      ],
+      "milestone": 322,
+      "vocabularyReadyHour": 31.2,
+      "newWordsAboveBudget": 1,
+      "levels": {
+        "A1": 78,
+        "A2": 0,
+        "B1": 1
+      }
+    },
+    {
+      "questId": "a1-phone",
+      "level": "A1",
+      "lexemes": 92,
+      "newLexemes": 13,
+      "storyWords": [
+        "Register",
+        "Gartenstraße"
+      ],
+      "unmapped": [
+        "Wen",
+        "jeden",
+        "mir",
+        "vom"
+      ],
+      "ambiguous": [
+        "Ihr",
+        "im"
+      ],
+      "milestone": 336,
+      "vocabularyReadyHour": 32.6,
+      "newWordsAboveBudget": 9,
+      "levels": {
+        "A1": 87,
         "A2": 3,
-        "B1": 0
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-invitation",
+      "level": "A1",
+      "lexemes": 89,
+      "newLexemes": 8,
+      "storyWords": [],
+      "unmapped": [
+        "Jeden",
+        "beides",
+        "keinen",
+        "mir",
+        "uns"
+      ],
+      "ambiguous": [
+        "ihr",
+        "ihrem",
+        "ihren"
+      ],
+      "milestone": 346,
+      "vocabularyReadyHour": 33.6,
+      "newWordsAboveBudget": 3,
+      "levels": {
+        "A1": 87,
+        "A2": 1,
+        "B1": 1
+      }
+    },
+    {
+      "questId": "a1-lost-found",
+      "level": "A1",
+      "lexemes": 83,
+      "newLexemes": 7,
+      "storyWords": [
+        "Handschuh",
+        "Tinte"
+      ],
+      "unmapped": [
+        "Wem",
+        "mir"
+      ],
+      "ambiguous": [
+        "Sie",
+        "gehört",
+        "meine"
+      ],
+      "milestone": 355,
+      "vocabularyReadyHour": 34.5,
+      "newWordsAboveBudget": 1,
+      "levels": {
+        "A1": 82,
+        "A2": 0,
+        "B1": 1
       }
     },
     {
       "questId": "a1-lost-parcel",
       "level": "A1",
-      "lexemes": 98,
-      "newLexemes": 18,
+      "lexemes": 97,
+      "newLexemes": 5,
       "storyWords": [
         "Paket",
         "Tinte"
       ],
       "unmapped": [
-        "Gästebuch",
+        "Gartenstraße",
         "auslöschst",
         "jeden",
         "keine",
-        "mich",
         "mir",
         "uns"
       ],
       "ambiguous": [
         "Ihr",
         "Im",
-        "Sie",
-        "beim",
-        "freitags",
-        "gehört",
-        "im"
+        "Schicke",
+        "ihren",
+        "im",
+        "sein"
       ],
-      "milestone": 255,
-      "vocabularyReadyHour": 24.5,
-      "newWordsAboveBudget": 17,
+      "milestone": 362,
+      "vocabularyReadyHour": 35.2,
+      "newWordsAboveBudget": 3,
       "levels": {
-        "A1": 95,
+        "A1": 93,
+        "A2": 2,
+        "B1": 2
+      }
+    },
+    {
+      "questId": "a1-departure",
+      "level": "A1",
+      "lexemes": 81,
+      "newLexemes": 6,
+      "storyWords": [
+        "hin"
+      ],
+      "unmapped": [
+        "jeden",
+        "mich",
+        "uns"
+      ],
+      "ambiguous": [
+        "im",
+        "meine"
+      ],
+      "milestone": 368,
+      "vocabularyReadyHour": 35.8,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 78,
         "A2": 2,
         "B1": 1
       }
@@ -214,8 +528,8 @@
     {
       "questId": "a2-apartment",
       "level": "A2",
-      "lexemes": 220,
-      "newLexemes": 111,
+      "lexemes": 211,
+      "newLexemes": 90,
       "storyWords": [],
       "unmapped": [
         "Akte",
@@ -228,7 +542,6 @@
         "Register",
         "Schraube",
         "Türrahmen",
-        "Wasserkocher",
         "Zimmerschlüssel",
         "anderen",
         "angerührt",
@@ -243,7 +556,6 @@
         "mich",
         "müsste",
         "offene",
-        "pfeift",
         "registriert",
         "rührt",
         "seinem",
@@ -258,20 +570,20 @@
         "decken",
         "meine"
       ],
-      "milestone": 383,
-      "vocabularyReadyHour": 37.3,
-      "newWordsAboveBudget": 135,
+      "milestone": 472,
+      "vocabularyReadyHour": 46.2,
+      "newWordsAboveBudget": 112,
       "levels": {
-        "A1": 147,
-        "A2": 40,
-        "B1": 33
+        "A1": 141,
+        "A2": 39,
+        "B1": 31
       }
     },
     {
       "questId": "a2-evening-plans",
       "level": "A2",
       "lexemes": 201,
-      "newLexemes": 66,
+      "newLexemes": 53,
       "storyWords": [],
       "unmapped": [
         "Abendessen",
@@ -324,9 +636,9 @@
         "ihrem",
         "rollen"
       ],
-      "milestone": 456,
-      "vocabularyReadyHour": 44.6,
-      "newWordsAboveBudget": 95,
+      "milestone": 532,
+      "vocabularyReadyHour": 52.2,
+      "newWordsAboveBudget": 82,
       "levels": {
         "A1": 140,
         "A2": 31,
@@ -337,7 +649,7 @@
       "questId": "a2-rail-trip",
       "level": "A2",
       "lexemes": 183,
-      "newLexemes": 41,
+      "newLexemes": 40,
       "storyWords": [],
       "unmapped": [
         "Abendplan",
@@ -397,9 +709,9 @@
         "im",
         "sein"
       ],
-      "milestone": 505,
-      "vocabularyReadyHour": 49.5,
-      "newWordsAboveBudget": 78,
+      "milestone": 575,
+      "vocabularyReadyHour": 56.5,
+      "newWordsAboveBudget": 77,
       "levels": {
         "A1": 128,
         "A2": 25,
@@ -410,7 +722,7 @@
       "questId": "a2-broken-clock",
       "level": "A2",
       "lexemes": 208,
-      "newLexemes": 66,
+      "newLexemes": 60,
       "storyWords": [],
       "unmapped": [
         "Ah",
@@ -465,9 +777,9 @@
         "ihrem",
         "meine"
       ],
-      "milestone": 581,
-      "vocabularyReadyHour": 57.1,
-      "newWordsAboveBudget": 100,
+      "milestone": 645,
+      "vocabularyReadyHour": 63.5,
+      "newWordsAboveBudget": 94,
       "levels": {
         "A1": 129,
         "A2": 38,
@@ -478,7 +790,7 @@
       "questId": "a2-clinic",
       "level": "A2",
       "lexemes": 212,
-      "newLexemes": 51,
+      "newLexemes": 49,
       "storyWords": [],
       "unmapped": [
         "Akte",
@@ -533,9 +845,9 @@
         "ihr",
         "im"
       ],
-      "milestone": 641,
-      "vocabularyReadyHour": 63.1,
-      "newWordsAboveBudget": 86,
+      "milestone": 703,
+      "vocabularyReadyHour": 69.3,
+      "newWordsAboveBudget": 84,
       "levels": {
         "A1": 135,
         "A2": 42,
@@ -546,7 +858,7 @@
       "questId": "a2-archive",
       "level": "A2",
       "lexemes": 203,
-      "newLexemes": 33,
+      "newLexemes": 31,
       "storyWords": [],
       "unmapped": [
         "Akte",
@@ -595,9 +907,9 @@
         "ihren",
         "zum"
       ],
-      "milestone": 673,
-      "vocabularyReadyHour": 66.3,
-      "newWordsAboveBudget": 57,
+      "milestone": 736,
+      "vocabularyReadyHour": 72.6,
+      "newWordsAboveBudget": 55,
       "levels": {
         "A1": 139,
         "A2": 33,
@@ -608,7 +920,7 @@
       "questId": "b1-witness",
       "level": "B1",
       "lexemes": 185,
-      "newLexemes": 39,
+      "newLexemes": 36,
       "storyWords": [],
       "unmapped": [
         "Abschrift",
@@ -666,9 +978,9 @@
         "sein",
         "zur"
       ],
-      "milestone": 718,
-      "vocabularyReadyHour": 70.8,
-      "newWordsAboveBudget": 72,
+      "milestone": 782,
+      "vocabularyReadyHour": 77.2,
+      "newWordsAboveBudget": 69,
       "levels": {
         "A1": 106,
         "A2": 38,
@@ -679,7 +991,7 @@
       "questId": "b1-new-route",
       "level": "B1",
       "lexemes": 194,
-      "newLexemes": 35,
+      "newLexemes": 29,
       "storyWords": [],
       "unmapped": [
         "Beet",
@@ -721,9 +1033,9 @@
         "ihrem",
         "meine"
       ],
-      "milestone": 756,
-      "vocabularyReadyHour": 74.6,
-      "newWordsAboveBudget": 57,
+      "milestone": 813,
+      "vocabularyReadyHour": 80.3,
+      "newWordsAboveBudget": 51,
       "levels": {
         "A1": 124,
         "A2": 39,
@@ -734,7 +1046,7 @@
       "questId": "b1-work",
       "level": "B1",
       "lexemes": 193,
-      "newLexemes": 29,
+      "newLexemes": 27,
       "storyWords": [],
       "unmapped": [
         "Feuerlöscher",
@@ -792,9 +1104,9 @@
         "meine",
         "summen"
       ],
-      "milestone": 787,
-      "vocabularyReadyHour": 77.7,
-      "newWordsAboveBudget": 66,
+      "milestone": 842,
+      "vocabularyReadyHour": 83.2,
+      "newWordsAboveBudget": 64,
       "levels": {
         "A1": 128,
         "A2": 31,
@@ -805,7 +1117,7 @@
       "questId": "b1-council",
       "level": "B1",
       "lexemes": 205,
-      "newLexemes": 31,
+      "newLexemes": 28,
       "storyWords": [],
       "unmapped": [
         "Aufsicht",
@@ -845,9 +1157,9 @@
         "im",
         "sein"
       ],
-      "milestone": 822,
-      "vocabularyReadyHour": 81.2,
-      "newWordsAboveBudget": 51,
+      "milestone": 873,
+      "vocabularyReadyHour": 86.3,
+      "newWordsAboveBudget": 48,
       "levels": {
         "A1": 123,
         "A2": 38,
@@ -858,7 +1170,7 @@
       "questId": "b1-storm",
       "level": "B1",
       "lexemes": 183,
-      "newLexemes": 30,
+      "newLexemes": 25,
       "storyWords": [],
       "unmapped": [
         "Beeten",
@@ -901,9 +1213,9 @@
         "im",
         "meine"
       ],
-      "milestone": 854,
-      "vocabularyReadyHour": 84.4,
-      "newWordsAboveBudget": 52,
+      "milestone": 902,
+      "vocabularyReadyHour": 89.2,
+      "newWordsAboveBudget": 47,
       "levels": {
         "A1": 115,
         "A2": 30,
@@ -913,8 +1225,8 @@
     {
       "questId": "b1-atlas",
       "level": "B1",
-      "lexemes": 243,
-      "newLexemes": 27,
+      "lexemes": 240,
+      "newLexemes": 22,
       "storyWords": [],
       "unmapped": [
         "Atlas",
@@ -931,7 +1243,6 @@
         "Schublade",
         "Stapel",
         "Tinte",
-        "Wasserkocher",
         "abgeschaltet",
         "abstellen",
         "anderen",
@@ -951,13 +1262,11 @@
         "jeden",
         "keine",
         "keinen",
-        "letzte",
         "läutet",
         "mich",
         "mir",
         "offenen",
         "offengelassen",
-        "pfeift",
         "seinem",
         "siebte",
         "strittigen",
@@ -974,13 +1283,13 @@
         "paar",
         "sein"
       ],
-      "milestone": 885,
-      "vocabularyReadyHour": 87.5,
-      "newWordsAboveBudget": 65,
+      "milestone": 926,
+      "vocabularyReadyHour": 91.6,
+      "newWordsAboveBudget": 57,
       "levels": {
         "A1": 147,
-        "A2": 42,
-        "B1": 54
+        "A2": 40,
+        "B1": 53
       }
     }
   ]

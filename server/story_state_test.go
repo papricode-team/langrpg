@@ -319,7 +319,7 @@ func TestStoryRouteMilestonesAndLegacyDiscoveries(t *testing.T) {
 	if routeUnlocked("waldruh", nil) || routeUnlocked("nebelstadt", []string{"a1-lost-parcel"}) || routeUnlocked("rainmarket", []string{"b1-storm"}) {
 		t.Fatal("locked route exposed")
 	}
-	if !routeUnlocked("waldruh", []string{"a1-lost-parcel"}) || !routeUnlocked("nebelstadt", []string{"a2-archive"}) || !routeUnlocked("rainmarket", []string{"b1-atlas"}) {
+	if !routeUnlocked("waldruh", []string{actOneFinale}) || !routeUnlocked("nebelstadt", []string{"a2-archive"}) || !routeUnlocked("rainmarket", []string{"b1-atlas"}) {
 		t.Fatal("milestone failed to unlock route")
 	}
 	if !routeUnlocked("nebelstadt", []string{"b1-witness"}) {
@@ -440,7 +440,7 @@ func TestStoryRoutesCannotBeBypassedThroughWebSocketOrReconnect(t *testing.T) {
 	if current != DefaultMapID {
 		t.Fatal("locked travel changed membership")
 	}
-	seedStoryProgress(t, app, token, storyQuestOrder[:6])
+	seedStoryProgress(t, app, token, storyQuestsThrough(actOneFinale))
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	if mapID, _, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != "waldruh" {
 		t.Fatal("live quest progression was not read")
@@ -469,7 +469,7 @@ func TestLoadingAnEarlierStorySlotWithdrawsTheLiveLockedRoute(t *testing.T) {
 	defer cancel()
 	conn := dialMap(t, ctx, server, token, DefaultMapID)
 	readWorld(t, ctx, conn, "welcome")
-	seedStoryProgress(t, app, token, storyQuestOrder[:6])
+	seedStoryProgress(t, app, token, storyQuestsThrough(actOneFinale))
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	readWorld(t, ctx, conn, "map")
 	if r := request(app, "POST", "/api/story/load", token, map[string]string{"slot": "1"}); r.Code != 200 {
@@ -547,9 +547,9 @@ func TestBellPacingLeavesTheFinalBellForTheFinale(t *testing.T) {
 			t.Fatal("the finale did not ring the final bell")
 		}
 	}
-	legacy := Progress{CompletedQuestIDs: append([]string{}, storyQuestOrder[:6]...), Story: StoryState{Bell: 7}}
+	legacy := Progress{CompletedQuestIDs: append([]string{}, storyQuestsThrough(actOneFinale)...), Story: StoryState{Bell: 7}}
 	ensureProgress(&legacy)
-	if legacy.Story.Bell != 2 || len(legacy.CompletedQuestIDs) != 6 {
+	if legacy.Story.Bell != 2 || len(legacy.CompletedQuestIDs) != len(storyQuestsThrough(actOneFinale)) {
 		t.Fatal("old Act I warnings exhausted the later bells or lost discoveries")
 	}
 }

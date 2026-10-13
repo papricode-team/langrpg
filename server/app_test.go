@@ -283,7 +283,8 @@ func TestCurriculumAndAnswerNormalization(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(legacy.Quests) != 18 || len(legacy.Items) != 126 || len(legacy.Exercises) != 126 {
+	scenes := len(storyQuestOrder)
+	if len(legacy.Quests) != scenes || len(legacy.Items) != scenes*7 || len(legacy.Exercises) != scenes*7 {
 		t.Fatalf("incomplete legacy curriculum %d %d %d", len(legacy.Quests), len(legacy.Items), len(legacy.Exercises))
 	}
 	curriculum, err := loadCurriculum()

@@ -111,7 +111,7 @@ func TestArchiveItemRequirementsAndLedgerPublicationAreServerChecked(t *testing.
 
 func TestActMilestonesSurviveAndLanguageMistakesNeverAdvanceTheBell(t *testing.T) {
 	quiet, loud := newProgress(), newProgress()
-	for _, id := range storyQuestOrder[:6] {
+	for _, id := range storyQuestsThrough(actOneFinale) {
 		applyStoryChoice(&quiet.Story, id, "protect")
 		quiet.CompletedQuestIDs = append(quiet.CompletedQuestIDs, id)
 		ensureStory(&quiet)
@@ -128,7 +128,7 @@ func TestActMilestonesSurviveAndLanguageMistakesNeverAdvanceTheBell(t *testing.T
 	if quiet.Story.BellWarnings != 0 || quiet.Story.GateFailures["a2-broken-clock"] != 3 {
 		t.Fatal("language mistakes must be bounded practice evidence, never story pressure")
 	}
-	for _, id := range storyQuestOrder[6:17] {
+	for _, id := range storyQuestOrder[storyQuestIndex(actOneFinale)+1 : storyQuestIndex("b1-atlas")] {
 		applyStoryChoice(&quiet.Story, id, "restore")
 		quiet.CompletedQuestIDs = append(quiet.CompletedQuestIDs, id)
 		ensureStory(&quiet)

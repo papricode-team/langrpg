@@ -133,7 +133,7 @@ func TestGuidedChoiceOnlyAdaptsSupportedA1StoryGates(t *testing.T) {
 			}
 		})
 	}
-	for _, questID := range storyQuestOrder[:6] {
+	for _, questID := range storyQuestsThrough(actOneFinale) {
 		if !app.isGuidedStoryGate(guidedGateAttempt(app, questID, "guided-valid")) {
 			t.Errorf("A1 scene cannot offer its guided reply: %s", questID)
 		}

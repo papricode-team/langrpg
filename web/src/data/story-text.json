@@ -4,58 +4,58 @@
       "mapId": "lindenhafen",
       "level": "A1",
       "number": "I",
-      "title": "The platform that should not exist",
+      "title": "The names that fade",
       "premise": [
         {
-          "german": "Dein Zug ist da. Willkommen in Lindenhafen!",
-          "english": "Your train is here. Welcome to Lindenhafen!"
+          "german": "Dein Zug hält auf Bahnsteig sieben. Dort fährt seit zwölf Jahren kein Zug.",
+          "english": "Your train stops at platform seven. No train has used it for twelve years."
         },
         {
-          "german": "Deine Fahrkarte: Bahnsteig sieben. Ein Buchstabe: E.",
-          "english": "Your ticket: platform seven. One letter: E."
+          "german": "Auf deiner Fahrkarte steht dein Name. Unten steht nur E.",
+          "english": "Your ticket carries your name. At the bottom, only: E."
         }
       ],
       "introduction": [
         [
           {
-            "german": "Dein Zug ist da. Die Tauben schlafen.",
-            "english": "Your train is here. The pigeons are sleeping."
+            "german": "Dein Zug ist da. Er hält auf Bahnsteig sieben.",
+            "english": "Your train is here. It stops at platform seven."
           },
           {
-            "german": "Otto zählt: eins, zwei, drei, vier, fünf, sechs.",
-            "english": "Otto counts: one, two, three, four, five, six."
+            "german": "Otto sagt: Hier kommt seit zwölf Jahren kein Zug.",
+            "english": "Otto says no train has come here in twelve years."
           },
           {
-            "german": "Aber da ist Bahnsteig sieben. Die Laterne leuchtet.",
-            "english": "But there is platform seven. The lantern is shining."
+            "german": "Auf deiner Fahrkarte steht dein Name. Und ein E.",
+            "english": "Your ticket has your name on it. And an E."
           }
         ],
         [
           {
-            "german": "Der Atlas zeigt die Städte. Jetzt fehlen Namen.",
-            "english": "The Atlas shows the towns. Now names are missing."
+            "german": "In Lindenhafen gehen Namen weg.",
+            "english": "In Lindenhafen, names fade."
           },
           {
-            "german": "Die Buchstaben gehen weg. Die Adressen auch.",
-            "english": "The letters are disappearing. The addresses too."
+            "german": "Sag sie laut auf Deutsch. Dann bleiben sie.",
+            "english": "Say them out loud in German. Then they stay."
           },
           {
-            "german": "Sag die Namen laut. Dann bleiben sie.",
-            "english": "Say the names aloud. Then they stay."
+            "german": "Aber ein Name fehlt schon.",
+            "english": "But one name is already missing."
           }
         ],
         [
           {
-            "german": "Sprich mit Otto. Er hilft dir.",
-            "english": "Talk to Otto. He will help you."
+            "german": "Sprich mit den Leuten in Lindenhafen.",
+            "english": "Talk to the people of Lindenhafen."
           },
           {
-            "german": "Dein erstes Wort? Hallo!",
-            "english": "Your first word? Hello!"
+            "german": "Lerne ihre Wörter. Wort für Wort.",
+            "english": "Learn their words. One word at a time."
           },
           {
-            "german": "Du bekommst Hilfe. Ein Wort nach dem anderen.",
-            "english": "You will get help. One word at a time."
+            "german": "Wer ist E.? Und wer fehlt?",
+            "english": "Who is E.? And who is missing?"
           }
         ]
       ],
@@ -75,8 +75,8 @@
           "english": "Beneath it, very small: “Before you erase us again, come.”"
         },
         {
-          "german": "Auf Bahnsteig sieben wartet ein Zug, der in keinem Fahrplan steht.",
-          "english": "On platform seven, a train is waiting that is in no timetable."
+          "german": "In der Gartenstraße 7 kennt niemand mehr Frau Berg. Und auf Bahnsteig sieben wartet ein Zug.",
+          "english": "At Gartenstraße 7, nobody remembers Frau Berg any more. And on platform seven, a train is waiting."
         }
       ]
     },
@@ -267,190 +267,457 @@
       "title": "The name on a fading ticket",
       "text": [
         {
-          "german": "Lindenhafen hat sechs Bahnsteige. Dein Zug steht auf sieben.",
-          "english": "Lindenhafen has six platforms. Your train is on seven."
+          "german": "Bahnsteig sieben ist seit zwölf Jahren zu. Aber dein Zug war da.",
+          "english": "Platform seven has been closed for twelve years. But your train came."
         },
         {
           "german": "Auf deiner Fahrkarte steht {name}. Unten steht E.",
-          "english": "Your ticket says {name}. There is an E below."
+          "english": "Your ticket says {name}. At the bottom: E."
         },
         {
-          "german": "Dein Name geht weg. Voss will die Fahrkarte.",
-          "english": "Your name is fading. Voss wants the ticket."
+          "german": "In Lindenhafen gehen Namen weg. Sag sie laut, dann bleiben sie.",
+          "english": "In Lindenhafen, names fade. Say them out loud and they stay."
+        },
+        {
+          "german": "Voss vom Messingamt sagt: Die Fahrkarte ist nicht gültig.",
+          "english": "Voss from the Brass Office says the ticket is not valid."
         }
       ],
       "lead": [
         {
-          "german": "Marta wartet im Café. Ein Kaffee ist für dich.",
-          "english": "Marta is waiting at the café. There is a coffee for you."
+          "german": "Otto liest mit dir den Plan am Bahnhof.",
+          "english": "Otto will read the timetable with you at the station."
         }
       ],
       "letter": [
         {
-          "german": "Für {name}. Du bist da. Gut.",
-          "english": "For {name}. You are here. Good."
+          "german": "Du bist da. Gut.",
+          "english": "You are here. Good."
         },
         {
-          "german": "Die Laterne kennt dich. Ich warte. E.",
-          "english": "The lantern knows you. I am waiting. E."
+          "german": "Sag deinen Namen jeden Tag laut.",
+          "english": "Say your name out loud every day."
         }
       ]
+    },
+    {
+      "questId": "a1-timetable",
+      "title": "The faded word on the board",
+      "text": [
+        {
+          "german": "Der Zug fährt um acht Uhr zehn.",
+          "english": "The train leaves at ten past eight."
+        },
+        {
+          "german": "Bahnsteig sieben steht noch auf der Tafel.",
+          "english": "Platform seven is still on the board."
+        },
+        {
+          "german": "Otto kennt den Namen der Stadt nicht mehr.",
+          "english": "Otto no longer knows the name of the town."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Geh zu Marta ins Café.",
+          "english": "Go to Marta at the café."
+        }
+      ],
+      "letter": []
     },
     {
       "questId": "a1-cafe",
       "title": "The woman’s untouched tea",
       "text": [
         {
-          "german": "Martas Wasserkocher sagt deinen Namen. Sie kennt dich nicht.",
-          "english": "Marta’s kettle says your name. She does not know you."
-        },
-        {
           "german": "Eine Frau hat gestern deinen Kaffee bezahlt.",
           "english": "A woman paid for your coffee yesterday."
         },
         {
-          "german": "Die Rechnung sagt morgen. Das Siegel ist von Voss.",
-          "english": "The receipt says tomorrow. The seal is Voss’s."
+          "german": "Sie war müde. Ihre Hände waren schwarz.",
+          "english": "She was tired. Her hands were black with ink."
         },
         {
-          "german": "Ihr Tee steht noch da. Ihr Name fehlt.",
-          "english": "Her tea is still there. Her name is missing."
+          "german": "Ihren Tee hat sie nicht getrunken. Marta weiß ihren Namen nicht mehr.",
+          "english": "She left her tea untouched. Marta cannot remember her name."
+        },
+        {
+          "german": "Auf der Rechnung ist ein Stempel vom Messingamt.",
+          "english": "The receipt carries the Brass Office stamp."
         }
       ],
       "lead": [
         {
-          "german": "Fritz hat Äpfel mit dem Siegel. Er wartet draußen.",
-          "english": "Fritz has apples with the seal. He is waiting outside."
+          "german": "Marta hat ein Zimmer für dich.",
+          "english": "Marta has a room for you."
         }
       ],
       "letter": [
         {
-          "german": "Der Kaffee ist für dich. Bleib bei Marta.",
-          "english": "The coffee is for you. Stay with Marta."
-        },
-        {
-          "german": "Sie fragt nach meinem Namen. Ich heiße E.",
-          "english": "She asks for my name. My name is E."
+          "german": "Trink deinen Kaffee. Er ist für dich.",
+          "english": "Drink your coffee. It is for you."
         }
       ]
+    },
+    {
+      "questId": "a1-room",
+      "title": "Room three and the guest book",
+      "text": [
+        {
+          "german": "Marta hat ein Zimmer für dich.",
+          "english": "Marta has a room for you."
+        },
+        {
+          "german": "Die Frau war in Zimmer drei.",
+          "english": "The woman was in room three."
+        },
+        {
+          "german": "Im Gästebuch steht nur ein E.",
+          "english": "In the guest book there is only an E."
+        },
+        {
+          "german": "Der Tee steht noch auf dem Tisch.",
+          "english": "The tea is still on the table."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Fritz hat Brot. Geh zu ihm auf den Markt.",
+          "english": "Fritz has bread. Go to him at the market."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-shopping",
+      "title": "The place without a name",
+      "text": [
+        {
+          "german": "Das Brot kostet drei Euro.",
+          "english": "The bread costs three euros."
+        },
+        {
+          "german": "Fritz kocht am Freitag Suppe für alle.",
+          "english": "Fritz cooks soup for everyone on Friday."
+        },
+        {
+          "german": "Ein Platz hat keinen Namen.",
+          "english": "One place has no name."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Fritz muss noch mehr kaufen. Geh bald wieder zu ihm.",
+          "english": "Fritz still has to buy more. Go back to him soon."
+        }
+      ],
+      "letter": []
     },
     {
       "questId": "a1-market",
       "title": "A place at Fritz’s table",
       "text": [
         {
-          "german": "Fritz kennt ihre Äpfel. Er kennt ihren Namen nicht mehr.",
-          "english": "Fritz remembers her apples. He no longer remembers her name."
+          "german": "Am Freitag kocht Fritz Suppe für alle.",
+          "english": "On Fridays Fritz cooks soup for everyone."
         },
         {
-          "german": "Zwei Äpfel. Jetzt weiß er es wieder: Frau Berg.",
-          "english": "Two apples. Now he remembers: Mrs Berg."
+          "german": "Zwei Äpfel, jeden Freitag. Jetzt weiß Fritz es wieder: Frau Berg.",
+          "english": "Two apples, every Friday. Now Fritz remembers: Frau Berg."
         },
         {
-          "german": "Ihr Name fehlte im Gästebuch. Ihr Platz ist noch da.",
-          "english": "Her name was missing from the guest book. Her seat is still there."
+          "german": "Sie war Lehrerin. Sie wohnt in der Gartenstraße 7.",
+          "english": "She was a teacher. She lives at Garden Street 7."
         },
         {
-          "german": "Ihr Haus hat einen Garten. Die Nummer ist sieben.",
-          "english": "Her house has a garden. The number is seven."
+          "german": "Ihr Platz ist seit einer Woche frei. Niemand hat es gesehen.",
+          "english": "Her seat has been empty for a week. Nobody noticed."
         }
       ],
       "lead": [
         {
-          "german": "Am Bahnhof fehlt auch ein Name. Otto wartet dort.",
-          "english": "A name is missing at the station too. Otto is waiting there."
+          "german": "Marta kennt Frau Berg gut.",
+          "english": "Marta knows Frau Berg well."
         }
       ],
       "letter": [
         {
-          "german": "Frau Berg isst nie allein. Fritz weiß das.",
-          "english": "Mrs Berg never eats alone. Fritz knows that."
-        },
-        {
-          "german": "Sag ihren Namen. Er soll bleiben. E.",
-          "english": "Say her name. It must stay. E."
+          "german": "Sag ihren Namen. Dann bleibt sie.",
+          "english": "Say her name. Then she stays."
         }
       ]
+    },
+    {
+      "questId": "a1-neighbour",
+      "title": "Frau Berg on the fountain bench",
+      "text": [
+        {
+          "german": "Marta war Frau Bergs Schülerin.",
+          "english": "Marta was Frau Berg’s pupil."
+        },
+        {
+          "german": "Frau Berg ist alt, lieb und streng.",
+          "english": "Frau Berg is old, dear and strict."
+        },
+        {
+          "german": "Sie hat jeden Morgen am Brunnen gelesen.",
+          "english": "She read at the fountain every morning."
+        },
+        {
+          "german": "Marta kannte ihren Namen eine Woche nicht.",
+          "english": "Marta did not know her name for a week."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Greta hat Tee für Frau Berg.",
+          "english": "Greta has tea for Frau Berg."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-pharmacy",
+      "title": "The pale name on the bag",
+      "text": [
+        {
+          "german": "Gretas Tee ist für Frau Berg.",
+          "english": "Greta’s tea is for Frau Berg."
+        },
+        {
+          "german": "Niemand hat ihn eine Woche geholt.",
+          "english": "Nobody has collected it for a week."
+        },
+        {
+          "german": "Der Name auf dem Beutel ist blass.",
+          "english": "The name on the bag is pale."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Lina bei der Post kennt den Weg.",
+          "english": "Lina at the post office knows the way."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-directions",
+      "title": "The door without a name",
+      "text": [
+        {
+          "german": "Frau Bergs Haus ist Gartenstraße sieben.",
+          "english": "Frau Berg’s house is Gartenstraße seven."
+        },
+        {
+          "german": "An der Tür steht kein Name.",
+          "english": "There is no name on the door."
+        },
+        {
+          "german": "Ein Zettel ist eine Woche alt.",
+          "english": "A note is a week old."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto wartet am Bahnhof.",
+          "english": "Otto is waiting at the station."
+        }
+      ],
+      "letter": []
     },
     {
       "questId": "a1-station",
-      "title": "The question Voss cannot answer",
+      "title": "The voice Voss listens to",
       "text": [
         {
-          "german": "Voss sitzt jeden Abend auf der Bank. Er hört zu.",
-          "english": "Voss sits on the bench every evening. He listens."
+          "german": "Voss sitzt jeden Abend auf der Bank. Er hört eine alte Maschine.",
+          "english": "Voss sits on the bench every evening. He listens to an old recorder."
         },
         {
-          "german": "Du hörst eine Stimme.",
-          "english": "You hear a voice."
+          "german": "Eine Frau sagt: „Ist da jemand? Ich bin noch hier.“",
+          "english": "A woman says: “Is anyone there? I am still here.”"
         },
         {
-          "german": "Ist da jemand? Ich bin noch hier.",
-          "english": "Is anyone there? I am still here."
+          "german": "Voss hört sie. Sie hört ihn nicht.",
+          "english": "Voss hears her. She cannot hear him."
         },
         {
-          "german": "Voss hört sie. Aber sie hört ihn nicht.",
-          "english": "Voss can hear her. But she cannot hear him."
-        },
-        {
-          "german": "Auf dem Schild bleibt nur W. Die Stadt fehlt.",
-          "english": "Only a W remains on the sign. The town is missing."
+          "german": "Ottos altes Büro ist seit zwölf Jahren zu. Dort liegen Fahrkarten für Bahnsteig sieben.",
+          "english": "Otto’s old office has been shut for twelve years. Tickets for platform seven are kept there."
         }
       ],
       "lead": [
         {
-          "german": "Emil sucht sein Licht. Es wartet am Bahnhof.",
-          "english": "Emil is looking for his light. It is waiting at the station."
-        },
-        {
-          "german": "Seine Werkstatt ist hier in Lindenhafen.",
-          "english": "His workshop is here in Lindenhafen."
+          "german": "Morgen wartet Otto am Bahnhof.",
+          "english": "Tomorrow Otto will be waiting at the station."
         }
       ],
       "letter": [
         {
-          "german": "Meine Stimme ist noch da. Hör zu.",
-          "english": "My voice is still here. Listen."
-        },
-        {
-          "german": "Ich brauche eine Antwort. Keine Nummer. E.",
-          "english": "I need an answer. Not a number. E."
+          "german": "Ich warte. Ich bin nicht weit.",
+          "english": "I am waiting. I am not far."
         }
       ]
     },
     {
-      "questId": "a1-workshop",
-      "title": "A lamp that will not stay home",
+      "questId": "a1-weather",
+      "title": "The bench in the rain",
       "text": [
         {
-          "german": "Emils Lampe läuft weg. Am Dienstag fliegt sie.",
-          "english": "Emil’s lamp runs away. On Tuesdays she flies."
+          "german": "Voss kommt jeden Abend zur Bank.",
+          "english": "Voss comes to the bench every evening."
         },
         {
-          "german": "Sie sucht alte Adressen. Dort fehlen die Häuser.",
-          "english": "She looks for old addresses. The houses are missing there."
+          "german": "Er kommt seit zwölf Jahren.",
+          "english": "He has come for twelve years."
         },
         {
-          "german": "Jetzt geht sie zur Post. Dort fehlt eine Adresse.",
-          "english": "Now she is going to the post office. An address is missing there."
+          "german": "Die Laterne von Bahnsteig sieben ist bei Emil.",
+          "english": "The lantern of platform seven is with Emil."
         }
       ],
       "lead": [
         {
-          "german": "Lina wartet bei der Post. Dein Paket ist dort.",
-          "english": "Lina is waiting at the post office. Your parcel is there."
+          "german": "Emil hat die Laterne in seiner Werkstatt.",
+          "english": "Emil has the lantern in his workshop."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-workshop",
+      "title": "A lamp that goes dark",
+      "text": [
+        {
+          "german": "Emil hat eine Lampe aus der alten Laterne von Bahnsteig sieben gemacht.",
+          "english": "Emil made a lamp from the old lantern of platform seven."
+        },
+        {
+          "german": "Bei dir und deinem Namen ist sie hell.",
+          "english": "Next to you and your name it is bright."
+        },
+        {
+          "german": "In der Gartenstraße geht sie aus.",
+          "english": "On Garden Street it goes out."
+        },
+        {
+          "german": "Bei der Post geht sie an und aus. Dort geht ein Name weg.",
+          "english": "Near the post office it flickers. A name is fading there."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Emil hat noch Linas Fahrrad.",
+          "english": "Emil still has Lina’s bike."
         }
       ],
       "letter": [
         {
-          "german": "Die Lampe sucht nicht mich. Sie sucht dich.",
-          "english": "The lamp is not looking for me. She is looking for you."
-        },
-        {
-          "german": "Geh mit ihr. Lass das Licht an. E.",
-          "english": "Go with her. Leave the light on. E."
+          "german": "Geh mit dem Licht.",
+          "english": "Go with the light."
         }
       ]
+    },
+    {
+      "questId": "a1-bike",
+      "title": "The signature in Emil’s book",
+      "text": [
+        {
+          "german": "Linas Fahrrad kostet zwanzig Euro.",
+          "english": "Lina’s bike costs twenty euros."
+        },
+        {
+          "german": "Eine Frau hat Glas für eine Laterne gekauft.",
+          "english": "A woman bought glass for a lantern."
+        },
+        {
+          "german": "Im Buch steht nur: E.",
+          "english": "The book says only: E."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Marta hat einen Anruf für dich.",
+          "english": "Marta has a phone call for you."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-phone",
+      "title": "A call to the station",
+      "text": [
+        {
+          "german": "Otto hat angerufen. Du hast zurückgerufen.",
+          "english": "Otto called. You called back."
+        },
+        {
+          "german": "Voss hat das Register vor sich.",
+          "english": "Voss has the register in front of him."
+        },
+        {
+          "german": "Bei Gartenstraße sieben steht kein Name.",
+          "english": "There is no name next to Gartenstraße seven."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Fritz hat eine Frage für dich.",
+          "english": "Fritz has a question for you."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-invitation",
+      "title": "A seat at Friday’s table",
+      "text": [
+        {
+          "german": "Fritz kocht jeden Freitag um sieben.",
+          "english": "Fritz cooks every Friday at seven."
+        },
+        {
+          "german": "Vor dem Essen sagt jeder alle Namen laut.",
+          "english": "Before the meal everyone says all names aloud."
+        },
+        {
+          "german": "So bleiben die Namen an seinem Tisch.",
+          "english": "That is how the names stay at his table."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Lina hat deine Tasche auf der Post.",
+          "english": "Lina has your bag at the post office."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-lost-found",
+      "title": "The lost-and-found table",
+      "text": [
+        {
+          "german": "Deine Tasche ist blau und klein.",
+          "english": "Your bag is blue and small."
+        },
+        {
+          "german": "Lina hat sie auf dem Tisch gefunden.",
+          "english": "Lina found it on the table."
+        },
+        {
+          "german": "Ein alter Handschuh mit Tinte lag bei Gleis sieben.",
+          "english": "An old glove with ink lay at platform seven."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Bleib bei Lina. Sie sucht deine Post.",
+          "english": "Stay with Lina. She is looking for your post."
+        }
+      ],
+      "letter": []
     },
     {
       "questId": "a1-lost-parcel",
@@ -461,16 +728,12 @@
           "english": "The parcel says Waldruh. The ink is holding now."
         },
         {
-          "german": "E heißt Elise. Sie wartet in Waldruh.",
-          "english": "E is Elise. She is waiting in Waldruh."
+          "german": "E. heißt Elise. Sie wartet in Waldruh.",
+          "english": "E. is Elise. She is waiting in Waldruh."
         },
         {
-          "german": "Frau Bergs Haus ist weg. Ihre Post bleibt bei Lina.",
-          "english": "Mrs Berg’s house is gone. Lina still has her post."
-        },
-        {
-          "german": "Elise schreibt dir.",
-          "english": "Elise writes to you."
+          "german": "Auf Frau Bergs Schild geht jetzt auch die Nummer weg. Die Leute in der Straße wissen ihren Namen nicht mehr.",
+          "english": "Now even the number on Frau Berg’s plate is fading. Her neighbours cannot say her name any more."
         },
         {
           "german": "Bevor du uns wieder auslöschst, komm.",
@@ -479,8 +742,8 @@
       ],
       "lead": [
         {
-          "german": "Otto wartet am Zug. Er fährt nach Waldruh.",
-          "english": "Otto is waiting by the train. It goes to Waldruh."
+          "german": "Otto wartet heute Abend am Bahnhof.",
+          "english": "Otto is waiting at the station this evening."
         }
       ],
       "letter": [
@@ -491,6 +754,36 @@
         {
           "german": "Bevor du uns wieder auslöschst, komm.",
           "english": "Before you erase us again, come."
+        }
+      ]
+    },
+    {
+      "questId": "a1-departure",
+      "title": "Platform seven, six o’clock",
+      "text": [
+        {
+          "german": "Otto hat die erste Fahrkarte seit zwölf Jahren verkauft.",
+          "english": "Otto sold the first ticket in twelve years."
+        },
+        {
+          "german": "Er hat Waldruh laut gesagt und auf das Schild geschrieben.",
+          "english": "He said Waldruh aloud and wrote it on the sign."
+        },
+        {
+          "german": "Der Zug fährt um achtzehn Uhr von Gleis sieben.",
+          "english": "The train leaves from platform seven at 18:00."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Steig ein. Elise wartet in Waldruh.",
+          "english": "Get on board. Elise is waiting in Waldruh."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Der Zug wartet. Ich auch.",
+          "english": "The train is waiting. So am I."
         }
       ]
     },
@@ -965,8 +1258,8 @@
           "english": "Afterwards, she demanded agreement with her solution. When Voss made the closure permanent, she didn’t object."
         },
         {
-          "german": "Ihre Nachricht erreichte Martas Wasserkocher durch die alte Laterne. Deshalb kannte er deinen Namen.",
-          "english": "Her message reached Marta’s kettle through the old lantern. That’s why it knew your name."
+          "german": "Sie bezahlte deinen Kaffee bei Marta. So musste jemand deinen Namen laut sagen.",
+          "english": "She paid for your coffee at Marta’s, so that someone would have to say your name aloud."
         },
         {
           "german": "Das „wieder“ im Brief galt dem geerbten Schlüssel. Es machte dich nicht für Elises Entscheidung verantwortlich.",
@@ -1003,168 +1296,144 @@
     "lindenhafen-platform-ticket": {
       "detail": [
         {
-          "german": "Die Fahrkarte trägt deinen Namen, „Bahnsteig sieben“ und einen Buchstaben: E.",
-          "english": "The ticket carries your name, “Platform seven” and a single letter: E."
+          "german": "Bahnsteig sieben ist seit zwölf Jahren geschlossen.",
+          "english": "Platform seven has been closed for twelve years."
         },
         {
-          "german": "Die Tinte wird mit jeder Minute heller.",
-          "english": "The ink grows paler by the minute."
+          "german": "Otto macht die alte Laterne trotzdem jeden Morgen an.",
+          "english": "Otto still lights the old lantern every morning."
         }
       ],
       "secret": [
         {
-          "german": "Liest du deinen Namen laut, wird die Tinte für einen Moment wieder dunkel.",
-          "english": "Read your name aloud and the ink darkens again, just for a moment."
-        },
-        {
-          "german": "Otto hat noch nie eine Fahrkarte mit nur einem Buchstaben verkauft.",
-          "english": "Otto has never sold a ticket signed with a single letter."
+          "german": "Auf den Schienen liegt kein Staub. Hier ist vor Kurzem ein Zug gefahren.",
+          "english": "There is no dust on the rails. A train came through here recently."
         }
       ]
     },
     "lindenhafen-cafe-receipt": {
       "detail": [
         {
-          "german": "Ein Kaffee für dich. Gestern bezahlt. Auf der Rechnung steht das Datum von morgen.",
-          "english": "A coffee for you, paid for yesterday. The receipt is dated tomorrow."
+          "german": "Auf Martas Theke liegen Rechnungen, das Gästebuch und das Telefon.",
+          "english": "Marta’s counter holds receipts, the guest book and the telephone."
         }
       ],
       "secret": [
         {
-          "german": "Unten trägt die Rechnung das Messingsiegel des Amts von Voss.",
-          "english": "At the bottom, the receipt bears the brass seal of Voss’s office."
-        },
-        {
-          "german": "Martas Kasse hat noch nie etwas gedruckt, das niemand bestellt hat.",
-          "english": "Marta’s till has never printed anything nobody ordered."
+          "german": "Marta schreibt jeden Namen zweimal auf. Sie sagt, das hilft.",
+          "english": "Marta writes every name down twice. She says it helps."
         }
       ]
     },
     "lindenhafen-market-crate": {
       "detail": [
         {
-          "german": "Zwei Äpfel. Nummer 7. Ein Messingsiegel. Kein Name.",
-          "english": "Two apples. Number 7. A brass seal. No name."
+          "german": "Äpfel, Kartoffeln und Fritz’ Liste für die Suppe am Freitag.",
+          "english": "Apples, potatoes and Fritz’s list for the Friday soup."
         }
       ],
       "secret": [
         {
-          "german": "Jeden Freitag hat jemand diese Kiste bestellt. Auf dem Bestellzettel ist nur noch eine leere Zeile.",
-          "english": "Someone ordered this crate every Friday. The order slip now has only a blank line."
-        },
-        {
-          "german": "Die Nummer passt zu keinem Stand auf dem Platz, nur zu einem Garten am Rand der Stadt.",
-          "english": "The number matches no stall on the square, only a garden at the edge of town."
+          "german": "Auf der Liste stehen nur Vornamen. Fritz sagt, Nachnamen sind für Briefe.",
+          "english": "The list only has first names. Fritz says surnames are for letters."
         }
       ]
     },
     "lindenhafen-fountain": {
       "detail": [
         {
-          "german": "Münzen im Brunnen landen auf den Wünschen von gestern.",
-          "english": "Coins in the fountain land on yesterday’s wishes."
-        },
-        {
-          "german": "Auf einer Messingmarke steht die Nummer sieben. Niemand auf dem Platz kann sie erklären.",
-          "english": "One brass token bears the number seven. Nobody in the square can explain it."
+          "german": "Neben dem Brunnen steht eine Bank. Hier liest jemand jeden Morgen.",
+          "english": "There is a bench beside the fountain. Someone reads here every morning."
         }
       ],
       "secret": [
         {
-          "german": "Marta sagt, der Brunnen hat früher Nachrichten zwischen den Cafés der Laternenhüter getragen.",
-          "english": "Marta says the fountain once carried messages between Lamplighter cafés."
-        },
-        {
-          "german": "Sie sagt auch, die Rechnung des Klempners war völlig normal.",
-          "english": "She insists the plumber’s bill was entirely ordinary."
+          "german": "Auf der Bank liegt ein Lesezeichen. Das Buch fehlt.",
+          "english": "A bookmark lies on the bench. The book is missing."
         }
       ]
     },
     "lindenhafen-noticeboard": {
       "detail": [
         {
-          "german": "Bahnsteige eins bis sechs. Darunter eine saubere Lücke, wo der siebte stehen sollte.",
-          "english": "Platforms one to six. Below them, a clean gap where the seventh should be."
-        },
-        {
-          "german": "Auf dem letzten Abfahrtszettel steht nur noch: Nach W…",
-          "english": "The last departure slip only says: To W…"
+          "german": "Abfahrten von Bahnsteig eins bis sechs, in Ottos Schrift.",
+          "english": "Departures from platforms one to six, in Otto’s handwriting."
         }
       ],
       "secret": [
         {
-          "german": "Otto lässt die Lücke hängen.",
-          "english": "Otto leaves the gap on display."
-        },
-        {
-          "german": "Ohne sie wäre es ordentlicher, und genau das macht ihn misstrauisch.",
-          "english": "It would be tidier without it, which is precisely what makes him suspicious."
+          "german": "Unten steht eine alte Zeile für Bahnsteig sieben. Sie ist fast weg.",
+          "english": "At the bottom there is an old line for platform seven. It has almost faded."
         }
       ]
     },
     "lindenhafen-parcel": {
       "detail": [
         {
-          "german": "Datum: gestern. Absender: E.",
-          "english": "Date: yesterday. Sender: E."
-        },
-        {
-          "german": "Liest du die Adresse, verblasst sie. Liest du wieder, verblasst sie wieder.",
-          "english": "Read the address and it fades. Read it again and it fades again."
+          "german": "Pakete nach Adresse sortiert und eine Kiste für Fundsachen.",
+          "english": "Parcels sorted by address and a box for lost property."
         }
       ],
       "secret": [
         {
-          "german": "Lina hat schon zweimal an gestern geliefert.",
-          "english": "Lina has delivered to yesterday twice."
-        },
-        {
-          "german": "Dies ist das erste Paket, das sie bittet, eine Entschuldigung zu liefern.",
-          "english": "This is the first parcel that has asked her to deliver an apology."
+          "german": "Lina liest jede Adresse laut, bevor sie ein Paket wegbringt.",
+          "english": "Lina reads every address aloud before she takes a parcel out."
         }
       ]
     },
     "lindenhafen-workbench": {
       "detail": [
         {
-          "german": "Eine kleine Lampe neigt sich zur Bahnstrecke, nicht zur nächsten Person.",
-          "english": "A small lamp leans towards the railway, not towards the nearest person."
-        },
-        {
-          "german": "In ihr Gehäuse ist ein E geritzt.",
-          "english": "An E is scratched into its casing."
+          "german": "Werkzeug, ein halbes Fahrrad und Emils Auftragsbuch.",
+          "english": "Tools, half a bicycle and Emil’s order book."
         }
       ],
       "secret": [
         {
-          "german": "Emil hat sie unter „funktioniert meistens“ abgelegt.",
-          "english": "Emil has filed it under “mostly working”."
-        },
-        {
-          "german": "Die Lampe scheint mit dem Wort „meistens“ nicht einverstanden zu sein.",
-          "english": "The lamp appears to disagree with the word “mostly”."
+          "german": "Neben fast jeder Reparatur steht: funktioniert meistens.",
+          "english": "Beside almost every repair it says: works mostly."
         }
       ]
     },
     "lindenhafen-garden": {
       "detail": [
         {
-          "german": "Ein Garten voller Blumen. Am Haus hängt die Nummer 7.",
-          "english": "A garden full of flowers. The number 7 hangs on the house."
-        },
-        {
-          "german": "Auf dem Namensschild am Tor ist nur noch ein heller Fleck.",
-          "english": "On the name plate by the gate there is only a pale patch."
+          "german": "Kräuter für Tee, Gemüse für Fritz und ein Regal mit Medizin.",
+          "english": "Herbs for tea, vegetables for Fritz and a shelf of medicine."
         }
       ],
       "secret": [
         {
-          "german": "Auf dem Gartentisch stehen zwei Teller. Einer ist immer für Gäste.",
-          "english": "Two plates stand on the garden table. One is always for guests."
-        },
+          "german": "Greta schreibt auf jede Tüte einen Namen. Eine Tüte wartet seit einer Woche.",
+          "english": "Greta writes a name on every bag. One bag has been waiting for a week."
+        }
+      ]
+    },
+    "lindenhafen-berg-house": {
+      "detail": [
         {
-          "german": "Die Blumen wachsen weiter, als wäre nichts passiert.",
-          "english": "The flowers keep growing, as if nothing had happened."
+          "german": "Ein kleines Haus mit Garten und Briefkasten. Das Namensschild ist leer.",
+          "english": "A small house with a garden and a letterbox. The name plate is blank."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Im Fenster stehen viele Bücher. Auf einem Zettel steht: Bin gleich zurück.",
+          "english": "The window is full of books. A note says: Back soon."
+        }
+      ]
+    },
+    "lindenhafen-bench": {
+      "detail": [
+        {
+          "german": "Eine alte Holzbank am Bahnsteig. Inspektor Voss sitzt hier jeden Abend.",
+          "english": "An old wooden bench by the platform. Inspector Voss sits here every evening."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Im Holz ist ein kleiner Kreis. Hier steht seit Jahren ein Rekorder.",
+          "english": "There is a small ring in the wood. A recorder has stood here for years."
         }
       ]
     },

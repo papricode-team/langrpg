@@ -1,5 +1,6 @@
 import type { Progress } from './api';
 import { quests } from './content';
+import { lastQuestOf } from './progression';
 import { escapeHtml as e, icon } from './icons';
 import { t } from './i18n';
 
@@ -15,12 +16,14 @@ export interface LanternRewards {
 export function lanternRewards(progress: Pick<Progress, 'xp' | 'completedQuestIds'>): LanternRewards {
   const completed = new Set(progress.completedQuestIds.filter(id => quests.some(q => q.id === id)));
   const count = completed.size;
+  // Titles follow the acts, not a raw count: each town's finale earns the next one.
+  const actOne = completed.has(lastQuestOf('A1')), actTwo = completed.has(lastQuestOf('A2'));
   return {
-    title: completed.has('b1-atlas') ? 'Atlas Keeper' : count >= 12 ? 'Route Keeper' : count >= 6 ? 'Lamplighter' : count >= 1 ? 'Lantern Bearer' : 'Wanderer',
-    crest: completed.has('b1-atlas') ? 'star' : count >= 12 ? 'silver' : count >= 6 ? 'leaf' : 'ember',
+    title: completed.has('b1-atlas') ? 'Atlas Keeper' : actTwo ? 'Route Keeper' : actOne ? 'Lamplighter' : count >= 1 ? 'Lantern Bearer' : 'Wanderer',
+    crest: completed.has('b1-atlas') ? 'star' : actTwo ? 'silver' : actOne ? 'leaf' : 'ember',
     echo: count >= 1,
     wordlight: count >= 3 && progress.xp >= 60,
-    trailkeeper: count >= 6,
+    trailkeeper: actOne,
   };
 }
 

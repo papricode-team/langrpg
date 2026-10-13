@@ -49,10 +49,14 @@ export interface QuestGraph {
   introducedWords?: Record<string, string>;
 }
 /** Increase reading load gently within A1, rather than treating it as one difficulty. */
+/** Main story scenes grow from 8 to 12 words; everyday errands stay at 10. */
 export const beginnerTurnWordLimits: Readonly<Record<string, number>> = {
   'a1-arrival': 8, 'a1-cafe': 8,
   'a1-market': 10, 'a1-station': 10,
   'a1-workshop': 12, 'a1-lost-parcel': 12,
+  'a1-timetable': 10, 'a1-room': 10, 'a1-shopping': 10, 'a1-neighbour': 10,
+  'a1-pharmacy': 10, 'a1-directions': 10, 'a1-weather': 10, 'a1-bike': 10,
+  'a1-phone': 10, 'a1-invitation': 10, 'a1-lost-found': 10, 'a1-departure': 10,
 };
 export const emptyStory = (): StoryState => ({ flags: {}, inventory: [], reputation: { brassOffice: 0, lamplighters: 0, unwritten: 0 }, bell: 0, day: 1, nodes: {}, choices: {}, inspections: {} });
 export function storyState(value?: Partial<StoryState>): StoryState {

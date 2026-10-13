@@ -3,8 +3,11 @@ import { chapters, npcs, quests, vocabulary } from './content';
 import { answerMatches, modeFor } from './learning';
 import manifest from '../../server/curriculum.json';
 
+// Act I is one path of six story scenes with twelve everyday errands between them.
 const questIds = [
-  'a1-arrival', 'a1-cafe', 'a1-market', 'a1-station', 'a1-workshop', 'a1-lost-parcel',
+  'a1-arrival', 'a1-timetable', 'a1-cafe', 'a1-room', 'a1-shopping', 'a1-market',
+  'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-station', 'a1-weather', 'a1-workshop',
+  'a1-bike', 'a1-phone', 'a1-invitation', 'a1-lost-found', 'a1-lost-parcel', 'a1-departure',
   'a2-apartment', 'a2-evening-plans', 'a2-rail-trip', 'a2-broken-clock', 'a2-clinic', 'a2-archive',
   'b1-witness', 'b1-new-route', 'b1-work', 'b1-council', 'b1-storm', 'b1-atlas',
 ];
@@ -14,8 +17,9 @@ describe('canonical language content', () => {
   it('preserves the saved quest identities and complete chapter structure', () => {
     expect(quests.map(quest => quest.id)).toEqual(questIds);
     expect(chapters.map(chapter => chapter.level)).toEqual(['A1', 'A2', 'B1']);
+    const scenesPerAct = { A1: 18, A2: 6, B1: 6 };
     for (const chapter of chapters) {
-      expect(quests.filter(quest => quest.level === chapter.level)).toHaveLength(6);
+      expect(quests.filter(quest => quest.level === chapter.level)).toHaveLength(scenesPerAct[chapter.level]);
     }
     for (const quest of quests) {
       expect(quest.exercises).toHaveLength(7);
@@ -55,9 +59,9 @@ describe('canonical language content', () => {
   });
 
   it('has one stable unique exercise and contextual target per encounter', () => {
-    expect(exercises).toHaveLength(126);
-    expect(new Set(exercises.map(exercise => exercise.id)).size).toBe(126);
-    expect(new Set(exercises.map(exercise => exercise.itemId)).size).toBe(126);
+    expect(exercises).toHaveLength(questIds.length * 7);
+    expect(new Set(exercises.map(exercise => exercise.id)).size).toBe(exercises.length);
+    expect(new Set(exercises.map(exercise => exercise.itemId)).size).toBe(exercises.length);
     expect(vocabulary.map(item => item.id)).toEqual(exercises.map(exercise => exercise.itemId));
     for (const quest of quests) {
       quest.exercises.forEach((exercise, index) => {

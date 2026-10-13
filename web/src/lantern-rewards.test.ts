@@ -9,7 +9,7 @@ describe('earned lantern', () => {
     expect(lanternRewards({xp:60,completedQuestIds:quests.slice(0,3).map(q=>q.id)}).wordlight).toBe(true);
   });
   it('derives crests and final title from saved milestones', () => {
-    expect(lanternRewards({xp:500,completedQuestIds:quests.slice(0,6).map(q=>q.id)})).toMatchObject({crest:'leaf',title:'Lamplighter'});
+    expect(lanternRewards({xp:500,completedQuestIds:quests.filter(q=>q.level==='A1').map(q=>q.id)})).toMatchObject({crest:'leaf',title:'Lamplighter'});
     expect(lanternRewards({xp:1500,completedQuestIds:quests.map(q=>q.id)})).toMatchObject({crest:'star',title:'Atlas Keeper'});
   });
 });

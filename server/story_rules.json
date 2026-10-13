@@ -70,6 +70,50 @@
       ]
     },
     {
+      "questId": "a1-timetable",
+      "mapId": "lindenhafen",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.5433333333333333,
+        "y": 0.19933333333333333
+      },
+      "gateExerciseId": "a1-timetable-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "light",
+        "dark"
+      ],
+      "choices": [
+        {
+          "id": "light",
+          "effects": [
+            {
+              "flag": "lantern-lit"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "effects": [
+            {
+              "flag": "lantern-dark"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-noticeboard"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-noticeboard",
+          "x": 0.5393333333333333,
+          "y": 0.21866666666666668
+        }
+      ]
+    },
+    {
       "questId": "a1-cafe",
       "mapId": "lindenhafen",
       "npcId": "marta",
@@ -128,6 +172,94 @@
       ]
     },
     {
+      "questId": "a1-room",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.2946666666666667,
+        "y": 0.306
+      },
+      "gateExerciseId": "a1-room-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "room-three",
+        "room-five"
+      ],
+      "choices": [
+        {
+          "id": "room-three",
+          "effects": [
+            {
+              "flag": "room-three"
+            }
+          ]
+        },
+        {
+          "id": "room-five",
+          "effects": [
+            {
+              "flag": "room-five"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-cafe-receipt"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-cafe-receipt",
+          "x": 0.30533333333333335,
+          "y": 0.326
+        }
+      ]
+    },
+    {
+      "questId": "a1-shopping",
+      "mapId": "lindenhafen",
+      "npcId": "fritz",
+      "npc": {
+        "id": "fritz",
+        "x": 0.5166666666666667,
+        "y": 0.31666666666666665
+      },
+      "gateExerciseId": "a1-shopping-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "extra-bread",
+        "own-bread"
+      ],
+      "choices": [
+        {
+          "id": "extra-bread",
+          "effects": [
+            {
+              "flag": "bread-for-empty-seat"
+            }
+          ]
+        },
+        {
+          "id": "own-bread",
+          "effects": [
+            {
+              "flag": "bread-own"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-market-crate"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-market-crate",
+          "x": 0.508,
+          "y": 0.3393333333333333
+        }
+      ]
+    },
+    {
       "questId": "a1-market",
       "mapId": "lindenhafen",
       "npcId": "fritz",
@@ -176,19 +308,145 @@
         }
       ],
       "investigationObjectIds": [
-        "lindenhafen-market-crate",
-        "lindenhafen-garden"
+        "lindenhafen-market-crate"
       ],
       "objects": [
         {
           "id": "lindenhafen-market-crate",
           "x": 0.508,
           "y": 0.3393333333333333
+        }
+      ]
+    },
+    {
+      "questId": "a1-neighbour",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.2946666666666667,
+        "y": 0.306
+      },
+      "gateExerciseId": "a1-neighbour-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "say-name",
+        "write-name"
+      ],
+      "choices": [
+        {
+          "id": "say-name",
+          "effects": [
+            {
+              "flag": "berg-name-said"
+            }
+          ]
         },
+        {
+          "id": "write-name",
+          "effects": [
+            {
+              "flag": "berg-name-written"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-fountain"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-fountain",
+          "x": 0.3553333333333334,
+          "y": 0.3486666666666667
+        }
+      ]
+    },
+    {
+      "questId": "a1-pharmacy",
+      "mapId": "lindenhafen",
+      "npcId": "greta",
+      "npc": {
+        "id": "greta",
+        "x": 0.276,
+        "y": 0.4713333333333333
+      },
+      "gateExerciseId": "a1-pharmacy-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "take-bag",
+        "ask-lina"
+      ],
+      "choices": [
+        {
+          "id": "take-bag",
+          "effects": [
+            {
+              "flag": "berg-bag-taken"
+            }
+          ]
+        },
+        {
+          "id": "ask-lina",
+          "effects": [
+            {
+              "flag": "berg-bag-lina"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-garden"
+      ],
+      "objects": [
         {
           "id": "lindenhafen-garden",
           "x": 0.2766666666666666,
           "y": 0.45133333333333336
+        }
+      ]
+    },
+    {
+      "questId": "a1-directions",
+      "mapId": "lindenhafen",
+      "npcId": "lina",
+      "npc": {
+        "id": "lina",
+        "x": 0.40199999999999997,
+        "y": 0.45333333333333337
+      },
+      "gateExerciseId": "a1-directions-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "knock",
+        "leave-note"
+      ],
+      "choices": [
+        {
+          "id": "knock",
+          "effects": [
+            {
+              "flag": "berg-door-knocked"
+            }
+          ]
+        },
+        {
+          "id": "leave-note",
+          "effects": [
+            {
+              "flag": "berg-note-left"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-berg-house"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-berg-house",
+          "x": 0.25666666666666665,
+          "y": 0.44
         }
       ]
     },
@@ -278,13 +536,63 @@
         }
       ],
       "investigationObjectIds": [
+        "lindenhafen-bench",
         "lindenhafen-noticeboard"
       ],
       "objects": [
         {
+          "id": "lindenhafen-bench",
+          "x": 0.5773333333333333,
+          "y": 0.22666666666666668
+        },
+        {
           "id": "lindenhafen-noticeboard",
           "x": 0.5393333333333333,
           "y": 0.21866666666666668
+        }
+      ]
+    },
+    {
+      "questId": "a1-weather",
+      "mapId": "lindenhafen",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.5433333333333333,
+        "y": 0.19933333333333333
+      },
+      "gateExerciseId": "a1-weather-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "return-umbrella",
+        "leave-umbrella"
+      ],
+      "choices": [
+        {
+          "id": "return-umbrella",
+          "effects": [
+            {
+              "flag": "voss-umbrella-returned"
+            }
+          ]
+        },
+        {
+          "id": "leave-umbrella",
+          "effects": [
+            {
+              "flag": "voss-umbrella-left"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-platform-ticket"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-platform-ticket",
+          "x": 0.558,
+          "y": 0.2313333333333333
         }
       ]
     },
@@ -347,6 +655,182 @@
       ]
     },
     {
+      "questId": "a1-bike",
+      "mapId": "lindenhafen",
+      "npcId": "emil",
+      "npc": {
+        "id": "emil",
+        "x": 0.15200000000000002,
+        "y": 0.492
+      },
+      "gateExerciseId": "a1-bike-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "pay-now",
+        "pay-later"
+      ],
+      "choices": [
+        {
+          "id": "pay-now",
+          "effects": [
+            {
+              "flag": "bike-paid"
+            }
+          ]
+        },
+        {
+          "id": "pay-later",
+          "effects": [
+            {
+              "flag": "bike-on-account"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-workbench"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-workbench",
+          "x": 0.16066666666666665,
+          "y": 0.5086666666666667
+        }
+      ]
+    },
+    {
+      "questId": "a1-phone",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.2946666666666667,
+        "y": 0.306
+      },
+      "gateExerciseId": "a1-phone-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "spell",
+        "refuse"
+      ],
+      "choices": [
+        {
+          "id": "spell",
+          "effects": [
+            {
+              "flag": "name-in-register"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "effects": [
+            {
+              "flag": "name-withheld"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-cafe-receipt"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-cafe-receipt",
+          "x": 0.30533333333333335,
+          "y": 0.326
+        }
+      ]
+    },
+    {
+      "questId": "a1-invitation",
+      "mapId": "lindenhafen",
+      "npcId": "fritz",
+      "npc": {
+        "id": "fritz",
+        "x": 0.5166666666666667,
+        "y": 0.31666666666666665
+      },
+      "gateExerciseId": "a1-invitation-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "keep-chair",
+        "share-chair"
+      ],
+      "choices": [
+        {
+          "id": "keep-chair",
+          "effects": [
+            {
+              "flag": "berg-chair-kept"
+            }
+          ]
+        },
+        {
+          "id": "share-chair",
+          "effects": [
+            {
+              "flag": "berg-chair-shared"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-market-crate"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-market-crate",
+          "x": 0.508,
+          "y": 0.3393333333333333
+        }
+      ]
+    },
+    {
+      "questId": "a1-lost-found",
+      "mapId": "lindenhafen",
+      "npcId": "lina",
+      "npc": {
+        "id": "lina",
+        "x": 0.40199999999999997,
+        "y": 0.45333333333333337
+      },
+      "gateExerciseId": "a1-lost-found-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "take-glove",
+        "leave-glove"
+      ],
+      "choices": [
+        {
+          "id": "take-glove",
+          "effects": [
+            {
+              "flag": "glove-taken"
+            }
+          ]
+        },
+        {
+          "id": "leave-glove",
+          "effects": [
+            {
+              "flag": "glove-left"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-parcel"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-parcel",
+          "x": 0.44333333333333336,
+          "y": 0.49533333333333335
+        }
+      ]
+    },
+    {
       "questId": "a1-lost-parcel",
       "mapId": "lindenhafen",
       "npcId": "lina",
@@ -392,13 +876,63 @@
         }
       ],
       "investigationObjectIds": [
-        "lindenhafen-parcel"
+        "lindenhafen-parcel",
+        "lindenhafen-berg-house"
       ],
       "objects": [
         {
           "id": "lindenhafen-parcel",
           "x": 0.44333333333333336,
           "y": 0.49533333333333335
+        },
+        {
+          "id": "lindenhafen-berg-house",
+          "x": 0.25666666666666665,
+          "y": 0.44
+        }
+      ]
+    },
+    {
+      "questId": "a1-departure",
+      "mapId": "lindenhafen",
+      "npcId": "otto",
+      "npc": {
+        "id": "otto",
+        "x": 0.5433333333333333,
+        "y": 0.19933333333333333
+      },
+      "gateExerciseId": "a1-departure-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "single",
+        "return"
+      ],
+      "choices": [
+        {
+          "id": "single",
+          "effects": [
+            {
+              "flag": "ticket-single"
+            }
+          ]
+        },
+        {
+          "id": "return",
+          "effects": [
+            {
+              "flag": "ticket-return"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-noticeboard"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-noticeboard",
+          "x": 0.5393333333333333,
+          "y": 0.21866666666666668
         }
       ]
     },

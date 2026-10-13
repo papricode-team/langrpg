@@ -109,7 +109,7 @@ export const interiors: readonly InteriorSpec[] = [
         vocabulary: [vocabulary('der', 'Kaffee', 'die Kaffees', 'coffee'), vocabulary('die', 'Milch', '—', 'milk'), vocabulary('der', 'Zucker', '—', 'sugar')],
       },
       {
-        id: 'interior:cafe:tea', label: 'The very opinionated kettle', germanName: 'Der Wasserkocher', sessionTitle: 'Ask about drinks and prices',
+        id: 'interior:cafe:tea', label: 'The tea kettle', germanName: 'Der Wasserkocher', sessionTitle: 'Ask about drinks and prices',
         ...position(790, 555), dialogue: 'Der Tee kostet drei Euro. Möchtest du auch ein Wasser?',
         prompt: 'Ask the price of tea, listen to the answer, and choose another drink.',
         description: 'A copper kettle rests on the service bar beside the coffee machine. Take your time asking about the drinks and their prices.',

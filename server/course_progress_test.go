@@ -674,7 +674,7 @@ func TestEmbeddedCourseMergesAllCanonicalTargetsAndExposureLinks(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(course.Lexicon) < 2400 || len(merged.Exercises) != len(course.Exercises)+126+len(merged.MiniGameContent) || len(merged.Items) != len(course.Items)+126 || len(merged.ContextWordIDs) != 126 || len(merged.ActivityWordIDs) == 0 {
+	if len(course.Lexicon) < 2400 || len(merged.Exercises) != len(course.Exercises)+len(storyQuestOrder)*7+len(merged.MiniGameContent) || len(merged.Items) != len(course.Items)+len(storyQuestOrder)*7 || len(merged.ContextWordIDs) != len(storyQuestOrder)*7 || len(merged.ActivityWordIDs) == 0 {
 		t.Fatalf("incomplete embedded course: %d words/%d exercises/%d contexts", len(merged.Lexicon), len(merged.Exercises), len(merged.ContextWordIDs))
 	}
 	wordModes := map[string]map[string]bool{}

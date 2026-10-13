@@ -10,7 +10,8 @@ import type { Level } from './content';
 export type ScaffoldStage = 'edges' | 'initials' | 'shape' | 'none';
 
 const levels: readonly Level[] = ['A1', 'A2', 'B1'];
-const milestones: Partial<Record<Level, string>> = { A2: 'a1-lost-parcel', B1: 'a2-archive' };
+/** The final scene of the previous act opens each level (see progression.lastQuestOf). */
+const milestones: Partial<Record<Level, string>> = { A2: 'a1-departure', B1: 'a2-archive' };
 
 /** The story level the learner is training at, following the same milestones that open each town. */
 export function learnerLevel(completedQuestIds: readonly string[], questLevels: ReadonlyMap<string, Level>): Level {

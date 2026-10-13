@@ -6,6 +6,7 @@ import { storyClues } from './story';
 import { ambientCallbacks } from './npc-dialogue';
 import { cinematicBeats } from './cinematic-content';
 import { npcs, quests } from './content';
+import { everydayQuestIds } from './progression';
 
 describe('story bible', () => {
   it('keeps every scene inside the narrative lint (reveals, address, instructions, prompts, server contract)', () => {
@@ -85,10 +86,10 @@ describe('story continuity across paths and surfaces', () => {
 });
 
 describe('Elise letters, topics and callbacks', () => {
-  it('unlocks one translated letter from Elise with every quest', () => {
-    expect(storyClues).toHaveLength(18);
+  it('unlocks one translated letter from Elise with every main story scene', () => {
+    expect(storyClues).toHaveLength(quests.length);
     for (const clue of storyClues) {
-      expect(clue.letter.length, clue.questId).toBeGreaterThanOrEqual(1);
+      if (!everydayQuestIds.has(clue.questId)) expect(clue.letter.length, clue.questId).toBeGreaterThanOrEqual(1);
       for (const sentence of clue.letter) { expect(sentence.german.trim(), clue.questId).not.toBe(''); expect(sentence.english.trim(), clue.questId).not.toBe(''); }
     }
   });

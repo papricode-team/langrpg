@@ -54,6 +54,7 @@ describe('dialogue with Turkish support', () => {
   it('records assistance exactly as in English when the meaning is revealed', async () => {
     const f = fixture('gate', 'a1-arrival');
     await f.controller.open('a1-arrival');
+    for (let step = 0; step < 80 && !document.querySelector('#dialogue-answer'); step++) document.querySelector<HTMLButtonElement>('[data-dialogue-action="next"]')!.click();
     document.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!.click();
     expect(f.options.expose).toHaveBeenCalledWith('a1-arrival-exercise-7');
     document.querySelector<HTMLButtonElement>('[data-dialogue-action="hint"]')!.click();
@@ -75,18 +76,18 @@ describe('dialogue with Turkish support', () => {
 
   it('shows a tapped word’s Turkish gloss and never highlights a guess', () => {
     const graph = questGraph('a1-arrival')!;
-    const line = graph.nodes.flatMap(node => node.lines).find(item => item.id === 'a1-arrival-intro-2')!;
-    const html = dialogueMarkup({ title: 'x', line, name: 'Deniz', portrait: '', index: 0, total: 1, help: false, busy: false, glosses: { tauben: 'güvercinler' }, lookup: { word: 'Tauben', index: 4, gloss: 'güvercinler' } });
+    const line = graph.nodes.flatMap(node => node.lines).find(item => item.id === 'a1-arrival-intro-4')!;
+    const html = dialogueMarkup({ title: 'x', line, name: 'Deniz', portrait: '', index: 0, total: 1, help: false, busy: false, glosses: { laterne: 'fener' }, lookup: { word: 'Laterne', index: 6, gloss: 'fener' } });
     const host = document.createElement('div');
     host.innerHTML = html;
-    expect(host.querySelector('.dialogue-word-gloss')!.textContent).toContain('güvercinler');
+    expect(host.querySelector('.dialogue-word-gloss')!.textContent).toContain('fener');
     const marks = [...host.querySelectorAll('.dialogue-translation mark')].map(mark => mark.textContent);
-    for (const mark of marks) expect(mark).toBe('Güvercinler');
+    for (const mark of marks) expect(mark).toMatch(/^fener/i);
     // An untranslated gloss keeps the word tappable but shows no meaning and no highlight.
-    host.innerHTML = dialogueMarkup({ title: 'x', line, name: 'Deniz', portrait: '', index: 0, total: 1, help: false, busy: false, glosses: { tauben: '' }, lookup: { word: 'Tauben', index: 4, gloss: '' } });
+    host.innerHTML = dialogueMarkup({ title: 'x', line, name: 'Deniz', portrait: '', index: 0, total: 1, help: false, busy: false, glosses: { laterne: '' }, lookup: { word: 'Laterne', index: 6, gloss: '' } });
     expect(host.querySelector('[data-dialogue-gloss=""]')).not.toBeNull();
     expect(host.querySelector('.dialogue-word-gloss')).toBeNull();
     expect(host.querySelector('.dialogue-translation mark')).toBeNull();
-    expect(host.querySelector('.dialogue-translation')!.textContent).toBe(turkishOverlay.story['dialogue:a1-arrival-intro-2'].tr);
+    expect(host.querySelector('.dialogue-translation')!.textContent).toBe(turkishOverlay.story['dialogue:a1-arrival-intro-4'].tr);
   });
 });

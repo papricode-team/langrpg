@@ -116,10 +116,10 @@ describe('German course identity, grading and coverage', () => {
 
   it('tracks old quests, actual custom activity scenes and NPCs as exposure only', () => {
     const legacy = quests.flatMap(quest => quest.exercises);
-    expect(legacy).toHaveLength(126);
+    expect(legacy).toHaveLength(quests.length * 7);
     expect(manifest.quests).toEqual([]);
     expect(courseContextWordIds).toEqual(manifest.contextWordIds);
-    expect(Object.keys(courseContextWordIds)).toHaveLength(126);
+    expect(Object.keys(courseContextWordIds)).toHaveLength(legacy.length);
     expect(legacy.every(exercise => courseContextWordIds[exercise.id]?.length)).toBe(true);
     for (const scenario of activityScenarios) expect(courseActivityWordIds[scenario.id]?.length).toBeGreaterThan(0);
     for (const npc of npcs) expect(courseNPCWordIds[npc.id]?.length).toBeGreaterThan(0);

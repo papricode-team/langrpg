@@ -210,7 +210,7 @@ export const quests: Quest[] = [
     "id": "a1-arrival",
     "level": "A1",
     "title": "A ticket from nowhere",
-    "subtitle": "Someone has already written your name",
+    "subtitle": "Your train stops at a platform closed for twelve years",
     "npcId": "otto",
     "location": "Lindenhafen · Railway station",
     "story": [
@@ -219,18 +219,18 @@ export const quests: Quest[] = [
         "english": "Your train is here."
       },
       {
-        "german": "Hier sind sechs Bahnsteige.",
-        "english": "There are six platforms here."
+        "german": "Er steht auf Bahnsteig sieben.",
+        "english": "It is standing at platform seven."
       },
       {
-        "german": "Deine Fahrkarte ist für Bahnsteig sieben.",
-        "english": "Your ticket is for platform seven."
+        "german": "Dort kommt seit Jahren kein Zug.",
+        "english": "No train has come there for years."
       }
     ],
     "objectives": [
       "Greet someone and introduce yourself",
-      "Ask for help and repetition",
-      "Discover the unlisted platform"
+      "Ask someone to say it again",
+      "Learn why names fade in Lindenhafen"
     ],
     "reward": 40,
     "exercises": [
@@ -350,30 +350,176 @@ export const quests: Quest[] = [
     ]
   },
   {
+    "id": "a1-timetable",
+    "level": "A1",
+    "title": "Six platforms and a faded word",
+    "subtitle": "Otto reads you the timetable",
+    "npcId": "otto",
+    "location": "Lindenhafen · Station board",
+    "story": [
+      {
+        "german": "Otto steht vor der Tafel.",
+        "english": "Otto is standing in front of the board."
+      },
+      {
+        "german": "Er kennt jede Zeit.",
+        "english": "He knows every time."
+      },
+      {
+        "german": "Nur ein Wort ist weg.",
+        "english": "Only one word is gone."
+      }
+    ],
+    "objectives": [
+      "Ask about train times",
+      "Say and understand clock times",
+      "Notice what is missing from the board"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask when the train leaves.",
+        "german": "Wann fährt der Zug?",
+        "english": "When does the train leave?",
+        "answer": "Wann fährt der Zug?",
+        "hint": "Start with Wann, then the verb fährt.",
+        "explanation": "Wann asks for a time. The verb comes second: Wann fährt der Zug?",
+        "tokens": [
+          "Wann",
+          "fährt",
+          "der",
+          "Zug?"
+        ],
+        "id": "a1-timetable-exercise-1",
+        "itemId": "a1-timetable-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask what time it is.",
+        "german": "Wie spät ist es?",
+        "english": "What time is it?",
+        "answer": "Wie spät ist es?",
+        "hint": "spät means late.",
+        "explanation": "Wie spät ist es? is the everyday way to ask the time.",
+        "options": [
+          "Wie spät ist es?",
+          "Wie alt ist es?",
+          "Wo ist es?"
+        ],
+        "id": "a1-timetable-exercise-2",
+        "itemId": "a1-timetable-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. When does the train leave?",
+        "german": "Der Zug fährt um halb neun.",
+        "english": "The train leaves at half past eight.",
+        "answer": "halb neun",
+        "hint": "halb neun is 8:30.",
+        "explanation": "halb neun means half an hour before nine: 8:30.",
+        "options": [
+          "halb neun",
+          "halb acht",
+          "neun Uhr"
+        ],
+        "id": "a1-timetable-exercise-3",
+        "itemId": "a1-timetable-item-3"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"The train leaves at eight o’clock.\"",
+        "german": "Der Zug fährt um acht Uhr.",
+        "english": "The train leaves at eight o’clock.",
+        "answer": "Der Zug fährt um acht Uhr.",
+        "hint": "Use um before the time.",
+        "explanation": "um + number + Uhr gives a clock time.",
+        "acceptedAnswers": [
+          "Der Zug fährt um 8 Uhr."
+        ],
+        "id": "a1-timetable-exercise-4",
+        "itemId": "a1-timetable-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I am travelling at ten o’clock.\"",
+        "german": "Ich fahre um zehn Uhr.",
+        "english": "I am travelling at ten o’clock.",
+        "answer": "Ich fahre um zehn Uhr.",
+        "hint": "Ich fahre …",
+        "explanation": "fahren changes to fahre after ich.",
+        "tokens": [
+          "Ich",
+          "fahre",
+          "um",
+          "zehn",
+          "Uhr."
+        ],
+        "id": "a1-timetable-exercise-5",
+        "itemId": "a1-timetable-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask where platform three is.",
+        "german": "Wo ist Bahnsteig drei?",
+        "english": "Where is platform three?",
+        "answer": "Wo ist Bahnsteig drei?",
+        "hint": "Wo asks for a place.",
+        "explanation": "Wo ist …? asks where something is.",
+        "options": [
+          "Wo ist Bahnsteig drei?",
+          "Wann ist Bahnsteig drei?",
+          "Wer ist Bahnsteig drei?"
+        ],
+        "id": "a1-timetable-exercise-6",
+        "itemId": "a1-timetable-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. At what time does the train come?",
+        "german": "Der Zug kommt um achtzehn Uhr.",
+        "english": "The train arrives at six p.m.",
+        "answer": "achtzehn Uhr",
+        "hint": "achtzehn is eighteen, so 6 p.m.",
+        "explanation": "Trains use the 24-hour clock: 18 Uhr is 6 p.m.",
+        "options": [
+          "acht Uhr",
+          "achtzehn Uhr",
+          "zwölf Uhr"
+        ],
+        "id": "a1-timetable-exercise-7",
+        "itemId": "a1-timetable-item-7"
+      }
+    ]
+  },
+  {
     "id": "a1-cafe",
     "level": "A1",
-    "title": "A place at tomorrow’s table",
-    "subtitle": "Marta has saved you a cup",
+    "title": "A coffee already paid for",
+    "subtitle": "Someone was here the day before you",
     "npcId": "marta",
     "location": "Lindenhafen · Marta’s café",
     "story": [
       {
-        "german": "Marta hat einen Kaffee für dich.",
-        "english": "Marta has a coffee for you."
+        "german": "Marta hat ein Café.",
+        "english": "Marta runs a café."
       },
       {
-        "german": "Sie kennt deinen Namen nicht.",
-        "english": "She does not know your name."
+        "german": "Dein Kaffee ist schon bezahlt.",
+        "english": "Your coffee is already paid for."
       },
       {
-        "german": "Ihr Wasserkocher kennt ihn.",
-        "english": "Her kettle knows it."
+        "german": "Wer hat bezahlt?",
+        "english": "Who paid?"
       }
     ],
     "objectives": [
       "Order food and drinks",
       "Understand a price",
-      "Meet Marta and hear the kettle’s warning"
+      "Find out who paid for your coffee"
     ],
     "reward": 40,
     "exercises": [
@@ -492,30 +638,319 @@ export const quests: Quest[] = [
     ]
   },
   {
-    "id": "a1-market",
+    "id": "a1-room",
     "level": "A1",
-    "title": "The empty place",
-    "subtitle": "Fritz remembers the soup, but someone is missing",
+    "title": "Two rooms upstairs",
+    "subtitle": "Marta has a bed for you",
+    "npcId": "marta",
+    "location": "Lindenhafen · Marta’s guest rooms",
+    "story": [
+      {
+        "german": "Marta hat Zimmer über dem Café.",
+        "english": "Marta has rooms above the café."
+      },
+      {
+        "german": "Du brauchst ein Bett.",
+        "english": "You need a bed."
+      },
+      {
+        "german": "In einem Zimmer war eine Frau.",
+        "english": "A woman was in one of the rooms."
+      }
+    ],
+    "objectives": [
+      "Ask for a room and its price",
+      "Describe a room",
+      "Choose between two rooms"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask if there is a room free.",
+        "german": "Hast du ein Zimmer frei?",
+        "english": "Do you have a room free?",
+        "answer": "Hast du ein Zimmer frei?",
+        "hint": "Start with Hast du … and finish with frei.",
+        "explanation": "In a yes/no question the verb comes first. frei means free.",
+        "tokens": [
+          "Hast",
+          "du",
+          "ein",
+          "Zimmer",
+          "frei?"
+        ],
+        "id": "a1-room-exercise-1",
+        "itemId": "a1-room-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask if the room has a bathroom.",
+        "german": "Hat das Zimmer ein Bad?",
+        "english": "Does the room have a bathroom?",
+        "answer": "Hat das Zimmer ein Bad?",
+        "hint": "Bad is neuter: ein Bad.",
+        "explanation": "Hat … ein Bad? asks what a room has.",
+        "options": [
+          "Hat das Zimmer ein Bad?",
+          "Hat das Zimmer einen Hund?",
+          "Hat das Zimmer eine Uhr?"
+        ],
+        "id": "a1-room-exercise-2",
+        "itemId": "a1-room-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How much is the room?",
+        "german": "Das Zimmer kostet vierzig Euro.",
+        "english": "The room costs forty euros.",
+        "answer": "vierzig Euro",
+        "hint": "vierzig is forty, vierzehn is fourteen.",
+        "explanation": "Do not mix up vierzehn (14) and vierzig (40).",
+        "options": [
+          "vierzehn Euro",
+          "vierzig Euro",
+          "fünfzig Euro"
+        ],
+        "id": "a1-room-exercise-3",
+        "itemId": "a1-room-item-3"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"The room is quiet.\"",
+        "german": "Das Zimmer ist ruhig.",
+        "english": "The room is quiet.",
+        "answer": "Das Zimmer ist ruhig.",
+        "hint": "ruhig means quiet.",
+        "explanation": "Das Zimmer is neuter. ist links the room to its description.",
+        "id": "a1-room-exercise-4",
+        "itemId": "a1-room-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I am staying two days.\"",
+        "german": "Ich bleibe zwei Tage.",
+        "english": "I am staying two days.",
+        "answer": "Ich bleibe zwei Tage.",
+        "hint": "Tag becomes Tage in the plural.",
+        "explanation": "bleiben becomes bleibe after ich.",
+        "tokens": [
+          "Ich",
+          "bleibe",
+          "zwei",
+          "Tage."
+        ],
+        "id": "a1-room-exercise-5",
+        "itemId": "a1-room-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask where the bathroom is.",
+        "german": "Wo ist das Bad?",
+        "english": "Where is the bathroom?",
+        "answer": "Wo ist das Bad?",
+        "hint": "Bad is the bathroom.",
+        "explanation": "Wo ist …? asks for a place.",
+        "options": [
+          "Wo ist das Bad?",
+          "Wo ist der Schlüssel?",
+          "Wer ist das Bad?"
+        ],
+        "id": "a1-room-exercise-6",
+        "itemId": "a1-room-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Where is your room?",
+        "german": "Dein Zimmer ist oben.",
+        "english": "Your room is upstairs.",
+        "answer": "oben",
+        "hint": "oben is up, unten is down.",
+        "explanation": "oben means upstairs or above.",
+        "options": [
+          "oben",
+          "unten",
+          "draußen"
+        ],
+        "id": "a1-room-exercise-7",
+        "itemId": "a1-room-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-shopping",
+    "level": "A1",
+    "title": "Bread for Friday",
+    "subtitle": "Fritz is shopping for the soup",
     "npcId": "fritz",
     "location": "Lindenhafen · Lantern market",
     "story": [
       {
-        "german": "Fritz hat Äpfel und Suppe.",
-        "english": "Fritz has apples and soup."
+        "german": "Fritz kauft Brot für die Suppe.",
+        "english": "Fritz is buying bread for the soup."
       },
       {
-        "german": "Fritz kocht für zwei Leute.",
-        "english": "Fritz is cooking for two people."
+        "german": "Alle Gäste haben einen Namen.",
+        "english": "All the guests have a name."
       },
       {
-        "german": "Ein Name fehlt im Buch.",
-        "english": "A name is missing from the book."
+        "german": "Ein Platz hat keinen.",
+        "english": "One place has none."
+      }
+    ],
+    "objectives": [
+      "Ask for prices",
+      "Order food and say how much you want",
+      "Notice the place without a name"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask what the bread costs.",
+        "german": "Was kostet das Brot?",
+        "english": "What does the bread cost?",
+        "answer": "Was kostet das Brot?",
+        "hint": "Start with Was kostet …",
+        "explanation": "Was kostet …? asks for a price. Brot is neuter: das Brot.",
+        "tokens": [
+          "Was",
+          "kostet",
+          "das",
+          "Brot?"
+        ],
+        "id": "a1-shopping-exercise-1",
+        "itemId": "a1-shopping-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "It costs a lot. Say: \"That is expensive.\"",
+        "german": "Das ist teuer.",
+        "english": "That is expensive.",
+        "answer": "Das ist teuer.",
+        "hint": "teuer is expensive.",
+        "explanation": "teuer means expensive; billig would mean cheap.",
+        "options": [
+          "Das ist teuer.",
+          "Das ist billig.",
+          "Das ist klein."
+        ],
+        "id": "a1-shopping-exercise-2",
+        "itemId": "a1-shopping-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How much is the fish?",
+        "german": "Der Fisch kostet sechs Euro.",
+        "english": "The fish costs six euros.",
+        "answer": "sechs Euro",
+        "hint": "sechs is six, sechzehn is sixteen.",
+        "explanation": "Listen to the end of the number word.",
+        "options": [
+          "sechs Euro",
+          "sechzehn Euro",
+          "sieben Euro"
+        ],
+        "id": "a1-shopping-exercise-3",
+        "itemId": "a1-shopping-item-3"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"I will take the bread.\"",
+        "german": "Ich nehme das Brot.",
+        "english": "I will take the bread.",
+        "answer": "Ich nehme das Brot.",
+        "hint": "Start with Ich nehme.",
+        "explanation": "Ich nehme is a common phrase when you choose something to buy.",
+        "acceptedAnswers": [
+          "Ich nehme das Brot"
+        ],
+        "id": "a1-shopping-exercise-4",
+        "itemId": "a1-shopping-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I would like milk and bread.\"",
+        "german": "Ich möchte Milch und Brot.",
+        "english": "I would like milk and bread.",
+        "answer": "Ich möchte Milch und Brot.",
+        "hint": "Join the two items with und.",
+        "explanation": "und joins two things. No article is needed here.",
+        "tokens": [
+          "Ich",
+          "möchte",
+          "Milch",
+          "und",
+          "Brot."
+        ],
+        "id": "a1-shopping-exercise-5",
+        "itemId": "a1-shopping-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask Fritz if he has eggs.",
+        "german": "Hast du Eier?",
+        "english": "Do you have eggs?",
+        "answer": "Hast du Eier?",
+        "hint": "Eier means eggs.",
+        "explanation": "Hast du …? asks whether someone has something.",
+        "options": [
+          "Hast du Eier?",
+          "Hast du Hunger?",
+          "Hast du Zeit?"
+        ],
+        "id": "a1-shopping-exercise-6",
+        "itemId": "a1-shopping-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How much do you pay in total?",
+        "german": "Das macht sieben Euro, bitte.",
+        "english": "That makes seven euros, please.",
+        "answer": "sieben Euro",
+        "hint": "sieben is seven, siebzehn is seventeen.",
+        "explanation": "Das macht … tells you the total.",
+        "options": [
+          "sieben Euro",
+          "siebzehn Euro",
+          "siebzig Euro"
+        ],
+        "id": "a1-shopping-exercise-7",
+        "itemId": "a1-shopping-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-market",
+    "level": "A1",
+    "title": "The empty place",
+    "subtitle": "Fritz cooks for everyone, but one guest is missing",
+    "npcId": "fritz",
+    "location": "Lindenhafen · Market",
+    "story": [
+      {
+        "german": "Heute ist Freitag.",
+        "english": "It is Friday."
+      },
+      {
+        "german": "Fritz kocht Suppe für alle.",
+        "english": "Fritz is cooking soup for everyone."
+      },
+      {
+        "german": "Ein Platz am Tisch ist frei.",
+        "english": "One seat at the table is empty."
       }
     ],
     "objectives": [
       "Ask for everyday groceries",
       "Use quantities and payment phrases",
-      "Find the numbered apple"
+      "Find out who is missing from the table"
     ],
     "reward": 40,
     "exercises": [
@@ -639,30 +1074,459 @@ export const quests: Quest[] = [
     ]
   },
   {
-    "id": "a1-station",
+    "id": "a1-neighbour",
     "level": "A1",
-    "title": "A voice on the platform",
-    "subtitle": "Voss has stayed after the last train",
-    "npcId": "otto",
-    "location": "Lindenhafen · The hidden platform",
+    "title": "The woman on the fountain bench",
+    "subtitle": "Marta remembers her old teacher",
+    "npcId": "marta",
+    "location": "Lindenhafen · Fountain square",
     "story": [
       {
-        "german": "Der Zug ist weg.",
-        "english": "The train has gone."
+        "german": "Marta steht am Brunnen.",
+        "english": "Marta is standing at the fountain."
       },
       {
-        "german": "Voss sitzt noch am Bahnhof.",
-        "english": "Voss is still sitting at the station."
+        "german": "Hier saß jeden Morgen eine Frau.",
+        "english": "A woman sat here every morning."
       },
       {
-        "german": "Ist der Platz bei ihm frei?",
-        "english": "Is the seat beside him free?"
+        "german": "Die Bank ist frei.",
+        "english": "The bench is free."
+      }
+    ],
+    "objectives": [
+      "Ask what someone is like",
+      "Describe people with simple adjectives",
+      "Choose how to keep a name"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask what Frau Berg is like.",
+        "german": "Wie ist Frau Berg?",
+        "english": "What is Frau Berg like?",
+        "answer": "Wie ist Frau Berg?",
+        "hint": "Wie asks about the way someone is.",
+        "explanation": "Wie ist …? asks for a description of a person.",
+        "tokens": [
+          "Wie",
+          "ist",
+          "Frau",
+          "Berg?"
+        ],
+        "id": "a1-neighbour-exercise-1",
+        "itemId": "a1-neighbour-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Say that she is old.",
+        "german": "Sie ist alt.",
+        "english": "She is old.",
+        "answer": "Sie ist alt.",
+        "hint": "Sie can mean she.",
+        "explanation": "sie means she, and alt means old.",
+        "options": [
+          "Sie ist alt.",
+          "Er ist alt.",
+          "Sie ist jung."
+        ],
+        "id": "a1-neighbour-exercise-2",
+        "itemId": "a1-neighbour-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What is the teacher like?",
+        "german": "Sie ist lieb und streng.",
+        "english": "She is dear and strict.",
+        "answer": "streng",
+        "hint": "streng means strict.",
+        "explanation": "streng describes someone who has firm rules.",
+        "options": [
+          "streng",
+          "müde",
+          "laut"
+        ],
+        "id": "a1-neighbour-exercise-3",
+        "itemId": "a1-neighbour-item-3"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"He is tall.\"",
+        "german": "Er ist groß.",
+        "english": "He is tall.",
+        "answer": "Er ist groß.",
+        "hint": "groß means big or tall.",
+        "explanation": "er means he, and groß describes his size.",
+        "id": "a1-neighbour-exercise-4",
+        "itemId": "a1-neighbour-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"My teacher was strict.\"",
+        "german": "Meine Lehrerin war streng.",
+        "english": "My teacher was strict.",
+        "answer": "Meine Lehrerin war streng.",
+        "hint": "Lehrerin is feminine: meine.",
+        "explanation": "war is the past of ist: was.",
+        "tokens": [
+          "Meine",
+          "Lehrerin",
+          "war",
+          "streng."
+        ],
+        "id": "a1-neighbour-exercise-5",
+        "itemId": "a1-neighbour-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask who the woman is.",
+        "german": "Wer ist die Frau?",
+        "english": "Who is the woman?",
+        "answer": "Wer ist die Frau?",
+        "hint": "Wer means who.",
+        "explanation": "Wer asks about a person.",
+        "options": [
+          "Wer ist die Frau?",
+          "Wo ist die Frau?",
+          "Wie alt ist die Frau?"
+        ],
+        "id": "a1-neighbour-exercise-6",
+        "itemId": "a1-neighbour-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What does she read?",
+        "german": "Sie liest jeden Morgen ein Buch.",
+        "english": "She reads a book every morning.",
+        "answer": "ein Buch",
+        "hint": "Buch means book.",
+        "explanation": "lesen means to read. ein Buch is what she reads.",
+        "options": [
+          "ein Buch",
+          "eine Zeitung",
+          "einen Brief"
+        ],
+        "id": "a1-neighbour-exercise-7",
+        "itemId": "a1-neighbour-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-pharmacy",
+    "level": "A1",
+    "title": "Tea for a cough",
+    "subtitle": "Greta has a bag nobody has collected",
+    "npcId": "greta",
+    "location": "Lindenhafen · Greta’s pharmacy",
+    "story": [
+      {
+        "german": "Greta hat eine Apotheke.",
+        "english": "Greta has a pharmacy."
+      },
+      {
+        "german": "Ein Beutel Tee wartet seit einer Woche.",
+        "english": "A bag of tea has been waiting for a week."
+      }
+    ],
+    "objectives": [
+      "Say how you feel and name body parts",
+      "Understand how often to take medicine",
+      "Follow simple advice when you are ill"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Tell Greta you have a headache.",
+        "german": "Ich habe Kopfschmerzen.",
+        "english": "I have a headache.",
+        "answer": "Ich habe Kopfschmerzen.",
+        "hint": "Start with Ich habe.",
+        "explanation": "German says I have headaches: Kopfschmerzen is always plural.",
+        "acceptedAnswers": [
+          "Ich habe Kopfschmerzen"
+        ],
+        "tokens": [
+          "Ich",
+          "habe",
+          "Kopfschmerzen."
+        ],
+        "id": "a1-pharmacy-exercise-1",
+        "itemId": "a1-pharmacy-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Greta asks how you are. Say you are not well.",
+        "german": "Mir geht es nicht gut.",
+        "english": "I am not well.",
+        "answer": "Mir geht es nicht gut.",
+        "hint": "nicht gut means not good.",
+        "explanation": "Mir geht es nicht gut is a natural way to say you feel bad.",
+        "options": [
+          "Mir geht es nicht gut.",
+          "Mir geht es sehr gut.",
+          "Ich habe Hunger."
+        ],
+        "id": "a1-pharmacy-exercise-2",
+        "itemId": "a1-pharmacy-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How often should you take the tea?",
+        "german": "Nimm den Tee dreimal am Tag.",
+        "english": "Take the tea three times a day.",
+        "answer": "Dreimal am Tag.",
+        "hint": "dreimal means three times.",
+        "explanation": "Number + mal says how often: einmal, zweimal, dreimal.",
+        "options": [
+          "Dreimal am Tag.",
+          "Einmal am Tag.",
+          "Zweimal am Tag."
+        ],
+        "id": "a1-pharmacy-exercise-3",
+        "itemId": "a1-pharmacy-item-3"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say that your throat hurts.",
+        "german": "Mein Hals tut weh.",
+        "english": "My throat hurts.",
+        "answer": "Mein Hals tut weh.",
+        "hint": "Use tut weh after the body part.",
+        "explanation": "Body part + tut weh says that it hurts.",
+        "tokens": [
+          "Mein",
+          "Hals",
+          "tut",
+          "weh."
+        ],
+        "id": "a1-pharmacy-exercise-4",
+        "itemId": "a1-pharmacy-item-4"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say that you are ill.",
+        "german": "Ich bin krank.",
+        "english": "I am ill.",
+        "answer": "Ich bin krank.",
+        "hint": "krank means ill.",
+        "explanation": "Use ich bin with an adjective: Ich bin krank.",
+        "acceptedAnswers": [
+          "Ich bin krank"
+        ],
+        "id": "a1-pharmacy-exercise-5",
+        "itemId": "a1-pharmacy-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Your stomach hurts. Which sentence is right?",
+        "german": "Mein Bauch tut weh.",
+        "english": "My stomach hurts.",
+        "answer": "Mein Bauch tut weh.",
+        "hint": "Bauch is stomach.",
+        "explanation": "Bauch is the belly. Mein Bauch tut weh.",
+        "options": [
+          "Mein Bauch tut weh.",
+          "Mein Fuß tut weh.",
+          "Mein Kopf tut weh."
+        ],
+        "id": "a1-pharmacy-exercise-6",
+        "itemId": "a1-pharmacy-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What will you do?",
+        "german": "Du hast Fieber. Bleib heute im Bett.",
+        "english": "You have a fever. Stay in bed today.",
+        "answer": "Ich bleibe im Bett.",
+        "hint": "Bett is bed.",
+        "explanation": "Bleib im Bett means stay in bed.",
+        "options": [
+          "Ich bleibe im Bett.",
+          "Ich gehe zur Arbeit.",
+          "Ich gehe in den Park."
+        ],
+        "id": "a1-pharmacy-exercise-7",
+        "itemId": "a1-pharmacy-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-directions",
+    "level": "A1",
+    "title": "The way to number seven",
+    "subtitle": "Lina shows you the street",
+    "npcId": "lina",
+    "location": "Lindenhafen · Gartenstraße",
+    "story": [
+      {
+        "german": "Lina bringt Briefe in die Gartenstraße.",
+        "english": "Lina delivers letters to Gartenstraße."
+      },
+      {
+        "german": "Nummer sieben hat keinen Namen.",
+        "english": "Number seven has no name."
+      }
+    ],
+    "objectives": [
+      "Ask where a street is",
+      "Use links, rechts and geradeaus",
+      "Place things next to and opposite others"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask Lina where Gartenstraße is.",
+        "german": "Wo ist die Gartenstraße?",
+        "english": "Where is Gartenstraße?",
+        "answer": "Wo ist die Gartenstraße?",
+        "hint": "Start with Wo ist.",
+        "explanation": "Wo asks for a place and the verb comes second.",
+        "acceptedAnswers": [
+          "Wo ist die Gartenstraße"
+        ],
+        "tokens": [
+          "Wo",
+          "ist",
+          "die",
+          "Gartenstraße?"
+        ],
+        "id": "a1-directions-exercise-1",
+        "itemId": "a1-directions-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "How do you say “Go left”?",
+        "german": "Geh links.",
+        "english": "Go left.",
+        "answer": "Geh links.",
+        "hint": "links is left.",
+        "explanation": "links is left, rechts is right, geradeaus is straight ahead.",
+        "options": [
+          "Geh links.",
+          "Geh rechts.",
+          "Geh geradeaus."
+        ],
+        "id": "a1-directions-exercise-2",
+        "itemId": "a1-directions-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Where is the post office?",
+        "german": "Die Post ist gegenüber vom Café.",
+        "english": "The post office is opposite the café.",
+        "answer": "Gegenüber vom Café.",
+        "hint": "gegenüber means opposite.",
+        "explanation": "gegenüber vom means opposite the.",
+        "options": [
+          "Gegenüber vom Café.",
+          "Neben dem Café.",
+          "Links vom Café."
+        ],
+        "id": "a1-directions-exercise-3",
+        "itemId": "a1-directions-item-3"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Give directions: straight ahead, then right.",
+        "german": "Geh geradeaus, dann rechts.",
+        "english": "Go straight ahead, then right.",
+        "answer": "Geh geradeaus, dann rechts.",
+        "hint": "Use dann between the two steps.",
+        "explanation": "dann means then. Geh is the du command.",
+        "tokens": [
+          "Geh",
+          "geradeaus,",
+          "dann",
+          "rechts."
+        ],
+        "id": "a1-directions-exercise-4",
+        "itemId": "a1-directions-item-4"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Ask where the station is.",
+        "german": "Wo ist der Bahnhof?",
+        "english": "Where is the station?",
+        "answer": "Wo ist der Bahnhof?",
+        "hint": "Bahnhof is a der word.",
+        "explanation": "Bahnhof is masculine: der Bahnhof.",
+        "acceptedAnswers": [
+          "Wo ist der Bahnhof"
+        ],
+        "id": "a1-directions-exercise-5",
+        "itemId": "a1-directions-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "The house is opposite the park. Which sentence?",
+        "german": "Das Haus ist gegenüber vom Park.",
+        "english": "The house is opposite the park.",
+        "answer": "Das Haus ist gegenüber vom Park.",
+        "hint": "gegenüber means opposite.",
+        "explanation": "gegenüber vom Park means opposite the park.",
+        "options": [
+          "Das Haus ist gegenüber vom Park.",
+          "Das Haus ist neben dem Park.",
+          "Das Haus ist im Park."
+        ],
+        "id": "a1-directions-exercise-6",
+        "itemId": "a1-directions-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Which street do you take?",
+        "german": "Nimm die erste Straße links.",
+        "english": "Take the first street on the left.",
+        "answer": "Die erste links.",
+        "hint": "erste means first.",
+        "explanation": "die erste Straße links is the first street on the left.",
+        "options": [
+          "Die erste links.",
+          "Die zweite links.",
+          "Die erste rechts."
+        ],
+        "id": "a1-directions-exercise-7",
+        "itemId": "a1-directions-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-station",
+    "level": "A1",
+    "title": "A voice on the bench",
+    "subtitle": "Voss stays after the last train",
+    "npcId": "otto",
+    "location": "Lindenhafen · Railway station",
+    "story": [
+      {
+        "german": "Es ist Abend.",
+        "english": "It is evening."
+      },
+      {
+        "german": "Voss sitzt am Bahnhof auf der Bank.",
+        "english": "Voss is sitting on the bench at the station."
+      },
+      {
+        "german": "Er sitzt allein.",
+        "english": "He is sitting alone."
       }
     ],
     "objectives": [
       "Ask for travel information",
       "Understand departure times and platforms",
-      "Notice the impossible destination"
+      "Ask politely for a seat"
     ],
     "reward": 40,
     "exercises": [
@@ -783,30 +1647,176 @@ export const quests: Quest[] = [
     ]
   },
   {
+    "id": "a1-weather",
+    "level": "A1",
+    "title": "Rain on platform seven",
+    "subtitle": "Otto talks about the weather and the bench",
+    "npcId": "otto",
+    "location": "Lindenhafen · Station",
+    "story": [
+      {
+        "german": "Es regnet am Bahnhof.",
+        "english": "It is raining at the station."
+      },
+      {
+        "german": "Die alte Laterne von Bahnsteig sieben ist weg.",
+        "english": "The old lantern from platform seven is gone."
+      }
+    ],
+    "objectives": [
+      "Describe today’s weather",
+      "Ask about the weather tomorrow",
+      "Use heute and morgen"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask what the weather is like tomorrow.",
+        "german": "Wie ist das Wetter morgen?",
+        "english": "What is the weather like tomorrow?",
+        "answer": "Wie ist das Wetter morgen?",
+        "hint": "Start with Wie ist.",
+        "explanation": "Wie ist das Wetter? asks about the weather; add morgen for tomorrow.",
+        "acceptedAnswers": [
+          "Wie ist das Wetter morgen"
+        ],
+        "tokens": [
+          "Wie",
+          "ist",
+          "das",
+          "Wetter",
+          "morgen?"
+        ],
+        "id": "a1-weather-exercise-1",
+        "itemId": "a1-weather-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "It is raining. Which sentence?",
+        "german": "Es regnet.",
+        "english": "It is raining.",
+        "answer": "Es regnet.",
+        "hint": "Regen is rain.",
+        "explanation": "Es regnet means it is raining.",
+        "options": [
+          "Es regnet.",
+          "Es ist heiß.",
+          "Die Sonne ist hell."
+        ],
+        "id": "a1-weather-exercise-2",
+        "itemId": "a1-weather-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What is the weather tomorrow?",
+        "german": "Heute ist es kalt. Morgen ist es warm.",
+        "english": "Today it is cold. Tomorrow it is warm.",
+        "answer": "Warm.",
+        "hint": "morgen is tomorrow.",
+        "explanation": "heute is today, morgen is tomorrow.",
+        "options": [
+          "Warm.",
+          "Kalt.",
+          "Regen."
+        ],
+        "id": "a1-weather-exercise-3",
+        "itemId": "a1-weather-item-3"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say that today is cold.",
+        "german": "Heute ist es kalt.",
+        "english": "Today it is cold.",
+        "answer": "Heute ist es kalt.",
+        "hint": "Start with Heute.",
+        "explanation": "After heute the verb comes second: ist es.",
+        "tokens": [
+          "Heute",
+          "ist",
+          "es",
+          "kalt."
+        ],
+        "id": "a1-weather-exercise-4",
+        "itemId": "a1-weather-item-4"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say that it is warm today.",
+        "german": "Heute ist es warm.",
+        "english": "Today it is warm.",
+        "answer": "Heute ist es warm.",
+        "hint": "warm is warm.",
+        "explanation": "Heute ist es warm uses the weather es.",
+        "acceptedAnswers": [
+          "Heute ist es warm",
+          "Es ist heute warm."
+        ],
+        "id": "a1-weather-exercise-5",
+        "itemId": "a1-weather-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "The wind is strong. Which sentence?",
+        "german": "Der Wind ist stark.",
+        "english": "The wind is strong.",
+        "answer": "Der Wind ist stark.",
+        "hint": "Wind is wind.",
+        "explanation": "stark means strong.",
+        "options": [
+          "Der Wind ist stark.",
+          "Es ist sehr warm.",
+          "Es regnet nicht."
+        ],
+        "id": "a1-weather-exercise-6",
+        "itemId": "a1-weather-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Do you need an umbrella tomorrow?",
+        "german": "Morgen regnet es nicht. Es gibt viel Sonne.",
+        "english": "Tomorrow it will not rain. There will be lots of sun.",
+        "answer": "Nein, morgen nicht.",
+        "hint": "nicht means not.",
+        "explanation": "regnet es nicht means it is not raining.",
+        "options": [
+          "Nein, morgen nicht.",
+          "Ja, morgen regnet es.",
+          "Ja, es ist kalt."
+        ],
+        "id": "a1-weather-exercise-7",
+        "itemId": "a1-weather-item-7"
+      }
+    ]
+  },
+  {
     "id": "a1-workshop",
     "level": "A1",
-    "title": "The lamp that will not stay",
-    "subtitle": "Emil’s invention is looking for something",
+    "title": "The lamp from platform seven",
+    "subtitle": "Emil has repaired something he does not understand",
     "npcId": "emil",
     "location": "Lindenhafen · Emil’s workshop",
     "story": [
       {
-        "german": "Emils Lampe läuft zur Tür.",
-        "english": "Emil’s lamp heads for the door."
+        "german": "Emil repariert alles.",
+        "english": "Emil repairs everything."
       },
       {
-        "german": "Emil braucht die Lampe auch.",
-        "english": "Emil needs the lamp too."
+        "german": "Er hat eine Lampe aus der alten Laterne gemacht.",
+        "english": "He has made a lamp out of the old lantern."
       },
       {
-        "german": "Die Lampe sucht eine Adresse.",
-        "english": "The lamp is looking for an address."
+        "german": "Sie funktioniert nicht richtig.",
+        "english": "It does not work properly."
       }
     ],
     "objectives": [
       "Describe objects and locations",
       "Make a simple request",
-      "Find the Atlas symbol inside the lamp"
+      "Follow the lamp towards a fading name"
     ],
     "reward": 40,
     "exercises": [
@@ -925,30 +1935,595 @@ export const quests: Quest[] = [
     ]
   },
   {
+    "id": "a1-bike",
+    "level": "A1",
+    "title": "A bike that mostly works",
+    "subtitle": "Emil repairs Lina’s bike",
+    "npcId": "emil",
+    "location": "Lindenhafen · Emil’s workshop",
+    "story": [
+      {
+        "german": "Emil repariert Linas Fahrrad.",
+        "english": "Emil is repairing Lina’s bike."
+      },
+      {
+        "german": "Du holst es für Lina.",
+        "english": "You are collecting it for Lina."
+      }
+    ],
+    "objectives": [
+      "Say that something is broken or ready",
+      "Ask when something is ready",
+      "Talk about cost and paying"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask Emil when the bike is ready.",
+        "german": "Wann ist das Fahrrad fertig?",
+        "english": "When is the bike ready?",
+        "answer": "Wann ist das Fahrrad fertig?",
+        "hint": "Start with Wann ist.",
+        "explanation": "Wann asks for a time; fertig means ready.",
+        "acceptedAnswers": [
+          "Wann ist das Fahrrad fertig"
+        ],
+        "tokens": [
+          "Wann",
+          "ist",
+          "das",
+          "Fahrrad",
+          "fertig?"
+        ],
+        "id": "a1-bike-exercise-1",
+        "itemId": "a1-bike-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Say that the bike is broken.",
+        "german": "Das Fahrrad ist kaputt.",
+        "english": "The bike is broken.",
+        "answer": "Das Fahrrad ist kaputt.",
+        "hint": "kaputt means broken.",
+        "explanation": "kaputt describes something that does not work.",
+        "options": [
+          "Das Fahrrad ist kaputt.",
+          "Das Fahrrad ist fertig.",
+          "Das Fahrrad ist neu."
+        ],
+        "id": "a1-bike-exercise-2",
+        "itemId": "a1-bike-item-2"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. When is the bike ready?",
+        "german": "Das Fahrrad ist morgen fertig.",
+        "english": "The bike is ready tomorrow.",
+        "answer": "Morgen.",
+        "hint": "morgen is tomorrow.",
+        "explanation": "morgen tells you the day.",
+        "options": [
+          "Morgen.",
+          "Heute.",
+          "Am Freitag."
+        ],
+        "id": "a1-bike-exercise-3",
+        "itemId": "a1-bike-item-3"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask how much it costs.",
+        "german": "Wie viel kostet das?",
+        "english": "How much does that cost?",
+        "answer": "Wie viel kostet das?",
+        "hint": "Start with Wie viel.",
+        "explanation": "Wie viel kostet das? is the basic price question.",
+        "acceptedAnswers": [
+          "Wie viel kostet das"
+        ],
+        "tokens": [
+          "Wie",
+          "viel",
+          "kostet",
+          "das?"
+        ],
+        "id": "a1-bike-exercise-4",
+        "itemId": "a1-bike-item-4"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say that you pay now.",
+        "german": "Ich bezahle jetzt.",
+        "english": "I pay now.",
+        "answer": "Ich bezahle jetzt.",
+        "hint": "bezahle means pay.",
+        "explanation": "Ich bezahle jetzt uses the present tense.",
+        "acceptedAnswers": [
+          "Ich bezahle jetzt",
+          "Ich zahle jetzt."
+        ],
+        "id": "a1-bike-exercise-5",
+        "itemId": "a1-bike-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask Emil if he can repair it.",
+        "german": "Kannst du das reparieren?",
+        "english": "Can you repair that?",
+        "answer": "Kannst du das reparieren?",
+        "hint": "reparieren means repair.",
+        "explanation": "Kannst du … ? asks if someone can do something.",
+        "options": [
+          "Kannst du das reparieren?",
+          "Kannst du das lesen?",
+          "Kannst du das essen?"
+        ],
+        "id": "a1-bike-exercise-6",
+        "itemId": "a1-bike-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How much is it?",
+        "german": "Das macht zwanzig Euro.",
+        "english": "That is twenty euros.",
+        "answer": "Zwanzig Euro.",
+        "hint": "zwanzig is twenty.",
+        "explanation": "Das macht … Euro says the total.",
+        "options": [
+          "Zwanzig Euro.",
+          "Zwölf Euro.",
+          "Zehn Euro."
+        ],
+        "id": "a1-bike-exercise-7",
+        "itemId": "a1-bike-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-phone",
+    "level": "A1",
+    "title": "A call to the station",
+    "subtitle": "Marta hands you the café telephone",
+    "npcId": "marta",
+    "location": "Lindenhafen · Marta’s café",
+    "story": [
+      {
+        "german": "Otto hat im Café angerufen.",
+        "english": "Otto has called the café."
+      },
+      {
+        "german": "Du sprichst mit dem Bahnhof.",
+        "english": "You speak to the station."
+      }
+    ],
+    "objectives": [
+      "Make a polite phone call",
+      "Spell a name and understand numbers",
+      "Use Sie with Inspector Voss"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Ask politely to speak to Otto.",
+        "german": "Kann ich bitte Otto sprechen?",
+        "english": "May I speak to Otto, please?",
+        "answer": "Kann ich bitte Otto sprechen?",
+        "hint": "Start with Kann ich bitte.",
+        "explanation": "Kann ich … sprechen? is the polite phone question. The verb sprechen goes to the end.",
+        "tokens": [
+          "Kann",
+          "ich",
+          "bitte",
+          "Otto",
+          "sprechen?"
+        ],
+        "id": "a1-phone-exercise-1",
+        "itemId": "a1-phone-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "You answer the phone at the café. Say: \"Hello, this is Marta.\"",
+        "german": "Hallo, hier ist Marta.",
+        "english": "Hello, this is Marta.",
+        "answer": "Hallo, hier ist Marta.",
+        "hint": "Use hier ist.",
+        "explanation": "On the phone Germans say hier ist plus the name.",
+        "options": [
+          "Hallo, hier ist Marta.",
+          "Hallo, wo ist Marta?",
+          "Guten Tag, Marta ist da?"
+        ],
+        "id": "a1-phone-exercise-2",
+        "itemId": "a1-phone-item-2"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"I am spelling my name.\"",
+        "german": "Ich buchstabiere meinen Namen.",
+        "english": "I am spelling my name.",
+        "answer": "Ich buchstabiere meinen Namen.",
+        "hint": "buchstabieren plus meinen Namen.",
+        "explanation": "Name is masculine, so after buchstabieren it becomes meinen Namen.",
+        "id": "a1-phone-exercise-3",
+        "itemId": "a1-phone-item-3"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What is the station number?",
+        "german": "Die Nummer ist drei, vier, sieben.",
+        "english": "The number is three, four, seven.",
+        "answer": "drei, vier, sieben",
+        "hint": "drei is three, sieben is seven.",
+        "explanation": "On the phone people read numbers one by one.",
+        "options": [
+          "drei, vier, sieben",
+          "drei, vier, neun",
+          "zwei, vier, sieben"
+        ],
+        "id": "a1-phone-exercise-4",
+        "itemId": "a1-phone-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I am calling later.\"",
+        "german": "Ich rufe später an.",
+        "english": "I am calling later.",
+        "answer": "Ich rufe später an.",
+        "hint": "anrufen splits: rufe … an.",
+        "explanation": "In anrufen the little word an goes to the end of the sentence.",
+        "tokens": [
+          "Ich",
+          "rufe",
+          "später",
+          "an."
+        ],
+        "id": "a1-phone-exercise-5",
+        "itemId": "a1-phone-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Voss speaks too fast. Politely ask him: \"Can you repeat that, please?\"",
+        "german": "Können Sie das bitte wiederholen?",
+        "english": "Can you repeat that, please?",
+        "answer": "Können Sie das bitte wiederholen?",
+        "hint": "With Voss use Sie, not du.",
+        "explanation": "Können Sie is the formal form for strangers and officials.",
+        "options": [
+          "Können Sie das bitte wiederholen?",
+          "Kannst du das bitte wiederholen?",
+          "Kann ich das bitte wiederholen?"
+        ],
+        "id": "a1-phone-exercise-6",
+        "itemId": "a1-phone-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. How is the name spelled?",
+        "german": "Ich heiße Lina. L, I, N, A.",
+        "english": "My name is Lina. L, I, N, A.",
+        "answer": "L, I, N, A",
+        "hint": "Listen to each letter.",
+        "explanation": "Spelling aloud is very common on the phone.",
+        "options": [
+          "L, I, N, A",
+          "L, I, M, A",
+          "N, I, L, A"
+        ],
+        "id": "a1-phone-exercise-7",
+        "itemId": "a1-phone-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-invitation",
+    "level": "A1",
+    "title": "A seat at Friday’s table",
+    "subtitle": "Fritz invites you to dinner",
+    "npcId": "fritz",
+    "location": "Lindenhafen · Fritz’s stall",
+    "story": [
+      {
+        "german": "Fritz kocht jeden Freitag.",
+        "english": "Fritz cooks every Friday."
+      },
+      {
+        "german": "Heute fragt er dich: Kommst du auch?",
+        "english": "Today he asks you: are you coming too?"
+      }
+    ],
+    "objectives": [
+      "Invite and accept an invitation",
+      "Say the day and time",
+      "Say sorry politely with leider"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Accept the invitation happily.",
+        "german": "Ja, ich komme gern.",
+        "english": "Yes, I will gladly come.",
+        "answer": "Ja, ich komme gern.",
+        "hint": "komme plus gern.",
+        "explanation": "gern after the verb shows you do it with pleasure.",
+        "tokens": [
+          "Ja,",
+          "ich",
+          "komme",
+          "gern."
+        ],
+        "id": "a1-invitation-exercise-1",
+        "itemId": "a1-invitation-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Fritz invites you. Say: \"That is nice, thanks!\"",
+        "german": "Das ist nett, danke!",
+        "english": "That is nice, thanks!",
+        "answer": "Das ist nett, danke!",
+        "hint": "nett means nice.",
+        "explanation": "A short thank-you is a warm reply to an invitation.",
+        "options": [
+          "Das ist nett, danke!",
+          "Das ist teuer, danke!",
+          "Das ist kalt, danke!"
+        ],
+        "id": "a1-invitation-exercise-2",
+        "itemId": "a1-invitation-item-2"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"On Friday at seven.\"",
+        "german": "Am Freitag um sieben.",
+        "english": "On Friday at seven.",
+        "answer": "Am Freitag um sieben.",
+        "hint": "am for days, um for clock times.",
+        "explanation": "German uses am with days and um with clock times.",
+        "id": "a1-invitation-exercise-3",
+        "itemId": "a1-invitation-item-3"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. When is the soup?",
+        "german": "Die Suppe gibt es um sieben Uhr.",
+        "english": "The soup is at seven o’clock.",
+        "answer": "um sieben Uhr",
+        "hint": "sieben is seven.",
+        "explanation": "um plus a number gives the clock time.",
+        "options": [
+          "um sieben Uhr",
+          "um acht Uhr",
+          "um sechs Uhr"
+        ],
+        "id": "a1-invitation-exercise-4",
+        "itemId": "a1-invitation-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I am bringing bread.\"",
+        "german": "Ich bringe Brot mit.",
+        "english": "I am bringing bread.",
+        "answer": "Ich bringe Brot mit.",
+        "hint": "mitbringen splits: bringe … mit.",
+        "explanation": "In mitbringen the little word mit goes to the end.",
+        "tokens": [
+          "Ich",
+          "bringe",
+          "Brot",
+          "mit."
+        ],
+        "id": "a1-invitation-exercise-5",
+        "itemId": "a1-invitation-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "You cannot come. Choose the polite sentence.",
+        "german": "Leider habe ich keine Zeit.",
+        "english": "Unfortunately I have no time.",
+        "answer": "Leider habe ich keine Zeit.",
+        "hint": "leider means unfortunately.",
+        "explanation": "leider softens a no and sounds friendly.",
+        "options": [
+          "Leider habe ich keine Zeit.",
+          "Gern habe ich keine Zeit.",
+          "Leider habe ich viel Zeit."
+        ],
+        "id": "a1-invitation-exercise-6",
+        "itemId": "a1-invitation-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Who is not coming?",
+        "german": "Leider kommt Emil nicht.",
+        "english": "Unfortunately Emil is not coming.",
+        "answer": "Emil",
+        "hint": "Listen for the name.",
+        "explanation": "nicht stands after the verb here.",
+        "options": [
+          "Emil",
+          "Lina",
+          "Marta"
+        ],
+        "id": "a1-invitation-exercise-7",
+        "itemId": "a1-invitation-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-lost-found",
+    "level": "A1",
+    "title": "The lost-and-found table",
+    "subtitle": "Your bag is waiting at the post counter",
+    "npcId": "lina",
+    "location": "Lindenhafen · Lina’s post counter",
+    "story": [
+      {
+        "german": "Lina hat elf Taschen vom Zug.",
+        "english": "Lina has eleven bags from the train."
+      },
+      {
+        "german": "Eine Tasche ist deine.",
+        "english": "One bag is yours."
+      }
+    ],
+    "objectives": [
+      "Describe things by colour and size",
+      "Use alt, neu, groß and klein",
+      "Say whose thing it is with mein"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"My bag is blue.\"",
+        "german": "Meine Tasche ist blau.",
+        "english": "My bag is blue.",
+        "answer": "Meine Tasche ist blau.",
+        "hint": "Tasche is feminine: meine.",
+        "explanation": "Feminine nouns take meine: meine Tasche.",
+        "tokens": [
+          "Meine",
+          "Tasche",
+          "ist",
+          "blau."
+        ],
+        "id": "a1-lost-found-exercise-1",
+        "itemId": "a1-lost-found-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Your bag is big and old. Choose the sentence.",
+        "german": "Sie ist groß und alt.",
+        "english": "It is big and old.",
+        "answer": "Sie ist groß und alt.",
+        "hint": "Tasche is feminine, so sie.",
+        "explanation": "sie stands for a feminine noun. groß means big, alt means old.",
+        "options": [
+          "Sie ist groß und alt.",
+          "Sie ist klein und neu.",
+          "Sie ist groß und neu."
+        ],
+        "id": "a1-lost-found-exercise-2",
+        "itemId": "a1-lost-found-item-2"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Say: \"The glove is black.\"",
+        "german": "Der Handschuh ist schwarz.",
+        "english": "The glove is black.",
+        "answer": "Der Handschuh ist schwarz.",
+        "hint": "Handschuh is masculine: der.",
+        "explanation": "Colours stay the same after ist: ist schwarz.",
+        "id": "a1-lost-found-exercise-3",
+        "itemId": "a1-lost-found-item-3"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What is the bag like?",
+        "german": "Meine Tasche ist klein und grün.",
+        "english": "My bag is small and green.",
+        "answer": "klein und grün",
+        "hint": "klein is small.",
+        "explanation": "Two adjectives are joined with und.",
+        "options": [
+          "klein und grün",
+          "groß und grün",
+          "klein und rot"
+        ],
+        "id": "a1-lost-found-exercise-4",
+        "itemId": "a1-lost-found-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"That is not my bag.\"",
+        "german": "Das ist nicht meine Tasche.",
+        "english": "That is not my bag.",
+        "answer": "Das ist nicht meine Tasche.",
+        "hint": "nicht comes before meine Tasche.",
+        "explanation": "nicht negates the whole statement: nicht meine Tasche.",
+        "tokens": [
+          "Das",
+          "ist",
+          "nicht",
+          "meine",
+          "Tasche."
+        ],
+        "id": "a1-lost-found-exercise-5",
+        "itemId": "a1-lost-found-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Choose the opposite of alt (old).",
+        "german": "Das Buch ist neu.",
+        "english": "The book is new.",
+        "answer": "neu",
+        "hint": "It means new.",
+        "explanation": "alt and neu are opposites, like groß and klein.",
+        "options": [
+          "neu",
+          "alt",
+          "blau"
+        ],
+        "id": "a1-lost-found-exercise-6",
+        "itemId": "a1-lost-found-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What colour is the umbrella?",
+        "german": "Der Schirm ist gelb.",
+        "english": "The umbrella is yellow.",
+        "answer": "gelb",
+        "hint": "gelb is yellow.",
+        "explanation": "Colours are easy adjectives: gelb, rot, grün, blau.",
+        "options": [
+          "gelb",
+          "grün",
+          "grau"
+        ],
+        "id": "a1-lost-found-exercise-7",
+        "itemId": "a1-lost-found-item-7"
+      }
+    ]
+  },
+  {
     "id": "a1-lost-parcel",
     "level": "A1",
     "title": "A letter without a door",
     "subtitle": "Lina refuses to leave a delivery unfinished",
     "npcId": "lina",
-    "location": "Lindenhafen · Courier’s crossing",
+    "location": "Lindenhafen · Post office",
     "story": [
       {
-        "german": "Lina hat einen Brief für dich.",
-        "english": "Lina has a letter for you."
+        "german": "Lina hat ein Paket für dich.",
+        "english": "Lina has a parcel for you."
       },
       {
-        "german": "Die Adresse ist weg.",
-        "english": "The address has disappeared."
+        "german": "Der Absender ist E.",
+        "english": "The sender is E."
       },
       {
-        "german": "Die Lampe ist auch hier.",
-        "english": "The lamp is here too."
+        "german": "Die Adresse geht weg.",
+        "english": "The address is fading."
       }
     ],
     "objectives": [
       "Ask for an address and directions",
       "Deliver a parcel politely",
-      "Unlock the first Atlas page"
+      "Learn who sent your ticket"
     ],
     "reward": 40,
     "exercises": [
@@ -1065,6 +2640,145 @@ export const quests: Quest[] = [
         ],
         "id": "a1-lost-parcel-exercise-7",
         "itemId": "a1-lost-parcel-item-7"
+      }
+    ]
+  },
+  {
+    "id": "a1-departure",
+    "level": "A1",
+    "title": "Platform seven, six o’clock",
+    "subtitle": "Otto sells his first ticket in twelve years",
+    "npcId": "otto",
+    "location": "Lindenhafen · Station",
+    "story": [
+      {
+        "german": "Ein Zug steht an Gleis sieben.",
+        "english": "A train stands at platform seven."
+      },
+      {
+        "german": "Otto verkauft die Fahrkarte.",
+        "english": "Otto sells the ticket."
+      }
+    ],
+    "objectives": [
+      "Buy a ticket and name the place",
+      "Choose einfach or hin und zurück",
+      "Ask about the time and the platform"
+    ],
+    "reward": 40,
+    "exercises": [
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Buy a ticket to Waldruh.",
+        "german": "Eine Fahrkarte nach Waldruh, bitte.",
+        "english": "A ticket to Waldruh, please.",
+        "answer": "Eine Fahrkarte nach Waldruh, bitte.",
+        "hint": "nach plus the place.",
+        "explanation": "nach goes before a town name: nach Waldruh. bitte makes it polite.",
+        "tokens": [
+          "Eine",
+          "Fahrkarte",
+          "nach",
+          "Waldruh,",
+          "bitte."
+        ],
+        "id": "a1-departure-exercise-1",
+        "itemId": "a1-departure-item-1"
+      },
+      {
+        "mode": "choice",
+        "prompt": "You want to come back too. Choose \"Return, please.\"",
+        "german": "Hin und zurück, bitte.",
+        "english": "Return, please.",
+        "answer": "Hin und zurück, bitte.",
+        "hint": "hin is there, zurück is back.",
+        "explanation": "hin und zurück means there and back.",
+        "options": [
+          "Hin und zurück, bitte.",
+          "Einfach, bitte.",
+          "Nur zurück, bitte."
+        ],
+        "id": "a1-departure-exercise-2",
+        "itemId": "a1-departure-item-2"
+      },
+      {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Ask: \"What time does the train leave?\"",
+        "german": "Um wie viel Uhr fährt der Zug?",
+        "english": "What time does the train leave?",
+        "answer": "Um wie viel Uhr fährt der Zug?",
+        "hint": "Start with Um wie viel Uhr.",
+        "explanation": "Um wie viel Uhr asks for a clock time.",
+        "id": "a1-departure-exercise-3",
+        "itemId": "a1-departure-item-3"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. Which platform?",
+        "german": "Der Zug fährt von Gleis sieben.",
+        "english": "The train leaves from platform seven.",
+        "answer": "Gleis sieben",
+        "hint": "Gleis is platform.",
+        "explanation": "Gleis is the track or platform number at the station.",
+        "options": [
+          "Gleis sieben",
+          "Gleis zwei",
+          "Gleis elf"
+        ],
+        "id": "a1-departure-exercise-4",
+        "itemId": "a1-departure-item-4"
+      },
+      {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Say: \"I would like a ticket.\"",
+        "german": "Ich möchte eine Fahrkarte.",
+        "english": "I would like a ticket.",
+        "answer": "Ich möchte eine Fahrkarte.",
+        "hint": "Fahrkarte is feminine: eine.",
+        "explanation": "möchte is the polite way to ask for something.",
+        "tokens": [
+          "Ich",
+          "möchte",
+          "eine",
+          "Fahrkarte."
+        ],
+        "id": "a1-departure-exercise-5",
+        "itemId": "a1-departure-item-5"
+      },
+      {
+        "mode": "choice",
+        "prompt": "Ask where platform seven is.",
+        "german": "Wo ist Gleis sieben?",
+        "english": "Where is platform seven?",
+        "answer": "Wo ist Gleis sieben?",
+        "hint": "Wo asks for a place.",
+        "explanation": "Wo ist …? is the basic question for a place.",
+        "options": [
+          "Wo ist Gleis sieben?",
+          "Wer ist Gleis sieben?",
+          "Wann ist Gleis sieben?"
+        ],
+        "id": "a1-departure-exercise-6",
+        "itemId": "a1-departure-item-6"
+      },
+      {
+        "mode": "listen",
+        "prompt": "Listen. What time is it?",
+        "german": "Der Zug fährt um achtzehn Uhr.",
+        "english": "The train leaves at 18:00.",
+        "answer": "achtzehn Uhr",
+        "hint": "achtzehn is eighteen.",
+        "explanation": "Timetables use the 24-hour clock: 18 Uhr is six in the evening.",
+        "options": [
+          "achtzehn Uhr",
+          "achtzehn Euro",
+          "acht Uhr"
+        ],
+        "id": "a1-departure-exercise-7",
+        "itemId": "a1-departure-item-7"
       }
     ]
   },

@@ -8,7 +8,8 @@ describe('the restored routes', () => {
   it('opens towns at their clue milestones and the coastline at the finale', () => {
     expect(routeUnlocked('lindenhafen', [])).toBe(true);
     expect(routeUnlocked('waldruh', [])).toBe(false);
-    expect(routeUnlocked('waldruh', ['a1-lost-parcel'])).toBe(true);
+    expect(routeUnlocked('waldruh', ['a1-lost-parcel'])).toBe(false);
+    expect(routeUnlocked('waldruh', ['a1-departure'])).toBe(true);
     expect(routeUnlocked('nebelstadt', ['a1-lost-parcel'])).toBe(false);
     expect(routeUnlocked('nebelstadt', ['a2-archive'])).toBe(true);
     expect(routeUnlocked('saffroncourt', ['b1-storm'])).toBe(false);
@@ -20,7 +21,10 @@ describe('the restored routes', () => {
     expect(firstAvailableMap('nebelstadt', [])).toBe('lindenhafen');
     expect(questUnlocked('a1-market', ['a1-cafe'])).toBe(false);
     expect(questUnlocked('a1-cafe', ['a1-cafe'])).toBe(true);
-    expect(questUnlocked('a1-market', quests.slice(0, 2).map(q => q.id))).toBe(true);
+    expect(questUnlocked('a1-market', quests.slice(0, quests.findIndex(q => q.id === 'a1-market')).map(q => q.id))).toBe(true);
+    // A save that finished the old Act I may skip the everyday scenes added before its furthest scene.
+    expect(questUnlocked('a1-departure', ['a1-arrival', 'a1-cafe', 'a1-market', 'a1-station', 'a1-workshop', 'a1-lost-parcel'])).toBe(true);
+    expect(questUnlocked('a1-departure', ['a1-arrival', 'a1-cafe', 'a1-market', 'a1-station', 'a1-lost-parcel'])).toBe(false);
   });
 });
 

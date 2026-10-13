@@ -34,7 +34,7 @@ describe('authored in-world investigations', () => {
   });
   it('pays off the player letter, erased-key warning and kettle hooks through named people', () => {
     const finale = questGraphs.at(-1)!.nodes.flatMap(node => node.lines).map(line => line.german).join(' ');
-    expect(finale).toContain('Wasserkocher'); expect(finale).toContain('Schlüssel'); expect(finale).toContain('{name}');
+    expect(finale).toContain('Kaffee'); expect(finale).toContain('Schlüssel'); expect(finale).toContain('{name}');
     expect(finale).toContain('meinen ersten Fehler');
     const station = questGraphs.find(graph => graph.questId === 'a1-station')!;
     expect(station.nodes.flatMap(node => node.lines).some(line => line.german.includes('Waldruh'))).toBe(false);

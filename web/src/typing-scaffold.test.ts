@@ -30,7 +30,7 @@ describe('typed recall scaffolds', () => {
   it('follows the story milestones that open each town', () => {
     expect(learnerLevel([], questLevels)).toBe('A1');
     expect(learnerLevel(['a1-arrival', 'a1-cafe'], questLevels)).toBe('A1');
-    expect(learnerLevel(['a1-lost-parcel'], questLevels)).toBe('A2');
+    expect(learnerLevel(['a1-departure'], questLevels)).toBe('A2');
     expect(learnerLevel(['a2-apartment'], questLevels)).toBe('A2');
     expect(learnerLevel(['a2-archive'], questLevels)).toBe('B1');
     expect(learnerLevel(['b1-witness'], questLevels)).toBe('B1');

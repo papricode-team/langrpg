@@ -51,7 +51,8 @@ test('actual Vite production bundling decodes the lazy overlay and leaves author
  try{
   await build({configFile:false,root,publicDir:false,logLevel:'silent',plugins:[compactTranslationsPlugin(root)],build:{outDir:output,emptyOutDir:true,target:'es2022',minify:true,lib:{entry:resolve(root,'web/src/i18n-tr.ts'),formats:['es'],fileName:()=> 'overlay.mjs'}}});
   const module=await import(pathToFileURL(resolve(output,'overlay.mjs')).href);assert.deepEqual(module.turkishOverlay,overlay);
-  const bytes=Buffer.byteLength(await readFile(resolve(output,'overlay.mjs')));assert(bytes<700000,`production overlay is ${bytes} bytes`);
+  // Compaction must roughly halve the authored JSON and keep the lazy chunk under 1 MB as the story grows.
+  const bytes=Buffer.byteLength(await readFile(resolve(output,'overlay.mjs'))),raw=source.reduce((sum,text)=>sum+Buffer.byteLength(text),0);assert(bytes<raw*.6&&bytes<1000000,`production overlay is ${bytes} bytes for ${raw} bytes of JSON`);
   assert.deepEqual(await Promise.all(paths.map(path=>readFile(path,'utf8'))),source);
  }finally{await rm(output,{recursive:true,force:true});}
 });

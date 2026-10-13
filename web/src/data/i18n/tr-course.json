@@ -23545,6 +23545,1266 @@
     "more": "daha; daha fazla",
     "then, thus, so, hence": "yani, demek ki; öyleyse"
    }
+  },
+  "a1-timetable-exercise-1": {
+   "german": "Wann fährt der Zug?",
+   "source": {
+    "prompt": "Ask when the train leaves.",
+    "hint": "Start with Wann, then the verb fährt.",
+    "explanation": "Wann asks for a time. The verb comes second: Wann fährt der Zug?",
+    "english": "When does the train leave?"
+   },
+   "tr": {
+    "prompt": "Trenin ne zaman kalktığını sor.",
+    "hint": "Wann ile başla, sonra fährt fiilini kullan.",
+    "explanation": "Wann bir zaman sorar. Fiil ikinci sırada gelir: Wann fährt der Zug?",
+    "english": "Tren ne zaman kalkıyor?"
+   }
+  },
+  "a1-timetable-exercise-2": {
+   "german": "Wie spät ist es?",
+   "source": {
+    "prompt": "Ask what time it is.",
+    "hint": "spät means late.",
+    "explanation": "Wie spät ist es? is the everyday way to ask the time.",
+    "english": "What time is it?"
+   },
+   "tr": {
+    "prompt": "Saatin kaç olduğunu sor.",
+    "hint": "spät “geç” demektir.",
+    "explanation": "Wie spät ist es? saati sormanın günlük yoludur.",
+    "english": "Saat kaç?"
+   }
+  },
+  "a1-timetable-exercise-3": {
+   "german": "Der Zug fährt um halb neun.",
+   "source": {
+    "prompt": "Listen. When does the train leave?",
+    "hint": "halb neun is 8:30.",
+    "explanation": "halb neun means half an hour before nine: 8:30.",
+    "english": "The train leaves at half past eight."
+   },
+   "tr": {
+    "prompt": "Dinle. Tren ne zaman kalkıyor?",
+    "hint": "halb neun 8:30 demektir.",
+    "explanation": "halb neun, dokuzdan yarım saat öncesi demektir: 8:30.",
+    "english": "Tren sekiz buçukta kalkıyor."
+   }
+  },
+  "a1-timetable-exercise-4": {
+   "german": "Der Zug fährt um acht Uhr.",
+   "source": {
+    "prompt": "Say: \"The train leaves at eight o’clock.\"",
+    "hint": "Use um before the time.",
+    "explanation": "um + number + Uhr gives a clock time.",
+    "english": "The train leaves at eight o’clock."
+   },
+   "tr": {
+    "prompt": "De ki: \"Tren saat sekizde kalkıyor.\"",
+    "hint": "Saatten önce um kullan.",
+    "explanation": "um + sayı + Uhr bir saat belirtir.",
+    "english": "Tren saat sekizde kalkıyor."
+   }
+  },
+  "a1-timetable-exercise-5": {
+   "german": "Ich fahre um zehn Uhr.",
+   "source": {
+    "prompt": "Say: \"I am travelling at ten o’clock.\"",
+    "hint": "Ich fahre …",
+    "explanation": "fahren changes to fahre after ich.",
+    "english": "I am travelling at ten o’clock."
+   },
+   "tr": {
+    "prompt": "De ki: \"Saat onda yola çıkıyorum.\"",
+    "hint": "Ich fahre …",
+    "explanation": "fahren fiili ich'ten sonra fahre olur.",
+    "english": "Saat onda yola çıkıyorum."
+   }
+  },
+  "a1-timetable-exercise-6": {
+   "german": "Wo ist Bahnsteig drei?",
+   "source": {
+    "prompt": "Ask where platform three is.",
+    "hint": "Wo asks for a place.",
+    "explanation": "Wo ist …? asks where something is.",
+    "english": "Where is platform three?"
+   },
+   "tr": {
+    "prompt": "Üç numaralı peronun nerede olduğunu sor.",
+    "hint": "Wo bir yeri sorar.",
+    "explanation": "Wo ist …? bir şeyin nerede olduğunu sorar.",
+    "english": "Üç numaralı peron nerede?"
+   }
+  },
+  "a1-timetable-exercise-7": {
+   "german": "Der Zug kommt um achtzehn Uhr.",
+   "source": {
+    "prompt": "Listen. At what time does the train come?",
+    "hint": "achtzehn is eighteen, so 6 p.m.",
+    "explanation": "Trains use the 24-hour clock: 18 Uhr is 6 p.m.",
+    "english": "The train arrives at six p.m."
+   },
+   "tr": {
+    "prompt": "Dinle. Tren saat kaçta geliyor?",
+    "hint": "achtzehn on sekiz demektir, yani akşam 6.",
+    "explanation": "Trenlerde 24 saatlik sistem kullanılır: 18 Uhr akşam 6'dır.",
+    "english": "Tren akşam altıda geliyor."
+   }
+  },
+  "a1-room-exercise-1": {
+   "german": "Hast du ein Zimmer frei?",
+   "source": {
+    "prompt": "Ask if there is a room free.",
+    "hint": "Start with Hast du … and finish with frei.",
+    "explanation": "In a yes/no question the verb comes first. frei means free.",
+    "english": "Do you have a room free?"
+   },
+   "tr": {
+    "prompt": "Boş oda olup olmadığını sor.",
+    "hint": "Hast du … ile başla ve frei ile bitir.",
+    "explanation": "Evet/hayır sorularında fiil başa gelir. frei “boş” demektir.",
+    "english": "Boş odan var mı?"
+   }
+  },
+  "a1-room-exercise-2": {
+   "german": "Hat das Zimmer ein Bad?",
+   "source": {
+    "prompt": "Ask if the room has a bathroom.",
+    "hint": "Bad is neuter: ein Bad.",
+    "explanation": "Hat … ein Bad? asks what a room has.",
+    "english": "Does the room have a bathroom?"
+   },
+   "tr": {
+    "prompt": "Odada banyo olup olmadığını sor.",
+    "hint": "Bad nötr cinsiyetlidir: ein Bad.",
+    "explanation": "Hat … ein Bad? bir odada neyin olduğunu sorar.",
+    "english": "Odada banyo var mı?"
+   }
+  },
+  "a1-room-exercise-3": {
+   "german": "Das Zimmer kostet vierzig Euro.",
+   "source": {
+    "prompt": "Listen. How much is the room?",
+    "hint": "vierzig is forty, vierzehn is fourteen.",
+    "explanation": "Do not mix up vierzehn (14) and vierzig (40).",
+    "english": "The room costs forty euros."
+   },
+   "tr": {
+    "prompt": "Dinle. Oda ne kadar?",
+    "hint": "vierzig kırk, vierzehn ondört demektir.",
+    "explanation": "vierzehn (14) ile vierzig'i (40) karıştırma.",
+    "english": "Oda kırk euro."
+   }
+  },
+  "a1-room-exercise-4": {
+   "german": "Das Zimmer ist ruhig.",
+   "source": {
+    "prompt": "Say: \"The room is quiet.\"",
+    "hint": "ruhig means quiet.",
+    "explanation": "Das Zimmer is neuter. ist links the room to its description.",
+    "english": "The room is quiet."
+   },
+   "tr": {
+    "prompt": "De ki: \"Oda sessiz.\"",
+    "hint": "ruhig “sessiz” demektir.",
+    "explanation": "Das Zimmer nötrdür. ist, odayı tanımıyla bağlar.",
+    "english": "Oda sessiz."
+   }
+  },
+  "a1-room-exercise-5": {
+   "german": "Ich bleibe zwei Tage.",
+   "source": {
+    "prompt": "Say: \"I am staying two days.\"",
+    "hint": "Tag becomes Tage in the plural.",
+    "explanation": "bleiben becomes bleibe after ich.",
+    "english": "I am staying two days."
+   },
+   "tr": {
+    "prompt": "De ki: \"İki gün kalıyorum.\"",
+    "hint": "Tag, çoğulda Tage olur.",
+    "explanation": "bleiben fiili ich'ten sonra bleibe olur.",
+    "english": "İki gün kalıyorum."
+   }
+  },
+  "a1-room-exercise-6": {
+   "german": "Wo ist das Bad?",
+   "source": {
+    "prompt": "Ask where the bathroom is.",
+    "hint": "Bad is the bathroom.",
+    "explanation": "Wo ist …? asks for a place.",
+    "english": "Where is the bathroom?"
+   },
+   "tr": {
+    "prompt": "Banyonun nerede olduğunu sor.",
+    "hint": "Bad “banyo” demektir.",
+    "explanation": "Wo ist …? bir yeri sorar.",
+    "english": "Banyo nerede?"
+   }
+  },
+  "a1-room-exercise-7": {
+   "german": "Dein Zimmer ist oben.",
+   "source": {
+    "prompt": "Listen. Where is your room?",
+    "hint": "oben is up, unten is down.",
+    "explanation": "oben means upstairs or above.",
+    "english": "Your room is upstairs."
+   },
+   "tr": {
+    "prompt": "Dinle. Odan nerede?",
+    "hint": "oben yukarı, unten aşağı demektir.",
+    "explanation": "oben “üst katta” ya da “yukarıda” demektir.",
+    "english": "Odan üst katta."
+   }
+  },
+  "a1-shopping-exercise-1": {
+   "german": "Was kostet das Brot?",
+   "source": {
+    "prompt": "Ask what the bread costs.",
+    "hint": "Start with Was kostet …",
+    "explanation": "Was kostet …? asks for a price. Brot is neuter: das Brot.",
+    "english": "What does the bread cost?"
+   },
+   "tr": {
+    "prompt": "Ekmeğin ne kadar olduğunu sor.",
+    "hint": "Was kostet … ile başla.",
+    "explanation": "Was kostet …? fiyat sorar. Brot nötrdür: das Brot.",
+    "english": "Ekmek ne kadar?"
+   }
+  },
+  "a1-shopping-exercise-2": {
+   "german": "Das ist teuer.",
+   "source": {
+    "prompt": "It costs a lot. Say: \"That is expensive.\"",
+    "hint": "teuer is expensive.",
+    "explanation": "teuer means expensive; billig would mean cheap.",
+    "english": "That is expensive."
+   },
+   "tr": {
+    "prompt": "Çok pahalı. De ki: \"Bu pahalı.\"",
+    "hint": "teuer “pahalı” demektir.",
+    "explanation": "teuer “pahalı” demektir; billig “ucuz” demek olurdu.",
+    "english": "Bu pahalı."
+   }
+  },
+  "a1-shopping-exercise-3": {
+   "german": "Der Fisch kostet sechs Euro.",
+   "source": {
+    "prompt": "Listen. How much is the fish?",
+    "hint": "sechs is six, sechzehn is sixteen.",
+    "explanation": "Listen to the end of the number word.",
+    "english": "The fish costs six euros."
+   },
+   "tr": {
+    "prompt": "Dinle. Balık ne kadar?",
+    "hint": "sechs altı, sechzehn on altı demektir.",
+    "explanation": "Sayının sonunu iyi dinle.",
+    "english": "Balık altı euro."
+   }
+  },
+  "a1-shopping-exercise-4": {
+   "german": "Ich nehme das Brot.",
+   "source": {
+    "prompt": "Say: \"I will take the bread.\"",
+    "hint": "Start with Ich nehme.",
+    "explanation": "Ich nehme is a common phrase when you choose something to buy.",
+    "english": "I will take the bread."
+   },
+   "tr": {
+    "prompt": "De ki: \"Ekmeği alıyorum.\"",
+    "hint": "Ich nehme ile başla.",
+    "explanation": "Ich nehme, satın almak için bir şey seçtiğinde sık kullanılan bir kalıptır.",
+    "english": "Ekmeği alıyorum."
+   }
+  },
+  "a1-shopping-exercise-5": {
+   "german": "Ich möchte Milch und Brot.",
+   "source": {
+    "prompt": "Say: \"I would like milk and bread.\"",
+    "hint": "Join the two items with und.",
+    "explanation": "und joins two things. No article is needed here.",
+    "english": "I would like milk and bread."
+   },
+   "tr": {
+    "prompt": "De ki: \"Süt ve ekmek istiyorum.\"",
+    "hint": "İki ürünü und ile birleştir.",
+    "explanation": "und iki şeyi birleştirir. Burada artikel gerekmez.",
+    "english": "Süt ve ekmek istiyorum."
+   }
+  },
+  "a1-shopping-exercise-6": {
+   "german": "Hast du Eier?",
+   "source": {
+    "prompt": "Ask Fritz if he has eggs.",
+    "hint": "Eier means eggs.",
+    "explanation": "Hast du …? asks whether someone has something.",
+    "english": "Do you have eggs?"
+   },
+   "tr": {
+    "prompt": "Fritz'e yumurtası olup olmadığını sor.",
+    "hint": "Eier “yumurta” demektir.",
+    "explanation": "Hast du …? birinin bir şeyi olup olmadığını sorar.",
+    "english": "Yumurtan var mı?"
+   }
+  },
+  "a1-shopping-exercise-7": {
+   "german": "Das macht sieben Euro, bitte.",
+   "source": {
+    "prompt": "Listen. How much do you pay in total?",
+    "hint": "sieben is seven, siebzehn is seventeen.",
+    "explanation": "Das macht … tells you the total.",
+    "english": "That makes seven euros, please."
+   },
+   "tr": {
+    "prompt": "Dinle. Toplam ne kadar ödüyorsun?",
+    "hint": "sieben yedi, siebzehn on yedi demektir.",
+    "explanation": "Das macht … toplamı söyler.",
+    "english": "Tutarı yedi euro, lütfen."
+   }
+  },
+  "a1-neighbour-exercise-1": {
+   "german": "Wie ist Frau Berg?",
+   "source": {
+    "prompt": "Ask what Frau Berg is like.",
+    "hint": "Wie asks about the way someone is.",
+    "explanation": "Wie ist …? asks for a description of a person.",
+    "english": "What is Frau Berg like?"
+   },
+   "tr": {
+    "prompt": "Frau Berg'in nasıl biri olduğunu sor.",
+    "hint": "Wie, birinin nasıl olduğunu sorar.",
+    "explanation": "Wie ist …? bir kişinin tarifini sorar.",
+    "english": "Frau Berg nasıl biri?"
+   }
+  },
+  "a1-neighbour-exercise-2": {
+   "german": "Sie ist alt.",
+   "source": {
+    "prompt": "Say that she is old.",
+    "hint": "Sie can mean she.",
+    "explanation": "sie means she, and alt means old.",
+    "english": "She is old."
+   },
+   "tr": {
+    "prompt": "Onun yaşlı olduğunu söyle.",
+    "hint": "Sie “o (kadın)” anlamına gelebilir.",
+    "explanation": "sie “o (kadın)”, alt “yaşlı” demektir.",
+    "english": "O yaşlı."
+   }
+  },
+  "a1-neighbour-exercise-3": {
+   "german": "Sie ist lieb und streng.",
+   "source": {
+    "prompt": "Listen. What is the teacher like?",
+    "hint": "streng means strict.",
+    "explanation": "streng describes someone who has firm rules.",
+    "english": "She is dear and strict."
+   },
+   "tr": {
+    "prompt": "Dinle. Öğretmen nasıl biri?",
+    "hint": "streng “sert, disiplinli” demektir.",
+    "explanation": "streng, kuralları katı olan birini anlatır.",
+    "english": "O sevimli ve disiplinli."
+   }
+  },
+  "a1-neighbour-exercise-4": {
+   "german": "Er ist groß.",
+   "source": {
+    "prompt": "Say: \"He is tall.\"",
+    "hint": "groß means big or tall.",
+    "explanation": "er means he, and groß describes his size.",
+    "english": "He is tall."
+   },
+   "tr": {
+    "prompt": "De ki: \"O uzun boylu.\"",
+    "hint": "groß “büyük” ya da “uzun boylu” demektir.",
+    "explanation": "er “o (erkek)” demektir, groß boyunu anlatır.",
+    "english": "O uzun boylu."
+   }
+  },
+  "a1-neighbour-exercise-5": {
+   "german": "Meine Lehrerin war streng.",
+   "source": {
+    "prompt": "Say: \"My teacher was strict.\"",
+    "hint": "Lehrerin is feminine: meine.",
+    "explanation": "war is the past of ist: was.",
+    "english": "My teacher was strict."
+   },
+   "tr": {
+    "prompt": "De ki: \"Öğretmenim disiplinliydi.\"",
+    "hint": "Lehrerin dişildir: meine.",
+    "explanation": "war, ist'in geçmiş zamanıdır: “idi”.",
+    "english": "Öğretmenim disiplinliydi."
+   }
+  },
+  "a1-neighbour-exercise-6": {
+   "german": "Wer ist die Frau?",
+   "source": {
+    "prompt": "Ask who the woman is.",
+    "hint": "Wer means who.",
+    "explanation": "Wer asks about a person.",
+    "english": "Who is the woman?"
+   },
+   "tr": {
+    "prompt": "Kadının kim olduğunu sor.",
+    "hint": "Wer “kim” demektir.",
+    "explanation": "Wer bir kişiyi sorar.",
+    "english": "Bu kadın kim?"
+   }
+  },
+  "a1-neighbour-exercise-7": {
+   "german": "Sie liest jeden Morgen ein Buch.",
+   "source": {
+    "prompt": "Listen. What does she read?",
+    "hint": "Buch means book.",
+    "explanation": "lesen means to read. ein Buch is what she reads.",
+    "english": "She reads a book every morning."
+   },
+   "tr": {
+    "prompt": "Dinle. O ne okuyor?",
+    "hint": "Buch “kitap” demektir.",
+    "explanation": "lesen “okumak” demektir. ein Buch okuduğu şeydir.",
+    "english": "O her sabah bir kitap okuyor."
+   }
+  },
+  "a1-pharmacy-exercise-1": {
+   "german": "Ich habe Kopfschmerzen.",
+   "source": {
+    "prompt": "Tell Greta you have a headache.",
+    "hint": "Start with Ich habe.",
+    "explanation": "German says I have headaches: Kopfschmerzen is always plural.",
+    "english": "I have a headache."
+   },
+   "tr": {
+    "prompt": "Greta'ya başının ağrıdığını söyle.",
+    "hint": "Ich habe ile başla.",
+    "explanation": "Almanca “Bende baş ağrıları var” der: Kopfschmerzen her zaman çoğuldur.",
+    "english": "Başım ağrıyor."
+   }
+  },
+  "a1-pharmacy-exercise-2": {
+   "german": "Mir geht es nicht gut.",
+   "source": {
+    "prompt": "Greta asks how you are. Say you are not well.",
+    "hint": "nicht gut means not good.",
+    "explanation": "Mir geht es nicht gut is a natural way to say you feel bad.",
+    "english": "I am not well."
+   },
+   "tr": {
+    "prompt": "Greta nasıl olduğunu soruyor. İyi olmadığını söyle.",
+    "hint": "nicht gut “iyi değil” demektir.",
+    "explanation": "Mir geht es nicht gut, kötü hissettiğini söylemenin doğal bir yoludur.",
+    "english": "İyi değilim."
+   }
+  },
+  "a1-pharmacy-exercise-3": {
+   "german": "Nimm den Tee dreimal am Tag.",
+   "source": {
+    "prompt": "Listen. How often should you take the tea?",
+    "hint": "dreimal means three times.",
+    "explanation": "Number + mal says how often: einmal, zweimal, dreimal.",
+    "english": "Take the tea three times a day."
+   },
+   "tr": {
+    "prompt": "Dinle. Çayı günde kaç kez içmelisin?",
+    "hint": "dreimal “üç kez” demektir.",
+    "explanation": "Sayı + mal sıklığı söyler: einmal, zweimal, dreimal.",
+    "english": "Çayı günde üç kez iç."
+   }
+  },
+  "a1-pharmacy-exercise-4": {
+   "german": "Mein Hals tut weh.",
+   "source": {
+    "prompt": "Say that your throat hurts.",
+    "hint": "Use tut weh after the body part.",
+    "explanation": "Body part + tut weh says that it hurts.",
+    "english": "My throat hurts."
+   },
+   "tr": {
+    "prompt": "Boğazının ağrıdığını söyle.",
+    "hint": "Vücut bölümünden sonra tut weh kullan.",
+    "explanation": "Vücut bölümü + tut weh, orasının ağrıdığını söyler.",
+    "english": "Boğazım ağrıyor."
+   }
+  },
+  "a1-pharmacy-exercise-5": {
+   "german": "Ich bin krank.",
+   "source": {
+    "prompt": "Say that you are ill.",
+    "hint": "krank means ill.",
+    "explanation": "Use ich bin with an adjective: Ich bin krank.",
+    "english": "I am ill."
+   },
+   "tr": {
+    "prompt": "Hasta olduğunu söyle.",
+    "hint": "krank “hasta” demektir.",
+    "explanation": "ich bin ile bir sıfat kullan: Ich bin krank.",
+    "english": "Hastayım."
+   }
+  },
+  "a1-pharmacy-exercise-6": {
+   "german": "Mein Bauch tut weh.",
+   "source": {
+    "prompt": "Your stomach hurts. Which sentence is right?",
+    "hint": "Bauch is stomach.",
+    "explanation": "Bauch is the belly. Mein Bauch tut weh.",
+    "english": "My stomach hurts."
+   },
+   "tr": {
+    "prompt": "Karnın ağrıyor. Hangi cümle doğru?",
+    "hint": "Bauch “karın” demektir.",
+    "explanation": "Bauch karındır. Mein Bauch tut weh.",
+    "english": "Karnım ağrıyor."
+   }
+  },
+  "a1-pharmacy-exercise-7": {
+   "german": "Du hast Fieber. Bleib heute im Bett.",
+   "source": {
+    "prompt": "Listen. What will you do?",
+    "hint": "Bett is bed.",
+    "explanation": "Bleib im Bett means stay in bed.",
+    "english": "You have a fever. Stay in bed today."
+   },
+   "tr": {
+    "prompt": "Dinle. Ne yapacaksın?",
+    "hint": "Bett “yatak” demektir.",
+    "explanation": "Bleib im Bett “yatakta kal” demektir.",
+    "english": "Ateşin var. Bugün yatakta kal."
+   }
+  },
+  "a1-directions-exercise-1": {
+   "german": "Wo ist die Gartenstraße?",
+   "source": {
+    "prompt": "Ask Lina where Gartenstraße is.",
+    "hint": "Start with Wo ist.",
+    "explanation": "Wo asks for a place and the verb comes second.",
+    "english": "Where is Gartenstraße?"
+   },
+   "tr": {
+    "prompt": "Lina'ya Gartenstraße'nin nerede olduğunu sor.",
+    "hint": "Wo ist ile başla.",
+    "explanation": "Wo bir yeri sorar ve fiil ikinci sırada gelir.",
+    "english": "Gartenstraße nerede?"
+   }
+  },
+  "a1-directions-exercise-2": {
+   "german": "Geh links.",
+   "source": {
+    "prompt": "How do you say “Go left”?",
+    "hint": "links is left.",
+    "explanation": "links is left, rechts is right, geradeaus is straight ahead.",
+    "english": "Go left."
+   },
+   "tr": {
+    "prompt": "“Sola git” nasıl denir?",
+    "hint": "links “sol” demektir.",
+    "explanation": "links sol, rechts sağ, geradeaus düz ileri demektir.",
+    "english": "Sola git."
+   }
+  },
+  "a1-directions-exercise-3": {
+   "german": "Die Post ist gegenüber vom Café.",
+   "source": {
+    "prompt": "Listen. Where is the post office?",
+    "hint": "gegenüber means opposite.",
+    "explanation": "gegenüber vom means opposite the.",
+    "english": "The post office is opposite the café."
+   },
+   "tr": {
+    "prompt": "Dinle. Postane nerede?",
+    "hint": "gegenüber “karşısında” demektir.",
+    "explanation": "gegenüber vom “…’nin karşısında” demektir.",
+    "english": "Postane kafenin karşısında."
+   }
+  },
+  "a1-directions-exercise-4": {
+   "german": "Geh geradeaus, dann rechts.",
+   "source": {
+    "prompt": "Give directions: straight ahead, then right.",
+    "hint": "Use dann between the two steps.",
+    "explanation": "dann means then. Geh is the du command.",
+    "english": "Go straight ahead, then right."
+   },
+   "tr": {
+    "prompt": "Yol tarif et: düz git, sonra sağa.",
+    "hint": "İki adımın arasında dann kullan.",
+    "explanation": "dann “sonra” demektir. Geh, du için emir kipidir.",
+    "english": "Düz git, sonra sağa."
+   }
+  },
+  "a1-directions-exercise-5": {
+   "german": "Wo ist der Bahnhof?",
+   "source": {
+    "prompt": "Ask where the station is.",
+    "hint": "Bahnhof is a der word.",
+    "explanation": "Bahnhof is masculine: der Bahnhof.",
+    "english": "Where is the station?"
+   },
+   "tr": {
+    "prompt": "Garın nerede olduğunu sor.",
+    "hint": "Bahnhof bir der kelimesidir.",
+    "explanation": "Bahnhof eril cinstir: der Bahnhof.",
+    "english": "Gar nerede?"
+   }
+  },
+  "a1-directions-exercise-6": {
+   "german": "Das Haus ist gegenüber vom Park.",
+   "source": {
+    "prompt": "The house is opposite the park. Which sentence?",
+    "hint": "gegenüber means opposite.",
+    "explanation": "gegenüber vom Park means opposite the park.",
+    "english": "The house is opposite the park."
+   },
+   "tr": {
+    "prompt": "Ev parkın karşısında. Hangi cümle?",
+    "hint": "gegenüber “karşısında” demektir.",
+    "explanation": "gegenüber vom Park “parkın karşısında” demektir.",
+    "english": "Ev parkın karşısında."
+   }
+  },
+  "a1-directions-exercise-7": {
+   "german": "Nimm die erste Straße links.",
+   "source": {
+    "prompt": "Listen. Which street do you take?",
+    "hint": "erste means first.",
+    "explanation": "die erste Straße links is the first street on the left.",
+    "english": "Take the first street on the left."
+   },
+   "tr": {
+    "prompt": "Dinle. Hangi sokağa gireceksin?",
+    "hint": "erste “birinci” demektir.",
+    "explanation": "die erste Straße links soldaki ilk sokaktır.",
+    "english": "Soldaki ilk sokağa gir."
+   }
+  },
+  "a1-weather-exercise-1": {
+   "german": "Wie ist das Wetter morgen?",
+   "source": {
+    "prompt": "Ask what the weather is like tomorrow.",
+    "hint": "Start with Wie ist.",
+    "explanation": "Wie ist das Wetter? asks about the weather; add morgen for tomorrow.",
+    "english": "What is the weather like tomorrow?"
+   },
+   "tr": {
+    "prompt": "Yarın havanın nasıl olacağını sor.",
+    "hint": "Wie ist ile başla.",
+    "explanation": "Wie ist das Wetter? havayı sorar; yarın için morgen ekle.",
+    "english": "Yarın hava nasıl?"
+   }
+  },
+  "a1-weather-exercise-2": {
+   "german": "Es regnet.",
+   "source": {
+    "prompt": "It is raining. Which sentence?",
+    "hint": "Regen is rain.",
+    "explanation": "Es regnet means it is raining.",
+    "english": "It is raining."
+   },
+   "tr": {
+    "prompt": "Yağmur yağıyor. Hangi cümle?",
+    "hint": "Regen “yağmur” demektir.",
+    "explanation": "Es regnet “yağmur yağıyor” demektir.",
+    "english": "Yağmur yağıyor."
+   }
+  },
+  "a1-weather-exercise-3": {
+   "german": "Heute ist es kalt. Morgen ist es warm.",
+   "source": {
+    "prompt": "Listen. What is the weather tomorrow?",
+    "hint": "morgen is tomorrow.",
+    "explanation": "heute is today, morgen is tomorrow.",
+    "english": "Today it is cold. Tomorrow it is warm."
+   },
+   "tr": {
+    "prompt": "Dinle. Yarın hava nasıl?",
+    "hint": "morgen “yarın” demektir.",
+    "explanation": "heute “bugün”, morgen “yarın” demektir.",
+    "english": "Bugün hava soğuk. Yarın hava ılık."
+   }
+  },
+  "a1-weather-exercise-4": {
+   "german": "Heute ist es kalt.",
+   "source": {
+    "prompt": "Say that today is cold.",
+    "hint": "Start with Heute.",
+    "explanation": "After heute the verb comes second: ist es.",
+    "english": "Today it is cold."
+   },
+   "tr": {
+    "prompt": "Bugün havanın soğuk olduğunu söyle.",
+    "hint": "Heute ile başla.",
+    "explanation": "heute'den sonra fiil ikinci sırada gelir: ist es.",
+    "english": "Bugün hava soğuk."
+   }
+  },
+  "a1-weather-exercise-5": {
+   "german": "Heute ist es warm.",
+   "source": {
+    "prompt": "Say that it is warm today.",
+    "hint": "warm is warm.",
+    "explanation": "Heute ist es warm uses the weather es.",
+    "english": "Today it is warm."
+   },
+   "tr": {
+    "prompt": "Bugün havanın ılık olduğunu söyle.",
+    "hint": "warm “ılık, sıcak” demektir.",
+    "explanation": "Heute ist es warm cümlesi hava durumu için es kullanır.",
+    "english": "Bugün hava ılık."
+   }
+  },
+  "a1-weather-exercise-6": {
+   "german": "Der Wind ist stark.",
+   "source": {
+    "prompt": "The wind is strong. Which sentence?",
+    "hint": "Wind is wind.",
+    "explanation": "stark means strong.",
+    "english": "The wind is strong."
+   },
+   "tr": {
+    "prompt": "Rüzgar güçlü. Hangi cümle?",
+    "hint": "Wind “rüzgar” demektir.",
+    "explanation": "stark “güçlü” demektir.",
+    "english": "Rüzgar güçlü."
+   }
+  },
+  "a1-weather-exercise-7": {
+   "german": "Morgen regnet es nicht. Es gibt viel Sonne.",
+   "source": {
+    "prompt": "Listen. Do you need an umbrella tomorrow?",
+    "hint": "nicht means not.",
+    "explanation": "regnet es nicht means it is not raining.",
+    "english": "Tomorrow it will not rain. There will be lots of sun."
+   },
+   "tr": {
+    "prompt": "Dinle. Yarın şemsiyeye ihtiyacın var mı?",
+    "hint": "nicht “değil” demektir.",
+    "explanation": "regnet es nicht “yağmur yağmıyor” demektir.",
+    "english": "Yarın yağmur yağmayacak. Bol güneş olacak."
+   }
+  },
+  "a1-bike-exercise-1": {
+   "german": "Wann ist das Fahrrad fertig?",
+   "source": {
+    "prompt": "Ask Emil when the bike is ready.",
+    "hint": "Start with Wann ist.",
+    "explanation": "Wann asks for a time; fertig means ready.",
+    "english": "When is the bike ready?"
+   },
+   "tr": {
+    "prompt": "Emil'e bisikletin ne zaman hazır olacağını sor.",
+    "hint": "Wann ist ile başla.",
+    "explanation": "Wann zamanı sorar; fertig “hazır” demektir.",
+    "english": "Bisiklet ne zaman hazır?"
+   }
+  },
+  "a1-bike-exercise-2": {
+   "german": "Das Fahrrad ist kaputt.",
+   "source": {
+    "prompt": "Say that the bike is broken.",
+    "hint": "kaputt means broken.",
+    "explanation": "kaputt describes something that does not work.",
+    "english": "The bike is broken."
+   },
+   "tr": {
+    "prompt": "Bisikletin bozuk olduğunu söyle.",
+    "hint": "kaputt “bozuk” demektir.",
+    "explanation": "kaputt, çalışmayan bir şeyi anlatır.",
+    "english": "Bisiklet bozuk."
+   }
+  },
+  "a1-bike-exercise-3": {
+   "german": "Das Fahrrad ist morgen fertig.",
+   "source": {
+    "prompt": "Listen. When is the bike ready?",
+    "hint": "morgen is tomorrow.",
+    "explanation": "morgen tells you the day.",
+    "english": "The bike is ready tomorrow."
+   },
+   "tr": {
+    "prompt": "Dinle. Bisiklet ne zaman hazır?",
+    "hint": "morgen “yarın” demektir.",
+    "explanation": "morgen günü söyler.",
+    "english": "Bisiklet yarın hazır."
+   }
+  },
+  "a1-bike-exercise-4": {
+   "german": "Wie viel kostet das?",
+   "source": {
+    "prompt": "Ask how much it costs.",
+    "hint": "Start with Wie viel.",
+    "explanation": "Wie viel kostet das? is the basic price question.",
+    "english": "How much does that cost?"
+   },
+   "tr": {
+    "prompt": "Ne kadar tuttuğunu sor.",
+    "hint": "Wie viel ile başla.",
+    "explanation": "Wie viel kostet das? temel fiyat sorusudur.",
+    "english": "Bu ne kadar?"
+   }
+  },
+  "a1-bike-exercise-5": {
+   "german": "Ich bezahle jetzt.",
+   "source": {
+    "prompt": "Say that you pay now.",
+    "hint": "bezahle means pay.",
+    "explanation": "Ich bezahle jetzt uses the present tense.",
+    "english": "I pay now."
+   },
+   "tr": {
+    "prompt": "Şimdi ödediğini söyle.",
+    "hint": "bezahle “ödüyorum” demektir.",
+    "explanation": "Ich bezahle jetzt geniş zaman kullanır.",
+    "english": "Şimdi ödüyorum."
+   }
+  },
+  "a1-bike-exercise-6": {
+   "german": "Kannst du das reparieren?",
+   "source": {
+    "prompt": "Ask Emil if he can repair it.",
+    "hint": "reparieren means repair.",
+    "explanation": "Kannst du … ? asks if someone can do something.",
+    "english": "Can you repair that?"
+   },
+   "tr": {
+    "prompt": "Emil'e tamir edip edemeyeceğini sor.",
+    "hint": "reparieren “tamir etmek” demektir.",
+    "explanation": "Kannst du … ? birinin bir şeyi yapıp yapamayacağını sorar.",
+    "english": "Bunu tamir edebilir misin?"
+   }
+  },
+  "a1-bike-exercise-7": {
+   "german": "Das macht zwanzig Euro.",
+   "source": {
+    "prompt": "Listen. How much is it?",
+    "hint": "zwanzig is twenty.",
+    "explanation": "Das macht … Euro says the total.",
+    "english": "That is twenty euros."
+   },
+   "tr": {
+    "prompt": "Dinle. Ne kadar tutuyor?",
+    "hint": "zwanzig yirmi demektir.",
+    "explanation": "Das macht … Euro toplamı söyler.",
+    "english": "Yirmi euro tutuyor."
+   }
+  },
+  "a1-phone-exercise-1": {
+   "german": "Kann ich bitte Otto sprechen?",
+   "source": {
+    "prompt": "Ask politely to speak to Otto.",
+    "hint": "Start with Kann ich bitte.",
+    "explanation": "Kann ich … sprechen? is the polite phone question. The verb sprechen goes to the end.",
+    "english": "May I speak to Otto, please?"
+   },
+   "tr": {
+    "prompt": "Otto ile konuşmak istediğini kibarca sor.",
+    "hint": "Kann ich bitte ile başla.",
+    "explanation": "Kann ich … sprechen? telefonda kibar bir sorudur. sprechen fiili sona gider.",
+    "english": "Otto ile konuşabilir miyim lütfen?"
+   }
+  },
+  "a1-phone-exercise-2": {
+   "german": "Hallo, hier ist Marta.",
+   "source": {
+    "prompt": "You answer the phone at the café. Say: \"Hello, this is Marta.\"",
+    "hint": "Use hier ist.",
+    "explanation": "On the phone Germans say hier ist plus the name.",
+    "english": "Hello, this is Marta."
+   },
+   "tr": {
+    "prompt": "Kafede telefona cevap veriyorsun. De ki: \"Merhaba, ben Marta.\"",
+    "hint": "hier ist kullan.",
+    "explanation": "Almanlar telefonda hier ist artı isim der.",
+    "english": "Merhaba, ben Marta."
+   }
+  },
+  "a1-phone-exercise-3": {
+   "german": "Ich buchstabiere meinen Namen.",
+   "source": {
+    "prompt": "Say: \"I am spelling my name.\"",
+    "hint": "buchstabieren plus meinen Namen.",
+    "explanation": "Name is masculine, so after buchstabieren it becomes meinen Namen.",
+    "english": "I am spelling my name."
+   },
+   "tr": {
+    "prompt": "De ki: \"Adımı heceliyorum.\"",
+    "hint": "buchstabieren artı meinen Namen.",
+    "explanation": "Name eril cinstir, bu yüzden buchstabieren'den sonra meinen Namen olur.",
+    "english": "Adımı heceliyorum."
+   }
+  },
+  "a1-phone-exercise-4": {
+   "german": "Die Nummer ist drei, vier, sieben.",
+   "source": {
+    "prompt": "Listen. What is the station number?",
+    "hint": "drei is three, sieben is seven.",
+    "explanation": "On the phone people read numbers one by one.",
+    "english": "The number is three, four, seven."
+   },
+   "tr": {
+    "prompt": "Dinle. İstasyonun numarası kaç?",
+    "hint": "drei üç, sieben yedi demektir.",
+    "explanation": "Telefonda insanlar numaraları tek tek okur.",
+    "english": "Numara üç, dört, yedi."
+   }
+  },
+  "a1-phone-exercise-5": {
+   "german": "Ich rufe später an.",
+   "source": {
+    "prompt": "Say: \"I am calling later.\"",
+    "hint": "anrufen splits: rufe … an.",
+    "explanation": "In anrufen the little word an goes to the end of the sentence.",
+    "english": "I am calling later."
+   },
+   "tr": {
+    "prompt": "De ki: \"Daha sonra arıyorum.\"",
+    "hint": "anrufen ayrılır: rufe … an.",
+    "explanation": "anrufen fiilinde küçük sözcük an cümlenin sonuna gider.",
+    "english": "Daha sonra arıyorum."
+   }
+  },
+  "a1-phone-exercise-6": {
+   "german": "Können Sie das bitte wiederholen?",
+   "source": {
+    "prompt": "Voss speaks too fast. Politely ask him: \"Can you repeat that, please?\"",
+    "hint": "With Voss use Sie, not du.",
+    "explanation": "Können Sie is the formal form for strangers and officials.",
+    "english": "Can you repeat that, please?"
+   },
+   "tr": {
+    "prompt": "Voss çok hızlı konuşuyor. Ona kibarca sor: \"Bunu tekrar edebilir misiniz, lütfen?\"",
+    "hint": "Voss ile du değil, Sie kullan.",
+    "explanation": "Können Sie, yabancılar ve resmi kişiler için kullanılan resmi biçimdir.",
+    "english": "Bunu tekrar edebilir misiniz, lütfen?"
+   }
+  },
+  "a1-phone-exercise-7": {
+   "german": "Ich heiße Lina. L, I, N, A.",
+   "source": {
+    "prompt": "Listen. How is the name spelled?",
+    "hint": "Listen to each letter.",
+    "explanation": "Spelling aloud is very common on the phone.",
+    "english": "My name is Lina. L, I, N, A."
+   },
+   "tr": {
+    "prompt": "Dinle. İsim nasıl hecelenir?",
+    "hint": "Her harfi dinle.",
+    "explanation": "Telefonda sesli heceleme çok yaygındır.",
+    "english": "Adım Lina. L, I, N, A."
+   }
+  },
+  "a1-invitation-exercise-1": {
+   "german": "Ja, ich komme gern.",
+   "source": {
+    "prompt": "Accept the invitation happily.",
+    "hint": "komme plus gern.",
+    "explanation": "gern after the verb shows you do it with pleasure.",
+    "english": "Yes, I will gladly come."
+   },
+   "tr": {
+    "prompt": "Daveti sevinçle kabul et.",
+    "hint": "komme artı gern.",
+    "explanation": "Fiilden sonra gern, bir şeyi memnuniyetle yaptığını gösterir.",
+    "english": "Evet, memnuniyetle gelirim."
+   }
+  },
+  "a1-invitation-exercise-2": {
+   "german": "Das ist nett, danke!",
+   "source": {
+    "prompt": "Fritz invites you. Say: \"That is nice, thanks!\"",
+    "hint": "nett means nice.",
+    "explanation": "A short thank-you is a warm reply to an invitation.",
+    "english": "That is nice, thanks!"
+   },
+   "tr": {
+    "prompt": "Fritz seni davet ediyor. De ki: \"Çok nazik, teşekkürler!\"",
+    "hint": "nett “hoş, nazik” demektir.",
+    "explanation": "Kısa bir teşekkür, davete sıcak bir yanıttır.",
+    "english": "Çok nazik, teşekkürler!"
+   }
+  },
+  "a1-invitation-exercise-3": {
+   "german": "Am Freitag um sieben.",
+   "source": {
+    "prompt": "Say: \"On Friday at seven.\"",
+    "hint": "am for days, um for clock times.",
+    "explanation": "German uses am with days and um with clock times.",
+    "english": "On Friday at seven."
+   },
+   "tr": {
+    "prompt": "De ki: \"Cuma günü saat yedide.\"",
+    "hint": "Günler için am, saatler için um.",
+    "explanation": "Almanca günlerle am, saatlerle um kullanır.",
+    "english": "Cuma günü saat yedide."
+   }
+  },
+  "a1-invitation-exercise-4": {
+   "german": "Die Suppe gibt es um sieben Uhr.",
+   "source": {
+    "prompt": "Listen. When is the soup?",
+    "hint": "sieben is seven.",
+    "explanation": "um plus a number gives the clock time.",
+    "english": "The soup is at seven o’clock."
+   },
+   "tr": {
+    "prompt": "Dinle. Çorba ne zaman?",
+    "hint": "sieben yedi demektir.",
+    "explanation": "um artı bir sayı saati verir.",
+    "english": "Çorba saat yedide."
+   }
+  },
+  "a1-invitation-exercise-5": {
+   "german": "Ich bringe Brot mit.",
+   "source": {
+    "prompt": "Say: \"I am bringing bread.\"",
+    "hint": "mitbringen splits: bringe … mit.",
+    "explanation": "In mitbringen the little word mit goes to the end.",
+    "english": "I am bringing bread."
+   },
+   "tr": {
+    "prompt": "De ki: \"Ekmek getiriyorum.\"",
+    "hint": "mitbringen ayrılır: bringe … mit.",
+    "explanation": "mitbringen fiilinde küçük sözcük mit sona gider.",
+    "english": "Ekmek getiriyorum."
+   }
+  },
+  "a1-invitation-exercise-6": {
+   "german": "Leider habe ich keine Zeit.",
+   "source": {
+    "prompt": "You cannot come. Choose the polite sentence.",
+    "hint": "leider means unfortunately.",
+    "explanation": "leider softens a no and sounds friendly.",
+    "english": "Unfortunately I have no time."
+   },
+   "tr": {
+    "prompt": "Gelemiyorsun. Kibar cümleyi seç.",
+    "hint": "leider “maalesef” demektir.",
+    "explanation": "leider hayır cevabını yumuşatır ve samimi gelir.",
+    "english": "Maalesef vaktim yok."
+   }
+  },
+  "a1-invitation-exercise-7": {
+   "german": "Leider kommt Emil nicht.",
+   "source": {
+    "prompt": "Listen. Who is not coming?",
+    "hint": "Listen for the name.",
+    "explanation": "nicht stands after the verb here.",
+    "english": "Unfortunately Emil is not coming."
+   },
+   "tr": {
+    "prompt": "Dinle. Kim gelmiyor?",
+    "hint": "İsmi dinle.",
+    "explanation": "nicht burada fiilden sonra gelir.",
+    "english": "Maalesef Emil gelmiyor."
+   }
+  },
+  "a1-lost-found-exercise-1": {
+   "german": "Meine Tasche ist blau.",
+   "source": {
+    "prompt": "Say: \"My bag is blue.\"",
+    "hint": "Tasche is feminine: meine.",
+    "explanation": "Feminine nouns take meine: meine Tasche.",
+    "english": "My bag is blue."
+   },
+   "tr": {
+    "prompt": "De ki: \"Çantam mavi.\"",
+    "hint": "Tasche dişildir: meine.",
+    "explanation": "Dişil isimler meine alır: meine Tasche.",
+    "english": "Çantam mavi."
+   }
+  },
+  "a1-lost-found-exercise-2": {
+   "german": "Sie ist groß und alt.",
+   "source": {
+    "prompt": "Your bag is big and old. Choose the sentence.",
+    "hint": "Tasche is feminine, so sie.",
+    "explanation": "sie stands for a feminine noun. groß means big, alt means old.",
+    "english": "It is big and old."
+   },
+   "tr": {
+    "prompt": "Çantan büyük ve eski. Cümleyi seç.",
+    "hint": "Tasche dişildir, bu yüzden sie.",
+    "explanation": "sie dişil bir ismin yerini tutar. groß “büyük”, alt “eski” demektir.",
+    "english": "O büyük ve eski."
+   }
+  },
+  "a1-lost-found-exercise-3": {
+   "german": "Der Handschuh ist schwarz.",
+   "source": {
+    "prompt": "Say: \"The glove is black.\"",
+    "hint": "Handschuh is masculine: der.",
+    "explanation": "Colours stay the same after ist: ist schwarz.",
+    "english": "The glove is black."
+   },
+   "tr": {
+    "prompt": "De ki: \"Eldiven siyah.\"",
+    "hint": "Handschuh erildir: der.",
+    "explanation": "Renkler ist'ten sonra değişmez: ist schwarz.",
+    "english": "Eldiven siyah."
+   }
+  },
+  "a1-lost-found-exercise-4": {
+   "german": "Meine Tasche ist klein und grün.",
+   "source": {
+    "prompt": "Listen. What is the bag like?",
+    "hint": "klein is small.",
+    "explanation": "Two adjectives are joined with und.",
+    "english": "My bag is small and green."
+   },
+   "tr": {
+    "prompt": "Dinle. Çanta nasıl?",
+    "hint": "klein “küçük” demektir.",
+    "explanation": "İki sıfat und ile birleştirilir.",
+    "english": "Çantam küçük ve yeşil."
+   }
+  },
+  "a1-lost-found-exercise-5": {
+   "german": "Das ist nicht meine Tasche.",
+   "source": {
+    "prompt": "Say: \"That is not my bag.\"",
+    "hint": "nicht comes before meine Tasche.",
+    "explanation": "nicht negates the whole statement: nicht meine Tasche.",
+    "english": "That is not my bag."
+   },
+   "tr": {
+    "prompt": "De ki: \"Bu benim çantam değil.\"",
+    "hint": "nicht, meine Tasche'den önce gelir.",
+    "explanation": "nicht tüm ifadeyi olumsuz yapar: nicht meine Tasche.",
+    "english": "Bu benim çantam değil."
+   }
+  },
+  "a1-lost-found-exercise-6": {
+   "german": "Das Buch ist neu.",
+   "source": {
+    "prompt": "Choose the opposite of alt (old).",
+    "hint": "It means new.",
+    "explanation": "alt and neu are opposites, like groß and klein.",
+    "english": "The book is new."
+   },
+   "tr": {
+    "prompt": "alt (eski) sözcüğünün zıttını seç.",
+    "hint": "“Yeni” anlamına gelir.",
+    "explanation": "alt ve neu zıt anlamlıdır, tıpkı groß ve klein gibi.",
+    "english": "Kitap yeni."
+   }
+  },
+  "a1-lost-found-exercise-7": {
+   "german": "Der Schirm ist gelb.",
+   "source": {
+    "prompt": "Listen. What colour is the umbrella?",
+    "hint": "gelb is yellow.",
+    "explanation": "Colours are easy adjectives: gelb, rot, grün, blau.",
+    "english": "The umbrella is yellow."
+   },
+   "tr": {
+    "prompt": "Dinle. Şemsiye ne renk?",
+    "hint": "gelb “sarı” demektir.",
+    "explanation": "Renkler kolay sıfatlardır: gelb, rot, grün, blau.",
+    "english": "Şemsiye sarı."
+   }
+  },
+  "a1-departure-exercise-1": {
+   "german": "Eine Fahrkarte nach Waldruh, bitte.",
+   "source": {
+    "prompt": "Buy a ticket to Waldruh.",
+    "hint": "nach plus the place.",
+    "explanation": "nach goes before a town name: nach Waldruh. bitte makes it polite.",
+    "english": "A ticket to Waldruh, please."
+   },
+   "tr": {
+    "prompt": "Waldruh'a bilet al.",
+    "hint": "nach artı yer adı.",
+    "explanation": "nach, şehir adından önce gelir: nach Waldruh. bitte cümleyi kibar yapar.",
+    "english": "Waldruh'a bir bilet, lütfen."
+   }
+  },
+  "a1-departure-exercise-2": {
+   "german": "Hin und zurück, bitte.",
+   "source": {
+    "prompt": "You want to come back too. Choose \"Return, please.\"",
+    "hint": "hin is there, zurück is back.",
+    "explanation": "hin und zurück means there and back.",
+    "english": "Return, please."
+   },
+   "tr": {
+    "prompt": "Geri de dönmek istiyorsun. \"Gidiş dönüş, lütfen\" cümlesini seç.",
+    "hint": "hin “oraya”, zurück “geri” demektir.",
+    "explanation": "hin und zurück “gidiş dönüş” demektir.",
+    "english": "Gidiş dönüş, lütfen."
+   }
+  },
+  "a1-departure-exercise-3": {
+   "german": "Um wie viel Uhr fährt der Zug?",
+   "source": {
+    "prompt": "Ask: \"What time does the train leave?\"",
+    "hint": "Start with Um wie viel Uhr.",
+    "explanation": "Um wie viel Uhr asks for a clock time.",
+    "english": "What time does the train leave?"
+   },
+   "tr": {
+    "prompt": "Sor: \"Tren saat kaçta kalkıyor?\"",
+    "hint": "Um wie viel Uhr ile başla.",
+    "explanation": "Um wie viel Uhr bir saat sorar.",
+    "english": "Tren saat kaçta kalkıyor?"
+   }
+  },
+  "a1-departure-exercise-4": {
+   "german": "Der Zug fährt von Gleis sieben.",
+   "source": {
+    "prompt": "Listen. Which platform?",
+    "hint": "Gleis is platform.",
+    "explanation": "Gleis is the track or platform number at the station.",
+    "english": "The train leaves from platform seven."
+   },
+   "tr": {
+    "prompt": "Dinle. Hangi peron?",
+    "hint": "Gleis “peron” demektir.",
+    "explanation": "Gleis, istasyondaki hat ya da peron numarasıdır.",
+    "english": "Tren yedi numaralı perondan kalkıyor."
+   }
+  },
+  "a1-departure-exercise-5": {
+   "german": "Ich möchte eine Fahrkarte.",
+   "source": {
+    "prompt": "Say: \"I would like a ticket.\"",
+    "hint": "Fahrkarte is feminine: eine.",
+    "explanation": "möchte is the polite way to ask for something.",
+    "english": "I would like a ticket."
+   },
+   "tr": {
+    "prompt": "De ki: \"Bir bilet istiyorum.\"",
+    "hint": "Fahrkarte dişildir: eine.",
+    "explanation": "möchte bir şey istemenin kibar yoludur.",
+    "english": "Bir bilet istiyorum."
+   }
+  },
+  "a1-departure-exercise-6": {
+   "german": "Wo ist Gleis sieben?",
+   "source": {
+    "prompt": "Ask where platform seven is.",
+    "hint": "Wo asks for a place.",
+    "explanation": "Wo ist …? is the basic question for a place.",
+    "english": "Where is platform seven?"
+   },
+   "tr": {
+    "prompt": "Yedi numaralı peronun nerede olduğunu sor.",
+    "hint": "Wo bir yeri sorar.",
+    "explanation": "Wo ist …? bir yeri sormanın temel kalıbıdır.",
+    "english": "Yedi numaralı peron nerede?"
+   }
+  },
+  "a1-departure-exercise-7": {
+   "german": "Der Zug fährt um achtzehn Uhr.",
+   "source": {
+    "prompt": "Listen. What time is it?",
+    "hint": "achtzehn is eighteen.",
+    "explanation": "Timetables use the 24-hour clock: 18 Uhr is six in the evening.",
+    "english": "The train leaves at 18:00."
+   },
+   "tr": {
+    "prompt": "Dinle. Saat kaç?",
+    "hint": "achtzehn on sekiz demektir.",
+    "explanation": "Tarifelerde 24 saatlik sistem kullanılır: 18 Uhr akşam altıdır.",
+    "english": "Tren 18:00'de kalkıyor."
+   }
   }
  },
  "texts": {

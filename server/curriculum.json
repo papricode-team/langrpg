@@ -14,6 +14,19 @@
       ]
     },
     {
+      "id": "a1-timetable",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-timetable-item-1",
+        "a1-timetable-item-2",
+        "a1-timetable-item-3",
+        "a1-timetable-item-4",
+        "a1-timetable-item-5",
+        "a1-timetable-item-6",
+        "a1-timetable-item-7"
+      ]
+    },
+    {
       "id": "a1-cafe",
       "reward": 40,
       "requiredItemIds": [
@@ -24,6 +37,32 @@
         "a1-cafe-item-5",
         "a1-cafe-item-6",
         "a1-cafe-item-7"
+      ]
+    },
+    {
+      "id": "a1-room",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-room-item-1",
+        "a1-room-item-2",
+        "a1-room-item-3",
+        "a1-room-item-4",
+        "a1-room-item-5",
+        "a1-room-item-6",
+        "a1-room-item-7"
+      ]
+    },
+    {
+      "id": "a1-shopping",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-shopping-item-1",
+        "a1-shopping-item-2",
+        "a1-shopping-item-3",
+        "a1-shopping-item-4",
+        "a1-shopping-item-5",
+        "a1-shopping-item-6",
+        "a1-shopping-item-7"
       ]
     },
     {
@@ -40,6 +79,45 @@
       ]
     },
     {
+      "id": "a1-neighbour",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-neighbour-item-1",
+        "a1-neighbour-item-2",
+        "a1-neighbour-item-3",
+        "a1-neighbour-item-4",
+        "a1-neighbour-item-5",
+        "a1-neighbour-item-6",
+        "a1-neighbour-item-7"
+      ]
+    },
+    {
+      "id": "a1-pharmacy",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-pharmacy-item-1",
+        "a1-pharmacy-item-2",
+        "a1-pharmacy-item-3",
+        "a1-pharmacy-item-4",
+        "a1-pharmacy-item-5",
+        "a1-pharmacy-item-6",
+        "a1-pharmacy-item-7"
+      ]
+    },
+    {
+      "id": "a1-directions",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-directions-item-1",
+        "a1-directions-item-2",
+        "a1-directions-item-3",
+        "a1-directions-item-4",
+        "a1-directions-item-5",
+        "a1-directions-item-6",
+        "a1-directions-item-7"
+      ]
+    },
+    {
       "id": "a1-station",
       "reward": 40,
       "requiredItemIds": [
@@ -50,6 +128,19 @@
         "a1-station-item-5",
         "a1-station-item-6",
         "a1-station-item-7"
+      ]
+    },
+    {
+      "id": "a1-weather",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-weather-item-1",
+        "a1-weather-item-2",
+        "a1-weather-item-3",
+        "a1-weather-item-4",
+        "a1-weather-item-5",
+        "a1-weather-item-6",
+        "a1-weather-item-7"
       ]
     },
     {
@@ -66,6 +157,58 @@
       ]
     },
     {
+      "id": "a1-bike",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-bike-item-1",
+        "a1-bike-item-2",
+        "a1-bike-item-3",
+        "a1-bike-item-4",
+        "a1-bike-item-5",
+        "a1-bike-item-6",
+        "a1-bike-item-7"
+      ]
+    },
+    {
+      "id": "a1-phone",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-phone-item-1",
+        "a1-phone-item-2",
+        "a1-phone-item-3",
+        "a1-phone-item-4",
+        "a1-phone-item-5",
+        "a1-phone-item-6",
+        "a1-phone-item-7"
+      ]
+    },
+    {
+      "id": "a1-invitation",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-invitation-item-1",
+        "a1-invitation-item-2",
+        "a1-invitation-item-3",
+        "a1-invitation-item-4",
+        "a1-invitation-item-5",
+        "a1-invitation-item-6",
+        "a1-invitation-item-7"
+      ]
+    },
+    {
+      "id": "a1-lost-found",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-lost-found-item-1",
+        "a1-lost-found-item-2",
+        "a1-lost-found-item-3",
+        "a1-lost-found-item-4",
+        "a1-lost-found-item-5",
+        "a1-lost-found-item-6",
+        "a1-lost-found-item-7"
+      ]
+    },
+    {
       "id": "a1-lost-parcel",
       "reward": 40,
       "requiredItemIds": [
@@ -76,6 +219,19 @@
         "a1-lost-parcel-item-5",
         "a1-lost-parcel-item-6",
         "a1-lost-parcel-item-7"
+      ]
+    },
+    {
+      "id": "a1-departure",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-departure-item-1",
+        "a1-departure-item-2",
+        "a1-departure-item-3",
+        "a1-departure-item-4",
+        "a1-departure-item-5",
+        "a1-departure-item-6",
+        "a1-departure-item-7"
       ]
     },
     {
@@ -265,6 +421,34 @@
       "level": "A1"
     },
     {
+      "id": "a1-timetable-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-timetable-item-7",
+      "level": "A1"
+    },
+    {
       "id": "a1-cafe-item-1",
       "level": "A1"
     },
@@ -290,6 +474,62 @@
     },
     {
       "id": "a1-cafe-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-room-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-shopping-item-7",
       "level": "A1"
     },
     {
@@ -321,6 +561,90 @@
       "level": "A1"
     },
     {
+      "id": "a1-neighbour-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-neighbour-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-pharmacy-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-directions-item-7",
+      "level": "A1"
+    },
+    {
       "id": "a1-station-item-1",
       "level": "A1"
     },
@@ -346,6 +670,34 @@
     },
     {
       "id": "a1-station-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-weather-item-7",
       "level": "A1"
     },
     {
@@ -377,6 +729,118 @@
       "level": "A1"
     },
     {
+      "id": "a1-bike-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bike-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-phone-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-invitation-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-lost-found-item-7",
+      "level": "A1"
+    },
+    {
       "id": "a1-lost-parcel-item-1",
       "level": "A1"
     },
@@ -402,6 +866,34 @@
     },
     {
       "id": "a1-lost-parcel-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-departure-item-7",
       "level": "A1"
     },
     {
@@ -802,6 +1294,61 @@
       "explanation": "This short request is useful whenever you need repetition."
     },
     {
+      "id": "a1-timetable-exercise-1",
+      "itemId": "a1-timetable-item-1",
+      "mode": "production",
+      "answer": "Wann fährt der Zug?",
+      "caseSensitive": true,
+      "explanation": "Wann asks for a time. The verb comes second: Wann fährt der Zug?"
+    },
+    {
+      "id": "a1-timetable-exercise-2",
+      "itemId": "a1-timetable-item-2",
+      "mode": "recognition",
+      "answer": "Wie spät ist es?",
+      "explanation": "Wie spät ist es? is the everyday way to ask the time."
+    },
+    {
+      "id": "a1-timetable-exercise-3",
+      "itemId": "a1-timetable-item-3",
+      "mode": "listening",
+      "answer": "halb neun",
+      "explanation": "halb neun means half an hour before nine: 8:30."
+    },
+    {
+      "id": "a1-timetable-exercise-4",
+      "itemId": "a1-timetable-item-4",
+      "mode": "production",
+      "answer": "Der Zug fährt um acht Uhr.",
+      "acceptedAnswers": [
+        "Der Zug fährt um 8 Uhr."
+      ],
+      "caseSensitive": true,
+      "explanation": "um + number + Uhr gives a clock time."
+    },
+    {
+      "id": "a1-timetable-exercise-5",
+      "itemId": "a1-timetable-item-5",
+      "mode": "production",
+      "answer": "Ich fahre um zehn Uhr.",
+      "caseSensitive": true,
+      "explanation": "fahren changes to fahre after ich."
+    },
+    {
+      "id": "a1-timetable-exercise-6",
+      "itemId": "a1-timetable-item-6",
+      "mode": "recognition",
+      "answer": "Wo ist Bahnsteig drei?",
+      "explanation": "Wo ist …? asks where something is."
+    },
+    {
+      "id": "a1-timetable-exercise-7",
+      "itemId": "a1-timetable-item-7",
+      "mode": "listening",
+      "answer": "achtzehn Uhr",
+      "explanation": "Trains use the 24-hour clock: 18 Uhr is 6 p.m."
+    },
+    {
       "id": "a1-cafe-exercise-1",
       "itemId": "a1-cafe-item-1",
       "mode": "production",
@@ -852,6 +1399,113 @@
       "mode": "listening",
       "answer": "Nein, das ist alles.",
       "explanation": "das ist alles tells the server that the order is complete."
+    },
+    {
+      "id": "a1-room-exercise-1",
+      "itemId": "a1-room-item-1",
+      "mode": "production",
+      "answer": "Hast du ein Zimmer frei?",
+      "caseSensitive": true,
+      "explanation": "In a yes/no question the verb comes first. frei means free."
+    },
+    {
+      "id": "a1-room-exercise-2",
+      "itemId": "a1-room-item-2",
+      "mode": "recognition",
+      "answer": "Hat das Zimmer ein Bad?",
+      "explanation": "Hat … ein Bad? asks what a room has."
+    },
+    {
+      "id": "a1-room-exercise-3",
+      "itemId": "a1-room-item-3",
+      "mode": "listening",
+      "answer": "vierzig Euro",
+      "explanation": "Do not mix up vierzehn (14) and vierzig (40)."
+    },
+    {
+      "id": "a1-room-exercise-4",
+      "itemId": "a1-room-item-4",
+      "mode": "production",
+      "answer": "Das Zimmer ist ruhig.",
+      "caseSensitive": true,
+      "explanation": "Das Zimmer is neuter. ist links the room to its description."
+    },
+    {
+      "id": "a1-room-exercise-5",
+      "itemId": "a1-room-item-5",
+      "mode": "production",
+      "answer": "Ich bleibe zwei Tage.",
+      "caseSensitive": true,
+      "explanation": "bleiben becomes bleibe after ich."
+    },
+    {
+      "id": "a1-room-exercise-6",
+      "itemId": "a1-room-item-6",
+      "mode": "recognition",
+      "answer": "Wo ist das Bad?",
+      "explanation": "Wo ist …? asks for a place."
+    },
+    {
+      "id": "a1-room-exercise-7",
+      "itemId": "a1-room-item-7",
+      "mode": "listening",
+      "answer": "oben",
+      "explanation": "oben means upstairs or above."
+    },
+    {
+      "id": "a1-shopping-exercise-1",
+      "itemId": "a1-shopping-item-1",
+      "mode": "production",
+      "answer": "Was kostet das Brot?",
+      "caseSensitive": true,
+      "explanation": "Was kostet …? asks for a price. Brot is neuter: das Brot."
+    },
+    {
+      "id": "a1-shopping-exercise-2",
+      "itemId": "a1-shopping-item-2",
+      "mode": "recognition",
+      "answer": "Das ist teuer.",
+      "explanation": "teuer means expensive; billig would mean cheap."
+    },
+    {
+      "id": "a1-shopping-exercise-3",
+      "itemId": "a1-shopping-item-3",
+      "mode": "listening",
+      "answer": "sechs Euro",
+      "explanation": "Listen to the end of the number word."
+    },
+    {
+      "id": "a1-shopping-exercise-4",
+      "itemId": "a1-shopping-item-4",
+      "mode": "production",
+      "answer": "Ich nehme das Brot.",
+      "acceptedAnswers": [
+        "Ich nehme das Brot"
+      ],
+      "caseSensitive": true,
+      "explanation": "Ich nehme is a common phrase when you choose something to buy."
+    },
+    {
+      "id": "a1-shopping-exercise-5",
+      "itemId": "a1-shopping-item-5",
+      "mode": "production",
+      "answer": "Ich möchte Milch und Brot.",
+      "caseSensitive": true,
+      "explanation": "und joins two things. No article is needed here."
+    },
+    {
+      "id": "a1-shopping-exercise-6",
+      "itemId": "a1-shopping-item-6",
+      "mode": "recognition",
+      "answer": "Hast du Eier?",
+      "explanation": "Hast du …? asks whether someone has something."
+    },
+    {
+      "id": "a1-shopping-exercise-7",
+      "itemId": "a1-shopping-item-7",
+      "mode": "listening",
+      "answer": "sieben Euro",
+      "explanation": "Das macht … tells you the total."
     },
     {
       "id": "a1-market-exercise-1",
@@ -911,6 +1565,174 @@
       "explanation": "zu teuer expresses that something costs more than the speaker wants to pay."
     },
     {
+      "id": "a1-neighbour-exercise-1",
+      "itemId": "a1-neighbour-item-1",
+      "mode": "production",
+      "answer": "Wie ist Frau Berg?",
+      "caseSensitive": true,
+      "explanation": "Wie ist …? asks for a description of a person."
+    },
+    {
+      "id": "a1-neighbour-exercise-2",
+      "itemId": "a1-neighbour-item-2",
+      "mode": "recognition",
+      "answer": "Sie ist alt.",
+      "explanation": "sie means she, and alt means old."
+    },
+    {
+      "id": "a1-neighbour-exercise-3",
+      "itemId": "a1-neighbour-item-3",
+      "mode": "listening",
+      "answer": "streng",
+      "explanation": "streng describes someone who has firm rules."
+    },
+    {
+      "id": "a1-neighbour-exercise-4",
+      "itemId": "a1-neighbour-item-4",
+      "mode": "production",
+      "answer": "Er ist groß.",
+      "caseSensitive": true,
+      "explanation": "er means he, and groß describes his size."
+    },
+    {
+      "id": "a1-neighbour-exercise-5",
+      "itemId": "a1-neighbour-item-5",
+      "mode": "production",
+      "answer": "Meine Lehrerin war streng.",
+      "caseSensitive": true,
+      "explanation": "war is the past of ist: was."
+    },
+    {
+      "id": "a1-neighbour-exercise-6",
+      "itemId": "a1-neighbour-item-6",
+      "mode": "recognition",
+      "answer": "Wer ist die Frau?",
+      "explanation": "Wer asks about a person."
+    },
+    {
+      "id": "a1-neighbour-exercise-7",
+      "itemId": "a1-neighbour-item-7",
+      "mode": "listening",
+      "answer": "ein Buch",
+      "explanation": "lesen means to read. ein Buch is what she reads."
+    },
+    {
+      "id": "a1-pharmacy-exercise-1",
+      "itemId": "a1-pharmacy-item-1",
+      "mode": "production",
+      "answer": "Ich habe Kopfschmerzen.",
+      "acceptedAnswers": [
+        "Ich habe Kopfschmerzen"
+      ],
+      "caseSensitive": true,
+      "explanation": "German says I have headaches: Kopfschmerzen is always plural."
+    },
+    {
+      "id": "a1-pharmacy-exercise-2",
+      "itemId": "a1-pharmacy-item-2",
+      "mode": "recognition",
+      "answer": "Mir geht es nicht gut.",
+      "explanation": "Mir geht es nicht gut is a natural way to say you feel bad."
+    },
+    {
+      "id": "a1-pharmacy-exercise-3",
+      "itemId": "a1-pharmacy-item-3",
+      "mode": "listening",
+      "answer": "Dreimal am Tag.",
+      "explanation": "Number + mal says how often: einmal, zweimal, dreimal."
+    },
+    {
+      "id": "a1-pharmacy-exercise-4",
+      "itemId": "a1-pharmacy-item-4",
+      "mode": "production",
+      "answer": "Mein Hals tut weh.",
+      "caseSensitive": true,
+      "explanation": "Body part + tut weh says that it hurts."
+    },
+    {
+      "id": "a1-pharmacy-exercise-5",
+      "itemId": "a1-pharmacy-item-5",
+      "mode": "production",
+      "answer": "Ich bin krank.",
+      "acceptedAnswers": [
+        "Ich bin krank"
+      ],
+      "caseSensitive": true,
+      "explanation": "Use ich bin with an adjective: Ich bin krank."
+    },
+    {
+      "id": "a1-pharmacy-exercise-6",
+      "itemId": "a1-pharmacy-item-6",
+      "mode": "recognition",
+      "answer": "Mein Bauch tut weh.",
+      "explanation": "Bauch is the belly. Mein Bauch tut weh."
+    },
+    {
+      "id": "a1-pharmacy-exercise-7",
+      "itemId": "a1-pharmacy-item-7",
+      "mode": "listening",
+      "answer": "Ich bleibe im Bett.",
+      "explanation": "Bleib im Bett means stay in bed."
+    },
+    {
+      "id": "a1-directions-exercise-1",
+      "itemId": "a1-directions-item-1",
+      "mode": "production",
+      "answer": "Wo ist die Gartenstraße?",
+      "acceptedAnswers": [
+        "Wo ist die Gartenstraße"
+      ],
+      "caseSensitive": true,
+      "explanation": "Wo asks for a place and the verb comes second."
+    },
+    {
+      "id": "a1-directions-exercise-2",
+      "itemId": "a1-directions-item-2",
+      "mode": "recognition",
+      "answer": "Geh links.",
+      "explanation": "links is left, rechts is right, geradeaus is straight ahead."
+    },
+    {
+      "id": "a1-directions-exercise-3",
+      "itemId": "a1-directions-item-3",
+      "mode": "listening",
+      "answer": "Gegenüber vom Café.",
+      "explanation": "gegenüber vom means opposite the."
+    },
+    {
+      "id": "a1-directions-exercise-4",
+      "itemId": "a1-directions-item-4",
+      "mode": "production",
+      "answer": "Geh geradeaus, dann rechts.",
+      "caseSensitive": true,
+      "explanation": "dann means then. Geh is the du command."
+    },
+    {
+      "id": "a1-directions-exercise-5",
+      "itemId": "a1-directions-item-5",
+      "mode": "production",
+      "answer": "Wo ist der Bahnhof?",
+      "acceptedAnswers": [
+        "Wo ist der Bahnhof"
+      ],
+      "caseSensitive": true,
+      "explanation": "Bahnhof is masculine: der Bahnhof."
+    },
+    {
+      "id": "a1-directions-exercise-6",
+      "itemId": "a1-directions-item-6",
+      "mode": "recognition",
+      "answer": "Das Haus ist gegenüber vom Park.",
+      "explanation": "gegenüber vom Park means opposite the park."
+    },
+    {
+      "id": "a1-directions-exercise-7",
+      "itemId": "a1-directions-item-7",
+      "mode": "listening",
+      "answer": "Die erste links.",
+      "explanation": "die erste Straße links is the first street on the left."
+    },
+    {
       "id": "a1-station-exercise-1",
       "itemId": "a1-station-item-1",
       "mode": "recognition",
@@ -963,6 +1785,65 @@
       "explanation": "German commonly says a train has a delay: hat … Verspätung."
     },
     {
+      "id": "a1-weather-exercise-1",
+      "itemId": "a1-weather-item-1",
+      "mode": "production",
+      "answer": "Wie ist das Wetter morgen?",
+      "acceptedAnswers": [
+        "Wie ist das Wetter morgen"
+      ],
+      "caseSensitive": true,
+      "explanation": "Wie ist das Wetter? asks about the weather; add morgen for tomorrow."
+    },
+    {
+      "id": "a1-weather-exercise-2",
+      "itemId": "a1-weather-item-2",
+      "mode": "recognition",
+      "answer": "Es regnet.",
+      "explanation": "Es regnet means it is raining."
+    },
+    {
+      "id": "a1-weather-exercise-3",
+      "itemId": "a1-weather-item-3",
+      "mode": "listening",
+      "answer": "Warm.",
+      "explanation": "heute is today, morgen is tomorrow."
+    },
+    {
+      "id": "a1-weather-exercise-4",
+      "itemId": "a1-weather-item-4",
+      "mode": "production",
+      "answer": "Heute ist es kalt.",
+      "caseSensitive": true,
+      "explanation": "After heute the verb comes second: ist es."
+    },
+    {
+      "id": "a1-weather-exercise-5",
+      "itemId": "a1-weather-item-5",
+      "mode": "production",
+      "answer": "Heute ist es warm.",
+      "acceptedAnswers": [
+        "Heute ist es warm",
+        "Es ist heute warm."
+      ],
+      "caseSensitive": true,
+      "explanation": "Heute ist es warm uses the weather es."
+    },
+    {
+      "id": "a1-weather-exercise-6",
+      "itemId": "a1-weather-item-6",
+      "mode": "recognition",
+      "answer": "Der Wind ist stark.",
+      "explanation": "stark means strong."
+    },
+    {
+      "id": "a1-weather-exercise-7",
+      "itemId": "a1-weather-item-7",
+      "mode": "listening",
+      "answer": "Nein, morgen nicht.",
+      "explanation": "regnet es nicht means it is not raining."
+    },
+    {
       "id": "a1-workshop-exercise-1",
       "itemId": "a1-workshop-item-1",
       "mode": "listening",
@@ -1013,6 +1894,224 @@
       "mode": "recognition",
       "answer": "Das funktioniert nicht.",
       "explanation": "funktionieren means to function or work; nicht negates it."
+    },
+    {
+      "id": "a1-bike-exercise-1",
+      "itemId": "a1-bike-item-1",
+      "mode": "production",
+      "answer": "Wann ist das Fahrrad fertig?",
+      "acceptedAnswers": [
+        "Wann ist das Fahrrad fertig"
+      ],
+      "caseSensitive": true,
+      "explanation": "Wann asks for a time; fertig means ready."
+    },
+    {
+      "id": "a1-bike-exercise-2",
+      "itemId": "a1-bike-item-2",
+      "mode": "recognition",
+      "answer": "Das Fahrrad ist kaputt.",
+      "explanation": "kaputt describes something that does not work."
+    },
+    {
+      "id": "a1-bike-exercise-3",
+      "itemId": "a1-bike-item-3",
+      "mode": "listening",
+      "answer": "Morgen.",
+      "explanation": "morgen tells you the day."
+    },
+    {
+      "id": "a1-bike-exercise-4",
+      "itemId": "a1-bike-item-4",
+      "mode": "production",
+      "answer": "Wie viel kostet das?",
+      "acceptedAnswers": [
+        "Wie viel kostet das"
+      ],
+      "caseSensitive": true,
+      "explanation": "Wie viel kostet das? is the basic price question."
+    },
+    {
+      "id": "a1-bike-exercise-5",
+      "itemId": "a1-bike-item-5",
+      "mode": "production",
+      "answer": "Ich bezahle jetzt.",
+      "acceptedAnswers": [
+        "Ich bezahle jetzt",
+        "Ich zahle jetzt."
+      ],
+      "caseSensitive": true,
+      "explanation": "Ich bezahle jetzt uses the present tense."
+    },
+    {
+      "id": "a1-bike-exercise-6",
+      "itemId": "a1-bike-item-6",
+      "mode": "recognition",
+      "answer": "Kannst du das reparieren?",
+      "explanation": "Kannst du … ? asks if someone can do something."
+    },
+    {
+      "id": "a1-bike-exercise-7",
+      "itemId": "a1-bike-item-7",
+      "mode": "listening",
+      "answer": "Zwanzig Euro.",
+      "explanation": "Das macht … Euro says the total."
+    },
+    {
+      "id": "a1-phone-exercise-1",
+      "itemId": "a1-phone-item-1",
+      "mode": "production",
+      "answer": "Kann ich bitte Otto sprechen?",
+      "caseSensitive": true,
+      "explanation": "Kann ich … sprechen? is the polite phone question. The verb sprechen goes to the end."
+    },
+    {
+      "id": "a1-phone-exercise-2",
+      "itemId": "a1-phone-item-2",
+      "mode": "recognition",
+      "answer": "Hallo, hier ist Marta.",
+      "explanation": "On the phone Germans say hier ist plus the name."
+    },
+    {
+      "id": "a1-phone-exercise-3",
+      "itemId": "a1-phone-item-3",
+      "mode": "production",
+      "answer": "Ich buchstabiere meinen Namen.",
+      "caseSensitive": true,
+      "explanation": "Name is masculine, so after buchstabieren it becomes meinen Namen."
+    },
+    {
+      "id": "a1-phone-exercise-4",
+      "itemId": "a1-phone-item-4",
+      "mode": "listening",
+      "answer": "drei, vier, sieben",
+      "explanation": "On the phone people read numbers one by one."
+    },
+    {
+      "id": "a1-phone-exercise-5",
+      "itemId": "a1-phone-item-5",
+      "mode": "production",
+      "answer": "Ich rufe später an.",
+      "caseSensitive": true,
+      "explanation": "In anrufen the little word an goes to the end of the sentence."
+    },
+    {
+      "id": "a1-phone-exercise-6",
+      "itemId": "a1-phone-item-6",
+      "mode": "recognition",
+      "answer": "Können Sie das bitte wiederholen?",
+      "explanation": "Können Sie is the formal form for strangers and officials."
+    },
+    {
+      "id": "a1-phone-exercise-7",
+      "itemId": "a1-phone-item-7",
+      "mode": "listening",
+      "answer": "L, I, N, A",
+      "explanation": "Spelling aloud is very common on the phone."
+    },
+    {
+      "id": "a1-invitation-exercise-1",
+      "itemId": "a1-invitation-item-1",
+      "mode": "production",
+      "answer": "Ja, ich komme gern.",
+      "caseSensitive": true,
+      "explanation": "gern after the verb shows you do it with pleasure."
+    },
+    {
+      "id": "a1-invitation-exercise-2",
+      "itemId": "a1-invitation-item-2",
+      "mode": "recognition",
+      "answer": "Das ist nett, danke!",
+      "explanation": "A short thank-you is a warm reply to an invitation."
+    },
+    {
+      "id": "a1-invitation-exercise-3",
+      "itemId": "a1-invitation-item-3",
+      "mode": "production",
+      "answer": "Am Freitag um sieben.",
+      "caseSensitive": true,
+      "explanation": "German uses am with days and um with clock times."
+    },
+    {
+      "id": "a1-invitation-exercise-4",
+      "itemId": "a1-invitation-item-4",
+      "mode": "listening",
+      "answer": "um sieben Uhr",
+      "explanation": "um plus a number gives the clock time."
+    },
+    {
+      "id": "a1-invitation-exercise-5",
+      "itemId": "a1-invitation-item-5",
+      "mode": "production",
+      "answer": "Ich bringe Brot mit.",
+      "caseSensitive": true,
+      "explanation": "In mitbringen the little word mit goes to the end."
+    },
+    {
+      "id": "a1-invitation-exercise-6",
+      "itemId": "a1-invitation-item-6",
+      "mode": "recognition",
+      "answer": "Leider habe ich keine Zeit.",
+      "explanation": "leider softens a no and sounds friendly."
+    },
+    {
+      "id": "a1-invitation-exercise-7",
+      "itemId": "a1-invitation-item-7",
+      "mode": "listening",
+      "answer": "Emil",
+      "explanation": "nicht stands after the verb here."
+    },
+    {
+      "id": "a1-lost-found-exercise-1",
+      "itemId": "a1-lost-found-item-1",
+      "mode": "production",
+      "answer": "Meine Tasche ist blau.",
+      "caseSensitive": true,
+      "explanation": "Feminine nouns take meine: meine Tasche."
+    },
+    {
+      "id": "a1-lost-found-exercise-2",
+      "itemId": "a1-lost-found-item-2",
+      "mode": "recognition",
+      "answer": "Sie ist groß und alt.",
+      "explanation": "sie stands for a feminine noun. groß means big, alt means old."
+    },
+    {
+      "id": "a1-lost-found-exercise-3",
+      "itemId": "a1-lost-found-item-3",
+      "mode": "production",
+      "answer": "Der Handschuh ist schwarz.",
+      "caseSensitive": true,
+      "explanation": "Colours stay the same after ist: ist schwarz."
+    },
+    {
+      "id": "a1-lost-found-exercise-4",
+      "itemId": "a1-lost-found-item-4",
+      "mode": "listening",
+      "answer": "klein und grün",
+      "explanation": "Two adjectives are joined with und."
+    },
+    {
+      "id": "a1-lost-found-exercise-5",
+      "itemId": "a1-lost-found-item-5",
+      "mode": "production",
+      "answer": "Das ist nicht meine Tasche.",
+      "caseSensitive": true,
+      "explanation": "nicht negates the whole statement: nicht meine Tasche."
+    },
+    {
+      "id": "a1-lost-found-exercise-6",
+      "itemId": "a1-lost-found-item-6",
+      "mode": "recognition",
+      "answer": "neu",
+      "explanation": "alt and neu are opposites, like groß and klein."
+    },
+    {
+      "id": "a1-lost-found-exercise-7",
+      "itemId": "a1-lost-found-item-7",
+      "mode": "listening",
+      "answer": "gelb",
+      "explanation": "Colours are easy adjectives: gelb, rot, grün, blau."
     },
     {
       "id": "a1-lost-parcel-exercise-1",
@@ -1068,6 +2167,58 @@
       "mode": "listening",
       "answer": "Die Person kommt zu spät.",
       "explanation": "Entschuldigung is a common apology or way to get someone’s attention."
+    },
+    {
+      "id": "a1-departure-exercise-1",
+      "itemId": "a1-departure-item-1",
+      "mode": "production",
+      "answer": "Eine Fahrkarte nach Waldruh, bitte.",
+      "caseSensitive": true,
+      "explanation": "nach goes before a town name: nach Waldruh. bitte makes it polite."
+    },
+    {
+      "id": "a1-departure-exercise-2",
+      "itemId": "a1-departure-item-2",
+      "mode": "recognition",
+      "answer": "Hin und zurück, bitte.",
+      "explanation": "hin und zurück means there and back."
+    },
+    {
+      "id": "a1-departure-exercise-3",
+      "itemId": "a1-departure-item-3",
+      "mode": "production",
+      "answer": "Um wie viel Uhr fährt der Zug?",
+      "caseSensitive": true,
+      "explanation": "Um wie viel Uhr asks for a clock time."
+    },
+    {
+      "id": "a1-departure-exercise-4",
+      "itemId": "a1-departure-item-4",
+      "mode": "listening",
+      "answer": "Gleis sieben",
+      "explanation": "Gleis is the track or platform number at the station."
+    },
+    {
+      "id": "a1-departure-exercise-5",
+      "itemId": "a1-departure-item-5",
+      "mode": "production",
+      "answer": "Ich möchte eine Fahrkarte.",
+      "caseSensitive": true,
+      "explanation": "möchte is the polite way to ask for something."
+    },
+    {
+      "id": "a1-departure-exercise-6",
+      "itemId": "a1-departure-item-6",
+      "mode": "recognition",
+      "answer": "Wo ist Gleis sieben?",
+      "explanation": "Wo ist …? is the basic question for a place."
+    },
+    {
+      "id": "a1-departure-exercise-7",
+      "itemId": "a1-departure-item-7",
+      "mode": "listening",
+      "answer": "achtzehn Uhr",
+      "explanation": "Timetables use the 24-hour clock: 18 Uhr is six in the evening."
     },
     {
       "id": "a2-apartment-exercise-1",

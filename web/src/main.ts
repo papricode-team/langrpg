@@ -606,7 +606,7 @@ function consequenceNote(effects: readonly { faction?: string }[] = []): string 
   return note ? ` · ${note}` : '';
 }
 /** Until her name is revealed in the parcel scene, the notes are signed only "E.". */
-const unsignedQuests = ['a1-arrival', 'a1-cafe', 'a1-market', 'a1-station', 'a1-workshop'];
+const unsignedQuests = quests.slice(0, quests.findIndex(quest => quest.id === 'a1-lost-parcel')).map(quest => quest.id);
 function eliseLetter(letter: Narrative, questId: string): string {
   return letter.length ? `<blockquote class="elise-letter"><span>${t('A note from {name}', { name: unsignedQuests.includes(questId) ? 'E.' : 'Elise' })}</span>${renderNarrative(letter)}<small class="elise-signature">— ${unsignedQuests.includes(questId) ? 'E.' : 'Elise'}</small></blockquote>` : '';
 }
@@ -644,7 +644,7 @@ function showNextObjective() {
   const q = currentQuest(), act = actFor(mapId), done = completedAtLevel(level);
   if (q.level !== level) { travelMap(maps.find(map => map.level === q.level)!.id, {kind:'follow',questId:q.id}); return; }
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-  if (done === 6) {
+  if (done === quests.filter(item => item.level === level).length) {
     openDialog(`<div class="completion"><div class="completion-mark">${icon('map')}</div><div class="eyebrow">${e(upper(t('Act {number}', { number: act.number })))} · ${t('A ROUTE REMEMBERED')}</div><h2>${nextAct ? e(t('Beyond {place}', { place: getMap(mapId).name })) : t('Three towns. One new promise.')}</h2><p>${renderNarrative(act.cliffhanger)}</p>${nextAct ? `<button class="primary-button" data-travel="${nextAct.mapId}">${e(t('Travel to {place}', { place: getMap(nextAct.mapId).name }))} ${icon('arrow')}</button>` : `<button class="primary-button" data-view="story">${t('Read your discoveries')}</button>`}<button class="text-button" data-action="close-dialog">${t('Keep exploring here')}</button></div>`); return;
   }
   const graph = questGraph(q.id), target = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
@@ -1311,7 +1311,7 @@ async function finishRun() {
       playCue(true); run = undefined; return;
     }
     const clue = activeRun.quest && !questGraph(activeRun.quest.id) ? clueFor(activeRun.quest.id) : undefined;
-    const act = getExpedition(mapId) ? undefined : actFor(mapId), actFinished = completedAtLevel(level) === 6;
+    const act = getExpedition(mapId) ? undefined : actFor(mapId), actFinished = completedAtLevel(level) === quests.filter(item => item.level === level).length;
     const title = clue ? localized(clue.title) : activeRun.objectId ? t('A little thing, better understood.') : t('Familiar words. Fresh memories.');
     const wordsOnly = activeRun.queue.every(ex => 'targetWordId' in ex);
     const body = clue ? renderNarrative(clue.text) : e(activeRun.quest && questGraph(activeRun.quest.id) ? t('Your optional practice is saved. Return to the witness and the evidence to continue the investigation.') : activeRun.objectId ? t('You made sense of this little encounter. Its lore is always here; the expressions can rest until they are ready again.') : wordsOnly ? t('You’ve given these words room to grow. They can rest until their next encounter.') : t('You’ve given these expressions room to grow. They can rest until their next encounter.'));

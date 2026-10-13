@@ -1,5 +1,5 @@
 import { validateDialogue, type DialogueLine, type QuestGraph } from './dialogue';
-import type { Quest } from './content';
+import { quests as contentQuests, type Quest } from './content';
 
 export interface StoryRule { questId: string; gateExerciseId: string; choiceIds: string[]; choices: { id: string; effects: unknown[] }[]; investigationObjectIds: string[]; }
 
@@ -10,11 +10,11 @@ const metaInstruction = /(^|[.!?]\s+)(Bitte (mich|dich|ihn|sie|die Zeugin)\b|Fra
 const informalAddress = /\b(du|dir|dich|dein[esnm]?r?)\b/i;
 const formalAddress = /\b(Ihnen|Ihre[mnrs]?|Ihr)\b/;
 const questionWord = /^(Wer|Was|Wo|Wohin|Woher|Wann|Warum|Wieso|Wie|Wem|Wen|Welche[rsnm]?|Womit|Wovon|Wozu)\b/;
-const order = ['a1-arrival', 'a1-cafe', 'a1-market', 'a1-station', 'a1-workshop', 'a1-lost-parcel', 'a2-apartment', 'a2-evening-plans', 'a2-rail-trip', 'a2-broken-clock', 'a2-clinic', 'a2-archive', 'b1-witness', 'b1-new-route', 'b1-work', 'b1-council', 'b1-storm', 'b1-atlas'];
 
 /** Reveals: the keyword must not appear in any quest earlier than the one named. */
 const reveals: { word: RegExp; firstIn: string; label: string }[] = [
   { word: /\bElise\b/, firstIn: 'a1-lost-parcel', label: 'Elise is named (R6)' },
+  { word: /\bWaldruh\b/, firstIn: 'a1-lost-parcel', label: 'Waldruh is named (R6)' },
   { word: /Nachfolge/, firstIn: 'a2-archive', label: 'the successor reveal (R12)' },
   { word: /Handschrift/, firstIn: 'a2-broken-clock', label: 'the handwriting (R10)' },
   { word: /Frau Berg/, firstIn: 'a1-market', label: 'Frau Berg (R3)' },
@@ -36,6 +36,8 @@ const textOf = (graph: QuestGraph) => [
 
 export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick<Quest, 'id' | 'story'>[] = []): string[] {
   const errors: string[] = [];
+  // The quest list is the canonical chain; scenes follow it exactly.
+  const order = (quests.length ? quests : contentQuests).map(quest => quest.id);
   const prompts = new Map<string, string>();
   if (graphs.map(graph => graph.questId).join() !== order.join()) errors.push('graphs are not in canonical quest order');
   for (const graph of graphs) {
@@ -91,6 +93,6 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick
     if (index < order.indexOf('a2-archive') && lines.some(item => item.line.speaker === 'ada') && id !== 'a2-archive') errors.push(`${id}: Ada speaks before her archive scene`);
   }
   const finale = textOf(graphs[graphs.length - 1]);
-  for (const needle of ['Wasserkocher', 'Schlüssel', '{name}', 'meinen ersten Fehler']) if (!finale.includes(needle)) errors.push(`b1-atlas: finale must pay off "${needle}"`);
+  for (const needle of ['Kaffee', 'Schlüssel', '{name}', 'meinen ersten Fehler']) if (!finale.includes(needle)) errors.push(`b1-atlas: finale must pay off "${needle}"`);
   return errors;
 }

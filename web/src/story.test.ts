@@ -7,7 +7,8 @@ import type { Narrative } from './sentence-translations';
 
 const prose: Narrative[] = [
   ...storyActs.flatMap(act => [act.premise, ...act.introduction, act.goal, act.cliffhanger]),
-  ...storyClues.flatMap(clue => [clue.text, clue.lead, clue.letter]),
+  // Everyday errands carry no letter from Elise; an empty letter is simply not shown.
+  ...storyClues.flatMap(clue => [clue.text, clue.lead, ...(clue.letter.length ? [clue.letter] : [])]),
   ...Object.values(objectStories).flatMap(object => [object.detail, object.secret]),
   ...Object.values(activityDiscoveries).flatMap(discovery => [discovery.text, discovery.lead]),
 ];
@@ -33,7 +34,7 @@ describe('German story narrative', () => {
     for (const act of storyActs) {
       expect(act.introduction).toHaveLength(3);
       expect(actFor(act.mapId)).toBe(act);
-      expect(storyClues.filter(clue => quests.some(quest => quest.id === clue.questId && quest.level === act.level))).toHaveLength(6);
+      expect(storyClues.filter(clue => quests.some(quest => quest.id === clue.questId && quest.level === act.level))).toHaveLength(quests.filter(quest => quest.level === act.level).length);
     }
     expect(storyClues.map(clue => clue.questId)).toEqual(quests.map(quest => quest.id));
     for (const quest of quests) expect(clueFor(quest.id)?.text.length).toBeGreaterThan(0);

@@ -9,8 +9,8 @@
   "height": 1536,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 310,
-  "nextlayerid": 310,
+  "nextobjectid": 312,
+  "nextlayerid": 312,
   "properties": [
     {
       "name": "mapId",
@@ -15832,7 +15832,7 @@
       ]
     },
     {
-      "id": 300,
+      "id": 302,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
@@ -16063,18 +16063,66 @@
               "value": "[\"collision\"]"
             }
           ]
+        },
+        {
+          "id": 300,
+          "name": "lindenhafen-berg-house",
+          "point": true,
+          "x": 591.36,
+          "y": 675.84,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "lindenhafen-berg-house"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 301,
+          "name": "lindenhafen-bench",
+          "point": true,
+          "x": 1330.176,
+          "y": 348.16,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "lindenhafen-bench"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 306,
+      "id": 308,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 301,
+          "id": 303,
           "name": "station-yard",
           "x": 0,
           "y": 0,
@@ -16110,7 +16158,7 @@
           ]
         },
         {
-          "id": 302,
+          "id": 304,
           "name": "canal-walk",
           "x": 0,
           "y": 0,
@@ -16146,7 +16194,7 @@
           ]
         },
         {
-          "id": 303,
+          "id": 305,
           "name": "harbor-court",
           "x": 0,
           "y": 0,
@@ -16182,7 +16230,7 @@
           ]
         },
         {
-          "id": 304,
+          "id": 306,
           "name": "bridge-quay",
           "x": 0,
           "y": 0,
@@ -16218,7 +16266,7 @@
           ]
         },
         {
-          "id": 305,
+          "id": 307,
           "name": "library-square",
           "x": 0,
           "y": 0,
@@ -16256,7 +16304,7 @@
       ]
     },
     {
-      "id": 307,
+      "id": 309,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -18912,7 +18960,7 @@
       ]
     },
     {
-      "id": 308,
+      "id": 310,
       "name": "Entrances",
       "type": "objectgroup",
       "visible": true,
@@ -19136,7 +19184,7 @@
       ]
     },
     {
-      "id": 309,
+      "id": 311,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

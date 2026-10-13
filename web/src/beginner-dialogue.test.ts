@@ -9,7 +9,7 @@ describe('beginner dialogue replies', () => {
   const a1Graphs = questGraphs.filter(graph => graph.level === 'A1');
 
   it('covers every A1 story gate with two short, translated replies', () => {
-    expect(a1Graphs).toHaveLength(6);
+    expect(a1Graphs).toHaveLength(quests.filter(quest => quest.level === 'A1').length);
     for (const graph of a1Graphs) {
       const replies = beginnerGateChoices(graph.gateExerciseId);
       expect(replies).toHaveLength(2);
