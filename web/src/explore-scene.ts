@@ -13,7 +13,7 @@ import { residentWalkFrame } from './resident-animation';
 import { worldDepth } from './world-depth';
 import { regionPeopleKey, regionPeopleFrames } from './world-map-assets';
 import { getExpeditionNpc } from './expeditions';
-import { explorationZoom, conversationZoom } from './world-camera';
+import { explorationZoom, conversationZoom, CameraRig } from './world-camera';
 import type { WorldAudio } from './world-audio';
 import { gamepadInput } from './world-gamepad';
 import { FrameTelemetry } from './world-performance';
@@ -149,8 +149,8 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected frames = new FrameTelemetry();
   /** Set while another scene takes over (a room opening); cleared when this scene resumes. */
   protected suspended = false;
-  /** The camera follows this point; each mode decides where it should be. */
-  protected focus = new Phaser.Math.Vector2();
+  /** Smoothed camera centre and zoom; each mode decides where it should aim. */
+  protected cameraRig = new CameraRig();
   private padMove: MapPoint = { x: 0, y: 0 };
   private markerTweens: Phaser.Tweens.Tween[] = [];
 
@@ -214,7 +214,6 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.local.root.addAt(this.add.ellipse(0, 1, 31, 15).setStrokeStyle(1, 0xf6dd9a, 0.55), 1);
     this.bindInput();
     this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
-    this.cameras.main.startFollow(this.focus, false, 1, 1);
     this.buildScene();
     this.followRegistry();
     this.applyConversationTarget(readWorld(registry, 'conversationTarget'));
@@ -558,7 +557,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.updatePortals();
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.refreshNearby();
-    const lead = 1 - Math.exp(-5 * seconds);
+    const lead = 1 - Math.exp(-2.5 * seconds);
     this.cameraLead.x += ((step.moving ? step.vx * 80 : 0) - this.cameraLead.x) * lead;
     this.cameraLead.y += ((step.moving ? step.vy * 48 : 0) - this.cameraLead.y) * lead;
     this.frameCamera(seconds);
@@ -778,39 +777,37 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected actors(): Character[] { return [this.local, ...this.characters.values(), ...this.peers.values()]; }
 
   /** Zoom and focus for the current mode: cinematic beat, quiet tour, conversation or play. */
-  protected cameraTarget(): { x: number; y: number; zoom: number; deadzone: boolean; ratio: number } {
+  protected cameraTarget(): { x: number; y: number; zoom: number; deadzone: boolean; ratio: number; settle: number } {
     if (this.cinematicTarget) {
       const beat = this.cinematicTarget;
-      return { x: beat.x, y: beat.y, zoom: Math.max(this.coverZoom, beat.zoom * this.density), deadzone: false, ratio: .5 };
+      return { x: beat.x, y: beat.y, zoom: Math.max(this.coverZoom, beat.zoom * this.density), deadzone: false, ratio: .5, settle: .7 };
     }
     if (this.watching) {
       const width = this.worldWidth, height = this.worldHeight;
       return { x: width / 2 + Math.sin(this.tourTime * .036) * width * .286, y: height * .527 + Math.sin(this.tourTime * .027) * height * .151,
-        zoom: this.coverZoom * (1.12 + Math.sin(this.tourTime * .045) * .04), deadzone: false, ratio: .5 };
+        zoom: this.coverZoom * (1.12 + Math.sin(this.tourTime * .045) * .04), deadzone: false, ratio: .5, settle: .3 };
     }
     const npc = this.conversationTarget ? this.characters.get(this.conversationTarget) : undefined;
     const observed = this.observedCharacter();
     const zoom = conversationZoom(this.fitZoom, !!npc);
-    if (observed) return { x: observed.x, y: observed.y, zoom, deadzone: false, ratio: .54 };
-    if (npc) return { x: (this.local.x + npc.x) / 2, y: (this.local.y + npc.y) / 2, zoom, deadzone: false, ratio: .38 };
-    return { x: this.local.x + this.cameraLead.x, y: this.local.y + this.cameraLead.y, zoom, deadzone: true, ratio: this.mobileCamera ? .56 : .54 };
+    if (observed) return { x: observed.x, y: observed.y, zoom, deadzone: false, ratio: .54, settle: .6 };
+    if (npc) return { x: (this.local.x + npc.x) / 2, y: (this.local.y + npc.y) / 2, zoom, deadzone: false, ratio: .38, settle: .6 };
+    return { x: this.local.x + this.cameraLead.x, y: this.local.y + this.cameraLead.y, zoom, deadzone: true, ratio: this.mobileCamera ? .56 : .54, settle: .45 };
   }
   protected observedCharacter(): Character | undefined { return undefined; }
 
-  /** Phaser's follow camera does the tracking, dead zone and bounds; we only steer its target. */
+  /** The rig smooths centre and zoom; Phaser only receives the result, so no follow or dead-zone state fights it. */
   protected frameCamera(seconds: number, snap = false): void {
     const camera = this.cameras.main;
-    const follow = snap ? 1 : 1 - Math.exp(-5 * seconds);
     const target = this.cameraTarget();
-    camera.setZoom(snap ? target.zoom : camera.zoom + (target.zoom - camera.zoom) * follow);
-    const viewWidth = camera.width / camera.zoom, viewHeight = camera.height / camera.zoom;
-    this.focus.set(target.x, target.y);
+    const viewWidth = camera.width / target.zoom, viewHeight = camera.height / target.zoom;
     // The player sits slightly below centre so the path ahead stays in view.
-    camera.setFollowOffset(0, viewHeight * (target.ratio - .5));
-    camera.setLerp(follow, follow);
-    if (target.deadzone && !snap) camera.setDeadzone(viewWidth * .14, viewHeight * .11);
-    else camera.setDeadzone();
-    if (snap) camera.centerOn(target.x, target.y - viewHeight * (target.ratio - .5));
+    const goal = { x: target.x, y: target.y - viewHeight * (target.ratio - .5), zoom: target.zoom, settle: target.settle,
+      deadzone: target.deadzone ? { width: viewWidth * .14, height: viewHeight * .11 } : undefined };
+    const screen = { width: camera.width, height: camera.height }, world = { width: this.worldWidth, height: this.worldHeight };
+    if (snap) this.cameraRig.snap(goal, screen, world);
+    else this.cameraRig.step(goal, seconds, screen, world);
+    camera.setZoom(this.cameraRig.zoom).centerOn(this.cameraRig.x, this.cameraRig.y);
   }
 
   snapCamera(): void {

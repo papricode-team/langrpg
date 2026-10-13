@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canvasSize, explorationZoom, conversationZoom } from './world-camera';
+import { canvasSize, explorationZoom, conversationZoom, CameraRig, smoothDamp } from './world-camera';
 import { atmosphereProfile } from './world-atmosphere';
 import { timeAmbient } from './world-lighting';
 
@@ -50,5 +50,35 @@ describe('world presentation', () => {
     expect(atmosphereProfile('lindenhafen', true).rain).toBe(0);
     expect(atmosphereProfile('waldruh', true).rain).toBe(0);
     expect(atmosphereProfile('nebelstadt', true).rain).toBe(1);
+  });
+  it('eases the camera in and out instead of stepping with the player', () => {
+    const screen = { width: 1600, height: 900 }, world = { width: 6000, height: 4000 };
+    const rig = new CameraRig().snap({ x: 1000, y: 1000, zoom: 1, settle: .28 }, screen, world);
+    const speeds: number[] = [];
+    let x = 1000, previous = rig.x;
+    for (let frame = 0; frame < 180; frame++) {
+      x += frame < 60 ? 225 / 60 : 0;
+      rig.step({ x, y: 1000, zoom: 1, settle: .28, deadzone: { width: 200, height: 100 } }, 1 / 60, screen, world);
+      speeds.push((rig.x - previous) * 60); previous = rig.x;
+    }
+    // Held still inside the dead zone, then a gradual start, no frame-to-frame jumps, and a settled stop.
+    expect(speeds[0]).toBe(0);
+    for (let i = 1; i < speeds.length; i++) expect(Math.abs(speeds[i] - speeds[i - 1])).toBeLessThan(12);
+    expect(Math.abs(speeds.at(-1)!)).toBeLessThan(1);
+    expect(x - rig.x).toBeLessThanOrEqual(100.5);
+  });
+  it('keeps the camera inside the map without winding up past an edge', () => {
+    const screen = { width: 1600, height: 900 }, world = { width: 3000, height: 2000 };
+    const rig = new CameraRig().snap({ x: -500, y: 5000, zoom: 1, settle: .3 }, screen, world);
+    expect([rig.x, rig.y]).toEqual([800, 1550]);
+    for (let i = 0; i < 30; i++) rig.step({ x: -500, y: 1000, zoom: 1, settle: .3 }, 1 / 60, screen, world);
+    expect(rig.x).toBe(800);
+    rig.step({ x: 1500, y: 1000, zoom: 1, settle: .3 }, 1 / 60, screen, world);
+    expect(rig.x).toBeGreaterThan(800);
+    expect(new CameraRig().snap({ x: 0, y: 0, zoom: .25, settle: .3 }, screen, world).x).toBe(1500);
+  });
+  it('approaches the same point regardless of frame rate', () => {
+    const run = (fps: number) => { let x = 0, v = 0; for (let i = 0; i < fps / 2; i++) [x, v] = smoothDamp(x, 100, v, .28, 1 / fps); return x; };
+    expect(run(30)).toBeCloseTo(run(144), 0);
   });
 });
