@@ -68,7 +68,7 @@ describe('painted town resident routes', () => {
 
   it('preserves the authored character identity when compiling routes in another order', () => {
     const specs = worldResidentSpecs.saffroncourt;
-    const navigation = createMapNavigation('saffroncourt');
+    const navigation = new NavigationGrid([[[4,4],[1532,4],[1532,1020],[4,1020]]]);
     const reversed = [...specs].reverse().map(spec => compileResident(spec, navigation)!);
     expect(reversed.map(resident => [resident.id, resident.artVariant])).toEqual([...specs].reverse().map(spec => [spec.id, spec.artVariant]));
     expect(new Set(reversed.map(resident => resident.artVariant))).toEqual(new Set([8, 9, 10, 11, 12, 13, 14, 15]));

@@ -15,6 +15,9 @@ import { characterLayers, paintCharacter } from './modular-character';
 import { createWorldResidents, sampleResidentMotion, sampleResidentSchedule } from './world-life';
 import { residentFacingLeft, residentWalkDistance, residentWalkFrame } from './resident-animation';
 import { WorldScenery } from './world-scenery';
+import { sceneryTextureKey } from './placed-scenery';
+import { createSceneryOcclusion } from './scenery-occlusion';
+import { worldDepth, type OcclusionCharacter } from './world-depth';
 import { WorldTerrain } from './world-terrain';
 import {StreamedWorldTerrain, terrainResidency} from './streamed-world-terrain';
 import {getWorldScene} from './scene-data';
@@ -213,7 +216,7 @@ export class World {
       scene: [this.scene, new CutsceneScene(beat => this.scene.setCinematicTarget(beat),(speaker,german,clipId)=>options.onCinematicLine?.(speaker,german,clipId))],
       antialias: true,
       transparent: false,
-      render: { antialias: true, roundPixels: true, powerPreference: 'high-performance' },
+      render: { antialias: true, roundPixels: true, powerPreference: 'high-performance', mipmapFilter:'LINEAR_MIPMAP_LINEAR' },
       fps: { target: 60, smoothStep: true },
       input: { activePointers: 2 },
       audio: { disableWebAudio: false },
@@ -550,13 +553,13 @@ class HarborScene extends Phaser.Scene {
       const marker=this.add.image(0,-18,'discovery').setTint(index<lit?0xffdc81:0x948567).setAlpha(index<lit?1:.45);
       const size=Math.max(52,44/this.fitZoom),hit=this.add.zone(0,-10,size,size).setInteractive({useHandCursor:true});
       hit.on('pointerdown',(_pointer:Phaser.Input.Pointer,_x:number,_y:number,event:Phaser.Types.Input.EventData)=>{event.stopPropagation();if(this.controlsEnabled&&!this.watching&&!document.hidden)this.walkTo(point.x,point.y);});
-      this.deliveryMarkers.push(this.add.container(point.x,point.y,[glow,marker,hit]).setDepth(point.y+10));
+      this.deliveryMarkers.push(this.add.container(point.x,point.y,[glow,marker,hit]).setDepth(worldDepth(point.y,'label')));
     }
   }
   showDeliveryArrival(recipient:string):void {
     const npc=[...this.characters.values()].find(npc=>npc.id===recipient||npcs.find(spec=>spec.id===npc.id)?.name.toLocaleLowerCase()===recipient.toLocaleLowerCase());
     if(!npc)return;
-    const parcel=this.add.image(this.local.x,this.local.y-35,'discovery').setDepth(Math.max(this.local.y,npc.y)+100).setTint(0xf7d38a);
+    const parcel=this.add.image(this.local.x,this.local.y-35,'discovery').setDepth(worldDepth(Math.max(this.local.y,npc.y)+100,'label')).setTint(0xf7d38a);
     this.tweens.add({targets:parcel,x:npc.x,y:npc.y-35,scale:.3,alpha:0,duration:this.reducedMotion?1:800,onComplete:()=>parcel.destroy()});
     npc.halo?.setAlpha(.7);this.audio?.effect('bell');
   }
@@ -592,6 +595,14 @@ class HarborScene extends Phaser.Scene {
   private watching = false;
   private terrainOnly = false;
   private tourTime = 0;
+  private silhouette?:Phaser.GameObjects.Container;
+  private silhouetteLayers:Phaser.GameObjects.Image[]=[];
+  private navigationOverlay?:Phaser.GameObjects.Graphics;
+  private navigationOverlayAt=-Infinity;
+  private readonly navigationDebug=typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('nav')==='1';
+  private entranceTransition?:Phaser.Tweens.Tween;
+  private enteringInterior=false;
+  private entranceControls=true;
   private animationAssets = new WorldAnimationAssets(this, false);
   private mapAnimationsReady = false;
   private animationRetryAt = 0;
@@ -686,7 +697,7 @@ class HarborScene extends Phaser.Scene {
     const previous = this.period, oldScenery = this.scenery, oldBackground = this.background;
     this.period = period;
     this.background = terrain;
-    this.scenery = new WorldScenery(this, this.mapSpec.id, period);
+    this.scenery = new WorldScenery(this, this.mapSpec.id, period,undefined,createSceneryOcclusion);
     this.mapAnimationsReady = true;
     this.atmosphere?.setLampLights(this.scenery.lampLights);
     this.scenery.setReducedMotion(this.reducedMotion);
@@ -807,6 +818,8 @@ class HarborScene extends Phaser.Scene {
   }
 
   switchMap(id: MapId): void {
+    this.cancelEntranceTransition();
+    this.silhouette?.setVisible(false);
     if (this.interiorSpec) this.leaveInterior(false);
     this.latestPlayers = undefined;
     const map = getMap(id);
@@ -859,7 +872,7 @@ class HarborScene extends Phaser.Scene {
         this.background = new StreamedWorldTerrain(this,getWorldScene(map.id),this.period)
           .setTint(worldAmbient(map.id,this.period).terrain).setVisible(!this.interiorSpec);
         this.background.update(this.cameras.main.worldView,this.cameras.main.zoom);
-        this.scenery = new WorldScenery(this, map.id, this.period);
+        this.scenery = new WorldScenery(this, map.id, this.period,undefined,createSceneryOcclusion);
         this.scenery.setReducedMotion(this.reducedMotion);
         this.createMapCharacters(map);
         this.createMapObjects(map);
@@ -895,6 +908,24 @@ class HarborScene extends Phaser.Scene {
   }
 
   enterInterior(id: InteriorId): void {
+    if(this.enteringInterior||this.interiorSpec?.id===id)return;
+    const entrance=buildingEntrances(this.mapSpec.id).find(item=>item.interiorId===id);
+    if(!entrance)return;
+    if(this.reducedMotion||this.interiorSpec){this.openInterior(id);return;}
+    this.clearControls();
+    this.enteringInterior=true;
+    const revision=this.mapRevision;
+    this.entranceControls=this.controlsEnabled;
+    this.controlsEnabled=false;
+    this.entranceTransition=this.tweens.add({targets:this.local,x:entrance.x*this.mapSpec.width,y:entrance.y*this.mapSpec.height,duration:250,ease:'Sine.easeIn',
+      onUpdate:(tween:Phaser.Tweens.Tween)=>this.local.root.setAlpha(1-tween.progress),
+      onComplete:()=>{
+        this.entranceTransition=undefined;this.enteringInterior=false;this.setInputEnabled(this.entranceControls);this.local.root.setAlpha(1);
+        if(revision===this.mapRevision)this.openInterior(id);
+      }});
+  }
+
+  private openInterior(id: InteriorId): void {
     if (this.interiorSpec?.id === id) return;
     const entrance = buildingEntrances(this.mapSpec.id).find(item=>item.interiorId===id);
     if (!entrance) return;
@@ -930,6 +961,7 @@ class HarborScene extends Phaser.Scene {
     this.createMapObjects({ objects: spec.objects.map(object => ({ ...object, kind: 'instrument' as const })) }, 'interior');
     this.createInteriorPropTargets(spec);
     this.createPortal(`exit:${id}`, spec.exit.x * this.worldWidth, spec.exit.y * this.worldHeight, 'Return to town', true);
+    this.silhouette?.setVisible(false);
     const spawn = this.navigation.closestPoint(spec.spawn.x * this.worldWidth, spec.spawn.y * this.worldHeight);
     this.local.x = this.local.targetX = spawn.x;
     this.local.y = this.local.targetY = spawn.y;
@@ -946,7 +978,17 @@ class HarborScene extends Phaser.Scene {
     this.refreshNearby();
   }
 
+  private cancelEntranceTransition():void {
+    if(!this.entranceTransition)return;
+    this.entranceTransition.stop();this.entranceTransition=undefined;this.enteringInterior=false;this.setInputEnabled(this.entranceControls);
+    this.local.root.setAlpha(1);
+    // A cancelled walk-in must not leave the player halfway inside a wall.
+    const point=this.navigation.closestPoint(this.local.x,this.local.y);
+    this.local.x=this.local.targetX=point.x;this.local.y=this.local.targetY=point.y;
+  }
+
   leaveInterior(restorePeers = true): void {
+    this.cancelEntranceTransition();
     if (!this.interiorSpec || !this.outdoors) return;
     this.clearControls();
     for (const peer of this.peers.values()) peer.root.destroy();
@@ -1136,7 +1178,7 @@ class HarborScene extends Phaser.Scene {
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
       const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
       const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
-      const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(y + 8);
+      const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(y,'shadow'));
       const object: WorldObject = { spec, x, y, root, halo, marker, label, hovered: false, activatedUntil: 0,
         interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
       hit.on('pointerover', () => { object.hovered = true; });
@@ -1162,7 +1204,7 @@ class HarborScene extends Phaser.Scene {
       const centerX = prop.x + (.5 - (animation?.originX ?? .5)) * prop.width;
       const centerY = prop.y + (.5 - (animation?.originY ?? .97)) * height;
       const hit = this.add.zone(centerX, centerY, prop.width, height * .9)
-        .setDepth((prop.depth ?? prop.y) + 1).setInteractive({ useHandCursor: true }).setVisible(!this.terrainOnly);
+        .setDepth(worldDepth(prop.depth ?? prop.y,'label')).setInteractive({ useHandCursor: true }).setVisible(!this.terrainOnly);
       hit.on('pointerover', () => { object.hovered = true; });
       hit.on('pointerout', () => { object.hovered = false; });
       hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
@@ -1180,15 +1222,19 @@ class HarborScene extends Phaser.Scene {
   }
 
   private createPortal(id: string, x: number, y: number, label: string, exit = false): void {
-    const halo = this.add.ellipse(0, 1, 56, 22, 0xffd996, .1).setStrokeStyle(1.5, 0xf5d5a0, .75);
-    const glyph = this.add.text(0, -12, exit ? '↙' : '↗', {
-      resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#fff1cd', stroke: '#3a4236', strokeThickness: 3,
+    const halo = this.add.ellipse(0, 6, 44, 16, 0xffd996, .24);
+    const mat=this.add.rectangle(0,7,38,11,0x685442,.8).setStrokeStyle(1,0xe4c185,.5);
+    const signKey=sceneryTextureKey(this.mapSpec.id);
+    const sign=!exit&&this.textures.exists(signKey)&&this.textures.get(signKey).has('sign')
+      ?this.add.image(0,-21,signKey,'sign').setDisplaySize(38,46):undefined;
+    const glyph = this.add.text(0, -29, exit ? 'Exit' : label.split(' · ')[0], {
+      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '9px', color: '#fff1cd', backgroundColor:'#594a36',padding:{x:5,y:3},
     }).setOrigin(.5);
-    const name = this.add.text(0, exit ? 24 : -42, label, {
+    const name = this.add.text(0, exit ? 24 : -50, label, {
       resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
     }).setOrigin(.5);
     const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
-    const root = this.add.container(x, y, [halo, glyph, name, hit]).setDepth(y + 8);
+    const root = this.add.container(x, y, [mat,halo,...(sign?[sign]:[]), glyph, name, hit]).setDepth(worldDepth(y,'label'));
     const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hovered: false };
     hit.on('pointerover', () => { portal.hovered = true; });
     hit.on('pointerout', () => { portal.hovered = false; });
@@ -1246,8 +1292,9 @@ class HarborScene extends Phaser.Scene {
   }
 
   setInputEnabled(enabled: boolean): void {
-    this.controlsEnabled = enabled;
-    if (this.input.keyboard) this.input.keyboard.enabled = enabled;
+    if(this.enteringInterior)this.entranceControls=enabled;
+    this.controlsEnabled = enabled&&!this.enteringInterior;
+    if (this.input.keyboard) this.input.keyboard.enabled = this.controlsEnabled;
     if (!enabled) this.clearControls();
     this.refreshNearby();
   }
@@ -1610,7 +1657,7 @@ class HarborScene extends Phaser.Scene {
       const halfWidth=this.bark.width*this.density/(2*this.cameras.main.zoom);
       const barkX=clamp(this.barkSpeaker.x,characterView.x+halfWidth+4,characterView.right-halfWidth-4);
       this.bark.setVisible(!this.conversationTarget&&!this.cinematicTarget&&!this.interiorSpec&&this.elapsed<this.barkUntil&&!this.terrainOnly)
-        .setPosition(barkX,this.barkSpeaker.y-92).setDepth(3000).setScale(labelScale);
+        .setPosition(barkX,this.barkSpeaker.y-92).setDepth(worldDepth(this.worldHeight+100,'label')).setScale(labelScale);
     }
     const interpolation = 1 - Math.exp(-12 * seconds);
     for (const peer of this.peers.values()) {
@@ -1626,7 +1673,9 @@ class HarborScene extends Phaser.Scene {
     this.updateObjects(this.elapsed);
     this.updatePortals();
     if (this.interior) this.interior.update(this.decorativeElapsed, this.cameras.main.worldView);
-    else this.scenery?.update(this.decorativeElapsed, this.cameras.main.worldView);
+    else this.scenery?.update(this.decorativeElapsed, this.cameras.main.worldView,this.occlusionCharacters(),seconds);
+    this.updateSilhouette();
+    this.updateNavigationOverlay();
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.atmosphere?.update(this.decorativeElapsed, this.clock.advance(0).hour, this.cameras.main.worldView, this.reducedMotion,
       this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')),this.rainIntensity());
@@ -1681,9 +1730,52 @@ class HarborScene extends Phaser.Scene {
     camera.scrollY += (targetScrollY - camera.scrollY) * follow;
   }
 
+  private occlusionCharacters():OcclusionCharacter[]{
+    const characters=[this.local,...this.characters.values(),...this.peers.values(),...this.residents.map(resident=>resident.character),...this.activityResidents.map(resident=>resident.character)];
+    return characters.filter(character=>character.root.visible).map(character=>({id:character.id,x:character.x,y:character.y,depth:character.root.depth,height:character.npc?82:72}));
+  }
+
+  private updateSilhouette():void {
+    const occlusion=!this.interiorSpec&&!this.terrainOnly&&this.local.root.visible?this.scenery?.occlusionFor(this.local.id):undefined;
+    if(!occlusion||occlusion.depth<=this.local.root.depth){this.silhouette?.setVisible(false);return;}
+    if(!this.silhouette)this.silhouette=this.add.container();
+    while(this.silhouetteLayers.length>this.local.layers.length)this.silhouetteLayers.pop()!.destroy();
+    this.local.layers.forEach((source,index)=>{
+      let layer=this.silhouetteLayers[index];
+      if(!layer){layer=this.add.image(0,0,source.texture.key,source.frame.name);this.silhouetteLayers.push(layer);this.silhouette!.add(layer);}
+      layer.setTexture(source.texture.key,source.frame.name).setOrigin(source.originX,source.originY).setPosition(source.x,source.y)
+        .setScale(source.scaleX,source.scaleY).setRotation(source.rotation).setFlip(source.flipX,source.flipY)
+        .setTint(0x1b2a33).setTintMode(Phaser.TintModes.FILL).setBlendMode(Phaser.BlendModes.NORMAL).setVisible(source.visible);
+    });
+    this.silhouette.setPosition(this.local.x,this.local.y).setDepth(occlusion.depth+2).setAlpha(.55*occlusion.strength*this.local.root.alpha).setVisible(true);
+  }
+
+  private updateNavigationOverlay():void {
+    if(!this.navigationDebug||this.elapsed-this.navigationOverlayAt<.15)return;
+    this.navigationOverlayAt=this.elapsed;
+    if(!this.navigationOverlay)this.navigationOverlay=this.add.graphics();
+    const graphics=this.navigationOverlay,geometry=this.navigation.debugGeometry(this.cameras.main.worldView);
+    graphics.clear().setDepth(worldDepth(this.worldHeight+120,'label')).setVisible(!this.terrainOnly);
+    const polygon=(points:readonly (readonly [number,number])[],color:number)=>{
+      if(!points.length)return;
+      graphics.lineStyle(1,color,.85).fillStyle(color,.1).beginPath().moveTo(points[0][0],points[0][1]);
+      for(const point of points.slice(1))graphics.lineTo(point[0],point[1]);
+      graphics.closePath().fillPath().strokePath();
+    };
+    geometry.walkable.forEach(points=>polygon(points,0x66df81));
+    geometry.obstacles.forEach(points=>polygon(points,0xff6d72));
+    graphics.fillStyle(0x84ffb2,.55);
+    for(const point of geometry.nodes)graphics.fillCircle(point.x,point.y,.9);
+    if(this.target){
+      graphics.lineStyle(2,0xffe381,1).beginPath().moveTo(this.local.x,this.local.y).lineTo(this.target.x,this.target.y);
+      for(const point of this.waypoints)graphics.lineTo(point.x,point.y);
+      graphics.strokePath();
+    }
+  }
+
   private animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }): void {
     this.fitCharacterToRoom(character);
-    character.root.setPosition(character.x, character.y).setDepth(character.y + 10);
+    character.root.setPosition(character.x, character.y).setDepth(worldDepth(character.y,'character'));
     const distance = Math.hypot(dx, dy);
     if (!character.npc && this.playerArtReady) {
       if (distance > 0.05) {
@@ -1910,7 +2002,7 @@ class HarborScene extends Phaser.Scene {
     const layers = animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
-    const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(y + 10);
+    const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y,'character'));
     let roleText: Phaser.GameObjects.Text | undefined;
     if (role) {
       roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
@@ -1931,7 +2023,8 @@ class HarborScene extends Phaser.Scene {
       portal.root.setVisible(visible && !this.terrainOnly);
       const near = this.controlsEnabled
         && Math.hypot(portal.x - this.local.x, portal.y - this.local.y) < INTERACTION_DISTANCE;
-      portal.halo.setAlpha(near || portal.hovered ? .95 : .45);
+      portal.halo.setAlpha(near || portal.hovered ? .42+(this.reducedMotion?0:Math.sin(this.elapsed*3)*.08) : .12);
+      portal.glyph.setVisible(near||portal.hovered);
       portal.label.setVisible((near || portal.hovered) && !this.conversationTarget);
       portal.label.setScale(Math.min(2, window.devicePixelRatio || 1) / this.cameras.main.zoom);
     }

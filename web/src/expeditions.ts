@@ -425,7 +425,7 @@ export const expeditionRegions: readonly ExpeditionRegion[] = seeds.map(seed => 
     culture: seed.culture, feeling: seed.feeling, languageFocus: seed.languageFocus, npcs, objects, encounters };
 });
 
-export const expeditionMaps: readonly WorldMapSpec[] = expeditionRegions.map((region, index) => ({
+export const expeditionMaps: readonly (WorldMapSpec & {id: ExpeditionId})[] = expeditionRegions.map((region, index) => ({
   id: region.id, width:1536, height:1024, name: region.name, subtitle: region.subtitle, level: seeds[index].level, description: region.description,
   asset: `/assets/${region.id}-terrain.webp`, previewAsset: `/assets/${region.id}-preview.webp`,
   sceneryAsset: `/assets/${region.id}-props.webp`, sceneryAtlas: `/assets/${region.id}-props.json`,

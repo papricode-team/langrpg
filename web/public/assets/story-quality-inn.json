@@ -1,0 +1,47 @@
+{
+  "frames": {
+    "house-inn": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 1248,
+        "h": 1163
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1248,
+        "h": 1163
+      },
+      "sourceSize": {
+        "w": 1248,
+        "h": 1163
+      },
+      "source": {
+        "path": "art/source/map-quality/inn.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 3,
+          "top": 33,
+          "width": 1248,
+          "height": 1163
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-inn.webp",
+    "size": {
+      "w": 2048,
+      "h": 2048
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

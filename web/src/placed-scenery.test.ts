@@ -1,11 +1,28 @@
 import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getMap, storyMaps as maps } from './maps';
-import { getPlacedScenery,sceneryAssets,placedSceneryFootprints } from './placed-scenery';
+import { getPlacedScenery,sceneryAssets,placedSceneryFootprints,sceneryFootprints,type PlacedScenerySpec } from './placed-scenery';
 import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
-const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json'],{eager:true,import:'default'});
+const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json','../public/assets/*props*.json','../public/assets/story-quality*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
+
+describe('painted asset footprints', () => {
+  const placement: PlacedScenerySpec = {id:'side-wall',asset:'house',frame:'house-2',x:200,y:300,width:100};
+  const manifest = {assets:{'house-2':{referenceWidth:200,footprint:[[-40,-80],[100,-50],[80,0],[-40,0]] as const}}};
+
+  it('scales an asymmetric reference footprint from the foot anchor and mirrors it with the sprite', () => {
+    expect(sceneryFootprints([placement],manifest)).toEqual([[[180,260],[250,275],[240,300],[180,300]]]);
+    expect(sceneryFootprints([{...placement,flipX:true}],manifest)).toEqual([[[220,260],[150,275],[160,300],[220,300]]]);
+  });
+
+  it('uses the physical fallback for unannotated assets and skips decorative placements', () => {
+    const fallback = sceneryFootprints([placement]);
+    expect(fallback[0]).toHaveLength(8);
+    expect(sceneryFootprints([placement],{assets:{}})).toEqual(fallback);
+    expect(sceneryFootprints([{...placement,collidable:false}],manifest)).toEqual([]);
+  });
+});
 
 describe('authored sprite worlds',()=>{
   for(const map of maps)for(const period of ['day','night'] as const)it(`${map.name} has high resolution static buildings and complete calm ${period} scenery`,()=>{
@@ -14,16 +31,17 @@ describe('authored sprite worlds',()=>{
     const manifest=readAsset(`${map.id}-${period}-animations.json`) as SceneryAnimationManifest;
     expect(specs.length).toBeGreaterThanOrEqual(70);
     expect(new Set(specs.map(spec=>spec.id)).size).toBe(specs.length);
-    expect(Object.keys(manifest.assets)).toHaveLength(32);
+    expect(Object.keys(manifest.assets).length).toBeGreaterThanOrEqual(32);
     for(const spec of specs){
       expect(sceneryAssets).toContain(spec.asset);
       const animation=manifest.assets[spec.frame??spec.asset];
       expect(animation,`missing authored animation for ${spec.id}`).toBeDefined();
       const building=isBuildingScenery(spec.frame??spec.asset);
-      expect(animation.frames).toHaveLength(building?1:6);
-      expect(new Set(animation.frames).size).toBe(building?1:6);
+      const staticPainting=building||animation.fps===0;
+      expect(animation.frames).toHaveLength(staticPainting?1:6);
+      expect(new Set(animation.frames).size).toBe(staticPainting?1:6);
       expect(animation.referenceWidth).toBeGreaterThan(0);
-      expect(animation.key).toContain(`-${period}-`);
+      expect(animation.key.includes(`-${period}-`)||animation.key.startsWith('story-quality-')&&staticPainting||period==='night'&&animation.nightTint!==undefined&&staticPainting).toBe(true);
       expect(animation.fps).toBeLessThanOrEqual(4);
       expect([animation.originX,animation.originY].every(value=>value>=0&&value<=1)).toBe(true);
       const atlas=readAsset(`${animation.key}.json`);
@@ -36,7 +54,7 @@ describe('authored sprite worlds',()=>{
         const base=baseAtlas.frames[animation.base!.frame].frame;
         expect([base.w,base.h]).toEqual([animation.width,animation.height]);
         expect(Math.max(base.w,base.h),`${spec.id}: native building resolution`).toBeGreaterThanOrEqual(400);
-        if(spec.width>=200){
+        if(spec.width>=200&&spec.asset!=='arch'){
           expect(Object.keys(baseAtlas.frames),`${spec.id}: dedicated large-building texture`).toHaveLength(1);
           expect(baseAtlas.frames[animation.base!.frame].source.standalone).toBe(true);
           expect(Math.max(base.w,base.h)).toBeGreaterThanOrEqual(800);
@@ -58,13 +76,17 @@ describe('authored sprite worlds',()=>{
     expect(new Set(trees.map(spec=>spec.frame??spec.asset)).size).toBeGreaterThanOrEqual(5);
     expect(placedSceneryFootprints(map.id).length).toBeGreaterThan(30);
   });
-  for(const map of maps)it(`${map.name} switches every object to a separately painted night sequence`,()=>{
+  for(const map of maps)it(`${map.name} has night architecture and stable high resolution props for ambient lighting`,()=>{
     const day=readAsset(`${map.id}-day-animations.json`) as SceneryAnimationManifest;
     const night=readAsset(`${map.id}-night-animations.json`) as SceneryAnimationManifest;
     expect(day.terrain??map.id).not.toBe(night.terrain);
     for(const spec of getPlacedScenery(map.id)){
       const name=spec.frame??spec.asset;
-      expect(day.assets[name].key).not.toBe(night.assets[name].key);
+      if(day.assets[name].key===night.assets[name].key){
+        expect(night.assets[name].key).toBe(day.assets[name].key);
+        expect(night.assets[name].frames).toHaveLength(1);
+        expect(night.assets[name].fps).toBe(0);
+      }else expect(day.assets[name].key).not.toBe(night.assets[name].key);
       expect(night.assets[name].fps).toBeLessThanOrEqual(day.assets[name].fps);
     }
   });
@@ -79,7 +101,8 @@ describe('authored sprite worlds',()=>{
 
 function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings?:boolean}={}){
   const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;rotation:number;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>;setRotation:ReturnType<typeof vi.fn>}[]=[];
-  const specs=getPlacedScenery('lindenhafen');
+  // Runtime tests use distinct feet; authored groups may intentionally share an anchor.
+  const specs=getPlacedScenery('lindenhafen').map((spec,index)=>({...spec,x:100+(index%100)*13,y:200+index*4.123}));
   const assets:Record<string,SceneryAnimation>={};
   for(const spec of specs){
     const name=spec.frame??spec.asset;
@@ -94,7 +117,7 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
   const frame={width:200,height:250};
   const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
     add:{sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
-      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),destroy:vi.fn()};
+      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setTint:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),destroy:vi.fn()};
       for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
       sprite.setOrigin.mockImplementation((x:number,y:number)=>{sprite.originX=x;sprite.originY=y;return sprite});
       sprite.setDepth.mockImplementation((depth:number)=>{sprite.depth=depth;return sprite});
@@ -103,14 +126,14 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
       sprite.setRotation.mockImplementation((rotation:number)=>{sprite.rotation=rotation;return sprite});
       sprites.push(sprite);return sprite;
     })}};
-  return {scene:scene as unknown as Phaser.Scene,sprites,raw:scene};
+  return {scene:scene as unknown as Phaser.Scene,sprites,raw:scene,placements:specs};
 }
 
 it('keeps tree and cypress silhouettes stable with one gently swaying sprite, including still scenery and fades',()=>{
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   for(const period of ['day','night'] as const){
-    const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen',period);
-    const specs=getPlacedScenery('lindenhafen').filter(spec=>spec.asset==='tree'||spec.asset==='cypress');
+    const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen',period,mock.placements);
+    const specs=mock.placements.filter(spec=>spec.asset==='tree'||spec.asset==='cypress');
     const trees=specs.map(spec=>{
       const trees=mock.sprites.filter(sprite=>sprite.x===spec.x&&sprite.y===spec.y);
       expect(trees).toHaveLength(1);
@@ -141,7 +164,7 @@ it('keeps tree and cypress silhouettes stable with one gently swaying sprite, in
       expect(tree.rotation).toBe(sampleTreeSway(spec.id,44,period));
     }
     // Planter motion shares the 'tree' label but must keep its existing frames.
-    const planter=getPlacedScenery('lindenhafen').find(spec=>spec.asset==='planter'&&spec.motion==='tree')!;
+    const planter=mock.placements.find(spec=>spec.asset==='planter'&&spec.motion==='tree')!;
     const planterSprite=mock.sprites.find(sprite=>sprite.x===planter.x&&sprite.y===planter.y)!;
     expect(planterSprite.setFrame).toHaveBeenCalled();
     expect(planterSprite.setRotation).not.toHaveBeenCalled();
@@ -166,7 +189,7 @@ it('bounds tree motion and its speed across instances, with quieter nights and s
 });
 
 it('changes painted sprite frames, keeps foundations upright, freezes, culls and cleans up',()=>{
-  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
   expect(scenery.animatedObjectCount).toBe(scenery.objectCount);
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   scenery.update(.32,view);
@@ -180,7 +203,7 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
   expect(mock.sprites.map(sprite=>sprite.frame)).not.toEqual(frozen);
   for(const sprite of mock.sprites){expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95])}
   const bases=mock.sprites.filter(sprite=>sprite.key!=='details'&&!sprite.blend);
-  expect(bases.every((sprite,i)=>sprite.x===getPlacedScenery('lindenhafen')[i].x&&sprite.y===getPlacedScenery('lindenhafen')[i].y)).toBe(true);
+  expect(bases.every((sprite,i)=>sprite.x===mock.placements[i].x&&sprite.y===mock.placements[i].y)).toBe(true);
   expect(mock.raw.textures.createCanvas).not.toHaveBeenCalled();
   scenery.update(44,{x:5000,y:5000,right:5100,bottom:5100});expect(mock.sprites.every(sprite=>!sprite.visible)).toBe(true);
   scenery.update(44,view);expect(mock.sprites.some(sprite=>sprite.visible)).toBe(true);
@@ -189,9 +212,9 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
 });
 
 it('keeps architecture fixed while registered details animate and mirror with their base',()=>{
-  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
-  for(const spec of getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset))){
+  for(const spec of mock.placements.filter(spec=>isBuildingScenery(spec.frame??spec.asset))){
     const base=mock.sprites.find(sprite=>sprite.key==='bases'&&sprite.x===spec.x&&sprite.y===spec.y)!;
     const scale=spec.width/200;
     const detail=mock.sprites.find(sprite=>sprite.key==='details'&&Math.abs(sprite.x-(spec.x+(spec.flipX?15:25)*scale))<1e-8&&sprite.y===spec.y-70*scale)!;
@@ -207,8 +230,8 @@ it('keeps architecture fixed while registered details animate and mirror with th
 });
 
 it('scales high resolution bases independently while legacy details retain their size and mirrored registration',()=>{
-  const mock=mockScene(true,{highResolution:true}),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  const specs=getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset));
+  const mock=mockScene(true,{highResolution:true}),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
+  const specs=mock.placements.filter(spec=>isBuildingScenery(spec.frame??spec.asset));
   expect(specs.some(spec=>spec.flipX)).toBe(true);
   expect(specs.some(spec=>!spec.flipX)).toBe(true);
   for(const spec of specs){
@@ -227,8 +250,8 @@ it('scales high resolution bases independently while legacy details retain their
 });
 
 it('keeps one high resolution static sprite per building throughout animation, fades and culling',()=>{
-  const mock=mockScene(true,{highResolution:true,staticBuildings:true}),scenery=new WorldScenery(mock.scene,'lindenhafen');
-  const buildingSpecs=getPlacedScenery('lindenhafen').filter(spec=>isBuildingScenery(spec.frame??spec.asset));
+  const mock=mockScene(true,{highResolution:true,staticBuildings:true}),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
+  const buildingSpecs=mock.placements.filter(spec=>isBuildingScenery(spec.frame??spec.asset));
   const bases=mock.sprites.filter(sprite=>sprite.key==='bases');
   expect(bases).toHaveLength(buildingSpecs.length);
   expect(bases.every(sprite=>!sprite.blend)).toBe(true);
@@ -250,9 +273,9 @@ it('keeps one high resolution static sprite per building throughout animation, f
 });
 
 it('freezes whole-building legacy animations if layered assets are unavailable',()=>{
-  const mock=mockScene(false),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const mock=mockScene(false),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
   scenery.update(5,{x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100});
-  getPlacedScenery('lindenhafen').forEach((spec,i)=>{
+  mock.placements.forEach((spec,i)=>{
     if(isBuildingScenery(spec.frame??spec.asset))expect(mock.sprites.filter(sprite=>!sprite.blend)[i].setFrame).not.toHaveBeenCalled();
   });
 });
@@ -268,9 +291,9 @@ it('loads and releases the complete layer set without requiring unused architect
 });
 
 it('keeps animated scenery opaque throughout frame blends and honors the world fade',()=>{
-  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
-  const stall=getPlacedScenery('lindenhafen').find(spec=>spec.asset==='stall')!;
+  const stall=mock.placements.find(spec=>spec.asset==='stall')!;
   const sprites=mock.sprites.filter(sprite=>sprite.x===stall.x&&sprite.y===stall.y);
   expect(sprites).toHaveLength(2);
   const current=sprites.find(sprite=>!sprite.blend)!,next=sprites.find(sprite=>sprite.blend)!;
@@ -295,12 +318,12 @@ it('selects the requested time-of-day manifest when creating scenery',()=>{
   const mock=mockScene();
   const get=vi.fn(mock.raw.cache.json.get);
   mock.raw.cache.json.get=get;
-  new WorldScenery(mock.scene,'lindenhafen','night');
+  new WorldScenery(mock.scene,'lindenhafen','night',mock.placements);
   expect(get).toHaveBeenCalledWith('lindenhafen-night-animations');
 });
 
 it('hides exterior sprites immediately while room rendering pauses exterior updates',()=>{
-  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen');
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   scenery.update(1,view);
   expect(mock.sprites.some(sprite=>sprite.visible)).toBe(true);

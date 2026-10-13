@@ -6,7 +6,9 @@ import {fileURLToPath} from 'node:url';
 import {createHash, randomUUID} from 'node:crypto';
 import sharp from 'sharp';
 import './register-content-loader.mjs';
-const {parseWorldSceneDocument, sceneActivityPoint, sceneActivityPlaces, sceneEntrancePoint, sceneInteriorIds} = await import('../web/src/scene-schema.ts');
+const {parseWorldSceneDocument, sceneActivityPoint, sceneActivityPlaces, sceneEntrancePoint, sceneInteriorIds,PERSON_HEIGHT} = await import('../web/src/scene-schema.ts');
+import {auditSceneQuality} from './scene-quality.mjs';
+import {validateSceneryGeometry} from './scenery-geometry.mjs';
 const {compileResidentActivities} = await import('../web/src/resident-activities.ts');
 const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resident-action-art.ts');
 const {NavigationGrid} = await import('../web/src/navigation.ts');
@@ -19,9 +21,9 @@ const stable = value => Array.isArray(value) ? value.map(stable) : value && type
 export const sceneContentVersion = document => createHash('sha256').update(JSON.stringify(stable(document))).digest('hex').slice(0, 16);
 
 /** Performs no writes. Draft collision is validated from the draft's own scenery. */
-export async function compileSceneDocument(value, {root = projectRoot} = {}) {
+export async function compileSceneDocument(value, {root = projectRoot, strictQuality=true} = {}) {
   const document = parseWorldSceneDocument(structuredClone(value));
-  const errors = [], registry = {schemaVersion: 1, contentVersion: sceneContentVersion(document), maps: {}};
+  const errors = [], warnings=[], quality={}, registry = {schemaVersion: 1, contentVersion: sceneContentVersion(document), maps: {}};
   const files = new Map();
   const imageSizes = new Map();
   const prefabFrames = new Set();
@@ -31,6 +33,7 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
   };
   for (const expected of contentMaps) if (!document.maps[expected.id]) errors.push(`missing required map ${expected.id}`);
   for (const scene of Object.values(document.maps)) {
+    let sceneryManifest;
     for(const look of new Set((scene.residents??[]).flatMap(resident=>resident.actionArt?[resident.actionArt]:[]))){
       try{
         const path=`web/public/assets/resident-actions/${look}`,atlas=await loadJSON(`${path}.json`),size=await sharp(resolve(root,`${path}.webp`)).metadata(),art=RESIDENT_ACTION_ART;
@@ -51,6 +54,7 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
       for (const id of expected) if (!actual.has(id)) errors.push(`${scene.id}: missing required ${kind} ${id}; deletion needs a content migration`);
     }
     for (const tile of scene.terrain) {
+      if(content&&!tile.walkableMaskAsset)(strictQuality?errors:warnings).push(`${scene.id}: ${tile.id} needs an authored ground mask`);
       const coreX=scene.legacyOffset?.x??0,coreY=scene.legacyOffset?.y??0;
       const expansion=tile.dayAsset.startsWith('/assets/world-expansions/')||tile.nightAsset?.startsWith('/assets/world-expansions/')
         ||scene.kind!=='interior'&&(tile.x<coreX||tile.y<coreY||tile.x+tile.width>coreX+1536||tile.y+tile.height>coreY+1024);
@@ -82,6 +86,10 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
       }
       const atlases = await Promise.all([content.sceneryAtlas, content.variationAtlas].map(path => loadJSON(`web/public${path}`)));
       const manifests = await Promise.all(['day', 'night'].map(period => loadJSON(`web/public/assets/${scene.id}-${period}-animations.json`)));
+      sceneryManifest=manifests[0];
+      errors.push(...validateSceneryGeometry(scene.id,sceneryManifest,await loadJSON('web/src/data/scenery-geometry.json')));
+      quality[scene.id]=auditSceneQuality(scene,sceneryManifest);
+      (strictQuality?errors:warnings).push(...quality[scene.id].issues);
       for(const [variant,atlas] of atlases.entries())for(const frame of Object.keys(atlas.frames??{}))prefabFrames.add(`${!!variant}:${frame}`);
       for(const frame of Object.keys(manifests[0].assets??{}))if(manifests.every(manifest=>manifest.assets?.[frame]))for(const variant of [false,true])prefabFrames.add(`${variant}:${frame}`);
       for (const item of scene.scenery) {
@@ -89,9 +97,32 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
         if (!atlas.frames?.[frame] && !manifests.every(manifest => manifest.assets?.[frame])) errors.push(`${scene.id}: scenery ${item.id} has no registered frame ${frame}`);
       }
     }
-    const grid = new NavigationGrid(scene.walkable, [...scene.obstacles, ...sceneryFootprints(scene.scenery)], scene);
+    const grid = new NavigationGrid(scene.walkable, [...scene.obstacles, ...sceneryFootprints(scene.scenery,sceneryManifest)], scene);
+    for(const tile of scene.terrain.filter(tile=>tile.walkableMaskAsset)){
+      try{
+        const {data,info}=await sharp(resolve(root,'web/public',tile.walkableMaskAsset.slice(1))).removeAlpha().greyscale().raw().toBuffer({resolveWithObject:true});
+        if(info.width!==tile.width||info.height!==tile.height)errors.push(`${scene.id}: ${tile.id} walkable mask must be one pixel per world unit`);
+        else {
+          let offGround=0;
+          for(let y=3;y<tile.height;y+=6)for(let x=3;x<tile.width;x+=6)if(data[y*info.width+x]<128&&grid.isWalkable(tile.x+x,tile.y+y))offGround++;
+          if(offGround)errors.push(`${scene.id}: ${tile.id} navigation crosses ${offGround} samples outside its painted walkable mask`);
+        }
+      }catch{errors.push(`${scene.id}: missing or unreadable walkable mask ${tile.walkableMaskAsset}`);}
+    }
+    const reachability=grid.auditReachability(scene.spawn);
+    if(reachability.reachableRatio<.995)errors.push(`${scene.id}: spawn reaches ${(100*reachability.reachableRatio).toFixed(2)}% of walkable samples; at least 99.5% is required`);
     if (['lindenhafen','waldruh','nebelstadt'].includes(scene.id)) for (const interior of sceneInteriorIds) {
       if (!scene.entrances?.some(entrance=>entrance.interiorId===interior)) errors.push(`${scene.id}: missing required ${interior} entrance; reassign it to a storefront`);
+    }
+    for(const entrance of scene.entrances??[]){
+      const owner=scene.scenery.find(item=>item.id===entrance.ownerId),asset=sceneryManifest?.assets[owner.frame??owner.asset],door=asset?.door;
+      if(!door)errors.push(`${scene.id}: entrance ${entrance.id} owner has no painted door`);
+      else {
+        const scale=owner.width/asset.referenceWidth,point=sceneEntrancePoint(scene,entrance),x=(point.x-owner.x)*(owner.flipX?-1:1)/scale,y=(point.y-owner.y)/scale;
+        const cachedX=entrance.offsetX*(owner.flipX?-1:1)/scale,cachedY=entrance.offsetY/scale;
+        if([x,cachedX].some(value=>value<door.x-.01||value>door.x+door.width+.01)||[y,cachedY].some(value=>value<door.y-.01||value>door.y+door.height+.01))errors.push(`${scene.id}: entrance ${entrance.id} lies outside its painted door rectangle`);
+        if(door.height*scale<1.1*PERSON_HEIGHT) (strictQuality?errors:warnings).push(`${scene.id}: entrance ${entrance.id} door is smaller than 1.1 persons`);
+      }
     }
     for (const entrance of scene.entrances ?? []) for (const returning of [false,true]) {
       const point = sceneEntrancePoint(scene,entrance,returning);
@@ -148,7 +179,7 @@ export async function compileSceneDocument(value, {root = projectRoot} = {}) {
       return normalize(object);
     });
   }
-  return {document, contentVersion: registry.contentVersion, registry, storyRules};
+  return {document, contentVersion: registry.contentVersion, registry, storyRules,warnings,quality};
 }
 
 /** Stage every output first; each rename is atomic, and a failed batch rolls back. */
@@ -200,6 +231,7 @@ async function main() {
   const source = resolve(projectRoot, 'web/src/data/world-scenes.json');
   const value = JSON.parse(await readFile(command === 'import' ? resolve(input) : source, 'utf8'));
   const result = command === 'check' ? await compileSceneDocument(value) : await saveSceneDocument(value);
+  if(result.warnings.length)console.warn(result.warnings.join('\n'));
   console.log(`${command === 'check' ? 'Validated' : 'Compiled'} ${Object.keys(result.document.maps).length} scenes (${result.contentVersion}).`);
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main();

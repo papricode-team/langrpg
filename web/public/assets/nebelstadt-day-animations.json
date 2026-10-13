@@ -17,7 +17,43 @@
         "key": "nebelstadt-day-building-archive",
         "frame": "archive"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -494.46,
+          -212.4
+        ],
+        [
+          -337.68,
+          -389.40000000000003
+        ],
+        [
+          482.40000000000003,
+          -342.2
+        ],
+        [
+          518.58,
+          -141.6
+        ],
+        [
+          -337.68,
+          -53.1
+        ]
+      ],
+      "sortLine": [
+        [
+          -494.46,
+          -212.4
+        ],
+        [
+          -337.68,
+          -53.1
+        ],
+        [
+          518.58,
+          -141.6
+        ]
+      ]
     },
     "cafe": {
       "key": "nebelstadt-day-building-cafe",
@@ -34,7 +70,43 @@
         "key": "nebelstadt-day-building-cafe",
         "frame": "cafe"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -463.29999999999995,
+          -217.98
+        ],
+        [
+          -316.40000000000003,
+          -399.63
+        ],
+        [
+          452,
+          -351.19
+        ],
+        [
+          485.9,
+          -145.32
+        ],
+        [
+          -316.40000000000003,
+          -54.495
+        ]
+      ],
+      "sortLine": [
+        [
+          -463.29999999999995,
+          -217.98
+        ],
+        [
+          -316.40000000000003,
+          -54.495
+        ],
+        [
+          485.9,
+          -145.32
+        ]
+      ]
     },
     "station": {
       "key": "nebelstadt-day-building-station",
@@ -51,7 +123,43 @@
         "key": "nebelstadt-day-building-station",
         "frame": "station"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -499.78999999999996,
+          -192.06
+        ],
+        [
+          -341.32000000000005,
+          -352.11
+        ],
+        [
+          487.6,
+          -309.43
+        ],
+        [
+          524.17,
+          -128.04
+        ],
+        [
+          -341.32000000000005,
+          -48.015
+        ]
+      ],
+      "sortLine": [
+        [
+          -499.78999999999996,
+          -192.06
+        ],
+        [
+          -341.32000000000005,
+          -48.015
+        ],
+        [
+          524.17,
+          -128.04
+        ]
+      ]
     },
     "workshop": {
       "key": "nebelstadt-day-building-workshop",
@@ -68,7 +176,43 @@
         "key": "nebelstadt-day-building-workshop",
         "frame": "workshop"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -472.32,
+          -198.72
+        ],
+        [
+          -322.56000000000006,
+          -364.32
+        ],
+        [
+          460.8,
+          -320.15999999999997
+        ],
+        [
+          495.36,
+          -132.48
+        ],
+        [
+          -322.56000000000006,
+          -49.68
+        ]
+      ],
+      "sortLine": [
+        [
+          -472.32,
+          -198.72
+        ],
+        [
+          -322.56000000000006,
+          -49.68
+        ],
+        [
+          495.36,
+          -132.48
+        ]
+      ]
     },
     "house": {
       "key": "nebelstadt-day-building-house",
@@ -85,194 +229,330 @@
         "key": "nebelstadt-day-building-house",
         "frame": "house"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -382.53,
+          -221.04
+        ],
+        [
+          -261.24,
+          -405.24
+        ],
+        [
+          373.20000000000005,
+          -356.11999999999995
+        ],
+        [
+          401.19,
+          -147.35999999999999
+        ],
+        [
+          -261.24,
+          -55.26
+        ]
+      ],
+      "sortLine": [
+        [
+          -382.53,
+          -221.04
+        ],
+        [
+          -261.24,
+          -55.26
+        ],
+        [
+          401.19,
+          -147.35999999999999
+        ]
+      ]
     },
     "greenhouse": {
-      "key": "nebelstadt-day-building-greenhouse",
+      "key": "waldruh-day-building-greenhouse",
       "frames": [
         "greenhouse"
       ],
       "fps": 0,
-      "width": 1148,
-      "height": 1188,
-      "referenceWidth": 1148,
+      "width": 1211,
+      "height": 1228,
+      "referenceWidth": 1211,
       "originX": 0.5,
-      "originY": 0.9966329966329966,
+      "originY": 0.996742671009772,
       "base": {
-        "key": "nebelstadt-day-building-greenhouse",
+        "key": "waldruh-day-building-greenhouse",
         "frame": "greenhouse"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -496.51,
+          -221.04
+        ],
+        [
+          -339.08000000000004,
+          -405.24
+        ],
+        [
+          484.40000000000003,
+          -356.11999999999995
+        ],
+        [
+          520.73,
+          -147.35999999999999
+        ],
+        [
+          -339.08000000000004,
+          -55.26
+        ]
+      ],
+      "sortLine": [
+        [
+          -496.51,
+          -221.04
+        ],
+        [
+          -339.08000000000004,
+          -55.26
+        ],
+        [
+          520.73,
+          -147.35999999999999
+        ]
+      ]
+    },
+    "fountain": {
+      "key": "story-quality-props",
+      "frames": [
+        "fountain"
+      ],
+      "fps": 0,
+      "width": 519,
+      "height": 529,
+      "referenceWidth": 519,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "fountain"
       },
       "overlays": []
     },
-    "fountain": {
-      "key": "nebelstadt-day-animation-1",
-      "frames": [
-        "fountain-0",
-        "fountain-1",
-        "fountain-2",
-        "fountain-3",
-        "fountain-4",
-        "fountain-5"
-      ],
-      "fps": 3,
-      "width": 153,
-      "height": 228,
-      "referenceWidth": 153,
-      "originX": 0.48366013071895425,
-      "originY": 0.9868421052631579
-    },
     "boat": {
-      "key": "nebelstadt-day-animation-1",
+      "key": "story-quality-boat",
       "frames": [
-        "boat-0",
-        "boat-1",
-        "boat-2",
-        "boat-3",
-        "boat-4",
-        "boat-5"
+        "boat"
       ],
-      "fps": 1.5,
-      "width": 239,
-      "height": 182,
-      "referenceWidth": 239,
-      "originX": 0.502092050209205,
-      "originY": 1
+      "fps": 0,
+      "width": 303,
+      "height": 178,
+      "referenceWidth": 303,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-boat",
+        "frame": "boat"
+      },
+      "overlays": []
     },
     "tree": {
-      "key": "nebelstadt-day-animation-2",
+      "key": "story-quality-props",
       "frames": [
-        "tree-0",
-        "tree-1",
-        "tree-2",
-        "tree-3",
-        "tree-4",
-        "tree-5"
+        "tree"
       ],
-      "fps": 1.5,
-      "width": 230,
-      "height": 221,
-      "referenceWidth": 230,
-      "originX": 0.4956521739130435,
-      "originY": 0.9864253393665159
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ]
     },
     "cypress": {
-      "key": "nebelstadt-day-animation-2",
+      "key": "story-quality-props",
       "frames": [
-        "cypress-0",
-        "cypress-1",
-        "cypress-2",
-        "cypress-3",
-        "cypress-4",
-        "cypress-5"
+        "cypress"
       ],
-      "fps": 1.5,
-      "width": 100,
-      "height": 234,
-      "referenceWidth": 100,
-      "originX": 0.47,
-      "originY": 0.9786324786324786
+      "fps": 0,
+      "width": 241,
+      "height": 695,
+      "referenceWidth": 241,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "cypress"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -14.459999999999999,
+          -17.375
+        ],
+        [
+          14.459999999999999,
+          -17.375
+        ],
+        [
+          12.05,
+          0
+        ],
+        [
+          -12.05,
+          0
+        ]
+      ]
     },
     "lamp": {
-      "key": "nebelstadt-day-animation-2",
+      "key": "story-quality-misc",
       "frames": [
-        "lamp-0",
-        "lamp-1",
-        "lamp-2",
-        "lamp-3",
-        "lamp-4",
-        "lamp-5"
+        "lamp"
       ],
-      "fps": 4,
-      "width": 96,
-      "height": 228,
-      "referenceWidth": 96,
-      "originX": 0.46875,
-      "originY": 0.9912280701754386
+      "fps": 0,
+      "width": 158,
+      "height": 655,
+      "referenceWidth": 158,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "lamp"
+      },
+      "overlays": []
     },
     "arch": {
-      "key": "nebelstadt-day-building-bases",
+      "key": "lindenhafen-day-building-bases",
       "frames": [
         "arch"
       ],
       "fps": 0,
-      "width": 482,
-      "height": 440,
-      "referenceWidth": 482,
+      "width": 644,
+      "height": 566,
+      "referenceWidth": 644,
       "originX": 0.5,
-      "originY": 0.990909090909091,
+      "originY": 0.9929328621908127,
       "base": {
-        "key": "nebelstadt-day-building-bases",
+        "key": "lindenhafen-day-building-bases",
         "frame": "arch"
       },
       "overlays": []
     },
     "stall": {
-      "key": "nebelstadt-day-animation-3",
+      "key": "story-quality-props",
       "frames": [
-        "stall-0",
-        "stall-1",
-        "stall-2",
-        "stall-3",
-        "stall-4",
-        "stall-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 226,
-      "height": 211,
-      "referenceWidth": 226,
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
       "originX": 0.5,
-      "originY": 0.990521327014218
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ]
     },
     "bench": {
-      "key": "nebelstadt-day-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "bench-0",
-        "bench-1",
-        "bench-2",
-        "bench-3",
-        "bench-4",
-        "bench-5"
+        "bench"
       ],
-      "fps": 1.5,
-      "width": 226,
-      "height": 193,
-      "referenceWidth": 226,
+      "fps": 0,
+      "width": 617,
+      "height": 524,
+      "referenceWidth": 617,
       "originX": 0.5,
-      "originY": 0.9948186528497409
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "bench"
+      },
+      "overlays": []
     },
     "planter": {
-      "key": "nebelstadt-day-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-0",
-        "planter-1",
-        "planter-2",
-        "planter-3",
-        "planter-4",
-        "planter-5"
+        "planter"
       ],
-      "fps": 1.5,
-      "width": 227,
-      "height": 209,
-      "referenceWidth": 227,
-      "originX": 0.4977973568281938,
-      "originY": 0.9425837320574163
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": []
     },
     "sign": {
-      "key": "nebelstadt-day-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "sign-0",
-        "sign-1",
-        "sign-2",
-        "sign-3",
-        "sign-4",
-        "sign-5"
+        "sign"
       ],
-      "fps": 1.5,
-      "width": 191,
-      "height": 216,
-      "referenceWidth": 191,
-      "originX": 0.4869109947643979,
-      "originY": 1
+      "fps": 0,
+      "width": 465,
+      "height": 585,
+      "referenceWidth": 465,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "sign"
+      },
+      "overlays": []
     },
     "house-1": {
       "key": "nebelstadt-day-building-bases",
@@ -289,7 +569,43 @@
         "key": "nebelstadt-day-building-bases",
         "frame": "house-1"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -175.07,
+          -89.82
+        ],
+        [
+          -119.56000000000002,
+          -164.67000000000002
+        ],
+        [
+          170.8,
+          -144.70999999999998
+        ],
+        [
+          183.60999999999999,
+          -59.879999999999995
+        ],
+        [
+          -119.56000000000002,
+          -22.455
+        ]
+      ],
+      "sortLine": [
+        [
+          -175.07,
+          -89.82
+        ],
+        [
+          -119.56000000000002,
+          -22.455
+        ],
+        [
+          183.60999999999999,
+          -59.879999999999995
+        ]
+      ]
     },
     "house-2": {
       "key": "nebelstadt-day-building-bases",
@@ -306,7 +622,43 @@
         "key": "nebelstadt-day-building-bases",
         "frame": "house-2"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -212.79,
+          -80.46
+        ],
+        [
+          -145.32000000000002,
+          -147.51000000000002
+        ],
+        [
+          207.60000000000002,
+          -129.63
+        ],
+        [
+          223.17,
+          -53.64
+        ],
+        [
+          -145.32000000000002,
+          -20.115
+        ]
+      ],
+      "sortLine": [
+        [
+          -212.79,
+          -80.46
+        ],
+        [
+          -145.32000000000002,
+          -20.115
+        ],
+        [
+          223.17,
+          -53.64
+        ]
+      ]
     },
     "house-3": {
       "key": "nebelstadt-day-building-bases",
@@ -323,7 +675,43 @@
         "key": "nebelstadt-day-building-bases",
         "frame": "house-3"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -167.28,
+          -95.75999999999999
+        ],
+        [
+          -114.24000000000001,
+          -175.56
+        ],
+        [
+          163.20000000000002,
+          -154.28
+        ],
+        [
+          175.44,
+          -63.839999999999996
+        ],
+        [
+          -114.24000000000001,
+          -23.939999999999998
+        ]
+      ],
+      "sortLine": [
+        [
+          -167.28,
+          -95.75999999999999
+        ],
+        [
+          -114.24000000000001,
+          -23.939999999999998
+        ],
+        [
+          175.44,
+          -63.839999999999996
+        ]
+      ]
     },
     "house-4": {
       "key": "nebelstadt-day-building-bases",
@@ -340,177 +728,397 @@
         "key": "nebelstadt-day-building-bases",
         "frame": "house-4"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -205.82,
+          -85.5
+        ],
+        [
+          -140.56,
+          -156.75
+        ],
+        [
+          200.8,
+          -137.75
+        ],
+        [
+          215.85999999999999,
+          -57
+        ],
+        [
+          -140.56,
+          -21.375
+        ]
+      ],
+      "sortLine": [
+        [
+          -205.82,
+          -85.5
+        ],
+        [
+          -140.56,
+          -21.375
+        ],
+        [
+          215.85999999999999,
+          -57
+        ]
+      ]
     },
     "tree-1": {
-      "key": "nebelstadt-day-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-1-0",
-        "tree-1-1",
-        "tree-1-2",
-        "tree-1-3",
-        "tree-1-4",
-        "tree-1-5"
+        "tree"
       ],
-      "fps": 1.5,
-      "width": 223,
-      "height": 194,
-      "referenceWidth": 223,
-      "originX": 0.48878923766816146,
-      "originY": 0.979381443298969
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ]
     },
     "tree-2": {
-      "key": "nebelstadt-day-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-2-0",
-        "tree-2-1",
-        "tree-2-2",
-        "tree-2-3",
-        "tree-2-4",
-        "tree-2-5"
+        "tree"
       ],
-      "fps": 1.5,
-      "width": 183,
-      "height": 228,
-      "referenceWidth": 183,
-      "originX": 0.4808743169398907,
-      "originY": 0.9956140350877193
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ]
     },
     "tree-3": {
-      "key": "nebelstadt-day-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-3-0",
-        "tree-3-1",
-        "tree-3-2",
-        "tree-3-3",
-        "tree-3-4",
-        "tree-3-5"
+        "tree"
       ],
-      "fps": 1.5,
-      "width": 221,
-      "height": 192,
-      "referenceWidth": 221,
-      "originX": 0.49321266968325794,
-      "originY": 0.9791666666666666
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ]
     },
     "tree-4": {
-      "key": "nebelstadt-day-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-4-0",
-        "tree-4-1",
-        "tree-4-2",
-        "tree-4-3",
-        "tree-4-4",
-        "tree-4-5"
+        "tree"
       ],
-      "fps": 1.5,
-      "width": 139,
-      "height": 227,
-      "referenceWidth": 139,
-      "originX": 0.49640287769784175,
-      "originY": 0.9955947136563876
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ]
     },
     "stall-1": {
-      "key": "nebelstadt-day-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-1-0",
-        "stall-1-1",
-        "stall-1-2",
-        "stall-1-3",
-        "stall-1-4",
-        "stall-1-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 215,
-      "height": 217,
-      "referenceWidth": 215,
-      "originX": 0.49767441860465117,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ]
     },
     "stall-2": {
-      "key": "nebelstadt-day-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-2-0",
-        "stall-2-1",
-        "stall-2-2",
-        "stall-2-3",
-        "stall-2-4",
-        "stall-2-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 215,
-      "height": 203,
-      "referenceWidth": 215,
-      "originX": 0.49767441860465117,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ]
     },
     "stall-3": {
-      "key": "nebelstadt-day-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-3-0",
-        "stall-3-1",
-        "stall-3-2",
-        "stall-3-3",
-        "stall-3-4",
-        "stall-3-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 216,
-      "height": 214,
-      "referenceWidth": 216,
-      "originX": 0.49537037037037035,
-      "originY": 0.9953271028037384
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ]
     },
     "stall-4": {
-      "key": "nebelstadt-day-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-4-0",
-        "stall-4-1",
-        "stall-4-2",
-        "stall-4-3",
-        "stall-4-4",
-        "stall-4-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 218,
-      "height": 187,
-      "referenceWidth": 218,
-      "originX": 0.4908256880733945,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ]
     },
     "planter-1": {
-      "key": "nebelstadt-day-animation-7",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-1-0",
-        "planter-1-1",
-        "planter-1-2",
-        "planter-1-3",
-        "planter-1-4",
-        "planter-1-5"
+        "planter"
       ],
-      "fps": 1.5,
-      "width": 167,
-      "height": 221,
-      "referenceWidth": 167,
-      "originX": 0.5149700598802395,
-      "originY": 1
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": []
     },
     "planter-2": {
-      "key": "nebelstadt-day-animation-7",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-2-0",
-        "planter-2-1",
-        "planter-2-2",
-        "planter-2-3",
-        "planter-2-4",
-        "planter-2-5"
+        "planter"
       ],
-      "fps": 1.5,
-      "width": 217,
-      "height": 158,
-      "referenceWidth": 217,
-      "originX": 0.4930875576036866,
-      "originY": 1
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": []
     },
     "garden-1": {
       "key": "nebelstadt-day-animation-7",
@@ -545,9 +1153,274 @@
       "referenceWidth": 179,
       "originX": 0.5139664804469274,
       "originY": 1
+    },
+    "house-inn": {
+      "key": "story-quality-inn",
+      "frames": [
+        "house-inn"
+      ],
+      "fps": 0,
+      "width": 1248,
+      "height": 1163,
+      "referenceWidth": 1248,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-inn",
+        "frame": "house-inn"
+      },
+      "overlays": [],
+      "door": {
+        "x": -33,
+        "y": -590,
+        "width": 260,
+        "height": 440
+      },
+      "sortLine": [
+        [
+          -546,
+          -338
+        ],
+        [
+          -333,
+          -24
+        ],
+        [
+          -69,
+          -86
+        ],
+        [
+          -33,
+          -162
+        ],
+        [
+          227,
+          -162
+        ],
+        [
+          262,
+          -171
+        ],
+        [
+          598,
+          -250
+        ]
+      ],
+      "footprint": [
+        [
+          -546,
+          -338
+        ],
+        [
+          405,
+          -546
+        ],
+        [
+          598,
+          -250
+        ],
+        [
+          262,
+          -171
+        ],
+        [
+          227,
+          -162
+        ],
+        [
+          -33,
+          -162
+        ],
+        [
+          -69,
+          -86
+        ],
+        [
+          -333,
+          -24
+        ],
+        [
+          -546,
+          -338
+        ]
+      ]
+    },
+    "house-bakery": {
+      "key": "story-quality-bakery",
+      "frames": [
+        "house-bakery"
+      ],
+      "fps": 0,
+      "width": 1247,
+      "height": 1162,
+      "referenceWidth": 1247,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-bakery",
+        "frame": "house-bakery"
+      },
+      "overlays": [],
+      "door": {
+        "x": -172.5,
+        "y": -547,
+        "width": 198,
+        "height": 450
+      },
+      "sortLine": [
+        [
+          -515.5,
+          -191
+        ],
+        [
+          -226.5,
+          -82
+        ],
+        [
+          -172.5,
+          -109
+        ],
+        [
+          25.5,
+          -109
+        ],
+        [
+          75.5,
+          -18
+        ],
+        [
+          446.5,
+          -55
+        ],
+        [
+          580.5,
+          -216
+        ]
+      ],
+      "footprint": [
+        [
+          -515.5,
+          -392
+        ],
+        [
+          431.5,
+          -477
+        ],
+        [
+          580.5,
+          -216
+        ],
+        [
+          446.5,
+          -55
+        ],
+        [
+          75.5,
+          -18
+        ],
+        [
+          25.5,
+          -109
+        ],
+        [
+          -172.5,
+          -109
+        ],
+        [
+          -226.5,
+          -82
+        ],
+        [
+          -515.5,
+          -191
+        ]
+      ]
+    },
+    "house-grocery": {
+      "key": "story-quality-grocery",
+      "frames": [
+        "house-grocery"
+      ],
+      "fps": 0,
+      "width": 1242,
+      "height": 1037,
+      "referenceWidth": 1242,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-grocery",
+        "frame": "house-grocery"
+      },
+      "overlays": [],
+      "door": {
+        "x": -113,
+        "y": -442,
+        "width": 245,
+        "height": 400
+      },
+      "sortLine": [
+        [
+          -542,
+          -49
+        ],
+        [
+          -157,
+          -32
+        ],
+        [
+          -113,
+          -54
+        ],
+        [
+          132,
+          -54
+        ],
+        [
+          199,
+          -47
+        ],
+        [
+          550,
+          -86
+        ]
+      ],
+      "footprint": [
+        [
+          -530,
+          -305
+        ],
+        [
+          551,
+          -331
+        ],
+        [
+          550,
+          -86
+        ],
+        [
+          199,
+          -47
+        ],
+        [
+          132,
+          -54
+        ],
+        [
+          -113,
+          -54
+        ],
+        [
+          -157,
+          -32
+        ],
+        [
+          -542,
+          -49
+        ]
+      ]
     }
   },
-  "terrain": "nebelstadt-day-terrain",
+  "terrain": "nebelstadt-harbour-bridge-day-terrain",
   "terrainTiles": [
     {
       "key": "nebelstadt-day-terrain-detail-0-0",
@@ -563,7 +1436,7 @@
       }
     },
     {
-      "key": "nebelstadt-day-terrain-detail-0-1",
+      "key": "nebelstadt-day-terrain-detail-0-1-harbour-bridge",
       "x": 768,
       "y": 0,
       "width": 768,

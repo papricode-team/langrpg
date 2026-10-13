@@ -1,0 +1,163 @@
+{
+  "frames": {
+    "lamp": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 158,
+        "h": 655
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 158,
+        "h": 655
+      },
+      "sourceSize": {
+        "w": 158,
+        "h": 655
+      },
+      "source": {
+        "path": "art/source/map-quality/misc.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 233,
+          "top": 6,
+          "width": 158,
+          "height": 655
+        },
+        "standalone": false
+      }
+    },
+    "bench": {
+      "frame": {
+        "x": 170,
+        "y": 4,
+        "w": 617,
+        "h": 524
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 617,
+        "h": 524
+      },
+      "sourceSize": {
+        "w": 617,
+        "h": 524
+      },
+      "source": {
+        "path": "art/source/map-quality/misc.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 618,
+          "top": 133,
+          "width": 617,
+          "height": 524
+        },
+        "standalone": false
+      }
+    },
+    "sign": {
+      "frame": {
+        "x": 795,
+        "y": 4,
+        "w": 465,
+        "h": 585
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 465,
+        "h": 585
+      },
+      "sourceSize": {
+        "w": 465,
+        "h": 585
+      },
+      "source": {
+        "path": "art/source/map-quality/misc.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 115,
+          "top": 649,
+          "width": 465,
+          "height": 585
+        },
+        "windows": [
+          [
+            90,
+            640,
+            230,
+            670
+          ],
+          [
+            90,
+            670,
+            610,
+            1254
+          ]
+        ],
+        "standalone": false
+      }
+    },
+    "planter": {
+      "frame": {
+        "x": 1268,
+        "y": 4,
+        "w": 447,
+        "h": 565
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 447,
+        "h": 565
+      },
+      "sourceSize": {
+        "w": 447,
+        "h": 565
+      },
+      "source": {
+        "path": "art/source/map-quality/misc.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 720,
+          "top": 665,
+          "width": 447,
+          "height": 565
+        },
+        "standalone": false
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-misc.webp",
+    "size": {
+      "w": 2048,
+      "h": 1024
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

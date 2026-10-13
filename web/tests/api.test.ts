@@ -210,8 +210,9 @@ describe('shared building presence', () => {
     for (const value of [indoorPacket('unknown'), { ...indoorPacket(), mapId: 'waldruh' },
       { ...indoorPacket(), spawn: { x: -1, y: .5 } }, { ...indoorPacket(), players: {} }]) socket.receive(value);
     expect(onInterior).not.toHaveBeenCalled(); expect(api.interiorId).toBeUndefined();
-    socket.receive(packet('saffroncourt', 'map'));
-    expect(api.joinInterior('cafe')).toBe(false);
+    socket.receive({ ...packet('lindenhafen', 'map'), mapId: 'saffroncourt' });
+    expect(api.mapId).toBe('lindenhafen');
+    expect(api.joinMap('saffroncourt')).toBe(false);
   });
 
   it('rolls back rejected entry and restores a remembered room on reconnect', async () => {

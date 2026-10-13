@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"sort"
 )
 
 const (
@@ -65,7 +64,7 @@ func parseWorldMapRegistry(data []byte) (WorldMapRegistry, error) {
 		return registry, fmt.Errorf("world map registry: invalid version or empty maps")
 	}
 	for id, definition := range registry.Maps {
-		if !safeID.MatchString(id) || !definition.WorldCoordinateFrame.valid() ||
+		if !contains([]string{DefaultMapID, "waldruh", "nebelstadt"}, id) || !definition.WorldCoordinateFrame.valid() ||
 			!validCoordinate(definition.Spawn.X) || !validCoordinate(definition.Spawn.Y) {
 			return registry, fmt.Errorf("world map registry: invalid definition for %q", id)
 		}
@@ -99,17 +98,9 @@ func mustWorldMapRegistry() WorldMapRegistry {
 
 var compiledWorldMaps = mustWorldMapRegistry()
 
-// Keep the narrative route first; the rest of the registry has stable ordering.
-func worldMapIDs(registry WorldMapRegistry) []string {
-	ids := []string{DefaultMapID, "waldruh", "nebelstadt"}
-	var expeditions []string
-	for id := range registry.Maps {
-		if id != DefaultMapID && id != "waldruh" && id != "nebelstadt" {
-			expeditions = append(expeditions, id)
-		}
-	}
-	sort.Strings(expeditions)
-	return append(ids, expeditions...)
+// The playable world follows the three authored story towns.
+func worldMapIDs(_ WorldMapRegistry) []string {
+	return []string{DefaultMapID, "waldruh", "nebelstadt"}
 }
 
 func worldMapSpawns(registry WorldMapRegistry) map[string]MapSpawn {

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Native-resolution rectangular export of separately painted static buildings. */
 import sharp from 'sharp';
+import {exportSceneryGeometry} from './scenery-geometry.mjs';
 import { readFile, writeFile, mkdir, unlink } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -116,7 +117,11 @@ async function sourceCells(map, period) {
         if(Math.max(crop.width,crop.height)<minimum)throw Error(`${source}/${name}: native resolution below ${minimum}px`);
         const pixels=await sharp(path).extract(crop).ensureAlpha().raw().toBuffer();
         // Only crop native pixels. Never upscale, warp, mask or remove backgrounds.
-        result.push({name,source,crop,width:crop.width,height:crop.height,pixels,standalone:!!sheet.standalone,
+        let geometry = {};
+        try { geometry = JSON.parse(await readFile(path.replace(/\.png$/, '.json'), 'utf8')); }
+        catch (error) { if (error.code !== 'ENOENT') throw error; }
+        const assetGeometry = geometry.assets?.[name] ?? (geometry.assets ? {} : geometry);
+        result.push({name,source,crop,width:crop.width,height:crop.height,pixels,geometry:assetGeometry,standalone:!!sheet.standalone,
           originX:.5,originY:(bottom-crop.top+1)/crop.height});
     }
   }
@@ -143,7 +148,7 @@ async function exportBases(map, period) {
       const key=`${map}-${period}-building-${item.name}`;
       await sharp(item.pixels,{raw:{width:item.width,height:item.height,channels:4}}).webp({quality:88,alphaQuality:100,effort:6}).toFile(resolve(out,`${key}.webp`));
       await writeFile(resolve(out,`${key}.json`),JSON.stringify({frames:{[item.name]:{frame:{x:0,y:0,w:item.width,h:item.height},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w:item.width,h:item.height},sourceSize:{w:item.width,h:item.height},source:{path:item.source,crop:item.crop,standalone:true}}},meta:{image:`${key}.webp`,size:{w:item.width,h:item.height},scale:'1',provenance:'Individual built-in ImageGen building painting; native crop'}},null,2)+'\n');
-      entries[item.name]={key,frames:[item.name],fps:0,width:item.width,height:item.height,referenceWidth:item.width,originX:item.originX,originY:item.originY,base:{key,frame:item.name},overlays:[]};
+      entries[item.name]={key,frames:[item.name],fps:0,width:item.width,height:item.height,referenceWidth:item.width,originX:item.originX,originY:item.originY,base:{key,frame:item.name},overlays:[],...item.geometry};
       continue;
     }
     if (item.width + 8 > 2048 || item.height + 8 > 2048) throw Error(`${item.source}: texture budget exceeded`);
@@ -155,7 +160,7 @@ async function exportBases(map, period) {
       source: { path: item.source, crop: item.crop } };
     parts.push({ ...item, x, y });
     entries[item.name] = { key, frames: [item.name], fps: 0, width: item.width, height: item.height, referenceWidth: item.width,
-      originX: item.originX, originY: item.originY, base: { key, frame: item.name }, overlays: [] };
+      originX: item.originX, originY: item.originY, base: { key, frame: item.name }, overlays: [], ...item.geometry };
     x += item.width + 8; rowHeight = Math.max(rowHeight, item.height);
   }
   if (parts.length) await save();
@@ -180,9 +185,10 @@ const args = process.argv.slice(2), setIndex = args.indexOf('--set'), set = setI
 if (set && !['day', 'night'].includes(set)) throw Error('Set must be day or night');
 const requested = args.filter((_, index) => setIndex < 0 || index !== setIndex && index !== setIndex + 1);
 await mkdir(out, { recursive: true });
-for (const map of requested.length ? requested : [...stories, ...expeditionArt.map(region => region.id)]) {
+for (const map of requested.length ? requested : stories) {
   if (!stories.includes(map) && !expeditionArt.some(region => region.id === map)) throw Error(`Unknown region ${map}`);
   for (const period of stories.includes(map) ? set ? [set] : ['day', 'night'] : ['day']) await exportBases(map, period);
 }
+await exportSceneryGeometry(root);
 
 execFileSync(process.execPath, ['scripts/prepare-scenery-previews.mjs', ...requested], {stdio:'inherit'});

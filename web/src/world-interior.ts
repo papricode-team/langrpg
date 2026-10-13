@@ -3,6 +3,7 @@ import type { InteriorSpec } from './interiors';
 import { sceneryPhase } from './placed-scenery';
 import type { SceneryAnimation, SceneryAnimationManifest } from './scenery-animation';
 import type { SceneryView } from './world-scenery';
+import { worldDepth } from './world-depth';
 
 interface InteriorLayer {
   sprite: Phaser.GameObjects.Sprite;
@@ -51,7 +52,7 @@ export class WorldInterior {
       if (!scene.textures.get(animation.key).has(frame)) continue;
       const scale = prop.width / animation.referenceWidth;
       const sprite = scene.add.sprite(prop.x, prop.y, animation.key, frame)
-        .setOrigin(animation.originX, animation.originY).setScale(scale).setDepth(prop.depth ?? prop.y);
+        .setOrigin(animation.originX, animation.originY).setScale(scale).setDepth(worldDepth(prop.depth ?? prop.y));
       this.layers.push({ sprite, width: animation.width * scale, height: animation.height * scale });
       for (const [index, detail] of (prop.effects ?? []).entries()) {
         const effect = effectManifest?.assets[detail.asset];
@@ -59,7 +60,7 @@ export class WorldInterior {
           || !effect.frames.every(name => scene.textures.get(effect.key).has(name))) continue;
         const detailScale = detail.width / effect.referenceWidth;
         const create = () => scene.add.sprite(prop.x + detail.x, prop.y + detail.y, effect.key, effect.frames[0])
-          .setOrigin(effect.originX, effect.originY).setScale(detailScale).setDepth((prop.depth ?? prop.y) + .5).setAlpha(0);
+          .setOrigin(effect.originX, effect.originY).setScale(detailScale).setDepth(worldDepth(prop.depth ?? prop.y)).setAlpha(0);
         this.effects.push({ propId: prop.id, sprites: [create(), create()], animation: effect, width: effect.width * detailScale,
           height: effect.height * detailScale, alpha: detail.alpha,
           phase: sceneryPhase(`${prop.id}:${index}`) / (Math.PI * 2) * effect.frames.length });

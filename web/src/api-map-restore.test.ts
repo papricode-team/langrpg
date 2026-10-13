@@ -7,10 +7,14 @@ function storedRegion(id: string | null) {
 }
 afterEach(() => vi.unstubAllGlobals());
 
-describe('saved expedition destination', () => {
-  it.each(expeditionIds)('restores %s when the client is recreated after a reload', id => {
+describe('saved playable destination', () => {
+  it.each(['lindenhafen', 'waldruh', 'nebelstadt'])('restores the authored town %s after a reload', id => {
     storedRegion(id);
     expect(new Api().mapId).toBe(id);
+  });
+  it.each(expeditionIds)('returns a retired destination %s to the starting town', id => {
+    storedRegion(id);
+    expect(new Api().mapId).toBe('lindenhafen');
   });
   it.each([null, 'unknown-region', 'saffroncourt?draft'])('keeps the starting town for an invalid saved value %s', id => {
     storedRegion(id);

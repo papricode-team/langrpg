@@ -1,5 +1,16 @@
 # Close-up story terrain
 
+All runtime terrain, overview images and loading fallback plates contain only
+ground surfaces, water, bridges, stairs, retaining walls, embankments and cliffs.
+Buildings, tree silhouettes, plants, furniture, lamps, stalls and people belong
+to independently editable scenery layers. Terrain generation and regeneration
+must preserve that separation and avoid shadows of absent scenery. Low grass,
+fine moss and small surface flowers remain part of ground texture.
+
+The active day/night pieces and all seven legacy/manifest loading plates were
+visually reviewed on 2026-10-13. See `docs/audits/terrain-only-review.json` and
+the contact sheets under `output/terrain-review/`.
+
 The selected 96 PNG masters were generated with Codex's built-in ImageGen tool
 on 2026-10-11: sixteen overlapping sections for each of three story towns in
 both daylight and moonlight. [prompts.json](prompts.json) records the exact
@@ -53,3 +64,23 @@ reserve 36 MiB per story town and 160 MiB of total art, while retaining the
 The `/qa/world-assets.html` preview reports the loaded painting dimensions
 and the number of physical screen pixels per terrain pixel. Inspect day and
 night, walk the map and check both source stitching and runtime piece edges.
+
+Authored navigation masks are independent of the painted lighting. Every active
+story terrain chunk requires a registered mask; the compiler rejects routes
+outside it. Core street traces can be rasterized with
+`node scripts/prepare-core-ground-masks.mjs` before re-exporting all masks.
+Save `<town>-walkable.png` at exactly the canonical scene's world dimensions, or
+`<town>-<terrain-id>-walkable.png` at the tile's exact world dimensions. White
+means walkable and black means blocked; use one native pixel per world unit.
+A transparent background is treated as blocked. Mask export never resizes or
+infers navigation from paved-looking colours.
+
+```sh
+node scripts/prepare-terrain-detail.mjs --walkable-masks
+```
+
+This writes bounded mask PNGs to `web/public/assets/walkable-masks` and an exact
+rectangle partition of their white pixels to `<town>-walkable-masks.json` beside
+the sources. The JSON includes world offsets, provenance and the polygons for
+a reviewed scene content pass or conversion to editor polygons. It does not overwrite authored
+scene geometry. Normal terrain export also refreshes masks when sources exist.

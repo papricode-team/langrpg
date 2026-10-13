@@ -1,0 +1,566 @@
+{
+  "method": "Native reference pixels per world unit; authored chunk density; 6-unit walkable samples connected through exact runtime segment checks.",
+  "maps": [
+    {
+      "id": "lindenhafen",
+      "width": 2304,
+      "height": 1536,
+      "scenery": 209,
+      "issues": [],
+      "resolution": {
+        "archive": {
+          "median": 4.2,
+          "min": 4.2
+        },
+        "house": {
+          "median": 5.409388409691821,
+          "min": 4.823300970873786
+        },
+        "station": {
+          "median": 3.9133855574179868,
+          "min": 3.9133855574179868
+        },
+        "workshop": {
+          "median": 4.1648730090400345,
+          "min": 4.1648730090400345
+        },
+        "tree": {
+          "median": 4.318703750956877,
+          "min": 4.318703750956877
+        },
+        "cypress": {
+          "median": 4.343907714491709,
+          "min": 4.343907714491709
+        },
+        "lamp": {
+          "median": 6.9695632995147765,
+          "min": 6.9695632995147765
+        },
+        "stall": {
+          "median": 4.247954688483323,
+          "min": 4.247954688483323
+        },
+        "fountain": {
+          "median": 4.599840467960649,
+          "min": 4.599840467960649
+        },
+        "arch": {
+          "median": 3.9306640625,
+          "min": 3.9306640625
+        },
+        "greenhouse": {
+          "median": 5.7117253089331195,
+          "min": 5.7117253089331195
+        },
+        "bench": {
+          "median": 12.186450720916453,
+          "min": 12.186450720916453
+        },
+        "planter": {
+          "median": 13.139329805996471,
+          "min": 5
+        },
+        "sign": {
+          "median": 9.285143769968052,
+          "min": 9.285143769968052
+        },
+        "boat": {
+          "median": 3.531880172514279,
+          "min": 3.531880172514279
+        }
+      },
+      "chunks": [
+        {
+          "id": "core-0-0",
+          "objects": 23,
+          "buildings": 6,
+          "activities": 1,
+          "walkableRatio": 0.15299479166666666
+        },
+        {
+          "id": "core-0-1",
+          "objects": 25,
+          "buildings": 4,
+          "activities": 1,
+          "walkableRatio": 0.22005208333333334
+        },
+        {
+          "id": "core-1-0",
+          "objects": 27,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.2838541666666667
+        },
+        {
+          "id": "core-1-1",
+          "objects": 20,
+          "buildings": 3,
+          "activities": 1,
+          "walkableRatio": 0.3046875
+        },
+        {
+          "id": "station-yard",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 9,
+          "walkableRatio": 0.8404947916666666
+        },
+        {
+          "id": "canal-walk",
+          "objects": 25,
+          "buildings": 2,
+          "activities": 9,
+          "walkableRatio": 0.6647135416666666
+        },
+        {
+          "id": "harbor-court",
+          "objects": 22,
+          "buildings": 2,
+          "activities": 9,
+          "walkableRatio": 0.5774739583333334
+        },
+        {
+          "id": "bridge-quay",
+          "objects": 19,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.37890625
+        },
+        {
+          "id": "library-square",
+          "objects": 28,
+          "buildings": 2,
+          "activities": 15,
+          "walkableRatio": 0.65234375
+        }
+      ],
+      "navigation": {
+        "sampleStep": 6,
+        "walkableSamples": 39797,
+        "reachableSamples": 39797,
+        "unreachableSamples": 0,
+        "reachableRatio": 1
+      },
+      "unreachablePoints": [],
+      "connectedArea": 1442752,
+      "entrances": [
+        {
+          "id": "cafe-entrance",
+          "ownerId": "cafe",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 605.9317868589743,
+            "y": 427.2704326923077
+          },
+          "return": {
+            "x": 605.9317868589743,
+            "y": 499.2704326923077
+          }
+        },
+        {
+          "id": "bakery-entrance",
+          "ownerId": "riverside-house",
+          "doorHeight": 83.2626303127506,
+          "doorHeightPersons": 1.156425421010425,
+          "approach": {
+            "x": 1147.4004370489174,
+            "y": 801.0522774659182
+          },
+          "return": {
+            "x": 1147.4004370489174,
+            "y": 873.0522774659182
+          }
+        },
+        {
+          "id": "supermarket-entrance",
+          "ownerId": "market-east-stall",
+          "doorHeight": 82.93075684380032,
+          "doorHeightPersons": 1.1518160672750044,
+          "approach": {
+            "x": 1152.9696054750402,
+            "y": 449.29227053140096
+          },
+          "return": {
+            "x": 1152.9696054750402,
+            "y": 521.292270531401
+          }
+        },
+        {
+          "id": "inn-entrance",
+          "ownerId": "bridge-quay-storefront-1",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 1453.9317868589744,
+            "y": 1225.2704326923076
+          },
+          "return": {
+            "x": 1453.9317868589744,
+            "y": 1297.2704326923076
+          }
+        }
+      ]
+    },
+    {
+      "id": "waldruh",
+      "width": 2304,
+      "height": 1024,
+      "scenery": 129,
+      "issues": [],
+      "resolution": {
+        "house": {
+          "median": 5.409388409691821,
+          "min": 4.823300970873786
+        },
+        "station": {
+          "median": 3.57543217888961,
+          "min": 3.57543217888961
+        },
+        "workshop": {
+          "median": 4.368460791716104,
+          "min": 4.368460791716104
+        },
+        "greenhouse": {
+          "median": 5.7117253089331195,
+          "min": 5.7117253089331195
+        },
+        "fountain": {
+          "median": 4.599840467960649,
+          "min": 4.599840467960649
+        },
+        "stall": {
+          "median": 4.247954688483323,
+          "min": 4.247954688483323
+        },
+        "arch": {
+          "median": 3.9306640625,
+          "min": 3.9306640625
+        },
+        "sign": {
+          "median": 9.285143769968052,
+          "min": 9.285143769968052
+        },
+        "boat": {
+          "median": 3.531880172514279,
+          "min": 3.531880172514279
+        },
+        "lamp": {
+          "median": 6.9695632995147765,
+          "min": 6.9695632995147765
+        },
+        "planter": {
+          "median": 13.139329805996471,
+          "min": 4.744042365401588
+        },
+        "bench": {
+          "median": 12.186450720916453,
+          "min": 12.186450720916453
+        },
+        "tree": {
+          "median": 4.318703750956877,
+          "min": 4.318703750956877
+        },
+        "cypress": {
+          "median": 4.343907714491709,
+          "min": 4.343907714491709
+        }
+      },
+      "chunks": [
+        {
+          "id": "core-0-0",
+          "objects": 27,
+          "buildings": 3,
+          "activities": 1,
+          "walkableRatio": 0.3424479166666667
+        },
+        {
+          "id": "core-0-1",
+          "objects": 19,
+          "buildings": 3,
+          "activities": 1,
+          "walkableRatio": 0.17317708333333334
+        },
+        {
+          "id": "core-1-0",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.4342447916666667
+        },
+        {
+          "id": "core-1-1",
+          "objects": 21,
+          "buildings": 3,
+          "activities": 1,
+          "walkableRatio": 0.3216145833333333
+        },
+        {
+          "id": "mill-supply-terrace",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 5,
+          "walkableRatio": 0.9928385416666666
+        },
+        {
+          "id": "mill-service-yard",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 4,
+          "walkableRatio": 0.9856770833333334
+        }
+      ],
+      "navigation": {
+        "sampleStep": 6,
+        "walkableSamples": 28457,
+        "reachableSamples": 28457,
+        "unreachableSamples": 0,
+        "reachableRatio": 1
+      },
+      "unreachablePoints": [],
+      "connectedArea": 1030208,
+      "entrances": [
+        {
+          "id": "cafe-entrance",
+          "ownerId": "waldruh-inn",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 337.93178685897436,
+            "y": 296.2704326923077
+          },
+          "return": {
+            "x": 337.93178685897436,
+            "y": 368.2704326923077
+          }
+        },
+        {
+          "id": "bakery-entrance",
+          "ownerId": "waldruh-west-workshop",
+          "doorHeight": 83.2626303127506,
+          "doorHeightPersons": 1.156425421010425,
+          "approach": {
+            "x": 222.4004370489174,
+            "y": 674.0522774659182
+          },
+          "return": {
+            "x": 222.4004370489174,
+            "y": 746.0522774659182
+          }
+        },
+        {
+          "id": "supermarket-entrance",
+          "ownerId": "waldruh-market-east",
+          "doorHeight": 82.93075684380032,
+          "doorHeightPersons": 1.1518160672750044,
+          "approach": {
+            "x": 1021.9696054750402,
+            "y": 631.292270531401
+          },
+          "return": {
+            "x": 1021.9696054750402,
+            "y": 703.292270531401
+          }
+        },
+        {
+          "id": "inn-entrance",
+          "ownerId": "waldruh-north-cottage",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 677.9317868589743,
+            "y": 130.27043269230768
+          },
+          "return": {
+            "x": 677.9317868589743,
+            "y": 202.27043269230768
+          }
+        }
+      ]
+    },
+    {
+      "id": "nebelstadt",
+      "width": 2304,
+      "height": 1024,
+      "scenery": 133,
+      "issues": [],
+      "resolution": {
+        "archive": {
+          "median": 4,
+          "min": 4
+        },
+        "cafe": {
+          "median": 4.036723466580931,
+          "min": 4.036723466580931
+        },
+        "station": {
+          "median": 3.5566318492151483,
+          "min": 3.5566318492151483
+        },
+        "workshop": {
+          "median": 3.8737012004438616,
+          "min": 3.8737012004438616
+        },
+        "house": {
+          "median": 5.409388409691821,
+          "min": 4.823300970873786
+        },
+        "greenhouse": {
+          "median": 5.7117253089331195,
+          "min": 5.7117253089331195
+        },
+        "stall": {
+          "median": 4.247954688483323,
+          "min": 4.247954688483323
+        },
+        "arch": {
+          "median": 3.9306640625,
+          "min": 3.9306640625
+        },
+        "fountain": {
+          "median": 4.599840467960649,
+          "min": 4.599840467960649
+        },
+        "sign": {
+          "median": 9.285143769968052,
+          "min": 9.285143769968052
+        },
+        "tree": {
+          "median": 4.318703750956877,
+          "min": 4.318703750956877
+        },
+        "cypress": {
+          "median": 4.343907714491709,
+          "min": 4.343907714491709
+        },
+        "lamp": {
+          "median": 6.9695632995147765,
+          "min": 6.9695632995147765
+        },
+        "planter": {
+          "median": 13.139329805996471,
+          "min": 5.13924777490669
+        },
+        "bench": {
+          "median": 12.186450720916453,
+          "min": 12.186450720916453
+        },
+        "boat": {
+          "median": 3.531880172514279,
+          "min": 3.531880172514279
+        }
+      },
+      "chunks": [
+        {
+          "id": "core-0-0",
+          "objects": 29,
+          "buildings": 3,
+          "activities": 1,
+          "walkableRatio": 0.896484375
+        },
+        {
+          "id": "core-0-1",
+          "objects": 21,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.5364583333333334
+        },
+        {
+          "id": "core-1-0",
+          "objects": 18,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.6048177083333334
+        },
+        {
+          "id": "core-1-1",
+          "objects": 25,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 0.482421875
+        },
+        {
+          "id": "harbour-front",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 1
+        },
+        {
+          "id": "harbour-supply",
+          "objects": 20,
+          "buildings": 2,
+          "activities": 1,
+          "walkableRatio": 1
+        }
+      ],
+      "navigation": {
+        "sampleStep": 6,
+        "walkableSamples": 43038,
+        "reachableSamples": 43038,
+        "unreachableSamples": 0,
+        "reachableRatio": 1
+      },
+      "unreachablePoints": [],
+      "connectedArea": 1554560,
+      "entrances": [
+        {
+          "id": "cafe-entrance",
+          "ownerId": "nebelstadt-west-cafe-canopy",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 158.93178685897436,
+            "y": 407.2704326923077
+          },
+          "return": {
+            "x": 158.93178685897436,
+            "y": 479.2704326923077
+          }
+        },
+        {
+          "id": "bakery-entrance",
+          "ownerId": "harbour-front-storefront-2",
+          "doorHeight": 83.2626303127506,
+          "doorHeightPersons": 1.156425421010425,
+          "approach": {
+            "x": 2022.4004370489174,
+            "y": 202.0522774659182
+          },
+          "return": {
+            "x": 2022.4004370489174,
+            "y": 274.0522774659182
+          }
+        },
+        {
+          "id": "supermarket-entrance",
+          "ownerId": "nebelstadt-market-canopy",
+          "doorHeight": 82.93075684380032,
+          "doorHeightPersons": 1.1518160672750044,
+          "approach": {
+            "x": 672.9696054750402,
+            "y": 808.292270531401
+          },
+          "return": {
+            "x": 672.9696054750402,
+            "y": 880.292270531401
+          }
+        },
+        {
+          "id": "inn-entrance",
+          "ownerId": "harbour-front-storefront-1",
+          "doorHeight": 81.34006410256411,
+          "doorHeightPersons": 1.1297231125356126,
+          "approach": {
+            "x": 1823.9317868589744,
+            "y": 197.27043269230768
+          },
+          "return": {
+            "x": 1823.9317868589744,
+            "y": 269.2704326923077
+          }
+        }
+      ]
+    }
+  ]
+}

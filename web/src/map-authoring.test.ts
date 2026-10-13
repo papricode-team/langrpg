@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {authoredNavigation,parseMapNavigationDocument,applyAuthoredMapPlacements} from './map-authoring';
-import {validateAuthoredReachability} from './navigation';
+import {validateAuthoredReachability,NavigationGrid} from './navigation';
+import {placedSceneryFootprints} from './placed-scenery';
 import {getMap} from './maps';
 
 describe('authored map geometry and runtime placement',()=>{
@@ -21,7 +22,16 @@ describe('authored map geometry and runtime placement',()=>{
   });
   it('rejects a target on a disconnected island even when both endpoints are walkable',()=>{
     const document=structuredClone(authoredNavigation);
-    document.maps.lindenhafen={walkable:[[[40,40],[140,40],[140,140],[40,140]],[[300,40],[400,40],[400,140],[300,140]]],obstacles:[],spawn:{x:60,y:60},npcs:[{id:'otto',x:350,y:70}],objects:[]};
+    const footprints=placedSceneryFootprints('lindenhafen');
+    const open=new NavigationGrid([[[40,40],[document.width-40,40],[document.width-40,document.height-40],[40,document.height-40]]],footprints,document);
+    const spawn=open.closestPoint(document.width*.15,document.height*.85),target=open.closestPoint(document.width*.85,document.height*.85);
+    const island=(point:{x:number;y:number}):[number,number][]=>[[point.x-20,point.y-20],[point.x+20,point.y-20],[point.x+20,point.y+20],[point.x-20,point.y+20]];
+    document.maps.lindenhafen={walkable:[island(spawn),island(target)],obstacles:[],spawn,npcs:[{id:'otto',...target}],objects:[]};
+    const separated=new NavigationGrid(document.maps.lindenhafen.walkable,footprints,document);
+    expect(separated.isWalkable(spawn.x,spawn.y)).toBe(true);
+    expect(separated.isWalkable(target.x,target.y)).toBe(true);
+    expect(Math.hypot(spawn.x-target.x,spawn.y-target.y)).toBeGreaterThan(400);
+    expect(separated.findPath(spawn,target)).toEqual([]);
     expect(validateAuthoredReachability(parseMapNavigationDocument(document))).toContain('lindenhafen: otto has no reachable interaction approach');
   });
   it('uses edited spawn and NPC/object pixel positions in actual map specifications',()=>{

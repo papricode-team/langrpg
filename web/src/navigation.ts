@@ -26,6 +26,16 @@ function includes(area: Region, x: number, y: number): boolean {
 export const MAP_WIDTH = 1536;
 export const MAP_HEIGHT = 1024;
 export interface NavigationBounds { width: number; height: number; }
+export interface NavigationView { x: number; y: number; right: number; bottom: number; }
+export interface NavigationReachability {
+  sampleStep: number;
+  walkableSamples: number;
+  reachableSamples: number;
+  unreachableSamples: number;
+  reachableRatio: number;
+  unreachablePoints: MapPoint[];
+  unreachableBounds?: {minX: number; minY: number; maxX: number; maxY: number};
+}
 
 // Foot-level paths traced from the Lindenhafen painting. Roofs, gardens outside
 // their gravel paths, stalls, fountains, and waterways are deliberately excluded.
@@ -89,7 +99,8 @@ class MinHeap {
 }
 
 export class NavigationGrid {
-  private readonly cell = 14;
+  readonly cellSize = 8;
+  private readonly cell = this.cellSize;
   readonly width: number;
   readonly height: number;
   private readonly columns: number;
@@ -101,6 +112,7 @@ export class NavigationGrid {
   private readonly streets: readonly Region[];
   private readonly barriers: readonly Region[];
   private readonly geometry: readonly Region[];
+  private readonly closestCandidates = new Map<number, readonly number[]>();
 
   constructor(areas: readonly Polygon[], obstacles: readonly Polygon[] = [], bounds: NavigationBounds = {width:MAP_WIDTH,height:MAP_HEIGHT}) {
     if (!Number.isFinite(bounds.width) || !Number.isFinite(bounds.height) || bounds.width < 28 || bounds.height < 28 || bounds.width > 16384 || bounds.height > 16384) throw new Error('Invalid navigation dimensions');
@@ -125,7 +137,7 @@ export class NavigationGrid {
 
   isWalkable(x: number, y: number): boolean {
     if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
-    if (x < 14 || x > this.width - 14 || y < 14 || y > this.height - 14) return false;
+    if (x < 4 || x > this.width - 4 || y < 4 || y > this.height - 4) return false;
     return this.streets.some(area => includes(area, x, y)) && !this.barriers.some(area => includes(area, x, y));
   }
 
@@ -137,6 +149,48 @@ export class NavigationGrid {
 
   /** Repeatable area proxy using the exact collision-safe movement graph. */
   auditConnectedArea(spawn: MapPoint): {cellSize:number; totalWalkableCells:number; connectedCells:number; connectedArea:number} {
+    const {count} = this.connectedNodes(spawn);
+    return {cellSize:this.cell,totalWalkableCells:this.nodes.length,connectedCells:count,connectedArea:count*this.cell*this.cell};
+  }
+
+  /** Audit every walkable lattice sample without repeating A* for each sample. */
+  auditReachability(spawn: MapPoint, sampleStep = 6): NavigationReachability {
+    if (!Number.isFinite(sampleStep) || sampleStep < 1) throw new Error('Invalid navigation sample step');
+    const {seen} = this.connectedNodes(spawn);
+    const spawnWalkable = this.isWalkable(spawn.x, spawn.y);
+    let walkableSamples = 0, reachableSamples = 0;
+    const unreachablePoints: MapPoint[] = [];
+    for (let y = 0; y <= this.height; y += sampleStep) for (let x = 0; x <= this.width; x += sampleStep) {
+      if (!this.isWalkable(x, y)) continue;
+      walkableSamples++;
+      const sample = {x, y};
+      const anchor = this.closestIndex(x, y, sample);
+      if (spawnWalkable && (anchor !== undefined && seen[anchor] || this.lineClear(spawn, sample))) reachableSamples++;
+      else unreachablePoints.push(sample);
+    }
+    const unreachableBounds = unreachablePoints.length ? unreachablePoints.reduce((bounds, point) => ({
+      minX: Math.min(bounds.minX, point.x), minY: Math.min(bounds.minY, point.y),
+      maxX: Math.max(bounds.maxX, point.x), maxY: Math.max(bounds.maxY, point.y),
+    }), {minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity}) : undefined;
+    return {sampleStep, walkableSamples, reachableSamples, unreachableSamples: unreachablePoints.length,
+      reachableRatio: walkableSamples ? reachableSamples / walkableSamples : 1, unreachablePoints, unreachableBounds};
+  }
+
+  /** Visible grid dots and the exact collision geometry used by movement. */
+  debugGeometry(view?: NavigationView): {cellSize: number; walkable: readonly Polygon[]; obstacles: readonly Polygon[]; nodes: MapPoint[]} {
+    const visible = (area: Region) => !view || area.maxX >= view.x && area.minX <= view.right && area.maxY >= view.y && area.minY <= view.bottom;
+    return {
+      cellSize: this.cell,
+      walkable: this.streets.filter(visible).map(area => area.polygon),
+      obstacles: this.barriers.filter(visible).map(area => area.polygon),
+      nodes: this.nodes.filter(index => !view || (index % this.columns + .5) * this.cell >= view.x
+        && (index % this.columns + .5) * this.cell <= view.right
+        && (Math.floor(index / this.columns) + .5) * this.cell >= view.y
+        && (Math.floor(index / this.columns) + .5) * this.cell <= view.bottom).map(index => this.point(index)),
+    };
+  }
+
+  private connectedNodes(spawn: MapPoint): {seen: Uint8Array; count: number} {
     const start = this.isWalkable(spawn.x,spawn.y) ? this.closestIndex(spawn.x,spawn.y,spawn) : undefined;
     const queue: number[] = start === undefined ? [] : [start];
     const seen = new Uint8Array(this.allowed.length);
@@ -148,12 +202,11 @@ export class NavigationGrid {
         if(column+dx<0||column+dx>=this.columns||row+dy<0||row+dy>=this.rows)continue;
         const next=(row+dy)*this.columns+column+dx;
         if(seen[next]||!this.allowed[next])continue;
-        if(dx&&dy&&(!this.allowed[row*this.columns+column+dx]||!this.allowed[(row+dy)*this.columns+column]))continue;
         if(!this.edgeClear(current,next,direction))continue;
         seen[next]=1;queue.push(next);
       }
     }
-    return {cellSize:this.cell,totalWalkableCells:this.nodes.length,connectedCells:queue.length,connectedArea:queue.length*this.cell*this.cell};
+    return {seen, count: queue.length};
   }
 
   closestPoint(x: number, y: number): MapPoint {
@@ -197,7 +250,6 @@ export class NavigationGrid {
           if (column + dx < 0 || column + dx >= this.columns || row + dy < 0 || row + dy >= this.rows) continue;
           const next = (row + dy) * this.columns + column + dx;
           if (!this.allowed[next] || visited[next]) continue;
-          if (dx && dy && (!this.allowed[row * this.columns + column + dx] || !this.allowed[(row + dy) * this.columns + column])) continue;
           const score = scores[current] + (dx && dy ? Math.SQRT2 : 1);
           if (score >= scores[next]) continue;
           // Even adjacent cells must not cross a very thin railing or obstacle.
@@ -215,20 +267,74 @@ export class NavigationGrid {
   }
 
   private closestIndex(x: number, y: number, visibleFrom?: MapPoint): number | undefined {
+    if (!this.nodes.length || !Number.isFinite(x) || !Number.isFinite(y)) return undefined;
+    const column = Math.max(0, Math.min(this.columns - 1, Math.floor(x / this.cell)));
+    const row = Math.max(0, Math.min(this.rows - 1, Math.floor(y / this.cell)));
+    const key = row * this.columns + column;
+    let candidates = this.closestCandidates.get(key);
+    if (!candidates) {
+      // A point in this cell is at most half a diagonal from its centre. Any
+      // nearest node is therefore within nearest-centre-distance + one diagonal.
+      const centre = this.point(key);
+      const nearby: number[] = [];
+      let nearest = Infinity;
+      for (let radius = 0; radius < Math.max(this.columns, this.rows); radius++) {
+        this.forRing(column, row, radius, index => {
+          if (!this.allowed[index]) return;
+          nearby.push(index);
+          const point = this.point(index);
+          nearest = Math.min(nearest, Math.hypot(centre.x - point.x, centre.y - point.y));
+        });
+        if ((radius + 1) * this.cell > nearest + Math.SQRT2 * this.cell) break;
+      }
+      candidates = nearby;
+      // Pointer clicks and audit samples can visit the whole map. Bound the
+      // cache instead of retaining one large water-side candidate list per cell.
+      if (this.closestCandidates.size >= 4096) this.closestCandidates.clear();
+      this.closestCandidates.set(key, candidates);
+    }
     let best: number | undefined;
     let bestDistance = Infinity;
-    for (const index of this.nodes) {
+    let nearestCandidateDistance = Infinity;
+    const consider = (index: number): void => {
       const point = this.point(index);
       const distance = (x - point.x) ** 2 + (y - point.y) ** 2;
-      if (distance < bestDistance) { best = index; bestDistance = distance; }
+      nearestCandidateDistance = Math.min(nearestCandidateDistance, distance);
+      if (distance >= bestDistance || visibleFrom && !this.lineClear(visibleFrom, point)) return;
+      best = index;
+      bestDistance = distance;
+    };
+    for (const index of candidates) consider(index);
+    // The cached local nodes suffice for an ordinary in-map nearest point. A
+    // thin wall may hide them, and off-map clicks need the full distance bound.
+    if (best !== undefined && (!visibleFrom || bestDistance === nearestCandidateDistance) && x >= column * this.cell && x <= (column + 1) * this.cell
+      && y >= row * this.cell && y <= (row + 1) * this.cell) return best;
+    for (let radius = 0; radius < Math.max(this.columns, this.rows); radius++) {
+      this.forRing(column, row, radius, index => { if (this.allowed[index]) consider(index); });
+      const left = Math.max(0, column - radius), right = Math.min(this.columns - 1, column + radius);
+      const top = Math.max(0, row - radius), bottom = Math.min(this.rows - 1, row + radius);
+      const outsideDistance = Math.min(
+        left > 0 ? Math.max(0, x - (left - .5) * this.cell) : Infinity,
+        right < this.columns - 1 ? Math.max(0, (right + 1.5) * this.cell - x) : Infinity,
+        top > 0 ? Math.max(0, y - (top - .5) * this.cell) : Infinity,
+        bottom < this.rows - 1 ? Math.max(0, (bottom + 1.5) * this.cell - y) : Infinity,
+      );
+      if (best !== undefined && outsideDistance * outsideDistance > bestDistance) break;
     }
-    if (best === undefined || !visibleFrom || this.lineClear(visibleFrom, this.point(best))) return best;
-    // Usually the nearest anchor is visible; only sort candidates at a wall.
-    const candidates = this.nodes.map(index => {
-      const point = this.point(index);
-      return { index, distance: (x - point.x) ** 2 + (y - point.y) ** 2 };
-    }).sort((a, b) => a.distance - b.distance);
-    return candidates.find(candidate => this.lineClear(visibleFrom, this.point(candidate.index)))?.index;
+    return best;
+  }
+
+  private forRing(column: number, row: number, radius: number, visit: (index: number) => void): void {
+    if (!radius) { visit(row * this.columns + column); return; }
+    const left = column - radius, right = column + radius, top = row - radius, bottom = row + radius;
+    for (let x = Math.max(0, left); x <= Math.min(this.columns - 1, right); x++) {
+      if (top >= 0) visit(top * this.columns + x);
+      if (bottom < this.rows) visit(bottom * this.columns + x);
+    }
+    for (let y = Math.max(0, top + 1); y <= Math.min(this.rows - 1, bottom - 1); y++) {
+      if (left >= 0) visit(y * this.columns + left);
+      if (right < this.columns) visit(y * this.columns + right);
+    }
   }
 
   private edgeClear(start: number, end: number, direction: number): boolean {

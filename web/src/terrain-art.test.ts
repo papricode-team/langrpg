@@ -30,15 +30,15 @@ describe('high-resolution story terrain exports', () => {
         expect(tile.crop.width / tile.width).toBe(4);
         expect((await stat(path)).size).toBeLessThanOrEqual(2 * 1024 * 1024);
       }
-      const name = period === 'day' && map.id !== 'nebelstadt' ? map.id : `${map.id}-${period}`;
-      const runtime = new URL(`../public/assets/${name}-terrain.webp`, import.meta.url);
+      const terrainKey = animation.terrain ?? `${map.id}-terrain`;
+      const runtime = new URL(`../public/assets/${terrainKey}.webp`, import.meta.url);
       const metadata = await sharp(runtime.pathname).metadata();
       expect([metadata.width, metadata.height]).toEqual([3072, 2048]);
       if (map.id === 'nebelstadt') {
-        const day = new URL('../public/assets/nebelstadt-day-terrain.webp', import.meta.url);
+        const day = new URL('../public/assets/nebelstadt-harbour-bridge-day-terrain.webp', import.meta.url);
         expect((await readFile(new URL(`../public${map.asset}`, import.meta.url))).equals(await readFile(day))).toBe(true);
-        expect(sceneryTerrainKey(map.id, { version: 1, framesPerAsset: 6, assets: {}, terrain: 'nebelstadt-day-terrain' })).toBe(map.id);
-        expect(sceneryTerrainKey(map.id, { version: 1, framesPerAsset: 6, assets: {}, terrain: 'nebelstadt-night-terrain' })).toBe('nebelstadt-night-terrain');
+        expect(sceneryTerrainKey(map.id, { version: 1, framesPerAsset: 6, assets: {}, terrain: 'nebelstadt-harbour-bridge-day-terrain' })).toBe(map.id);
+        expect(sceneryTerrainKey(map.id, { version: 1, framesPerAsset: 6, assets: {}, terrain: 'nebelstadt-harbour-bridge-night-terrain' })).toBe('nebelstadt-harbour-bridge-night-terrain');
       }
       expect((await stat(runtime)).size).toBeLessThanOrEqual(2 * 1024 * 1024);
       const preview = await sharp(new URL(`../public/assets/${map.id}-preview.webp`, import.meta.url).pathname).metadata();

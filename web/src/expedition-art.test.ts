@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { expeditionMaps } from './expeditions';
-import { getPlacedScenery } from './placed-scenery';
+import archived from '../../docs/archive/expedition-scenes.json';
 import { isBuildingScenery, sceneryAnimationTextureKeys, sampleSceneryFrame, type SceneryAnimationManifest } from './scenery-animation';
 import { regionPeopleKey } from './world-map-assets';
 
@@ -10,10 +10,10 @@ interface Atlas { frames: Record<string, {
   pivot?:{x:number;y:number};
   registration?:{scale:number;outputTorsoX:number;outputSoleY:number};
 }>; meta:{size:{w:number;h:number}}; }
-const files = import.meta.glob(['../public/assets/*-props.json','../public/assets/*-motions.json','../public/assets/*-people*.json','../public/assets/*-building-bases*.json','../public/assets/*-day-animations.json','../public/assets/*-night-animations.json'], { eager:true, import:'default' });
-const readAtlas = (name:string): Atlas => files[`../public/assets/${name}.json`] as Atlas;
+const files = import.meta.glob('../../art/archive/expedition-maps/*.json', { eager:true, import:'default' });
+const readAtlas = (name:string): Atlas => files[`../../art/archive/expedition-maps/${name}.json`] as Atlas;
 
-describe('exported expedition sprites', () => {
+describe('archived expedition map art and retained learning portraits', () => {
   for (const map of expeditionMaps) it(`${map.name} resolves every static prop, independent motion and local character frame`, async () => {
     const props=readAtlas(`${map.id}-props`), motions=readAtlas(`${map.id}-motions`), people=readAtlas(`${map.id}-people`);
     expect(props,`${map.id} props atlas`).toBeDefined();
@@ -26,7 +26,7 @@ describe('exported expedition sprites', () => {
     expect(Object.keys(readAtlas(`${map.id}-people-2`).frames)).toHaveLength(24);
     for (const kind of ['props','motions','people','people-1','people-2']) {
       const atlas=readAtlas(`${map.id}-${kind}`);
-      const metadata=await sharp(new URL(`../public/assets/${map.id}-${kind}.webp`,import.meta.url).pathname).metadata();
+      const metadata=await sharp(new URL(`../../art/archive/expedition-maps/${map.id}-${kind}.webp`,import.meta.url).pathname).metadata();
       expect(metadata.hasAlpha,`${map.id}-${kind} requires actual alpha`).toBe(true);
       expect(metadata.width).toBe(atlas.meta.size.w);
       expect(metadata.height).toBe(atlas.meta.size.h);
@@ -42,9 +42,9 @@ describe('exported expedition sprites', () => {
       }
     }
     const buildingPages=new Set<string>();
-    const day=files[`../public/assets/${map.id}-day-animations.json`] as SceneryAnimationManifest;
+    const day=files[`../../art/archive/expedition-maps/${map.id}-day-animations.json`] as SceneryAnimationManifest;
     for (const period of ['day','night'] as const) {
-      const manifest=files[`../public/assets/${map.id}-${period}-animations.json`] as SceneryAnimationManifest;
+      const manifest=files[`../../art/archive/expedition-maps/${map.id}-${period}-animations.json`] as SceneryAnimationManifest;
       expect(Object.keys(manifest.assets)).toHaveLength(15);
       const buildings=Object.entries(manifest.assets).filter(([name])=>isBuildingScenery(name));
       expect(buildings).toHaveLength(11);
@@ -64,7 +64,7 @@ describe('exported expedition sprites', () => {
         expect([base.originX??building.originX,base.originY??building.originY].every(value=>value>=0&&value<=1)).toBe(true);
         buildingPages.add(base.key);
       }
-      for (const spec of getPlacedScenery(map.id)) {
+      for (const spec of archived.maps[map.id].scenery) {
         const name=spec.frame??spec.asset;
         if (spec.collidable===false) {
           const animation=manifest.assets[name];
@@ -81,7 +81,7 @@ describe('exported expedition sprites', () => {
     }
     for(const key of buildingPages){
       const atlas=readAtlas(key);
-      const metadata=await sharp(new URL(`../public/assets/${key}.webp`,import.meta.url).pathname).metadata();
+      const metadata=await sharp(new URL(`../../art/archive/expedition-maps/${key}.webp`,import.meta.url).pathname).metadata();
       expect(metadata.hasAlpha,`${key}: native transparency`).toBe(true);
       expect(metadata.width).toBe(atlas.meta.size.w);
       expect(metadata.height).toBe(atlas.meta.size.h);
@@ -114,7 +114,7 @@ describe('exported expedition sprites', () => {
       }
       keys.add(`${key}:person-${variant}-0`);
       const frame=atlas.frames[`person-${variant}-0`].frame;
-      const pixels=await sharp(new URL(`../public/assets/${key}.webp`,import.meta.url).pathname)
+      const pixels=await sharp(new URL(`../../art/archive/expedition-maps/${key}.webp`,import.meta.url).pathname)
         .extract({left:frame.x,top:frame.y,width:frame.w,height:frame.h}).png().toBuffer();
       paintings.add(pixels.toString('base64'));
     }
@@ -122,7 +122,7 @@ describe('exported expedition sprites', () => {
     expect(paintings.size,`${map.id} must not reuse a painted character under another frame name`).toBe(16);
     const portraits=await sharp(new URL(`../public/assets/${map.id}-portraits.webp`,import.meta.url).pathname).metadata();
     expect([portraits.width,portraits.height]).toEqual([2048,256]);
-    const terrain=await sharp(new URL(`../public/assets/${map.id}-terrain.webp`,import.meta.url).pathname).metadata();
+    const terrain=await sharp(new URL(`../../art/archive/expedition-maps/${map.id}-terrain.webp`,import.meta.url).pathname).metadata();
     const preview=await sharp(new URL(`../public/assets/${map.id}-preview.webp`,import.meta.url).pathname).metadata();
     expect([terrain.width,terrain.height]).toEqual([1536,1024]);
     expect([preview.width,preview.height]).toEqual([1536,1024]);

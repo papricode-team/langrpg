@@ -4,17 +4,21 @@ import sharp from 'sharp';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { stitchTerrainGrid } from './terrain-stitch.mjs';
+import { exportAuthoredWalkableMasks } from './terrain-walkable-mask.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const source = resolve(root, 'art/source/terrain-detail');
 const out = resolve(root, 'web/public/assets');
 const args = process.argv.slice(2);
 const towns = ['lindenhafen', 'waldruh', 'nebelstadt'];
-for (const arg of args) if (![...towns, '--day', '--night', '--references'].includes(arg)) throw Error(`Unknown terrain selection: ${arg}`);
+for (const arg of args) if (![...towns, '--day', '--night', '--references', '--walkable-masks'].includes(arg)) throw Error(`Unknown terrain selection: ${arg}`);
 if (args.includes('--day') && args.includes('--night')) throw Error('Select one period or omit both');
 const selected = args.filter(arg => towns.includes(arg));
 const periods = args.includes('--day') ? ['day'] : args.includes('--night') ? ['night'] : ['day', 'night'];
 await mkdir(source, { recursive: true });
+// Masks can be re-exported without regenerating or touching any painted terrain.
+for (const town of selected.length ? selected : towns) await exportAuthoredWalkableMasks(root, town);
+if (args.includes('--walkable-masks')) process.exit(0);
 async function webp(painting, minimumQuality = 76) {
   const encode = async quality => ({ data: await painting.clone().webp({ quality, effort: 6 }).toBuffer(), quality });
   const maximum = await encode(94);

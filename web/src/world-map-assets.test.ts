@@ -1,14 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
-import { getMap, type MapId, type WorldMapSpec } from './maps';
+import { getMap } from './maps';
 import { regionAssets, regionPeopleFrames, regionPeopleKey, WorldMapAssets } from './world-map-assets';
 
-const expedition = (id: string): WorldMapSpec => ({
-  ...getMap('lindenhafen'), id: id as MapId,
-  asset: `/assets/${id}-terrain.webp`,
-  sceneryAsset: `/assets/${id}-props.webp`, sceneryAtlas: `/assets/${id}-props.json`,
-  variationAsset: `/assets/${id}-props.webp`, variationAtlas: `/assets/${id}-props.json`,
-});
 function fixture() {
   const textures = new Set<string>();
   const queued: string[] = [];
@@ -35,31 +29,30 @@ describe('destination asset streaming', () => {
     expect(mock.loader.image).toHaveBeenCalledWith('waldruh', `/assets/waldruh-terrain.webp?v=${__APP_VERSION__}`);
     expect(mock.loader.atlas).toHaveBeenCalledWith('waldruh-props', `/assets/waldruh-props.webp?v=${__APP_VERSION__}`, `/assets/waldruh-props.json?v=${__APP_VERSION__}`);
   });
-  it('loads only terrain, local props and local people for an expedition', () => {
-    expect(regionAssets(expedition('saffroncourt')).map(asset => asset.key)).toEqual(['saffroncourt', 'saffroncourt-props', 'saffroncourt-people', 'saffroncourt-people-1', 'saffroncourt-people-2']);
+  it('loads the town terrain, props and authored resident activities', () => {
     expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`)]);
   });
   it('coalesces requests while delivering every arrival callback', () => {
-    const mock = fixture(), map = expedition('windplain');
+    const mock = fixture(), map = getMap('lindenhafen');
     const first = vi.fn(), second = vi.fn();
     mock.assets.load(map, first); mock.assets.load(map, second);
     expect(mock.loader.image).toHaveBeenCalledTimes(1);
-    expect(mock.loader.atlas).toHaveBeenCalledTimes(4);
+    expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).length - 1);
     expect(mock.loader.start).toHaveBeenCalledTimes(1);
     expect(first).not.toHaveBeenCalled();
     mock.complete();
     expect(first).toHaveBeenCalledTimes(1); expect(second).toHaveBeenCalledTimes(1);
     const cached = vi.fn(); mock.assets.load(map, cached);
-    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(4);
+    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).length - 1);
   });
   it('reclaims a departed destination after its in-flight load completes', () => {
-    const mock = fixture(), oldMap = expedition('rainmarket'), newMap = expedition('cedarbay');
+    const mock = fixture(), oldMap = getMap('lindenhafen'), newMap = getMap('waldruh');
     mock.assets.load(oldMap, () => mock.assets.release(oldMap));
     expect(mock.assets.release(oldMap)).toBe(false);
     mock.assets.load(newMap);
     mock.complete();
-    expect([...mock.textures]).toEqual(['cedarbay', 'cedarbay-props', 'cedarbay-people', 'cedarbay-people-1', 'cedarbay-people-2']);
-    expect(mock.remove.mock.calls.map(call => call[0])).toEqual(['rainmarket', 'rainmarket-props', 'rainmarket-people', 'rainmarket-people-1', 'rainmarket-people-2']);
+    expect([...mock.textures]).toEqual(regionAssets(newMap).map(asset => asset.key));
+    expect(mock.remove.mock.calls.map(call => call[0])).toEqual(regionAssets(oldMap).map(asset => asset.key));
   });
   it('does not start the loader during Phaser preload', () => {
     const mock = fixture(); mock.assets.load(getMap('lindenhafen'), undefined, false);
@@ -69,13 +62,13 @@ describe('destination asset streaming', () => {
     expect(mock.textures.size).toBe(0);
   });
 
-  it('reloads only a missing character page before declaring the destination ready', () => {
-    const mock = fixture(), map = expedition('riverweave');
+  it('reloads only a missing props page before declaring the destination ready', () => {
+    const mock = fixture(), map = getMap('waldruh');
     for (const asset of regionAssets(map)) mock.textures.add(asset.key);
-    mock.textures.delete('riverweave-people-2');
+    mock.textures.delete('waldruh-props');
     const ready = vi.fn();
     mock.assets.load(map, ready);
-    expect(mock.queued).toEqual(['riverweave-people-2']);
+    expect(mock.queued).toEqual(['waldruh-props']);
     expect(ready).not.toHaveBeenCalled();
     mock.complete();
     expect(ready).toHaveBeenCalledOnce();

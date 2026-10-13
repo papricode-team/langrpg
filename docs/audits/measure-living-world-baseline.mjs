@@ -25,6 +25,7 @@ for (const scene of Object.values(sceneDocument.maps)) {
   const grid = createMapNavigation(scene.id);
   if (!grid.isWalkable(scene.spawn.x, scene.spawn.y)) throw Error(`${scene.id}: authored spawn is not walkable`);
   const area = grid.auditConnectedArea(scene.spawn);
+  const reachability = grid.auditReachability(scene.spawn);
   if (!area.connectedCells) throw Error(`${scene.id}: spawn has no visible lattice anchor`);
   measured.push({
     id:scene.id, width:scene.width, height:scene.height, coordinateVersion:scene.coordinateVersion,
@@ -33,13 +34,15 @@ for (const scene of Object.values(sceneDocument.maps)) {
     residents:(worldResidentSpecs[scene.id]??[]).filter(resident=>!scene.residents?.some(authored=>authored.id===resident.id)).length+(scene.residents?.length??0),
     cellSize:area.cellSize, totalWalkableCells:area.totalWalkableCells,
     spawnConnectedCells:area.connectedCells, approxConnectedArea:area.connectedArea,
+    walkableSamples:reachability.walkableSamples,reachableSamples:reachability.reachableSamples,
+    unreachableSamples:reachability.unreachableSamples,reachableRatio:reachability.reachableRatio,
   });
 }
 const acceptance = assessExpansion(measured, baseline.maps);
 const report = {
   sourceCommit:execFileSync('git', ['rev-parse','HEAD'], {cwd:root, encoding:'utf8'}).trim(),
   baselineCommit:baseline.sourceCommit,
-  method:'NavigationGrid.auditConnectedArea; 14-unit grid centers and collision-safe runtime edges. Spawn-connected cells × 196 is a sampling proxy, not an exact polygon union. Includes placed-scenery collision and per-scene dimensions.',
+  method:'NavigationGrid.auditConnectedArea; 8-unit grid centers and exact runtime segment collision. Spawn-connected cells × 64 is an area proxy, not an exact polygon union. Reachability audits a 6-unit lattice against the same movement graph and asset footprints. The historical baseline remains unchanged; compare area rather than cell counts.',
   maps:measured, acceptance,
 };
 if (positional[1]) {

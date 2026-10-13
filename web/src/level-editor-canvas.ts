@@ -6,13 +6,13 @@ import { WorldMapAssets } from './world-map-assets';
 import { WorldAnimationAssets } from './world-animation-assets';
 import { sceneryAnimationManifestKey, type SceneryAnimationManifest } from './scenery-animation';
 import { sceneryFootprints, sceneryTextureFor } from './placed-scenery';
-import { sceneActivityPlaces, sceneEntrancePoint, type WorldScene, type SceneScenery } from './scene-schema';
+import { sceneActivityPlaces, sceneEntrancePoint, getSceneryGeometryMap, type WorldScene, type SceneScenery } from './scene-schema';
 import {ResidentActivityWorld} from './resident-activities';
 import type {WorldWeatherMode} from './world-weather';
 import {NavigationGrid} from './navigation';
 import {scenerySelection,sceneryTranslation} from './level-editor-model';
 import {marqueeSelection} from './level-editor-selection';
-import {paletteTemplates} from './level-editor-object-tools';
+import {paletteTemplates,type PaletteFrame} from './level-editor-object-tools';
 
 export interface EditorCanvasCallbacks {
   select(ids: string[]): void;
@@ -54,7 +54,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
   private residentGuide?:{world:WorldScene;simulation:ResidentActivityWorld};
   showResidentGuide(hour:number|undefined,weather:WorldWeatherMode='regional'):void{
     this.residentWeather=weather;
-    if(hour!==undefined)this.residentGuide={world:this.world,simulation:new ResidentActivityWorld(this.world,new NavigationGrid(this.world.walkable,[...this.world.obstacles,...sceneryFootprints(this.world.scenery)],this.world))};
+    if(hour!==undefined)this.residentGuide={world:this.world,simulation:new ResidentActivityWorld(this.world,new NavigationGrid(this.world.walkable,[...this.world.obstacles,...sceneryFootprints(this.world.scenery,getSceneryGeometryMap(this.world.id))],this.world))};
     this.residentHour=hour;this.drawGuides();
   }
   private scenery?: WorldScenery;
@@ -153,11 +153,20 @@ export class LevelEditorCanvas extends Phaser.Scene {
   palette(): PaletteItem[] {
     if (!this.world) return [];
     const items: PaletteItem[] = [], seen = new Set<string>();
+    const manifest=this.cache.json.get(sceneryAnimationManifestKey(this.world.id as MapId,this.period)) as SceneryAnimationManifest|undefined;
+    const sourceFor=(frame:string,variant:boolean)=>{
+      const animation=manifest?.assets[frame],key=animation?.base?.key??animation?.key;
+      if(key&&this.textures.exists(key)){
+        const name=animation!.base?.frame??animation!.frames[0];
+        if(this.textures.get(key).has(name))return {key,name,referenceWidth:animation!.base?.referenceWidth??animation!.referenceWidth};
+      }
+      return {key:sceneryTextureFor(this.world.id as MapId,{id:'',asset:'tree',frame,x:0,y:0,width:1,variant}),name:frame};
+    };
     const add = (item: PaletteItem): void => {
       const key = `${item.variant}:${item.frame}`; if (seen.has(key)) return; seen.add(key);
-      const texture = sceneryTextureFor(this.world.id as MapId, { id: '', asset: item.asset, frame: item.frame, variant: item.variant, width: item.width, x: 0, y: 0 });
-      if (this.textures.exists(texture) && this.textures.get(texture).has(item.frame)) {
-        const frame = this.textures.getFrame(texture,item.frame), source = frame.source.image as HTMLImageElement;
+      const {key:texture,name}=sourceFor(item.frame,item.variant);
+      if (this.textures.exists(texture) && this.textures.get(texture).has(name)) {
+        const frame = this.textures.getFrame(texture,name), source = frame.source.image as HTMLImageElement;
         const canvas = document.createElement('canvas'); canvas.width=88; canvas.height=58;
         const scale = Math.min(84/frame.cutWidth,56/frame.cutHeight);
         canvas.getContext('2d')?.drawImage(source,frame.cutX,frame.cutY,frame.cutWidth,frame.cutHeight,(88-frame.cutWidth*scale)/2,58-frame.cutHeight*scale,frame.cutWidth*scale,frame.cutHeight*scale);
@@ -165,9 +174,15 @@ export class LevelEditorCanvas extends Phaser.Scene {
         items.push(item);
       }
     };
-    const frames=[false,true].flatMap(variant=>{
+    const registered=[false,true].flatMap(variant=>{
       const key=sceneryTextureFor(this.world.id as MapId,{id:'',asset:'tree',x:0,y:0,width:1,variant});
       return this.textures.exists(key)?this.textures.get(key).getFrameNames().map(frame=>({frame,variant})):[];
+    });
+    const frames:PaletteFrame[]=[...registered,...Object.keys(manifest?.assets??{}).map(frame=>({frame,variant:false}))].map(({frame,variant})=>{
+      const source=sourceFor(frame,variant);
+      if(!this.textures.exists(source.key)||!this.textures.get(source.key).has(source.name))return {frame,variant};
+      const native=this.textures.getFrame(source.key,source.name);
+      return {frame,variant,referenceWidth:source.referenceWidth??native.width,height:native.height,doorHeight:manifest?.assets[frame]?.door?.height};
     });
     for(const template of paletteTemplates(this.world,frames))add({...template,frame:template.frame??template.asset,variant:!!template.variant});
     return items.sort((a,b) => a.asset.localeCompare(b.asset) || a.frame.localeCompare(b.frame));
@@ -197,7 +212,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
     };
     if (this.navigationVisible) {
       for (const area of world.walkable) polygon(area,0x65bf9d,.12);
-      for (const obstacle of [...world.obstacles,...sceneryFootprints(world.scenery)]) polygon(obstacle,0xe6785f,.26);
+      for (const obstacle of [...world.obstacles,...sceneryFootprints(world.scenery,getSceneryGeometryMap(world.id))]) polygon(obstacle,0xe6785f,.26);
       for (const target of world.npcs) g.lineStyle(1.5/zoom,0x67b4e6,1).strokeCircle(target.x,target.y,8/zoom);
       for (const target of world.objects) g.lineStyle(1.5/zoom,0xf0bc60,1).strokeRect(target.x-5/zoom,target.y-5/zoom,10/zoom,10/zoom);
       g.fillStyle(0xffffff,1).fillCircle(world.spawn.x,world.spawn.y,5/zoom);
@@ -212,7 +227,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
     }
     if(this.residentHour!==undefined){
       try{
-        if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:new ResidentActivityWorld(world,new NavigationGrid(world.walkable,[...world.obstacles,...sceneryFootprints(world.scenery)],world))};
+        if(this.residentGuide?.world!==world)this.residentGuide={world,simulation:new ResidentActivityWorld(world,new NavigationGrid(world.walkable,[...world.obstacles,...sceneryFootprints(world.scenery,getSceneryGeometryMap(world.id))],world))};
         const samples=this.residentGuide.simulation.sample({seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:((this.residentHour-7+24)%24)*30},this.residentWeather);
         for(const sample of samples){
           if(sample.exchange&&sample.residentId<sample.exchange.partnerId){const partner=samples.find(item=>item.residentId===sample.exchange!.partnerId)!;g.lineStyle(2/zoom,0xeea87a,.9).lineBetween(sample.x,sample.y,partner.x,partner.y);}

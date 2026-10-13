@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Painted foundation geometry QA</title><style>body{margin:0;background:#263b32;color:#ffecc7;font:15px system-ui;padding:16px}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}h1{font-size:20px}canvas{width:100%;display:block;background:#637561}p{line-height:1.5}</style></head><body><h1>Painted foundation geometry</h1><p>Blue: local wall sort segments. Red: solid footprint. Yellow: painted door. Door sill is in front of the wall line and outside the solid footprint.</p><main></main><script type="module">
+if(import.meta.env.DEV){
+ const manifest=await fetch('/assets/lindenhafen-day-animations.json').then(response=>response.json());
+ for(const name of ['inn','bakery','grocery']){
+  const asset=manifest.assets[`house-${name}`],atlas=await fetch(`/assets/${asset.key}.json`).then(response=>response.json()),frame=atlas.frames[`house-${name}`].frame;
+  const image=new Image();image.src=`/assets/${asset.key}.webp`;await image.decode();
+  const section=document.createElement('section');section.innerHTML=`<h2>${name}</h2><canvas width="${asset.width}" height="${asset.height}"></canvas>`;document.querySelector('main').append(section);
+  const canvas=section.querySelector('canvas'),context=canvas.getContext('2d');context.drawImage(image,frame.x,frame.y,frame.w,frame.h,0,0,asset.width,asset.height);
+  context.translate(asset.width*asset.originX,asset.height*asset.originY);context.lineWidth=8;
+  const path=(points,color,closed)=>{context.beginPath();points.forEach(([x,y],index)=>index?context.lineTo(x,y):context.moveTo(x,y));if(closed)context.closePath();context.strokeStyle=color;context.stroke();if(closed){context.fillStyle='#ff444420';context.fill();}};
+  path(asset.footprint,'#ff6359',true);path(asset.sortLine,'#5ce4ff',false);
+  context.strokeStyle='#ffe861';const door=asset.door;context.strokeRect(door.x,door.y,door.width,door.height);
+ }
+}
+</script></body></html>

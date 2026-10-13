@@ -118,20 +118,25 @@ func TestReconnectPositionMigrationPreservesCoreAndOrigin(t *testing.T) {
 	}
 }
 
-func TestSouthernExpansionPreservesEarlierSavedPositions(t *testing.T) {
+func TestTownResizePreservesRetainedPositionsAndReturnsRemovedLandToSpawn(t *testing.T) {
 	destination := compiledWorldMaps.Maps[DefaultMapID]
 	for _, previous := range []WorldCoordinateFrame{{CoordinateVersion: 2, Width: 3072, Height: 1024}, {CoordinateVersion: 3, Width: 3072, Height: 1536}} {
 		for _, saved := range []MapSpawn{{.25, .5}, {.875, .875}} {
 			memory := &worldMemory{positions: map[string]MapSpawn{DefaultMapID: saved}, positionFrames: map[string]WorldCoordinateFrame{DefaultMapID: previous}}
 			position := memory.restorePosition(DefaultMapID, destination)
-			if math.Abs(position.X*destination.Width-saved.X*previous.Width) > .000001 || math.Abs(position.Y*destination.Height-saved.Y*previous.Height) > .000001 {
-				t.Fatalf("southern expansion moved saved position %+v to %+v", saved, position)
+			x, y := saved.X*previous.Width, saved.Y*previous.Height
+			if x > destination.Width || y > destination.Height {
+				if position != destination.Spawn {
+					t.Fatalf("removed land restored to %+v instead of safe spawn %+v", position, destination.Spawn)
+				}
+			} else if math.Abs(position.X*destination.Width-x) > .000001 || math.Abs(position.Y*destination.Height-y) > .000001 {
+				t.Fatalf("town resize moved retained saved position %+v to %+v", saved, position)
 			}
 			if again := memory.restorePosition(DefaultMapID, destination); again != position {
-				t.Fatalf("reconnect applied the expansion twice: %+v", again)
+				t.Fatalf("reconnect applied the resize twice: %+v", again)
 			}
 			if memory.positionFrames[DefaultMapID] != destination.WorldCoordinateFrame {
-				t.Fatal("southern expansion did not record the current coordinate frame")
+				t.Fatal("town resize did not record the current coordinate frame")
 			}
 		}
 	}
@@ -205,11 +210,12 @@ func TestExpandedReconnectIncludesFrameAndRejectsStaleMoves(t *testing.T) {
 }
 
 func TestCompiledWorldMapRegistryValidation(t *testing.T) {
-	if len(compiledWorldMaps.Maps) != 13 {
+	if len(compiledWorldMaps.Maps) != 3 {
 		t.Fatalf("compiled registry has %d maps", len(compiledWorldMaps.Maps))
 	}
 	for _, mutate := range []func(*WorldMapRegistry){
 		func(registry *WorldMapRegistry) { registry.SchemaVersion = 9 },
+		func(registry *WorldMapRegistry) { registry.Maps["saffroncourt"] = registry.Maps[DefaultMapID] },
 		func(registry *WorldMapRegistry) { registry.ContentVersion = "" },
 		func(registry *WorldMapRegistry) { delete(registry.Maps, DefaultMapID) },
 		func(registry *WorldMapRegistry) {

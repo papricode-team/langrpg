@@ -3,6 +3,7 @@ import type { MapId } from './maps';
 import type { LampLight, SceneryView } from './world-scenery';
 import { nightIntensity } from './world-clock';
 import {getWorldScene} from './scene-data';
+import {worldDepth} from './world-depth';
 
 // Weather sits above the ground plate and below people, buildings and labels.
 export const WEATHER_DEPTH = 2;
@@ -22,7 +23,7 @@ export class WorldAtmosphere {
   constructor(scene: Phaser.Scene, private id: MapId, private lamps: readonly LampLight[], private bounds = getWorldScene(id)) {
     this.foreground = scene.add.graphics().setDepth(WEATHER_DEPTH);
     // Source-over alpha stays bounded in both renderers, including at camera zoom.
-    this.illumination = scene.add.graphics().setDepth(2000);
+    this.illumination = scene.add.graphics().setDepth(worldDepth(bounds.height+1,'label'));
   }
   setLampLights(lamps: readonly LampLight[]) { this.lamps = lamps; }
   setVisible(visible: boolean) { this.visible = visible; this.foreground.setVisible(visible); this.illumination.setVisible(visible); }

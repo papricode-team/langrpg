@@ -1,0 +1,102 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "coordinateContract": "four 384x256 world sections per768x512 chunk, generated1536x1024 native",
+  "records": [
+    {
+      "chunk": "harbour-front",
+      "row": 0,
+      "col": 0,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-b30a2b95-f642-4635-9358-1059b8ddebb5.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. There is NO horizontal street in this section. The ONLY walkable stripe is a vertical lane at x=26.04% to 49.48% spanning the entire height. Empty flat masonry pads surround it. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-front quadrant row0 column0, cool weathered waterfront pavement. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-front-day-0-0.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-front",
+      "row": 0,
+      "col": 1,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-fd1996de-e25d-4fd6-aef9-ffcac8651545.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. There is NO horizontal street in this section. The ONLY walkable stripe is a vertical lane at x=52.34% to 75.78% spanning the entire height. Empty flat masonry pads surround it. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-front quadrant row0 column1, cool weathered waterfront pavement. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-front-day-0-1.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-front",
+      "row": 1,
+      "col": 0,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-b553db4d-4d2d-4caa-82f0-592ca76b41d2.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. The horizontal street begins exactly y=23.05% and ends exactly y=66.02% of this cropped section. Vertical lane spans x=26.04% to 49.48% from top to bottom. The bright plaza begins y=7.42% and occupies the rightmost 29.69% of the width, extending to the bottom. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-front quadrant row1 column0, cool weathered waterfront pavement. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-front-day-1-0.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-front",
+      "row": 1,
+      "col": 1,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-eb7c2668-e88a-495f-9a02-850a25af9bdd.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. The horizontal street begins exactly y=23.05% and ends exactly y=66.02% of this cropped section. Vertical lane spans x=52.34% to 75.78% from top to bottom. The bright plaza begins y=7.42% and occupies the leftmost 41.93% of the width, extending to the bottom. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-front quadrant row1 column1, cool weathered waterfront pavement. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-front-day-1-1.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-supply",
+      "row": 0,
+      "col": 0,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-68c6e82d-4acc-41df-b25e-25c6e1c11aa0.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. There is NO horizontal street in this section. The ONLY walkable stripe is a vertical lane at x=26.04% to 49.48% spanning the entire height. Empty flat masonry pads surround it. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-supply quadrant row0 column0, utility courtyard pavement with a little flush drainage texture in mortar. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-supply-day-0-0.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-supply",
+      "row": 0,
+      "col": 1,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-d9e37fde-7bc6-4c43-b338-f23257c048cb.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. There is NO horizontal street in this section. The ONLY walkable stripe is a vertical lane at x=52.34% to 75.78% spanning the entire height. Empty flat masonry pads surround it. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-supply quadrant row0 column1, utility courtyard pavement with a little flush drainage texture in mortar. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-supply-day-0-1.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-supply",
+      "row": 1,
+      "col": 0,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-44af1601-2ea2-4e39-84ec-accad70c7e20.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. The horizontal street begins exactly y=23.05% and ends exactly y=66.02% of this cropped section. Vertical lane spans x=26.04% to 49.48% from top to bottom. The bright plaza begins y=7.42% and occupies the rightmost 29.69% of the width, extending to the bottom. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-supply quadrant row1 column0, utility courtyard pavement with a little flush drainage texture in mortar. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-supply-day-1-0.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    },
+    {
+      "chunk": "harbour-supply",
+      "row": 1,
+      "col": 1,
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-5be5abfa-be9e-4261-8abb-e259974dfa27.png",
+      "prompt": "Use case: sketch-to-render. Edit target is INPUT IMAGE 1: its exact 1536x1024 pixel geometry and hard boundaries MUST STAY AT THEIR EXACT PIXEL POSITIONS. This is ONE cropped QUADRANT of a larger terrain map, do not redraw the entire map or reframe. Paint the flat shapes with detailed stone masonry. INPUT IMAGE 2 is STYLE ONLY: use its grey blue coastal stone and pale sand mortar, small individual cobbles, painterly realistic high angle view, upper-left daylight. Export EXACT 1536x1024 native pixels with microscopic high resolution mortar texture, no upscaling, no margins. The horizontal street begins exactly y=23.05% and ends exactly y=66.02% of this cropped section. Vertical lane spans x=52.34% to 75.78% from top to bottom. The bright plaza begins y=7.42% and occupies the leftmost 41.93% of the width, extending to the bottom. Pale cream regions become slightly lighter worn grey cobblestone walking lanes, dark grey regions become subtly darker flat empty pavement plots, both are fully horizontal flat ground. Lane edges are FLUSH shallow masonry inlays only, never walls or raised steps. Use very small stones about 12–24 image pixels across, matching a4px/worldunit terrain camera. No buildings, roofs, ruins, tree silhouettes, bushes, benches, lamps, boats, furniture, plants, barrels, crates, stalls, fences, signs, characters, props, baked object shadows, labels, text or horizon. Every pixel is clean terrain ground. Keep stone colours and stone scale uniform across all edges to stitch with adjacent quadrants. This is harbour-supply quadrant row1 column1, utility courtyard pavement with a little flush drainage texture in mortar. Do not invent any additional path or alter the geometry of image1.",
+      "file": "harbour-supply-day-1-1.png",
+      "nativeWorldSize": {
+        "width": 384,
+        "height": 256
+      }
+    }
+  ]
+}

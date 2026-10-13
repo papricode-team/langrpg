@@ -1,0 +1,47 @@
+{
+  "frames": {
+    "house-grocery": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 1242,
+        "h": 1037
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1242,
+        "h": 1037
+      },
+      "sourceSize": {
+        "w": 1242,
+        "h": 1037
+      },
+      "source": {
+        "path": "art/source/map-quality/grocery.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 7,
+          "top": 85,
+          "width": 1242,
+          "height": 1037
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-grocery.webp",
+    "size": {
+      "w": 2048,
+      "h": 2048
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

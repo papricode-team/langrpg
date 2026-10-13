@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { maps, storyMaps, getMap, type StoryMapId } from './maps';
-import { expeditionIds, getExpedition, getExpeditionEncounter } from './expeditions';
+import { expeditionIds, expeditionMaps, getExpedition, getExpeditionEncounter } from './expeditions';
 import { npcs, quests } from './content';
 import { createMapNavigation, MAP_WIDTH, MAP_HEIGHT, type MapPoint, type NavigationGrid } from './navigation';
 
@@ -19,11 +19,13 @@ function verifyRoute(navigation: NavigationGrid, start: MapPoint, route: MapPoin
 }
 
 describe('painted region definitions', () => {
-  it('keeps the three story paintings and adds ten independent exploration regions', () => {
-    expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt', ...expeditionIds]);
-    expect(new Set(maps.map(map => map.asset)).size).toBe(13);
+  it('keeps only the three authored story towns playable', () => {
+    expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt']);
+    expect(new Set(maps.map(map => map.asset)).size).toBe(3);
     expect(storyMaps.map(map => map.spawn)).toEqual([{ x: .52, y: .61 }, { x: .52, y: .54 }, { x: .50, y: .55 }]);
     for (const map of maps) expect(getMap(map.id).id).toBe(map.id);
+    expect(expeditionMaps).toHaveLength(10);
+    for (const id of expeditionIds) expect(getMap(id).id).toBe('lindenhafen');
   });
 
   it('uses unique discoveries and existing exercises at the region’s level', () => {
@@ -82,8 +84,8 @@ for (const map of maps) describe(`${map.name} paths`, () => {
 describe('region-specific scenery barriers', () => {
   const blocked: Record<StoryMapId, number[][]> = {
     lindenhafen: [[1390,750],[597,258],[1037,464],[818,535]],
-    waldruh: [[1400,820],[300,160],[1250,430],[650,650],[1070,730],[720,452]],
-    nebelstadt: [[1450,830],[300,190],[720,140],[1070,220],[1080,710],[650,710],[742,448]],
+    waldruh: [[1400,820],[300,160],[1250,430],[650,650],[1070,610],[720,452]],
+    nebelstadt: [[1450,830],[264,280],[743,215],[1091,260],[1110,850],[642,785],[742,448]],
   };
   it('excludes each painting’s own buildings, monuments, stalls and open water', () => {
     for (const map of storyMaps) {
@@ -94,7 +96,7 @@ describe('region-specific scenery barriers', () => {
 
   it('connects the woodland stream bridge and both harbor bridges', () => {
     const crossings: Record<StoryMapId, number[][]> = {
-      lindenhafen: [[1430,355],[1330,948]], waldruh: [[1280,605]], nebelstadt: [[1330,400],[1340,652]],
+      lindenhafen: [[1430,355],[1330,948]], waldruh: [[1280,590]], nebelstadt: [[1330,400],[1340,652]],
     };
     for (const map of storyMaps) {
       const navigation = createMapNavigation(map.id), spawn = position(map.spawn);

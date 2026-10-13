@@ -1,5 +1,5 @@
 import type { Level } from './content';
-import { expeditionMaps, type ExpeditionId } from './expeditions';
+import type { ExpeditionId } from './expeditions';
 import { applyAuthoredMapPlacements } from './map-authoring';
 
 export type StoryMapId = 'lindenhafen' | 'waldruh' | 'nebelstadt';
@@ -123,7 +123,7 @@ export const storyMaps: readonly WorldMapSpec[] = [
   {
     id: 'nebelstadt', width:1536, height:1024, name: 'Nebelstadt', subtitle: 'The promise in the mist', level: 'B1',
     description: 'A misty harbor, a council with too many minutes and an observatory keeping the last secret of the Lantern Atlas.',
-    asset: '/assets/nebelstadt-terrain.webp', previewAsset: '/assets/nebelstadt-preview.webp', sceneryAsset: '/assets/nebelstadt-props.webp', sceneryAtlas: '/assets/nebelstadt-props.json', variationAsset: '/assets/nebelstadt-variations.webp', variationAtlas: '/assets/nebelstadt-variations.json', spawn: { x: .50, y: .55 },
+    asset: '/assets/nebelstadt-harbour-bridge-day-terrain.webp', previewAsset: '/assets/nebelstadt-preview.webp', sceneryAsset: '/assets/nebelstadt-props.webp', sceneryAtlas: '/assets/nebelstadt-props.json', variationAsset: '/assets/nebelstadt-variations.webp', variationAtlas: '/assets/nebelstadt-variations.json', spawn: { x: .50, y: .55 },
     npcs: [
       { id: 'marta', minigame: 'tray-rush', x: .296, y: .490 }, { id: 'otto', minigame: 'departure-board', x: .697, y: .348 },
       { id: 'lina', minigame: 'sorting-office', x: .860, y: .602 }, { id: 'emil', minigame: 'workbench', x: .257, y: .734 },
@@ -161,7 +161,9 @@ export const storyMaps: readonly WorldMapSpec[] = [
   },
 ];
 
-export const maps: readonly WorldMapSpec[] = [...storyMaps, ...expeditionMaps];
+/** Only the three authored towns are playable. Expedition encounters remain course content. */
+export const maps: readonly WorldMapSpec[] = storyMaps;
+export const isStoryMap = (id: unknown): id is StoryMapId => storyMaps.some(map => map.id === id);
 
 export function getMap(id: MapId): WorldMapSpec {
   return applyAuthoredMapPlacements(maps.find(map => map.id === id) ?? maps[0]);

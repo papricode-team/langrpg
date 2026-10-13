@@ -1,0 +1,47 @@
+{
+  "frames": {
+    "house-bakery": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 1247,
+        "h": 1162
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1247,
+        "h": 1162
+      },
+      "sourceSize": {
+        "w": 1247,
+        "h": 1162
+      },
+      "source": {
+        "path": "art/source/map-quality/bakery.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 4,
+          "top": 5,
+          "width": 1247,
+          "height": 1162
+        },
+        "standalone": true
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-bakery.webp",
+    "size": {
+      "w": 2048,
+      "h": 2048
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

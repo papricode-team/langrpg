@@ -1,0 +1,149 @@
+{
+  "frames": {
+    "tree": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 677,
+        "h": 691
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 677,
+        "h": 691
+      },
+      "sourceSize": {
+        "w": 677,
+        "h": 691
+      },
+      "source": {
+        "path": "art/source/map-quality/props.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 34,
+          "top": 7,
+          "width": 677,
+          "height": 691
+        },
+        "standalone": false
+      }
+    },
+    "cypress": {
+      "frame": {
+        "x": 689,
+        "y": 4,
+        "w": 241,
+        "h": 695
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 241,
+        "h": 695
+      },
+      "sourceSize": {
+        "w": 241,
+        "h": 695
+      },
+      "source": {
+        "path": "art/source/map-quality/props.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 861,
+          "top": 9,
+          "width": 241,
+          "height": 695
+        },
+        "standalone": false
+      }
+    },
+    "stall": {
+      "frame": {
+        "x": 938,
+        "y": 4,
+        "w": 675,
+        "h": 531
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 675,
+        "h": 531
+      },
+      "sourceSize": {
+        "w": 675,
+        "h": 531
+      },
+      "source": {
+        "path": "art/source/map-quality/props.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 40,
+          "top": 704,
+          "width": 675,
+          "height": 531
+        },
+        "standalone": false
+      }
+    },
+    "fountain": {
+      "frame": {
+        "x": 4,
+        "y": 707,
+        "w": 519,
+        "h": 529
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 519,
+        "h": 529
+      },
+      "sourceSize": {
+        "w": 519,
+        "h": 529
+      },
+      "source": {
+        "path": "art/source/map-quality/props.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 715,
+          "top": 704,
+          "width": 519,
+          "height": 529
+        },
+        "standalone": false
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-props.webp",
+    "size": {
+      "w": 2048,
+      "h": 2048
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

@@ -4,6 +4,7 @@ import {readFile, writeFile, mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {compileSceneDocument, saveSceneDocument, sceneContentVersion} from './scene-compiler.mjs';
+const {sceneEntrancePoint}=await import('../web/src/scene-schema.ts');
 
 const source = JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json', import.meta.url), 'utf8'));
 
@@ -11,7 +12,7 @@ test('compiles all regions and aligns server spawns and story evidence with draf
   const value = structuredClone(source), scene = value.maps.lindenhafen;
   scene.objects[0].x += 3;
   const compiled = await compileSceneDocument(value);
-  assert.equal(Object.keys(compiled.registry.maps).length, 13);
+  assert.equal(Object.keys(compiled.registry.maps).length, 3);
   assert.deepEqual(compiled.registry.maps.lindenhafen.spawn, {x: scene.spawn.x / scene.width, y: scene.spawn.y / scene.height});
   for (const rule of compiled.storyRules.rules) {
     const map = value.maps[rule.mapId];
@@ -79,7 +80,7 @@ test('rejects high-resolution crop bounds and misleading pixel-density declarati
 test('compiles attached doors from draft owner positions and rejects obstructed approaches and returns',async()=>{
   const value=structuredClone(source),scene=value.maps.lindenhafen,door=scene.entrances.find(value=>value.interiorId==='cafe');
   const owner=scene.scenery.find(value=>value.id===door.ownerId);owner.x+=2;
-  const compiled=await compileSceneDocument(value),point={x:owner.x+door.offsetX,y:owner.y+door.offsetY};
+  const compiled=await compileSceneDocument(value),point=sceneEntrancePoint(scene,door);
   assert.deepEqual(compiled.registry.maps.lindenhafen.entrances.cafe.approach,{x:point.x/scene.width,y:point.y/scene.height});
   const blocked=structuredClone(value);
   blocked.maps.lindenhafen.obstacles.push([[point.x-4,point.y-4],[point.x+4,point.y-4],[point.x+4,point.y+4],[point.x-4,point.y+4]]);
@@ -102,9 +103,49 @@ test('rejects activity feet, approaches and exits that would require path projec
   }
 });
 
+test('rejects navigation painted over water outside the authored ground masks',async()=>{
+  for(const scene of Object.values(source.maps))for(const tile of scene.terrain){
+    assert.ok(tile.walkableMaskAsset,`${scene.id}/${tile.id} needs its traced ground mask`);
+  }
+  const water=structuredClone(source);
+  water.maps.lindenhafen.walkable.push([[1580,740],[1620,740],[1620,780],[1580,780]]);
+  await assert.rejects(compileSceneDocument(water),/navigation crosses .* outside its painted walkable mask/);
+  const missing=structuredClone(source);
+  delete missing.maps.lindenhafen.terrain[0].walkableMaskAsset;
+  await assert.rejects(compileSceneDocument(missing),/needs an authored ground mask/);
+});
+
 test('validates reusable catalog artwork even before a group is placed',async()=>{
   const value=structuredClone(source);value.prefabs[0].scenery[0].frame='unregistered-prefab-art';
   await assert.rejects(compileSceneDocument(value),/prefab cafe-terrace: child bench-west has no registered artwork/);
+});
+
+test('enforces person scale and native scenery density',async()=>{
+  const scale=structuredClone(source),house=scale.maps.lindenhafen.scenery.find(item=>item.id==='north-library-house');
+  house.width*=2;
+  await assert.rejects(compileSceneDocument(scale),/height .* persons is outside/);
+  const blurry=structuredClone(source),boat=blurry.maps.lindenhafen.scenery.find(item=>item.asset==='boat');
+  boat.width*=2;
+  await assert.rejects(compileSceneDocument(blurry),/boat source density .* below 3.5 \/ 2.5/);
+});
+
+test('requires distinct real doors and rejects offsets detached from painted openings',async()=>{
+  const detached=structuredClone(source),scene=detached.maps.lindenhafen;
+  scene.entrances[0].offsetX+=180;
+  await assert.rejects(compileSceneDocument(detached),/lies outside its painted door rectangle/);
+  const tent=structuredClone(source),door=tent.maps.lindenhafen.entrances[0];
+  door.ownerId=tent.maps.lindenhafen.scenery.find(item=>item.asset==='stall').id;
+  await assert.rejects(compileSceneDocument(tent),/owner has no painted door/);
+});
+
+test('rejects empty chunks and substantial disconnected walkable ground',async()=>{
+  const sparse=structuredClone(source),scene=sparse.maps.nebelstadt;
+  scene.scenery=scene.scenery.filter(item=>item.x<1536||item.y<512||!['tree','cypress','lamp','planter','sign','stall'].includes(item.asset));
+  await assert.rejects(compileSceneDocument(sparse),/harbour-supply needs at least 18 composed objects/);
+  const island=structuredClone(source);
+  island.maps.lindenhafen.width+=300;island.maps.lindenhafen.coordinateVersion++;
+  island.maps.lindenhafen.walkable.push([[2400,100],[2520,100],[2520,220],[2400,220]]);
+  await assert.rejects(compileSceneDocument(island),/walkable samples; at least 99.5% is required/);
 });
 
 test('requires the latest-main high-resolution format for expansion terrain',async()=>{

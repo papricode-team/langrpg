@@ -112,12 +112,12 @@ func TestInteriorValidationAndMapTravel(t *testing.T) {
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": "cafe"})
 	readWorld(t, ctx, conn, "interior")
-	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "saffroncourt"})
+	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	id, spawn, _ := interiorValue(t, readWorld(t, ctx, conn, "map"))
-	if id != "" || spawn != mapSpawns["saffroncourt"] {
+	if id != "" || spawn != mapSpawns["waldruh"] {
 		t.Fatalf("travel kept indoor coordinates: %s %+v", id, spawn)
 	}
-	writeWorld(t, ctx, conn, map[string]any{"type": "joinInterior", "mapId": "saffroncourt", "interiorId": "cafe"})
+	writeWorld(t, ctx, conn, map[string]any{"type": "joinInterior", "mapId": "waldruh", "interiorId": "unknown"})
 	readWorld(t, ctx, conn, "error")
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": DefaultMapID})
 	id, spawn, _ = interiorValue(t, readWorld(t, ctx, conn, "map"))

@@ -14,7 +14,7 @@ async function contentModule(path, prefix = '') {
   const compiled = ts.transpileModule(prefix + source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText;
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 }
-const { expeditionRegions, expeditionMaps } = await contentModule('web/src/expeditions.ts');
+const { expeditionRegions } = await contentModule('web/src/expeditions.ts');
 const { expeditionGames } = await contentModule('web/src/expedition-games.ts');
 const encounters = expeditionRegions.flatMap(region => region.encounters.map(encounter => ({ id: encounter.id, mapId: region.id, choices: encounter.choices.map(choice => choice.correct) })));
 const games = expeditionGames.map(game => {
@@ -32,7 +32,7 @@ const games = expeditionGames.map(game => {
   return { id: game.id, fields, validValues, order: game.steps.map(step => step.id) };
 });
 await writeFile(resolve(root, 'server/expeditions.json'), `${JSON.stringify({ encounters, games }, null, 2)}\n`);
-const { maps: rawMaps } = await contentModule('web/src/maps.ts', `const expeditionMaps = ${JSON.stringify(expeditionMaps)};\n`);
+const { maps: rawMaps } = await contentModule('web/src/maps.ts');
 // Match getMap() exactly: physical proof must use the editor's placements,
 // including after a designer moves an investigation object or its speaker.
 const maps = rawMaps.map(map => applyAuthoredMapPlacements(map));

@@ -1,7 +1,27 @@
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
+import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
 export type ScenePolygon = readonly (readonly [number, number])[];
+export interface SceneryGeometry {
+  referenceWidth: number;
+  footprint?: ScenePolygon;
+  sortLine?: readonly (readonly [number, number])[];
+  /** Painted opening relative to the foot anchor, in reference pixels. */
+  door?: {x:number;y:number;width:number;height:number};
+}
+export function getSceneryGeometryMap(mapId:string):{assets:Readonly<Record<string,SceneryGeometry>>} {
+  return (sceneryGeometry as unknown as Record<string,{assets:Record<string,SceneryGeometry>}>)[mapId]??{assets:{}};
+}
+export const getSceneryGeometry=(mapId:string,placement:{asset:string;frame?:string}):SceneryGeometry|undefined=>
+  getSceneryGeometryMap(mapId).assets[placement.frame??placement.asset];
+export const PERSON_HEIGHT=72;
+/** Height ranges are expressed in adults, independent of texture resolution. */
+export const scaleCanon:Readonly<Record<string,readonly [number,number]>>={
+  house:[2.6,3],archive:[3.5,4.5],cafe:[3.5,4.5],station:[3.5,4.5],workshop:[3.5,4.5],
+  greenhouse:[2.6,3.5],tree:[1.5,3],cypress:[1.5,3],lamp:[1.2,1.4],bench:[.5,.7],
+  stall:[1.6,2],fountain:[1.2,2.2],arch:[2,3.5],planter:[.5,1.1],sign:[.8,1.5],boat:[.7,1.8],
+};
 export interface SceneAnchor extends ScenePoint { id: string; minigame?: string; }
 export const sceneSceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp', 'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
 export interface SceneScenery extends SceneAnchor {
@@ -9,6 +29,7 @@ export interface SceneScenery extends SceneAnchor {
   frame?: string; variant?: boolean; width: number; depth?: number;
   motion?: 'tree' | 'cloth' | 'boat' | 'lamp' | 'building' | 'water' | 'still';
   flipX?: boolean; collidable?: boolean;
+  sortLine?: readonly (readonly [number,number])[];
   groupId?: string; generatorId?: string; pinned?: boolean;
 }
 export interface SceneTerrain extends ScenePoint {
@@ -20,6 +41,8 @@ export interface SceneTerrain extends ScenePoint {
   pixelDensity?: number;
   /** Lightweight overview layers used while nearby close-up artwork loads. */
   dayPreviewAsset?: string; nightPreviewAsset?: string;
+  /** Authoring/navigation mask: one pixel per world unit, white is walkable ground. */
+  walkableMaskAsset?: string;
 }
 export interface SceneDistrict { id: string; label?: string; polygon: ScenePolygon; }
 export interface SceneActivity {
@@ -49,7 +72,7 @@ export interface SceneEntrance {
   id: string; ownerId: string; interiorId: typeof sceneInteriorIds[number];
   /** Walkable approach measured from the owning scenery foot anchor. */
   offsetX: number; offsetY: number;
-  /** Outdoor return offset; defaults to the approach. */
+  /** Outdoor return offset; defaults to one adult-height below a painted door. */
   returnOffset?: ScenePoint;
 }
 export interface SceneGenerationZone {
@@ -97,7 +120,9 @@ export function sceneActivityUsers(scene:WorldScene,ids:ReadonlySet<string>):str
 export function sceneEntrancePoint(scene: WorldScene, entrance: SceneEntrance, returning = false): ScenePoint {
   const owner = scene.scenery.find(item => item.id === entrance.ownerId);
   if (!owner) throw new Error(`Missing entrance owner ${entrance.ownerId}`);
-  const offset = returning && entrance.returnOffset ? entrance.returnOffset : {x:entrance.offsetX,y:entrance.offsetY};
+  const geometry=getSceneryGeometry(scene.id,owner),door=geometry?.door,scale=owner.width/(geometry?.referenceWidth??owner.width);
+  const approach=door?{x:(door.x+door.width/2)*scale*(owner.flipX?-1:1),y:(door.y+door.height)*scale}:{x:entrance.offsetX,y:entrance.offsetY};
+  const offset = returning ? entrance.returnOffset??{x:approach.x,y:approach.y+(door?PERSON_HEIGHT:0)} : approach;
   return {x:owner.x+offset.x,y:owner.y+offset.y};
 }
 
@@ -152,8 +177,17 @@ function prefabScenery(value:unknown,label:string):asserts value is SceneScenery
   if(!sceneSceneryAssets.includes(value.asset as SceneScenery['asset']))fail(`${label} has unknown asset`);
   if(value.frame!==undefined&&!validId(value.frame))fail(`${label} has invalid frame`);
   if(value.depth!==undefined&&!finite(value.depth))fail(`${label} has invalid depth`);
+  sortLine(value.sortLine,label);
   if(value.motion!==undefined&&!['tree','cloth','boat','lamp','building','water','still'].includes(String(value.motion)))fail(`${label} has invalid motion`);
   for(const key of ['variant','flipX','collidable','pinned'])if(value[key]!==undefined&&typeof value[key]!=='boolean')fail(`${label} has invalid ${key}`);
+}
+function sortLine(value:unknown,label:string):void {
+  if(value===undefined)return;
+  if(!Array.isArray(value)||value.length<2||value.length>32)fail(`${label} sort line needs 2–32 points`);
+  for(const vertex of value){
+    if(!Array.isArray(vertex)||vertex.length!==2||!vertex.every(finite))fail(`${label} sort line needs finite pairs`);
+  }
+  if(new Set(value.map(vertex=>vertex[0])).size!==value.length)fail(`${label} sort line must have distinct x coordinates`);
 }
 function prefabActivity(value:unknown,owners:Set<string>,label:string):asserts value is SceneActivity {
   if(!record(value)||!validId(value.id)||!owners.has(String(value.ownerId)))fail(`${label} has invalid owner or ID`);
@@ -217,6 +251,7 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       if (!sceneSceneryAssets.includes(item.asset as SceneScenery['asset'])) fail(`${id} scenery ${item.id} has unknown asset`);
       if (item.frame !== undefined && !validId(item.frame)) fail(`${id} scenery ${item.id} has invalid frame`);
       if (item.depth !== undefined && !finite(item.depth)) fail(`${id} scenery ${item.id} has invalid depth`);
+      sortLine(item.sortLine,`${id} scenery ${item.id}`);
       if (item.motion !== undefined && !['tree', 'cloth', 'boat', 'lamp', 'building', 'water', 'still'].includes(String(item.motion))) fail(`${id} scenery ${item.id} has invalid motion`);
       for (const key of ['variant', 'flipX', 'collidable', 'pinned']) if (item[key] !== undefined && typeof item[key] !== 'boolean') fail(`${id} scenery ${item.id} has invalid ${key}`);
       for (const key of ['groupId', 'generatorId']) if (item[key] !== undefined && !validId(item[key])) fail(`${id} scenery ${item.id} has invalid ${key}`);
@@ -230,6 +265,7 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       assetPath(tile.dayAsset, `${id} terrain ${tile.id}`);
       if (tile.nightAsset !== undefined) assetPath(tile.nightAsset, `${id} terrain ${tile.id}`);
       for (const key of ['dayPreviewAsset', 'nightPreviewAsset']) if (tile[key] !== undefined) assetPath(tile[key], `${id} terrain ${tile.id} overview`);
+      if(tile.walkableMaskAsset!==undefined)assetPath(tile.walkableMaskAsset,`${id} terrain ${tile.id} walkable mask`);
       if (tile.pixelDensity !== undefined) positive(tile.pixelDensity, `${id} terrain ${tile.id} pixel density`, 16);
       for (const key of ['dayCrop', 'nightCrop']) if (tile[key] !== undefined) {
         const crop = tile[key];

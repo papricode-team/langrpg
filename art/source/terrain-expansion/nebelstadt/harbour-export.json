@@ -1,0 +1,258 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "method": "Four native1536×1024 sections per768×512 world chunk;32-pixel copied seam strips; exact authored world layout; one-pixel copied runtime guard.",
+  "runtime": [
+    {
+      "id": "harbour-front",
+      "period": "day",
+      "dayOrNightAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-front-day-terrain.webp",
+      "previewAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-front-day-terrain-overview.webp",
+      "crop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "width": 768,
+      "height": 512,
+      "pixelDensity": 4,
+      "nativePixelDensity": 4,
+      "outputWidth": 3074,
+      "outputHeight": 2050,
+      "quality": 80,
+      "bytes": 2054326,
+      "terrainOnly": true,
+      "sections": [
+        {
+          "file": "harbour-front-day-0-0.png",
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-day-0-1.png",
+          "x": 384,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-day-1-0.png",
+          "x": 0,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-day-1-1.png",
+          "x": 384,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        }
+      ]
+    },
+    {
+      "id": "harbour-front",
+      "period": "night",
+      "dayOrNightAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-front-night-terrain.webp",
+      "previewAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-front-night-terrain-overview.webp",
+      "crop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "width": 768,
+      "height": 512,
+      "pixelDensity": 4,
+      "nativePixelDensity": 4,
+      "outputWidth": 3074,
+      "outputHeight": 2050,
+      "quality": 88,
+      "bytes": 1888708,
+      "terrainOnly": true,
+      "sections": [
+        {
+          "file": "harbour-front-night-0-0.png",
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-night-0-1.png",
+          "x": 384,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-night-1-0.png",
+          "x": 0,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-front-night-1-1.png",
+          "x": 384,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        }
+      ]
+    },
+    {
+      "id": "harbour-supply",
+      "period": "day",
+      "dayOrNightAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-supply-day-terrain.webp",
+      "previewAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-supply-day-terrain-overview.webp",
+      "crop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "width": 768,
+      "height": 512,
+      "pixelDensity": 4,
+      "nativePixelDensity": 4,
+      "outputWidth": 3074,
+      "outputHeight": 2050,
+      "quality": 80,
+      "bytes": 1989134,
+      "terrainOnly": true,
+      "sections": [
+        {
+          "file": "harbour-supply-day-0-0.png",
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-day-0-1.png",
+          "x": 384,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-day-1-0.png",
+          "x": 0,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-day-1-1.png",
+          "x": 384,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        }
+      ]
+    },
+    {
+      "id": "harbour-supply",
+      "period": "night",
+      "dayOrNightAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-supply-night-terrain.webp",
+      "previewAsset": "/assets/world-expansions/nebelstadt/nebelstadt-harbour-supply-night-terrain-overview.webp",
+      "crop": {
+        "x": 1,
+        "y": 1,
+        "width": 3072,
+        "height": 2048
+      },
+      "width": 768,
+      "height": 512,
+      "pixelDensity": 4,
+      "nativePixelDensity": 4,
+      "outputWidth": 3074,
+      "outputHeight": 2050,
+      "quality": 88,
+      "bytes": 1904030,
+      "terrainOnly": true,
+      "sections": [
+        {
+          "file": "harbour-supply-night-0-0.png",
+          "x": 0,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-night-0-1.png",
+          "x": 384,
+          "y": 0,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-night-1-0.png",
+          "x": 0,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        },
+        {
+          "file": "harbour-supply-night-1-1.png",
+          "x": 384,
+          "y": 256,
+          "width": 384,
+          "height": 256,
+          "nativeWidth": 1536,
+          "nativeHeight": 1024,
+          "nativePixelDensity": 4
+        }
+      ]
+    }
+  ]
+}

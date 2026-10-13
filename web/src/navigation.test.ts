@@ -53,7 +53,6 @@ describe('painted scenery foot collisions', () => {
   // The canopy/pole can cover a character visually without closing the road.
   const fixtures: { mapId: MapId; base: MapPoint; behind: MapPoint }[] = [
     { mapId: 'lindenhafen', base: { x: 578, y: 602 }, behind: { x: 578, y: 570 } },
-    { mapId: 'lindenhafen', base: { x: 595, y: 605 }, behind: { x: 595, y: 580 } },
     { mapId: 'waldruh', base: { x: 492, y: 582 }, behind: { x: 492, y: 565 } },
     { mapId: 'waldruh', base: { x: 353, y: 400 }, behind: { x: 353, y: 375 } },
     { mapId: 'waldruh', base: { x: 947, y: 570 }, behind: { x: 947, y: 550 } },
@@ -97,6 +96,12 @@ describe('painted scenery foot collisions', () => {
     expect(route.length).toBeGreaterThan(1);
     expect(route.at(-1)).toEqual(destination);
     expectClearRoute(navigation, start, route);
+  });
+
+  it('keeps the pavement beside a canon-sized lamp free of its former oversized collision', () => {
+    const navigation = createMapNavigation('lindenhafen');
+    expect(navigation.isWalkable(578,602)).toBe(false);
+    expect(navigation.isWalkable(595,605)).toBe(true);
   });
 
   it('leaves the procedural fallback independent of painted scenery', () => {
@@ -151,5 +156,53 @@ describe('continuous route collision checks', () => {
     expect(route.length).toBeGreaterThan(0);
     expect(route.at(-1)).toEqual(destination);
     expectClearRoute(navigation, start, route);
+  });
+});
+
+describe('fine navigation and map audits', () => {
+  it('routes along a narrow bent alley close to the map border', () => {
+    const navigation = new NavigationGrid([rectangle(4,4,116,8),rectangle(112,4,8,116)], [], {width:128,height:128});
+    const start = {x:8,y:8}, destination = {x:116,y:108};
+    expect(navigation.isWalkable(4,4)).toBe(true);
+    expect(navigation.isWalkable(3,4)).toBe(false);
+    const route = navigation.findPath(start,destination);
+    expect(route.at(-1)).toEqual(destination);
+    expectClearRoute(navigation,start,route);
+    expect(navigation.auditConnectedArea(start).cellSize).toBe(8);
+  });
+
+  it('retains a diagonal path when its exact edges are clear and side cells are outside the path', () => {
+    const navigation = new NavigationGrid([[[20,24],[24,20],[108,104],[104,108]]], [], {width:128,height:128});
+    expect(navigation.auditConnectedArea({x:28,y:28}).connectedCells).toBeGreaterThan(8);
+  });
+
+  it('reports isolated walkable samples and excludes blocked ground from the denominator', () => {
+    const navigation = new NavigationGrid([rectangle(16,16,40,40),rectangle(80,16,24,24)], [rectangle(88,24,8,8)], {width:128,height:80});
+    const audit = navigation.auditReachability({x:20,y:20},8);
+    expect(audit.walkableSamples).toBe(48);
+    expect(audit.reachableSamples).toBe(36);
+    expect(audit.unreachableSamples).toBe(12);
+    expect(audit.reachableRatio).toBe(.75);
+    expect(audit.unreachableBounds).toEqual({minX:80,minY:16,maxX:104,maxY:40});
+    for (const point of audit.unreachablePoints) expect(navigation.findPath({x:20,y:20},point)).toEqual([]);
+  });
+
+  it('exposes visible grid dots with both authored polygons and physical barriers', () => {
+    const street = rectangle(4,4,100,100), barrier = rectangle(40,40,16,16);
+    const navigation = new NavigationGrid([street],[barrier],{width:128,height:128});
+    const debug = navigation.debugGeometry({x:20,y:20,right:36,bottom:36});
+    expect(debug.walkable).toEqual([street]);
+    expect(debug.obstacles).toEqual([]);
+    expect(debug.nodes).toHaveLength(9);
+    expect(debug.nodes.every(point=>point.x>=20&&point.x<=36&&point.y>=20&&point.y<=36)).toBe(true);
+    expect(navigation.debugGeometry().obstacles).toEqual([barrier]);
+  });
+
+  it('keeps nearest-point projection exact across cached cells and off-map clicks', () => {
+    const navigation = new NavigationGrid([rectangle(24,24,8,8),rectangle(40,24,8,8)],[],{width:80,height:80});
+    expect(navigation.closestPoint(35,30)).toEqual({x:28,y:28});
+    expect(navigation.closestPoint(37,30)).toEqual({x:44,y:28});
+    expect(navigation.closestPoint(-100,30)).toEqual({x:28,y:28});
+    expect(navigation.closestPoint(1000,30)).toEqual({x:44,y:28});
   });
 });

@@ -13,7 +13,7 @@ function room(): WorldSceneDocument {
 
 describe('canonical scene contract', () => {
   it('covers every outdoor region and keeps independent interior dimensions', () => {
-    expect(Object.keys(sceneDocument.maps)).toHaveLength(13);
+    expect(Object.keys(sceneDocument.maps)).toHaveLength(3);
     expect(parseWorldSceneDocument(room()).maps.room.width).toBe(640);
     expect(() => getWorldScene('absent')).toThrow('Unknown world scene');
   });
@@ -57,5 +57,24 @@ describe('canonical scene contract', () => {
     expect(()=>parseWorldSceneDocument(value)).toThrow('duplicate entrances');
     scene.entrances.pop();scene.scenery=[];
     expect(()=>parseWorldSceneDocument(value)).toThrow('missing owner');
+  });
+  it('scales and mirrors painted doors with their owner and returns one adult below the sill',()=>{
+    const scene=structuredClone(sceneDocument.maps.lindenhafen),entrance=scene.entrances![0];
+    const owner=scene.scenery.find(item=>item.id===entrance.ownerId)!;
+    const before=sceneEntrancePoint(scene,entrance);
+    owner.width*=1.25;
+    const larger=sceneEntrancePoint(scene,entrance);
+    expect(larger.x-owner.x).toBeCloseTo((before.x-owner.x)*1.25);
+    expect(larger.y-owner.y).toBeCloseTo((before.y-owner.y)*1.25);
+    owner.flipX=true;
+    const mirrored=sceneEntrancePoint(scene,entrance);
+    expect(mirrored.x-owner.x).toBeCloseTo(-(larger.x-owner.x));
+    expect(sceneEntrancePoint(scene,entrance,true)).toEqual({x:mirrored.x,y:mirrored.y+72});
+  });
+  it('rejects invalid authored sort segments',()=>{
+    const value=room();value.maps.room.scenery[0].sortLine=[[0,0],[0,10]];
+    expect(()=>parseWorldSceneDocument(value)).toThrow('distinct x');
+    value.maps.room.scenery[0].sortLine=[[0,0],[10,Infinity]];
+    expect(()=>parseWorldSceneDocument(value)).toThrow('finite pairs');
   });
 });

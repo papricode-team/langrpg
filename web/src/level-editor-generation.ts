@@ -1,6 +1,6 @@
 import { sceneryFootprints } from './placed-scenery';
 import {sceneInstanceIds} from './level-editor-prefabs';
-import {sceneActivityPoint,sceneEntrancePoint,type SceneGenerationZone, type ScenePolygon, type SceneScenery, type WorldScene} from './scene-schema';
+import {sceneActivityPoint,sceneEntrancePoint,getSceneryGeometryMap,type SceneGenerationZone, type ScenePolygon, type SceneScenery, type WorldScene} from './scene-schema';
 
 export interface ScatterTemplate { asset: SceneScenery['asset']; frame: string; variant?: boolean; width: number; motion?: SceneScenery['motion']; }
 export interface ScatterSettings { count: number; minSpacing: number; clearance: number; minScale: number; maxScale: number; }
@@ -76,7 +76,7 @@ export function generateScatter(scene:WorldScene,zone:SceneGenerationZone,templa
     const radius=Math.max(6,width*.13)+settings.clearance;
     const envelope=circle(x,y,radius);
     if(envelope.some(([px,py])=>px<0||py<0||px>scene.width||py>scene.height||!contains(zone.polygon,px,py))){rejected.outsideZone++;continue;}
-    const footprints=sceneryFootprints([item]);
+    const footprints=sceneryFootprints([item],getSceneryGeometryMap(scene.id));
     if(scene.walkable.some(path=>polygonsIntersect(envelope,path)||footprints.some(footprint=>polygonsIntersect(footprint,path)))||protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<120+radius)){rejected.pathClearance++;continue;}
     if([...retained,...proposals].some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(settings.minSpacing,(width+other.width)*.3))||scene.obstacles.some(obstacle=>polygonsIntersect(envelope,obstacle))){rejected.occupied++;continue;}
     proposals.push(item);usedIds.add(item.id);

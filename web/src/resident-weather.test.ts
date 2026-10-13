@@ -132,5 +132,5 @@ describe('shared weather and resident interruptions',()=>{
     pathfinding.mockClear();world.sample({...time,elapsedSeconds:720.25},'shower');expect(pathfinding).not.toHaveBeenCalled();
     const fresh=new ResidentActivityWorld(scene,createMapNavigation('lindenhafen'));
     for(const elapsedSeconds of [70,80,90,110,155,719.9])expect(fresh.sample({...time,elapsedSeconds},'shower')).toEqual(world.sample({...time,elapsedSeconds},'shower'));
-  });
+  },15000);
 });

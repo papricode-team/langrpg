@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { expeditionIds, expeditionLandPlots, expeditionLayouts, expeditionMaps, expeditionRegions, getExpedition, getExpeditionEncounter, getExpeditionNpc, isExpeditionMap, shuffledExpeditionChoices } from './expeditions';
+import { expeditionIds, expeditionLayouts, expeditionMaps, expeditionResidentSpecs, expeditionRegions, getExpedition, getExpeditionEncounter, getExpeditionNpc, isExpeditionMap, shuffledExpeditionChoices } from './expeditions';
 import { maps, storyMaps } from './maps';
-import { getPlacedScenery, placedSceneryFootprints, sceneryAssets } from './placed-scenery';
-import { createWorldResidents } from './world-life';
-import { buildingEntrances } from './interiors';
+import archived from '../../docs/archive/expedition-scenes.json';
+
+
 
 describe('ten culturally distinct exploration communities', () => {
   it('varies encounter answer positions while preserving canonical server indices',()=>{
@@ -18,10 +18,10 @@ describe('ten culturally distinct exploration communities', () => {
       expect(positions.size,encounter.id).toBe(2);
     }
   });
-  it('adds ten places without changing the original three story arrivals', () => {
+  it('preserves ten learning communities outside the three playable towns', () => {
     expect(expeditionRegions).toHaveLength(10);
-    expect(maps).toHaveLength(13);
-    expect(maps.slice(0,3)).toEqual(storyMaps);
+    expect(maps).toHaveLength(3);
+    expect(maps).toEqual(storyMaps);
     expect(new Set(expeditionRegions.map(region=>region.culture)).size).toBe(10);
     expect(new Set(expeditionRegions.map(region=>region.feeling)).size).toBe(10);
     expect(new Set(expeditionIds.map(id=>JSON.stringify(expeditionLayouts[id].nodes))).size).toBe(10);
@@ -66,7 +66,7 @@ describe('ten culturally distinct exploration communities', () => {
 
   it('assigns sixteen different stable visual identities to every community', () => {
     for (const region of expeditionRegions) {
-      const residents = createWorldResidents(region.id);
+      const residents = expeditionResidentSpecs[region.id];
       expect(region.npcs.map(npc => npc.artVariant)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
       expect(residents.map(resident => resident.artVariant)).toEqual([8, 9, 10, 11, 12, 13, 14, 15]);
       expect(new Set([...region.npcs, ...residents].map(person => person.artVariant)).size).toBe(16);
@@ -74,42 +74,13 @@ describe('ten culturally distinct exploration communities', () => {
     }
   });
 
-  for (const map of expeditionMaps) it(`${map.name} has separate static foundations, four motion kinds and eight connected residents`, () => {
-    const specs = getPlacedScenery(map.id);
-    expect(specs.length).toBeGreaterThanOrEqual(90);
-    expect(new Set(specs.map(spec=>spec.id)).size).toBe(specs.length);
-    expect(specs.every(spec=>sceneryAssets.includes(spec.asset))).toBe(true);
-    expect(specs.every(spec=>!spec.variant)).toBe(true);
-    const motion = specs.filter(spec=>spec.collidable===false);
-    expect(motion).toHaveLength(24);
-    expect(new Set(motion.map(spec=>spec.frame))).toEqual(new Set(['motion-tree','motion-cloth','motion-lamp','motion-water']));
-    // A motion row includes its own pot, stand, pole or fountain. These must
-    // stand at independent feet, rather than floating above another sprite.
-    for(const prop of motion) {
-      expect(prop.depth).toBeUndefined();
-      expect(specs.filter(other=>other.x===prop.x&&other.y===prop.y)).toHaveLength(1);
-    }
-    expect(placedSceneryFootprints(map.id).length).toBeGreaterThan(50);
-    expect(createWorldResidents(map.id)).toHaveLength(8);
-    // Existing shop rooms belong to the original towns; local architecture has
-    // its own cultural setting and is not mislabeled as the original interiors.
-    expect(buildingEntrances(map.id)).toEqual([]);
-  });
-
-  for(const id of ['riverweave','cedarbay'] as const) it(`keeps ${id} land-based scenery foundations on painted grass banks`,()=>{
-    const contains=(polygon:readonly(readonly[number,number])[],x:number,y:number)=>{
-      let inside=false;
-      for(let i=0,j=polygon.length-1;i<polygon.length;j=i++) {
-        const [xi,yi]=polygon[i],[xj,yj]=polygon[j];
-        if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)inside=!inside;
-      }
-      return inside;
-    };
-    for(const spec of getPlacedScenery(id)) {
-      // Dedicated discovery scenery stands on the known pavement approach;
-      // transport boats may occupy water. Other props need a complete bank base.
-      if(spec.id.endsWith('-scenery')||spec.asset==='boat')continue;
-      expect(expeditionLandPlots[id]!.some(plot=>[-.34,0,.34].every(offset=>contains(plot,spec.x+spec.width*offset,spec.y-5))),spec.id).toBe(true);
+  it('archives every retired scene while keeping encounters and games independent', () => {
+    expect(Object.keys(archived.maps)).toEqual(expeditionIds);
+    for (const map of expeditionMaps) {
+      const scene = archived.maps[map.id];
+      expect(scene.scenery.length).toBeGreaterThanOrEqual(90);
+      expect('entrances' in scene).toBe(false);
+      expect(maps.some(playable => playable.id === map.id)).toBe(false);
     }
   });
 });

@@ -9,13 +9,13 @@ const template=():ScenePrefab=>({id:'reading-corner',name:'Reading corner',revis
 ],activities:[{id:'seat',ownerId:'bench',kind:'seat',offsetX:0,offsetY:16,approach:{x:0,y:30}}]});
 function fixture(){
   const prefab=template(),document=structuredClone(sceneDocument);document.prefabs=[...(document.prefabs??[]),prefab];
-  const result=stampPrefab(document.maps.lindenhafen,prefab,{x:2000,y:310});document.maps.lindenhafen=result.scene;
+  const result=stampPrefab(document.maps.lindenhafen,prefab,{x:document.maps.lindenhafen.width*.55,y:document.maps.lindenhafen.height*.2});document.maps.lindenhafen=result.scene;
   return {document,scene:result.scene,prefab,ids:result.ids,instance:result.scene.prefabInstances!.at(-1)!};
 }
 describe('versioned reusable groups',()=>{
   it('stamps usable positions with independent IDs and preserves drafts through one undo',()=>{
     const {document,scene,prefab,instance}=fixture(),history=new LevelEditorHistory(document);
-    const second=stampPrefab(scene,prefab,{x:2700,y:350});history.edit(second.scene);
+    const second=stampPrefab(scene,prefab,{x:scene.width*.8,y:scene.height*.25});history.edit(second.scene);
     expect(new Set(second.scene.scenery.map(item=>item.id)).size).toBe(second.scene.scenery.length);
     const next=second.scene.prefabInstances!.at(-1)!;expect(next.id).not.toBe(instance.id);
     expect(second.scene.activities!.find(slot=>slot.id===next.activities[0].id)?.ownerId).toBe(next.members[0].id);
@@ -37,13 +37,13 @@ describe('versioned reusable groups',()=>{
   it('moves placement baselines with a whole group but records individual movement as an override',()=>{
     const {scene,prefab,instance,ids}=fixture();
     const moved=preservePrefabPlacement(scene,{...scene,scenery:scene.scenery.map(item=>ids.includes(item.id)?{...item,x:item.x+100,y:item.y+50}:item)});
-    expect(moved.prefabInstances!.at(-1)!.origin).toEqual({x:2100,y:360});
+    expect(moved.prefabInstances!.at(-1)!.origin).toEqual({x:instance.origin.x+100,y:instance.origin.y+50});
     const next=structuredClone(prefab);next.revision=2;next.scenery[1].x=85;
     const update=previewPrefabUpdate(moved,next,instance.id);
-    expect(update.scene.scenery.find(item=>item.id===ids[1])!.x).toBe(2185);
-    const child=editScenery(scene,new Set([ids[1]]),{x:2080});
+    expect(update.scene.scenery.find(item=>item.id===ids[1])!.x).toBe(instance.origin.x+185);
+    const childX=instance.origin.x+80,child=editScenery(scene,new Set([ids[1]]),{x:childX});
     expect(child.prefabInstances!.at(-1)!.origin).toEqual(instance.origin);
-    expect(previewPrefabUpdate(child,next,instance.id).scene.scenery.find(item=>item.id===ids[1])!.x).toBe(2080);
+    expect(previewPrefabUpdate(child,next,instance.id).scene.scenery.find(item=>item.id===ids[1])!.x).toBe(childX);
   });
   it('retains removed defaults when local content or a doorway depends on them',()=>{
     const {scene,prefab,instance,ids}=fixture();
@@ -70,7 +70,7 @@ describe('versioned reusable groups',()=>{
     expect(previewPrefabUpdate(tombstoneCopy.scene,next,tombstone.id).scene.scenery.some(item=>item.id===tombstone.members[1].id)).toBe(false);
   });
   it('publishes explicit revisions without silently updating other copies',()=>{
-    const {document,scene,prefab,instance,ids}=fixture(),second=stampPrefab(scene,prefab,{x:2700,y:350});
+    const {document,scene,prefab,instance,ids}=fixture(),second=stampPrefab(scene,prefab,{x:scene.width*.8,y:scene.height*.25});
     document.maps.lindenhafen=editScenery(second.scene,new Set([ids[0]]),{width:96});
     const published=savePrefabFromSelection(document,'lindenhafen',new Set(ids),'Reading corner',instance.id);
     const revised=published.prefabs!.find(item=>item.id===prefab.id)!;
@@ -121,7 +121,7 @@ it('keeps prefab-owned scenery when its former scatter batch regenerates',async(
   const {generateScatter}=await import('./level-editor-generation');
   const {scene,ids}=fixture();
   scene.scenery=scene.scenery.map(item=>ids.includes(item.id)?{...item,generatorId:'old-scatter'}:item);
-  const proposal=generateScatter(scene,{id:'old-scatter',seed:42,rulesVersion:1,palette:['tree'],polygon:[[2400,550],[2900,550],[2900,850],[2400,850]]},[{asset:'tree',frame:'tree',variant:false,width:80}],{count:1,minSpacing:70,clearance:12,minScale:1,maxScale:1});
+  const proposal=generateScatter(scene,{id:'old-scatter',seed:42,rulesVersion:1,palette:['tree'],polygon:[[scene.width*.75,scene.height*.35],[scene.width*.95,scene.height*.35],[scene.width*.95,scene.height*.55],[scene.width*.75,scene.height*.55]]},[{asset:'tree',frame:'tree',variant:false,width:80}],{count:1,minSpacing:70,clearance:12,minScale:1,maxScale:1});
   expect(proposal.removedIds.some(id=>ids.includes(id))).toBe(false);
 });
 

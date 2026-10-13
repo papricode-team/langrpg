@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {copyScenery,pasteScenery,checkClipboard,paletteTemplates,StrokeSampler,ObjectPaintStroke,type BrushSettings} from './level-editor-object-tools';
+import {copyScenery,pasteScenery,checkClipboard,paletteTemplates,canonSceneryWidth,StrokeSampler,ObjectPaintStroke,type BrushSettings} from './level-editor-object-tools';
 import {LevelEditorHistory,editScenery,removeScenery} from './level-editor-model';
 import {stampPrefab,previewPrefabUpdate,sceneInstanceIds} from './level-editor-prefabs';
 import {emptyEditorView} from './level-editor-selection';
@@ -15,7 +15,31 @@ describe('clipboard and painting tools',()=>{
   it('offers registered but unused artwork with supported roles and useful default sizes',()=>{
     const source=scene();source.scenery=[{id:'variant',asset:'planter',frame:'garden-1',variant:true,x:200,y:200,width:45}];
     const palette=paletteTemplates(source,[{frame:'planter',variant:false},{frame:'garden-1',variant:true},{frame:'lamp',variant:false},{frame:'unknown',variant:false}]);
-    expect(palette).toHaveLength(3);expect(palette[0]).toMatchObject({asset:'planter',width:45,variant:false});expect(palette[2]).toMatchObject({asset:'lamp',motion:'lamp',width:34});
+    expect(palette).toHaveLength(3);expect(palette[0]).toMatchObject({asset:'planter',width:40,variant:false});expect(palette[2]).toMatchObject({asset:'lamp',motion:'lamp',width:34});
+  });
+  it('authors unused native storefronts at their own aspect ratio without borrowing another house width',()=>{
+    const source=scene();source.scenery=[{id:'old-house',asset:'house',frame:'house-1',x:200,y:200,width:350}];
+    const palette=paletteTemplates(source,[{frame:'house-bakery',variant:false,referenceWidth:1247,height:1162},
+      {frame:'house-grocery',variant:false,referenceWidth:1242,height:1037},
+      {frame:'house-1',variant:false,referenceWidth:1200,height:1200}]);
+    expect(palette).toHaveLength(3);expect(palette[2].width).toBe(350);
+    expect(palette[0].width*1162/1247).toBeCloseTo(201.6,1);
+    expect(palette[1].width*1037/1242).toBeCloseTo(201.6,1);
+    expect(palette[0].width).not.toBe(palette[1].width);
+  });
+  it('excludes paintings too small for the minimum physical size and keeps borderline art inside both limits',()=>{
+    const palette=paletteTemplates(scene(),[{frame:'house-tiny',variant:false,referenceWidth:200,height:300},
+      {frame:'house-small',variant:false,referenceWidth:480,height:480},{frame:'tree',variant:false,referenceWidth:677,height:691}]);
+    expect(palette.map(item=>item.frame)).toEqual(['house-small','tree']);
+    expect(palette[0].width*480/480).toBeGreaterThanOrEqual(2.6*72);
+    expect(480/palette[0].width).toBeGreaterThanOrEqual(2.5);
+    expect(canonSceneryWidth('house',1000,NaN)).toBeUndefined();
+  });
+  it('keeps new door-bearing cottages large enough to enter while respecting the house height range',()=>{
+    const palette=paletteTemplates(scene(),[{frame:'house-inn',variant:false,referenceWidth:1248,height:1163,doorHeight:440}]);
+    expect(palette[0].width*440/1248).toBeGreaterThanOrEqual(1.1*72);
+    expect(palette[0].width*1163/1248).toBeLessThanOrEqual(3*72);
+    expect(canonSceneryWidth('house',1200,1200,200)).toBeUndefined();
   });
   it('pastes a snapshot across maps with independent IDs, activity owners and no duplicated doors or schedules',()=>{
     const source=scene();source.scenery=[{id:'bench',asset:'bench',x:200,y:300,width:64,groupId:'corner',depth:305,generatorId:'old-zone'},{id:'lamp',asset:'lamp',x:265,y:288,width:32,groupId:'corner'}];

@@ -1,7 +1,6 @@
 import type { Avatar, WorldPlayer } from './world';
 import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
-import type { MapId } from './maps';
-import { isExpeditionMap } from './expeditions';
+import { isStoryMap, type MapId } from './maps';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import {getWorldScene} from './scene-data';
 import sceneVersion from './data/world-scene-version.json';
@@ -74,7 +73,7 @@ export function normalizeSession(result: SessionResult): SessionResult {
 }
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
-const isMapId = (value: unknown): value is MapId => value === 'lindenhafen' || value === 'waldruh' || value === 'nebelstadt' || (typeof value === 'string' && isExpeditionMap(value));
+const isMapId = isStoryMap;
 const validInterior = (mapId: MapId, value: unknown): value is InteriorId | '' | undefined =>
   value === undefined || value === '' || buildingEntrances(mapId).some(entrance => entrance.interiorId === value);
 const validSpawn = (value: unknown): value is { x: number; y: number } => {

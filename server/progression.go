@@ -45,7 +45,17 @@ func routeUnlocked(mapID string, completed []string) bool {
 		}
 		return false
 	}
-	return validMapID(mapID) && contains(completed, "b1-atlas")
+	// Expedition agreements remain available as standalone learning activities.
+	manifest, err := expeditionContent()
+	if err != nil || !contains(completed, "b1-atlas") {
+		return false
+	}
+	for _, game := range manifest.Games {
+		if game.ID == mapID {
+			return true
+		}
+	}
+	return false
 }
 
 func routeLockedError(mapID string) error {

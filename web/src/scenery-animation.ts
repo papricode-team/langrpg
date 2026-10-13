@@ -1,6 +1,7 @@
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 import { sceneryPhase } from './placed-scenery';
+import type { SortLine } from './world-depth';
 export interface SceneryAnimation {
   key:string;
   frames:readonly string[];
@@ -10,6 +11,12 @@ export interface SceneryAnimation {
   referenceWidth:number;
   originX:number;
   originY:number;
+  /** Geometry in reference pixels, relative to the painted foot anchor. */
+  sortLine?:SortLine;
+  footprint?:SortLine;
+  door?:{x:number;y:number;width:number;height:number};
+  /** Shared daylight source paintings can opt into a runtime moonlight tint. */
+  nightTint?:number;
   /** Static paintings may have a higher native resolution than their detail layers. */
   base?:{key:string;frame:string;referenceWidth?:number;originX?:number;originY?:number};
   overlays?:readonly SceneryOverlay[];
@@ -33,7 +40,7 @@ export const sceneryAnimationManifestKey=(id:MapId,period:WorldPeriod='day'):str
 /** Reuse the streamed base when it is the same painting as the period terrain. */
 export function sceneryTerrainKey(id: MapId, manifest?: SceneryAnimationManifest): string | undefined {
   const base = manifest?.terrain === `${id}-terrain`
-    || id === 'nebelstadt' && manifest?.terrain === 'nebelstadt-day-terrain';
+    || id === 'nebelstadt' && (manifest?.terrain === 'nebelstadt-day-terrain'||manifest?.terrain === 'nebelstadt-harbour-bridge-day-terrain');
   return base ? id : manifest?.terrain;
 }
 export function sceneryTerrainTextureKeys(id: MapId, manifest?: SceneryAnimationManifest): readonly string[] {

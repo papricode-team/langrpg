@@ -347,40 +347,31 @@ func TestReconnectCannotBypassMapJoinRateLimit(t *testing.T) {
 	readIsolatedChat(t, ctx, conn, "waldruh", "Still here")
 }
 
-func TestEveryExpeditionSupportsTravelAndScopedChat(t *testing.T) {
-	for _, destination := range mapIDs[3:] {
-		t.Run(destination, func(t *testing.T) {
-			app := testApp(t)
-			token, _ := createSession(t, app, "Explorer")
-			server := httptest.NewServer(app.Handler())
-			defer server.Close()
-			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-			defer cancel()
-			conn := dialMap(t, ctx, server, token, DefaultMapID)
-			mapValue(t, readWorld(t, ctx, conn, "welcome"))
-			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": destination, "x": 1, "y": 1})
-			id, spawn, players, history := mapValue(t, readWorld(t, ctx, conn, "map"))
-			if id != destination || spawn != mapSpawns[destination] || len(players) != 1 || len(history) != 0 {
-				t.Fatalf("expedition arrival: %s %+v %+v %+v", id, spawn, players, history)
+func TestRetiredExpeditionTravelIsRejected(t *testing.T) {
+	app := testApp(t)
+	token, _ := createSession(t, app, "Explorer")
+	manifest, err := expeditionContent()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, game := range manifest.Games {
+		t.Run(game.ID, func(t *testing.T) {
+			if validMapID(game.ID) {
+				t.Fatalf("retired map %s is playable", game.ID)
 			}
-			writeWorld(t, ctx, conn, map[string]any{"type": "chat", "mapId": destination, "message": "A local greeting"})
-			readIsolatedChat(t, ctx, conn, destination, "A local greeting")
-			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": DefaultMapID})
-			_, _, _, history = mapValue(t, readWorld(t, ctx, conn, "map"))
-			if len(history) != 0 {
-				t.Fatalf("expedition conversation leaked into home: %+v", history)
+			response := request(app, "GET", "/api/world?token="+token+"&mapId="+game.ID, "", nil)
+			if response.Code != 400 {
+				t.Fatalf("retired map status %d", response.Code)
 			}
-			writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": destination})
-			id, restored, _, history := mapValue(t, readWorld(t, ctx, conn, "map"))
-			if id != destination || restored != spawn || len(history) != 1 || history[0].Text != "A local greeting" {
-				t.Fatalf("expedition return: %s %+v %+v", id, restored, history)
+			if !routeUnlocked(game.ID, []string{"b1-atlas"}) {
+				t.Fatal("retirement also locked its learning game")
 			}
 		})
 	}
 }
 
-func TestMapRegistryContainsThirteenUniqueDestinations(t *testing.T) {
-	if len(mapIDs) != 13 || len(mapSpawns) != 13 {
+func TestMapRegistryContainsThreeUniqueDestinations(t *testing.T) {
+	if len(mapIDs) != 3 || len(mapSpawns) != 3 {
 		t.Fatalf("atlas registry mismatch: %d IDs, %d spawns", len(mapIDs), len(mapSpawns))
 	}
 	seen := make(map[string]bool)

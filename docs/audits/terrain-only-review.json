@@ -1,0 +1,64 @@
+{
+  "reviewedOn": "2026-10-13",
+  "method": "Visual review of actual runtime crops and matching overview images in day and night, plus every map.asset and manifest.terrain fallback used during loading or lighting transitions.",
+  "terrainContract": "Ground surfaces, fine ground texture, water, bridges, stairs, cliffs, retaining walls and embankments only. Buildings, tree silhouettes, raised plants, furniture, stalls, lamps and characters are separate scenery objects.",
+  "activeTowns": [
+    {
+      "id": "lindenhafen",
+      "chunks": 9,
+      "periods": [
+        "day",
+        "night"
+      ],
+      "bakedSceneryFound": false,
+      "pixelDensity": 4
+    },
+    {
+      "id": "waldruh",
+      "chunks": 6,
+      "periods": [
+        "day",
+        "night"
+      ],
+      "bakedSceneryFound": false,
+      "pixelDensity": 4
+    },
+    {
+      "id": "nebelstadt",
+      "chunks": 6,
+      "periods": [
+        "day",
+        "night"
+      ],
+      "bakedSceneryFound": false,
+      "pixelDensity": 4
+    }
+  ],
+  "fallbackPlates": [
+    "lindenhafen-terrain.webp",
+    "lindenhafen-night-terrain.webp",
+    "waldruh-terrain.webp",
+    "waldruh-night-terrain.webp",
+    "nebelstadt-terrain.webp",
+    "nebelstadt-day-terrain.webp",
+    "nebelstadt-night-terrain.webp",
+    "nebelstadt-harbour-bridge-day-terrain.webp",
+    "nebelstadt-harbour-bridge-night-terrain.webp"
+  ],
+  "fallbackBakedSceneryFound": false,
+  "newHarbourSources": "art/source/terrain-expansion/nebelstadt/harbour-export.json",
+  "registeredBridgePatch": "art/source/terrain-expansion/nebelstadt/harbour-bridge-export.json",
+  "newHarbourMethod": "Two terrain-only chunks, each four native 1536x1024 quadrants representing 384x256 world units. Night quadrants are registered lighting edits of the matching day sources. All detailed exports have 3074x2050 guarded images and 3072x2048 visible crops, true native 4px/unit and matching 768x512 overviews.",
+  "visualEvidence": [
+    "docs/audits/map-quality/terrain-lindenhafen-day-sheet.jpg",
+    "docs/audits/map-quality/terrain-lindenhafen-night-sheet.jpg",
+    "docs/audits/map-quality/terrain-waldruh-day-sheet.jpg",
+    "docs/audits/map-quality/terrain-waldruh-night-sheet.jpg",
+    "docs/audits/map-quality/terrain-nebelstadt-day-sheet.jpg",
+    "docs/audits/map-quality/terrain-nebelstadt-night-sheet.jpg",
+    "docs/audits/map-quality/terrain-legacy-and-manifest-terrain-sheet.jpg",
+    "docs/audits/map-quality/terrain-nebelstadt-harbour-final-sheet.jpg",
+    "docs/audits/map-quality/terrain-nebelstadt-harbour-bridge-final-sheet.jpg"
+  ],
+  "harbourBridgeSource": "art/source/terrain-expansion/nebelstadt/harbour-bridge-export.json"
+}

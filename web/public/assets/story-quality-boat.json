@@ -1,0 +1,47 @@
+{
+  "frames": {
+    "boat": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 303,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 303,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 303,
+        "h": 178
+      },
+      "source": {
+        "path": "art/source/waldruh-props.png",
+        "nativeSize": {
+          "width": 1254,
+          "height": 1254
+        },
+        "crop": {
+          "left": 23,
+          "top": 1016,
+          "width": 303,
+          "height": 178
+        },
+        "standalone": false
+      }
+    }
+  },
+  "meta": {
+    "image": "story-quality-boat.webp",
+    "size": {
+      "w": 2048,
+      "h": 256
+    },
+    "scale": "1",
+    "provenance": "Built-in ImageGen painting; native rectangular crops; no upscaling"
+  }
+}

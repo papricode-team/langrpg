@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type * as Phaser from 'phaser';
 import { WorldScenery } from './world-scenery';
-import { getPlacedScenery } from './placed-scenery';
+import { getPlacedScenery, type PlacedScenerySpec } from './placed-scenery';
+import archive from '../../docs/archive/expedition-scenes.json';
 import { worldAmbient } from './world-lighting';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
@@ -16,6 +17,7 @@ class Sprite {
   setVisible(visible: boolean) { this.visible = visible; return this; }
   setFrame(frame: string) { this.frame = frame; return this; } destroy() {}
 }
+const placements = (mapId: MapId): readonly PlacedScenerySpec[] => mapId in archive.maps ? archive.maps[mapId as keyof typeof archive.maps].scenery as readonly PlacedScenerySpec[] : getPlacedScenery(mapId);
 function fixture(mapId: MapId, period: WorldPeriod) {
   const sprites: Sprite[] = [];
   const assets = Object.fromEntries(['tree','cloth','lamp','water'].map(kind => [`motion-${kind}`, {
@@ -29,7 +31,7 @@ function fixture(mapId: MapId, period: WorldPeriod) {
       const sprite = new Sprite(x,y,key,frame); sprites.push(sprite); return sprite;
     } },
   } as unknown as Phaser.Scene;
-  const scenery = new WorldScenery(scene,mapId,period);
+  const scenery = new WorldScenery(scene,mapId,period,placements(mapId));
   return {sprites,scenery};
 }
 const view = {x:0,y:0,right:1536,bottom:1024};
@@ -39,7 +41,7 @@ describe('steady expedition night lighting', () => {
   it('cools buildings and foliage while retaining warm lantern illumination', () => {
     const {sprites} = fixture('saffroncourt','night');
     const ambient = worldAmbient('saffroncourt','night');
-    for(const spec of getPlacedScenery('saffroncourt')) {
+    for(const spec of placements('saffroncourt')) {
       expect(sprites.find(sprite=>sprite.x===spec.x&&sprite.y===spec.y)!.tint).toBe(spec.asset==='lamp'||spec.frame==='motion-lamp' ? ambient.light : ambient.scenery);
     }
     expect(ambient.terrain).not.toBe(0xffffff);
@@ -69,7 +71,7 @@ describe('steady expedition night lighting', () => {
     for (let time = 0; time < 1; time += .03125) {
       scenery.update(time, view);
       for (const base of sprites) {
-        const next = sprites.find(sprite => sprite.depth === base.depth + .001 && sprite.x === base.x && sprite.y === base.y);
+        const next = sprites.find(sprite => sprite !== base && sprites.indexOf(sprite) > sprites.indexOf(base) && sprite.depth === base.depth && sprite.x === base.x && sprite.y === base.y);
         if (!next || next.alpha <= .25 || next.alpha >= .75) continue;
         observedBlend = true;
         expect(base.alpha).toBe(1);

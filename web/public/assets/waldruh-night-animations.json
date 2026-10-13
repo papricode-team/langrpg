@@ -17,7 +17,43 @@
         "key": "waldruh-night-building-bases",
         "frame": "archive"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -164.82,
+          -93.6
+        ],
+        [
+          -112.56000000000002,
+          -171.6
+        ],
+        [
+          160.8,
+          -150.79999999999998
+        ],
+        [
+          172.85999999999999,
+          -62.4
+        ],
+        [
+          -112.56000000000002,
+          -23.4
+        ]
+      ],
+      "sortLine": [
+        [
+          -164.82,
+          -93.6
+        ],
+        [
+          -112.56000000000002,
+          -23.4
+        ],
+        [
+          172.85999999999999,
+          -62.4
+        ]
+      ]
     },
     "cafe": {
       "key": "waldruh-night-building-cafe",
@@ -34,7 +70,43 @@
         "key": "waldruh-night-building-cafe",
         "frame": "cafe"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -485.03,
+          -201.95999999999998
+        ],
+        [
+          -331.24,
+          -370.26
+        ],
+        [
+          473.20000000000005,
+          -325.38
+        ],
+        [
+          508.69,
+          -134.64
+        ],
+        [
+          -331.24,
+          -50.489999999999995
+        ]
+      ],
+      "sortLine": [
+        [
+          -485.03,
+          -201.95999999999998
+        ],
+        [
+          -331.24,
+          -50.489999999999995
+        ],
+        [
+          508.69,
+          -134.64
+        ]
+      ]
     },
     "station": {
       "key": "waldruh-night-building-station",
@@ -51,7 +123,43 @@
         "key": "waldruh-night-building-station",
         "frame": "station"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -497.33,
+          -184.14
+        ],
+        [
+          -339.64000000000004,
+          -337.59000000000003
+        ],
+        [
+          485.20000000000005,
+          -296.66999999999996
+        ],
+        [
+          521.59,
+          -122.75999999999999
+        ],
+        [
+          -339.64000000000004,
+          -46.035
+        ]
+      ],
+      "sortLine": [
+        [
+          -497.33,
+          -184.14
+        ],
+        [
+          -339.64000000000004,
+          -46.035
+        ],
+        [
+          521.59,
+          -122.75999999999999
+        ]
+      ]
     },
     "workshop": {
       "key": "waldruh-night-building-workshop",
@@ -68,7 +176,43 @@
         "key": "waldruh-night-building-workshop",
         "frame": "workshop"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -499.38,
+          -224.64
+        ],
+        [
+          -341.04,
+          -411.84000000000003
+        ],
+        [
+          487.20000000000005,
+          -361.91999999999996
+        ],
+        [
+          523.74,
+          -149.76
+        ],
+        [
+          -341.04,
+          -56.16
+        ]
+      ],
+      "sortLine": [
+        [
+          -499.38,
+          -224.64
+        ],
+        [
+          -341.04,
+          -56.16
+        ],
+        [
+          523.74,
+          -149.76
+        ]
+      ]
     },
     "house": {
       "key": "waldruh-night-building-bases",
@@ -85,194 +229,341 @@
         "key": "waldruh-night-building-bases",
         "frame": "house"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -209.51,
+          -86.22
+        ],
+        [
+          -143.08,
+          -158.07000000000002
+        ],
+        [
+          204.4,
+          -138.91
+        ],
+        [
+          219.73,
+          -57.48
+        ],
+        [
+          -143.08,
+          -21.555
+        ]
+      ],
+      "sortLine": [
+        [
+          -209.51,
+          -86.22
+        ],
+        [
+          -143.08,
+          -21.555
+        ],
+        [
+          219.73,
+          -57.48
+        ]
+      ]
     },
     "greenhouse": {
-      "key": "waldruh-night-building-greenhouse",
+      "key": "waldruh-day-building-greenhouse",
       "frames": [
         "greenhouse"
       ],
       "fps": 0,
       "width": 1211,
-      "height": 1227,
+      "height": 1228,
       "referenceWidth": 1211,
       "originX": 0.5,
-      "originY": 0.9967400162999185,
+      "originY": 0.996742671009772,
       "base": {
-        "key": "waldruh-night-building-greenhouse",
+        "key": "waldruh-day-building-greenhouse",
         "frame": "greenhouse"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -496.51,
+          -221.04
+        ],
+        [
+          -339.08000000000004,
+          -405.24
+        ],
+        [
+          484.40000000000003,
+          -356.11999999999995
+        ],
+        [
+          520.73,
+          -147.35999999999999
+        ],
+        [
+          -339.08000000000004,
+          -55.26
+        ]
+      ],
+      "sortLine": [
+        [
+          -496.51,
+          -221.04
+        ],
+        [
+          -339.08000000000004,
+          -55.26
+        ],
+        [
+          520.73,
+          -147.35999999999999
+        ]
+      ],
+      "nightTint": 9214664
     },
     "fountain": {
-      "key": "waldruh-night-animation-1",
+      "key": "story-quality-props",
       "frames": [
-        "fountain-0",
-        "fountain-1",
-        "fountain-2",
-        "fountain-3",
-        "fountain-4",
-        "fountain-5"
+        "fountain"
       ],
-      "fps": 3,
-      "width": 219,
-      "height": 206,
-      "referenceWidth": 219,
-      "originX": 0.502283105022831,
-      "originY": 1
+      "fps": 0,
+      "width": 519,
+      "height": 529,
+      "referenceWidth": 519,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "fountain"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "boat": {
-      "key": "waldruh-night-animation-1",
+      "key": "story-quality-boat",
       "frames": [
-        "boat-0",
-        "boat-1",
-        "boat-2",
-        "boat-3",
-        "boat-4",
-        "boat-5"
+        "boat"
       ],
-      "fps": 1,
-      "width": 243,
-      "height": 154,
-      "referenceWidth": 243,
-      "originX": 0.49382716049382713,
-      "originY": 0.974025974025974
+      "fps": 0,
+      "width": 303,
+      "height": 178,
+      "referenceWidth": 303,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-boat",
+        "frame": "boat"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "tree": {
-      "key": "waldruh-night-animation-2",
+      "key": "story-quality-props",
       "frames": [
-        "tree-0",
-        "tree-1",
-        "tree-2",
-        "tree-3",
-        "tree-4",
-        "tree-5"
+        "tree"
       ],
-      "fps": 1,
-      "width": 234,
-      "height": 230,
-      "referenceWidth": 234,
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
       "originX": 0.5,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "cypress": {
-      "key": "waldruh-night-animation-2",
+      "key": "story-quality-props",
       "frames": [
-        "cypress-0",
-        "cypress-1",
-        "cypress-2",
-        "cypress-3",
-        "cypress-4",
-        "cypress-5"
+        "cypress"
       ],
-      "fps": 1,
-      "width": 177,
-      "height": 235,
-      "referenceWidth": 177,
-      "originX": 0.4971751412429379,
-      "originY": 0.9744680851063829
+      "fps": 0,
+      "width": 241,
+      "height": 695,
+      "referenceWidth": 241,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "cypress"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -14.459999999999999,
+          -17.375
+        ],
+        [
+          14.459999999999999,
+          -17.375
+        ],
+        [
+          12.05,
+          0
+        ],
+        [
+          -12.05,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "lamp": {
-      "key": "waldruh-night-animation-2",
+      "key": "story-quality-misc",
       "frames": [
-        "lamp-0",
-        "lamp-1",
-        "lamp-2",
-        "lamp-3",
-        "lamp-4",
-        "lamp-5"
+        "lamp"
       ],
-      "fps": 4,
-      "width": 61,
-      "height": 229,
-      "referenceWidth": 61,
-      "originX": 0.4918032786885246,
-      "originY": 1
+      "fps": 0,
+      "width": 158,
+      "height": 655,
+      "referenceWidth": 158,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "lamp"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "arch": {
-      "key": "waldruh-night-building-bases",
+      "key": "lindenhafen-day-building-bases",
       "frames": [
         "arch"
       ],
       "fps": 0,
-      "width": 401,
-      "height": 457,
-      "referenceWidth": 401,
+      "width": 644,
+      "height": 566,
+      "referenceWidth": 644,
       "originX": 0.5,
-      "originY": 0.9912472647702407,
+      "originY": 0.9929328621908127,
       "base": {
-        "key": "waldruh-night-building-bases",
+        "key": "lindenhafen-day-building-bases",
         "frame": "arch"
       },
-      "overlays": []
+      "overlays": [],
+      "nightTint": 9214664
     },
     "stall": {
-      "key": "waldruh-night-animation-3",
+      "key": "story-quality-props",
       "frames": [
-        "stall-0",
-        "stall-1",
-        "stall-2",
-        "stall-3",
-        "stall-4",
-        "stall-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 217,
-      "height": 207,
-      "referenceWidth": 217,
-      "originX": 0.5069124423963134,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ],
+      "nightTint": 9214664
     },
     "bench": {
-      "key": "waldruh-night-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "bench-0",
-        "bench-1",
-        "bench-2",
-        "bench-3",
-        "bench-4",
-        "bench-5"
+        "bench"
       ],
-      "fps": 1,
-      "width": 214,
-      "height": 194,
-      "referenceWidth": 214,
-      "originX": 0.49065420560747663,
-      "originY": 1
+      "fps": 0,
+      "width": 617,
+      "height": 524,
+      "referenceWidth": 617,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "bench"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "planter": {
-      "key": "waldruh-night-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-0",
-        "planter-1",
-        "planter-2",
-        "planter-3",
-        "planter-4",
-        "planter-5"
+        "planter"
       ],
-      "fps": 1,
-      "width": 204,
-      "height": 217,
-      "referenceWidth": 204,
-      "originX": 0.5147058823529411,
-      "originY": 1
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "sign": {
-      "key": "waldruh-night-animation-3",
+      "key": "story-quality-misc",
       "frames": [
-        "sign-0",
-        "sign-1",
-        "sign-2",
-        "sign-3",
-        "sign-4",
-        "sign-5"
+        "sign"
       ],
-      "fps": 1,
-      "width": 183,
-      "height": 224,
-      "referenceWidth": 183,
-      "originX": 0.5081967213114754,
-      "originY": 1
+      "fps": 0,
+      "width": 465,
+      "height": 585,
+      "referenceWidth": 465,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "sign"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "house-1": {
       "key": "waldruh-night-building-house-1",
@@ -289,7 +580,43 @@
         "key": "waldruh-night-building-house-1",
         "frame": "house-1"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -491.59,
+          -211.32
+        ],
+        [
+          -335.72,
+          -387.42
+        ],
+        [
+          479.6,
+          -340.46
+        ],
+        [
+          515.5699999999999,
+          -140.88
+        ],
+        [
+          -335.72,
+          -52.83
+        ]
+      ],
+      "sortLine": [
+        [
+          -491.59,
+          -211.32
+        ],
+        [
+          -335.72,
+          -52.83
+        ],
+        [
+          515.5699999999999,
+          -140.88
+        ]
+      ]
     },
     "house-2": {
       "key": "waldruh-night-building-bases",
@@ -306,7 +633,43 @@
         "key": "waldruh-night-building-bases",
         "frame": "house-2"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -157.03,
+          -89.1
+        ],
+        [
+          -107.24000000000001,
+          -163.35
+        ],
+        [
+          153.20000000000002,
+          -143.54999999999998
+        ],
+        [
+          164.69,
+          -59.4
+        ],
+        [
+          -107.24000000000001,
+          -22.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -157.03,
+          -89.1
+        ],
+        [
+          -107.24000000000001,
+          -22.275
+        ],
+        [
+          164.69,
+          -59.4
+        ]
+      ]
     },
     "house-3": {
       "key": "waldruh-night-building-bases",
@@ -323,7 +686,43 @@
         "key": "waldruh-night-building-bases",
         "frame": "house-3"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -193.10999999999999,
+          -82.25999999999999
+        ],
+        [
+          -131.88000000000002,
+          -150.81
+        ],
+        [
+          188.4,
+          -132.53
+        ],
+        [
+          202.53,
+          -54.839999999999996
+        ],
+        [
+          -131.88000000000002,
+          -20.564999999999998
+        ]
+      ],
+      "sortLine": [
+        [
+          -193.10999999999999,
+          -82.25999999999999
+        ],
+        [
+          -131.88000000000002,
+          -20.564999999999998
+        ],
+        [
+          202.53,
+          -54.839999999999996
+        ]
+      ]
     },
     "house-4": {
       "key": "waldruh-night-building-bases",
@@ -340,177 +739,407 @@
         "key": "waldruh-night-building-bases",
         "frame": "house-4"
       },
-      "overlays": []
+      "overlays": [],
+      "footprint": [
+        [
+          -207.04999999999998,
+          -73.61999999999999
+        ],
+        [
+          -141.4,
+          -134.97
+        ],
+        [
+          202,
+          -118.60999999999999
+        ],
+        [
+          217.15,
+          -49.08
+        ],
+        [
+          -141.4,
+          -18.404999999999998
+        ]
+      ],
+      "sortLine": [
+        [
+          -207.04999999999998,
+          -73.61999999999999
+        ],
+        [
+          -141.4,
+          -18.404999999999998
+        ],
+        [
+          217.15,
+          -49.08
+        ]
+      ]
     },
     "tree-1": {
-      "key": "waldruh-night-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-1-0",
-        "tree-1-1",
-        "tree-1-2",
-        "tree-1-3",
-        "tree-1-4",
-        "tree-1-5"
+        "tree"
       ],
-      "fps": 1,
-      "width": 186,
-      "height": 236,
-      "referenceWidth": 186,
-      "originX": 0.478494623655914,
-      "originY": 0.961864406779661
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "tree-2": {
-      "key": "waldruh-night-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-2-0",
-        "tree-2-1",
-        "tree-2-2",
-        "tree-2-3",
-        "tree-2-4",
-        "tree-2-5"
+        "tree"
       ],
-      "fps": 1,
-      "width": 226,
-      "height": 201,
-      "referenceWidth": 226,
-      "originX": 0.49557522123893805,
-      "originY": 0.9900497512437811
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "tree-3": {
-      "key": "waldruh-night-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-3-0",
-        "tree-3-1",
-        "tree-3-2",
-        "tree-3-3",
-        "tree-3-4",
-        "tree-3-5"
+        "tree"
       ],
-      "fps": 1,
-      "width": 149,
-      "height": 228,
-      "referenceWidth": 149,
-      "originX": 0.4966442953020134,
-      "originY": 0.9956140350877193
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "tree-4": {
-      "key": "waldruh-night-animation-5",
+      "key": "story-quality-props",
       "frames": [
-        "tree-4-0",
-        "tree-4-1",
-        "tree-4-2",
-        "tree-4-3",
-        "tree-4-4",
-        "tree-4-5"
+        "tree"
       ],
-      "fps": 1,
-      "width": 224,
-      "height": 200,
-      "referenceWidth": 224,
+      "fps": 0,
+      "width": 677,
+      "height": 691,
+      "referenceWidth": 677,
       "originX": 0.5,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "tree"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -40.62,
+          -17.275000000000002
+        ],
+        [
+          40.62,
+          -17.275000000000002
+        ],
+        [
+          33.85,
+          0
+        ],
+        [
+          -33.85,
+          0
+        ]
+      ],
+      "nightTint": 9214664
     },
     "stall-1": {
-      "key": "waldruh-night-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-1-0",
-        "stall-1-1",
-        "stall-1-2",
-        "stall-1-3",
-        "stall-1-4",
-        "stall-1-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 216,
-      "height": 210,
-      "referenceWidth": 216,
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
       "originX": 0.5,
-      "originY": 0.9904761904761905
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ],
+      "nightTint": 9214664
     },
     "stall-2": {
-      "key": "waldruh-night-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-2-0",
-        "stall-2-1",
-        "stall-2-2",
-        "stall-2-3",
-        "stall-2-4",
-        "stall-2-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 212,
-      "height": 227,
-      "referenceWidth": 212,
-      "originX": 0.4811320754716981,
-      "originY": 0.9955947136563876
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ],
+      "nightTint": 9214664
     },
     "stall-3": {
-      "key": "waldruh-night-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-3-0",
-        "stall-3-1",
-        "stall-3-2",
-        "stall-3-3",
-        "stall-3-4",
-        "stall-3-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 220,
-      "height": 226,
-      "referenceWidth": 220,
-      "originX": 0.4954545454545455,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ],
+      "nightTint": 9214664
     },
     "stall-4": {
-      "key": "waldruh-night-animation-6",
+      "key": "story-quality-props",
       "frames": [
-        "stall-4-0",
-        "stall-4-1",
-        "stall-4-2",
-        "stall-4-3",
-        "stall-4-4",
-        "stall-4-5"
+        "stall"
       ],
-      "fps": 2,
-      "width": 226,
-      "height": 207,
-      "referenceWidth": 226,
-      "originX": 0.49557522123893805,
-      "originY": 1
+      "fps": 0,
+      "width": 675,
+      "height": 531,
+      "referenceWidth": 675,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-props",
+        "frame": "stall"
+      },
+      "overlays": [],
+      "footprint": [
+        [
+          -256.5,
+          -100.89
+        ],
+        [
+          236.24999999999997,
+          -111.50999999999999
+        ],
+        [
+          256.5,
+          -15.93
+        ],
+        [
+          -270,
+          -13.275
+        ]
+      ],
+      "sortLine": [
+        [
+          -270,
+          -13.275
+        ],
+        [
+          256.5,
+          -15.93
+        ]
+      ],
+      "nightTint": 9214664
     },
     "planter-1": {
-      "key": "waldruh-night-animation-7",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-1-0",
-        "planter-1-1",
-        "planter-1-2",
-        "planter-1-3",
-        "planter-1-4",
-        "planter-1-5"
+        "planter"
       ],
-      "fps": 1,
-      "width": 216,
-      "height": 179,
-      "referenceWidth": 216,
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
       "originX": 0.5,
-      "originY": 1
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "planter-2": {
-      "key": "waldruh-night-animation-7",
+      "key": "story-quality-misc",
       "frames": [
-        "planter-2-0",
-        "planter-2-1",
-        "planter-2-2",
-        "planter-2-3",
-        "planter-2-4",
-        "planter-2-5"
+        "planter"
       ],
-      "fps": 1,
-      "width": 176,
-      "height": 226,
-      "referenceWidth": 176,
-      "originX": 0.4943181818181818,
-      "originY": 1
+      "fps": 0,
+      "width": 447,
+      "height": 565,
+      "referenceWidth": 447,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-misc",
+        "frame": "planter"
+      },
+      "overlays": [],
+      "nightTint": 9214664
     },
     "garden-1": {
       "key": "waldruh-night-animation-7",
@@ -545,6 +1174,274 @@
       "referenceWidth": 199,
       "originX": 0.5175879396984925,
       "originY": 1
+    },
+    "house-inn": {
+      "key": "story-quality-inn",
+      "frames": [
+        "house-inn"
+      ],
+      "fps": 0,
+      "width": 1248,
+      "height": 1163,
+      "referenceWidth": 1248,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-inn",
+        "frame": "house-inn"
+      },
+      "overlays": [],
+      "nightTint": 9214664,
+      "door": {
+        "x": -33,
+        "y": -590,
+        "width": 260,
+        "height": 440
+      },
+      "sortLine": [
+        [
+          -546,
+          -338
+        ],
+        [
+          -333,
+          -24
+        ],
+        [
+          -69,
+          -86
+        ],
+        [
+          -33,
+          -162
+        ],
+        [
+          227,
+          -162
+        ],
+        [
+          262,
+          -171
+        ],
+        [
+          598,
+          -250
+        ]
+      ],
+      "footprint": [
+        [
+          -546,
+          -338
+        ],
+        [
+          405,
+          -546
+        ],
+        [
+          598,
+          -250
+        ],
+        [
+          262,
+          -171
+        ],
+        [
+          227,
+          -162
+        ],
+        [
+          -33,
+          -162
+        ],
+        [
+          -69,
+          -86
+        ],
+        [
+          -333,
+          -24
+        ],
+        [
+          -546,
+          -338
+        ]
+      ]
+    },
+    "house-bakery": {
+      "key": "story-quality-bakery",
+      "frames": [
+        "house-bakery"
+      ],
+      "fps": 0,
+      "width": 1247,
+      "height": 1162,
+      "referenceWidth": 1247,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-bakery",
+        "frame": "house-bakery"
+      },
+      "overlays": [],
+      "nightTint": 9214664,
+      "door": {
+        "x": -172.5,
+        "y": -547,
+        "width": 198,
+        "height": 450
+      },
+      "sortLine": [
+        [
+          -515.5,
+          -191
+        ],
+        [
+          -226.5,
+          -82
+        ],
+        [
+          -172.5,
+          -109
+        ],
+        [
+          25.5,
+          -109
+        ],
+        [
+          75.5,
+          -18
+        ],
+        [
+          446.5,
+          -55
+        ],
+        [
+          580.5,
+          -216
+        ]
+      ],
+      "footprint": [
+        [
+          -515.5,
+          -392
+        ],
+        [
+          431.5,
+          -477
+        ],
+        [
+          580.5,
+          -216
+        ],
+        [
+          446.5,
+          -55
+        ],
+        [
+          75.5,
+          -18
+        ],
+        [
+          25.5,
+          -109
+        ],
+        [
+          -172.5,
+          -109
+        ],
+        [
+          -226.5,
+          -82
+        ],
+        [
+          -515.5,
+          -191
+        ]
+      ]
+    },
+    "house-grocery": {
+      "key": "story-quality-grocery",
+      "frames": [
+        "house-grocery"
+      ],
+      "fps": 0,
+      "width": 1242,
+      "height": 1037,
+      "referenceWidth": 1242,
+      "originX": 0.5,
+      "originY": 1,
+      "base": {
+        "key": "story-quality-grocery",
+        "frame": "house-grocery"
+      },
+      "overlays": [],
+      "nightTint": 9214664,
+      "door": {
+        "x": -113,
+        "y": -442,
+        "width": 245,
+        "height": 400
+      },
+      "sortLine": [
+        [
+          -542,
+          -49
+        ],
+        [
+          -157,
+          -32
+        ],
+        [
+          -113,
+          -54
+        ],
+        [
+          132,
+          -54
+        ],
+        [
+          199,
+          -47
+        ],
+        [
+          550,
+          -86
+        ]
+      ],
+      "footprint": [
+        [
+          -530,
+          -305
+        ],
+        [
+          551,
+          -331
+        ],
+        [
+          550,
+          -86
+        ],
+        [
+          199,
+          -47
+        ],
+        [
+          132,
+          -54
+        ],
+        [
+          -113,
+          -54
+        ],
+        [
+          -157,
+          -32
+        ],
+        [
+          -542,
+          -49
+        ]
+      ]
     }
   },
   "terrain": "waldruh-night-terrain",

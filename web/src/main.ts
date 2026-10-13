@@ -54,7 +54,7 @@ import { icon, escapeHtml as e } from './icons';
 import turkishCoverage from './data/i18n/tr-coverage.json';
 import { t, localized, localizedName, localizedExercise, localizedGrammar, lexemeMeaning, localizedLexemeForm, localizedLexemePartOfSpeech, upper, lower, baseLanguage, baseLanguageNames, cachedBaseLanguage, setBaseLanguage, type BaseLanguage } from './i18n';
 import { exerciseOptionsMarkup } from './exercise-options';
-import { maps, getMap } from './maps';
+import { maps, getMap, isStoryMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
 import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs } from './story';
 import { activityDiscoveries } from './activity-stories';
@@ -598,6 +598,7 @@ function continueDestination() {
   else { const q = quests.find(item => item.id === destination.questId); if (q) world.focusNpc(q.npcId); }
 }
 function travelMap(id: MapId, destination?: { kind: 'quest' | 'follow'; questId: string }) {
+  if (!isStoryMap(id)) return;
   if (!routeUnlocked(id, progress.completedQuestIds)) { toast(routeLockReason(id, progress.completedQuestIds)); return; }
   if (questController?.isOpen) questController.close();
   if (pendingMap) return;
@@ -662,7 +663,7 @@ async function showExpeditionEncounter(targetId:string) {
   const encounter=getExpeditionEncounter(region.id,targetId)!,npc=getExpeditionNpc(targetId),object=region.objects.find(object=>object.id===targetId);
   if(object)rememberSeen('objects',object.id);
   activityController?.destroy();activityController=undefined;
-  openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${encounter.difficulty}</div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button>${region.id!==mapId?`<button class="primary-button" data-travel="${region.id}">${e(t('Travel to {place}',{place:region.name}))} ${icon('arrow')}</button>`:''}<button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
+  openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${encounter.difficulty}</div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
   const root=document.querySelector<HTMLElement>('#expedition-encounter-learning-root')!;let alive=true,paused=document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open;const runtime:{controller?:ReturnType<typeof mountExpeditionEncounter>;speechHost?:ReturnType<typeof import('./minigames/host').createMiniGameHost>}={};
   const currentPlayer=expeditionLearning.captureOwner();
   activityController={destroy(){alive=false;runtime.controller?.destroy();runtime.speechHost?.destroy();root.replaceChildren();},pause(){paused=true;runtime.controller?.pause();},resume(){paused=false;runtime.controller?.resume();},reset(){runtime.controller?.reset();}};
@@ -672,7 +673,7 @@ async function showExpeditionEncounter(targetId:string) {
 }
 function expeditionActivityBoard() {
   if (!routeUnlocked('windplain', progress.completedQuestIds)) return '';
-  return `<section class="expedition-story-link"><div class="eyebrow">${t('TEN WAYS TO MAKE AN AGREEMENT')}</div><h3>${t('Local games across the Atlas')}</h3><div class="activity-board">${expeditionGames.map(game => { const region = getExpedition(game.id)!, status = expeditionGameStatus(game.id, level, progress.story?.expeditionPlans ?? {}); return `<article class="activity-entry" style="--activity-art:url('${getMap(game.id).previewAsset}')">${icon('compass')}<small>${e(region.name)} · ${status === 'completed' ? t('AGREEMENT REMEMBERED') : status === 'started' ? t('RESUME YOUR PLAN') : 'A1 / A2 / B1'}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${game.id}">${status === 'started' ? t('Resume the neighborhood game') : status === 'completed' ? t('Revisit the neighborhood game') : t('Play the neighborhood game')} ${icon('arrow')}</button></article>`; }).join('')}</div></section>`;
+  return `<section class="expedition-story-link"><div class="eyebrow">${t('TEN WAYS TO MAKE AN AGREEMENT')}</div><h3>${t('Local games across the Atlas')}</h3><div class="activity-board">${expeditionGames.map(game => { const region = getExpedition(game.id)!, status = expeditionGameStatus(game.id, level, progress.story?.expeditionPlans ?? {}); return `<article class="activity-entry" style="--activity-art:url('/assets/${game.id}-preview.webp')">${icon('compass')}<small>${e(region.name)} · ${status === 'completed' ? t('AGREEMENT REMEMBERED') : status === 'started' ? t('RESUME YOUR PLAN') : 'A1 / A2 / B1'}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${game.id}">${status === 'started' ? t('Resume the neighborhood game') : status === 'completed' ? t('Revisit the neighborhood game') : t('Play the neighborhood game')} ${icon('arrow')}</button><details><summary>${t('Meet the neighbors')}</summary>${[...region.npcs,...region.objects].map(target => `<button class="text-button" data-expedition-target="${target.id}">${e(getExpeditionEncounter(region.id,target.id)!.title)} ${icon('arrow')}</button>`).join('')}</details></article>`; }).join('')}</div></section>`;
 }
 function expeditionOverview() {
   const region = getExpedition(mapId)!;
@@ -685,14 +686,7 @@ function startExpeditionGame(id: string, requestedLevel?: Level) {
   if (!game) return;
   if (!routeUnlocked(game.id, progress.completedQuestIds)) { toast(routeLockReason(game.id, progress.completedQuestIds)); return; }
   if (requestedLevel && ['A1', 'A2', 'B1'].includes(requestedLevel)) { level = requestedLevel; localStorage.setItem('atlas.level', level); }
-  if (mapId !== game.id) {
-    if (connection !== 'online') { toast(t('The route is reconnecting. Your local plan is waiting.'), true); return; }
-    if (pendingMap) return;
-    pendingExpeditionGame = game.id;
-    travelMap(game.id);
-    if (!pendingMap) pendingExpeditionGame = undefined;
-    return;
-  }
+  if (connection !== 'online') { toast(t('The route is reconnecting. Your local plan is waiting.'), true); return; }
   setView('world'); run = undefined;
   activityController?.destroy(); activityController = undefined;
   openDialog('<div id="expedition-game-root"></div>', 'activity-dialog expedition-dialog');
@@ -775,7 +769,7 @@ async function startMiniGame(id:string):Promise<void>{
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   if(id==='neighborhood-boards'){
     if(getExpedition(mapId))startExpeditionGame(mapId);
-    else{setView('activities');toast('Choose a neighborhood in the expedition atlas.');}
+    else{setView('activities');toast('Choose a neighborhood game in Activities.');}
     return;
   }
   if(id==='delivery-run'){try{await startWorldDelivery();}catch(error){toast((error as Error).message,true);}return;}
@@ -1028,7 +1022,7 @@ function renderOther() {
     el.innerHTML = evidenceBoard(progress) + `<div class="story-journal-heading"><div class="eyebrow">${e(t('EVIDENCE, SECRETS & SMALL PROMISES'))}</div><h2>${t('The missing routes')}</h2>${translationHelp()}<p>${introduction}</p></div><div class="story-acts">${storyActs.map(act => { const qs = quests.filter(q => q.level === act.level), clues = found.filter(clue => qs.some(q => q.id === clue.questId)); return `<section class="story-act"><header><span class="act-number">${act.number}</span><div><small>${act.level} · ${e(getMap(act.mapId).name)}</small><h3>${e(localized(act.title))}</h3></div><span class="clue-count">${clues.length} / 6</span></header>${clues.length ? `<div class="clue-pages">${clues.map(clue => `<article class="clue-page"><span>${icon('lantern')}</span><div><h4>${e(localized(clue.title))}</h4><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter, clue.questId)}<small>${renderNarrative(clue.lead)}</small></div></article>`).join('')}</div>` : `<p class="undiscovered-clue">${renderNarrative(journalNarratives.waitingPage)}</p>`}${clues.length === 6 ? `<blockquote class="act-cliffhanger">${renderNarrative(act.cliffhanger)}</blockquote>` : ''}</section>`; }).join('')}</div>${inspected.length ? `<section class="field-notes"><div class="eyebrow">${t('THINGS YOU NOTICED')}</div><h3>${t('Notes from the road')}</h3>${maps.flatMap(map => map.objects.filter(object => inspected.includes(object.id)).map(object => `<button data-inspect-object="${object.id}" data-object-map="${map.id}">${icon('pin')}<span><strong>${e(object.label)}</strong><small>${e(map.name)}</small></span>${icon('chevron')}</button>`)).join('')}</section>` : ''}${earnedActivityJournal()}${routeUnlocked('windplain', progress.completedQuestIds) ? expeditionNotebook(progress.story?.expeditionPlans ?? {}) : ''}<button class="primary-button" data-action="next-objective">${t('Follow the next lead')} ${icon('arrow')}</button>`;
   } else if (view === 'atlas') {
     const current = getMap(mapId);
-    el.innerHTML = `<div class="atlas-heading"><span class="eyebrow">${t('FOLLOW YOUR CURIOSITY')}</span><h2>${t('{count} places. A world of connections.', { count: maps.length })}</h2><p>${t('The missing-route story begins in Lindenhafen, Waldruh and Nebelstadt. Follow the clues to restore the next route. The unnamed coastline opens after the three-town story.')}</p></div><div class="region-cards">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => {
+    el.innerHTML = `<div class="atlas-heading"><span class="eyebrow">${t('FOLLOW YOUR CURIOSITY')}</span><h2>${t('{count} places. A world of connections.', { count: maps.length })}</h2><p>${t('The missing-route story begins in Lindenhafen, Waldruh and Nebelstadt. Follow the clues to restore the next route. Neighborhood games open after the three-town story.')}</p></div><div class="region-cards">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => {
       const unlocked = routeUnlocked(map.id, progress.completedQuestIds), expedition = getExpedition(map.id), act = expedition ? undefined : actFor(map.id);
       const status = expedition ? expeditionGameStatus(map.id, level, progress.story?.expeditionPlans ?? {}) : undefined;
       const done = expedition ? expedition.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length : completedAtLevel(map.level);

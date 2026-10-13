@@ -7,7 +7,8 @@ const scenes=JSON.parse(await readFile(new URL('../web/src/data/world-scenes.jso
 test('Tiled roundtrip preserves canonical geometry and foot placements',()=>{
   for(const id of Object.keys(document.maps))assert.deepEqual(fromTiled(toTiled(id,document),document),document);
 });
-test('all thirteen checked-in editor documents preserve canonical scene data',async()=>{
+test('all three checked-in editor documents preserve canonical scene data',async()=>{
+  assert.equal(Object.keys(scenes.maps).length,3);
   for(const id of Object.keys(scenes.maps)) {
     const tiled=JSON.parse(await readFile(new URL(`../docs/maps/${id}.tmj`,import.meta.url),'utf8'));
     assert.deepEqual(fromTiled(tiled,scenes),scenes,`${id}: editor document drifted from runtime scene`);
@@ -83,15 +84,16 @@ test('malformed layer and shape edits cannot silently remove runtime collision',
 test('Tiled preserves prefab catalog, overrides and group placement baselines',async()=>{
   const {stampPrefab,previewPrefabUpdate}=await import('../web/src/level-editor-prefabs.ts');
   const source=structuredClone(scenes),prefab=source.prefabs.find(item=>item.id==='sheltered-bench');
-  const stamped=stampPrefab(source.maps.lindenhafen,prefab,{x:2700,y:350});source.maps.lindenhafen=stamped.scene;
+  const origin={x:source.maps.lindenhafen.width*.75,y:source.maps.lindenhafen.height*.25};
+  const stamped=stampPrefab(source.maps.lindenhafen,prefab,origin);source.maps.lindenhafen=stamped.scene;
   const tiled=toTiled('lindenhafen',source);
   assert.deepEqual(fromTiled(tiled,source),source);
   const instance=stamped.scene.prefabInstances.at(-1),objects=tiled.layers.find(layer=>layer.name==='Scenery').objects;
   for(const object of objects.filter(object=>stamped.ids.includes(object.name))){object.x+=100;object.y+=10;}
   const imported=fromTiled(tiled,source);
   assert.deepEqual(imported.prefabs,source.prefabs);
-  assert.deepEqual(imported.maps.lindenhafen.prefabInstances.at(-1).origin,{x:2800,y:360});
+  assert.deepEqual(imported.maps.lindenhafen.prefabInstances.at(-1).origin,{x:origin.x+100,y:origin.y+10});
   const revised=structuredClone(prefab);revised.revision++;revised.scenery[1].x+=12;
   const update=previewPrefabUpdate(imported.maps.lindenhafen,revised,instance.id);
-  assert.equal(update.scene.scenery.find(item=>item.id===instance.members[1].id).x,2812);
+  assert.equal(update.scene.scenery.find(item=>item.id===instance.members[1].id).x,origin.x+100+revised.scenery[1].x);
 });

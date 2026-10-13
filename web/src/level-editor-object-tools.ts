@@ -2,7 +2,7 @@ import {duplicatePrefabInstances,sceneInstanceIds} from './level-editor-prefabs'
 import {nextSceneryId,removeScenery,scenerySelection,sceneryTranslation} from './level-editor-model';
 import {sceneryFootprints,sceneryAssets} from './placed-scenery';
 import {polygonsIntersect} from './level-editor-generation';
-import {sceneActivityPlaces,sceneEntrancePoint,type ScenePoint,type ScenePrefab,type SceneScenery,type WorldScene} from './scene-schema';
+import {sceneActivityPlaces,sceneEntrancePoint,getSceneryGeometryMap,scaleCanon,PERSON_HEIGHT,type ScenePoint,type ScenePrefab,type SceneScenery,type WorldScene} from './scene-schema';
 import type {EditorViewState,SelectionBounds} from './level-editor-selection';
 
 export interface SceneryClipboard {
@@ -13,17 +13,29 @@ export interface SceneryClipboard {
   prefabInstances:NonNullable<WorldScene['prefabInstances']>;
 }
 export type ObjectTemplate=Pick<SceneScenery,'asset'|'frame'|'variant'|'width'|'motion'>;
+export interface PaletteFrame {frame:string;variant:boolean;referenceWidth?:number;height?:number;doorHeight?:number;}
+/** Choose a physical height the native painting can support without upscaling. */
+export function canonSceneryWidth(asset:SceneScenery['asset'],referenceWidth:number,height:number,doorHeight?:number):number|undefined {
+  const range=scaleCanon[asset];
+  if(!range||referenceWidth<=0||height<=0||!Number.isFinite(referenceWidth)||!Number.isFinite(height))return;
+  const minimum=Math.max(range[0]*PERSON_HEIGHT,doorHeight&&doorHeight>0?(1.1*PERSON_HEIGHT+.1)*height/doorHeight:0);
+  if(minimum>range[1]*PERSON_HEIGHT||height/minimum<2.5)return;
+  const desired=Math.max(minimum,Math.min((range[0]+range[1])/2*PERSON_HEIGHT,height/2.5));
+  return Math.round(desired*referenceWidth/height*100)/100;
+}
 const clone=<T>(value:T):T=>structuredClone(value);
 /** Registered art remains available even when no current instance uses it. */
-export function paletteTemplates(scene:WorldScene,frames:readonly {frame:string;variant:boolean}[]):ObjectTemplate[]{
+export function paletteTemplates(scene:WorldScene,frames:readonly PaletteFrame[]):ObjectTemplate[]{
   const widths:Record<SceneScenery['asset'],number>={archive:240,cafe:220,station:270,workshop:220,house:160,tree:90,cypress:70,lamp:34,stall:100,fountain:98,arch:110,greenhouse:160,boat:90,bench:68,planter:40,sign:32};
-  return frames.flatMap(({frame,variant})=>{
+  return frames.flatMap(({frame,variant,referenceWidth,height,doorHeight})=>{
     const name=frame.startsWith('garden-')?'planter':frame.split('-')[0];
     if(!sceneryAssets.includes(name as SceneScenery['asset']))return [];
     const asset=name as SceneScenery['asset'];
-    const existing=scene.scenery.find(item=>(item.frame??item.asset)===frame&&!!item.variant===variant)??scene.scenery.find(item=>item.asset===asset);
+    const existing=scene.scenery.find(item=>(item.frame??item.asset)===frame&&!!item.variant===variant);
+    const canon=referenceWidth!==undefined&&height!==undefined?canonSceneryWidth(asset,referenceWidth,height,doorHeight):undefined;
+    if(referenceWidth!==undefined&&height!==undefined&&canon===undefined)return [];
     const motion:SceneScenery['motion']=existing?.motion??(asset==='tree'||asset==='cypress'?'tree':asset==='lamp'?'lamp':asset==='boat'?'boat':asset==='fountain'?'water':asset==='stall'?'cloth':['archive','cafe','station','workshop','house','greenhouse'].includes(asset)?'building':'still');
-    return [{asset,frame,variant,width:existing?.width??widths[asset],motion}];
+    return [{asset,frame,variant,width:existing?.width??canon??widths[asset],motion}];
   });
 }
 export function copyScenery(scene:WorldScene,selected:ReadonlySet<string>):SceneryClipboard {
@@ -154,7 +166,7 @@ export class ObjectPaintStroke {
     const item:SceneScenery={id:nextSceneryId(this.scene,template.asset),asset:template.asset,frame:template.frame,variant:template.variant,motion:template.motion,x,y,width};
     const radius=Math.max(6,width*.13)+s.clearance;
     const envelope=Array.from({length:12},(_,i)=>[x+Math.cos(i*Math.PI/6)*radius,y+Math.sin(i*Math.PI/6)*radius] as const);
-    const bases=sceneryFootprints([item]);
+    const bases=sceneryFootprints([item],getSceneryGeometryMap(this.scene.id));
     if(this.scene.obstacles.some(area=>polygonsIntersect(area,envelope))){this.skipped.add('solid obstacles');return;}
     if(s.protectPaths&&(this.scene.walkable.some(area=>polygonsIntersect(area,envelope)||bases.some(base=>polygonsIntersect(area,base)))||this.protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<radius+24))){this.skipped.add('paths or activity approaches');return;}
     if(this.scene.scenery.some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(8,(width+other.width)*.25,s.spacing*.4))){this.skipped.add('existing objects');return;}

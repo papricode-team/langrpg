@@ -1,0 +1,63 @@
+{
+  "generator": "Codex built-in ImageGen",
+  "worldPatch": {
+    "x": 1410,
+    "y": 325,
+    "width": 126,
+    "height": 125
+  },
+  "runtimePatch": {
+    "left": 2569,
+    "top": 1300,
+    "width": 504,
+    "height": 500
+  },
+  "connector": [
+    [
+      1390,
+      356
+    ],
+    [
+      1435,
+      347
+    ],
+    [
+      1470,
+      355
+    ],
+    [
+      1600,
+      355
+    ],
+    [
+      1600,
+      380
+    ],
+    [
+      1465,
+      380
+    ],
+    [
+      1420,
+      401
+    ],
+    [
+      1390,
+      399
+    ]
+  ],
+  "records": [
+    {
+      "period": "day",
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-9f0c2448-8973-460a-9215-fd4d115f5a07.png",
+      "file": "harbour-bridge-day-patch.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target: a small registered crop of a detailed coastal stone bridge. Image2 is a SUPPORTING GEOMETRY GUIDE ONLY: the orange band identifies the new horizontal stone deck, the red line its centre; none of its guide marks or text may appear in output. Extend the existing paved bridge deck horizontally to the RIGHT EDGE by replacing the orange region with matching pale grey-blue cobblestone. In source504x500 image coordinates, the new flat walkable deck spans x120..504 and y88..308, with its centre y198. Remove the old curved outer parapet ONLY where this horizontal deck crosses it. The old deck at the left joins the new deck at exactly the same elevation, smoothly and without stairs. Add a low matching stone parapet along the new branch's TOP EDGE y88, never across the middle walking deck; the branch bottom edge y308 can show the matching supporting masonry down toward the remaining rocks and sea. The branch must reach the right image edge and have no east-facing wall closing the exit. Change only this bridge extension area; preserve all original texture, water, cliffs, perspective, upper-left daylight and edge positions outside it. Existing sea outside the deck remains open water. This is TERRAIN ONLY: no houses, buildings, roofs, trees, bushes, people, lamps, benches, furniture, boats, crates, plants, signs, markings or props. No labels or words. Keep the same exact frame, nearly square504x500 aspect ratio, full opaque image. Detailed stonework must match the original asset."
+    },
+    {
+      "period": "night",
+      "path": "/Users/gokaykucuk/.codex/generated_images/01a1324e-f7de-7663-87f4-3e70ccc38cbb/exec-938744ae-5b7d-4c47-a836-d7d8271267cf.png",
+      "file": "harbour-bridge-night-patch.png",
+      "prompt": "Use case: lighting-weather. Image1 is the EDIT TARGET: the new clean stone bridge extension terrain crop. Change ONLY illumination to the same cool blue coastal moonlight as IMAGE2 (lighting reference only). Preserve every pixel's geometry: deck, new horizontal branch reaching the right edge, open passage through the old parapet, stone boundaries, outer parapets, water and rocks. Do not recrop, zoom, stretch, move or add any edge. Keep the exact same aspect ratio and full frame. Night stone paving stays readable in muted grey-blue with cool slate shadows. No invented lights or glows. No buildings, roofs, trees, bushes, people, lamps, furniture, boats, signs, crates, props, text or labels. This is terrain only. All original deck entrances and the open right edge remain clear."
+    }
+  ]
+}

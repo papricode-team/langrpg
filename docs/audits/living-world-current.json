@@ -1,0 +1,100 @@
+{
+  "sourceCommit": "55804098ad7589c0619fbfa56217337a6419179f",
+  "baselineCommit": "1b84904c836b312e39820f682241872ace6b7e0c",
+  "method": "NavigationGrid.auditConnectedArea; 8-unit grid centers and exact runtime segment collision. Spawn-connected cells × 64 is an area proxy, not an exact polygon union. Reachability audits a 6-unit lattice against the same movement graph and asset footprints. The historical baseline remains unchanged; compare area rather than cell counts.",
+  "maps": [
+    {
+      "id": "lindenhafen",
+      "width": 2304,
+      "height": 1536,
+      "coordinateVersion": 5,
+      "npcs": 8,
+      "objects": 8,
+      "scenery": 209,
+      "residents": 15,
+      "cellSize": 8,
+      "totalWalkableCells": 22543,
+      "spawnConnectedCells": 22543,
+      "approxConnectedArea": 1442752,
+      "walkableSamples": 39797,
+      "reachableSamples": 39797,
+      "unreachableSamples": 0,
+      "reachableRatio": 1
+    },
+    {
+      "id": "waldruh",
+      "width": 2304,
+      "height": 1024,
+      "coordinateVersion": 2,
+      "npcs": 8,
+      "objects": 5,
+      "scenery": 129,
+      "residents": 5,
+      "cellSize": 8,
+      "totalWalkableCells": 16097,
+      "spawnConnectedCells": 16097,
+      "approxConnectedArea": 1030208,
+      "walkableSamples": 28457,
+      "reachableSamples": 28457,
+      "unreachableSamples": 0,
+      "reachableRatio": 1
+    },
+    {
+      "id": "nebelstadt",
+      "width": 2304,
+      "height": 1024,
+      "coordinateVersion": 2,
+      "npcs": 9,
+      "objects": 6,
+      "scenery": 133,
+      "residents": 3,
+      "cellSize": 8,
+      "totalWalkableCells": 24290,
+      "spawnConnectedCells": 24290,
+      "approxConnectedArea": 1554560,
+      "walkableSamples": 43038,
+      "reachableSamples": 43038,
+      "unreachableSamples": 0,
+      "reachableRatio": 1
+    }
+  ],
+  "acceptance": {
+    "passed": true,
+    "issues": [],
+    "maps": [
+      {
+        "id": "lindenhafen",
+        "passed": true,
+        "minimum": {
+          "width": 2304,
+          "height": 1536,
+          "connectedArea": 319088,
+          "reachableRatio": 0.995
+        },
+        "failures": []
+      },
+      {
+        "id": "waldruh",
+        "passed": true,
+        "minimum": {
+          "width": 2304,
+          "height": 1024,
+          "connectedArea": 316344,
+          "reachableRatio": 0.995
+        },
+        "failures": []
+      },
+      {
+        "id": "nebelstadt",
+        "passed": true,
+        "minimum": {
+          "width": 2304,
+          "height": 1024,
+          "connectedArea": 276948,
+          "reachableRatio": 0.995
+        },
+        "failures": []
+      }
+    ]
+  }
+}

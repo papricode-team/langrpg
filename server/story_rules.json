@@ -6,8 +6,8 @@
       "npcId": "otto",
       "npc": {
         "id": "otto",
-        "x": 0.4075,
-        "y": 0.1495
+        "x": 0.5433333333333333,
+        "y": 0.19933333333333333
       },
       "gateExerciseId": "a1-arrival-exercise-7",
       "replyExerciseIds": [
@@ -59,13 +59,13 @@
       "objects": [
         {
           "id": "lindenhafen-platform-ticket",
-          "x": 0.41850000000000004,
-          "y": 0.1735
+          "x": 0.558,
+          "y": 0.2313333333333333
         },
         {
           "id": "lindenhafen-noticeboard",
-          "x": 0.4045,
-          "y": 0.164
+          "x": 0.5393333333333333,
+          "y": 0.21866666666666668
         }
       ]
     },
@@ -75,8 +75,8 @@
       "npcId": "marta",
       "npc": {
         "id": "marta",
-        "x": 0.221,
-        "y": 0.2295
+        "x": 0.2946666666666667,
+        "y": 0.306
       },
       "gateExerciseId": "a1-cafe-exercise-1",
       "replyExerciseIds": [],
@@ -122,8 +122,8 @@
       "objects": [
         {
           "id": "lindenhafen-cafe-receipt",
-          "x": 0.229,
-          "y": 0.2445
+          "x": 0.30533333333333335,
+          "y": 0.326
         }
       ]
     },
@@ -133,8 +133,8 @@
       "npcId": "fritz",
       "npc": {
         "id": "fritz",
-        "x": 0.3875,
-        "y": 0.2375
+        "x": 0.5166666666666667,
+        "y": 0.31666666666666665
       },
       "gateExerciseId": "a1-market-exercise-1",
       "replyExerciseIds": [],
@@ -182,13 +182,13 @@
       "objects": [
         {
           "id": "lindenhafen-market-crate",
-          "x": 0.381,
-          "y": 0.2545
+          "x": 0.508,
+          "y": 0.3393333333333333
         },
         {
           "id": "lindenhafen-garden",
-          "x": 0.2075,
-          "y": 0.3385
+          "x": 0.2766666666666666,
+          "y": 0.45133333333333336
         }
       ]
     },
@@ -198,8 +198,8 @@
       "npcId": "otto",
       "npc": {
         "id": "otto",
-        "x": 0.4075,
-        "y": 0.1495
+        "x": 0.5433333333333333,
+        "y": 0.19933333333333333
       },
       "gateExerciseId": "a1-station-exercise-5",
       "replyExerciseIds": [],
@@ -283,8 +283,8 @@
       "objects": [
         {
           "id": "lindenhafen-noticeboard",
-          "x": 0.4045,
-          "y": 0.164
+          "x": 0.5393333333333333,
+          "y": 0.21866666666666668
         }
       ]
     },
@@ -294,8 +294,8 @@
       "npcId": "emil",
       "npc": {
         "id": "emil",
-        "x": 0.114,
-        "y": 0.369
+        "x": 0.15200000000000002,
+        "y": 0.492
       },
       "gateExerciseId": "a1-workshop-exercise-2",
       "replyExerciseIds": [],
@@ -341,8 +341,8 @@
       "objects": [
         {
           "id": "lindenhafen-workbench",
-          "x": 0.1205,
-          "y": 0.3815
+          "x": 0.16066666666666665,
+          "y": 0.5086666666666667
         }
       ]
     },
@@ -352,8 +352,8 @@
       "npcId": "lina",
       "npc": {
         "id": "lina",
-        "x": 0.3015,
-        "y": 0.34
+        "x": 0.40199999999999997,
+        "y": 0.45333333333333337
       },
       "gateExerciseId": "a1-lost-parcel-exercise-2",
       "replyExerciseIds": [],
@@ -397,8 +397,8 @@
       "objects": [
         {
           "id": "lindenhafen-parcel",
-          "x": 0.3325,
-          "y": 0.3715
+          "x": 0.44333333333333336,
+          "y": 0.49533333333333335
         }
       ]
     },
@@ -690,7 +690,7 @@
       "npcId": "lina",
       "npc": {
         "id": "lina",
-        "x": 0.86,
+        "x": 0.5733333333333334,
         "y": 0.602
       },
       "gateExerciseId": "b1-witness-exercise-6",
@@ -726,12 +726,12 @@
       "objects": [
         {
           "id": "nebelstadt-evidence-crate",
-          "x": 0.149,
+          "x": 0.09933333333333333,
           "y": 0.774
         },
         {
           "id": "nebelstadt-signal-lantern",
-          "x": 0.882,
+          "x": 0.588,
           "y": 0.398
         }
       ]
@@ -742,7 +742,7 @@
       "npcId": "otto",
       "npc": {
         "id": "otto",
-        "x": 0.697,
+        "x": 0.4646666666666666,
         "y": 0.348
       },
       "gateExerciseId": "b1-new-route-exercise-2",
@@ -777,7 +777,7 @@
       "objects": [
         {
           "id": "nebelstadt-harbor-chart",
-          "x": 0.626,
+          "x": 0.41733333333333333,
           "y": 0.309
         }
       ]
@@ -788,7 +788,7 @@
       "npcId": "emil",
       "npc": {
         "id": "emil",
-        "x": 0.257,
+        "x": 0.17133333333333334,
         "y": 0.734
       },
       "gateExerciseId": "b1-work-exercise-6",
@@ -823,8 +823,8 @@
       "objects": [
         {
           "id": "nebelstadt-repair-ledger",
-          "x": 0.285,
-          "y": 0.767
+          "x": 0.19,
+          "y": 0.7373046875
         }
       ]
     },
@@ -834,7 +834,7 @@
       "npcId": "ada",
       "npc": {
         "id": "ada",
-        "x": 0.342,
+        "x": 0.228,
         "y": 0.362
       },
       "gateExerciseId": "b1-council-exercise-7",
@@ -890,12 +890,12 @@
       "objects": [
         {
           "id": "nebelstadt-council-board",
-          "x": 0.253,
+          "x": 0.16866666666666666,
           "y": 0.434
         },
         {
           "id": "nebelstadt-harbor-chart",
-          "x": 0.626,
+          "x": 0.41733333333333333,
           "y": 0.309
         }
       ]
@@ -906,7 +906,7 @@
       "npcId": "greta",
       "npc": {
         "id": "greta",
-        "x": 0.63,
+        "x": 0.42000000000000004,
         "y": 0.56
       },
       "gateExerciseId": "b1-storm-exercise-7",
@@ -947,7 +947,7 @@
       "objects": [
         {
           "id": "nebelstadt-signal-lantern",
-          "x": 0.882,
+          "x": 0.588,
           "y": 0.398
         }
       ]
@@ -958,7 +958,7 @@
       "npcId": "elise",
       "npc": {
         "id": "elise",
-        "x": 0.501,
+        "x": 0.334,
         "y": 0.28
       },
       "gateExerciseId": "b1-atlas-exercise-6",
@@ -994,12 +994,12 @@
       "objects": [
         {
           "id": "nebelstadt-observatory",
-          "x": 0.501,
+          "x": 0.334,
           "y": 0.265
         },
         {
           "id": "nebelstadt-council-board",
-          "x": 0.253,
+          "x": 0.16866666666666666,
           "y": 0.434
         }
       ]

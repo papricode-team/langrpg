@@ -1,0 +1,85 @@
+{
+  "worldPatch": {
+    "x": 1410,
+    "y": 325,
+    "width": 126,
+    "height": 125
+  },
+  "connector": [
+    [
+      1390,
+      356
+    ],
+    [
+      1435,
+      347
+    ],
+    [
+      1470,
+      355
+    ],
+    [
+      1600,
+      355
+    ],
+    [
+      1600,
+      380
+    ],
+    [
+      1465,
+      380
+    ],
+    [
+      1420,
+      401
+    ],
+    [
+      1390,
+      399
+    ]
+  ],
+  "method": "Only the bridge crop changes;12 texture-pixel boundary feather preserves all surrounding core pixels; same world patch applies to loading plates.",
+  "records": [
+    {
+      "period": "day",
+      "asset": "/assets/nebelstadt-day-terrain-detail-0-1-harbour-bridge.webp",
+      "overview": "/assets/nebelstadt-day-terrain-detail-0-1-harbour-bridge-overview.webp",
+      "textureKey": "nebelstadt-day-terrain-detail-0-1-harbour-bridge",
+      "fallbackAsset": "/assets/nebelstadt-harbour-bridge-day-terrain.webp",
+      "fallbackKey": "nebelstadt-harbour-bridge-day-terrain",
+      "crop": {
+        "x": 1,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "nativePatchSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "quality": 92,
+      "bytes": 2032578
+    },
+    {
+      "period": "night",
+      "asset": "/assets/nebelstadt-night-terrain-detail-0-1-harbour-bridge.webp",
+      "overview": "/assets/nebelstadt-night-terrain-detail-0-1-harbour-bridge-overview.webp",
+      "textureKey": "nebelstadt-night-terrain-detail-0-1-harbour-bridge",
+      "fallbackAsset": "/assets/nebelstadt-harbour-bridge-night-terrain.webp",
+      "fallbackKey": "nebelstadt-harbour-bridge-night-terrain",
+      "crop": {
+        "x": 1,
+        "y": 0,
+        "width": 3072,
+        "height": 2048
+      },
+      "nativePatchSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "quality": 94,
+      "bytes": 1816188
+    }
+  ]
+}
