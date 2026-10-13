@@ -36,7 +36,7 @@ import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNot
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import { World } from './world';
-import type { Avatar, WorldPlayer, WorldMotion } from './world';
+import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
@@ -317,8 +317,8 @@ function renderShell() {
     prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup,.95,introducedSet()); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
-    onOpen: speaker => { document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); world.setInputEnabled(false); document.dispatchEvent(new Event('atlas-controls-reset')); },
-    onClose: () => { document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); world.setInputEnabled(worldCanInteract()); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic()); },
+    onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
+    onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic()); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(next.objectId); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
@@ -331,13 +331,13 @@ function renderShell() {
   screenFilterControls = new ScreenFilterControls(document.querySelector<HTMLElement>('#game-hud')!, {
     apply: settings => world.setScreenFilter(settings),
     supported: () => world.screenFiltersSupported(),
-    onOpenChange: () => { document.dispatchEvent(new Event('atlas-controls-reset')); world.setInputEnabled(worldCanInteract()); },
+    onOpenChange: () => syncWorldMode(),
   });
   bindGlobalEvents(); bindJoystick(); updateProgress();
   const accountDialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   accountDialog.addEventListener('cancel', event => { if (!started) event.preventDefault(); });
-  accountDialog.addEventListener('close', () => { if(!document.hidden){if(!accountKeptActivityPaused)activityController?.resume();miniGameController?.resume();deliveryController?.resume();}accountKeptActivityPaused=false;accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); world.setInputEnabled(worldCanInteract()); if (started && regionReady) onRegionReady(mapId); });
-  world.setInputEnabled(false);
+  accountDialog.addEventListener('close', () => { if(!document.hidden){if(!accountKeptActivityPaused)activityController?.resume();miniGameController?.resume();deliveryController?.resume();}accountKeptActivityPaused=false;accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); syncWorldMode(); if (started && regionReady) onRegionReady(mapId); });
+  syncWorldMode();
 }
 function watchWorld(watching: boolean): void {
   if (watching) screenFilterControls?.close(false);
@@ -345,7 +345,7 @@ function watchWorld(watching: boolean): void {
   world.setWatchMode(watching);
   document.querySelector('#game-shell')!.classList.toggle('watching-world', watching);
   document.querySelector<HTMLElement>('#game-hud')!.inert = watching || view !== 'world';
-  world.setInputEnabled(!watching && worldCanInteract());
+  syncWorldMode();
   document.querySelector('#watch-region')!.textContent = interiorId ? getInterior(interiorId).name : getMap(mapId).name;
   document.querySelector<HTMLButtonElement>(watching ? '[data-action="stop-watching"]' : '.game-menu-button')?.focus();
 }
@@ -499,13 +499,36 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return started && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+let dialogueOpen = false;
+let worldInput = false;
+let syncingWorld = false;
+/**
+ * The single place that decides what the game scene does behind the page: whether it takes input,
+ * and whether it is live, paused (still drawn behind the menu) or hidden (under a full-screen activity).
+ * Every state change that could affect either calls this instead of toggling the world directly.
+ */
+function syncWorldMode(): void {
+  if (!world || syncingWorld) return;
+  syncingWorld = true;
+  try {
+    const input = worldCanInteract();
+    const dialog = document.querySelector<HTMLDialogElement>('#dialog');
+    const covered = !!dialog?.open && dialog.classList.contains('activity-dialog');
+    const presentation: WorldPresentation = view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
+    if (worldInput && !input) document.dispatchEvent(new Event('atlas-controls-reset'));
+    worldInput = input;
+    world.setInputEnabled(input);
+    world.setPresentation(presentation);
+    if (presentation !== 'live') deliveryController?.pause();
+    else if (!document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open) deliveryController?.resume();
+  } finally { syncingWorld = false; }
+}
 function setView(next: View) {
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
   exposureObserver?.disconnect();
   if (next !== 'world') screenFilterControls?.close(false);
-  document.dispatchEvent(new Event('atlas-controls-reset'));
   if (next !== 'world' && view === 'world') menuFocus = document.activeElement as HTMLElement;
   view = next;
   document.querySelector<HTMLElement>('#game-shell')!.dataset.view = next;
@@ -515,14 +538,13 @@ function setView(next: View) {
   else { menu.hidden = false; if (!menu.open) menu.showModal(); }
   document.querySelector<HTMLElement>('#game-hud')!.inert = next !== 'world';
   document.querySelector<HTMLElement>('#world-container')!.inert = next !== 'world';
-  world.setInputEnabled(worldCanInteract());
-  world.setVisible(next === 'world' && !document.hidden);
+  syncWorldMode();
   document.querySelectorAll<HTMLElement>('[data-view]').forEach(el => { el.classList.toggle('active', el.dataset.view === next); if (el.closest('.menu-tabs')) el.setAttribute('aria-current', el.dataset.view === next ? 'page' : 'false'); });
   if (next !== 'world') {
     document.querySelector('#menu-title')!.textContent = { menu: t('Your journey'), quests: t('Story quests'), story: t('Discoveries'), atlas: t('Region atlas'), journal: t('Your German'), activities: t('Side activities'), course: t('Your learning routes'), character: t('Your character'), settings: t('Settings') }[next];
     renderOther(); document.querySelector<HTMLElement>('#other-view')!.scrollTop = 0;
     menu.querySelector<HTMLButtonElement>('.menu-close')!.focus();
-  } else { requestAnimationFrame(() => world.resize()); if (menuFocus?.isConnected && menuFocus.getClientRects().length) menuFocus.focus(); queueMicrotask(() => onRegionReady(mapId)); }
+  } else { if (menuFocus?.isConnected && menuFocus.getClientRects().length) menuFocus.focus(); queueMicrotask(() => onRegionReady(mapId)); }
 }
 function openWorldMap() { setView('atlas'); }
 function openScreenFilters(trigger?: HTMLElement) {
@@ -544,8 +566,7 @@ async function playPendingCinematic(): Promise<void> {
   if (kind !== 'travel' && (progress.story?.flags[`cinematic:${kind}`] || attemptedCinematics.has(kind))) return;
   cinematicActive = true; attemptedCinematics.add(kind);
   document.querySelector('#game-shell')!.classList.add('cinematic-open');
-  document.dispatchEvent(new Event('atlas-controls-reset'));
-  world.setInputEnabled(false); stopSpeech();
+  syncWorldMode(); stopSpeech();
   try {
     if (kind !== 'travel') {
       try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
@@ -555,7 +576,7 @@ async function playPendingCinematic(): Promise<void> {
   } finally {
     cinematicActive = false;
     document.querySelector('#game-shell')!.classList.remove('cinematic-open');
-    world.setInputEnabled(worldCanInteract());
+    syncWorldMode();
     document.querySelector<HTMLElement>('#world-container')!.focus();
   }
 }
@@ -614,7 +635,7 @@ function travelMap(id: MapId, destination?: { kind: 'quest' | 'follow'; questId:
   pendingTravelBeat = true;
   document.querySelector<HTMLDialogElement>('#dialog')!.close();
   if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(false);
-  setView('world'); world.setInputEnabled(false);
+  setView('world');
   toast(t('Following the lanterns to {place}…', { place: getMap(id).name }));
 }
 function showNextObjective() {
@@ -806,10 +827,10 @@ async function startWorldDelivery():Promise<void>{
   if(owner!==api.selfId)return;
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
   const host=createMiniGameHost({api,gameId:'delivery-run',lexicon:module.courseLexicon,exercises:module.courseExercises,progress:()=>progress,onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>toast(`${summary.correct} / ${summary.attempts} spoken directions remembered.`),playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
-  document.querySelector<HTMLDialogElement>('#dialog')!.close();setView('world');world.setVisible(true);world.setInputEnabled(true);
-  const controller=new WorldDeliveryRun(world,host,()=>{deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;world.setInputEnabled(worldCanInteract());},()=>mapId===startingMap&&!interiorId&&view==='world'&&!document.hidden&&connection==='online'&&!document.querySelector<HTMLDialogElement>('#account-dialog')!.open&&!document.querySelector<HTMLDialogElement>('#dialog')!.open);
-  if(!controller.mount(document.querySelector<HTMLElement>('#game-shell')!)){host.destroy();world.setInputEnabled(worldCanInteract());toast('Restore Lina’s direction words (links, rechts, oben and unten), then try a delivery outside.');return;}
-  deliveryController=controller;deliveryHost=host;
+  document.querySelector<HTMLDialogElement>('#dialog')!.close();setView('world');
+  const controller=new WorldDeliveryRun(world,host,()=>{deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();},()=>mapId===startingMap&&!interiorId&&view==='world'&&!document.hidden&&connection==='online'&&!document.querySelector<HTMLDialogElement>('#account-dialog')!.open&&!document.querySelector<HTMLDialogElement>('#dialog')!.open,()=>syncWorldMode());
+  if(!controller.mount(document.querySelector<HTMLElement>('#game-shell')!)){host.destroy();syncWorldMode();toast('Restore Lina’s direction words (links, rechts, oben and unten), then try a delivery outside.');return;}
+  deliveryController=controller;deliveryHost=host;syncWorldMode();
 }
 async function startActivity(id: ActivityId, source?: {roomId:InteriorId; stationId:string}) {
   if (!activityInfo.some(game => game.id === id)) return;
@@ -1093,11 +1114,9 @@ function openDialog(html: string, className = '', speakerId?:string) {
   dialog.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button>${html}`;
   if (className === 'npc-dialog') { dialog.setAttribute('aria-labelledby', 'encounter-title'); dialog.removeAttribute('aria-label'); }
   else { dialog.removeAttribute('aria-labelledby'); dialog.setAttribute('aria-label', t('Adventure encounter')); }
-  world.setInputEnabled(false);
-  if (className.includes('activity-dialog')) world.setVisible(false);
-  document.dispatchEvent(new Event('atlas-controls-reset'));
   document.querySelector('#game-shell')!.classList.add('encounter-open');
   if (!dialog.open) dialog.showModal();
+  syncWorldMode();
   dialog.scrollTop = 0;
 }
 function showNpc(id: string) {
@@ -1427,7 +1446,7 @@ function bindGlobalEvents() {
     if (questController?.isOpen) { if (event.key === 'Escape') { event.preventDefault(); questController.close(); } return; }
     if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
     const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
-    if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;world.setInputEnabled(worldCanInteract());return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
+    if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
     if (view !== 'world' && event.key === 'Tab') {
       const targets = [...document.querySelectorAll<HTMLElement>('#menu-layer button, #menu-layer input, #menu-layer select')].filter(el => !el.hasAttribute('disabled') && !el.hidden && el.getClientRects().length);
       const first = targets[0], last = targets[targets.length - 1];
@@ -1461,7 +1480,7 @@ function bindGlobalEvents() {
     if (target.dataset.level) { const region = maps.find(map => map.level === target.dataset.level); if (region) travelMap(region.id); return; }
     if (target.dataset.travel) { const region = maps.find(map => map.id === target.dataset.travel); if (region) travelMap(region.id); return; }
     if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (!q) return; if (!questAvailable(q.id, progress)) { toast(questLockReason(q.id, progress)); return; } travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
-    if (target.dataset.waypoint) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); if (interiorId) world.leaveInterior(); world.setInputEnabled(worldCanInteract()); world.focusNpc(target.dataset.waypoint); return; }
+    if (target.dataset.waypoint) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); if (interiorId) world.leaveInterior(); world.focusNpc(target.dataset.waypoint); return; }
     if (target.dataset.focusObject) { setView('world'); if (interiorId) world.leaveInterior(); world.focusObject(target.dataset.focusObject); return; }
     if (target.dataset.focusBuilding) { const id = target.dataset.focusBuilding; if (interiors.some(room => room.id === id)) guideToBuilding(id as InteriorId); return; }
     if (target.dataset.inspectInterior) { showInteriorObject(target.dataset.inspectInterior); return; }
@@ -1497,7 +1516,7 @@ function bindGlobalEvents() {
       case 'leave-interior': world.leaveInterior(); document.querySelector<HTMLElement>('#world-container')!.focus(); break;
       case 'next-objective': if (view !== 'world') setView('world'); showNextObjective(); break;
       case 'act-intro': setView('world'); showActIntro(mapId); break;
-      case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); world.setInputEnabled(worldCanInteract()); continueDestination(); break;
+      case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); continueDestination(); break;
       case 'open-chat': setView('world'); toggleChat(true); break;
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))); break;
       case 'close-dialog': cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); pendingDestination = undefined; pendingExpeditionGame = undefined; break;
@@ -1534,7 +1553,7 @@ function bindGlobalEvents() {
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { cancelRun(); pendingDestination = undefined; dialog.close(); }
   });
-  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); world.setVisible(view === 'world' && !document.hidden); world.setInputEnabled(worldCanInteract()); placementController?.destroy(); placementController = undefined; cancelRun(); miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined; activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } if(view==='world')document.querySelector<HTMLElement>('#world-container')?.focus({preventScroll:true}); } });
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { document.querySelector('#game-shell')!.classList.remove('encounter-open'); syncWorldMode(); placementController?.destroy(); placementController = undefined; cancelRun(); miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined; activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } if(view==='world')document.querySelector<HTMLElement>('#world-container')?.focus({preventScroll:true}); } });
   const menu = document.querySelector<HTMLDialogElement>('#menu-layer')!;
   menu.addEventListener('close', () => { if (!menu.open && view !== 'world') setView('world'); });
   menu.addEventListener('click', event => { if (event.target === menu) setView('world'); });
@@ -1554,8 +1573,7 @@ function toggleChat(open?: boolean) {
   document.querySelector('#game-shell')!.classList.toggle('chat-open', !body.hidden);
   document.querySelector('.chat-header')!.setAttribute('aria-expanded', String(!body.hidden));
   document.querySelector('.chat-toggle-icon')!.innerHTML = icon(body.hidden ? 'plus' : 'minus');
-  document.dispatchEvent(new Event('atlas-controls-reset'));
-  world.setInputEnabled(worldCanInteract());
+  syncWorldMode();
   if (!body.hidden) document.querySelector<HTMLInputElement>('#chat-input')!.focus();
   else { const header = document.querySelector<HTMLButtonElement>('.chat-header')!; (header.getClientRects().length ? header : document.querySelector<HTMLButtonElement>('.game-menu-button')!).focus(); }
 }
@@ -1574,8 +1592,7 @@ function showAccountDialog(html: string) {
   }
   dialog.innerHTML = html;
   if (!dialog.open) dialog.showModal();
-  document.dispatchEvent(new Event('atlas-controls-reset'));
-  world.setInputEnabled(false);
+  syncWorldMode();
   accountReminder?.tick(performance.now(), false);
 }
 function accountError(error: unknown) {
@@ -1750,7 +1767,7 @@ async function boot() {
     applyingWorldLocation = true;
     try { world.setMap(id); }
     finally { applyingWorldLocation = false; }
-    interiorId = world.getInteriorId(); syncLocation(); updateProgress(); world.setInputEnabled(worldCanInteract());
+    interiorId = world.getInteriorId(); syncLocation(); updateProgress(); syncWorldMode();
     if (regionReady) queueMicrotask(() => onRegionReady(id));
   };
   api.onInterior = applyInterior;
@@ -1762,10 +1779,10 @@ async function boot() {
     if (value !== 'online' && pendingMap) {
       pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined;
     }
-    world.setInputEnabled(worldCanInteract());
+    syncWorldMode();
     updateConnection();
   };
-  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; world.setInputEnabled(worldCanInteract()); } toast(message, true); };
+  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; syncWorldMode(); } toast(message, true); };
   showAccountDialog(`<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">${t('Opening your adventure…')}</h2><p role="status">${t('Checking for your saved character.')}</p>`);
   try {
     const result = await api.resume();
@@ -1793,6 +1810,6 @@ function updateConnection() {
   el.className = `connection-pill ${connection}`;
   el.innerHTML = `<span></span>${connection === 'online' ? (count === 1 ? t('{count} wanderer here', { count }) : t('{count} wanderers here', { count })) : connection === 'connecting' ? t('Connecting') : connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting')}`;
 }
-document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); world?.setVisible(view === 'world' && !document.hidden && !activityController && !miniGameController); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
+document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
 window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

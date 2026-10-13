@@ -8,7 +8,8 @@ import { baseLanguage, localizedName, translatedText } from './i18n';
 export class CutsceneScene extends Phaser.Scene {
   private beats: readonly Beat[] = [];
   private index = 0;
-  private elapsed = 0;
+  private typing?: Phaser.Time.TimerEvent;
+  private advance?: Phaser.Time.TimerEvent;
   private line?: Phaser.GameObjects.Text;
   private speaker?: Phaser.GameObjects.Text;
   /** A support-language subtitle under the German, only where English support does not show one either. */
@@ -17,7 +18,7 @@ export class CutsceneScene extends Phaser.Scene {
   private kind:CutsceneKind='arrival';
   constructor(private cameraBeat: (beat: CameraBeat | undefined) => void,private voice?:(speaker:string,german:string,clipId:string)=>void) { super({ key: 'cinematic' }); }
   create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;complete:()=>void}) {
-    this.beats = cinematicBeats(data.kind,data.mapId,data.ending); this.index = 0; this.elapsed = 0; this.finish = data.complete;
+    this.beats = cinematicBeats(data.kind,data.mapId,data.ending); this.index = 0; this.finish = data.complete;
     this.kind=data.kind;
     const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
     if(['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
@@ -35,13 +36,17 @@ export class CutsceneScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{ this.cameraBeat(undefined); const done=this.finish;this.finish=undefined;done?.(); });
     this.present();
   }
-  private present() { const beat=this.beats[this.index]; this.elapsed=0;this.speaker?.setText(localizedName(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker));this.line?.setText('');this.subtitle?.setText(translatedText({german:beat.german,english:''})??'');this.cameraBeat(beat);this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`); }
+  /** Each beat types its line on the scene clock and advances after its authored length; both pause with the scene. */
+  private present() {
+    const beat=this.beats[this.index];
+    this.typing?.remove(); this.advance?.remove();
+    this.speaker?.setText(localizedName(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker));this.line?.setText('');
+    this.subtitle?.setText(translatedText({german:beat.german,english:''})??'');this.cameraBeat(beat);
+    this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`);
+    let shown=0;
+    this.typing=this.time.addEvent({delay:25,repeat:Math.max(0,beat.german.length-1),callback:()=>this.line?.setText(beat.german.slice(0,++shown))});
+    this.advance=this.time.delayedCall(beat.seconds*1000,()=>this.next());
+  }
   private next() { if(++this.index>=this.beats.length)this.complete();else this.present(); }
   private complete() { this.scene.stop(); }
-  update(_time:number,delta:number) {
-    const beat=this.beats[this.index]; if(!beat)return;
-    this.elapsed+=Math.min(delta,100)/1000;
-    this.line?.setText(beat.german.slice(0,Math.floor(this.elapsed*40)));
-    if(this.elapsed>=beat.seconds)this.next();
-  }
 }

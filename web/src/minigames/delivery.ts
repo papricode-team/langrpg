@@ -30,7 +30,7 @@ export function reachedDeliveryNode(origin: MapPoint, target: MapPoint, alternat
   return other && direction ? { point: other, direction, checkpoint: false } : undefined;
 }
 
-type DeliveryWorld = Pick<World, 'deliveryRoute' | 'getPlayerPosition' | 'showDeliveryCheckpoints' | 'showDeliveryArrival' | 'setInputEnabled'> & {
+type DeliveryWorld = Pick<World, 'deliveryRoute' | 'getPlayerPosition' | 'showDeliveryCheckpoints' | 'showDeliveryArrival' | 'onFrame'> & {
   deliveryChoices?(origin: MapPoint, target: MapPoint): MapPoint[];
 };
 
@@ -43,8 +43,7 @@ export class WorldDeliveryRun {
   private alternatives: MapPoint[] = [];
   private armedPosition?: MapPoint;
   private awaitingOrigin = false;
-  private raf = 0;
-  private previous = 0;
+  private stopFrames?: () => void;
   private elapsed = 0;
   private roundMs = 0;
   private paused = false;
@@ -60,7 +59,9 @@ export class WorldDeliveryRun {
   private seen = new Set<string>();
   private chain = 0;
   private summary: RoundSummary = { gameId: 'delivery-run', attempts: 0, correct: 0, hinted: 0, activeMs: 0, longestChain: 0 };
-  constructor(private world: DeliveryWorld, private host: MiniGameHost, private finish: () => void, private active: () => boolean = () => true) {}
+  /** The run follows the town scene's frames, so it pauses whenever that scene does. Movement permission is reported, not applied. */
+  constructor(private world: DeliveryWorld, private host: MiniGameHost, private finish: () => void, private active: () => boolean = () => true,
+    private onMovementChange: (canMove: boolean) => void = () => {}) {}
 
   mount(root: HTMLElement): boolean {
     const route = this.world.deliveryRoute();
@@ -79,8 +80,7 @@ export class WorldDeliveryRun {
     root.append(this.overlay);
     this.overlay.addEventListener('click', this.click);
     this.next();
-    this.previous = performance.now();
-    this.raf = requestAnimationFrame(this.tick);
+    this.stopFrames = this.world.onFrame(this.tick);
     return true;
   }
   private click = (event: Event) => {
@@ -98,7 +98,7 @@ export class WorldDeliveryRun {
   get canMove(): boolean { return !this.destroyed && !this.paused && this.isActive() && this.heard && !this.busy && !this.pending; }
   private syncInput() {
     const enabled = this.canMove;
-    if (this.movementEnabled !== enabled) { this.movementEnabled = enabled; this.world.setInputEnabled(enabled); }
+    if (this.movementEnabled !== enabled) { this.movementEnabled = enabled; this.onMovementChange(enabled); }
     if (this.overlay) this.overlay.querySelector<HTMLButtonElement>('[data-delivery="replay"]')!.disabled = this.paused || this.busy || !!this.pending;
   }
   private next() {
@@ -128,15 +128,15 @@ export class WorldDeliveryRun {
       const originRadius = Math.max(2, Math.min(24, distance(origin, target) / 4));
       this.awaitingOrigin ||= !position || distance(position, origin) > originRadius;
       if (position) this.armedPosition = { ...position };
-      this.heard = true; this.previous = performance.now(); this.syncInput();
+      this.heard = true; this.syncInput();
       if (this.awaitingOrigin) this.status.textContent = `Nein, ${item.lemma}. Return to the previous lantern, then follow the voice.`;
     } catch (error) {
       if (!this.destroyed && version === this.generation) { this.status.textContent = error instanceof Error ? error.message : 'Audio unavailable. Hear the direction again.'; this.syncInput(); }
     }
   }
-  private tick = (now: number) => {
+  private tick = (frameMs: number) => {
     if (this.destroyed) return;
-    const delta = Math.max(0, Math.min(100, now - this.previous)); this.previous = now;
+    const delta = Math.max(0, Math.min(100, frameMs));
     if (!this.isActive()) this.pause();
     else if (this.paused && !this.manualPause) this.resume();
     if (!this.paused && !this.busy && !this.pending && this.heard && this.isActive()) {
@@ -159,7 +159,6 @@ export class WorldDeliveryRun {
         }
       }
     }
-    if (!this.destroyed) this.raf = requestAnimationFrame(this.tick);
   };
   private async save() {
     if (this.busy || !this.pending || this.destroyed) return;
@@ -198,7 +197,7 @@ export class WorldDeliveryRun {
   }
   resume(manual = false) {
     if (this.destroyed || !this.overlay || !this.paused || !this.isActive() || (this.manualPause && !manual)) return;
-    this.manualPause = false; this.paused = false; this.previous = performance.now();
+    this.manualPause = false; this.paused = false;
     this.overlay.querySelector('[data-delivery="pause"]')!.textContent = 'Pause';
     if (!this.pending) { this.hinted = true; void this.speak(); }
     this.syncInput();
@@ -210,7 +209,7 @@ export class WorldDeliveryRun {
   }
   destroy() {
     if (this.destroyed) return;
-    this.destroyed = true; this.generation++; cancelAnimationFrame(this.raf);
+    this.destroyed = true; this.generation++; this.stopFrames?.(); this.stopFrames = undefined;
     this.world.showDeliveryCheckpoints([], 0); this.host.audio.stop(); this.syncInput();
     this.overlay?.removeEventListener('click', this.click); this.overlay?.remove();
   }
