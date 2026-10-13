@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scenery cutout alignment regression</title>
+<style>body{margin:0;background:#18251f;color:#fff2cb;font:14px system-ui}header{padding:16px}canvas{display:block;max-width:100%}#results{padding:0 16px;white-space:pre-wrap}</style></head>
+<body><header>Scenery cutout alignment: the opening must stay at the marked character chest near the base of every panel.</header><div id="game"></div><pre id="results">Checking WebGL pixels…</pre>
+<script type="module">
+import * as Phaser from 'phaser';
+import { createSceneryOcclusion } from '../src/scenery-occlusion.ts';
+import { updateOcclusion } from '../src/world-depth.ts';
+
+const cases=[
+ {name:'Tall building',scale:1},
+ {name:'Mirrored building',scale:1,flipX:true},
+ {name:'Small painting',scale:.75},
+ {name:'Large painting',scale:1.2},
+ {name:'Rotated scenery',scale:1,rotation:.12},
+ {name:'8-unit depth strip',scale:1,strip:true},
+];
+class AlignmentScene extends Phaser.Scene {
+ create(){
+  const texture=this.textures.createCanvas('panel',120,360);
+  texture.context.fillStyle='#ffffff';texture.context.fillRect(0,0,120,360);texture.refresh();
+  texture.add('strip',0,0,0,8,360);
+  this.checks=[];
+  cases.forEach((test,index)=>{
+   const x=90+index*180,y=470;
+   this.add.text(x,20,test.name,{fontSize:'14px',color:'#fff2cb'}).setOrigin(.5);
+   const sprite=this.add.sprite(x,y,'panel',test.strip?'strip':'__BASE').setOrigin(.5,1)
+    .setScale(test.scale).setFlipX(!!test.flipX).setRotation(test.rotation??0);
+   const character={id:'player',x:x+(test.strip?0:20),y:y-10,height:72,depth:0};
+   const circle=updateOcclusion([],[character],0,true)[0];
+   createSceneryOcclusion(this,sprite)?.configure([circle]);
+   // Outline the expected centre without changing the sampled centre pixel.
+   this.add.circle(circle.x,circle.y,5).setStrokeStyle(1,0xff7055);
+   this.checks.push({name:test.name,x:circle.x,y:circle.y,expected:64});
+   if(!test.strip)this.checks.push({name:`${test.name} roof stays opaque`,x,y:y-180*test.scale,expected:255});
+  });
+  this.time.delayedCall(100,()=>this.checkZoom(0));
+ }
+ async checkZoom(index){
+  const zoom=[1,.75,1.5][index],camera=this.cameras.main;
+  camera.setZoom(zoom);
+  // Keep the diagnostic panels visible when zooming in.
+  const results=[];
+  for(const check of this.checks){
+   camera.centerOn(check.x,check.y);
+   await new Promise(resolve=>this.game.events.once(Phaser.Core.Events.POST_RENDER,resolve));
+   const colour=await new Promise(resolve=>this.game.renderer.snapshotPixel(540,270,resolve));
+   const pass=Math.abs(colour.r-check.expected)<=3&&Math.abs(colour.g-check.expected)<=3&&Math.abs(colour.b-check.expected)<=3;
+   results.push(`${pass?'PASS':'FAIL'} zoom ${zoom}: ${check.name} (${colour.r},${colour.g},${colour.b})`);
+  }
+  document.querySelector('#results').textContent=(index===0?'':document.querySelector('#results').textContent+'\n')+results.join('\n');
+  if(index<2)await this.checkZoom(index+1);
+  else{camera.setZoom(1).centerOn(540,270);document.querySelector('#results').dataset.complete='true';}
+ }
+}
+if(import.meta.env.DEV)new Phaser.Game({type:Phaser.WEBGL,parent:'game',width:1080,height:540,backgroundColor:'#000000',scene:[AlignmentScene],render:{antialias:true},banner:false});
+</script></body></html>
