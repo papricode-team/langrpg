@@ -29,6 +29,7 @@ import './event-log.css';
 import { EventLog, installFormNotifications } from './event-log';
 import './course-ui.css';
 import './game-ui.css';
+import './game-menu.css';
 import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
@@ -62,6 +63,9 @@ import type { MapId, WorldObjectSpec } from './maps';
 import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs } from './story';
 import { activityDiscoveries } from './activity-stories';
 import { ScreenFilterControls } from './screen-filter-controls';
+import { MenuMemory, MenuNavigator, menuPagesMarkup, menuSections, menuTabsMarkup, promptStrip, sectionOf, viewLabel, type MenuPage, type MenuView } from './menu-navigation';
+import { bindOptionRows, optionsMarkup, optionsTabs, type OptionRow, type OptionsTab } from './options-menu';
+import { UiSounds } from './ui-sounds';
 import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors } from './interiors';
 import type { InteriorId, InteriorObjectSpec } from './interiors';
 
@@ -180,6 +184,11 @@ if (!Number.isFinite(manualWorldHour)) manualWorldHour = 12;
 if (!['auto', 'full', 'reduced'].includes(worldMotion)) worldMotion = 'auto';
 let muted = localStorage.getItem('atlas.muted') !== 'false';
 let silentMode = localStorage.getItem('atlas.silentMode') === 'true';
+const uiSounds = new UiSounds(() => !muted && !silentMode);
+const menuMemory = new MenuMemory();
+let menuNavigator: MenuNavigator | undefined;
+let optionsTab: OptionsTab = 'audio';
+let unbindOptions: (() => void) | undefined;
 function playablePractice<T extends Exercise>(exercises: readonly T[]): T[] {
   return practiceExercises(exercises, silentMode, writingReady());
 }
@@ -282,7 +291,7 @@ function renderShell() {
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="${e(t('Touch movement joystick'))}"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="${e(t('Interact with something nearby'))}" disabled>${icon('chat')}<span id="nearby-action">${t('Interact')}</span><small id="nearby-name">${t('MOVE CLOSER')}</small></button></div>
       </div>
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>
-      <dialog class="menu-layer" id="menu-layer" aria-labelledby="menu-title" hidden><div class="menu-frame"><header class="menu-header"><span class="menu-crest">${icon('lantern')}</span><div><span class="menu-kicker">THE LANTERN ATLAS</span><h1 id="menu-title">${t('Your adventure')}</h1></div><button class="menu-close" data-view="world" aria-label="${e(t('Return to game'))}">${icon('close')}<kbd>ESC</kbd></button></header><nav class="menu-tabs" aria-label="${e(t('Game sections'))}"><span class="menu-nav-label">${t('THE JOURNEY')}</span>${([['menu','compass',t('Overview')],['quests','scroll',t('Story quests')],['story','lantern',t('Discoveries')],['atlas','map',t('Region atlas')]] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${e(label)}">${icon(glyph)}<span>${e(label)}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">${t('OFF THE MAIN PATH')}</span>${([['activities','cup',t('Side activities')],['course','book',t('Learning routes')],['journal','leaf',t('Your words')]] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${e(label)}">${icon(glyph)}<span>${e(label)}</span></button>`).join('')}<span class="menu-nav-label menu-nav-divider">${t('YOUR ADVENTURE')}</span>${([['character','shirt',t('Character')],['settings','settings',t('Settings')]] as const).map(([id,glyph,label]) => `<button data-view="${id}" aria-label="${e(label)}">${icon(glyph)}<span>${e(label)}</span></button>`).join('')}</nav><div id="other-view" class="menu-content" tabindex="-1"></div><footer class="menu-footer"><span class="german-flag"></span><span id="language-pair">${t('GERMAN FROM ENGLISH')}</span><span class="connection-pill" id="connection-pill"><span></span> ${t('Connecting')}</span></footer></div></dialog>
+      <dialog class="menu-layer" id="menu-layer" aria-labelledby="menu-title" data-input="pointer" hidden><div class="menu-frame"><header class="menu-header"><div class="menu-brand"><span class="menu-crest">${icon('lantern')}</span><span class="menu-kicker">THE LANTERN ATLAS</span><h1 id="menu-title" class="menu-sr-only">${t('Your adventure')}</h1></div><nav class="menu-tabs" id="menu-tabs" aria-label="${e(t('Game sections'))}"></nav><button class="menu-close" data-view="world" aria-label="${e(t('Return to game'))}">${icon('close')}</button></header><nav class="menu-pages" id="menu-pages" aria-label="${e(t('Pages'))}"></nav><div id="other-view" class="menu-content" tabindex="-1"></div><footer class="menu-footer"><p class="menu-help" id="menu-help" aria-live="polite"></p><div class="menu-prompts" id="menu-prompts" aria-hidden="true"></div><div class="menu-footer-meta"><span class="german-flag"></span><span id="language-pair">${t('GERMAN FROM ENGLISH')}</span><span class="connection-pill" id="connection-pill"><span></span> ${t('Connecting')}</span></div></footer></div></dialog>
     </main><dialog id="dialog" class="dialog" aria-label="${e(t('Adventure encounter'))}"></dialog><dialog id="account-dialog" class="dialog account-dialog" aria-labelledby="account-title"></dialog>`;
   eventLog?.destroy();
   eventLog = new EventLog();
@@ -340,6 +349,17 @@ function renderShell() {
     onOpenChange: () => syncWorldMode(),
   });
   bindGlobalEvents(); bindJoystick(); updateProgress();
+  menuNavigator?.destroy();
+  menuNavigator = new MenuNavigator({
+    root: document.querySelector<HTMLElement>('#menu-layer')!,
+    isOpen: () => view !== 'world' && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open,
+    canOpen: () => worldCanInteract(),
+    open: () => setView('menu'),
+    close: () => setView('world'),
+    section: step => { if (view !== 'world') setView(menuMemory.neighbour(view, step)); },
+    sound: kind => uiSounds.play(kind),
+    onModeChange: () => { menuNavigator?.refreshGlyphs(); renderMenuPrompts(); },
+  });
   const accountDialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   accountDialog.addEventListener('cancel', event => { if (!started) event.preventDefault(); });
   accountDialog.addEventListener('close', () => { if(!document.hidden){if(!accountKeptActivityPaused)activityController?.resume();miniGameController?.resume();deliveryController?.resume();}accountKeptActivityPaused=false;accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); syncWorldMode(); if (started && regionReady) onRegionReady(mapId); });
@@ -536,21 +556,51 @@ function setView(next: View) {
   exposureObserver?.disconnect();
   if (next !== 'world') screenFilterControls?.close(false);
   if (next !== 'world' && view === 'world') menuFocus = document.activeElement as HTMLElement;
+  const previous = view;
   view = next;
   document.querySelector<HTMLElement>('#game-shell')!.dataset.view = next;
   const menu = document.querySelector<HTMLDialogElement>('#menu-layer')!;
-  menu.style.setProperty('--menu-art', `url('${getMap(mapId).previewAsset}')`);
   if (next === 'world') { if (menu.open) menu.close(); menu.hidden = true; }
   else { menu.hidden = false; if (!menu.open) menu.showModal(); }
   document.querySelector<HTMLElement>('#game-hud')!.inert = next !== 'world';
   document.querySelector<HTMLElement>('#world-container')!.inert = next !== 'world';
   syncWorldMode();
-  document.querySelectorAll<HTMLElement>('[data-view]').forEach(el => { el.classList.toggle('active', el.dataset.view === next); if (el.closest('.menu-tabs')) el.setAttribute('aria-current', el.dataset.view === next ? 'page' : 'false'); });
+  document.querySelectorAll<HTMLElement>('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === next));
   if (next !== 'world') {
-    document.querySelector('#menu-title')!.textContent = { menu: t('Your journey'), quests: t('Story quests'), story: t('Discoveries'), atlas: t('Region atlas'), journal: t('Your German'), activities: t('Side activities'), course: t('Your learning routes'), character: t('Your character'), settings: t('Settings') }[next];
-    renderOther(); document.querySelector<HTMLElement>('#other-view')!.scrollTop = 0;
-    menu.querySelector<HTMLButtonElement>('.menu-close')!.focus();
-  } else { if (menuFocus?.isConnected && menuFocus.getClientRects().length) menuFocus.focus(); queueMicrotask(() => onRegionReady(mapId)); }
+    menuMemory.remember(next);
+    const sectionChanged = previous === 'world' || sectionOf(previous) !== sectionOf(next);
+    uiSounds.play(previous === 'world' ? 'open' : sectionChanged ? 'tab' : previous !== next ? 'page' : 'move');
+    document.querySelector('#menu-title')!.textContent = viewLabel(next);
+    renderMenuChrome();
+    menuNavigator?.focusTab();
+    const content = document.querySelector<HTMLElement>('#other-view')!;
+    renderOther(); content.scrollTop = 0;
+    // Pages slide in from the side they were flipped towards; a fresh menu rises into place.
+    const order = (item: MenuView) => menuSections.flatMap(section => section.views).indexOf(item);
+    content.dataset.enter = previous === 'world' ? 'rise' : order(next) < order(previous) ? 'left' : 'right';
+    content.classList.remove('page-enter'); void content.offsetWidth; content.classList.add('page-enter');
+  } else {
+    if (previous !== 'world') uiSounds.play('close');
+    if (menuFocus?.isConnected && menuFocus.getClientRects().length) menuFocus.focus(); queueMicrotask(() => onRegionReady(mapId));
+  }
+}
+function menuPages(): MenuPage[] {
+  if (view === 'world') return [];
+  if (view === 'settings') return optionsTabs.map(tab => ({ label: tab.label(), attributes: `data-options-tab="${tab.id}"`, selected: tab.id === optionsTab }));
+  return sectionOf(view).views.map(item => ({ label: viewLabel(item), attributes: `data-view="${item}"`, selected: item === view }));
+}
+function renderMenuChrome() {
+  if (view === 'world') return;
+  const mode = menuNavigator?.mode ?? 'pointer', pages = menuPages();
+  document.querySelector('#menu-tabs')!.innerHTML = menuTabsMarkup(view, menuMemory, mode);
+  const row = document.querySelector<HTMLElement>('#menu-pages')!;
+  row.innerHTML = menuPagesMarkup(pages, mode); row.hidden = pages.length < 2;
+  document.querySelector('#menu-help')!.textContent = '';
+  renderMenuPrompts();
+}
+function renderMenuPrompts() {
+  const prompts = document.querySelector('#menu-prompts');
+  if (prompts) prompts.innerHTML = promptStrip(menuNavigator?.mode ?? 'pointer', menuPages().length > 1);
 }
 function openWorldMap() { setView('atlas'); }
 function openScreenFilters(trigger?: HTMLElement) {
@@ -951,8 +1001,8 @@ function renderWordJournal(el: Element) {
   const introduced = introducedSet();
   const seen = course.courseLexicon.filter(word => introduced.has(word.id) || progress.words?.[word.id]);
   const due = seen.filter(word => progress.words?.[word.id] && wordReadyForReview(progress.words[word.id]));
-  const retained = seen.filter(word => progress.words[word.id].mastery === 'retained');
-  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><div class="eyebrow">${t('YOUR GERMAN, GROWING WITH YOU')}</div><h2>${t('Every word has its own story.')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words restored')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${todaysWordsCard()}${miniGameHostLinks("re-ink")}${miniGameBoard(true)}${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
+  const retained = seen.filter(word => progress.words?.[word.id]?.mastery === 'retained');
+  el.innerHTML = `<div class="route-heading">${icon('leaf')}<div><h2>${t('Individual words')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p></div></div><div class="route-tabs"><button class="selected" data-journal-tab="words">${t('Individual words')}</button><button data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="route-summary"><span><strong>${seen.length}</strong> ${t('words restored')}</span><span><strong>${retained.length}</strong> ${t('retained in all three skills')}</span><span><strong>${due.length}</strong> ${t('ready to revisit')}</span></div><button class="primary-button" data-action="review">${icon('refresh')} ${due.length ? t('Take a short recall walk') : t('Check ready practice')}</button>${todaysWordsCard()}${miniGameHostLinks("re-ink")}${miniGameBoard(true)}${seen.length ? `<label class="route-search"><input id="lexicon-search" type="search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your individual words'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>` : `<div class="route-loading"><h3>${t('Your first word is waiting.')}</h3><p>${t('Use German in the world or follow a learning route to begin.')}</p><button class="primary-button" data-view="course">${t('Open your learning routes')}</button></div>`}`;
   if (seen.length) bindLexiconSearch(seen);
 }
 async function startWordPractice(id: string) {
@@ -1030,6 +1080,7 @@ function earnedActivityJournal(): string {
 }
 function renderOther() {
   exposureObserver?.disconnect();
+  if (view !== 'settings') { unbindOptions?.(); unbindOptions = undefined; }
   const el = document.querySelector('#other-view')!;
   if (view === 'activities') { renderActivities(el); return; }
   if (view === 'course') { renderCourse(el); return; }
@@ -1049,7 +1100,7 @@ function renderOther() {
     el.innerHTML = evidenceBoard(progress) + `<div class="story-journal-heading"><div class="eyebrow">${e(t('EVIDENCE, SECRETS & SMALL PROMISES'))}</div><h2>${t('The missing routes')}</h2>${translationHelp()}<p>${introduction}</p></div><div class="story-acts">${storyActs.map(act => { const qs = quests.filter(q => q.level === act.level), clues = found.filter(clue => qs.some(q => q.id === clue.questId)); return `<section class="story-act"><header><span class="act-number">${act.number}</span><div><small>${act.level} · ${e(getMap(act.mapId).name)}</small><h3>${e(localized(act.title))}</h3></div><span class="clue-count">${clues.length} / 6</span></header>${clues.length ? `<div class="clue-pages">${clues.map(clue => `<article class="clue-page"><span>${icon('lantern')}</span><div><h4>${e(localized(clue.title))}</h4><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter, clue.questId)}<small>${renderNarrative(clue.lead)}</small></div></article>`).join('')}</div>` : `<p class="undiscovered-clue">${renderNarrative(journalNarratives.waitingPage)}</p>`}${clues.length === 6 ? `<blockquote class="act-cliffhanger">${renderNarrative(act.cliffhanger)}</blockquote>` : ''}</section>`; }).join('')}</div>${inspected.length ? `<section class="field-notes"><div class="eyebrow">${t('THINGS YOU NOTICED')}</div><h3>${t('Notes from the road')}</h3>${maps.flatMap(map => map.objects.filter(object => inspected.includes(object.id)).map(object => `<button data-inspect-object="${object.id}" data-object-map="${map.id}">${icon('pin')}<span><strong>${e(object.label)}</strong><small>${e(map.name)}</small></span>${icon('chevron')}</button>`)).join('')}</section>` : ''}${earnedActivityJournal()}${routeUnlocked('windplain', progress.completedQuestIds) ? expeditionNotebook(progress.story?.expeditionPlans ?? {}) : ''}<button class="primary-button" data-action="next-objective">${t('Follow the next lead')} ${icon('arrow')}</button>`;
   } else if (view === 'atlas') {
     const current = getMap(mapId);
-    el.innerHTML = `<div class="atlas-heading"><span class="eyebrow">${t('FOLLOW YOUR CURIOSITY')}</span><h2>${t('{count} places. A world of connections.', { count: maps.length })}</h2><p>${t('The missing-route story begins in Lindenhafen, Waldruh and Nebelstadt. Follow the clues to restore the next route. Neighborhood games open after the three-town story.')}</p></div><div class="region-cards">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => {
+    el.innerHTML = `<div class="atlas-heading"><h2>${t('Region atlas')}</h2><p>${t('The missing-route story begins in Lindenhafen, Waldruh and Nebelstadt. Follow the clues to restore the next route. Neighborhood games open after the three-town story.')}</p></div><div class="region-cards">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => {
       const unlocked = routeUnlocked(map.id, progress.completedQuestIds), expedition = getExpedition(map.id), act = expedition ? undefined : actFor(map.id);
       const status = expedition ? expeditionGameStatus(map.id, level, progress.story?.expeditionPlans ?? {}) : undefined;
       const done = expedition ? expedition.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length : completedAtLevel(map.level);
@@ -1059,51 +1110,81 @@ function renderOther() {
     const learned = vocabulary.filter(v => progress.items[v.id]);
     const due = dueItems(progress);
     const accuracy = progress.attempts ? Math.round(progress.correctAttempts / progress.attempts * 100) : 0;
-    el.innerHTML = `<div class="route-tabs"><button data-journal-tab="words">${t('Individual words')}</button><button class="selected" data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="page-heading"><div><div class="eyebrow">${t('LITTLE WORDS. BIG POSSIBILITIES.')}</div><h1>${t('Your words. Your discoveries.')}</h1><p>${t('Collected in the world. Remembered in your own time.')}</p></div><button class="primary-button journal-review" data-action="review">${icon('refresh')} ${due.length ? (Math.min(due.length, 8) === 1 ? t('Practice {count} ready word', { count: 1 }) : t('Practice {count} ready words', { count: Math.min(due.length, 8) })) : t('Words are resting')}</button></div><div class="journal-stats"><div>${icon('book')}<strong>${learned.length}</strong><span>${t('Expressions encountered')}</span></div><div>${icon('leaf')}<strong>${due.length}</strong><span>${t('Ready to revisit')}</span></div><div>${icon('check')}<strong>${accuracy}%</strong><span>${t('Answers correct')}</span></div><div>${icon('sparkles')}<strong>${progress.xp}</strong><span>${t('Adventure XP')}</span></div></div><div class="journal-toolbar"><label>${icon('book')}<input id="word-search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your word journal'))}"/></label><span>${t('Recognition, listening, and production grow separately.')}</span></div><div class="word-grid" id="word-grid">${learned.length ? learned.map(v => { const m = progress.items[v.id], meaning = localized({ german: v.german, english: v.english }); return `<article class="word-card" data-word="${e(lower(`${v.german} ${v.english} ${meaning}`))}"><div><span class="word-level">${v.level}</span><button class="icon-button" data-speak="${e(v.german)}" aria-label="${e(t('Listen to {text}', { text: v.german }))}">${icon('volume')}</button></div><h3>${e(v.german)}</h3><p>${e(meaning)}</p><small>${e(v.example)}</small><div class="memory-row"><span>${icon('leaf')} ${memoryLabel(m.repetitions, m.stabilityDays)}</span><span>${Date.parse(m.dueAt) <= Date.now() ? t('Ready for a new encounter') : t('Next encounter {date}', { date: new Date(m.dueAt).toLocaleDateString(baseLanguage(), { month: 'short', day: 'numeric' }) })}</span></div></article>`; }).join('') : `<div class="empty-state">${icon('book')}<h2>${t('Your story is still being written.')}</h2><p>${t('The words you meet on your adventures will find a home here.')}</p><button class="primary-button" data-view="world">${t('Meet Lindenhafen')} ${icon('arrow')}</button></div>`}</div>`;
+    el.innerHTML = `<div class="route-tabs"><button data-journal-tab="words">${t('Individual words')}</button><button class="selected" data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="page-heading"><div><h2>${t('Story expressions')}</h2></div><button class="primary-button journal-review" data-action="review">${icon('refresh')} ${due.length ? (Math.min(due.length, 8) === 1 ? t('Practice {count} ready word', { count: 1 }) : t('Practice {count} ready words', { count: Math.min(due.length, 8) })) : t('Words are resting')}</button></div><div class="journal-stats"><div>${icon('book')}<strong>${learned.length}</strong><span>${t('Expressions encountered')}</span></div><div>${icon('leaf')}<strong>${due.length}</strong><span>${t('Ready to revisit')}</span></div><div>${icon('check')}<strong>${accuracy}%</strong><span>${t('Answers correct')}</span></div><div>${icon('sparkles')}<strong>${progress.xp}</strong><span>${t('Adventure XP')}</span></div></div><div class="journal-toolbar"><label>${icon('book')}<input id="word-search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your word journal'))}"/></label><span>${t('Recognition, listening, and production grow separately.')}</span></div><div class="word-grid" id="word-grid">${learned.length ? learned.map(v => { const m = progress.items[v.id], meaning = localized({ german: v.german, english: v.english }); return `<article class="word-card" data-word="${e(lower(`${v.german} ${v.english} ${meaning}`))}"><div><span class="word-level">${v.level}</span><button class="icon-button" data-speak="${e(v.german)}" aria-label="${e(t('Listen to {text}', { text: v.german }))}">${icon('volume')}</button></div><h3>${e(v.german)}</h3><p>${e(meaning)}</p><small>${e(v.example)}</small><div class="memory-row"><span>${icon('leaf')} ${memoryLabel(m.repetitions, m.stabilityDays)}</span><span>${Date.parse(m.dueAt) <= Date.now() ? t('Ready for a new encounter') : t('Next encounter {date}', { date: new Date(m.dueAt).toLocaleDateString(baseLanguage(), { month: 'short', day: 'numeric' }) })}</span></div></article>`; }).join('') : `<div class="empty-state">${icon('book')}<h2>${t('Your story is still being written.')}</h2><p>${t('The words you meet on your adventures will find a home here.')}</p><button class="primary-button" data-view="world">${t('Meet Lindenhafen')} ${icon('arrow')}</button></div>`}</div>`;
     el.insertAdjacentHTML('beforeend', optionalStoryPractice(progress));
     document.querySelector<HTMLInputElement>('#word-search')?.addEventListener('input', event => {
       const query = lower((event.target as HTMLInputElement).value);
       document.querySelectorAll<HTMLElement>('[data-word]').forEach(card => { card.hidden = !card.dataset.word!.includes(query); });
     });
   } else if (view === 'character') {
-    el.innerHTML = lanternRewardsMarkup(progress) + `<div class="page-heading"><div><div class="eyebrow">${t('EVERY ADVENTURE NEEDS A YOU.')}</div><h1>${t('Make your mark.')}</h1><p>${t('A little style. A little personality. Quite a lot of curiosity.')}</p></div></div><section class="character-page"><div class="character-illustration"><h2>${e(profile.name)}</h2><p>${e(t('{title} of the Atlas', { title: titleLabel(lanternRewards(progress).title) }))}</p><span class="character-xp">${icon('sparkles')} ${t('{xp} adventure XP', { xp: progress.xp })}</span></div><div class="character-options">${profileForm()}<p class="honest-note">${t('Your character appears in town and is visible to other players.')}</p></div></section>`;
+    el.innerHTML = lanternRewardsMarkup(progress) + `<section class="character-page"><div class="character-illustration"><h2>${e(profile.name)}</h2><p>${e(t('{title} of the Atlas', { title: titleLabel(lanternRewards(progress).title) }))}</p><span class="character-xp">${icon('sparkles')} ${t('{xp} adventure XP', { xp: progress.xp })}</span></div><div class="character-options">${profileForm()}<p class="honest-note">${t('Your character appears in town and is visible to other players.')}</p></div></section>`;
     bindProfileForm();
   } else if (view === 'settings') {
-    el.innerHTML = `<div class="account-settings"><div><h3>${account.registered ? t('Your adventure is linked') : t('Take your adventure with you')}</h3><p>${e(account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }))}</p></div>${account.registered ? '' : `<button class="outline-button" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="text-button" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="text-button" data-action="logout-account">${t('Log out')}</button></div><div class="page-heading"><div><div class="eyebrow">${t('MAKE YOURSELF AT HOME.')}</div><h1>${t('Your adventure, your rules.')}</h1><p>${t('Comfort makes room for curiosity.')}</p></div></div><div class="settings-card"><div><h3>${t('Support language')}</h3><p>${t('Meanings, hints, explanations and menus appear in this language. The German, its audio and how answers are checked stay the same.')}</p>${baseLanguage() === 'tr' ? `<p class="honest-note">${t('Turkish support covers the story and all A1, A2 and B1 course exercises.')} ${t('Coverage: story {story}%, interface {ui}%, course words {words}%, course tasks {tasks}%.', turkishCoverage)} ${t('Turkish text is machine-written and awaits native-speaker review.')}</p>` : ''}</div><select id="base-language" aria-label="${e(t('Support language'))}">${(['en', 'tr'] as const).map(language => `<option value="${language}" lang="${language}" ${language === baseLanguage() ? 'selected' : ''}>${baseLanguageNames[language]}</option>`).join('')}</select><div><h3>${t('Silent mode')}</h3><p>${t('Automatically skip listening exercises and mute audio. Quests finish after reading and writing; listening stays available for later. Saved on this device.')}</p></div>${silentModeButton()}<div><h3>${t('Listening pace')}</h3><p>${t('German audio is included. Choose a comfortable pace and replay it whenever you like.')}</p></div><select id="speech-rate" aria-label="${e(t('German speech rate'))}"><option value="0.65">${t('A little slower')}</option><option value="0.82">${t('Easy pace')}</option><option value="1">${t('Natural pace')}</option></select><div><h3>${t('Interface sounds')}</h3><p>${t('Small musical cues after your answers.')}</p></div><button class="outline-button" data-action="sound" id="settings-sound">${icon(muted ? 'muted' : 'volume')} ${muted ? t('Sound off') : t('Sound on')}</button><div><h3>${t('World motion')}</h3><p>${window.matchMedia('(prefers-reduced-motion: reduce)').matches ? t('Choose lively town scenery or a calmer world. Your device currently requests reduced motion.') : t('Choose lively town scenery or a calmer world. Your device currently requests full motion.')}</p></div><select id="world-motion" aria-label="${e(t('World motion'))}"><option value="auto">${t('Follow device preference')}</option><option value="full">${t('Full world animation')}</option><option value="reduced">${t('Calm, still scenery')}</option></select><div><h3>${t('Time of day')}</h3><p>${t('Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.')}</p></div><select id="world-time-mode" aria-label="${e(t('World clock'))}"><option value="cycle">${t('Slow day and night cycle')}</option><option value="local">${t('Real local time')}</option><option value="manual">${t('Choose a time')}</option></select><div class="settings-time-preview"><label for="world-hour">${t('Time to watch')}</label><input id="world-hour" type="range" min="0" max="23.75" step="0.25" aria-label="${e(t('Time to watch'))}"><output id="world-hour-label" for="world-hour"></output></div><div><h3>${t('Screen filters')}</h3><p>${t('Experiment with a softer world or an old television finish. Your choices are saved with your adventure.')}</p></div><button class="outline-button" data-action="screen-filters">${icon('sparkles')} ${t('Try filters in the world')}</button><div><h3>${t('Your learning chapter')}</h3><p>${t('Routes open when you restore their names. Your learning scaffold follows the route.')}</p></div><div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" ${routeUnlocked(maps.find(map => map.level === l)!.id, progress.completedQuestIds) ? '' : 'disabled'} class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div><div><h3>${t('World controls')}</h3><p>${t('Travel from the Atlas. Use the joystick or WASD to explore, and E to interact.')}</p></div><div class="settings-controls"><button class="outline-button" data-action="watch-world">${icon('compass')} ${t('Watch the world')}</button><button class="outline-button" data-action="fullscreen">${icon('expand')} ${t('Full screen')}</button></div></div><button class="text-button" data-action="course-sources">${e(t('Learning content & credits'))}</button><div class="connection-info">${icon('users')} ${connection === 'online' ? t('Your route is connected. Your progress is saved on the server.') : connection === 'incompatible' ? t('The world has changed. Reload this page to continue.') : connection === 'replaced' ? t('Your character is active in another tab. Continue there, or close it and reload this page.') : t('The route is reconnecting. Keep this tab open.')}</div>`;
-    const performance = world.getWorldStats();
-    el.insertAdjacentHTML('beforeend', `<details class="world-performance"><summary>${t('World performance')}</summary><p>${performance.fps ? t('{fps} frames per second · average {frame} ms · 95th percentile {p95} ms', { fps: performance.fps, frame: performance.frameMs, p95: performance.p95FrameMs }) : t('The world is warming up.')}</p><small>${t('{residents} residents · {objects} objects · {animated} animated details', { residents: performance.residents, objects: performance.objects, animated: performance.animated })}</small></details><section><h3>${t('Practice starting point')}</h3><p>${t('A two-minute sample recommends useful language support.')}</p>${placementCTAMarkup()}</section>` + saveSlotsMarkup(storySaves));
-    const languageSelect = document.querySelector<HTMLSelectElement>('#base-language')!;
-    languageSelect.onchange = () => { languageSelect.disabled = true; void changeBaseLanguage(languageSelect.value as BaseLanguage); };
-    const select = document.querySelector<HTMLSelectElement>('#speech-rate')!;
-    select.value = String(speechRate);
-    select.onchange = () => { speechRate = Number(select.value); localStorage.setItem('atlas.speechRate', String(speechRate)); };
-    const clockSelect = document.querySelector<HTMLSelectElement>('#world-time-mode')!;
-    const hourSlider = document.querySelector<HTMLInputElement>('#world-hour')!;
-    const clockState = world.getWorldTime();
-    clockSelect.value = worldTimeMode;
-    hourSlider.value = String(clockState.hour);
-    document.querySelector('#world-hour-label')!.textContent = `${clockState.label} · ${upper(clockState.period === 'day' ? t('Day') : t('Night'))}`;
-    clockSelect.onchange = () => {
-      worldTimeMode = clockSelect.value as WorldTimeMode;
-      localStorage.setItem('atlas.worldTimeMode', worldTimeMode);
-      world.setTimePreference({ mode: worldTimeMode, hour: Number(hourSlider.value) });
-    };
-    hourSlider.oninput = () => {
-      manualWorldHour = Number(hourSlider.value);
-      worldTimeMode = 'manual'; clockSelect.value = 'manual';
-      localStorage.setItem('atlas.worldHour', String(manualWorldHour));
-      localStorage.setItem('atlas.worldTimeMode', worldTimeMode);
-      world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour });
-    };
-    const motionSelect = document.querySelector<HTMLSelectElement>('#world-motion')!;
-    motionSelect.value = worldMotion;
-    motionSelect.onchange = () => {
-      worldMotion = motionSelect.value as WorldMotion;
-      localStorage.setItem('atlas.worldMotion', worldMotion);
-      world.setMotionPreference(worldMotion);
-    };
+    renderOptions(el as HTMLElement);
   }
 }
+function optionRows(): OptionRow[] {
+  const onOff = [{ value: 'on', label: t('On') }, { value: 'off', label: t('Off') }];
+  if (optionsTab === 'audio') return [
+    { kind: 'choice', id: 'sound', label: t('Interface sounds'), help: t('Menu sounds and small musical cues after your answers.'), value: muted ? 'off' : 'on', choices: onOff },
+    { kind: 'choice', id: 'silent', label: t('Silent mode'), help: t('Automatically skip listening exercises and mute audio. Quests finish after reading and writing; listening stays available for later. Saved on this device.'), value: silentMode ? 'on' : 'off', choices: onOff },
+    { kind: 'choice', id: 'speech-rate', label: t('Listening pace'), help: t('German audio is included. Choose a comfortable pace and replay it whenever you like.'), value: String(speechRate), choices: [{ value: '0.65', label: t('A little slower') }, { value: '0.82', label: t('Easy pace') }, { value: '1', label: t('Natural pace') }] },
+  ];
+  if (optionsTab === 'display') {
+    const clock = world.getWorldTime();
+    return [
+      { kind: 'choice', id: 'world-motion', label: t('World motion'), help: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? t('Choose lively town scenery or a calmer world. Your device currently requests reduced motion.') : t('Choose lively town scenery or a calmer world. Your device currently requests full motion.'), value: worldMotion, choices: [{ value: 'auto', label: t('Follow device preference') }, { value: 'full', label: t('Full world animation') }, { value: 'reduced', label: t('Calm, still scenery') }] },
+      { kind: 'choice', id: 'time-mode', label: t('Time of day'), help: t('Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.'), value: worldTimeMode, choices: [{ value: 'cycle', label: t('Slow day and night cycle') }, { value: 'local', label: t('Real local time') }, { value: 'manual', label: t('Choose a time') }] },
+      { kind: 'scale', id: 'world-hour', label: t('Time to watch'), help: t('Changing the hour switches the world clock to the time you choose.'), value: Math.floor(clock.hour), min: 0, max: 23, step: 1, display: `${clock.label} · ${upper(clock.period === 'day' ? t('Day') : t('Night'))}`, valueId: 'world-hour-label' },
+      { kind: 'choice', id: 'fullscreen', label: t('Full screen'), help: t('Let the world fill the whole screen.'), value: document.fullscreenElement ? 'on' : 'off', choices: onOff },
+      { kind: 'action', id: 'screen-filters', label: t('Screen filters'), help: t('Experiment with a softer world or an old television finish. Your choices are saved with your adventure.'), action: 'screen-filters', button: t('Try filters in the world'), glyph: 'sparkles' },
+      { kind: 'action', id: 'watch-world', label: t('Watch the world'), help: t('Hide the interface and watch the town go about its day. Press Escape to return.'), action: 'watch-world', button: t('Watch the world'), glyph: 'compass' },
+    ];
+  }
+  if (optionsTab === 'language') return [
+    { kind: 'choice', id: 'base-language', label: t('Support language'), help: `${t('Meanings, hints, explanations and menus appear in this language. The German, its audio and how answers are checked stay the same.')}${baseLanguage() === 'tr' ? ` ${t('Turkish text is machine-written and awaits native-speaker review.')}` : ''}`, value: baseLanguage(), choices: (['en', 'tr'] as const).map(language => ({ value: language, label: baseLanguageNames[language] })) },
+    { kind: 'custom', id: 'chapter', label: t('Your learning chapter'), help: t('Routes open when you restore their names. Your learning scaffold follows the route.'), html: `<div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" ${routeUnlocked(maps.find(map => map.level === l)!.id, progress.completedQuestIds) ? '' : 'disabled'} class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div>` },
+    { kind: 'action', id: 'placement', label: t('Practice starting point'), help: t('A two-minute sample recommends useful language support.'), action: 'placement', button: t('Find my comfortable German level'), glyph: 'compass' },
+    { kind: 'action', id: 'course-sources', label: t('Learning content & credits'), help: t('Where the course material comes from.'), action: 'course-sources', button: t('Open'), glyph: 'book' },
+  ];
+  return [
+    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
+  ];
+}
+function renderOptions(el: HTMLElement) {
+  unbindOptions?.();
+  const focused = el.contains(document.activeElement) ? (document.activeElement as HTMLElement).dataset.option : undefined, scroll = el.scrollTop;
+  const rows = optionRows();
+  let extra = '';
+  if (optionsTab === 'language' && baseLanguage() === 'tr') extra = `<p class="honest-note">${t('Turkish support covers the story and all A1, A2 and B1 course exercises.')} ${t('Coverage: story {story}%, interface {ui}%, course words {words}%, course tasks {tasks}%.', turkishCoverage)}</p>`;
+  if (optionsTab === 'account') {
+    const performance = world.getWorldStats();
+    extra = saveSlotsMarkup(storySaves) + `<div class="connection-info">${icon('users')} ${connection === 'online' ? t('Your route is connected. Your progress is saved on the server.') : connection === 'incompatible' ? t('The world has changed. Reload this page to continue.') : connection === 'replaced' ? t('Your character is active in another tab. Continue there, or close it and reload this page.') : t('The route is reconnecting. Keep this tab open.')}</div><details class="world-performance"><summary>${t('World performance')}</summary><p>${performance.fps ? t('{fps} frames per second · average {frame} ms · 95th percentile {p95} ms', { fps: performance.fps, frame: performance.frameMs, p95: performance.p95FrameMs }) : t('The world is warming up.')}</p><small>${t('{residents} residents · {objects} objects · {animated} animated details', { residents: performance.residents, objects: performance.objects, animated: performance.animated })}</small></details>`;
+  }
+  el.innerHTML = optionsMarkup(optionsTab, rows, extra);
+  unbindOptions = bindOptionRows(el, rows, (row, value) => changeOption(row.id, String(value)), kind => uiSounds.play(kind));
+  if (focused) { el.querySelector<HTMLElement>(`[data-option="${focused}"]`)?.focus({ preventScroll: true }); el.scrollTop = scroll; }
+}
+function changeOption(id: string, value: string) {
+  switch (id) {
+    case 'sound': muted = value === 'off'; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted }); if (!muted) playCue(true); break;
+    case 'silent': if (attemptBusy) { toast(t('Your answer is saving. Try again in a moment.')); return; } setSilentMode(value === 'on'); return;
+    case 'speech-rate': speechRate = Number(value); localStorage.setItem('atlas.speechRate', String(speechRate)); break;
+    case 'world-motion': worldMotion = value as WorldMotion; localStorage.setItem('atlas.worldMotion', worldMotion); world.setMotionPreference(worldMotion); break;
+    case 'time-mode': worldTimeMode = value as WorldTimeMode; localStorage.setItem('atlas.worldTimeMode', worldTimeMode); world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
+    case 'world-hour':
+      manualWorldHour = Number(value); worldTimeMode = 'manual';
+      localStorage.setItem('atlas.worldHour', String(manualWorldHour)); localStorage.setItem('atlas.worldTimeMode', worldTimeMode);
+      world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
+    case 'fullscreen':
+      if (value === 'off') void document.exitFullscreen?.().catch(() => undefined).finally(() => { if (view === 'settings') renderOther(); });
+      else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))).finally(() => { if (view === 'settings') renderOther(); });
+      return;
+    case 'base-language': void changeBaseLanguage(value as BaseLanguage); return;
+  }
+  if (view === 'settings') renderOther();
+}
+
 async function startPlacement() {
   if (!writingReady()) { showOpeningPracticeNotice(true); return; }
   openDialog(`<div id="placement-root"><p>${t('Opening your German sample…')}</p></div>`, 'activity-dialog');
@@ -1453,7 +1534,8 @@ function bindGlobalEvents() {
     if (questController?.isOpen) { if (event.key === 'Escape') { event.preventDefault(); questController.close(); } return; }
     if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
     const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
-    if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') setView('world'); else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
+    if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') { if (menuNavigator) menuNavigator.back(); else setView('world'); } else if (!document.querySelector<HTMLElement>('#chat-body')!.hidden) toggleChat(); return; }
+    if (menuNavigator?.handleKey(event)) return;
     if (view !== 'world' && event.key === 'Tab') {
       const targets = [...document.querySelectorAll<HTMLElement>('#menu-layer button, #menu-layer input, #menu-layer select')].filter(el => !el.hasAttribute('disabled') && !el.hidden && el.getClientRects().length);
       const first = targets[0], last = targets[targets.length - 1];
@@ -1479,6 +1561,7 @@ function bindGlobalEvents() {
     if (target.dataset.coursePage) { coursePage = Math.max(0, Number(target.dataset.coursePage)); renderOther(); return; }
     if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; renderOther(); return; }
     if (target.dataset.courseTab) { coursePage = 0; courseTab = target.dataset.courseTab as typeof courseTab; renderOther(); return; }
+    if (target.dataset.optionsTab) { optionsTab = target.dataset.optionsTab as OptionsTab; uiSounds.play('page'); renderMenuChrome(); renderOther(); menuNavigator?.focusTab(); return; }
     if (target.dataset.journalTab) { journalTab = target.dataset.journalTab as typeof journalTab; renderOther(); return; }
     if (target.dataset.courseUnit) { void startCourseUnit(target.dataset.courseUnit); return; }
     if (target.dataset.wordPractice) { void startWordPractice(target.dataset.wordPractice); return; }
