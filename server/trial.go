@@ -36,7 +36,8 @@ type AccessStatus struct {
 }
 
 func playLimit(account Account) time.Duration {
-	if account.Email != "" {
+	// Every explicit restart receives fifteen minutes, including guest restarts.
+	if account.Email != "" || account.Access.Generation > 0 {
 		return trialPlayLimit
 	}
 	return guestPlayLimit
@@ -206,9 +207,9 @@ func accessBlocked(status AccessStatus) bool {
 }
 
 func writeAccessBlocked(w http.ResponseWriter, status AccessStatus) {
-	code, message := http.StatusForbidden, "sign in or create an account to keep your progress and continue playing"
+	code, message := http.StatusForbidden, "sign in or create an account to keep your progress, or reset the game for another 15 free minutes"
 	if status.Phase == "payment_required" {
-		code, message = http.StatusPaymentRequired, "subscribe to continue playing"
+		code, message = http.StatusPaymentRequired, "subscribe to keep your progress, or reset the game for another 15 free minutes"
 	}
 	writeJSON(w, code, map[string]any{"error": message, "access": status})
 }
@@ -326,7 +327,7 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, err := a.store.ResetGuest(ctx, hash)
+	account, err := a.store.ResetGame(ctx, hash)
 	if err != nil {
 		apiFailure(w, err)
 		return
@@ -340,10 +341,7 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, a.sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
 }
 
-func resetGuestProgress(account *Account) error {
-	if account.Email != "" {
-		return &APIError{403, "registered accounts cannot reset their free trial"}
-	}
+func resetGameProgress(account *Account) error {
 	revision := account.Progress.Revision
 	generation := account.Access.Generation
 	account.Progress = newProgress()

@@ -54,7 +54,7 @@ import type { Progress, ChatMessage, ExposureInput, ConnectionStatus, SessionRes
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
-import { AccessClock, accessBlocked, billingURL, clearGuestProgress, formatAccessTime, type BillingPlan, type GameAccess } from './game-access';
+import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, type BillingPlan, type GameAccess } from './game-access';
 import './game-access.css';
 import { reviewExercises,wordReadyForReview } from './review';
 import { ReviewAttempt } from './review-attempt';
@@ -1183,7 +1183,7 @@ function optionRows(): OptionRow[] {
     { kind: 'action', id: 'course-sources', label: t('Learning content & credits'), help: t('Where the course material comes from.'), action: 'course-sources', button: t('Open'), glyph: 'book' },
   ];
   return [
-    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
+    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">Reset game &amp; play 15 minutes</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
   ];
 }
 function renderOptions(el: HTMLElement) {
@@ -1674,6 +1674,7 @@ function bindGlobalEvents() {
       case 'save-account': showSaveAccount(); break;
       case 'login-account': showLogin(); break;
       case 'logout-account': showLogout(); break;
+      case 'reset-game': showResetGame(); break;
       case 'sound': muted = !muted; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted });  if (!muted) playCue(true); if (view === 'settings') renderOther(); break;
       case 'chat-toggle': toggleChat(); break;
     }
@@ -1783,16 +1784,22 @@ function enforceAccessWall(): void {
     void api.access().catch(accountError);
   }
 }
-function showResetGuest(): void {
-  showAccountDialog(`<div class="eyebrow">START FROM THE BEGINNING</div><h2 id="account-title">Delete your guest progress?</h2><p>Starting over deletes all quests, XP, learned words, practice results and story saves. Your character and name stay the same, and you return to the beginning with 5 free minutes.</p><p>Sign up instead to keep this adventure and unlock the rest of your 15-minute trial.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button reset-progress-button" id="guest-reset-confirm">Delete progress &amp; start over</button><button type="button" class="text-button" id="guest-reset-back">Keep my progress &amp; sign up</button>`, true);
-  document.querySelector<HTMLButtonElement>('#guest-reset-back')!.onclick = () => showSaveAccount(true);
-  document.querySelector<HTMLButtonElement>('#guest-reset-confirm')!.onclick = async event => {
+function showResetGame(): void {
+  const required = accessBlocked(accessClock.snapshot(performance.now()));
+  showAccountDialog(`<div class="eyebrow">START FROM THE BEGINNING</div><h2 id="account-title">Reset your game?</h2><p>Starting over deletes all quests, XP, learned words, practice results and story saves. Your character, account and any paid access stay the same. You return to the beginning with 15 free minutes.</p><p>You can start over for another 15 minutes as often as you like.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button reset-progress-button" id="game-reset-confirm">Reset game &amp; play 15 minutes</button><button type="button" class="text-button" id="game-reset-back">Keep my progress</button>`, required);
+  document.querySelector<HTMLButtonElement>('#game-reset-back')!.onclick = () => {
+    if (!required) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+    else if (account.registered) showPaywall(true);
+    else showSaveAccount(true);
+  };
+  document.querySelector<HTMLButtonElement>('#game-reset-confirm')!.onclick = async event => {
     const button = event.currentTarget as HTMLButtonElement;
-    button.disabled = true;
+    const back = document.querySelector<HTMLButtonElement>('#game-reset-back')!;
+    button.disabled = true; back.disabled = true;
     try {
       accessResetting = true;
       api.destroy();
-      const result = await api.resetGuest();
+      const result = await api.resetGame();
       // Activity destruction persists its draft, so dispose it before clearing.
       activityController?.destroy(); activityController = undefined;
       miniGameController?.destroy(); miniGameController = undefined;
@@ -1802,16 +1809,16 @@ function showResetGuest(): void {
       notifications?.destroy(); notifications = undefined;
       if (reminderTimer !== undefined) clearInterval(reminderTimer);
       reminderTimer = undefined; accountReminder = undefined;
-      clearGuestProgress(localStorage, result.player.id, result.player.name);
+      clearGameProgress(localStorage, result.player.id, result.player.name);
       location.reload();
-    } catch (error) { accessResetting = false; accountError(error); button.disabled = false; }
+    } catch (error) { accessResetting = false; accountError(error); button.disabled = false; back.disabled = false; }
   };
 }
 function showPaywall(required = accessClock.snapshot(performance.now())?.phase === 'payment_required', notice = ''): void {
   const access = accessClock.snapshot(performance.now());
   if (!access?.registered) { showSaveAccount(access?.phase === 'login_required', true); return; }
   if (access.phase === 'paid') { showBillingAccount(); return; }
-  showAccountDialog(`<div class="eyebrow">KEEP THE LANTERNS LIT</div><h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'You have played your 15 free minutes. Choose a plan to continue from exactly where you left off.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<small>/ month</small></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<small>once</small></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><small class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</small>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
+  showAccountDialog(`<div class="eyebrow">KEEP THE LANTERNS LIT</div><h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'You have played your 15 free minutes. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<small>/ month</small></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<small>once</small></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><small class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</small>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
   document.querySelector('#account-dialog')!.classList.add('billing-dialog');
   document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
     const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
@@ -1819,6 +1826,7 @@ function showPaywall(required = accessClock.snapshot(performance.now())?.phase =
     try { const result = await api.checkout(button.dataset.billingPlan as BillingPlan); location.assign(billingURL(result.url)); }
     catch (error) { accountError(error); buttons.forEach(item => { item.disabled = !access.billingAvailable; }); }
   }; });
+  document.querySelector<HTMLButtonElement>('#billing-reset')!.addEventListener('click', showResetGame);
   document.querySelector<HTMLButtonElement>('#billing-back')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
   document.querySelector<HTMLButtonElement>('#billing-check')!.onclick = () => void verifyBilling();
 }
@@ -1995,9 +2003,9 @@ function enterGame(result: SessionResult) {
 function showSaveAccount(required = accessClock.snapshot(performance.now())?.phase === 'login_required', subscribeAfter = false) {
   if (!started || account.registered) return;
   const allowance = accessClock.snapshot(performance.now());
-  showAccountDialog(`<div class="eyebrow">${required ? 'YOUR 5 FREE GUEST MINUTES ARE UP' : 'KEEP YOUR ADVENTURE'}</div><h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${required ? 'Create a free account to keep all your progress and play for 10 more minutes.' : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">${t('Use 10–128 characters.')}</small><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="guest-reset-note">To play anonymously again, you must delete your progress and start at the beginning. Your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
+  showAccountDialog(`<div class="eyebrow">${required ? 'YOUR FREE GUEST TIME IS UP' : 'KEEP YOUR ADVENTURE'}</div><h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 900 ? ` and play for ${Math.ceil((900 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 15 free minutes.` : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">${t('Use 10–128 characters.')}</small><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 15 free minutes as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
   document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGuest);
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGame);
   document.querySelector<HTMLButtonElement>('#account-later')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
   const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
   const password = document.querySelector<HTMLInputElement>('#account-password')!;
@@ -2037,14 +2045,14 @@ function showLogout() {
 
 function showLogin() {
   const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
-  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="guest-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
+  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
   document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => {
     if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     else if (entryLanguage) showNameEntry(!!api.token);
     else showLanguageEntry(!!api.token);
   });
   document.querySelector<HTMLButtonElement>('#login-signup')?.addEventListener('click', () => showSaveAccount(required));
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGuest);
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGame);
   const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
   form.onsubmit = async event => {
     event.preventDefault();

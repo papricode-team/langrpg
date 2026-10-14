@@ -34,7 +34,7 @@ func (s *JSONStore) UpdateAccount(_ context.Context, hash string, fn func(*Accou
 	return cloneAccount(account), nil
 }
 
-func (s *JSONStore) ResetGuest(_ context.Context, hash string) (Account, error) {
+func (s *JSONStore) ResetGame(_ context.Context, hash string) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	id, ok := s.state.Sessions[hash]
@@ -43,7 +43,7 @@ func (s *JSONStore) ResetGuest(_ context.Context, hash string) (Account, error) 
 	}
 	previous := s.state.Accounts[id]
 	account := cloneAccount(previous)
-	if err := resetGuestProgress(&account); err != nil {
+	if err := resetGameProgress(&account); err != nil {
 		return Account{}, err
 	}
 	actions := s.state.Actions[id]
@@ -60,8 +60,8 @@ func (s *PGStore) UpdateAccount(ctx context.Context, hash string, fn func(*Accou
 	return s.updateSessionAccount(ctx, hash, false, fn)
 }
 
-func (s *PGStore) ResetGuest(ctx context.Context, hash string) (Account, error) {
-	return s.updateSessionAccount(ctx, hash, true, resetGuestProgress)
+func (s *PGStore) ResetGame(ctx context.Context, hash string) (Account, error) {
+	return s.updateSessionAccount(ctx, hash, true, resetGameProgress)
 }
 
 func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEvents bool, fn func(*Account) error) (Account, error) {

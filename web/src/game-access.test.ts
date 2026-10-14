@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AccessClock, accessBlocked, billingURL, clearGuestProgress, formatAccessTime, type GameAccess } from './game-access';
+import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, type GameAccess } from './game-access';
 
 const guest = (remainingSeconds = 300): GameAccess => ({ phase: 'guest', remainingSeconds, playedSeconds: 300 - remainingSeconds, registered: false, billingAvailable: true });
 
@@ -50,12 +50,18 @@ describe('server-backed game access clock', () => {
     expect(clock.snapshot(9_000_000)).toMatchObject({ phase: 'paid', plan: 'lifetime' });
     expect(accessBlocked(clock.snapshot(9_000_000))).toBe(false);
   });
-  it('accepts a fresh guest allowance only from a successful server reset', () => {
+  it('accepts repeated fifteen-minute allowances from successful server resets', () => {
     const clock = new AccessClock();
     clock.update({ ...guest(0), phase: 'login_required' }, 0);
     expect(accessBlocked(clock.snapshot(1_000))).toBe(true);
-    clock.update(guest(), 1_000);
-    expect(clock.snapshot(1_000)).toMatchObject({ phase: 'guest', playedSeconds: 0, remainingSeconds: 300 });
+    for (const registered of [false, true, true]) {
+      const phase = registered ? 'trial' : 'guest';
+      clock.update({ ...guest(), registered, phase, playedSeconds: 0, remainingSeconds: 900 }, 1_000);
+      clock.setActive(true, 1_000);
+      expect(clock.snapshot(1_000)).toMatchObject({ phase, playedSeconds: 0, remainingSeconds: 900 });
+      expect(clock.snapshot(900_000)?.phase).toBe(phase);
+      expect(accessBlocked(clock.snapshot(901_000))).toBe(true);
+    }
   });
   it('rounds the visible timer upward and clamps expired allowances', () => {
     expect(formatAccessTime(300)).toBe('05:00');
@@ -73,13 +79,13 @@ describe('hosted billing URLs', () => {
   });
 });
 
-describe('guest progress reset', () => {
+describe('game progress reset', () => {
   it('clears discoveries, unfinished activities, expedition drafts and records while preserving the character and preferences', () => {
     const progressKeys = ['atlas.placement', 'atlas.accountReminder.guest', 'atlas.acts.guest', 'atlas.objects.guest', 'atlas.sceneHinted.guest.quest', 'atlas.activity.v1:guest:interior:cafe:cafe:A1', 'atlas.minigame.chain:guest:game:week', 'lantern-story-ledger:guest:greta-memory-garden-v1', 'lantern-story-ledger:Juniper:greta-memory-garden-v1', 'atlas.expedition.plan.v1.work.A1'];
     const preservedKeys = ['atlas.token', 'atlas.profile', 'atlas.nameChosen.guest', 'atlas.baseLanguage', 'atlas.screenFilters', 'atlas.silentMode', 'atlas.activity.v1:other-player:cafe:A1', 'atlas.objects.other-player'];
     const values = new Map([...progressKeys, ...preservedKeys].map(key => [key, 'saved']));
     const storage = { get length() { return values.size; }, key: (index: number) => [...values.keys()][index] ?? null, removeItem: (key: string) => { values.delete(key); }, setItem: (key: string, value: string) => { values.set(key, value); } };
-    clearGuestProgress(storage, 'guest', 'Juniper');
+    clearGameProgress(storage, 'guest', 'Juniper');
     progressKeys.forEach(key => expect(values.has(key)).toBe(false));
     preservedKeys.forEach(key => expect(values.get(key)).toBe('saved'));
     expect(values.get('atlas.map')).toBe('lindenhafen');

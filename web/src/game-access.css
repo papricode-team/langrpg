@@ -27,7 +27,7 @@
 .account-switch { display: flex; gap: 8px; margin: 20px 0 4px; }
 .account-switch button { flex: 1; min-height: 40px; border: 1px solid #b9b08a66; border-radius: 10px; background: transparent; color: var(--paper); font-weight: 600; }
 .account-switch button.selected { background: #d9ce9a; border-color: #d9ce9a; color: #20372a; }
-.account-dialog .guest-reset-note { margin: 22px 0 0; color: #e1d8b8; font-size: 12px; }
+.account-dialog .game-reset-note { margin: 22px 0 0; color: #e1d8b8; font-size: 12px; }
 .account-dialog .reset-progress-button { background: #aa5144; color: #fff2de; }
 .account-dialog.billing-dialog { width: min(660px, calc(100vw - 32px)); }
 .billing-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0 18px; }

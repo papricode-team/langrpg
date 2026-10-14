@@ -27,7 +27,7 @@ type Store interface {
 	AddSession(context.Context, string, string) error
 	DeleteSession(context.Context, string) error
 	UpdateAccount(context.Context, string, func(*Account) error) (Account, error)
-	ResetGuest(context.Context, string) (Account, error)
+	ResetGame(context.Context, string) (Account, error)
 	GetAccountByID(context.Context, string) (Account, error)
 	FindBillingAccount(context.Context, string, string) (string, error)
 	UpdateAccountByID(context.Context, string, func(*Account) error) (Account, error)

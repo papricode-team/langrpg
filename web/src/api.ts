@@ -180,7 +180,7 @@ export class Api {
   }
   access() { return this.request<{ access: GameAccess }>('/access'); }
   accessHeartbeat(active: boolean) { return this.request<{ access: GameAccess }>('/access/heartbeat', { active }); }
-  async resetGuest(): Promise<SessionResult> {
+  async resetGame(): Promise<SessionResult> {
     const result = await this.request<SessionResult>('/access/reset', {});
     return this.rememberSession(result);
   }
