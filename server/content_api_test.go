@@ -498,6 +498,133 @@ func TestContentExpeditionChoiceFeedbackRequiresRecordedAnswer(t *testing.T) {
 	}
 }
 
+func TestContentExpeditionSelectedFeedbackAndImmutableRetries(t *testing.T) {
+	for _, language := range []string{"en", "tr"} {
+		t.Run(language, func(t *testing.T) {
+			app := contentTestApp(t)
+			token, _ := createSession(t, app, "Expedition Ada")
+			if res := request(app, "POST", "/api/preferences", token, map[string]any{"baseLanguage": language}); res.Code != 200 {
+				t.Fatal(res.Body.String())
+			}
+			slug := "saffroncourt-encounter-salma"
+			id := testContentID(t, app, "expedition", slug)
+			var body map[string]any
+			_ = json.Unmarshal(app.content.ByID[id].Body, &body)
+			choices := anyValues(body["choices"])
+			if len(choices) != 2 {
+				t.Fatal("feedback fixture lacks two replies")
+			}
+			expected := app.contentExpeditionFeedback(slug, 1, language)
+			other := app.contentExpeditionFeedback(slug, 0, language)
+			if expected == "" || other == "" || expected == other {
+				t.Fatal("selected feedback fixture is missing")
+			}
+			input := map[string]any{"id": "selected-expedition-feedback", "encounterId": id, "selected": 1}
+			if res := request(app, "POST", "/api/expedition/answer", token, input); res.Code != 403 || strings.Contains(res.Body.String(), expected) {
+				t.Fatal("locked reply disclosed feedback")
+			}
+			if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(a *Account) error {
+				a.Progress.CompletedQuestIDs = append([]string{}, storyQuestOrder...)
+				return nil
+			}); err != nil {
+				t.Fatal(err)
+			}
+			res := request(app, "GET", "/api/content/expeditions/"+id, token, nil)
+			if res.Code != 200 {
+				t.Fatal(res.Body.String())
+			}
+			assertNoContentSecrets(t, res.Body.Bytes())
+			if strings.Contains(res.Body.String(), expected) || strings.Contains(res.Body.String(), other) {
+				t.Fatal("encounter read disclosed candidate feedback")
+			}
+			choice, _ := choices[0].(map[string]any)
+			if sentenceID := stringValue(choice["sentenceId"]); sentenceID != "" {
+				line := request(app, "GET", "/api/content/sentences?ids="+sentenceID, token, nil)
+				if line.Code != 200 || !strings.Contains(line.Body.String(), "Ich bringe es hinter das blaue Tor.") {
+					t.Fatal("redaction removed the selectable reply sentence")
+				}
+				published := app.content.PublishedIDs["lines:expedition:"+slug+":choice:0"]
+				if published == "" {
+					t.Fatal("new expedition reply lacks its published UUID bridge")
+				}
+				line = request(app, "GET", "/api/content/sentences?ids="+published, token, nil)
+				if line.Code != 200 || !strings.Contains(line.Body.String(), sentenceID) {
+					t.Fatal("published expedition choice UUID did not resolve to current sentence")
+				}
+			}
+			res = request(app, "POST", "/api/expedition/answer", token, map[string]any{"id": "missing-selected", "encounterId": id})
+			if res.Code != 400 || strings.Contains(res.Body.String(), expected) {
+				t.Fatal("missing selection returned feedback")
+			}
+			for _, duplicate := range []bool{false, true} {
+				res = request(app, "POST", "/api/expedition/answer", token, input)
+				if res.Code != 200 {
+					t.Fatal(res.Body.String())
+				}
+				var result struct {
+					Feedback    string           `json:"feedback"`
+					Explanation string           `json:"explanation"`
+					Record      ExpeditionRecord `json:"record"`
+					Duplicate   bool             `json:"duplicate"`
+					Correct     bool             `json:"correct"`
+				}
+				if err := json.Unmarshal(res.Body.Bytes(), &result); err != nil {
+					t.Fatal(err)
+				}
+				if result.Feedback != expected || result.Explanation != expected || result.Record.Selected != 1 || result.Record.Attempts != 1 || result.Duplicate != duplicate || result.Correct != result.Record.Correct {
+					t.Fatalf("selected receipt mismatch %+v", result)
+				}
+				if strings.Contains(res.Body.String(), other) {
+					t.Fatal("reply disclosed unselected feedback")
+				}
+			}
+			conflict := map[string]any{"id": input["id"], "encounterId": id, "selected": 0}
+			if res = request(app, "POST", "/api/expedition/answer", token, conflict); res.Code != 409 || strings.Contains(res.Body.String(), other) {
+				t.Fatal("conflicting retry returned unrecorded feedback")
+			}
+			later := map[string]any{"id": "later-expedition-reply", "encounterId": id, "selected": 0}
+			if res = request(app, "POST", "/api/expedition/answer", token, later); res.Code != 200 {
+				t.Fatal(res.Body.String())
+			}
+			res = request(app, "POST", "/api/expedition/answer", token, input)
+			var replay struct {
+				Record   ExpeditionRecord `json:"record"`
+				Feedback string           `json:"feedback"`
+			}
+			if res.Code != 200 || json.Unmarshal(res.Body.Bytes(), &replay) != nil || replay.Record.Selected != 1 || replay.Record.Correct || replay.Feedback != expected {
+				t.Fatal("later answer changed earlier retry correctness or feedback")
+			}
+		})
+	}
+}
+
+func TestContentMiniGameReadsKeepFeedbackAndAnswerKeysPrivate(t *testing.T) {
+	app := contentTestApp(t)
+	count := 0
+	for _, record := range app.content.Records {
+		if record.Kind != "minigame" {
+			continue
+		}
+		count++
+		for _, lang := range []string{"en", "tr"} {
+			data, err := json.Marshal(app.publicRecord(record, lang))
+			if err != nil {
+				t.Fatal(err)
+			}
+			assertNoContentSecrets(t, data)
+		}
+	}
+	if count == 0 {
+		t.Fatal("minigame fixture missing")
+	}
+	fixture := map[string]any{"prompt": "visible task", "board": map[string]any{"expected": "key", "response": "private feedback", "orderExplanation": "private sequence", "modelAnswer": "private target"}}
+	data, _ := json.Marshal(stripContent(fixture, "en", ""))
+	assertNoContentSecrets(t, data)
+	if !strings.Contains(string(data), "visible task") {
+		t.Fatal("redaction removed the visible task")
+	}
+}
+
 func TestContentAnswerAssistanceExpiresForLaterScheduledReview(t *testing.T) {
 	app := contentTestApp(t)
 	now := time.Date(2026, 10, 14, 12, 0, 0, 0, time.UTC)

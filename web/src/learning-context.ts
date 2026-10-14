@@ -94,7 +94,9 @@ export const placementExerciseIds=[
   'b1-council-exercise-5','b1-witness-exercise-3',
 ] as const;
 export interface PlacementExercise extends Exercise {level:CourseLevel;}
-export const placementDialogue:Record<typeof placementExerciseIds[number],{speaker:string;german:string;english:string}>={
+export interface PlacementTurn {speaker:string;sentenceId?:string;german:string;english:string;}
+export interface PlacementQuestion {exercise:PlacementExercise;turn:PlacementTurn;}
+export const placementDialogue:Record<string,PlacementTurn>={
   'a1-arrival-exercise-1':{speaker:'Otto',german:'Willkommen! Es ist früh.',english:'Welcome! It is early.'},
   'a1-cafe-exercise-6':{speaker:'Marta',german:'Möchten Sie jetzt bezahlen?',english:'Would you like to pay now?'},
   'a1-lost-parcel-exercise-2':{speaker:'Lina',german:'Ich schicke das Paket. Was brauchen Sie?',english:'I will send the parcel. What do you need?'},
@@ -104,9 +106,9 @@ export const placementDialogue:Record<typeof placementExerciseIds[number],{speak
   'b1-council-exercise-5':{speaker:'Greta',german:'Wir kennen noch nicht alle Fakten. Trotzdem will der Rat entscheiden.',english:'We do not know all the facts yet. The council still wants to decide.'},
   'b1-witness-exercise-3':{speaker:'Elise',german:'Der Zeuge sagt, der Zug sei schon um fünf Uhr abgefahren.',english:'The witness says the train had already left at five.'},
 };
-export function placementExercises(exercises:readonly PlacementExercise[]):PlacementExercise[] {
+export function placementExercises(exercises:readonly PlacementExercise[], ids:readonly string[]=placementExerciseIds):PlacementExercise[] {
   const byId=new Map(exercises.map(exercise=>[exercise.id,exercise]));
-  return placementExerciseIds.map(id=>{const exercise=byId.get(id);if(!exercise)throw new Error(`Missing placement exercise ${id}`);return exercise;});
+  return ids.map(id=>{const exercise=byId.get(id);if(!exercise)throw new Error(`Missing placement exercise ${id}`);return exercise;});
 }
 export interface PlacementEvidence {level:CourseLevel;correct:boolean;hinted:boolean;}
 export function placementRecommendation(results:readonly PlacementEvidence[]):CourseLevel {

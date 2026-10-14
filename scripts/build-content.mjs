@@ -15,6 +15,9 @@ export function buildContent({ directory = root } = {}) {
   const publishedIds = json(resolve(directory,'content/published-content-ids.json'), {});
   const authored = json(resolve(directory,'content/word-maps.json'), {});
   const fixtures = json(resolve(directory,'content/authored-maps.json'), []);
+  const imported = json(resolve(directory,'content/imported-alignment-drafts.json'), {entries:[]});
+  const importedByText=new Map();
+  for(const entry of imported.entries) {const values=importedByText.get(entry.text)??[];values.push(entry);importedByText.set(entry.text,values);}
   const records = [], byId = new Map();
   const id = (kind, slug) => stableId(`${kind}:${slug}`, ids);
   const publishedKinds={quests:'quest',exercises:'exercise',items:'item',lexemes:'lexeme',units:'unit',nodes:'node',choices:'choice',expeditions:'expedition',minigames:'minigame'};
@@ -62,14 +65,21 @@ export function buildContent({ directory = root } = {}) {
     const text = pair.text ?? pair.german;
     let translations = pair.translations ? structuredClone(pair.translations) : { en:{text:pair.english ?? pair.translation ?? '',words:[]} };
     if (course.target === 'de' && (pair.turkish || trBySentence.has(text))) translations.tr = {text:pair.turkish??trBySentence.get(text),words:[]};
+    const candidates=course.target==='de'?importedByText.get(text)??[]:[];
+    const explicit=candidates.filter(entry=>entry.sourceSlugs.includes(slug));
+    const exact=candidates.filter(entry=>Object.entries(translations).some(([language,value])=>value.text&&entry.translations[language]?.text===value.text));
+    const draft=explicit.length===1?explicit[0]:exact.length===1?exact[0]:candidates.length===1?candidates[0]:undefined;
+    const priorFixture=fixtures.find(item=>item.text===text&&Object.entries(item.translations).every(([lang,value])=>translations[lang]?.text===value.text));
+    if(draft&&!priorFixture&&!authored[key])for(const [lang,value]of Object.entries(draft.translations))if(!translations[lang]?.text||(draft.replaceSupport&&draft.sourceSlugs.includes(slug)))translations[lang]={text:value.text,words:[]};
     const rawWords = sourceTokens(text), words = [];
     const fixture = fixtures.find(item=>item.text === text && Object.entries(item.translations).every(([lang,value])=>translations[lang]?.text===value.text));
     if(authored[key] && authored[key].sourceText!==text)throw new Error(`${slug}: source text changed after alignment authoring`);
-    const maps = authored[key]?.translations ?? fixture?.translations ?? {};
+    const maps = authored[key]?.translations ?? fixture?.translations ?? (draft?Object.fromEntries(Object.entries(draft.translations).filter(([lang,value])=>translations[lang]?.text===value.text)):{});
     for(const [lang,map]of Object.entries(maps))if(!translations[lang])translations[lang]={text:map.text,words:[]};
     for (const token of rawWords) {
-      const matches = lexicalForms.get(token.source.text) ?? lexicalForms.get(token.source.text.toLowerCase()) ?? [];
-      const glossary = pair.glosses?.[token.source.text] ?? pair.glosses?.[token.source.text.toLowerCase()];
+      const glossOmitted=draft?.omitGlossSources.some(word=>sourceKey(word)===sourceKey(token.source));
+      const matches = glossOmitted?[]:lexicalForms.get(token.source.text) ?? lexicalForms.get(token.source.text.toLowerCase()) ?? [];
+      const glossary = glossOmitted?undefined:pair.glosses?.[token.source.text] ?? pair.glosses?.[token.source.text.toLowerCase()];
       const mapped = Object.values(maps).some(value=>(value.words ?? []).some(word=>sourceKey(word.source)===sourceKey(token.source)));
       const proofPairs = course.target==='en' ? Object.values(translations).some(value=>(value.pairs ?? []).some(([source])=>source===token.source.text)) : false;
       if (!matches.length && !glossary && !mapped && !proofPairs) continue;
@@ -90,9 +100,9 @@ export function buildContent({ directory = root } = {}) {
       if (map && map.text!==translation.text) throw new Error(`${slug}/${lang}: stale authored translation`);
       translations[lang] = compileTranslation(text,{text:translation.text,words:map?.words ?? []},words,`${slug}/${lang}`,{strict:false});
     }
-    const status = course.target==='en' || fixture || authored[key] ? 'authored' : 'pending';
+    const status = course.target==='en' || fixture || authored[key] || Object.keys(maps).length ? 'authored' : 'pending';
     const audio=typeof pair.audio==='string'?pair.audio:pair.audio?.path??(pair.clipId?`/audio/dialogue/${pair.clipId}.mp3`:course.target==='de'?audioByText.get(text):undefined);
-    add('sentence',slug,{text,target:course.target,translations,words,owners,...(audio?{audio:{path:audio}}:{}),authoring:{status,review:authored[key]?.review??{status:'pending-native-speaker-review'}}},course.id);
+    add('sentence',slug,{text,target:course.target,translations,words,owners,...(audio?{audio:{path:audio}}:{}),authoring:{status,review:authored[key]?.review??{status:'pending-native-speaker-review'},...(draft?{importedFrom:draft.provenance}: {})}},course.id);
     return key;
   }
   const support = value => ({en:value,...(trByText.has(value)?{tr:trByText.get(value)}:{})});
@@ -140,7 +150,9 @@ export function buildContent({ directory = root } = {}) {
     const tr = overlay.course.exercises[exercise.id]?.tr;
     const contextWords=exercise.wordIds??source.legacyServer.course.contextWordIds?.[exercise.id];
     const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(contextWords),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
-    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);const audio=byId.get(body.sentenceId).body.audio;if(audio)body.audio=audio;}
+    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);body.exampleSentenceId=body.sentenceId;const audio=byId.get(body.sentenceId).body.audio;if(audio)body.audio=audio;}
+    const gatePairs=source.beginnerGateTranslations[exercise.id];
+    if(gatePairs?.length)body.optionSentenceIds=Object.fromEntries(gatePairs.map(([german,english],index)=>[german,sentence(`context:beginner:${exercise.id}:${index}`,{german,english},[owner('exercise',exercise.id)])]));
     add('exercise',exercise.id,body);
   };
   for(const quest of source.quests)for(const exercise of quest.exercises)exerciseRecord(exercise,{questId:id('quest',quest.id),level:quest.level});
@@ -162,6 +174,20 @@ export function buildContent({ directory = root } = {}) {
   }
   const contexts=[];
   function context(slug,category,data,owners=[],meta={}) { const record=add('context',slug,{category,owners,data:refs(data,`context:${slug}`,owners)});const visual=['npc','interior','activity','expedition','act'].includes(owners[0]?.kind)?owners[0].id:undefined;contexts.push({id:record.id,kind:category,...(visual?{worldId:visual}:{}),...(owners[0]?{ownerId:owners[0].id,ownerKind:owners[0].kind,level:owners[0].level}:{}),...meta});return record.id; }
+  if(source.placement) {
+    const placementOwner={kind:'placement',id:germanId};
+    const questions=source.placement.exerciseIds.map(slug=>{
+      const cue=source.placement.dialogue[slug],exercise=byId.get(id('exercise',slug));
+      if(!cue||!exercise)throw new Error(`Missing authored placement question ${slug}`);
+      const existing=records.find(record=>record.kind==='sentence'&&record.body.text===cue.german&&record.body.translations.en?.text===cue.english);
+      if(existing&&!existing.body.owners.some(owner=>owner.kind==='placement'))existing.body.owners.push(placementOwner);
+      const sentenceId=existing?.id??sentence(`placement:${slug}`,cue,[placementOwner]);
+      return {exerciseId:exercise.id,level:exercise.body.level,turn:{speaker:cue.speaker,sentenceId}};
+    });
+    context('placement:german','placement',{exerciseIds:questions.map(question=>question.exerciseId),questions},[placementOwner],{worldId:'placement'});
+  }
+  for(const [key,data]of Object.entries(source.specialItems??{}))context(`special-item:${key}`,'specialItem',{id:key,...data,support:{tr:Object.fromEntries(Object.entries(data).filter(([,text])=>trByText.has(text)).map(([field,text])=>[field,trByText.get(text)]))}},[{kind:'specialItem',id:id('item',key)}],{worldId:key});
+  for(const [key,data]of Object.entries(source.storyEndings??{}))context(`story-ending:${key}`,'storyEnding',{id:key,...data,support:{tr:Object.fromEntries(Object.entries(data).filter(([,text])=>trByText.has(text)).map(([field,text])=>[field,trByText.get(text)]))}},[{kind:'storyEnding',id:key}],{worldId:key});
   for(const guide of source.course.grammar) {
     const {explanation,...rest}=guide,tr=overlay.course.grammar[guide.id];
     context(`grammar:${guide.id}`,'grammar',{...rest,id:id('context',`grammar:${guide.id}`),teachingNotes:explanation,...(tr?{support:{tr:{title:tr.title[1],teachingNotes:tr.explanation[1],...(tr.note?{note:tr.note}:{})}}}:{})},[{kind:'unit',level:guide.level}]);
@@ -184,7 +210,7 @@ export function buildContent({ directory = root } = {}) {
   for(const region of source.expeditionRegions) for(const encounter of region.encounters) {
     const {german:_,translation:__,choices,...rest}=encounter;
     const learning=source.legacyServer.expeditionLearning.encounters.find(row=>row.encounterId===encounter.id);
-    add('expedition',encounter.id,{...rest,id:id('expedition',encounter.id),worldId:encounter.id,routeId:region.id,sentenceId:sentence(`expedition:${encounter.id}`,encounter,[owner('expedition',encounter.id,{routeId:region.id,level:encounter.difficulty})]),...(learning?{learning:{encounterId:id('expedition',encounter.id),regionId:region.id,contentId:id('content',encounter.id),level:learning.level,exerciseIds:Object.fromEntries(Object.entries(learning.exerciseIds).map(([mode,slug])=>[mode,id('exercise',slug)])),wordIds:wordIds(learning.wordIds),targetWordId:id('lexeme',learning.targetWordId),audio:learning.audio,supported:learning.supported}}:{}),choices:choices.map(({correct,response,text},index)=>({id:id('choice',`${encounter.id}:${index}`),text,response,grading:{correct}}))});
+    add('expedition',encounter.id,{...rest,id:id('expedition',encounter.id),worldId:encounter.id,routeId:region.id,sentenceId:sentence(`expedition:${encounter.id}`,encounter,[owner('expedition',encounter.id,{routeId:region.id,level:encounter.difficulty})]),...(learning?{learning:{encounterId:id('expedition',encounter.id),regionId:region.id,contentId:id('content',encounter.id),level:learning.level,exerciseIds:Object.fromEntries(Object.entries(learning.exerciseIds).map(([mode,slug])=>[mode,id('exercise',slug)])),wordIds:wordIds(learning.wordIds),targetWordId:id('lexeme',learning.targetWordId),audio:learning.audio,supported:learning.supported}}:{}),choices:choices.map(({correct,response,text},index)=>({id:id('choice',`${encounter.id}:${index}`),text,response,...(trByText.has(response)?{support:{tr:{response:trByText.get(response)}}}:{}),sentenceId:sentence(`expedition:${encounter.id}:choice:${index}`,{text},[owner('expedition',encounter.id,{routeId:region.id,level:encounter.difficulty})]),grading:{correct}}))});
   }
   const interiorData=source.interiors.map(room=>({...room,objects:room.objects.map(object=>({...object,exerciseIds:object.exerciseIds.map(value=>id('exercise',value)),vocabulary:object.vocabulary.map((word,index)=>{const surface=`${word.article} ${word.lemma}`,{english,...rest}=word;return {...rest,sentenceId:sentence(`interior:${object.id}:${index}`,{german:surface,english},[{kind:'interior',id:room.id}])};})}))}));
   for(const room of interiorData)context(`interior:${room.id}`,'interior',room,[{kind:'interior',id:room.id,level:'A1'}]);

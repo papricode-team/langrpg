@@ -157,6 +157,13 @@ test('enforces person scale and native scenery density',async()=>{
   await assert.rejects(compileSceneDocument(blurry),/boat source density .* below 3.5 \/ 2.5/);
 });
 
+test('rejects crowded painted buildings even when optional quality checks and collision are disabled',async()=>{
+  const value=structuredClone(source),scene=value.maps.lindenhafen;
+  const owner=scene.scenery.find(item=>item.id==='workshop');
+  scene.scenery.push({...structuredClone(owner),id:'crowded-workshop',x:owner.x+owner.width+31,collidable:false});
+  await assert.rejects(compileSceneDocument(value,{strictQuality:false}),/buildings workshop and crowded-workshop need at least 32 units between their painted bounds/);
+});
+
 test('requires distinct real doors and rejects offsets detached from painted openings',async()=>{
   const detached=structuredClone(source),scene=detached.maps.lindenhafen;
   scene.entrances[0].offsetX+=180;

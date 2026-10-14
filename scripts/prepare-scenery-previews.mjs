@@ -34,7 +34,8 @@ for (const map of args.length ? args : Object.keys(sceneDocument.maps)) {
     if (!rect) throw Error(`${map}/${name}: missing preview frame`);
     const scale = cardScale * spec.width / (entry?.base?.referenceWidth ?? entry?.referenceWidth ?? rect.w);
     const width = Math.round(rect.w * scale), height = Math.round(rect.h * scale);
-    const left = Math.round(spec.x * cardScale - width * (entry?.base?.originX ?? entry?.originX ?? .5));
+    const originX = entry?.base?.originX ?? entry?.originX ?? .5;
+    const left = Math.round(spec.x * cardScale - width * (spec.flipX ? 1 - originX : originX));
     const top = Math.round(spec.y * cardScale - height * (entry?.base?.originY ?? entry?.originY ?? 1));
     const cropLeft = Math.max(0, -left), cropTop = Math.max(0, -top);
     const cropWidth = Math.min(width - cropLeft, canvasWidth - Math.max(0, left)), cropHeight = Math.min(height - cropTop, canvasHeight - Math.max(0, top));

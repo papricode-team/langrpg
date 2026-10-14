@@ -48,7 +48,7 @@ describe('ten culturally distinct exploration communities', () => {
         expect(encounter.translation).not.toBe(encounter.german);
         expect(encounter.choices.filter(choice=>choice.correct)).toHaveLength(1);
         expect(new Set(encounter.choices.map(choice=>choice.text)).size).toBe(encounter.choices.length);
-        expect(encounter.choices.every(choice=>choice.response.length>40)).toBe(true);
+        expect(encounter.choices.every(choice=>(choice.response?.length??0)>40)).toBe(true);
         encounters++;
       }
       expect(new Set(region.encounters.map(encounter=>encounter.id)).size).toBe(18);

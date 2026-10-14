@@ -33,9 +33,12 @@ export interface ExpeditionGameOptions {
   pendingLearning?():number;
   retryLearning?():Promise<number>;
   initialPlan?(level: Level): ServerExpeditionPlan | undefined;
-  submitPlan?(plan: ExpeditionPlan): Promise<{ correct: boolean; plan: ServerExpeditionPlan; feedback?: string[] }>;
+  submitPlan?(plan: ExpeditionPlan): Promise<{ correct: boolean; plan: ServerExpeditionPlan; feedback?: string[]; agreement?: string }>;
 }
 export interface ExpeditionGame {
+  serverOwned?: boolean;
+  progressScope?: string;
+  agreements?: Record<string, string>;
   id: ExpeditionGameId;
   title: string;
   summary: string;
@@ -144,8 +147,17 @@ export const expeditionGames: readonly ExpeditionGame[] = [
 ];
 
 export function getExpeditionGame(id: string): ExpeditionGame | undefined { return expeditionGames.find(game => game.id===id); }
+/** Public game data carries choices; validation stays with the server. */
+export function serverExpeditionGame(value: ExpeditionGame, progressScope?: string): ExpeditionGame {
+  const game = { ...value, serverOwned: true, progressScope, solution: {}, agreement: '', orderExplanation: '', note: value.note ?? '', agreements: value.agreements ?? {} };
+  game.validate = () => [];
+  game.meter = values => game.fields.map(field => `${field.label}: ${field.options.find(option => option.value === values[field.id])?.label ?? '—'}`).join(' · ');
+  return game;
+}
+export const expeditionAgreementKey = (game: ExpeditionGame, values: Record<string, number>): string => JSON.stringify(game.fields.map(field => values[field.id]));
 /** Completed paper props describe the learner's actual accepted allocation. */
 export function expeditionAgreement(game: ExpeditionGame, values: Record<string,number>): string {
+  if (game.serverOwned) return game.agreements?.[expeditionAgreementKey(game, values)] ?? '';
   values={...game.solution,...values};
   const words:Record<number,string>={1:'eins',2:'zwei',3:'drei',4:'vier',5:'fünf',6:'sechs',7:'sieben',8:'acht',11:'elf',12:'zwölf',13:'dreizehn',14:'vierzehn',15:'fünfzehn',16:'sechzehn',17:'siebzehn',18:'achtzehn',19:'neunzehn',20:'zwanzig',21:'einundzwanzig',23:'dreiundzwanzig',26:'sechsundzwanzig'};
   const n=(value:number)=>words[value]??String(value);
@@ -173,16 +185,21 @@ export function freshExpeditionPlan(game: ExpeditionGame, level: Level): Expedit
 }
 export function checkExpeditionPlan(game: ExpeditionGame, plan: ExpeditionPlan): PlanCheck {
   const invalidFields = game.fields.filter(field => !field.options.some(option => option.value===plan.values[field.id]));
+  if (game.serverOwned) {
+    const complete = plan.order.length === game.steps.length && new Set(plan.order).size === plan.order.length && plan.order.every(id => game.steps.some(step => step.id === id));
+    return { correct: false, feedback: invalidFields.length || !complete ? ['Complete every part of the plan before submitting it.'] : [], meter: game.meter(plan.values) };
+  }
   const feedback = invalidFields.length ? ['Please select a valid value for every part of your plan.'] : game.validate(plan.values);
   if (plan.order.length!==game.steps.length || game.steps.some((step,index)=>plan.order[index]!==step.id)) feedback.push(game.orderExplanation);
   return {correct:feedback.length===0, feedback, meter:game.meter(plan.values)};
 }
 interface StorageLike { getItem(key: string): string | null; setItem(key: string,value: string): void; }
-const planKey = (id: string,level: Level) => `atlas.expedition.plan.v1.${id}.${level}`;
+const planKey = (game: ExpeditionGame,level: Level) => game.serverOwned ? `atlas.expedition.plan.v2.${game.progressScope}.${game.id}.${level}` : `atlas.expedition.plan.v1.${game.id}.${level}`;
 export function loadExpeditionPlan(game: ExpeditionGame,level: Level,storage?: StorageLike): ExpeditionPlan {
   const fresh = freshExpeditionPlan(game,level);
+  if (game.serverOwned && !game.progressScope) return fresh;
   try {
-    const saved: unknown = JSON.parse((storage ?? localStorage).getItem(planKey(game.id,level)) || 'null');
+    const saved: unknown = JSON.parse((storage ?? localStorage).getItem(planKey(game,level)) || 'null');
     if (!saved || typeof saved!=='object') return fresh;
     const data = saved as Partial<ExpeditionPlan>;
     if (data.version!==1 || data.level!==level) return fresh;
@@ -193,7 +210,7 @@ export function loadExpeditionPlan(game: ExpeditionGame,level: Level,storage?: S
   } catch { /* A malformed or blocked storage record starts a fresh plan. */ }
   return fresh;
 }
-export function saveExpeditionPlan(game: ExpeditionGame,plan: ExpeditionPlan,storage?: StorageLike): void { try { (storage ?? localStorage).setItem(planKey(game.id,plan.level),JSON.stringify(plan)); } catch { /* The game remains playable when browser storage is unavailable. */ } }
+export function saveExpeditionPlan(game: ExpeditionGame,plan: ExpeditionPlan,storage?: StorageLike): void { if (game.serverOwned && !game.progressScope) return; try { (storage ?? localStorage).setItem(planKey(game,plan.level),JSON.stringify(plan)); } catch { /* The game remains playable when browser storage is unavailable. */ } }
 export function expeditionGameStatus(id:string,level:Level,authoritativePlans?:AuthoritativeExpeditionPlans): 'new'|'started'|'completed' {
   const game=getExpeditionGame(id); if (!game) return 'new';
   const plan=loadExpeditionPlan(game,level);
@@ -218,7 +235,7 @@ export function mountExpeditionGame(root: HTMLElement, game: ExpeditionGame, opt
         else if(saved.completed&&value===undefined)restored.values[field.id]=game.solution[field.id];
       }
       restored.order=saved.order.filter((id,index,array)=>game.steps.some(step=>step.id===id)&&array.indexOf(id)===index);
-      restored.attempts=saved.attempts;restored.completed=saved.completed&&checkExpeditionPlan(game,restored).correct;
+      restored.attempts=saved.attempts;restored.completed=saved.completed&&(game.serverOwned||checkExpeditionPlan(game,restored).correct);
       return restored;
     }
     const draft = loadExpeditionPlan(game,level);
@@ -287,6 +304,7 @@ export function mountExpeditionGame(root: HTMLElement, game: ExpeditionGame, opt
           const result=await options.submitPlan({...plan,values:{...plan.values},order:[...plan.order]});
           if (!alive) return;
           plan={version:1,...result.plan,values:{...result.plan.values},order:[...result.plan.order],completed:result.correct&&result.plan.completed};
+          if (result.correct && result.agreement) (game.agreements ??= {})[expeditionAgreementKey(game, plan.values)] = result.agreement;
           const explanation=checkExpeditionPlan(game,plan).feedback;
           feedback={correct:result.correct,feedback:result.feedback??(explanation.length?explanation:['The neighborhood needs a different agreement.']),meter:game.meter(plan.values)};
           if (!plan.completed) layoutRevision++;

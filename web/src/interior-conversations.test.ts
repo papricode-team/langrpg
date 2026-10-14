@@ -61,7 +61,7 @@ describe('authored interior conversations', () => {
     expect(host.querySelectorAll('[data-speak]')).toHaveLength(3);
     expect(host.textContent).toContain('Einen Kaffee mit Milch, bitte.');
     expect(host.textContent).not.toContain('A coffee with milk, please.');
-    const answer = host.querySelector<HTMLElement>('[data-interior-choice="first"] .translated-sentence')!;
+    const answer = host.querySelector<HTMLElement>('.conversation-choice:first-child .conversation-choice-line .translated-sentence')!;
     expect(answer.dataset.translation).toBe('A coffee with milk, please.');
     expect(answer.tabIndex).toBe(0);
     expect(host.querySelector('[data-interior-conversation="encounter"]')).not.toBeNull();
@@ -73,7 +73,7 @@ describe('authored interior conversations', () => {
     await setBaseLanguage('tr', { persist: false });
     const host = document.createElement('div');
     host.innerHTML = renderInteriorConversation(createInteriorConversationState('interior:cafe:coffee')!);
-    expect(host.querySelector<HTMLElement>('[data-interior-choice="first"] .translated-sentence')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
+    expect(host.querySelector<HTMLElement>('.conversation-choice:first-child .conversation-choice-line .translated-sentence')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
     expect(host.querySelector<HTMLElement>('.translated-sentence')?.dataset.translationLang).toBe('tr');
     expect(host.textContent).not.toContain('Sütlü bir kahve, lütfen.');
     expect(host.querySelector('.encounter-role')?.textContent).toBe('Ev sahibi');

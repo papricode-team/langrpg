@@ -83,7 +83,7 @@ describe('immutable full neighborhood agreements',()=>{
  });
 });
 describe('encounter reading and listening controller',()=>{
- function mount(restored=true,reading=true,initialPaused=false){const encounter=expeditionRegions[0].encounters[0],row=manifest.encounters[0],services=service(restored?row.wordIds:[]);const root=document.createElement('div');document.body.append(root);let resolveSpeech!:()=>void;const speak=vi.fn(()=>new Promise<void>(done=>{resolveSpeech=done;}));const saveStory=vi.fn(async(_selected:number,_id:string):Promise<{progress:Progress}>=>({progress:services.progress()}));const controller=mountExpeditionEncounter(root,encounter,{learning:services.learning,progress:services.progress,onProgress:services.onProgress,saveStory,speak,stopSpeech:vi.fn(),silent:false,initialPaused,previouslyAnswered:false});if(reading)root.querySelector<HTMLButtonElement>('[data-enc-mode="recognition"]')!.click();return {root,controller,encounter,row,services,speak,saveStory,finishSpeech:()=>resolveSpeech()};}
+ function mount(restored=true,reading=true,initialPaused=false){const encounter=expeditionRegions[0].encounters[0],row=manifest.encounters[0],services=service(restored?row.wordIds:[]);const root=document.createElement('div');document.body.append(root);let resolveSpeech!:()=>void;const speak=vi.fn(()=>new Promise<void>(done=>{resolveSpeech=done;}));const saveStory=vi.fn(async(_selected:number,_id:string):Promise<{progress:Progress;feedback?:string}>=>({progress:services.progress()}));const controller=mountExpeditionEncounter(root,encounter,{learning:services.learning,progress:services.progress,onProgress:services.onProgress,saveStory,speak,stopSpeech:vi.fn(),silent:false,initialPaused,previouslyAnswered:false});if(reading)root.querySelector<HTMLButtonElement>('[data-enc-mode="recognition"]')!.click();return {root,controller,encounter,row,services,speak,saveStory,finishSpeech:()=>resolveSpeech()};}
  it('hides the German transcript, waits for full audio, and submits listening truthfully',async()=>{
   const {root,controller,encounter,services,finishSpeech}=mount(true,false);expect(root.textContent).not.toContain(encounter.german);expect(root.querySelector('[data-enc-answer]')).toBeNull();root.querySelector<HTMLButtonElement>('[data-enc-mode="listening"]')!.click();expect(root.textContent).not.toContain(encounter.german);root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(services.request).not.toHaveBeenCalled();finishSpeech();await flush();root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(services.request.mock.calls[0][1]).toMatchObject({mode:'listening',hinted:false,contentId:encounter.id});controller.destroy();
  });
@@ -98,6 +98,19 @@ describe('encounter reading and listening controller',()=>{
  });
  it('retains a failed learning receipt after story success and retries without duplicating the story command',async()=>{
   const {root,controller,row,services,saveStory}=mount();services.request.mockRejectedValueOnce(new Error('Offline'));root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(saveStory).toHaveBeenCalledOnce();expect(root.querySelector('[data-enc-retry]')).not.toBeNull();const first=services.request.mock.calls[0][1];root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();expect(services.request.mock.calls[1][1]).toBe(first);expect(saveStory).toHaveBeenCalledOnce();expect(pendingEncounterCommands.has(row.encounterId)).toBe(false);controller.destroy();
+ });
+ it('shows only durable server feedback and preserves it when a failed recall is reopened',async()=>{
+  const f=mount();const feedback='The server recorded this neighborhood agreement.';
+  f.saveStory.mockResolvedValueOnce({progress:f.services.progress(),feedback});
+  expect(f.root.textContent).not.toContain(f.encounter.choices[0].response);
+  f.services.request.mockRejectedValueOnce(new Error('Recall offline'));
+  f.root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();
+  expect(f.root.textContent).toContain(feedback);expect(f.root.textContent).not.toContain(f.encounter.choices[0].response);
+  f.controller.destroy();
+  const reopened=mountExpeditionEncounter(f.root,f.encounter,{learning:f.services.learning,progress:f.services.progress,onProgress:f.services.onProgress,saveStory:f.saveStory,speak:async()=>{},stopSpeech:vi.fn(),silent:false,previouslyAnswered:false});
+  expect(f.root.textContent).toContain(feedback);
+  f.root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();
+  expect(f.saveStory).toHaveBeenCalledOnce();expect(f.root.textContent).toContain(feedback);reopened.destroy();
  });
  it('retries a failed story write with its same ID without repeating saved learning',async()=>{
   const {root,controller,services,saveStory}=mount();saveStory.mockRejectedValueOnce(new Error('Story offline'));root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();const first=saveStory.mock.calls[0];expect(root.querySelector('[data-enc-retry]')).not.toBeNull();root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();expect(saveStory.mock.calls[1]).toEqual(first);expect(services.request).toHaveBeenCalledOnce();controller.destroy();

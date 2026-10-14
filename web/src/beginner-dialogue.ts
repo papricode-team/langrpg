@@ -18,7 +18,7 @@ export function needsBeginnerStorySupport(progress: Progress): boolean {
 }
 
 /** Complete replies let new learners recognize the meaning before composing German. */
-export const beginnerGateTranslations: Record<string, readonly (readonly [german: string, english: string])[]> = {
+export const beginnerGateTranslations: Record<string, readonly (readonly [german: string, english: string, sentenceId?: string])[]> = {
   'a1-arrival-exercise-7': [
     ['Noch einmal, bitte.', 'Once again, please.'],
     ['Guten Morgen!', 'Good morning!'],
@@ -95,8 +95,8 @@ export const beginnerGateTranslations: Record<string, readonly (readonly [german
 
 /** Choice IDs remain canonical German answers so the existing server can grade them. */
 export function beginnerGateChoices(exerciseId: string): DialogueChoice[] {
-  return (beginnerGateTranslations[exerciseId] ?? []).map(([german, english]) => ({
-    id: german, german, english, next: '', effects: [],
+  return (beginnerGateTranslations[exerciseId] ?? []).map(([german, english, sentenceId]) => ({
+    id: german, german, english, ...(sentenceId ? { sentenceId } : {}), next: '', effects: [],
   }));
 }
 

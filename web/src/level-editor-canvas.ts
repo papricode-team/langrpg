@@ -14,6 +14,7 @@ import {NavigationGrid} from './navigation';
 import {scenerySelection,sceneryTranslation} from './level-editor-model';
 import {marqueeSelection} from './level-editor-selection';
 import {paletteTemplates,type PaletteFrame} from './level-editor-object-tools';
+import {defaultEditorLayers,editorGuideLayers,editorHiddenScenery,editorSceneryVisible,type EditorLayers} from './level-editor-layers';
 
 export interface EditorCanvasCallbacks {
   select(ids: string[]): void;
@@ -47,7 +48,9 @@ export class LevelEditorCanvas extends Phaser.Scene {
   locked = new Set<string>();
   zoneMode = false;
   gridVisible = false;
-  navigationVisible = false;
+  layers=defaultEditorLayers();
+  get navigationVisible():boolean {return editorGuideLayers.every(key=>this.layers[key]);}
+  set navigationVisible(visible:boolean) {for(const key of editorGuideLayers)this.layers[key]=visible;}
   period: 'day' | 'night' = 'day';
   snap = 0;
   private residentHour?:number;
@@ -76,6 +79,14 @@ export class LevelEditorCanvas extends Phaser.Scene {
   private marquee?: {start:{x:number;y:number};end:{x:number;y:number};initial:Set<string>;individual:boolean};
   private dragState?: { start: {x:number;y:number}; positions: Map<string,{x:number;y:number}>; pan?: {x:number;y:number;scrollX:number;scrollY:number} };
   constructor(private callbacks: EditorCanvasCallbacks) { super('level-editor'); }
+  sceneryVisible(item:SceneScenery):boolean {return editorSceneryVisible(item,this.layers,this.hidden);}
+  hiddenScenery():Set<string> {return editorHiddenScenery(this.world?.scenery??[],this.layers,this.hidden);}
+  setLayers(layers:EditorLayers):void {
+    this.cancelGesture();this.layers={...layers};
+    this.selected=new Set([...this.selected].filter(id=>this.world?.scenery.some(item=>item.id===id&&this.sceneryVisible(item))));
+    this.terrain?.setVisible(this.layers.terrain);
+    if(this.world)this.paint(this.world);
+  }
   create(): void {
     this.game.canvas.tabIndex=0;
     this.game.canvas.setAttribute('aria-label','World canvas. F frames selection; hold Space and drag to pan.');
@@ -114,7 +125,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
     this.world = world; this.loadedMap = id;
     await new Promise<void>(resolve => this.regionAssets.load(getMap(id), resolve));
     await new Promise<void>(resolve => this.animationAssets.load(id, this.period, () => resolve()));
-    this.terrain = new StreamedWorldTerrain(this, world, this.period).setDepth(-1000);
+    this.terrain = new StreamedWorldTerrain(this, world, this.period).setDepth(-1000).setVisible(this.layers.terrain);
     this.cameras.main.removeBounds();
     this.paint(world);
     if (previous !== id) this.fit();
@@ -123,7 +134,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
     this.world = world;
     this.guideWorld=this.authoredPreview??(this.generationPreview.length||this.previewRemoved.size?{...world,scenery:[...world.scenery.filter(item=>!this.previewRemoved.has(item.id)),...this.generationPreview]}:world);
     this.scenery?.destroy();
-    this.scenery = new WorldScenery(this, world.id as MapId, this.period, [...world.scenery.filter(item=>!this.previewRemoved.has(item.id)),...this.generationPreview].filter(item=>!this.hidden.has(item.id)));
+    this.scenery = new WorldScenery(this, world.id as MapId, this.period, [...world.scenery.filter(item=>!this.previewRemoved.has(item.id)),...this.generationPreview].filter(item=>this.sceneryVisible(item)));
     this.drawGuides();
   }
   preview(items: readonly SceneScenery[], removedIds: readonly string[] = [], authoredPreview?:WorldScene): void { this.authoredPreview=authoredPreview; this.generationPreview = items; this.previewRemoved=new Set(removedIds); if (this.world) this.paint(this.world); }
@@ -217,14 +228,18 @@ export class LevelEditorCanvas extends Phaser.Scene {
     const polygon = (points: readonly (readonly [number,number])[], color:number, alpha:number) => {
       const vertices=points.map(([x,y])=>new Phaser.Math.Vector2(x,y));g.fillStyle(color,alpha).fillPoints(vertices,true);g.lineStyle(1/zoom,color,.85).strokePoints(vertices,true);
     };
-    if (this.navigationVisible) {
+    if (this.layers.ground||this.layers.collision) {
       const geometry=sceneNavigationGeometry(world);
-      for (const area of geometry.ground) polygon(area,0x65bf9d,.12);
-      for (const obstacle of geometry.barriers) polygon(obstacle,0xe6785f,.26);
+      if(this.layers.ground)for (const area of geometry.ground) polygon(area,0x65bf9d,.12);
+      if(this.layers.collision)for (const obstacle of geometry.barriers) polygon(obstacle,0xe6785f,.26);
+    }
+    if(this.layers.story){
       for (const target of world.npcs) g.lineStyle(1.5/zoom,0x67b4e6,1).strokeCircle(target.x,target.y,8/zoom);
       for (const target of world.objects) g.lineStyle(1.5/zoom,0xf0bc60,1).strokeRect(target.x-5/zoom,target.y-5/zoom,10/zoom,10/zoom);
       g.fillStyle(0xffffff,1).fillCircle(world.spawn.x,world.spawn.y,5/zoom);
-      for(const district of world.districts)polygon(district.polygon,0xe6d48f,.04);
+    }
+    if(this.layers.districts)for(const district of world.districts)polygon(district.polygon,0xe6d48f,.04);
+    if(this.layers.activities){
       for(const slot of world.activities??[])for(const point of sceneActivityPlaces(world,slot))g.lineStyle(1.5/zoom,0xbda2ea,1).strokeCircle(point.x,point.y,7/zoom);
       for(const door of world.entrances??[]){
         const point=sceneEntrancePoint(world,door),back=sceneEntrancePoint(world,door,true),owner=world.scenery.find(item=>item.id===door.ownerId)!;
@@ -244,14 +259,14 @@ export class LevelEditorCanvas extends Phaser.Scene {
         }
       }catch{this.residentGuide=undefined;}
     }
-    for (const spec of world.scenery) if (this.selected.has(spec.id)&&!this.hidden.has(spec.id)) {
+    for (const spec of world.scenery) if (this.selected.has(spec.id)&&this.sceneryVisible(spec)) {
       const b=this.bounds(spec);g.lineStyle(2/zoom,this.locked.has(spec.id)?0xeaa27a:0xf7e8a0,1).strokeRect(b.x-2,b.y-2,b.width+4,b.height+4);
       g.fillStyle(0xf7e8a0,1).fillCircle(spec.x,spec.y,3/zoom);
     }
-    for(const spec of world.scenery)if(this.previewRemoved.has(spec.id)){const b=this.bounds(spec);g.lineStyle(1.5/zoom,0xf78b69,.8).strokeRect(b.x,b.y,b.width,b.height);}
+    for(const spec of world.scenery)if(this.previewRemoved.has(spec.id)&&this.sceneryVisible(spec)){const b=this.bounds(spec);g.lineStyle(1.5/zoom,0xf78b69,.8).strokeRect(b.x,b.y,b.width,b.height);}
     if(this.drawingZone){const {start,end}=this.drawingZone;g.lineStyle(2/zoom,0xaedc74,1).fillStyle(0xaedc74,.16).fillRect(Math.min(start.x,end.x),Math.min(start.y,end.y),Math.abs(end.x-start.x),Math.abs(end.y-start.y)).strokeRect(Math.min(start.x,end.x),Math.min(start.y,end.y),Math.abs(end.x-start.x),Math.abs(end.y-start.y));}
     if(this.marquee){const {start,end}=this.marquee;g.lineStyle(1.5/zoom,0xffedaa,1).fillStyle(0xffedaa,.12).fillRect(Math.min(start.x,end.x),Math.min(start.y,end.y),Math.abs(end.x-start.x),Math.abs(end.y-start.y)).strokeRect(Math.min(start.x,end.x),Math.min(start.y,end.y),Math.abs(end.x-start.x),Math.abs(end.y-start.y));}
-    for (const spec of this.generationPreview) {const b=this.bounds(spec);g.lineStyle(1.5/zoom,0xb2e575,.85).strokeRect(b.x,b.y,b.width,b.height);}
+    for (const spec of this.generationPreview) if(this.sceneryVisible(spec)){const b=this.bounds(spec);g.lineStyle(1.5/zoom,0xb2e575,.85).strokeRect(b.x,b.y,b.width,b.height);}
     if(this.paintMode&&this.cursorPoint)g.lineStyle(1.5/zoom,this.paintMode==='erase'?0xf78b69:0xb2e575,1).strokeCircle(this.cursorPoint.x,this.cursorPoint.y,this.paintRadius);
   }
   private startPointer(pointer: Phaser.Input.Pointer): void {
@@ -264,17 +279,18 @@ export class LevelEditorCanvas extends Phaser.Scene {
     if(this.zoneMode){this.drawingZone={start:point,end:point};return;}
     if(this.paintMode){this.painting=true;this.callbacks.beginStroke(this.paintMode,point,(pointer.event as MouseEvent).altKey);return;}
     if(this.placing) {this.callbacks.place(point.x,point.y);return;}
-    const candidate=this.boxMode?undefined:[...this.world.scenery].filter(item=>!this.hidden.has(item.id)).sort((a,b)=>(b.depth??b.y)-(a.depth??a.y)).find(spec=>{
+    const candidate=this.boxMode?undefined:[...this.world.scenery].filter(item=>this.sceneryVisible(item)).sort((a,b)=>(b.depth??b.y)-(a.depth??a.y)).find(spec=>{
       const b=this.bounds(spec);return point.x>=b.x&&point.x<=b.x+b.width&&point.y>=b.y&&point.y<=b.y+b.height;
     });
     const shift=(pointer.event as MouseEvent).shiftKey;
     if(candidate) {
-      const ids=scenerySelection(this.world,candidate.id,(pointer.event as MouseEvent).altKey).filter(id=>!this.hidden.has(id));
+      const hidden=this.hiddenScenery();
+      const ids=scenerySelection(this.world,candidate.id,(pointer.event as MouseEvent).altKey).filter(id=>!hidden.has(id));
       if(shift) {const remove=ids.every(id=>this.selected.has(id));for(const id of ids)if(remove)this.selected.delete(id);else this.selected.add(id);}
       else if(!this.selected.has(candidate.id)||(pointer.event as MouseEvent).altKey)this.selected=new Set(ids);
       this.callbacks.select([...this.selected]); this.drawGuides();
       if([...this.selected].some(id=>this.locked.has(id))||this.world.prefabInstances?.some(instance=>instance.locked&&instance.members.some(member=>this.selected.has(member.id))))return;
-      const positions=new Map(this.world.scenery.filter(spec=>this.selected.has(spec.id)).map(spec=>[spec.id,{x:spec.x,y:spec.y}]));
+      const positions=new Map(this.world.scenery.filter(spec=>this.selected.has(spec.id)&&this.sceneryVisible(spec)).map(spec=>[spec.id,{x:spec.x,y:spec.y}]));
       this.dragState={start:point,positions};this.callbacks.beginDrag();
     } else {this.marquee={start:point,end:point,initial:shift?new Set(this.selected):new Set(),individual:(pointer.event as MouseEvent).altKey};this.drawGuides();}
   }
@@ -294,7 +310,7 @@ export class LevelEditorCanvas extends Phaser.Scene {
   private endPointer(): void {
     if(this.painting){this.painting=false;this.callbacks.endStroke(false);return;}
     if(this.marquee){const {start,end,initial,individual}=this.marquee;this.marquee=undefined;
-      const ids=Math.hypot(end.x-start.x,end.y-start.y)*this.cameras.main.zoom>=4?marqueeSelection(this.world,start,end,item=>this.bounds(item),this.hidden,individual):[];
+      const ids=Math.hypot(end.x-start.x,end.y-start.y)*this.cameras.main.zoom>=4?marqueeSelection(this.world,start,end,item=>this.bounds(item),this.hiddenScenery(),individual):[];
       this.selected=new Set([...initial,...ids]);this.callbacks.select([...this.selected]);this.drawGuides();return;
     }
     if(this.drawingZone){const {start,end}=this.drawingZone;this.drawingZone=undefined;this.zoneMode=false;this.callbacks.zone({x:Math.max(0,Math.min(start.x,end.x)),y:Math.max(0,Math.min(start.y,end.y)),width:Math.abs(end.x-start.x),height:Math.abs(end.y-start.y)});this.drawGuides();return;}

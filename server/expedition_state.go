@@ -85,7 +85,7 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		ID          string `json:"id"`
 		EncounterID string `json:"encounterId"`
-		Selected    int    `json:"selected"`
+		Selected    *int   `json:"selected"`
 	}
 	if err = decodeJSON(w, r, &input); err != nil {
 		apiFailure(w, err)
@@ -95,6 +95,11 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "invalid encounter action ID")
 		return
 	}
+	if input.Selected == nil {
+		writeError(w, 400, "select an encounter reply before submitting")
+		return
+	}
+	selected := *input.Selected
 	manifest, err := expeditionContent()
 	if err != nil {
 		apiFailure(w, err)
@@ -107,45 +112,67 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	if rule == nil || input.Selected < 0 || input.Selected >= len(rule.Choices) {
+	if rule == nil || selected < 0 || selected >= len(rule.Choices) {
 		writeError(w, 400, "unknown encounter or choice")
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	request, _ := json.Marshal(input)
-	account, _, duplicate, err := a.mutate(ctx, hash, "expedition:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "expedition:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if !routeUnlocked(rule.MapID, account.Progress.CompletedQuestIDs) {
 			return Receipt{}, routeLockedError(rule.MapID)
 		}
 		s := &account.Progress.Story
 		record := s.Expeditions[input.EncounterID]
-		record.Selected = input.Selected
-		record.Correct = rule.Choices[input.Selected]
+		record.Selected = selected
+		record.Correct = rule.Choices[selected]
 		record.Attempts++
 		s.Expeditions[input.EncounterID] = record
-		return Receipt{}, nil
+		correct := record.Correct
+		return Receipt{Correct: &correct}, nil
 	})
 	if err != nil {
 		apiFailure(w, err)
 		return
 	}
-	result := map[string]any{"record": account.Progress.Story.Expeditions[input.EncounterID], "progress": account.Progress, "duplicate": duplicate}
-	if a.content != nil {
-		if id, ok := a.content.IDs["expedition:"+input.EncounterID]; ok {
-			record := a.content.ByID[id]
-			var body map[string]any
-			_ = json.Unmarshal(record.Body, &body)
-			choices := anyValues(body["choices"])
-			if input.Selected < len(choices) {
-				choice, _ := choices[input.Selected].(map[string]any)
-				if feedback, ok := choice["response"].(string); ok {
-					result["feedback"] = feedback
-				}
+	record := account.Progress.Story.Expeditions[input.EncounterID]
+	record.Selected, record.Correct = selected, rule.Choices[selected]
+	if receipt.Correct != nil {
+		record.Correct = *receipt.Correct
+	}
+	feedback := a.contentExpeditionFeedback(input.EncounterID, selected, normalizedPreferences(account.Preferences).BaseLanguage)
+	result := map[string]any{"record": record, "progress": account.Progress, "duplicate": duplicate, "correct": record.Correct, "feedback": feedback, "explanation": feedback}
+	writeJSON(w, 200, result)
+}
+
+// Called only after the selected answer has committed, including safe retries.
+func (a *App) contentExpeditionFeedback(encounterID string, selected int, language string) string {
+	if a.content == nil {
+		return ""
+	}
+	id := a.content.IDs["expedition:"+encounterID]
+	record, exists := a.content.ByID[id]
+	if !exists || record.CourseID != a.curriculum.CourseID {
+		return ""
+	}
+	var body map[string]any
+	if json.Unmarshal(record.Body, &body) != nil {
+		return ""
+	}
+	choices := anyValues(body["choices"])
+	if selected < 0 || selected >= len(choices) {
+		return ""
+	}
+	choice, _ := choices[selected].(map[string]any)
+	if support, ok := choice["support"].(map[string]any); ok {
+		if localized, ok := support[language].(map[string]any); ok {
+			if response := stringValue(localized["response"]); response != "" {
+				return response
 			}
 		}
 	}
-	writeJSON(w, 200, result)
+	return stringValue(choice["response"])
 }
 
 func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
@@ -252,5 +279,11 @@ func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
 	// Return the tested draft separately from the permanent earned agreement.
 	// The editor can show an incorrect retry while the notebook stays intact.
 	plan := ExpeditionPlanState{input.Level, input.Values, input.Order, correct, account.Progress.Story.ExpeditionPlans[key].Attempts}
-	writeJSON(w, 200, map[string]any{"correct": correct, "plan": plan, "progress": account.Progress, "xpAdded": added, "duplicate": duplicate})
+	result := map[string]any{"correct": correct, "plan": plan, "progress": account.Progress, "xpAdded": added, "duplicate": duplicate}
+	if correct {
+		if agreement := a.expeditionAgreement(input.MapID, input.Values); agreement != "" {
+			result["agreement"] = agreement
+		}
+	}
+	writeJSON(w, 200, result)
 }

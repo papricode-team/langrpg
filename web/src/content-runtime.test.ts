@@ -6,7 +6,8 @@ import { setBaseLanguage, setTargetLanguage } from './i18n';
 import { contentApi } from './content-api';
 import { intakeStatus, missingWordCount, syllabus, syllabusPosition, wordScheduled } from './intake';
 import { getSentence } from './translated-sentence';
-import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
+import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, loadPlacement, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
+import { mountOptionalPlacement } from './placement-ui';
 
 const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), courseContextWordIds: {} as Record<string, string[]>, install: vi.fn() }));
 const publicSyllabus = vi.hoisted(() => ({ version: '', wordsPerHour: 10, openingWords: 10, bankCap: 15, storyShare: .5, brake: { maxUnsettled: 12, maxDue: 20 }, wordIds: [] as string[], quests: [] }));
@@ -43,6 +44,36 @@ beforeEach(async () => {
 afterEach(async () => { contentApi.clear(); vi.unstubAllGlobals(); vi.restoreAllMocks(); await setBaseLanguage('en'); setTargetLanguage('de'); });
 
 describe('server record adapters', () => {
+  it('loads eight JSON placement questions by UUID and renders each without a quest bank or grading secrets', async () => {
+    const questions = await loadPlacement();
+    expect(questions).toHaveLength(8);
+    expect(questions.map(question => question.exercise.level)).toEqual(['A1', 'A1', 'A1', 'A2', 'A2', 'A2', 'B1', 'B1']);
+    for (const { exercise, turn } of questions) {
+      expect(exercise.id).toMatch(/^[0-9a-f-]{36}$/);
+      expect(turn.sentenceId).toMatch(/^[0-9a-f-]{36}$/);
+      expect(turn.german.trim()).not.toBe('');
+      expect(exercise.answer).toBe(''); expect(exercise.explanation).toBe('');
+      expect(runtimeObject('placementDialogue')[exercise.id]).toEqual(turn);
+    }
+    const paths = fetcher.mock.calls.map(([url]) => new URL(String(url), 'https://atlas.example').pathname);
+    expect(paths.filter(path => path.includes('/contexts/'))).toHaveLength(1);
+    expect(paths.filter(path => path.includes('/exercises/'))).toHaveLength(8);
+    expect(paths.some(path => path.includes('/graphs/'))).toBe(false);
+    const host = document.createElement('div'), progress = emptyProgress(), onComplete = vi.fn();
+    const request = vi.fn(async () => ({ correct: true }));
+    const controller = await mountOptionalPlacement(host, { api: { request: request as never }, progress, questions, speak: vi.fn(), onClose: vi.fn(), onComplete });
+    for (let index = 0; index < 8; index++) {
+      expect(host.querySelector('.placement-dialogue .translated-sentence')?.textContent).toBe(questions[index].turn.german);
+      const input = host.querySelector<HTMLInputElement>('#placement-answer');
+      if (input) { input.value = 'a diagnostic reply'; host.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }
+      else host.querySelector<HTMLButtonElement>('[data-placement="answer"]')!.click();
+      for (let tick = 0; tick < 5; tick++) await Promise.resolve();
+      host.querySelector<HTMLButtonElement>('[data-placement="next"]')!.click();
+    }
+    expect(request.mock.calls.map(call => (call as unknown as [string, { exerciseId: string; preview: boolean }])[1])).toEqual(questions.map(question => expect.objectContaining({ exerciseId: question.exercise.id, preview: true })));
+    expect(onComplete).toHaveBeenCalledWith(expect.objectContaining({ answered: 8 }), progress);
+    controller.destroy();
+  });
   it('loads the emitted public bootstrap as metadata without requesting sentences or exercises', () => {
     expect(activeCourse?.id).toBe(fixture.course.id);
     expect(runtimeArray<Json>('quests')[0].id).toBe(list(body.quests)[0].id);

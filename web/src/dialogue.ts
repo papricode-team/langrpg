@@ -23,6 +23,7 @@ export interface DialogueCondition { flag?: string; withoutFlag?: string; item?:
 export interface DialogueEffect { flag?: string; item?: string; faction?: Faction; amount?: number; bell?: number; }
 export interface DialogueLine {
   id: string;
+  sentenceId?: string;
   speaker: string;
   /** Authored visual cue; never inferred from translated text. */
   expression?: 'neutral' | 'smile' | 'worried';
@@ -36,10 +37,10 @@ export interface DialogueLine {
   variants?: { german: string; english: string; clipId: string }[];
   reply?: { exerciseId: string; correction: DialogueLine };
 }
-export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
+export interface DialogueChoice { id: string; sentenceId?: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
 /** An optional player question on the last intro line; never saved, never required. */
-export interface DialogueTopic { id: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }
+export interface DialogueTopic { id: string; sentenceId?: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;

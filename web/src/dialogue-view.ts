@@ -36,7 +36,7 @@ function historyMarkup(history: DialogueHistoryEntry[] | undefined): string {
 }
 function choiceMarkup(choice: DialogueChoice, p: DialoguePresentation): string {
   const sentence = presentSentence(choice, p.name);
-  if (sentence.sentence) return `<div class="dialogue-authored-choice">${renderTranslatedSentence(choice, p.name, p.help)}<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
+  if (sentence.sentence) return `<div class="dialogue-authored-choice">${renderTranslatedSentence(choice, p.name, p.help)}<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" aria-label="${e(personalized(choice.german,p.name))}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
   const meaning = choice.english ? supportText(choice) : undefined;
   return `<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}><span lang="${e(sentence.target)}">${e(choice.german)}</span>${p.help && meaning?.text ? `<span class="caption" lang="${meaning.lang}">${e(meaning.text)}</span>` : ''}</button>`;
 }
@@ -82,7 +82,16 @@ export class DialogueView {
       }
     });
     this.host.addEventListener('submit', event => { event.preventDefault(); this.actions.answer(this.host.querySelector<HTMLInputElement>('#dialogue-answer')?.value ?? ''); });
-    this.host.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); if (this.lookup && this.presentation) { this.lookup = undefined; this.render(this.presentation); } else this.actions.action('close'); } });
+    this.host.addEventListener('keydown', event => {
+      const word = event.target instanceof HTMLElement ? event.target.closest<HTMLButtonElement>('[data-dialogue-word-index]') : null;
+      if (word && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+        const words = [...this.host.querySelectorAll<HTMLButtonElement>('.dialogue-line [data-dialogue-word-index]')];
+        const index = words.indexOf(word);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? words.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + words.length) % words.length;
+        event.preventDefault(); event.stopPropagation(); words[next]?.focus(); words[next]?.click(); return;
+      }
+      if (event.key === 'Escape') { event.stopPropagation(); if (this.lookup && this.presentation) { this.lookup = undefined; this.render(this.presentation); } else this.actions.action('close'); }
+    });
   }
   render(presentation: DialoguePresentation) {
     const previous = this.presentation;

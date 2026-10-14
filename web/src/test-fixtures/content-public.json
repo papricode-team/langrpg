@@ -1558,6 +1558,13 @@
             "ownerId": "inn",
             "ownerKind": "interior",
             "level": "A1"
+          },
+          {
+            "id": "580f5c7d-e427-5777-9736-838c521c5f7e",
+            "kind": "placement",
+            "ownerId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+            "ownerKind": "placement",
+            "worldId": "placement"
           }
         ],
         "syllabus": {
@@ -14491,17 +14498,16 @@
         "support": {
           "en": {
             "prompt": "Write a cautious response: \"I am not sure whether that is true.\"",
-            "hint": "Use Ich bin mir nicht sicher, ob …",
-            "explanation": "ob introduces an indirect yes/no question; stimmt goes at the end."
+            "hint": "Use Ich bin mir nicht sicher, ob …"
           },
           "tr": {
             "prompt": "Temkinli bir yanıt yaz: “Bunun doğru olup olmadığından emin değilim.”",
             "hint": "Ich bin mir nicht sicher, ob … kalıbını kullan.",
-            "explanation": "ob, dolaylı bir evet/hayır sorusu başlatır; stimmt sona gider.",
             "english": "Bunun doğru olup olmadığından emin değilim."
           }
         },
         "sentenceId": "e15b7e37-b16c-57f2-81e9-c7b87292273f",
+        "exampleSentenceId": "e15b7e37-b16c-57f2-81e9-c7b87292273f",
         "audio": {
           "path": "/audio/b1-witness-exercise-3.mp3"
         }
@@ -14859,6 +14865,3988 @@
         "audio": {
           "path": "/audio/b1-council-exercise-1.mp3"
         }
+      }
+    },
+    {
+      "id": "580f5c7d-e427-5777-9736-838c521c5f7e",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "placement",
+        "data": {
+          "exerciseIds": [
+            "8c91ff40-cf55-5d8c-b110-15dde7cd05d0",
+            "9e0c8040-08a7-536c-9756-478ff4f6f651",
+            "68e4acd3-d016-5cb8-ad8f-c6ddee85bd2a",
+            "796fe532-ee66-54e4-a068-d87bdb92c1d0",
+            "5fb399c0-a9bb-5259-a720-b0bcb3549f3c",
+            "8ee3de97-4110-5c54-af35-220d0f1711be",
+            "a5f55409-8220-5bda-baf2-65ca1e53e287",
+            "392a4cd0-491c-588e-b77e-cbadb4aab65f"
+          ],
+          "questions": [
+            {
+              "exerciseId": "8c91ff40-cf55-5d8c-b110-15dde7cd05d0",
+              "level": "A1",
+              "turn": {
+                "speaker": "Otto",
+                "sentenceId": "3d75c3e6-75d8-5469-9d02-ea73e3d4977c"
+              }
+            },
+            {
+              "exerciseId": "9e0c8040-08a7-536c-9756-478ff4f6f651",
+              "level": "A1",
+              "turn": {
+                "speaker": "Marta",
+                "sentenceId": "6570c025-59ab-51ee-8024-6224c0498efa"
+              }
+            },
+            {
+              "exerciseId": "68e4acd3-d016-5cb8-ad8f-c6ddee85bd2a",
+              "level": "A1",
+              "turn": {
+                "speaker": "Lina",
+                "sentenceId": "d4c5abbb-e142-5096-a56e-af46e8bcbad7"
+              }
+            },
+            {
+              "exerciseId": "796fe532-ee66-54e4-a068-d87bdb92c1d0",
+              "level": "A2",
+              "turn": {
+                "speaker": "Fritz",
+                "sentenceId": "09e06550-3cd9-5441-92a9-d2928c4d4d0d"
+              }
+            },
+            {
+              "exerciseId": "5fb399c0-a9bb-5259-a720-b0bcb3549f3c",
+              "level": "A2",
+              "turn": {
+                "speaker": "Ada",
+                "sentenceId": "ea7f8ef9-8d09-5d5c-a7a6-c7a21bd864d5"
+              }
+            },
+            {
+              "exerciseId": "8ee3de97-4110-5c54-af35-220d0f1711be",
+              "level": "A2",
+              "turn": {
+                "speaker": "Emil",
+                "sentenceId": "ada7a6d6-1fc9-5496-8967-910dbf295f16"
+              }
+            },
+            {
+              "exerciseId": "a5f55409-8220-5bda-baf2-65ca1e53e287",
+              "level": "B1",
+              "turn": {
+                "speaker": "Greta",
+                "sentenceId": "7e7769a0-0e5f-5dad-b465-34d5f9a88457"
+              }
+            },
+            {
+              "exerciseId": "392a4cd0-491c-588e-b77e-cbadb4aab65f",
+              "level": "B1",
+              "turn": {
+                "speaker": "Elise",
+                "sentenceId": "cb9ddd33-30f6-5580-ae1c-12a225d4fa02"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "8c91ff40-cf55-5d8c-b110-15dde7cd05d0",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "choice",
+        "prompt": "It is morning. Greet Otto politely.",
+        "hint": "Morgen means morning.",
+        "options": [
+          "Guten Morgen!",
+          "Gute Nacht!",
+          "Auf Wiedersehen!"
+        ],
+        "id": "8c91ff40-cf55-5d8c-b110-15dde7cd05d0",
+        "itemId": "66b30f70-5260-56c7-a4cb-1a50f17dc9bc",
+        "questId": "4bc00c95-3af7-5e11-8386-056ff30d82f2",
+        "level": "A1",
+        "wordIds": [
+          "d1cdb1bb-2f7f-5f5a-9114-33bf64aa7cdd",
+          "84a68681-8c21-5721-8d02-df56e6b2f0fe"
+        ],
+        "support": {
+          "en": {
+            "prompt": "It is morning. Greet Otto politely.",
+            "hint": "Morgen means morning."
+          },
+          "tr": {
+            "prompt": "Sabah oldu. Otto'yu kibarca selamla.",
+            "hint": "Morgen “sabah” demektir.",
+            "english": "Günaydın!"
+          }
+        },
+        "sentenceId": "b550fd81-0f86-57ac-80bc-335e84b1438d",
+        "exampleSentenceId": "b550fd81-0f86-57ac-80bc-335e84b1438d",
+        "audio": {
+          "path": "/audio/a1-arrival-exercise-1.mp3"
+        }
+      }
+    },
+    {
+      "id": "3d75c3e6-75d8-5469-9d02-ea73e3d4977c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Willkommen! Es ist früh.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Welcome! It is early.",
+            "words": [
+              {
+                "source": {
+                  "text": "Willkommen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Welcome",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 7
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Es",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "It",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 9,
+                    "end": 11
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "ist",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "is",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 15,
+                  "end": 18
+                },
+                "targetRanges": [
+                  {
+                    "start": 12,
+                    "end": 14
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "früh",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "early",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 19,
+                  "end": 23
+                },
+                "targetRanges": [
+                  {
+                    "start": 15,
+                    "end": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Hoş geldin! Saat daha erken.",
+            "words": [
+              {
+                "source": {
+                  "text": "Willkommen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Hoş",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "geldin",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  },
+                  {
+                    "start": 4,
+                    "end": 10
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Es",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 14
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "ist",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 15,
+                  "end": 18
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "früh",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "erken",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 19,
+                  "end": 23
+                },
+                "targetRanges": [
+                  {
+                    "start": 22,
+                    "end": 27
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Willkommen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 10
+            },
+            "lexemeId": "a5e120f5-2aff-5087-aefd-0e6ed38f7209",
+            "glosses": {
+              "en": "welcome",
+              "tr": "hoş gelmiş, memnuniyetle karşılanan"
+            }
+          },
+          {
+            "source": {
+              "text": "Es",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 14
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / the (neuter definite article) / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / belirli tanımlık (nötr) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 18
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "früh",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 19,
+              "end": 23
+            },
+            "lexemeId": "3bd9275d-6514-5e38-9db8-ddb8b0a982cc",
+            "glosses": {
+              "en": "early",
+              "tr": "erken"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "9e0c8040-08a7-536c-9756-478ff4f6f651",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "choice",
+        "prompt": "You are ready to pay. Ask for the bill.",
+        "hint": "Rechnung means bill.",
+        "options": [
+          "Die Rechnung, bitte.",
+          "Die Zeitung, bitte.",
+          "Die Speisekarte, bitte."
+        ],
+        "id": "9e0c8040-08a7-536c-9756-478ff4f6f651",
+        "itemId": "dac84876-dd3d-570b-b204-ebb8f7241324",
+        "questId": "f462ba4f-4b2a-5d9e-9086-301e58fb322e",
+        "level": "A1",
+        "wordIds": [
+          "f571094d-b715-578d-b68d-c15f3b0aa4d1",
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "601bdb5c-6d5f-5119-906e-04f0bbc450ed"
+        ],
+        "support": {
+          "en": {
+            "prompt": "You are ready to pay. Ask for the bill.",
+            "hint": "Rechnung means bill."
+          },
+          "tr": {
+            "prompt": "Ödemeye hazırsın. Hesabı iste.",
+            "hint": "Rechnung “hesap” demektir.",
+            "english": "Hesap, lütfen."
+          }
+        },
+        "sentenceId": "2f12a714-9b01-5365-8589-fb0aef615e0c",
+        "exampleSentenceId": "2f12a714-9b01-5365-8589-fb0aef615e0c",
+        "audio": {
+          "path": "/audio/a1-cafe-exercise-6.mp3"
+        }
+      }
+    },
+    {
+      "id": "6570c025-59ab-51ee-8024-6224c0498efa",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Möchten Sie jetzt bezahlen?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Would you like to pay now?",
+            "words": [
+              {
+                "source": {
+                  "text": "Möchten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Would",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "like",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 7
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  },
+                  {
+                    "start": 10,
+                    "end": 14
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Sie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "you",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 8,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 9
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "jetzt",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "now",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 17
+                },
+                "targetRanges": [
+                  {
+                    "start": 22,
+                    "end": 25
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "bezahlen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "to",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "pay",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 18,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 15,
+                    "end": 17
+                  },
+                  {
+                    "start": 18,
+                    "end": 21
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Şimdi ödemek ister misiniz?",
+            "words": [
+              {
+                "source": {
+                  "text": "Möchten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "ister",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 7
+                },
+                "targetRanges": [
+                  {
+                    "start": 13,
+                    "end": 18
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Sie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "misiniz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 8,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 19,
+                    "end": 26
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "jetzt",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Şimdi",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 17
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "bezahlen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "ödemek",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 18,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 12
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Möchten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 7
+            },
+            "lexemeId": "a0867068-10db-579b-bd7f-c9d5f42e8d51",
+            "glosses": {
+              "en": "to like",
+              "tr": "sevmek, hoşlanmak"
+            }
+          },
+          {
+            "source": {
+              "text": "Sie",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 8,
+              "end": 11
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular) / you (formal singular or plural)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen / siz (resmî)"
+            }
+          },
+          {
+            "source": {
+              "text": "jetzt",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 17
+            },
+            "lexemeId": "a12ba246-be30-5d9d-8e46-b99c0eb7c538",
+            "glosses": {
+              "en": "now",
+              "tr": "şimdi"
+            }
+          },
+          {
+            "source": {
+              "text": "bezahlen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 18,
+              "end": 26
+            },
+            "lexemeId": "18394da6-90a4-54be-a7d7-5e2e4f2c81b2",
+            "glosses": {
+              "en": "to pay, give money",
+              "tr": "ödemek"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "68e4acd3-d016-5cb8-ad8f-c6ddee85bd2a",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Ask Lina: \"What is the address?\"",
+        "hint": "The natural question begins Wie ist …?",
+        "id": "68e4acd3-d016-5cb8-ad8f-c6ddee85bd2a",
+        "itemId": "2097d77d-39ea-565e-a90d-8a50275026f9",
+        "questId": "b8275d4b-3197-5467-b10e-661fc19fc402",
+        "level": "A1",
+        "wordIds": [
+          "a01bf739-7483-5210-98a9-ed2497c52f4f",
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+          "38aee3fe-a3f9-5370-8a10-9323401fa04b"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Ask Lina: \"What is the address?\"",
+            "hint": "The natural question begins Wie ist …?"
+          },
+          "tr": {
+            "prompt": "Lina'ya sor: “Adres ne?”",
+            "hint": "Doğal soru Wie ist …? ile başlar.",
+            "english": "Adres ne?"
+          }
+        },
+        "sentenceId": "b03c818e-bd60-52fd-9952-9fb236ea34ec",
+        "exampleSentenceId": "b03c818e-bd60-52fd-9952-9fb236ea34ec",
+        "audio": {
+          "path": "/audio/a1-lost-parcel-exercise-2.mp3"
+        },
+        "optionSentenceIds": {
+          "Wie heißt du?": "67933cc7-7f1a-5840-8dd4-8575877fff74",
+          "Wie ist die Adresse?": "d07a3170-7db1-57e8-97c4-53b077dd1159"
+        }
+      }
+    },
+    {
+      "id": "d4c5abbb-e142-5096-a56e-af46e8bcbad7",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ich schicke das Paket. Was brauchen Sie?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "I will send the parcel. What do you need?",
+            "words": [
+              {
+                "source": {
+                  "text": "Ich",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "I",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 1
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "schicke",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "will",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "send",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 2,
+                    "end": 6
+                  },
+                  {
+                    "start": 7,
+                    "end": 11
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "das",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "the",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 12,
+                    "end": 15
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Paket",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "parcel",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 21
+                },
+                "targetRanges": [
+                  {
+                    "start": 16,
+                    "end": 22
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Was",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "What",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 24,
+                    "end": 28
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "brauchen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "do",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "need",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 27,
+                  "end": 35
+                },
+                "targetRanges": [
+                  {
+                    "start": 29,
+                    "end": 31
+                  },
+                  {
+                    "start": 36,
+                    "end": 40
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Sie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "you",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 36,
+                  "end": 39
+                },
+                "targetRanges": [
+                  {
+                    "start": 32,
+                    "end": 35
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Paketi gönderiyorum. Neye ihtiyacınız var?",
+            "words": [
+              {
+                "source": {
+                  "text": "Ich",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "gönderiyorum",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 7,
+                    "end": 19
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "schicke",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "gönderiyorum",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 7,
+                    "end": 19
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "das",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 15
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Paket",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Paketi",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 21
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 6
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Was",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Neye",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 21,
+                    "end": 25
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "brauchen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "ihtiyacınız",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "var",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 27,
+                  "end": 35
+                },
+                "targetRanges": [
+                  {
+                    "start": 26,
+                    "end": 37
+                  },
+                  {
+                    "start": 38,
+                    "end": 41
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Sie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "ihtiyacınız",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 36,
+                  "end": 39
+                },
+                "targetRanges": [
+                  {
+                    "start": 26,
+                    "end": 37
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ich",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+            "glosses": {
+              "en": "I",
+              "tr": "ben"
+            }
+          },
+          {
+            "source": {
+              "text": "schicke",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 11
+            },
+            "glosses": {
+              "en": "to send, to dispatch / elegant, dressy",
+              "tr": "göndermek / şık; zarif"
+            }
+          },
+          {
+            "source": {
+              "text": "das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 15
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Paket",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 21
+            },
+            "lexemeId": "219a9065-9da3-5b0b-a460-fa2f7d093644",
+            "glosses": {
+              "en": "packet, package, parcel",
+              "tr": "paket"
+            }
+          },
+          {
+            "source": {
+              "text": "Was",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 23,
+              "end": 26
+            },
+            "glosses": {
+              "en": "what / something",
+              "tr": "ne / bir şey"
+            }
+          },
+          {
+            "source": {
+              "text": "brauchen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 27,
+              "end": 35
+            },
+            "lexemeId": "c2e7b73e-dc24-5538-9e9a-0e5b8abd3034",
+            "glosses": {
+              "en": "to need, to be in need of, to require",
+              "tr": "ihtiyaç duymak, gerek olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "Sie",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 36,
+              "end": 39
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular) / you (formal singular or plural)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen / siz (resmî)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "796fe532-ee66-54e4-a068-d87bdb92c1d0",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "choice",
+        "prompt": "Decline the invitation politely.",
+        "hint": "leider means unfortunately.",
+        "options": [
+          "Leider kann ich nicht.",
+          "Natürlich komme ich.",
+          "Ich freue mich darauf."
+        ],
+        "id": "796fe532-ee66-54e4-a068-d87bdb92c1d0",
+        "itemId": "e0f9abca-0794-54ae-99d2-d2778a3e585d",
+        "questId": "332b06af-46ad-5ba6-8a17-22f3ed4aa75b",
+        "level": "A2",
+        "wordIds": [
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "82f6b507-4ca8-5c71-8e4a-b05ba78bb39d",
+          "51f9f636-d981-549e-af67-5e47bee3b954",
+          "4bcfe885-010c-55ad-a5a7-fdad64259660"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Decline the invitation politely.",
+            "hint": "leider means unfortunately."
+          },
+          "tr": {
+            "prompt": "Daveti kibarca reddet.",
+            "hint": "leider “maalesef” demektir.",
+            "english": "Maalesef gelemem."
+          }
+        },
+        "sentenceId": "605fe601-2a16-5fd5-9dca-d7c7ea904ca5",
+        "exampleSentenceId": "605fe601-2a16-5fd5-9dca-d7c7ea904ca5",
+        "audio": {
+          "path": "/audio/a2-evening-plans-exercise-4.mp3"
+        }
+      }
+    },
+    {
+      "id": "09e06550-3cd9-5441-92a9-d2928c4d4d0d",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Wir essen heute zusammen. Kommst du?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "We are eating together today. Are you coming?",
+            "words": [
+              {
+                "source": {
+                  "text": "Wir",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "We",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 2
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "essen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "are",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "eating",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 3,
+                    "end": 6
+                  },
+                  {
+                    "start": 7,
+                    "end": 13
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "heute",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "today",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 10,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 28
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "zusammen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "together",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 24
+                },
+                "targetRanges": [
+                  {
+                    "start": 14,
+                    "end": 22
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Kommst",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Are",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "coming",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 26,
+                  "end": 32
+                },
+                "targetRanges": [
+                  {
+                    "start": 30,
+                    "end": 33
+                  },
+                  {
+                    "start": 38,
+                    "end": 44
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "du",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "you",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 33,
+                  "end": 35
+                },
+                "targetRanges": [
+                  {
+                    "start": 34,
+                    "end": 37
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Bugün birlikte yemek yiyoruz. Geliyor musun?",
+            "words": [
+              {
+                "source": {
+                  "text": "Wir",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "yiyoruz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 21,
+                    "end": 28
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "essen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "yemek",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "yiyoruz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 15,
+                    "end": 20
+                  },
+                  {
+                    "start": 21,
+                    "end": 28
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "heute",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Bugün",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 10,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "zusammen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "birlikte",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 24
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 14
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Kommst",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Geliyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 26,
+                  "end": 32
+                },
+                "targetRanges": [
+                  {
+                    "start": 30,
+                    "end": 37
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "du",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "musun",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 33,
+                  "end": 35
+                },
+                "targetRanges": [
+                  {
+                    "start": 38,
+                    "end": 43
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Wir",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "435eb77e-f741-5e0b-964e-70b5f7f67c32",
+            "glosses": {
+              "en": "we",
+              "tr": "biz"
+            }
+          },
+          {
+            "source": {
+              "text": "essen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 9
+            },
+            "lexemeId": "ad5e83d2-95fe-5fc7-94df-506d6c1e98d6",
+            "glosses": {
+              "en": "to eat",
+              "tr": "yemek"
+            }
+          },
+          {
+            "source": {
+              "text": "heute",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 10,
+              "end": 15
+            },
+            "lexemeId": "c9437f86-58f8-5eec-957c-ada1984ba103",
+            "glosses": {
+              "en": "today",
+              "tr": "bugün"
+            }
+          },
+          {
+            "source": {
+              "text": "zusammen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 24
+            },
+            "lexemeId": "2dab37ad-5b51-5ede-acbe-b9ba3e1ce67b",
+            "glosses": {
+              "en": "together, jointly",
+              "tr": "birlikte"
+            }
+          },
+          {
+            "source": {
+              "text": "Kommst",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 26,
+              "end": 32
+            },
+            "lexemeId": "37989c5c-ba35-5ba2-8ac3-a5c1ca4dc259",
+            "glosses": {
+              "en": "to come; to arrive",
+              "tr": "gelmek; varmak"
+            }
+          },
+          {
+            "source": {
+              "text": "du",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 33,
+              "end": 35
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "5fb399c0-a9bb-5259-a720-b0bcb3549f3c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "choice",
+        "prompt": "Choose the sentence saying this map is older than the other.",
+        "hint": "älter means older; als means than here.",
+        "options": [
+          "Diese Karte ist älter als die andere.",
+          "Diese Karte ist neuer als die andere.",
+          "Diese Karte ist genauso alt wie die andere."
+        ],
+        "id": "5fb399c0-a9bb-5259-a720-b0bcb3549f3c",
+        "itemId": "81c24225-5f5c-58d7-b900-ab958d032d76",
+        "questId": "3ab29778-6044-5ae6-9f68-6add2dbec6b1",
+        "level": "A2",
+        "wordIds": [
+          "a1da6257-d775-54bc-b545-540d6d916810",
+          "b07dde00-7674-521b-b02f-b3fd4f070338",
+          "630d7b1c-a02a-506d-a1ad-42386d9ec328",
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "0e61e7c9-48b8-5533-bec7-0fa83b3fd250",
+          "eba6436b-4a83-5699-8fdd-1c855b9b980b",
+          "7bd95d3e-460d-55a6-bfde-68df22ae1587"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Choose the sentence saying this map is older than the other.",
+            "hint": "älter means older; als means than here."
+          },
+          "tr": {
+            "prompt": "Bu haritanın diğerinden daha eski olduğunu söyleyen cümleyi seç.",
+            "hint": "älter “daha eski”, als burada “-den” demektir.",
+            "english": "Bu harita diğerinden daha eski."
+          }
+        },
+        "sentenceId": "1875a3c6-2ec3-5d2d-b1c9-4995fa1dea33",
+        "exampleSentenceId": "1875a3c6-2ec3-5d2d-b1c9-4995fa1dea33",
+        "audio": {
+          "path": "/audio/a2-archive-exercise-4.mp3"
+        }
+      }
+    },
+    {
+      "id": "ea7f8ef9-8d09-5d5c-a7a6-c7a21bd864d5",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Eine Karte ist aus dem Jahr 1900, die andere aus dem Jahr 2000.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "One map is from 1900, the other from 2000.",
+            "words": [
+              {
+                "source": {
+                  "text": "Eine",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "One",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 4
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Karte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "map",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 5,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 7
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "ist",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "is",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 10
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "aus",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "from",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 15,
+                  "end": 18
+                },
+                "targetRanges": [
+                  {
+                    "start": 11,
+                    "end": 15
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "dem",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 19,
+                  "end": 22
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Jahr",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 27
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "die",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "the",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 34,
+                  "end": 37
+                },
+                "targetRanges": [
+                  {
+                    "start": 22,
+                    "end": 25
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "andere",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "other",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 38,
+                  "end": 44
+                },
+                "targetRanges": [
+                  {
+                    "start": 26,
+                    "end": 31
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "aus",
+                  "occurrence": 2
+                },
+                "targets": [
+                  {
+                    "text": "from",
+                    "occurrence": 2
+                  }
+                ],
+                "sourceRange": {
+                  "start": 45,
+                  "end": 48
+                },
+                "targetRanges": [
+                  {
+                    "start": 32,
+                    "end": 36
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "dem",
+                  "occurrence": 2
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 49,
+                  "end": 52
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Jahr",
+                  "occurrence": 2
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 53,
+                  "end": 57
+                },
+                "targetRanges": []
+              }
+            ]
+          },
+          "tr": {
+            "text": "Haritalardan biri 1900 yılından, diğeri 2000 yılından.",
+            "words": [
+              {
+                "source": {
+                  "text": "Eine",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "biri",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 4
+                },
+                "targetRanges": [
+                  {
+                    "start": 13,
+                    "end": 17
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Karte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Haritalardan",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 5,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 12
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "ist",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 14
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "aus",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "yılından",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 15,
+                  "end": 18
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 31
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "dem",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 19,
+                  "end": 22
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Jahr",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "yılından",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 27
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 31
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "die",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 34,
+                  "end": 37
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "andere",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "diğeri",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 38,
+                  "end": 44
+                },
+                "targetRanges": [
+                  {
+                    "start": 33,
+                    "end": 39
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "aus",
+                  "occurrence": 2
+                },
+                "targets": [
+                  {
+                    "text": "yılından",
+                    "occurrence": 2
+                  }
+                ],
+                "sourceRange": {
+                  "start": 45,
+                  "end": 48
+                },
+                "targetRanges": [
+                  {
+                    "start": 45,
+                    "end": 53
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "dem",
+                  "occurrence": 2
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 49,
+                  "end": 52
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Jahr",
+                  "occurrence": 2
+                },
+                "targets": [
+                  {
+                    "text": "yılından",
+                    "occurrence": 2
+                  }
+                ],
+                "sourceRange": {
+                  "start": 53,
+                  "end": 57
+                },
+                "targetRanges": [
+                  {
+                    "start": 45,
+                    "end": 53
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Eine",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)",
+              "tr": "bir (eril ya da nötr belirsiz tanımlık)"
+            }
+          },
+          {
+            "source": {
+              "text": "Karte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 5,
+              "end": 10
+            },
+            "lexemeId": "eba6436b-4a83-5699-8fdd-1c855b9b980b",
+            "glosses": {
+              "en": "card; map; ticket",
+              "tr": "kart; harita; bilet"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "aus",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 18
+            },
+            "lexemeId": "2e1a09f7-e60f-513c-ba60-ee9e40f37f45",
+            "glosses": {
+              "en": "out of; from",
+              "tr": "-in içinden; -den/-dan"
+            }
+          },
+          {
+            "source": {
+              "text": "dem",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 19,
+              "end": 22
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Jahr",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 23,
+              "end": 27
+            },
+            "lexemeId": "eb240be8-6b1e-5d10-be1d-02859cf4aba2",
+            "glosses": {
+              "en": "year",
+              "tr": "yıl"
+            }
+          },
+          {
+            "source": {
+              "text": "die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 34,
+              "end": 37
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "andere",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 38,
+              "end": 44
+            },
+            "lexemeId": "630d7b1c-a02a-506d-a1ad-42386d9ec328",
+            "glosses": {
+              "en": "other; different",
+              "tr": "diğer; başka"
+            }
+          },
+          {
+            "source": {
+              "text": "aus",
+              "occurrence": 2
+            },
+            "range": {
+              "start": 45,
+              "end": 48
+            },
+            "lexemeId": "2e1a09f7-e60f-513c-ba60-ee9e40f37f45",
+            "glosses": {
+              "en": "out of; from",
+              "tr": "-in içinden; -den/-dan"
+            }
+          },
+          {
+            "source": {
+              "text": "dem",
+              "occurrence": 2
+            },
+            "range": {
+              "start": 49,
+              "end": 52
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Jahr",
+              "occurrence": 2
+            },
+            "range": {
+              "start": 53,
+              "end": 57
+            },
+            "lexemeId": "eb240be8-6b1e-5d10-be1d-02859cf4aba2",
+            "glosses": {
+              "en": "year",
+              "tr": "yıl"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "8ee3de97-4110-5c54-af35-220d0f1711be",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Ask politely: \"Could you please repair that?\"",
+        "hint": "Start with Könnten Sie; reparieren goes last.",
+        "id": "8ee3de97-4110-5c54-af35-220d0f1711be",
+        "itemId": "2a364a29-9851-51e2-a6c7-4595f77768a3",
+        "questId": "fc61afe7-c070-5ead-8c27-aef5b0c5ebfd",
+        "level": "A2",
+        "wordIds": [
+          "f571094d-b715-578d-b68d-c15f3b0aa4d1",
+          "4161c961-950c-5ce7-bb6b-75ef892f7cce",
+          "82f6b507-4ca8-5c71-8e4a-b05ba78bb39d",
+          "76a515bd-1c98-5ebc-9e5b-038e84660162",
+          "b128b83c-26c7-5802-b555-a63c7aeb437e"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Ask politely: \"Could you please repair that?\"",
+            "hint": "Start with Könnten Sie; reparieren goes last."
+          },
+          "tr": {
+            "prompt": "Kibarca sor: “Bunu tamir edebilir misiniz lütfen?”",
+            "hint": "Könnten Sie ile başla; reparieren sona gider.",
+            "english": "Bunu tamir edebilir misiniz lütfen?"
+          }
+        },
+        "sentenceId": "891576a5-a5d6-5e33-b3be-1b66080dce52",
+        "exampleSentenceId": "891576a5-a5d6-5e33-b3be-1b66080dce52",
+        "audio": {
+          "path": "/audio/a2-apartment-exercise-6.mp3"
+        }
+      }
+    },
+    {
+      "id": "ada7a6d6-1fc9-5496-8967-910dbf295f16",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Das Fenster geht nicht auf.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The window will not open.",
+            "words": [
+              {
+                "source": {
+                  "text": "Das",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "The",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Fenster",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "window",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 10
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "geht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "will",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "open",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 16
+                },
+                "targetRanges": [
+                  {
+                    "start": 11,
+                    "end": 15
+                  },
+                  {
+                    "start": 20,
+                    "end": 24
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "nicht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "not",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 17,
+                  "end": 22
+                },
+                "targetRanges": [
+                  {
+                    "start": 16,
+                    "end": 19
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "auf",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "open",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 20,
+                    "end": 24
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Pencere açılmıyor.",
+            "words": [
+              {
+                "source": {
+                  "text": "Das",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Fenster",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Pencere",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 7
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "geht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "açılmıyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 16
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 17
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "nicht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "açılmıyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 17,
+                  "end": 22
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 17
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "auf",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "açılmıyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 23,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 17
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Fenster",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 11
+            },
+            "lexemeId": "6bec37dd-f4f4-55d4-a26a-29bc15a732e9",
+            "glosses": {
+              "en": "window",
+              "tr": "pencere"
+            }
+          },
+          {
+            "source": {
+              "text": "geht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 16
+            },
+            "lexemeId": "47352442-073f-54cf-a397-e1a0f165a298",
+            "glosses": {
+              "en": "to go; walk",
+              "tr": "gitmek; yürümek"
+            }
+          },
+          {
+            "source": {
+              "text": "nicht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 17,
+              "end": 22
+            },
+            "lexemeId": "4bcfe885-010c-55ad-a5a7-fdad64259660",
+            "glosses": {
+              "en": "not",
+              "tr": "değil; -me/-ma"
+            }
+          },
+          {
+            "source": {
+              "text": "auf",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 23,
+              "end": 26
+            },
+            "lexemeId": "4b0b47b2-d60d-52c3-811c-1f2de833747b",
+            "glosses": {
+              "en": "on; onto",
+              "tr": "üstünde; üstüne"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "a5f55409-8220-5bda-baf2-65ca1e53e287",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "choice",
+        "prompt": "Disagree respectfully because the group still lacks information.",
+        "hint": "anders means differently.",
+        "options": [
+          "Ich sehe das anders, weil wir noch nicht genug wissen.",
+          "Ich sehe das genauso, weil der Plan gut ist.",
+          "Ich weiß nicht, wann der Zug abfährt."
+        ],
+        "id": "a5f55409-8220-5bda-baf2-65ca1e53e287",
+        "itemId": "2af06d9e-c400-5c2f-8c5e-993a09de2021",
+        "questId": "2cb1389b-7c64-5197-9ad4-50adc77b82aa",
+        "level": "B1",
+        "wordIds": [
+          "e8ab2349-0a18-5f61-9c15-6e2fbca323c8",
+          "4161c961-950c-5ce7-bb6b-75ef892f7cce",
+          "f08f294e-42eb-5a55-9184-c261bce6f41c",
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "4bcfe885-010c-55ad-a5a7-fdad64259660",
+          "d06c5b7e-10a2-505a-bb2b-5486c3b90a14",
+          "52cc0ee5-ebc7-5806-845b-c4a38bcc679c",
+          "f25bb5ff-4206-5cf6-85dd-f5ad6d9349e7",
+          "435eb77e-f741-5e0b-964e-70b5f7f67c32",
+          "cc3a57a8-fc69-55ec-86be-02b1d89117ae"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Disagree respectfully because the group still lacks information.",
+            "hint": "anders means differently."
+          },
+          "tr": {
+            "prompt": "Grubun hâlâ yeterli bilgisi olmadığı için saygıyla karşı çık.",
+            "hint": "anders “farklı” demektir.",
+            "english": "Ben farklı düşünüyorum, çünkü henüz yeterince bilgimiz yok."
+          }
+        },
+        "sentenceId": "f9ce413c-19fb-5d37-a3b3-786d8f0ae736",
+        "exampleSentenceId": "f9ce413c-19fb-5d37-a3b3-786d8f0ae736",
+        "audio": {
+          "path": "/audio/b1-council-exercise-5.mp3"
+        }
+      }
+    },
+    {
+      "id": "7e7769a0-0e5f-5dad-b465-34d5f9a88457",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Wir kennen noch nicht alle Fakten. Trotzdem will der Rat entscheiden.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "We do not know all the facts yet. The council still wants to decide.",
+            "words": [
+              {
+                "source": {
+                  "text": "Wir",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "We",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 2
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "kennen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "know",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 10,
+                    "end": 14
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "noch",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "yet",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 29,
+                    "end": 32
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "nicht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "not",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 21
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 9
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "alle",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "all",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 22,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 15,
+                    "end": 18
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Fakten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "facts",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 27,
+                  "end": 33
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 28
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Trotzdem",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "still",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 35,
+                  "end": 43
+                },
+                "targetRanges": [
+                  {
+                    "start": 46,
+                    "end": 51
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "will",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "wants",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 44,
+                  "end": 48
+                },
+                "targetRanges": [
+                  {
+                    "start": 52,
+                    "end": 57
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "der",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "The",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 49,
+                  "end": 52
+                },
+                "targetRanges": [
+                  {
+                    "start": 34,
+                    "end": 37
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Rat",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "council",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 53,
+                  "end": 56
+                },
+                "targetRanges": [
+                  {
+                    "start": 38,
+                    "end": 45
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "entscheiden",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "to",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "decide",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 57,
+                  "end": 68
+                },
+                "targetRanges": [
+                  {
+                    "start": 58,
+                    "end": 60
+                  },
+                  {
+                    "start": 61,
+                    "end": 67
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Henüz bütün gerçekleri bilmiyoruz. Yine de meclis karar vermek istiyor.",
+            "words": [
+              {
+                "source": {
+                  "text": "Wir",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "bilmiyoruz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 33
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "kennen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "bilmiyoruz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 33
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "noch",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Henüz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "nicht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "bilmiyoruz",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 21
+                },
+                "targetRanges": [
+                  {
+                    "start": 23,
+                    "end": 33
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "alle",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "bütün",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 22,
+                  "end": 26
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 11
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Fakten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "gerçekleri",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 27,
+                  "end": 33
+                },
+                "targetRanges": [
+                  {
+                    "start": 12,
+                    "end": 22
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Trotzdem",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Yine",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "de",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 35,
+                  "end": 43
+                },
+                "targetRanges": [
+                  {
+                    "start": 35,
+                    "end": 39
+                  },
+                  {
+                    "start": 40,
+                    "end": 42
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "will",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "istiyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 44,
+                  "end": 48
+                },
+                "targetRanges": [
+                  {
+                    "start": 63,
+                    "end": 70
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "der",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 49,
+                  "end": 52
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Rat",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "meclis",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 53,
+                  "end": 56
+                },
+                "targetRanges": [
+                  {
+                    "start": 43,
+                    "end": 49
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "entscheiden",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "karar",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "vermek",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 57,
+                  "end": 68
+                },
+                "targetRanges": [
+                  {
+                    "start": 50,
+                    "end": 55
+                  },
+                  {
+                    "start": 56,
+                    "end": 62
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Wir",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "435eb77e-f741-5e0b-964e-70b5f7f67c32",
+            "glosses": {
+              "en": "we",
+              "tr": "biz"
+            }
+          },
+          {
+            "source": {
+              "text": "kennen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 10
+            },
+            "lexemeId": "0bdbd93c-46d6-5ccb-a58c-aa452def637e",
+            "glosses": {
+              "en": "to know; be familiar with",
+              "tr": "tanımak; bilmek"
+            }
+          },
+          {
+            "source": {
+              "text": "noch",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 15
+            },
+            "lexemeId": "d06c5b7e-10a2-505a-bb2b-5486c3b90a14",
+            "glosses": {
+              "en": "still; yet; another",
+              "tr": "hâlâ; henüz; bir … daha"
+            }
+          },
+          {
+            "source": {
+              "text": "nicht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 21
+            },
+            "lexemeId": "4bcfe885-010c-55ad-a5a7-fdad64259660",
+            "glosses": {
+              "en": "not",
+              "tr": "değil; -me/-ma"
+            }
+          },
+          {
+            "source": {
+              "text": "alle",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 22,
+              "end": 26
+            },
+            "lexemeId": "25b7cf70-1c8b-5af1-9946-cb4b97b36349",
+            "glosses": {
+              "en": "all (plural)",
+              "tr": "hepsi; bütün (çoğul)"
+            }
+          },
+          {
+            "source": {
+              "text": "Fakten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 27,
+              "end": 33
+            },
+            "glosses": {}
+          },
+          {
+            "source": {
+              "text": "Trotzdem",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 35,
+              "end": 43
+            },
+            "lexemeId": "db9b207f-5925-512c-ad06-5f8937a1dde2",
+            "glosses": {
+              "en": "anyhow, nevertheless",
+              "tr": "yine de; buna rağmen"
+            }
+          },
+          {
+            "source": {
+              "text": "will",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 44,
+              "end": 48
+            },
+            "lexemeId": "f3657020-3697-56e2-8017-20d64c1af24a",
+            "glosses": {
+              "en": "to want to",
+              "tr": "istemek"
+            }
+          },
+          {
+            "source": {
+              "text": "der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 49,
+              "end": 52
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Rat",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 53,
+              "end": 56
+            },
+            "lexemeId": "29060470-2112-551d-b069-18c65bb96298",
+            "glosses": {
+              "en": "advice, counsel",
+              "tr": "öğüt; tavsiye"
+            }
+          },
+          {
+            "source": {
+              "text": "entscheiden",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 57,
+              "end": 68
+            },
+            "lexemeId": "b17ee15c-a4f2-50e3-922e-6ac4990d3772",
+            "glosses": {
+              "en": "to decide, to make a decision",
+              "tr": "karar vermek"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb9ddd33-30f6-5580-ae1c-12a225d4fa02",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Der Zeuge sagt, der Zug sei schon um fünf Uhr abgefahren.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The witness says the train had already left at five.",
+            "words": [
+              {
+                "source": {
+                  "text": "Der",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "The",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Zeuge",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "witness",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 11
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "sagt",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "says",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 10,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 12,
+                    "end": 16
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "der",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "the",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 19
+                },
+                "targetRanges": [
+                  {
+                    "start": 17,
+                    "end": 20
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Zug",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "train",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 20,
+                  "end": 23
+                },
+                "targetRanges": [
+                  {
+                    "start": 21,
+                    "end": 26
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "sei",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "had",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 24,
+                  "end": 27
+                },
+                "targetRanges": [
+                  {
+                    "start": 27,
+                    "end": 30
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "schon",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "already",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 28,
+                  "end": 33
+                },
+                "targetRanges": [
+                  {
+                    "start": 31,
+                    "end": 38
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "um",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "at",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 34,
+                  "end": 36
+                },
+                "targetRanges": [
+                  {
+                    "start": 44,
+                    "end": 46
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "fünf",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "five",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 37,
+                  "end": 41
+                },
+                "targetRanges": [
+                  {
+                    "start": 47,
+                    "end": 51
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Uhr",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 42,
+                  "end": 45
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "abgefahren",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "left",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 46,
+                  "end": 56
+                },
+                "targetRanges": [
+                  {
+                    "start": 39,
+                    "end": 43
+                  }
+                ]
+              }
+            ]
+          },
+          "tr": {
+            "text": "Tanık, trenin saat beşte çoktan kalktığını söylüyor.",
+            "words": [
+              {
+                "source": {
+                  "text": "Der",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Zeuge",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Tanık",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "sagt",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "söylüyor",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 10,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 43,
+                    "end": 51
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "der",
+                  "occurrence": 1
+                },
+                "targets": [],
+                "sourceRange": {
+                  "start": 16,
+                  "end": 19
+                },
+                "targetRanges": []
+              },
+              {
+                "source": {
+                  "text": "Zug",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "trenin",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 20,
+                  "end": 23
+                },
+                "targetRanges": [
+                  {
+                    "start": 7,
+                    "end": 13
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "sei",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "kalktığını",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 24,
+                  "end": 27
+                },
+                "targetRanges": [
+                  {
+                    "start": 32,
+                    "end": 42
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "schon",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "çoktan",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 28,
+                  "end": 33
+                },
+                "targetRanges": [
+                  {
+                    "start": 25,
+                    "end": 31
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "um",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "beşte",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 34,
+                  "end": 36
+                },
+                "targetRanges": [
+                  {
+                    "start": 19,
+                    "end": 24
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "fünf",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "beşte",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 37,
+                  "end": 41
+                },
+                "targetRanges": [
+                  {
+                    "start": 19,
+                    "end": 24
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Uhr",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "saat",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 42,
+                  "end": 45
+                },
+                "targetRanges": [
+                  {
+                    "start": 14,
+                    "end": 18
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "abgefahren",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "kalktığını",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 46,
+                  "end": 56
+                },
+                "targetRanges": [
+                  {
+                    "start": 32,
+                    "end": 42
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Zeuge",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 9
+            },
+            "glosses": {
+              "en": "stuff, gear, equipment / witness, wit , deponent, attestor , voucher",
+              "tr": "eşya; malzeme / tanık"
+            }
+          },
+          {
+            "source": {
+              "text": "sagt",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 10,
+              "end": 14
+            },
+            "lexemeId": "206061f2-2848-5fb6-97d7-57ae163d642b",
+            "glosses": {
+              "en": "to say",
+              "tr": "söylemek, demek"
+            }
+          },
+          {
+            "source": {
+              "text": "der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 19
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Zug",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 23
+            },
+            "lexemeId": "07178d20-c9e7-5fe2-bbaa-1285c07aeddf",
+            "glosses": {
+              "en": "train; move; pull",
+              "tr": "tren; hamle; çekiş"
+            }
+          },
+          {
+            "source": {
+              "text": "sei",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 24,
+              "end": 27
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "schon",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 28,
+              "end": 33
+            },
+            "lexemeId": "ae3b2a15-87dc-506e-8dd4-03ecaa93bdf5",
+            "glosses": {
+              "en": "already",
+              "tr": "zaten; çoktan"
+            }
+          },
+          {
+            "source": {
+              "text": "um",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 34,
+              "end": 36
+            },
+            "lexemeId": "770c141d-4cf0-5c99-878c-a1c193916f84",
+            "glosses": {
+              "en": "around; at (a time)",
+              "tr": "etrafında; saat …'de"
+            }
+          },
+          {
+            "source": {
+              "text": "fünf",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 37,
+              "end": 41
+            },
+            "lexemeId": "22593c23-0fbd-5d35-877d-4091b7a5afe3",
+            "glosses": {
+              "en": "five",
+              "tr": "beş"
+            }
+          },
+          {
+            "source": {
+              "text": "Uhr",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 42,
+              "end": 45
+            },
+            "lexemeId": "b91a5d64-042d-53cb-9031-f0088071fb92",
+            "glosses": {
+              "en": "hours, o'clock",
+              "tr": "saat (zaman)"
+            }
+          },
+          {
+            "source": {
+              "text": "abgefahren",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 46,
+              "end": 56
+            },
+            "lexemeId": "b93763ba-094d-5c11-ab9f-2960bf9d2633",
+            "glosses": {
+              "en": "to depart, to leave",
+              "tr": "hareket etmek, kalkmak"
+            }
+          }
+        ]
       }
     }
   ],

@@ -8,7 +8,7 @@ export const publicLearningManifestPaths=[
 ];
 const publicLearningFields=new Set(['text','german','english','answer','acceptedAnswers','explanation','correctedAnswer','correctAnswer','answers','modelAnswer','sourceGerman','sourceText','translation','translations','meanings','glosses','words','lemma','article','articleForm','plural','surfaceForms','forms','example','prompt','hint']);
 const privateLearningJSON=/^(?:data\/(?:course(?:-[^/]+)?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?)\.json|data\/i18n\/(?:tr-course|tr-story)\.json|minigames\/(?:item-data|audio-data|story-scripts|loop-data)\.json)$/;
-const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','interior-conversations.ts','word-detail.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
+const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','story-panels.ts','learning-context.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','interior-conversations.ts','word-detail.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
 /** Vite may serve files directly; only the retained learning authoring banks are blocked. */
 export function privateDevelopmentRequest(requestURL,root,{webRoot=resolve(root,'web')}={}) {
   let url,path;try{url=new URL(requestURL,'http://localhost');path=posix.normalize(decodeURIComponent(url.pathname));}catch{return false;}
@@ -59,7 +59,7 @@ export function contentRuntimePlugin(root) {
     'quest-graph.ts': { questGraphs: 'questGraphs' },
     'story.ts': { storyActs: 'storyActs', storyClues: 'storyClues' },
     'npc-dialogue.ts': { ambientCallbacks: 'ambientCallbacks' },
-    'activity-engine.ts': { scenarios: 'activityScenarios', activityScenarios: 'activityScenarios', activityAudioJobs: 'activityAudioJobs' },
+    'activity-engine.ts': { activityDefinitions: 'activityDefinitions', scenarios: 'activityScenarios', activityScenarios: 'activityScenarios', activityAudioJobs: 'activityAudioJobs' },
     'expedition-games.ts': { expeditionGames: 'expeditionGames' },
     'minigames/catalogue.ts': {miniGameDefinitions:'miniGameDefinitions'},
     'minigames/scripted-stories.ts': { canonicalStoryExercises: 'canonicalStoryExercises', scriptedStoryExercises: 'scriptedStoryExercises' },
@@ -67,6 +67,8 @@ export function contentRuntimePlugin(root) {
   };
   const objects = {
     'story.ts': { objectStories: 'objectStories', journalNarratives: 'journalNarratives' },
+    'story-panels.ts': { specialItems: 'specialItems', endings: 'storyEndings' },
+    'learning-context.ts': { placementDialogue: 'placementDialogue' },
     'contextual-grammar.ts': { notes: 'contextualGrammar' },
     'beginner-dialogue.ts': { beginnerGateTranslations: 'beginnerGateTranslations', greetingMeanings: 'greetingMeanings' },
     'activity-stories.ts': { activityDiscoveries: 'activityDiscoveries' },
@@ -193,6 +195,18 @@ export function contentRuntimePlugin(root) {
               const seeds = snapshot().expeditionRegions.map(region => ({ id: region.id, name: region.name, subtitle: '', level: region.encounters[0]?.difficulty ?? 'A1', culture: '', feeling: '', description: '', languageFocus: '', cast: region.npcs.map(npc => [npc.id.slice(region.id.length + 1), npc.name, npc.role, '', '', '', '', '']), discoveries: region.objects.map(object => [object.id.slice(region.id.length + 1), object.label, object.kind, '', '', '', '', '', 'dialogue']), residents: Array.from({ length: 8 }, (_, index) => `Resident ${index + 1}`) }));
               return ts.factory.updateVariableDeclaration(node, node.name, node.exclamationToken, node.type, literal(seeds));
             }
+            if(relative==='expeditions.ts'&&name==='encounterClarifications') {
+              changed=true;
+              return ts.factory.updateVariableDeclaration(node,node.name,node.exclamationToken,node.type,literal({}));
+            }
+          }
+          if(relative==='expeditions.ts'&&ts.isFunctionDeclaration(node)&&node.name?.text==='makeEncounter') {
+            changed=true;
+            return ts.factory.updateFunctionDeclaration(node,node.modifiers,node.asteriskToken,node.name,node.typeParameters,node.parameters,node.type,parsedBody("return {id,title,german:'',translation:'',languageFocus,difficulty,gameKind,prompt:'',choices:[]};"));
+          }
+          if(relative==='expedition-games.ts'&&ts.isFunctionDeclaration(node)&&node.name?.text==='expeditionAgreement') {
+            changed=true;
+            return ts.factory.updateFunctionDeclaration(node,node.modifiers,node.asteriskToken,node.name,node.typeParameters,node.parameters,node.type,parsedBody("return game.agreements?.[JSON.stringify(game.fields.map(field=>values[field.id]))] ?? '';"));
           }
           if (relative === 'activity-engine.ts' && ts.isExpressionStatement(node) && ts.isCallExpression(node.expression) && ts.isIdentifier(node.expression.expression) && /^add(Cafe|Market|Detective|Delivery)$/.test(node.expression.expression.text)) { changed = true; return undefined; }
           if(relative==='interior-conversations.ts'&&ts.isFunctionDeclaration(node)&&node.name?.text==='script'){changed=true;return undefined;}
@@ -260,7 +274,13 @@ export function contentRuntimePlugin(root) {
     generateBundle(_options, bundle) {
       const forbidden = /\/(?:data\/(?:course(?:-(?:meta|lexicon|exercises-[a-z0-9]+))?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?|i18n\/(?:tr-story|tr-course))|minigames\/(?:story-scripts|loop-data|audio-data|item-data))\.json(?:\?|$)/;
       for (const output of Object.values(bundle)) if (output.type === 'chunk') {
-        for (const module of Object.keys(output.modules)) if (forbidden.test(module.replaceAll('\\', '/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
+        for (const module of Object.keys(output.modules)) {
+          const path=module.split('?')[0].replaceAll('\\','/');
+          const source=resolve(root,'web/src').replaceAll('\\','/')+'/';
+          const query=new URLSearchParams(module.slice(module.indexOf('?')+1));
+          const rawAuthoring=path.startsWith(source)&&retainedLearningModules.has(path.slice(source.length))&&(query.has('raw')||query.has('url'));
+          if(rawAuthoring||path.startsWith(resolve(root,'content').replaceAll('\\','/')+'/')||path===resolve(root,'content_ids.json').replaceAll('\\','/')||path.startsWith(resolve(root,'server').replaceAll('\\','/')+'/')&&path.endsWith('.json')||forbidden.test(module.replaceAll('\\','/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
+        }
       }
     },
   };

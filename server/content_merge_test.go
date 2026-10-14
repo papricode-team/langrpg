@@ -200,6 +200,127 @@ func TestContentInteriorFactsUseOnlySelectedSupportLanguage(t *testing.T) {
 	}
 }
 
+func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
+	app := contentTestApp(t)
+	token, player := createSession(t, app, "Story owner")
+	other, _ := createSession(t, app, "Other story")
+	itemID := testContentID(t, app, "context", "special-item:successor-letter")
+	endingID := testContentID(t, app, "context", "story-ending:routes-reopened")
+	var panelIDs []string
+	for _, record := range app.content.Records {
+		if record.Kind != "context" || record.CourseID != app.canonical.defaultCourse {
+			continue
+		}
+		var body struct {
+			Category string `json:"category"`
+		}
+		if json.Unmarshal(record.Body, &body) == nil && (body.Category == "specialItem" || body.Category == "storyEnding") {
+			panelIDs = append(panelIDs, record.ID)
+		}
+	}
+	if len(panelIDs) != 7 {
+		t.Fatalf("expected all seven server-owned story panels, got %d", len(panelIDs))
+	}
+	seed := func(session string, inventory []string, ending string) Account {
+		t.Helper()
+		account, err := app.store.UpdateAccount(context.Background(), tokenHash(session), func(account *Account) error {
+			account.Progress.Story.Inventory = inventory
+			account.Progress.Story.Ending = ending
+			return nil
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+		return account
+	}
+	assertPanels := func(session, visible string) {
+		t.Helper()
+		for _, id := range panelIDs {
+			response := request(app, "GET", "/api/content/contexts/"+id, session, nil)
+			want := 404
+			if id == visible {
+				want = 200
+			}
+			if response.Code != want {
+				t.Fatalf("story panel %s status %d, want %d: %s", id, response.Code, want, response.Body.String())
+			}
+		}
+	}
+	assertBootstrap := func(session, visible string) {
+		t.Helper()
+		response := request(app, "GET", "/api/content/bootstrap", session, nil)
+		if response.Code != 200 {
+			t.Fatal(response.Body.String())
+		}
+		var bootstrap struct {
+			Body struct {
+				Contexts []struct {
+					ID string `json:"id"`
+				} `json:"contexts"`
+			} `json:"body"`
+		}
+		if err := json.Unmarshal(response.Body.Bytes(), &bootstrap); err != nil {
+			t.Fatal(err)
+		}
+		for _, id := range panelIDs {
+			present := false
+			for _, entry := range bootstrap.Body.Contexts {
+				present = present || entry.ID == id
+			}
+			if present != (id == visible) {
+				t.Fatalf("bootstrap exposed a locked or omitted an owned story panel %s", id)
+			}
+			var panel struct {
+				Data struct {
+					Text string `json:"text"`
+				} `json:"data"`
+			}
+			if err := json.Unmarshal(app.content.ByID[id].Body, &panel); err != nil || panel.Data.Text == "" {
+				t.Fatal("story panel fixture is missing its authored text")
+			}
+			text, _ := json.Marshal(panel.Data.Text)
+			if bytes.Contains(response.Body.Bytes(), text) {
+				t.Fatal("bootstrap included a complete story panel instead of its authorized reference")
+			}
+		}
+	}
+	seed(token, []string{}, "")
+	seed(other, []string{}, "")
+	assertPanels(token, "")
+	assertBootstrap(token, "")
+	// Both legacy saves and UUID inventories must resolve the same ownership.
+	for _, item := range []string{"successor-letter", testContentID(t, app, "item", "successor-letter")} {
+		account := seed(token, []string{item}, "")
+		assertPanels(token, itemID)
+		if !app.recordVisible(app.content.ByID[itemID], account) {
+			t.Fatal("legacy inventory lost its owned story panel")
+		}
+		raw, err := app.canonical.Store.GetAccountByID(context.Background(), player.ID)
+		if err != nil || !app.recordVisible(app.content.ByID[itemID], raw) {
+			t.Fatal("canonical inventory lost its owned story panel")
+		}
+	}
+	assertBootstrap(token, itemID)
+	seed(token, []string{}, "routes-reopened")
+	assertPanels(token, endingID)
+	assertBootstrap(token, endingID)
+	assertPanels(other, "")
+	english := testContentID(t, app, "course", "english")
+	if response := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": english, "supportLanguage": "de"}); response.Code != 200 {
+		t.Fatal(response.Body.String())
+	}
+	if response := request(app, "GET", "/api/content/contexts/"+endingID, token, nil); response.Code != 404 {
+		t.Fatal("another active course exposed the saved German ending")
+	}
+	assertBootstrap(token, "")
+	if response := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": app.canonical.defaultCourse, "supportLanguage": "en"}); response.Code != 200 {
+		t.Fatal(response.Body.String())
+	}
+	if response := request(app, "GET", "/api/content/contexts/"+endingID, token, nil); response.Code != 200 {
+		t.Fatal("restoring a course lost its earned ending panel")
+	}
+}
+
 func TestContentInactiveCourseLocationMigratesEditedWorldBounds(t *testing.T) {
 	app := contentTestApp(t)
 	token, _ := createSession(t, app, "Bounds Ada")

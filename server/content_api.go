@@ -318,7 +318,7 @@ func (a *App) publicRecord(record contentstore.Record, lang string) map[string]a
 	return map[string]any{"id": record.ID, "courseId": record.CourseID, "kind": record.Kind, "version": record.Version, "body": stripContent(value, lang, "")}
 }
 
-var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "explanation": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true, "expected": true}
+var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "explanation": true, "orderExplanation": true, "modelAnswer": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true, "expected": true, "localId": true, "legacyId": true}
 
 func stripContent(value any, lang, parent string) any {
 	switch v := value.(type) {
@@ -373,7 +373,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 		if !ok {
 			return false
 		}
-		return a.exerciseVisible(exercise, account)
+		return a.exerciseVisible(exercise, account) || a.placementExerciseVisible(exercise.ID, account)
 	case "unit":
 		unit, ok := a.curriculum.Units[id]
 		if !ok {
@@ -528,7 +528,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 				return true
 			}
 		case "exercise":
-			if e, ok := a.curriculum.Exercises[id]; ok && a.exerciseVisible(e, account) {
+			if e, ok := a.curriculum.Exercises[id]; ok && (a.exerciseVisible(e, account) || a.placementExerciseVisible(e.ID, account)) {
 				if e.Mode == "production" && genericNormalize(stringValue(body["text"]), a.curriculum.Grading, false) == genericNormalize(e.Answer, a.curriculum.Grading, false) {
 					continue
 				}
@@ -563,6 +563,20 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 			}
 		case "interior":
 			if validInterior(DefaultMapID, id) {
+				return true
+			}
+		case "specialItem":
+			for _, item := range account.Progress.Story.Inventory {
+				if id != "" && a.canonical.translate(item, false) == id {
+					return true
+				}
+			}
+		case "storyEnding":
+			if id != "" && account.Progress.Story.Ending == id {
+				return true
+			}
+		case "placement":
+			if id == account.ActiveCourseID && a.placementEligible(account) {
 				return true
 			}
 		case "object":
@@ -728,6 +742,13 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 	if record.Kind == "bootstrap" {
 		body, _ := value["body"].(map[string]any)
 		a.filterBootstrap(body, account)
+		return value
+	}
+	if record.Kind == "context" {
+		body, _ := value["body"].(map[string]any)
+		if stringValue(body["category"]) == "expeditionGame" {
+			a.publicExpeditionGame(body, account)
+		}
 		return value
 	}
 	if record.Kind == "minigame" {

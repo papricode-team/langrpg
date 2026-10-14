@@ -246,7 +246,17 @@ export function installSentenceTranslations(root: HTMLElement | Document, onHelp
   }
 
   function onKeyDown(event: Event): void {
-    if ((event as KeyboardEvent).key !== 'Escape') return;
+    const key = (event as KeyboardEvent).key;
+    const word = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('[data-sentence-word-index]') : null;
+    const sentence = sentenceFor(word);
+    if (word && sentence && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) {
+      const words = [...sentence.querySelectorAll<HTMLButtonElement>('[data-sentence-word-index]:not(:disabled)')];
+      const index = words.indexOf(word);
+      const next = key === 'Home' ? 0 : key === 'End' ? words.length - 1 : (index + (key === 'ArrowRight' ? 1 : -1) + words.length) % words.length;
+      event.preventDefault(); event.stopPropagation(); words[next]?.focus(); words[next]?.click();
+      return;
+    }
+    if (key !== 'Escape') return;
     const wasShown = !!active && !tooltip.hidden;
     dismiss();
     // Dismiss English support first, without also closing the encounter or menu.
@@ -281,7 +291,7 @@ export function installSentenceTranslations(root: HTMLElement | Document, onHelp
   const listeners: [string, EventListener, boolean?][] = [
     ['pointerover', onPointerOver], ['pointerout', onPointerOut], ['pointermove', onPointerMove],
     ['pointerdown', onPointerDown], ['pointerup', onPointerUp],
-    ['focusin', onFocusIn], ['focusout', onFocusOut], ['keydown', onKeyDown],
+    ['focusin', onFocusIn], ['focusout', onFocusOut], ['keydown', onKeyDown, true],
     ['click', onWordClick],
     ['close', onDialogClose, true], ['cancel', onDialogClose, true],
   ];

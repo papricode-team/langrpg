@@ -60,7 +60,7 @@ func newCanonicalStore(base Store, b *contentstore.Bundle) (*canonicalStore, err
 		s.forward[e.slug] = e.id
 		s.reverse[e.id] = e.slug
 	}
-	kinds := map[string]string{"quests": "quest", "exercises": "exercise", "items": "item", "lexemes": "lexeme", "units": "unit", "graphs": "graph", "nodes": "node", "choices": "choice", "expeditions": "expedition", "minigames": "minigame"}
+	kinds := map[string]string{"quests": "quest", "exercises": "exercise", "items": "item", "lexemes": "lexeme", "units": "unit", "graphs": "graph", "nodes": "node", "choices": "choice", "expeditions": "expedition", "minigames": "minigame", "lines": "sentence"}
 	for key, oldID := range b.PublishedIDs {
 		kind, slug, _ := strings.Cut(key, ":")
 		if normalized := kinds[kind]; normalized != "" {

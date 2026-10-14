@@ -563,17 +563,22 @@
 }
 
 .conversation-choice>.outline-button {
-  flex:1;
-  min-width:0;
+  flex:none;
+  width:44px;
   min-height:48px;
   margin:0;
   padding:8px;
   border:0;
   background:none;
   color:inherit;
-  text-align:left;
+  text-align:center;
   font-size:var(--type-body);
   line-height:1.5;
+}
+
+.conversation-choice-line {
+  flex:1;
+  min-width:0;
 }
 
 .conversation-choice>.icon-button {

@@ -214,7 +214,7 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
 			return nil, &AccessDeniedError{Access: status}
 		}
-		if a.content != nil && !a.exerciseVisible(exercise, account) {
+		if a.content != nil && !a.exerciseVisible(exercise, account) && !a.placementExerciseVisible(exercise.ID, account) {
 			return nil, &APIError{404, "exercise not found"}
 		}
 		if err := a.requireMiniGameVocabulary(input, exercise, &account.Progress); err != nil {

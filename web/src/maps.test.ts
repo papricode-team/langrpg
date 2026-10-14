@@ -88,8 +88,8 @@ for (const map of maps.map(map => getMap(map.id))) describe(`${map.name} paths`,
 describe('region-specific scenery barriers', () => {
   const blocked: Record<StoryMapId, number[][]> = {
     lindenhafen: [[1390,750],[600,415],[1153,433],[818,535]],
-    waldruh: [[1400,820],[332,284],[1103,235],[239,658],[1022,655],[720,452]],
-    nebelstadt: [[1450,830],[264,280],[743,215],[1091,260],[1110,850],[642,785],[742,448]],
+    waldruh: [[1400,820],[332,284],[527,859],[207,658],[910,687],[720,452]],
+    nebelstadt: [[1450,830],[264,280],[743,215],[1091,260],[1840,950],[754,849],[742,448]],
   };
   it('excludes each painting’s own buildings, monuments, stalls and open water', () => {
     for (const map of storyMaps) {

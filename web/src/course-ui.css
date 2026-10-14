@@ -1661,3 +1661,8 @@
   color:var(--game-text);
   font:400 var(--type-title)/1.4 'Fraunces',serif;
 }
+
+:is(.grammar-route,.course-intro-examples) .sentence-inline-translation {
+  display:block;
+  color:var(--game-muted);
+}

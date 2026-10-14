@@ -5,10 +5,12 @@ import type { SessionResult, Progress } from './api';
 import type { Exercise, Quest } from './content';
 import type { CourseExercise, CourseLexeme, CourseUnit } from './course';
 import { conditionMet, storyState, type DialogueCondition, type DialogueLine, type QuestGraph } from './dialogue';
+import type { PlacementQuestion } from './learning-context';
 
 type JsonObject = Record<string, unknown>;
 const values = new Map<string, unknown>();
 let revision = 0;
+let contentOwner = '';
 export let activeCourse: ContentCourse | undefined;
 export let contentCounts: Record<string, number> = {};
 let bootstrapData: JsonObject = {};
@@ -124,6 +126,7 @@ async function syncMiniGameCatalogue(generation = revision): Promise<void> {
   for (const game of runtimeArray<import('./minigames/types').MiniGameDefinition>('miniGameDefinitions')) module.miniGameById.set(game.id, game);
 }
 export async function loadServerContent(session: SessionResult): Promise<ContentCourse> {
+  contentOwner = session.player.id;
   const generation = ++revision; activeCourse = undefined; storyContentRemaining = 0; graphIds.clear(); contexts.clear(); exerciseCache.clear(); resolvedContexts.clear(); contextPending.clear(); narrativePending.clear(); omittedStorySentences.clear(); expeditionIds.clear(); minigameIds.clear();
   const resetIntake = import('./intake').then(intake => { if (generation === revision) intake.clearSyllabusWords(); });
   for (const [key, value] of values) {
@@ -172,6 +175,8 @@ export async function loadStoryContent(pageSize = 12): Promise<StoryContentPage>
       loaded += records.length;
       for (const id of batch) if (!getSentence(id)) omittedStorySentences.add(id);
     }
+    await Promise.all([loadContexts('specialItem'), loadContexts('storyEnding')]);
+    if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
     installStoryMetadata();
     for (const quest of runtimeArray<Quest>('quests')) {
       const metadata = rows(bootstrapData.quests).find(row => row.id === quest.id);
@@ -238,6 +243,25 @@ export async function loadExercise(id: string): Promise<Exercise> {
   }
   const quest = runtimeArray<Quest>('quests').find(quest => quest.id === body.questId); if (quest && !quest.exercises.some(row => row.id === id)) quest.exercises.push(exercise);
   return exercise;
+}
+/** The diagnostic manifest authorizes just eight exercises and their authored cues. */
+export async function loadPlacement(): Promise<PlacementQuestion[]> {
+  const generation = revision;
+  const manifest = matchingContexts('placement', activeCourse?.id)[0];
+  if (!manifest) throw new Error('The placement sample is unavailable.');
+  const value = await loadContext<JsonObject>(manifest[0]), questions = rows(value.questions);
+  if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
+  if (questions.length !== 8 || new Set(questions.map(question => question.exerciseId)).size !== 8) throw new Error('The placement sample is incomplete.');
+  const loaded = await Promise.all(questions.map(async question => {
+    const turn = data(question.turn);
+    if (!turn.sentenceId || !turn.german || !turn.speaker || !['A1', 'A2', 'B1'].includes(String(question.level))) throw new Error('The placement sample is incomplete.');
+    const exercise = await loadExercise(String(question.exerciseId));
+    return { exercise: { ...exercise, level: question.level }, turn } as unknown as PlacementQuestion;
+  }));
+  if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
+  const dialogue = runtimeObject('placementDialogue');
+  for (const question of loaded) dialogue[question.exercise.id] = question.turn;
+  return loaded;
 }
 export async function loadUnit(id: string, progress?: Progress): Promise<CourseUnit> {
   const generation = revision;
@@ -330,7 +354,7 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
     else if (category === 'npcTitleGreeting') runtimeObject('titleGreetings')[`${entry.speaker ?? meta.worldId}:${entry.title ?? meta.title}`] = entry;
     else if (category === 'ambientCallback') upsert('ambientCallbacks', { ...entry, when: meta.condition ?? entry.when, npc: entry.npc ?? meta.worldId }, 'sentenceId');
     else if (category === 'activityDiscovery') runtimeObject('activityDiscoveries')[String(meta.ownerId)] = entry;
-    else if (category === 'beginnerChoices') runtimeObject('beginnerGateTranslations')[String(meta.ownerId)] = rows(value).map(line => [line.german, line.english]);
+    else if (category === 'beginnerChoices') runtimeObject('beginnerGateTranslations')[String(meta.ownerId)] = rows(value).map(line => [line.german, line.english, line.sentenceId]);
     else if (category === 'interior') {
       const room = runtimeArray<JsonObject>('interiors').find(room => room.id === entry.id);
       if (room) {
@@ -351,8 +375,15 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
     } else if (category === 'activityInventory') Object.assign(runtimeObject('activityInventory'), entry);
     else if (category === 'activityScenario') { upsert('activityScenarios', entry); if (entry.exerciseId) await loadExercise(String(entry.exerciseId)); }
     else if (category === 'activityDefinitions') collection('activityDefinitions', rows(value));
+    else if (category === 'specialItem') {
+      const panels = runtimeObject('specialItems');
+      for (const key of [entry.id, entry.worldId, meta.worldId, meta.ownerId]) if (typeof key === 'string') panels[key] = entry;
+    }
+    else if (category === 'storyEnding') runtimeObject('storyEndings')[String(meta.worldId ?? meta.ownerId ?? entry.id)] = entry;
     else if (category === 'expeditionGame') {
-      upsert('expeditionGames', entry);
+      const presenter = await import('./expedition-games');
+      if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
+      upsert('expeditionGames', presenter.serverExpeditionGame(entry as unknown as import('./expedition-games').ExpeditionGame, `${contentOwner}:${activeCourse?.id ?? ''}`) as unknown as JsonObject);
       const installer = await import('./expedition-learning');
       const placements = rows(entry.placements);
       for (const placement of placements) if (placement.exerciseId) {
@@ -374,6 +405,11 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
   return { loaded, remaining: Math.max(0, selected.length - loaded) };
 }
 export async function loadInterior(id: string): Promise<void> { await loadContexts('interior', id); await loadContexts('interiorWordFacts', id); }
+export function invalidateContext(category: string, ownerId?: string): void {
+  for (const [id] of matchingContexts(category, ownerId)) {
+    resolvedContexts.delete(id); contextPending.delete(id); contentApi.invalidate(`contexts/${id}`);
+  }
+}
 export async function loadInteriorConversation(objectId: string, nodeId?: string): Promise<void> {
   const generation = revision;
   const entries = matchingContexts('interiorConversation', objectId);
@@ -395,6 +431,7 @@ export async function loadNpcConversation(id: string, level: string, progress: P
   if (title) await loadContexts('npcTitleGreeting', id, undefined, { progress, title });
 }
 export async function loadRegionContent(mapId: string): Promise<void> {
+  await loadContexts('expeditionGame', mapId);
   await loadContexts('mapObject', undefined, undefined, { mapId });
   const maps = await import('./maps'), map = maps.storyMaps.find(map => map.id === mapId);
   for (const npc of map?.npcs ?? []) await loadContexts('npcRoutine', npc.id);

@@ -5,6 +5,10 @@ export type Level = 'A1' | 'A2' | 'B1';
 export type ExerciseMode = 'choice' | 'listen' | 'sentence' | 'type';
 export interface Exercise {
   id: string;
+  /** Public authored sentence references; model answers arrive only after grading. */
+  sentenceId?: string;
+  exampleSentenceId?: string;
+  optionSentenceIds?: Record<string, string>;
   itemId: string;
   mode: ExerciseMode;
   prompt: string;

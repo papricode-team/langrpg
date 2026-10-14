@@ -25,7 +25,7 @@ export interface ExpeditionAttempt {
  miniGameId:'expedition-encounters'|'neighborhood-boards';regionId:string;contentId:string;level:Level;selectedValue?:number;
 }
 export interface ExpeditionPlanCommand {id:string;mapId:string;level:Level;values:Readonly<Record<string,number>>;order:readonly string[];}
-export interface ExpeditionPlanResult {correct:boolean;plan:ServerExpeditionPlan;progress:Progress;}
+export interface ExpeditionPlanResult {correct:boolean;plan:ServerExpeditionPlan;progress:Progress;agreement?:string;}
 export function expeditionRecallReady(exercise:Pick<ExpeditionLearningExercise,'wordIds'>,progress:Progress):boolean {
  const restored=introducedWords(progress);return exercise.wordIds.length>0&&exercise.wordIds.every(id=>restored.has(id));
 }

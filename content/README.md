@@ -28,3 +28,9 @@ Ranges are compiled in UTF-16 offsets. Placeholder personalization changes offse
 ## Course voices
 
 The English proof currently uses browser speech synthesis with its `en-GB` course voice configuration. An optional English teacher voice set is declared in `scripts/tts/voices.json`; no authored English recordings or voice reference clips were generated in this implementation. The local Qwen pipeline accepts canonical `{clipId: sentence UUID, speaker, text, courseId}` jobs with `--course english`, keeps that course's references and clips separate, and retains the existing German commands and asset paths. Run `python3 scripts/tts/qwen_tts.py --course english --jobs english-jobs.json --dry-run` to validate the plan without loading models. See `scripts/tts/README.md` for generation and voice-review steps.
+
+## Imported alignment drafts
+
+`imported-alignment-drafts.json` converts the historical 9a83d89d token-index corpus into exact occurrence selectors. The builder accepts only unchanged source text and matching support text; explicit historical translation overrides apply to their attested authoring slugs. Existing locally authored maps and acceptance fixtures take precedence. Unsupported token formats remain in its `rejected` reviewer-input list.
+
+The original cache, review TSV and translation sources are preserved under `imported-drafts/9a83d89d/`. Historical `reviewed` fixtures are test provenance, not named native-speaker approval. Every imported entry remains pending native review, and `content:check` still requires actual sentence-level signoff. `scripts/import-alignment-drafts.mjs` performs the mechanical conversion without calling a model or changing text.

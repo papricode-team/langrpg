@@ -11,6 +11,7 @@ export class MiniGameInput implements GameInput {
       if(event.ctrlKey || event.metaKey || event.altKey || event.repeat || !root.closest('dialog')?.open)return;
       const target=event.target;
       if(target instanceof HTMLElement && (target.matches('input,textarea,select') || target.isContentEditable))return;
+      if(target instanceof HTMLElement && target.closest('[data-sentence-word-index],[data-dialogue-word-index]'))return;
       if(target instanceof HTMLElement && !root.contains(target) && target!==document.body)return;
       const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-game-option]:not(:disabled)')].filter(visible);
       if(/^[1-6]$/.test(event.key)){event.preventDefault();buttons[Number(event.key)-1]?.click();}

@@ -126,10 +126,51 @@ test('review sheet round-trips maps and refuses stale text or duplicate rows',()
 test('the entire inventory reports pending maps without claiming they have no counterpart',()=>{
   assert.deepEqual(validateBundle(bundle,{strict:false}),[]);
   const errors=validateBundle(bundle);
-  assert(errors.length>1000);
+  assert(errors.length>0);
   const pending=bundle.records.find(record=>record.kind==='sentence'&&record.body.authoring.status==='pending');
   assert(pending);
   assert(Object.values(pending.body.translations).every(translation=>translation.words.length===0));
+});
+test('imported expedition replies retain authored translations and stable published sentence aliases',()=>{
+  const encounter=bundle.records.find(record=>record.kind==='expedition'&&record.body.choices?.length);
+  const choice=encounter.body.choices[0],line=bundle.records.find(record=>record.id===choice.sentenceId);
+  assert.equal(line.id,bundle.ids[`sentence:expedition:${encounter.slug}:choice:0`]);
+  assert.equal(line.body.text,choice.text);
+  assert(line.body.translations.en.words.length>0);assert(line.body.translations.tr.words.length>0);
+  assert.equal(line.body.authoring.review.status,'pending-native-speaker-review');
+});
+test('wrong-sense omissions suppress dictionary glosses across canonical context aliases',()=>{
+  const imported=JSON.parse(readFileSync(resolve(root,'content/imported-alignment-drafts.json'),'utf8'));
+  let checked=0;
+  for(const entry of imported.entries.filter(entry=>entry.omitGlossSources.length))for(const record of bundle.records.filter(record=>record.kind==='sentence'&&record.body.text===entry.text))for(const source of entry.omitGlossSources) {
+    const word=record.body.words.find(word=>word.source.text===source.text&&word.source.occurrence===source.occurrence);
+    if(!word)continue;
+    assert.equal(word.lexemeId,undefined,record.slug);assert.deepEqual(word.glosses,{},record.slug);checked++;
+  }
+  assert(checked>26);
+});
+test('special item and ending prose is server-owned with exact existing Turkish metadata',()=>{
+  const records=bundle.records.filter(record=>record.kind==='context'&&['specialItem','storyEnding'].includes(record.body.category));
+  assert.equal(records.length,7);
+  for(const record of records) {
+    assert(record.body.data.title);assert(record.body.data.text);
+    assert(record.body.data.support.tr.title);assert(record.body.data.support.tr.text);
+    assert.equal(record.body.owners[0].kind,record.body.category);
+  }
+  const letter=records.find(record=>record.slug==='special-item:successor-letter');
+  assert.equal(letter.body.owners[0].id,bundle.ids['item:successor-letter']);
+});
+test('placement remains one bounded course-owned context with eight exact authored cues',()=>{
+  const {source}=buildContent(),placement=bundle.records.find(record=>record.kind==='context'&&record.body.category==='placement');
+  assert(placement);assert.equal(placement.body.data.questions.length,8);assert.equal(placement.body.data.exerciseIds.length,8);
+  assert.deepEqual(placement.body.owners,[{kind:'placement',id:bundle.courses.find(course=>course.target==='de').id}]);
+  for(const [index,question]of placement.body.data.questions.entries()) {
+    const slug=source.placement.exerciseIds[index],cue=source.placement.dialogue[slug],sentence=bundle.records.find(record=>record.id===question.turn.sentenceId);
+    assert.equal(question.exerciseId,bundle.ids[`exercise:${slug}`]);assert.equal(question.turn.speaker,cue.speaker);
+    assert.equal(sentence.body.text,cue.german);assert.equal(sentence.body.translations.en.text,cue.english);
+    assert.deepEqual(sentence.body.owners,placement.body.owners);assert(sentence.body.translations.tr.words.length>0);
+    assert.equal(sentence.body.authoring.review.status,'pending-native-speaker-review');
+  }
 });
 test('inspector acceptance maps highlight Turkish inflections and retain no-counterpart words',()=>{
   const sentence=bundle.records.find(record=>record.kind==='sentence'&&record.body.text==='Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.').body;

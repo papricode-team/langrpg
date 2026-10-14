@@ -44,6 +44,8 @@ const cinemas = await moduleAt('web/src/cinematic-content.ts');
 const maps = await moduleAt('web/src/maps.ts');
 const conversations = await moduleAt('web/src/interior-conversations.ts');
 const wordFacts = await moduleAt('web/src/word-detail.ts',{},['interiorMeanings','extraInteriorExamples']);
+const storyPanels = await moduleAt('web/src/story-panels.ts');
+const learningContext = await moduleAt('web/src/learning-context.ts');
 const cinematicRows=[];
 for(const mapId of ['lindenhafen','waldruh','nebelstadt'])for(const kind of ['arrival','platform','recording','erasure','clockmill','confession','dark-beam','ledger','storm','bell','travel'])for(const ending of kind==='bell'?[undefined,...cinemas.endingIds]:[undefined])cinematicRows.push({kind,mapId,...(ending?{ending}:{}),beats:cinemas.cinematicBeats(kind,mapId,ending)});
 const overlays = await Promise.all(['tr-story','tr-course','tr-ui'].map(name => read(`web/src/data/i18n/${name}.json`)));
@@ -59,5 +61,8 @@ const snapshot = { version:1,npcs:content.npcs,chapters:content.chapters,quests:
 await mkdir(resolve(root,'content'),{recursive:true});
 snapshot.interiorConversations=conversations.interiorConversations;
 snapshot.interiorWordFacts={meanings:wordFacts.interiorMeanings,examples:wordFacts.extraInteriorExamples};
+snapshot.specialItems=storyPanels.specialItems;
+snapshot.storyEndings=storyPanels.endings;
+snapshot.placement={exerciseIds:learningContext.placementExerciseIds,dialogue:learningContext.placementDialogue};
 await writeFile(resolve(root,'content/source.json'),JSON.stringify(snapshot)+'\n');
 console.log(`Imported ${snapshot.quests.length} quests, ${course.exercises.length} exercises and ${graphs.length} graphs into server-owned authoring source.`);

@@ -8,7 +8,7 @@ export const expeditionIds = ['saffroncourt', 'rainmarket', 'windplain', 'riverw
 export type ExpeditionId = typeof expeditionIds[number];
 export const isExpeditionMap = (id: string): id is ExpeditionId => (expeditionIds as readonly string[]).includes(id);
 export type ExpeditionGameKind = 'dialogue' | 'sequence' | 'directions' | 'trade' | 'repair' | 'memory';
-export interface ExpeditionChoice { text: string; correct: boolean; response: string; }
+export interface ExpeditionChoice { text: string; sentenceId?: string; correct?: boolean; response?: string; }
 export interface ExpeditionEncounter {
   id: string; title: string; prompt: string; german: string; translation: string;
   choices: readonly ExpeditionChoice[]; languageFocus: string; difficulty: Level; gameKind: ExpeditionGameKind;

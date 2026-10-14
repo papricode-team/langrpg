@@ -2,6 +2,9 @@
 import {describe,it,expect,vi} from 'vitest';
 import {emptyProgress,type AttemptResult,type Api} from './api';
 import {mountOptionalPlacement} from './placement-ui';
+import {quests} from './content';
+import {placementExercises,placementDialogue} from './learning-context';
+const questions=placementExercises(quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level})))).map(exercise=>({exercise,turn:placementDialogue[exercise.id]}));
 
 async function flush(){for(let index=0;index<5;index++)await Promise.resolve();}
 function button(host:HTMLElement,action:string){return host.querySelector<HTMLButtonElement>(`[data-placement="${action}"]`)!;}
@@ -9,7 +12,7 @@ describe('server graded conversational placement',()=>{
   it('uses the server result even when the selected phrase is the canonical correct option',async()=>{
     const host=document.createElement('div'),progress=emptyProgress();
     const request=vi.fn<Api['request']>().mockResolvedValue({correct:false,reason:'Check the greeting.',progress,xpAdded:0,duplicate:false} as AttemptResult);
-    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,onComplete:vi.fn(),onClose:vi.fn(),speak:vi.fn()});
+    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,questions,onComplete:vi.fn(),onClose:vi.fn(),speak:vi.fn()});
     expect(host.querySelector('[lang="de"]')?.textContent).toBe('Willkommen! Es ist früh.');
     button(host,'answer').click();await flush();
     expect(host.textContent).toContain('Check the greeting.');
@@ -20,7 +23,7 @@ describe('server graded conversational placement',()=>{
   it('finishes the diagnostic with the original memory even when a response contains unrelated progress',async()=>{
     const host=document.createElement('div'),progress=emptyProgress(),onComplete=vi.fn();
     const request=vi.fn<Api['request']>().mockResolvedValue({correct:true,progress:{...emptyProgress(),xp:999,revision:10}});
-    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,onComplete,onClose:vi.fn(),speak:vi.fn()});
+    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,questions,onComplete,onClose:vi.fn(),speak:vi.fn()});
     for(let index=0;index<8;index++) {
       const input=host.querySelector<HTMLInputElement>('#placement-answer');
       if(input){input.value='a diagnostic reply';host.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));}
@@ -36,7 +39,7 @@ describe('server graded conversational placement',()=>{
     const host=document.createElement('div'),progress=emptyProgress();
     const request=vi.fn<Api['request']>().mockResolvedValue({correct:true,reason:'Saved.',progress,xpAdded:0,duplicate:false} as AttemptResult);
     request.mockRejectedValueOnce(new Error('Offline'));
-    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,onComplete:vi.fn(),onClose:vi.fn(),speak:vi.fn()});
+    const panel=await mountOptionalPlacement(host,{api:{request:request as Api['request']},progress,questions,onComplete:vi.fn(),onClose:vi.fn(),speak:vi.fn()});
     button(host,'hint').click();expect(host.textContent).toContain('Welcome! It is early.');
     button(host,'answer').click();await flush();
     expect(host.textContent).toContain('Retry keeps this same answer');
