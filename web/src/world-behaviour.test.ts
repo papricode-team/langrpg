@@ -303,6 +303,25 @@ describe('labels', () => {
 });
 
 describe('story characters and routines', () => {
+  it('commits to one walking direction for a second even when its autonomous target reverses', async () => {
+    const { town } = await bootWorld({ seed: game => seedCastArt(game, 'fritz') });
+    town.navigation = { canWalkSegment: () => true };
+    const fritz = town.characters.get('fritz'), anchor = town.mapSpec.npcs.find((npc: any) => npc.id === 'fritz');
+    town.routineWalks.delete(fritz);
+    fritz.x = anchor.x * town.worldWidth; fritz.y = anchor.y * town.worldHeight;
+    town.local.x = 0; town.local.y = 0;
+    setView(town, 0, 0, town.worldWidth, town.worldHeight);
+    for (let frame = 0; frame < 100; frame++) {
+      // The changing clock asks for opposing targets, independently of the player.
+      town.clock.configure({ mode: 'manual', hour: frame === 0 || frame % 2 ? 9 : 17 });
+      const previousX = fritz.x;
+      town.updateCharacters(.01);
+      expect(fritz.x).toBeGreaterThan(previousX);
+      expect(fritz.facing).toBe(1);
+      expect(fritz.figure.frame.name).not.toBe(characterFrame(1));
+    }
+  });
+
   it('holds only the conversation partner and walks back to routines after a long reading pause', async () => {
     const { world, town } = await bootWorld();
     town.navigation = { canWalkSegment: () => true, closestPoint: (x: number, y: number) => ({ x, y }) };

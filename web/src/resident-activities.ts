@@ -1,5 +1,6 @@
 import {sceneActivityPlaces, type SceneActivity, type ScenePoint, type SceneResident, type SceneResidentTask, type WorldScene} from './scene-schema';
 import type {NavigationGrid} from './navigation';
+import { npcTravelSeconds } from './npc-motion';
 import {worldDaySeconds,type WorldSimulationTime} from './shared-world-time';
 import {rainForDay,simulationDay,type RainWindow,type WorldWeatherMode} from './world-weather';
 
@@ -57,7 +58,7 @@ function route(points:ScenePoint[],speed:number,navigation:NavigationGrid,label:
     for(const point of path){
       const length=distance(previous,point);
       if(length>.00001){
-        const duration=length/speed;
+        const duration=npcTravelSeconds(length,speed);
         result.segments.push({from:previous,to:point,start:result.seconds,duration,distance:length,distanceBefore:result.length});
         result.seconds+=duration;result.length+=length;
       }

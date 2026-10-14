@@ -15,6 +15,16 @@ function fixture(){
   const geometry=sceneNavigationGeometry(scene),nav=new NavigationGrid(geometry.ground,geometry.barriers,scene);return {scene,nav};
 }
 describe('authored resident activities',()=>{
+  it('takes at least one second on every leg, including short approach and exit turns',()=>{
+    const {scene,nav}=fixture();
+    const residents=compileResidentActivities(scene,nav);
+    for(const resident of residents)for(const task of resident.tasks)for(const destination of task.destinations){
+      for(const route of [destination.outbound,destination.returning])for(const segment of route.segments){
+        expect(segment.duration).toBeGreaterThanOrEqual(1);
+        expect(segment.distance/segment.duration).toBeLessThanOrEqual(resident.spec.speed);
+      }
+    }
+  });
   it('reserves positions, uses a fallback when full and releases every visit on return',()=>{
     const {scene,nav}=fixture(),residents=compileResidentActivities(scene,nav),day=planResidentDay(residents,time,0);
     expect(day.activities).toHaveLength(2);expect(day.skipped).toEqual([]);
