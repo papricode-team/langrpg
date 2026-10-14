@@ -1,12 +1,14 @@
 // @vitest-environment happy-dom
 import './test-support/expedition-fixtures';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
-import {emptyProgress,type Api,type AttemptResult,type Progress} from './api';
+import {emptyProgress,type Api,type AttemptResult,type ExpeditionAnswerResult,type Progress} from './api';
 import manifest from './data/expedition-learning.json';
 import {expeditionLearningManifest as runtime,ExpeditionLearning,expeditionRecallReady,type ExpeditionPlanCommand,type ExpeditionPlanResult} from './expedition-learning';
 import {expeditionGames,mountExpeditionGame} from './expedition-games';
 import {expeditionRegions} from './expeditions';
 import {mountExpeditionEncounter,pendingEncounterCommands} from './expedition-encounter';
+import alignmentFixtures from '../../content/alignments/fixtures.json';
+import type {AlignedLine} from './aligned-line';
 vi.mock('./minigames/input',()=>({MiniGameInput:class {bind(){return vi.fn();}}}));
 const flush=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
 const readyProgress=(ids:string[]):Progress=>({...emptyProgress(),intake:{version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:ids}});
@@ -84,7 +86,28 @@ describe('immutable full neighborhood agreements',()=>{
  });
 });
 describe('encounter reading and listening controller',()=>{
- function mount(restored=true,reading=true,initialPaused=false){const encounter=expeditionRegions[0].encounters[0],row=manifest.encounters[0],services=service(restored?row.wordIds:[]);const root=document.createElement('div');document.body.append(root);let resolveSpeech!:()=>void;const speak=vi.fn(()=>new Promise<void>(done=>{resolveSpeech=done;}));const saveStory=vi.fn(async(_selected:number,_id:string):Promise<{progress:Progress}>=>({progress:services.progress()}));const controller=mountExpeditionEncounter(root,encounter,{learning:services.learning,progress:services.progress,onProgress:services.onProgress,saveStory,speak,stopSpeech:vi.fn(),silent:false,initialPaused,previouslyAnswered:false});if(reading)root.querySelector<HTMLButtonElement>('[data-enc-mode="recognition"]')!.click();return {root,controller,encounter,row,services,speak,saveStory,finishSpeech:()=>resolveSpeech()};}
+ function mount(restored=true,reading=true,initialPaused=false,alignedReply?:AlignedLine){const source=expeditionRegions[0].encounters[0],encounter={...source,choices:source.choices.map(({text,lineId,aligned},index)=>index===0&&alignedReply?{text:alignedReply.de.text,lineId,aligned:alignedReply}:{text,lineId,aligned})},row=manifest.encounters[0],services=service(restored?row.wordIds:[]);const root=document.createElement('div');document.body.append(root);let resolveSpeech!:()=>void;const speak=vi.fn(()=>new Promise<void>(done=>{resolveSpeech=done;}));const saveStory=vi.fn(async(_selected:number,_id:string):Promise<ExpeditionAnswerResult>=>({progress:services.progress()}));const controller=mountExpeditionEncounter(root,encounter,{learning:services.learning,progress:services.progress,onProgress:services.onProgress,saveStory,speak,stopSpeech:vi.fn(),silent:false,initialPaused,previouslyAnswered:false});if(reading)root.querySelector<HTMLButtonElement>('[data-enc-mode="recognition"]')!.click();return {root,controller,encounter,row,services,speak,saveStory,finishSpeech:()=>resolveSpeech()};}
+ it('shows selected feedback only after the authorized story receipt, with no answer metadata on choices',async()=>{
+  const {root,controller,encounter,services,saveStory}=mount();
+  expect(encounter.choices.every(choice=>!('response' in choice)&&!('correct' in choice))).toBe(true);
+  let finish!:(result:ExpeditionAnswerResult)=>void;saveStory.mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
+  root.querySelector<HTMLButtonElement>('[data-enc-answer="1"]')!.click();await flush();
+  expect(saveStory.mock.calls[0][0]).toBe(1);expect(root.querySelector('.expedition-encounter-result p')).toBeNull();
+  const feedback='Selected reply confirmed <safely>.';finish({progress:services.progress(),feedback});await flush();
+  expect(root.querySelector('.expedition-encounter-result p')?.textContent).toBe(feedback);
+  expect(root.querySelector('.expedition-encounter-result safely')).toBeNull();controller.destroy();
+ });
+ it('keeps reply word assistance separate from answer selection and records its help',async()=>{
+  const aligned=alignmentFixtures.find(line=>line.fixture==='npc-invitation') as unknown as AlignedLine;
+  const {root,controller,services,saveStory}=mount(true,true,false,aligned),exposures=services.expose.mock.calls.length;
+  const word=root.querySelector<HTMLButtonElement>('.expedition-reply-line [data-aligned-token="3"]')!;
+  expect(word.closest('[data-enc-answer]')).toBeNull();word.click();
+  expect(services.request).not.toHaveBeenCalled();expect(saveStory).not.toHaveBeenCalled();expect(services.expose).toHaveBeenCalledTimes(exposures+1);
+  expect(root.querySelector('.expedition-reply-line mark')?.textContent).toBe('coffee');
+  const choose=root.querySelector<HTMLButtonElement>('[data-enc-answer="0"]')!;
+  expect(choose.getAttribute('aria-label')).toBe(aligned.de.text);expect(choose.querySelector('.dialogue-word')).toBeNull();choose.click();await flush();
+  expect(services.request).toHaveBeenCalledOnce();expect(services.request.mock.calls[0][1]).toMatchObject({hinted:true,answer:aligned.de.text});expect(saveStory).toHaveBeenCalledOnce();controller.destroy();
+ });
  it('hides the German transcript, waits for full audio, and submits listening truthfully',async()=>{
   const {root,controller,encounter,services,finishSpeech}=mount(true,false);expect(root.textContent).not.toContain(encounter.german);expect(root.querySelector('[data-enc-answer]')).toBeNull();root.querySelector<HTMLButtonElement>('[data-enc-mode="listening"]')!.click();expect(root.textContent).not.toContain(encounter.german);root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(services.request).not.toHaveBeenCalled();finishSpeech();await flush();root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(services.request.mock.calls[0][1]).toMatchObject({mode:'listening',hinted:false,contentId:encounter.id});controller.destroy();
  });
@@ -100,8 +123,20 @@ describe('encounter reading and listening controller',()=>{
  it('retains a failed learning receipt after story success and retries without duplicating the story command',async()=>{
   const {root,controller,row,services,saveStory}=mount();services.request.mockRejectedValueOnce(new Error('Offline'));root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(saveStory).toHaveBeenCalledOnce();expect(root.querySelector('[data-enc-retry]')).not.toBeNull();const first=services.request.mock.calls[0][1];root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();expect(services.request.mock.calls[1][1]).toBe(first);expect(saveStory).toHaveBeenCalledOnce();expect(pendingEncounterCommands.has(row.encounterId)).toBe(false);controller.destroy();
  });
+ it('retains POST feedback across closing and retrying a failed learning receipt without replaying the story write',async()=>{
+  const {root,controller,encounter,row,services,saveStory}=mount(),feedback='Only the submitted reply has this feedback.';
+  saveStory.mockResolvedValueOnce({progress:services.progress(),feedback});services.request.mockRejectedValueOnce(new Error('Learning offline'));
+  root.querySelector<HTMLButtonElement>('[data-enc-answer="0"]')!.click();await flush();
+  const command=pendingEncounterCommands.get(row.encounterId)!;expect(command).toMatchObject({selected:0,storySaved:true,feedback});controller.destroy();
+  const reopened=document.createElement('div');document.body.append(reopened);
+  const next=mountExpeditionEncounter(reopened,encounter,{learning:services.learning,progress:services.progress,onProgress:services.onProgress,saveStory,speak:async()=>{},stopSpeech:vi.fn(),silent:false,previouslyAnswered:true});
+  expect(reopened.querySelector('.expedition-encounter-result p')?.textContent).toBe(feedback);expect(reopened.textContent).toContain('Learning offline');
+  reopened.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();
+  expect(services.request.mock.calls[1][1]).toBe(command.learning);expect(saveStory).toHaveBeenCalledOnce();
+  expect(reopened.querySelector('.expedition-encounter-result p')?.textContent).toBe(feedback);expect(pendingEncounterCommands.has(row.encounterId)).toBe(false);next.destroy();
+ });
  it('retries a failed story write with its same ID without repeating saved learning',async()=>{
-  const {root,controller,services,saveStory}=mount();saveStory.mockRejectedValueOnce(new Error('Story offline'));root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();const first=saveStory.mock.calls[0];expect(root.querySelector('[data-enc-retry]')).not.toBeNull();root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();expect(saveStory.mock.calls[1]).toEqual(first);expect(services.request).toHaveBeenCalledOnce();controller.destroy();
+  const {root,controller,services,saveStory}=mount();saveStory.mockRejectedValueOnce(new Error('Story offline'));root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();const first=saveStory.mock.calls[0];expect(root.querySelector('[data-enc-retry]')).not.toBeNull();expect(root.querySelector('.expedition-encounter-result p')).toBeNull();root.querySelector<HTMLButtonElement>('[data-enc-retry]')!.click();await flush();expect(saveStory.mock.calls[1]).toEqual(first);expect(services.request).toHaveBeenCalledOnce();controller.destroy();
  });
  it('pausing invalidates an unfinished cue and replay after resume is supported listening',async()=>{
   const {root,controller,services,finishSpeech,speak}=mount(true,false);root.querySelector<HTMLButtonElement>('[data-enc-mode="listening"]')!.click();controller.pause();finishSpeech();await flush();root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();expect(services.request).not.toHaveBeenCalled();controller.resume();expect(speak).toHaveBeenCalledTimes(2);finishSpeech();await flush();root.querySelector<HTMLButtonElement>('[data-enc-answer]')!.click();await flush();expect(services.request.mock.calls[0][1]).toMatchObject({mode:'listening',hinted:true});controller.destroy();

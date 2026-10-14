@@ -13,7 +13,7 @@ export const expeditionIds = ['saffroncourt', 'rainmarket', 'windplain', 'riverw
 export type ExpeditionId = typeof expeditionIds[number];
 export const isExpeditionMap = (id: string): id is ExpeditionId => (expeditionIds as readonly string[]).includes(id);
 export type ExpeditionGameKind = 'dialogue' | 'sequence' | 'directions' | 'trade' | 'repair' | 'memory';
-export interface ExpeditionChoice { text: string; correct: boolean; response: string; }
+export interface ExpeditionChoice { text: string; lineId?:string; aligned?:AlignedLine; correct?: boolean; response?: string; }
 export interface ExpeditionEncounter {
   id: string; recordId?:string; aligned?:AlignedLine; title: string; prompt: string; german: string; translation: string;
   choices: readonly ExpeditionChoice[]; languageFocus: string; difficulty: Level; gameKind: ExpeditionGameKind;
@@ -60,8 +60,10 @@ export function getExpeditionEncounter(mapId:MapId|string,targetId:string):Exped
 export async function loadExpeditionEncounter(encounter:ExpeditionEncounter):Promise<ExpeditionEncounter>{
  if(!encounter.recordId)return encounter;
  const {getContentClient}=await import('./content-api');const client=getContentClient();
- const body=await client.expedition<Record<string,unknown>&{lineId:string;id:string}>(encounter.recordId);
- const [line]=await client.lines([body.lineId]);const support=line.support[baseLanguage()]??line.support.en;
+ const body=await client.expedition<Record<string,unknown>&{lineId:string;id:string;choices?:ExpeditionChoice[]}>(encounter.recordId);
+ const lines=await client.lines([body.lineId,...(body.choices??[]).flatMap(choice=>choice.lineId?[choice.lineId]:[])]);
+ const byID=new Map(lines.map(line=>[line.id,line])),line=byID.get(body.lineId)!;const support=line.support[baseLanguage()]??line.support.en;
+ for(const choice of body.choices??[]){const aligned=choice.lineId&&byID.get(choice.lineId);if(aligned)Object.assign(choice,{text:aligned.de.text,aligned});}
  installExpeditionLearning(body);
  Object.assign(encounter,body,{id:encounter.id,recordId:encounter.recordId,german:line.de.text,translation:support?.text??'',aligned:line as ContentLine});return encounter;
 }

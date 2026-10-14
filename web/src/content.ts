@@ -1,4 +1,5 @@
 import type { Narrative } from './sentence-translations';
+import type { AlignedLine } from './aligned-line';
 
 /** Original glotworld learning content. Curriculum tags describe practice, not certification. */
 export type Level = 'A1' | 'A2' | 'B1';
@@ -8,6 +9,8 @@ export interface Exercise {
   localized?: boolean;
   audioPath?:string;
   placementLineId?:string; placementSpeaker?:string;
+  exampleLineId?:string;
+  aligned?:AlignedLine;
   itemId: string;
   mode: ExerciseMode;
   prompt: string;

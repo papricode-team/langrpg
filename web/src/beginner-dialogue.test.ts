@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } from './beginner-dialogue';
+import { beginnerGateChoices, beginnerReplyMeaning, beginnerReplyContent, installBeginnerExercise, installBeginnerLines, needsBeginnerStorySupport } from './beginner-dialogue';
 import { emptyProgress, type Progress } from './api';
 import { quests } from './content';
 import { answerMatches } from './learning';
 import { questGraphs } from './quest-graph';
+import alignmentFixtures from '../../content/alignments/fixtures.json';
+import type {AlignedLine} from './aligned-line';
 
 describe('beginner dialogue replies', () => {
   const a1Graphs = questGraphs.filter(graph => graph.level === 'A1');
@@ -64,6 +66,17 @@ describe('beginner dialogue replies', () => {
     expect(beginnerReplyMeaning(greeting.answer!)).toBe(greeting.english);
     expect(beginnerReplyMeaning('Guten Abend!')).toBe('Good evening!');
     expect(beginnerReplyMeaning('unknown')).toBeUndefined();
+  });
+
+  it('keeps current exercise line references until their authored slice is loaded',()=>{
+    const line=alignmentFixtures.find(line=>line.fixture==='npc-invitation') as unknown as AlignedLine;
+    installBeginnerExercise({id:'guided-current-slice',guidedChoices:[{german:line.de.text,english:line.support.en!.text,lineId:line.id}],optionLineIds:{[line.de.text]:line.id}});
+    expect(beginnerGateChoices('guided-current-slice')[0].lineId).toBe(line.id);
+    expect(beginnerGateChoices('guided-current-slice')[0].aligned).toBeUndefined();
+    expect(beginnerReplyContent(line.de.text)).toEqual({lineId:line.id});
+    installBeginnerLines([line]);
+    expect(beginnerGateChoices('guided-current-slice')[0].aligned).toBe(line);
+    expect(beginnerReplyContent(line.de.text).aligned).toBe(line);
   });
 });
 

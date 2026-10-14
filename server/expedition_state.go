@@ -130,7 +130,8 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 200, map[string]any{"record": account.Progress.Story.Expeditions[input.EncounterID], "progress": account.Progress, "duplicate": duplicate})
+	feedback := a.contentExpeditionFeedback(input.EncounterID, input.Selected, normalizedPreferences(account.Preferences).BaseLanguage)
+	writeJSON(w, 200, map[string]any{"record": account.Progress.Story.Expeditions[input.EncounterID], "progress": account.Progress, "duplicate": duplicate, "feedback": feedback})
 }
 
 func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
