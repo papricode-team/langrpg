@@ -35,6 +35,7 @@ import { Notifications, installFormNotifications } from './notifications';
 import './course-ui.css';
 import './game-ui.css';
 import './game-menu.css';
+import './menu-home.css';
 import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
@@ -45,6 +46,7 @@ import { expeditionGames, getExpeditionGame, loadExpeditionGame, expeditionGameS
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import './quest-cta.css';
+import './hud.css';
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
@@ -316,8 +318,9 @@ function renderShell() {
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
         <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button></div>
-        <div class="arrival-label" id="arrival-label" hidden></div>
-          <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
+        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-meta"><span id="hud-level">A1 · ${e(titleLabel('Wanderer'))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
+        <div class="location-banner" id="location-banner"><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
+        <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
         <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
@@ -444,7 +447,7 @@ function syncLocation() {
   const shell = document.querySelector<HTMLElement>('#game-shell')!;
   if (room) shell.dataset.interior = room.id;
   else delete shell.dataset.interior;
-  showArrival(room?.name ?? region.name);
+  showArrival(room?.name ?? region.name, room ? t('Inside {place}', { place: region.name }) : localized(region.subtitle));
   document.querySelector('#watch-region')!.textContent = room?.name ?? region.name;
   document.querySelector('#explore-view')!.setAttribute('aria-label', room ? t('{place} interior', { place: room.name }) : region.name);
 
@@ -589,6 +592,7 @@ function updateProgress() {
   const savedStory = storyState(progress.story);
   const rewards = lanternRewards(progress);
   document.querySelector<HTMLElement>('#game-shell')!.dataset.crest = rewards.crest;
+  updatePlayerHud(titleLabel(rewards.title));
   world.setStoryState({ completedQuestIds: progress.completedQuestIds, bellCount: savedStory.bell, flags: savedStory.flags, playerName: profile.name });
   if (course) world.setLearningContext(course.courseLexicon,progress,introducedSet(),barkLineAllowed);
   const expedition = getExpedition(mapId);
@@ -597,7 +601,7 @@ function updateProgress() {
 
 
     world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
-    document.querySelector('#quest-panel')!.innerHTML = `<button class="objective-chip" data-expedition-game="${expedition.id}">${icon(status === 'completed' ? 'check' : 'flag')}<span class="objective-text">${e(game.title)}</span></button>`;
+    document.querySelector('#quest-panel')!.innerHTML = storyBeacon({ attributes: `data-expedition-game="${expedition.id}"`, glyph: status === 'completed' ? 'check' : 'compass', label: expedition.name, text: game.title });
     document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
     if (['journal', 'quests', 'story', 'menu'].includes(view)) refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
     return;
@@ -614,21 +618,40 @@ function updateProgress() {
   world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigation.objectId}` : q.npcId);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
   const objective = finished ? nextAct ? t('Travel to {place}',{place:getMap(nextAct.mapId).name}) : t('Read your discoveries') : investigation ? t('Inspect {name}',{name:findObject(investigation.objectId)?.label??t('the evidence')}) : t('Speak with {name}',{name:localizedName(npc.name)});
-  document.querySelector('#quest-panel')!.innerHTML = `<button class="objective-chip" data-action="${interiorId?'leave-interior':'next-objective'}">${icon(interiorId?'arrow':finished?'map':'flag')}<span class="objective-text">${e(interiorId?t('Leave {name}',{name:getInterior(interiorId).name}):objective)}</span>${!interiorId&&savedStory.bell>0&&savedStory.bell<7?`<span class="objective-bell" aria-label="${e(t('The seventh bell'))}">${savedStory.bell}/7</span>`:''}</button>`;
+  document.querySelector('#quest-panel')!.innerHTML = interiorId
+    ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId).name }), quiet: true })
+    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined });
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
+}
+/** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
+function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean }): string {
+  const { attributes, glyph, label, text, bell, quiet } = options;
+  return `<button class="story-beacon${quiet ? ' quiet' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell" aria-label="${e(t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}</button>`;
+}
+function updatePlayerHud(title: string) {
+  const done = completedAtLevel(level), total = quests.filter(item => item.level === level).length || 1;
+  document.querySelector('#profile-name')!.textContent = profile.name;
+  document.querySelector('#hud-level')!.textContent = `${level} · ${title}`;
+  document.querySelector('#xp-value')!.textContent = String(progress.xp);
+  document.querySelector<HTMLElement>('#chapter-fill')!.style.width = `${Math.round(done / total * 100)}%`;
+  const bar = document.querySelector<HTMLElement>('#chapter-progress')!;
+  bar.setAttribute('aria-valuenow', String(done)); bar.setAttribute('aria-valuemax', String(total));
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let arrivalTimer: ReturnType<typeof setTimeout> | undefined;
 let arrivalName = '';
-function showArrival(name: string) {
+/** The location banner stays as a quiet caption and swells briefly whenever the player arrives somewhere new. */
+function showArrival(name: string, subtitle: string) {
+  const banner = document.querySelector<HTMLElement>('#location-banner');
+  if (!banner) return;
+  banner.querySelector('#location-title')!.textContent = name;
+  banner.querySelector('#location-subtitle')!.textContent = subtitle;
   if (name === arrivalName) return;
   arrivalName = name;
-  const label = document.querySelector<HTMLElement>('#arrival-label');
-  if (!label) return;
   if (arrivalTimer) clearTimeout(arrivalTimer);
-  label.textContent = name; label.hidden = false;
-  arrivalTimer = setTimeout(() => { label.hidden = true; }, 2000);
+  banner.classList.remove('arriving'); void banner.offsetWidth; banner.classList.add('arriving');
+  arrivalTimer = setTimeout(() => banner.classList.remove('arriving'), 3200);
 }
 function showFirstControls() {
   const hint = document.querySelector<HTMLElement>('.game-controls-hint');
@@ -665,7 +688,7 @@ function syncWorldMode(): void {
 }
 function setView(next: View, openPage = true) {
   menuPageOpen = openPage;
-  if(started&&['journal','story','quests'].includes(next))void loadStoryContent(mapId,progress.completedQuestIds).then(()=>{if(view===next)renderOther();}).catch(error=>toast(error.message,true));
+  if(started&&['menu','journal','story','quests'].includes(next))void loadStoryContent(mapId,progress.completedQuestIds).then(()=>{if(view===next)renderOther();}).catch(error=>toast(error.message,true));
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
   exposureObserver?.disconnect();
@@ -1229,7 +1252,16 @@ function renderOther() {
     const act = actFor(mapId), clueCount = discoveredClues(progress.completedQuestIds).length;
     const quest = currentQuest(), npc = npcs.find(item => item.id === quest.npcId)!;
     const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-    el.innerHTML = adventureHome({ act, region: getMap(mapId).name, regionArt: getMap(mapId).previewAsset, quest, npc, portrait: portrait(npc.id), completed: completedAtLevel(level), total: quests.filter(item => item.level === level).length, nextRegion: nextAct ? getMap(nextAct.mapId).name : undefined, clueCount, dueCount: dueItems(progress).length });
+    const map = getMap(mapId), storyRoutes = maps.filter(item => !getExpedition(item.id)), promise = progress.story?.promise;
+    el.innerHTML = adventureHome({
+      act, quest, npc, portrait: portrait(npc.id), clueCount,
+      region: { name: map.name, subtitle: localized(map.subtitle), description: localized(map.description), art: map.previewAsset },
+      completed: completedAtLevel(level), total: quests.filter(item => item.level === level).length, nextRegion: nextAct ? getMap(nextAct.mapId).name : undefined,
+      dueCount: dueItems(progress).length, wordCount: introducedSet().size,
+      townsOpen: storyRoutes.filter(item => routeUnlocked(item.id, progress.completedQuestIds)).length, townsTotal: storyRoutes.length,
+      places: buildingEntrances(mapId).map(entrance => { const room = getInterior(entrance.interiorId); return { id: room.id, name: room.name, glyph: interiorIcon(room.id) }; }),
+      promise: promise ? { title: localized(promise.title), done: Math.min(promise.correctAnswers, promise.target), target: promise.target, lit: !!promise.completed } : undefined,
+    });
   } else if (view === 'quests') {
     const act = actFor(mapId), chapterQuests = quests.filter(q => q.level === level);
     el.innerHTML = `<div class="quest-log-heading"><h2>${e(localized(act.title))}</h2></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questAvailable(q.id, progress) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><strong>${e(localized(q.title))}</strong></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
@@ -2167,10 +2199,12 @@ function showLogin() {
 
 /** Deterministic development previews exercise the production renderers without an account. */
 async function openUiCheck(surface: string) {
-  const module=await loadCourse();
-  api.token='';
-  api.request=async()=>{throw new Error(t('This preview does not save progress.'));};
+  // Learning content is session-gated, so the preview holds a throwaway guest token for content reads only.
+  const request=api.request.bind(api);
+  api.token=(await request<{token:string}>('/session',{name:'Wanderer',avatar:{hair:'#5b3a29',skin:'#e0b08c',outfit:'#2f5d50'}})).token;
+  api.request=async<T>(path:string,body?:unknown):Promise<T>=>{if(path.startsWith('/content/'))return request<T>(path,body);throw new Error(t('This preview does not save progress.'));};
   api.selfId='ui-check';
+  const module=await loadCourse();
   const wordIds=surface==='encounter'?[]:(surface==='activity'?module.courseLexicon:module.courseLexicon.filter(word=>word.level==='A1').slice(0,24)).map(word=>word.id);
   acceptProgress({...emptyProgress(),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
   started=true; connection='online';

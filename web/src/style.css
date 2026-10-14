@@ -3550,28 +3550,7 @@ kbd {
   opacity:.8;
 }
 
-/* During play only the objective, menu, and touch controls frame the scene. */
-.arrival-label {
-  position:absolute;
-  left:50%;
-  top:max(84px,env(safe-area-inset-top));
-  transform:translateX(-50%);
-  padding:8px 16px;
-  border-radius:6px;
-  color:#f4e7c3;
-  background:#122b24d9;
-  font-family:'Fraunces',serif;
-  font-size:var(--type-title);
-  pointer-events:none;
-  animation:arrival-label 2s ease both;
-}
-
-@keyframes arrival-label {
-  0% { opacity:0; transform:translate(-50%,4px); }
-  15%,75% { opacity:1; transform:translate(-50%,0); }
-  100% { opacity:0; transform:translate(-50%,-4px); }
-}
-
+/* During play the player plate, location, story beacon, menu and touch controls frame the scene. */
 .game-menu-button {
   min-height:52px;
   border-radius:8px;
@@ -3612,19 +3591,20 @@ kbd {
     top:max(16px,env(safe-area-inset-top));
     right:16px;
     bottom:auto;
+    left:auto;
+    transform:none;
+    border-radius:50%;
     min-width:48px;
     width:48px;
     height:48px;
     min-height:48px;
     padding:12px;
   }
+  .game-menu-button:active {
+    transform:translateY(1px);
+  }
   .game-menu-button>span,.game-menu-button kbd {
     display:none;
-  }
-  .arrival-label {
-    max-width:calc(100vw - 32px);
-    top:84px;
-    text-align:center;
   }
   .touch-controls {
     bottom:max(24px,env(safe-area-inset-bottom));

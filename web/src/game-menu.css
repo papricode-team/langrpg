@@ -56,7 +56,7 @@
 #menu-layer .menu-header {
   grid-area:header;
   display:grid;
-  grid-template-columns:48px minmax(0,1fr) 48px;
+  grid-template-columns:minmax(48px,1fr) auto minmax(48px,1fr);
   align-items:center;
   gap:16px;
   padding:0 0 18px;
@@ -69,9 +69,38 @@
   color:var(--game-gold);
 }
 
+#menu-layer .menu-brand {
+  display:flex;
+  align-items:center;
+  justify-self:start;
+  gap:12px;
+}
+
+#menu-layer .menu-crest {
+  width:44px;
+  height:44px;
+  border:1px solid #d8bb8060;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,#2a4a3c,#0e211b);
+  box-shadow:0 0 16px #f0d49a30;
+}
+
+.menu-wordmark {
+  color:#efe0b8;
+  font:400 var(--type-body)/1.2 'Fraunces',serif;
+  letter-spacing:.6px;
+  white-space:nowrap;
+}
+
+@media (--tablet) {
+  .menu-wordmark {
+    display:none;
+  }
+}
+
 #menu-layer .menu-crest>.icon {
-  width:30px;
-  height:30px;
+  width:24px;
+  height:24px;
 }
 
 #menu-layer .menu-tabs {
@@ -107,9 +136,33 @@
 }
 
 #menu-layer .menu-tab.active {
-  color:var(--game-text);
-  border-color:#d8bb8050;
-  background:#d8bb8015;
+  color:#fbefcf;
+  background:linear-gradient(0deg,#d8bb8022,transparent 70%);
+}
+
+#menu-layer .menu-tab.active .icon {
+  color:var(--game-gold);
+}
+
+/* The selected section and page carry a lit brass bar; focus adds the ring on top. */
+#menu-layer .menu-tab::after {
+  content:'';
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:-19px;
+  height:2px;
+  border-radius:2px;
+  background:#f0d49a;
+  box-shadow:0 0 10px #f0d49a;
+  opacity:0;
+  transform:scaleX(.4);
+  transition:opacity .2s ease,transform .2s ease;
+}
+
+#menu-layer .menu-tab.active::after {
+  opacity:1;
+  transform:scaleX(1);
 }
 
 #menu-layer .menu-tab:hover,.menu-page:hover {
@@ -196,10 +249,25 @@
   height:20px;
 }
 
+#menu-layer .menu-page {
+  position:relative;
+}
+
 #menu-layer .menu-page.selected {
-  color:var(--game-text);
-  border-color:#d8bb8044;
-  background:#d8bb8015;
+  color:#fbefcf;
+  background:linear-gradient(90deg,#d8bb8024,#d8bb8008);
+}
+
+#menu-layer .menu-page.selected::before {
+  content:'';
+  position:absolute;
+  left:0;
+  top:10px;
+  bottom:10px;
+  width:3px;
+  border-radius:2px;
+  background:#f0d49a;
+  box-shadow:0 0 10px #f0d49a;
 }
 
 #menu-layer .menu-back {
@@ -227,8 +295,8 @@
 }
 
 #menu-layer[data-input='keys'] :focus-visible,#menu-layer[data-input='pad'] :focus {
-  outline:2px solid #f0d49a;
-  outline-offset:3px;
+  outline:none;
+  box-shadow:var(--focus-ring);
 }
 
 #menu-layer .options-panel {
@@ -444,6 +512,12 @@
   #menu-layer .menu-tab.active {
     color:#f0d49a;
     background:#d8bb800d;
+  }
+  #menu-layer .menu-tab::after {
+    top:0;
+    bottom:auto;
+    left:28%;
+    right:28%;
   }
   #menu-layer .menu-tab-glyph {
     display:none;
