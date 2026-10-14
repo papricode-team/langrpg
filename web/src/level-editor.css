@@ -10,6 +10,7 @@
 
 /* A hidden draft banner must not move the canvas into the automatic-height row. */
 .topbar{grid-row:1}.draft-banner{grid-row:2}.studio-body{grid-row:3}.footer{grid-row:4}
+.toolbar-end{flex-wrap:wrap;justify-content:flex-end}.toolbar-end input[hidden]{display:none}@media(max-width:1050px){.brand{min-width:150px}.toolbar select{max-width:130px}.toolbar-end{gap:4px}.toolbar-end button{padding:7px}}@media(max-width:790px){.toolbar{flex-wrap:wrap}.toolbar-end{margin-left:0;flex:1}.studio{grid-template-rows:135px auto minmax(400px,70vh) 30px}}
 @media(max-width:790px){
   .studio{grid-template-rows:115px auto auto 30px}
   .studio-body{grid-template-columns:135px minmax(0,1fr);grid-template-rows:minmax(400px,65dvh) auto}

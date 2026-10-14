@@ -130,7 +130,7 @@ describe('account session lifecycle', () => {
     const { account: _account, ...legacy } = session('legacy-token');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(legacy))));
     const result = await new Api().resume();
-    expect(result?.account).toEqual({ registered: false, email: '' });
+    expect(result?.account).toEqual({ registered: false, email: '', admin: false });
     expect(result?.player.id).toBe('original-player');
     expect(saved.get('atlas.token')).toBe('legacy-token');
   });

@@ -183,7 +183,7 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		}
 	}
 	if input.SceneAttempt {
-		rule, known := storyRule(input.QuestID)
+		rule, known := a.currentStoryRule(input.QuestID)
 		gate := input.ExerciseID == rule.GateExerciseID && (input.Mode == "production" || guidedGate)
 		reply := contains(rule.ReplyExerciseIDs, input.ExerciseID) && input.Mode == "recognition"
 		if !known || (!gate && !reply) || input.ActivityID != "" {

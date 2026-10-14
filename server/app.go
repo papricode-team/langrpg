@@ -25,17 +25,19 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Message }
 
 type App struct {
-	billing    *CreemBilling
-	leaseOwner string
-	store      Store
-	world      *World
-	curriculum Curriculum
-	origins    map[string]bool
-	frontend   http.Handler
-	version    string
-	now        func() time.Time
-	rateMu     sync.Mutex
-	limits     map[string]rateWindow
+	editing     *worldEditing
+	billing     *CreemBilling
+	leaseOwner  string
+	store       Store
+	world       *World
+	curriculum  Curriculum
+	origins     map[string]bool
+	adminEmails map[string]bool
+	frontend    http.Handler
+	version     string
+	now         func() time.Time
+	rateMu      sync.Mutex
+	limits      map[string]rateWindow
 }
 type rateWindow struct {
 	At    time.Time
@@ -95,6 +97,10 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/expedition/answer", a.answerExpedition)
 	mux.HandleFunc("POST /api/expedition/plan", a.planExpedition)
 	mux.HandleFunc("GET /api/world", a.connect)
+	mux.HandleFunc("GET /api/world-content", a.worldContent)
+	mux.HandleFunc("GET /api/admin/world", a.readAdminWorld)
+	mux.HandleFunc("POST /api/admin/world/validate", a.compileAdminWorld)
+	mux.HandleFunc("PUT /api/admin/world", a.compileAdminWorld)
 	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
 	mux.HandleFunc("/api/", missing)
 	mux.HandleFunc("/api", missing)
@@ -114,8 +120,8 @@ func (a *App) Handler() http.Handler {
 			}
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Add("Vary", "Origin")
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match")
 		}
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusNoContent)
@@ -370,7 +376,7 @@ type AttemptInput struct {
 // Opening A1 conversations offer authored replies to tap. They prove supported
 // comprehension of this scene, never independently producing the German phrase.
 func (a *App) isGuidedStoryGate(input AttemptInput) bool {
-	rule, known := storyRule(input.QuestID)
+	rule, known := a.currentStoryRule(input.QuestID)
 	exercise, installed := a.curriculum.Exercises[input.ExerciseID]
 	return input.GuidedChoice && input.SceneAttempt && input.Mode == "recognition" && input.Hinted &&
 		known && installed && exercise.Mode == "production" && input.ExerciseID == rule.GateExerciseID &&
@@ -543,4 +549,11 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, authorize, guard, stopped)
 }
 
-func (a *App) Close() { a.world.Close(); a.store.Close() }
+func (a *App) Close() {
+	if a.editing != nil && a.editing.cancel != nil {
+		a.editing.cancel()
+		<-a.editing.done
+	}
+	a.world.Close()
+	a.store.Close()
+}

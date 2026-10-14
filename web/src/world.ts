@@ -264,6 +264,16 @@ export class World {
   }
 
   /** Switch after the server acknowledges travel; snapshots restore saved positions. */
+  reloadPublishedScene(): void {
+    const mapId=readWorld(this.game.registry,'mapId');
+    this.game.scene.stop(SceneKeys.Interior);
+    this.set('interiorId',undefined);
+    this.set('players',{players:[],selfId:readWorld(this.game.registry,'players').selfId});
+    this.pending=[];
+    this.game.scene.stop(SceneKeys.World);
+    this.game.scene.start(SceneKeys.World,{mapId});
+  }
+
   setMap(id: MapId): void {
     const map = getMap(id).id;
     const previous = readWorld(this.game.registry, 'mapId');

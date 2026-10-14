@@ -241,7 +241,7 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "gate" {
 		return &APIError{409, "open this conversation's current German request first"}
 	}
-	rule, _ := storyRule(questID)
+	rule, _ := a.currentStoryRule(questID)
 	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk back to this conversation's character first"}
 	}
@@ -255,7 +255,7 @@ func (a *App) requireStoryReply(account *Account, questID string) error {
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "intro" {
 		return &APIError{409, "open this character's greeting first"}
 	}
-	rule, _ := storyRule(questID)
+	rule, _ := a.currentStoryRule(questID)
 	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk to this conversation's character first"}
 	}
@@ -278,7 +278,7 @@ func (a *App) story(w http.ResponseWriter, r *http.Request) {
 	ensureStory(&account.Progress)
 	rules := []StoryRule{}
 	for _, id := range storyQuestOrder {
-		rule, _ := storyRule(id)
+		rule, _ := a.currentStoryRule(id)
 		rules = append(rules, rule)
 	}
 	saves := []map[string]any{}
@@ -308,7 +308,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	rule, known := storyRule(input.QuestID)
+	rule, known := a.currentStoryRule(input.QuestID)
 	if !known || !safeID.MatchString(input.ID) {
 		writeError(w, 400, "unknown story scene or invalid action ID")
 		return
@@ -578,7 +578,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	rule, ok := storyRule(input.QuestID)
+	rule, ok := a.currentStoryRule(input.QuestID)
 	if !ok || !safeID.MatchString(input.ID) || !contains(rule.InvestigationObjectIDs, input.ObjectID) {
 		writeError(w, 400, "this object is not evidence for the named investigation")
 		return

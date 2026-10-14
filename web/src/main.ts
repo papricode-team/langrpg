@@ -1,4 +1,5 @@
 import { castPortraitMarkup } from './cast-portrait';
+import {loadPublishedWorld,sceneContentVersion} from './scene-data';
 import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement, placementCTAMarkup } from './placement-ui';
@@ -46,6 +47,7 @@ import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './worl
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
+import { canEditWorld, updateWorldEditButton, WorldEditorOverlay } from './admin-world-editor';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
 import type { Progress, ChatMessage, ExposureInput, ConnectionStatus, SessionResult, AccountStatus } from './api';
@@ -133,6 +135,7 @@ let pendingStoryBeat: CutsceneKind | undefined;
 let pendingTravelBeat = false;
 const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
+let worldEditor: WorldEditorOverlay | undefined;
 let shellLanguage: BaseLanguage = 'en';
 let entryLanguage: BaseLanguage | undefined;
 let entryLanguageSelection: BaseLanguage | undefined;
@@ -306,6 +309,7 @@ function renderShell() {
         <section class="chat-card" id="chat-card" aria-label="${e(t('Local chat'))}"><button class="chat-header" data-action="chat-toggle" aria-label="${e(t('Toggle local chat'))}" aria-expanded="false" aria-controls="chat-body"><span>${icon('chat')}<strong id="chat-region">Lindenhafen</strong><small>${t('LOCAL')}</small></span><span class="chat-toggle-icon">${icon('plus')}</span></button><div class="chat-body" id="chat-body" hidden><div class="chat-messages" id="chat-messages"><p class="chat-welcome">${t('Say Hallo. Every wanderer has a story.')}</p></div><form id="chat-form" class="chat-input"><input id="chat-input" maxlength="280" autocomplete="off" placeholder="${e(t('Say something…'))}" aria-label="${e(t('Message to this region'))}"/><button type="submit" aria-label="${e(t('Send message'))}">${icon('send')}</button></form></div></section>
         <div class="game-controls-hint"><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><i id="review-dot" hidden></i></button>
+        <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="${e(t('Touch movement joystick'))}"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="${e(t('Interact with something nearby'))}" disabled>${icon('chat')}<span id="nearby-action">${t('Interact')}</span><small id="nearby-name">${t('MOVE CLOSER')}</small></button></div>
       </div>
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>
@@ -556,7 +560,7 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return started && !worldEditor?.isOpen && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
 let dialogueOpen = false;
 let worldInput = false;
 let syncingWorld = false;
@@ -572,7 +576,7 @@ function syncWorldMode(): void {
     const input = worldCanInteract();
     const dialog = document.querySelector<HTMLDialogElement>('#dialog');
     const covered = !!dialog?.open && dialog.classList.contains('activity-dialog');
-    const presentation: WorldPresentation = document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
+    const presentation: WorldPresentation = document.hidden || worldEditor?.isOpen || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
     if (worldInput && !input) document.dispatchEvent(new Event('atlas-controls-reset'));
     worldInput = input;
     world.setInputEnabled(input);
@@ -1457,6 +1461,7 @@ function bindProfileForm() {
     try {
       const result = await api.session(name, getAvatar());
       account = result.account;
+      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
       profile = { name: result.player.name, avatar: result.player.avatar };
       localStorage.setItem('atlas.profile', JSON.stringify(profile));
       acceptProgress(result.progress, result.player.id);
@@ -1560,6 +1565,7 @@ function playCue(correct: boolean) {
 function bindGlobalEvents() {
   window.addEventListener('resize', syncTrackerState);
   document.addEventListener('keydown', event => {
+    if (worldEditor?.isOpen) return;
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
     if (document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now()))) return;
     if (cinematicActive) return;
@@ -1629,6 +1635,10 @@ function bindGlobalEvents() {
     }
     if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input && !run?.submission) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
     switch (target.dataset.action) {
+      case 'edit-world': if (canEditWorld(account, started)) {
+        worldEditor ??= new WorldEditorOverlay(() => { syncWorldMode(); syncAccessActivity(); if (!worldEditor?.isOpen) document.querySelector<HTMLElement>('#world-container')!.focus(); }, contentVersion => window.dispatchEvent(new CustomEvent('atlas:world-saved', { detail: { contentVersion } })));
+        stopSpeech(); worldEditor.open(mapId);
+      } break;
       case 'screen-filters': if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(target); break;
       case 'watch-world': if (view !== 'world') setView('world'); watchWorld(true); break;
       case 'stop-watching': watchWorld(false); break;
@@ -1711,7 +1721,7 @@ function renderChat() {
   el.scrollTop = el.scrollHeight;
 }
 function accessIsActive(): boolean {
-  return started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
+  return started && !worldEditor?.isOpen && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
 }
 async function sendAccessHeartbeat(active: boolean): Promise<void> {
   if (!started) return;
@@ -1730,7 +1740,7 @@ async function sendAccessHeartbeat(active: boolean): Promise<void> {
 function syncAccessActivity(): void {
   if (!started || accessResetting) return;
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  const paused = document.hidden || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
+  const paused = document.hidden || worldEditor?.isOpen || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
   // A closed world socket releases the server's active-play lease.
   if (paused && !accessConnectionPaused) { accessConnectionPaused = true; api.destroy(); }
   else if (!paused && accessConnectionPaused) { accessConnectionPaused = false; api.connect(); }
@@ -1947,6 +1957,7 @@ function enterGame(result: SessionResult) {
   if (shellLanguage !== baseLanguage()) { window.location.reload(); return; }
   started = true;
   account = result.account;
+  updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
   acceptProgress(result.progress, result.player.id);
   profile = { name: result.player.name, avatar: result.player.avatar };
   localStorage.setItem('atlas.profile', JSON.stringify(profile));
@@ -1967,7 +1978,7 @@ function enterGame(result: SessionResult) {
   if (reminderTimer !== undefined) clearInterval(reminderTimer);
   reminderTimer = window.setInterval(() => {
     const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-    const active = !document.hidden && connection === 'online' && !dialog.open;
+    const active = !worldEditor?.isOpen && !document.hidden && connection === 'online' && !dialog.open;
     accountReminder!.tick(performance.now(), active);
     if (intakeClock.tick(performance.now(), active)) void sendHeartbeat(intakeClock.consume());
     syncAccessActivity(); updateAccessHud(); enforceAccessWall();
@@ -1999,6 +2010,7 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
     button.disabled = true;
     try {
       account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
+      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
       password.value = ''; confirmation.value = '';
       if (!account.access) await api.access();
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
@@ -2048,10 +2060,20 @@ function showLogin() {
 }
 
 async function boot() {
+  try {await loadPublishedWorld();}
+  catch(error){document.querySelector('#app')!.innerHTML=`<p role="alert">${e(error instanceof Error?error.message:'The saved world could not be loaded.')}</p><a href="/">Reload the game</a>`;return;}
   // Paint in the cached support language; the account's saved choice is applied once the session resumes.
   await setBaseLanguage(cachedBaseLanguage(), { persist: false });
   renderShell();
   api.onAccess = applyAccess;
+  let refreshWorld:Promise<void>|undefined;
+  const refreshPublishedWorld=():Promise<void>=>refreshWorld??=(async()=>{
+    const previous=sceneContentVersion;
+    await loadPublishedWorld();
+    if(previous!==sceneContentVersion){regionReady=false;world.reloadPublishedScene();updateProgress();syncWorldMode();}
+  })().finally(()=>{refreshWorld=undefined;});
+  api.onWorldChanged=async()=>{const previous=sceneContentVersion;await refreshPublishedWorld();if(previous===sceneContentVersion)throw new Error('The world versions do not match. Reload the game to try again.');};
+  window.addEventListener('atlas:world-saved',()=>{void refreshPublishedWorld().catch(error=>toast(error instanceof Error?error.message:'The saved world could not be loaded.',true));});
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
   if (import.meta.env.PROD) {

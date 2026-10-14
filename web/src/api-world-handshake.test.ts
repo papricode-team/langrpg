@@ -53,6 +53,25 @@ function fixture() {
 }
 
 describe('compiled world handshake', () => {
+  it('refreshes published scenes and resumes the connection without page navigation',async()=>{
+    const {api,socket,onStatus,onError}=fixture();
+    const refresh=vi.fn().mockResolvedValue(undefined);api.onWorldChanged=refresh;
+    socket.receive({...packet(),scene:{...metadata(),contentVersion:'changed-world'}});
+    expect(refresh).toHaveBeenCalledOnce();expect(onStatus).toHaveBeenLastCalledWith('incompatible');
+    await Promise.resolve();
+    expect(TestSocket.instances).toHaveLength(2);expect(onError).not.toHaveBeenCalled();
+    const replacement=TestSocket.instances[1];replacement.open();replacement.receive(packet());
+    expect(onStatus).toHaveBeenLastCalledWith('online');api.destroy();
+  });
+
+  it('does not reconnect after the player pauses during an in-flight scene refresh',async()=>{
+    const {api,socket}=fixture();let complete!:()=>void;
+    api.onWorldChanged=()=>new Promise<void>(resolve=>{complete=resolve;});
+    socket.receive({...packet(),scene:{...metadata(),contentVersion:'changed-world'}});
+    api.destroy();complete();await Promise.resolve();
+    expect(TestSocket.instances).toHaveLength(1);
+  });
+
   it('publishes durable clock snapshots intact and drops inconsistent simulation data', () => {
     const {api, socket, onClock} = fixture();
     const clock = {epoch:'2026-10-11T11:59:30Z',serverTime:'2026-10-11T12:00:00Z',

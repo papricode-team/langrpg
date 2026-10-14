@@ -24,7 +24,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 
 ## Run locally
 
-Requirements: **Go 1.26+** and **Node.js 22.12+**. Node 20.19+ is also supported by the frontend tooling.
+Requirements: **Go 1.26+** and **Node.js 24+**. The world editor uses Node to validate drafts; Docker includes the runtime and its dependencies.
 
 From the repository root:
 
@@ -44,6 +44,10 @@ New players begin at A1 with short sentences and two complete replies for story 
 Before a first adventure, choose one of four suggested player names (one is selected) or type your own. The first five minutes are free with no signup. A countdown beside **Login** shows the remaining guest time. At five minutes, sign up to keep your character and progress and unlock ten more minutes, or log into an existing account. Choosing to restart as a guest clears all progress and returns the same character to the beginning. At fifteen minutes of total free play, continue with **€2.99/month** or **€29.99 lifetime** access through Creem. The server persists and enforces the trial across reloads and devices. On another device, select **Already played? Log in with email** to restore your account. See [Creem billing setup](docs/billing.md) before enabling production checkout.
 
 Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Linked players can also log in with email and password after clearing browser storage. Unlinked guests lose access if they lose that token. Email verification and forgotten-password recovery are not implemented.
+
+Set the server-only `ADMIN_EMAILS` environment variable to a comma-separated list of registered account emails, for example `ADMIN_EMAILS=editor@example.com,owner@example.com`. Addresses are trimmed and compared without case; an empty list disables admin access and an invalid address stops server startup. Register the intended accounts before adding their addresses to the allowlist, because signup currently has no email verification. Compose passes this variable from `.env`; for local development, run `ADMIN_EMAILS=editor@example.com npm run dev`. Restart the server after changing the list.
+
+While playing, admins can press **Edit** to open World Studio over the game at their current region. **Back to game** closes the editor and resumes play. **Export** downloads the complete world, including unsaved edits; **Import** accepts a complete World Studio JSON document up to **2 MiB**, checks it on the server, and opens it as an undoable draft. **Save world** validates and publishes the draft for players. Published worlds persist in PostgreSQL or the development JSON store across server restarts and deployments; the editor does not rewrite repository files. Unsaved drafts stay on the current device. If another admin publishes first, saving reports a conflict and retains the draft so the latest world can be reopened and reviewed.
 
 ## Controls
 
