@@ -1,11 +1,10 @@
-/* One objective over the world, with optional bell progress during a bell scene. */
+/* The next story step is the one golden action over the painted world. */
 .quest-tracker {
   position:absolute;
-  top:max(20px,env(safe-area-inset-top));
-  left:max(24px,env(safe-area-inset-left));
-  right:auto;
-  width:auto;
-  max-width:min(480px,calc(100vw - 180px));
+  top:max(24px,env(safe-area-inset-top));
+  right:max(28px,env(safe-area-inset-right));
+  left:auto;
+  width:min(340px,calc(100vw - 56px));
   border:0;
   background:none;
   box-shadow:none;
@@ -16,53 +15,225 @@
   content:none;
 }
 
-.objective-chip {
+.story-beacon {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
   width:100%;
-  min-height:52px;
-  padding:12px 16px;
-  border:1px solid #d8bb8060;
-  border-radius:8px;
-  color:#f4e7c3;
-  background:#122b24ec;
-  box-shadow:0 4px 14px #07191150;
-  font:500 var(--type-body)/1.4 'DM Sans',sans-serif;
+  min-height:72px;
+  padding:14px 16px 14px 14px;
+  border:1px solid #ffe3a0;
+  border-radius:6px;
+  color:#1b3328;
+  background:linear-gradient(115deg,#ffe8b4,#ecc87c 55%,#d9ac5c);
+  box-shadow:inset 0 1px 0 #fff7dd,inset 0 -1px 0 #a67b3c,0 0 0 3px #2a2a1c55,0 0 24px #f4c66850,0 8px 22px #0b211c70;
   text-align:left;
+  animation:beacon-glow 4s ease-in-out infinite;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
 }
 
-.objective-chip>.icon {
-  color:var(--game-gold);
+/* A slow light sweep keeps the action alive without competing with the world. */
+.story-beacon::before {
+  content:'';
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:linear-gradient(110deg,transparent 30%,#fffbe8a8 50%,transparent 70%);
+  transform:translateX(-130%);
+  animation:beacon-shimmer 6.5s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.story-beacon:hover:not(:disabled) {
+  filter:brightness(1.06);
+  transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 #fff9e4,inset 0 -1px 0 #a67b3c,0 0 0 3px #2a2a1c55,0 0 34px #ffe1a080,0 12px 26px #0b211c80;
+}
+
+.story-beacon:focus-visible {
+  outline:none;
+  box-shadow:inset 0 1px 0 #fff9e4,0 0 0 3px #10211f,0 0 0 5px #fff3ce,0 0 30px #ffe1a0a0;
+}
+
+.story-beacon:active:not(:disabled) {
+  transform:translateY(1px);
+  box-shadow:inset 0 2px 8px #946b3c60,0 0 0 3px #2a2a1c55;
+}
+
+.beacon-mark {
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:38px;
+  height:38px;
+  color:#fff2c5;
+}
+
+/* A diamond seal behind the icon, echoing the world's objective marker. */
+.beacon-mark::before {
+  content:'';
+  position:absolute;
+  inset:5px;
+  border:1px solid #fff0ba;
+  background:linear-gradient(135deg,#46684a,#1e3b2b);
+  box-shadow:0 0 0 3px #b58b3c40,0 0 14px #fff0b090;
+  transform:rotate(45deg);
+}
+
+.beacon-mark>.icon {
+  position:relative;
+  width:18px;
+  height:18px;
+}
+
+.quest-spark {
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:64px;
+  height:64px;
+  transform:translate(-50%,-50%) rotate(-45deg);
+  background:url('/assets/ui/quest-spark.svg') 0 0 / 512px 64px no-repeat;
+  animation:beacon-spark 2.4s steps(8) infinite;
+  pointer-events:none;
+}
+
+.beacon-copy {
+  display:grid;
+  gap:2px;
+  min-width:0;
+  flex:1;
+}
+
+.beacon-label {
+  color:#5a4a26;
+  font:700 var(--type-caption)/1.2 'DM Sans',sans-serif;
+  letter-spacing:.6px;
+  text-transform:uppercase;
 }
 
 .objective-text {
-  min-width:0;
   overflow:hidden;
+  color:#16302a;
+  font:600 17px/1.3 'Fraunces',serif;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
 .objective-bell {
+  display:flex;
+  align-items:center;
+  gap:4px;
   flex:none;
-  margin-left:auto;
-  color:var(--game-gold);
-  font-size:var(--type-caption);
+  padding:4px 8px;
+  border-radius:999px;
+  color:#fff2c5;
+  background:#24412fd9;
+  font:600 var(--type-caption)/1 'DM Sans',sans-serif;
 }
+
+.objective-bell>.icon {
+  width:14px;
+  height:14px;
+}
+
+.beacon-chevron {
+  width:16px;
+  height:16px;
+  color:#3c5338;
+  transition:transform .18s ease;
+}
+
+.story-beacon:hover .beacon-chevron {
+  transform:translateX(3px);
+}
+
+/* Indoors the beacon steps back: a glass plate with a way out. */
+.story-beacon.quiet {
+  min-height:60px;
+  border-color:#d8bb8070;
+  color:var(--game-text);
+  background:linear-gradient(115deg,#1b3a30f2,#122b24f0);
+  box-shadow:inset 0 1px 0 #f4dfa520,0 6px 18px #07191160;
+  animation:none;
+}
+
+.story-beacon.quiet::before {
+  content:none;
+}
+
+.story-beacon.quiet .beacon-mark {
+  width:32px;
+  height:32px;
+  color:var(--game-gold);
+}
+
+.story-beacon.quiet .beacon-mark::before {
+  content:none;
+}
+
+.story-beacon.quiet .beacon-label {
+  color:var(--game-gold);
+}
+
+.story-beacon.quiet .objective-text {
+  color:var(--game-text);
+  font-size:var(--type-body);
+}
+
+@keyframes beacon-glow {
+  0%,100% { box-shadow:inset 0 1px 0 #fff7dd,inset 0 -1px 0 #a67b3c,0 0 0 3px #2a2a1c55,0 0 18px #f4c66840,0 8px 22px #0b211c70; }
+  50% { box-shadow:inset 0 1px 0 #fff7dd,inset 0 -1px 0 #a67b3c,0 0 0 3px #2a2a1c55,0 0 34px #f4c66890,0 8px 22px #0b211c70; }
+}
+
+@keyframes beacon-shimmer {
+  0%,55% { transform:translateX(-130%); }
+  85%,100% { transform:translateX(130%); }
+}
+
+@keyframes beacon-spark { to { background-position:-512px 0; } }
 
 @media (--phone) {
   .quest-tracker {
-    top:max(16px,env(safe-area-inset-top));
+    top:calc(max(16px,env(safe-area-inset-top)) + 60px);
     left:16px;
-    max-width:calc(100vw - 88px);
+    right:16px;
+    width:auto;
   }
-  .objective-chip {
-    min-height:48px;
-    gap:8px;
-    padding:10px 12px;
+  .story-beacon {
+    min-height:60px;
+    gap:12px;
+    padding:10px 14px 10px 10px;
   }
-  .objective-chip>.icon {
-    width:18px;
-    height:18px;
+  .beacon-mark {
+    width:32px;
+    height:32px;
+  }
+  .objective-text {
+    font-size:var(--type-body);
+  }
+}
+
+@media (--short-landscape) {
+  .quest-tracker {
+    top:max(12px,env(safe-area-inset-top));
+    width:min(300px,42vw);
+  }
+  .story-beacon {
+    min-height:56px;
+    padding:8px 12px 8px 8px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .story-beacon,.story-beacon::before,.quest-spark {
+    animation:none;
+  }
+  .story-beacon::before {
+    content:none;
   }
 }

@@ -1,0 +1,432 @@
+/* Menu home: story hero and town card side by side on desktop, live doorways beneath. */
+.kicker {
+  display:block;
+  color:var(--game-gold);
+  font:700 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  letter-spacing:.6px;
+}
+
+.journey-home {
+  display:grid;
+  grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr);
+  grid-template-areas:'hero town' 'tools tools';
+  gap:16px;
+}
+
+.journey-hero {
+  grid-area:hero;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  min-height:500px;
+  padding:40px;
+  border:1px solid #d8bb8048;
+  border-radius:6px;
+  background:#16302a;
+  box-shadow:inset 0 1px 0 #f4dfa51a,0 18px 40px #03100d70;
+}
+
+.journey-hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:var(--journey-art) 72% 40%/cover;
+  filter:saturate(.9);
+  transform:scale(1.02);
+  animation:journey-drift 30s ease-in-out infinite alternate;
+}
+
+.journey-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,#0d1f1bf7 0%,#0d1f1bec 42%,#0d1f1b70 74%,#0d1f1b18),linear-gradient(0deg,#0d1f1bd8,transparent 55%);
+}
+
+@keyframes journey-drift {
+  to { transform:scale(1.08) translate(-1.5%,-1%); }
+}
+
+.journey-hero-copy {
+  display:grid;
+  justify-items:start;
+  width:100%;
+  min-width:0;
+  max-width:560px;
+}
+
+.journey-hero h2 {
+  margin:10px 0 12px;
+  color:#fbf2d8;
+  font:400 40px/1.08 'Fraunces',serif;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+  text-shadow:0 2px 14px #06140f;
+}
+
+.journey-goal {
+  max-width:480px;
+  color:#d6dccf;
+  font-size:var(--type-body);
+  line-height:1.6;
+}
+
+.journey-next {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:24px 0 20px;
+  padding:12px 18px 12px 12px;
+  border:1px solid #d8bb8040;
+  border-left:3px solid var(--game-gold);
+  border-radius:4px;
+  background:linear-gradient(90deg,#0b1b17d9,#0b1b1780);
+}
+
+.journey-next>.portrait {
+  width:56px;
+  height:56px;
+  border:2px solid #d8bb80;
+  box-shadow:0 0 0 3px #0b1b17,0 0 14px #d8bb8050;
+}
+
+.journey-next h3 {
+  margin:2px 0;
+  color:var(--game-text);
+  font:400 var(--type-title)/1.25 'Fraunces',serif;
+}
+
+.journey-next p {
+  color:var(--game-muted);
+  font-size:var(--type-body);
+}
+
+.journey-progress {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+  color:#d9cba3;
+  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  letter-spacing:.6px;
+}
+
+.journey-progress [role='progressbar'] {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.journey-progress i {
+  width:14px;
+  height:14px;
+  border:1px solid #d8bb8080;
+  background:#0b1b17;
+  transform:rotate(45deg) scale(.8);
+}
+
+.journey-progress i.complete {
+  border-color:#ffe2a0;
+  background:linear-gradient(135deg,#ffe8b4,#c99a50);
+  box-shadow:0 0 10px #ffd98a90;
+}
+
+.journey-progress i.next {
+  border-color:#ffe2a0;
+  animation:journey-pip 2.4s ease-in-out infinite;
+}
+
+@keyframes journey-pip {
+  50% { box-shadow:0 0 12px #ffd98ac0; }
+}
+
+/* The town card: where you are, what the place is like, and where you can step inside. */
+.journey-town {
+  grid-area:town;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  padding:28px;
+  border:1px solid #d8bb8040;
+  border-radius:6px;
+  background:radial-gradient(ellipse at 100% 0,#d8bb8018,transparent 60%),linear-gradient(160deg,#183229,#10241f);
+  box-shadow:inset 0 1px 0 #f4dfa514;
+}
+
+.journey-town header {
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.journey-town h3 {
+  color:var(--game-text);
+  font:400 26px/1.15 'Fraunces',serif;
+}
+
+.journey-town-crest {
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:48px;
+  height:48px;
+  border:1px solid #d8bb8070;
+  border-radius:50%;
+  color:var(--game-gold);
+  background:#0d1f1b;
+  box-shadow:0 0 0 4px #d8bb8014;
+}
+
+.journey-town-crest>.icon {
+  width:24px;
+  height:24px;
+}
+
+.journey-town>p {
+  color:#c9d1c5;
+  line-height:1.65;
+}
+
+.journey-places {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.journey-places>button {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid #d8bb8040;
+  border-radius:999px;
+  color:var(--game-text);
+  background:#0d1f1bb3;
+}
+
+.journey-places>button>.icon {
+  width:16px;
+  height:16px;
+  color:var(--game-gold);
+}
+
+.journey-places>button:hover {
+  border-color:#d8bb8090;
+  background:#d8bb8014;
+}
+
+.journey-lantern {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:auto;
+  padding:14px 16px;
+  border:1px solid #d8bb8030;
+  border-radius:4px;
+  background:#0b1b17a6;
+}
+
+.journey-lantern-icon {
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  color:#9fae9f;
+  background:#18302a;
+}
+
+.journey-lantern.lit .journey-lantern-icon {
+  color:#2a2412;
+  background:radial-gradient(circle,#fff1c4,#e2b65e);
+  box-shadow:0 0 18px #ffd98aa0;
+}
+
+.journey-lantern>div {
+  display:grid;
+  gap:4px;
+  min-width:0;
+  flex:1;
+}
+
+.journey-lantern strong {
+  color:var(--game-text);
+  font:400 var(--type-body)/1.3 'Fraunces',serif;
+}
+
+.journey-lantern>div>span:not(.journey-lantern-meter) {
+  color:var(--game-muted);
+  font-size:var(--type-caption);
+}
+
+.journey-lantern-meter {
+  height:4px;
+  overflow:hidden;
+  border-radius:2px;
+  background:#1d3a31;
+}
+
+.journey-lantern-meter>i {
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#b98d47,#ffe2a0);
+}
+
+/* Doorways carry live values so the home reads as a status board, not a second tab bar. */
+.journey-tools {
+  grid-area:tools;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+
+.journey-tools>button {
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:92px;
+  padding:16px 18px;
+  border:1px solid #d8bb8033;
+  border-radius:6px;
+  color:var(--game-text);
+  background:linear-gradient(160deg,#173029,#11251f);
+  text-align:left;
+  transition:border-color .18s ease,background .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+
+.journey-tools>button:hover {
+  border-color:#d8bb8088;
+  background:linear-gradient(160deg,#1e3b32,#142c25);
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px #03100d60;
+}
+
+.journey-tool-icon {
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:44px;
+  height:44px;
+  border:1px solid #d8bb8055;
+  color:var(--game-gold);
+  background:#0d1f1b;
+  transform:rotate(45deg) scale(.82);
+}
+
+.journey-tool-icon>.icon {
+  width:22px;
+  height:22px;
+  transform:rotate(-45deg) scale(1.2);
+}
+
+.journey-tool-copy {
+  display:grid;
+  gap:4px;
+  min-width:0;
+}
+
+.journey-tool-copy strong {
+  font:400 var(--type-body)/1.3 'Fraunces',serif;
+}
+
+.journey-tool-copy>span {
+  color:var(--game-muted);
+  font-size:var(--type-caption);
+  line-height:1.45;
+}
+
+.journey-tools>button>.icon:last-child {
+  width:14px;
+  height:14px;
+  margin-left:auto;
+  color:var(--game-muted);
+  transition:transform .18s ease,color .18s ease;
+}
+
+.journey-tools>button:hover>.icon:last-child {
+  color:var(--game-gold);
+  transform:translateX(3px);
+}
+
+@media (--tablet) {
+  .journey-home {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:'hero' 'tools' 'town';
+  }
+  .journey-hero {
+    min-height:400px;
+  }
+  .journey-tools {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (--phone) {
+  .journey-hero {
+    min-height:0;
+    padding:24px 20px;
+  }
+  .journey-hero h2 {
+    font-size:var(--type-display);
+  }
+  .journey-continue {
+    width:100%;
+    justify-content:space-between;
+  }
+  .journey-next {
+    width:100%;
+    margin:18px 0 16px;
+  }
+  .journey-next>.portrait {
+    width:48px;
+    height:48px;
+  }
+  .journey-progress {
+    flex-wrap:wrap;
+  }
+  .journey-tools {
+    grid-template-columns:minmax(0,1fr);
+  }
+  .journey-tools>button {
+    min-height:76px;
+  }
+  .journey-town {
+    padding:20px;
+  }
+}
+
+@media (--short-landscape) {
+  .journey-hero {
+    min-height:0;
+    padding:20px 24px;
+  }
+  .journey-hero h2 {
+    font-size:28px;
+  }
+  .journey-goal {
+    display:none;
+  }
+  .journey-next {
+    margin:12px 0;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .journey-hero::before,.journey-progress i.next {
+    animation:none;
+  }
+  .journey-tools>button,.journey-tools>button>.icon:last-child {
+    transition:none;
+  }
+}
+
+.journey-goal:empty {
+  display:none;
+}

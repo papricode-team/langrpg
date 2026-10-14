@@ -1,8 +1,8 @@
-# Living worlds and an expanded level editor for The Lantern Atlas
+# Living worlds and an expanded level editor for glotworld
 
 Design proposal · 11 October 2026 · Baseline reference `1b84904` · Terrain format from `b9170fb` · Latest main integrated at `ce8de50`
 
-The Lantern Atlas can feel substantially more alive by connecting residents, places and objects into understandable daily activity. A courier should collect a parcel, carry it through the town and leave it at a stall. A vendor should prepare the stall, serve customers and pack up. Rain should send people toward shelter. The player should see the causes and results of these actions, and be able to use German in situations that make sense.
+glotworld can feel substantially more alive by connecting residents, places and objects into understandable daily activity. A courier should collect a parcel, carry it through the town and leave it at a stall. A vendor should prepare the stall, serve customers and pack up. Rain should send people toward shelter. The player should see the causes and results of these actions, and be able to use German in situations that make sense.
 
 The strongest approach is to build on the existing painted world, navigation, day/night rendering and story systems. Add a development level editor that uses the actual game renderer; put visible objects, collision, interaction points and activity positions into one consistent scene format; then use that editor to produce larger districts and resident routines. Keep Tiled available for geometry and interchange.
 
@@ -135,7 +135,7 @@ Areas are square world units. The [baseline data](audits/living-world-area-basel
 The accompanying [measurement script](audits/measure-living-world-baseline.mjs) reproduces this snapshot from the repository root:
 
 ```sh
-node docs/audits/measure-living-world-baseline.mjs . /tmp/lantern-atlas-map-area-baseline.json
+node docs/audits/measure-living-world-baseline.mjs . /tmp/glotworld-map-area-baseline.json
 ```
 
 The measurement now uses the supported `NavigationGrid.auditConnectedArea` API and each canonical scene's dimensions, retaining the same sampling rules. It refuses to overwrite the immutable baseline. Run `npm run worlds:check-expansion` to require doubled width, doubled height and doubled spawn-connected cell count independently for every original map. That acceptance check remains separate from ordinary regression tests and currently fails until the actual expansions are authored.

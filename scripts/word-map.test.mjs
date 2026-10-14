@@ -46,6 +46,15 @@ test('story exercises inherit authored contextual vocabulary as canonical UUID r
     assert(record.body.wordIds.every(word=>uuidPattern.test(word)&&bundle.records.some(lexeme=>lexeme.kind==='lexeme'&&lexeme.id===word)),slug);
   }
 });
+test('product metadata uses glotworld while fictional Atlas references stay authored',()=>{
+  const {bundle,source}=buildContent();
+  assert.equal(bundle.courses.find(course=>course.target==='de').title,'German · glotworld');
+  assert.equal(source.course.sources.find(row=>row.id==='project-lexical-editorial').title,'glotworld lexical editing and original instructional content');
+  assert.equal(source.miniGameScripts.authoring,'Hand-authored glotworld story scripts; canonical context-bound exercises');
+  assert(source.storyMaps.find(map=>map.id==='nebelstadt').description.includes('Lantern Atlas'));
+  assert.equal(source.overlays.story['item:restored-atlas:title'].en,'The restored Lantern Atlas');
+  assert.equal(source.overlays.ui['Follow the story'],'Hikâyeyi takip et');
+});
 test('exact selectors distinguish occurrences and reject substring matches',()=>{
   assert.deepEqual(selectorRange('Sie sieht Sie.',{text:'Sie',occurrence:2}),{start:10,end:13});
   assert.throws(()=>selectorRange('Anna is at a_name cash.',{text:'a',occurrence:1}),/does not resolve/);

@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 	"net/http/httptest"
 	"strconv"
 	"strings"

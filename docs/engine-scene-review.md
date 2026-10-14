@@ -1,6 +1,6 @@
 # Engine and scene architecture review (2026-10-13)
 
-Code-only review of how the Lantern Atlas client boots, builds scenes, switches modes and runs the living world. The question was why the game feels janky despite the volume of content. Short answer: the content pipeline is solid, but the runtime that presents it has no single owner for "what mode are we in", "what is on screen", or "what time is it", and most visible glitches fall out of that.
+Code-only review of how glotworld client boots, builds scenes, switches modes and runs the living world. The question was why the game feels janky despite the volume of content. Short answer: the content pipeline is solid, but the runtime that presents it has no single owner for "what mode are we in", "what is on screen", or "what time is it", and most visible glitches fall out of that.
 
 All paths are under `web/src/` unless noted.
 

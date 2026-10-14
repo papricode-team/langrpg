@@ -27,14 +27,15 @@ review before accepting live payments. Configure a server-only API key with
 editing, subscription editing or full access to the runtime key.
 
 Create a live webhook at:
-`https://langrpg.papricode.com/api/billing/webhook`
+`https://glotworld.com/api/billing/webhook`
 Subscribe to `checkout.completed`, every `subscription.*` event,
 `refund.created` and `dispute.created`. Save the full signing secret.
 
 Set these in Dokploy's compose environment (never in `VITE_*` variables):
 
 ```dotenv
-PUBLIC_URL=https://langrpg.papricode.com
+PUBLIC_URL=https://glotworld.com
+ALLOWED_ORIGINS=https://glotworld.com
 CREEM_SERVER=production
 CREEM_API_KEY=YOUR_LIVE_SCOPED_KEY
 CREEM_WEBHOOK_SECRET=YOUR_FULL_SIGNING_SECRET

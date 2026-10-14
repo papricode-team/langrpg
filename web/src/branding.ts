@@ -1,0 +1,1 @@
+export const brandMarkup = '<a class="glotworld-brand" href="https://glotworld.com" target="_blank" rel="noopener noreferrer"><img src="/favicon.svg" width="32" height="32" alt=""/><span>glotworld</span></a>';

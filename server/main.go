@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"errors"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 	"log/slog"
 	"net/http"
 	"os"

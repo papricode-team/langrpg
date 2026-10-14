@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"glotworld/server/internal/contentstore"
 	"golang.org/x/text/unicode/norm"
-	"lernen01/server/internal/contentstore"
 )
 
 type CourseGrading = contentstore.Grading

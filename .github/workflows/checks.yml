@@ -29,9 +29,24 @@ jobs:
         env:
           ATLAS_UI_URL: http://127.0.0.1:5187
         run: |
+          # Previews read session-gated learning content through the development proxy.
+          (cd server && DATA_PATH="$RUNNER_TEMP/atlas-ui-state.json" go run .) > "$RUNNER_TEMP/atlas-ui-api.log" 2>&1 &
+          api_server_pid=$!
           node node_modules/vite/bin/vite.js web --host 127.0.0.1 --port 5187 --strictPort > "$RUNNER_TEMP/atlas-ui-vite.log" 2>&1 &
           ui_server_pid=$!
-          trap 'kill "$ui_server_pid" 2>/dev/null || true; wait "$ui_server_pid" 2>/dev/null || true' EXIT
+          trap 'kill "$ui_server_pid" "$api_server_pid" 2>/dev/null || true; wait "$ui_server_pid" "$api_server_pid" 2>/dev/null || true' EXIT
+          api_server_ready=false
+          for attempt in {1..120}; do
+            if curl --fail --silent http://127.0.0.1:8097/api/health > /dev/null; then
+              api_server_ready=true
+              break
+            fi
+            sleep 1
+          done
+          if [ "$api_server_ready" != true ]; then
+            cat "$RUNNER_TEMP/atlas-ui-api.log"
+            exit 1
+          fi
           ui_server_ready=false
           for attempt in {1..60}; do
             if curl --fail --silent "$ATLAS_UI_URL" > /dev/null; then
@@ -63,4 +78,4 @@ jobs:
         working-directory: server
       - run: go vet ./...
         working-directory: server
-      - run: docker build --file server/Dockerfile --tag lantern-atlas:ci .
+      - run: docker build --file server/Dockerfile --tag glotworld:ci .

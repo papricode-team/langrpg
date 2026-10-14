@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 	"sort"
 	"strings"
 )

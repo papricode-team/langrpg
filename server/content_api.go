@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 	"log/slog"
 	"net/http"
 	"sort"

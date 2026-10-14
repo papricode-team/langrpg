@@ -1,5 +1,6 @@
 import { baseLanguageNames, isBaseLanguage, setBaseLanguage, t, type BaseLanguage } from './i18n';
 import { escapeHtml as e, icon } from './icons';
+import { brandMarkup } from './branding';
 
 export interface OnboardingLanguages { motherTongue: BaseLanguage; learningLanguage: 'de' | 'en'; }
 export function onboardingStepsMarkup(step: 1 | 2): string {
@@ -13,7 +14,7 @@ export function mountLanguageOnboarding(host: HTMLElement, options: {
   onConfirm(languages: OnboardingLanguages): void; onLogin(languages: OnboardingLanguages): void;
 }): void {
   let languages: OnboardingLanguages = { motherTongue: options.initialLanguage, learningLanguage: options.initialLearningLanguage ?? 'de' }, busy = false;
-  const heading = () => `${onboardingStepsMarkup(1)}`;
+  const heading = () => `${brandMarkup}${onboardingStepsMarkup(1)}`;
   const focusHeading = () => host.querySelector<HTMLElement>('#account-title')?.focus({ preventScroll: true });
   function selectLanguages() {
     const supports: BaseLanguage[] = languages.learningLanguage === 'de' ? ['en', 'tr'] : ['tr', 'de'];

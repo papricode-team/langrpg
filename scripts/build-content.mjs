@@ -23,7 +23,7 @@ export function buildContent({ directory = root } = {}) {
     if(kind&&slug)id(kind,slug);
   }
   const germanId = id('course','german'), englishId = id('course','english');
-  const german = { id:germanId,slug:'german',target:'de',supportLanguages:['en','tr'],title:'German · Lantern Atlas',grading:{keyboardSubstitutions:{'ä':'ae','ö':'oe','ü':'ue','Ä':'Ae','Ö':'Oe','Ü':'Ue','ß':'ss','ẞ':'SS'},meaningfulCapitals:['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres'],ignoreTrailing:'.!?',mechanicalTypos:true,caseSensitive:false},voice:'de-DE' };
+  const german = { id:germanId,slug:'german',target:'de',supportLanguages:['en','tr'],title:'German · glotworld',grading:{keyboardSubstitutions:{'ä':'ae','ö':'oe','ü':'ue','Ä':'Ae','Ö':'Oe','Ü':'Ue','ß':'ss','ẞ':'SS'},meaningfulCapitals:['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres'],ignoreTrailing:'.!?',mechanicalTypos:true,caseSensitive:false},voice:'de-DE' };
   const english = { id:englishId,...proof.course };
   const courses = [german, english];
   function add(kind, slug, body, course = germanId) {

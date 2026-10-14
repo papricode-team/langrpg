@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /** Build the canonical client/server course together. Imported dictionary facts are kept separate from authored teaching. */
+import './register-content-loader.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
@@ -237,7 +238,7 @@ const referenceCoverage=baseAudit.map(audit=>{
 const sources=[
  {id:'wiktionary-kaikki',title:'English Wiktionary German lexical facts, via Kaikki/Wiktextract',url:'https://kaikki.org/dictionary/German/index.html',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',retrievedAt:'2026-10-09',description:'English meanings, German headwords and morphology adapted from the English Wiktionary extraction. Individual entry attribution is attached to each lexeme. No dictionary quotations, publisher examples, images or recorded audio are copied.'},
  {id:'wordhoard',title:'wordhoard v0.1.0 German frequency and morphology',url:'https://github.com/natema/wordhoard/releases/tag/v0.1.0',license:'CC BY-SA 4.0',licenseUrl:'https://github.com/natema/wordhoard/blob/main/NOTICE.md',retrievedAt:'2026-10-09',description:'Frequency ordering and fallback inflection metadata from the openly licensed dictionary build. Frequency estimates do not establish a learner’s CEFR level.'},
- {id:'project-lexical-editorial',title:'Lantern Atlas lexical editing and original instructional content',url:'https://en.wiktionary.org/wiki/Wiktionary:Copyrights',license:'Lexical dataset: CC BY-SA 4.0; instructional text: project-authored',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',retrievedAt:'2026-10-09',description:'Short learner glosses, selection, topic grouping and all exercises, explanations, passages and writing patterns authored for this project. Goethe example sentences are not reused.'},
+ {id:'project-lexical-editorial',title:'glotworld lexical editing and original instructional content',url:'https://en.wiktionary.org/wiki/Wiktionary:Copyrights',license:'Lexical dataset: CC BY-SA 4.0; instructional text: project-authored',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/',retrievedAt:'2026-10-09',description:'Short learner glosses, selection, topic grouping and all exercises, explanations, passages and writing patterns authored for this project. Goethe example sentences are not reused.'},
  {id:'goethe-reference',title:'Goethe A1/A2/B1 headword references, audited via DWDS',url:'https://www.dwds.de/d/api#wb-list-goethe',license:'© Goethe-Institut; reference inputs only',licenseUrl:'https://www.dwds.de/d/api#wb-list-goethe',retrievedAt:'2026-10-09',description:'Level placement and coverage comparison only. The reference PDFs and their example sentences are not bundled or relicensed; imported lexical meanings/morphology come from open dictionaries and original editorial work.'}
 ];
 const data={edition:'de-en-a1-b1-2026-10-09',sources,lexicon,units,grammar,exercises,contextWordIds,activityWordIds,npcWordIds,referenceCoverage};

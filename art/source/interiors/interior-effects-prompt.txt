@@ -1,5 +1,5 @@
 Use case: stylized-concept.
-Asset type: transparent detail-only animation atlas for The Lantern Atlas painterly 2D bakery and café interiors.
+Asset type: transparent detail-only animation atlas for glotworld painterly 2D bakery and café interiors.
 Input image 1: STYLE REFERENCE ONLY. Match its softly painted warm light and fine illustrated detail; do not reproduce the furniture, oven, trays, mixer, counter, goods or room.
 Primary request: generate a genuinely transparent 1024 x 1024 PNG sprite sheet, exactly FOUR equal 256-pixel columns and TWO equal 512-pixel rows. Eight isolated effects total, four consecutive animation frames per row.
 ROW 1 (upper half, y=0..511): a delicate translucent warm ivory wisp of steam rising from a narrow fixed source centered at local x=128, local y=430. Low-density natural curls, airy edges, mostly transparent; visible effect about 105px wide and 220px tall. Consecutive frames curl gradually upward, with a seamless return to the first. Source point stays fixed in all four cells.

@@ -1,4 +1,4 @@
-# Lantern Atlas curriculum
+# glotworld curriculum
 
 German for English speakers. Course edition: `de-en-a1-b1-2026-10-09`. Implementation reviewed 2026-10-10.
 

@@ -1,6 +1,6 @@
 Use case: stylized-concept
 Asset type: transparent painterly game item sprite sheet
-Primary request: Paint 16 distinct isolated object sprites for the Lantern Atlas near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
+Primary request: Paint 16 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
 Style/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.
 Scene/backdrop: genuinely transparent alpha, no painted backdrop.
 Composition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.

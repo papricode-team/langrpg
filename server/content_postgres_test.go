@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 	neturl "net/url"
 	"os"
 	"reflect"

@@ -128,7 +128,7 @@ export class World {
     events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined) => { options.onInteriorChange?.(id); });
     events.on(WorldEvents.ExploreReady, () => { this.flush(); this.applyPresentation(); });
     events.on(WorldEvents.Ready, () => {
-      this.game.canvas?.setAttribute('aria-label', 'Lantern Atlas game world. Use WASD, arrow keys, the touch joystick, or tap a destination. Press E or the action button to speak or investigate nearby.');
+      this.game.canvas?.setAttribute('aria-label', 'glotworld game world. Use WASD, arrow keys, the touch joystick, or tap a destination. Press E or the action button to speak or investigate nearby.');
       this.game.canvas?.setAttribute('role', 'application');
       options.onReady?.();
     });
