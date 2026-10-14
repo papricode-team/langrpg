@@ -42,6 +42,31 @@
 .billing-plan b svg { width: 16px; height: 16px; flex-shrink: 0; }
 .billing-plan-lifetime { background: #3b3b2b; border-color: #d4b975; }
 .account-dialog .billing-note { font-size: 11px; color: #cfc6a7; }
+.account-dialog .billing-secondary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 12px;
+  padding: 13px 18px;
+  border: 1px solid #c9b77c;
+  border-radius: 12px;
+  background: #29493d;
+  color: #fff1cd;
+  box-shadow: inset 0 1px 0 #ffffff14, 0 2px 6px #071e2033;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.account-dialog .billing-secondary-button:hover { background: #355b49; border-color: #f3d895; }
+.account-dialog .billing-secondary-button:active { background: #203d32; }
+.account-dialog .billing-secondary-button:focus-visible { outline: 3px solid #f3d895; outline-offset: 3px; }
+.account-dialog .billing-secondary-button:disabled { opacity: .55; cursor: wait; }
 .billing-unavailable { padding: 12px 14px; border: 1px solid #ccaa7b77; border-radius: 10px; font-size: 13px; }
 .access-hud button:focus-visible, .account-switch button:focus-visible, .billing-plan:focus-visible { outline: 3px solid #f3d895; outline-offset: 3px; }
 @media (max-width: 640px) {
