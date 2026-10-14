@@ -906,3 +906,46 @@ label {
     top:91px
   }
 }
+
+.layer-controls {
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:10px;
+  margin-bottom:18px;
+  background:#f1f4e9
+}
+
+.layer-controls summary {
+  font-size: var(--type-title);
+  font-weight:600;
+  cursor:pointer
+}
+
+.layer-controls fieldset {
+  border:0;
+  padding:0;
+  margin:12px 0
+}
+
+.layer-controls legend {
+  font-size: var(--type-caption);
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:5px
+}
+
+.layer-controls .check {
+  font-size: var(--type-caption);
+  margin:7px 0;
+  line-height:1.35
+}
+
+.layer-controls .object-actions button {
+  font-size: var(--type-caption);
+  padding:6px 4px
+}
+
+.layer-controls .tool-note {
+  margin-bottom:0
+}

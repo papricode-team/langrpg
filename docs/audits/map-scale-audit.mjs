@@ -11,7 +11,7 @@ await import(pathToFileURL(resolve(root,'scripts/register-content-loader.mjs')).
 const moduleAt=path=>import(pathToFileURL(resolve(root,path)).href);
 const {sceneDocument}=await moduleAt('web/src/scene-data.ts');
 const {createMapNavigation}=await moduleAt('web/src/navigation.ts');
-const {getSceneryGeometry,sceneEntrancePoint,PERSON_HEIGHT}=await moduleAt('web/src/scene-schema.ts');
+const {getSceneryGeometry,getSceneryGeometryMap,sceneEntrancePoint,PERSON_HEIGHT}=await moduleAt('web/src/scene-schema.ts');
 const {auditSceneQuality}=await moduleAt('scripts/scene-quality.mjs');
 const ids=args[1]?[args[1]]:['lindenhafen','waldruh','nebelstadt'];
 const reports=[];
@@ -19,7 +19,7 @@ for(const id of ids){
   const scene=sceneDocument.maps[id];
   if(!scene)throw Error(`Unknown active town ${id}`);
   const manifest=JSON.parse(await readFile(resolve(root,`web/public/assets/${id}-day-animations.json`),'utf8'));
-  const quality=auditSceneQuality(scene,manifest);
+  const quality=auditSceneQuality(scene,manifest,getSceneryGeometryMap(id));
   const grid=createMapNavigation(id),reachability=grid.auditReachability(scene.spawn);
   const {unreachablePoints,...navigation}=reachability;
   const entrances=(scene.entrances??[]).map(entrance=>{

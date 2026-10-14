@@ -7,8 +7,8 @@ import {createHash, randomUUID} from 'node:crypto';
 import sharp from 'sharp';
 import './register-content-loader.mjs';
 const {parseWorldSceneDocument, sceneActivityPoint, sceneActivityPlaces, sceneEntrancePoint, sceneInteriorIds,PERSON_HEIGHT} = await import('../web/src/scene-schema.ts');
-import {auditSceneQuality} from './scene-quality.mjs';
-import {validateSceneryGeometry} from './scenery-geometry.mjs';
+import {auditSceneQuality,auditBuildingSpacing} from './scene-quality.mjs';
+import {geometryFromManifest,sceneryFrameSizes,validateSceneryGeometry} from './scenery-geometry.mjs';
 const {compileResidentActivities} = await import('../web/src/resident-activities.ts');
 const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resident-action-art.ts');
 const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
@@ -93,9 +93,13 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       const atlases = await Promise.all([content.sceneryAtlas, content.variationAtlas].map(path => loadJSON(`web/public${path}`)));
       const manifests = await Promise.all(['day', 'night'].map(period => loadJSON(`web/public/assets/${scene.id}-${period}-animations.json`)));
       sceneryManifest=manifests[0];
-      errors.push(...validateSceneryGeometry(scene.id,sceneryManifest,await loadJSON('web/src/data/scenery-geometry.json')));
-      quality[scene.id]=auditSceneQuality(scene,sceneryManifest);
-      (strictQuality?errors:warnings).push(...quality[scene.id].issues);
+      const frameSizes=await sceneryFrameSizes(manifests,key=>loadJSON(`web/public/assets/${key}.json`));
+      errors.push(...validateSceneryGeometry(scene.id,sceneryManifest,await loadJSON('web/src/data/scenery-geometry.json'),manifests[1],frameSizes));
+      const renderedGeometry=geometryFromManifest(sceneryManifest,manifests[1],frameSizes);
+      const spacingIssues=auditBuildingSpacing(scene,renderedGeometry);
+      errors.push(...spacingIssues);
+      quality[scene.id]=auditSceneQuality(scene,sceneryManifest,renderedGeometry);
+      (strictQuality?errors:warnings).push(...quality[scene.id].issues.filter(issue=>!spacingIssues.includes(issue)));
       for(const [variant,atlas] of atlases.entries())for(const frame of Object.keys(atlas.frames??{}))prefabFrames.add(`${!!variant}:${frame}`);
       for(const frame of Object.keys(manifests[0].assets??{}))if(manifests.every(manifest=>manifest.assets?.[frame]))for(const variant of [false,true])prefabFrames.add(`${variant}:${frame}`);
       for (const item of scene.scenery) {

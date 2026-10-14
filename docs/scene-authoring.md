@@ -16,6 +16,8 @@ Tiled v2 includes an `Entrances` point layer. Moving only a building moves its a
 
 Choose **Go to district** in View to frame a named district directly; choose Entire map or Fit to return to the whole map. In a narrow window the inspector remains available below the canvas.
 
+Use the map dropdown in the top bar to switch towns, scroll to zoom, and hold Space while dragging to pan. **Layers** lets you inspect **Terrain**, **Buildings**, **Vegetation** and **Other props** independently. **Terrain only** isolates the painted ground; **Show all artwork** re-enables those four artwork layers. Guide switches show story characters and discoveries, doors and activity slots, walkable ground, collision and districts. These switches change the editor view and stay outside the scene document and undo history. Object edits create a recoverable local draft; **Validate** checks that draft, and **Save world** validates and writes the canonical world and server interaction registry. A failed save retains the draft. The development workspace started with `npm run dev` restarts the game server automatically after saved coordinate changes.
+
 Switch the library to **Placed** to search existing objects by stable ID, asset, frame or reusable-group name. Filter by district using the object’s logical foot position. Group rows select the complete group; child rows select just that object. Shift-click a row adds it to the selection. Use a row’s **Frame** control, the canvas **Frame** button or **F** to bring the selected artwork into view.
 
 **Hide** and **Lock** in Placed are per-map, device-local editing aids, retained across reloads. Hiding removes artwork from the editor and its hit tests; the canonical scene and navigation remain intact. Locking blocks movement, inspector changes, deletion and indirect edits to attached activity/entrance positions, including regeneration and group updates. These controls do not add undo steps or dirty the scene. **Show all & clear view locks** restores the local view; saved prefab-copy locks remain separate. Undo/redo intentionally still restores scene history.
@@ -63,6 +65,8 @@ Choose **Show schedule guide** to sample the plan at a selected hour. Gold circl
 ## Validation and saving
 
 The pure browser-safe parser is `parseWorldSceneDocument` in `web/src/scene-schema.ts`. `sceneDocument` and `getWorldScene(id)` in `web/src/scene-data.ts` load the released scene data. The parser checks shape, bounds, polygons, IDs, object fields and local activity references. The compiler adds content and image references, required interaction coverage, and reachability using the runtime navigation grid and the **draft's own** scenery collision.
+
+Buildings need at least 32 world units between their complete painted bounds, including roofs and façades. The shared envelope includes both day and night artwork and follows each placement's scale and mirrored pivot. Scatter generation and brush placement skip buildings that violate this spacing; the compiler rejects conflicting placements even when optional composition checks are relaxed. After changing artwork, run `node scripts/scenery-geometry.mjs` to refresh the shared envelopes.
 
 ```sh
 node scripts/scene-compiler.mjs check

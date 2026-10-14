@@ -1,12 +1,23 @@
 import {describe,it,expect} from 'vitest';
 import {authoredNavigation,parseMapNavigationDocument,applyAuthoredMapPlacements} from './map-authoring';
-import {validateAuthoredReachability,NavigationGrid} from './navigation';
+import {validateAuthoredReachability,NavigationGrid,createMapNavigation} from './navigation';
 import {placedSceneryFootprints} from './placed-scenery';
-import {getMap} from './maps';
+import {getMap,storyMaps} from './maps';
+import {getWorldScene} from './scene-data';
 
 describe('authored map geometry and runtime placement',()=>{
-  it('keeps every authored interaction reachable with the runtime collision grid',()=>{
-    expect(validateAuthoredReachability(authoredNavigation)).toEqual([]);
+  it('keeps every canonical interaction reachable with the runtime collision grid',()=>{
+    // Runtime towns use the expanded canonical scene. The legacy 1536 × 1024
+    // importer must not mix retired street corridors with today's prop anchors.
+    for(const map of storyMaps){
+      const scene=getWorldScene(map.id),grid=createMapNavigation(map.id);
+      expect(grid.isWalkable(scene.spawn.x,scene.spawn.y),`${map.id} spawn`).toBe(true);
+      for(const target of [...scene.npcs,...scene.objects]){
+        const approach=grid.closestPoint(target.x,target.y,scene.spawn);
+        expect(Math.hypot(approach.x-target.x,approach.y-target.y),`${map.id}/${target.id} approach`).toBeLessThanOrEqual(120);
+        expect(grid.findPath(scene.spawn,approach).length,`${map.id}/${target.id} route`).toBeGreaterThan(0);
+      }
+    }
   });
   it('rejects invalid coordinates, degenerate or crossed polygons, and duplicate targets',()=>{
     const bad=structuredClone(authoredNavigation);

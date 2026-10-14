@@ -4,9 +4,11 @@ import {LevelEditorHistory,editScenery,removeScenery} from './level-editor-model
 import {stampPrefab,previewPrefabUpdate,sceneInstanceIds} from './level-editor-prefabs';
 import {emptyEditorView} from './level-editor-selection';
 import {sceneryFootprints} from './placed-scenery';
+import {buildingBounds} from './building-spacing';
+import {polygonsIntersect} from './level-editor-generation';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid} from './navigation';
-import type {SceneScenery,ScenePrefab,WorldScene} from './scene-schema';
+import {getSceneryGeometryMap,type SceneScenery,type ScenePrefab,type WorldScene} from './scene-schema';
 
 const scene=(id='source'):WorldScene=>({id,coordinateVersion:1,width:1000,height:800,spawn:{x:50,y:50},npcs:[],objects:[],walkable:[[[14,14],[140,14],[140,780],[14,780]]],obstacles:[],scenery:[],terrain:[{id:'floor',x:0,y:0,width:1000,height:800,dayAsset:'/assets/floor.webp'}],districts:[]});
 const prefab:ScenePrefab={id:'reading',name:'Reading corner',revision:1,scenery:[{id:'bench',asset:'bench',x:0,y:0,width:64},{id:'lamp',asset:'lamp',x:65,y:-12,width:32}],activities:[{id:'seat',ownerId:'bench',kind:'seat',offsetX:0,offsetY:16}]};
@@ -124,6 +126,23 @@ describe('clipboard and painting tools',()=>{
     source.scenery=[{id:'offset-foundation',asset:'house',x:300,y:500,width:60,collision:{referenceWidth:60,polygons:[[[200,-50],[360,-50],[360,50],[200,50]]]}}];
     const stroke=new ObjectPaintStroke(source,'brush',template,settings,emptyEditorView(),bounds);stroke.move({x:580,y:500});
     expect(stroke.changedIds.size).toBe(0);expect(stroke.summary).toContain('existing objects');
+  });
+  it('keeps roofs and natural gaps clear while allowing nearby decorative painting',()=>{
+    const source=scene('lindenhafen');source.walkable=[];source.navigation={model:'clear-land',terrainCollision:[]};
+    const inn={id:'inn',asset:'house' as const,frame:'house-inn',x:500,y:400,width:220};source.scenery=[inn];
+    const manifest=getSceneryGeometryMap(source.id),candidate={...inn,id:'candidate',y:560};
+    const bases=sceneryFootprints([inn,candidate],manifest);
+    expect(polygonsIntersect(bases[0],bases[1])).toBe(false);
+    expect(buildingBounds(candidate,manifest.assets['house-inn'])!.top).toBeLessThan(buildingBounds(inn,manifest.assets['house-inn'])!.bottom);
+    const paintSettings={...settings,variation:0,clearance:0,protectPaths:false};
+    for(const y of [560,620]){
+      const crowded=new ObjectPaintStroke(source,'brush',inn,paintSettings,emptyEditorView(),bounds);crowded.move({x:500,y});
+      expect(crowded.changedIds.size).toBe(0);expect(crowded.summary).toContain('existing objects');
+    }
+    const spaced=new ObjectPaintStroke(source,'brush',inn,paintSettings,emptyEditorView(),bounds);spaced.move({x:500,y:650});
+    expect(spaced.changedIds.size).toBe(1);
+    const decoration=new ObjectPaintStroke(source,'brush',template,paintSettings,emptyEditorView(),bounds);decoration.move({x:500,y:560});
+    expect(decoration.changedIds.size).toBe(1);
   });
   it('moves, resizes, mirrors and copies the brush collider together with its owner',()=>{
     const source=scene();source.walkable=[];source.navigation={model:'clear-land',terrainCollision:[]};

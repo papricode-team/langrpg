@@ -2,13 +2,18 @@ import {afterEach,describe,expect,it,vi} from 'vitest';
 import {LevelEditorCanvas,type EditorCanvasCallbacks} from './level-editor-canvas';
 import {NavigationGrid} from './navigation';
 import {ResidentActivityWorld} from './resident-activities';
+import {defaultEditorLayers} from './level-editor-layers';
 import type {ScenePolygon,SceneScenery,WorldScene} from './scene-schema';
 
+const {paintedPlacements}=vi.hoisted(()=>({paintedPlacements:[] as (readonly SceneScenery[])[]}));
 vi.mock('phaser',()=>({default:{Scene:class {},Math:{Vector2:class {
   constructor(public x:number,public y:number){}
 }}}}));
-vi.mock('./world-scenery',()=>({WorldScenery:class {destroy(){return undefined;}}}));
-afterEach(()=>vi.restoreAllMocks());
+vi.mock('./world-scenery',()=>({WorldScenery:class {
+  constructor(_scene:unknown,_id:unknown,_period:unknown,placements:readonly SceneScenery[]){paintedPlacements.push(placements);}
+  destroy(){return undefined;}
+}}));
+afterEach(()=>{vi.restoreAllMocks();paintedPlacements.length=0;});
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
 const groundColor=0x65bf9d,barrierColor=0xe6785f;
@@ -21,7 +26,7 @@ class GuideGraphics {
   fillPoints(points:{x:number;y:number}[]){this.polygons.push({color:this.color,points:points.map(point=>[point.x,point.y])});return this;}
   fillCircle(x:number,y:number,radius:number){this.circles.push({x,y,radius});return this;}
   lineStyle(){return this;} strokePoints(){return this;} strokeCircle(){return this;}
-  strokeRect(){return this;} lineBetween(){return this;}
+  fillRect(){return this;} strokeRect(){return this;} lineBetween(){return this;}
 }
 const ownedBlocker=(id:string,x:number,y:number):SceneScenery=>({id,asset:'house',x,y,width:40,
   collision:{referenceWidth:40,polygons:[[[-20,-50],[20,-50],[20,50],[-20,50]]]}});
@@ -42,7 +47,7 @@ function fixture(){
   canvas.paint(world);
   const overlayNavigation=()=>new NavigationGrid(graphics.polygons.filter(shape=>shape.color===groundColor).map(shape=>shape.points),
     graphics.polygons.filter(shape=>shape.color===barrierColor).map(shape=>shape.points),world);
-  return {canvas,world,graphics,overlayNavigation};
+  return {canvas,world,graphics,overlayNavigation,callbacks};
 }
 function expectClearResidentRoutes(simulation:ResidentActivityWorld,navigation:NavigationGrid){
   const plan=simulation.day(time,'dry').plan;
@@ -97,5 +102,45 @@ describe('clear-land editor guides',()=>{
     expect(originalRoute.segments.some(segment=>!navigation.canWalkSegment(segment.from.x,segment.from.y,segment.to.x,segment.to.y))).toBe(true);
     const updated=sample.mock.contexts.at(-1) as ResidentActivityWorld;
     expectClearResidentRoutes(updated,navigation);
+  });
+});
+
+describe('editor canvas inspection layers',()=>{
+  it('hides an artwork category from rendering and editing without changing its collision or scene data',()=>{
+    const {canvas,world,graphics}=fixture(),before=structuredClone(world),setVisible=vi.fn();
+    Object.assign(canvas,{terrain:{setVisible}});
+    canvas.hidden=new Set(['meeting-sign']);canvas.selected=new Set(['shed']);
+    canvas.setLayers({...defaultEditorLayers(),terrain:false,buildings:false,collision:true});
+    expect(paintedPlacements.at(-1)).toEqual([]);
+    expect(canvas.selected.size).toBe(0);
+    expect(canvas.hiddenScenery()).toEqual(new Set(['meeting-sign','shed']));
+    expect(graphics.polygons.filter(shape=>shape.color===barrierColor)).toHaveLength(3);
+    expect(setVisible).toHaveBeenLastCalledWith(false);
+    canvas.paint({...world,id:'another-map'});
+    expect(canvas.layers.terrain).toBe(false);
+    expect(canvas.layers.buildings).toBe(false);
+    expect(world).toEqual(before);
+  });
+
+  it('controls walkable ground and collision independently',()=>{
+    const {canvas,graphics}=fixture();
+    canvas.setLayers({...defaultEditorLayers(),ground:true});
+    expect(graphics.polygons.filter(shape=>shape.color===groundColor)).toHaveLength(1);
+    expect(graphics.polygons.filter(shape=>shape.color===barrierColor)).toHaveLength(0);
+    canvas.setLayers({...defaultEditorLayers(),collision:true});
+    expect(graphics.polygons.filter(shape=>shape.color===groundColor)).toHaveLength(0);
+    expect(graphics.polygons.filter(shape=>shape.color===barrierColor)).toHaveLength(3);
+  });
+
+  it('does not select or begin dragging an object in a hidden layer',()=>{
+    const {canvas,callbacks}=fixture();
+    Object.assign(canvas,{game:{canvas:{focus:vi.fn()}},cameras:{main:{zoom:1,getWorldPoint:(x:number,y:number)=>({x,y})}}});
+    canvas.setLayers({...defaultEditorLayers(),buildings:false});
+    const pointer={x:110,y:130,rightButtonDown:()=>false,middleButtonDown:()=>false,event:{}};
+    const gestures=canvas as unknown as {startPointer(pointer:unknown):void;endPointer():void};
+    gestures.startPointer(pointer);gestures.endPointer();
+    expect(callbacks.select).toHaveBeenLastCalledWith([]);
+    expect(callbacks.beginDrag).not.toHaveBeenCalled();
+    expect(canvas.selected.size).toBe(0);
   });
 });

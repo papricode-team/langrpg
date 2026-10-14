@@ -1,6 +1,7 @@
 import { sceneryFootprints,withSceneryCollision } from './placed-scenery';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {sceneInstanceIds} from './level-editor-prefabs';
+import {buildingsTooClose} from './building-spacing';
 import {sceneActivityPlaces,sceneEntrancePoint,getSceneryGeometryMap,type ScenePoint,type SceneGenerationZone, type ScenePolygon, type SceneScenery, type WorldScene} from './scene-schema';
 
 export interface ScatterTemplate { asset: SceneScenery['asset']; frame: string; variant?: boolean; width: number; motion?: SceneScenery['motion']; }
@@ -83,7 +84,7 @@ export function generateScatter(scene:WorldScene,zone:SceneGenerationZone,templa
     if([...envelope,...footprints.flat()].some(([px,py])=>px<0||py<0||px>scene.width||py>scene.height||!contains(zone.polygon,px,py))){rejected.outsideZone++;continue;}
     const approachClearance=scene.navigation?24:120;
     if((!scene.navigation&&geometry.ground.some(path=>polygonsIntersect(envelope,path)||footprints.some(footprint=>polygonsIntersect(footprint,path))))||protectedPoints.some(p=>Math.hypot(x-p.x,y-p.y)<approachClearance+radius||footprints.some(footprint=>polygonsIntersect(footprint,circle(p.x,p.y,approachClearance))))){rejected.pathClearance++;continue;}
-    if([...retained,...proposals].some(other=>Math.hypot(x-other.x,y-other.y)<Math.max(settings.minSpacing,(width+other.width)*.3))||[...geometry.terrain,...occupied].some(obstacle=>polygonsIntersect(envelope,obstacle)||footprints.some(footprint=>polygonsIntersect(footprint,obstacle)))){rejected.occupied++;continue;}
+    if([...retained,...proposals].some(other=>buildingsTooClose(item,other,manifest)||Math.hypot(x-other.x,y-other.y)<Math.max(settings.minSpacing,(width+other.width)*.3))||[...geometry.terrain,...occupied].some(obstacle=>polygonsIntersect(envelope,obstacle)||footprints.some(footprint=>polygonsIntersect(footprint,obstacle)))){rejected.occupied++;continue;}
     proposals.push(item);occupied.push(...footprints);usedIds.add(item.id);
   }
   const diagnostics=[`${proposals.length} of ${settings.count} requested objects fit. ${removable.length} prior generated objects would be replaced; ${preserved.length} protected objects stay.`];
