@@ -128,7 +128,19 @@ func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Cour
 			if json.Unmarshal(data, &check) == nil && len(check.Exercises) == 0 {
 				continue
 			}
-			if err = loadMiniGameExercises(&c, adapter.raw(data, false), entry.source); err != nil {
+			// Validate against this course's stored rules. Production has no
+			// legacy files, and the runtime manifest cache is installed later.
+			var rules expeditionManifest
+			if entry.source == "expedition" {
+				ruleData, exists := bundle.Private(course.ID, "expeditions")
+				if !exists {
+					return c, fmt.Errorf("missing private expedition rules")
+				}
+				if err = json.Unmarshal(adapter.raw(ruleData, false), &rules); err != nil {
+					return c, fmt.Errorf("expedition rules: %w", err)
+				}
+			}
+			if err = loadMiniGameExercisesWithRules(&c, adapter.raw(data, false), entry.source, rules); err != nil {
 				return c, err
 			}
 		}

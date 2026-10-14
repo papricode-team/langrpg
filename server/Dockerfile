@@ -34,6 +34,7 @@ COPY --from=build /out/world /app/world
 COPY --from=build /out/import-content /app/import-content
 COPY --from=frontend /app/server/content.json /app/content.json
 COPY server/entrypoint.sh /app/entrypoint.sh
+COPY server/check-startup.sh /app/check-startup.sh
 COPY --from=frontend /app/web/dist /app/public
 COPY --from=frontend /runtime/node_modules /app/node_modules
 # Canonical source and validation rules are private runtime inputs. The Go
@@ -49,6 +50,8 @@ RUN ln -s /app/public /app/web/public && mkdir -p /app/.data && chown game:game 
 USER game
 # Exercise the packaged validator against production assets during image builds.
 RUN node /app/scripts/admin-world-compiler.mjs --root /app < /app/web/src/data/world-scenes.json > /dev/null
+# Verify the real entrypoint reaches readiness using only packaged runtime files.
+RUN /bin/sh /app/check-startup.sh
 EXPOSE 8080
 HEALTHCHECK --interval=15s --timeout=4s --start-period=15s --retries=3 CMD ["/app/world", "healthcheck"]
 ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]

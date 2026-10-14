@@ -65,6 +65,18 @@ var authoredStoryGames = []string{"lost-hour", "seed-packets", "17-59"}
 // Reusing an existing word item is deliberate; duplicate exercises or conflicting
 // targets are errors rather than silently replacing core curriculum entries.
 func loadMiniGameExercises(c *Curriculum, data []byte, source string) error {
+	var rules expeditionManifest
+	if source == "expedition" {
+		var err error
+		rules, err = expeditionContent()
+		if err != nil {
+			return err
+		}
+	}
+	return loadMiniGameExercisesWithRules(c, data, source, rules)
+}
+
+func loadMiniGameExercisesWithRules(c *Curriculum, data []byte, source string, rules expeditionManifest) error {
 	var manifest miniGameLearningManifest
 	if err := json.Unmarshal(data, &manifest); err != nil {
 		return err
@@ -122,10 +134,6 @@ func loadMiniGameExercises(c *Curriculum, data []byte, source string) error {
 		return fmt.Errorf("story manifest cannot install expedition bindings")
 	}
 	if source == "expedition" {
-		rules, err := expeditionContent()
-		if err != nil {
-			return err
-		}
 		if err := bindExpeditionExercises(exercises, bindings, manifest, rules); err != nil {
 			return err
 		}
