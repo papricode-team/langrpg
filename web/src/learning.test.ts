@@ -114,13 +114,13 @@ describe('language answers', () => {
     const address=quests.flatMap(quest=>quest.exercises).find(exercise=>exercise.id==='a1-lost-parcel-exercise-2')!;
     expect(answerMatches(address,'Wie ist die adresse?')).toBe(true);
     expect(gradeFeedback(address,'Wie ist die adresse?')).toContain('Accepted. Remember capitalization');
-    expect(answerMatches(address,address.answer)).toBe(true);
+    expect(answerMatches(address,address.answer!)).toBe(true);
   });
   it.each(gradingFixtures)('matches server German grading: $name', fixture => {
     const mode = fixture.mode === 'production' ? 'type' : fixture.mode === 'listening' ? 'listen' : 'choice';
     const exercise = {...typed, mode: mode as 'type' | 'listen' | 'choice', answer:fixture.expected, caseSensitive:fixture.sensitive, acceptedAnswers:fixture.acceptedAnswers};
-    expect(answerMatches(exercise,fixture.answer)).toBe(fixture.correct);
-    if (fixture.feedback) expect(gradeFeedback(exercise,fixture.answer)).toContain(fixture.feedback);
+    expect(answerMatches(exercise,fixture.answer!)).toBe(fixture.correct);
+    if (fixture.feedback) expect(gradeFeedback(exercise,fixture.answer!)).toContain(fixture.feedback);
   });
 });
 describe('review selection', () => {

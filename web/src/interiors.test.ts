@@ -1,3 +1,4 @@
+import './test-support/expedition-fixtures';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { npcs, quests } from './content';

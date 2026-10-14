@@ -4,7 +4,7 @@ import { QuestController } from './quest-controller';
 import { emptyProgress, type Progress } from './api';
 import { emptyStory } from './dialogue';
 import { installOverlay, setBaseLanguage } from './i18n';
-import { turkishOverlay } from './i18n-tr';
+import { authoredTurkishOverlay as turkishOverlay } from './test-support/content-fixtures';
 import { dialogueMarkup } from './dialogue-view';
 import { questGraph } from './quest-graph';
 

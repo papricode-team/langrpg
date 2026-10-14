@@ -1,3 +1,4 @@
+import './test-support/expedition-fixtures';
 import { describe, expect, it } from 'vitest';
 import { expeditionIds, expeditionLayouts, expeditionMaps, expeditionResidentSpecs, expeditionRegions, getExpedition, getExpeditionEncounter, getExpeditionNpc, isExpeditionMap, shuffledExpeditionChoices } from './expeditions';
 import { maps, storyMaps } from './maps';

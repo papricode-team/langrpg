@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import { describe, expect, it } from 'vitest';
 import { renderInteriorEncounter } from './encounter-panels';
 import { getInterior, getInteriorObject } from './interiors';

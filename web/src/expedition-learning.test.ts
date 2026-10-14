@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import {emptyProgress,type Api,type AttemptResult,type Progress} from './api';
 import manifest from './data/expedition-learning.json';

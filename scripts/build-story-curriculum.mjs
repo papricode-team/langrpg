@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Author the story once; generate its server grading/completion contract. */
 import {writeFile} from 'node:fs/promises';
-import {quests} from '../web/src/content.ts';
+const {quests} = await import('../web/src/content.ts');
 const manifest = {
   quests:quests.map(quest => ({id:quest.id,reward:quest.reward,requiredItemIds:[...new Set(quest.exercises.map(exercise => exercise.itemId))]})),
   items:quests.flatMap(quest => quest.exercises.map(exercise => ({id:exercise.itemId,level:quest.level}))),

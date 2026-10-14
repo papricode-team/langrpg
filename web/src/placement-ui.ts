@@ -2,12 +2,14 @@ import './placement-ui.css';
 import type {Api,Progress,CourseLevel} from './api';
 import {escapeHtml as e} from './icons';
 import {attemptFeedback,modeFor} from './learning';
-import {placementExercises,placementRecommendation,placementDialogue,type PlacementEvidence,type PlacementExercise} from './learning-context';
+import {placementExerciseIds,placementExercises,installPlacementDialogue,placementRecommendation,placementDialogue,type PlacementEvidence,type PlacementExercise} from './learning-context';
+import {getContentClient,toDialogueLine,contentMeanings,type ContentClient} from './content-api';
+import {renderAlignedLine} from './aligned-line';
 import {localized,localizedExercise,t} from './i18n';
 
 export interface PlacementResult {level:CourseLevel;answered:number;unaidedCorrect:number;}
 interface PlacementOptions {
-  api:Pick<Api,'request'>; progress:Progress;
+  api:Pick<Api,'request'>; progress:Progress; content?:ContentClient;
   onComplete:(result:PlacementResult,progress:Progress)=>void;
   onClose:()=>void; speak:(text:string)=>void;
 }
@@ -18,7 +20,22 @@ export function placementCTAMarkup():string {
 /** A short diagnostic sample uses the server grader without recording recall. */
 export async function mountOptionalPlacement(host:HTMLElement,options:PlacementOptions):Promise<{destroy():void}> {
   const {quests}=await import('./content');
-  const queue=placementExercises(quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level})))),results:PlacementEvidence[]=[];
+  const available=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level})));
+  const ready=!options.content&&placementExerciseIds.every(id=>available.some(exercise=>exercise.id===id));
+  const content=ready?undefined:options.content??getContentClient();
+  const ids=content?(await content.bootstrap()).placementExerciseIds??[]:[...placementExerciseIds];
+  if(!ids.length)throw new Error(t('This content could not open. Try again.'));
+  const queue:PlacementExercise[]=ready?placementExercises(available):new Array(ids.length),results:PlacementEvidence[]=[];
+  async function loadCurrent():Promise<void> {
+    if(queue[index])return;
+    const exercise=(await content!.exercises([ids[index]]))[0] as PlacementExercise;
+    if(!exercise.placementLineId)throw new Error(t('This content could not open. Try again.'));
+    const record=(await content!.lines([exercise.placementLineId]))[0];
+    const glosses=[...new Set(Object.values(record.glosses??{}))];if(glosses.length)await content!.lexemes(glosses.slice(0,24));
+    const turn=toDialogueLine(record);
+    installPlacementDialogue({[exercise.id]:{...turn,speaker:exercise.placementSpeaker??turn.speaker}});
+    queue[index]=exercise;
+  }
   const progress=options.progress;
   let index=0,busy=false,hinted=false,feedback='',answered=false,disposed=false;
   const startedAt=Date.now();let shownAt=startedAt;
@@ -32,7 +49,7 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
   const render=()=>{
     if(disposed)return;
     const exercise:PlacementExercise=localizedExercise(queue[index]),turn=placementDialogue[exercise.id as keyof typeof placementDialogue];
-    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Optional German placement'))}"><header><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>${e(t('Leave'))}</button></header><h2>${e(t('Find your practice starting point'))}</h2><p>${e(t('A few short conversations, usually about two minutes. You can leave at any time.'))}</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="de">${e(turn.german)}</p><button type="button" class="text-button" data-placement="hear">${e(t('Hear this line'))}</button>${hinted?`<p>${e(localized(turn))}</p>`:''}</blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">${e(t('Your German answer'))}</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${e(busy?t('Saving…'):pending?t('Retry this save'):t('Check answer'))}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${answered?`<button type="button" class="primary-button" data-placement="next">${e(t('Continue'))}</button>`:`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>${e(t('A little help'))}</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
+    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Optional German placement'))}"><header><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>${e(t('Leave'))}</button></header><h2>${e(t('Find your practice starting point'))}</h2><p>${e(t('A few short conversations, usually about two minutes. You can leave at any time.'))}</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="de">${turn.aligned?renderAlignedLine(turn.aligned,{showMeaning:hinted,meanings:contentMeanings(turn.aligned)}):e(turn.german)}</p><button type="button" class="text-button" data-placement="hear">${e(t('Hear this line'))}</button>${hinted&&!turn.aligned?`<p>${e(localized(turn))}</p>`:''}</blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">${e(t('Your German answer'))}</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${e(busy?t('Saving…'):pending?t('Retry this save'):t('Check answer'))}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${answered?`<button type="button" class="primary-button" data-placement="next">${e(t('Continue'))}</button>`:`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>${e(t('A little help'))}</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
     if(exercise.mode==='type'&&!busy&&!answered)host.querySelector<HTMLInputElement>('input')?.focus();
   };
   const submit=async(answer:string)=>{
@@ -54,10 +71,13 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
       case 'hint':if(!busy&&!answered){hinted=true;render();}break;
       case 'hear':options.speak(placementDialogue[queue[index].id as keyof typeof placementDialogue].german);break;
       case 'answer':void submit(pending?.answer??button.dataset.answer??'');break;
-      case 'next':if(answered){if(index+1>=queue.length||Date.now()-startedAt>=120000)finish();else{index++;hinted=false;answered=false;feedback='';shownAt=Date.now();render();}}break;
+      case 'next':if(answered){if(index+1>=queue.length||Date.now()-startedAt>=120000)finish();else{index++;hinted=false;answered=false;feedback='';shownAt=Date.now();if(queue[index])render();else{busy=true;host.innerHTML=`<p role="status">${e(t('Opening your learning routes…'))}</p>`;void loadCurrent().then(()=>{busy=false;render();}).catch(error=>{busy=false;host.innerHTML=`<p role="alert">${e((error as Error).message)}</p><button class="primary-button" data-placement="retry">${e(t('Try again'))}</button>`;});}}}break;
+      case 'retry':busy=true;void loadCurrent().then(()=>{busy=false;render();});break;
     }
   };
   const form=(event:Event)=>{if((event.target as Element).matches('[data-placement-form]')){event.preventDefault();void submit(pending?.answer??host.querySelector<HTMLInputElement>('input')?.value??'');}};
-  host.addEventListener('click',click);host.addEventListener('submit',form);render();
-  return {destroy(){disposed=true;host.removeEventListener('click',click);host.removeEventListener('submit',form);}};
+  const alignmentHelp=()=>{hinted=true;};
+  host.addEventListener('aligned-line-select',alignmentHelp);
+  await loadCurrent();host.addEventListener('click',click);host.addEventListener('submit',form);render();
+  return {destroy(){disposed=true;host.removeEventListener('click',click);host.removeEventListener('submit',form);host.removeEventListener('aligned-line-select',alignmentHelp);}};
 }

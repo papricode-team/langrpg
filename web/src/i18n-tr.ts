@@ -1,7 +1,4 @@
-/** The Turkish overlay: one lazily loaded chunk, never part of the English bundle. */
-import story from './data/i18n/tr-story.json';
+/** Only interface chrome remains bundled. Learning translations arrive with their records. */
 import ui from './data/i18n/tr-ui.json';
-import course from './data/i18n/tr-course.json';
 import type { LanguageOverlay } from './i18n';
-
-export const turkishOverlay = { story, ui, course } as unknown as LanguageOverlay;
+export const turkishOverlay: LanguageOverlay = {ui,story:{},course:{lexicon:{},grammar:{},exercises:{}}};

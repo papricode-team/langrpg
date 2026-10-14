@@ -14,6 +14,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"lernen01/server/internal/contentstore"
 )
 
 type Store interface {
@@ -267,6 +268,10 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 		return nil, err
 	}
 	if err = s.initializeWorld(ctx); err != nil {
+		pool.Close()
+		return nil, err
+	}
+	if err = contentstore.Schema(ctx, pool); err != nil {
 		pool.Close()
 		return nil, err
 	}

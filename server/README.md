@@ -167,3 +167,34 @@ The server remembers each player's map and separate positions in visited maps fo
 World positions are transient; learner profiles, learning events, quest rewards and FSRS review state remain durable in PostgreSQL or the development JSON store. The current server validates movement bounds/speed and map membership; shared server collision geometry and horizontal zone scaling remain future work.
 
 Curriculum answers are necessarily available to the client for learning feedback. Server grading and authenticated idempotency protect progress consistency, but this is not a high-stakes examination or cheat-resistant economy.
+# Private learning content
+
+The server boots its grading index and authenticated read APIs from the generated
+`content.json` catalogue. Rebuild it from the repository root with
+`npm run build:content`; content sources and UUID identities live under `content/`.
+The catalogue includes private answers, so it must never be placed in a static
+frontend directory.
+
+To install a development catalogue, run `go run ./cmd/import-content -input
+content.json` from `server/`. This writes `.data/content.json` atomically. With
+`DATABASE_URL` configured, the same command imports all record tables and private
+grading metadata in one transaction. The runtime prefers the imported PostgreSQL
+catalogue, then `CONTENT_PATH`, then a `content.json` sibling of `DATA_PATH`, then
+the catalogue embedded in the server binary. Postgres without an import uses the
+embedded catalogue until the importer is run.
+
+Every `/api/content/` read requires the session bearer token, including guest
+sessions. Quest order, restored vocabulary, route access and trial expiry control
+visibility. Lines and lexemes are capped batches; all responses omit grading
+fields and select the account's support language. Private ETags are checked only
+after authentication, entitlement and rate limits. Production exercises hide
+model German text until a recorded attempt; `reveal: true` on `/api/attempt`
+records assistance and returns the model answer and explanation.
+
+UUID persistence migration is on by default and is lazy per account, preserving
+existing slugs and idempotency receipts through an internal compatibility layer.
+`CONTENT_UUID_MIGRATION=false` temporarily disables persistence conversion; the
+public content protocol still uses UUIDs. Progress has a `contentIdVersion` marker
+and increments its revision when migrated. Story node stages remain enums in
+the public progress response for the controller; saved node and choice references
+are UUIDs.

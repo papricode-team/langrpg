@@ -1,3 +1,4 @@
+import './test-support/expedition-fixtures';
 import { describe, expect, it } from 'vitest';
 import { checkExpeditionPlan, expeditionGames, expeditionGameStatus, expeditionNotebook, freshExpeditionPlan, loadExpeditionPlan, saveExpeditionPlan, shuffledExpeditionSteps, expeditionGameAudioJobs, expeditionAgreement } from './expedition-games';
 import type { Level } from './content';

@@ -1,3 +1,4 @@
+import { lexemeById } from './course';
 import syllabusData from './data/syllabus.json';
 import type { Level } from './content';
 import type { Progress } from './api';
@@ -40,7 +41,7 @@ const ready = (value: string | undefined, now: number): boolean => !!value && Nu
 /** Unsettled until the learner has recognised, heard or recalled it unaided once; exposure does not count. */
 export function wordUnsettled(progress: Pick<Progress, 'words' | 'items'>, id: string): boolean {
   const unaided = (stats?: Record<string, { unaidedSuccesses: number }>) => Object.values(stats ?? {}).some(mode => mode.unaidedSuccesses > 0);
-  return !unaided(progress.words?.[id]?.modeStats) && !unaided(progress.items?.[`word-${id}`]?.modeStats);
+  return !unaided(progress.words?.[id]?.modeStats) && !unaided(progress.items?.[lexemeById.get(id)?.itemId ?? `word-${id}`]?.modeStats);
 }
 export function wordDue(progress: Pick<Progress, 'words'>, id: string, now = Date.now()): boolean {
   const word = progress.words?.[id];

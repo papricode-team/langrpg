@@ -18,8 +18,8 @@ function receipt(result:RoundResult):AttemptResult {
   if(result.contentId!==ex.contentId||result.level!=='A2'||result.answerKind)throw Error('Incorrect story context');
   if(result.modality!==ex.mode&&!(ex.mode==='listening'&&result.modality==='recognition'&&result.hinted))throw Error('Unsupported story mode');
   const normalize=(value:string)=>value.trim().toLocaleLowerCase('de').replace(/\.$/,'');
-  const correct=[ex.answer,...(ex.acceptedAnswers??[])].some(answer=>normalize(answer)===normalize(result.answer));
-  return {attemptId:`receipt-${ex.id}`,correct,xpAdded:0,duplicate:false,correctedAnswer:ex.answer,reason:ex.explanation,progress:emptyProgress()};
+  const correct=[ex.answer,...(ex.acceptedAnswers??[])].some(answer=>normalize(answer!)===normalize(result.answer));
+  return {attemptId:`receipt-${ex.id}`,correct,xpAdded:0,duplicate:false,correctedAnswer:ex.answer!,reason:ex.explanation!,progress:emptyProgress()};
 }
 function setup(id:ScriptedStoryId,extra:Partial<MiniGameHost>={}){
   const root=document.createElement('div');document.body.append(root);const progress=emptyProgress();

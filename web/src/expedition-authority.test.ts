@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { checkExpeditionPlan, expeditionGames, expeditionGameStatus, freshExpeditionPlan, mountExpeditionGame, saveExpeditionPlan, type ServerExpeditionPlan } from './expedition-games';
 

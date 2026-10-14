@@ -1,0 +1,2769 @@
+{
+  "scenarios": [
+    {
+      "id": "cafe-a1-first-light",
+      "activityId": "cafe",
+      "level": "A1",
+      "exerciseId": "a1-cafe-exercise-1",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "coffee",
+          "tea",
+          "water",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "coffee": 1
+          },
+          "steps": [
+            "cup",
+            "brew",
+            "pour"
+          ]
+        },
+        "actions": [
+          "cup",
+          "brew",
+          "pour",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a1-milk-and-secrets",
+      "activityId": "cafe",
+      "level": "A1",
+      "exerciseId": "a1-cafe-exercise-2",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "coffee",
+          "tea",
+          "water",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "coffee": 1,
+            "milk": 1
+          },
+          "steps": [
+            "cup",
+            "brew",
+            "pour",
+            "addMilk"
+          ]
+        },
+        "actions": [
+          "cup",
+          "brew",
+          "pour",
+          "addMilk",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a1-a-glass-of-water",
+      "activityId": "cafe",
+      "level": "A1",
+      "exerciseId": "a1-cafe-exercise-5",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "water",
+          "coffee",
+          "tea",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "water": 1
+          },
+          "steps": [
+            "glass",
+            "pour"
+          ]
+        },
+        "actions": [
+          "glass",
+          "pour",
+          "brew",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a1-the-last-receipt",
+      "activityId": "cafe",
+      "level": "A1",
+      "exerciseId": "a1-cafe-exercise-6",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "coffee",
+          "tea",
+          "water",
+          "receipt"
+        ],
+        "goal": {
+          "items": {
+            "coffee": 1,
+            "receipt": 1
+          },
+          "steps": [
+            "brew",
+            "pour",
+            "bill"
+          ]
+        },
+        "actions": [
+          "brew",
+          "pour",
+          "bill",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a2-soup-club",
+      "activityId": "cafe",
+      "level": "A2",
+      "exerciseId": "a2-evening-plans-exercise-5",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "vegetables",
+          "meat",
+          "water",
+          "bread"
+        ],
+        "goal": {
+          "items": {
+            "vegetables": 2,
+            "water": 1
+          },
+          "steps": [
+            "wash",
+            "cook",
+            "serve"
+          ]
+        },
+        "actions": [
+          "wash",
+          "cook",
+          "serve",
+          "brew",
+          "pour",
+          "tidy",
+          "pack"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a2-half-past-six",
+      "activityId": "cafe",
+      "level": "A2",
+      "exerciseId": "a2-evening-plans-exercise-2",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "water",
+          "tea",
+          "coffee",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "water": 2
+          },
+          "steps": [
+            "glass",
+            "pour",
+            "serve"
+          ],
+          "slot": "18:30",
+          "service": "table"
+        },
+        "actions": [
+          "glass",
+          "pour",
+          "serve",
+          "brew",
+          "tidy",
+          "cook",
+          "pack"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a2-rain-at-the-inn",
+      "activityId": "cafe",
+      "level": "A2",
+      "exerciseId": "a2-evening-plans-exercise-6",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "tea",
+          "coffee",
+          "water",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "tea": 2
+          },
+          "steps": [
+            "cup",
+            "brew",
+            "pour"
+          ],
+          "venue": "inside"
+        },
+        "actions": [
+          "cup",
+          "brew",
+          "pour",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-a2-before-the-soup",
+      "activityId": "cafe",
+      "level": "A2",
+      "exerciseId": "a2-broken-clock-exercise-2",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "vegetables",
+          "meat",
+          "water",
+          "bread"
+        ],
+        "goal": {
+          "items": {
+            "vegetables": 1,
+            "water": 1
+          },
+          "steps": [
+            "tidy",
+            "cook",
+            "serve"
+          ]
+        },
+        "actions": [
+          "tidy",
+          "cook",
+          "serve",
+          "brew",
+          "pour",
+          "pack"
+        ]
+      }
+    },
+    {
+      "id": "cafe-b1-shelter-from-the-storm",
+      "activityId": "cafe",
+      "level": "B1",
+      "exerciseId": "b1-storm-exercise-3",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "tea",
+          "coffee",
+          "bread",
+          "water"
+        ],
+        "goal": {
+          "items": {
+            "tea": 2,
+            "bread": 2
+          },
+          "steps": [
+            "brew",
+            "pour",
+            "serve"
+          ],
+          "venue": "inside"
+        },
+        "actions": [
+          "brew",
+          "pour",
+          "serve",
+          "tidy",
+          "cook",
+          "pack"
+        ]
+      }
+    },
+    {
+      "id": "cafe-b1-a-cleaner-festival",
+      "activityId": "cafe",
+      "level": "B1",
+      "exerciseId": "b1-storm-exercise-4",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "coffee",
+          "tea",
+          "reusable",
+          "disposable"
+        ],
+        "goal": {
+          "items": {
+            "coffee": 2,
+            "reusable": 2
+          },
+          "steps": [
+            "cup",
+            "brew",
+            "pour"
+          ]
+        },
+        "actions": [
+          "cup",
+          "brew",
+          "pour",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "cafe-b1-friday-deliveries",
+      "activityId": "cafe",
+      "level": "B1",
+      "exerciseId": "b1-work-exercise-3",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "coffee",
+          "tea",
+          "bread",
+          "water"
+        ],
+        "goal": {
+          "items": {
+            "coffee": 1,
+            "bread": 1
+          },
+          "steps": [
+            "brew",
+            "pack",
+            "serve"
+          ],
+          "service": "takeaway"
+        },
+        "actions": [
+          "brew",
+          "pack",
+          "serve",
+          "pour",
+          "tidy",
+          "cook"
+        ]
+      }
+    },
+    {
+      "id": "cafe-b1-the-council-break",
+      "activityId": "cafe",
+      "level": "B1",
+      "exerciseId": "b1-work-exercise-2",
+      "board": {
+        "kind": "cafe",
+        "stock": [
+          "tea",
+          "coffee",
+          "water",
+          "milk"
+        ],
+        "goal": {
+          "items": {
+            "tea": 1
+          },
+          "steps": [
+            "cup",
+            "brew",
+            "pour"
+          ],
+          "slot": "09:00",
+          "service": "table"
+        },
+        "actions": [
+          "cup",
+          "brew",
+          "pour",
+          "tidy",
+          "cook",
+          "pack",
+          "serve"
+        ]
+      }
+    },
+    {
+      "id": "market-a1-two-apples",
+      "activityId": "market",
+      "level": "A1",
+      "exerciseId": "a1-market-exercise-1",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "apple",
+          "tomato",
+          "bread"
+        ],
+        "goal": {
+          "apple": 2
+        },
+        "budget": 500,
+        "tender": 500,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-a1-potatoes-for-soup",
+      "activityId": "market",
+      "level": "A1",
+      "exerciseId": "a1-market-exercise-3",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "potato",
+          "apple",
+          "tomato"
+        ],
+        "goal": {
+          "potato": 1
+        },
+        "budget": 500,
+        "tender": 500,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-a1-five-fifty",
+      "activityId": "market",
+      "level": "A1",
+      "exerciseId": "a1-market-exercise-4",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "bread",
+          "potato",
+          "apple"
+        ],
+        "goal": {
+          "bread": 1,
+          "potato": 1
+        },
+        "budget": 600,
+        "tender": 600,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-a1-paying-by-card",
+      "activityId": "market",
+      "level": "A1",
+      "exerciseId": "a1-market-exercise-6",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "vegetables",
+          "tomato",
+          "meat"
+        ],
+        "goal": {
+          "vegetables": 1,
+          "tomato": 2
+        },
+        "budget": 400,
+        "tender": 400,
+        "method": "card"
+      }
+    },
+    {
+      "id": "market-a2-a-good-exchange",
+      "activityId": "market",
+      "level": "A2",
+      "exerciseId": "a2-evening-plans-exercise-5",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "meat",
+          "vegetables",
+          "bread"
+        ],
+        "initialBasket": {
+          "meat": 1
+        },
+        "trade": {
+          "give": "meat",
+          "receive": "vegetables",
+          "quantity": 2
+        },
+        "goal": {
+          "vegetables": 2
+        },
+        "budget": 500,
+        "tender": 500,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-a2-the-moving-inn",
+      "activityId": "market",
+      "level": "A2",
+      "exerciseId": "a2-apartment-exercise-2",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "room620",
+          "room480",
+          "room540"
+        ],
+        "initialBasket": {
+          "room620": 1
+        },
+        "goal": {
+          "room480": 1
+        },
+        "budget": 50000,
+        "tender": 50000,
+        "method": "card"
+      }
+    },
+    {
+      "id": "market-a2-a-return-journey",
+      "activityId": "market",
+      "level": "A2",
+      "exerciseId": "a2-rail-trip-exercise-5",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "returnTicket",
+          "singleTicket",
+          "newMap"
+        ],
+        "goal": {
+          "returnTicket": 1
+        },
+        "budget": 2000,
+        "tender": 2000,
+        "method": "card"
+      }
+    },
+    {
+      "id": "market-a2-the-older-chart",
+      "activityId": "market",
+      "level": "A2",
+      "exerciseId": "a2-archive-exercise-4",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "oldMap",
+          "newMap",
+          "bread"
+        ],
+        "goal": {
+          "oldMap": 1
+        },
+        "budget": 500,
+        "tender": 500,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-b1-the-short-route",
+      "activityId": "market",
+      "level": "B1",
+      "exerciseId": "b1-new-route-exercise-3",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "shortRoute",
+          "longRoute",
+          "newMap"
+        ],
+        "goal": {
+          "shortRoute": 1
+        },
+        "budget": 1200,
+        "tender": 1200,
+        "method": "card"
+      }
+    },
+    {
+      "id": "market-b1-the-cheaper-route",
+      "activityId": "market",
+      "level": "B1",
+      "exerciseId": "b1-new-route-exercise-6",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "shortRoute",
+          "longRoute",
+          "oldMap"
+        ],
+        "goal": {
+          "longRoute": 1
+        },
+        "budget": 800,
+        "tender": 1000,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-b1-nothing-wasted",
+      "activityId": "market",
+      "level": "B1",
+      "exerciseId": "b1-storm-exercise-5",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "vegetables",
+          "meat",
+          "bread"
+        ],
+        "goal": {
+          "vegetables": 3
+        },
+        "budget": 500,
+        "tender": 500,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "market-b1-costs-of-repair",
+      "activityId": "market",
+      "level": "B1",
+      "exerciseId": "b1-council-exercise-3",
+      "board": {
+        "kind": "market",
+        "stock": [
+          "wood",
+          "rope",
+          "premiumWood"
+        ],
+        "goal": {
+          "wood": 2,
+          "rope": 1
+        },
+        "budget": 900,
+        "tender": 1000,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "detective-a1-the-workshop-key",
+      "activityId": "detective",
+      "level": "A1",
+      "exerciseId": "a1-workshop-exercise-1",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "key",
+            "german": "der Schlüssel",
+            "icon": "lock"
+          },
+          {
+            "id": "window",
+            "german": "das Fenster",
+            "icon": "expand"
+          },
+          {
+            "id": "parcel",
+            "german": "das Paket",
+            "icon": "parcel"
+          },
+          {
+            "id": "lamp",
+            "german": "die Lampe",
+            "icon": "lantern"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Auf dem Tisch",
+            "expected": "key"
+          },
+          {
+            "id": "slot-1",
+            "german": "Geschlossen",
+            "expected": "window"
+          },
+          {
+            "id": "slot-2",
+            "german": "Für Marta",
+            "expected": "parcel"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a1-closed-window",
+      "activityId": "detective",
+      "level": "A1",
+      "exerciseId": "a1-workshop-exercise-4",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "window",
+            "german": "das Fenster",
+            "icon": "expand"
+          },
+          {
+            "id": "door",
+            "german": "die Tür",
+            "icon": "lock"
+          },
+          {
+            "id": "lamp",
+            "german": "die Lampe",
+            "icon": "lantern"
+          },
+          {
+            "id": "key",
+            "german": "der Schlüssel",
+            "icon": "lock"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Geschlossen",
+            "expected": "window"
+          },
+          {
+            "id": "slot-1",
+            "german": "Offen",
+            "expected": "door"
+          },
+          {
+            "id": "slot-2",
+            "german": "Kaputt",
+            "expected": "lamp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a1-three-recipients",
+      "activityId": "detective",
+      "level": "A1",
+      "exerciseId": "a1-lost-parcel-exercise-1",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "parcel",
+            "german": "das Paket",
+            "icon": "parcel"
+          },
+          {
+            "id": "ticket",
+            "german": "die Fahrkarte",
+            "icon": "route"
+          },
+          {
+            "id": "key",
+            "german": "der Schlüssel",
+            "icon": "lock"
+          },
+          {
+            "id": "book",
+            "german": "das Buch",
+            "icon": "book"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Marta",
+            "expected": "parcel"
+          },
+          {
+            "id": "slot-1",
+            "german": "Otto",
+            "expected": "ticket"
+          },
+          {
+            "id": "slot-2",
+            "german": "Emil",
+            "expected": "key"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a1-platform-two",
+      "activityId": "detective",
+      "level": "A1",
+      "exerciseId": "a1-station-exercise-4",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "berlin",
+            "german": "Zug nach Berlin",
+            "icon": "route"
+          },
+          {
+            "id": "hamburg",
+            "german": "Zug nach Hamburg",
+            "icon": "route"
+          },
+          {
+            "id": "otto",
+            "german": "Otto",
+            "icon": "users"
+          },
+          {
+            "id": "pigeon",
+            "german": "die Taube",
+            "icon": "leaf"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Gleis zwei",
+            "expected": "berlin"
+          },
+          {
+            "id": "slot-1",
+            "german": "Gleis eins",
+            "expected": "hamburg"
+          },
+          {
+            "id": "slot-2",
+            "german": "Im Büro",
+            "expected": "otto"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a2-yesterday-key",
+      "activityId": "detective",
+      "level": "A2",
+      "exerciseId": "a2-broken-clock-exercise-1",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "lamp",
+            "german": "Die Lampe ist verschwunden.",
+            "icon": "lantern"
+          },
+          {
+            "id": "key",
+            "german": "Den Schlüssel gefunden.",
+            "icon": "lock"
+          },
+          {
+            "id": "clock",
+            "german": "Die Uhr repariert.",
+            "icon": "clock"
+          },
+          {
+            "id": "soup",
+            "german": "Die Suppe gekocht.",
+            "icon": "cup"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Vorgestern",
+            "expected": "lamp"
+          },
+          {
+            "id": "slot-1",
+            "german": "Gestern",
+            "expected": "key"
+          },
+          {
+            "id": "slot-2",
+            "german": "Heute",
+            "expected": "clock"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a2-kitchen-chronology",
+      "activityId": "detective",
+      "level": "A2",
+      "exerciseId": "a2-broken-clock-exercise-2",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "tidy",
+            "german": "Ich habe aufgeräumt.",
+            "icon": "sparkles"
+          },
+          {
+            "id": "cook",
+            "german": "Ich habe gekocht.",
+            "icon": "cup"
+          },
+          {
+            "id": "post",
+            "german": "Ich habe den Brief gebracht.",
+            "icon": "parcel"
+          },
+          {
+            "id": "sleep",
+            "german": "Ich habe geschlafen.",
+            "icon": "clock"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Zuerst",
+            "expected": "tidy"
+          },
+          {
+            "id": "slot-1",
+            "german": "Dann",
+            "expected": "cook"
+          },
+          {
+            "id": "slot-2",
+            "german": "Danach",
+            "expected": "post"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a2-the-returned-lamp",
+      "activityId": "detective",
+      "level": "A2",
+      "exerciseId": "a2-broken-clock-exercise-7",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "lamp",
+            "german": "Die Lampe zurückgebracht.",
+            "icon": "lantern"
+          },
+          {
+            "id": "map",
+            "german": "Die Karte gefunden.",
+            "icon": "map"
+          },
+          {
+            "id": "parcel",
+            "german": "Das Paket geliefert.",
+            "icon": "parcel"
+          },
+          {
+            "id": "clock",
+            "german": "Die Uhr repariert.",
+            "icon": "clock"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Otto",
+            "expected": "lamp"
+          },
+          {
+            "id": "slot-1",
+            "german": "Ada",
+            "expected": "map"
+          },
+          {
+            "id": "slot-2",
+            "german": "Lina",
+            "expected": "parcel"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-a2-the-station-before",
+      "activityId": "detective",
+      "level": "A2",
+      "exerciseId": "a2-archive-exercise-1",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "small",
+            "german": "Ein kleiner Bahnhof.",
+            "icon": "route"
+          },
+          {
+            "id": "four",
+            "german": "Vier Gleise.",
+            "icon": "route"
+          },
+          {
+            "id": "bell",
+            "german": "Die alte Glocke.",
+            "icon": "lantern"
+          },
+          {
+            "id": "forest",
+            "german": "Ein leerer Wald.",
+            "icon": "leaf"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Früher",
+            "expected": "small"
+          },
+          {
+            "id": "slot-1",
+            "german": "Heute",
+            "expected": "four"
+          },
+          {
+            "id": "slot-2",
+            "german": "Unverändert",
+            "expected": "bell"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-b1-a-face-in-the-dark",
+      "activityId": "detective",
+      "level": "B1",
+      "exerciseId": "b1-witness-exercise-2",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "dark",
+            "german": "Es war zu dunkel.",
+            "icon": "lantern"
+          },
+          {
+            "id": "left",
+            "german": "Eine Person ging weg.",
+            "icon": "route"
+          },
+          {
+            "id": "unknown",
+            "german": "Der Name ist unbekannt.",
+            "icon": "clue"
+          },
+          {
+            "id": "marta",
+            "german": "Es war sicher Marta.",
+            "icon": "users"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Ursache",
+            "expected": "dark"
+          },
+          {
+            "id": "slot-1",
+            "german": "Beobachtung",
+            "expected": "left"
+          },
+          {
+            "id": "slot-2",
+            "german": "Identität",
+            "expected": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-b1-waiting-then-leaving",
+      "activityId": "detective",
+      "level": "B1",
+      "exerciseId": "b1-witness-exercise-4",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "wait",
+            "german": "Sie hat gewartet.",
+            "icon": "clock"
+          },
+          {
+            "id": "leave",
+            "german": "Sie ist gegangen.",
+            "icon": "route"
+          },
+          {
+            "id": "lamp",
+            "german": "Otto fand die Lampe.",
+            "icon": "lantern"
+          },
+          {
+            "id": "train",
+            "german": "Der Zug war pünktlich.",
+            "icon": "route"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Zuerst",
+            "expected": "wait"
+          },
+          {
+            "id": "slot-1",
+            "german": "Danach",
+            "expected": "leave"
+          },
+          {
+            "id": "slot-2",
+            "german": "Erst später",
+            "expected": "lamp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-b1-a-timetable-disagrees",
+      "activityId": "detective",
+      "level": "B1",
+      "exerciseId": "b1-witness-exercise-5",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "eight",
+            "german": "Abfahrt um 08:00.",
+            "icon": "users"
+          },
+          {
+            "id": "seven",
+            "german": "Abfahrt um 07:50.",
+            "icon": "scroll"
+          },
+          {
+            "id": "conflict",
+            "german": "Die Angaben widersprechen sich.",
+            "icon": "clue"
+          },
+          {
+            "id": "agree",
+            "german": "Die Angaben stimmen überein.",
+            "icon": "check"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Aussage des Zeugen",
+            "expected": "eight"
+          },
+          {
+            "id": "slot-1",
+            "german": "Fahrplan",
+            "expected": "seven"
+          },
+          {
+            "id": "slot-2",
+            "german": "Folgerung",
+            "expected": "conflict"
+          }
+        ]
+      }
+    },
+    {
+      "id": "detective-b1-two-sides-one-report",
+      "activityId": "detective",
+      "level": "B1",
+      "exerciseId": "b1-atlas-exercise-1",
+      "board": {
+        "kind": "detective",
+        "cards": [
+          {
+            "id": "warning",
+            "german": "Die Warnung wurde ignoriert.",
+            "icon": "flag"
+          },
+          {
+            "id": "letters",
+            "german": "Die Briefe wurden zurückgehalten.",
+            "icon": "parcel"
+          },
+          {
+            "id": "talk",
+            "german": "Probleme frühzeitig besprechen.",
+            "icon": "chat"
+          },
+          {
+            "id": "blame",
+            "german": "Nur eine Seite ist schuld.",
+            "icon": "clue"
+          }
+        ],
+        "slots": [
+          {
+            "id": "slot-0",
+            "german": "Die Stadt",
+            "expected": "warning"
+          },
+          {
+            "id": "slot-1",
+            "german": "Das Dorf",
+            "expected": "letters"
+          },
+          {
+            "id": "slot-2",
+            "german": "Die Vereinbarung",
+            "expected": "talk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery-a1-left-to-the-pharmacy",
+      "activityId": "delivery",
+      "level": "A1",
+      "exerciseId": "a1-lost-parcel-exercise-3",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 3
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 4,
+          "y": 2
+        },
+        "goalName": "Apotheke",
+        "checkpoint": {
+          "x": 2,
+          "y": 1
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Ada",
+        "parcels": [
+          "Ada",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a1-straight-to-otto",
+      "activityId": "delivery",
+      "level": "A1",
+      "exerciseId": "a1-lost-parcel-exercise-4",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 2
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 2
+        },
+        "goalName": "Bahnhof",
+        "checkpoint": {
+          "x": 3,
+          "y": 1
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Otto",
+        "parcels": [
+          "Otto",
+          "Marta",
+          "Ada"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a1-finding-the-post",
+      "activityId": "delivery",
+      "level": "A1",
+      "exerciseId": "a1-lost-parcel-exercise-5",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 4
+        },
+        "heading": 0,
+        "path": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 1
+        },
+        "goalName": "Post",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Brief",
+        "parcels": [
+          "Brief",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Biege rechts ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a1-marta-parcel",
+      "activityId": "delivery",
+      "level": "A1",
+      "exerciseId": "a1-lost-parcel-exercise-6",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 1
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 3
+        },
+        "goalName": "Café",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Marta",
+        "parcels": [
+          "Marta",
+          "Otto",
+          "Ada"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a2-change-in-hamburg",
+      "activityId": "delivery",
+      "level": "A2",
+      "exerciseId": "a2-rail-trip-exercise-1",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 2
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 2
+        },
+        "goalName": "Berlin",
+        "checkpoint": {
+          "x": 3,
+          "y": 1
+        },
+        "checkpointName": "Hamburg",
+        "parcel": "Otto",
+        "parcels": [
+          "Otto",
+          "Marta",
+          "Ada"
+        ],
+        "transport": "train",
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a2-twenty-minutes",
+      "activityId": "delivery",
+      "level": "A2",
+      "exerciseId": "a2-rail-trip-exercise-2",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 3
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 4,
+          "y": 2
+        },
+        "goalName": "Archiv",
+        "checkpoint": {
+          "x": 2,
+          "y": 1
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Ada",
+        "parcels": [
+          "Ada",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "train",
+        "departure": "09:20",
+        "directions": [
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a2-missed-connection",
+      "activityId": "delivery",
+      "level": "A2",
+      "exerciseId": "a2-rail-trip-exercise-3",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 4
+        },
+        "heading": 0,
+        "path": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 1
+        },
+        "goalName": "Gasthaus",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Marta",
+        "parcels": [
+          "Marta",
+          "Otto",
+          "Ada"
+        ],
+        "transport": "bus",
+        "directions": [
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Biege rechts ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-a2-bus-out-of-service",
+      "activityId": "delivery",
+      "level": "A2",
+      "exerciseId": "a2-rail-trip-exercise-7",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 1
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 3
+        },
+        "goalName": "Post",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Brief",
+        "parcels": [
+          "Brief",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-b1-if-the-train-is-cancelled",
+      "activityId": "delivery",
+      "level": "B1",
+      "exerciseId": "b1-new-route-exercise-1",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 3
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 4,
+          "y": 2
+        },
+        "goalName": "Halle",
+        "checkpoint": {
+          "x": 2,
+          "y": 1
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Ada",
+        "parcels": [
+          "Ada",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "bus",
+        "directions": [
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-b1-instead-of-waiting",
+      "activityId": "delivery",
+      "level": "B1",
+      "exerciseId": "b1-new-route-exercise-4",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 2
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 5,
+            "y": 2
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 2
+        },
+        "goalName": "Ratshaus",
+        "checkpoint": {
+          "x": 3,
+          "y": 1
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Marta",
+        "parcels": [
+          "Marta",
+          "Otto",
+          "Ada"
+        ],
+        "transport": "walk",
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-b1-leave-earlier",
+      "activityId": "delivery",
+      "level": "B1",
+      "exerciseId": "b1-new-route-exercise-7",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 1,
+          "y": 4
+        },
+        "heading": 0,
+        "path": [
+          {
+            "x": 1,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 1
+          },
+          {
+            "x": 5,
+            "y": 1
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 1
+        },
+        "goalName": "Ratshaus",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Otto",
+        "parcels": [
+          "Otto",
+          "Marta",
+          "Ada"
+        ],
+        "transport": "train",
+        "departure": "08:00",
+        "directions": [
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Gehe geradeaus.",
+          "Biege links ab.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Biege rechts ab."
+        ]
+      }
+    },
+    {
+      "id": "delivery-b1-ask-for-help",
+      "activityId": "delivery",
+      "level": "B1",
+      "exerciseId": "b1-storm-exercise-6",
+      "board": {
+        "kind": "delivery",
+        "columns": 6,
+        "rows": 5,
+        "roads": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 4
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "start": {
+          "x": 0,
+          "y": 1
+        },
+        "heading": 1,
+        "path": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 2
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          }
+        ],
+        "goal": {
+          "x": 5,
+          "y": 3
+        },
+        "goalName": "Signalstation",
+        "checkpoint": {
+          "x": 3,
+          "y": 2
+        },
+        "checkpointName": "Laternenplatz",
+        "parcel": "Brief",
+        "parcels": [
+          "Brief",
+          "Marta",
+          "Otto"
+        ],
+        "transport": "walk",
+        "help": true,
+        "directions": [
+          "Gehe geradeaus.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab.",
+          "Gehe geradeaus.",
+          "Biege rechts ab.",
+          "Biege links ab."
+        ]
+      }
+    }
+  ],
+  "prices": {
+    "coffee": 220,
+    "tea": 180,
+    "water": 100,
+    "milk": 80,
+    "bread": 250,
+    "apple": 120,
+    "potato": 300,
+    "tomato": 100,
+    "vegetables": 150,
+    "meat": 450,
+    "receipt": 0,
+    "reusable": 0,
+    "disposable": 0,
+    "room620": 62000,
+    "room480": 48000,
+    "room540": 54000,
+    "returnTicket": 1800,
+    "singleTicket": 1200,
+    "oldMap": 300,
+    "newMap": 100,
+    "shortRoute": 1200,
+    "longRoute": 700,
+    "wood": 350,
+    "rope": 200,
+    "premiumWood": 550
+  }
+}

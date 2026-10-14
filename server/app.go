@@ -15,6 +15,8 @@ import (
 	"time"
 	"unicode"
 	"unicode/utf8"
+
+	"lernen01/server/internal/contentstore"
 )
 
 type APIError struct {
@@ -25,19 +27,24 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Message }
 
 type App struct {
-	editing     *worldEditing
-	billing     *CreemBilling
-	leaseOwner  string
-	store       Store
-	world       *World
-	curriculum  Curriculum
-	origins     map[string]bool
-	adminEmails map[string]bool
-	frontend    http.Handler
-	version     string
-	now         func() time.Time
-	rateMu      sync.Mutex
-	limits      map[string]rateWindow
+	editing             *worldEditing
+	billing             *CreemBilling
+	leaseOwner          string
+	store               Store
+	world               *World
+	curriculum          Curriculum
+	content             *contentstore.Catalog
+	contentLexemeLines  map[string][]string
+	contentObjectQuests map[string][]string
+	contentCounts       map[string]int
+	contentGrammarUnits map[string][]string
+	origins             map[string]bool
+	adminEmails         map[string]bool
+	frontend            http.Handler
+	version             string
+	now                 func() time.Time
+	rateMu              sync.Mutex
+	limits              map[string]rateWindow
 }
 type rateWindow struct {
 	At    time.Time
@@ -96,6 +103,15 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/world-clock", a.worldClock)
 	mux.HandleFunc("POST /api/expedition/answer", a.answerExpedition)
 	mux.HandleFunc("POST /api/expedition/plan", a.planExpedition)
+	mux.HandleFunc("GET /api/content/bootstrap", a.contentBootstrap)
+	mux.HandleFunc("GET /api/content/graphs/{id}", a.contentGraph)
+	mux.HandleFunc("GET /api/content/lines", a.contentLines)
+	mux.HandleFunc("GET /api/content/exercises/{id}", a.contentExercise)
+	mux.HandleFunc("GET /api/content/lexemes", a.contentLexemes)
+	mux.HandleFunc("GET /api/content/units/{id}", a.contentUnit)
+	mux.HandleFunc("GET /api/content/expeditions/{id}", a.contentExpedition)
+	mux.HandleFunc("GET /api/content/minigames/{id}", a.contentMinigame)
+	mux.HandleFunc("GET /api/content/narratives/{id}", a.contentNarrative)
 	mux.HandleFunc("GET /api/world", a.connect)
 	mux.HandleFunc("GET /api/world-content", a.worldContent)
 	mux.HandleFunc("GET /api/admin/world", a.readAdminWorld)
@@ -121,7 +137,8 @@ func (a *App) Handler() http.Handler {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Add("Vary", "Origin")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match")
+			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match, If-None-Match")
+			w.Header().Set("Access-Control-Expose-Headers", "ETag, Retry-After")
 		}
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusNoContent)
@@ -130,7 +147,7 @@ func (a *App) Handler() http.Handler {
 		if !a.enforceGameAccess(w, r) {
 			return
 		}
-		mux.ServeHTTP(w, r)
+		a.serveContentIDs(mux, w, r)
 	})
 }
 
@@ -371,6 +388,7 @@ type AttemptInput struct {
 	SceneAttempt      bool            `json:"sceneAttempt,omitempty"`
 	GuidedChoice      bool            `json:"guidedChoice,omitempty"`
 	Preview           bool            `json:"preview,omitempty"`
+	Reveal            bool            `json:"reveal,omitempty"`
 }
 
 // Opening A1 conversations offer authored replies to tap. They prove supported

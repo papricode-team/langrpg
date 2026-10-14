@@ -1,0 +1,2122 @@
+[
+  {
+    "id": "5af51b10-9e4a-4305-bf0f-ecd542232584",
+    "fixture": "marta",
+    "de": {
+      "text": "Hallo, Ada! Möchtest du einen Kaffee?",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          12,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          29
+        ],
+        [
+          30,
+          36
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Hello, Ada! Would you like a coffee?",
+        "tokens": [
+          [
+            0,
+            5
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            12,
+            17
+          ],
+          [
+            18,
+            21
+          ],
+          [
+            22,
+            26
+          ],
+          [
+            27,
+            28
+          ],
+          [
+            29,
+            35
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "4b77878a-42e8-4b0b-82ee-4b1374ececab",
+    "fixture": "otto",
+    "de": {
+      "text": "Guten Morgen, Ada! Willkommen in Lindenhafen.",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          14,
+          17
+        ],
+        [
+          19,
+          29
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          33,
+          44
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Good morning, Ada! Welcome to Lindenhafen.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            14,
+            17
+          ],
+          [
+            19,
+            26
+          ],
+          [
+            27,
+            29
+          ],
+          [
+            30,
+            41
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "5c87920e-2d1e-4e8e-970a-300a431c15a4",
+    "fixture": "clauses",
+    "de": {
+      "text": "Dein Zug ist da. Die Tauben schlafen noch.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          27
+        ],
+        [
+          28,
+          36
+        ],
+        [
+          37,
+          41
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Your train is here. The pigeons are still sleeping.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            10
+          ],
+          [
+            11,
+            13
+          ],
+          [
+            14,
+            18
+          ],
+          [
+            20,
+            23
+          ],
+          [
+            24,
+            31
+          ],
+          [
+            32,
+            35
+          ],
+          [
+            36,
+            41
+          ],
+          [
+            42,
+            50
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            7
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "11b13f6b-de4a-44b6-bc68-05f2e8012be1",
+    "fixture": "help-question",
+    "de": {
+      "text": "Kann ich helfen?",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          15
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Can I help?",
+        "tokens": [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "f74fd965-e251-4629-903b-1cc34f093ed4",
+    "fixture": "help-infinitive",
+    "de": {
+      "text": "Ich will helfen.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          15
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "I want to help.",
+        "tokens": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            7,
+            9
+          ],
+          [
+            10,
+            14
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "556badb0-b2c5-4110-aa71-41c030e28323",
+    "fixture": "help-inflection",
+    "de": {
+      "text": "Er hilft.",
+      "tokens": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "He helps.",
+        "tokens": [
+          [
+            0,
+            2
+          ],
+          [
+            3,
+            8
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "eda5537c-491f-4279-a910-a0d6af57d588",
+    "fixture": "invitation",
+    "de": {
+      "text": "Hallo, möchtest du einen Kaffee?",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          16,
+          18
+        ],
+        [
+          19,
+          24
+        ],
+        [
+          25,
+          31
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Hello, would you like a coffee?",
+        "tokens": [
+          [
+            0,
+            5
+          ],
+          [
+            7,
+            12
+          ],
+          [
+            13,
+            16
+          ],
+          [
+            17,
+            21
+          ],
+          [
+            22,
+            23
+          ],
+          [
+            24,
+            30
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "1043423a-0f37-4683-aae3-856df177e57a",
+    "fixture": "formal-invitation",
+    "de": {
+      "text": "Möchten Sie Kaffee?",
+      "tokens": [
+        [
+          0,
+          7
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          18
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Would you like coffee?",
+        "tokens": [
+          [
+            0,
+            5
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            15,
+            21
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "614be2b1-0fff-4694-8629-04816a192cfe",
+    "fixture": "article-boundary",
+    "de": {
+      "text": "Ein Name.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Anna is at a_name cash.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            11,
+            12
+          ],
+          [
+            13,
+            17
+          ],
+          [
+            18,
+            22
+          ]
+        ],
+        "align": [],
+        "untranslated": {
+          "0": "Unrelated translation: no valid article equivalent.",
+          "1": "Unrelated translation: no name equivalent."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "1c150a4a-115b-4089-8688-af45a76fe6ec",
+    "fixture": "verb-boundary",
+    "de": {
+      "text": "Ich helfe.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "I am helpful.",
+        "tokens": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            5,
+            12
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ]
+        ],
+        "untranslated": {
+          "1": "Helpful is an adjective, not a translation of helfe."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "8d65c576-e43f-487b-926e-f2c331ddff62",
+    "fixture": "she",
+    "de": {
+      "text": "Sie sagt: Du kannst lesen.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          19
+        ],
+        [
+          20,
+          25
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "She says: You can read.",
+        "tokens": [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            14,
+            17
+          ],
+          [
+            18,
+            22
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "dd97a366-9f64-4f19-bf56-6002aa8323cd",
+    "fixture": "formal-you",
+    "de": {
+      "text": "Helfen Sie mir.",
+      "tokens": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          11,
+          14
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Please help me, will you?",
+        "tokens": [
+          [
+            0,
+            6
+          ],
+          [
+            7,
+            11
+          ],
+          [
+            12,
+            14
+          ],
+          [
+            16,
+            20
+          ],
+          [
+            21,
+            24
+          ]
+        ],
+        "align": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "045bf1f3-35f3-4100-b8f4-ca0e90216548",
+    "fixture": "they",
+    "de": {
+      "text": "Hier helfen sie.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          12,
+          15
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Here they help you.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            9
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            15,
+            18
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "4e3fad8d-710a-4e74-84e6-2225809b48e5",
+    "fixture": "ambiguous-sie",
+    "de": {
+      "text": "Sie sind hier.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          13
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "They are here with you.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            9,
+            13
+          ],
+          [
+            14,
+            18
+          ],
+          [
+            19,
+            22
+          ]
+        ],
+        "align": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "untranslated": {
+          "0": "Regression policy: ambiguous Sie has no authored sense."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "4aca6510-234c-4d76-823e-c953ce854f02",
+    "fixture": "ambiguous-bank",
+    "de": {
+      "text": "Die Bank ist dort.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          13,
+          17
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "The bank is beside the bench.",
+        "tokens": [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            9,
+            11
+          ],
+          [
+            12,
+            18
+          ],
+          [
+            19,
+            22
+          ],
+          [
+            23,
+            28
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "untranslated": {
+          "1": "Regression policy: bank and bench occur together; no authored sense.",
+          "3": "The translation has no equivalent for dort."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "d115df61-3a43-4ace-a11c-cf31ddaa83df",
+    "fixture": "demonstrative",
+    "de": {
+      "text": "Das ist gut.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          11
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "That is good.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "align": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "untranslated": {
+          "0": "Regression policy: an article gloss must not imply a demonstrative sense."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "96c2a3ed-3b10-4c4d-b3a1-1d417c8c1f0f",
+    "fixture": "emoji",
+    "de": {
+      "text": "Hallo, 🌙 <Ada & Bo>! Möchtest du einen Kaffee?",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          11,
+          14
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          31,
+          33
+        ],
+        [
+          34,
+          39
+        ],
+        [
+          40,
+          46
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Hello, 🌙 <Ada & Bo>! Would you like a coffee?",
+        "tokens": [
+          [
+            0,
+            5
+          ],
+          [
+            11,
+            14
+          ],
+          [
+            17,
+            19
+          ],
+          [
+            22,
+            27
+          ],
+          [
+            28,
+            31
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            37,
+            38
+          ],
+          [
+            39,
+            45
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "f3dfc48e-5c75-407e-a13b-7adb5b6ec3d2",
+    "fixture": "literal-code",
+    "de": {
+      "text": "Hier steht Code.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          11,
+          15
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Use C++ (not CCC).",
+        "tokens": [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            13,
+            16
+          ]
+        ],
+        "align": [
+          [
+            2,
+            1
+          ]
+        ],
+        "untranslated": {
+          "0": "Unrelated sentence: no equivalent for hier.",
+          "1": "Unrelated sentence: no equivalent for steht."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "1b0e63a8-b942-4cb1-87fc-ab89bb18001e",
+    "fixture": "cloud",
+    "de": {
+      "text": "Die Wolke.",
+      "tokens": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "A cloud.",
+        "tokens": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            7
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "0384d678-b236-4d1b-95ed-e4e8ec18fe31",
+    "fixture": "screen-ticket",
+    "de": {
+      "text": "Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          16,
+          21
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          28,
+          33
+        ],
+        [
+          34,
+          39
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          47,
+          54
+        ],
+        [
+          55,
+          61
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Your ticket, please. My files must be checked too.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            11
+          ],
+          [
+            13,
+            19
+          ],
+          [
+            21,
+            23
+          ],
+          [
+            24,
+            29
+          ],
+          [
+            30,
+            34
+          ],
+          [
+            35,
+            37
+          ],
+          [
+            38,
+            45
+          ],
+          [
+            46,
+            49
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            6
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Biletiniz, lütfen. Benim dosyalarımın da denetlenmesi gerekiyor.",
+        "tokens": [
+          [
+            0,
+            9
+          ],
+          [
+            11,
+            17
+          ],
+          [
+            19,
+            24
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            54,
+            63
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "60ee9883-2af0-49e7-8cdc-e9a504c21892",
+    "fixture": "screen-records",
+    "de": {
+      "text": "Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          16,
+          21
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          28,
+          33
+        ],
+        [
+          34,
+          39
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          47,
+          54
+        ],
+        [
+          55,
+          61
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Your ticket, please. My records must be checked too.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            11
+          ],
+          [
+            13,
+            19
+          ],
+          [
+            21,
+            23
+          ],
+          [
+            24,
+            31
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            37,
+            39
+          ],
+          [
+            40,
+            47
+          ],
+          [
+            48,
+            51
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            6
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Biletiniz, lütfen. Benim dosyalarımın da denetlenmesi gerekiyor.",
+        "tokens": [
+          [
+            0,
+            9
+          ],
+          [
+            11,
+            17
+          ],
+          [
+            19,
+            24
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            41,
+            53
+          ],
+          [
+            54,
+            63
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "298f29f6-99ee-4bef-877f-d8ce5b27ade5",
+    "fixture": "ticket",
+    "de": {
+      "text": "Ihre Fahrkarte, bitte.",
+      "tokens": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          16,
+          21
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Your ticket, please.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            11
+          ],
+          [
+            13,
+            19
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Biletiniz, lütfen.",
+        "tokens": [
+          [
+            0,
+            9
+          ],
+          [
+            11,
+            17
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "fe343a13-cd6f-4d29-957f-1edbfd72f0fd",
+    "fixture": "otto-ticket",
+    "de": {
+      "text": "Deine Fahrkarte, bitte.",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          15
+        ],
+        [
+          17,
+          22
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Your ticket, please.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            11
+          ],
+          [
+            13,
+            19
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Biletin, lütfen.",
+        "tokens": [
+          [
+            0,
+            7
+          ],
+          [
+            9,
+            15
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "7a6ab1d5-ebc7-431f-9313-36fefa02e5ac",
+    "fixture": "npc-invitation",
+    "de": {
+      "text": "Möchtest du einen Kaffee?",
+      "tokens": [
+        [
+          0,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          18,
+          24
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Would you like a coffee?",
+        "tokens": [
+          [
+            0,
+            5
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            15,
+            16
+          ],
+          [
+            17,
+            23
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Bir kahve ister misin?",
+        "tokens": [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            10,
+            15
+          ],
+          [
+            16,
+            21
+          ]
+        ],
+        "align": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      }
+    },
+    "alignmentStatus": "reviewed"
+  },
+  {
+    "id": "785cdf7e-9b67-443d-a5b0-d71b9cccdb6b",
+    "fixture": "otto-welcome",
+    "de": {
+      "text": "Guten Morgen! Willkommen in Lindenhafen.",
+      "tokens": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          25,
+          27
+        ],
+        [
+          28,
+          39
+        ]
+      ]
+    },
+    "support": {
+      "en": {
+        "text": "Good morning! Welcome to Lindenhafen.",
+        "tokens": [
+          [
+            0,
+            4
+          ],
+          [
+            5,
+            12
+          ],
+          [
+            14,
+            21
+          ],
+          [
+            22,
+            24
+          ],
+          [
+            25,
+            36
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      },
+      "tr": {
+        "text": "Günaydın! Lindenhafen'e hoş geldin.",
+        "tokens": [
+          [
+            0,
+            8
+          ],
+          [
+            10,
+            23
+          ],
+          [
+            24,
+            27
+          ],
+          [
+            28,
+            34
+          ]
+        ],
+        "align": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "untranslated": {
+          "3": "Turkish expresses location in the suffix of Lindenhafen’e."
+        }
+      }
+    },
+    "alignmentStatus": "reviewed"
+  }
+]

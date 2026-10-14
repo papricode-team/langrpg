@@ -94,16 +94,9 @@ export const placementExerciseIds=[
   'b1-council-exercise-5','b1-witness-exercise-3',
 ] as const;
 export interface PlacementExercise extends Exercise {level:CourseLevel;}
-export const placementDialogue:Record<typeof placementExerciseIds[number],{speaker:string;german:string;english:string}>={
-  'a1-arrival-exercise-1':{speaker:'Otto',german:'Willkommen! Es ist früh.',english:'Welcome! It is early.'},
-  'a1-cafe-exercise-6':{speaker:'Marta',german:'Möchten Sie jetzt bezahlen?',english:'Would you like to pay now?'},
-  'a1-lost-parcel-exercise-2':{speaker:'Lina',german:'Ich schicke das Paket. Was brauchen Sie?',english:'I will send the parcel. What do you need?'},
-  'a2-evening-plans-exercise-4':{speaker:'Fritz',german:'Wir essen heute zusammen. Kommst du?',english:'We are eating together today. Are you coming?'},
-  'a2-archive-exercise-4':{speaker:'Ada',german:'Eine Karte ist aus dem Jahr 1900, die andere aus dem Jahr 2000.',english:'One map is from 1900, the other from 2000.'},
-  'a2-apartment-exercise-6':{speaker:'Emil',german:'Das Fenster geht nicht auf.',english:'The window will not open.'},
-  'b1-council-exercise-5':{speaker:'Greta',german:'Wir kennen noch nicht alle Fakten. Trotzdem will der Rat entscheiden.',english:'We do not know all the facts yet. The council still wants to decide.'},
-  'b1-witness-exercise-3':{speaker:'Elise',german:'Der Zeuge sagt, der Zug sei schon um fünf Uhr abgefahren.',english:'The witness says the train had already left at five.'},
-};
+export const placementDialogue:Record<string,{speaker:string;german:string;english:string;aligned?:import('./aligned-line').AlignedLine;localized?:boolean}>={};
+export function installPlacementDialogue(values:typeof placementDialogue):void {Object.assign(placementDialogue,values);}
+export function clearPlacementDialogue():void {for(const id of Object.keys(placementDialogue))delete placementDialogue[id];}
 export function placementExercises(exercises:readonly PlacementExercise[]):PlacementExercise[] {
   const byId=new Map(exercises.map(exercise=>[exercise.id,exercise]));
   return placementExerciseIds.map(id=>{const exercise=byId.get(id);if(!exercise)throw new Error(`Missing placement exercise ${id}`);return exercise;});

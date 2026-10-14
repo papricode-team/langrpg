@@ -128,6 +128,7 @@ type ActivityProgress struct {
 
 type Progress struct {
 	Revision            int64                           `json:"revision"`
+	ContentIDVersion    int                             `json:"contentIdVersion,omitempty"`
 	XP                  int                             `json:"xp"`
 	CompletedQuestIDs   []string                        `json:"completedQuestIds"`
 	Attempts            int                             `json:"attempts"`

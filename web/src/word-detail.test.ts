@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import { afterEach, describe, expect, it } from 'vitest';
 import { installOverlay, setBaseLanguage } from './i18n';
 import { getInteriorObject, interiors } from './interiors';
@@ -72,6 +73,6 @@ describe('shared word detail sheet and pane', () => {
     host.innerHTML = renderWordDetail(detail);
     expect(host.querySelector('p')?.textContent).toBe('süt');
     expect(host.querySelector<HTMLElement>('.translated-sentence')?.dataset.translationLang).toBe('tr');
-    expect(host.querySelector<HTMLElement>('.translated-sentence')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
+    expect(host.querySelector<HTMLElement>('.word-detail-example .translated-sentence')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
   });
 });

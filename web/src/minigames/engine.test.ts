@@ -3,7 +3,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyProgress, type AttemptResult } from '../api';
 import {quests,type Exercise} from '../content';
 import {courseContextWordIds} from '../course';
-import { RetrievalGame } from './engine';
+import { RetrievalGame,installLoopingTape } from './engine';
+import loopFixture from './loop-data.json';
+installLoopingTape(loopFixture);
 import { miniGameDefinitions } from './catalogue';
 import { loadMiniGame } from './index';
 import type { GameItem, MiniGameDefinition, MiniGameHost, MiniGameOptions, RoundResult } from './types';
@@ -17,7 +19,7 @@ async function advance(ms:number){
 }
 const item=(lemma:string,extra:Partial<GameItem>={}):GameItem=>({lexemeId:`${lemma.toLowerCase()}-noun`,lemma,english:lemma,article:'der',plural:`${lemma}e`,topic:'food',level:'A1',pos:'noun',audio:'',exerciseIds:{recognition:'',listening:'',production:''},stability:0,due:{recognition:false,listening:false,production:false},seen:{recognition:false,listening:false,production:false},recalls:{recognition:0,listening:0,production:0},...extra});
 const foods=[item('Kaffee'),item('Tee',{article:'die'}),item('Brot',{article:'das'}),item('Wasser')];
-const receipt=(result:RoundResult,correct=true):AttemptResult=>({attemptId:`attempt-${result.lexemeId}`,correct,xpAdded:0,duplicate:false,correctedAnswer:result.answer,reason:'Saved',progress:emptyProgress()});
+const receipt=(result:RoundResult,correct=true):AttemptResult=>({attemptId:`attempt-${result.lexemeId}`,correct,xpAdded:0,duplicate:false,correctedAnswer:result.answer!,reason:'Saved',progress:emptyProgress()});
 function setup(id='departure-board',extra:Partial<MiniGameHost>={},opts:Partial<MiniGameOptions>={},definition:Partial<MiniGameDefinition>={}){
   const root=document.createElement('div');document.body.append(root);
   const host={pool:vi.fn(()=>foods.map(food=>({...food}))),submit:vi.fn(async(result:RoundResult)=>receipt(result)),speak:vi.fn(async()=>{}),speakText:vi.fn(async()=>{}),sprites:{has:vi.fn(()=>false),preload:vi.fn(async()=>{}),render:vi.fn((_frame:string,alt:string)=>{const image=document.createElement('img');image.alt=alt;return image;})},audio:{sfx:vi.fn(),stop:vi.fn()},input:{bind:vi.fn(()=>vi.fn())},end:vi.fn(),expose:vi.fn(),progress:()=>emptyProgress(),exercises:new Map(),playerName:'Ada',silent:false,reducedMotion:true,...extra} as unknown as MiniGameHost;
@@ -62,7 +64,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     expect(root.querySelector<HTMLButtonElement>('[data-catch-lane]')!.disabled).toBe(true);resolve();await flush();
     const apple=[...root.querySelectorAll<HTMLElement>('.catching-apple')].find(apple=>apple.querySelector('.catching-digit')?.textContent==='7')!;
     root.querySelector<HTMLButtonElement>(`[data-catch-lane="${apple.style.getPropertyValue('--lane')}"]`)!.click();await advance(1000);game.pause();await advance(3000);expect(host.submit).not.toHaveBeenCalled();game.resume();await advance(1800);
-    expect(host.submit).toHaveBeenCalledOnce();expect(vi.mocked(host.submit).mock.calls[0][0].answer).toBe('sieben');
+    expect(host.submit).toHaveBeenCalledOnce();expect(vi.mocked(host.submit).mock.calls[0][0].answer!).toBe('sieben');
   });
   it('submits the four actual selected departure fields after the whole announcement',async()=>{
     const pool=[item('sieben',{lexemeId:'sieben-num',pos:'num'}),item('zwei',{lexemeId:'zwei-num',pos:'num'}),item('Bahnhof',{lexemeId:'bahnhof-noun'}),item('Hotel',{lexemeId:'hotel-noun'}),item('pünktlich',{lexemeId:'puenktlich-adj',pos:'adj'}),item('Verspätung',{lexemeId:'verspaetung-noun'})];
@@ -72,7 +74,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
     expect(host.submit).toHaveBeenCalledTimes(4);
     const answers=vi.mocked(host.submit).mock.calls.map(([answer])=>answer);
-    expect(answers.map(answer=>answer.answer)).toEqual([values[0]==='07:00'?'sieben':'zwei',values[1]==='7'?'sieben':'zwei',values[2],values[3]]);
+    expect(answers.map(answer=>answer.answer!)).toEqual([values[0]==='07:00'?'sieben':'zwei',values[1]==='7'?'sieben':'zwei',values[2],values[3]]);
     expect(answers.every(answer=>answer.answerKind==='lexeme'&&answer.modality==='listening')).toBe(true);
     expect(root.querySelector('[data-game-score]')?.textContent).toBe('4 / 4');
   });
@@ -112,6 +114,8 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
   });
   it('registers all eighteen catalogue games as independent lifecycle controllers',async()=>{
     expect(miniGameDefinitions).toHaveLength(18);expect(new Set(miniGameDefinitions.map(game=>game.id)).size).toBe(18);
+    vi.spyOn(await import('./scripted-stories'),'loadScriptedStoryContent').mockResolvedValue();
+    vi.spyOn(await import('./engine'),'loadLoopingTape').mockResolvedValue();
     for(const definition of miniGameDefinitions){const game=await loadMiniGame(definition.id);expect(game.id).toBe(definition.id);expect(game.title).toBe(definition.title);expect(game.modalities).toEqual(definition.modalities);expect(game.levels).toEqual(definition.levels);}
     await expect(loadMiniGame('unknown')).rejects.toThrow('Unknown lantern game');
   });
@@ -120,7 +124,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     const {root,host,start}=setup('departure-board',{}, {},{modalities:['recognition']});await start();
     const buttons=[...root.querySelectorAll<HTMLButtonElement>('[data-game-option]')];buttons[0].click();
     await advance(200);expect(host.submit).not.toHaveBeenCalled();buttons[1].click();await advance(300);
-    expect(host.submit).toHaveBeenCalledOnce();expect(vi.mocked(host.submit).mock.calls[0][0].answer).toBe(buttons[1].querySelector('.minigame-object-label')!.textContent);
+    expect(host.submit).toHaveBeenCalledOnce();expect(vi.mocked(host.submit).mock.calls[0][0].answer!).toBe(buttons[1].querySelector('.minigame-object-label')!.textContent);
   });
 
   it('pauses timers and pending confirmation without committing an answer',async()=>{
@@ -164,7 +168,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     for(const lemma of ['Kaffee','Tee']){const button=[...root.querySelectorAll<HTMLButtonElement>('[data-game-option]')].find(button=>button.querySelector('.minigame-object-label')?.textContent===lemma)!;button.click();}
     root.querySelector<HTMLButtonElement>('[data-game-quantity="0:1"]')!.click();root.querySelector<HTMLButtonElement>('[data-game-quantity="1:1"]')!.click();root.querySelector<HTMLButtonElement>('[data-game-quantity="1:1"]')!.click();
     click('serve');await flush();expect(submit).toHaveBeenCalledTimes(4);expect(root.querySelector('[data-game-score]')!.textContent).toBe('0 / 0');
-    const evidence=submit.mock.calls.map(call=>call[0]);expect(evidence.map(result=>result.lexemeId)).toEqual(['kaffee-noun','zwei-num','tee-noun','drei-num']);expect(evidence.map(result=>result.answer)).toEqual(['Kaffee','zwei','Tee','drei']);
+    const evidence=submit.mock.calls.map(call=>call[0]);expect(evidence.map(result=>result.lexemeId)).toEqual(['kaffee-noun','zwei-num','tee-noun','drei-num']);expect(evidence.map(result=>result.answer!)).toEqual(['Kaffee','zwei','Tee','drei']);
     first=false;click('save');await flush();expect(root.querySelector('[data-game-score]')!.textContent).toBe('4 / 4');
     for(let index=0;index<4;index++)expect(submit.mock.calls[4+index][0]).toBe(evidence[index]);expect(host.audio.sfx).toHaveBeenLastCalledWith('bell');
   });
@@ -252,7 +256,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     const otherScene={...base,id:'a1-cafe-exercise-1',german:'OTHER SCENE'};
     const {root,host,start,choose}=setup('lost-hour',{progress:()=>restored,exercises:new Map([base,hidden,otherScene].map(exercise=>[exercise.id,exercise]))},{level:'A2',fixedPool:['kaffee-noun']});await start();
     expect(root.textContent).toContain(base.german);expect(root.textContent).not.toContain('UNRESTORED FORM');expect(root.textContent).not.toContain('OTHER SCENE');
-    choose(base.answer);await flush();expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({exerciseId:base.id,modality:'recognition',answer:base.answer});
+    choose(base.answer!);await flush();expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({exerciseId:base.id,modality:'recognition',answer:base.answer!});
     expect(vi.mocked(host.submit).mock.calls[0][0].answerKind).toBeUndefined();
   });
 
@@ -273,9 +277,9 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     const {root,host,start,click}=setup('looping-tape',{pool:()=>[item('sicher',{lexemeId:'sicher-adj',pos:'adj',level:'B1'})],progress:()=>restored,exercises:new Map([[exercise.id,exercise]]),speakText,audio:{sfx:vi.fn(),stop:vi.fn(),positionMs:()=>3500}},{level:'B1'});await start();
     expect(speakText).toHaveBeenCalledWith(exercise.german,`/audio/minigames/loop-${exercise.id}.mp3`);
     click('mark-loop');expect(root.textContent).toContain('The cough repeats here');
-    root.querySelector<HTMLInputElement>('input')!.value=exercise.answer;root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
+    root.querySelector<HTMLInputElement>('input')!.value=exercise.answer!;root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
     expect(host.submit).not.toHaveBeenCalled();
     finishSpeech();await flush();root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
-    expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({exerciseId:exercise.id,modality:'production',hinted:true,answer:exercise.answer});
+    expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({exerciseId:exercise.id,modality:'production',hinted:true,answer:exercise.answer!});
   });
 });

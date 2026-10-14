@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { emptyProgress, type MemoryItem } from './api';
+import { expectedEvidenceCard } from './test-support/activity-solutions';
 import {
   activityAudioJobs, activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
   initialActivityState, marketTotal, selectActivityScenarios, shuffledDetectiveBoard, shuffledCafeActions, type ActivityAction, type ActivityScenario, type ActivityState,
@@ -31,7 +32,7 @@ function solve(scene:ActivityScenario):ActivityState {
     for(const coin of [1000,500,200,100,50,20,10]) while(change>=coin){act({type:'coin',value:coin});change-=coin;}
     expect(change).toBe(0);
   } else if(board.kind==='detective') {
-    for(const slot of board.slots)act({type:'link',slotId:slot.id,cardId:slot.expected});
+    for(const slot of board.slots)act({type:'link',slotId:slot.id,cardId:expectedEvidenceCard(scene,slot.id)});
   } else {
     act({type:'parcel',value:board.parcel});act({type:'transport',value:board.transport});
     if(board.departure)act({type:'departure',value:board.departure});
@@ -62,7 +63,7 @@ describe('the authored activity catalog',()=>{
     }
   });
 
-  it('can solve every authored scene through player actions and gates each canonical answer',()=>{
+  it('can demonstrate every authored scene through player actions and serializes detective proof',()=>{
     for(const scene of activityScenarios) {
       const initial=evaluateActivity(scene,initialActivityState(scene));
       expect(initial.valid,scene.id).toBe(false);
@@ -70,7 +71,8 @@ describe('the authored activity catalog',()=>{
       const result=evaluateActivity(scene,solve(scene));
       expect(result.feedback,scene.id).toEqual([]);
       expect(result.valid,scene.id).toBe(true);
-      expect(result.answer,scene.id).toBe(exerciseForScenario(scene).answer);
+      if(scene.board.kind==='detective')expect(result.answer,scene.id).toMatch(/^Meine Lösung:/);
+      else expect(result.answer,scene.id).toBe(exerciseForScenario(scene).answer);
     }
   });
 
@@ -144,7 +146,22 @@ describe('market arithmetic and exchanges',()=>{
 });
 
 describe('evidence reconstruction',()=>{
-  it('varies every case layout without allowing top-to-bottom matching, even when skipping distractors',()=>{
+  it('checks completeness locally while leaving complete but incorrect links for server grading',()=>{
+    const scene=activityScenarios.find(scene=>scene.activityId==='detective')!,board=scene.board;
+    if(board.kind!=='detective')throw new Error('Wrong board.');
+    expect(board.slots.every(slot=>!('expected' in slot))).toBe(true);
+    let state=solve(scene);
+    if(state.kind!=='detective')throw new Error('Wrong board.');
+    const [first,second]=board.slots;
+    state={...state,links:{...state.links,[first.id]:state.links[second.id],[second.id]:state.links[first.id]}};
+    const ready=evaluateActivity(scene,state);
+    expect(ready.valid).toBe(true);expect(ready.feedback).toEqual([]);
+    expect(ready.answer).toMatch(/^Meine Lösung:/);
+    expect(ready.answer).not.toBe(exerciseForScenario(scene).answer);
+    expect(evaluateActivity(scene,applyActivityAction(scene,state,{type:'unlink',slotId:first.id})).valid).toBe(false);
+  });
+
+  it('varies each independent evidence palette without needing the answer key',()=>{
     for(const scene of activityScenarios.filter(scene=>scene.activityId==='detective')) {
       if(scene.board.kind!=='detective')throw new Error('Wrong board.');
       const original=structuredClone(scene.board),layouts=new Set<string>();
@@ -154,12 +171,7 @@ describe('evidence reconstruction',()=>{
         expect([...board.cards].sort((a,b)=>a.id.localeCompare(b.id))).toEqual([...original.cards].sort((a,b)=>a.id.localeCompare(b.id)));
         expect([...board.slots].sort((a,b)=>a.id.localeCompare(b.id))).toEqual([...original.slots].sort((a,b)=>a.id.localeCompare(b.id)));
         layouts.add(JSON.stringify([board.cards.map(card=>card.id),board.slots.map(slot=>slot.id)]));
-        const evidence=board.cards.filter(card=>board.slots.some(slot=>slot.expected===card.id));
-        for(const orderedCards of [board.cards,evidence]) {
-          let state=initialActivityState(scene);
-          board.slots.forEach((slot,index)=>{state=applyActivityAction(scene,state,{type:'link',slotId:slot.id,cardId:orderedCards[index].id});});
-          expect(evaluateActivity(scene,state).valid,`${scene.id}: ${seed}`).toBe(false);
-        }
+        expect(board.slots.every(slot=>!('expected' in slot))).toBe(true);
         const shuffledScene={...scene,board};
         expect(evaluateActivity(shuffledScene,solve(shuffledScene)).valid).toBe(true);
       }
@@ -172,13 +184,13 @@ describe('evidence reconstruction',()=>{
     const scene=activityScenarios.find(scene=>scene.id==='detective-b1-a-timetable-disagrees')!,board=scene.board;
     if(board.kind!=='detective')throw new Error('Wrong board.');
     let state=solve(scene);
-    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[1].id,cardId:board.slots[0].expected});
+    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[1].id,cardId:expectedEvidenceCard(scene,board.slots[0].id)});
     if(state.kind!=='detective')throw new Error('Wrong board.');
     expect(state.links[board.slots[0].id]).toBeUndefined();
-    expect(Object.values(state.links).filter(value=>value===board.slots[0].expected)).toHaveLength(1);
+    expect(Object.values(state.links).filter(value=>value===expectedEvidenceCard(scene,board.slots[0].id))).toHaveLength(1);
     expect(evaluateActivity(scene,state).valid).toBe(false);
-    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[0].id,cardId:board.slots[0].expected});
-    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[1].id,cardId:board.slots[1].expected});
+    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[0].id,cardId:expectedEvidenceCard(scene,board.slots[0].id)});
+    state=applyActivityAction(scene,state,{type:'link',slotId:board.slots[1].id,cardId:expectedEvidenceCard(scene,board.slots[1].id)});
     expect(evaluateActivity(scene,state).valid).toBe(true);
   });
 });

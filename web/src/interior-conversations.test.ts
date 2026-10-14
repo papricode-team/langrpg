@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import { afterEach, describe, expect, it } from 'vitest';
 import { installOverlay, setBaseLanguage } from './i18n';
 import { interiors } from './interiors';
@@ -61,7 +62,7 @@ describe('authored interior conversations', () => {
     expect(host.querySelectorAll('[data-speak]')).toHaveLength(3);
     expect(host.textContent).toContain('Einen Kaffee mit Milch, bitte.');
     expect(host.textContent).not.toContain('A coffee with milk, please.');
-    const answer = host.querySelector<HTMLElement>('[data-interior-choice="first"] .translated-sentence')!;
+    const answer = host.querySelector<HTMLElement>('[data-interior-choice="first"]')!;
     expect(answer.dataset.translation).toBe('A coffee with milk, please.');
     expect(answer.tabIndex).toBe(0);
     expect(host.querySelector('[data-interior-conversation="encounter"]')).not.toBeNull();
@@ -73,9 +74,22 @@ describe('authored interior conversations', () => {
     await setBaseLanguage('tr', { persist: false });
     const host = document.createElement('div');
     host.innerHTML = renderInteriorConversation(createInteriorConversationState('interior:cafe:coffee')!);
-    expect(host.querySelector<HTMLElement>('[data-interior-choice="first"] .translated-sentence')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
+    expect(host.querySelector<HTMLElement>('[data-interior-choice="first"]')?.dataset.translation).toBe('Sütlü bir kahve, lütfen.');
     expect(host.querySelector<HTMLElement>('.translated-sentence')?.dataset.translationLang).toBe('tr');
     expect(host.textContent).not.toContain('Sütlü bir kahve, lütfen.');
     expect(host.querySelector('.encounter-role')?.textContent).toBe('Ev sahibi');
+  });
+  it('keeps aligned word controls outside reply buttons while the current line stays interactive',()=>{
+    const state=createInteriorConversationState('interior:cafe:coffee')!,current=interiorConversationNode(state)!;
+    const line=current.line.aligned!,choice=current.choices[0].line.aligned!;
+    const previous=line.glosses,previousChoice=choice.glosses;
+    try{
+      line.glosses={'0':'00000000-0000-4000-8000-000000000001'};
+      choice.glosses={'0':'00000000-0000-4000-8000-000000000001'};
+      const host=document.createElement('div');host.innerHTML=renderInteriorConversation(state);
+      expect(host.querySelector('.interior-dialogue .dialogue-word')).not.toBeNull();
+      expect(host.querySelector('[data-interior-choice] .dialogue-word, [data-interior-choice] button')).toBeNull();
+      expect(host.querySelector<HTMLElement>('[data-interior-choice="first"]')?.dataset.translation).toBe('A coffee with milk, please.');
+    }finally{line.glosses=previous;choice.glosses=previousChoice;}
   });
 });

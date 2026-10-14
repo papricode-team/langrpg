@@ -3,7 +3,9 @@ import {loadPublishedWorld,sceneContentVersion} from './scene-data';
 import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement } from './placement-ui';
-import { createGlossLookup, glossesForLine, selectInputVariant, filterKnownGlosses } from './learning-context';
+import { createGlossLookup } from './learning-context';
+import {loadActivityContent} from './activity-engine';
+import { configureContentClient } from './content-api';
 import { QuestController } from './quest-controller';
 import { questGraph, questGraphs } from './quest-graph';
 import { storyState } from './dialogue';
@@ -12,6 +14,7 @@ import { evidenceBoard, optionalStoryPractice, saveSlotsMarkup } from './story-p
 import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewards';
 import type { CutsceneKind } from './cutscene';
 import { grammarForQuest } from './contextual-grammar';
+import { loadCinematicContent } from './cinematic-content';
 import { questObjectivesMarkup } from './quest-objectives';
 import { routeUnlocked, routeLockReason, questUnlocked, questAvailable, questLockReason, firstAvailableMap } from './progression';
 import { IntakeClock, intakeStatus, introducedWords, missingWordCount, syllabus, todaysWords, wordIntroduced, wordScheduled } from './intake';
@@ -35,10 +38,10 @@ import './game-menu.css';
 import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
-import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions } from './expeditions';
+import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions, loadExpeditionEncounter } from './expeditions';
 import { ExpeditionLearning, placementLearning } from './expedition-learning';
 import { mountExpeditionEncounter } from './expedition-encounter';
-import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
+import { expeditionGames, getExpeditionGame, loadExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import './quest-cta.css';
@@ -68,16 +71,16 @@ import { t, localized, localizedName, localizedExercise, localizedGrammar, lexem
 import { exerciseOptionsMarkup } from './exercise-options';
 import { maps, getMap, isStoryMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
-import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs } from './story';
+import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs, loadStoryContent, loadObjectStory } from './story';
 import { activityDiscoveries } from './activity-stories';
 import { ScreenFilterControls } from './screen-filter-controls';
 import { MenuMemory, MenuNavigator, menuChromeMarkup, menuSections, sectionOf, viewLabel, type MenuPage, type MenuView } from './menu-navigation';
 import { bindOptionRows, optionsMarkup, optionsTabs, type OptionRow, type OptionsTab } from './options-menu';
 import { UiSounds } from './ui-sounds';
-import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors } from './interiors';
+import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors, loadInteriorObject, loadInteriorWordExample } from './interiors';
 import type { InteriorId, InteriorObjectSpec } from './interiors';
 import { renderInteriorEncounter } from './encounter-panels';
-import { createInteriorConversationState, chooseInteriorConversation, backInteriorConversation, replayInteriorConversation, renderInteriorConversation, interiorConversationFor, type InteriorConversationState } from './interior-conversations';
+import { createInteriorConversationState, chooseInteriorConversation, backInteriorConversation, replayInteriorConversation, renderInteriorConversation, interiorConversationFor, loadInteriorConversation, type InteriorConversationState } from './interior-conversations';
 import { courseWordDetail, interiorWordDetail, renderWordDetail, type WordDetailModel } from './word-detail';
 
 import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
@@ -128,6 +131,7 @@ let regionReady = false;
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const removeSentenceTranslations = installSentenceTranslations(document);
 const api = new Api();
+const contentClient = configureContentClient(api,{owner:()=>`${api.selfId}:${api.token}`,language:baseLanguage});
 let stopUpdateChecks: (() => void) | undefined;
 let removeUpdateNotice: (() => void) | undefined;
 let progress: Progress = emptyProgress();
@@ -177,6 +181,7 @@ async function sendHeartbeat(seconds: number) {
     const result = await api.heartbeat(pendingHeartbeat.id, pendingHeartbeat.seconds);
     pendingHeartbeat = undefined;
     acceptProgress(result.progress); updateProgress();
+    if(result.introduced.length){await contentClient.lexemes(result.introduced.slice(0,24));await contentClient.bootstrap(true);}
     announceRestoredWords(result.introduced);
   } catch { /* The same beat is retried on the next minute; unsent play is not lost. */ }
   finally { heartbeatBusy = false; }
@@ -350,13 +355,11 @@ function renderShell() {
   });
   questController?.destroy();
   questController = new QuestController({
-    api, progress: () => progress, playerName: () => profile.name,
+    api, content:contentClient, onError:message=>toast(message,true), progress: () => progress, playerName: () => profile.name,
     portrait: (id, expression) => portrait(id, '', expression), speak: (text, speaker, clipId, personalized, rate) => {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
     }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
-    glosses: text => course ? glossesForLine(text, createGlossLookup(course.courseLexicon, progress)) : undefined,
-    prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup,.95,introducedSet()); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
@@ -366,7 +369,7 @@ function renderShell() {
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
     onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
-    onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}); },
+    onGrammarGuide: guideId => { courseLevel=course?.courseGrammar.find(guide=>guide.id===guideId)?.level??level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
   world.setAvatar(profile.avatar);
@@ -488,7 +491,7 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
     return [exercise.mode === 'sentence' && hasSuccessfulEncounter(exercise.itemId) ? { ...exercise, mode: 'type' as const, prompt: t('Write in German: {english}', { english: localizedExercise(exercise).english }) } : exercise];
   }));
 }
-function showInteriorObject(id: string) {
+async function showInteriorObject(id: string) {
   if (interiorId === 'inn') {
     if (id === 'interior:inn:review') { void startAdaptiveReview(); return; }
     if (id === 'interior:inn:evidence') { setView('story'); return; }
@@ -496,16 +499,19 @@ function showInteriorObject(id: string) {
   }
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
+  try{await loadInteriorObject(object);if(object.exerciseIds.length)await contentClient.exercises(object.exerciseIds.slice(0,8));}catch(error){toast((error as Error).message,true);return;}
   const npc = object.npcId ? npcs.find(item => item.id === object.npcId) : undefined;
   if (npc) recordExposure({npcId:npc.id});
   const miniGameId = id === 'interior:cafe:coffee' ? 'tray-rush' : id === 'interior:cafe:tea' ? 'kettle-forecast' : id === 'interior:supermarket:scales' ? 'numbered-apples' : room.id === 'cafe' || room.id === 'bakery' ? 'tray-rush' : room.id === 'supermarket' ? 'numbered-apples' : 're-ink';
   const miniGame = miniGameId ? miniGameById.get(miniGameId) : undefined;
+  try{await loadInteriorConversation(id);}catch(error){toast((error as Error).message,true);return;}
   interiorConversation = undefined;
   openDialog(renderInteriorEncounter({room,object,portraitMarkup:npc?portrait(npc.id,'large-portrait'):undefined,miniGame:miniGame?{id:miniGame.id,title:miniGame.title}:undefined}), 'interior-dialog', npc?.id);
 }
-function startInteriorPractice(id: string) {
+async function startInteriorPractice(id: string) {
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
+  try{await loadInteriorObject(object);if(object.exerciseIds.length)await contentClient.exercises(object.exerciseIds.slice(0,8));}catch(error){toast((error as Error).message,true);return;}
   const queue = interiorPracticeQueue(object);
   if (!queue.length) { startInteriorConversation(id); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try this session again in a moment.'), true); return; }
@@ -514,15 +520,18 @@ function startInteriorPractice(id: string) {
   openDialog('', 'quest-dialog interior-practice-dialog', object.npcId); renderExercise();
 }
 let interiorConversation: InteriorConversationState | undefined;
-function startInteriorConversation(id: string) {
+async function startInteriorConversation(id: string) {
+  try{await loadInteriorConversation(id);}catch(error){toast((error as Error).message,true);return;}
   interiorConversation = createInteriorConversationState(id);
   if (!interiorConversation) return;
   cancelRun();
   renderInteriorConversationDialog();
 }
-function renderInteriorConversationDialog() {
-  if (!interiorConversation) return;
-  const conversation = interiorConversationFor(interiorConversation.objectId);
+async function renderInteriorConversationDialog() {
+  const state=interiorConversation;if(!state)return;
+  try{await loadInteriorConversation(state.objectId,state.nodeId);}catch(error){toast((error as Error).message,true);return;}
+  if(state!==interiorConversation)return;
+  const conversation = interiorConversationFor(state.objectId);
   openDialog(renderInteriorConversation(interiorConversation,{portraitMarkup:conversation?portrait(conversation.npcId,'large-portrait'):undefined}), 'interior-dialog', conversation?.npcId);
   document.querySelector<HTMLElement>('[data-interior-choice], [data-interior-conversation="replay"]')?.focus();
 }
@@ -540,6 +549,14 @@ function showWordDetail(model: WordDetailModel, source = '') {
   openDialog(`<div class="word-detail-layout">${original?`<div class="word-detail-source">${original}</div>`:''}<div class="word-detail-pane">${renderWordDetail(model,{backAction:'return'})}</div></div>`, 'word-detail-dialog');
   dialog.querySelector<HTMLElement>('.word-detail-heading h2')?.setAttribute('tabindex','-1');
   dialog.querySelector<HTMLElement>('.word-detail-heading h2')?.focus();
+}
+async function openInteriorWord(objectId:string,index:number):Promise<void> {
+  const object=getInteriorObject(objectId),word=object?.vocabulary[index];if(!object||!word)return;
+  try {
+    await loadInteriorWordExample(word);
+    const lexeme=word.lexemeId?course?.lexemeById.get(word.lexemeId)??(await contentClient.lexemes([word.lexemeId]))[0]:undefined;
+    const model=interiorWordDetail(object,index,lexeme);if(model)showWordDetail(model);
+  } catch(error){toast((error as Error).message,true);}
 }
 async function openCourseWord(id: string) {
   const module = await loadCourse(); const word=module.lexemeById.get(id); if(!word)return;
@@ -568,6 +585,7 @@ function placesSection() {
 }
 function nextInvestigation(graph: QuestGraph) { return graph.investigations.find(item => !(progress.story?.inspections?.[graph.questId] ?? []).includes(item.objectId)); }
 function updateProgress() {
+  if(!quests.length)return;
   const savedStory = storyState(progress.story);
   const rewards = lanternRewards(progress);
   document.querySelector<HTMLElement>('#game-shell')!.dataset.crest = rewards.crest;
@@ -647,6 +665,7 @@ function syncWorldMode(): void {
 }
 function setView(next: View, openPage = true) {
   menuPageOpen = openPage;
+  if(started&&['journal','story','quests'].includes(next))void loadStoryContent(mapId,progress.completedQuestIds).then(()=>{if(view===next)renderOther();}).catch(error=>toast(error.message,true));
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
   exposureObserver?.disconnect();
@@ -729,6 +748,7 @@ async function playPendingCinematic(): Promise<void> {
       try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
       catch { /* The world beat can still play while its saved marker reconnects. */ }
     }
+    await loadCinematicContent(kind, mapId, progress.story?.ending);
     await world.playCutscene(kind, progress.story?.ending);
   } finally {
     cinematicActive = false;
@@ -745,7 +765,8 @@ function onRegionReady(id: MapId) {
   if (!readSeen('acts').includes(id)) { rememberSeen('acts', id); const q = currentQuest(); if (!getExpedition(id)) { world.focusNpc(q.npcId); toast(t('Find {name} to begin Act {act}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name), act: actFor(id).number })); } else showActIntro(id); return; }
   continueDestination();
 }
-function showActIntro(id: MapId) {
+async function showActIntro(id: MapId) {
+  try{await loadStoryContent(id,progress.completedQuestIds);}catch(error){toast((error as Error).message,true);return;}
   const expedition = getExpedition(id);
   if (expedition) {
     const map = getMap(id), game = getExpeditionGame(id)!;
@@ -763,9 +784,9 @@ function consequenceNote(effects: readonly { faction?: string }[] = []): string 
   return note ? ` · ${note}` : '';
 }
 /** Until her name is revealed in the parcel scene, the notes are signed only "E.". */
-const unsignedQuests = quests.slice(0, quests.findIndex(quest => quest.id === 'a1-lost-parcel')).map(quest => quest.id);
+function unsignedQuest(questId:string):boolean {return quests.slice(0,quests.findIndex(quest=>quest.id==='a1-lost-parcel')).some(quest=>quest.id===questId);}
 function eliseLetter(letter: Narrative, questId: string): string {
-  return letter.length ? `<blockquote class="elise-letter"><span>${t('A note from {name}', { name: unsignedQuests.includes(questId) ? 'E.' : 'Elise' })}</span>${renderNarrative(letter)}<span class="elise-signature">— ${unsignedQuests.includes(questId) ? 'E.' : 'Elise'}</span></blockquote>` : '';
+  return letter.length ? `<blockquote class="elise-letter"><span>${t('A note from {name}', { name: unsignedQuest(questId) ? 'E.' : 'Elise' })}</span>${renderNarrative(letter)}<span class="elise-signature">— ${unsignedQuest(questId) ? 'E.' : 'Elise'}</span></blockquote>` : '';
 }
 function continueDestination() {
   if (pendingExpeditionGame) { const id = pendingExpeditionGame; pendingExpeditionGame = undefined; startExpeditionGame(id); return; }
@@ -811,13 +832,12 @@ function showNextObjective() {
   openDialog(`<div class="objective-dialog">${portrait(npc.id, 'large-portrait')}<h2>${e(localized(q.title))}</h2>${graph ? questObjectivesMarkup(graph,progress) : ''}<p>${renderNarrative(previous ? clueFor(previous.id)?.lead ?? act.goal : act.goal)}</p><div class="story-objective">${icon('pin')}<span>${e(t('Find {name}', { name: localizedName(npc.name) }))} · ${e(localized(q.location))}</span></div><button class="primary-button" data-follow-quest="${q.id}">${e(t('Find {name}', { name: localizedName(npc.name) }))} ${icon('arrow')}</button></div>`, 'objective-dialog');
 }
 function findObject(id: string): WorldObjectSpec | undefined { return maps.flatMap(map => [...map.objects]).find(item => item.id === id); }
-const questLevels = new Map<string, Level>(quests.map(quest => [quest.id, quest.level]));
-const storyExerciseLevels = new Map<string, Level>(quests.flatMap(quest => quest.exercises.map(ex => [ex.id, quest.level] as const)));
 /** Letters shown under a typed answer; they fade with unaided recalls and vanish once the learner has moved past the sentence's level. */
 function typedScaffold(ex: Exercise & { level?: Level; targetWordId?: string }): string {
-  const level = ex.level ?? storyExerciseLevels.get(ex.id) ?? 'A1';
+  if(!ex.answer)return '';
+  const level = ex.level ?? quests.find(quest=>quest.exerciseIds?.includes(ex.id))?.level ?? 'A1';
   const recalls = Math.max(progress.items[ex.itemId]?.modeStats.production?.unaidedSuccesses ?? 0, ex.targetWordId ? progress.words[ex.targetWordId]?.evidence?.production?.unaidedSuccesses ?? 0 : 0);
-  return scaffoldText(ex.answer, scaffoldStage(level, learnerLevel(progress.completedQuestIds, questLevels), recalls));
+  return scaffoldText(ex.answer, scaffoldStage(level, learnerLevel(progress.completedQuestIds, new Map(quests.map(quest=>[quest.id,quest.level]))), recalls));
 }
 function hasSuccessfulEncounter(itemId: string): boolean { return Object.values(progress.items[itemId]?.modeStats ?? {}).some(stats => stats.correct > 0); }
 function availableObjectExercises(object: WorldObjectSpec): Exercise[] {
@@ -832,6 +852,7 @@ const expeditionLearning = new ExpeditionLearning({api,progress:()=>progress,onP
 async function showExpeditionEncounter(targetId:string) {
   const region=expeditionRegions.find(region=>!!getExpeditionEncounter(region.id,targetId));if(!region)return;
   const encounter=getExpeditionEncounter(region.id,targetId)!,npc=getExpeditionNpc(targetId),object=region.objects.find(object=>object.id===targetId);
+  try{await loadExpeditionEncounter(encounter);}catch(error){toast((error as Error).message,true);return;}
   if(object)rememberSeen('objects',object.id);
   activityController?.destroy();activityController=undefined;
   openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
@@ -851,10 +872,11 @@ function expeditionOverview(): string {
   const status=expeditionGameStatus(mapId,level,progress.story?.expeditionPlans??{});
   return `<section class="expedition-overview"><h2>${e(region.name)}</h2><p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${region.id}">${status==='started'?t('Resume the plan'):status==='completed'?t('Revisit the agreement'):t('Build the plan')}</button><div class="expedition-cast">${region.npcs.map(npc=>`<button data-expedition-target="${npc.id}">${portrait(npc.id)}<strong>${e(npc.name)}</strong>${icon('chevron')}</button>`).join('')}</div><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')}</button></section>`;
 }
-function startExpeditionGame(id: string, requestedLevel?: Level) {
+async function startExpeditionGame(id: string, requestedLevel?: Level) {
   const game = getExpeditionGame(id);
   if (!game) return;
   if (!routeUnlocked(game.id, progress.completedQuestIds)) { toast(routeLockReason(game.id, progress.completedQuestIds)); return; }
+  try{await loadExpeditionGame(game);}catch(error){toast((error as Error).message,true);return;}
   if (requestedLevel && ['A1', 'A2', 'B1'].includes(requestedLevel)) { level = requestedLevel; localStorage.setItem('atlas.level', level); }
   if (connection !== 'online') { toast(t('The route is reconnecting. Your local plan is waiting.'), true); return; }
   setView('world'); run = undefined;
@@ -863,10 +885,11 @@ function startExpeditionGame(id: string, requestedLevel?: Level) {
   activityController = mountExpeditionGame(document.querySelector<HTMLElement>('#expedition-game-root')!, game, { level, speak, onExposure: context => recordExpeditionExposure(context.text), onPlacement: context => expeditionLearning.place(context), placementPrompt:(value,fieldId)=>placementLearning.get(`${game.id}:${value}:${fieldId}`)?.prompt??'', placementReady:(value,fieldId)=>{const mapping=placementLearning.get(`${game.id}:${value}:${fieldId}`);return !!mapping&&expeditionLearning.ready(mapping.exerciseId);},pendingLearning:()=>expeditionLearning.pendingPlacements(),retryLearning:()=>expeditionLearning.retryPlacements(), initialPlan: value => progress.story?.expeditionPlans?.[`${game.id}:${value}`], submitPlan: plan => expeditionLearning.submitPlan({mapId:game.id,level:plan.level,values:plan.values,order:plan.order}), onLevelChange: value => { level = value; localStorage.setItem('atlas.level', value); updateProgress(); }, onComplete: () => { updateProgress(); playCue(true); toast(t('An agreement remembered in your expedition notebook.')); } });
   document.querySelector<HTMLDialogElement>('#dialog')!.scrollTop = 0;
 }
-function showObject(id: string) {
+async function showObject(id: string) {
+  try{await loadObjectStory(id);}catch(error){toast((error as Error).message,true);return;}
   if(deliveryController)return;
   const active = currentQuest(), graph = questGraph(active.id);
-  if (graph?.investigations.some(item => item.objectId === id) && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (questController?.inspect(active.id, id)) return; }
+  if (graph?.investigations.some(item => item.objectId === id) && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; void questController?.inspect(active.id,id).catch(error=>toast(error.message,true));return; }
   if (expeditionRegions.some(region => getExpeditionEncounter(region.id, id))) { showExpeditionEncounter(id); return; }
   const object = findObject(id); if (!object) return;
   rememberSeen('objects', id);
@@ -886,15 +909,26 @@ function startObjectPractice(id: string) {
 }
 async function loadCourse(): Promise<CourseModule> {
   if (course) return course;
-  coursePromise ??= import('./course').then(module => {
+  coursePromise ??= Promise.all([import('./course'),contentClient.bootstrap()]).then(async ([module]) => {
+    await loadRestoredWords(24);
     course = module;
     world.setLearningContext(module.courseLexicon,progress,introducedSet(),barkLineAllowed);
-    for (const word of module.courseLexicon) if (!audioPaths.has(spokenWord(word))) audioPaths.set(spokenWord(word), `/audio/word-${word.id}.mp3`);
-    for (const ex of module.courseExercises) if (!audioPaths.has(ex.german)) audioPaths.set(ex.german, `/audio/${ex.id}.mp3`);
+    for (const word of module.courseLexicon) if (!audioPaths.has(spokenWord(word))) audioPaths.set(spokenWord(word), word.audio??'');
+    for (const ex of module.courseExercises) if (!audioPaths.has(ex.german)) audioPaths.set(ex.german, ex.audioPath??'');
     for (const guide of module.courseGrammar) guide.examples.forEach((example, index) => { if (!audioPaths.has(example.german)) audioPaths.set(example.german, `/audio/guide-${guide.id}-${index + 1}.mp3`); });
     return module;
   }).catch(error => { coursePromise = undefined; throw error; });
   return coursePromise;
+}
+async function loadRestoredWords(limit=24):Promise<void> {
+  const ids=[...introducedSet()].filter(id=>!course?.lexemeById.has(id)).slice(0,limit);
+  if(ids.length)await contentClient.lexemes(ids);
+}
+async function loadWordExercises(ids:readonly string[],limit=12):Promise<Exercise[]> {
+  const words=ids.length?await contentClient.lexemes(ids.slice(0,24)):[];
+  const candidates=words.flatMap(word=>Object.values(word.exerciseIds??{}).flat());
+  const exerciseIds=[...candidates].sort((a,b)=>Number((progress.exerciseStats[a]?.unaidedSuccesses??0)>0)-Number((progress.exerciseStats[b]?.unaidedSuccesses??0)>0)).slice(0,limit);
+  return exerciseIds.length?contentClient.exercises(exerciseIds):[];
 }
 async function showCourseSources() {
   const module = await loadCourse().catch(() => undefined);
@@ -993,6 +1027,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
   try {
     activitiesPromise ??= import('./activities').then(module => { activities = module; return module; }).catch(error => { activitiesPromise = undefined; throw error; });
     const module = activities ?? await activitiesPromise;
+    await loadActivityContent(id,venue?'A1':level);
     for (const job of module.activityAudioJobs ?? []) if (!audioPaths.has(job.text)) audioPaths.set(job.text, `/audio/${job.id}.mp3`);
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
     if (generation !== activityLoading || !dialog.open) return;
@@ -1031,7 +1066,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
 let coursePage = 0;
 function exerciseHasSuccess(exercise: Exercise): boolean {
   const evidence = progress.exerciseStats?.[exercise.id] ?? progress.items[exercise.itemId]?.modeStats[modeFor(exercise)];
-  const successes = exercise.itemId.startsWith('word-') ? evidence?.unaidedSuccesses : evidence?.correct;
+  const successes = 'targetWordId' in exercise ? evidence?.unaidedSuccesses : evidence?.correct;
   return (successes ?? 0) > 0;
 }
 function renderCourse(el: Element) {
@@ -1045,13 +1080,13 @@ function renderCourse(el: Element) {
   if (courseTab === 'topics') {
     const pageCount = Math.max(1, Math.ceil(units.length / 24)); coursePage = Math.min(coursePage, pageCount - 1);
     content.innerHTML = `<div class="route-unit-list">${units.slice(coursePage * 24, coursePage * 24 + 24).map(unit => {
-      const done = progress.completedUnitIds?.includes(unit.id), missing = done ? 0 : missingWordCount(unit.wordIds, progress);
+      const done = progress.completedUnitIds?.includes(unit.id), missing = done ? 0 : unit.unlocked===false ? 1 : missingWordCount(unit.wordIds, progress);
       const practiced = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return ex && exerciseHasSuccess(ex); }).length;
-      const label = missing ? t('Opens after {count} more restored words', {count:missing}) : t('{done} / {total} encounters saved', {done:practiced,total:unit.exerciseIds.length});
-      return `<button class="route-unit ${done ? 'found' : missing ? 'locked' : ''}" data-course-unit="${e(unit.id)}" ${missing ? 'aria-disabled="true"' : ''} aria-label="${e(`${localized(unit.title)}: ${label}`)}"><strong>${e(localized(unit.title))}</strong><span class="unit-progress" role="progressbar" aria-label="${e(t('Route progress'))}" aria-valuemin="0" aria-valuemax="${unit.exerciseIds.length}" aria-valuenow="${practiced}">${icon(done ? 'check' : missing ? 'lock' : 'chevron')}</span></button>`;
+      const label = missing ? t('Opens after {count} more restored words', {count:missing}) : t('{done} / {total} encounters saved', {done:practiced,total:unit.exerciseCount??unit.exerciseIds.length});
+      return `<button class="route-unit ${done ? 'found' : missing ? 'locked' : ''}" data-course-unit="${e(unit.id)}" ${missing ? 'aria-disabled="true"' : ''} aria-label="${e(`${localized(unit.title)}: ${label}`)}"><strong>${e(localized(unit.title))}</strong><span class="unit-progress" role="progressbar" aria-label="${e(t('Route progress'))}" aria-valuemin="0" aria-valuemax="${unit.exerciseCount??unit.exerciseIds.length}" aria-valuenow="${practiced}">${icon(done ? 'check' : missing ? 'lock' : 'chevron')}</span></button>`;
     }).join('')}</div>${pageCount > 1 ? `<div class="route-pagination"><button class="outline-button" data-course-page="${coursePage - 1}" ${coursePage === 0 ? 'disabled' : ''}>${t('Previous')}</button><span>${coursePage + 1} / ${pageCount}</span><button class="outline-button" data-course-page="${coursePage + 1}" ${coursePage === pageCount - 1 ? 'disabled' : ''}>${t('Next')}</button></div>` : ''}${todaysWordsCard()}`;
   } else if (courseTab === 'grammar') {
-    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source), unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<details class="grammar-route" data-grammar-guide="${guide.id}"><summary>${e(guide.title)}</summary><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note">${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${e(example.german)} <button class="icon-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}',{text:example.german}))}">${icon('volume')}</button><span class="caption">${e(example.english)}</span></blockquote>`).join('')}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')}</button>` : ''}</details>`; }).join('');
+    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source), unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<details class="grammar-route" data-grammar-guide="${guide.id}"><summary>${e(guide.title)}</summary><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note">${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${e(example.german)} <button class="icon-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}',{text:example.german}))}">${icon('volume')}</button><span class="caption">${e(example.english)}</span></blockquote>`).join('')}${!guide.examples.length&&guide.unitId?`<button class="primary-button" data-grammar-unit="${guide.unitId}" ${guide.unlocked===false?'disabled':''}>${e(t('Open grammar guide'))}</button>`:''}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')}</button>` : ''}</details>`; }).join('');
   } else {
     content.innerHTML = `<label class="route-search">${icon('clue')}<input id="lexicon-search" type="search" placeholder="${e(t('Find a German word or English meaning…'))}" aria-label="${e(t('Search the word atlas'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>`;
     bindLexiconSearch(words.filter(word => wordIntroduced(progress, word.id)));
@@ -1070,7 +1105,8 @@ async function startTodaysWords() {
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const ids = todaysWords(progress);
   // Meaning first, then the sound, then recall: every mode across today's words before the next mode begins.
-  const queue = playablePractice((['recognition', 'listening', 'production'] as const).flatMap(mode => ids.flatMap(id => { const ex = module.courseExerciseById.get(`lex-${id}-${mode}`); return ex && !exerciseHasSuccess(ex) ? [ex] : []; }))).slice(0, 12);
+  const fetched=await loadWordExercises(ids);
+  const queue = playablePractice((['recognition', 'listening', 'production'] as const).flatMap(mode=>fetched.filter(ex=>modeFor(ex)===mode&&!exerciseHasSuccess(ex)))).slice(0,12);
   if (!queue.length) { toast(t('You have met every restored word. New words return as you play.')); return; }
   setView('world');
   run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:t('Today’s words'), started:Date.now() };
@@ -1087,6 +1123,8 @@ function bindLexiconSearch(words: CourseModule['courseLexicon']) {
     observeVisibleWords();
   };
   render();
+  const missing=[...introducedSet()].filter(id=>!course?.lexemeById.has(id));
+  if(missing.length)document.querySelector('#lexicon-list')?.insertAdjacentHTML('afterend',`<button class="outline-button" data-action="words-more">${e(t('Show more words'))}</button>`);
   document.querySelector<HTMLInputElement>('#lexicon-search')!.oninput = event => render((event.target as HTMLInputElement).value);
 }
 function renderWordJournal(el: Element) {
@@ -1099,14 +1137,16 @@ function renderWordJournal(el: Element) {
 }
 async function startWordPractice(id: string) {
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
-  const word = module?.lexemeById.get(id); if (!word || !module) return;
+  if(!module)return;
+  const word=module.lexemeById.get(id)??(await contentClient.lexemes([id]))[0];if(!word)return;
   if (wordScheduled(id) && !wordIntroduced(progress, id)) { toast(t('This word has not returned to the Atlas yet. Keep playing and it will.')); return; }
   const memory = progress.words?.[id];
   if (memory?.mastery === 'retained' && Date.parse(memory.dueAt) > Date.now()) {
     openDialog(`<div class="course-intro"><h2>${e(spokenWord(word))}</h2><p>${e(lexemeMeaning(word))}</p><p>${e(t('This word is resting. Its next encounter is {date}.', { date: new Date(memory.dueAt).toLocaleDateString(baseLanguage(), {month:'short',day:'numeric'}) }))}</p><button class="primary-button" data-speak="${e(spokenWord(word))}">${icon('volume')} ${t('Hear this word')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'course-dialog'); return;
   }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
-  const queue = playablePractice(module.courseExercises).filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
+  const fetched=await loadWordExercises([id]);
+  const queue = playablePractice(fetched).filter(ex => !exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now());
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
   if (!queue.length) { toast(silentMode ? t('No reading or writing practice is ready for this word. Listening is skipped in silent mode.') : t('This word is resting. There is a new adventure waiting.')); return; }
   setView('world'); run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:true, label:t('A word for your journey · {word}', { word: word.lemma }), started:Date.now() };
@@ -1114,7 +1154,10 @@ async function startWordPractice(id: string) {
 }
 async function startCourseUnit(id: string) {
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
-  const unit = module?.courseUnits.find(item => item.id === id); if (!module || !unit) return;
+  if(!module)return;
+  const unit=await contentClient.unit(id).catch(error=>{toast(error.message,true);return undefined;});if(!unit)return;
+  const pendingIDs=unit.exerciseIds.filter(id=>!(progress.exerciseStats[id]?.correct>0)).slice(0,8);
+  await contentClient.exercises(pendingIDs.length?pendingIDs:unit.exerciseIds.slice(0,8));
   const missing = progress.completedUnitIds?.includes(unit.id) ? 0 : missingWordCount(unit.wordIds, progress);
   if (missing) { toast(missing === 1 ? t('Opens after {count} more restored word', { count: missing }) : t('Opens after {count} more restored words', { count: missing })); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
@@ -1134,6 +1177,10 @@ async function startAdaptiveReview() {
   const module = await loadCourse().catch(() => undefined);
   if (!module) { startReview(); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
+  const dueWords=Object.values(progress.words).filter(word=>wordReadyForReview(word)).map(word=>word.wordId).slice(0,4);
+  await loadWordExercises(dueWords);
+  const due=new Set(dueItems(progress));const past=[...new Set(Object.values(progress.recentAttempts).filter(attempt=>due.has(attempt.itemId)).map(attempt=>attempt.exerciseId))].slice(0,8);
+  if(past.length)await contentClient.exercises(past);
   const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode, writingReady());
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
   if (!queue.length) { toast(silentMode ? t('No reading or writing reviews are ready. Listening is skipped in silent mode.') : t('Your familiar words are resting. Follow a new route or play an adventure.')); return; }
@@ -1321,12 +1368,13 @@ function startQuest(id: string) {
   if (interiorId) world.leaveInterior();
   world.focusNpc(quest.npcId);
 }
-function startQuestPractice(id: string) {
+async function startQuestPractice(id: string) {
   const quest = quests.find(q => q.id === id);
   if (!quest) return;
   if (!questAvailable(id, progress)) { toast(questUnlocked(id, progress.completedQuestIds) ? questLockReason(id, progress) : t('Find the scene before practising its expressions.')); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   setView('world');
+  await contentClient.exercises((quest.exerciseIds??[]).slice(0,8));
   const due = new Set(dueItems(progress));
   const queue = playablePractice(quest.exercises).filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
   if (!queue.length && !writingReady() && quest.exercises.some(ex => (ex.mode === 'sentence' || ex.mode === 'type') && !hasSuccessfulEncounter(ex.itemId))) { showOpeningPracticeNotice(); return; }
@@ -1436,9 +1484,11 @@ async function submitAnswer(selected?: string, rating?: RecallRating) {
     else { activeRun.queue.push(ex); playCue(false); }
     const feedback = document.querySelector<HTMLElement>('#exercise-feedback')!;
     feedback.className = `exercise-feedback shown ${result.correct ? 'correct' : 'incorrect'}`;
-    const explanation = result.correct && !result.reason?.startsWith('Accepted.') ? localizedExercise(ex).explanation : attemptFeedback(ex, answer, result.reason);
+    if(result.modelAnswer)ex.answer=result.modelAnswer;
+    if(result.explanation)ex.explanation=result.explanation;
+    const explanation = result.explanation ?? result.reason ?? t('Your answer is saved.');
     feedback.innerHTML = `<span class="feedback-icon">${icon(result.correct ? 'check' : 'leaf')}</span><div><strong>${result.correct ? [t('That’s the way!'), t('Nicely said.'), t('A little more German. A little more you.')][activeRun.correct % 3] : t('A small detour. You’ll get there.')}</strong><p>${e(explanation)}</p>${!result.correct ? `<span class="caption">${t('You’ll meet this one again before the adventure ends.')}</span>` : ''}</div>${result.xpAdded ? `<span class="feedback-xp">+${result.xpAdded} XP</span>` : ''}`;
-    document.querySelectorAll<HTMLButtonElement>('.answer-option').forEach(button => { if (button.dataset.answer === ex.answer) button.classList.add('correct-answer'); else if (button.dataset.answer === answer && !result.correct) button.classList.add('wrong-answer'); });
+    document.querySelectorAll<HTMLButtonElement>('.answer-option').forEach(button => { if (button.dataset.answer === (result.modelAnswer ?? result.correctedAnswer)) button.classList.add('correct-answer'); else if (button.dataset.answer === answer && !result.correct) button.classList.add('wrong-answer'); });
     document.querySelector<HTMLElement>('#check-answer')?.setAttribute('hidden', '');
     const nextButton = document.querySelector<HTMLButtonElement>('#next-exercise')!;
     if (activeRun.interiorObjectId) nextButton.innerHTML = `${activeRun.index + 1 >= activeRun.queue.length ? t('Finish session') : t('Next expression')} ${icon('arrow')}`;
@@ -1538,7 +1588,7 @@ function bindProfileForm() {
 function showProfile() { openDialog(`<div class="profile-dialog-heading"><h2>${t('Nice to meet you.')}</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
 const audioPaths = new Map([
   ...minigameAudio.clips.map(clip=>[clip.text,clip.path] as const),
-  ...quests.flatMap(q => q.exercises.map(ex => [ex.german, `/audio/${ex.id}.mp3`] as const)),
+  ...quests.flatMap(q => q.exercises.map(ex => [ex.german, ex.audioPath??''] as const)),
   ...npcs.map(npc => [npc.greeting, `/audio/npc-${npc.id}.mp3`] as const),
 ]);
 let activeSpeech: HTMLAudioElement | undefined;
@@ -1657,12 +1707,7 @@ function bindGlobalEvents() {
     if (target.dataset.openWord) { void openCourseWord(target.dataset.openWord).catch(error=>toast(error.message,true));return; }
     if (target.dataset.openPhrase) { openPhrase(target.dataset.openPhrase);return; }
     if (target.dataset.practicePhrase) { void practisePhrase(target.dataset.practicePhrase);return; }
-    if (target.dataset.interiorWord) {
-      const object=getInteriorObject(target.dataset.interiorWord);if(!object)return;
-      const word=object.vocabulary[Number(target.dataset.wordIndex)];if(!word)return;
-      const lexeme=course?.courseLexicon.find(item=>lower(item.lemma)===lower(word.lemma)&&item.english===word.english);
-      const model=interiorWordDetail(object,Number(target.dataset.wordIndex),lexeme);if(model)showWordDetail(model);return;
-    }
+    if(target.dataset.interiorWord){void openInteriorWord(target.dataset.interiorWord,Number(target.dataset.wordIndex));return;}
     if (target.dataset.interiorChoice && interiorConversation) { interiorConversation=chooseInteriorConversation(interiorConversation,target.dataset.interiorChoice);renderInteriorConversationDialog();return; }
     if (target.dataset.interiorConversation && interiorConversation) {
       const action=target.dataset.interiorConversation;
@@ -1676,6 +1721,7 @@ function bindGlobalEvents() {
     if (target.dataset.courseTab) { coursePage = 0; courseTab = target.dataset.courseTab as typeof courseTab; renderOther(); return; }
     if (target.dataset.optionsTab) { optionsTab = target.dataset.optionsTab as OptionsTab; setView('settings'); return; }
     if (target.dataset.journalTab) { journalTab = target.dataset.journalTab as typeof journalTab; renderOther(); return; }
+    if(target.dataset.grammarUnit){void contentClient.unit(target.dataset.grammarUnit).then(()=>renderOther()).catch(error=>toast(error.message,true));return;}
     if (target.dataset.courseUnit) { void startCourseUnit(target.dataset.courseUnit); return; }
     if (target.dataset.wordPractice) { void startWordPractice(target.dataset.wordPractice); return; }
     if (target.dataset.expeditionGame) { startExpeditionGame(target.dataset.expeditionGame, target.dataset.expeditionLevel as Level | undefined); return; }
@@ -1692,7 +1738,7 @@ function bindGlobalEvents() {
     if (target.dataset.inspectObject) { showObject(target.dataset.inspectObject); return; }
     if (target.dataset.practiceObject) { startObjectPractice(target.dataset.practiceObject); return; }
     if (target.dataset.npc) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); world.focusNpc(target.dataset.npc); return; }
-    if (target.dataset.practiceQuest) { startQuestPractice(target.dataset.practiceQuest); return; }
+    if (target.dataset.practiceQuest) { void startQuestPractice(target.dataset.practiceQuest).catch(error=>toast(error.message,true)); return; }
     if (target.dataset.replayDialogue) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); void questController?.open(target.dataset.replayDialogue); return; }
     if (target.dataset.saveStory) { const slot = target.dataset.saveStory; void api.saveStory(slot, document.querySelector<HTMLInputElement>(`#save-name-${slot}`)!.value).then(() => api.story()).then(result => { storySaves = result.saves ?? []; acceptProgress(result.progress); renderOther(); toast(t('This point in your story is saved.')); }).catch(error => toast(error.message, true)); return; }
     if (target.dataset.loadStory) { void api.loadStory(target.dataset.loadStory).then(() => location.reload()).catch(error => toast(error.message, true)); return; }
@@ -1740,6 +1786,7 @@ function bindGlobalEvents() {
       case 'sleep': if (interiorId === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast(t('A new day. Your lantern keeps the promises you made.')); }).catch(error => toast(error.message, true)); } break;
       case 'course-sources': void showCourseSources(); break;
     case 'todays-words': void startTodaysWords(); break;
+      case 'words-more': void loadRestoredWords().then(()=>renderOther()).catch(error=>toast(error.message,true));break;
       case 'course-retry': coursePromise = undefined; void loadCourse().then(() => renderOther()).catch(error => toast(error.message, true)); break;
       case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
       case 'transcript': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
@@ -1995,7 +2042,7 @@ function showNameEntry(restoreName = false) {
       // Resuming a saved guest keeps its stored preference; apply the choice made on this screen.
       if (result.preferences.baseLanguage !== baseLanguage()) result = { ...result, preferences: await api.savePreferences({ baseLanguage: baseLanguage() }) };
       localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-      enterGame(result);
+      await enterGame(result);
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     } catch (error) { accountError(error); }
     finally {
@@ -2006,10 +2053,12 @@ function showNameEntry(restoreName = false) {
   };
   sync();
 }
-function enterGame(result: SessionResult) {
+async function enterGame(result: SessionResult):Promise<void> {
   if (reconcileBaseLanguage(result)) return;
   // The builder updates in place. Repaint the world shell once the new adventure is saved.
   if (shellLanguage !== baseLanguage()) { window.location.reload(); return; }
+  await contentClient.bootstrap();
+  world.refreshContent();
   started = true;
   showFirstControls();
   account = result.account;
@@ -2022,11 +2071,12 @@ function enterGame(result: SessionResult) {
   world.setAvatar(profile.avatar);
   updateSelfPortraits(document, profile.avatar);
   api.mapId = firstAvailableMap(api.mapId, progress.completedQuestIds);
+  await loadStoryContent(api.mapId,progress.completedQuestIds);
   if (result.access) accessClock.update(result.access, performance.now());
   accessConnectionPaused = true;
   updateProgress(); updateAccessHud();
   void sendHeartbeat(0);
-  void loadCourse().catch(() => {});
+  void loadCourse().catch(error=>toast(error.message,true));
   const owner = result.player.id;
   void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); updateProgress(); }).catch(error => toast(error.message, true));
   accountReminder = new AccountReminder(result.player.id, localStorage);
@@ -2086,7 +2136,7 @@ function showLogout() {
   button.onclick = async () => {
     button.disabled = true;
     cancel.disabled = true;
-    try { await api.logout(); location.reload(); }
+    try { await api.logout(); contentClient.clear(); location.reload(); }
     catch { accountError(new Error(t('Could not log out. Check your connection and try again.'))); button.disabled = false; cancel.disabled = false; }
   };
 }
@@ -2166,6 +2216,7 @@ async function boot() {
     if(changed){deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;}
     if (changed) regionReady = false;
     mapId = id; pendingMap = undefined; mapConfirmed = true;
+    void loadStoryContent(id,progress.completedQuestIds).then(()=>{if(mapId===id)updateProgress();}).catch(error=>toast(error.message,true));
     if (!getExpedition(id)) level = getMap(id).level; localStorage.setItem('atlas.level', level);
     players = [];
     document.querySelector<HTMLElement>('#game-shell')!.dataset.map = id;
@@ -2196,7 +2247,7 @@ async function boot() {
       profile = { name: result.player.name, avatar: result.player.avatar };
       account = result.account;
       if (account.registered || localStorage.getItem(`atlas.nameChosen.${result.player.id}`) === 'true') {
-        enterGame(result);
+        await enterGame(result);
         document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
       } else showLanguageEntry(true, result.preferences.baseLanguage);
     } else showLanguageEntry();

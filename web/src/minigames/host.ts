@@ -1,4 +1,5 @@
 import type { Api, AttemptResult, Progress } from '../api';
+import {getContentClient} from '../content-api';
 import type { CourseExercise, CourseLexeme } from '../course';
 import { gameItemPool } from './pool';
 import { MiniGameInput } from './input';
@@ -34,21 +35,25 @@ export class AttemptBatcher {
     if(this.closed)return Promise.reject(new Error('The mini-game has closed.'));
     const receipt=this.receipts.get(result);if(receipt)return Promise.resolve(receipt);
     const pending=this.pending.get(result);if(pending)return pending;
-    let body=this.bodies.get(result);
-    if(!body){
-      const exerciseId=result.exerciseId??`lex-${result.lexemeId}-${result.modality}`;
-      const exercise=this.options.exercises.find(exercise=>exercise.id===exerciseId);
-      body={id:crypto.randomUUID(),exerciseId,itemId:exercise?.itemId??`word-${result.lexemeId}`,answer:result.answer||'__timeout__',mode:result.modality,hinted:result.hinted,responseTimeMs:Math.min(600000,Math.max(0,Math.round(result.responseMs))),miniGameId:this.options.gameId,answerKind:result.answerKind,contextExerciseId:result.contextExerciseId,contentId:result.contentId,regionId:result.regionId,level:result.level,selectedValue:result.selectedValue};
-      this.bodies.set(result,body);
-    }
-    const request=new Promise<AttemptResult>((resolve,reject)=>{
+    const captured={...result};
+    const request=this.prepareBody(result,captured).then(body=>new Promise<AttemptResult>((resolve,reject)=>{
       this.queue.push({body,resolve,reject});
-      if(this.queue.length>=30)void this.flush();
+      if(this.closed||this.queue.length>=30)void this.flush();
       else this.timer??=setTimeout(()=>void this.flush(),40);
-    });
+    }));
     this.pending.set(result,request);
     void request.then(receipt=>{this.receipts.set(result,receipt);this.pending.delete(result);},()=>this.pending.delete(result));
     return request;
+  }
+  private async prepareBody(result:RoundResult,captured:RoundResult):Promise<AttemptBody>{
+    const existing=this.bodies.get(result);if(existing)return existing;
+    const word=this.options.lexicon.find(word=>word.id===captured.lexemeId);
+    const exerciseId=captured.exerciseId??word?.exerciseIds?.[captured.modality]?.[0];
+    if(!exerciseId)throw new Error('The practice record could not open. Try again.');
+    const exercise=this.options.exercises.find(exercise=>exercise.id===exerciseId)??(await getContentClient().exercises([exerciseId]))[0];
+    if(this.options.api.selfId!==this.owner||this.options.api.token!==this.token)throw new Error('The player account changed before this answer was saved.');
+    const body={id:crypto.randomUUID(),exerciseId,itemId:exercise.itemId,answer:captured.answer||'__timeout__',mode:captured.modality,hinted:captured.hinted,responseTimeMs:Math.min(600000,Math.max(0,Math.round(captured.responseMs))),miniGameId:this.options.gameId,answerKind:captured.answerKind,contextExerciseId:captured.contextExerciseId,contentId:captured.contentId,regionId:captured.regionId,level:captured.level,selectedValue:captured.selectedValue};
+    this.bodies.set(result,body);return body;
   }
   private async flush(){
     if(this.flushing)return;

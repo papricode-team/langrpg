@@ -1,6 +1,8 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DialogueView, type DialoguePresentation } from './dialogue-view';
+import alignmentFixtures from '../../content/alignments/fixtures.json';
+import type { AlignedLine } from './aligned-line';
 
 let view: DialogueView | undefined;
 afterEach(() => { view?.destroy(); view = undefined; document.body.replaceChildren(); });
@@ -14,6 +16,12 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
     glosses: { möchtest: 'would like', du: 'you', einen: 'a (accusative masculine)', kaffee: 'coffee' },
     ...overrides,
   };
+  const authored = alignmentFixtures.find(line => line.de.text === presentation.line.german && line.support.en?.text === presentation.line.english);
+  if (authored) presentation.line = { ...presentation.line, aligned: authored as unknown as AlignedLine };
+  if (presentation.line.id === 'personal-coffee') {
+    const spans = (text: string) => [...text.matchAll(/[\p{L}\p{M}\p{N}]+/gu)].map(match => [match.index, match.index + match[0].length] as const);
+    presentation.line.aligned = {id:'personal-coffee',de:{text:presentation.line.german,tokens:spans(presentation.line.german)},support:{en:{text:presentation.line.english,tokens:spans(presentation.line.english),align:[[2,0],[2,2],[3,1],[4,3],[5,4],[1,5]]}}};
+  }
   view.render(presentation);
   const word = (text: string) => view!.host.querySelector<HTMLButtonElement>(`button[aria-label="Meaning of ${text}"]`)!;
   const translation = () => view!.host.querySelector<HTMLElement>('.dialogue-translation');

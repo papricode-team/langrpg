@@ -8,6 +8,7 @@ COPY web web
 COPY server server
 # Include Vite plugins, their transitive imports and packaging scripts.
 COPY scripts scripts
+COPY content content
 # The frontend typecheck includes regression tests that import these fixtures.
 COPY docs/audits/living-world-area-baseline.json docs/audits/lindenhafen-core-v1.json docs/audits/waldruh-core-v1.json docs/audits/
 COPY docs/archive/expedition-scenes.json docs/archive/

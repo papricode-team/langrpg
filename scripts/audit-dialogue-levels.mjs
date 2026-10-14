@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import './register-content-loader.mjs';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
-import {auditInputLevel,placementDialogue,placementExerciseIds} from '../web/src/learning-context.ts';
-import {quests,npcs} from '../web/src/content.ts';
+const {auditInputLevel,placementDialogue,placementExerciseIds} = await import('../web/src/learning-context.ts');
+const {quests,npcs} = await import('../web/src/content.ts');
 import {auditDialogueCorpus,summarizeInput} from './dialogue-level-audit.mjs';
 const course=JSON.parse(await readFile(new URL('../web/src/data/course.json',import.meta.url),'utf8'));
 const graphs=JSON.parse(await readFile(process.env.DIALOGUE_GRAPHS?new URL(`file://${process.env.DIALOGUE_GRAPHS}`):new URL('../web/src/data/dialogue-graphs.json',import.meta.url),'utf8'));

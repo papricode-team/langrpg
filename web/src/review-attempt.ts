@@ -13,6 +13,7 @@ export interface AttemptSubmission {
   responseTimeMs?: number;
 }
 export interface AttemptResult {
+  modelAnswer?:string; correctedAnswer?:string; explanation?:string;
   correct: boolean;
   xpAdded: number;
   duplicate: boolean;

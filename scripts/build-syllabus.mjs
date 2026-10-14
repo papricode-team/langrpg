@@ -3,7 +3,7 @@
 import './register-content-loader.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { buildSyllabus } from './syllabus.mjs';
-import { quests, npcs } from '../web/src/content.ts';
+const { quests, npcs } = await import('../web/src/content.ts');
 
 const course = JSON.parse(await readFile(new URL('../web/src/data/course.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));

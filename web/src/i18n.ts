@@ -8,6 +8,7 @@
  * See docs/turkish-route.md.
  */
 import { generatedLexicalExerciseText, generatedLexicalOption, translatedLexemeForm } from './i18n-lexical.ts';
+import type { AlignedLine } from './aligned-line';
 
 export type BaseLanguage = 'en' | 'tr';
 export const baseLanguages: readonly BaseLanguage[] = ['en', 'tr'];
@@ -132,7 +133,7 @@ export function t(english: string, vars?: Record<string, string | number>): stri
   return fill(turkish ?? english, vars);
 }
 
-export interface SupportedText { german?: string; english: string; localized?: boolean; }
+export interface SupportedText { german?: string; english: string; localized?: boolean; aligned?: AlignedLine; }
 /**
  * Content support text. A `{german, english}` pair is looked up by its German
  * sentence; a bare English content string (title, objective, gloss) by its source.
@@ -142,6 +143,11 @@ export function localized(value: SupportedText | string): string { return suppor
 
 /** Like localized(), also reporting the language actually shown (English when a translation is missing). */
 export function supportText(value: SupportedText | string): { text: string; lang: BaseLanguage } {
+  if (typeof value !== 'string' && value.aligned) {
+    const translated = value.aligned.support[current];
+    if (translated) return { text: translated.text, lang: current };
+    if (value.aligned.support.en) return { text: value.aligned.support.en.text, lang: 'en' };
+  }
   const english = typeof value === 'string' ? value : value.english;
   if (current === 'en') return { text: english, lang: 'en' };
   if (typeof value !== 'string' && value.localized) return { text: english, lang: current };
@@ -174,7 +180,9 @@ export function hasSentenceTranslation(german: string): boolean {
 }
 
 /** Word glosses: the course lexicon overlay by lexeme id, falling back to the English gloss. */
-export function lexemeMeaning(word: { id: string; english: string }): string {
+export function lexemeMeaning(word: { id: string; english: string; meaning?: string; localized?: boolean }): string {
+  if (word.meaning !== undefined) return word.meaning;
+  if (word.localized) return word.english;
   if (current === 'en') return word.english;
   const entry = overlay?.course.lexicon[word.id];
   // A gloss written for a different English sense is stale; fall back rather than mislead.
@@ -183,18 +191,20 @@ export function lexemeMeaning(word: { id: string; english: string }): string {
   return word.english;
 }
 /** True when the gloss returned for this lexeme is in the support language. */
-export function hasLexemeMeaning(word: { id: string; english: string }): boolean {
+export function hasLexemeMeaning(word: { id: string; english: string; meaning?: string; localized?: boolean }): boolean {
+  if (word.meaning !== undefined || word.localized) return true;
   if (current === 'en') return true;
   const entry = overlay?.course.lexicon[word.id];
   return !!entry && entry.en === word.english;
 }
 
 /** Exercise support text (prompt, hint, explanation, meaning) by exercise id. */
-export function localizedExercise<T extends { id: string; prompt: string; hint: string; explanation: string; english: string }>(exercise: T): T {
+export function localizedExercise<T extends { id: string; prompt: string; hint: string; explanation?: string; english: string; localized?: boolean }>(exercise: T): T {
+  if (exercise.localized) return exercise;
   if (current === 'en') return exercise;
   const entry = overlay?.course.exercises[exercise.id];
   if (!entry) {
-    const generated = overlay && generatedLexicalExerciseText(exercise, overlay.course.lexicon, t);
+    const generated = overlay && exercise.explanation!==undefined && generatedLexicalExerciseText({...exercise,explanation:exercise.explanation}, overlay.course.lexicon, t);
     if (generated) return { ...exercise, ...generated };
     miss('exercise', exercise.id); return exercise;
   }
@@ -244,7 +254,8 @@ export function localizedLexemePartOfSpeech(pos: string): string {
 
 export interface GrammarText { id: string; title: string; explanation: string; examples: { german: string; english: string }[]; }
 /** Grammar guides; `note` is the short contrastive note for Turkish speakers, if any. */
-export function localizedGrammar<T extends GrammarText>(guide: T): T & { note?: string } {
+export function localizedGrammar<T extends GrammarText & {localized?:boolean}>(guide: T): T & { note?: string } {
+  if (guide.localized) return guide;
   if (current === 'en') return guide;
   const entry = overlay?.course.grammar[guide.id];
   if (!entry) { miss('grammar', guide.id); return guide; }

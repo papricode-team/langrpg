@@ -3,6 +3,7 @@ import { mountActivity, type ActivityCompletionContext, type ActivityContext, ty
 import { activityScenarios, marketTotal, shuffledDetectiveBoard, type ActivityScenario, type ActivityState } from './activity-engine';
 import { emptyProgress } from './api';
 import { answerMatches } from './learning';
+import { expectedEvidenceCard } from './test-support/activity-solutions';
 
 // A small event-root fixture exercises the actual delegated UI handlers and
 // asynchronous save controller without emulating browser layout or drag APIs.
@@ -51,7 +52,7 @@ function solveViaControls(root:EventRoot,scenario:ActivityScenario):void {
     let change=board.method==='cash'?board.tender-marketTotal(state):0;
     for(const coin of [1000,500,200,100,50,20,10])while(change>=coin){root.click('coin',String(coin));change-=coin;}
   } else if(board.kind==='detective') {
-    for(const slot of board.slots){root.click('select-card',slot.expected);root.click('place-card',slot.id);}
+    for(const slot of board.slots){root.click('select-card',expectedEvidenceCard(scenario,slot.id));root.click('place-card',slot.id);}
   } else {
     root.click('parcel',board.parcel);root.click('transport',board.transport);
     if(board.departure)root.click('departure',board.departure);
@@ -66,7 +67,7 @@ function solveViaControls(root:EventRoot,scenario:ActivityScenario):void {
 
 function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
   const progress=emptyProgress();
-  const submit=vi.fn<MountActivityOptions['submit']>(async(exercise,answer,_hinted,_mode,context)=>({correct:answerMatches(exercise,answer),progress,xpAdded:0,attemptId:context!.attemptId}));
+  const submit=vi.fn<MountActivityOptions['submit']>(async(exercise,answer,_hinted,_mode,context)=>({correct:context?.boardState?.kind==='detective'?Object.entries(context.boardState.links).every(([slotId,cardId])=>expectedEvidenceCard(activityScenarios.find(scene=>scene.id===context.scenarioId)!,slotId)===cardId):answerMatches(exercise,answer),progress,xpAdded:0,attemptId:context!.attemptId}));
   const complete=vi.fn<MountActivityOptions['complete']>(async()=>({progress,xpAdded:20}));
   const onProgress=vi.fn(),speak=vi.fn();
   const controller=mountActivity(root as unknown as HTMLElement,{id:'cafe',level:'A1',progress,sessionKey:'test-player',submit,complete,onProgress,speak,...override});
@@ -74,6 +75,32 @@ function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
 }
 
 describe('playable mission controller',()=>{
+  it('sends detective links without an answer key and follows the server assessment',async()=>{
+    const progress=emptyProgress(),submit=vi.fn<MountActivityOptions['submit']>()
+      .mockImplementationOnce(async(_exercise,_answer,_hinted,_mode,context)=>({correct:false,reason:'The witness does not confirm those links.',progress,xpAdded:0,attemptId:context!.attemptId}))
+      .mockImplementationOnce(async(_exercise,_answer,_hinted,_mode,context)=>({correct:true,progress,xpAdded:0,attemptId:context!.attemptId}));
+    const root=new EventRoot();mount(root,{id:'detective',submit});
+    const current=scene(),board=current.board;
+    if(board.kind!=='detective')throw new Error('Wrong board.');
+    expect(board.slots.every(slot=>!('expected' in slot))).toBe(true);
+    for(const [index,slot] of board.slots.entries()){
+      const otherSlot=board.slots[(index+1)%board.slots.length];
+      root.click('select-card',expectedEvidenceCard(current,otherSlot.id));root.click('place-card',slot.id);
+    }
+    const submitted=structuredClone(run().state);
+    root.click('submit');await flush();
+    expect(submit.mock.calls[0][1]).toMatch(/^Meine Lösung:/);
+    expect(submit.mock.calls[0][4]?.boardState).toEqual(submitted);
+    expect(run().stage).toBe('playing');expect(run().exerciseIds).toEqual([]);
+    expect(root.innerHTML).toContain('The witness does not confirm those links.');
+    solveViaControls(root,current);
+    root.click('submit');await flush();
+    expect(submit.mock.calls[1][4]?.boardState).toEqual({kind:'detective',links:Object.fromEntries(board.slots.map(slot=>[slot.id,expectedEvidenceCard(current,slot.id)]))});
+    expect(run().stage).toBe('scene-complete');
+    expect(run().exerciseIds).toEqual([current.exerciseId]);
+    expect(run().attemptIds).toEqual([submit.mock.calls[1][4]!.attemptId]);
+  });
+
   it('keeps evidence stable through edits and reopening, then shuffles a new attempt',async()=>{
     const root=new EventRoot(),{controller}=mount(root,{id:'detective'});
     const current=scene(),board=current.board;

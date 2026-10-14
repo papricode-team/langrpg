@@ -4,7 +4,7 @@ import { isStoryMap, type MapId } from './maps';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import {getWorldScene,sceneContentVersion} from './scene-data';
 import type { StoryState, StoryStage } from './dialogue';
-import { isBaseLanguage, type BaseLanguage } from './i18n';
+import { baseLanguage, isBaseLanguage, type BaseLanguage } from './i18n';
 import type { BillingPlan, GameAccess } from './game-access';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
@@ -48,6 +48,7 @@ export interface Progress {
   story?: StoryState;
 }
 export interface AttemptResult {
+  modelAnswer?:string; explanation?:string;
   attemptId: string; correct: boolean; xpAdded: number; duplicate: boolean; correctedAnswer: string; reason: string; progress: Progress;
 }
 export type LexicalAnswerKind = 'lexeme' | 'article' | 'plural' | 'initial' | 'topic' | 'surface';
@@ -128,7 +129,7 @@ export class Api {
     const token = this.token, sequence = ++this.requestSequence;
     const response = await fetch(`/api${path}`, {
       method: body === undefined ? 'GET' : 'POST',
-      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: { 'Content-Type': 'application/json', ...(path.startsWith('/content/')?{'Accept-Language':baseLanguage()}:{}), ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       body: body === undefined ? undefined : JSON.stringify(body),
       signal: AbortSignal.timeout(12000),
     });
@@ -203,7 +204,7 @@ export class Api {
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }
   story() { return this.request<StoryResult>('/story'); }
-  storyTransition(input: { id: string; questId: string; nodeId: StoryStage; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
+  storyTransition(input: { id: string; questId: string; nodeId: StoryStage | string; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
   inspectStory(input: { id: string; questId: string; objectId: string }) { return this.request<StoryResult>('/story/inspect', input); }
   saveStory(slot: string, name: string) { return this.request<StoryResult>('/story/save', { slot, name }); }
   loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }

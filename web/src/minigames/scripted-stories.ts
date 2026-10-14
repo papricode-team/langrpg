@@ -1,5 +1,8 @@
 import './scripted-stories.css';
-import data from './story-scripts.json';
+import {getContentClient} from '../content-api';
+import {hydrateNarrative} from '../content-narratives';
+type StoryData=typeof import('./story-scripts.json');
+import type {ContentClient} from '../content-api';
 import { escapeHtml as e } from '../icons';
 import { seededShuffle } from '../game-shuffle';
 import type { CourseExercise } from '../course';
@@ -8,16 +11,28 @@ import type { MiniGame, MiniGameDefinition, MiniGameHost, MiniGameOptions, Modal
 
 export type ScriptedStoryId = 'lost-hour'|'seed-packets'|'17-59';
 interface CanonicalStoryExercise {
-  id:string;itemId:string;mode:Modality;german:string;prompt:string;answer:string;acceptedAnswers?:string[];
-  wordIds:string[];targetWordId:string;explanation:string;miniGameId:ScriptedStoryId;level:'A2';contentId:string;questId:string;
+  id:string;itemId:string;mode:Modality;german:string;prompt:string;answer?:string;acceptedAnswers?:string[];
+  wordIds:string[];targetWordId:string;explanation?:string;miniGameId:ScriptedStoryId;level:'A2';contentId:string;questId:string;
 }
-export const canonicalStoryExercises = data.exercises as unknown as readonly CanonicalStoryExercise[];
-export const scriptedStoryExercises: CourseExercise[] = canonicalStoryExercises.map(row=>({...row,
-  mode:({recognition:'choice',listening:'listen',production:'type'} as const)[row.mode],kind:'word',unitId:row.contentId,english:'',hint:'',
-}));
-export const scriptedStoryData = data;
-const exerciseById = new Map(canonicalStoryExercises.map(row=>[row.id,row]));
-const clock=data.games['lost-hour'],garden=data.games['seed-packets'],rail=data.games['17-59'];
+export const canonicalStoryExercises: CanonicalStoryExercise[] = [];
+export const scriptedStoryExercises: CourseExercise[] = [];
+export const scriptedStoryData = {games:{}} as StoryData;
+const exerciseById = new Map<string,CanonicalStoryExercise>();
+const recordIds:Record<ScriptedStoryId,string>={'lost-hour':'minigames:lost-hour','seed-packets':'minigames:seed-packets','17-59':'minigames:17-59'};
+export function installScriptedStoryData(value:StoryData):void {
+  Object.assign(scriptedStoryData,value);
+  canonicalStoryExercises.splice(0,canonicalStoryExercises.length,...value.exercises as unknown as CanonicalStoryExercise[]);
+  scriptedStoryExercises.splice(0,scriptedStoryExercises.length,...canonicalStoryExercises.map(row=>({...row,mode:({recognition:'choice',listening:'listen',production:'type'} as const)[row.mode],kind:'word' as const,unitId:row.contentId,english:'',hint:''})));
+  exerciseById.clear();for(const row of canonicalStoryExercises)exerciseById.set(row.id,row);
+}
+let subscribedClient:ContentClient|undefined;
+export async function loadScriptedStoryContent(id:ScriptedStoryId):Promise<void> {
+  const client=getContentClient();if(subscribedClient!==client){subscribedClient=client;client.onClear(()=>{for(const key of Object.keys(scriptedStoryData.games))delete scriptedStoryData.games[key as ScriptedStoryId];canonicalStoryExercises.splice(0);scriptedStoryExercises.splice(0);exerciseById.clear();});}
+  const revision=client.revision;
+  const script=await client.minigame<StoryData['games'][ScriptedStoryId]&{id:string}>(recordIds[id]);
+  const hydrated=await hydrateNarrative(script);if(client.revision!==revision)throw new Error('The content session changed.');
+  Object.assign(scriptedStoryData.games,{[id]:hydrated});
+}
 const slotTime=(index:number)=>`23:${String(index*5).padStart(2,'0')}`;
 const clockSlotIndex=(time:string)=>Array.from({length:12},(_,index)=>slotTime(index)).indexOf(time);
 const fieldKeys=['time','platform','destination','status'] as const;
@@ -48,7 +63,10 @@ export class ScriptedStoryGame implements MiniGame {
     if(!['lost-hour','seed-packets','17-59'].includes(definition.id))throw new Error('Unknown authored story board');
     this.id=definition.id as ScriptedStoryId;this.title=definition.title;this.host=definition.host;this.modalities=definition.modalities;this.levels=definition.levels;
   }
-  private get script(){return data.games[this.id];}
+  private get script(){const script=scriptedStoryData.games[this.id];if(!script)throw new Error('The story board has not loaded.');return script;}
+  private get clock(){return scriptedStoryData.games['lost-hour'];}
+  private get garden(){return scriptedStoryData.games['seed-packets'];}
+  private get rail(){return scriptedStoryData.games['17-59'];}
   private get play(){return this.root.querySelector<HTMLElement>('.story-play')!;}
   private get feedback(){return this.root.querySelector<HTMLElement>('.story-feedback')!;}
   mount(root:HTMLElement,host:MiniGameHost,opts:MiniGameOptions):void{
@@ -92,7 +110,7 @@ export class ScriptedStoryGame implements MiniGame {
     if(action==='ledger-close'){this.setPhase('garden');this.roundStart=this.elapsed;try{localStorage.setItem(this.ledgerKey,'1');}catch{/* Optional. */}this.renderGarden();return;}
     if(action==='replay'){void this.replay();return;}
     if(action==='transcript'){this.showTranscript();return;}
-    if(action==='card-listen'){const card=clock.events.find(row=>row.id===this.selected);if(card){this.hinted.add(card.exerciseId);void this.speak(card.german,card.audio);}return;}
+    if(action==='card-listen'){const card=this.clock.events.find(row=>row.id===this.selected);if(card){this.hinted.add(card.exerciseId);void this.speak(card.german,card.audio);}return;}
     if(action==='letters'){this.letterKeys=!this.letterKeys;this.renderAddress();this.play.querySelector<HTMLButtonElement>('[data-game-key]')?.focus();return;}
     if(button.dataset.gameKey){this.typeKey(button.dataset.gameKey);return;}
     if(button.dataset.clockCard){this.selected=button.dataset.clockCard;this.renderClock();this.focus(`[data-clock-card="${this.selected}"]`);return;}
@@ -103,7 +121,7 @@ export class ScriptedStoryGame implements MiniGame {
     if(button.dataset.boardField){this.cycleField(button.dataset.boardField as FieldKey);return;}
     if(action==='mark-announcement'){this.markAnnouncement();return;}
     if(button.dataset.ticket){this.selected=button.dataset.ticket;this.renderTickets();this.focus(`[data-ticket="${this.selected}"]`);return;}
-    if(action==='hand-ticket'){if(this.selected)this.record(rail.ticketExerciseId,this.selected,{kind:'ticket',id:this.selected});return;}
+    if(action==='hand-ticket'){if(this.selected)this.record(this.rail.ticketExerciseId,this.selected,{kind:'ticket',id:this.selected});return;}
   };
   private form=(event:Event):void=>{event.preventDefault();if(this.phase==='address'&&!this.pending&&!this.paused)this.submitAddress();};
   private input=(event:Event):void=>{const input=event.target as HTMLInputElement;if(input.matches('[data-address-input]'))this.addressDraft=input.value;};
@@ -115,41 +133,41 @@ export class ScriptedStoryGame implements MiniGame {
   private drop=(event:Event):void=>{
     if(this.paused||this.pending)return;const drag=event as DragEvent,target=(event.target as HTMLElement).closest<HTMLElement>('[data-clock-slot],[data-bed],[data-otto-drop]');if(!target)return;drag.preventDefault();
     const value=drag.dataTransfer?.getData('text/plain');if(!value)return;
-    if(this.phase==='clock'&&clock.events.some(row=>row.id===value)){this.selected=value;this.placeClock(Number(target.dataset.clockSlot));}
-    else if(this.phase==='garden'&&garden.packets.some(row=>row.id===value)){this.selected=value;if(Number(target.dataset.bed)===this.planted.length)this.plantPacket();}
-    else if(this.phase==='tickets'&&rail.tickets.some(row=>row.id===value)){this.selected=value;this.record(rail.ticketExerciseId,value,{kind:'ticket',id:value});}
+    if(this.phase==='clock'&&this.clock.events.some(row=>row.id===value)){this.selected=value;this.placeClock(Number(target.dataset.clockSlot));}
+    else if(this.phase==='garden'&&this.garden.packets.some(row=>row.id===value)){this.selected=value;if(Number(target.dataset.bed)===this.planted.length)this.plantPacket();}
+    else if(this.phase==='tickets'&&this.rail.tickets.some(row=>row.id===value)){this.selected=value;this.record(this.rail.ticketExerciseId,value,{kind:'ticket',id:value});}
   };
   private focus(selector:string){this.play.querySelector<HTMLButtonElement>(selector)?.focus();}
   private paint(selector:string,frame:string,size:number,alt:string){const target=this.play.querySelector(selector);if(target&&this.services.sprites.has(frame))target.append(this.services.sprites.render(frame,alt,size));}
   private renderClock():void{
-    const placed=new Set(this.clockSlots.values()),cards=seededShuffle(clock.events,this.opts.seed);
+    const placed=new Set(this.clockSlots.values()),cards=seededShuffle(this.clock.events,this.opts.seed);
     let contiguous=0;while(this.clockSlots.has(contiguous))contiguous++;
-    this.play.innerHTML=`<div class="story-clock-layout"><div class="story-clock-wrap"><div class="story-clock ${this.miss?'is-stuttering':''}" aria-label="The hour before midnight"><div class="story-clock-face"><span>23:00</span><i class="story-clock-hand" style="--clock-angle:${contiguous*30}deg"></i><strong>${contiguous}/12</strong></div>${Array.from({length:12},(_,index)=>{const id=this.clockSlots.get(index),card=clock.events.find(row=>row.id===id);return `<button type="button" class="story-clock-slot ${card?'is-restored':''}" data-game-option="slot-${index}" data-clock-slot="${index}" style="--slot:${index}" ${card?'disabled':''} aria-label="Place selected event at ${slotTime(index)}"><time>${slotTime(index)}</time>${card?'<span>✓</span>':''}</button>`;}).join('')}</div><p>Select a card, then its five-minute slot.</p><button type="button" data-game-action="card-listen" ${this.selected?'':'disabled'}>Hear selected card</button></div><div class="story-clock-cards" aria-label="Shuffled clockmill log">${cards.filter(card=>!placed.has(card.id)).map((card,index)=>`<button type="button" class="story-log-card ${this.selected===card.id?'is-selected':''}" draggable="true" data-game-option="${index}" data-clock-card="${card.id}" aria-pressed="${this.selected===card.id}"><span lang="de">${e(card.german)}</span></button>`).join('')}</div></div>`;
+    this.play.innerHTML=`<div class="story-clock-layout"><div class="story-clock-wrap"><div class="story-clock ${this.miss?'is-stuttering':''}" aria-label="The hour before midnight"><div class="story-clock-face"><span>23:00</span><i class="story-clock-hand" style="--clock-angle:${contiguous*30}deg"></i><strong>${contiguous}/12</strong></div>${Array.from({length:12},(_,index)=>{const id=this.clockSlots.get(index),card=this.clock.events.find(row=>row.id===id);return `<button type="button" class="story-clock-slot ${card?'is-restored':''}" data-game-option="slot-${index}" data-clock-slot="${index}" style="--slot:${index}" ${card?'disabled':''} aria-label="Place selected event at ${slotTime(index)}"><time>${slotTime(index)}</time>${card?'<span>✓</span>':''}</button>`;}).join('')}</div><p>Select a card, then its five-minute slot.</p><button type="button" data-game-action="card-listen" ${this.selected?'':'disabled'}>Hear selected card</button></div><div class="story-clock-cards" aria-label="Shuffled clockmill log">${cards.filter(card=>!placed.has(card.id)).map((card,index)=>`<button type="button" class="story-log-card ${this.selected===card.id?'is-selected':''}" draggable="true" data-game-option="${index}" data-clock-card="${card.id}" aria-pressed="${this.selected===card.id}"><span lang="de">${e(card.german)}</span></button>`).join('')}</div></div>`;
     this.applyLock();
   }
   private placeClock(slot:number):void{
-    const card=clock.events.find(row=>row.id===this.selected);if(!card||!Number.isInteger(slot)||slot<0||slot>=12||this.clockSlots.has(slot))return;
+    const card=this.clock.events.find(row=>row.id===this.selected);if(!card||!Number.isInteger(slot)||slot<0||slot>=12||this.clockSlots.has(slot))return;
     this.record(card.exerciseId,slotTime(slot),{kind:'clock',id:card.id,slot});
   }
   private openLedger():void{
     this.ledgerHinted=true;this.ledgerReturn=this.phase==='garden';this.setPhase('ledger');this.stopVoices();
     this.services.expose(this.script.requiredWordIds);
-    this.play.innerHTML=`<div class="story-ledger"><h3>Greta’s memory ledger</h3><p>Each plant motif marks one moment in Voss’s story. Study the German associations; this round records supported practice.</p><div class="story-ledger-grid">${garden.packets.map(packet=>`<article><span class="story-packet-code">${packet.code}</span><span data-ledger-art="${packet.id}"></span><strong lang="de">${e(packet.ledgerGerman)}</strong><span class="caption">${e(garden.addresses.find(row=>row.id===packet.addressId)!.text)}</span></article>`).join('')}</div><button type="button" class="primary-button" data-game-action="ledger-close">${this.ledgerReturn?'Return to the bed':'Close the ledger and plant'}</button></div>`;
-    for(const packet of garden.packets)this.paint(`[data-ledger-art="${packet.id}"]`,packet.sprite,64,`Memory motif ${packet.code}`);
+    this.play.innerHTML=`<div class="story-ledger"><h3>Greta’s memory ledger</h3><p>Each plant motif marks one moment in Voss’s story. Study the German associations; this round records supported practice.</p><div class="story-ledger-grid">${this.garden.packets.map(packet=>`<article><span class="story-packet-code">${packet.code}</span><span data-ledger-art="${packet.id}"></span><strong lang="de">${e(packet.ledgerGerman)}</strong><span class="caption">${e(this.garden.addresses.find(row=>row.id===packet.addressId)!.text)}</span></article>`).join('')}</div><button type="button" class="primary-button" data-game-action="ledger-close">${this.ledgerReturn?'Return to the bed':'Close the ledger and plant'}</button></div>`;
+    for(const packet of this.garden.packets)this.paint(`[data-ledger-art="${packet.id}"]`,packet.sprite,64,`Memory motif ${packet.code}`);
   }
-  private get activePacket(){return garden.packets[this.planted.length];}
+  private get activePacket(){return this.garden.packets[this.planted.length];}
   private renderGarden():void{
     const request=this.activePacket;if(!request){this.setPhase('address');this.addressIndex=0;this.addressDraft='';this.renderAddress();void this.cueAddress();return;}
-    const stock=seededShuffle(garden.packets,this.opts.seed);
-    this.play.innerHTML=`<div class="story-garden"><div class="story-request"><span>GRETA · ${this.planted.length+1}/12</span><p lang="de">${e(request.german)}</p><button type="button" data-game-action="ledger">Open memory ledger</button></div><div class="story-rail-beds" aria-label="Twelve beds along Waldruh’s old railway">${Array.from({length:12},(_,index)=>{const id=this.planted[index];return `<button type="button" class="story-bed ${id?'is-growing':index===this.planted.length?'is-active':''}" data-game-option="bed-${index}" data-bed="${index}" ${id?'disabled':''} aria-label="Plant selected packet in bed ${index+1}"><span>${index+1}</span><i data-bed-art="${index}"></i>${id?'<b>✓</b>':''}</button>`;}).join('')}</div><div class="story-packet-stock">${stock.filter(packet=>!this.planted.includes(packet.id)).map((packet,index)=>`<button type="button" class="story-seed-packet ${this.selected===packet.id?'is-selected':''}" data-game-option="${index}" data-packet="${packet.id}" draggable="true" aria-label="Seed packet ${packet.code}" aria-pressed="${this.selected===packet.id}"><span class="story-packet-code">${packet.code}</span><i data-packet-art="${packet.id}"></i><span lang="de">${e(garden.addresses.find(row=>row.id===packet.addressId)!.text)}</span></button>`).join('')}</div></div>`;
+    const stock=seededShuffle(this.garden.packets,this.opts.seed);
+    this.play.innerHTML=`<div class="story-garden"><div class="story-request"><span>GRETA · ${this.planted.length+1}/12</span><p lang="de">${e(request.german)}</p><button type="button" data-game-action="ledger">Open memory ledger</button></div><div class="story-rail-beds" aria-label="Twelve beds along Waldruh’s old railway">${Array.from({length:12},(_,index)=>{const id=this.planted[index];return `<button type="button" class="story-bed ${id?'is-growing':index===this.planted.length?'is-active':''}" data-game-option="bed-${index}" data-bed="${index}" ${id?'disabled':''} aria-label="Plant selected packet in bed ${index+1}"><span>${index+1}</span><i data-bed-art="${index}"></i>${id?'<b>✓</b>':''}</button>`;}).join('')}</div><div class="story-packet-stock">${stock.filter(packet=>!this.planted.includes(packet.id)).map((packet,index)=>`<button type="button" class="story-seed-packet ${this.selected===packet.id?'is-selected':''}" data-game-option="${index}" data-packet="${packet.id}" draggable="true" aria-label="Seed packet ${packet.code}" aria-pressed="${this.selected===packet.id}"><span class="story-packet-code">${packet.code}</span><i data-packet-art="${packet.id}"></i><span lang="de">${e(this.garden.addresses.find(row=>row.id===packet.addressId)!.text)}</span></button>`).join('')}</div></div>`;
     for(const packet of stock)this.paint(`[data-packet-art="${packet.id}"]`,packet.sprite,70,`Memory motif ${packet.code}`);
-    for(const [index,id]of this.planted.entries()){const packet=garden.packets.find(row=>row.id===id)!;this.paint(`[data-bed-art="${index}"]`,packet.sprite,48,'Growing memory plant');}
+    for(const [index,id]of this.planted.entries()){const packet=this.garden.packets.find(row=>row.id===id)!;this.paint(`[data-bed-art="${index}"]`,packet.sprite,48,'Growing memory plant');}
     this.applyLock();
   }
   private plantPacket():void{
-    const packet=this.activePacket;if(packet&&this.selected&&garden.packets.some(row=>row.id===this.selected))this.record(packet.exerciseId,this.selected,{kind:'packet',id:packet.id});
+    const packet=this.activePacket;if(packet&&this.selected&&this.garden.packets.some(row=>row.id===this.selected))this.record(packet.exerciseId,this.selected,{kind:'packet',id:packet.id});
   }
-  private get activeAddress(){return garden.addresses[this.addressIndex];}
+  private get activeAddress(){return this.garden.addresses[this.addressIndex];}
   private renderAddress():void{
     const address=this.activeAddress;if(!address){this.finish();return;}
     const heard=this.heard.has(address.id);
@@ -173,13 +191,13 @@ export class ScriptedStoryGame implements MiniGame {
     const address=this.activeAddress;if(!address||!this.heard.has(address.id)||!this.addressDraft.trim())return;
     this.record(address.exerciseId,this.addressDraft.trim(),{kind:'address',id:address.id},'production');
   }
-  private get activeAnnouncement(){return rail.announcements[this.focusedAnnouncement];}
+  private get activeAnnouncement(){return this.rail.announcements[this.focusedAnnouncement];}
   private fieldOptions(key:FieldKey,index:number):string[]{
-    return seededShuffle([...new Set(rail.announcements.map(row=>row.fields[key]))],this.opts.seed+index*4+fieldKeys.indexOf(key));
+    return seededShuffle([...new Set(this.rail.announcements.map(row=>row.fields[key]))],this.opts.seed+index*4+fieldKeys.indexOf(key));
   }
   private renderAnnouncements():void{
     const current=this.activeAnnouncement,draft=this.drafts.get(current.id)??{},heard=this.heard.has(current.id);
-    this.play.innerHTML=`<div class="story-departures"><div class="story-arrival">ARRIVAL <strong>18:00</strong> · DESTINATION <strong>Waldruh</strong></div><div class="story-announcement-tabs">${rail.announcements.map((row,index)=>`<button type="button" data-game-option="${index}" data-announcement="${index}" class="${index===this.focusedAnnouncement?'is-selected':''}" aria-pressed="${index===this.focusedAnnouncement}">Announcement ${index+1} ${this.marked.has(row.id)?'✓':this.heard.has(row.id)?'♪':''}</button>`).join('')}</div><div class="story-departure-board">${rail.announcements.map(row=>{const value=this.drafts.get(row.id)??{};return `<div class="story-board-row ${this.marked.has(row.id)?'is-restored':''}"><span>${this.marked.has(row.id)?'✓':'·'}</span>${fieldKeys.map(key=>`<output>${e(value[key]??'—')}</output>`).join('')}</div>`;}).join('')}</div>${this.transcript?`<p class="story-transcript" lang="de">${e(current.german)}</p>`:''}<div class="story-cue-controls"><button type="button" data-game-action="replay">${this.speaking?'Speaking…':'Replay focused announcement'}</button><button type="button" data-game-action="transcript">Read focused announcement</button></div><div class="story-board-controls">${fieldKeys.map(key=>`<button type="button" data-game-option="field-${key}" data-board-field="${key}" ${heard&&!this.marked.has(current.id)?'':'disabled'}><span class="caption">${{time:'DEPARTURE',platform:'PLATFORM',destination:'DESTINATION',status:'RUNNING'}[key]}</span><strong>${e(draft[key]??'Set')}</strong></button>`).join('')}</div><button type="button" class="primary-button" data-game-action="mark-announcement" ${heard&&!this.marked.has(current.id)?'':'disabled'}>Mark this announcement</button><p class="story-small">Mark all four announcements before choosing a ticket. Each control cycles through the actual station choices.</p></div>`;
+    this.play.innerHTML=`<div class="story-departures"><div class="story-arrival">ARRIVAL <strong>18:00</strong> · DESTINATION <strong>Waldruh</strong></div><div class="story-announcement-tabs">${this.rail.announcements.map((row,index)=>`<button type="button" data-game-option="${index}" data-announcement="${index}" class="${index===this.focusedAnnouncement?'is-selected':''}" aria-pressed="${index===this.focusedAnnouncement}">Announcement ${index+1} ${this.marked.has(row.id)?'✓':this.heard.has(row.id)?'♪':''}</button>`).join('')}</div><div class="story-departure-board">${this.rail.announcements.map(row=>{const value=this.drafts.get(row.id)??{};return `<div class="story-board-row ${this.marked.has(row.id)?'is-restored':''}"><span>${this.marked.has(row.id)?'✓':'·'}</span>${fieldKeys.map(key=>`<output>${e(value[key]??'—')}</output>`).join('')}</div>`;}).join('')}</div>${this.transcript?`<p class="story-transcript" lang="de">${e(current.german)}</p>`:''}<div class="story-cue-controls"><button type="button" data-game-action="replay">${this.speaking?'Speaking…':'Replay focused announcement'}</button><button type="button" data-game-action="transcript">Read focused announcement</button></div><div class="story-board-controls">${fieldKeys.map(key=>`<button type="button" data-game-option="field-${key}" data-board-field="${key}" ${heard&&!this.marked.has(current.id)?'':'disabled'}><span class="caption">${{time:'DEPARTURE',platform:'PLATFORM',destination:'DESTINATION',status:'RUNNING'}[key]}</span><strong>${e(draft[key]??'Set')}</strong></button>`).join('')}</div><button type="button" class="primary-button" data-game-action="mark-announcement" ${heard&&!this.marked.has(current.id)?'':'disabled'}>Mark this announcement</button><p class="story-small">Mark all four announcements before choosing a ticket. Each control cycles through the actual station choices.</p></div>`;
     this.applyLock();
   }
   private cycleField(key:FieldKey):void{
@@ -192,8 +210,8 @@ export class ScriptedStoryGame implements MiniGame {
     this.record(row.exerciseId,fieldKeys.map(key=>draft[key]).join('|'),{kind:'announcement',id:row.id},this.services.silent||this.transcript?'recognition':'listening');
   }
   private renderTickets():void{
-    this.play.innerHTML=`<div class="story-ticket-board"><div class="story-arrival">ARRIVAL <strong>18:00</strong> · DESTINATION <strong>Waldruh</strong></div><div class="story-departure-board">${rail.announcements.map(row=>`<div class="story-board-row is-restored"><span>✓</span>${fieldKeys.map(key=>`<output>${e(row.fields[key])}</output>`).join('')}</div>`).join('')}</div><p lang="de">Du kommst um 18:00 am Bahnhof an. Welche Fahrkarte ist gültig?</p><div class="story-ticket-stock">${seededShuffle(rail.tickets,this.opts.seed).map((ticket,index)=>`<button type="button" class="story-ticket ${this.selected===ticket.id?'is-selected':''}" data-game-option="${index}" data-ticket="${ticket.id}" draggable="true" aria-pressed="${this.selected===ticket.id}"><i data-ticket-art="${ticket.id}"></i><strong>${e(ticket.code)}</strong><time>${ticket.time}</time><span lang="de">${e(ticket.destination)} · Gleis ${ticket.platform}</span></button>`).join('')}</div><button type="button" class="story-otto-drop primary-button" data-otto-drop data-game-action="hand-ticket" ${this.selected?'':'disabled'}>Hand selected ticket to Otto</button></div>`;
-    for(const ticket of rail.tickets)this.paint(`[data-ticket-art="${ticket.id}"]`,'item-ticket-noun',70,'Rail ticket');this.applyLock();
+    this.play.innerHTML=`<div class="story-ticket-board"><div class="story-arrival">ARRIVAL <strong>18:00</strong> · DESTINATION <strong>Waldruh</strong></div><div class="story-departure-board">${this.rail.announcements.map(row=>`<div class="story-board-row is-restored"><span>✓</span>${fieldKeys.map(key=>`<output>${e(row.fields[key])}</output>`).join('')}</div>`).join('')}</div><p lang="de">Du kommst um 18:00 am Bahnhof an. Welche Fahrkarte ist gültig?</p><div class="story-ticket-stock">${seededShuffle(this.rail.tickets,this.opts.seed).map((ticket,index)=>`<button type="button" class="story-ticket ${this.selected===ticket.id?'is-selected':''}" data-game-option="${index}" data-ticket="${ticket.id}" draggable="true" aria-pressed="${this.selected===ticket.id}"><i data-ticket-art="${ticket.id}"></i><strong>${e(ticket.code)}</strong><time>${ticket.time}</time><span lang="de">${e(ticket.destination)} · Gleis ${ticket.platform}</span></button>`).join('')}</div><button type="button" class="story-otto-drop primary-button" data-otto-drop data-game-action="hand-ticket" ${this.selected?'':'disabled'}>Hand selected ticket to Otto</button></div>`;
+    for(const ticket of this.rail.tickets)this.paint(`[data-ticket-art="${ticket.id}"]`,'item-ticket-noun',70,'Rail ticket');this.applyLock();
   }
   private showTranscript():void{
     this.transcript=true;
@@ -216,8 +234,8 @@ export class ScriptedStoryGame implements MiniGame {
     finally{if(this.alive&&version===this.speechGeneration){this.speaking=false;this.applyLock();}}
   }
   private startChorus():void{
-    if(this.services.silent)return;const version=++this.speechGeneration;this.unplayed=new Set(rail.announcements.map(row=>row.id));this.services.audio.narration?.(true);
-    for(const row of rail.announcements){
+    if(this.services.silent)return;const version=++this.speechGeneration;this.unplayed=new Set(this.rail.announcements.map(row=>row.id));this.services.audio.narration?.(true);
+    for(const row of this.rail.announcements){
       const timer=setTimeout(()=>{
         this.voiceTimers.delete(timer);if(!this.alive||this.paused||version!==this.speechGeneration||this.phase!=='announcements')return;
         const audio=new Audio(row.audio);audio.volume=.65;this.nativeVoices.add(audio);
@@ -238,8 +256,14 @@ export class ScriptedStoryGame implements MiniGame {
     for(const audio of this.nativeVoices){audio.onended=null;audio.onerror=null;audio.pause();}this.nativeVoices.clear();
     this.services.audio.stop();this.services.audio.narration?.(false);
   }
-  private record(exerciseId:string,answer:string,action:PendingAction,mode?:Modality):void{
-    if(!this.alive||this.paused||this.pending)return;const exercise=exerciseById.get(exerciseId);if(!exercise)return;
+  private async record(exerciseId:string,answer:string,action:PendingAction,mode?:Modality):Promise<void>{
+    if(!this.alive||this.paused||this.pending)return;
+    let exercise=exerciseById.get(exerciseId);
+    if(!exercise){
+      try{const value=(await getContentClient().exercises([exerciseId]))[0] as unknown as CanonicalStoryExercise;exercise=value;exerciseById.set(exerciseId,value);}
+      catch(error){if(this.alive)this.setFeedback((error as Error).message);return;}
+    }
+    if(!this.alive||this.paused||this.pending)return;
     const hinted=this.hinted.has(exerciseId)||this.seenTargets.has(exercise.targetWordId)||(this.id==='seed-packets'&&action.kind==='packet'&&this.ledgerHinted);
     const start=action.kind==='announcement'?this.voiceStarts.get(action.id)??this.roundStart:this.roundStart;
     const result:RoundResult=Object.freeze({lexemeId:exercise.targetWordId,exerciseId,modality:mode??exercise.mode,answer,hinted,responseMs:Math.max(0,this.elapsed-start),level:'A2',contentId:exercise.contentId});
@@ -264,11 +288,11 @@ export class ScriptedStoryGame implements MiniGame {
       else if(pending.action.kind==='announcement'){
         this.marked.add(pending.action.id);this.transcript=false;
         if(this.marked.size===4){this.setPhase('tickets');this.selected=undefined;this.renderTickets();}
-        else{this.focusedAnnouncement=rail.announcements.findIndex(row=>!this.marked.has(row.id));this.renderAnnouncements();if(!this.heard.has(this.activeAnnouncement.id))void this.replay();}
+        else{this.focusedAnnouncement=this.rail.announcements.findIndex(row=>!this.marked.has(row.id));this.renderAnnouncements();if(!this.heard.has(this.activeAnnouncement.id))void this.replay();}
       }else this.finish();
     }else{
       this.hinted.add(exercise.id);this.services.expose(exercise.wordIds);
-      const correction=pending.action.kind==='packet'?garden.packets.find(row=>row.id===receipt.correctedAnswer)?.code??receipt.correctedAnswer:receipt.correctedAnswer;
+      const correction=pending.action.kind==='packet'?this.garden.packets.find(row=>row.id===receipt.correctedAnswer)?.code??receipt.correctedAnswer:receipt.correctedAnswer;
       this.setFeedback(`${exercise.explanation} ${correction?`→ ${correction}`:''}`,true);
       this.renderPhase();
     }

@@ -1,10 +1,12 @@
 import { supportText } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
+import { alignedLineFromElement, installAlignedLineInteractions, renderAlignedLine, renderAlignedMeaning, type AlignedLine } from './aligned-line.ts';
 
 export interface TranslatedSentence {
   german: string;
   english: string;
   /** Set when `english` was already produced by t() for a dynamic sentence. */
   localized?: boolean;
+  aligned?: AlignedLine;
 }
 
 export type Narrative = readonly TranslatedSentence[];
@@ -23,6 +25,7 @@ function escapeHtml(value: string): string {
 /** Keep each translation attached to its complete German sentence, in the learner's support language. */
 export function renderNarrative(sentences: Narrative): string {
   return sentences.map(sentence => {
+    if (sentence.aligned) return renderAlignedLine(sentence.aligned);
     const support = supportText(sentence);
     return `<span class="translated-sentence" lang="de" tabindex="0" data-translation="${escapeHtml(support.text)}" data-translation-lang="${support.lang}">${escapeHtml(sentence.german)}</span>`;
   }).join(' ');
@@ -143,7 +146,9 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
   function show(): void {
     timer = undefined;
     if (!active || !isAvailable(active)) { dismiss(); return; }
-    tooltip.textContent = active.dataset.translation ?? '';
+    const line = alignedLineFromElement(active);
+    if (line) tooltip.innerHTML = renderAlignedMeaning(line, { selectedToken: active.dataset.selectedToken === undefined ? undefined : Number(active.dataset.selectedToken) });
+    else tooltip.textContent = active.dataset.translation ?? '';
     tooltip.lang = active.dataset.translationLang ?? 'en';
     tooltip.scrollTop = 0;
     // A modal dialog is in the browser's top layer, above overlays in the body.
@@ -237,6 +242,10 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
   function onKeyDown(event: Event): void {
     if ((event as KeyboardEvent).key !== 'Escape') return;
     const wasShown = !!active && !tooltip.hidden;
+    if (active) {
+      delete active.dataset.selectedToken;
+      for (const word of active.querySelectorAll('.dialogue-word.is-selected')) { word.classList.remove('is-selected'); word.setAttribute('aria-pressed', 'false'); }
+    }
     dismiss();
     // Dismiss English support first, without also closing the encounter or menu.
     if (wasShown) { event.preventDefault(); event.stopImmediatePropagation(); }
@@ -250,6 +259,16 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     if (active && (!isAvailable(active) || (!tooltip.hidden && !tooltip.isConnected))) dismiss();
   }
 
+  function onAlignedSelect(event: Event): void {
+    const sentence = sentenceFor(event.target);
+    if (!sentence) return;
+    if (sentence.dataset.selectedToken === undefined) { dismiss(); return; }
+    hideActive();
+    active = sentence;
+    focusedSentence = sentence;
+    show();
+  }
+
   const observer = new MutationObserver(verifyConnection);
   observer.observe(page, { childList: true, subtree: true, attributes: true, attributeFilter: ['open', 'hidden'] });
   const listeners: [string, EventListener, boolean?][] = [
@@ -257,6 +276,7 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     ['pointerdown', onPointerDown], ['pointerup', onPointerUp],
     ['focusin', onFocusIn], ['focusout', onFocusOut], ['keydown', onKeyDown],
     ['close', onDialogClose, true], ['cancel', onDialogClose, true],
+    ['aligned-line-select', onAlignedSelect],
   ];
   // Listen on the document because the shared tooltip can be outside an element
   // root; sentenceFor still limits source encounters to the installed root.
@@ -264,10 +284,12 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
   browser.addEventListener('resize', position);
   page.addEventListener('scroll', position, true);
   browser.addEventListener('blur', dismiss);
+  const disposeAligned = installAlignedLineInteractions(root);
 
   return () => {
     if (disposed) return;
     disposed = true;
+    disposeAligned();
     dismiss();
     observer.disconnect();
     for (const [name, listener, capture] of listeners) page.removeEventListener(name, listener, capture);

@@ -1,14 +1,25 @@
-import data from './data/expedition-learning-runtime.json';
 import { introducedWords } from './intake';
 import type { Api, AttemptResult, Progress } from './api';
 import type { Level } from './content';
 import type { ServerExpeditionPlan } from './expedition-games';
 
-export const expeditionLearningManifest=data;
-export const encounterLearning=new Map(data.encounters.map(row=>[row.encounterId,row]));
-export const placementLearning=new Map(data.placements.map(row=>[`${row.mapId}:${row.level}:${row.fieldId}`,row]));
-export type ExpeditionLearningExercise=typeof data.exercises[number];
-const exercises=new Map(data.exercises.map(row=>[row.id,row]));
+export interface ExpeditionLearningExercise {id:string;itemId:string;mode:string;level:string;wordIds:string[];targetWordId?:string;miniGameId:string;regionId:string;contentId:string;}
+export interface EncounterLearningRow {encounterId:string;mapId:string;level:string;targetWordId?:string;wordIds:string[];exerciseIds:Record<'recognition'|'listening',string>;audio:string;supported:boolean;}
+export interface PlacementLearningRow {mapId:string;level:string;fieldId:string;exerciseId:string;wordIds:string[];targetWordId?:string;prompt:string;supported:boolean;}
+export const expeditionLearningManifest={version:1,exercises:[] as ExpeditionLearningExercise[],encounters:[] as EncounterLearningRow[],placements:[] as PlacementLearningRow[]};
+export const encounterLearning=new Map<string,EncounterLearningRow>();
+export const placementLearning=new Map<string,PlacementLearningRow>();
+const exercises=new Map<string,ExpeditionLearningExercise>();
+/** Install the metadata for one fetched encounter or neighborhood plan. */
+export function installExpeditionLearning(value:unknown):void {
+ const body=value as {learning?:EncounterLearningRow|PlacementLearningRow[];learningExercises?:ExpeditionLearningExercise[];exercises?:ExpeditionLearningExercise[];encounters?:EncounterLearningRow[];placements?:PlacementLearningRow[]};
+ for(const value of body.learningExercises??body.exercises??[]){const {id,itemId,mode,level,wordIds,miniGameId,regionId,contentId}=value;const exercise={id,itemId,mode,level,wordIds,miniGameId,regionId,contentId};exercises.set(exercise.id,exercise);const index=expeditionLearningManifest.exercises.findIndex(item=>item.id===exercise.id);if(index<0)expeditionLearningManifest.exercises.push(exercise);else expeditionLearningManifest.exercises[index]=exercise;}
+ const encounters=body.encounters??(body.learning&&!Array.isArray(body.learning)?[body.learning]:[]);
+ for(const row of encounters){encounterLearning.set(row.encounterId,row);if(!expeditionLearningManifest.encounters.some(value=>value.encounterId===row.encounterId)){const {encounterId,exerciseIds,audio,supported}=row;expeditionLearningManifest.encounters.push({encounterId,exerciseIds,audio,supported} as EncounterLearningRow);}}
+ const placements=body.placements??(Array.isArray(body.learning)?body.learning:[]);
+ for(const row of placements){placementLearning.set(`${row.mapId}:${row.level}:${row.fieldId}`,row);if(!expeditionLearningManifest.placements.some(value=>value.mapId===row.mapId&&value.level===row.level&&value.fieldId===row.fieldId)){const {mapId,level,fieldId,exerciseId,prompt}=row;expeditionLearningManifest.placements.push({mapId,level,fieldId,exerciseId,prompt} as PlacementLearningRow);}}
+}
+export function clearExpeditionLearning():void {exercises.clear();encounterLearning.clear();placementLearning.clear();expeditionLearningManifest.exercises.length=0;expeditionLearningManifest.encounters.length=0;expeditionLearningManifest.placements.length=0;}
 export interface ExpeditionAttempt {
  id:string;exerciseId:string;itemId:string;answer:string;mode:'recognition'|'listening';hinted:boolean;responseTimeMs:number;
  miniGameId:'expedition-encounters'|'neighborhood-boards';regionId:string;contentId:string;level:Level;selectedValue?:number;

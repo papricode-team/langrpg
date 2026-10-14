@@ -6,13 +6,14 @@ import {
   baseLanguage, cachedBaseLanguage, clearMissingTranslations, installOverlay, lexemeMeaning, localized, localizedExercise,
   localizedGrammar, localizedExerciseOption, localizedLexemeForm, missingTranslations, setBaseLanguage, supportText, t, upper, type LanguageOverlay,
 } from './i18n';
-import { turkishOverlay } from './i18n-tr';
+import { authoredTurkishOverlay as turkishOverlay } from './test-support/content-fixtures';
 import { storyCoverage, storyUnits, uiKeys } from './i18n-units';
 import { courseCoverage, coverageSummary } from './i18n-course-coverage';
 import recordedCoverage from './data/i18n/tr-coverage.json';
 import { Api, normalizeSession, emptyProgress, type SessionResult } from './api';
 import { renderNarrative } from './sentence-translations';
-import { translationHighlights } from './dialogue-translation';
+import { alignedHighlights, type AlignedLine } from './aligned-line';
+import alignmentFixtures from '../../content/alignments/fixtures.json';
 import { quests } from './content';
 import { courseExercises, courseExerciseById, courseLexicon, courseUnits } from './course';
 import { exerciseOptionsMarkup } from './exercise-options';
@@ -124,7 +125,7 @@ describe('Turkish coverage', () => {
     await setBaseLanguage('tr');
     const gate = quests.find(quest => quest.id === 'a1-arrival')!.exercises.find(exercise => exercise.id === 'a1-arrival-exercise-7')!;
     const turkish = localizedExercise(gate);
-    expect(turkish.answer).toBe(gate.answer);
+    expect(turkish.answer!).toBe(gate.answer!);
     expect(turkish.german).toBe(gate.german);
     expect(turkish.hint).not.toBe(gate.hint);
     expect(turkish.english).not.toBe(gate.english);
@@ -143,21 +144,21 @@ describe('Turkish generated word practice', () => {
     const source = exercise('sein-verb'), shown = localizedExercise(source);
     expect(shown.prompt).toBe('“sein” ne anlama geliyor?');
     expect(shown.english).toBe('olmak');
-    expect(shown.explanation).toBe('sein — olmak. Biçimler: şimdiki zaman (er/sie/es): ist; geçmiş zaman ortacı: gewesen.');
-    expect(shown.hint).toBe(shown.explanation);
-    expect(shown.answer).toBe(source.answer);
+    expect(shown.explanation!).toBe('sein — olmak. Biçimler: şimdiki zaman (er/sie/es): ist; geçmiş zaman ortacı: gewesen.');
+    expect(shown.hint).toBe(shown.explanation!);
+    expect(shown.answer!).toBe(source.answer!);
     expect(shown.options).toEqual(source.options);
     expect(shown.german).toBe(source.german);
     const host = document.createElement('div');
     host.innerHTML = exerciseOptionsMarkup(source, source.options!);
     const buttons = [...host.querySelectorAll<HTMLButtonElement>('button')];
     expect(buttons.map(button => button.textContent?.slice(1))).toEqual(['olmak', 'bisiklete binmek', 'duş almak', 'kapatmak; kapanmak']);
-    expect(buttons.map(button => button.dataset.answer)).toEqual(source.options);
+    expect(buttons.map(button => button.dataset.answer!)).toEqual(source.options);
     expect(buttons.map(button => button.dataset.gameOption)).toEqual(['0', '1', '2', '3']);
     expect(answerMatches(source, buttons[0].dataset.answer!)).toBe(true);
     expect(answerMatches(source, buttons[1].dataset.answer!)).toBe(false);
-    expect(attemptFeedback(source, source.answer, source.explanation)).toBe(shown.explanation);
-    expect(attemptFeedback(source, source.options![1], source.explanation)).toBe(shown.explanation);
+    expect(attemptFeedback(source, source.answer!, source.explanation!)).toBe(shown.explanation!);
+    expect(attemptFeedback(source, source.options![1], source.explanation!)).toBe(shown.explanation!);
     expect(missingTranslations().size).toBe(0);
   });
 
@@ -165,13 +166,13 @@ describe('Turkish generated word practice', () => {
     await turkish();
     const production = exercise('sein-verb', 'production'), listening = exercise('sein-verb', 'listening');
     expect(localizedExercise(production).prompt).toBe('“olmak” anlamına gelen Almanca fiilin mastarını yaz.');
-    expect(localizedExercise(production).answer).toBe('sein');
+    expect(localizedExercise(production).answer!).toBe('sein');
     expect(localizedExercise(listening).prompt).toBe('Dinle, sonra duyduğun Almanca kelimeyi veya ifadeyi seç.');
     expect(localizedExercise(listening).hint).toMatch(/^Sesi tekrar dinle\. sein — olmak\./);
     expect(listening.options!.map(option => localizedExerciseOption(listening, option))).toEqual(listening.options);
     const noun = localizedExercise(exercise('tisch-noun', 'production'));
     expect(noun.prompt).toContain('Artikeli yazmak isteğe bağlıdır; ismi büyük harfle başlat.');
-    expect(noun.explanation).toContain('Çoğul: Tische.');
+    expect(noun.explanation!).toContain('Çoğul: Tische.');
     expect(localizedLexemeForm('past participle: gewesen')).toBe('geçmiş zaman ortacı: gewesen');
     expect(localizedLexemeForm('gereift')).toBe('gereift');
   });
@@ -183,7 +184,7 @@ describe('Turkish generated word practice', () => {
       expect(shown.prompt, source.id).not.toBe(source.prompt);
       expect(shown.english, source.id).toBe(turkishOverlay.course.lexicon[source.targetWordId!].tr);
       expect(shown.hint, source.id).not.toContain(' Forms: ');
-      expect(shown.explanation, source.id).not.toContain(' Plural: ');
+      expect(shown.explanation!, source.id).not.toContain(' Plural: ');
       for (const option of source.options ?? []) localizedExerciseOption(source, option);
     }
     expect([...missingTranslations().keys()]).toEqual([]);
@@ -211,13 +212,13 @@ describe('complete Turkish course route', () => {
     for (const source of exercises) {
       const shown = localizedExercise(source);
       expect(shown.prompt, source.id).not.toBe(source.prompt);
-      expect(shown).toMatchObject({ id: source.id, itemId: source.itemId, german: source.german, answer: source.answer, mode: source.mode });
+      expect(shown).toMatchObject({ id: source.id, itemId: source.itemId, german: source.german, answer: source.answer!, mode: source.mode });
       expect(shown.options, source.id).toEqual(source.options);
       expect(shown.acceptedAnswers, source.id).toEqual(source.acceptedAnswers);
       const options = source.options?.map(option => localizedExerciseOption(source, option));
       if (options) expect(new Set(options).size, source.id).toBe(options.length);
-      for (const value of [shown.prompt, shown.hint, shown.explanation, shown.english]) expect(value, source.id).not.toMatch(/Read the (?:note|new text)|Write:|Build:|What does|Forms:|past participle:|Model:|Relevant answer:|The detail you need is:/);
-      const feedback = attemptFeedback(source, source.answer, 'An English server reason.');
+      for (const value of [shown.prompt, shown.hint, shown.explanation!, shown.english]) expect(value, source.id).not.toMatch(/Read the (?:note|new text)|Write:|Build:|What does|Forms:|past participle:|Model:|Relevant answer:|The detail you need is:/);
+      const feedback = attemptFeedback(source, source.answer!, 'An English server reason.');
       expect(feedback, source.id).not.toContain('An English server reason.');
       expect(attemptFeedback(source, '__wrong_answer__', 'An English server reason.'), source.id).not.toContain('An English server reason.');
     }
@@ -227,15 +228,15 @@ describe('complete Turkish course route', () => {
   });
 
   it('shows Turkish comprehension choices and keeps their canonical values for grading', () => {
-    const source = courseExercises.find(exercise => exercise.level === 'A2' && exercise.answer === 'rain is expected')!;
+    const source = courseExercises.find(exercise => exercise.level === 'A2' && exercise.answer! === 'rain is expected')!;
     const host = document.createElement('div');
     host.innerHTML = exerciseOptionsMarkup(source, source.options!);
     const buttons = [...host.querySelectorAll<HTMLButtonElement>('button')];
     expect(buttons[0].textContent).toContain('yağmur bekleniyor');
-    expect(buttons.map(button => button.dataset.answer)).toEqual(source.options);
+    expect(buttons.map(button => button.dataset.answer!)).toEqual(source.options);
     expect(answerMatches(source, buttons[0].dataset.answer!)).toBe(true);
     const reference = courseExercises.find(exercise => exercise.level === 'B1' && exercise.unitId.includes('-reference-forms-'))!;
-    expect(localizedExercise(reference).explanation).toContain('Anlamı:');
+    expect(localizedExercise(reference).explanation!).toContain('Anlamı:');
     expect(reference.options!.map(option => localizedExerciseOption(reference, option))).not.toEqual(reference.options);
   });
 
@@ -247,7 +248,7 @@ describe('complete Turkish course route', () => {
     expect(review.mode).toBe('type');
     expect(localizedExercise(review).prompt).toContain('Güzergâh kapatıldı.');
     expect(localizedExercise(review).prompt).not.toContain('Write in German');
-    expect(review.answer).toBe(source.answer);
+    expect(review.answer!).toBe(source.answer!);
   });
 
   it('detects missing A2/B1 glosses, stale task text and untranslated comprehension options', () => {
@@ -314,15 +315,10 @@ describe('Turkish meanings in narratives and highlights', () => {
     expect(html).toContain('data-translation="No entry." data-translation-lang="en"');
   });
 
-  it('highlights a Turkish gloss only on an exact whole-word match', () => {
-    const german = 'Ich brauche eine Lampe.';
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'Lampe', gloss: 'die Lampe — lamba', language: 'tr' })).toEqual([{ start: 4, end: 9 }]);
-    // Suffixed forms are not evidence: no highlight instead of a guess.
-    expect(translationHighlights({ german, english: 'Lambayı ver.', word: 'Lampe', gloss: 'lamba', language: 'tr' })).toEqual([]);
-    // English heuristics (articles) never apply to Turkish.
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'eine', gloss: 'bir', language: 'tr' })).toEqual([{ start: 0, end: 3 }]);
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'eine', gloss: '', language: 'tr' })).toEqual([]);
-    // Turkish casing: İ in the sentence still matches a lowercase gloss.
-    expect(translationHighlights({ german: 'Der Bahnhof ist hier.', english: 'İstasyon burada.', word: 'Bahnhof', gloss: 'istasyon', language: 'tr' })).toEqual([{ start: 0, end: 8 }]);
+  it('highlights authored Turkish suffixes independently of glossary wording', () => {
+    const line = alignmentFixtures.find(value => value.fixture === 'screen-ticket')! as unknown as AlignedLine;
+    expect(alignedHighlights(line, 1, 'tr')).toEqual([{ start: 0, end: 9 }]);
+    const missing = { ...line, support: { tr: { ...line.support.tr!, align: [] } } };
+    expect(alignedHighlights(missing, 1, 'tr')).toEqual([]);
   });
 });

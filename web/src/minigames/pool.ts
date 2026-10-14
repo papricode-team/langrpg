@@ -13,7 +13,7 @@ export function gameItemPool(lexicon: readonly CourseLexeme[], progress: Progres
     && (!query.topics?.length || query.topics.includes(word.topic))
     && (!query.level || levels.indexOf(word.level) <= levels.indexOf(query.level))
     && (!query.nouns || word.pos === 'noun') && (!query.sprites || !!itemSpriteFor(word.id))).map(word => {
-    const memory = progress.words[word.id], item = progress.items[`word-${word.id}`];
+    const memory = progress.words[word.id], item = word.itemId?progress.items[word.itemId]:undefined;
     const modalities = ['recognition','listening','production'] as const;
     const evidence = (mode: typeof modalities[number]) => memory?.evidence?.[mode];
     const stats = (mode: typeof modalities[number]) => evidence(mode) ?? memory?.modeStats?.[mode] ?? item?.modeStats?.[mode];
@@ -25,8 +25,8 @@ export function gameItemPool(lexicon: readonly CourseLexeme[], progress: Progres
       lexemeId: word.id, lemma: word.lemma, article: word.article, articleForm:word.articleForm, plural: word.plural,
       english: word.english, topic: word.topic, level: word.level, pos: word.pos,
       surfaceForms:word.surfaceForms,
-      sprite: itemSpriteFor(word.id), audio: `/audio/word-${word.id}.mp3`,
-      exerciseIds: Object.fromEntries(modalities.map(mode => [mode, `lex-${word.id}-${mode}`])) as GameItem['exerciseIds'],
+      sprite: itemSpriteFor(word.id), audio: word.audio??'',
+      exerciseIds: Object.fromEntries(modalities.map(mode => [mode, word.exerciseIds?.[mode]?.[0]??''])) as GameItem['exerciseIds'],
       stability: evidence(query.modality)?.stabilityDays ?? 0,
       stabilityByMode: Object.fromEntries(modalities.map(mode => [mode, evidence(mode)?.stabilityDays ?? 0])) as GameItem['stabilityByMode'],
       due: Object.fromEntries(modalities.map(mode => [mode, due(mode)])) as GameItem['due'],

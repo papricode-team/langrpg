@@ -135,6 +135,13 @@ func attemptFailure(err error) (int, string) {
 
 // applyAttempt is the shared authoritative grading path for individual and batched rounds.
 func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput) (map[string]any, error) {
+	if input.Reveal {
+		if input.Preview {
+			return nil, &APIError{400, "answer reveals must be recorded as assisted attempts"}
+		}
+		input.Hinted = true
+		input.Answer = "[answer reveal]"
+	}
 	if input.Preview && input.SceneAttempt {
 		return nil, &APIError{400, "story replies must be answered in their scene"}
 	}
@@ -145,6 +152,20 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		return nil, &APIError{400, "send a valid recall rating, response time and mission context"}
 	}
 	exercise, ok := a.curriculum.Exercises[input.ExerciseID]
+	if a.content != nil {
+		account, err := a.getAccount(ctx, hash)
+		if err != nil {
+			return nil, err
+		}
+		id := a.content.Resolve("exercises", input.ExerciseID)
+		visible := a.contentExerciseEntitled(id, &account.Progress)
+		if input.Preview && a.contentPlacementExercise(id) {
+			visible = true
+		}
+		if id == "" || !visible {
+			return nil, &APIError{404, "content not found"}
+		}
+	}
 	guidedGate := a.isGuidedStoryGate(input)
 	if input.GuidedChoice && !guidedGate {
 		return nil, &APIError{400, "guided choices must be supported replies to an A1 conversation's current request"}
@@ -214,6 +235,9 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 			return nil, err
 		}
 		correct := gradeMiniGameAnswer(exercise, input)
+		if input.Reveal {
+			correct = false
+		}
 		if boardHandled {
 			correct = boardCorrect
 		}
@@ -245,6 +269,9 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 			correct = boardCorrect
 		}
 		gradedInput := input
+		if input.Reveal {
+			correct = false
+		}
 		if binding, authored := a.curriculum.MiniGameContent[exercise.ID]; authored && binding.ForceHinted {
 			gradedInput.Hinted = true
 		}
@@ -304,5 +331,24 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 			reason = "Compare your answer with the authored target, then try again."
 		}
 	}
-	return map[string]any{"attemptId": input.ID, "correct": receipt.Correct, "correctedAnswer": exercise.Answer, "reason": reason, "xpAdded": added, "duplicate": duplicate, "progress": account.Progress}, nil
+	response := map[string]any{"attemptId": input.ID, "correct": receipt.Correct, "correctedAnswer": exercise.Answer, "reason": reason, "xpAdded": added, "duplicate": duplicate, "progress": account.Progress}
+	response["explanation"] = exercise.Explanation
+	if a.content != nil {
+		if record, ok := a.content.Get("exercises", a.content.Resolve("exercises", exercise.ID)); ok {
+			body := contentBody(record)
+			if support, ok := body["support"].(map[string]any); ok {
+				language := normalizedPreferences(account.Preferences).BaseLanguage
+				if translated, ok := support[language].(map[string]any); ok {
+					if explanation := contentString(translated, "explanation"); explanation != "" {
+						response["explanation"] = explanation
+					}
+				}
+			}
+		}
+	}
+	if input.Reveal {
+		response["modelAnswer"] = exercise.Answer
+		response["assisted"] = true
+	}
+	return response, nil
 }

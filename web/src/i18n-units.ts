@@ -16,7 +16,7 @@ import { beginnerGateTranslations, greetingMeanings } from './beginner-dialogue'
 import { storyMaps } from './maps';
 import { specialItems, endings } from './story-panels';
 import { placementDialogue } from './learning-context';
-import { baseStoryGlossary } from './story-glossary';
+import { baseStoryGlossary } from '../../content/source/story-glossary';
 import type { Level } from './content';
 import type { OverlayEntry } from './i18n';
 
@@ -30,7 +30,7 @@ export function storyUnits(): TranslationUnit[] {
   const line = (value: DialogueLine) => {
     sentence(`dialogue:${value.id}`, value.german, value.english);
     value.variants?.forEach((variant, index) => sentence(`dialogue:${value.id}:variant:${index}`, variant.german, variant.english));
-    if (value.reply) sentence(`dialogue:${value.reply.correction.id}`, value.reply.correction.german, value.reply.correction.english);
+    if (value.reply?.correction) sentence(`dialogue:${value.reply.correction.id}`, value.reply.correction.german, value.reply.correction.english);
     for (const [word, gloss] of Object.entries(value.glosses ?? {})) text(`gloss:${word}:${gloss}`, gloss);
   };
 

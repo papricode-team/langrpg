@@ -17,6 +17,12 @@ func (a *App) getAccount(ctx context.Context, hash string) (Account, error) {
 	if err != nil {
 		return account, err
 	}
+	if _, enabled := a.store.(*contentAccountStore); enabled && account.Progress.ContentIDVersion < 1 {
+		account, err = a.store.UpdateAccount(ctx, hash, func(account *Account) error { return nil })
+		if err != nil {
+			return account, err
+		}
+	}
 	if account.Progress.WordExposureVersion < 2 && len(a.curriculum.Lexicon) > 0 {
 		request := json.RawMessage(`{"version":2}`)
 		account, _, _, err = a.store.Mutate(ctx, hash, "word-exposure-migration:v2", request, func(account *Account) (Receipt, error) {

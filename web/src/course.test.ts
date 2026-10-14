@@ -51,7 +51,7 @@ describe('German course identity, grading and coverage', () => {
         check(exercise.itemId===`word-${word.id}` && exercise.targetWordId===word.id, `${exercise.id}: wrong direct target`);
         check(exercise.wordIds.includes(word.id) && exercise.level===word.level, `${exercise.id}: wrong word/level link`);
       }
-      check(drills[2].answer===word.lemma, `${word.id}: production is not the German headword`);
+      check(drills[2].answer! ===word.lemma, `${word.id}: production is not the German headword`);
     }
   });
 
@@ -59,11 +59,11 @@ describe('German course identity, grading and coverage', () => {
     expect(courseExerciseById.size).toBe(courseExercises.length);
     for (const exercise of courseExercises) {
       check(safeId.test(exercise.id), `${exercise.id}: unsafe exercise identity`);
-      check(answerMatches(exercise,exercise.answer), `${exercise.id}: canonical answer rejected`);
+      check(answerMatches(exercise,exercise.answer!), `${exercise.id}: canonical answer rejected`);
       check((exercise.acceptedAnswers??[]).every(accepted=>answerMatches(exercise,accepted)), `${exercise.id}: accepted variant rejected`);
-      check(exercise.prompt.trim() && exercise.hint.trim() && exercise.explanation.trim(), `${exercise.id}: missing teaching text`);
-      if(exercise.mode==='choice' || exercise.mode==='listen')check(exercise.options && exercise.options.length>=3 && exercise.options.includes(exercise.answer) && new Set(exercise.options).size===exercise.options.length, `${exercise.id}: unsolvable or duplicate choices`);
-      if(exercise.mode==='sentence')check(exercise.tokens?.join(' ')===exercise.answer, `${exercise.id}: sentence tiles do not build the answer`);
+      check(exercise.prompt.trim() && exercise.hint.trim() && exercise.explanation!.trim(), `${exercise.id}: missing teaching text`);
+      if(exercise.mode==='choice' || exercise.mode==='listen')check(exercise.options && exercise.options.length>=3 && exercise.options.includes(exercise.answer!) && new Set(exercise.options).size===exercise.options.length, `${exercise.id}: unsolvable or duplicate choices`);
+      if(exercise.mode==='sentence')check(exercise.tokens?.join(' ')===exercise.answer!, `${exercise.id}: sentence tiles do not build the answer`);
       check(exercise.wordIds.every(id=>lexemeById.has(id)), `${exercise.id}: invented word link`);
     }
   });
@@ -73,7 +73,7 @@ describe('German course identity, grading and coverage', () => {
     expect(manifest.lexicon.map(word => word.id)).toEqual(courseLexicon.map(word => word.id));
     for (const exercise of courseExercises) {
       const server=exerciseManifest.get(exercise.id)!;
-      check(server && server.itemId===exercise.itemId && server.answer===exercise.answer && server.mode===modeFor(exercise), `${exercise.id}: client/server answer or mode mismatch`);
+      check(server && server.itemId===exercise.itemId && server.answer! ===exercise.answer! && server.mode===modeFor(exercise), `${exercise.id}: client/server answer or mode mismatch`);
       check(same(server.acceptedAnswers??[],exercise.acceptedAnswers??[]) && same(server.wordIds,exercise.wordIds), `${exercise.id}: client/server variant or word link mismatch`);
       check(('targetWordId' in server ? server.targetWordId:undefined)===exercise.targetWordId, `${exercise.id}: client/server direct target mismatch`);
       check(('caseSensitive' in server ? server.caseSensitive:false)===(exercise.caseSensitive??false), `${exercise.id}: client/server case sensitivity mismatch`);

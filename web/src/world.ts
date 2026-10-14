@@ -304,6 +304,11 @@ export class World {
     world.scene.restart({ mapId: map });
   }
 
+  /** Rebuild presentation actors after the authenticated roster has arrived. */
+  refreshContent():void {
+    const scene=this.world;
+    if(scene?.ready)scene.scene.restart({mapId:readWorld(this.game.registry,'mapId')});
+  }
   enterInterior(id: InteriorId): void { this.townReady?.enterInterior(id); }
 
   leaveInterior(): void {

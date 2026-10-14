@@ -10,9 +10,14 @@ import { transcriptionResults } from './transcription';
 import { departureRound, isDepartureVocabulary, type DepartureRound } from './departure-round';
 import { mountDepartureBoard, type DepartureBoardController } from './departure-board';
 import { mountCatching, catchingNumberLabel, type CatchingController } from './catching';
-import loopData from './loop-data.json';
+import {getContentClient} from '../content-api';
+type LoopData=typeof import('./loop-data.json');
+const loopData={clips:[]} as unknown as LoopData;
+export function installLoopingTape(value:LoopData):void {Object.assign(loopData,value);}
+let loopingClient:ReturnType<typeof getContentClient>|undefined;
+export async function loadLoopingTape():Promise<void> {const client=getContentClient();if(loopingClient!==client){loopingClient=client;client.onClear(()=>{loopData.clips=[];});}const revision=client.revision;const value=await client.minigame('minigames:looping-tape');if(revision!==client.revision)throw new Error('The content session changed.');Object.assign(loopData,value);}
 import type { AttemptResult } from '../api';
-import type { Exercise } from '../content';
+import {quests,type Exercise} from '../content';
 import type { AnswerKind, GameItem, MiniGame, MiniGameDefinition, MiniGameHost, MiniGameOptions, Modality, RoundResult, RoundSummary } from './types';
 
 interface Choice { label:string; answer:string; sprite?:string; kind?:AnswerKind; }
@@ -213,7 +218,7 @@ export class RetrievalGame implements MiniGame {
       cue=current.exercise?`<p class="minigame-story-prompt">${e(current.exercise.prompt)}</p>`:ink||sprite||(mechanic==='tape'?'<div class="minigame-listening-cue">◉</div>':`<p class="minigame-context">${e(current.item.english)}</p>`);
       if(mechanic==='tape')void this.speak(false);
       if(!current.exercise)cue+=`<p class="minigame-scaffold" lang="de">${e(scaffoldText(current.item.lemma,stage))}</p>`;
-      else if(mechanic==='tape')cue+=`<p class="minigame-scaffold" lang="de">${e(scaffoldText(current.exercise.answer,'shape'))}</p>`;
+
     }
     if(current.freeName)cue=`<div class="minigame-receipt"><span class="caption">MORGEN · MARTAS KESSEL</span><h3>${e(this.services.playerName.slice(0,-1)+'?')}</h3><p>Correct your name on the receipt.</p></div>`;
     if(mechanic==='sequence')cue=`<div class="minigame-hour-slots">${Array.from({length:12},(_,index)=>`<span class="${index===((this.count-1)%12)?'is-current':''}">23:${String(index*5).padStart(2,'0')}</span>`).join('')}</div>${cue}<div class="minigame-dropzone" data-game-drop>Restore this five-minute slot</div>`;
@@ -266,7 +271,7 @@ export class RetrievalGame implements MiniGame {
     if(this.definition.tier!=='B')return;
     if(this.definition.mechanic==='forecast'&&this.count===3){current.freeName=true;current.production=true;current.modality='production';current.choices=[];return;}
     const restored=new Set(this.services.progress().intake?.wordIds??[]);
-    const eligible=[...this.services.exercises.values()].filter(exercise=>this.definition.questIds?.some(quest=>exercise.id.startsWith(`${quest}-exercise-`))&&(exercise as Exercise&{wordIds?:string[]}).wordIds?.length&&(exercise as Exercise&{wordIds?:string[]}).wordIds!.every(id=>restored.has(id)));
+    const eligible=[...this.services.exercises.values()].filter(exercise=>this.definition.questIds?.includes((exercise as Exercise&{questId?:string}).questId??quests.find(quest=>quest.exerciseIds?.includes(exercise.id))?.id??'')&&(exercise as Exercise&{wordIds?:string[]}).wordIds?.length&&(exercise as Exercise&{wordIds?:string[]}).wordIds!.every(id=>restored.has(id)));
     const mechanic=this.definition.mechanic;
     const mode=mechanic==='sequence'?'choice':mechanic==='tape'?'type':current.production?'sentence':mechanic==='connection'?(this.count%2?'listen':'choice'):mechanic==='forecast'?'listen':undefined;
     if(!mode)return;
@@ -285,7 +290,7 @@ export class RetrievalGame implements MiniGame {
     const active=()=>generation===this.generation&&!this.destroyed&&this.running&&!this.paused;
     try{
       if(current.board){for(const target of current.board.targets){if(!active())return;await this.services.speakText(`${current.board.fields.find(field=>field.id===target.field)!.label}:`);if(!active())return;await this.services.speak(target.item);}}
-      else if(current.exercise){const tape=this.definition.mechanic==='tape'&&loopData.clips.find(clip=>clip.exerciseId===current.exercise?.id);await this.services.speakText(current.exercise.german,tape?tape.path:`/audio/${current.exercise.id}.mp3`);}
+      else if(current.exercise){const tape=this.definition.mechanic==='tape'&&loopData.clips.find(clip=>clip.exerciseId===current.exercise?.id);await this.services.speakText(current.exercise.german,tape?tape.path:current.exercise.audioPath);}
       else for(const [index,item]of(current.order??[current.item]).entries()){
         if(!active())return;
         if(current.numbers?.[index])await this.services.speak(current.numbers[index]);
@@ -357,9 +362,10 @@ export class RetrievalGame implements MiniGame {
       this.root.querySelector('[data-game-score]')!.textContent=`${this.summary.correct} / ${this.summary.attempts}`;
       this.root.querySelectorAll('.minigame-lanterns i').forEach((lamp,index)=>lamp.classList.toggle('is-lit',index<this.chain));
       this.feedback.classList.toggle('is-miss',!correct);
+      if(current.exercise&&grades[0]?.modelAnswer)current.exercise.answer=grades[0].modelAnswer;
       const correction=current.board?current.board.targets.map(target=>`${current.board!.fields.find(field=>field.id===target.field)!.label}: ${[...target.options].find(([,item])=>item===target.item)?.[0]}`).join(' · '):current.exercise?.answer??`${current.item.article??''} ${current.item.articleForm??current.item.lemma}${correct?'':` · ${current.item.english}`}`;
       this.feedback.textContent=correct?`✓ ${correction}`:`${correction} · returns in two turns`;
-      if(!correct)void(current.board?this.services.speakText(correction):current.exercise?this.services.speakText(current.exercise.german,`/audio/${current.exercise.id}.mp3`):this.services.speak(current.item)).catch(()=>{});
+      if(!correct)void(current.board?this.services.speakText(correction):current.exercise?this.services.speakText(current.exercise.german,current.exercise.audioPath):this.services.speak(current.item)).catch(()=>{});
       this.pending=undefined;
       this.advanceTimer=setTimeout(()=>{this.advanceTimer=undefined;if(!this.paused)this.next();},correct?650:1600);
     }catch(error){

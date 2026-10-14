@@ -12,10 +12,10 @@ export function courseCoverage(overlay: CourseOverlay, ui: Record<string, string
   const glossed = (word: { id: string; english: string }) => overlay.lexicon[word.id]?.en === word.english && !!overlay.lexicon[word.id]?.tr.trim();
   const a1 = courseLexicon.filter(word => word.level === 'A1');
   const storyExercises = quests.flatMap(quest => quest.exercises);
-  const exerciseDone = (exercise: { id: string; prompt: string; hint: string; explanation: string; english: string; german?: string; mode: string; options?: string[] }) => {
+  const exerciseDone = (exercise: { id: string; prompt: string; hint: string; explanation?: string; english: string; german?: string; mode: string; options?: string[] }) => {
     const entry = overlay.exercises[exercise.id];
     if (!entry) {
-      const generated = generatedLexicalExerciseText(exercise, overlay.lexicon, translate);
+      const generated = exercise.explanation!==undefined&&generatedLexicalExerciseText({...exercise,explanation:exercise.explanation}, overlay.lexicon, translate);
       return !!generated && Object.values(generated).every(text => text.trim()) && (exercise.mode !== 'choice' || (exercise.options ?? []).every(option => !!generatedLexicalOption(option, meanings, translate)?.trim()));
     }
     const needsOptions = !!exercise.options?.length && exercise.id.startsWith('course-');

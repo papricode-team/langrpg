@@ -1,5 +1,5 @@
 import './register-content-loader.mjs';
-import { auditInputLevel } from '../web/src/learning-context.ts';
+const { auditInputLevel } = await import('../web/src/learning-context.ts');
 import { beginnerTurnWordLimits } from '../web/src/dialogue.ts';
 
 const levels = ['A1', 'A2', 'B1'];

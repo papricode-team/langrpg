@@ -33,12 +33,8 @@ func main() {
 		}
 		return
 	}
-	curriculum, err := loadCurriculum()
-	if err != nil {
-		slog.Error("invalid curriculum manifest", "error", err)
-		os.Exit(1)
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	var err error
 	var store Store
 	if url := os.Getenv("DATABASE_URL"); url != "" {
 		store, err = NewPGStore(ctx, url)
@@ -50,6 +46,20 @@ func main() {
 		slog.Error("storage initialization failed", "error", err)
 		os.Exit(1)
 	}
+	contentCtx, contentCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	content, err := loadContentCatalogue(contentCtx, store)
+	contentCancel()
+	if err != nil {
+		store.Close()
+		slog.Error("content initialization failed", "error", err)
+		os.Exit(1)
+	}
+	curriculum, err := curriculumFromContent(content)
+	if err != nil {
+		store.Close()
+		slog.Error("invalid content grading index", "error", err)
+		os.Exit(1)
+	}
 	maxPlayers, err := strconv.Atoi(env("MAX_ZONE_PLAYERS", "128"))
 	if err != nil || maxPlayers < 2 || maxPlayers > 1000 {
 		slog.Error("MAX_ZONE_PLAYERS must be between 2 and 1000")
@@ -57,6 +67,7 @@ func main() {
 		os.Exit(1)
 	}
 	app := NewApp(store, curriculum, strings.Split(env("ALLOWED_ORIGINS", "http://localhost:5187,http://127.0.0.1:5187,http://127.240.77.9:5187,http://localhost:8097"), ","), maxPlayers)
+	app.installContent(content, env("CONTENT_UUID_MIGRATION", "true") == "true")
 	defer app.Close()
 	app.adminEmails, err = parseAdminEmails(os.Getenv("ADMIN_EMAILS"))
 	if err != nil {

@@ -1,3 +1,4 @@
+import './test-support/expedition-fixtures';
 import { describe, expect, it } from 'vitest';
 import { maps, storyMaps, getMap, type StoryMapId } from './maps';
 import { expeditionIds, expeditionMaps, getExpedition, getExpeditionEncounter } from './expeditions';

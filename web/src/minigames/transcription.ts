@@ -3,6 +3,7 @@ import type { GameItem, RoundResult } from './types';
 const words=(text:string)=>text.normalize('NFC').match(/\p{L}+(?:['’-]\p{L}+)*/gu)??[];
 /** Submit what was typed, including inflections; only the server accepts a form. */
 export function transcriptionResults(exercise:Exercise&{wordIds?:string[]},answer:string,pool:readonly GameItem[],hinted:boolean,responseMs:number):RoundResult[]{
+  if(!exercise.answer)return [];
   const expected=words(exercise.answer),actual=words(answer),context=new Set(exercise.wordIds??[]),seen=new Set<string>();
   const eligible=pool.filter(item=>context.has(item.lexemeId)&&['noun','verb','adj','adv'].includes(item.pos));
   return expected.flatMap((token,index)=>{

@@ -39,9 +39,10 @@ export class CutsceneScene extends Phaser.Scene {
   /** Each beat types its line on the scene clock and advances after its authored length; both pause with the scene. */
   private present() {
     const beat=this.beats[this.index];
+    if (!beat) { this.complete(); return; }
     this.typing?.remove(); this.advance?.remove();
     this.speaker?.setText(localizedName(beat.speaker==='Inspector'?'Inspector Voss':beat.speaker));this.line?.setText('');
-    this.subtitle?.setText(translatedText({german:beat.german,english:''})??'');this.cameraBeat(beat);
+    this.subtitle?.setText(translatedText({german:beat.german,english:beat.english??'',aligned:beat.aligned,localized:beat.localized})??'');this.cameraBeat(beat);
     this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`);
     let shown=0;
     this.typing=this.time.addEvent({delay:25,repeat:Math.max(0,beat.german.length-1),callback:()=>this.line?.setText(beat.german.slice(0,++shown))});

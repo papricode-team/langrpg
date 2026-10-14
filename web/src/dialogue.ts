@@ -1,4 +1,5 @@
 import type { Level } from './content';
+import type { AlignedLine } from './aligned-line';
 
 export type StoryStage = 'intro' | 'gate' | 'choice' | 'complete';
 export type Faction = 'brassOffice' | 'lamplighters' | 'unwritten';
@@ -22,6 +23,9 @@ export interface DialogueCondition { flag?: string; withoutFlag?: string; item?:
 export interface DialogueEffect { flag?: string; item?: string; faction?: Faction; amount?: number; bell?: number; }
 export interface DialogueLine {
   id: string;
+  aligned?: AlignedLine;
+  localized?: boolean;
+  variantIds?: string[];
   speaker: string;
   /** Authored visual cue; never inferred from translated text. */
   expression?: 'neutral' | 'smile' | 'worried';
@@ -33,16 +37,16 @@ export interface DialogueLine {
   condition?: DialogueCondition;
   glosses?: Record<string, string>;
   variants?: { german: string; english: string; clipId: string }[];
-  reply?: { exerciseId: string; correction: DialogueLine };
+  reply?: { exerciseId: string; correction?: DialogueLine; correctionLineId?: string };
 }
-export interface DialogueChoice { id: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
-export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
+export interface DialogueChoice { id: string; lineId?: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
+export interface DialogueNode { id: string; stage: StoryStage; lineIds?: string[]; lineRefs?: {id:string;condition?:DialogueCondition;reply?:DialogueLine['reply'];variantIds?:string[]}[]; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
 /** An optional player question on the last intro line; never saved, never required. */
-export interface DialogueTopic { id: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }
+export interface DialogueTopic { id: string; lineIds?: string[]; lineRefs?: {id:string}[]; lineId?: string; german: string; english: string; condition?: DialogueCondition; lines: DialogueLine[]; }
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;
-  investigations: { objectId: string; german: string; english: string }[];
+  investigations: { objectId: string; lineId?: string; german: string; english: string }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
   topics?: DialogueTopic[];
@@ -91,7 +95,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
       if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
-      if (line.reply && (!line.reply.exerciseId || !line.reply.correction.german.trim() || !line.reply.correction.english.trim() || !line.reply.correction.clipId)) errors.push(`${graph.questId}: incomplete comprehension reply ${line.id}`);
+      if (line.reply && (!line.reply.exerciseId || !line.reply.correction?.german.trim() || !line.reply.correction?.english.trim() || !line.reply.correction?.clipId)) errors.push(`${graph.questId}: incomplete comprehension reply ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
       for (const variant of line.variants ?? []) {
         if (!variant.german.trim() || !variant.english.trim() || !variant.clipId) errors.push(`${graph.questId}: empty variant ${line.id}`);

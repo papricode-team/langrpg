@@ -27,6 +27,6 @@ const jobs = process.argv.includes('--art') ? [...content,...paint,['scene-compi
 if (process.argv.includes('--audio')) jobs.push(['generate-world-audio.mjs'],['generate-dialogue-audio.mjs']);
 for (const [name,...args] of jobs) {
   console.log(`Assets: ${name}`);
-  const result = spawnSync(process.execPath, [`scripts/${name}`,...args], { stdio: 'inherit' });
+  const result = spawnSync(process.execPath, ['--import', './scripts/register-content-loader.mjs', `scripts/${name}`,...args], { stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status || 1);
 }

@@ -3,13 +3,13 @@ import type { Exercise } from './content';
 import { baseLanguage, localizedExercise, t } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 import { seededShuffle } from './game-shuffle.ts';
 
-export function normalizedAnswer(answer: string): string {
-  return normalizedCaseAnswer(answer).toLocaleLowerCase('de');
+export function normalizedAnswer(answer: string | undefined): string {
+  return normalizedCaseAnswer(answer ?? '').toLocaleLowerCase('de');
 }
 const normalizedCaseAnswer = (value: string): string => value.normalize('NFC').trim().replace(/\s+/g, ' ').replace(/[.!?\s]+$/, '');
 
 export function answerMatches(exercise: Exercise & { caseSensitive?: boolean }, answer: string): boolean {
-  const acceptable = [exercise.answer, ...((exercise as Exercise & { acceptedAnswers?: string[] }).acceptedAnswers ?? [])];
+  const acceptable = [exercise.answer, ...((exercise as Exercise & { acceptedAnswers?: string[] }).acceptedAnswers ?? [])].filter((value):value is string=>value!==undefined);
   const production = exercise.mode === 'type' || exercise.mode === 'sentence';
   const normalize = exercise.caseSensitive && !production ? normalizedCaseAnswer : normalizedAnswer;
   return acceptable.some(value => !(production && exercise.caseSensitive && formalAddressChanged(answer, value)) &&
@@ -47,6 +47,7 @@ function productionAnswerMatches(answer: string, expected: string): boolean {
 }
 
 export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, answer: string): string {
+  if(exercise.answer===undefined)return exercise.explanation??t('Try another reply.');
   if (answerMatches(exercise, answer)) {
     if (exercise.mode === 'type' || exercise.mode === 'sentence') {
       for (const accepted of [exercise.answer,...(exercise.acceptedAnswers ?? [])]) {
@@ -56,7 +57,7 @@ export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, 
         }
       }
     }
-    return exercise.explanation;
+    return exercise.explanation??'';
   }
   const actual = normalizedCaseAnswer(answer);
   const expected = normalizedCaseAnswer(exercise.answer);
@@ -69,7 +70,7 @@ export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, 
     : t('Check word order: in a statement, the conjugated verb normally takes the second position.');
   return exercise.mode === 'type' || exercise.mode === 'sentence'
     ? `${t('Check spelling and the requested form. Use ae, oe or ue when your keyboard cannot type an umlaut.')} ${exercise.explanation}`
-    : exercise.explanation;
+    : exercise.explanation??'';
 }
 
 /**
@@ -77,13 +78,15 @@ export function gradeFeedback(exercise: Exercise & { caseSensitive?: boolean }, 
  * gradeFeedback() in English, so other support languages rebuild it locally from the same rules.
  */
 export function attemptFeedback(exercise: Exercise & { caseSensitive?: boolean }, answer: string, serverReason?: string): string {
-  if (baseLanguage() === 'en' && serverReason) return serverReason;
+  if ((baseLanguage() === 'en' || exercise.answer===undefined) && serverReason) return serverReason;
   return gradeFeedback(localizedExercise(exercise), answer);
 }
 
 /** Add plausible grammar choices while retaining every canonical answer tile. */
 export function sentenceTiles(exercise: Exercise): string[] {
-  const tokens = [...(exercise.tokens ?? exercise.answer.split(' '))];
+  const authored=exercise.tokens??exercise.answer?.split(' ');
+  if(!authored)throw new Error('This exercise has no sentence tiles. Try again.');
+  const tokens = [...authored];
   const alternatives: Record<string, string[]> = {
     der:['die','das'],die:['der','das'],das:['der','die'],den:['dem','der'],dem:['den','des'],
     ein:['eine','einen'],eine:['ein','einen'],einen:['ein','einem'],einem:['einen','eines'],
@@ -107,7 +110,7 @@ export function sentenceTiles(exercise: Exercise): string[] {
 /** Keep duplicate tiles individually addressable and vary the tray on every retry. */
 export function shuffledSentenceTiles(exercise: Exercise, seed: string): {token:string;i:number}[] {
   const tiles = seededShuffle(sentenceTiles(exercise).map((token, i) => ({token,i})), `${seed}:${exercise.id}`);
-  const answer = exercise.tokens ?? exercise.answer.split(' ');
+  const answer = exercise.tokens ?? exercise.answer?.split(' ') ?? [];
   if (answer.length > 1 && tiles.slice(0,answer.length).every((tile,index) => tile.token === answer[index])) {
     [tiles[0],tiles[tiles.length-1]] = [tiles[tiles.length-1],tiles[0]];
   }

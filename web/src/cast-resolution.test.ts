@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+import './test-support/expedition-fixtures';
 import './test-support/phaser-dom';
 import { readFileSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';

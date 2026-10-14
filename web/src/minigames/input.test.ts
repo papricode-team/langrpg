@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { gamepadInput } from '../world-gamepad';
 import { MiniGameInput } from './input';
 
+// The authoring setup loads the controller; re-import it with this test's gamepad mock.
+vi.hoisted(() => vi.resetModules());
 vi.mock('../world-gamepad', () => ({ gamepadInput: vi.fn(() => ({ x: 0, y: 0, interact: false })) }));
 let frames: FrameRequestCallback[];
 let unbind: (() => void) | undefined;

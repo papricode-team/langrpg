@@ -64,9 +64,9 @@ describe('conversation scene lifecycle', () => {
     const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')];
     expect(choices).toHaveLength(2);
     expect(choices.every(choice => !!choice.querySelector(':scope > [lang]:not([lang="de"])')?.textContent)).toBe(true);
-    choices.find(choice => choice.dataset.dialogueChoice === exercise.answer)!.click();
+    choices.find(choice => choice.dataset.dialogueChoice === exercise.answer!)!.click();
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
-    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { exerciseId, answer: exercise.answer, mode: 'recognition', hinted: true, guidedChoice: true, sceneAttempt: true }]);
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { exerciseId, answer: exercise.answer!, mode: 'recognition', hinted: true, guidedChoice: true, sceneAttempt: true }]);
     expect(f.api.storyTransition.mock.calls[0][0]).toMatchObject({ nodeId: 'gate', attemptId: 'saved-reply' });
   });
 
@@ -118,7 +118,7 @@ describe('conversation scene lifecycle', () => {
     const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
     expect(input).not.toBeNull();
     const graph = questGraphs.find(graph => graph.questId === 'a2-apartment')!;
-    input.value = quests.find(quest => quest.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId)!.answer;
+    input.value = quests.find(quest => quest.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId)!.answer!;
     input.form!.requestSubmit();
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { mode: 'production', hinted: true }]);
@@ -257,13 +257,13 @@ describe('conversation scene lifecycle', () => {
     expect(f.api.storyTransition).not.toHaveBeenCalled();
     f.click('[data-dialogue-action="use-answer"]');
     const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
-    expect(input.value).toBe(exercise.answer);
+    expect(input.value).toBe(exercise.answer!);
     expect(answerMatches(exercise, input.value)).toBe(true);
     expect(document.activeElement).toBe(input);
     expect(f.api.request).not.toHaveBeenCalled();
     document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
-    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', {answer:exercise.answer,hinted:true,sceneAttempt:true,questId:'a2-apartment'}]);
+    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', {answer:exercise.answer!,hinted:true,sceneAttempt:true,questId:'a2-apartment'}]);
     expect(f.api.storyTransition.mock.calls[0][0]).toMatchObject({nodeId:'gate',attemptId:'saved-reply'});
   });
 
@@ -325,7 +325,7 @@ describe('conversation scene lifecycle', () => {
   it('personalizes spoken lines with the player name without injecting markup', async () => {
     const f=fixture('intro','a1-lost-parcel'); await f.controller.open('a1-lost-parcel'); press(); // the second line addresses the player by name
     expect(document.querySelector('.dialogue-line')!.textContent).toContain('<Willow>');
-    expect(document.querySelector('.dialogue-line')!.innerHTML).not.toContain('<Willow>');
+    expect(document.querySelector('.dialogue-line Willow')).toBeNull();
   });
   it('records the read object with the server before returning to the canvas', async () => {
     const f=fixture();f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');f.click('[data-dialogue-action="next"]');
@@ -410,7 +410,8 @@ describe('conversation scene lifecycle', () => {
     const f=fixture('gate');await f.controller.open('a1-arrival');until('#dialogue-answer');
     document.querySelector<HTMLInputElement>('#dialogue-answer')!.value='Noch einmal, bitte.';
     f.click('.dialogue-word');
-    expect(document.querySelector('.dialogue-translation')?.textContent).toBe(questGraphs[0].nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain(questGraphs[0].nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
+    expect(document.querySelector('.dialogue-word-gloss')?.textContent).toBeTruthy();
     expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Noch einmal, bitte.');
     expect(f.options.expose).toHaveBeenCalledTimes(1);
     expect(f.options.expose).toHaveBeenCalledWith('a1-arrival-exercise-7');
@@ -445,7 +446,7 @@ describe('conversation scene lifecycle', () => {
     const submit = () => {
       if (mode === 'recognition') f.click('[data-dialogue-choice="Guten Morgen!"]');
       else {
-        document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = exercise.answer;
+        document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = exercise.answer!;
         document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       }
     };
@@ -453,7 +454,7 @@ describe('conversation scene lifecycle', () => {
     await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toContain('attempt response lost'));
     const original = structuredClone(f.api.request.mock.calls[0]);
     expect(original).toEqual(['/attempt', {
-      id: expect.any(String), itemId: exercise.itemId, exerciseId: exercise.id, answer: exercise.answer,
+      id: expect.any(String), itemId: exercise.itemId, exerciseId: exercise.id, answer: exercise.answer!,
       hinted: false, mode, questId: 'a1-arrival', sceneAttempt: true, responseTimeMs: 600,
     }]);
     // Assistance received elsewhere cannot change a request whose ID is pending.

@@ -33,7 +33,7 @@ describe('beginner dialogue replies', () => {
       const replies = beginnerGateChoices(graph.gateExerciseId);
       const correct = replies.filter(reply => answerMatches(exercise, reply.id));
       expect(correct).toHaveLength(1);
-      expect(correct[0].id).toBe(exercise.answer);
+      expect(correct[0].id).toBe(exercise.answer!);
       expect(correct[0].english).toBe(exercise.english);
     }
   });
@@ -61,7 +61,7 @@ describe('beginner dialogue replies', () => {
       expect(beginnerReplyMeaning(option)?.trim().length).toBeGreaterThan(0);
       expect(beginnerReplyMeaning(option)).not.toBe(option);
     }
-    expect(beginnerReplyMeaning(greeting.answer)).toBe(greeting.english);
+    expect(beginnerReplyMeaning(greeting.answer!)).toBe(greeting.english);
     expect(beginnerReplyMeaning('Guten Abend!')).toBe('Good evening!');
     expect(beginnerReplyMeaning('unknown')).toBeUndefined();
   });

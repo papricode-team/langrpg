@@ -67,7 +67,7 @@ describe('canonical language content', () => {
       quest.exercises.forEach((exercise, index) => {
         expect(exercise.id).toBe(`${quest.id}-exercise-${index + 1}`);
         expect(exercise.itemId).toBe(`${quest.id}-item-${index + 1}`);
-        for (const text of [exercise.prompt, exercise.german, exercise.english, exercise.hint, exercise.explanation]) {
+        for (const text of [exercise.prompt, exercise.german, exercise.english, exercise.hint, exercise.explanation!]) {
           expect(text.trim().length).toBeGreaterThan(0);
         }
       });
@@ -76,17 +76,17 @@ describe('canonical language content', () => {
 
   it('keeps every offered answer and sentence tile assembly solvable', () => {
     for (const exercise of exercises) {
-      expect(answerMatches(exercise, exercise.answer)).toBe(true);
+      expect(answerMatches(exercise, exercise.answer!)).toBe(true);
       for (const accepted of exercise.acceptedAnswers ?? []) {
         expect(answerMatches(exercise, accepted)).toBe(true);
       }
       if (exercise.mode === 'choice' || exercise.mode === 'listen') {
-        expect(exercise.options).toContain(exercise.answer);
+        expect(exercise.options).toContain(exercise.answer!);
         expect(exercise.options!.length).toBeGreaterThanOrEqual(3);
         expect(new Set(exercise.options).size).toBe(exercise.options!.length);
       }
       if (exercise.mode === 'sentence') {
-        expect(exercise.tokens!.join(' ')).toBe(exercise.answer);
+        expect(exercise.tokens!.join(' ')).toBe(exercise.answer!);
       }
     }
   });
@@ -107,7 +107,7 @@ describe('canonical language content', () => {
         expect(serverExercise).toBeDefined();
         expect(serverExercise!.itemId).toBe(exercise.itemId);
         expect(serverExercise!.mode).toBe(modeFor(exercise));
-        expect(serverExercise!.answer).toBe(exercise.answer);
+        expect(serverExercise!.answer!).toBe(exercise.answer!);
         expect(serverExercise!.acceptedAnswers ?? []).toEqual(exercise.acceptedAnswers ?? []);
         expect(manifest.items.find(item => item.id === exercise.itemId)?.level).toBe(quest.level);
       }

@@ -2,6 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyProgress, type Api, type Progress } from '../api';
 import { AttemptBatcher, createMiniGameHost, type HostOptions } from './host';
+import type { CourseLexeme,CourseExercise } from '../course';
 import type { GameItem, RoundResult } from './types';
 
 vi.mock('./item-manifest', () => ({ itemSpriteFor: () => undefined }));
@@ -10,7 +11,7 @@ vi.mock('./sprite-library', () => ({ SpriteLibrary: class {} }));
 function options(request: ReturnType<typeof vi.fn>): HostOptions {
   let progress = emptyProgress();
   return {
-    api: { request } as unknown as Api, gameId: 'tray-rush', lexicon: [], exercises: [],
+    api: { request } as unknown as Api, gameId: 'tray-rush', lexicon: ['kaffee','brot','wasser-noun','nehmen-verb',...Array.from({length:31},(_,index)=>`word-${index}`)].map(id=>({id,exerciseIds:Object.fromEntries(['recognition','listening','production'].map(mode=>[mode,[`lex-${id}-${mode}`]]))})) as CourseLexeme[], exercises: [...['kaffee','brot','wasser-noun','nehmen-verb',...Array.from({length:31},(_,index)=>`word-${index}`)].flatMap(id=>['recognition','listening','production'].map(mode=>({id:`lex-${id}-${mode}`,itemId:`word-${id}`}))),{id:'expedition-windplain-a2-water',itemId:'word-wasser-noun'}] as CourseExercise[],
     progress: () => progress, onProgress: vi.fn((next: Progress) => { progress = next; }), onEnd: vi.fn(),
     playerName: 'Ada', silent: false, muted: false, reducedMotion: false, narration: vi.fn(),
   };
