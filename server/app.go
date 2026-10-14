@@ -38,6 +38,8 @@ type App struct {
 	contentObjectQuests map[string][]string
 	contentCounts       map[string]int
 	contentGrammarUnits map[string][]string
+	// Exercise UUID -> rooms ("mapId/interiorId") whose stations offer it.
+	contentStationRooms map[string][]string
 	origins             map[string]bool
 	adminEmails         map[string]bool
 	frontend            http.Handler

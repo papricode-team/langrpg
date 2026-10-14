@@ -300,6 +300,7 @@ func (a *App) installContent(catalogue *contentstore.Catalog, migrate bool) {
 	a.contentObjectQuests = map[string][]string{}
 	a.contentCounts = map[string]int{}
 	a.contentGrammarUnits = map[string][]string{}
+	a.contentStationRooms = map[string][]string{}
 	for kind, records := range catalogue.Records {
 		a.contentCounts[kind] = len(records)
 		for _, record := range records {
@@ -336,7 +337,47 @@ func (a *App) installContent(catalogue *contentstore.Catalog, migrate bool) {
 			}
 		}
 	}
+	a.indexStationExercises(catalogue)
 	if migrate {
 		a.store = &contentAccountStore{Store: a.store, app: a}
+	}
+}
+
+// Interior stations are open to everyone who can reach their room, so their
+// practice and linked activity scenarios share the room's entitlement. Word
+// pacing is still enforced when an attempt is graded and in the practice queue.
+func (a *App) indexStationExercises(catalogue *contentstore.Catalog) {
+	add := func(exercise, room string) {
+		if exercise != "" && !contains(a.contentStationRooms[exercise], room) {
+			a.contentStationRooms[exercise] = append(a.contentStationRooms[exercise], room)
+		}
+	}
+	for _, record := range catalogue.Records["narratives"] {
+		body := contentBody(record)
+		route, interior := contentString(body, "mapId"), contentString(body, "interiorId")
+		if contentString(body, "kind") != "interior" || route == "" || interior == "" {
+			continue
+		}
+		room := route + "/" + interior
+		for _, exercise := range contentStrings(body, "exerciseIds") {
+			add(exercise, room)
+		}
+		activity := contentString(body, "activityId")
+		if activity == "" {
+			continue
+		}
+		for _, game := range catalogue.Records["minigames"] {
+			board := contentBody(game)
+			if contentString(board, "kind") != "activity" || contentString(board, "activityId") != activity || contentString(board, "mapId") != route {
+				continue
+			}
+			if scenarios, ok := board["scenarios"].([]any); ok {
+				for _, value := range scenarios {
+					if scenario, ok := value.(map[string]any); ok {
+						add(contentString(scenario, "exerciseId"), room)
+					}
+				}
+			}
+		}
 	}
 }

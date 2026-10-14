@@ -18,6 +18,10 @@ func contentTestApp(t *testing.T) (*App, map[string]string) {
 	curriculum.Quests = map[string]Quest{"a1-arrival": {ID: "a1-arrival", RequiredItemIDs: []string{"item-one"}}, "a1-cafe": {ID: "a1-cafe", RequiredItemIDs: []string{"item-two"}}}
 	curriculum.Exercises["exercise-two"] = Exercise{ID: "exercise-two", ItemID: "item-two", Mode: "production", Answer: "Ich bin hier"}
 	curriculum.Exercises["exercise-public"] = Exercise{ID: "exercise-public", ItemID: "item-one", Mode: "production", Answer: "Ich komme aus England."}
+	curriculum.Exercises["exercise-station"] = Exercise{ID: "exercise-station", ItemID: "item-two", Mode: "recognition", Answer: "Ein Geheimnis", TargetWordID: "secret"}
+	curriculum.Exercises["exercise-activity"] = Exercise{ID: "exercise-activity", ItemID: "item-two", Mode: "recognition", Answer: "Mit Milch, bitte."}
+	curriculum.ContextWordIDs = map[string][]string{"exercise-station": {"secret"}}
+	curriculum.Exercises["exercise-off-route"] = Exercise{ID: "exercise-off-route", ItemID: "item-two", Mode: "recognition", Answer: "Im Wald"}
 	curriculum.Lexicon = map[string]Lexeme{"ticket": {ID: "ticket", Level: "A1", Lemma: "Fahrkarte"}, "secret": {ID: "secret", Level: "A1", Lemma: "Geheimnis"}}
 	curriculum.Units = map[string]CourseUnit{"unit-one": {ID: "unit-one", Level: "A1", RequiredWordIDs: []string{"secret"}, RequiredExerciseIDs: []string{"exercise-two"}}}
 	curriculum.Syllabus = &Syllabus{WordsPerHour: 10, OpeningWords: 0, WordIDs: []string{"ticket", "secret"}, position: map[string]int{"ticket": 0, "secret": 1}}
@@ -46,6 +50,12 @@ func contentTestApp(t *testing.T) (*App, map[string]string) {
 	add("exercises", "exercise-one", map[string]any{"itemId": "item-one", "questId": quest, "mode": "recognition", "prompt": "Choose the greeting", "answer": "Guten Tag", "acceptedAnswers": []string{"Hallo"}, "explanation": "The correct greeting."})
 	add("exercises", "exercise-two", map[string]any{"itemId": "item-two", "questId": lockedQuest, "unitId": unit, "mode": "production", "answer": "Ich bin hier"})
 	exercisePublic := add("exercises", "exercise-public", map[string]any{"itemId": "item-one", "questId": quest, "mode": "type", "german": "Ich komme aus England.", "answer": "Ich komme aus England.", "prompt": "Write: I come from England."})
+	station := add("exercises", "exercise-station", map[string]any{"itemId": "item-two", "questId": lockedQuest, "mode": "recognition", "answer": "Ein Geheimnis"})
+	activity := add("exercises", "exercise-activity", map[string]any{"itemId": "item-two", "questId": lockedQuest, "mode": "recognition", "answer": "Mit Milch, bitte."})
+	offRoute := add("exercises", "exercise-off-route", map[string]any{"itemId": "item-two", "questId": lockedQuest, "mode": "recognition", "answer": "Im Wald"})
+	add("narratives", "interior:interior:cafe:coffee", map[string]any{"kind": "interior", "mapId": "lindenhafen", "interiorId": "cafe", "activityId": "cafe", "exerciseIds": []string{station}})
+	add("narratives", "interior:waldruh:counter", map[string]any{"kind": "interior", "mapId": "waldruh", "interiorId": "cafe", "exerciseIds": []string{offRoute}})
+	add("minigames", "activity:cafe:A1", map[string]any{"kind": "activity", "activityId": "cafe", "mapId": "lindenhafen", "level": "A1", "scenarios": []any{map[string]any{"id": "scenario-one", "activityId": "cafe", "level": "A1", "exerciseId": activity}}})
 	add("lines", "exercise:exercise-public", map[string]any{"exerciseId": exercisePublic, "questId": quest, "de": map[string]any{"text": "Ich komme aus England."}})
 	line := add("lines", "ticket-line", map[string]any{"questId": quest, "stage": "intro", "de": map[string]any{"text": "Ihre Fahrkarte", "tokens": [][2]int{{0, 4}, {5, 14}}}, "support": map[string]any{"en": map[string]any{"text": "Your ticket", "tokens": [][2]int{{0, 4}, {5, 11}}, "align": [][2]int{{0, 0}, {1, 1}}}, "tr": map[string]any{"text": "Biletiniz", "tokens": [][2]int{{0, 9}}, "align": [][2]int{{0, 0}, {1, 0}}}}, "glosses": map[string]string{"1": word}})
 	add("lines", "hidden-line", map[string]any{"questId": lockedQuest, "stage": "intro", "de": map[string]any{"text": "Secret"}})
@@ -279,5 +289,34 @@ func TestContentOpaqueAttemptsAndAssistedReveal(t *testing.T) {
 	input.Preview = true
 	if response := request(app, "POST", "/api/attempt", token, input); response.Code != 400 {
 		t.Errorf("preview reveal: %d", response.Code)
+	}
+}
+
+// A fresh guest can walk into Marta's café on the opening map, so the station's
+// practice and its linked activity must load before the café quest opens.
+func TestContentInteriorStationExercisesFollowTheRoom(t *testing.T) {
+	app, ids := contentTestApp(t)
+	token, _ := createSession(t, app, "Ada")
+	for slug, want := range map[string]int{"exercise-station": 200, "exercise-activity": 200, "exercise-off-route": 404, "exercise-two": 404} {
+		if response := request(app, "GET", "/api/content/exercises/"+ids["exercises:"+slug], token, nil); response.Code != want {
+			t.Errorf("%s: %d, want %d: %s", slug, response.Code, want, response.Body.String())
+		}
+	}
+	// The client holds station practice back until its context words are restored.
+	if response := request(app, "GET", "/api/content/exercises/"+ids["exercises:exercise-station"], token, nil); !strings.Contains(response.Body.String(), `"wordIds":["`+ids["lexemes:secret"]+`"]`) {
+		t.Errorf("station context words: %s", response.Body.String())
+	}
+	response := request(app, "GET", "/api/content/minigames/"+ids["minigames:activity:cafe:A1"], token, nil)
+	if response.Code != 200 || !strings.Contains(response.Body.String(), ids["exercises:exercise-activity"]) {
+		t.Fatalf("station activity: %d %s", response.Code, response.Body.String())
+	}
+	// Opening the room does not restore its words: pacing still guards grading.
+	input := AttemptInput{ID: "station-word", ExerciseID: ids["exercises:exercise-station"], ItemID: ids["items:item-two"], Mode: "recognition", Answer: "Ein Geheimnis"}
+	if response := request(app, "POST", "/api/attempt", token, input); response.Code != 409 {
+		t.Errorf("unintroduced station word: %d %s", response.Code, response.Body.String())
+	}
+	input = AttemptInput{ID: "station-phrase", ExerciseID: ids["exercises:exercise-activity"], ItemID: ids["items:item-two"], Mode: "recognition", Answer: "Mit Milch, bitte."}
+	if response := request(app, "POST", "/api/attempt", token, input); response.Code != 200 || !strings.Contains(response.Body.String(), `"correct":true`) {
+		t.Errorf("station phrase: %d %s", response.Code, response.Body.String())
 	}
 }

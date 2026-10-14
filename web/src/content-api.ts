@@ -1,7 +1,7 @@
 import type { Api } from './api';
 import { baseLanguage, onBaseLanguageChange, lexemeMeaning } from './i18n';
 import { clearContentCatalog, installContentCatalog, installQuestExercises, quests, npcs, type Chapter, type Exercise, type NPC, type Quest } from './content';
-import { clearCourseContent, lexemeById, installCourseExercises, installCourseMetadata, installLexemes, type CourseExercise, type CourseLexeme, type CourseSource, type CourseUnit, type CourseGrammar } from './course';
+import { clearCourseContent, courseContextWordIds, lexemeById, installCourseExercises, installCourseMetadata, installLexemes, type CourseExercise, type CourseLexeme, type CourseSource, type CourseUnit, type CourseGrammar } from './course';
 import { clearQuestGraphs, installQuestGraph } from './quest-graph';
 import type { DialogueLine, QuestGraph } from './dialogue';
 import type { AlignedLine } from './aligned-line';
@@ -128,7 +128,8 @@ export class ContentClient {
         const response=await this.api.request<Record<string,{id:string}[]>>(`/content/${kind}?ids=${chunk.map(([id])=>id).join(',')}`);
         if(generation!==this.generation)throw new ContentUnavailable(chunk[0][0]);
         const records=response[kind]??[],byID=new Map(records.map(record=>[record.id,record]));
-        for(const [id,pending] of chunk){const value=byID.get(id);if(value){const record=kind==='lexemes'?localizeLexeme(value):value;this.caches.get(kind)!.set(id,record);pending.resolve(record);}else pending.reject(new ContentUnavailable(id));}
+        // Lines awaiting translation arrive without support; readers then fall back to the German alone.
+        for(const [id,pending] of chunk){const value=byID.get(id);if(value){const record=kind==='lexemes'?localizeLexeme(value):{support:{},...value};this.caches.get(kind)!.set(id,record);pending.resolve(record);}else pending.reject(new ContentUnavailable(id));}
       } catch(error) {for(const [,pending] of chunk)pending.reject(error);}
       finally {for(const [id,record] of chunk)if(this.pending.get(`${kind}:${id}`)===record.promise)this.pending.delete(`${kind}:${id}`);}
     }));
@@ -143,7 +144,7 @@ export class ContentClient {
   async exercises(ids:readonly string[]):Promise<Exercise[]> {
     const exercises=await Promise.all([...new Set(ids)].map(id=>this.single<Exercise>('exercises',id)));
     if(this.options.clearRegistries!==false){
-      for(const exercise of exercises)installBeginnerExercise(exercise);
+      for(const exercise of exercises){installBeginnerExercise(exercise);if(exercise.wordIds)courseContextWordIds[exercise.id]=exercise.wordIds;}
       installCourseExercises(exercises.filter((exercise):exercise is CourseExercise=>'unitId' in exercise));
       for(const quest of quests)installQuestExercises(quest.id,exercises.filter(exercise=>quest.exerciseIds?.includes(exercise.id)));
       this.changed();

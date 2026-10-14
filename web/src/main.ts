@@ -2165,12 +2165,14 @@ function showLogin() {
   };
 }
 
-/** Deterministic development previews exercise the production renderers without an account. */
+/** Deterministic development previews exercise the production renderers with a throwaway guest's content. */
 async function openUiCheck(surface: string) {
-  const module=await loadCourse();
-  api.token='';
-  api.request=async()=>{throw new Error(t('This preview does not save progress.'));};
+  // Content is entitled per account, so the preview reads it as a fresh guest and sends nothing else.
+  if(!await api.resume())await api.session('Wanderer',profile.avatar);
+  const request=api.request.bind(api);
+  api.request=async<T>(path:string,body?:unknown):Promise<T>=>{if(body===undefined&&path.startsWith('/content/'))return request<T>(path);throw new Error(t('This preview does not save progress.'));};
   api.selfId='ui-check';
+  const module=await loadCourse();
   const wordIds=surface==='encounter'?[]:(surface==='activity'?module.courseLexicon:module.courseLexicon.filter(word=>word.level==='A1').slice(0,24)).map(word=>word.id);
   acceptProgress({...emptyProgress(),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
   started=true; connection='online';
@@ -2181,7 +2183,7 @@ async function openUiCheck(surface: string) {
   else if(surface==='options')setView('settings');
   else if(surface==='journal')setView('journal');
   else if(surface==='course')setView('course');
-  else if(surface==='encounter'){interiorId='cafe';syncLocation();showInteriorObject('interior:cafe:coffee');}
+  else if(surface==='encounter'){interiorId='cafe';syncLocation();await showInteriorObject('interior:cafe:coffee');}
   else if(surface==='activity')await startActivity('cafe');
   else setView('world');
   world.setPresentation('hidden');

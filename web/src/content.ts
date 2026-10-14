@@ -8,6 +8,8 @@ export interface Exercise {
   localized?: boolean;
   audioPath?:string;
   placementLineId?:string; placementSpeaker?:string;
+  /** Context lexeme IDs; practice waits until each word is restored. */
+  wordIds?: string[];
   itemId: string;
   mode: ExerciseMode;
   prompt: string;

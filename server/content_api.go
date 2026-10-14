@@ -227,6 +227,9 @@ func (a *App) contentExerciseEntitled(id string, p *Progress) bool {
 	if !exists {
 		return false
 	}
+	if a.contentStationReachable(id, p) {
+		return true
+	}
 	if record, ok := a.content.Get("exercises", id); ok {
 		body := contentBody(record)
 		if quest := contentString(body, "questId"); quest != "" {
@@ -255,6 +258,16 @@ func (a *App) contentExerciseEntitled(id string, p *Progress) bool {
 	}
 	for unitID, unit := range a.curriculum.Units {
 		if contains(unit.RequiredExerciseIDs, slug) && a.contentUnitVisible(a.content.Resolve("units", unitID), p) {
+			return true
+		}
+	}
+	return false
+}
+
+func (a *App) contentStationReachable(id string, p *Progress) bool {
+	for _, room := range a.contentStationRooms[id] {
+		route, interior, _ := strings.Cut(room, "/")
+		if validInterior(route, interior) && routeUnlocked(route, p.CompletedQuestIDs) {
 			return true
 		}
 	}
@@ -595,6 +608,14 @@ func (a *App) contentExercise(w http.ResponseWriter, r *http.Request) {
 		delete(body, "german")
 		delete(body, "exampleLineId")
 	}
+	// Context words let the client hold back practice whose words are not restored yet.
+	words := []string{}
+	for _, word := range a.curriculum.ContextWordIDs[record.Slug] {
+		if lexeme := a.content.Resolve("lexemes", word); lexeme != "" {
+			words = append(words, lexeme)
+		}
+	}
+	body["wordIds"] = words
 	writeContent(w, r, safeContent(body, normalizedPreferences(account.Preferences).BaseLanguage))
 }
 func (a *App) contentUnit(w http.ResponseWriter, r *http.Request) {

@@ -29,12 +29,20 @@ jobs:
         env:
           ATLAS_UI_URL: http://127.0.0.1:5187
         run: |
+          # Previews read entitled content as a throwaway guest through the dev proxy.
+          (cd server && go build -o "$RUNNER_TEMP/atlas-server" .)
+          (cd server && DATA_PATH="$RUNNER_TEMP/atlas-ui-state.json" exec "$RUNNER_TEMP/atlas-server") > "$RUNNER_TEMP/atlas-ui-server.log" 2>&1 &
+          api_server_pid=$!
           node node_modules/vite/bin/vite.js web --host 127.0.0.1 --port 5187 --strictPort > "$RUNNER_TEMP/atlas-ui-vite.log" 2>&1 &
           ui_server_pid=$!
-          trap 'kill "$ui_server_pid" 2>/dev/null || true; wait "$ui_server_pid" 2>/dev/null || true' EXIT
+          trap 'kill "$ui_server_pid" "$api_server_pid" 2>/dev/null || true; wait "$ui_server_pid" "$api_server_pid" 2>/dev/null || true' EXIT
           ui_server_ready=false
           for attempt in {1..60}; do
-            if curl --fail --silent "$ATLAS_UI_URL" > /dev/null; then
+            if ! kill -0 "$api_server_pid" 2>/dev/null; then
+              cat "$RUNNER_TEMP/atlas-ui-server.log"
+              exit 1
+            fi
+            if curl --fail --silent "$ATLAS_UI_URL" > /dev/null && curl --fail --silent "$ATLAS_UI_URL/api/health" > /dev/null; then
               ui_server_ready=true
               break
             fi
@@ -45,7 +53,7 @@ jobs:
             sleep 1
           done
           if [ "$ui_server_ready" != true ]; then
-            cat "$RUNNER_TEMP/atlas-ui-vite.log"
+            cat "$RUNNER_TEMP/atlas-ui-vite.log" "$RUNNER_TEMP/atlas-ui-server.log"
             exit 1
           fi
           npm run ui:check

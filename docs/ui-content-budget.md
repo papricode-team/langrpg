@@ -44,7 +44,7 @@ Encounters put the German line and word chips before a full-width primary sessio
 
 `npm run check` runs the template budget lint. New `eyebrow` markup and `<small>` templates fail unless explicitly justified in `scripts/ui-template-allowlist.json`. Replacing a decorative label with a caption does not make its content necessary.
 
-The browser check uses the production renderers through development-only `?ui-check=` fixtures. These previews use deterministic sample progress, a static painted background and local UI state. They do not connect an account or write server progress. Do not expose the fixtures in production builds.
+The browser check uses the production renderers through development-only `?ui-check=` fixtures. These previews use deterministic sample progress, a static painted background and local UI state. Learning content is entitled per account, so each preview reads it as a fresh guest through the development proxy; it sends no other requests and writes no progress. Do not expose the fixtures in production builds.
 
 To regenerate the gallery locally, install the browser once:
 
@@ -66,4 +66,4 @@ npm run ui:check
 
 The check measures menu home, options, an encounter, the word journal and an activity at 1440×900 and 390×844. It fails on rendered text below 12px and regenerates the ten screenshots, `font-floor.json` and `index.html` under `docs/screenshots/ui/`. Review both viewports for action visibility, content density and overflow; a passing font floor alone does not establish a good composition.
 
-CI installs Chromium, starts the development frontend, runs the same check, stops the frontend and uploads the gallery artifact even after a failed check. No Go server is needed for these previews. To check another frontend origin, set `ATLAS_UI_URL`; `ATLAS_CHROMIUM_PATH` selects an existing Chromium executable when needed.
+CI installs Chromium, starts the Go server and the development frontend, runs the same check, stops both and uploads the gallery artifact even after a failed check. Locally, run the Go server (`cd server && go run .`) before the check; the frontend proxies `/api` to it. To check another frontend origin, set `ATLAS_UI_URL`; `ATLAS_CHROMIUM_PATH` selects an existing Chromium executable when needed.
