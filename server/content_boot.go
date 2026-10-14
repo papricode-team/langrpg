@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/jackc/pgx/v5"
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func loadContentCatalogue(ctx context.Context, store Store) (*contentstore.Catalog, error) {

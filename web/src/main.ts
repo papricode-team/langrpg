@@ -1,4 +1,5 @@
 import { castPortraitMarkup } from './cast-portrait';
+import { brandMarkup } from './branding';
 import {loadPublishedWorld,sceneContentVersion} from './scene-data';
 import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
@@ -1997,7 +1998,7 @@ function showAccountDialog(html: string, required = false) {
     activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
     if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
   }
-  dialog.innerHTML = html;
+  dialog.innerHTML = brandMarkup + html;
   dialog.dataset.accessWall = required ? 'required' : '';
   dialog.dataset.accessPhase = required ? accessClock.snapshot(performance.now())?.phase ?? 'checking' : '';
   dialog.classList.remove('billing-dialog');

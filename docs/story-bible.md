@@ -1,4 +1,4 @@
-# The Lantern Atlas — story bible
+# glotworld — story bible
 
 Single source of truth for the main story (30 quests, three acts: 18 in Act I, 6 each in Acts II and III). Dialogue, clues, letters and cinematics must agree with it. `scripts/story-lint` style checks live in `web/src/story-lint.test.ts`.
 

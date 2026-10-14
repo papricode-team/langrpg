@@ -16,7 +16,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 type APIError struct {

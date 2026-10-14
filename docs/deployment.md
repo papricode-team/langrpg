@@ -18,7 +18,8 @@ instance: world presence and positions are in memory.
    POSTGRES_USER=lernen
    POSTGRES_DB=lernen
    POSTGRES_PASSWORD=REPLACE_WITH_A_RANDOM_PASSWORD
-   ALLOWED_ORIGINS=https://learn.example.com
+   ALLOWED_ORIGINS=https://glotworld.com
+   PUBLIC_URL=https://glotworld.com
    MAX_ZONE_PLAYERS=128
    TRAEFIK_NETWORK=dokploy-network
    ```
@@ -30,7 +31,7 @@ instance: world presence and positions are in memory.
    variables, so the backend password does not need URL encoding. Quote literal
    `$` characters with single quotes in environment files to prevent Compose
    interpolation.
-3. Point the domain's DNS at the Dokploy host. In **Domains**, add your domain,
+3. Point `glotworld.com` DNS at the Dokploy host. In **Domains**, add `glotworld.com`,
    select service **server**, container port **8080**, upstream protocol **HTTP**,
    path `/`, and enable HTTPS for the public domain.
    The browser uses the same domain for the game, REST API and WebSockets.
@@ -44,7 +45,7 @@ instance: world presence and positions are in memory.
 5. Deploy. The startup order is PostgreSQL → Go, with readiness checks at each
    stage. Initial startup creates the database tables
    automatically; no separate SQL import or migration command is needed.
-6. Open `https://learn.example.com/api/health`. It should return
+6. Open `https://glotworld.com/api/health`. It should return
    `{"status":"ok","storage":"postgres","players":0}` before anyone connects.
    Create a player, finish a learning task, and redeploy. The same browser should
    resume its player and saved progress.
@@ -164,7 +165,7 @@ the restored `sessions` record.
 docker compose config --quiet
 docker compose ps
 docker compose logs --tail=100 server db
-curl https://learn.example.com/api/health
+curl https://glotworld.com/api/health
 ```
 
 Container logs rotate at 10 MB, retaining three files per service. Go runs as a

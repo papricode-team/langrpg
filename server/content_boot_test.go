@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func TestBuiltContentCatalogueBootsAndMatchesGrading(t *testing.T) {

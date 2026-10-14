@@ -1,5 +1,6 @@
 import { baseLanguageNames, isBaseLanguage, setBaseLanguage, t, type BaseLanguage } from './i18n';
 import { escapeHtml as e, icon } from './icons';
+import { brandMarkup } from './branding';
 
 export interface OnboardingLanguages {
   motherTongue: BaseLanguage;
@@ -22,7 +23,7 @@ export function mountLanguageOnboarding(host: HTMLElement, options: {
 }): void {
   let languages: OnboardingLanguages = { motherTongue: options.initialLanguage, learningLanguage: 'de' };
   let busy = false;
-  const heading = () => `${onboardingStepsMarkup(1)}`;
+  const heading = () => `${brandMarkup}${onboardingStepsMarkup(1)}`;
   const focusHeading = () => host.querySelector<HTMLElement>('#account-title')?.focus({ preventScroll: true });
 
   function selectLanguages() {

@@ -10,7 +10,7 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 // Grading and story rules keep their private authored identifiers. Translation

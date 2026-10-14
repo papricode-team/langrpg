@@ -1,4 +1,4 @@
-# THE LANTERN ATLAS
+# glotworld
 
 ### A screenplay reconstruction of the full game plot
 

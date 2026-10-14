@@ -42,7 +42,7 @@ export async function exportMiniGameSfx(root=projectRoot){
     const result=spawnSync(process.env.FFMPEG_PATH||'ffmpeg',['-v','error','-y','-i',wav,'-c:a','libopus','-b:a','64k',resolve(output,`${name}.ogg`)]);
     if(result.status!==0)throw Error(result.stderr.toString());await unlink(wav);
   }
-  await writeFile(resolve(output,'provenance.json'),`${JSON.stringify({author:'The Lantern Atlas project',source:'scripts/generate-minigame-sfx.mjs',license:'Original synthesized audio; no external samples',sampleRate:worldAudioRate,seeds:minigameSfxNames.map((_,i)=>7100+i),encoding:'Ogg Opus 64 kbps',clips:minigameSfxNames},null,2)}\n`);
+  await writeFile(resolve(output,'provenance.json'),`${JSON.stringify({author:'glotworld project',source:'scripts/generate-minigame-sfx.mjs',license:'Original synthesized audio; no external samples',sampleRate:worldAudioRate,seeds:minigameSfxNames.map((_,i)=>7100+i),encoding:'Ogg Opus 64 kbps',clips:minigameSfxNames},null,2)}\n`);
   console.log(`Exported ${minigameSfxNames.length} distinct mini-game foley clips.`);
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))await exportMiniGameSfx();

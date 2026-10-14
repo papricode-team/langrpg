@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func contentBody(record contentstore.Record) map[string]any {

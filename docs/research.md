@@ -1,6 +1,6 @@
 # Language learning research and design decisions
 
-Research checked on 2026-10-08. This is a fresh concept for Lantern Atlas; no prior implementation is treated as a design constraint.
+Research checked on 2026-10-08. This is a fresh concept for glotworld; no prior implementation is treated as a design constraint.
 
 ## Evidence that informs the game
 

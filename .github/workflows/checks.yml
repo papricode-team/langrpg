@@ -78,4 +78,4 @@ jobs:
         working-directory: server
       - run: go vet ./...
         working-directory: server
-      - run: docker build --file server/Dockerfile --tag lantern-atlas:ci .
+      - run: docker build --file server/Dockerfile --tag glotworld:ci .

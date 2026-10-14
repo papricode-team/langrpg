@@ -98,7 +98,7 @@ for(const [id,game]of Object.entries(games)){
   const rows=exercises.filter(exercise=>exercise.miniGameId===id),visible=id==='seed-packets'?packets.map(packet=>packet.ledgerGerman).join(' '):id==='17-59'?tickets.map(ticket=>`${ticket.code} ${ticket.destination}`).join(' '):'';
   game.requiredWordIds=[...new Set([...rows.flatMap(row=>row.wordIds),...map(visible)])].sort();
 }
-export const authoredStoryScripts={version:1,authoring:'Hand-authored Lantern Atlas story scripts; canonical context-bound exercises',properNames:['Emil','Elise','Greta','Voss','Otto','Waldruh','Lindenhafen'],games,exercises,audio};
+export const authoredStoryScripts={version:1,authoring:'Hand-authored glotworld story scripts; canonical context-bound exercises',properNames:['Emil','Elise','Greta','Voss','Otto','Waldruh','Lindenhafen'],games,exercises,audio};
 const serialized=JSON.stringify(authoredStoryScripts,null,2)+'\n';
 export async function writeAuthoredStoryScripts({check=false,root=projectRoot}={}){
   for(const name of ['web/src/minigames/story-scripts.json','server/minigame_stories.json']){

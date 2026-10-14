@@ -4,6 +4,27 @@
   padding: clamp(24px, 5vw, 40px);
 }
 
+.glotworld-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+  color: var(--gold-light);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+
+.glotworld-brand img {
+  flex: 0 0 32px;
+}
+
+.glotworld-brand:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+
 .account-dialog h2 {
   font-size: var(--type-display);
   line-height: 1.15;
