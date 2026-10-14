@@ -3,6 +3,7 @@ import { createMapNavigation, type MapPoint, type NavigationGrid } from './navig
 import { expeditionResidentSpecs } from './expeditions';
 import {getWorldScene} from './scene-data';
 import {worldStartHour, type WorldSimulationTime} from './shared-world-time';
+import { npcTravelSeconds } from './npc-motion';
 
 export interface ResidentAvatar { hair: string; skin: string; outfit: string; }
 export interface ResidentStop extends MapPoint { pauseSeconds: number; }
@@ -127,7 +128,7 @@ export function compileResident(spec: ResidentSpec, navigation: NavigationGrid):
     for (const point of route) {
       const distance = Math.hypot(point.x - previous.x, point.y - previous.y);
       if (distance > .001) {
-        const durationSeconds = distance / spec.speed;
+        const durationSeconds = npcTravelSeconds(distance, spec.speed);
         segments.push({
           from: previous, to: point, startSeconds: cycleSeconds, durationSeconds,
           velocityX: (point.x - previous.x) / durationSeconds,

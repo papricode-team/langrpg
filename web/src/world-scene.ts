@@ -23,6 +23,7 @@ import { WorldAnimationAssets } from './world-animation-assets';
 import { worldAmbient, timeAmbient } from './world-lighting';
 import { WorldAtmosphere } from './world-atmosphere';
 import { npcRoutine, residentRoutine, WorldBarkDirector } from './world-routines';
+import { NpcRoutineWalk } from './npc-motion';
 import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
 import type { WorldPeriod } from './world-clock';
 import { buildingEntrances, type InteriorId } from './interiors';
@@ -101,6 +102,7 @@ export class WorldScene extends ExploreScene {
   private bark?: Phaser.GameObjects.Text;
   private barkUntil = 0;
   private barkSpeaker?: Character;
+  private readonly routineWalks = new WeakMap<Character, NpcRoutineWalk>();
   private learning: WorldLearningContext = { lexicon: [], progress: { words: {} } };
   private silhouette?: Phaser.GameObjects.Container;
   private silhouetteLayers: Phaser.GameObjects.Image[] = [];
@@ -351,12 +353,12 @@ export class WorldScene extends ExploreScene {
     if (!anchor) return { x: 0, y: 0 };
     const routine = npcRoutine(npc.id, this.clock.gameplayHour(), this.objective);
     const desiredX = anchor.x * this.worldWidth + routine.offsetX * ROUTINE_FRAME.width, desiredY = anchor.y * this.worldHeight + routine.offsetY * ROUTINE_FRAME.height;
-    const remaining = Math.hypot(desiredX - npc.x, desiredY - npc.y);
-    if (remaining < .001 || !this.navigation.canWalkSegment(npc.x, npc.y, desiredX, desiredY)) return { x: 0, y: 0 };
-    const step = Math.min(1, 36 * seconds / remaining);
-    const dx = (desiredX - npc.x) * step, dy = (desiredY - npc.y) * step;
-    npc.x += dx; npc.y += dy;
-    return { x: dx, y: dy };
+    let walk = this.routineWalks.get(npc);
+    if (!walk) { walk = new NpcRoutineWalk(); this.routineWalks.set(npc, walk); }
+    const step = walk.step(npc, { x: desiredX, y: desiredY }, seconds,
+      (from, to) => this.navigation.canWalkSegment(from.x, from.y, to.x, to.y));
+    npc.x += step.x; npc.y += step.y;
+    return step;
   }
 
   protected afterCharacter(npc: Character): void {

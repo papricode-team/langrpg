@@ -6,10 +6,23 @@ import type { TextureLease } from './avatar-texture-cache';
 import { bootWorld } from './test-support/world-fixture';
 import { seedTexture } from './test-support/phaser-harness';
 import { castActor, CAST_ART } from './character-cast';
-import { MODULAR_ART } from './avatar-options';
+import { characterFrame, MODULAR_ART } from './avatar-options';
 
 const frames = Array.from({ length: 36 }, (_, index) => index);
 describe('component characters in the Phaser scenes', () => {
+  it.each([60, 600])('keeps slow NPC steps walking consistently with the player %i units away', async separation => {
+    const actor = castActor('fritz')!;
+    const { town } = await bootWorld({ seed: game => seedTexture(game, actor.key, frames, CAST_ART.width, CAST_ART.height) });
+    const person = town.characters.get('fritz');
+    town.local.x = person.x + separation; town.local.y = person.y;
+    for (let index = 0; index < 120; index++) {
+      town.animateCharacter(person, -[.01, .04, .08][index % 3], 0, index / 60);
+      expect(person.facing).toBe(3);
+      expect(person.figure.frame.name).not.toBe(characterFrame(3));
+    }
+    town.animateCharacter(person, 0, 0, 2);
+    expect(person.figure.frame.name).toBe(characterFrame(separation < 170 ? 1 : 3));
+  });
   it('walks a cast bake in all four directions using one sprite', async () => {
     const actor = castActor('marta')!;
     const { town } = await bootWorld({ seed: game => seedTexture(game, actor.key, frames, CAST_ART.width, CAST_ART.height) });
