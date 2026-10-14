@@ -1,156 +1,1040 @@
-.expedition-dialog { max-width: min(900px, 94vw); }
-.expedition-game { padding: 36px; color: var(--ink, #263830); }
-.expedition-game-heading h2 { font: 600 clamp(26px,4vw,38px)/1.1 Fraunces,serif; margin: 10px 0 12px; }
-.expedition-game-heading > p, .expedition-overview > p { line-height: 1.65; max-width: 65ch; }
-.expedition-levels { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:18px 0; }
-.expedition-levels button { min-height:40px; min-width:48px; border:1px solid #a9b9ac; color:#274939; background:#f5f3e8; border-radius:9px; font-weight:700; cursor:pointer; }
-.expedition-levels button.selected { color:#fff; background:#305947; border-color:#305947; }
-.expedition-levels > span { font-size:11px; color:#64786b; margin-left:auto; }
-.expedition-brief { display:flex; align-items:flex-start; gap:12px; margin:20px 0 12px; padding:22px; border-left:3px solid #ce9b48; border-radius:0 14px 14px 0; background:#f1ead8; font-size:17px; line-height:1.8; }
-.expedition-brief .icon-button { flex-shrink:0; }
-.expedition-glossary { color:#586d60; line-height:1.7; font-size:13px; padding:12px 0; }
-.expedition-workbench { margin-top:20px; padding:22px; background:#edf0e8; border:1px solid #d6dece; border-radius:18px; }
-.expedition-plan-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
-.expedition-plan-fields label { display:flex; flex-direction:column; gap:7px; }
-.expedition-plan-fields label > strong { font-size:14px; }
-.expedition-plan-fields label > span { font-size:12px; color:#61776a; }
-.expedition-plan-fields select { width:100%; min-height:48px; padding:10px 12px; border:1px solid #afbfae; border-radius:9px; color:#263e31; background:#fffdf6; font:inherit; font-size:14px; }
-.expedition-resource { display:flex; align-items:center; gap:10px; margin:22px 0; padding:15px; background:#fffdf6; border:1px dashed #aebb9e; border-radius:10px; font-size:13px; font-weight:600; line-height:1.5; }
-.expedition-resource svg { flex-shrink:0; }
-.expedition-order h3 { font:600 20px/1.3 Fraunces,serif; margin:16px 0 8px; }
-.expedition-order > p { font-size:12px; line-height:1.6; color:#627365; }
-.expedition-order-result { display:flex; flex-direction:column; gap:8px; padding:0; list-style:none; min-height:66px; }
-.expedition-order-result li > button { display:flex; align-items:center; gap:12px; width:100%; min-height:52px; border:1px solid #c6d1b9; border-radius:10px; background:#fffdf6; color:#314533; padding:12px; cursor:pointer; text-align:left; }
-.expedition-order-result li > button > span { display:grid; place-items:center; flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#dfe8d2; font-size:12px; font-weight:700; }
-.expedition-order-result li > button > strong { flex:1; font-size:14px; }
-.expedition-order-result li > button > small { max-width:40%; font-size:11px; color:#637b68; }
-.expedition-order-result li > button > svg { flex-shrink:0; width:16px; }
-.expedition-order-result li > button:disabled { cursor:default; opacity:1; }
-.expedition-order-empty { border:1px dashed #a5b798; padding:24px; border-radius:10px; font-size:13px; text-align:center; color:#697d60; }
-.expedition-order-pieces { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-.expedition-order-pieces button { display:flex; flex-direction:column; gap:5px; padding:12px 14px; min-height:46px; border-radius:10px; border:1px solid #adbda0; background:#e0e8d4; color:#314d37; cursor:pointer; text-align:left; flex:1 1 44%; transition:transform 150ms ease, background 150ms ease; }
-.expedition-order-pieces button:hover:not(:disabled) { background:#d4e2c4; transform:translateY(-2px); }
-.expedition-order-pieces button strong { font-size:13px; }
-.expedition-order-pieces button small { font-size:11px; color:#617558; }
-.expedition-order-pieces button:disabled { opacity:.4; cursor:default; }
-.expedition-plan-feedback { margin:24px 0; line-height:1.7; font-size:14px; }
-.expedition-plan-feedback:empty { margin:0; }
-.expedition-plan-feedback.retry { border:1px solid #d8b587; border-radius:12px; background:#f9eddc; padding:18px; }
-.expedition-plan-feedback.retry ul { margin:10px 0 0; padding-left:20px; }
-.expedition-plan-feedback.retry li + li { margin-top:10px; }
-.expedition-plan-feedback.good { border:1px solid #a6c09b; border-radius:14px; background:#ecf4e4; padding:22px; }
-.expedition-plan-feedback.good h3 { font:600 22px/1.3 Fraunces,serif; display:flex; align-items:center; gap:10px; }
-.expedition-plan-feedback.good blockquote { margin:16px 0; font-style:italic; }
-.expedition-game-actions { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:22px; }
-.expedition-save-note { font-size:11px; line-height:1.7; color:#7a8278; padding-top:18px; }
-.expedition-portrait { display:inline-grid; place-items:center; flex-shrink:0; width:56px; height:56px; border-radius:50%; background:#efe6cb; border:2px solid #c6ab73; font:600 24px Fraunces,serif; color:#425745; overflow:hidden; }
-.expedition-portrait.large-portrait { width:94px; height:94px; font-size:40px; }
-.expedition-portrait img { width:100%; height:100%; object-fit:contain; }
-.expedition-encounter { padding:36px; }
-.expedition-encounter-heading { display:flex; align-items:center; gap:18px; }
-.expedition-encounter h2 { font:600 30px/1.2 Fraunces,serif; margin:10px 0; }
-.expedition-encounter > p { line-height:1.7; }
-.expedition-relationship { border-left:3px solid #b9954c; background:#f4efdf; padding:14px 18px; margin:20px 0; font-size:13px; line-height:1.7; }
-.expedition-encounter-choices { display:grid; gap:10px; margin:22px 0; }
-.expedition-encounter-choices button { border:1px solid #b8c6ac; border-radius:12px; padding:16px 18px; text-align:left; color:#334c36; background:#f7f7ed; font:inherit; line-height:1.6; cursor:pointer; }
-.expedition-encounter-choices button.chosen { background:#e4eed9; border-color:#6e8a5d; }
-.expedition-encounter-result { background:#edf1e3; border-radius:10px; padding:18px; line-height:1.7; margin:18px 0; }
-.expedition-overview { padding:12px 0; }
-.expedition-overview h2 { font:600 38px/1.1 Fraunces,serif; }
-.expedition-stat-row { display:flex; gap:16px; flex-wrap:wrap; margin:22px 0; }
-.expedition-stat-row > span { background:#eeeada; padding:10px 14px; border-radius:9px; font-size:12px; }
-.expedition-cast { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:24px; }
-.expedition-cast button { display:flex; gap:12px; align-items:center; text-align:left; padding:14px; border:1px solid #d4d9c7; border-radius:12px; background:#f6f3e6; color:#354c3c; cursor:pointer; }
-.expedition-cast button > span:last-child { display:flex; flex-direction:column; gap:5px; }
-.expedition-cast small { font-size:11px; color:#6f7a64; line-height:1.5; }
-.expedition-atlas-label { font-size:11px; letter-spacing:.07em; }
-.atlas-map-pin .expedition-portrait { width:34px; height:34px; font-size:14px; }
-.expedition-story-link { margin-top:22px; }
-@media(max-width:640px) { .expedition-game,.expedition-encounter { padding:24px 18px; } .expedition-workbench { padding:16px; } .expedition-plan-fields,.expedition-cast { grid-template-columns:1fr; } .expedition-levels > span { flex-basis:100%; margin-left:0; } .expedition-order-result li > button { flex-wrap:wrap; } .expedition-order-result li > button > small { max-width:none; flex-basis:75%; margin-left:40px; } .expedition-brief { padding:16px; font-size:15px; } .expedition-game-actions .primary-button { width:100%; } }
-@media(prefers-reduced-motion:reduce) { .expedition-order-pieces button { transition:none; } .expedition-order-pieces button:hover:not(:disabled) { transform:none; } }
+.expedition-dialog {
+  max-width: min(900px, 94vw);
+}
+
+.expedition-game {
+  padding: 36px;
+  color: var(--ink, #263830);
+}
+
+.expedition-game-heading h2 {
+  font: 600 var(--type-display)/1.1 Fraunces,serif;
+  margin: 10px 0 12px;
+}
+
+.expedition-game-heading > p, .expedition-overview > p {
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+.expedition-levels {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+
+.expedition-levels button {
+  min-height:40px;
+  min-width:48px;
+  border:1px solid #a9b9ac;
+  color:#274939;
+  background:#f5f3e8;
+  border-radius:9px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.expedition-levels button.selected {
+  color:#fff;
+  background:#305947;
+  border-color:#305947;
+}
+
+.expedition-levels > span {
+  font-size: var(--type-caption);
+  color:#64786b;
+  margin-left:auto;
+}
+
+.expedition-brief {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin:20px 0 12px;
+  padding:22px;
+  border-left:3px solid #ce9b48;
+  border-radius:0 14px 14px 0;
+  background:#f1ead8;
+  font-size: var(--type-body);
+  line-height:1.8;
+}
+
+.expedition-brief .icon-button {
+  flex-shrink:0;
+}
+
+.expedition-glossary {
+  color:#586d60;
+  line-height:1.7;
+  font-size: var(--type-caption);
+  padding:12px 0;
+}
+
+.expedition-workbench {
+  margin-top:20px;
+  padding:22px;
+  background:#edf0e8;
+  border:1px solid #d6dece;
+  border-radius:18px;
+}
+
+.expedition-plan-fields {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.expedition-plan-fields label {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.expedition-plan-fields label > strong {
+  font-size: var(--type-body);
+}
+
+.expedition-plan-fields label > span {
+  font-size: var(--type-caption);
+  color:#61776a;
+}
+
+.expedition-plan-fields select {
+  width:100%;
+  min-height:48px;
+  padding:10px 12px;
+  border:1px solid #afbfae;
+  border-radius:9px;
+  color:#263e31;
+  background:#fffdf6;
+  font: inherit;
+  font-size: var(--type-body);
+}
+
+.expedition-resource {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:22px 0;
+  padding:15px;
+  background:#fffdf6;
+  border:1px dashed #aebb9e;
+  border-radius:10px;
+  font-size: var(--type-caption);
+  font-weight:600;
+  line-height:1.5;
+}
+
+.expedition-resource svg {
+  flex-shrink:0;
+}
+
+.expedition-order h3 {
+  font: 600 var(--type-title)/1.3 Fraunces,serif;
+  margin:16px 0 8px;
+}
+
+.expedition-order > p {
+  font-size: var(--type-body);
+  line-height:1.6;
+  color:#627365;
+}
+
+.expedition-order-result {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:0;
+  list-style:none;
+  min-height:66px;
+}
+
+.expedition-order-result li > button {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  min-height:52px;
+  border:1px solid #c6d1b9;
+  border-radius:10px;
+  background:#fffdf6;
+  color:#314533;
+  padding:12px;
+  cursor:pointer;
+  text-align:left;
+}
+
+.expedition-order-result li > button > span {
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#dfe8d2;
+  font-size: var(--type-caption);
+  font-weight:700;
+}
+
+.expedition-order-result li > button > strong {
+  flex:1;
+  font-size: var(--type-body);
+}
+
+.expedition-order-result li > button > .caption {
+  max-width:40%;
+  font-size: var(--type-caption);
+  color:#637b68;
+}
+
+.expedition-order-result li > button > svg {
+  flex-shrink:0;
+  width:16px;
+}
+
+.expedition-order-result li > button:disabled {
+  cursor:default;
+  opacity:1;
+}
+
+.expedition-order-empty {
+  border:1px dashed #a5b798;
+  padding:24px;
+  border-radius:10px;
+  font-size: var(--type-caption);
+  text-align:center;
+  color:#697d60;
+}
+
+.expedition-order-pieces {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.expedition-order-pieces button {
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  padding:12px 14px;
+  min-height:46px;
+  border-radius:10px;
+  border:1px solid #adbda0;
+  background:#e0e8d4;
+  color:#314d37;
+  cursor:pointer;
+  text-align:left;
+  flex:1 1 44%;
+  transition:transform 150ms ease, background 150ms ease;
+}
+
+.expedition-order-pieces button:hover:not(:disabled) {
+  background:#d4e2c4;
+  transform:translateY(-2px);
+}
+
+.expedition-order-pieces button strong {
+  font-size: var(--type-caption);
+}
+
+.expedition-order-pieces button .caption {
+  font-size: var(--type-caption);
+  color:#617558;
+}
+
+.expedition-order-pieces button:disabled {
+  opacity:.4;
+  cursor:default;
+}
+
+.expedition-plan-feedback {
+  margin:24px 0;
+  line-height:1.7;
+  font-size: var(--type-body);
+}
+
+.expedition-plan-feedback:empty {
+  margin:0;
+}
+
+.expedition-plan-feedback.retry {
+  border:1px solid #d8b587;
+  border-radius:12px;
+  background:#f9eddc;
+  padding:18px;
+}
+
+.expedition-plan-feedback.retry ul {
+  margin:10px 0 0;
+  padding-left:20px;
+}
+
+.expedition-plan-feedback.retry li + li {
+  margin-top:10px;
+}
+
+.expedition-plan-feedback.good {
+  border:1px solid #a6c09b;
+  border-radius:14px;
+  background:#ecf4e4;
+  padding:22px;
+}
+
+.expedition-plan-feedback.good h3 {
+  font: 600 var(--type-title)/1.3 Fraunces,serif;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.expedition-plan-feedback.good blockquote {
+  margin:16px 0;
+  font-style:italic;
+}
+
+.expedition-game-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  align-items:center;
+  margin-top:22px;
+}
+
+.expedition-save-note {
+  font-size: var(--type-caption);
+  line-height:1.7;
+  color:#7a8278;
+  padding-top:18px;
+}
+
+.expedition-portrait {
+  display:inline-grid;
+  place-items:center;
+  flex-shrink:0;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:#efe6cb;
+  border:2px solid #c6ab73;
+  font: 600 var(--type-title) Fraunces,serif;
+  color:#425745;
+  overflow:hidden;
+}
+
+.expedition-portrait.large-portrait {
+  width:94px;
+  height:94px;
+  font-size: var(--type-display);
+}
+
+.expedition-portrait img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.expedition-encounter {
+  padding:36px;
+}
+
+.expedition-encounter-heading {
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.expedition-encounter h2 {
+  font: 600 var(--type-display)/1.2 Fraunces,serif;
+  margin:10px 0;
+}
+
+.expedition-encounter > p {
+  line-height:1.7;
+}
+
+.expedition-relationship {
+  border-left:3px solid #b9954c;
+  background:#f4efdf;
+  padding:14px 18px;
+  margin:20px 0;
+  font-size: var(--type-caption);
+  line-height:1.7;
+}
+
+.expedition-encounter-choices {
+  display:grid;
+  gap:10px;
+  margin:22px 0;
+}
+
+.expedition-encounter-choices button {
+  border:1px solid #b8c6ac;
+  border-radius:12px;
+  padding:16px 18px;
+  text-align:left;
+  color:#334c36;
+  background:#f7f7ed;
+  font: inherit;
+  line-height:1.6;
+  cursor:pointer;
+}
+
+.expedition-encounter-choices button.chosen {
+  background:#e4eed9;
+  border-color:#6e8a5d;
+}
+
+.expedition-encounter-result {
+  background:#edf1e3;
+  border-radius:10px;
+  padding:18px;
+  line-height:1.7;
+  margin:18px 0;
+}
+
+.expedition-overview {
+  padding:12px 0;
+}
+
+.expedition-overview h2 {
+  font: 600 var(--type-display)/1.1 Fraunces,serif;
+}
+
+.expedition-stat-row {
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin:22px 0;
+}
+
+.expedition-stat-row > span {
+  background:#eeeada;
+  padding:10px 14px;
+  border-radius:9px;
+  font-size: var(--type-caption);
+}
+
+.expedition-cast {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.expedition-cast button {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  text-align:left;
+  padding:14px;
+  border:1px solid #d4d9c7;
+  border-radius:12px;
+  background:#f6f3e6;
+  color:#354c3c;
+  cursor:pointer;
+}
+
+.expedition-cast button > span:last-child {
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.expedition-cast .caption {
+  font-size: var(--type-caption);
+  color:#6f7a64;
+  line-height:1.5;
+}
+
+.expedition-atlas-label {
+  font-size: var(--type-caption);
+  letter-spacing: .6px;
+}
+
+.atlas-map-pin .expedition-portrait {
+  width:34px;
+  height:34px;
+  font-size: var(--type-body);
+}
+
+.expedition-story-link {
+  margin-top:22px;
+}
+
+@media(--phone) {
+  .expedition-game,.expedition-encounter {
+    padding:24px 18px;
+  }
+  .expedition-workbench {
+    padding:16px;
+  }
+  .expedition-plan-fields,.expedition-cast {
+    grid-template-columns:1fr;
+  }
+  .expedition-levels > span {
+    flex-basis:100%;
+    margin-left:0;
+  }
+  .expedition-order-result li > button {
+    flex-wrap:wrap;
+  }
+  .expedition-order-result li > button > .caption {
+    max-width:none;
+    flex-basis:75%;
+    margin-left:40px;
+  }
+  .expedition-brief {
+    padding:16px;
+    font-size: var(--type-body);
+  }
+  .expedition-game-actions .primary-button {
+    width:100%;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .expedition-order-pieces button {
+    transition:none;
+  }
+  .expedition-order-pieces button:hover:not(:disabled) {
+    transform:none;
+  }
+}
+
 /* The expedition workbench is a readable paper surface inside the existing game HUD. */
-.dialog.expedition-dialog:not(.interior-dialog) { width:min(900px,calc(100vw - 32px)); height:fit-content; max-height:calc(100dvh - 40px); overflow:auto; padding:0; color:#314535; background:radial-gradient(ellipse at top left,#fffcf1,#eee7d3); border:1px solid #c1aa74; border-radius:16px; }
-.dialog.expedition-dialog:not(.interior-dialog) h2 { color:#304a38; font-weight:600; }
-.dialog.expedition-dialog:not(.interior-dialog) .eyebrow { color:#8a6d35; }
-.dialog.expedition-dialog:not(.interior-dialog) .text-button { color:#496344; }
-.dialog.expedition-dialog:not(.interior-dialog) .outline-button { color:#44613f; border-color:#a6b294; }
-.dialog.expedition-dialog:not(.interior-dialog) .dialog-close { top:10px; right:12px; z-index:2; border-radius:8px; color:#edf0da; background:#2c4634; }
-.dialog.expedition-dialog:not(.interior-dialog)::before { display:none; }
-.expedition-stat-row > span { color:#41513c; }
-.expedition-translation summary { cursor:pointer; color:#647656; font-size:13px; padding:8px 0; }
-.expedition-translation p { line-height:1.6; font-size:13px; color:#586b50; }
-.expedition-order-result li { animation:expedition-place 180ms ease-out; }
-@keyframes expedition-place { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
-@media(max-width:640px) { .dialog.expedition-dialog:not(.interior-dialog) { width:calc(100vw - 16px); max-height:calc(100dvh - 16px); } }
-@media(prefers-reduced-motion:reduce) { .expedition-order-result li { animation:none; } }
+.dialog.expedition-dialog:not(.interior-dialog) {
+  width:min(900px,calc(100vw - 32px));
+  height:fit-content;
+  max-height:calc(100dvh - 40px);
+  overflow:auto;
+  padding:0;
+  color:#314535;
+  background:radial-gradient(ellipse at top left,#fffcf1,#eee7d3);
+  border:1px solid #c1aa74;
+  border-radius:16px;
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) h2 {
+  color:#304a38;
+  font-weight:600;
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) .text-button {
+  color:#496344;
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) .outline-button {
+  color:#44613f;
+  border-color:#a6b294;
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) .dialog-close {
+  top:10px;
+  right:12px;
+  z-index:2;
+  border-radius:8px;
+  color:#edf0da;
+  background:#2c4634;
+}
+
+.dialog.expedition-dialog:not(.interior-dialog)::before {
+  display:none;
+}
+
+.expedition-stat-row > span {
+  color:#41513c;
+}
+
+.expedition-translation summary {
+  cursor:pointer;
+  color:#647656;
+  font-size: var(--type-caption);
+  padding:8px 0;
+}
+
+.expedition-translation p {
+  line-height:1.6;
+  font-size: var(--type-body);
+  color:#586b50;
+}
+
+.expedition-order-result li {
+  animation:expedition-place 180ms ease-out;
+}
+
+@keyframes expedition-place {
+  from {
+    opacity:0;
+    transform:translateY(-6px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(--phone) {
+  .dialog.expedition-dialog:not(.interior-dialog) {
+    width:calc(100vw - 16px);
+    max-height:calc(100dvh - 16px);
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .expedition-order-result li {
+    animation:none;
+  }
+}
 
 /* Places and resources live over the neighborhood painting; paper is reserved
    for the spoken brief and evidence props. */
-.dialog.expedition-dialog:not(.interior-dialog){color:#eee6cf;background:linear-gradient(135deg,#132b25f5,#0c1e1bee);border:2px solid #b69859;box-shadow:0 24px 90px #071712aa}
-.dialog.expedition-dialog:not(.interior-dialog) h2,.expedition-game{color:#f4e6be}
-.dialog.expedition-dialog:not(.interior-dialog) .eyebrow{color:#d7b976}
-.dialog.expedition-dialog:not(.interior-dialog) .text-button,.dialog.expedition-dialog:not(.interior-dialog) .outline-button{color:#dfd6b8}
-.expedition-game{padding:30px;}
-.expedition-game button{min-width:44px;min-height:44px;touch-action:manipulation}
-.expedition-game button:focus-visible{outline:3px solid #f2ce79;outline-offset:3px}
-.expedition-game-heading>p,.expedition-glossary,.expedition-order>p{color:#bbcbbb}
-.expedition-levels button{background:#203e32;color:#e5deca;border-color:#ae935266}
-.expedition-levels button.selected{background:#456046;color:#fff3ce;border-color:#dbbd70}
-.expedition-levels>span{color:#bdcbb7}
-.expedition-brief{color:#314332;background:#f1e5c7;border-left:3px solid #ce9b48}
-.expedition-brief .icon-button{color:#314332;background:#ddcfaa;border-radius:50%}
-.expedition-workbench{padding:0;background:none;border:0}
-.expedition-region-board{padding:16px;border:2px solid #ae9352;border-radius:18px;background:linear-gradient(180deg,#12342855,#0c201999),var(--expedition-preview) center/cover;box-shadow:inset 0 0 50px #07171288;min-height:290px}
-.expedition-board-eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 25px;font-size:10px;letter-spacing:.14em;color:#fff0cb;text-shadow:0 2px 3px #071712}
-.expedition-board-eyebrow .icon{width:19px;height:19px}
-.expedition-plan-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-content:center}
-.expedition-placement{display:flex;align-items:center;gap:12px;min-width:0;min-height:94px;padding:13px;border:1px solid #e0c78977;border-radius:12px;background:linear-gradient(120deg,#102c25ed,#193529d9);color:#f3e8c5;box-shadow:0 7px 18px #06161055;text-align:left;cursor:pointer;backdrop-filter:blur(7px)}
-.expedition-placement.selected{border:2px solid #f4ce78;padding:12px;box-shadow:0 0 22px #ecc26844}
-.expedition-placement>.icon:first-child{color:#dbbd79;width:28px;height:28px;flex:none}
-.expedition-placement>.icon:last-child{width:16px;height:16px;margin-left:auto;flex:none}
-.expedition-placement span{display:flex;flex-direction:column;gap:6px;min-width:0}
-.expedition-placement small{font-size:11px;color:#d1d5ba}
-.expedition-placement strong{font:500 18px/1.2 Fraunces,serif}
-.expedition-placement em{font-size:10px;font-style:normal;color:#adbea7}
-.expedition-placement:disabled{opacity:1;cursor:default}
-.expedition-token-tray{margin-top:14px;padding:16px;background:#132d25d9;border:1px solid #ae935255;border-radius:14px}
-.expedition-token-tray h3{display:flex;gap:8px;align-items:center;margin:0;font:500 20px/1.2 Fraunces,serif;color:#f1e4bd}
-.expedition-token-tray h3 .icon{width:20px;height:20px}
-.expedition-token-tray>p{color:#bbcab8;font-size:12px;line-height:1.5;margin:8px 0 13px}
-.expedition-resource-tokens{display:flex;flex-wrap:wrap;gap:9px}
-.expedition-resource-token{display:flex;flex:1 1 100px;max-width:220px;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:88px;padding:12px;border:2px solid #bea15c66;border-radius:14px;background:linear-gradient(#3d563d,#233c2c);color:#f3e6c2;box-shadow:0 4px 0 #06171177;text-align:center;cursor:grab;transition:transform 120ms ease,border-color 120ms ease}
-.expedition-resource-token .icon{width:26px;height:26px;color:#dbbd76}
-.expedition-resource-token strong{font-size:13px;line-height:1.4}
-.expedition-resource-token small{font-size:10px;line-height:1.3;color:#c6d0b6}
-.expedition-resource-token.selected{border-color:#eed08c;background:linear-gradient(#536342,#344a30)}
-.expedition-resource-token:hover:not(:disabled){transform:translateY(-3px);border-color:#eed08c}
-.expedition-resource-token:active{cursor:grabbing}
-.expedition-resource-token:disabled{opacity:.65;cursor:default}
-.expedition-resource{color:#e4dfc6;background:#102a20;border-color:#ae935277}
-.expedition-order h3{color:#f2e4bd}
-.expedition-order-result{padding:10px;min-height:80px;border:1px dashed #bf9f6266;border-radius:12px;background:#0b231b99}
-.expedition-order-result li>button{color:#eae7c8;background:#294335;border-color:#ae935277}
-.expedition-order-result li>button>span{color:#f5e3b1;background:#536442}
-.expedition-order-result li>button>small,.expedition-order-empty{color:#bbccb5}
-.expedition-order-empty{border:0}
-.expedition-order-pieces button{color:#f0e5c0;background:#304b35;border-color:#ae935277;cursor:grab}
-.expedition-order-pieces button>.icon{width:21px;height:21px;color:#d9b978}
-.expedition-order-pieces button small{color:#beccb5}
-.expedition-order-pieces button:hover:not(:disabled){background:#41583b}
-.expedition-plan-feedback.retry{background:#493b2699;color:#f2dbb8;border-color:#d1a66788}
-.expedition-plan-feedback.good{background:#24482e99;color:#e6ebc5;border-color:#abc68077}
-.expedition-save-note,.expedition-translation p{color:#b4c4b0}
-.expedition-translation summary{color:#c2cead}
-.expedition-relationship{color:#d9ddc3;background:#284231aa}
-.expedition-encounter-choices button{color:#eee8cf;background:#294333;border-color:#ae935266}
-.expedition-encounter-choices button.chosen{background:#455d3b;border-color:#d7be7b}
-.expedition-encounter-result{color:#e4e8c9;background:#2a4331}
-.expedition-stat-row>span,.expedition-cast button{color:#e7e4c8;background:#2c4332;border-color:#ae935266}
-.expedition-cast small{color:#bdcbb6}
-@media(max-width:640px){.expedition-game{padding:24px 16px}.expedition-region-board{padding:11px;min-height:250px}.expedition-board-eyebrow{margin-bottom:15px}.expedition-plan-fields{gap:10px}.expedition-placement{padding:10px;min-height:90px;gap:6px}.expedition-placement.selected{padding:9px}.expedition-placement strong{font-size:15px}.expedition-placement>.icon:first-child{width:21px;height:21px}.expedition-placement>.icon:last-child{display:none}.expedition-placement small{font-size:10px}.expedition-token-tray{padding:12px}.expedition-resource-token{flex-basis:85px;min-height:82px;padding:9px}.expedition-resource-token strong{font-size:12px}}
-@media(prefers-reduced-motion:reduce){.expedition-resource-token{transition:none}.expedition-resource-token:hover:not(:disabled){transform:none}}
-.expedition-placement-prompt{font:500 17px/1.5 Fraunces,serif;color:#f0e3bd!important;border-top:1px solid #b99a5a55;padding-top:12px}
-.expedition-learning-state{font-size:12px;line-height:1.6;color:#d8d8ba;margin:14px 0}
-.expedition-encounter-learning button{min-width:44px;min-height:44px;touch-action:manipulation}
-.expedition-encounter-learning .expedition-levels{margin:14px 0}
-.expedition-encounter-learning .expedition-encounter-result:empty{display:none}
+.dialog.expedition-dialog:not(.interior-dialog) {
+  color:#eee6cf;
+  background:linear-gradient(135deg,#132b25f5,#0c1e1bee);
+  border:2px solid #b69859;
+  box-shadow:0 24px 90px #071712aa
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) h2,.expedition-game {
+  color:#f4e6be
+}
+
+.dialog.expedition-dialog:not(.interior-dialog) .text-button,.dialog.expedition-dialog:not(.interior-dialog) .outline-button {
+  color:#dfd6b8
+}
+
+.expedition-game {
+  padding:30px;
+}
+
+.expedition-game button {
+  min-width:44px;
+  min-height:44px;
+  touch-action:manipulation
+}
+
+.expedition-game button:focus-visible {
+  outline:3px solid #f2ce79;
+  outline-offset:3px
+}
+
+.expedition-game-heading>p,.expedition-glossary,.expedition-order>p {
+  color:#bbcbbb
+}
+
+.expedition-levels button {
+  background:#203e32;
+  color:#e5deca;
+  border-color:#ae935266
+}
+
+.expedition-levels button.selected {
+  background:#456046;
+  color:#fff3ce;
+  border-color:#dbbd70
+}
+
+.expedition-levels>span {
+  color:#bdcbb7
+}
+
+.expedition-brief {
+  color:#314332;
+  background:#f1e5c7;
+  border-left:3px solid #ce9b48
+}
+
+.expedition-brief .icon-button {
+  color:#314332;
+  background:#ddcfaa;
+  border-radius:50%
+}
+
+.expedition-workbench {
+  padding:0;
+  background:none;
+  border:0
+}
+
+.expedition-region-board {
+  padding:16px;
+  border:2px solid #ae9352;
+  border-radius:18px;
+  background:linear-gradient(180deg,#12342855,#0c201999),var(--expedition-preview) center/cover;
+  box-shadow:inset 0 0 50px #07171288;
+  min-height:290px
+}
+
+.expedition-board-eyebrow {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 25px;
+  font-size: var(--type-caption);
+  letter-spacing: .6px;
+  color:#fff0cb;
+  text-shadow:0 2px 3px #071712
+}
+
+.expedition-board-eyebrow .icon {
+  width:19px;
+  height:19px
+}
+
+.expedition-plan-fields {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  align-content:center
+}
+
+.expedition-placement {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  min-height:94px;
+  padding:13px;
+  border:1px solid #e0c78977;
+  border-radius:12px;
+  background:linear-gradient(120deg,#102c25ed,#193529d9);
+  color:#f3e8c5;
+  box-shadow:0 7px 18px #06161055;
+  text-align:left;
+  cursor:pointer;
+  backdrop-filter:blur(7px)
+}
+
+.expedition-placement.selected {
+  border:2px solid #f4ce78;
+  padding:12px;
+  box-shadow:0 0 22px #ecc26844
+}
+
+.expedition-placement>.icon:first-child {
+  color:#dbbd79;
+  width:28px;
+  height:28px;
+  flex:none
+}
+
+.expedition-placement>.icon:last-child {
+  width:16px;
+  height:16px;
+  margin-left:auto;
+  flex:none
+}
+
+.expedition-placement span {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:0
+}
+
+.expedition-placement .caption {
+  font-size: var(--type-caption);
+  color:#d1d5ba
+}
+
+.expedition-placement strong {
+  font: 500 var(--type-body)/1.2 Fraunces,serif
+}
+
+.expedition-placement em {
+  font-size: var(--type-caption);
+  font-style:normal;
+  color:#adbea7
+}
+
+.expedition-placement:disabled {
+  opacity:1;
+  cursor:default
+}
+
+.expedition-token-tray {
+  margin-top:14px;
+  padding:16px;
+  background:#132d25d9;
+  border:1px solid #ae935255;
+  border-radius:14px
+}
+
+.expedition-token-tray h3 {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin:0;
+  font: 500 var(--type-title)/1.2 Fraunces,serif;
+  color:#f1e4bd
+}
+
+.expedition-token-tray h3 .icon {
+  width:20px;
+  height:20px
+}
+
+.expedition-token-tray>p {
+  color:#bbcab8;
+  font-size: var(--type-body);
+  line-height:1.5;
+  margin:8px 0 13px
+}
+
+.expedition-resource-tokens {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px
+}
+
+.expedition-resource-token {
+  display:flex;
+  flex:1 1 100px;
+  max-width:220px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:88px;
+  padding:12px;
+  border:2px solid #bea15c66;
+  border-radius:14px;
+  background:linear-gradient(#3d563d,#233c2c);
+  color:#f3e6c2;
+  box-shadow:0 4px 0 #06171177;
+  text-align:center;
+  cursor:grab;
+  transition:transform 120ms ease,border-color 120ms ease
+}
+
+.expedition-resource-token .icon {
+  width:26px;
+  height:26px;
+  color:#dbbd76
+}
+
+.expedition-resource-token strong {
+  font-size: var(--type-caption);
+  line-height:1.4
+}
+
+.expedition-resource-token .caption {
+  font-size: var(--type-caption);
+  line-height:1.3;
+  color:#c6d0b6
+}
+
+.expedition-resource-token.selected {
+  border-color:#eed08c;
+  background:linear-gradient(#536342,#344a30)
+}
+
+.expedition-resource-token:hover:not(:disabled) {
+  transform:translateY(-3px);
+  border-color:#eed08c
+}
+
+.expedition-resource-token:active {
+  cursor:grabbing
+}
+
+.expedition-resource-token:disabled {
+  opacity:.65;
+  cursor:default
+}
+
+.expedition-resource {
+  color:#e4dfc6;
+  background:#102a20;
+  border-color:#ae935277
+}
+
+.expedition-order h3 {
+  color:#f2e4bd
+}
+
+.expedition-order-result {
+  padding:10px;
+  min-height:80px;
+  border:1px dashed #bf9f6266;
+  border-radius:12px;
+  background:#0b231b99
+}
+
+.expedition-order-result li>button {
+  color:#eae7c8;
+  background:#294335;
+  border-color:#ae935277
+}
+
+.expedition-order-result li>button>span {
+  color:#f5e3b1;
+  background:#536442
+}
+
+.expedition-order-result li>button>.caption,.expedition-order-empty {
+  color:#bbccb5
+}
+
+.expedition-order-empty {
+  border:0
+}
+
+.expedition-order-pieces button {
+  color:#f0e5c0;
+  background:#304b35;
+  border-color:#ae935277;
+  cursor:grab
+}
+
+.expedition-order-pieces button>.icon {
+  width:21px;
+  height:21px;
+  color:#d9b978
+}
+
+.expedition-order-pieces button .caption {
+  color:#beccb5
+}
+
+.expedition-order-pieces button:hover:not(:disabled) {
+  background:#41583b
+}
+
+.expedition-plan-feedback.retry {
+  background:#493b2699;
+  color:#f2dbb8;
+  border-color:#d1a66788
+}
+
+.expedition-plan-feedback.good {
+  background:#24482e99;
+  color:#e6ebc5;
+  border-color:#abc68077
+}
+
+.expedition-save-note,.expedition-translation p {
+  color:#b4c4b0
+}
+
+.expedition-translation summary {
+  color:#c2cead
+}
+
+.expedition-relationship {
+  color:#d9ddc3;
+  background:#284231aa
+}
+
+.expedition-encounter-choices button {
+  color:#eee8cf;
+  background:#294333;
+  border-color:#ae935266
+}
+
+.expedition-encounter-choices button.chosen {
+  background:#455d3b;
+  border-color:#d7be7b
+}
+
+.expedition-encounter-result {
+  color:#e4e8c9;
+  background:#2a4331
+}
+
+.expedition-stat-row>span,.expedition-cast button {
+  color:#e7e4c8;
+  background:#2c4332;
+  border-color:#ae935266
+}
+
+.expedition-cast .caption {
+  color:#bdcbb6
+}
+
+@media(--phone) {
+  .expedition-game {
+    padding:24px 16px
+  }
+  .expedition-region-board {
+    padding:11px;
+    min-height:250px
+  }
+  .expedition-board-eyebrow {
+    margin-bottom:15px
+  }
+  .expedition-plan-fields {
+    gap:10px
+  }
+  .expedition-placement {
+    padding:10px;
+    min-height:90px;
+    gap:6px
+  }
+  .expedition-placement.selected {
+    padding:9px
+  }
+  .expedition-placement strong {
+    font-size: var(--type-body)
+  }
+  .expedition-placement>.icon:first-child {
+    width:21px;
+    height:21px
+  }
+  .expedition-placement>.icon:last-child {
+    display:none
+  }
+  .expedition-placement .caption {
+    font-size: var(--type-caption)
+  }
+  .expedition-token-tray {
+    padding:12px
+  }
+  .expedition-resource-token {
+    flex-basis:85px;
+    min-height:82px;
+    padding:9px
+  }
+  .expedition-resource-token strong {
+    font-size: var(--type-caption)
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .expedition-resource-token {
+    transition:none
+  }
+  .expedition-resource-token:hover:not(:disabled) {
+    transform:none
+  }
+}
+
+.expedition-placement-prompt {
+  font: 500 var(--type-body)/1.5 Fraunces,serif;
+  color:#f0e3bd!important;
+  border-top:1px solid #b99a5a55;
+  padding-top:12px
+}
+
+.expedition-learning-state {
+  font-size: var(--type-caption);
+  line-height:1.6;
+  color:#d8d8ba;
+  margin:14px 0
+}
+
+.expedition-encounter-learning button {
+  min-width:44px;
+  min-height:44px;
+  touch-action:manipulation
+}
+
+.expedition-encounter-learning .expedition-levels {
+  margin:14px 0
+}
+
+.expedition-encounter-learning .expedition-encounter-result:empty {
+  display:none
+}

@@ -11,7 +11,7 @@ import (
 
 func interiorValue(t *testing.T, packet map[string]json.RawMessage) (string, MapSpawn, []Player) {
 	t.Helper()
-	_, spawn, players, _ := mapValue(t, packet)
+	_, spawn, players := mapValue(t, packet)
 	var id string
 	if err := json.Unmarshal(packet["interiorId"], &id); err != nil {
 		t.Fatal(err)

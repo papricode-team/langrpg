@@ -180,7 +180,7 @@ func TestExpandedReconnectIncludesFrameAndRejectsStaleMoves(t *testing.T) {
 	defer cancel()
 	conn := dialMap(t, ctx, server, token, DefaultMapID)
 	packet := readWorld(t, ctx, conn, "welcome")
-	_, position, _, _ := mapValue(t, packet)
+	_, position, _ := mapValue(t, packet)
 	if position != (MapSpawn{.25, .25}) {
 		t.Fatalf("reconnect stretched legacy position: %+v", position)
 	}

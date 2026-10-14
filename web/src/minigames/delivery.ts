@@ -76,7 +76,7 @@ export class WorldDeliveryRun {
     this.overlay = document.createElement('section');
     this.overlay.className = 'delivery-run-overlay';
     this.overlay.setAttribute('aria-label', 'Lina’s courtyard delivery');
-    this.overlay.innerHTML = '<small>LINA · COURTYARD DELIVERY</small><strong>Follow the voice through town.</strong><p role="status" aria-live="polite"></p><div><button type="button" data-delivery="replay">Hear again</button><button type="button" data-delivery="pause">Pause</button><button type="button" data-delivery="save" hidden>Retry saving</button><button type="button" data-delivery="finish">Leave run</button></div>';
+    this.overlay.innerHTML = '<span class="caption">LINA · COURTYARD DELIVERY</span><strong>Follow the voice through town.</strong><p role="status" aria-live="polite"></p><div><button type="button" data-delivery="replay">Hear again</button><button type="button" data-delivery="pause">Pause</button><button type="button" data-delivery="save" hidden>Retry saving</button><button type="button" data-delivery="finish">Leave run</button></div>';
     root.append(this.overlay);
     this.overlay.addEventListener('click', this.click);
     this.next();

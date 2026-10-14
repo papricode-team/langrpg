@@ -6,11 +6,8 @@ import (
 	"math"
 	"net/http"
 	"sort"
-	"strings"
 	"sync"
 	"time"
-	"unicode"
-	"unicode/utf8"
 
 	"github.com/coder/websocket"
 )
@@ -40,20 +37,10 @@ type worldMemory struct {
 	interiorFrame    WorldCoordinateFrame
 	positions        map[string]MapSpawn
 	positionFrames   map[string]WorldCoordinateFrame
-	chatTimes        []time.Time
 	joinTimes        []time.Time
 	lastSeen         time.Time
 	lastMove         time.Time
 	movementCredit   float64
-}
-
-type ChatMessage struct {
-	MapID    string    `json:"mapId"`
-	ID       string    `json:"id"`
-	PlayerID string    `json:"playerId"`
-	Name     string    `json:"name"`
-	Text     string    `json:"text"`
-	At       time.Time `json:"at"`
 }
 
 type worldClient struct {
@@ -71,7 +58,6 @@ type worldClient struct {
 type World struct {
 	mu             sync.Mutex
 	clients        map[string]*worldClient
-	messages       map[string][]ChatMessage
 	memories       map[string]*worldMemory
 	cancel         context.CancelFunc
 	done           chan struct{}
@@ -92,12 +78,9 @@ func NewWorld(maxPlayers int, origins []string) *World {
 
 func newWorldWithIdentity(maxPlayers int, origins []string, identity WorldIdentity) *World {
 	ctx, cancel := context.WithCancel(context.Background())
-	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]WorldMapDefinition, len(compiledWorldMaps.Maps)), contentVersion: compiledWorldMaps.ContentVersion}
+	w := &World{clients: map[string]*worldClient{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]WorldMapDefinition, len(compiledWorldMaps.Maps)), contentVersion: compiledWorldMaps.ContentVersion}
 	for id, definition := range compiledWorldMaps.Maps {
 		w.maps[id] = definition
-	}
-	for _, mapID := range mapIDs {
-		w.messages[mapID] = []ChatMessage{}
 	}
 	go w.run(ctx)
 	return w
@@ -336,7 +319,6 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			Type              string   `json:"type"`
 			X                 *float64 `json:"x"`
 			Y                 *float64 `json:"y"`
-			Message           string   `json:"message"`
 			MapID             string   `json:"mapId"`
 			InteriorID        string   `json:"interiorId"`
 			CoordinateVersion *int     `json:"coordinateVersion"`
@@ -360,10 +342,6 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			}
 		case "joinMap":
 			if err := w.joinMap(client, message.MapID, now); err != "" {
-				w.clientError(client, err)
-			}
-		case "chat":
-			if err := w.chatInMap(client, message.MapID, message.Message, now); err != "" {
 				w.clientError(client, err)
 			}
 		default:
@@ -478,53 +456,6 @@ func (w *World) moveInLocationVersioned(client *worldClient, mapID, interiorID s
 	return ""
 }
 
-func (w *World) chat(client *worldClient, text string, now time.Time) string {
-	return w.chatInMap(client, "", text, now)
-}
-
-func (w *World) chatInMap(client *worldClient, mapID string, text string, now time.Time) string {
-	text = strings.TrimSpace(text)
-	if text == "" || utf8.RuneCountInString(text) > 280 || len(text) > 1120 {
-		return "chat messages must contain 1–280 characters"
-	}
-	for _, r := range text {
-		if unicode.IsControl(r) {
-			return "chat messages cannot contain control characters"
-		}
-	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if w.clients[client.player.ID] != client {
-		return "session was replaced"
-	}
-	if mapID != "" && mapID != client.player.MapID {
-		return "chat belongs to another map"
-	}
-	fresh := client.memory.chatTimes[:0]
-	for _, at := range client.memory.chatTimes {
-		if now.Sub(at) < 10*time.Second {
-			fresh = append(fresh, at)
-		}
-	}
-	client.memory.chatTimes = fresh
-	if len(fresh) >= 3 {
-		return "please wait before sending another message"
-	}
-	id, err := randomID(12)
-	if err != nil {
-		return "could not send message"
-	}
-	message := ChatMessage{MapID: client.player.MapID, ID: id, PlayerID: client.player.ID, Name: client.player.Name, Text: text, At: now.UTC()}
-	client.memory.chatTimes = append(client.memory.chatTimes, now)
-	zone := client.player.MapID
-	w.messages[zone] = append(w.messages[zone], message)
-	if len(w.messages[zone]) > 50 {
-		w.messages[zone] = w.messages[zone][len(w.messages[zone])-50:]
-	}
-	w.broadcastLocked(zone, map[string]any{"type": "chat", "mapId": zone, "message": message})
-	return ""
-}
-
 func (w *World) mapCountLocked(mapID string) int {
 	count := 0
 	for _, client := range w.clients {
@@ -541,7 +472,7 @@ func (w *World) broadcastPlayersLocked(mapID string) {
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
 	mapID := client.player.MapID
-	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID], "clock": w.Clock(), "scene": w.sceneMetadata(mapID, client.player.InteriorID)})
+	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "clock": w.Clock(), "scene": w.sceneMetadata(mapID, client.player.InteriorID)})
 	w.enqueueLocked(client, message)
 }
 

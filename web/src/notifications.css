@@ -9,14 +9,28 @@
   border:0;
   background:transparent;
   color:#f2e5c8;
-  font:12px/1.5 'DM Sans', sans-serif;
+  font: var(--type-caption)/1.5 'DM Sans', sans-serif;
   text-align:left;
   overflow:visible;
   pointer-events:none;
 }
-.notifications::backdrop { background:transparent; pointer-events:none; }
-.notifications button { cursor:pointer; color:inherit; font:inherit; }
-.notifications-recent { display:grid; gap:8px; }
+
+.notifications::backdrop {
+  background:transparent;
+  pointer-events:none;
+}
+
+.notifications button {
+  cursor:pointer;
+  color:inherit;
+  font: inherit;
+}
+
+.notifications-recent {
+  display:grid;
+  gap:8px;
+}
+
 .notification-card {
   display:flex;
   align-items:flex-start;
@@ -29,20 +43,97 @@
   pointer-events:auto;
   animation:notification-arrive .18s ease-out;
 }
-.notification-card>.icon { flex:none; width:16px; height:16px; margin-top:3px; color:#d9bd85; }
-.notification-card>div { flex:1; min-width:0; }
-.notification-card small { display:block; color:#babda4; font-size:10px; }
-.notification-card p { margin:4px 0 0; overflow-wrap:anywhere; }
-.notification-card>button { flex:none; display:grid; place-items:center; width:28px; height:28px; padding:4px; border:0; background:transparent; }
-.notification-card>button>.icon { width:14px; height:14px; }
-.notifications .bad { border-left-color:#de9b72; }
-.notifications .bad>.icon { color:#de9b72; }
-.notifications [hidden] { display:none; }
-.notifications button:hover { background:#29483c; }
-.notifications button:focus-visible { outline:2px solid #edd29b; outline-offset:2px; }
-.notifications-announcement { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-@keyframes notification-arrive { from { opacity:0; transform:translateX(8px); } to { opacity:1; transform:translateX(0); } }
-@media(max-width:700px), (max-height:520px) {
-  .notifications { bottom:max(145px, calc(env(safe-area-inset-bottom) + 130px)); right:max(15px, env(safe-area-inset-right)); }
+
+.notification-card>.icon {
+  flex:none;
+  width:16px;
+  height:16px;
+  margin-top:3px;
+  color:#d9bd85;
 }
-@media(prefers-reduced-motion:reduce) { .notification-card { animation:none; } }
+
+.notification-card>div {
+  flex:1;
+  min-width:0;
+}
+
+.notification-card .caption {
+  display:block;
+  color:#babda4;
+  font-size: var(--type-caption);
+}
+
+.notification-card p {
+  margin:4px 0 0;
+  overflow-wrap:anywhere;
+}
+
+.notification-card>button {
+  flex:none;
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  padding:4px;
+  border:0;
+  background:transparent;
+}
+
+.notification-card>button>.icon {
+  width:14px;
+  height:14px;
+}
+
+.notifications .bad {
+  border-left-color:#de9b72;
+}
+
+.notifications .bad>.icon {
+  color:#de9b72;
+}
+
+.notifications [hidden] {
+  display:none;
+}
+
+.notifications button:hover {
+  background:#29483c;
+}
+
+.notifications button:focus-visible {
+  outline:2px solid #edd29b;
+  outline-offset:2px;
+}
+
+.notifications-announcement {
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+
+@keyframes notification-arrive {
+  from {
+    opacity:0;
+    transform:translateX(8px);
+  }
+  to {
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@media(--phone), (--short-landscape) {
+  .notifications {
+    bottom:max(145px, calc(env(safe-area-inset-bottom) + 130px));
+    right:max(15px, env(safe-area-inset-right));
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .notification-card {
+    animation:none;
+  }
+}

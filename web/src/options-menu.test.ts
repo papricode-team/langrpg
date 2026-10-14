@@ -20,13 +20,22 @@ describe('stepOption', () => {
 });
 
 describe('option rows', () => {
-  it('render one focusable value per row with its help on the row', () => {
+  it('renders one value per row and hides explanations behind a help control', () => {
     document.body.innerHTML = optionsMarkup('audio', [pace, hour, { kind: 'action', id: 'credits', label: 'Credits', help: 'Sources', action: 'course-sources', button: 'Open' }]);
     expect(document.querySelectorAll('[data-option]').length).toBe(2);
     expect(document.querySelector('[data-option="pace"]')!.textContent).toContain('Easy');
     expect(document.querySelectorAll('.option-cells i.on').length).toBe(23);
-    expect(document.querySelector('[data-action="course-sources"]')!.closest<HTMLElement>('[data-help]')!.dataset.help).toBe('Sources');
+    expect(document.querySelector('[data-action="course-sources"]')!.closest('[data-help]')).toBeNull();
+    expect(document.querySelector('.options-help')!.hasAttribute('open')).toBe(false);
+    expect(document.querySelector('.options-help')!.textContent).toContain('Sources');
+    expect(document.querySelector('.options-heading h2')!.textContent).toBe('Audio');
+    expect(document.querySelector('.option-pips')).toBeNull();
     expect([...document.querySelectorAll('.option-arrow')].every(arrow => arrow.getAttribute('tabindex') === '-1')).toBe(true);
+  });
+
+  it('omits an empty help control', () => {
+    document.body.innerHTML = optionsMarkup('audio', [sound]);
+    expect(document.querySelector('.options-help')).toBeNull();
   });
 
   it('change with left and right, arrows and clicks', () => {

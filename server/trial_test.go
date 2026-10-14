@@ -515,7 +515,7 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
 		t.Fatalf("reset on other server: %d %s", w.Code, w.Body.String())
 	}
-	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"chat","message":"stale session"}`)); err != nil {
+	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"move","x":0.5,"y":0.5}`)); err != nil {
 		t.Fatal(err)
 	}
 	for {
@@ -612,7 +612,7 @@ func TestWorldEnforcesTrialOnExistingSocketAndReconnect(t *testing.T) {
 	inactive := false
 	trialStatus(t, app, token, &inactive)
 	clock.Add(int64(2 * time.Second))
-	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"chat","message":"cannot bypass the wall"}`)); err != nil {
+	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"move","x":0.5,"y":0.5}`)); err != nil {
 		t.Fatal(err)
 	}
 	for {

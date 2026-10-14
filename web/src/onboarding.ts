@@ -11,7 +11,7 @@ export function onboardingStepsMarkup(step: 1 | 2): string {
 }
 
 export function onboardingLanguageSummary(language: BaseLanguage): string {
-  return `<span lang="${language}">${baseLanguageNames[language]}</span><span aria-hidden="true">→</span><span>${t('German')} <small lang="de">Deutsch</small></span>`;
+  return `<span lang="${language}">${baseLanguageNames[language]}</span><span aria-hidden="true">→</span><span>${t('German')} <span lang="de">Deutsch</span></span>`;
 }
 
 /** Language confirmation is part of step one; only an explicit yes opens step two. */
@@ -22,11 +22,11 @@ export function mountLanguageOnboarding(host: HTMLElement, options: {
 }): void {
   let languages: OnboardingLanguages = { motherTongue: options.initialLanguage, learningLanguage: 'de' };
   let busy = false;
-  const heading = () => `${onboardingStepsMarkup(1)}<div class="eyebrow">THE LANTERN ATLAS</div>`;
+  const heading = () => `${onboardingStepsMarkup(1)}`;
   const focusHeading = () => host.querySelector<HTMLElement>('#account-title')?.focus({ preventScroll: true });
 
   function selectLanguages() {
-    host.innerHTML = `${heading()}<h2 id="account-title" tabindex="-1">${t('Which languages will guide your adventure?')}</h2><p>${t('Choose your mother tongue and the language you want to learn.')}</p><form id="language-entry-form"><fieldset class="onboarding-language-picker"><legend>${t('My mother tongue')}</legend><div class="onboarding-language-options">${(['en', 'tr'] as const).map(language => `<label class="onboarding-language-option" lang="${language}"><input type="radio" name="mother-tongue" value="${language}" ${languages.motherTongue === language ? 'checked' : ''} required/><span>${baseLanguageNames[language]}</span></label>`).join('')}</div><small>${t('Meanings, hints and menus will use your mother tongue.')}</small></fieldset><fieldset class="onboarding-language-picker"><legend>${t('I want to learn')}</legend><label class="onboarding-language-option"><input type="radio" name="learning-language" value="de" checked required/><span>${t('German')} <small lang="de">Deutsch</small></span></label><small>${t('German is the available learning language for now.')}</small></fieldset><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Continue')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`;
+    host.innerHTML = `${heading()}<h2 id="account-title" tabindex="-1">${t('Which languages will guide your adventure?')}</h2><p>${t('Choose your mother tongue and the language you want to learn.')}</p><form id="language-entry-form"><fieldset class="onboarding-language-picker"><legend>${t('My mother tongue')}</legend><div class="onboarding-language-options">${(['en', 'tr'] as const).map(language => `<label class="onboarding-language-option" lang="${language}"><input type="radio" name="mother-tongue" value="${language}" ${languages.motherTongue === language ? 'checked' : ''} required/><span>${baseLanguageNames[language]}</span></label>`).join('')}</div><span class="caption">${t('Meanings, hints and menus will use your mother tongue.')}</span></fieldset><fieldset class="onboarding-language-picker"><legend>${t('I want to learn')}</legend><label class="onboarding-language-option"><input type="radio" name="learning-language" value="de" checked required/><span>${t('German')} <span lang="de">Deutsch</span></span></label><span class="caption">${t('German is the available learning language for now.')}</span></fieldset><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Continue')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`;
     const form = host.querySelector<HTMLFormElement>('#language-entry-form')!;
     const readChoice = () => {
       const data = new FormData(form), motherTongue = data.get('mother-tongue');

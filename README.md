@@ -1,6 +1,6 @@
 # The Lantern Atlas
 
-A German-learning story adventure across three painted towns, with multiplayer presence and local chat. Investigate a vanishing railway in Lindenhafen, a missing hour in Waldruh, and a lighthouse erasing names in Nebelstadt. Meet the Brass Office inspector, follow Elise’s letter and decide who should care for the restored Atlas. Ten optional coastal expeditions open after the three-act story.
+A German-learning story adventure across three painted towns, with multiplayer presence. Investigate a vanishing railway in Lindenhafen, a missing hour in Waldruh, and a lighthouse erasing names in Nebelstadt. Meet the Brass Office inspector, follow Elise’s letter and decide who should care for the restored Atlas. Ten optional coastal expeditions open after the three-act story.
 
 The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guides and 10,266 course tasks**, alongside **18 story investigations and 126 optional story expressions**. Four mini-game systems contain **48 authored scenes across A1, A2 and B1**. Reading, listening and constrained written practice are included; no microphone is required. Reference coverage and assessment limits are documented in [Curriculum](docs/curriculum.md). See [Roadmap implementation](docs/roadmap-implementation.md) for delivered work and remaining production scope.
 
@@ -16,11 +16,13 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 - Server-held letters, keys and evidence appear in a case board. Three named story save slots restore narrative state while preserving XP, language evidence and previously earned rewards. Saved progress grants Echo slow playback, Wordlight highlighting, lantern crests and titles acknowledged by residents.
 - Crisp, device-resolution rendering uses Original artwork by default. A camera follows the player and frames conversations. Continuous daylight tint, day/night art transitions, lamp lights, mist, rain and story storm effects bring the painted towns to life. Character facing, resident routines, German barks, a train and short skippable cinematics support the story. Towns still use their existing painted plates; larger multi-plate districts remain production work.
 - The three story towns have regional music, quieter night stems, ambience, surface footsteps, doors and bells, with narration ducking, mute and reduced-motion preferences. Dialogue clips use consistent installed macOS German voice sketches with recorded provenance. They are not neural or human performances; personalized names use browser speech when a German voice is available, with recorded name-free fallbacks.
-- Café, bakery and supermarket interiors offer contextual practice; the inn adds a home room, evening review, evidence access and sleep. A shared twelve-minute world clock drives world time. Sleeping advances the player’s own story day without changing everybody else’s clock. A three-answer daily promise can light a lantern streak; resting early carries no penalty.
+- Café, bakery and supermarket interiors offer contextual practice and scripted conversations when no practice is ready; the inn adds a home room, evening review, evidence access and sleep. A shared twelve-minute world clock drives world time. Sleeping advances the player’s own story day without changing everybody else’s clock. A three-answer daily promise can light a lantern streak; resting early carries no penalty.
 - Café tray/preparation games, market budgets/change/trades, evidence investigations and delivery boards use server-checked solutions and rewards. Mission drafts resume on this device. Ten post-game neighborhood planning games and 180 expedition encounters save their authoritative results and completed plans on the server, with A1/A2/B1 language support.
 - Server-graded recognition, German listening, sentence tiles with distractors and typed answers with conservative typo and umlaut fallback support. Feedback names the error before showing a model answer. Independent word memory separates passive exposure from recognition/listening/recall and uses FSRS, explicit Hard/Good/Easy ratings and response time. Due course words can return as world barks and in the inn’s review; strong words rest.
 - An optional short conversational placement sample recommends a practice level without bypassing story routes. The course supplies attributed vocabulary, grammar, connected passages and practical checkpoints; the Word atlas includes articles, plurals, forms and sources.
-- Desktop and mobile controls include keyboard, click-to-walk, touch joystick and standard gamepad movement/interact. Players and chat are separated by region and interior. Server-confirmed travel keeps indoor and outdoor positions separate and reconnects to the current room. Multiplayer currently provides presence and chat; cooperative quests and evidence trading remain future work.
+- Desktop and mobile controls include keyboard, click-to-walk, touch joystick and standard gamepad movement/interact. Players are separated by region and interior. Server-confirmed travel keeps indoor and outdoor positions separate and reconnects to the current room. Multiplayer currently provides presence; cooperative quests and evidence trading remain future work.
+
+The UI content budget and screenshot checks are documented in [UI guidelines](docs/ui-content-budget.md).
 
 ## Run locally
 
@@ -37,11 +39,11 @@ Open [http://localhost:5187](http://localhost:5187). The development command sta
 
 Follow the objective chip or choose **Continue the story** in the menu to walk to your next witness. Read the marked evidence in the world, return to the character and type the requested German reply. Your choice saves the discovery and its consequences. **Story quests**, **Discoveries** and the **Region atlas** follow the main journey; **Side activities**, **Learning routes** and journal practice are optional. Use **What did they say?**, word glosses, **A little help** or **Why this phrase?** when needed.
 
-At the inn, use the evidence desk, review familiar words or sleep to begin a new personal day. **Menu → Settings** contains three story save slots and the optional placement sample. Routes in the atlas open through the clue chain. After the finale, meet the expedition cast and build neighborhood agreements; their results and completed plans return with the same account on another device. To test two distinct players, use separate browser profiles or a private window. Tabs sharing the same session represent the same player.
+At the inn, use the evidence desk, review familiar words or sleep to begin a new personal day. **Menu → You** contains three story save slots and the optional placement sample. Routes in the atlas open through the clue chain. After the finale, meet the expedition cast and build neighborhood agreements; their results and completed plans return with the same account on another device. To test two distinct players, use separate browser profiles or a private window. Tabs sharing the same session represent the same player.
 
 New players begin at A1 with short sentences and two complete replies for story requests. Support-language meanings start hidden on every line, including evidence and plot quotations. **What did they say?** toggles them on and off; tapping a word also reveals its meaning in context. Guided support follows learning evidence: it stays through the first three quests and until the last 24 unassisted practice answers show at least 80% success across 12 different successfully answered items, including four written items. Supported choices, XP and time spent exploring cannot remove it; recent difficulty brings it back. Meanings stay available on entering later towns, and an open conversation keeps its format. Optional writing, sentence-building practice and the level sample open after ten minutes of visible, connected play; that timer is saved per player on this device and pauses while hidden or disconnected.
 
-Before a first adventure, choose one of four suggested player names (one is selected) or type your own. The first five minutes are free with no signup. A countdown beside **Login** shows the remaining guest time. At five minutes, sign up to keep your character and progress and unlock ten more minutes, or log into an existing account. Choosing to restart as a guest clears all progress and returns the same character to the beginning. At fifteen minutes of total free play, continue with **€2.99/month** or **€29.99 lifetime** access through Creem. The server persists and enforces the trial across reloads and devices. On another device, select **Already played? Log in with email** to restore your account. See [Creem billing setup](docs/billing.md) before enabling production checkout.
+Before a first adventure, choose one of four suggested player names (one is selected) or type your own. The first five minutes are free with no signup. A countdown beside **Login** appears during the final minute of guest play. At five minutes, sign up to keep your character and progress and unlock ten more minutes, or log into an existing account. Choosing to restart as a guest clears all progress and returns the same character to the beginning. At fifteen minutes of total free play, continue with **€2.99/month** or **€29.99 lifetime** access through Creem. The server persists and enforces the trial across reloads and devices. On another device, select **Already played? Log in with email** to restore your account. See [Creem billing setup](docs/billing.md) before enabling production checkout.
 
 Without `DATABASE_URL`, the server saves development data to `server/.data/state.json`. The browser's session token restores that profile and progress. Linked players can also log in with email and password after clearing browser storage. Unlinked guests lose access if they lose that token. Email verification and forgotten-password recovery are not implemented.
 
@@ -51,7 +53,7 @@ While playing, admins can press **Edit** to open World Studio over the game at t
 
 ## Controls
 
-The world fills the browser window. Open the adventure menu for the quest log, story journal, region atlas, learning journal, character editor and settings. The compass opens the region atlas directly. Local chat connects players exploring the same region.
+The world fills the browser window. Open the four-section menu: **Map**, **Story**, **Learn** and **You**. Select a word to open its meaning, forms, example and practice in a detail pane or phone sheet. Choose **Map** to open the region atlas.
 
 | Control | Action |
 | --- | --- |
@@ -68,7 +70,7 @@ The world fills the browser window. Open the adventure menu for the quest log, s
 | O | Open or close Settings |
 | F | Open or close the live screen filter panel |
 | M | Open the region atlas while exploring |
-| Escape | Leave dialogue, close menus or encounters; collapse open town chat |
+| Escape | Open the menu, or leave dialogue, menus or encounters |
 | Gamepad left stick / D-pad, A | Walk and interact |
 | E / Enter / click during a cinematic | Advance the cinematic; Escape skips it |
 | Settings → Time of day | Choose a time, a slow cycle or real local time |
@@ -167,7 +169,7 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 
 | Location | Purpose |
 | --- | --- |
-| `web/src/main.ts`, `game-state.ts` | Application wiring, revision-guarded state, panels, character and chat |
+| `web/src/main.ts`, `game-state.ts` | Application wiring, revision-guarded state, panels and character |
 | `web/src/dialogue.ts`, `quest-controller.ts`, `dialogue-view.ts`, `data/dialogue-graphs.json` | Validated story graphs, scene lifecycle, German dialogue and production gates |
 | `web/src/story-panels.ts`, `quest-objectives.ts`, `contextual-grammar.ts`, `lantern-rewards.ts` | Evidence, objectives, contextual explanations and earned progression |
 | `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser world, thirteen region definitions, movement and routing |
@@ -198,8 +200,8 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 | [World animation](docs/world-animation.md) | Object motion, local routines, performance and regression checks |
 | [Scenery depth](docs/world-occlusion.md) | Transparent object depth, placement-derived collision bases and atlas lifecycle |
 
-One Go process hosts all thirteen regions, with separate players and chat in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Each region retains its last 50 chat messages while the process runs. Positions and chat reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store. Story state, faction choices, evidence, save slots, completed expedition plans and encounter records are also persisted. Browser storage keeps interface preferences and unfinished board drafts.
+One Go process hosts all thirteen regions, with separate players in each region. `MAX_ZONE_PLAYERS` defaults to **128 connected players per map**; this is a configured capacity limit, not a measured concurrency guarantee. The server remembers each player's map positions for up to ten minutes after disconnect, subject to its bounded in-memory cache. Positions reset on server restart; profiles, learning progress, quest rewards and review schedules remain saved in PostgreSQL or the local development JSON store. Story state, faction choices, evidence, save slots, completed expedition plans and encounter records are also persisted. Browser storage keeps interface preferences and unfinished board drafts.
 
-Account recovery, moderation and durable chat history, educator-reviewed curriculum validation, speaking assessment, full cooperative quests, larger multi-plate towns, neural/human VO and horizontal zone scaling remain future work. See [Roadmap implementation](docs/roadmap-implementation.md) for the detailed boundary between implemented systems and production milestones.
+Account recovery, educator-reviewed curriculum validation, speaking assessment, full cooperative quests, larger multi-plate towns, neural/human VO and horizontal zone scaling remain future work. See [Roadmap implementation](docs/roadmap-implementation.md) for the detailed boundary between implemented systems and production milestones.
 
 Players choose a name and build a character together before their first adventure. The character editor combines independent face, hair/headwear, jacket and trouser pieces, with separate colours and a live four-direction walking preview. See [the art pipeline](docs/art.md#modular-player-characters) for source assets and rebuilding the shared pieces.

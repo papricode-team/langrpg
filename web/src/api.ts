@@ -59,7 +59,6 @@ export interface ActivityCompletionInput { id: string; activityId: ActivityId; l
 export interface CompletionResult { xpAdded: number; duplicate: boolean; progress: Progress; }
 export interface ActivityCompletionResult extends CompletionResult { reason: string; activity: ActivityProgress; }
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
-export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced' | 'incompatible';
 export interface AccountStatus { registered: boolean; email: string; admin?: boolean; access?: GameAccess; }
 /** Account-wide settings that follow the player across devices. */
@@ -113,14 +112,12 @@ export class Api {
   private worldReady = false;
   private incompatible = false;
   private worldRefreshSequence = 0;
-  private chatTimes: number[] = [];
   private requestSequence = 0;
   private publishedAccessSequence = 0;
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
   onClock?: (clock: SharedWorldTime) => void;
-  onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
   onAccess?: (access: GameAccess) => void;
@@ -251,9 +248,6 @@ export class Api {
           this.onInterior?.(this.interiorId);
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
-          for (const message of Array.isArray(value.messages) ? value.messages : []) {
-            if (message?.mapId === this.mapId) this.onChat?.(message);
-          }
           if (value.type === 'welcome') this.onStatus?.('online');
         } else if (value.type === 'interior' && value.mapId === this.mapId) {
           if (!validInterior(this.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
@@ -268,8 +262,7 @@ export class Api {
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
-        } else if (value.type === 'chat' && value.mapId === this.mapId && value.message?.mapId === this.mapId) {
-          this.onChat?.(value.message);
+
         } else if (value.type === 'error') {
           this.pendingMap = undefined;
           if (this.pendingInterior) {
@@ -320,15 +313,6 @@ export class Api {
   move(x: number, y: number) {
     if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
       ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y });
-  }
-  chat(message: string) {
-    if (this.pendingMap) throw new Error('Arriving in the next region. Your message is still here.');
-    if (this.socket?.readyState !== WebSocket.OPEN) throw new Error('Chat reconnecting. Please try again in a moment.');
-    const now = Date.now();
-    this.chatTimes = this.chatTimes.filter(at => now - at < 10000);
-    if (this.chatTimes.length >= 3) throw new Error('Give the town a moment to reply. Your message is still here.');
-    if (!this.send({ type: 'chat', mapId: this.mapId, message })) throw new Error('The connection is busy. Your message is still here; try again in a moment.');
-    this.chatTimes.push(now);
   }
   private send(message: unknown) {
     if (!this.worldReady || this.stopped || this.incompatible || this.socket?.readyState !== WebSocket.OPEN || this.socket.bufferedAmount >= 32768) return false;

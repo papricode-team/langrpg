@@ -175,7 +175,7 @@ describe('playable mission controller',()=>{
     const root=new EventRoot(),{controller}=mount(root),current=scene();
     if(current.board.kind!=='cafe')throw new Error('Wrong board.');
     root.click('add-item',current.board.stock[0]);root.click('hint');
-    const before=run();controller.pause();expect(root.innerHTML).toContain('YOUR PLACE IS KEPT');
+    const before=run();controller.pause();expect(root.innerHTML).toContain('data-act="resume"');expect(run().state).toEqual(before.state);
     controller.resume();expect(run().state).toEqual(before.state);controller.destroy();
     const resumed=new EventRoot(),mounted=mount(resumed);
     expect(run().runId).toBe(before.runId);expect(run().state).toEqual(before.state);expect(run().hinted).toBe(true);

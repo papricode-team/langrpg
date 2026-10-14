@@ -1,4 +1,22 @@
-img.avatar-portrait{object-fit:contain;background:radial-gradient(ellipse at 50% 65%,#d1c6a7,#f4efdf);border-radius:50%;flex:none}
-img.avatar-portrait:not([src]){visibility:hidden}
-img.painted-portrait{object-fit:cover;background:none;flex:none}
-.inn-dialog .avatar-portrait{width:80px;height:80px;margin:0 auto 14px}
+img.avatar-portrait {
+  object-fit:contain;
+  background:radial-gradient(ellipse at 50% 65%,#d1c6a7,#f4efdf);
+  border-radius:50%;
+  flex:none
+}
+
+img.avatar-portrait:not([src]) {
+  visibility:hidden
+}
+
+img.painted-portrait {
+  object-fit:cover;
+  background:none;
+  flex:none
+}
+
+.inn-dialog .avatar-portrait {
+  width:80px;
+  height:80px;
+  margin:0 auto 14px
+}

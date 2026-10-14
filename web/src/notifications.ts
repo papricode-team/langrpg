@@ -1,7 +1,7 @@
 import { escapeHtml as e, icon } from './icons';
-import { baseLanguage, t } from './i18n';
+import { t } from './i18n';
 
-type NotificationEntry = { id: number; message: string; bad: boolean; at: Date };
+type NotificationEntry = { id: number; message: string; bad: boolean; };
 
 /** Independent, temporary notifications that remain available over modal dialogs. */
 export class Notifications {
@@ -40,12 +40,12 @@ export class Notifications {
   }
 
   notify(message: string, bad = false) {
-    const entry = { id: ++this.nextId, message, bad, at: new Date() };
+    const entry = { id: ++this.nextId, message, bad };
     this.announcement.textContent = message;
     const card = document.createElement('article');
     card.className = `notification-card${bad ? ' bad' : ''}`;
     card.dataset.notificationId = String(entry.id);
-    card.innerHTML = `${icon(bad ? 'clue' : 'check')}<div><small>${e(bad ? t('Needs attention') : t('Adventure update'))} · ${this.time(entry)}</small><p>${e(message)}</p></div><button type="button" aria-label="${e(t('Dismiss notification'))}">${icon('close')}</button>`;
+    card.innerHTML = `${icon(bad ? 'clue' : 'check')}<div><p>${e(message)}</p></div><button type="button" aria-label="${e(t('Dismiss notification'))}">${icon('close')}</button>`;
     card.querySelector('button')!.addEventListener('click', () => this.dismiss(entry.id));
     const pause = () => window.clearTimeout(this.timers.get(entry.id));
     const resume = () => {
@@ -60,10 +60,6 @@ export class Notifications {
     resume();
     while (this.recent.children.length > 3) this.dismiss(Number((this.recent.lastElementChild as HTMLElement).dataset.notificationId));
     this.syncHost();
-  }
-
-  private time(entry: NotificationEntry) {
-    return entry.at.toLocaleTimeString(baseLanguage(), { hour: '2-digit', minute: '2-digit' });
   }
 
   private dismiss(id: number) {

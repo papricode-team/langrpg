@@ -1,0 +1,70 @@
+{
+  "fontFloor": 12,
+  "report": [
+    {
+      "surface": "home",
+      "viewport": "landscape",
+      "width": 844,
+      "height": 390,
+      "file": "home-landscape.png",
+      "assetsPassed": true,
+      "flowsPassed": true,
+      "runtimeErrors": [],
+      "visibleText": 15,
+      "minimumFont": 16,
+      "belowFloor": []
+    },
+    {
+      "surface": "options",
+      "viewport": "landscape",
+      "width": 844,
+      "height": 390,
+      "file": "options-landscape.png",
+      "assetsPassed": true,
+      "flowsPassed": true,
+      "runtimeErrors": [],
+      "visibleText": 32,
+      "minimumFont": 12,
+      "belowFloor": []
+    },
+    {
+      "surface": "encounter",
+      "viewport": "landscape",
+      "width": 844,
+      "height": 390,
+      "file": "encounter-landscape.png",
+      "assetsPassed": true,
+      "flowsPassed": true,
+      "runtimeErrors": [],
+      "visibleText": 9,
+      "minimumFont": 12,
+      "belowFloor": []
+    },
+    {
+      "surface": "journal",
+      "viewport": "landscape",
+      "width": 844,
+      "height": 390,
+      "file": "journal-landscape.png",
+      "assetsPassed": true,
+      "flowsPassed": true,
+      "runtimeErrors": [],
+      "visibleText": 63,
+      "minimumFont": 12,
+      "belowFloor": []
+    },
+    {
+      "surface": "activity",
+      "viewport": "landscape",
+      "width": 844,
+      "height": 390,
+      "file": "activity-landscape.png",
+      "assetsPassed": true,
+      "flowsPassed": true,
+      "runtimeErrors": [],
+      "visibleText": 19,
+      "minimumFont": 12,
+      "belowFloor": []
+    }
+  ]
+}

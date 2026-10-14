@@ -5,7 +5,7 @@
 files. Go serves the game, `/api/` and WebSockets directly on **port 8080**.
 Both services share the project-scoped `app` network. No service publishes a
 host port; Dokploy routes the public domain directly to Go. Run one application
-instance: world presence, positions and chat are in memory.
+instance: world presence and positions are in memory.
 
 ## Configure Dokploy
 
@@ -110,7 +110,7 @@ Configure billing using [the Creem setup guide](billing.md) and the server-only
 variables in `.env.example`; Compose passes them to the Go application.
 Email/password login restores the same character and progress on another device.
 Password recovery is not implemented; clearing browser storage before saving an
-account loses access to that identity. Map positions, presence, chat and the
+account loses access to that identity. Map positions, presence and the
 shared world clock's cycle reset on backend restart; the personal narrative day
 and daily promise remain saved. Settings and unfinished activity boards are
 browser-local. Existing development

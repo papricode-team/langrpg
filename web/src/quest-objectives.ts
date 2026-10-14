@@ -8,5 +8,5 @@ export function questObjectivesMarkup(graph: QuestGraph, progress: Progress): st
   const stage=progress.story?.nodes[graph.questId]??'intro';
   const complete=progress.completedQuestIds.includes(graph.questId);
   const inspected=(progress.story?.inspections[graph.questId]??[]).length;
-  return `<section class="story-objectives"><small class="eyebrow">${e(t('YOUR INVESTIGATION · {read} / {total} EVIDENCE READ',{read:Math.min(inspected,graph.investigations.length),total:graph.investigations.length}))}</small><ol>${graph.objectives.map(objective=>{const done=complete||stages.indexOf(objective.stage)<stages.indexOf(stage);return `<li class="${done?'done':objective.stage===stage?'current':''}">${icon(done?'check':'flag')} ${e(localized(objective.text))}</li>`;}).join('')}</ol></section>`;
+  return `<section class="story-objectives"><ol>${graph.objectives.map(objective=>{const done=complete||stages.indexOf(objective.stage)<stages.indexOf(stage);return `<li class="${done?'done':objective.stage===stage?'current':''}">${icon(done?'check':'flag')} ${e(localized(objective.text))}</li>`;}).join('')}</ol></section>`;
 }
