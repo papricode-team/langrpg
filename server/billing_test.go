@@ -425,11 +425,19 @@ func TestPostgresCreemBillingPersistRefundAndRollback(t *testing.T) {
 	app := NewApp(store, testCurriculum(), nil, 10)
 	defer app.Close()
 	token, player, f := setupCreemAccount(t, app, "lifetime")
-	defer store.pool.Exec(context.Background(), "DELETE FROM accounts WHERE id=$1", player.ID)
+	defer func() {
+		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
+		defer done()
+		store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+	}()
+	f.transaction.ID = "transaction-" + player.ID
+	f.checkout.Order.Transaction.ID = f.transaction.ID
 	if _, err := app.refreshBilling(ctx, mustBillingAccount(t, app, player.ID), true); err != nil {
 		t.Fatal(err)
 	}
-	id, err := store.FindBillingAccount(ctx, "", "transaction")
+	id, err := store.FindBillingAccount(ctx, "", f.transaction.ID)
 	if err != nil || id != player.ID {
 		t.Fatal("refund lookup", id, err)
 	}
@@ -444,7 +452,7 @@ func TestPostgresCreemBillingPersistRefundAndRollback(t *testing.T) {
 	}
 	f.transaction.Status = "refunded"
 	f.transaction.RefundedAmount = 2999
-	body := creemEvent("refund", "refund.created", app.now(), map[string]any{"transaction": map[string]string{"id": "transaction"}})
+	body := creemEvent("refund", "refund.created", app.now(), map[string]any{"transaction": map[string]string{"id": f.transaction.ID}})
 	w := httptest.NewRecorder()
 	app.billingWebhook(w, signedCreemEvent(app.billing.webhookSecret, body))
 	if w.Code != 200 {
