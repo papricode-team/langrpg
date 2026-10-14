@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/headwear-brimmed-page-0-candidate-1.png",
@@ -290,9 +290,10 @@
     },
     {
       "x": 10,
-      "y": 16,
+      "y": 5,
       "error": 557.840717299578,
       "initial": 2377.0478199718705,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 253,
         "top": 2027,
@@ -302,9 +303,10 @@
     },
     {
       "x": 14,
-      "y": 18,
+      "y": 3,
       "error": 425.9336219336219,
       "initial": 2992.9256854256855,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 889,
         "top": 2030,
@@ -314,9 +316,10 @@
     },
     {
       "x": 20,
-      "y": 18,
+      "y": 8,
       "error": 552.3288873288873,
       "initial": 3151.179361179361,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 1522,
         "top": 2030,
@@ -326,9 +329,10 @@
     },
     {
       "x": 11,
-      "y": 44,
+      "y": 33,
       "error": 399.6948340745809,
       "initial": 5507.069107081766,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2149,
         "top": 2031,
@@ -338,9 +342,10 @@
     },
     {
       "x": 16,
-      "y": 39,
+      "y": 26,
       "error": 495.1122134793021,
       "initial": 4439.441327403353,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2796,
         "top": 2028,
@@ -350,9 +355,10 @@
     },
     {
       "x": 13,
-      "y": 41,
+      "y": 26,
       "error": 254.126582278481,
       "initial": 5067.294560383168,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3438,
         "top": 2031,
@@ -362,9 +368,10 @@
     },
     {
       "x": 7,
-      "y": 33,
+      "y": 22,
       "error": 597.7409360580092,
       "initial": 4135.336189848385,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4092,
         "top": 2028,
@@ -374,9 +381,10 @@
     },
     {
       "x": 8,
-      "y": 34,
+      "y": 22,
       "error": 460.12966130687647,
       "initial": 4401.19979473144,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4731,
         "top": 2031,
@@ -386,9 +394,10 @@
     },
     {
       "x": 11,
-      "y": 32,
+      "y": 18,
       "error": 486.15022815022814,
       "initial": 4579.971568971569,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 5377,
         "top": 2028,
@@ -505,5 +514,5 @@
       }
     }
   ],
-  "outputSha256": "50f10940cae239cec2a8b924155cc1e55cd37ff07bbfa51248d5ea4106764afb"
+  "outputSha256": "e74648b18e0e87507330a271be4337914da49e2a7694be7910821aca08d7f3b6"
 }

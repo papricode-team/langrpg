@@ -33,13 +33,16 @@
       "top.secondary": "#c57056"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#bd9068\",\"#2b2721\",[[\"bag\",\"satchel\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#386487\"],[\"bottom.primary\",\"#3c4142\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0dbc8\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c57056\"],[\"top.secondary\",\"#c57056\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#bd9068\",\"#2b2721\",[[\"bag\",\"satchel\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#386487\"],[\"bottom.primary\",\"#3c4142\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0dbc8\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c57056\"],[\"top.secondary\",\"#c57056\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "130ba5cb63de618b64abf8d9cbb5dac9e4b06bdc9363ca3a932bfb9f4fc4e75a"
+  "sha256": "540b3da4e948c96881627931c29c5d185805a4840f254d187e084d5ce4a7d2c0",
+  "atlasSha256": "4dda8c9fdbc99d27740a0227b46fca4a95b27bdc0527238085e8a6b2e1f5b7da",
+  "textureBytes": 14678032,
+  "atlas": "web/public/assets/character-cast/riverweave-trang.atlas.json"
 }

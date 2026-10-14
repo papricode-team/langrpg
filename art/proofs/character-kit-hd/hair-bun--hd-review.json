@@ -248,7 +248,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 472
+      "outsideSilhouette": 681
     },
     {
       "index": 19,
@@ -261,7 +261,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 557
+      "outsideSilhouette": 722
     },
     {
       "index": 20,
@@ -274,7 +274,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1120
+      "outsideSilhouette": 2189
     },
     {
       "index": 21,
@@ -287,7 +287,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1309
+      "outsideSilhouette": 1729
     },
     {
       "index": 22,
@@ -300,7 +300,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1182
+      "outsideSilhouette": 1823
     },
     {
       "index": 23,
@@ -313,7 +313,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1265
+      "outsideSilhouette": 1766
     },
     {
       "index": 24,
@@ -326,7 +326,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1276
+      "outsideSilhouette": 1422
     },
     {
       "index": 25,
@@ -352,7 +352,7 @@
       "regions": 1,
       "detached": 0,
       "coverage": 0,
-      "outsideSilhouette": 1245
+      "outsideSilhouette": 2220
     },
     {
       "index": 27,
@@ -476,14 +476,14 @@
   "nativeProofs": [
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-0.png",
-      "imageSha256": "c601ed9a3bcf89a51e002fd24c93d50f564ffbaf835e97e4e3b54bcd47085b9b",
+      "imageSha256": "6041fa6327759ee9da0eac1fdaa16254ab659af8508b0a210640761e276e59b1",
       "frames": [
         0,
         1,
         2,
         3
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -492,14 +492,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-1.png",
-      "imageSha256": "d55fba1f42ecd5c7a9ee366dd35e49b80d8927e1d079052d2b82d7539534e791",
+      "imageSha256": "dc1752c209184a5d8d8f60481e6f2fe99a7ae7a4f5230e2b2d1b2c2f601fcc87",
       "frames": [
         4,
         5,
         6,
         7
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -508,14 +508,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-2.png",
-      "imageSha256": "bd3e708604b44e175eccb7ef984b7779fee1719844e519233216a3558f2a9ab9",
+      "imageSha256": "c19c5f5afa79ca3f29509005849fd071eb04f47104c48f84498bcf3b0fbb5a52",
       "frames": [
         8,
         9,
         10,
         11
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -524,14 +524,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-3.png",
-      "imageSha256": "00d16fba346c0af2d713ff7afe539a7d4ce14cf9bdce2d126b3763250b17adbe",
+      "imageSha256": "cc2a3f9b60e91a0312c6d7d200c9c6e9881bb0afcbabc5b681dc3b6c47b163c5",
       "frames": [
         12,
         13,
         14,
         15
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -540,14 +540,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-4.png",
-      "imageSha256": "01952decc60fbc03f617749492d58a7ca877ae40f786abf83dc903c9676b552d",
+      "imageSha256": "1d392f00ae89d0cddd51c0c927d1bbd6fa432acea964cb0b0c28f4b499c66be7",
       "frames": [
         16,
         17,
         18,
         19
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -556,14 +556,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-5.png",
-      "imageSha256": "f09c699957a4942a4f2c4b2cccd061d1f38341edfdf88900dc9e61b42786e672",
+      "imageSha256": "f8e9e989bd48e4b8e87dc059a4d9db55c7823cf609ecb84b035b4ec53a1332a6",
       "frames": [
         20,
         21,
         22,
         23
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -572,14 +572,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-6.png",
-      "imageSha256": "95fb85dbf1c3b50a4adae9ccbd4a8e158dfa20eb57c5a642b34760fb58526c82",
+      "imageSha256": "fb318d38b0f1f0545c91a9598b67e50337d7248796a044d7e85e2b8c0803e74c",
       "frames": [
         24,
         25,
         26,
         27
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -588,14 +588,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-7.png",
-      "imageSha256": "47a13a7fe88d5fc9368ebc9d1e44207c751b7856b8f43776e6872ee991b325ce",
+      "imageSha256": "88e2e31b7154b00e4b4814afdbc1d0fa35882e5d6d50e899f0682a4f671e6c6d",
       "frames": [
         28,
         29,
         30,
         31
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -604,14 +604,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-8.png",
-      "imageSha256": "9c04a4632e83184a7b571381d3a53aedcfd2253955f7ef0bb1b8e35b0e218cb7",
+      "imageSha256": "cf769163d0872f87c26a3ff42f2b3e4352a5a2b477654edaf3f0c55a1958fe7d",
       "frames": [
         32,
         33,
         34,
         35
       ],
-      "board": 2,
+      "board": 0,
       "palette": "warm",
       "cell": [
         512,
@@ -620,14 +620,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-9.png",
-      "imageSha256": "657df4b4a3814987130f356e22e22d648a84b923c63ca659c31ec8e99b577ec5",
+      "imageSha256": "b87c7cd1a82d6cf8e1c1b81cbb5e870f352fc589ec99b0fac6df7cac6b95f21e",
       "frames": [
         0,
         1,
         2,
         3
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -636,14 +636,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-10.png",
-      "imageSha256": "57c2a772c21eab57eb382577d82470325e4901a9cafa42a10902662649c90c9a",
+      "imageSha256": "d399f47ea179a8e503362a37226f006672a2cfdc97fb1e74862e8ce2e25f29f9",
       "frames": [
         4,
         5,
         6,
         7
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -652,14 +652,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-11.png",
-      "imageSha256": "3af68a670e732fd421c22e0afd3c3e31d1de23caff1f1eeae74106be51e7dcca",
+      "imageSha256": "b23277ecddbe573294ce09c4434d748a6a85cc7b6254b94a6e37c6fccc4da7cc",
       "frames": [
         8,
         9,
         10,
         11
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -668,14 +668,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-12.png",
-      "imageSha256": "493fbea3097a711a92b93132c2b21481cd778e82662517b0fed9ae18fc15ffa1",
+      "imageSha256": "d188f9c164228d4a12bbbf8ab8ea1ca2af7cb127faa5e3e80bcf4efe213a32e1",
       "frames": [
         12,
         13,
         14,
         15
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -684,14 +684,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-13.png",
-      "imageSha256": "aaddae961632cdfc387492558457d1f772fd5f4d70a97f53b800b12b8fec3d0e",
+      "imageSha256": "d30ae848ceee485c30bd7a43dd61311860128d2bd674cc7fd4b2ad9d27f0541a",
       "frames": [
         16,
         17,
         18,
         19
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -700,14 +700,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-14.png",
-      "imageSha256": "9546e45312d459ab3fa480ecf786a129aedf237fec9b5d4e53ea26bc2655de37",
+      "imageSha256": "d2a30e39f2ee1fe92ea4f61c97a175c5cda8b1b0ac4ae782e5696b362d5eba6f",
       "frames": [
         20,
         21,
         22,
         23
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -716,14 +716,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-15.png",
-      "imageSha256": "93b8ef3d8ec761be8f84454c1bb26ff9f0e439abc31fe0e65f260d2259ca7635",
+      "imageSha256": "ff1de5da07461ae02d2dde6332286253e85bc5559df86ede5d32a90a8e8fbbb7",
       "frames": [
         24,
         25,
         26,
         27
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -732,14 +732,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-16.png",
-      "imageSha256": "32a0b2d465273213bff1675bcca38857195e07387063c9aefa507a01abdb636b",
+      "imageSha256": "a41462b09ed0ac3ad991e8ece651c8adb1226d425d822c48fcfc6cdd0f6c5c8e",
       "frames": [
         28,
         29,
         30,
         31
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -748,14 +748,14 @@
     },
     {
       "image": "art/proofs/character-kit-hd/hair-bun--hd-review.native-17.png",
-      "imageSha256": "2a3f40209ed64704f5232a8fca12ba5f8ae3e33ec7858f051db38dd389879d4d",
+      "imageSha256": "b4fb452ece7ac4639e2ef25c094f78061e71b119ffdf70ebd6dbdaece384ca12",
       "frames": [
         32,
         33,
         34,
         35
       ],
-      "board": 3,
+      "board": 1,
       "palette": "cool",
       "cell": [
         512,
@@ -768,70 +768,19 @@
       "id": "hair-bun",
       "valid": true,
       "errors": []
-    },
-    {
-      "id": "body-regular",
-      "valid": true,
-      "errors": []
-    },
-    {
-      "id": "face-oval",
-      "valid": true,
-      "errors": []
-    },
-    {
-      "id": "top-shirt",
-      "valid": true,
-      "errors": []
-    },
-    {
-      "id": "bottom-straight",
-      "valid": true,
-      "errors": []
-    },
-    {
-      "id": "footwear-boots",
-      "valid": true,
-      "errors": []
     }
   ],
   "boards": [
-    "companions only · warm",
-    "companions only · cool",
-    "component + companions · warm",
-    "component + companions · cool"
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
   ],
-  "with": [
-    "body-regular",
-    "face-oval",
-    "top-shirt",
-    "bottom-straight",
-    "footwear-boots"
-  ],
+  "with": [],
   "sources": {
     "hair-bun": {
       "path": "art/source/character-kit/hd/hair-bun.png",
-      "sha256": "463ec714c00028fc24b4a88960154af7920dae301367fd283c021e5aa486dd08"
-    },
-    "body-regular": {
-      "path": "art/source/character-kit/hd/body-regular.png",
-      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
-    },
-    "face-oval": {
-      "path": "art/source/character-kit/hd/face-oval.png",
-      "sha256": "22d9ce2bfe81dfef5f32078accdb1d3ece352ec6efa1857375d77de56c3c40db"
-    },
-    "top-shirt": {
-      "path": "art/source/character-kit/hd/top-shirt.png",
-      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
-    },
-    "bottom-straight": {
-      "path": "art/source/character-kit/hd/bottom-straight.png",
-      "sha256": "36f2bd74331e70ee4327bbea38824ccc66ab3a79a96a664b93248f37307217c6"
-    },
-    "footwear-boots": {
-      "path": "art/source/character-kit/hd/footwear-boots.png",
-      "sha256": "b217655680a44c5469ce984ea9a356e97c73af9cb569ad6a7b466dd2f29caedf"
+      "sha256": "edf53bc7be34b67cd4de96ac16aad69fe5c6bfea3a5ef4a162365f48e605e102"
     }
   },
   "ruleTrace": [
@@ -839,11 +788,7 @@
       "board": 0,
       "facing": "down",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -851,11 +796,7 @@
       "board": 0,
       "facing": "right",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -863,11 +804,7 @@
       "board": 0,
       "facing": "up",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -875,11 +812,7 @@
       "board": 0,
       "facing": "left",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -887,11 +820,7 @@
       "board": 1,
       "facing": "down",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -899,11 +828,7 @@
       "board": 1,
       "facing": "right",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -911,11 +836,7 @@
       "board": 1,
       "facing": "up",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -923,11 +844,7 @@
       "board": 1,
       "facing": "left",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt"
+        "hair-bun"
       ],
       "hidden": []
     },
@@ -935,11 +852,6 @@
       "board": 2,
       "facing": "down",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -948,11 +860,6 @@
       "board": 2,
       "facing": "right",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -961,11 +868,6 @@
       "board": 2,
       "facing": "up",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -974,11 +876,6 @@
       "board": 2,
       "facing": "left",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -987,11 +884,6 @@
       "board": 3,
       "facing": "down",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -1000,11 +892,6 @@
       "board": 3,
       "facing": "right",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -1013,11 +900,6 @@
       "board": 3,
       "facing": "up",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []
@@ -1026,11 +908,6 @@
       "board": 3,
       "facing": "left",
       "visible": [
-        "body-regular",
-        "face-oval",
-        "bottom-straight",
-        "footwear-boots",
-        "top-shirt",
         "hair-bun"
       ],
       "hidden": []

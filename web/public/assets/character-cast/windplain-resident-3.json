@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/windplain-resident-3.json",
   "recipeSha256": "f6d0a6a5a1de82508a87cbcc5cbcae9fba6b9700da0fb01b5c90ff9f07ac1478",
   "atlas": "web/public/assets/character-cast/windplain-resident-3.webp",
-  "atlasSha256": "bd1b85287f7c307f6512406eb0d95e17762f4b0a60b187f9d9cacfd260029e4a",
+  "atlasSha256": "8ff1fb471d157cb59b0938aaadc2a72519a14171da113d4dd714437f49e8171e",
+  "geometry": "web/public/assets/character-cast/windplain-resident-3.atlas.json",
+  "geometrySha256": "190b77b7bf9dbf9e43ff141ef5570706c250cbe615756a5ed3ff20414ff495ee",
+  "textureBytes": 13729080,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/windplain-resident-3.png",
-  "proofSha256": "01da2779c08738119c4b2f06e88838dc7288574ed7ef3a8ad4eeb6ea8680a3cf",
-  "editorSha256": "4a990e299e1cf7646ffde5d0499dd7c81b4b545c6f152b6249142a17dacd49c2",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "63f7689a29ea3afd700276f5a8da901cb8d31af537d6159ffb4b09378a084c21",
+  "editorSha256": "a50b9ec798bb452be6f73ee1134cab45e0db9f858f9245c68c90a0e7329503f5",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "a5b6b50607af6750b4bdebac3c7853f36daf26c91823e6fbafd4ef05ac286cf3"
+  },
+  "sourceComponentsSha256": "a5b6b50607af6750b4bdebac3c7853f36daf26c91823e6fbafd4ef05ac286cf3"
 }

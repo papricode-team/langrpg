@@ -6,10 +6,26 @@
     1254
   ],
   "runtimeSize": [
-    512,
-    576
+    1536,
+    1728
   ],
-  "alpha": "Preserved; alpha threshold is used for registration bounds only.",
+  "alpha": "Normal antialiasing and all painted coverage above alpha 4/255 are preserved. Only saturated primary-color noise at alpha 1–4/255 is cleared before scaling and after compositing. Registration uses the unchanged native alpha-96 silhouette.",
+  "matte": {
+    "alphaCeiling": 4,
+    "minimumBrightestChannel": 220,
+    "maximumDarkestChannel": 80,
+    "minimumChannelRange": 180,
+    "native": {
+      "removedPixels": 10395,
+      "removedAlphaTotal": 10542,
+      "maxRemovedAlpha": 4
+    },
+    "runtime": {
+      "removedPixels": 630,
+      "removedAlphaTotal": 717,
+      "maxRemovedAlpha": 4
+    }
+  },
   "frames": [
     {
       "name": "idle",
@@ -27,11 +43,11 @@
       "ground": 409,
       "pixels": 32038,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 36,
-        "y": 30,
-        "targetWidth": 51,
-        "targetHeight": 144
+        "scale": 0.9690721649484536,
+        "x": 118,
+        "y": 140,
+        "targetWidth": 134,
+        "targetHeight": 382
       }
     },
     {
@@ -50,11 +66,11 @@
       "ground": 407,
       "pixels": 29259,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 22,
-        "y": 56,
-        "targetWidth": 62,
-        "targetHeight": 118
+        "scale": 0.9690721649484536,
+        "x": 82,
+        "y": 210,
+        "targetWidth": 165,
+        "targetHeight": 312
       }
     },
     {
@@ -73,11 +89,11 @@
       "ground": 406,
       "pixels": 28740,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 23,
-        "y": 57,
-        "targetWidth": 61,
-        "targetHeight": 117
+        "scale": 0.9690721649484536,
+        "x": 82,
+        "y": 211,
+        "targetWidth": 163,
+        "targetHeight": 311
       }
     },
     {
@@ -96,11 +112,11 @@
       "ground": 406,
       "pixels": 27288,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 23,
-        "y": 56,
-        "targetWidth": 57,
-        "targetHeight": 118
+        "scale": 0.9690721649484536,
+        "x": 84,
+        "y": 210,
+        "targetWidth": 150,
+        "targetHeight": 312
       }
     },
     {
@@ -119,11 +135,11 @@
       "ground": 389,
       "pixels": 31542,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 46,
-        "y": 36,
-        "targetWidth": 60,
-        "targetHeight": 139
+        "scale": 0.9690721649484536,
+        "x": 145,
+        "y": 155,
+        "targetWidth": 158,
+        "targetHeight": 367
       }
     },
     {
@@ -142,11 +158,11 @@
       "ground": 389,
       "pixels": 29717,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 45,
-        "y": 39,
-        "targetWidth": 56,
-        "targetHeight": 135
+        "scale": 0.9690721649484536,
+        "x": 142,
+        "y": 164,
+        "targetWidth": 147,
+        "targetHeight": 359
       }
     },
     {
@@ -165,11 +181,11 @@
       "ground": 389,
       "pixels": 29247,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 44,
-        "y": 36,
-        "targetWidth": 60,
-        "targetHeight": 139
+        "scale": 0.9690721649484536,
+        "x": 140,
+        "y": 155,
+        "targetWidth": 159,
+        "targetHeight": 367
       }
     },
     {
@@ -188,11 +204,11 @@
       "ground": 389,
       "pixels": 32828,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 42,
-        "y": 33,
-        "targetWidth": 62,
-        "targetHeight": 141
+        "scale": 0.9690721649484536,
+        "x": 134,
+        "y": 149,
+        "targetWidth": 164,
+        "targetHeight": 373
       }
     },
     {
@@ -211,11 +227,11 @@
       "ground": 390,
       "pixels": 31717,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 39,
-        "y": 34,
-        "targetWidth": 56,
-        "targetHeight": 141
+        "scale": 0.9690721649484536,
+        "x": 127,
+        "y": 150,
+        "targetWidth": 147,
+        "targetHeight": 372
       }
     },
     {
@@ -234,11 +250,11 @@
       "ground": 389,
       "pixels": 31075,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 14,
-        "y": 36,
-        "targetWidth": 67,
-        "targetHeight": 138
+        "scale": 0.9690721649484536,
+        "x": 60,
+        "y": 156,
+        "targetWidth": 177,
+        "targetHeight": 366
       }
     },
     {
@@ -257,11 +273,11 @@
       "ground": 391,
       "pixels": 30284,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 18,
-        "y": 36,
-        "targetWidth": 63,
-        "targetHeight": 139
+        "scale": 0.9690721649484536,
+        "x": 71,
+        "y": 155,
+        "targetWidth": 166,
+        "targetHeight": 367
       }
     },
     {
@@ -280,11 +296,11 @@
       "ground": 389,
       "pixels": 30662,
       "registration": {
-        "scale": 0.36597938144329895,
-        "x": 15,
-        "y": 36,
-        "targetWidth": 65,
-        "targetHeight": 138
+        "scale": 0.9690721649484536,
+        "x": 63,
+        "y": 156,
+        "targetWidth": 172,
+        "targetHeight": 366
       }
     }
   ]

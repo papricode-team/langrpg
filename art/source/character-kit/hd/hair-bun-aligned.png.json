@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/hair-bun-page-0-candidate-1.png",
@@ -257,6 +257,13 @@
       "y": -15,
       "error": 1845.8788515406163,
       "initial": 11399.68487394958,
+      "crownCoverage": {
+        "before": 0.956140350877193,
+        "after": 0.956140350877193,
+        "samples": 114,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 4233,
         "top": 1026,
@@ -269,6 +276,13 @@
       "y": -14,
       "error": 942.2544217687075,
       "initial": 8723.349659863945,
+      "crownCoverage": {
+        "before": 0.9385964912280702,
+        "after": 0.9385964912280702,
+        "samples": 114,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 4872,
         "top": 1025,
@@ -290,9 +304,17 @@
     },
     {
       "x": 5,
-      "y": 25,
+      "y": 20,
       "error": 228.71628787878788,
       "initial": 7004.660227272727,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7450980392156863,
+        "after": 0.7450980392156863,
+        "samples": 102,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 146,
         "top": 2041,
@@ -302,9 +324,17 @@
     },
     {
       "x": 5,
-      "y": 25,
+      "y": 21,
       "error": 272.1559283263439,
       "initial": 8324.237133053755,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7575757575757576,
+        "after": 0.7575757575757576,
+        "samples": 99,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 786,
         "top": 2045,
@@ -314,9 +344,16 @@
     },
     {
       "x": -13,
-      "y": 22,
+      "y": 5,
       "error": 438.01944338543655,
       "initial": 5655.690430804422,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7878787878787878,
+        "after": 1,
+        "samples": 99,
+        "lift": 17
+      },
       "box": {
         "left": 1419,
         "top": 2045,
@@ -326,9 +363,16 @@
     },
     {
       "x": 5,
-      "y": 28,
+      "y": 22,
       "error": 369.35134128166914,
       "initial": 7032.7894932935915,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9117647058823529,
+        "after": 0.9901960784313726,
+        "samples": 102,
+        "lift": 6
+      },
       "box": {
         "left": 2042,
         "top": 2045,
@@ -338,9 +382,16 @@
     },
     {
       "x": 7,
-      "y": 23,
+      "y": 14,
       "error": 377.2671385991058,
       "initial": 8312.922503725782,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.8627450980392157,
+        "after": 1,
+        "samples": 102,
+        "lift": 9
+      },
       "box": {
         "left": 2689,
         "top": 2042,
@@ -350,9 +401,16 @@
     },
     {
       "x": -11,
-      "y": 20,
+      "y": 13,
       "error": 450.12704918032784,
       "initial": 5111.416915052161,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9019607843137255,
+        "after": 0.9901960784313726,
+        "samples": 102,
+        "lift": 7
+      },
       "box": {
         "left": 3331,
         "top": 2045,
@@ -362,9 +420,16 @@
     },
     {
       "x": 5,
-      "y": -4,
+      "y": -6,
       "error": 417.71248246844317,
       "initial": 3055.5347124824684,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9619047619047619,
+        "after": 1,
+        "samples": 105,
+        "lift": 2
+      },
       "box": {
         "left": 3982,
         "top": 2043,
@@ -377,6 +442,7 @@
       "y": -4,
       "error": 338.59897360703815,
       "initial": 3619.768328445748,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4625,
         "top": 2046,
@@ -386,9 +452,16 @@
     },
     {
       "x": -17,
-      "y": -3,
+      "y": -18,
       "error": 854.8555888972243,
       "initial": 9837.221680420105,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7676767676767676,
+        "after": 1,
+        "samples": 99,
+        "lift": 15
+      },
       "box": {
         "left": 5274,
         "top": 2043,
@@ -505,5 +578,5 @@
       }
     }
   ],
-  "outputSha256": "21c9990daad2ec8c070945537ed6b70c253458ffdb62cf4e792d1929ac5c247a"
+  "outputSha256": "d0c8d659fc8688f893a5c7bedc109018e33f4dcd0c170ce6d76350b0ae61673c"
 }

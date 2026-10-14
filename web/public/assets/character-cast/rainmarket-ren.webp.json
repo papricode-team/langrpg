@@ -33,13 +33,16 @@
       "top.secondary": "#33383a"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d4b697\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#303239\"],[\"bottom.primary\",\"#2d3235\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d8d5cd\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#754148\"],[\"outer.secondary\",\"#754148\"],[\"top.primary\",\"#33383a\"],[\"top.secondary\",\"#33383a\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d4b697\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#303239\"],[\"bottom.primary\",\"#2d3235\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d8d5cd\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#754148\"],[\"outer.secondary\",\"#754148\"],[\"top.primary\",\"#33383a\"],[\"top.secondary\",\"#33383a\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "814bbb91dc4d4dd843ce5f01d1787ad22920645d69c616d3fc2da074b70af0dd"
+  "sha256": "8f377cb416955a9b2d74a97711b3ad4b5c46c61f60ac74e966352d85456f73b6",
+  "atlasSha256": "976376df42cf311b7036315f82bd09e29f0ba52da9320aa3e6fad7f688eb6cc1",
+  "textureBytes": 14707184,
+  "atlas": "web/public/assets/character-cast/rainmarket-ren.atlas.json"
 }

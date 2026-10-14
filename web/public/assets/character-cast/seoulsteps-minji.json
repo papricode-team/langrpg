@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-minji.json",
   "recipeSha256": "15ce721e1faa628dabd4e4f95f9dc77e8a302258406ceb0309f85bf6224f86ca",
   "atlas": "web/public/assets/character-cast/seoulsteps-minji.webp",
-  "atlasSha256": "b377d1c641a6a9e1c8f9a483cbe65cf342aa158b49b9e212143b35bf3372db49",
+  "atlasSha256": "72b7270c7b0da4fb29b7624d74e38f5f230dd02e6f3c0b802f834c88a6187e16",
+  "geometry": "web/public/assets/character-cast/seoulsteps-minji.atlas.json",
+  "geometrySha256": "3ffbab0bff7565bd144b4426e933a4e4b8d43970293b266d11a0cc4144dfdf32",
+  "textureBytes": 14843336,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "f142c8de33ad0d78234ffcf4b3ba8d6a39b67fe16d2efea631b8527e749b9230",
   "proof": "art/proofs/character-cast/seoulsteps-minji.png",
-  "proofSha256": "7c7ea9f5395e4148373caa12232f4871f8daeff0b9509686a6e252c73522a47f",
-  "editorSha256": "5fa77addd4dd524c59ec68c0ec91f05810a5f118771ae5d0f40ca2323ce996a5",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "2143dbb1170b003054e328daaa362feba8e1f0bfb2180ef24ddd79495e0064ec",
+  "editorSha256": "226e6276d75ae1bb312ea4c4fb444d8944f834b129cfaa2ed63a68bbf8963ad8",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

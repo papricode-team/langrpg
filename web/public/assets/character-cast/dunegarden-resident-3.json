@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/dunegarden-resident-3.json",
   "recipeSha256": "da831522b6a4695c8aa5fd8b7fb8cf992e531d0ec2578c7467a2ed55d22fd003",
   "atlas": "web/public/assets/character-cast/dunegarden-resident-3.webp",
-  "atlasSha256": "57bf7b9079621da4a1eb746499e3caf87428bc632ba2125730f49ece077cf9f3",
+  "atlasSha256": "aef14ae9453741dedb79b0c48f48f66db00aa7f07dd4712916c02e913fa5434a",
+  "geometry": "web/public/assets/character-cast/dunegarden-resident-3.atlas.json",
+  "geometrySha256": "7210ba8456e2bdf33a9a8963c79af495d57259ba846f284800a30cdf193c3983",
+  "textureBytes": 14578740,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/dunegarden-resident-3.png",
-  "proofSha256": "83bf5a90763a97d5f738476a12bfbd1bddabaa78d9385d3d36de308e62b0c021",
-  "editorSha256": "e55df3cb4160116e39db820b95d115a61d999200ae12f90638d685039239ebdf",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "cd6332f255b6c5ec2cce12abcbfb00a6e5d62b35085e317dba98e77fe1e5d5d0",
+  "editorSha256": "426253bdc32d37ad34329dc31422a856faeea22e8f3ed5753c1fe31f365a5ec7",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "64d34b5d6d038f357f5a861cd59b607c1f13366b3b5059e7419750079b07d480"
+  },
+  "sourceComponentsSha256": "64d34b5d6d038f357f5a861cd59b607c1f13366b3b5059e7419750079b07d480"
 }

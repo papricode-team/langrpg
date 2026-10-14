@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/terracielo-diego.json",
   "recipeSha256": "e9aec43173a4f4afffa6a4093d47931433105ed05de6e6a915fcce5045fc1916",
   "atlas": "web/public/assets/character-cast/terracielo-diego.webp",
-  "atlasSha256": "c05a2c0eeaddb8d57945ffd8eafb87215942b952307a27bf24f666940b073e9f",
+  "atlasSha256": "8b98940b309f9a5d1b186b9f11252439e0e3b226c693c9240f11c802d862d5a3",
+  "geometry": "web/public/assets/character-cast/terracielo-diego.atlas.json",
+  "geometrySha256": "ef3de630027a4231831a77f03de57304ee39afb2a6389f666e2a0933f0d762cf",
+  "textureBytes": 14654612,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "618f1aa48db14a7078eb0a0d8dc715641e2289264828ce1490e41452b50fa5ba",
   "proof": "art/proofs/character-cast/terracielo-diego.png",
-  "proofSha256": "58d60523e02c85a26a12bbc68379a05157563140b1f1b6ecd9e6b0787aa0f49b",
-  "editorSha256": "921b0c4e8049251d377a766d15cfaa6c09060f9fcb57da3add3c351f4faa03e7",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "af7934779286e83900a6cc913831d1aba989f618a4a64a6de632dfab01f536a7",
+  "editorSha256": "b767f7cad60a73611ae46e80a475a55a9a85408f70e27bcff95664dcbb79c955",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

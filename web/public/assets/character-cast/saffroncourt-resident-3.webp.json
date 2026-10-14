@@ -33,13 +33,16 @@
       "top.secondary": "#a497b8"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c8a27b\",\"#918b7f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#687247\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#b49a6e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a497b8\"],[\"top.secondary\",\"#a497b8\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c8a27b\",\"#918b7f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#687247\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#b49a6e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a497b8\"],[\"top.secondary\",\"#a497b8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "682700c642f7ffbbe46ebf94e59365f59d89d17bbd95ded6d7fe95162955ddd8"
+  "sha256": "401faf5325aa11e9046292cd2bccb61a22f154afba1874591c1d79b2e103b5c4",
+  "atlasSha256": "bd8b816b67f5c90ab219e31b84b2647b770b363a5be315175581bd8c1e887253",
+  "textureBytes": 14654612,
+  "atlas": "web/public/assets/character-cast/saffroncourt-resident-3.atlas.json"
 }

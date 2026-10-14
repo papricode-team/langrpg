@@ -33,13 +33,16 @@
       "top.secondary": "#344d70"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#be986c\",\"#b3a58d\",[[\"bag\",\"tote\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#713d49\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#53432f\"],[\"headwear.primary\",\"#8faeca\"],[\"headwear.secondary\",\"#8faeca\"],[\"neck.primary\",\"#8faeca\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#344d70\"],[\"top.secondary\",\"#344d70\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#be986c\",\"#b3a58d\",[[\"bag\",\"tote\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#713d49\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#53432f\"],[\"headwear.primary\",\"#8faeca\"],[\"headwear.secondary\",\"#8faeca\"],[\"neck.primary\",\"#8faeca\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#344d70\"],[\"top.secondary\",\"#344d70\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "15802c81d8f6e7a58d2f7b415ef14365214fddba66d2a92c1278fe52d10a6d5b"
+  "sha256": "4fbd8c5fe1cb5728e36c5cf5e132bffdb29ef418f61dd336d58d6c3ab174b26a",
+  "atlasSha256": "bc94362074de24451f1ac58d94a36f2486f144358b85f0aab8c08ce4b8a0362d",
+  "textureBytes": 14739732,
+  "atlas": "web/public/assets/character-cast/dunegarden-resident-0.atlas.json"
 }

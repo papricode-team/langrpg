@@ -4,10 +4,33 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-nour.json",
   "recipeSha256": "03f45892c63cbe6ab4acd8ef13aaf5896a5405c6465127070e40778c68ca3f4e",
   "atlas": "web/public/assets/character-cast/saffroncourt-nour.webp",
-  "atlasSha256": "c094ef6cfc96d245e9419727be594b117e9f3a796292070e92dc9a7e41e80814",
+  "atlasSha256": "beaaca1f868a0ff4af61fa0e0268e9ee714ac7bc086b8a917ed6bc068c22b350",
+  "geometry": "web/public/assets/character-cast/saffroncourt-nour.atlas.json",
+  "geometrySha256": "86047431960443f1841f6e6fc0814ada9092e068933a195ac91aa7fd5f16d47f",
+  "textureBytes": 14351292,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-nour.webp",
+      "sha256": "beaaca1f868a0ff4af61fa0e0268e9ee714ac7bc086b8a917ed6bc068c22b350",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-nour.1.webp",
+      "sha256": "ffc38d4b7b6c7e28b56eadda7aa696551e209e05a98c40ebab3e4356be1118c6",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "6b8f91cf8ae1f5fe64110451b0d09bff796104408f9c608db4ae67dac46d8827",
   "proof": "art/proofs/character-cast/saffroncourt-nour.png",
-  "proofSha256": "a496eb3e1d3519efa9caade9db1dda5131ee80bd1d2d9f0c888a4ec63c07f564",
-  "editorSha256": "7b39e10258c77a955ae38dfcbd642a4acff08fbbd1effe1840302810296b7fdd",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "46749c2a09c0695feb3c3bd96b2406ed44f679ec75e984f0593012ee22f52f07",
+  "editorSha256": "cda005c96525e3db7f0a650f0696966b4e7851d378aa0756d916fa705b4b22d6",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

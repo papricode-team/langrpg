@@ -33,13 +33,16 @@
       "top.secondary": "#536949"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#a3704d\",\"#30271e\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6a6749\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#45412e\"],[\"headwear.primary\",\"#bc9955\"],[\"headwear.secondary\",\"#bc9955\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#536949\"],[\"top.secondary\",\"#536949\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#a3704d\",\"#30271e\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6a6749\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#45412e\"],[\"headwear.primary\",\"#bc9955\"],[\"headwear.secondary\",\"#bc9955\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#536949\"],[\"top.secondary\",\"#536949\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "014df6737acd823110ac035cd8114c3321ef5e081dc2d3a7c54b19e574787280"
+  "sha256": "0ab5e1da489694971b8192c653341dc2814d20b72291a22c610329748e5a956e",
+  "atlasSha256": "0c808d7348abb41beb9ade5796c3e134789d53d443c58192b52df0f07583cd58",
+  "textureBytes": 14939272,
+  "atlas": "web/public/assets/character-cast/saffroncourt-idriss.atlas.json"
 }

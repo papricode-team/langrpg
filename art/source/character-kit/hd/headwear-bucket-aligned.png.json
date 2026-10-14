@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/headwear-bucket-page-0-candidate-1.png",

@@ -33,13 +33,31 @@
       "top.secondary": "#375ba0"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b88e60\",\"#aba18b\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"sandals\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#dccdaa\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#61442c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#375ba0\"],[\"top.secondary\",\"#375ba0\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b88e60\",\"#aba18b\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"sandals\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#dccdaa\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#61442c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#375ba0\"],[\"top.secondary\",\"#375ba0\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "f73711c85e3891d31f131e85647ee57d31c2c126220a320e02a358a7daf8296d"
+  "sha256": "3628442ec547f7f010af9356641c3f75ed38503add0902b1bf60069ce434be9e",
+  "atlasSha256": "8db6e4d16a67b4e3c44a8ee1a813f9afc3e4bbbe0c9a743d136621bb8376254c",
+  "textureBytes": 14445464,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-7.webp",
+      "sha256": "3628442ec547f7f010af9356641c3f75ed38503add0902b1bf60069ce434be9e",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-7.1.webp",
+      "sha256": "60315a14ca5bc41e1de98ae9f0c8aeac72142d994fa10038aeedc069ffdc4059",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/cedarbay-resident-7.atlas.json"
 }

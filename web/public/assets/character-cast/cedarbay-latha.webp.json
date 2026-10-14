@@ -33,13 +33,16 @@
       "top.secondary": "#bfa038"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#956a43\",\"#2a2119\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e514b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655039\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#bfa038\"],[\"top.secondary\",\"#bfa038\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#956a43\",\"#2a2119\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e514b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655039\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#bfa038\"],[\"top.secondary\",\"#bfa038\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "aab1969510b44f4bbc592c564d3b5474157bfe698d4549014eca23769ef1bc40"
+  "sha256": "dcd9f6454936e2158c6ad466e8861e9ee7819919bb3498d34896da13a9198540",
+  "atlasSha256": "5bf001b8fc8adc0f0d6fcd8150136d69de170dc272e252a66528d37522299e1e",
+  "textureBytes": 14917776,
+  "atlas": "web/public/assets/character-cast/cedarbay-latha.atlas.json"
 }

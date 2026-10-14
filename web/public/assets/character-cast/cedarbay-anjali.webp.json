@@ -33,13 +33,16 @@
       "top.secondary": "#ded6b7"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ad8156\",\"#8e8472\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6d4a2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#476f41\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#ded6b7\"],[\"top.secondary\",\"#ded6b7\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ad8156\",\"#8e8472\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6d4a2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#476f41\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#ded6b7\"],[\"top.secondary\",\"#ded6b7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "c1a7918659d7c3a193ce8381f342c8e585c161de9caca30c5b16fd19b784170a"
+  "sha256": "0210247f62568717f9907e32814efd8c2fbf84094bff94ae5cf06a51fca0e4a3",
+  "atlasSha256": "f7947d04b7ded70e1fbf161668881ccc0d38537d3bdda0c875b10cf354be3603",
+  "textureBytes": 14986560,
+  "atlas": "web/public/assets/character-cast/cedarbay-anjali.atlas.json"
 }

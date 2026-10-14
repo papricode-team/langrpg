@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-resident-5.json",
   "recipeSha256": "0e6a835b8d13378032d43061e7c82c62d29704eb90e584db74780ec97950bcd3",
   "atlas": "web/public/assets/character-cast/saffroncourt-resident-5.webp",
-  "atlasSha256": "d89a0c0664b02cbc0d2e18665dbf8c085887adaf5cd17911245985deacaa57fa",
+  "atlasSha256": "d8885d47cba843309cb9fb5135152e262d1d4ac596754c5a01a2bd0570a37a79",
+  "geometry": "web/public/assets/character-cast/saffroncourt-resident-5.atlas.json",
+  "geometrySha256": "e446d1db4ceeaafef4af610f8a9bfe08d6b0c7c12eb0d6590e8f9548ce3eeacf",
+  "textureBytes": 14762964,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/saffroncourt-resident-5.png",
-  "proofSha256": "798621763abd4be0922f7e277b670890b3b0b6696efd41633d84117e01863f56",
-  "editorSha256": "b6343889f921cbb8a6f90910a9fdb5e5eb4bef77470d985bd5a03495f1837ca0",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "48c8018bdc3804426658e91a49ad1eab89142f8b4ed40cc7702d78976151f256",
+  "editorSha256": "50a057afceca735f4e152eca23fea36f17ac8bbd2b4a6ff2745e1b15308c5aaa",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "57d7161e874b489344ef2b11900b2749bdb588dc44360d7a9b01f2c54474d09e"
+  },
+  "sourceComponentsSha256": "57d7161e874b489344ef2b11900b2749bdb588dc44360d7a9b01f2c54474d09e"
 }

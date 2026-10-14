@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/kigalights-chantal.json",
   "recipeSha256": "c8e906536d9de999f7711f3a3d03aa0c81e21512dcf7d30c0030b7db8b9bb234",
   "atlas": "web/public/assets/character-cast/kigalights-chantal.webp",
-  "atlasSha256": "2ebd8688a6a3e21d61d4e4c5b53e82009de0693a9851a6b466fb85f25d580583",
+  "atlasSha256": "56d4da89461fbfeec354973ab93073c2894602201502abe8181e5f1b7b6595db",
+  "geometry": "web/public/assets/character-cast/kigalights-chantal.atlas.json",
+  "geometrySha256": "6251a0889d0a1a194cbfe801262cc9f59cd92847645eb81542fac9d3ff7ed29e",
+  "textureBytes": 14277924,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "6c54dff6cf46bd17a80396ed602e92c3448cd7e009e5801bd16063ad029228fc",
   "proof": "art/proofs/character-cast/kigalights-chantal.png",
-  "proofSha256": "053b869869bc22c62d54f37465feb2015f4e021c376475e0e59e835faa86f747",
-  "editorSha256": "1d0a9d18828db9319046dfe6f8f306055e97226b97e9d678921c6a9081e0d6d8",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "2f12dd89968eb3dece7f679a0f58a792f8149f837eb6ac072ce4879f4bba5e0f",
+  "editorSha256": "5b32751c948731c633821b6231a07e88d4b00c4ed020ae769eca008d9845bfab",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

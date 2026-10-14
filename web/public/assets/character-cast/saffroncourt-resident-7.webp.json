@@ -33,13 +33,16 @@
       "top.secondary": "#d8ad8f"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b1855e\",\"#aaa496\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#c2beb2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2d4055\"],[\"headwear.primary\",\"#2f405b\"],[\"headwear.secondary\",\"#2f405b\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#705139\"],[\"outer.secondary\",\"#705139\"],[\"top.primary\",\"#d8ad8f\"],[\"top.secondary\",\"#d8ad8f\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b1855e\",\"#aaa496\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#c2beb2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2d4055\"],[\"headwear.primary\",\"#2f405b\"],[\"headwear.secondary\",\"#2f405b\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#705139\"],[\"outer.secondary\",\"#705139\"],[\"top.primary\",\"#d8ad8f\"],[\"top.secondary\",\"#d8ad8f\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "8432d47cb7281949a07462ae1653d769658e23ab6a69e25d105c2687c26e0b8d"
+  "sha256": "5f7ab9ca03886d8b3b8a91b917252e349a39e60bc8b34370124d24c04235baa4",
+  "atlasSha256": "bef03d9941430d64ee34bc47143d0139007f8e04bf61991932c9e2911aa8d974",
+  "textureBytes": 14377932,
+  "atlas": "web/public/assets/character-cast/saffroncourt-resident-7.atlas.json"
 }

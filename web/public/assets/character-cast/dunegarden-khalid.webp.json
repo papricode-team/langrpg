@@ -33,13 +33,16 @@
       "top.secondary": "#a55b3b"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "c361680bd3fa61fcb373f25f2e1d0a760c4d39b3d723c9d1591c78397f9c2bd4"
+  "sha256": "9a7c80b9f9a0bfd1bc4af4cd5319492dc86102f873610775a650b65eb80714bc",
+  "atlasSha256": "1ffdb2d6b9631abe1556a5d9b2ddda532d57015ab689603a4aa892f4f066a1fc",
+  "textureBytes": 14558016,
+  "atlas": "web/public/assets/character-cast/dunegarden-khalid.atlas.json"
 }

@@ -4,10 +4,33 @@
   "recipe": "art/source/character-kit/cast/windplain-ariun.json",
   "recipeSha256": "6324e742d0d52ef9ed73e1dc798193a0b8ff8e59042697752f2e87814624a87d",
   "atlas": "web/public/assets/character-cast/windplain-ariun.webp",
-  "atlasSha256": "a66695dcbaa5010a09754a73705f171ea6bfc2183afaee93b439867bd696bf91",
+  "atlasSha256": "574d59f47d23fa05034b50b49478fe3e212a1eac3f049c28c16ffaebd02e64d4",
+  "geometry": "web/public/assets/character-cast/windplain-ariun.atlas.json",
+  "geometrySha256": "e61fc1557aa61dc66bbe32c02e6b15bdebed332cc6af8ac73437c4be103472f8",
+  "textureBytes": 14702320,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-ariun.webp",
+      "sha256": "574d59f47d23fa05034b50b49478fe3e212a1eac3f049c28c16ffaebd02e64d4",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-ariun.1.webp",
+      "sha256": "eeb5f5a602f341a012140e7d55cc8838ca071ee1539ce760df5f16d4767ea162",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "3898adcda8e2f0f6605b44fd07e2e1f68d6d19febd172a015ae0a233b493c602",
   "proof": "art/proofs/character-cast/windplain-ariun.png",
-  "proofSha256": "b68272d5ccf55dac4d918d6acd5cc48e496d2f86370be57d52d981b40a3c80ee",
-  "editorSha256": "030d7d162510aa2c59df56ef8dd81a2c134041c35af83c9a20840ce57906e1a3",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "b30e4eeac607c2af2628a58f09005e4a04aee2db9d206fd975ee6e2a0d396391",
+  "editorSha256": "699a636b5f25b8f88d71d496f3a4ab0fb1370136b20022cc21c0776ed9133d0b",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

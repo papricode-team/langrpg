@@ -4,10 +4,62 @@
   "recipe": "art/source/character-kit/cast/elise.json",
   "recipeSha256": "8808caa49ed38c568bbffba5ec5038d76bd863d5fd3bac02f553e80762d24bb9",
   "atlas": "web/public/assets/character-cast/elise.webp",
-  "atlasSha256": "3ede9ead346ba22860d465cd22c56cd1dfb267c5e9c66828a918646c56320865",
+  "atlasSha256": "b5c52d7ba5a8f413bc4e00bd6642f449fe497bf9bc0c963df93e4d071b36e7e4",
+  "geometry": "web/public/assets/character-cast/elise.atlas.json",
+  "geometrySha256": "cd986fee3d5160c21c81a43f7104b8f983827afea0f631fe11474a21747933ef",
+  "textureBytes": 14688164,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/elise.webp",
+      "sha256": "b5c52d7ba5a8f413bc4e00bd6642f449fe497bf9bc0c963df93e4d071b36e7e4",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/elise.1.webp",
+      "sha256": "29a06c51abe0397e4c3593817b4ac8c99b23eb1c05b3cceeec237c19f5a59fd3",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "8271a52118c71f8fb7f6a6d755a2d9c2dfc7ba7f7211bb6c7aa13ddb3412e119",
   "proof": "art/proofs/character-cast/elise.png",
-  "proofSha256": "38ec114cceb3f2b2614d41a1b0500ff687d9a4de306df52a67f96cb421a19e7e",
-  "editorSha256": "aa9974d6a5305c4f0f9aba310d01bca8555903e1395a3c3ba00f67427fd06b34",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "46a4ef18433f9e10e0379e3a2d1dfc4e845e92c0384dccd2614ef2371a0fb08f",
+  "editorSha256": "5b7357ea706f487acdd1e3f0a8a463c70feef34485298cfef988785a6473ed51",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-elise-native",
+    "image": "web/public/assets/character-cast/native/elise.webp",
+    "atlas": "web/public/assets/character-cast/native/elise.atlas.json",
+    "sha256": "521293427c17f5f0e0fdd01ed8f9fef550691d2db66d742dd05995a73ce470ec",
+    "atlasSha256": "9ce7b0a42581eada9a321e7e0168508a8f14b974bb7ca065ccf1649f2a90bb23",
+    "textureBytes": 29892736,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/elise.webp",
+        "sha256": "521293427c17f5f0e0fdd01ed8f9fef550691d2db66d742dd05995a73ce470ec",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/elise.1.webp",
+        "sha256": "98d75692cb41646bf93e007f1429f7c6c60414e4a56a52563c0343a93d95d50b",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/elise.webp",
+    "sourceSha256": "5b7357ea706f487acdd1e3f0a8a463c70feef34485298cfef988785a6473ed51"
+  }
 }

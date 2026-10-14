@@ -4,10 +4,52 @@
   "recipe": "art/source/character-kit/cast/inspector.json",
   "recipeSha256": "ced212e40651654c80add12160c40ebb7bea734929370a260bd61b433a0697f9",
   "atlas": "web/public/assets/character-cast/inspector.webp",
-  "atlasSha256": "3d04c44492c6a6a95a3b24f41bcece81dfdc355c2b76fc89b1321be9cded8f12",
+  "atlasSha256": "7816fde054dfbb8dd727e0ae4d5d8451c2c15d3bd8e2ed5958c0f91bb53a6b5a",
+  "geometry": "web/public/assets/character-cast/inspector.atlas.json",
+  "geometrySha256": "4ac6cf6d7f4d6dbdcd5d4609566858c46a849f2554fcd45dbcc8ae948b0f95f5",
+  "textureBytes": 14014560,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/inspector.png",
-  "proofSha256": "35522e7b021f113865097a7e060bc40f288969b40670fe62346744d233247d90",
-  "editorSha256": "631bd7c752d79aaaee24b38d5130944fa53ac3a5231464fb1188bd73c1b7e87a",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "7f0d172d2fef7d13b6942021c11c3f579a92d58975934bc437b5db0244e63b4e",
+  "editorSha256": "95e6e4b096e7ee6579cf4d6e34fe174c0e0d266694be3ebfa5dfeb5c2d2a82ad",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "cf6b1dd06ebd1e195a07269680357b158ccc5adc592f2ba7f6dabd9684d41562"
+  },
+  "sourceComponentsSha256": "cf6b1dd06ebd1e195a07269680357b158ccc5adc592f2ba7f6dabd9684d41562",
+  "native": {
+    "key": "character-cast-inspector-native",
+    "image": "web/public/assets/character-cast/native/inspector.webp",
+    "atlas": "web/public/assets/character-cast/native/inspector.atlas.json",
+    "sha256": "0c89242e94c7877eb59bf19fc641a028d4f2d85bffa2acaaf205ee7fc2f6f5d0",
+    "atlasSha256": "ffbacab0bc9ebf8b98a2172233b5fda45d41b992221a19bfc11a89c43982cc23",
+    "textureBytes": 27199152,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/inspector.webp",
+        "sha256": "0c89242e94c7877eb59bf19fc641a028d4f2d85bffa2acaaf205ee7fc2f6f5d0",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/inspector.1.webp",
+        "sha256": "e0e48ff7e5612fb9045a91cc8eb9a32375fca84bd4eb97cd692ee112fe575bd6",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/inspector.webp",
+    "sourceSha256": "95e6e4b096e7ee6579cf4d6e34fe174c0e0d266694be3ebfa5dfeb5c2d2a82ad"
+  }
 }

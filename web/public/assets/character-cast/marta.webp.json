@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d6a07d\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#82634a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75855f\"],[\"outer.secondary\",\"#657448\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d6a07d\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#82634a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75855f\"],[\"outer.secondary\",\"#657448\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "c302a4078a55f360608d59c22eff75cade6912ce141c6b6e822c9badc3408867"
+  "sha256": "db49e9644af42f465a87ff78508bd8394c09f3c3aa091899d1aa401da4e89fe9",
+  "atlasSha256": "6265ccd066975dfe8f00a6ed1de157cf7c63cf3938409dd384feccea936f5097",
+  "textureBytes": 14904544,
+  "atlas": "web/public/assets/character-cast/marta.atlas.json"
 }

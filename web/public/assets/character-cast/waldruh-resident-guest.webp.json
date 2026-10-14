@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",\"tote\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",\"tote\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "ca79d93f69806a323738ee255aa84dd73acb779a55a00358b4af58ee9d69db21"
+  "sha256": "191362d3c9b8b9e3c32e264c1c7a839b09dc0bb51ed6c6ea419fda3f43f50467",
+  "atlasSha256": "bab169b7008719c9c4a7900957a65a7e207c87f72e0cc079a6919ddb91b64193",
+  "textureBytes": 14471280,
+  "atlas": "web/public/assets/character-cast/waldruh-resident-guest.atlas.json"
 }

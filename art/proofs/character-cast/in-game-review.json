@@ -1,0 +1,67 @@
+{
+  "assetVersion": "4c9d233bf71007a9",
+  "date": "2026-10-14",
+  "fixture": "/qa/world-assets.html?test=clear-land&density=2",
+  "outdoorCell": [
+    384,
+    576
+  ],
+  "indoorCell": [
+    512,
+    768
+  ],
+  "desktopViewport": [
+    1440,
+    900
+  ],
+  "phoneViewport": [
+    390,
+    844
+  ],
+  "backingDensity": 2,
+  "review": "Reviewed native cast detail, live resident activity, outdoor and inn scenes, and phone conversation zoom. Native PNGs capture the real Phaser framebuffer. All242productionNPCimagesmatchreviewedexportsbyteforbyte.",
+  "captures": [
+    {
+      "path": "art/proofs/character-cast/in-game-inn-native.png",
+      "sha256": "ee79ba0724c45766e3f67593c5db5a49426c247a63d2f2985f4ab332886c4eee",
+      "width": 2880,
+      "height": 1800,
+      "format": "png"
+    },
+    {
+      "path": "art/proofs/character-cast/in-game-phone-native.png",
+      "sha256": "09f09b9959fc1ce8db2962318eb3724738dd735e9b0e31ab8268fe6016870ba2",
+      "width": 780,
+      "height": 1688,
+      "format": "png"
+    },
+    {
+      "path": "art/proofs/character-cast/in-game-inn-hd.jpg",
+      "sha256": "ab6e7e061ddc5f0701dcf0119b0eb3604dbc114d1c14659dd99293b0ea7fad81",
+      "width": 1440,
+      "height": 900,
+      "format": "jpeg"
+    },
+    {
+      "path": "art/proofs/character-cast/in-game-phone-hd.jpg",
+      "sha256": "893ba2b2b185ebc259b4ae3be1f1fe94cb48d3ff2888118ff5754b00180f5aea",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg"
+    },
+    {
+      "path": "art/proofs/character-cast/in-game-outdoor-phone-hd.jpg",
+      "sha256": "082581a1e87b8f7d92bcd29d7be2322f5e5fb96e490af8779f75c23f329567f3",
+      "width": 390,
+      "height": 844,
+      "format": "jpeg"
+    },
+    {
+      "path": "art/proofs/character-cast/in-game-outdoor-desktop-hd.jpg",
+      "sha256": "226d901b6d945ac5b0696747c4bc89741139ae81addbf5cfeaa352798bdb74c9",
+      "width": 1440,
+      "height": 900,
+      "format": "jpeg"
+    }
+  ]
+}

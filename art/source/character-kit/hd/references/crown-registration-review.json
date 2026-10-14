@@ -1,0 +1,103 @@
+{
+  "operation": "Native complete-frame integer crown registration only",
+  "observations": {
+    "hair-waves": [
+      "Right frames 15–17 retain their pre-existing flat native source crop edge; whole-frame translation cannot invent missing crown pixels. Small coverage corrections preserve the source artwork."
+    ],
+    "hair-bob": [
+      "A pre-existing cyan seam beside several ears remains in native source detail; no material policy or painted-pixel change was made in the registration pass."
+    ],
+    "hair-ponytail": [
+      "Left frame 31 retains its original valid anchor with a reviewed +3 native y adjustment. Coverage lifts split its locked native silhouette; nearby whole-frame translations were tested. The retained scalp edge is less than one canonical pixel."
+    ],
+    "headwear-bucket": [
+      "Original valid registration restored. Its pre-existing light band is partly dropped by the existing detail extraction policy. Open band pixels confuse full-crown coverage; this component is excluded from automatic crown lifting."
+    ]
+  },
+  "components": [
+    {
+      "id": "hair-waves",
+      "lockedSha256": "87d8e9e9069df4e6dd8495dfe137bda6d731af13047a12fe09efa256c720cb09",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-bob",
+      "lockedSha256": "a019d55f5c2022fe558b6600e38b850e78fce3a16951a6b032a805dfdbbceff0",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-pixie",
+      "lockedSha256": "3684c013c06b1a86b041b92e768d77ffe43de6b4693be8781607130ebf7be4b1",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-ponytail",
+      "lockedSha256": "5944561dbaae67798102707bd1511d94433690c6a8a99cc17b8cc8b2cc1cb619",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-braids",
+      "lockedSha256": "c3da2676131cca34d59f54004086e44041a54a765b0ad306b13afcc160eca3df",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-bun",
+      "lockedSha256": "edf53bc7be34b67cd4de96ac16aad69fe5c6bfea3a5ef4a162365f48e605e102",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "hair-coils",
+      "lockedSha256": "42ae462ca3231927e6b494d5463549fba875893deb5d90d062d8bb93f515cf1d",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "headwear-beanie",
+      "lockedSha256": "d36cb2be30adb79b3bc63e76c08a1429e884ca80b6866386a4cfbff20c467a96",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "headwear-beret",
+      "lockedSha256": "4dfab11da396611b4867bde089ce3d48805a95acb715be66bf24ef9472cae297",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "headwear-turban",
+      "lockedSha256": "f50cb26c7e471115b109a70cf3daf1d2229baa69cf36028b53ef8bdc2a041e10",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "headwear-brimmed",
+      "lockedSha256": "74c338f0bd582b2ff296072d636e7c11e1a5f7945f54ee90bb38d486feaf4fcc",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    },
+    {
+      "id": "headwear-bucket",
+      "lockedSha256": "36127681eae4b342b43cd35ec9d2644f1318b3a6d19f325dd8b58d8a8efd34f4",
+      "valid": true,
+      "frames": 36,
+      "nativeProofs": 18
+    }
+  ]
+}

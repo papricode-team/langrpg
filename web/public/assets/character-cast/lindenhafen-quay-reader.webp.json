@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4b9d509ef611fdfda1f6bb45b660e9a4f3cadcdea3e0007923509dddf86b501a"
+  "sha256": "c4a4b48ff6e8bee98ee4825f87c629a17878e01bbb7ede6f5c4cea931f32ab04",
+  "atlasSha256": "fab7bf3d6331ca6ae2edce69941eede696d06b90683fc87d2dbb132025362e8b",
+  "textureBytes": 14967664,
+  "atlas": "web/public/assets/character-cast/lindenhafen-quay-reader.atlas.json"
 }

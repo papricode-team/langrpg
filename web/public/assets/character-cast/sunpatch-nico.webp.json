@@ -33,13 +33,16 @@
       "top.secondary": "#e3d6b6"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b68b60\",\"#30261e\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"sleeveless\"]],[[\"bag.primary\",\"#904a3e\"],[\"bottom.primary\",\"#65734b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#805e37\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#65734b\"],[\"outer.secondary\",\"#65734b\"],[\"top.primary\",\"#e3d6b6\"],[\"top.secondary\",\"#e3d6b6\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b68b60\",\"#30261e\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"sleeveless\"]],[[\"bag.primary\",\"#904a3e\"],[\"bottom.primary\",\"#65734b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#805e37\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#65734b\"],[\"outer.secondary\",\"#65734b\"],[\"top.primary\",\"#e3d6b6\"],[\"top.secondary\",\"#e3d6b6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "feb79e02fd63f159396de1383f379f7f5f3f026a4d817d02ea436b667ff0318d"
+  "sha256": "c3c401fbb2b77c5114e268b6968a4017aea8f781996463efeb6efc57ab97a1f8",
+  "atlasSha256": "9c523d814013ef10c806b1a923fdcaedd9761ceb43e7abecd5f7fbc46a671cb6",
+  "textureBytes": 14833288,
+  "atlas": "web/public/assets/character-cast/sunpatch-nico.atlas.json"
 }

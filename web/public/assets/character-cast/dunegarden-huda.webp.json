@@ -33,13 +33,16 @@
       "top.secondary": "#e3d5b5"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b48b61\",\"#c0b69f\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#805837\"],[\"headwear.primary\",\"#c7c5a5\"],[\"headwear.secondary\",\"#c7c5a5\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e3d5b5\"],[\"top.secondary\",\"#e3d5b5\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b48b61\",\"#c0b69f\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#805837\"],[\"headwear.primary\",\"#c7c5a5\"],[\"headwear.secondary\",\"#c7c5a5\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e3d5b5\"],[\"top.secondary\",\"#e3d5b5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "b33aa0bda2cfb2926fd24cff9b33d213092235dd27881e211406a270d1f144b8"
+  "sha256": "370599f734529c28cfccc2953694b124cea7b341aa1d9a50acadcb1eea941728",
+  "atlasSha256": "02730d8ef6e7976c083f0d1f54fa00344781b318aa294427e36d07737008805a",
+  "textureBytes": 14814912,
+  "atlas": "web/public/assets/character-cast/dunegarden-huda.atlas.json"
 }

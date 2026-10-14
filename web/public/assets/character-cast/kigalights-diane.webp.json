@@ -33,13 +33,16 @@
       "top.secondary": "#9bc7ac"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "5cf365e816f5c7e2ef8140e3b181ba9dd401546d1001ea65a92aff02f683c697"
+  "sha256": "24a53a860ca64a7fa99205386083a0192b76b2d81e1b784ec6d0fb639956e622",
+  "atlasSha256": "f347f00d4cb3c8f66729d3199a5b41f394a8a182ab2cb0a6c05ea2b70199893e",
+  "textureBytes": 14309328,
+  "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json"
 }

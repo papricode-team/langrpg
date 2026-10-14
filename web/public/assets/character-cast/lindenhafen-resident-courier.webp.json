@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "32b3cd7ad3f1db11458b4f615be9cbfeb11c293422a357925758584e4b974a1a"
+  "sha256": "04b45ae7ab9fbf58a1d33f3d56a4ca2ee70cf97a4a87ac40244d5d823310e19d",
+  "atlasSha256": "1adaa7ad124302021e96928c35d65ecefaa7ecb44e0d5193f90acd3ead114477",
+  "textureBytes": 14495364,
+  "atlas": "web/public/assets/character-cast/lindenhafen-resident-courier.atlas.json"
 }

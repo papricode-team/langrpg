@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/cedarbay-resident-2.json",
   "recipeSha256": "ed7ed5e1e47dbb883ff2416f99c811e87af6fced8b56dffe9c7b28a7f7fc0157",
   "atlas": "web/public/assets/character-cast/cedarbay-resident-2.webp",
-  "atlasSha256": "023d15bf6ac6ca4a7150ea7b1473027a194238b29804920ef680b40d449b82a9",
+  "atlasSha256": "f68587ab40c2928be9d40757f1cd851f007908de9ccde7d096e02eb5c4eaf907",
+  "geometry": "web/public/assets/character-cast/cedarbay-resident-2.atlas.json",
+  "geometrySha256": "ef27db55c8897dd4ff9e5794ae4bae4a6c276f8f2aba2601707359ccf0a2f61b",
+  "textureBytes": 14597864,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "19a860ae8c1acf82d21d7eeceb49008c2802f2bc7c8029c2a40ba4a64dc46f3e",
   "proof": "art/proofs/character-cast/cedarbay-resident-2.png",
-  "proofSha256": "a80835c100627a2e4dc85d58a61c0705311d74f1e88b8d446f71841a893c4a78",
-  "editorSha256": "865c4dffa152589a0781dbeae7235da80b1823ae6f3321c1c505e9e7930e5cc8",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "f3c478977a5ab6ac496ceee59a28cf67b774c8d7d7356633addba3ae4e6e8dd6",
+  "editorSha256": "0909ad1748cb8f8b705a068c3b571f44a731856becb4da5135e3cb06cdac840d",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -33,13 +33,15 @@
       "top.secondary": "#e0d3b4"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b48b61\",\"#302720\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d3c3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#44382b\"],[\"headwear.primary\",\"#953b39\"],[\"headwear.secondary\",\"#953b39\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3c5e87\"],[\"outer.secondary\",\"#3c5e87\"],[\"top.primary\",\"#e0d3b4\"],[\"top.secondary\",\"#e0d3b4\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b48b61\",\"#302720\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d3c3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#44382b\"],[\"headwear.primary\",\"#953b39\"],[\"headwear.secondary\",\"#953b39\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3c5e87\"],[\"outer.secondary\",\"#3c5e87\"],[\"top.primary\",\"#e0d3b4\"],[\"top.secondary\",\"#e0d3b4\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "faa05c6ef2536137583d77e97fa2d4b26f8797754d99c97bd8d649843c395809"
+  "sha256": "005e6e710d5dfeeb5511972d8af238169cdc78afbffa237d456d260f51c2731a",
+  "atlas": "web/public/assets/character-cast/terracielo-mateo.atlas.json",
+  "textureBytes": 14490960
 }

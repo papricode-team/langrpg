@@ -33,13 +33,16 @@
       "top.secondary": "#3f674b"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "36b180aa99e0e9b64ac610ec4e57e8578e68732621f4514a819fe7747b181f25"
+  "sha256": "0feb5fd6b0b229be295a332b9cc3874598e50c23d2700b628dff1565eb0606d0",
+  "atlasSha256": "1ffdb2d6b9631abe1556a5d9b2ddda532d57015ab689603a4aa892f4f066a1fc",
+  "textureBytes": 14558016,
+  "atlas": "web/public/assets/character-cast/dunegarden-aisha.atlas.json"
 }

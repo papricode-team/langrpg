@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/headwear-turban-page-0-candidate-1.png",
@@ -194,9 +194,16 @@
     },
     {
       "x": 17,
-      "y": 16,
+      "y": 7,
       "error": 663.0757999378689,
       "initial": 9708.81578129854,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.6486486486486487,
+        "after": 0.990990990990991,
+        "samples": 111,
+        "lift": 9
+      },
       "box": {
         "left": 909,
         "top": 1152,
@@ -206,9 +213,16 @@
     },
     {
       "x": 12,
-      "y": 17,
+      "y": 15,
       "error": 381.09381795588695,
       "initial": 6734.328673501087,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.8288288288288288,
+        "after": 0.990990990990991,
+        "samples": 111,
+        "lift": 2
+      },
       "box": {
         "left": 1572,
         "top": 1150,
@@ -218,9 +232,16 @@
     },
     {
       "x": 9,
-      "y": 39,
+      "y": 33,
       "error": 2622.680838141512,
       "initial": 9978.722137868206,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.5877192982456141,
+        "after": 0.9912280701754386,
+        "samples": 114,
+        "lift": 6
+      },
       "box": {
         "left": 2175,
         "top": 1147,
@@ -230,9 +251,16 @@
     },
     {
       "x": 19,
-      "y": 43,
+      "y": 35,
       "error": 1523.6020503261882,
       "initial": 5633.252252252252,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.34234234234234234,
+        "after": 0.990990990990991,
+        "samples": 111,
+        "lift": 8
+      },
       "box": {
         "left": 2820,
         "top": 1143,
@@ -242,9 +270,16 @@
     },
     {
       "x": 10,
-      "y": 43,
+      "y": 31,
       "error": 1410.242000621311,
       "initial": 6773.294812053433,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.15315315315315314,
+        "after": 0.990990990990991,
+        "samples": 111,
+        "lift": 12
+      },
       "box": {
         "left": 3491,
         "top": 1144,
@@ -254,9 +289,16 @@
     },
     {
       "x": 11,
-      "y": 42,
+      "y": 34,
       "error": 808.123899180079,
       "initial": 8805.49681141816,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.631578947368421,
+        "after": 0.9912280701754386,
+        "samples": 114,
+        "lift": 8
+      },
       "box": {
         "left": 4134,
         "top": 1147,
@@ -266,9 +308,16 @@
     },
     {
       "x": 13,
-      "y": 42,
+      "y": 35,
       "error": 773.433033033033,
       "initial": 10997.460660660661,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.6140350877192983,
+        "after": 0.9912280701754386,
+        "samples": 114,
+        "lift": 7
+      },
       "box": {
         "left": 4772,
         "top": 1146,
@@ -278,9 +327,16 @@
     },
     {
       "x": 11,
-      "y": 42,
+      "y": 36,
       "error": 409.3870767319043,
       "initial": 9708.188878533707,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.6486486486486487,
+        "after": 1,
+        "samples": 111,
+        "lift": 6
+      },
       "box": {
         "left": 5409,
         "top": 1147,
@@ -290,9 +346,17 @@
     },
     {
       "x": 15,
-      "y": 20,
+      "y": 4,
       "error": 565.0049226441631,
       "initial": 3360.5646976090015,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9313725490196079,
+        "after": 0.9313725490196079,
+        "samples": 102,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 253,
         "top": 2027,
@@ -302,9 +366,17 @@
     },
     {
       "x": 14,
-      "y": 21,
+      "y": 4,
       "error": 415.70346320346323,
       "initial": 3105.758658008658,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9393939393939394,
+        "after": 0.9393939393939394,
+        "samples": 99,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 889,
         "top": 2030,
@@ -314,9 +386,17 @@
     },
     {
       "x": 4,
-      "y": 21,
+      "y": 9,
       "error": 103.53948753948754,
       "initial": 1587.7335907335907,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9292929292929293,
+        "after": 0.9292929292929293,
+        "samples": 99,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 1522,
         "top": 2030,
@@ -326,9 +406,16 @@
     },
     {
       "x": 10,
-      "y": 49,
+      "y": 30,
       "error": 797.8580225795415,
       "initial": 5667.81628463907,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9509803921568627,
+        "after": 1,
+        "samples": 102,
+        "lift": 2
+      },
       "box": {
         "left": 2149,
         "top": 2031,
@@ -338,9 +425,10 @@
     },
     {
       "x": 12,
-      "y": 46,
+      "y": 26,
       "error": 431.31406089633936,
       "initial": 5736.509066028053,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2796,
         "top": 2028,
@@ -350,9 +438,10 @@
     },
     {
       "x": 1,
-      "y": 46,
+      "y": 26,
       "error": 117.27642832706124,
       "initial": 6228.208689702361,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3438,
         "top": 2031,
@@ -362,9 +451,10 @@
     },
     {
       "x": 15,
-      "y": 36,
+      "y": 20,
       "error": 361.1911667765326,
       "initial": 4887.871127224786,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4092,
         "top": 2028,
@@ -374,9 +464,10 @@
     },
     {
       "x": 11,
-      "y": 36,
+      "y": 20,
       "error": 305.5271980841601,
       "initial": 4570.51556619911,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4731,
         "top": 2031,
@@ -386,9 +477,17 @@
     },
     {
       "x": 4,
-      "y": 34,
+      "y": 15,
       "error": 188.56686556686557,
       "initial": 4514.078273078273,
+      "anchor": "rear crown coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.9696969696969697,
+        "after": 0.9696969696969697,
+        "samples": 99,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 5377,
         "top": 2028,
@@ -401,6 +500,13 @@
       "y": 8,
       "error": 3791.838459148804,
       "initial": 13118.562907735322,
+      "crownCoverage": {
+        "before": 0.9279279279279279,
+        "after": 0.9279279279279279,
+        "samples": 111,
+        "lift": 0,
+        "unresolved": true
+      },
       "box": {
         "left": 238,
         "top": 2918,
@@ -434,9 +540,16 @@
     },
     {
       "x": 11,
-      "y": 48,
+      "y": 42,
       "error": 944.5337837837837,
       "initial": 10389.206885456886,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.5648148148148148,
+        "after": 0.9907407407407407,
+        "samples": 108,
+        "lift": 6
+      },
       "box": {
         "left": 2108,
         "top": 2913,
@@ -446,9 +559,16 @@
     },
     {
       "x": 10,
-      "y": 47,
+      "y": 41,
       "error": 762.0984555984556,
       "initial": 14915.172136422136,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.6203703703703703,
+        "after": 0.9907407407407407,
+        "samples": 108,
+        "lift": 6
+      },
       "box": {
         "left": 2746,
         "top": 2915,
@@ -458,9 +578,16 @@
     },
     {
       "x": -2,
-      "y": 45,
+      "y": 41,
       "error": 730.9826254826255,
       "initial": 10724.667631917631,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7222222222222222,
+        "after": 0.9907407407407407,
+        "samples": 108,
+        "lift": 4
+      },
       "box": {
         "left": 3397,
         "top": 2912,
@@ -470,9 +597,16 @@
     },
     {
       "x": 12,
-      "y": 44,
+      "y": 41,
       "error": 865.7471042471043,
       "initial": 15253.252574002574,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7962962962962963,
+        "after": 0.9907407407407407,
+        "samples": 108,
+        "lift": 3
+      },
       "box": {
         "left": 4049,
         "top": 2913,
@@ -482,9 +616,16 @@
     },
     {
       "x": 12,
-      "y": 44,
+      "y": 41,
       "error": 818.8413770913771,
       "initial": 11679.39897039897,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7777777777777778,
+        "after": 1,
+        "samples": 108,
+        "lift": 3
+      },
       "box": {
         "left": 4687,
         "top": 2913,
@@ -494,9 +635,16 @@
     },
     {
       "x": -4,
-      "y": 43,
+      "y": 41,
       "error": 1046.7403474903474,
       "initial": 11340.025096525096,
+      "anchor": "native skull contour coverage, complete-frame translation",
+      "crownCoverage": {
+        "before": 0.7870370370370371,
+        "after": 0.9907407407407407,
+        "samples": 108,
+        "lift": 2
+      },
       "box": {
         "left": 5323,
         "top": 2916,
@@ -505,5 +653,5 @@
       }
     }
   ],
-  "outputSha256": "a41d1f80e4b3b9f15e9c39562b6d2b6a4dd48c34846d0ed4ea9491956c3f5d82"
+  "outputSha256": "1f34db88ee2ed8429853fa775545c4a9c35aa9504c4f485c6989ad85579a6e81"
 }

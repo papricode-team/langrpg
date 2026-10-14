@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/waldruh-resident-shopper.json",
   "recipeSha256": "89d3d94970cc0fd9d4b54da148ad26149ff121c954facb6053cb69f5d435cbaf",
   "atlas": "web/public/assets/character-cast/waldruh-resident-shopper.webp",
-  "atlasSha256": "bf344bfca77f0dfd91880cda2e4c553d083784ff05aa4c599a148523e13b6cb9",
+  "atlasSha256": "8d8f22425c58646bf30e010996e3956405cfab3b1c7d6fe75a7c72cde4b96669",
+  "geometry": "web/public/assets/character-cast/waldruh-resident-shopper.atlas.json",
+  "geometrySha256": "15a74eacb904aac166fd33d93c122a2164102b55bf60859fa01b893208e55c79",
+  "textureBytes": 14788488,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "41e7ed12f24441a869a6133ff24ff9fbfc5de7ce5786082d94464a58be9faee5",
   "proof": "art/proofs/character-cast/waldruh-resident-shopper.png",
-  "proofSha256": "5201cb12aa66c50dba4812240db02fffc508e380491a87c2d86cc8b7dfc7e44c",
-  "editorSha256": "4f39e95258590df2c2440c267caa18f447db524580651afc57bcb0c8b08b690f",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "537942b3736276a0447f2c48fe30e4f1e85ce94f99e392c3874fcd25306534de",
+  "editorSha256": "90334f3cba28b0e87c80b9d02a78b6ae424e8c21ef01b3878bdba94c1b21f661",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -33,13 +33,16 @@
       "top.secondary": "#e6dfce"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d1aa82\",\"#a9a392\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#343537\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303134\"],[\"headwear.primary\",\"#50576a\"],[\"headwear.secondary\",\"#50576a\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3a4d6b\"],[\"outer.secondary\",\"#3a4d6b\"],[\"top.primary\",\"#e6dfce\"],[\"top.secondary\",\"#e6dfce\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d1aa82\",\"#a9a392\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#343537\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303134\"],[\"headwear.primary\",\"#50576a\"],[\"headwear.secondary\",\"#50576a\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3a4d6b\"],[\"outer.secondary\",\"#3a4d6b\"],[\"top.primary\",\"#e6dfce\"],[\"top.secondary\",\"#e6dfce\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "441a62b704847a31a827c1ea8045d7b2bdb5841415989b4e0c7184eb7f113941"
+  "sha256": "083cc2ae63ea78c052d6785a4411026a4f1a2c51a1d8bb3a88b92ec24d8ad2ad",
+  "atlasSha256": "0c08279e3f9bc0167e31d90857a361a034a4b80e285f40546978d5d5261a2f77",
+  "textureBytes": 14786520,
+  "atlas": "web/public/assets/character-cast/rainmarket-haru.atlas.json"
 }

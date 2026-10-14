@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#bc855b\",\"#7a492b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#52784b\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#52784b\"],[\"outer.secondary\",\"#52784b\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#bc855b\",\"#7a492b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#52784b\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#52784b\"],[\"outer.secondary\",\"#52784b\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "e6fa4ce0fa03e5a7b5c700daf341bb9067577cfdb0aeba682417a86592d639cf"
+  "sha256": "a1e620455bed7afacfd2ce106e48af3ada2490e782e34977efbf14c850399d21",
+  "atlasSha256": "fab7bf3d6331ca6ae2edce69941eede696d06b90683fc87d2dbb132025362e8b",
+  "textureBytes": 14967664,
+  "atlas": "web/public/assets/character-cast/lindenhafen-garden-keeper.atlas.json"
 }

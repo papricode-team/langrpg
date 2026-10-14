@@ -33,13 +33,15 @@
       "top.secondary": "#b6c7ae"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b08059\",\"#b4ad9a\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#754c30\"],[\"bottom.primary\",\"#434745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65432e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b6c7ae\"],[\"top.secondary\",\"#b6c7ae\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b08059\",\"#b4ad9a\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#754c30\"],[\"bottom.primary\",\"#434745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65432e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b6c7ae\"],[\"top.secondary\",\"#b6c7ae\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "2619a0a5a4d6fceb68fb75d6af194dfb8c88a881e9e81f2321f271083e7d872f"
+  "sha256": "fa95333bc099cb0a8bab19d8b1707ac138e4a9b9780f436b0b80041764472034",
+  "atlas": "web/public/assets/character-cast/saffroncourt-karim.atlas.json",
+  "textureBytes": 14600232
 }

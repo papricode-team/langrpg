@@ -33,13 +33,31 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d6a07d\",\"#d0c9b9\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#35405b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75556e\"],[\"outer.secondary\",\"#997b91\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d6a07d\",\"#d0c9b9\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#35405b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75556e\"],[\"outer.secondary\",\"#997b91\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "2cd2dcfef255218ea65fc8dff6db95c92452966c3c4554e8f260a978d4baa9bb"
+  "sha256": "2d8377a83c126b2f7a02b8b64778ff9197c78f91bec0521cf2e09e2fc35af1ea",
+  "atlasSha256": "836f043694eb5f0f3c64b4d7f02f8cbe9c42705d2c4012d4cb842192f50077c4",
+  "textureBytes": 14318424,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/ada.webp",
+      "sha256": "2d8377a83c126b2f7a02b8b64778ff9197c78f91bec0521cf2e09e2fc35af1ea",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/ada.1.webp",
+      "sha256": "38629bd19b9cea01c223e9fa7f80ffdc8b799a0bb90672125f8400b19f6c7ddc",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/ada.atlas.json"
 }

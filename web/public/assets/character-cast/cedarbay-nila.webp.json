@@ -33,13 +33,16 @@
       "top.secondary": "#b09bb9"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b68a60\",\"#30251d\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#9cae45\"],[\"bottom.primary\",\"#344d70\"],[\"eyewear.primary\",\"#386295\"],[\"footwear.primary\",\"#d9cfb6\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b09bb9\"],[\"top.secondary\",\"#b09bb9\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b68a60\",\"#30251d\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#9cae45\"],[\"bottom.primary\",\"#344d70\"],[\"eyewear.primary\",\"#386295\"],[\"footwear.primary\",\"#d9cfb6\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b09bb9\"],[\"top.secondary\",\"#b09bb9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4869c990b12730babdee1300373589aa04d91cf0584f38bbf28a9b2240462ff6"
+  "sha256": "5106be15dbe7f6eca3204cf74cf2db99f9a3e14423f86eda33bd5210b1285eb4",
+  "atlasSha256": "4ea1fb3fd57fd66110954e4d9415dd3af8e78b7340c23ff0c1d0a26da1e76561",
+  "textureBytes": 14665612,
+  "atlas": "web/public/assets/character-cast/cedarbay-nila.atlas.json"
 }

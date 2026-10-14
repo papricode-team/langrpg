@@ -33,13 +33,16 @@
       "top.secondary": "#e5dbc1"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c09770\",\"#7b3f2b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#8b5d3a\"],[\"bottom.primary\",\"#a16b43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4931\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#344b67\"],[\"outer.secondary\",\"#344b67\"],[\"top.primary\",\"#e5dbc1\"],[\"top.secondary\",\"#e5dbc1\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c09770\",\"#7b3f2b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#8b5d3a\"],[\"bottom.primary\",\"#a16b43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4931\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#344b67\"],[\"outer.secondary\",\"#344b67\"],[\"top.primary\",\"#e5dbc1\"],[\"top.secondary\",\"#e5dbc1\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "aec173d83785a12f5d82d5683f457a2a8495d9c0e13186aa456ce353023327e1"
+  "sha256": "27a43b7bdda0097f081cc560e0f06004c9435371567efe4089936b5b28f48e03",
+  "atlasSha256": "0af47e300e2e330e7e643e9f1c814ce9d2e46358e83d909a6ede6316f8ebfc17",
+  "textureBytes": 14634304,
+  "atlas": "web/public/assets/character-cast/sunpatch-resident-2.atlas.json"
 }

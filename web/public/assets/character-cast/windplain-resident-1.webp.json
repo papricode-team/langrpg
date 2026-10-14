@@ -33,13 +33,15 @@
       "top.secondary": "#a598ae"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b38b65\",\"#9b9585\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#955439\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#405840\"],[\"headwear.primary\",\"#474944\"],[\"headwear.secondary\",\"#474944\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a598ae\"],[\"top.secondary\",\"#a598ae\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b38b65\",\"#9b9585\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#955439\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#405840\"],[\"headwear.primary\",\"#474944\"],[\"headwear.secondary\",\"#474944\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a598ae\"],[\"top.secondary\",\"#a598ae\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "7c890340387665ab7079c58abbd0af50cd89524e83026a6ffa2071e9eb36b64f"
+  "sha256": "067aab83530470ce2bcf1e9ddbc5040cc732fd67ef08474c883031cf986061a5",
+  "atlas": "web/public/assets/character-cast/windplain-resident-1.atlas.json",
+  "textureBytes": 14144544
 }

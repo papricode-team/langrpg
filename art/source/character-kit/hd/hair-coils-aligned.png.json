@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/hair-coils-page-0-candidate-1.png",
@@ -290,9 +290,10 @@
     },
     {
       "x": 4,
-      "y": 21,
+      "y": 9,
       "error": 256.8037878787879,
       "initial": 6449.095833333334,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 146,
         "top": 2041,
@@ -302,9 +303,10 @@
     },
     {
       "x": 13,
-      "y": 22,
+      "y": 8,
       "error": 258.96797560045746,
       "initial": 12217.760579489135,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 786,
         "top": 2045,
@@ -314,9 +316,10 @@
     },
     {
       "x": 8,
-      "y": 21,
+      "y": 11,
       "error": 403.5505146778498,
       "initial": 9594.706061761342,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 1419,
         "top": 2045,
@@ -326,9 +329,10 @@
     },
     {
       "x": 9,
-      "y": 31,
+      "y": 27,
       "error": 270.26415797317435,
       "initial": 9475.335320417287,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2042,
         "top": 2045,
@@ -338,9 +342,10 @@
     },
     {
       "x": 7,
-      "y": 26,
+      "y": 21,
       "error": 274.86661698956783,
       "initial": 9362.51564828614,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2689,
         "top": 2042,
@@ -350,9 +355,10 @@
     },
     {
       "x": 7,
-      "y": 28,
+      "y": 21,
       "error": 478.0350223546945,
       "initial": 8539.036140089418,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3331,
         "top": 2045,
@@ -362,9 +368,10 @@
     },
     {
       "x": 9,
-      "y": 14,
+      "y": 4,
       "error": 189.63008415147266,
       "initial": 7861.504908835905,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3982,
         "top": 2043,
@@ -374,9 +381,10 @@
     },
     {
       "x": 14,
-      "y": 8,
+      "y": 4,
       "error": 839.1865835777126,
       "initial": 10668.240469208211,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4625,
         "top": 2046,
@@ -386,9 +394,10 @@
     },
     {
       "x": 8,
-      "y": 5,
+      "y": 1,
       "error": 955.1444111027757,
       "initial": 7479.804576144036,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 5274,
         "top": 2043,
@@ -505,5 +514,5 @@
       }
     }
   ],
-  "outputSha256": "456001d5690f6f2dbf188888cff69730c0c967f9414661055518d434d21a6ec0"
+  "outputSha256": "ffa3446ab77ab4c7a3fde76794c4a63f94b00309e89c0dd8790996d2ec3bc3e2"
 }

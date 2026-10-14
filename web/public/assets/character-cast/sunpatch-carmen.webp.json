@@ -33,13 +33,16 @@
       "top.secondary": "#783c59"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b88c63\",\"#9b9383\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#383a31\"],[\"bottom.primary\",\"#4a4b44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#494236\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#783c59\"],[\"top.secondary\",\"#783c59\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b88c63\",\"#9b9383\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#383a31\"],[\"bottom.primary\",\"#4a4b44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#494236\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#783c59\"],[\"top.secondary\",\"#783c59\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "f0ff09ff6e8d0fcae0dd7e66b00ad3dd49a144428223a3e838cf25b9e0aa86b0"
+  "sha256": "62d45bb370febe83c2f3efa544126fad422687596d94265720001fcffe9bbe28",
+  "atlasSha256": "1e19a875da74f5b780c83742424d3f54b4d218350c2065b54b642e0a2109133b",
+  "textureBytes": 15087744,
+  "atlas": "web/public/assets/character-cast/sunpatch-carmen.atlas.json"
 }

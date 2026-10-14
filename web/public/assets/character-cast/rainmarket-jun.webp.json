@@ -33,13 +33,16 @@
       "top.secondary": "#4b4d51"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c8a17b\",\"#443127\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#8e4539\"],[\"bottom.primary\",\"#777b80\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65523d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#777b80\"],[\"outer.secondary\",\"#777b80\"],[\"top.primary\",\"#4b4d51\"],[\"top.secondary\",\"#4b4d51\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c8a17b\",\"#443127\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#8e4539\"],[\"bottom.primary\",\"#777b80\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65523d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#777b80\"],[\"outer.secondary\",\"#777b80\"],[\"top.primary\",\"#4b4d51\"],[\"top.secondary\",\"#4b4d51\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "d2eb85d22b4c12ac5a9a9720ed93f127bbb984478275eb8df559415eff61793f"
+  "sha256": "89a2398b5bd205923a1a7405c72f55b6b9f0b48146ef5ade0a38db526ccb3503",
+  "atlasSha256": "b751fc90c35a4b993aaa08942da7fb8d5f7cb54c4a79f3b7238497615e602b69",
+  "textureBytes": 14848256,
+  "atlas": "web/public/assets/character-cast/rainmarket-jun.atlas.json"
 }

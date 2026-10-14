@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/dunegarden-aisha.json",
   "recipeSha256": "e5d7351591219d8c203d392acb13068cd2636bc29dd26f61d3438d1763dfd5b7",
   "atlas": "web/public/assets/character-cast/dunegarden-aisha.webp",
-  "atlasSha256": "36b180aa99e0e9b64ac610ec4e57e8578e68732621f4514a819fe7747b181f25",
+  "atlasSha256": "0feb5fd6b0b229be295a332b9cc3874598e50c23d2700b628dff1565eb0606d0",
+  "geometry": "web/public/assets/character-cast/dunegarden-aisha.atlas.json",
+  "geometrySha256": "1ffdb2d6b9631abe1556a5d9b2ddda532d57015ab689603a4aa892f4f066a1fc",
+  "textureBytes": 14558016,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "6dd69704ee5d55a039a8116a805603c8c203100686cbc52e50481b10a073dbf4",
   "proof": "art/proofs/character-cast/dunegarden-aisha.png",
-  "proofSha256": "fec2455c213a2894f9e34efd2e16c1491908d8cc809761bac6e6fe285833d978",
-  "editorSha256": "5b1ce5adba1ab2fe1fe2e085d130ea25ac294c34c72e38abe4c729e3beb4d28b",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "60f2e74d1ebb75fb204420aef5cbea46e56a67ee9dc45d6b43898534b7bdc4e3",
+  "editorSha256": "257e5062e800974723b16a96b2e5416eee486e9ee4235c49f9bd2232edce3319",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

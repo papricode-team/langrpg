@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-library-keeper.json",
   "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
   "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.webp",
-  "atlasSha256": "649dc82ed1a57fa80001fab0d874e6dfe31796ae46af7e0a2a6232b6baeef0a5",
+  "atlasSha256": "545040bd3fa8a5cc6cafa9bff117080132b90bb2df0205d959dbab7fd4018acb",
+  "geometry": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json",
+  "geometrySha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
+  "textureBytes": 10811136,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/poses/wave/lindenhafen-library-keeper.png",
-  "proofSha256": "55930c0859bf7a1dff74f0f55bd32481d47e0a70714eab01bc06b16e8cd5a3fb",
-  "editorSha256": "a2baf75f755b60f812b3afe8f0bc7bcfc4d5b8130dbd1fd87be74c43f32f62a1",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "bb7638c8fd0613fd9f24d7e0dc5e8825cb3545ebf2458334399f86ac998c8fb9",
+  "editorSha256": "81b7245963a2745ee5287b30d3ed035bdffce66538ffbd0bc65179e12a8d616b",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "7b8ea1e9c8876c62827cba2f938c4c1ae86e4853f57bddf18ff8d05881621804"
+  },
+  "sourceComponentsSha256": "7b8ea1e9c8876c62827cba2f938c4c1ae86e4853f57bddf18ff8d05881621804"
 }

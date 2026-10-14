@@ -33,13 +33,16 @@
       "top.secondary": "#d4c6a6"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b58c67\",\"#352b25\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4c3e36\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b38\"],[\"headwear.primary\",\"#8e5044\"],[\"headwear.secondary\",\"#8e5044\"],[\"neck.primary\",\"#a79572\"],[\"outer.primary\",\"#653c53\"],[\"outer.secondary\",\"#a88461\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b58c67\",\"#352b25\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4c3e36\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b38\"],[\"headwear.primary\",\"#8e5044\"],[\"headwear.secondary\",\"#8e5044\"],[\"neck.primary\",\"#a79572\"],[\"outer.primary\",\"#653c53\"],[\"outer.secondary\",\"#a88461\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "88d916b73d963801f75f366d2083a6802dbcc39b4344a34b0d892e7f906a404f"
+  "sha256": "243fd8dcea3bc0b4765642eda396677d6a834785bf22391515cb6dc62f654141",
+  "atlasSha256": "ac47551f66f493e1ade3fe95d6cc1daf49f9efd852b2b9afac3b19a43b8a9806",
+  "textureBytes": 14425560,
+  "atlas": "web/public/assets/character-cast/windplain-sarnai.atlas.json"
 }

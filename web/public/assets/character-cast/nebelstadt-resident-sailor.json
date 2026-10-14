@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/nebelstadt-resident-sailor.json",
   "recipeSha256": "4512c28d4ed8da181f5a1e34031ed0153f45ccc93f1dc7f2ea59fb44a6ddfc6f",
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-sailor.webp",
-  "atlasSha256": "5a311d5a433413032620e24592c08e796f20b201854d47cb0d585ea27d46aca9",
+  "atlasSha256": "d2c4b69bc10a6771453da2dfcef51c5f8b5102ae89f6166c752dd194657abb6e",
+  "geometry": "web/public/assets/character-cast/nebelstadt-resident-sailor.atlas.json",
+  "geometrySha256": "ebc286022cf0eb6fd0dd3ec7bc9369567d666380e6cd17c218379a2608f5f89d",
+  "textureBytes": 14204312,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "8f6ee774a38b3ac22ec8a5ca20d7ba8798c8866c0233f458b120b0050ef51546",
   "proof": "art/proofs/character-cast/nebelstadt-resident-sailor.png",
-  "proofSha256": "fbe0d8606801b957bc7753432fb95d90c39d6af8c163be8f10c3d827d723ffb8",
-  "editorSha256": "c347738d3d1df2d52dccaa13831be83d7a007c06ef75bc06eee1178856fbfcf2",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "90000ba60f018a3ee346408a3e774beef331b88ab0eab49a7bd76b5852a8195e",
+  "editorSha256": "841bb8261612558f45a5a6ccb9baf36dc4761c0640ca1eecd10f040fb326e27f",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-salma.json",
   "recipeSha256": "9cbfa27cd26a49bc004f45eaa237a5948bea2af99651a5a57c0cddf1921273ab",
   "atlas": "web/public/assets/character-cast/saffroncourt-salma.webp",
-  "atlasSha256": "6c888e3eea313188464db03999298630b4539bdb7329a84cad832da61fd9646d",
+  "atlasSha256": "957794b443932597301bad185a8d7cc16b9848859a9ca4d9e391e9080ddca14d",
+  "geometry": "web/public/assets/character-cast/saffroncourt-salma.atlas.json",
+  "geometrySha256": "6b2d92b11815e01a65722416344a4b6e11892bb0fa22b54c9a32f90319e20940",
+  "textureBytes": 14938064,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "b37e58bd0e6dd98164078e3b3516c36ba6bf66dd98b348b4454b42430f0e2e68",
   "proof": "art/proofs/character-cast/saffroncourt-salma.png",
-  "proofSha256": "45ac3688c7308e696efa7609d4f2a2c7124bf38806029773d9074668fdfaa5e1",
-  "editorSha256": "dd410b97c9dcb6f104b48c2c0bfae3f82dcbfbef729edfd428146639dc303f6f",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "db419e54f323890a6972a2b7825c47a98aac1801b79014916cfd6d965ad1c893",
+  "editorSha256": "bb52a342f18ec2c8d07e966e04c9d47e639617d4bdda1acf31aadd2b619591a6",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/sunpatch-valeria.json",
   "recipeSha256": "52ee628d2a5214e4229f07923437d7677347bc63666c3d0d271fae8e841e26e1",
   "atlas": "web/public/assets/character-cast/sunpatch-valeria.webp",
-  "atlasSha256": "4d92d2f3248f74829894c1f6be59c5845147ec5023502e85de3e3a789ac4e211",
+  "atlasSha256": "f557d2935bc8cb38a0c73c937fb2a181805e188f8f8946209f63b44103de60ba",
+  "geometry": "web/public/assets/character-cast/sunpatch-valeria.atlas.json",
+  "geometrySha256": "e5b0199cfa60fbf3e48bc9d54628275791f54a57625382b526c30a2f43ecc29d",
+  "textureBytes": 14311440,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "3ccff808838cc5e388a8c331859ab684422bdef26f8ceebcbf96c3c3b8017bdf",
   "proof": "art/proofs/character-cast/sunpatch-valeria.png",
-  "proofSha256": "47cd36b8bfad6803118e42129ff437ab350a319f586564ad8f0cac6a47594ec2",
-  "editorSha256": "65ca8259ca78a6b783f5dbc4867adc036f070a20b1cedb9e8fa41f35d2594a62",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "2af65e465fc20146167d8b92119d1f21c1eb86fc5cb2bc58fb5f6cd6ef060815",
+  "editorSha256": "91c64d95d44dcdacf17f51622501cbebd237291145bc29f9eef9386a0db9f54e",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

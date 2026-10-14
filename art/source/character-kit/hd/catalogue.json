@@ -262,24 +262,27 @@
             "prompt": "art/source/character-kit/hd/prompts/hair-waves-page-3-candidate-2.txt",
             "mapping": "art/source/character-kit/hd/references/hair-waves-crops-3.json"
           }
+        ],
+        "registrationObservations": [
+          "Right frames 15–17 retain their pre-existing flat native source crop edge; whole-frame translation cannot invent missing crown pixels. Small coverage corrections preserve the source artwork."
         ]
       },
       "review": {
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "8b5b4c1de74a3586d6463755d1018a51256127ead1263778589429c5be79803d",
+        "lockedSha256": "87d8e9e9069df4e6dd8495dfe137bda6d731af13047a12fe09efa256c720cb09",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-waves--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-waves--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-waves--hd-review.gif",
-            "imageSha256": "7aa8261a8fbfeec0d94033ccc477b3403e9bc0515e35334381466061d5de673f",
-            "reportSha256": "ff351860ceaad7c5e292c5d215312eee4e809fd0b23d322a0a5c199083300315",
-            "walkSha256": "3718dba02160c79ec22923e0254b641224bf6386de6773422cda102a4d2d79b4"
+            "imageSha256": "94be5368cc6efc22eebfc855f88ab6e5cf99ee894103ced93b38d7d3699d8c5d",
+            "reportSha256": "a2a8e784046629caa8749b0cb53a9a980f52b31dc4ad5d06e1fdda12d26a9123",
+            "walkSha256": "4b80bae275125aed26d971df57ef77015222793580ed9f5ad39e05621d8de807"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -1778,24 +1781,27 @@
             "prompt": "art/source/character-kit/hd/prompts/hair-bob-page-3-candidate-2.txt",
             "mapping": "art/source/character-kit/hd/references/hair-native-crops-3.json"
           }
+        ],
+        "registrationObservations": [
+          "A pre-existing cyan seam beside several ears remains in native source detail; no material policy or painted-pixel change was made in the registration pass."
         ]
       },
       "review": {
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "9f1cd8a7d280eda368d0f312183b470d3205cb1d8d506b987cd1589647d655c2",
+        "lockedSha256": "a019d55f5c2022fe558b6600e38b850e78fce3a16951a6b032a805dfdbbceff0",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-bob--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-bob--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-bob--hd-review.gif",
-            "imageSha256": "ed60d342592b2ed860c1d577a109b0d3f0312bcae430913faa78df040c441a54",
-            "reportSha256": "7219754d371a3cf7ffa8a50944da25fa2c206b58ec863a2cdd6afda2e1aac8f5",
-            "walkSha256": "5a907084465b363b0b3857b3b40a747ef02a83c9837676a03b16e14761f7788b"
+            "imageSha256": "55092891ededf7de1d72bbaae229602702d2807a21309fa7d3c1d1d2f6e0d44e",
+            "reportSha256": "88b16dd2cc334e9a2305758c8c462288ffd68be90162aa63258d735326f77f0d",
+            "walkSha256": "62ad1afa303596abad775079301d1474e3f8dd6c80e852e5112dff446d74e650"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -1861,18 +1867,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "a27f5e612f11331174c7ce18d1cdceace7f0accf835db180b395463467a5c923",
+        "lockedSha256": "3684c013c06b1a86b041b92e768d77ffe43de6b4693be8781607130ebf7be4b1",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-pixie--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-pixie--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-pixie--hd-review.gif",
-            "imageSha256": "d541ec7874d2c44efc5fbcd5472e08bc94e6eb03b526f906e1aea1157dd05aeb",
-            "reportSha256": "5d0907d809fec47145e59f5929a7e86166ba74cf35d15bd54a402083236123bb",
-            "walkSha256": "43a274f21fce7197747955e5cb9d70a38b80f3e3cc73f1bc1501d193b7d791fe"
+            "imageSha256": "8e68fe1b94a0df7acfefe4dbe89092fd2b8d4c521f1215bb0fc9ac9dccef7644",
+            "reportSha256": "41c523ff4fe91f1e2bdb60d867d199c3c964d591a9a3b098330789b7e23b8d64",
+            "walkSha256": "eb1c702e0ebbbbeba7a02e1e43880dd0ef8ee1fdece6327be972d5e1c5480d6d"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -2158,24 +2164,28 @@
             "prompt": "art/source/character-kit/hd/prompts/hair-ponytail-page-3-candidate-1.txt",
             "mapping": "art/source/character-kit/hd/references/hair-native-crops-3.json"
           }
+        ],
+        "registrationAdjustments": "art/source/character-kit/hd/references/hair-ponytail-registration-adjustments.json",
+        "registrationObservations": [
+          "Left frame 31 retains its original valid anchor with a reviewed +3 native y adjustment. Coverage lifts split its locked native silhouette; nearby whole-frame translations were tested. The retained scalp edge is less than one canonical pixel."
         ]
       },
       "review": {
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "da2323d2cad1657684478ffd94d42fd27d1708663fadc8dadd08dd1bf6e68ee5",
+        "lockedSha256": "5944561dbaae67798102707bd1511d94433690c6a8a99cc17b8cc8b2cc1cb619",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-ponytail--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-ponytail--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-ponytail--hd-review.gif",
-            "imageSha256": "d9c3942878ecdb7397abb1355763b9508b4ef5ed53f755a5500e8d451d7cdbb2",
-            "reportSha256": "8a3938614e5787ac07ff17d9ac211e48343ec53e3a95fc449c93aa61750602f7",
-            "walkSha256": "21464ccbb511c7dcfb39a8fde29b85fe81063392e29490f331861f5395480222"
+            "imageSha256": "58617aab6302a38b96abccd7ac388a62f3a82ea38c61a4976d0343924f335de5",
+            "reportSha256": "4a0bae042e0a5bb5d291ee33ac9e75203fbcaae83223bb757fd476d6336f88c3",
+            "walkSha256": "fa85554c0d363eb10732593b80097b7fe583fc560c0279933e8c63e1ec7745e1"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -2251,18 +2261,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "0e121a32220eacfda536e128d99d8f3ee8b880c52d2e0355206291f56237d0f2",
+        "lockedSha256": "c3da2676131cca34d59f54004086e44041a54a765b0ad306b13afcc160eca3df",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-braids--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-braids--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-braids--hd-review.gif",
-            "imageSha256": "b61298a46bdf646b0da074fc1fb27cfd6a18938738daaabdf11590466df7e3c6",
-            "reportSha256": "9ee27973828bac7f68d40d2c9e7d4569f8d95337b1e83f5fb8527e1d2d83330b",
-            "walkSha256": "3c4419a6b8348f215edfe6384a61396f41f119c97d54a1e71c61409b9eaecf6f"
+            "imageSha256": "e2686ac63a74d0186acca2a5e2d3c0defe8f12ae742dddc146d6f69c9b2d1b6e",
+            "reportSha256": "c3f588529752c87ba8deb7cca25a5aa30d0586aefb059eb6e5a529f4ef751ba0",
+            "walkSha256": "8c77e047ebc182ebed30d53a398a0b9c659f1a9d51788679247c7d314340a096"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -2410,18 +2420,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "463ec714c00028fc24b4a88960154af7920dae301367fd283c021e5aa486dd08",
+        "lockedSha256": "edf53bc7be34b67cd4de96ac16aad69fe5c6bfea3a5ef4a162365f48e605e102",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-bun--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-bun--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-bun--hd-review.gif",
-            "imageSha256": "63aec65253178a8316f0faec0ca6776f3109978ef06063132129b72432401593",
-            "reportSha256": "bbab121cf1f2223b6ac9ebcd09150b04e7fdbc8ea44e262d1619da7515bff0a5",
-            "walkSha256": "fdc6d65e534d6898c2cf6942cca7726f139e89668270006e8ef3a68de496d602"
+            "imageSha256": "0795b2d693ec92c489b7416082311ca05bc787dff73586b628d5088adfc5d3df",
+            "reportSha256": "9a2d3771bce78a3bbd8a9d09543e5820af5228d89947c019998070f37e90dd3f",
+            "walkSha256": "5561551340cd5b177ccc634c5e7f29698c1f8b46eff21b6e58ec0973b6ce01a8"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -2571,18 +2581,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "5f8d284210f0a421a88833167fdf60d30f404e1002d564e723999753ea083d3a",
+        "lockedSha256": "42ae462ca3231927e6b494d5463549fba875893deb5d90d062d8bb93f515cf1d",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/hair-coils--hd-review.png",
             "report": "art/proofs/character-kit-hd/hair-coils--hd-review.json",
             "walk": "art/proofs/character-kit-hd/hair-coils--hd-review.gif",
-            "imageSha256": "e286dbc04126e3fdf514b095e2f672817dac023d21503f226cd29a68e9c47498",
-            "reportSha256": "1d3ea31e1ce32e737357e90c8dede0f5d2c6f314793d09d933709aa52fa4c755",
-            "walkSha256": "f902a73ce4d7b8ae2295f76744fc4600b67aa01495668fc9068be7f2b3c5b667"
+            "imageSha256": "071f9185fa0f8f078c0707105b4cf6097240d54a9d5a6169dae8adcf5cd25981",
+            "reportSha256": "f2b499a8c99e800cce6ed756242f7b68f39dd0a50ffa6d964e0241d51d33df3c",
+            "walkSha256": "6caa8971fca1435ca5ab05ec8ae57597600722d864a0800eb62df274d43c030b"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -4060,12 +4070,12 @@
             "image": "art/proofs/character-kit-hd/bottom-slim--hd-review.png",
             "report": "art/proofs/character-kit-hd/bottom-slim--hd-review.json",
             "walk": "art/proofs/character-kit-hd/bottom-slim--hd-review.gif",
-            "imageSha256": "d4180b079d90ff028bdc07547429aa5f8b474540c08172902086870a9e2165f0",
-            "reportSha256": "7451b0c15c7eb6f43ad4ee0e7d995ffb9ce87de8dad9ae5d2ab9ec925cca1822",
-            "walkSha256": "88e218f18b91333ff59389c52298e2e9ce75237f8ee86443b9a0a26a745ed047"
+            "imageSha256": "d0d4ae6b34cc1d8aa9adbdc2605cfe92a80abe72b3acc094c69ec756184e5666",
+            "reportSha256": "157d75579482f821d8d69cbdb3b52b6732497395ef139dd73cbf6f0d116a710a",
+            "walkSha256": "9f0688b8cdaf21a1d3e0c8eb805e26356aae69ac7b87412afff219ce04149a18"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -4591,12 +4601,12 @@
             "image": "art/proofs/character-kit-hd/footwear-tall-boots--hd-review.png",
             "report": "art/proofs/character-kit-hd/footwear-tall-boots--hd-review.json",
             "walk": "art/proofs/character-kit-hd/footwear-tall-boots--hd-review.gif",
-            "imageSha256": "22f10bc46336578ccbbaec73038c3e11f7a65a37a02b7459a618dcb65b5ebcf4",
-            "reportSha256": "4c1da6d1b35911558deebcf548468298f9bfe136621a028e141d79c7fb05972f",
-            "walkSha256": "81e51d3463d512a65988315aeb7cd6caac0128d26eb5474d2d4d3918774201fd"
+            "imageSha256": "4f163da31dafad7571329cab42ec173a6b238895f7d6fed99b1dd1bf371a68f0",
+            "reportSha256": "aec8c9b5db483c739de2b4090586d6dd7c55f5e16a43a0b050959b43c4272326",
+            "walkSha256": "352d06ed44ba29498b94fcb4edfc403c821f73f5208fea3c61764ff72f82294c"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -5182,12 +5192,12 @@
             "image": "art/proofs/character-kit-hd/outer-cloak--hd-review.png",
             "report": "art/proofs/character-kit-hd/outer-cloak--hd-review.json",
             "walk": "art/proofs/character-kit-hd/outer-cloak--hd-review.gif",
-            "imageSha256": "8b1572fe2c1678b5d532abd336fe1ed51da0a18c4b5dbb49da4bb29c02a32a17",
-            "reportSha256": "19d3b82de3b12baa091a5eae3b19ea6009b5445590796880afb4d8afed0304d4",
-            "walkSha256": "ef6dc70daf4ddafa42d54a2ee5046d5957198377dab5557c7db894cbe7179a3e"
+            "imageSha256": "b4212b47e1b70c25fe0e6b91092df883bd611ef54ebb7c3b005d521c99a9d351",
+            "reportSha256": "2ec074e898f7f30e2c0cc852ce04a81a6ba6b64a293573deb1546e9197c55d22",
+            "walkSha256": "0101ab218b9e8c51ed59573a7b4b1c81b1a17276cde46692a9d2362c88ec8b1c"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -5293,12 +5303,12 @@
             "image": "art/proofs/character-kit-hd/outer-apron--hd-review.png",
             "report": "art/proofs/character-kit-hd/outer-apron--hd-review.json",
             "walk": "art/proofs/character-kit-hd/outer-apron--hd-review.gif",
-            "imageSha256": "d059767c1f7dbbff93909f68dafeb13de507aed195d2ee43360fa0f2dcf2b9c7",
-            "reportSha256": "b0ad7b889f33105fc01a0dcd7e0d076313d9ecedbe0b8e6cbc4e231b2565e776",
-            "walkSha256": "5d2c23044c0762debf534f3a351b69d564e722276692ce9ab284b188d5dfef0e"
+            "imageSha256": "21b5272854014a628726b0d4e2fa3cd8d31d24fee32d191fe41ebc65a0a46ddc",
+            "reportSha256": "d3d1febe306e036f13284ddcc2e7ec8d2174ce061b97e5b1d53166800b29fd05",
+            "walkSha256": "84ffea74b5255bfe71baff6b9a6d0fcaf6c48ce3a1e3fa6cff0f04673f4b7d05"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -5461,18 +5471,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "6b2ed8537d93404ee168544828914bfe81edc5937eee5dfcd642eb44940ca97a",
+        "lockedSha256": "d36cb2be30adb79b3bc63e76c08a1429e884ca80b6866386a4cfbff20c467a96",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/headwear-beanie--hd-review.png",
             "report": "art/proofs/character-kit-hd/headwear-beanie--hd-review.json",
             "walk": "art/proofs/character-kit-hd/headwear-beanie--hd-review.gif",
-            "imageSha256": "9e081bcf900f69a4da64cc4e1b455009f2e30bbcaac6a3278b98ed95dea64704",
-            "reportSha256": "db4bb9b6fdaff6d9783cb2d6238d6944362397c8cf6395b9e95ba0cb404f52bc",
-            "walkSha256": "53f1e47ad8c89fff674b65c5a6f9b910ffa10fb469f156f3d26d13d552d0a50c"
+            "imageSha256": "ba5fc2f39c007a4f5693afa9963661707438164afa736973f881b52d25e20922",
+            "reportSha256": "e10c92c42716865ef78ae5457a9e18d85fc652612cabd0992ae2193579c1b438",
+            "walkSha256": "c1d8f93071bd4a17c7dadc43eeb6a2a881952519c6cf71135ae3cce715017637"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -5537,18 +5547,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "12df973c852719f0eaee0dc646657b055e3ba787cd862b351124d2027840a006",
+        "lockedSha256": "4dfab11da396611b4867bde089ce3d48805a95acb715be66bf24ef9472cae297",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/headwear-beret--hd-review.png",
             "report": "art/proofs/character-kit-hd/headwear-beret--hd-review.json",
             "walk": "art/proofs/character-kit-hd/headwear-beret--hd-review.gif",
-            "imageSha256": "23593c8b97909fe4ee819ac5b436c1d829ac23af795ede1c49c47f5b664fa6f9",
-            "reportSha256": "992bc987a4e42ce052dafbb95a183f783ee1f1f0cc98ec3e3123b9c50a50d89b",
-            "walkSha256": "a9bb50ee920aca1a1186f5198fd9435e3843fba9416e3ec5b557e516ecc3a03d"
+            "imageSha256": "975533ff76eb9ec06ae118eeb07199d1fdbdb6b51583e7598c248b46f297530f",
+            "reportSha256": "f0be2f58a78cc2e541e53d544769224082e75297a0e13e003a2907cfb3a90ff0",
+            "walkSha256": "1350c1b8c1de3fee10735f58b57e93622138767b1c807a603348da2579d3683c"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -5613,18 +5623,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "001f00ec6d43d5b5990d195a19687bda13ce7dc41b3309a8a507acf8f35dc3bd",
+        "lockedSha256": "74c338f0bd582b2ff296072d636e7c11e1a5f7945f54ee90bb38d486feaf4fcc",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/headwear-brimmed--hd-review.png",
             "report": "art/proofs/character-kit-hd/headwear-brimmed--hd-review.json",
             "walk": "art/proofs/character-kit-hd/headwear-brimmed--hd-review.gif",
-            "imageSha256": "7d495cddb691af3b7ba5cad6ef6703963df0e1a4bb4a69e6a84f60bd2afccea8",
-            "reportSha256": "469cdefb0d35333903bc325fdca1ce38c7f57bb30ed589c609e59c49e78f2ece",
-            "walkSha256": "f99269eba8828b14b678d17d50d3b349334c617cd83f09465023244953280a9e"
+            "imageSha256": "3d6314bf0a82997f83a3bfb0c126a4ac4e8e4ee03520088be08dffbdb56fc890",
+            "reportSha256": "3cd18488c7a32858f4b590ff67da81ba9f8651cdd8c7f40ca07067b5d16d3688",
+            "walkSha256": "ff74cc476a8e3e95ac2f711016e6e0d4cc7c26cd6880237ae126c069a65c2acd"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -5759,6 +5769,9 @@
             "prompt": "art/source/character-kit/hd/prompts/headwear-bucket-page-3-candidate-1.txt",
             "mapping": "art/source/character-kit/hd/references/hair-native-crops-3.json"
           }
+        ],
+        "registrationObservations": [
+          "Original valid registration restored. Its pre-existing light band is partly dropped by the existing detail extraction policy. Open band pixels confuse full-crown coverage; this component is excluded from automatic crown lifting."
         ]
       },
       "review": {
@@ -5771,12 +5784,12 @@
             "image": "art/proofs/character-kit-hd/headwear-bucket--hd-review.png",
             "report": "art/proofs/character-kit-hd/headwear-bucket--hd-review.json",
             "walk": "art/proofs/character-kit-hd/headwear-bucket--hd-review.gif",
-            "imageSha256": "76a83b9d8913323726377dab930a9880b1cd9f401be81e70b83e1aad0722b9aa",
-            "reportSha256": "0ed86d18b41dbda48de55751ef68df09ddd7f21e11b8f2891b19b3e79146fe60",
-            "walkSha256": "be18414a7e1396fd3407d4a49ab203ce43b68009cb62de095644ea005562f5a4"
+            "imageSha256": "eb331d6f977a9a4777bc339e777d332d97ed7b6b0216dc911ab974fb590ba401",
+            "reportSha256": "166b425616b0cf1c5faf20ac343df0df361787ad5160dab37cc530f46de1252d",
+            "walkSha256": "4f871584630f74d06ec3da2b217576c3706bb55c98c81f6300046336da59321d"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -5841,18 +5854,18 @@
         "result": "approved",
         "date": "2026-10-14",
         "reviewer": "Codex visual review",
-        "lockedSha256": "bb0b90d23bf0c0cd01e19dea22904bdbfc613b776e577dda7b754b8fa83a6379",
+        "lockedSha256": "f50cb26c7e471115b109a70cf3daf1d2229baa69cf36028b53ef8bdc2a041e10",
         "proofs": [
           {
             "image": "art/proofs/character-kit-hd/headwear-turban--hd-review.png",
             "report": "art/proofs/character-kit-hd/headwear-turban--hd-review.json",
             "walk": "art/proofs/character-kit-hd/headwear-turban--hd-review.gif",
-            "imageSha256": "6ddbb8faa0ad5129a7d014e7f1c2c47d9492190e0f6e1e3a1266e3fc72bb7f1a",
-            "reportSha256": "16bf2c095793d7f58276e793a5fbe25c433e710152234b294d7dd3b90031d5db",
-            "walkSha256": "76bcb4edd84cb67d8c8ca80c76a7daccb3903035998240b4f312baef67f21e5f"
+            "imageSha256": "ebb7c2fd1357ab751164bca0458516bf2ad4943e5b5e2ee56d8004baffef2201",
+            "reportSha256": "05a7d4b9c8d906ffbe1f950124ed5b5f3e906fb022a5c34da71f916f6b4f3442",
+            "walkSha256": "ad8f32b35dd4a18957b0658686b2e851f77e247da90ad6dde7e1d6efa46b10db"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native-detail crown registration reviewed across all 36 facings/poses and both native tint proof palettes. Whole-frame integer translations preserve painted pixels, face/ear registration and connected silhouette. Registration observations remain with the authored source."
       }
     },
     {
@@ -6338,12 +6351,12 @@
             "image": "art/proofs/character-kit-hd/eyewear-cat-eye--hd-review.png",
             "report": "art/proofs/character-kit-hd/eyewear-cat-eye--hd-review.json",
             "walk": "art/proofs/character-kit-hd/eyewear-cat-eye--hd-review.gif",
-            "imageSha256": "d19a94852cd0c201271cd48a5f23b5ea0559fc191b6e9e71c9e640672a80ad6d",
-            "reportSha256": "2a948ef51daa786c9da0b9aae5a7e95e41c2b3453a9578b251c23a1cce32cf36",
-            "walkSha256": "ab1cfd3ba88ce40789d7094e74b06aa58cafd678f2adeb84d9c7fced7cf7d1ac"
+            "imageSha256": "8aeaa8e5d4fbaeb031e81bc31f5339adedde7658b74d95f304f8959929cd88f2",
+            "reportSha256": "d0b70547017e58b153a93ca1bceebb830795c9d2aa90e0279bc15ddb854c6404",
+            "walkSha256": "c0ed6831f320f24366bc82c253ddaaa11c7fc28edac61e974795e49c3e35824c"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6404,12 +6417,12 @@
             "image": "art/proofs/character-kit-hd/eyewear-sunglasses--hd-review.png",
             "report": "art/proofs/character-kit-hd/eyewear-sunglasses--hd-review.json",
             "walk": "art/proofs/character-kit-hd/eyewear-sunglasses--hd-review.gif",
-            "imageSha256": "0ac898da91553c822390feddf21969d20f4b33263d6cc933896cf0dbcc16c8bc",
-            "reportSha256": "046739eb9c4082a400abcce652aac02da40d400fcb42c2826e1f2ea5841de716",
-            "walkSha256": "8750b20c77ed5b7b2b2f17e6a398716fbf7bbff0ab381dd9a8204b7000a39330"
+            "imageSha256": "bc60e003eebab895c8d0d240101817b64e632d1c4af877079f5939803a9e4cdb",
+            "reportSha256": "4de73f08bc2f06ab1bd1c0e8afd437364c5a4dde4ce67cbcf88586a3cc682a2c",
+            "walkSha256": "297b705e31faf1d950447dcb6b9bce6a3b09d738fd7934a8d6a3f1c0603fc198"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6504,12 +6517,12 @@
             "image": "art/proofs/character-kit-hd/bag-satchel--hd-review.png",
             "report": "art/proofs/character-kit-hd/bag-satchel--hd-review.json",
             "walk": "art/proofs/character-kit-hd/bag-satchel--hd-review.gif",
-            "imageSha256": "0e534590fb9067ff92f72570fe61c7d5451b1141947185edb975bc9f4a9e2aee",
-            "reportSha256": "35025e00775a79ecd81220e7e1e477ecb3737a958dc8c2d92563e308f8e4ff06",
-            "walkSha256": "5ba26643fa67fb599c2b0f7ef40725fefe1bd7324aa059c054826b72448d147f"
+            "imageSha256": "0f2a2771b025502cbd39c8514be22f616f7527782b875eb21c6abd9561e46348",
+            "reportSha256": "3328330e11d314837b5f852c8831a4746d30f7a9bc766bf2c65b41baf76004ae",
+            "walkSha256": "2f2ed73641abecd18a1d96712b412969986643a8a65ab09711eb9b548b9e549c"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6604,12 +6617,12 @@
             "image": "art/proofs/character-kit-hd/bag-backpack--hd-review.png",
             "report": "art/proofs/character-kit-hd/bag-backpack--hd-review.json",
             "walk": "art/proofs/character-kit-hd/bag-backpack--hd-review.gif",
-            "imageSha256": "72b0938208e2483d47c8475cc722c95a8b6a7bb09b51811c4242fc62f322e583",
-            "reportSha256": "4dea6de42cd6eeff8c3010ae11a016e142686f9eadfee7cd5b2263adb22a5bf0",
-            "walkSha256": "95e3df58c7ca506e18763d813dbdcd5fa8edd4777ed327badf4ecbb203d33faa"
+            "imageSha256": "50d50af86bb737c3a0130dc434a999b8fac20ebca3c12b7c3d6ac67ac560c6e9",
+            "reportSha256": "f29c144a2d4733d772c5e66b976b8c4c60bdc1e5252cc67d6b271ca81e0e4017",
+            "walkSha256": "f2ae89535bde54b4223035d81e6d6f4c07ad5cd5f04c0fe63d08555e6768127e"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6711,12 +6724,12 @@
             "image": "art/proofs/character-kit-hd/bag-tote--hd-review.png",
             "report": "art/proofs/character-kit-hd/bag-tote--hd-review.json",
             "walk": "art/proofs/character-kit-hd/bag-tote--hd-review.gif",
-            "imageSha256": "839cc057111fec54c92141ab2794054af7d22cc54d5ea6f721d5845d3f63b590",
-            "reportSha256": "ca4fd95d9add78e1896899dad6f314accd9d95f9d6d5bb23b92dfa34724fe3e0",
-            "walkSha256": "a65b11fc8de39d3d9872de559006ceef4dfb5cf615855555ed5a0aadbc096c95"
+            "imageSha256": "75788d99d47bef29338ae7311735859d58c88d64b59f1ffa1563374cb576e8a1",
+            "reportSha256": "bb5c1074f83f417aa71abf2bb5d5c086ca8ca0bd5d05e0db1ba9a333d30dadf4",
+            "walkSha256": "bee04f147a928affa3cbb86af84f788ba9b45e237e6fbe0eafff6495c775434b"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6811,12 +6824,12 @@
             "image": "art/proofs/character-kit-hd/bag-belt-pouch--hd-review.png",
             "report": "art/proofs/character-kit-hd/bag-belt-pouch--hd-review.json",
             "walk": "art/proofs/character-kit-hd/bag-belt-pouch--hd-review.gif",
-            "imageSha256": "477d0b128589ddc1e53176f3363e232e2d912812e9f72a7b59a223cd2e38fac3",
-            "reportSha256": "64f38d1ef389ecf63fb1c65d5486c7b8cb7555a58112d232d268c2bb03ca9e63",
-            "walkSha256": "efcfdfe3772c9bc050967b451629e8f054603fa86c00a20063b5bcbb6f8f7860"
+            "imageSha256": "fee85a3a23305c768014b5c0a1b9870886b4d1ae0a035917426fd8c87f07c3fb",
+            "reportSha256": "881620c7ee96b6d42ca8983141521cd1e86cd5a732b7fdddec1972a1c84b01c2",
+            "walkSha256": "6d56aefb7ae8f9c9a8a05373c00a73066cbca375e2d2997fadf49d5a7ab62eec"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -6911,12 +6924,12 @@
             "image": "art/proofs/character-kit-hd/held-lantern--hd-review.png",
             "report": "art/proofs/character-kit-hd/held-lantern--hd-review.json",
             "walk": "art/proofs/character-kit-hd/held-lantern--hd-review.gif",
-            "imageSha256": "f53a24b158eda1542a7d6b601201041cc86b0ae860f09ae1d879702b27484403",
-            "reportSha256": "008b95bb558757cde2986db65bed7b0166db50f03dec3ce3f34260cad9fa5666",
-            "walkSha256": "ad07dca2e452f434457cbd6c1cd3d19eb8a9624a93de68b52bae3b32dfd781d2"
+            "imageSha256": "9eeaeb12af4e0c735be860b605f2cd8df30c1a012e6b0cd71888cf2c1611bf8a",
+            "reportSha256": "c7d4cdff1c9ef2d7610349cdfe9de1bc925d2e569b40421ab01dad93e5d7c786",
+            "walkSha256": "62a89d3be3de59d736650896d8324dc1aa1a92e532b79434842c36625c5bddba"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -10857,12 +10870,12 @@
             "image": "art/proofs/character-kit-hd/face-soft-smile--hd-review.png",
             "report": "art/proofs/character-kit-hd/face-soft-smile--hd-review.json",
             "walk": "art/proofs/character-kit-hd/face-soft-smile--hd-review.gif",
-            "imageSha256": "3821cd0ee05fdee86d5f78f1e88c7dabb46c8ab06e374824598b9590103ddfeb",
-            "reportSha256": "e2b0c480fe5e722ffbb11763611f102b951dca74c150f3cb866af38521a1ce22",
-            "walkSha256": "89a7ebf4106601fe42c69f56f29426cee1d7dd5b160d98d26fd73fa2cd953a34"
+            "imageSha256": "ab3c020e9c64a581ea40e4b966f34e861867fe0599ad32c13d5f61950d3c7357",
+            "reportSha256": "cabc91964ee1458a77154eb39154f0324ea4b5503ee85d50f20bbb4936dadc07",
+            "walkSha256": "e6e419e4743792b7cfe06f5f9cde0b443634be5487606aa65f9fd079e8edfba3"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     },
     {
@@ -10926,12 +10939,12 @@
             "image": "art/proofs/character-kit-hd/face-soft-worried--hd-review.png",
             "report": "art/proofs/character-kit-hd/face-soft-worried--hd-review.json",
             "walk": "art/proofs/character-kit-hd/face-soft-worried--hd-review.gif",
-            "imageSha256": "a2ebf6f060e73bffce0cf1bb0bd915e9c1bcc60f4492523bcae45fe141b34a0f",
-            "reportSha256": "881a483ef3655c8bea481e4f8bbd5bf2c7d095b8dc6b685308bed86053b0b47a",
-            "walkSha256": "22541f257095279fc60190e834d0f2a15722ff32d99fece6b4f611f104662cc1"
+            "imageSha256": "19aba08b768a7fe1a97457f3d1b4c0b58f9a3d9b0aa626398385d62688aedf57",
+            "reportSha256": "1ca03fba21c5f85c7d442747b5b335d252f3df5969d5f7e0ca13e6dbf716c9c6",
+            "walkSha256": "3c7c6fd4e6f3205a11c5688599989713e1c7b7699e1dba2f3a97abbdf070dfd9"
           }
         ],
-        "notes": "Native repaint. All 36 poses inspected in assembled outfits at game-scale contact size; both tint palettes checked. Native 512×768 proof pages retained for every pose and palette. Whole-frame registration only."
+        "notes": "Native full-frame review with current component companions in both palettes. Garment, prop, face and expression source pixels are unchanged; reviewed crown registration updates are confined to the head region. All 36 poses and native proof inputs verified."
       }
     }
   ],

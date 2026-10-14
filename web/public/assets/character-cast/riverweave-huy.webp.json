@@ -33,13 +33,15 @@
       "top.secondary": "#dfd6bd"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c39970\",\"#272521\",[[\"bag\",null],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6b5641\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#808582\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#309aac\"],[\"outer.secondary\",\"#309aac\"],[\"top.primary\",\"#dfd6bd\"],[\"top.secondary\",\"#dfd6bd\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c39970\",\"#272521\",[[\"bag\",null],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6b5641\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#808582\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#309aac\"],[\"outer.secondary\",\"#309aac\"],[\"top.primary\",\"#dfd6bd\"],[\"top.secondary\",\"#dfd6bd\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "36c6d85e9a9a243ad6915a705ac943c768a5df40c3d3a6cb2a147e8394431d2e"
+  "sha256": "cad87fb5da4b17e4c00f6224342aec400adb3f994236938cb6c38a3cbbd1f418",
+  "atlas": "web/public/assets/character-cast/riverweave-huy.atlas.json",
+  "textureBytes": 13884528
 }

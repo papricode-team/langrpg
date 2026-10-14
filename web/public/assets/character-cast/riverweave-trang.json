@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/riverweave-trang.json",
   "recipeSha256": "38e75c3c57dede419bdaa87020bd66ce915fc2405f9f4e896a50a3f9c55ad012",
   "atlas": "web/public/assets/character-cast/riverweave-trang.webp",
-  "atlasSha256": "130ba5cb63de618b64abf8d9cbb5dac9e4b06bdc9363ca3a932bfb9f4fc4e75a",
+  "atlasSha256": "540b3da4e948c96881627931c29c5d185805a4840f254d187e084d5ce4a7d2c0",
+  "geometry": "web/public/assets/character-cast/riverweave-trang.atlas.json",
+  "geometrySha256": "4dda8c9fdbc99d27740a0227b46fca4a95b27bdc0527238085e8a6b2e1f5b7da",
+  "textureBytes": 14678032,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "4ae017952dccdd0c53371cd51f0fde10782e016242e3889bd108fc1099a392c8",
   "proof": "art/proofs/character-cast/riverweave-trang.png",
-  "proofSha256": "c4c20a92b0cedca079ee6e99659503b24e1d113f29d8ab05a1514f27b0d492f2",
-  "editorSha256": "e04ba6035bd9ebf637d05eb1e2b1d3f861e3d91e1fed99836c9e749bf0ddb35f",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "073bf1751345a5ba2af01dae8e8cefc49589bb295962d3d2eecc9f254a200822",
+  "editorSha256": "9b7028b23590330fdbeb3b47bf2d0726d9a6a44fc1777c1f647481efa14a2a82",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

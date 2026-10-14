@@ -33,13 +33,16 @@
       "top.secondary": "#a88e67"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c18b60\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#b18b4d\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b18b4d\"],[\"outer.secondary\",\"#b18b4d\"],[\"top.primary\",\"#b18b4d\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c18b60\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#b18b4d\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b18b4d\"],[\"outer.secondary\",\"#b18b4d\"],[\"top.primary\",\"#b18b4d\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "bf344bfca77f0dfd91880cda2e4c553d083784ff05aa4c599a148523e13b6cb9"
+  "sha256": "8d8f22425c58646bf30e010996e3956405cfab3b1c7d6fe75a7c72cde4b96669",
+  "atlasSha256": "15a74eacb904aac166fd33d93c122a2164102b55bf60859fa01b893208e55c79",
+  "textureBytes": 14788488,
+  "atlas": "web/public/assets/character-cast/waldruh-resident-shopper.atlas.json"
 }

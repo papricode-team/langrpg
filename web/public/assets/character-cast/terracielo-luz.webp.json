@@ -33,13 +33,16 @@
       "top.secondary": "#e2d7bc"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b98f65\",\"#2b2620\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#324e6b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#c19b3f\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c06a53\"],[\"outer.secondary\",\"#c06a53\"],[\"top.primary\",\"#e2d7bc\"],[\"top.secondary\",\"#e2d7bc\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b98f65\",\"#2b2620\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#324e6b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#c19b3f\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c06a53\"],[\"outer.secondary\",\"#c06a53\"],[\"top.primary\",\"#e2d7bc\"],[\"top.secondary\",\"#e2d7bc\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "66fea74f037235aafeeac904b99d2749d3f029a9e5015ec4e5222e99f946bfa7"
+  "sha256": "1e55c61b53f488220bc24dbe3d4c76ef34a6d438507e80b782289493c2ab55ee",
+  "atlasSha256": "765096ad5fd539a181380dda7a40c4d948c9e94cb5cfe5f2dd413e26d64ae198",
+  "textureBytes": 14672840,
+  "atlas": "web/public/assets/character-cast/terracielo-luz.atlas.json"
 }
