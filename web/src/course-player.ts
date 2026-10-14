@@ -47,7 +47,7 @@ type AttemptInput = Readonly<{ id: string; exerciseId: string; itemId: string; a
 type TransitionInput = Parameters<Api['storyTransition']>[0];
 
 /** The shared graph, authoring ranges and grading API drive every target language. */
-export async function mountCoursePlayer(root: HTMLElement, options: { api: Api; session: SessionResult; isActive?: () => boolean; onAccessRequired?: () => void; onAccount?: () => void; onLogout?: () => void | Promise<void> }): Promise<void> {
+export async function mountCoursePlayer(root: HTMLElement, options: { api: Api; session: SessionResult; isActive?: () => boolean; onAccessRequired?: () => void; onAccount?: () => void; onInvite?: () => void; canInvite?: () => boolean; onLogout?: () => void | Promise<void> }): Promise<void> {
   const course = activeCourse!;
   if (!course) throw new Error('No active course is loaded.');
   const token = options.api.token;
@@ -62,6 +62,10 @@ export async function mountCoursePlayer(root: HTMLElement, options: { api: Api; 
   let replay = false;
   root.innerHTML = `<header class="course-player-heading">${brandMarkup}<h1>${e(course.title)}</h1><div class="course-account-actions">${options.onAccount ? `<button type="button" class="text-button" data-account>${e(options.session.account?.registered ? t('Account') : t('Save my adventure'))}</button>` : ''}${options.onLogout ? `<button type="button" class="text-button" data-logout>${e(t('Log out'))}</button>` : ''}</div><div data-picker></div></header><section data-journey></section><section data-words></section>`;
   root.querySelector<HTMLButtonElement>('[data-account]')?.addEventListener('click', () => options.onAccount?.());
+  if (options.onInvite) {
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'text-button'; button.dataset.courseInvite = ''; button.textContent = t('Invite a friend'); button.hidden = !options.canInvite?.();
+    button.addEventListener('click', () => options.onInvite?.()); root.querySelector('.course-account-actions')!.append(button);
+  }
   root.querySelector<HTMLButtonElement>('[data-logout]')?.addEventListener('click', () => { void options.onLogout?.(); });
   const journey = root.querySelector<HTMLElement>('[data-journey]')!, words = root.querySelector<HTMLElement>('[data-words]')!;
   const live = () => root.isConnected && !switching && options.api.token === token && activeCourse?.id === course.id;

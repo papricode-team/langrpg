@@ -101,8 +101,9 @@ export function buildContent({ directory = root } = {}) {
       translations[lang] = compileTranslation(text,{text:translation.text,words:map?.words ?? []},words,`${slug}/${lang}`,{strict:false});
     }
     const status = course.target==='en' || fixture || authored[key] || Object.keys(maps).length ? 'authored' : 'pending';
-    const audio=typeof pair.audio==='string'?pair.audio:pair.audio?.path??(pair.clipId?`/audio/dialogue/${pair.clipId}.mp3`:course.target==='de'?audioByText.get(text):undefined);
-    add('sentence',slug,{text,target:course.target,translations,words,owners,...(audio?{audio:{path:audio}}:{}),authoring:{status,review:authored[key]?.review??{status:'pending-native-speaker-review'},...(draft?{importedFrom:draft.provenance}: {})}},course.id);
+    const audioRequires=/\{[^{}]+\}/.test(text);
+    const audio=audioRequires?undefined:typeof pair.audio==='string'?pair.audio:pair.audio?.path??(pair.clipId?`/audio/dialogue/${pair.clipId}.mp3`:course.target==='de'?audioByText.get(text):undefined);
+    add('sentence',slug,{text,target:course.target,translations,words,owners,...(audioRequires?{audioRequires:true}: {}),...(audio?{audio:{path:audio}}:{}),authoring:{status,review:authored[key]?.review??{status:'pending-native-speaker-review'},...(draft?{importedFrom:draft.provenance}: {})}},course.id);
     return key;
   }
   const support = value => ({en:value,...(trByText.has(value)?{tr:trByText.get(value)}:{})});
@@ -150,7 +151,7 @@ export function buildContent({ directory = root } = {}) {
     const tr = overlay.course.exercises[exercise.id]?.tr;
     const contextWords=exercise.wordIds??source.legacyServer.course.contextWordIds?.[exercise.id];
     const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(contextWords),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
-    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);body.exampleSentenceId=body.sentenceId;const audio=byId.get(body.sentenceId).body.audio;if(audio)body.audio=audio;}
+    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);body.exampleSentenceId=body.sentenceId;const cue=byId.get(body.sentenceId).body;if(cue.audio)body.audio=cue.audio;if(cue.audioRequires)body.audioRequires=true;}
     const gatePairs=source.beginnerGateTranslations[exercise.id];
     if(gatePairs?.length)body.optionSentenceIds=Object.fromEntries(gatePairs.map(([german,english],index)=>[german,sentence(`context:beginner:${exercise.id}:${index}`,{german,english},[owner('exercise',exercise.id)])]));
     add('exercise',exercise.id,body);

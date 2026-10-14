@@ -2,6 +2,7 @@
 import {registerHooks} from 'node:module';
 import {existsSync,readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
+const projectURL=new URL('../',import.meta.url).href;
 registerHooks({
   resolve(specifier,context,nextResolve) {
     if(specifier.startsWith('.')&&context.parentURL?.startsWith('file:')&&!context.parentURL.includes('/node_modules/')&&!/\.[a-z]+$/i.test(specifier)) {
@@ -13,7 +14,8 @@ registerHooks({
     return nextResolve(specifier,context);
   },
   load(url,context,nextLoad) {
-    if(url.startsWith('file:')&&url.endsWith('.json'))return {format:'module',shortCircuit:true,source:`export default JSON.parse(${JSON.stringify(readFileSync(fileURLToPath(url),'utf8'))});`};
+    if(url.startsWith(projectURL)&&!url.includes('/node_modules/')&&url.endsWith('.css'))return {format:'module',shortCircuit:true,source:''};
+    if(url.startsWith(projectURL)&&!url.includes('/node_modules/')&&!url.endsWith('/package.json')&&url.endsWith('.json'))return {format:'module',shortCircuit:true,source:`export default JSON.parse(${JSON.stringify(readFileSync(fileURLToPath(url),'utf8'))});`};
     return nextLoad(url,context);
   },
 });

@@ -345,13 +345,55 @@ describe('conversation scene lifecycle', () => {
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt',{mode:'recognition',sceneAttempt:true,exerciseId:'a1-arrival-exercise-1'}]);
     expect(f.controller.isOpen).toBe(false);
   });
-  it('personalizes spoken lines with the player name without injecting markup', async () => {
+  it('keeps the personalized ticket line silent and resumes audio on the next fixed line', async () => {
+    const f = fixture();
+    f.options.playerName = () => '4534Gokay';
+    Object.assign(f.options,{prepareLine:(line:DialogueLine)=>({...line,german:line.german.replaceAll('{name}','4534Gokay')})});
+    f.progress.completedQuestIds.push('a1-cafe'); // Unlock slower playback.
+    f.progress.story!.flags['reply:a1-arrival-exercise-1'] = true;
+    await f.controller.open('a1-arrival');
+    for (let step = 0; step < 20 && document.querySelector('.dialogue-line')?.textContent !== 'Deine Fahrkarte, bitte.'; step++) press();
+    expect(document.querySelector('.dialogue-line')?.textContent).toBe('Deine Fahrkarte, bitte.');
+    f.options.speak.mockClear(); f.options.stopSpeech.mockClear();
+    press();
+    expect(document.querySelector('.dialogue-line')?.textContent).toBe('Hier steht 4534Gokay. Bahnsteig sieben. Unten: E.');
+    expect(f.options.speak).not.toHaveBeenCalled();
+    expect(f.options.stopSpeech).toHaveBeenCalledOnce();
+    expect(document.querySelector('[data-dialogue-action="audio"]')?.getAttribute('aria-pressed')).toBe('true');
+    for (const action of ['listen', 'slow']) {
+      expect(document.querySelector<HTMLButtonElement>(`[data-dialogue-action="${action}"]`)!.disabled).toBe(true);
+      f.click(`[data-dialogue-action="${action}"]`);
+    }
+    f.click('[data-dialogue-action="audio"]');
+    f.click('[data-dialogue-action="audio"]');
+    expect(f.options.speak).not.toHaveBeenCalled();
+    press();
+    expect(f.options.speak).toHaveBeenCalledOnce();
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(false);
+    f.click('[data-dialogue-action="slow"]');
+    expect(f.options.speak.mock.lastCall?.[3]).toBe(.65);
+  });
+  it.each(['Hallo, {name}!', 'Dein Zug fährt um {time}.'])('keeps resident greetings with variables silent: %s', async german => {
+    const f = fixture();
+    const marta = npcs.find(npc => npc.id === 'marta')!;
+    Object.assign(f.options,{loadSentence:vi.fn(async(line:DialogueLine)=>({...line,german,english:'A personalized greeting.',clipId:''}))});
+    f.controller.greet(marta, 'A1');
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toBe(german.replace('{name}', '<Willow>')));
+    expect(f.options.speak).not.toHaveBeenCalled();
+    expect(f.options.stopSpeech).toHaveBeenCalledOnce();
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(true);
+  });
+  it('personalizes visible lines with the player name without injecting markup', async () => {
     const f=fixture('intro','a1-lost-parcel'); await f.controller.open('a1-lost-parcel'); press(); // the second line addresses the player by name
     expect(document.querySelector('.dialogue-line')!.textContent).toContain('<Willow>');
     expect(document.querySelector('.dialogue-line')!.innerHTML).not.toContain('<Willow>');
   });
   it('records the read object with the server before returning to the canvas', async () => {
-    const f=fixture();f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');f.click('[data-dialogue-action="next"]');
+    const f=fixture();await f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Fahrkarte: <Willow>.');
+    expect(f.options.speak).not.toHaveBeenCalled();
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(true);
+    f.click('[data-dialogue-action="next"]');
     await vi.waitFor(()=>expect(f.options.onInvestigate).toHaveBeenCalled());
     expect(f.api.inspectStory.mock.calls[0][0]).toMatchObject({questId:'a1-arrival',objectId:'lindenhafen-platform-ticket'});
     expect(f.progress.story!.inspections['a1-arrival']).toContain('lindenhafen-platform-ticket');

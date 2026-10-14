@@ -8,6 +8,7 @@ import { intakeStatus, missingWordCount, syllabus, syllabusPosition, wordSchedul
 import { getSentence } from './translated-sentence';
 import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, loadPlacement, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
 import { mountOptionalPlacement } from './placement-ui';
+import { canVoiceDialogue } from './dialogue';
 
 const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), courseContextWordIds: {} as Record<string, string[]>, install: vi.fn() }));
 const publicSyllabus = vi.hoisted(() => ({ version: '', wordsPerHour: 10, openingWords: 10, bankCap: 15, storyShare: .5, brake: { maxUnsettled: 12, maxDue: 20 }, wordIds: [] as string[], quests: [] }));
@@ -44,6 +45,15 @@ beforeEach(async () => {
 afterEach(async () => { contentApi.clear(); vi.unstubAllGlobals(); vi.restoreAllMocks(); await setBaseLanguage('en'); setTargetLanguage('de'); });
 
 describe('server record adapters', () => {
+  it('retains the original authored audio requirement after a runtime value is substituted', async () => {
+    const record = [...records.values()].find(record => record.kind === 'sentence' && String(record.body.text).includes('{name}'))!;
+    expect(record).toBeDefined();
+    const line = await loadDialogueSentence({ id: 'runtime-name', sentenceId: record.id, speaker: 'otto', clipId: '', german: '', english: '' });
+    expect(line.audioRequires).toBe(true);
+    const prepared = { ...line, german: line.german.replaceAll('{name}', 'Ada') };
+    expect(canVoiceDialogue(prepared.german, prepared.audioRequires)).toBe(false);
+    expect(canVoiceDialogue('Willkommen!', false)).toBe(true);
+  });
   it('loads eight JSON placement questions by UUID and renders each without a quest bank or grading secrets', async () => {
     const questions = await loadPlacement();
     expect(questions).toHaveLength(8);

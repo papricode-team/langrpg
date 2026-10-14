@@ -168,15 +168,21 @@ async function checkFlows(page, surface, viewport) {
       await page.waitForSelector('.interior-conversation');
       let steps = 0;
       while (await page.locator('[data-interior-choice]').count() && steps++ < 12) {
-        await page.locator('[data-interior-choice]').first().click();
+        // Turns render after their lines load, so wait for the chosen turn to leave before choosing again.
+        const choice = page.locator('[data-interior-choice]').first();
+        const choiceId = await choice.getAttribute('data-interior-choice');
+        await choice.click();
+        await page.waitForSelector(`[data-interior-choice="${choiceId}"]`, { state: 'detached' });
       }
       if (!await page.locator('[data-interior-conversation="replay"]').isVisible()) errors.push('Empty practice queue did not reach a scripted ending.');
       else {
         await page.locator('[data-interior-conversation="replay"]').click();
-        if (!await page.locator('[data-interior-choice]').count()) errors.push('Scripted conversation replay failed.');
+        if (!await page.waitForSelector('[data-interior-choice]', { timeout: 5_000 }).catch(() => null)) errors.push('Scripted conversation replay failed.');
+        const choiceId = await page.locator('[data-interior-choice]').first().getAttribute('data-interior-choice');
         await page.locator('[data-interior-choice]').first().click();
+        await page.waitForSelector(`[data-interior-choice="${choiceId}"]`, { state: 'detached' });
         await page.locator('[data-interior-conversation="back"]').click();
-        if (!await page.locator('[data-interior-choice]').count()) errors.push('Scripted conversation Back failed.');
+        if (!await page.waitForSelector(`[data-interior-choice="${choiceId}"]`, { timeout: 5_000 }).catch(() => null)) errors.push('Scripted conversation Back failed.');
       }
     }
   } catch (error) {

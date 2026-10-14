@@ -102,7 +102,7 @@ func (p *CreemBilling) get(ctx context.Context, resource, key, id string, output
 	return p.request(ctx, "GET", "/v1/"+resource+"?"+url.Values{key: {id}}.Encode(), nil, output)
 }
 func (p *CreemBilling) checkoutBelongsTo(c creemCheckout, accountID, reference string) bool {
-	return c.ID != "" && c.RequestID != "" && p.modeMatches(c.Mode) && reference != "" && c.Metadata["account_id"] == accountID && c.Metadata["billing_reference"] == reference && (c.Product.ID == p.monthlyProduct || c.Product.ID == p.lifetimeProduct)
+	return c.ID != "" && c.RequestID != "" && p.modeMatches(c.Mode) && reference != "" && c.Metadata["account_id"] == accountID && c.Metadata["billing_reference"] == reference && (c.Product.ID == p.monthlyProduct || c.Product.ID == p.yearlyProduct || c.Product.ID == p.lifetimeProduct)
 }
 func (p *CreemBilling) paidTransaction(t creemTransaction, customer string) bool {
 	return t.ID != "" && p.modeMatches(t.Mode) && t.Customer.ID == customer && customer != "" && t.Status == "paid" && t.Currency == "EUR" && t.AmountPaid > 0 && t.RefundedAmount == 0
@@ -137,14 +137,18 @@ func (p *CreemBilling) snapshot(ctx context.Context, accountID string, previous 
 			}
 			continue
 		}
-		if purchase.ProductID != p.monthlyProduct || purchase.SubscriptionID == "" {
+		plan := "monthly"
+		if purchase.ProductID == p.yearlyProduct {
+			plan = "yearly"
+		}
+		if (purchase.ProductID != p.monthlyProduct && purchase.ProductID != p.yearlyProduct) || purchase.SubscriptionID == "" {
 			continue
 		}
 		var subscription creemSubscription
 		if err := p.get(ctx, "subscriptions", "subscription_id", purchase.SubscriptionID, &subscription); err != nil {
 			return BillingState{}, err
 		}
-		if subscription.ID != purchase.SubscriptionID || !p.modeMatches(subscription.Mode) || subscription.Product.ID != p.monthlyProduct || subscription.Customer.ID != purchase.CustomerID {
+		if subscription.ID != purchase.SubscriptionID || !p.modeMatches(subscription.Mode) || subscription.Product.ID != purchase.ProductID || subscription.Customer.ID != purchase.CustomerID {
 			return BillingState{}, errors.New("Creem subscription identity mismatch")
 		}
 		if subscription.Status != "active" && subscription.Status != "scheduled_cancel" && subscription.Status != "canceled" && subscription.Status != "past_due" {
@@ -167,7 +171,7 @@ func (p *CreemBilling) snapshot(ctx context.Context, accountID string, previous 
 			coversPeriod = !creemTime(transaction.PeriodEnd).Before(subscription.CurrentPeriodEnd.Add(-time.Second))
 		}
 		if coversPeriod && result.Plan != "lifetime" && subscription.CurrentPeriodEnd.After(result.PaidUntil) {
-			result.Plan, result.CustomerID, result.SubscriptionID, result.PaidUntil = "monthly", purchase.CustomerID, subscription.ID, subscription.CurrentPeriodEnd
+			result.Plan, result.CustomerID, result.SubscriptionID, result.PaidUntil = plan, purchase.CustomerID, subscription.ID, subscription.CurrentPeriodEnd
 		}
 	}
 	// A known customer remains available for managing canceled or refunded plans.

@@ -10,9 +10,11 @@ import (
 )
 
 const (
-	guestPlayLimit = 5 * time.Minute
-	trialPlayLimit = 15 * time.Minute
-	playLease      = 30 * time.Second
+	guestPlayLimit     = 5 * time.Minute
+	trialPlayLimit     = 15 * time.Minute
+	referralPlayBonus  = 90 * time.Minute
+	maxReferralSignups = (time.Duration(1<<63-1) - trialPlayLimit) / referralPlayBonus
+	playLease          = 30 * time.Second
 )
 
 // PlayAccess is separate from learning intake: client-supplied seconds, story
@@ -28,17 +30,22 @@ type PlayAccess struct {
 }
 
 type AccessStatus struct {
-	Phase            string `json:"phase"`
-	RemainingSeconds int    `json:"remainingSeconds"`
-	PlayedSeconds    int    `json:"playedSeconds"`
-	Registered       bool   `json:"registered"`
-	Plan             string `json:"plan,omitempty"`
-	BillingAvailable bool   `json:"billingAvailable"`
+	Phase                string `json:"phase"`
+	RemainingSeconds     int    `json:"remainingSeconds"`
+	PlayedSeconds        int    `json:"playedSeconds"`
+	Registered           bool   `json:"registered"`
+	Plan                 string `json:"plan,omitempty"`
+	BillingAvailable     bool   `json:"billingAvailable"`
+	ReferralBonusSeconds int    `json:"referralBonusSeconds,omitempty"`
+	ReferralSignups      int64  `json:"referralSignups,omitempty"`
 }
 
 func playLimit(account Account) time.Duration {
+	if account.Email != "" {
+		return trialPlayLimit + referralBonus(account)
+	}
 	// Every explicit restart receives fifteen minutes, including guest restarts.
-	if account.Email != "" || account.Access.ResetTrial || account.ActiveCourseID == "" && account.Access.Generation > 0 {
+	if account.Access.ResetTrial || account.ActiveCourseID == "" && account.Access.Generation > 0 {
 		return trialPlayLimit
 	}
 	return guestPlayLimit
@@ -77,6 +84,8 @@ func (a *App) accessState(account Account, now time.Time) AccessStatus {
 	remaining := max(int64(0), int64(playLimit(account))-account.Access.PlayedNanoseconds)
 	status.RemainingSeconds = int((remaining + int64(time.Second) - 1) / int64(time.Second))
 	if status.Registered {
+		status.ReferralBonusSeconds = int(referralBonus(account) / time.Second)
+		status.ReferralSignups = referralSignups(account)
 		status.Phase = "trial"
 		if remaining == 0 {
 			status.Phase = "payment_required"
@@ -360,6 +369,9 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 }
 
 func resetGameProgress(account *Account) error {
+	// A restart grants the advertised fresh fifteen minutes; past referral
+	// rewards cannot be replayed. Attribution and already-issued links survive.
+	account.Referrals.ResetSignups = account.Referrals.SuccessfulSignups
 	revision := account.Progress.Revision
 	generation := account.Access.Generation
 	account.Progress = newProgress()

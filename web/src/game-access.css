@@ -16,6 +16,12 @@
   pointer-events: auto;
 }
 
+.access-hud button[hidden] { display: none; }
+.access-hud #access-invite { background: #29493d; color: #fff1cd; border-color: #c9b77c; }
+.access-hud #access-invite:hover { background: #355b49; }
+.referral-url { font-size: var(--type-caption); }
+.account-dialog .referral-status { margin: 12px 0 0; color: #e6d9b2; font-size: var(--type-caption); }
+
 .access-hud[hidden] {
   display: none;
 }
@@ -101,12 +107,12 @@
 }
 
 .account-dialog.billing-dialog {
-  width: min(660px, calc(100vw - 32px));
+  width: min(840px, calc(100vw - 32px));
 }
 
 .billing-plans {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin: 26px 0 18px;
 }
@@ -235,6 +241,8 @@
     left: max(14px, env(safe-area-inset-left));
     padding: 7px 8px;
     gap: 7px;
+    max-width: calc(100vw - 28px);
+    flex-wrap: wrap;
   }
   .access-hud .caption {
     font-size: var(--type-caption);

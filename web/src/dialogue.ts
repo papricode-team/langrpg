@@ -24,6 +24,8 @@ export interface DialogueEffect { flag?: string; item?: string; faction?: Factio
 export interface DialogueLine {
   id: string;
   sentenceId?: string;
+  /** The authored cue needs runtime values and has no recorded spoken version. */
+  audioRequires?: boolean;
   speaker: string;
   /** Authored visual cue; never inferred from translated text. */
   expression?: 'neutral' | 'smile' | 'worried';
@@ -78,6 +80,8 @@ export function dialogueLines(node: DialogueNode, state: StoryState): DialogueLi
 export function dialogueTopics(graph: QuestGraph, state: StoryState): DialogueTopic[] { return (graph.topics ?? []).filter(topic => conditionMet(topic.condition, state)); }
 export function dialogueChoices(node: DialogueNode, state: StoryState): DialogueChoice[] { return (node.choices ?? []).filter(choice => conditionMet(choice.condition, state)); }
 export function personalized(line: string, name: string): string { return line.replaceAll('{name}', name); }
+/** Runtime-variable lines remain visible while playback stays unavailable. */
+export function canVoiceDialogue(text: string, audioRequires = false): boolean { return !audioRequires && !/\{[^{}]+\}/.test(text); }
 export function nodeForStage(graph: QuestGraph, stage: string): DialogueNode {
   return graph.nodes.find(node => node.id === stage) ?? graph.nodes.find(node => node.stage === stage)!;
 }

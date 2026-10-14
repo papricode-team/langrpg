@@ -6,6 +6,7 @@ import {getWorldScene,sceneContentVersion} from './scene-data';
 import type { StoryState } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
 import type { BillingPlan, GameAccess } from './game-access';
+import { captureReferral, clearReferral, pendingReferral, type ReferralLink } from './referrals';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
@@ -125,6 +126,13 @@ export class Api {
   onWorldChanged?: () => Promise<void>;
   selfId = '';
 
+  constructor() {
+    if (typeof location !== 'undefined' && typeof location.href === 'string') {
+      const cleanURL = captureReferral(localStorage, location.href);
+      if (cleanURL && typeof history !== 'undefined') history.replaceState(null, '', cleanURL);
+    }
+  }
+
   async request<T>(path: string, body?: unknown): Promise<T> {
     const token = this.token, sequence = ++this.requestSequence;
     const response = await fetch(`/api${path}`, {
@@ -157,6 +165,7 @@ export class Api {
   }
   private rememberSession(result: SessionResult) {
     result = normalizeSession(result);
+    if (result.account.registered) clearReferral(localStorage);
     this.token = result.token;
     this.selfId = result.player.id;
     localStorage.setItem('atlas.token', this.token);
@@ -173,9 +182,13 @@ export class Api {
       return undefined;
     }
   }
-  register(email: string, password: string) {
-    return this.request<AccountStatus>('/account/register', { email, password });
+  async register(email: string, password: string) {
+    const referralCode = pendingReferral(localStorage);
+    const result = await this.request<AccountStatus>('/account/register', { email, password, ...(referralCode ? { referralCode } : {}) });
+    clearReferral(localStorage);
+    return result;
   }
+  referralLink() { return this.request<ReferralLink>('/referral/link', {}); }
   access() { return this.request<{ access: GameAccess }>('/access'); }
   accessHeartbeat(active: boolean) { return this.request<{ access: GameAccess }>('/access/heartbeat', { active }); }
   async resetGame(): Promise<SessionResult> {

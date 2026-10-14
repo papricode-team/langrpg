@@ -9,6 +9,8 @@ export interface Exercise {
   sentenceId?: string;
   exampleSentenceId?: string;
   optionSentenceIds?: Record<string, string>;
+  audioRequires?: boolean;
+  wordIds?: string[];
   itemId: string;
   mode: ExerciseMode;
   prompt: string;

@@ -1,12 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import './register-content-loader.mjs';
 
 const { getMap } = await import('../web/src/maps.ts');
 const { quests } = await import('../web/src/content.ts');
 const { rules } = JSON.parse(await readFile(new URL('../server/story_rules.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));
+
+test('the actual exporter reads private authoring modules and reproduces the saved output', async () => {
+  const files = ['../server/expeditions.json', '../server/story_rules.json'].map(path => new URL(path, import.meta.url));
+  const before = await Promise.all(files.map(file => readFile(file, 'utf8')));
+  await promisify(execFile)(process.execPath, [new URL('./export-world-content.mjs', import.meta.url).pathname, '--check'], { maxBuffer: 100000 });
+  assert.deepEqual(await Promise.all(files.map(file => readFile(file, 'utf8'))), before);
+});
 
 test('server investigation proof follows the actual edited runtime placements and authored graph', () => {
   assert.equal(rules.length, graphs.length);

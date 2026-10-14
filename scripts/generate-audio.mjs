@@ -3,6 +3,7 @@
 // Requires Node 24+, macOS with the Anna voice installed, and ffmpeg/libmp3lame.
 // Run from any directory: node scripts/generate-audio.mjs
 import './register-content-loader.mjs';
+import {canVoiceDialogue} from '../web/src/dialogue.ts';
 import { spawn } from 'node:child_process';
 import { access, copyFile, mkdir, mkdtemp, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { constants } from 'node:fs';
@@ -67,10 +68,10 @@ async function main() {
   const jobs = process.argv.includes('--minigames-only') ? [] : [
     ...quests.flatMap(quest => quest.exercises.map(exercise => ({ id: exercise.id, text: exercise.german }))),
     ...npcs.map(npc => ({ id: `npc-${npc.id}`, text: npc.greeting })),
-  ];
+  ].filter(job=>canVoiceDialogue(job.text));
   const knownTexts = new Set(jobs.map(job => job.text));
   function addJob(job) {
-    if (!knownTexts.has(job.text)) { knownTexts.add(job.text); jobs.push(job); }
+    if (canVoiceDialogue(job.text)&&!knownTexts.has(job.text)) { knownTexts.add(job.text); jobs.push(job); }
   }
   if (process.argv.includes('--lexicon')) {
     const lexicon = JSON.parse(await readFile(path.join(root, 'web/src/data/course-lexicon.json'), 'utf8'));
@@ -88,7 +89,7 @@ async function main() {
   }
   if (process.argv.includes('--minigames') || process.argv.includes('--minigames-only')) {
     const { minigameAudioJobs } = await import('./minigame-audio-content.mjs');
-    for (const job of await minigameAudioJobs()) if (!jobs.some(existing => existing.id === job.id)) jobs.push(job);
+    for (const job of await minigameAudioJobs()) if (canVoiceDialogue(job.text)&&!jobs.some(existing => existing.id === job.id)) jobs.push(job);
   }
   let previous;
   try { previous = JSON.parse(await readFile(path.join(outputDirectory, 'manifest.json'), 'utf8')); } catch { /* A first run creates the manifest. */ }

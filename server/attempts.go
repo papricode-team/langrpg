@@ -217,6 +217,9 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		if a.content != nil && !a.exerciseVisible(exercise, account) && !a.placementExerciseVisible(exercise.ID, account) {
 			return nil, &APIError{404, "exercise not found"}
 		}
+		if err := a.requireWordIntroduced(exercise, &account.Progress); err != nil {
+			return nil, err
+		}
 		if err := a.requireMiniGameVocabulary(input, exercise, &account.Progress); err != nil {
 			return nil, err
 		}

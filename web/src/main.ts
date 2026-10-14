@@ -1,4 +1,5 @@
 import { castPortraitMarkup } from './cast-portrait';
+import { pendingReferral, referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
 import {loadPublishedWorld,sceneContentVersion} from './scene-data';
 import { avatarPortraitMarkup, bakeAvatarPortrait, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
@@ -93,7 +94,8 @@ import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
 
-const uiCheckSurface = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
+const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
+const uiCheckSurface = uiCheckRequest && ['home','options','encounter','journal','activity','course','world'].includes(uiCheckRequest) ? uiCheckRequest : null;
 
 type View = 'world' | 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
 type CourseModule = typeof import('./course');
@@ -331,10 +333,11 @@ function renderShell() {
       <section id="explore-view" class="world-stage" aria-label="Lindenhafen"><div id="world-container" aria-label="${e(t('Game world. Use WASD, arrow keys, or the joystick to move. Press E to interact.'))}" tabindex="0"></div></section>
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
-        <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button></div>
+        <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button><button type="button" id="access-invite" hidden>Invite a friend</button></div>
         <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-meta"><span id="hud-level">A1 · ${e(titleLabel('Wanderer'))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
         <div class="location-banner" id="location-banner"><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
         <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
+
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
         <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
@@ -373,10 +376,7 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
-    portrait: (id, expression) => portrait(id, '', expression), speak: (text, speaker, clipId, personalized, rate) => {
-      const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
-      speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
-    }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
+    portrait: (id, expression) => portrait(id, '', expression), speak, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     loadGraph: loadQuestGraph, loadSentence: loadDialogueSentence, loadExercise,
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
@@ -428,6 +428,7 @@ function renderShell() {
     else if (access?.registered) showPaywall();
     else showSaveAccount(access?.phase === 'login_required');
   };
+  document.querySelector<HTMLButtonElement>('#access-invite')!.onclick = () => void showInviteFriend();
   syncWorldMode();
 }
 function watchWorld(watching: boolean): void {
@@ -1945,18 +1946,28 @@ function updateAccessHud(): void {
   if (!hud) return;
   const access = accessClock.snapshot(performance.now());
   const paid = access?.phase === 'paid';
-  hud.hidden = !started || !access || paid || access.remainingSeconds > 60;
+  hud.hidden = !started || !access || paid || (!referralAvailable(access) && access.remainingSeconds > 60);
   hud.dataset.phase = access?.phase ?? 'checking';
   document.querySelector('#access-label')!.textContent = paid ? 'Unlimited play' : access?.registered ? 'Free trial left' : 'Guest play left';
   const time = document.querySelector('#access-time')!;
   time.textContent = paid ? access.plan === 'lifetime' ? 'Lifetime' : 'Subscribed' : access ? formatAccessTime(access.remainingSeconds) : 'Checking…';
   time.setAttribute('aria-label', paid ? 'Unlimited game access' : `${access?.registered ? 'Trial' : 'Guest play'} time remaining: ${access ? formatAccessTime(access.remainingSeconds) : 'checking'}`);
   document.querySelector('#access-button')!.textContent = paid ? 'Manage' : access?.registered ? 'Subscribe' : 'Login';
+  document.querySelector<HTMLButtonElement>('#access-invite')!.hidden = !referralAvailable(access);
+  const courseInvite = document.querySelector<HTMLButtonElement>('[data-course-invite]'); if (courseInvite) courseInvite.hidden = !referralAvailable(access);
+  const referralCount = document.querySelector('#referral-count');
+  if (referralCount) {
+    const count = access?.referralSignups ?? 0;
+    referralCount.textContent = `${count} ${count === 1 ? 'friend has' : 'friends have'} signed up · ${Math.floor((access?.referralBonusSeconds ?? 0) / 60)} extra minutes earned`;
+  }
 }
 function applyAccess(access: GameAccess): void {
+  const previousBonus = accessClock.snapshot(performance.now())?.referralBonusSeconds ?? 0;
   accessClock.update(access, performance.now());
   updateAccessHud();
   if (uiCheckSurface || !started || accessResetting) return;
+  if ((access.referralBonusSeconds ?? 0) > previousBonus) toast(`${Math.floor(((access.referralBonusSeconds ?? 0) - previousBonus) / 60)} extra minutes added. Your friend signed up!`);
+
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   if (!accessBlocked(access) && dialog.open && dialog.dataset.accessWall === 'required') dialog.close();
   enforceAccessWall(); syncAccessActivity(); syncWorldMode();
@@ -2005,11 +2016,45 @@ function showResetGame(): void {
     } catch (error) { accessResetting = false; accountError(error); button.disabled = false; back.disabled = false; }
   };
 }
+let referralDialogRevision = 0;
+async function showInviteFriend(): Promise<void> {
+  if (!referralAvailable(accessClock.snapshot(performance.now()))) return;
+  const owner = api.selfId;
+  const revision = ++referralDialogRevision;
+  const back = '<button type="button" class="billing-secondary-button" id="referral-back">Back to my adventure</button>';
+  showAccountDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>When a new friend signs up through your link, you get 90 extra minutes of free play. Each new signup counts once, and the bonus adds to your remaining time.</p><p role="status">Getting your invite link…</p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
+  const bindBack = () => { document.querySelector<HTMLButtonElement>('#referral-back')!.onclick = () => { referralDialogRevision++; document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); }; };
+  bindBack();
+  try {
+    const result = await api.referralLink();
+    const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+    if (revision !== referralDialogRevision || owner !== api.selfId || !dialog.open || !dialog.querySelector('#referral-panel')) return;
+    const url = new URL(result.url);
+    if (url.username || url.password || (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname)))) throw new Error('Your invite link could not load. Please try again.');
+    showAccountDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>Send your link to a friend. When they create a new account, you get 90 extra minutes of free play—even if your trial has ended by then.</p><label class="form-label" for="referral-url">Your invite link</label><input class="name-input referral-url" id="referral-url" readonly value="${e(url.href)}"/><button type="button" class="primary-button" id="referral-copy">Copy invite link ${icon('check')}</button><p class="referral-status" id="referral-count" role="status"></p><p class="referral-status" id="referral-copy-status" role="status"></p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
+    bindBack(); updateAccessHud();
+    document.querySelector<HTMLButtonElement>('#referral-copy')!.onclick = async () => {
+      const status = document.querySelector<HTMLElement>('#referral-copy-status')!;
+      const input = document.querySelector<HTMLInputElement>('#referral-url')!;
+      let clipboardTimeout: ReturnType<typeof setTimeout> | undefined;
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable');
+        await Promise.race([navigator.clipboard.writeText(url.href), new Promise<never>((_, reject) => { clipboardTimeout = setTimeout(() => reject(new Error('clipboard unavailable')), 2500); })]);
+        if (status.isConnected) status.textContent = 'Invite link copied. Send it to your friend.';
+      } catch {
+        if (input.isConnected) { input.focus(); input.select(); status.textContent = 'Select and copy the link above to send it to your friend.'; }
+      } finally { if (clipboardTimeout !== undefined) clearTimeout(clipboardTimeout); }
+    };
+  } catch (error) {
+    if (revision === referralDialogRevision && owner === api.selfId && document.querySelector('#referral-panel')) accountError(error);
+  }
+}
 function showPaywall(required = accessClock.snapshot(performance.now())?.phase === 'payment_required', notice = ''): void {
   const access = accessClock.snapshot(performance.now());
   if (!access?.registered) { showSaveAccount(access?.phase === 'login_required', true); return; }
   if (access.phase === 'paid') { showBillingAccount(); return; }
-  showAccountDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'You have played your 15 free minutes. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<span class="caption">/ month</span></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<span class="caption">once</span></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><span class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
+  showAccountDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'Your free play time is used up. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<span class="caption">/ month</span></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan" data-billing-plan="yearly" ${access.billingAvailable ? '' : 'disabled'}><span>Yearly</span><strong>€9.99<span class="caption">/ year</span></strong><p>Billed yearly. Cancel anytime.</p><b>Subscribe yearly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<span class="caption">once</span></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><span class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
+
   document.querySelector('#account-dialog')!.classList.add('billing-dialog');
   document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
     const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
@@ -2187,7 +2232,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
     document.querySelector<HTMLElement>('#game-shell')!.hidden = true; world.destroy();
     document.body.classList.add('course-player-mode');
     const host = document.createElement('main'); host.className = 'course-player'; document.body.append(host);
-    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? showLogin() : showSaveAccount(), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
+    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? showPaywall(false) : showSaveAccount(), onInvite: () => void showInviteFriend(), canInvite: () => referralAvailable(accessClock.snapshot(performance.now())), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
     return true;
   }
   if (reconcileBaseLanguage(result)) return false;
@@ -2231,7 +2276,9 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
   const allowance = accessClock.snapshot(performance.now());
   showAccountDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 900 ? ` and play for ${Math.ceil((900 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 15 free minutes.` : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 15 free minutes as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
   document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
+  if (pendingReferral(localStorage)) document.querySelector('#save-account-form')!.insertAdjacentHTML('beforebegin', '<p class="referral-status">Your signup gives the friend who invited you 90 extra minutes of free play.</p>');
   document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGame);
+
   document.querySelector<HTMLButtonElement>('#account-later')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
   const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
   const password = document.querySelector<HTMLInputElement>('#account-password')!;
@@ -2294,7 +2341,7 @@ function showLogin() {
   };
 }
 
-/** Deterministic development previews exercise the production renderers without an account. */
+/** Deterministic development previews exercise the production renderers with a throwaway guest's content. */
 async function openUiCheck(surface: string) {
   if (!import.meta.env.DEV || !uiCheckSurface) return;
   const preview = await import('./test-support/ui-content-preview');

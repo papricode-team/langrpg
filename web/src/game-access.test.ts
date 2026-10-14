@@ -50,7 +50,18 @@ describe('server-backed game access clock', () => {
     expect(clock.snapshot(9_000_000)).toMatchObject({ phase: 'paid', plan: 'lifetime' });
     expect(accessBlocked(clock.snapshot(9_000_000))).toBe(false);
   });
+  it('reopens an expired trial with a server-awarded referral and blocks after its 90 minutes', () => {
+    const clock = new AccessClock();
+    clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 900, remainingSeconds: 0 }, 0);
+    expect(accessBlocked(clock.snapshot(0))).toBe(true);
+    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 900, remainingSeconds: 5400, referralBonusSeconds: 5400, referralSignups: 1 }, 10_000);
+    clock.setActive(true, 10_000);
+    expect(accessBlocked(clock.snapshot(10_000))).toBe(false);
+    expect(clock.snapshot(5_409_000)?.remainingSeconds).toBe(1);
+    expect(clock.snapshot(5_410_000)).toMatchObject({ phase: 'payment_required', playedSeconds: 6300, remainingSeconds: 0 });
+  });
   it('accepts repeated fifteen-minute allowances from successful server resets', () => {
+
     const clock = new AccessClock();
     clock.update({ ...guest(0), phase: 'login_required' }, 0);
     expect(accessBlocked(clock.snapshot(1_000))).toBe(true);

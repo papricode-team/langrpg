@@ -20,6 +20,28 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('account session lifecycle', () => {
+  it('keeps referral attribution across a failed signup and clears it only after success', async () => {
+    saved.set('atlas.token', 'guest-token');
+    saved.set('atlas.pendingReferral', 'friend-player-123');
+    const fetch = vi.fn()
+      .mockResolvedValueOnce(new Response('{"error":"unavailable"}', { status: 503 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify(session('guest-token'))));
+    vi.stubGlobal('fetch', fetch);
+    const api = new Api();
+    await expect(api.register('juniper@example.com', 'a long lantern password')).rejects.toThrow('unavailable');
+    expect(saved.get('atlas.pendingReferral')).toBe('friend-player-123');
+    await api.register('juniper@example.com', 'a long lantern password');
+    for (const call of fetch.mock.calls) expect(JSON.parse(call[1].body).referralCode).toBe('friend-player-123');
+    expect(saved.has('atlas.pendingReferral')).toBe(false);
+  });
+  it('clears an invite after existing-account login without submitting a referral', async () => {
+    saved.set('atlas.pendingReferral', 'friend-player-123');
+    const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify(session('account-token'))));
+    vi.stubGlobal('fetch', fetch);
+    await new Api().login('juniper@example.com', 'a long lantern password');
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).not.toHaveProperty('referralCode');
+    expect(saved.has('atlas.pendingReferral')).toBe(false);
+  });
   it('ignores an older trial heartbeat that arrives after verified payment', async () => {
     saved.set('atlas.token', 'account-token');
     const older = deferredResponse(), newer = deferredResponse();

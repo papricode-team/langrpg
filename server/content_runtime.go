@@ -20,6 +20,7 @@ func (a *App) InstallContent(bundle *contentstore.Bundle) error {
 		return err
 	}
 	a.content = bundle
+	a.indexStationExercises()
 	a.lexemeSentences = map[string][]string{}
 	for _, record := range bundle.Records {
 		if record.Kind != "sentence" {
@@ -211,7 +212,7 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 		}
 		copyStore := *a.canonical
 		copyStore.expectedCourse = courseID
-		if r.URL.Path == "/api/account/login" || strings.HasPrefix(r.URL.Path, "/api/billing/") {
+		if r.URL.Path == "/api/account/login" || r.URL.Path == "/api/referral/link" || strings.HasPrefix(r.URL.Path, "/api/billing/") {
 			copyStore.expectedCourse = ""
 		}
 		scoped.store = &copyStore

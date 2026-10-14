@@ -467,6 +467,9 @@ func (a *App) questVisible(id string, account Account) bool {
 	return a.requireQuestAccess(id, &account.Progress) == nil
 }
 func (a *App) exerciseVisible(e Exercise, account Account) bool {
+	if a.stationExerciseVisible(e.ID, account) {
+		return true
+	}
 	if e.TargetWordID != "" {
 		return account.Progress.wordIntroduced(e.TargetWordID)
 	}
@@ -780,6 +783,11 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 	if !ok {
 		return value
 	}
+	words := make([]string, 0, len(exercise.WordIDs))
+	for _, word := range exercise.WordIDs {
+		words = append(words, a.canonical.translate(word, true))
+	}
+	body["wordIds"] = words
 	attempted := account.Progress.ExerciseStats[exercise.ID].Attempts > 0
 	body["answerAvailable"] = attempted
 	if exercise.Mode == "production" {

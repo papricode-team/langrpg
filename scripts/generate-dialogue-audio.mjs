@@ -7,6 +7,7 @@ import { spawn } from 'node:child_process';
 import { tmpdir, homedir } from 'node:os';
 import { resolve } from 'node:path';
 import { cast, jobs } from './dialogue-audio-content.mjs';
+import {canVoiceDialogue} from '../web/src/dialogue.ts';
 
 const root = resolve(import.meta.dirname, '..');
 const python = process.env.LANTERN_TTS_PYTHON ?? resolve(homedir(), '.cache/lantern-tts/venv/bin/python');
@@ -26,7 +27,7 @@ const { quests, npcs } = await import('../web/src/content.ts');
 const exerciseJobs = [
   ...quests.flatMap(quest => quest.exercises.map(exercise => ({ clipId: exercise.id, speaker: quest.npcId, german: exercise.german }))),
   ...npcs.map(npc => ({ clipId: `npc-${npc.id}`, speaker: npc.id, german: npc.greeting })),
-];
+].filter(job=>canVoiceDialogue(job.german));
 for (const job of exerciseJobs) if (!cast[job.speaker]) throw new Error(`No voice for ${job.speaker}`);
 
 function run(command, commandArgs) {
@@ -54,7 +55,7 @@ await writeFile(resolve(dialogueDir, 'manifest.json'), JSON.stringify({
   provider: 'Qwen3-TTS 1.7B (VoiceDesign + Base clone, 8-bit MLX) via mlx-audio, run locally',
   productionStatus: 'Synthetic character voices designed from text descriptions in scripts/tts/voices.json; human voice-over remains a production milestone.',
   cast, bitRate: 32000,
-  dynamicNames: 'German browser synthesis when available; otherwise play the recorded name-free version while displaying the chosen name.',
+  dynamicNames: 'Lines containing runtime variables remain visible and silent, including personalized names.',
   clips,
 }, null, 2) + '\n');
 // Mark character-voiced exercise clips so the pronunciation generator (generate-audio.mjs) keeps them.

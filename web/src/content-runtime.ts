@@ -218,7 +218,7 @@ export async function loadDialogueSentence(line: DialogueLine): Promise<Dialogue
   if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
   if (!sentence) throw new Error('This sentence is not available yet.');
   installContentTranslations([[sentence.text, support(sentence.translations)]]);
-  return { ...line, text: sentence.text, german: sentence.text, english: support(sentence.translations), translations: sentence.translations, sentenceId, target: sentence.target } as DialogueLine;
+  return { ...line, text: sentence.text, german: sentence.text, english: support(sentence.translations), translations: sentence.translations, sentenceId, target: sentence.target, audioRequires: line.audioRequires || sentence.audioRequires || /\{[^{}]+\}/.test(sentence.text) } as DialogueLine;
 }
 export async function loadExercise(id: string): Promise<Exercise> {
   const generation = revision;

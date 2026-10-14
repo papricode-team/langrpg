@@ -39,6 +39,7 @@ type CreemBilling struct {
 	accessToken     string
 	webhookSecret   string
 	monthlyProduct  string
+	yearlyProduct   string
 	lifetimeProduct string
 	publicURL       string
 	baseURL         string
@@ -49,7 +50,7 @@ type CreemBilling struct {
 // VITE_ variable. Empty configuration keeps the trial walls active while checkout
 // reports that billing is unavailable.
 func creemBillingFromEnv() (*CreemBilling, error) {
-	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID"}
+	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID"}
 	values := make([]string, len(keys))
 	for i, key := range keys {
 		values[i] = strings.TrimSpace(os.Getenv(key))
@@ -62,8 +63,8 @@ func creemBillingFromEnv() (*CreemBilling, error) {
 			return nil, fmt.Errorf("%s is required when Creem billing is configured", keys[i])
 		}
 	}
-	if values[2] == values[3] {
-		return nil, errors.New("Creem monthly and lifetime product IDs must differ")
+	if values[2] == values[3] || values[2] == values[4] || values[3] == values[4] {
+		return nil, errors.New("Creem monthly, yearly and lifetime product IDs must differ")
 	}
 	server := env("CREEM_SERVER", "production")
 	base := "https://api.creem.io"
@@ -80,11 +81,11 @@ func creemBillingFromEnv() (*CreemBilling, error) {
 	if len(values[1]) < 24 {
 		return nil, errors.New("CREEM_WEBHOOK_SECRET must contain the full endpoint secret")
 	}
-	return &CreemBilling{accessToken: values[0], webhookSecret: values[1], monthlyProduct: values[2], lifetimeProduct: values[3], publicURL: public, baseURL: base, client: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
+	return &CreemBilling{accessToken: values[0], webhookSecret: values[1], monthlyProduct: values[2], lifetimeProduct: values[3], yearlyProduct: values[4], publicURL: public, baseURL: base, client: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
 }
 
 func (a *App) billingAvailable() bool {
-	return a.billing != nil && a.billing.accessToken != "" && a.billing.monthlyProduct != "" && a.billing.lifetimeProduct != ""
+	return a.billing != nil && a.billing.accessToken != "" && a.billing.monthlyProduct != "" && a.billing.lifetimeProduct != "" && a.billing.yearlyProduct != ""
 }
 
 func (a *App) hasPaidAccess(account Account, now time.Time) bool {
@@ -92,7 +93,7 @@ func (a *App) hasPaidAccess(account Account, now time.Time) bool {
 	if !a.billingAvailable() || account.Email == "" || b.CustomerID == "" || b.VerifiedAt.IsZero() || now.Before(b.VerifiedAt) || now.Sub(b.VerifiedAt) > billingVerificationLifetime {
 		return false
 	}
-	return b.Plan == "lifetime" && b.LifetimeOrderID != "" || b.Plan == "monthly" && b.SubscriptionID != "" && now.Before(b.PaidUntil)
+	return b.Plan == "lifetime" && b.LifetimeOrderID != "" || (b.Plan == "monthly" || b.Plan == "yearly") && b.SubscriptionID != "" && now.Before(b.PaidUntil)
 }
 
 type creemHTTPError struct{ status int }
@@ -161,10 +162,10 @@ func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (
 }
 
 func billingSnapshotFresh(state BillingState, now time.Time) bool {
-	// At renewal, a previously verified monthly snapshot cannot prove access
+	// At renewal, a previously verified subscription snapshot cannot prove access
 	// to the new period. Reconcile immediately even if its cache is only seconds
 	// old, rather than briefly showing a wall to an already-renewed customer.
-	return !(state.Plan == "monthly" && !now.Before(state.PaidUntil)) && !state.VerifiedAt.IsZero() && now.Sub(state.VerifiedAt) >= 0 && now.Sub(state.VerifiedAt) < billingRefreshInterval
+	return !((state.Plan == "monthly" || state.Plan == "yearly") && !now.Before(state.PaidUntil)) && !state.VerifiedAt.IsZero() && now.Sub(state.VerifiedAt) >= 0 && now.Sub(state.VerifiedAt) < billingRefreshInterval
 }
 
 func (a *App) billingAccount(w http.ResponseWriter, r *http.Request) (Account, bool) {
@@ -213,8 +214,10 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 	product := a.billing.monthlyProduct
 	if input.Plan == "lifetime" {
 		product = a.billing.lifetimeProduct
+	} else if input.Plan == "yearly" {
+		product = a.billing.yearlyProduct
 	} else if input.Plan != "monthly" {
-		writeError(w, 400, "choose monthly or lifetime")
+		writeError(w, 400, "choose monthly, yearly or lifetime")
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)

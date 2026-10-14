@@ -19,6 +19,7 @@ var contentFixture struct {
 	bundle          *contentstore.Bundle
 	curricula       map[string]Curriculum
 	lexemeSentences map[string][]string
+	stationRooms    map[string][]stationRoom
 	err             error
 }
 
@@ -44,6 +45,7 @@ func contentTestApp(t *testing.T) *App {
 		}
 		contentFixture.curricula = cached.courseCurricula
 		contentFixture.lexemeSentences = cached.lexemeSentences
+		contentFixture.stationRooms = cached.stationRooms
 	})
 	if contentFixture.err != nil {
 		t.Fatal(contentFixture.err)
@@ -57,6 +59,7 @@ func contentTestApp(t *testing.T) *App {
 	app.content = contentFixture.bundle
 	app.courseCurricula = contentFixture.curricula
 	app.lexemeSentences = contentFixture.lexemeSentences
+	app.stationRooms = contentFixture.stationRooms
 	app.canonical, err = newCanonicalStore(store, app.content)
 	if err != nil {
 		t.Fatal(err)

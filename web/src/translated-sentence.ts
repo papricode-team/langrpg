@@ -17,6 +17,7 @@ export interface SentenceWord {
 }
 export interface AuthoredSentence {
   id?: string;
+  audioRequires?: boolean;
   text: string;
   target: string;
   translations: Record<string, { text: string; words: SentenceAlignment[] } | undefined>;
