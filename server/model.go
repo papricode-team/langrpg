@@ -149,6 +149,8 @@ type Progress struct {
 }
 
 type Account struct {
+	Access                PlayAccess           `json:"access,omitempty"`
+	Billing               BillingState         `json:"billing,omitempty"`
 	Email                 string               `json:"email,omitempty"`
 	PasswordHash          string               `json:"passwordHash,omitempty"`
 	Player                Player               `json:"player"`

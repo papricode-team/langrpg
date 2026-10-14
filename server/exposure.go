@@ -132,7 +132,7 @@ func (a *App) exposure(w http.ResponseWriter, r *http.Request) {
 	key := "exposure:" + hex.EncodeToString(digest[:])
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
 		now := a.now().UTC()
 		migrateContextExposures(&account.Progress, a.curriculum, now)
 		recordExposures(&account.Progress, words, now)

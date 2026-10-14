@@ -6,6 +6,7 @@ import {getWorldScene} from './scene-data';
 import sceneVersion from './data/world-scene-version.json';
 import type { StoryState, StoryStage } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
+import type { BillingPlan, GameAccess } from './game-access';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
 export type CourseLevel = 'A1' | 'A2' | 'B1';
@@ -61,10 +62,10 @@ export interface ActivityCompletionResult extends CompletionResult { reason: str
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
 export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced' | 'incompatible';
-export interface AccountStatus { registered: boolean; email: string; }
+export interface AccountStatus { registered: boolean; email: string; access?: GameAccess; }
 /** Account-wide settings that follow the player across devices. */
 export interface Preferences { baseLanguage: BaseLanguage; }
-export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; }
+export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; }
 export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
 /** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {
@@ -113,6 +114,8 @@ export class Api {
   private worldReady = false;
   private incompatible = false;
   private chatTimes: number[] = [];
+  private requestSequence = 0;
+  private publishedAccessSequence = 0;
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
@@ -120,16 +123,22 @@ export class Api {
   onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
+  onAccess?: (access: GameAccess) => void;
   selfId = '';
 
   async request<T>(path: string, body?: unknown): Promise<T> {
+    const token = this.token, sequence = ++this.requestSequence;
     const response = await fetch(`/api${path}`, {
       method: body === undefined ? 'GET' : 'POST',
-      headers: { 'Content-Type': 'application/json', ...(this.token ? { Authorization: `Bearer ${this.token}` } : {}) },
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       body: body === undefined ? undefined : JSON.stringify(body),
       signal: AbortSignal.timeout(12000),
     });
     const value = await response.json().catch(() => ({}));
+    if (value.access && token === this.token && sequence >= this.publishedAccessSequence) {
+      this.publishedAccessSequence = sequence;
+      this.onAccess?.(value.access);
+    }
     if (!response.ok) throw new ApiError(value.error ?? `Request failed (${response.status})`, response.status);
     return value as T;
   }
@@ -168,6 +177,15 @@ export class Api {
   register(email: string, password: string) {
     return this.request<AccountStatus>('/account/register', { email, password });
   }
+  access() { return this.request<{ access: GameAccess }>('/access'); }
+  accessHeartbeat(active: boolean) { return this.request<{ access: GameAccess }>('/access/heartbeat', { active }); }
+  async resetGuest(): Promise<SessionResult> {
+    const result = await this.request<SessionResult>('/access/reset', {});
+    return this.rememberSession(result);
+  }
+  checkout(plan: BillingPlan) { return this.request<{ url: string }>('/billing/checkout', { plan }); }
+  billingPortal() { return this.request<{ url: string }>('/billing/portal', {}); }
+  syncBilling() { return this.request<{ access: GameAccess }>('/billing/sync', {}); }
   async login(email: string, password: string): Promise<SessionResult> {
     const result = await this.request<SessionResult>('/account/login', { email, password });
     this.destroy();
@@ -214,6 +232,7 @@ export class Api {
       if (this.stopped || this.socket !== ws) return;
       try {
         const value = JSON.parse(event.data);
+        if (value.type === 'access' && value.access) { this.onAccess?.(value.access); return; }
         if (!this.worldReady && value.type !== 'welcome' && value.type !== 'error') return;
         const clock = parseSharedWorldTime(value.clock);
         const publishClock = () => { if (clock) this.onClock?.(clock); };
@@ -266,6 +285,12 @@ export class Api {
       this.pendingMap = undefined;
       this.pendingInterior = undefined;
       if (this.incompatible) return;
+      if (!this.stopped && event.code === 4002) {
+        this.stopped = true;
+        this.onStatus?.('offline');
+        void this.access().catch(() => {});
+        return;
+      }
       if (!this.stopped && event.code === 4001) {
         this.stopped = true;
         this.onStatus?.('replaced');

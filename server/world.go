@@ -19,6 +19,7 @@ const DefaultMapID = "lindenhafen"
 
 // A replaced tab must not reconnect and evict the tab that took over.
 const sessionReplacedStatus websocket.StatusCode = 4001
+const accessRequiredStatus websocket.StatusCode = 4002
 
 var mapIDs = worldMapIDs(compiledWorldMaps)
 
@@ -32,6 +33,7 @@ var mapSpawns = worldMapSpawns(compiledWorldMaps)
 func validMapID(id string) bool { _, ok := mapSpawns[id]; return ok }
 
 type worldMemory struct {
+	accessGeneration int64
 	mapID            string
 	interiorID       string
 	interiorPosition MapSpawn
@@ -159,7 +161,7 @@ func (w *World) clientError(client *worldClient, message string) {
 	w.enqueueLocked(client, b)
 }
 
-func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player, progress Progress, authorize func(context.Context, string) error) {
+func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player, progress Progress, generation int64, authorize func(context.Context, string) error, accessGuard func(context.Context, bool) (AccessStatus, error), stopped func()) {
 	// App checks exact scheme/origin; the library repeats origin verification.
 	conn, err := websocket.Accept(rw, r, &websocket.AcceptOptions{OriginPatterns: w.originPatterns, CompressionMode: websocket.CompressionDisabled})
 	if err != nil {
@@ -175,6 +177,10 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	w.pruneMemoriesLocked(now)
 	previous := w.clients[player.ID]
 	memory := w.memories[player.ID]
+	if memory != nil && memory.accessGeneration != generation {
+		delete(w.memories, player.ID)
+		memory = nil
+	}
 	mapID := r.URL.Query().Get("mapId")
 	if mapID == "" {
 		mapID = DefaultMapID
@@ -197,7 +203,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	}
 	changingMap := memory != nil && memory.mapID != mapID
 	if memory == nil {
-		memory = &worldMemory{mapID: mapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: worldMoveInitialCredit}
+		memory = &worldMemory{accessGeneration: generation, mapID: mapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: worldMoveInitialCredit}
 		w.memories[player.ID] = memory
 	} else if memory.mapID != mapID && !memory.allowJoin(now) {
 		w.mu.Unlock()
@@ -245,6 +251,9 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			w.broadcastPlayersLocked(client.player.MapID)
 		}
 		w.mu.Unlock()
+		if stopped != nil {
+			stopped()
+		}
 	}()
 	writerDone := make(chan struct{})
 	go func() {
@@ -252,6 +261,8 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		defer cancel()
 		ping := time.NewTicker(25 * time.Second)
 		defer ping.Stop()
+		accessTick := time.NewTicker(5 * time.Second)
+		defer accessTick.Stop()
 		for {
 			select {
 			case <-ctx.Done():
@@ -270,6 +281,22 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 				if err != nil {
 					return
 				}
+			case <-accessTick.C:
+				if accessGuard != nil {
+					guardCtx, done := context.WithTimeout(ctx, 3*time.Second)
+					status, err := accessGuard(guardCtx, true)
+					done()
+					if err != nil || accessBlocked(status) {
+						if err == nil {
+							b, _ := json.Marshal(map[string]any{"type": "access", "access": status})
+							writeCtx, finish := context.WithTimeout(ctx, time.Second)
+							_ = conn.Write(writeCtx, websocket.MessageText, b)
+							finish()
+						}
+						_ = conn.Close(accessRequiredStatus, status.Phase)
+						return
+					}
+				}
 			}
 		}
 	}()
@@ -281,6 +308,19 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		if kind != websocket.MessageText {
 			w.clientError(client, "only JSON text messages are supported")
 			continue
+		}
+		if accessGuard != nil {
+			guardCtx, done := context.WithTimeout(ctx, 3*time.Second)
+			status, guardErr := accessGuard(guardCtx, false)
+			done()
+			if guardErr != nil || accessBlocked(status) {
+				b, _ := json.Marshal(map[string]any{"type": "access", "access": status})
+				w.mu.Lock()
+				w.enqueueLocked(client, b)
+				w.mu.Unlock()
+				_ = conn.Close(accessRequiredStatus, status.Phase)
+				break
+			}
 		}
 		now := time.Now()
 		if now.Sub(client.messageWindow) > time.Second {
@@ -604,11 +644,52 @@ func (w *World) Close() {
 
 func (w *World) RevokeSession(hash string) {
 	w.mu.Lock()
-	defer w.mu.Unlock()
-	for _, client := range w.clients {
+	var revoked []*worldClient
+	for id, client := range w.clients {
 		if client.sessionHash == hash {
+			if client.memory != nil {
+				client.memory.lastSeen = time.Now()
+			}
+			delete(w.clients, id)
+			revoked = append(revoked, client)
+			w.broadcastPlayersLocked(client.player.MapID)
+		}
+	}
+	w.mu.Unlock()
+	for _, client := range revoked {
+		if client.cancel != nil {
 			client.cancel()
+		}
+		if client.conn != nil {
 			_ = client.conn.CloseNow()
+		}
+	}
+}
+
+func (w *World) IsSessionConnected(playerID, sessionHash string) bool {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	client := w.clients[playerID]
+	return client != nil && client.sessionHash == sessionHash
+}
+
+// A restart withdraws every transient location, including remembered interior
+// positions, and disconnects old tabs before they can move the reset character.
+func (w *World) ResetPlayer(playerID string) {
+	w.mu.Lock()
+	client := w.clients[playerID]
+	delete(w.memories, playerID)
+	if client != nil {
+		delete(w.clients, playerID)
+		w.broadcastPlayersLocked(client.player.MapID)
+	}
+	w.mu.Unlock()
+	if client != nil {
+		if client.conn != nil {
+			_ = client.conn.CloseNow()
+		}
+		if client.cancel != nil {
+			client.cancel()
 		}
 	}
 }

@@ -88,6 +88,15 @@ func settleWords(t *testing.T, app *App, token string) {
 func TestNewAdventureReceivesTheOpeningWordsThenTenPerHour(t *testing.T) {
 	app, clock := pacedStoryTestApp(t)
 	token, _ := createSession(t, app, "Ada")
+	// This vocabulary pacing check runs for an hour, beyond the free trial.
+	app.billing = &CreemBilling{accessToken: "test", monthlyProduct: "monthly", lifetimeProduct: "lifetime"}
+	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
+		account.Email = "vocabulary@example.com"
+		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
 	s := app.curriculum.Syllabus
 	first := beat(t, app, token, "sync", 0)
 	if len(first.Introduced) != s.OpeningWords || len(first.Progress.Intake.WordIDs) != s.OpeningWords {

@@ -52,6 +52,12 @@ func sessionResponse(token string, account Account) map[string]any {
 	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email}, "preferences": normalizedPreferences(account.Preferences)}
 }
 
+func (a *App) sessionResponse(token string, account Account) map[string]any {
+	response := sessionResponse(token, account)
+	response["access"] = a.accessState(account, a.now().UTC())
+	return response
+}
+
 type credentialInput struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -84,7 +90,9 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
 	// Check authentication before doing expensive password work.
-	if _, err = a.store.Get(ctx, hash); err != nil {
+	// Settle the anonymous allowance before changing the account's limit. A
+	// delayed signup cannot charge time spent waiting at the login wall.
+	if _, err = a.touchAccess(ctx, hash, nil); err != nil {
 		apiFailure(w, err)
 		return
 	}
@@ -103,7 +111,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if linked.Email == email && verifyPassword(input.Password, linked.PasswordHash) {
-				writeJSON(w, 200, map[string]any{"registered": true, "email": email})
+				writeJSON(w, 200, map[string]any{"registered": true, "email": email, "access": a.accessState(linked, a.now().UTC())})
 				return
 			}
 			writeError(w, 409, "this account is already linked or the email is already in use")
@@ -112,7 +120,12 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 200, map[string]any{"registered": true, "email": email})
+	linked, err := a.touchAccess(ctx, hash, nil)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	writeJSON(w, 200, map[string]any{"registered": true, "email": email, "access": a.accessState(linked, a.now().UTC())})
 }
 
 func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
@@ -169,7 +182,12 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 200, sessionResponse(token, account))
+	account, err = a.touchAccess(ctx, tokenHash(token), nil)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	writeJSON(w, 200, a.sessionResponse(token, account))
 }
 
 func (a *App) logoutAccount(w http.ResponseWriter, r *http.Request) {
@@ -180,10 +198,15 @@ func (a *App) logoutAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
+	a.world.RevokeSession(hash)
+	playing := false
+	if _, err = a.touchAccess(ctx, hash, &playing); err != nil && !errors.Is(err, ErrUnauthorized) {
+		apiFailure(w, err)
+		return
+	}
 	if err = a.store.DeleteSession(ctx, hash); err != nil {
 		apiFailure(w, err)
 		return
 	}
-	a.world.RevokeSession(hash)
 	writeJSON(w, 200, map[string]bool{"loggedOut": true})
 }
