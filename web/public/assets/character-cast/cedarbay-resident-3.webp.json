@@ -33,13 +33,16 @@
       "top.secondary": "#86b7b2"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#89613f\",\"#948976\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"round\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#5a4731\"],[\"eyewear.primary\",\"#9b9684\"],[\"footwear.primary\",\"#4a3d2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#86b7b2\"],[\"top.secondary\",\"#86b7b2\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#89613f\",\"#948976\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"round\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#5a4731\"],[\"eyewear.primary\",\"#9b9684\"],[\"footwear.primary\",\"#4a3d2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#86b7b2\"],[\"top.secondary\",\"#86b7b2\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "39257edcb30f92e91d34ad4670df3309632d20be364c0b2c4f4c9a2275d2926a"
+  "sha256": "3dd891ac8130181982b54eb03824a25f4bcbb80c6e4627acf966c36a05202111",
+  "atlasSha256": "212ff51862ef0d1a5e88803d0dbcf89cbda0b7f2ef83d941bbaa20d1409191db",
+  "textureBytes": 14625636,
+  "atlas": "web/public/assets/character-cast/cedarbay-resident-3.atlas.json"
 }

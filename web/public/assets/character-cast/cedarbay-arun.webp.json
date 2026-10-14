@@ -33,13 +33,16 @@
       "top.secondary": "#a4563e"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b2845b\",\"#30241b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9d4a38\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#68472c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4563e\"],[\"top.secondary\",\"#a4563e\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b2845b\",\"#30241b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9d4a38\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#68472c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4563e\"],[\"top.secondary\",\"#a4563e\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "6607f3c72061c13ea19e15a66dca05ebf0fcef7a177497d5257ddd7510547988"
+  "sha256": "446ad6bc25e2975bb8a0564f28ae3521b30c9ba36d6c904c6fe600b6b79f5547",
+  "atlasSha256": "2b8e1e281d7a0881a1d9121edffe69259c1d8f96eed937afbe5fc837a44a6936",
+  "textureBytes": 14694900,
+  "atlas": "web/public/assets/character-cast/cedarbay-arun.atlas.json"
 }

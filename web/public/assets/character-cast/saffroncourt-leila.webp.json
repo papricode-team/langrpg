@@ -33,13 +33,16 @@
       "top.secondary": "#e8dfca"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#865537\",\"#30241f\",[[\"bag\",\"satchel\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#e4d9bf\"],[\"bottom.primary\",\"#2c2e31\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ddd8c9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#932e39\"],[\"outer.secondary\",\"#932e39\"],[\"top.primary\",\"#e8dfca\"],[\"top.secondary\",\"#e8dfca\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#865537\",\"#30241f\",[[\"bag\",\"satchel\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#e4d9bf\"],[\"bottom.primary\",\"#2c2e31\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ddd8c9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#932e39\"],[\"outer.secondary\",\"#932e39\"],[\"top.primary\",\"#e8dfca\"],[\"top.secondary\",\"#e8dfca\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4195b65e7f964e11189cd966659804e73a2254d79a69b920b9116c150c204f95"
+  "sha256": "e2ee2074f8ec9a9f4255eca3db2381de28c82bacc62e8be22f4ae57cbddfcd89",
+  "atlasSha256": "aad20d5d08e7d9a8accbc6d80913df15a7a4871e54532bc54c2655e928a037b1",
+  "textureBytes": 14654612,
+  "atlas": "web/public/assets/character-cast/saffroncourt-leila.atlas.json"
 }

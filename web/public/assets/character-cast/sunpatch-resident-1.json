@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/sunpatch-resident-1.json",
   "recipeSha256": "f75f78a6e19b06699ef471290a1b253e226222c86730a483b30fca7fcde3c418",
   "atlas": "web/public/assets/character-cast/sunpatch-resident-1.webp",
-  "atlasSha256": "ea623771e08db47bdc41e7dd35f81d2fb4f52fee274b2c6f0de230bc16021e60",
+  "atlasSha256": "fb0b85d936331b3e95a4a5ee432d9e162caf6c22fc45fe8c545e30b274c3674d",
+  "geometry": "web/public/assets/character-cast/sunpatch-resident-1.atlas.json",
+  "geometrySha256": "ec7ba7f5f4eed9d25889cf57c2519818ecd78a49ede6ed04bd61bfa01caac776",
+  "textureBytes": 14691280,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/sunpatch-resident-1.png",
-  "proofSha256": "c4dcc438d9eea7312755ebaf379d761afd31d173323a258bf89b4d5b3ddacbff",
-  "editorSha256": "92362b3c0e216712a16611476d01fa2175ee217b4cdb4e1531cb52e45bf8210c",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "47484ead046fa4f2b161e25cee695b934cf79df288f589864f5ffd5feb659891",
+  "editorSha256": "a5f6845cbd3808d4ee7ecc374dba8cff448b225b325f762a387e7aa3ab215f1b",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "597961201c9d463b6b81f3135311eb67c6718de776559c64d8c4dc2df6c4b1c0"
+  },
+  "sourceComponentsSha256": "597961201c9d463b6b81f3135311eb67c6718de776559c64d8c4dc2df6c4b1c0"
 }

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getMap, type MapId } from './maps';
 import { regionAssets, regionPeopleFrames, regionPeopleKey, WorldMapAssets } from './world-map-assets';
-import {castActorsForMap,castAssetUrl,castAssets} from './character-cast';
+import {castActorsForMap,castAssetUrl,castAtlasUrl,castAssets} from './character-cast';
 
 function fixture() {
   const textures = new Set<string>();
@@ -12,6 +12,7 @@ function fixture() {
   const loader = {
     image: vi.fn((key: string) => { queued.push(key); }),
     atlas: vi.fn((key: string) => { queued.push(key); }),
+    multiatlas: vi.fn((key: string) => { queued.push(key); }),
     spritesheet: vi.fn((key:string)=>{queued.push(key);}),
     once: vi.fn((_event: string, callback: () => void) => { listeners.push(callback); }),
     start: vi.fn(() => { loading = true; }),
@@ -39,18 +40,22 @@ describe('destination asset streaming', () => {
     const first = vi.fn(), second = vi.fn();
     mock.assets.load(map, first); mock.assets.load(map, second);
     expect(mock.loader.image).toHaveBeenCalledTimes(1);
-    expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas).length);
+    expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas&&!asset.multiAtlas).length);
+    expect(mock.loader.multiatlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.multiAtlas).length);
     expect(mock.loader.start).toHaveBeenCalledTimes(1);
     expect(first).not.toHaveBeenCalled();
     mock.complete();
     expect(first).toHaveBeenCalledTimes(1); expect(second).toHaveBeenCalledTimes(1);
     const cached = vi.fn(); mock.assets.load(map, cached);
-    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas).length);
+    expect(cached).toHaveBeenCalledOnce(); expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas&&!asset.multiAtlas).length);
   });
   it.each(['lindenhafen','waldruh','nebelstadt','saffroncourt','rainmarket','windplain','riverweave','terracielo','sunpatch','kigalights','cedarbay','seoulsteps','dunegarden'] as MapId[])('loads and releases %s cast bakes without releasing the shared main cast',(mapId)=>{
     const mock=fixture(),map=getMap(mapId),shared=castActorsForMap(null)[0];
     mock.textures.add(shared.key);mock.assets.load(map);
-    for(const actor of castActorsForMap(map.id))for(const asset of castAssets(actor))expect(mock.loader.spritesheet).toHaveBeenCalledWith(asset.key,castAssetUrl(asset),{frameWidth:64,frameHeight:96});
+    for(const actor of castActorsForMap(map.id))for(const asset of castAssets(actor)){
+      if(asset.multiAtlas)expect(mock.loader.multiatlas).toHaveBeenCalledWith(asset.key,castAtlasUrl(asset),'/assets/character-cast/');
+      else expect(mock.loader.atlas).toHaveBeenCalledWith(asset.key,castAssetUrl(asset),castAtlasUrl(asset));
+    }
     mock.complete();expect(mock.assets.release(map)).toBe(true);
     expect([...mock.textures]).toEqual([shared.key]);
   });

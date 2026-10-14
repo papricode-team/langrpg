@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/waldruh-supply-keeper.json",
   "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
   "atlas": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.webp",
-  "atlasSha256": "044bc78adf6a21fbfcd235e7886983cd3f08740fa0f7bbe3c7bbe62d1d9c6096",
+  "atlasSha256": "9056853af9434d551e961098853399814e99262d15e60db997fffb288d833ad6",
+  "geometry": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json",
+  "geometrySha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
+  "textureBytes": 10811136,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/poses/wave/waldruh-supply-keeper.png",
-  "proofSha256": "0f8569f17aff758299a45968c63a46a9d727872e2016763df17023a169029f2e",
-  "editorSha256": "af1ea0666c922ad2faa3b14cd59dc4e9b7acf06c39d111efd3c6370a7e7251cb",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "41613ef9fcf9a51ba0283abdc86bc514eb7ae47495ab28e92312b95a3060b518",
+  "editorSha256": "8e38d6506a27d21abd8959b10ff117284cf219173feb680806d5bd12a8659cae",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "d8bf3d493b2810ed822d695d1599795973e68f2df6ef8c6d2fdf5ccf1c5e9bbb"
+  },
+  "sourceComponentsSha256": "d8bf3d493b2810ed822d695d1599795973e68f2df6ef8c6d2fdf5ccf1c5e9bbb"
 }

@@ -613,7 +613,7 @@ export class WorldScene extends ExploreScene {
           {moving:sample.moving,distance:sample.walkDistance,velocityX:sample.velocityX,velocityY:sample.velocityY,facingLeft:sample.facingLeft});
       }
       const pose=!componentPose&&resident.actionFigure?residentActionPose(sample,this.reducedMotion):undefined;
-      for(const layer of character.layers)layer.setVisible(!pose);
+      for(const layer of character.layers)layer.setVisible(!pose && (character.componentCast || !!character.avatarLease));
       resident.actionFigure?.setVisible(!!pose);
       const seatedOffset=pose||componentPose&&poseSet==='seated'?residentSeatedOffset(sample,this.reducedMotion):0;
       if(componentPose)character.figure!.setPosition(0,seatedOffset);

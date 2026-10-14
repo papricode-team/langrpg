@@ -51,7 +51,47 @@ identity, every pose, attachment, material tinting, alpha edges, loading, memory
 stale async results and persistence. No approval is granted by file dimensions
 alone: enlarged pose guides are explicitly unpublishable.
 
-## Current work
+## Current publication, 2026-10-14
+
+The complete 128-component wardrobe now supplies native detail for all three
+builds, walking, supported actions and expressions. Outdoor frames are 384×576;
+the editor and indoor player use 512×768 frames. Indoor player atlases pack the
+36 logical frames into eight columns and five rows, keeping GPU dimensions at
+4096×3840. Separate texture keys and geometry retain the same world size and gait.
+
+All 192 story, regional and resident identities have recipes in the NPC cast.
+Their offline bakes use the same detailed components, with transparent space
+trimmed and original frame anchors retained. The nine shared story identities
+also have native 512×768 indoor variants, loaded with the room and released on
+departure. Oversized downloads split into atlas pages while retaining all source
+pixels. Activity paintings supply 48 native 384×576 frames with 376 painted body
+pixels; export scales never exceed one. Almost-transparent chroma contamination
+is removed without changing painted pixels or antialiasing.
+
+Missing NPC atlas downloads fall back to the exact recipe's native component
+bake. The figure stays hidden until ready; retries, current facing, room scale,
+period tint and lease release are covered by scene tests. Game character loading
+no longer selects the prototype NPC sheets.
+
+Use `character-kit.mjs build-catalogue --catalogue
+art/source/character-kit/hd/catalogue.json` for component publication, then
+`refresh-character-cast.mjs` to rebind verified unchanged inputs and rebake changed
+recipes. New pixel proofs require visual review before `character-cast.mjs build`.
+`character-cast-review.mjs` retains cast contact boards beside the native full
+animation proofs. The review fixtures are `web/qa/player-sprites.html`,
+`web/qa/character-cast.html` and the actual world/interior fixture.
+
+`web/qa/world-assets.html?test=clear-land&density=2` exercises the real Phaser
+canvas at Retina density. The inn conversation control checks the closer camera;
+native framebuffer PNGs and phone/desktop screenshots are retained under
+`art/proofs/character-cast/in-game-*`. All 242 packaged NPC texture pages are
+byte-identical to their reviewed exports in the production build.
+
+The character distribution allowance is 640 MiB for the complete wardrobe and
+cast, with the existing 2 MiB maximum individual download. Source paintings and
+native proofs remain in Git LFS; game images retain native detail.
+
+## Earlier portrait correction (historical, superseded by current publication)
 
 Player portrait correction completed 2026-10-13. All 100 customizable entries
 and two expressions are covered by the dedicated 256px portrait manifest: 80

@@ -33,13 +33,31 @@
       "top.secondary": "#86b2c8"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c39971\",\"#302822\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bob\"],[\"headwear\",\"sunhat\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#394b61\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#714b30\"],[\"headwear.primary\",\"#cbb58b\"],[\"headwear.secondary\",\"#cbb58b\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#86b2c8\"],[\"top.secondary\",\"#86b2c8\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c39971\",\"#302822\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bob\"],[\"headwear\",\"sunhat\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#394b61\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#714b30\"],[\"headwear.primary\",\"#cbb58b\"],[\"headwear.secondary\",\"#cbb58b\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#86b2c8\"],[\"top.secondary\",\"#86b2c8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "c0cc95a2736b1b1ec48503de1ca6f7e6d5a85045725c716d7bd6aafa8ad7c55a"
+  "sha256": "57711beddfe46757aac9a9c1815b59b8f8c8296c04fd68e09eca140b39683d9b",
+  "atlasSha256": "8eb6635f0fb01427c1fb674c1a9855cfe2e1ebad23ae873af4fefdfb6e9c7d65",
+  "textureBytes": 14465964,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-linh.webp",
+      "sha256": "57711beddfe46757aac9a9c1815b59b8f8c8296c04fd68e09eca140b39683d9b",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-linh.1.webp",
+      "sha256": "6b9346937b35ed6af92590ababc0932e7858e29725803bfe1e33c5efde751a3b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/riverweave-linh.atlas.json"
 }

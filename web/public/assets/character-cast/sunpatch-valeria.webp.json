@@ -33,13 +33,16 @@
       "top.secondary": "#e3dccb"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#cea57f\",\"#2c2520\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#344f71\"],[\"bottom.primary\",\"#34465f\"],[\"eyewear.primary\",\"#b05c52\"],[\"footwear.primary\",\"#42526b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b4a0c4\"],[\"outer.secondary\",\"#b4a0c4\"],[\"top.primary\",\"#e3dccb\"],[\"top.secondary\",\"#e3dccb\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#cea57f\",\"#2c2520\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#344f71\"],[\"bottom.primary\",\"#34465f\"],[\"eyewear.primary\",\"#b05c52\"],[\"footwear.primary\",\"#42526b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b4a0c4\"],[\"outer.secondary\",\"#b4a0c4\"],[\"top.primary\",\"#e3dccb\"],[\"top.secondary\",\"#e3dccb\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4d92d2f3248f74829894c1f6be59c5845147ec5023502e85de3e3a789ac4e211"
+  "sha256": "f557d2935bc8cb38a0c73c937fb2a181805e188f8f8946209f63b44103de60ba",
+  "atlasSha256": "e5b0199cfa60fbf3e48bc9d54628275791f54a57625382b526c30a2f43ecc29d",
+  "textureBytes": 14311440,
+  "atlas": "web/public/assets/character-cast/sunpatch-valeria.atlas.json"
 }

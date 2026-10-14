@@ -33,13 +33,15 @@
       "top.secondary": "#89a8b7"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b58e61\",\"#b5ad97\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#805c37\"],[\"bottom.primary\",\"#773e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76583b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3d5b41\"],[\"outer.secondary\",\"#3d5b41\"],[\"top.primary\",\"#89a8b7\"],[\"top.secondary\",\"#89a8b7\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b58e61\",\"#b5ad97\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#805c37\"],[\"bottom.primary\",\"#773e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76583b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3d5b41\"],[\"outer.secondary\",\"#3d5b41\"],[\"top.primary\",\"#89a8b7\"],[\"top.secondary\",\"#89a8b7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "59aa6bce34cf96f478b02e32e4fd96054b6491db5bb5b6878c0595420846d46d"
+  "sha256": "75b13c841f903a6fa91bd9e88e4feb1a0afb8a670d1a8d506037fdf0e2ce59bc",
+  "atlas": "web/public/assets/character-cast/terracielo-tomas.atlas.json",
+  "textureBytes": 14490960
 }

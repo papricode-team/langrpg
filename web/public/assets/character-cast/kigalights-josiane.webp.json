@@ -33,13 +33,15 @@
       "top.secondary": "#8c669a"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#6e4a33\",\"#8e8676\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"afro\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#b6a57d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#78573a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#8c669a\"],[\"top.secondary\",\"#8c669a\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#6e4a33\",\"#8e8676\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"afro\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#b6a57d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#78573a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#8c669a\"],[\"top.secondary\",\"#8c669a\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "46905fcc3daba1028dc363ae1ae4173cecae575bb9b8fc4b0c021d2262b9ca73"
+  "sha256": "713036bd7ac6b823e98a4349d262bf61e95c9e51703f803d48a66c8790c7a4d3",
+  "atlas": "web/public/assets/character-cast/kigalights-josiane.atlas.json",
+  "textureBytes": 14839836
 }

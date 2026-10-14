@@ -33,13 +33,15 @@
       "top.secondary": "#e9dfc4"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#775037\",\"#292018\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34362f\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d5cbb1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d0a436\"],[\"outer.secondary\",\"#d0a436\"],[\"top.primary\",\"#e9dfc4\"],[\"top.secondary\",\"#e9dfc4\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#775037\",\"#292018\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34362f\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d5cbb1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d0a436\"],[\"outer.secondary\",\"#d0a436\"],[\"top.primary\",\"#e9dfc4\"],[\"top.secondary\",\"#e9dfc4\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "87b82403576330af531e3fad59aa889636f4985483d4bec893f36746da7bf672"
+  "sha256": "52e5614e4a5273c274ecf820d79d06c3456fbdda61770c814e5e1c2a512e2202",
+  "atlas": "web/public/assets/character-cast/kigalights-grace.atlas.json",
+  "textureBytes": 14698464
 }

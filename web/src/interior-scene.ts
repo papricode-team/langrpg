@@ -7,6 +7,7 @@ import { WorldInterior } from './world-interior';
 import { worldDepth } from './world-depth';
 import type { SceneryAnimationManifest } from './scenery-animation';
 import { worldAssetUrl } from './world-asset-url';
+import {castActor,castAssetUrl,castAtlasUrl} from './character-cast';
 import { ExploreScene, type Character, type WorldObject } from './explore-scene';
 import { emitWorld, readWorld, SceneKeys, WorldEvents, writeWorld, type WorldPlayer } from './world-state';
 import type { WorldScene } from './world-scene';
@@ -55,6 +56,15 @@ export class InteriorScene extends ExploreScene {
   preload(): void {
     this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => emitWorld(this.game, WorldEvents.LoadProgress, value, this.spec.name));
     loadInteriorAssets(this.load, this.spec);
+    const nativeKeys:string[]=[];
+    for(const person of this.spec.npcs){
+      const native=castActor(person.id)?.native;
+      if(native){nativeKeys.push(native.key);if(!this.textures.exists(native.key)){
+        if(native.multiAtlas)this.load.multiatlas(native.key,castAtlasUrl(native),'/assets/character-cast/');
+        else this.load.atlas(native.key,castAssetUrl(native),castAtlasUrl(native));
+      }}
+    }
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{for(const key of nativeKeys)if(this.textures.exists(key))this.textures.remove(key);});
   }
 
   create(): void {

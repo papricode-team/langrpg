@@ -33,13 +33,16 @@
       "top.secondary": "#3a9094"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#aa7b52\",\"#342a21\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#b96b7d\"],[\"bottom.primary\",\"#3d3d43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#b4915d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3a9094\"],[\"top.secondary\",\"#3a9094\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#aa7b52\",\"#342a21\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#b96b7d\"],[\"bottom.primary\",\"#3d3d43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#b4915d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3a9094\"],[\"top.secondary\",\"#3a9094\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "b56e22e02a29e229dd277b71be623548b4ba2d23d507a52a56e4ad404b67031c"
+  "sha256": "dc2dfcbf606f32436ea5f806e881a44da185c4ac21b0d3aa235d6a54629f22ef",
+  "atlasSha256": "c82c828a5de6ed241f5058b24a401cc4afde77682ba54389d986407d02fa8c31",
+  "textureBytes": 15216264,
+  "atlas": "web/public/assets/character-cast/terracielo-resident-0.atlas.json"
 }

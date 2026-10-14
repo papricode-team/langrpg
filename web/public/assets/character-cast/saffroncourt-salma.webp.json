@@ -33,13 +33,16 @@
       "top.secondary": "#e1d4b9"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#bd8860\",\"#30261f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#cfbfa2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#674431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#354f6f\"],[\"outer.secondary\",\"#354f6f\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#bd8860\",\"#30261f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#cfbfa2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#674431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#354f6f\"],[\"outer.secondary\",\"#354f6f\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "6c888e3eea313188464db03999298630b4539bdb7329a84cad832da61fd9646d"
+  "sha256": "957794b443932597301bad185a8d7cc16b9848859a9ca4d9e391e9080ddca14d",
+  "atlasSha256": "6b2d92b11815e01a65722416344a4b6e11892bb0fa22b54c9a32f90319e20940",
+  "textureBytes": 14938064,
+  "atlas": "web/public/assets/character-cast/saffroncourt-salma.atlas.json"
 }

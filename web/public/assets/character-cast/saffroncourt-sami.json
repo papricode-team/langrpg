@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-sami.json",
   "recipeSha256": "0ef51e33be9aeae58604ee234c034a2caaef66cb9d539aafec9f7d1997bbeec0",
   "atlas": "web/public/assets/character-cast/saffroncourt-sami.webp",
-  "atlasSha256": "3620c71337afd2c31ec6aee5aa1dd6a8b113c9231d64eb38fd42ae4b5a48e3f0",
+  "atlasSha256": "5a6c57a177ba89e3f908cf7564e03a2d17fe4e373a57d80aff689fdd3f61c890",
+  "geometry": "web/public/assets/character-cast/saffroncourt-sami.atlas.json",
+  "geometrySha256": "1bfa8eda3861da74de5299def941d68b1eee490b750b425ee1cd774a8e4565bc",
+  "textureBytes": 13978440,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/saffroncourt-sami.png",
-  "proofSha256": "355226e8226e3306adfe3ae963fa97eeece588e54912c07afe7bd27345f17219",
-  "editorSha256": "a1258ca4af03c745e5fcab06eb885400478b4ff27d5f237ed60fe7dd97ac061f",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "7bc04177528676ba844dac79f07a07ed1669af57b9ec5cf8c622a24ffdd38b07",
+  "editorSha256": "2eb650c278cf7de208c3cb57ae2a60fcc97432346e48a0cc20e959325e7ac058",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "1290f603658c5740acc16e8194885a63d5ef5abee38dd81c8cb242a6157959f4"
+  },
+  "sourceComponentsSha256": "1290f603658c5740acc16e8194885a63d5ef5abee38dd81c8cb242a6157959f4"
 }

@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/kigalights-josiane.json",
   "recipeSha256": "14fcc340c75fcdc02d74537121e21664b6e4fe1f2b1b97616ee7e7ae16703215",
   "atlas": "web/public/assets/character-cast/kigalights-josiane.webp",
-  "atlasSha256": "46905fcc3daba1028dc363ae1ae4173cecae575bb9b8fc4b0c021d2262b9ca73",
+  "atlasSha256": "713036bd7ac6b823e98a4349d262bf61e95c9e51703f803d48a66c8790c7a4d3",
+  "geometry": "web/public/assets/character-cast/kigalights-josiane.atlas.json",
+  "geometrySha256": "de81ce2453f24fbc2e4118407bdf6eed6da2211b1e57d833cee4643a86ef527a",
+  "textureBytes": 14839836,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/kigalights-josiane.png",
-  "proofSha256": "2ed9639393c3c4f43c936dfeb88ccba930689eafee0fcd50d32a0cc04318dc98",
-  "editorSha256": "74f158fe838f12df0e9441d99d33d43312053907d53cf0b94fa8866219b243e8",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "bf932136504fcb07bc3e36dce213ea5dffc0cb6a485954d8092ab561ae61a785",
+  "editorSha256": "bcd2cb262ed71849c988bef760de09da50038f5f991fe7404c31bf7d0b6c17bd",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "f3528e0d56b02e3fed14b40a90036881f451412bc275301c8fd3d0d44f5bcb15"
+  },
+  "sourceComponentsSha256": "f3528e0d56b02e3fed14b40a90036881f451412bc275301c8fd3d0d44f5bcb15"
 }

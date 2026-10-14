@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/riverweave-resident-7.json",
   "recipeSha256": "15e7b6f130a2233aab9ba3d6e6c7571787caf65bc62834f94446ed0dc615e7a5",
   "atlas": "web/public/assets/character-cast/riverweave-resident-7.webp",
-  "atlasSha256": "fb7d105bf723036ed3babe289e32ad3677a2743bc8f1398e36908af075f6fde7",
+  "atlasSha256": "59e9a6f3a2843ed581195a7173fabf456e911449abf1a3fd209cce2e51d7ed76",
+  "geometry": "web/public/assets/character-cast/riverweave-resident-7.atlas.json",
+  "geometrySha256": "a1c61fbfc7c22bd5476e4ac30d1fceb3561f6526f04c0c685368b64866e0f443",
+  "textureBytes": 13714704,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/riverweave-resident-7.png",
-  "proofSha256": "5f5b407f318a3a7386ec355bde44b6add0cc79bd59283ac1352ad065709002da",
-  "editorSha256": "9bfe94c45b8819ea428e1a76183f8a3bc043ecd565d39884ff321a9ac11554ca",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "36e1f76551848d7e2fe62deff7b219e929d7b2cc5b7276c8122956463ebcc35b",
+  "editorSha256": "a6c1175f7d24edcd7925a9383b65a3bb6a2d9b0ce3d5ff341048c9651a2201a7",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "64fe4d58555bf6037de9947b33e164c2dc5b580fb4ef42db303cb04b2a9714b5"
+  },
+  "sourceComponentsSha256": "64fe4d58555bf6037de9947b33e164c2dc5b580fb4ef42db303cb04b2a9714b5"
 }

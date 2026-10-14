@@ -33,13 +33,16 @@
       "top.secondary": "#e9dfca"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b0835c\",\"#71695e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#375988\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#703a3c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#795d3d\"],[\"outer.secondary\",\"#795d3d\"],[\"top.primary\",\"#e9dfca\"],[\"top.secondary\",\"#e9dfca\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b0835c\",\"#71695e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#375988\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#703a3c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#795d3d\"],[\"outer.secondary\",\"#795d3d\"],[\"top.primary\",\"#e9dfca\"],[\"top.secondary\",\"#e9dfca\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "acac0570d76bc1b9be4ca36131692caf6262461c0fcac3059c0ad02103814acd"
+  "sha256": "a5cee22e7031982b6feea68224f56823a3d98cb934457921ea7262583e659613",
+  "atlasSha256": "57d549ce31a43b47206d4fac8f7b112a467ca324a8f11b57ad97db9e1a01f8f3",
+  "textureBytes": 14634304,
+  "atlas": "web/public/assets/character-cast/windplain-resident-6.atlas.json"
 }

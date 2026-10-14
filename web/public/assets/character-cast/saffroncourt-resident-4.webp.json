@@ -33,13 +33,16 @@
       "top.secondary": "#77604c"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#aa784e\",\"#aaa091\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#a26e2f\"],[\"footwear.primary\",\"#282a29\"],[\"headwear.primary\",\"#e6d9c2\"],[\"headwear.secondary\",\"#e6d9c2\"],[\"neck.primary\",\"#e6d9c2\"],[\"outer.primary\",\"#963e35\"],[\"outer.secondary\",\"#963e35\"],[\"top.primary\",\"#77604c\"],[\"top.secondary\",\"#77604c\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#aa784e\",\"#aaa091\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#a26e2f\"],[\"footwear.primary\",\"#282a29\"],[\"headwear.primary\",\"#e6d9c2\"],[\"headwear.secondary\",\"#e6d9c2\"],[\"neck.primary\",\"#e6d9c2\"],[\"outer.primary\",\"#963e35\"],[\"outer.secondary\",\"#963e35\"],[\"top.primary\",\"#77604c\"],[\"top.secondary\",\"#77604c\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "65c714dce95f29dd72e21ecc98381b474167722a584e9ce4bf889065ced245a4"
+  "sha256": "f156c27a2475a70f45f5656a6c85fd9766f25a5c0b7fa49f3f4311470ac65e7b",
+  "atlasSha256": "ecbc09ebda669181c478014b86b14c6857a7615663010dd21d6545b6eceb79fd",
+  "textureBytes": 14746968,
+  "atlas": "web/public/assets/character-cast/saffroncourt-resident-4.atlas.json"
 }

@@ -33,13 +33,16 @@
       "top.secondary": "#bd9638"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ddba98\",\"#29221b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#303733\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2b302b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#373c3a\"],[\"outer.secondary\",\"#373c3a\"],[\"top.primary\",\"#bd9638\"],[\"top.secondary\",\"#bd9638\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ddba98\",\"#29221b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#303733\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2b302b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#373c3a\"],[\"outer.secondary\",\"#373c3a\"],[\"top.primary\",\"#bd9638\"],[\"top.secondary\",\"#bd9638\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4a4ccfdcd28ccf8cb461a7d82bcb3872fb3b065139aa0377731ad68e9e92bb9b"
+  "sha256": "6763d6f83da1bf06df434ac57f712db85a6227b4a90d972ff9cb2264d1db8e55",
+  "atlasSha256": "130b4631b0c259e53d9389163a76126c38497f847861ba6746fb2c0b5b31dbca",
+  "textureBytes": 14651156,
+  "atlas": "web/public/assets/character-cast/seoulsteps-eun.atlas.json"
 }

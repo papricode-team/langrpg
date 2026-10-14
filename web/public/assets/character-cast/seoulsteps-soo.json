@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-soo.json",
   "recipeSha256": "3e3df688c322b000d5b8e680dd432e78c79e9784ef5663648b7635b36a6e453e",
   "atlas": "web/public/assets/character-cast/seoulsteps-soo.webp",
-  "atlasSha256": "2f5020c1dfcd7d6045c809f977c954cf110ea07c302e38be865e83be747e801d",
+  "atlasSha256": "d05ac20c0ed835e2066e611613836065e929cc76c229ea68edfaaa710d7878c4",
+  "geometry": "web/public/assets/character-cast/seoulsteps-soo.atlas.json",
+  "geometrySha256": "925337cb667b0984091854103a5fe564b7702eb3587d4bec9f827c0c0974bcee",
+  "textureBytes": 13963992,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/seoulsteps-soo.png",
-  "proofSha256": "3164b9be8d849ffbb2d61ce7adea71320688eaf89fec5ec211bba4fc5b8c6f0a",
-  "editorSha256": "222f17ccfa74a1ececd8d631897abdc7ed7e8fdc96e6d597dcefb78ae1eb246f",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "a45ec585298733e2af750aa8192b5f88d9393a25fd343c4083e9f2c65a551a12",
+  "editorSha256": "1c8dbc2cb57265241d9f7fed4d0a50c21cb3ddbb1d863764c9cfeac5090a0f32",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "99e07b1c18dd3a9e419d7465f08bcfcf0701210e38a6c7a7abeda27de698f0e1"
+  },
+  "sourceComponentsSha256": "99e07b1c18dd3a9e419d7465f08bcfcf0701210e38a6c7a7abeda27de698f0e1"
 }

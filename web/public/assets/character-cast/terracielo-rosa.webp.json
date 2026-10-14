@@ -33,13 +33,16 @@
       "top.secondary": "#9c3837"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b3865c\",\"#6f6352\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34333a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#41372c\"],[\"headwear.primary\",\"#974039\"],[\"headwear.secondary\",\"#974039\"],[\"neck.primary\",\"#ddd1b2\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9c3837\"],[\"top.secondary\",\"#9c3837\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b3865c\",\"#6f6352\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34333a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#41372c\"],[\"headwear.primary\",\"#974039\"],[\"headwear.secondary\",\"#974039\"],[\"neck.primary\",\"#ddd1b2\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9c3837\"],[\"top.secondary\",\"#9c3837\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "dbf53354bfb3c17cfa2f5c9f0678b21cea37dd459b0572e95721290c3110a70e"
+  "sha256": "9307db8e2dcc8e840967d3cca69ea16113ef0434babd5c5421e456de0b9a17c0",
+  "atlasSha256": "4d2acb45b35ea4553687d2c7fd217148aaf9a68886d38eafaab8c6579955a9af",
+  "textureBytes": 14490540,
+  "atlas": "web/public/assets/character-cast/terracielo-rosa.atlas.json"
 }

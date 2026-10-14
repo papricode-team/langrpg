@@ -3,7 +3,7 @@ import { npcs } from './content';
 import type { NavigationGrid, MapPoint } from './navigation';
 import type { WorldObjectSpec, WorldMapSpec } from './maps';
 import { NPC_ART, INTERIOR_CHARACTER_HEIGHT, characterArtScale, createContactShadow } from './character-art';
-import { characterFrame, MODULAR_ART } from './avatar-options';
+import { characterFrame, MODULAR_ART, NATIVE_MODULAR_ART } from './avatar-options';
 import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
 import { normalizeAvatar, avatarTextureKey } from './character-recipe.mjs';
 import { bakeAvatarTexture } from './avatar-baker';
@@ -11,13 +11,12 @@ import type { TextureLease } from './avatar-texture-cache';
 import { castActor, CAST_ART } from './character-cast';
 import { residentWalkFrame } from './resident-animation';
 import { worldDepth } from './world-depth';
-import { regionPeopleKey, regionPeopleFrames } from './world-map-assets';
 import { getExpeditionNpc } from './expeditions';
 import { explorationZoom, conversationZoom, CameraRig } from './world-camera';
 import type { WorldAudio } from './world-audio';
 import { gamepadInput } from './world-gamepad';
 import { FrameTelemetry } from './world-performance';
-import { sampleSceneryFrame, type SceneryAnimation, type SceneryAnimationManifest } from './scenery-animation';
+import { sampleSceneryFrame, type SceneryAnimation } from './scenery-animation';
 import type { WorldClock, WorldTimeState } from './world-clock';
 import type { CameraBeat } from './cutscene';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
@@ -56,6 +55,9 @@ export interface Character {
   localArtVariant?: number;
   castRow?: number;
   componentCast?: boolean;
+  /** Native avatar bake for an NPC whose offline atlas is unavailable. */
+  modularNpc?: boolean;
+  nativePixels?: boolean;
   componentPoseSet?: string;
   avatarLease?: TextureLease<string>;
   avatarRevision?: number;
@@ -389,7 +391,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     player.facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 0 : 2;
     if (!player.npc && this.playerArtReady) this.setCharacterFrame(player, characterFrame(player.facing));
     npc.facing = (player.facing + 2) % 4;
-    if (npc.componentCast || !npc.npc && this.playerArtReady) this.setCharacterFrame(npc, characterFrame(npc.facing));
+    if (npc.componentCast || npc.modularNpc || !npc.npc && this.playerArtReady) this.setCharacterFrame(npc, characterFrame(npc.facing));
   }
 
   setReducedMotion(reduced: boolean): void {
@@ -819,7 +821,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     for (const npc of this.characters.values()) {
       const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
       const animation = npc.walkingAnimation ?? npc.idleAnimation;
-      const art = npc.componentCast ? CAST_ART : NPC_ART;
+      const art = npc.nativePixels ? NATIVE_MODULAR_ART : npc.componentCast ? CAST_ART : npc.modularNpc ? MODULAR_ART : NPC_ART;
       const frameWidth = animation?.width ?? art.width;
       const frameHeight = animation?.height ?? art.height;
       const footY = animation?.originY ?? art.footY;
@@ -850,7 +852,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
       character.root.add([character.marker, character.hint]);
       const animation = character.walkingAnimation ?? character.idleAnimation;
-      const hitArt = character.componentCast ? CAST_ART : NPC_ART;
+      const hitArt = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc ? MODULAR_ART : NPC_ART;
       const hitPadding = hitArt.width / NPC_ART.width * 40, hitTop = hitArt.width / NPC_ART.width * 12;
       character.figure.setInteractive({
         useHandCursor: true,
@@ -915,8 +917,9 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: ResidentGait): void {
     this.fitCharacterToRoom(character);
     character.root.setPosition(character.x, character.y).setDepth(worldDepth(character.y, 'character'));
+    if ((!character.npc || character.modularNpc) && !character.avatarPending && (!character.avatarLease || character.avatarRetryAt) && this.time.now >= (character.avatarRetryAt ?? 0)) this.tintCharacter(character);
     const distance = Math.hypot(dx, dy);
-    if(character.componentCast){
+    if(character.componentCast || character.modularNpc){
       if(this.reducedMotion)return;
       const moving=residentGait?.moving??distance>.05;
       if(moving){
@@ -928,7 +931,8 @@ export abstract class ExploreScene extends Phaser.Scene {
         const vx=this.local.x-character.x,vy=this.local.y-character.y;
         character.facing=Math.abs(vx)>Math.abs(vy)?(vx>0?1:3):(vy>0?0:2);
       }
-      this.setCharacterFrame(character,characterFrame(character.facing,moving?character.walkDistance/(CAST_ART.cycleDistance*character.artScale)*WALK_POSE_COLUMNS.length:undefined));
+      const art = character.nativePixels ? NATIVE_MODULAR_ART : character.modularNpc ? MODULAR_ART : CAST_ART;
+      this.setCharacterFrame(character,characterFrame(character.facing,moving?character.walkDistance/(art.cycleDistance*character.artScale)*WALK_POSE_COLUMNS.length:undefined));
       return;
     }
     if (!character.npc && this.playerArtReady) {
@@ -936,7 +940,7 @@ export abstract class ExploreScene extends Phaser.Scene {
         // Keep the facing stable around diagonal direction boundaries.
         const horizontal = Math.abs(dx) > Math.abs(dy) * (character.facing % 2 ? 0.88 : 1.12);
         character.facing = horizontal ? (dx >= 0 ? 1 : 3) : (dy >= 0 ? 0 : 2);
-        const cycleDistance = MODULAR_ART.cycleDistance * character.artScale;
+        const cycleDistance = (character.nativePixels ? NATIVE_MODULAR_ART : MODULAR_ART).cycleDistance * character.artScale;
         character.walkDistance = advanceWalkDistance(character.walkDistance, distance, cycleDistance, maxGaitDistance);
         character.lastWalkTime = time;
         this.setCharacterFrame(character, characterFrame(character.facing, character.walkDistance / cycleDistance * WALK_POSE_COLUMNS.length));
@@ -982,7 +986,6 @@ export abstract class ExploreScene extends Phaser.Scene {
     // The ground pivot never moves. Breathing is deliberately smaller than a
     // pixel, with no spinning, bobbing, detached feet or stretched strides.
     const breathe = distance > 0.05 || this.reducedMotion ? 1 : 1 + Math.sin(time * 1.7 + character.phase) * 0.002;
-    if (!character.npc && !character.avatarPending && (!character.avatarLease || character.avatarRetryAt) && this.time.now >= (character.avatarRetryAt ?? 0)) this.tintCharacter(character);
     if (Math.abs(breathe - character.breathe) < .0002) return;
     character.breathe = breathe;
     character.layers.forEach(layer => layer.setScale(character.artScale, character.artScale * breathe));
@@ -991,18 +994,18 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected setCharacterFrame(character: Character, frame: number): void {
     if (character.frame === frame) return;
     character.frame = frame;
-    if (!character.npc && !character.avatarLease) return;
+    if ((!character.npc || character.modularNpc) && !character.avatarLease) return;
     for (const layer of character.layers) layer.setFrame(frame);
   }
 
   protected fitCharacterToRoom(character: Character): void {
-    const art = character.componentCast ? CAST_ART : character.npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
+    const art = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc || !character.npc && this.playerArtReady ? MODULAR_ART : NPC_ART;
     const animation = character.walkingAnimation ?? character.idleAnimation;
     const canvasHeight = animation?.height ?? art.height;
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = this.indoor;
     const indoorHeight = this.indoorCharacterHeight;
-    const scale = (character.componentCast || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight);
+    const scale = (character.componentCast || character.modularNpc || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight);
     if (character.artScale === scale) return;
     character.artScale = scale;
     character.breathe = 1;
@@ -1013,10 +1016,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   protected tintCharacter(character: Character): void {
-    if (character.npc || character.avatarDisposed) return;
+    if (character.npc && !character.modularNpc || character.avatarDisposed) return;
     const revision = (character.avatarRevision ?? 0) + 1;
     character.avatarRevision = revision; character.avatarPending = true;
-    void bakeAvatarTexture(this, normalizeAvatar(character.avatar)).then(lease => {
+    void bakeAvatarTexture(this, normalizeAvatar(character.avatar), {resolution:character.nativePixels?'editor':'runtime'}).then(lease => {
       if (character.avatarDisposed || character.avatarRevision !== revision) { lease.release(true); return; }
       const previous = character.avatarLease;
       character.avatarLease = lease;
@@ -1031,39 +1034,23 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Regional paintings take the period's people tint; layered avatars keep their own colours. */
   protected setCharacterAmbient(character: Character, tint: number): void {
     character.ambientTint = tint;
-    if (character.componentCast || !character.npc || character.localArtVariant !== undefined) character.figure.setTint(this.indoor ? 0xffffff : tint);
+    if (character.componentCast || character.modularNpc || !character.npc || character.localArtVariant !== undefined) character.figure.setTint(this.indoor ? 0xffffff : tint);
   }
 
   protected createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
     const candidate=castActor(id);
-    const baked=candidate&&this.textures.exists(candidate.key)?candidate:undefined;
-    const mainCast=['marta','otto','lina','emil','ada','fritz','greta'].indexOf(id);
-    const mainCastRow=mainCast>=0&&this.textures.exists('main-cast')?mainCast:undefined;
-    const castRow = baked?undefined:mainCastRow??(this.textures.exists('story-cast') ? id === 'inspector' ? 0 : id === 'elise' ? 1 : undefined : undefined);
-    const npc = !!baked || castRow !== undefined || npcFrame >= 0;
+    const castAsset=this.indoor?candidate?.native:candidate;
+    const baked=castAsset&&this.textures.exists(castAsset.key)?castAsset:undefined;
+    const npc = !!candidate || npcFrame >= 0 || localArtVariant !== undefined;
+    const modularNpc = npc && !baked;
     const shadow = this.add.image(0, 2, 'character-shadow').setDisplaySize(31, 12);
-    // A neutral placeholder handles a failed regional page download; its global
-    // identity is never interpreted as an index into the original story sheet.
-    const frame = baked?0:castRow !== undefined ? castRow * 4 : npc ? (localArtVariant === undefined ? npcFrame : 7) : 0;
-    const art = baked?CAST_ART:npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
-    const keys = castRow !== undefined ? [mainCastRow===undefined?'story-cast':'main-cast'] : [NPC_ART.key];
-    const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
-    const localKey = localArtVariant === undefined ? undefined : regionPeopleKey(this.regionId, localArtVariant);
-    const localFrames = localArtVariant === undefined ? undefined : regionPeopleFrames(localArtVariant);
-    const hasLocalArt = !baked && localKey !== undefined && this.textures.exists(localKey) && localFrames!.every(frame => this.textures.get(localKey).has(frame));
-    const localFrameSize = hasLocalArt ? this.textures.get(localKey!).get(localFrames![0]) : undefined;
-    const walkingAnimation: SceneryAnimation | undefined = hasLocalArt ? {
-      key: localKey!, frames: localFrames!, fps: 3,
-      width: localFrameSize!.width, height: localFrameSize!.height, referenceWidth: localFrameSize!.width,
-      originX: localFrameSize!.customPivot ? localFrameSize!.pivotX : .5,
-      originY: localFrameSize!.customPivot ? localFrameSize!.pivotY : 1,
-    } : undefined;
-    const authoredIdle = !baked && npc && castRow===undefined && !walkingAnimation ? idleManifest?.assets[id] : undefined;
-    const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
-    const animation = walkingAnimation ?? idleAnimation;
-    const idleFrame = walkingAnimation?.frames[0] ?? (idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined);
-    const artScale = baked ? CAST_ART.worldHeight / CAST_ART.bodyHeight : !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
-    const layers = baked?[this.add.sprite(0,0,baked.key,0).setOrigin(.5,CAST_ART.footY).setScale(artScale)]:!npc ? [this.add.sprite(0, 0, NPC_ART.key, 0).setOrigin(.5, art.footY).setScale(artScale)] : animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
+    const frame = 0;
+    const nativePixels=this.indoor;
+    const art = nativePixels ? NATIVE_MODULAR_ART : baked ? CAST_ART : MODULAR_ART;
+    const artScale = art.worldHeight / art.bodyHeight;
+    // Every download fallback is composed from native components. A hidden
+    // empty sprite reserves the interaction target until its HD bake resolves.
+    const layers = [this.add.sprite(0, 0, baked?.key ?? '__WHITE', baked ? frame : undefined).setOrigin(.5, art.footY).setScale(artScale)];
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y, 'character'));
@@ -1072,8 +1059,8 @@ export abstract class ExploreScene extends Phaser.Scene {
       roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
-    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, breathe: 1, avatar, idleAnimation, walkingAnimation, idleFrame, localArtVariant, castRow,componentCast:!!baked };
-    if (!npc) {
+    const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, breathe: 1, avatar: candidate?.recipe ?? avatar, localArtVariant, componentCast:!!baked, modularNpc, nativePixels };
+    if (!baked) {
       figure.setVisible(false);
       root.once('destroy', () => {
         character.avatarDisposed = true;

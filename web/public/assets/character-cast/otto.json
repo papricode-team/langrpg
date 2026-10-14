@@ -4,10 +4,52 @@
   "recipe": "art/source/character-kit/cast/otto.json",
   "recipeSha256": "cea289d6171431834e0a8a8b3de80a02c0579c0db0d0acbbeabec1f096ba9c48",
   "atlas": "web/public/assets/character-cast/otto.webp",
-  "atlasSha256": "22aba98dac0a1b93c4b30d3f9f7a31faaa86d84fed5c00e74dc291bcedc57215",
+  "atlasSha256": "02b44481294873097110629de0c438902727d82377bc8672570e8e58cf5aa884",
+  "geometry": "web/public/assets/character-cast/otto.atlas.json",
+  "geometrySha256": "db72624f4dd708f6f66790eb2c5a3558818856db668c58395955331f5e7904ad",
+  "textureBytes": 14302816,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/otto.png",
-  "proofSha256": "d9ec9cb115e88cd23138eefefcff0f3791057b90e02f038ca2a80cb49b15e123",
-  "editorSha256": "e6d6f7cacf94286a22775c358ee5ddfcb14021036f710c1f15e02d72623f6a32",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "f2cf20d956a8c3937af347e540c543577c6c869db0cbd978d8f3ffb67c2c445c",
+  "editorSha256": "c6914fca1a9c40f3904cb9d212fa8fa1bd1c4160092a2dcf636fb413276240c9",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "4c564a956a531d31a13450b81e0752d11f5c6ca617b77128aa3053f58214d029"
+  },
+  "sourceComponentsSha256": "4c564a956a531d31a13450b81e0752d11f5c6ca617b77128aa3053f58214d029",
+  "native": {
+    "key": "character-cast-otto-native",
+    "image": "web/public/assets/character-cast/native/otto.webp",
+    "atlas": "web/public/assets/character-cast/native/otto.atlas.json",
+    "sha256": "e1b54f1aba7ae5911c0bb5e8d3bcba295d4612a545d3009d0d4e88ebc14839a2",
+    "atlasSha256": "662670ecbc0f62e67b7107b9b35dd159995a895b1f765be7925b2ba12725f838",
+    "textureBytes": 27370544,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/otto.webp",
+        "sha256": "e1b54f1aba7ae5911c0bb5e8d3bcba295d4612a545d3009d0d4e88ebc14839a2",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/otto.1.webp",
+        "sha256": "16530ca19532ba2d053a3a81fe90daa60541c0ea0840e6efabf9e1450cb3401a",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/otto.webp",
+    "sourceSha256": "c6914fca1a9c40f3904cb9d212fa8fa1bd1c4160092a2dcf636fb413276240c9"
+  }
 }

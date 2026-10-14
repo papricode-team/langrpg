@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/terracielo-mateo.json",
   "recipeSha256": "3ad90ec94ca230e154681dd72f5d4976a745829c1f09f24a2cc1d2aa28f11198",
   "atlas": "web/public/assets/character-cast/terracielo-mateo.webp",
-  "atlasSha256": "faa05c6ef2536137583d77e97fa2d4b26f8797754d99c97bd8d649843c395809",
+  "atlasSha256": "005e6e710d5dfeeb5511972d8af238169cdc78afbffa237d456d260f51c2731a",
+  "geometry": "web/public/assets/character-cast/terracielo-mateo.atlas.json",
+  "geometrySha256": "71409d8a5689b7138ede1417b3decf44e200e051124bbaf409028c63eaf7f946",
+  "textureBytes": 14490960,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/terracielo-mateo.png",
-  "proofSha256": "7c24c20cf3a6291c4e9316ffa95a413afaa04564dbd5c65510fb6ec4be11a425",
-  "editorSha256": "424924d624a32f9f11c907402e646238a67476e3f21cfa67d026c41defa8ed91",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "745297f92bd24202778447836bffb3811188f973d786140d9593766e05a4018a",
+  "editorSha256": "173e8722bf67c6313e60bb91c0a72a9cbf0b45fbd903119cddbca5deb89dc7b9",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "f7e394f9705f4960ffe6867d40bdd92613bacdf3e302876bbcaa6e10648732df"
+  },
+  "sourceComponentsSha256": "f7e394f9705f4960ffe6867d40bdd92613bacdf3e302876bbcaa6e10648732df"
 }

@@ -11,7 +11,8 @@ const facings: Facing[] = ['down', 'right', 'up', 'left'];
 type Resolution = 'runtime' | 'editor';
 type SheetLoader = (url: string, width: number, height: number) => Promise<PixelSheet>;
 interface PoseOptions { catalogue?: CharacterCatalogue; poseSet?: string; }
-interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; preview?: boolean; loadSheet?: SheetLoader; }
+interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; atlasColumns?: number; preview?: boolean; loadSheet?: SheetLoader; }
+interface TextureBakeOptions extends PoseOptions { resolution?: Resolution; }
 
 /** CPU copies are bounded separately from the GPU atlas cache. Failures are retryable. */
 export class AvatarSheetCache {
@@ -74,14 +75,15 @@ async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatal
 }
 
 /** No Phaser dependency: editor, portrait and world baking share these pixels. */
-export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', preview = false, loadSheet = sheets.load }: BakeOptions = {}) {
+export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', atlasColumns = 9, preview = false, loadSheet = sheets.load }: BakeOptions = {}) {
+  if(!Number.isInteger(atlasColumns)||atlasColumns<1||atlasColumns>36)throw new Error('Atlas columns must be in 1..36');
   catalogue = catalogueForExpression(recipe, expression, catalogueForPose(poseSet, catalogue));
   // Snapshot before awaiting IO; rapid editor changes must not mutate a pending bake.
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, preview);
   const resolved = facings.map(facing => resolveRecipe(snapshot, facing, catalogue).layers);
   const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
-  const atlasWidth=width*9, atlasHeight=height*4, data=new Uint8ClampedArray(atlasWidth*atlasHeight*4);
+  const atlasWidth=width*atlasColumns, atlasHeight=height*Math.ceil(36/atlasColumns), data=new Uint8ClampedArray(atlasWidth*atlasHeight*4);
   const sourceCache=new AvatarSheetCache(loadSheet);
   // Release each source page before decoding the next; only the final atlas persists.
   for(let start=0;start<36;start+=4){
@@ -89,7 +91,8 @@ export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = chara
     const images=await loadLayers(frames.flatMap(frame=>resolved[Math.floor(frame/9)]),catalogue,resolution,sourceCache.load,frames);
     for(const frame of frames){
       const pixels=composeFrame(resolved[Math.floor(frame/9)],images,frame,width,height);
-      for(let y=0;y<height;y++)data.set(pixels.subarray(y*width*4,(y+1)*width*4),((Math.floor(frame/9)*height+y)*atlasWidth+frame%9*width)*4);
+      // Logical direction still changes every nine frames; only physical packing changes.
+      for(let y=0;y<height;y++)data.set(pixels.subarray(y*width*4,(y+1)*width*4),((Math.floor(frame/atlasColumns)*height+y)*atlasWidth+frame%atlasColumns*width)*4);
     }
   }
   return {data,width:atlasWidth,height:atlasHeight};
@@ -155,7 +158,7 @@ export async function paintAvatar(canvas: HTMLCanvasElement, recipe: AvatarRecip
 const sceneCaches = new WeakMap<Phaser.Scene, { cache: AvatarTextureCache<string>; prefix: string }>();
 let sceneSerial = 0;
 /** Retain while a sprite uses the texture; release on change, release(true) on leave. */
-export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk' }: PoseOptions = {}): Promise<TextureLease<string>> {
+export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime' }: TextureBakeOptions = {}): Promise<TextureLease<string>> {
   catalogue = catalogueForPose(poseSet, catalogue);
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, false);
@@ -173,14 +176,16 @@ export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecip
     };
     scene.events.once('shutdown', dispose); scene.events.once('destroy', dispose);
   }
-  const { cache, prefix } = state, key = prefix + avatarTextureKey(snapshot, catalogue);
+  // Eight native columns keep 512px cells within a 4096px GPU texture limit.
+  const atlasColumns=resolution==='editor'?8:9,atlasRows=Math.ceil(36/atlasColumns);
+  const { cache, prefix } = state, key = `${prefix}${avatarTextureKey(snapshot, catalogue)}:${resolution}:${atlasColumns}x${atlasRows}`;
   return cache.acquire(key, async () => {
-    const canvas = pixelCanvas(await bakeAvatarPixels(snapshot, { catalogue }));
+    const canvas = pixelCanvas(await bakeAvatarPixels(snapshot, { catalogue, resolution, atlasColumns }));
     if (sceneCaches.get(scene)?.cache !== cache) throw new Error('Avatar scene stopped while baking');
     const texture = scene.textures.addCanvas(key, canvas);
     if (!texture) throw new Error(`Could not register avatar texture ${key}`);
     try {
-      const [frameWidth, frameHeight] = catalogue.format.runtimeCell;
+      const [frameWidth, frameHeight] = resolution==='editor'?catalogue.format.editorCell:catalogue.format.runtimeCell;
       if (!scene.textures.addSpriteSheet(key, texture, { frameWidth, frameHeight, endFrame: 35 })) throw new Error('Could not register avatar frames');
     } catch (error) { scene.textures.remove(key); throw error; }
     return key;

@@ -33,13 +33,16 @@
       "top.secondary": "#e8dfc8"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#91613e\",\"#523522\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#e1d7bd\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9d7b4c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345c9e\"],[\"outer.secondary\",\"#345c9e\"],[\"top.primary\",\"#e8dfc8\"],[\"top.secondary\",\"#e8dfc8\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#91613e\",\"#523522\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#e1d7bd\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9d7b4c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345c9e\"],[\"outer.secondary\",\"#345c9e\"],[\"top.primary\",\"#e8dfc8\"],[\"top.secondary\",\"#e8dfc8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "43923aa4d44a49ad0255860e6d359f351258be41678587159084e39e1e1a0a71"
+  "sha256": "eb69fedceefea1f9e349ad28b987784f6471bc4a3005b66c037918790fd8e4e9",
+  "atlasSha256": "4a26a965585036d0a250a0cff0d32ff591100ef1f4a9c4c4b41354b8c39dcd18",
+  "textureBytes": 14880556,
+  "atlas": "web/public/assets/character-cast/kigalights-resident-6.atlas.json"
 }

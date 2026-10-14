@@ -33,13 +33,16 @@
       "top.secondary": "#e7d9bd"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d4ae8b\",\"#684331\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#696b4e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#40372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#ded0ae\"],[\"outer.secondary\",\"#ded0ae\"],[\"top.primary\",\"#e7d9bd\"],[\"top.secondary\",\"#e7d9bd\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d4ae8b\",\"#684331\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#696b4e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#40372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#ded0ae\"],[\"outer.secondary\",\"#ded0ae\"],[\"top.primary\",\"#e7d9bd\"],[\"top.secondary\",\"#e7d9bd\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "be0aa9abc709b6575b85d2cc5a4465a80af36d47302ecb274d31084dda5d499a"
+  "sha256": "ceec1c5469dec373264d0e7fdff0787c4a63206738835a3ac1911d44bcac08a9",
+  "atlasSha256": "a47e62e60e370ea6c51eb83c3cf2189a2d1f3e54efa19ce5b5ff7f065c1201dd",
+  "textureBytes": 14874720,
+  "atlas": "web/public/assets/character-cast/seoulsteps-hana.atlas.json"
 }

@@ -33,13 +33,16 @@
       "top.secondary": "#3b4a5a"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ae835a\",\"#3f352c\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",\"travel\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#636e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3c3b2e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#ab535a\"],[\"outer.primary\",\"#576c43\"],[\"outer.secondary\",\"#576c43\"],[\"top.primary\",\"#3b4a5a\"],[\"top.secondary\",\"#3b4a5a\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ae835a\",\"#3f352c\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",\"travel\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#636e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3c3b2e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#ab535a\"],[\"outer.primary\",\"#576c43\"],[\"outer.secondary\",\"#576c43\"],[\"top.primary\",\"#3b4a5a\"],[\"top.secondary\",\"#3b4a5a\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "53c1fc08841ef4888795e90eec1006e87e096a0498a808ac5f5a51726a8f6e4d"
+  "sha256": "138bc404969e0c1fcea47c64be4b9343773faadd07887aab8cf91d0462e4abd9",
+  "atlasSha256": "20017457559fc69fe1be2106c332dd81502b2de77fc8a5e99c946a5e5cd00e25",
+  "textureBytes": 14627016,
+  "atlas": "web/public/assets/character-cast/terracielo-ana.atlas.json"
 }

@@ -33,13 +33,15 @@
       "top.secondary": "#353c33"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#67432e\",\"#716654\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#393c34\"],[\"bottom.primary\",\"#444d49\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#53594f\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#763e44\"],[\"outer.secondary\",\"#763e44\"],[\"top.primary\",\"#353c33\"],[\"top.secondary\",\"#353c33\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#67432e\",\"#716654\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#393c34\"],[\"bottom.primary\",\"#444d49\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#53594f\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#763e44\"],[\"outer.secondary\",\"#763e44\"],[\"top.primary\",\"#353c33\"],[\"top.secondary\",\"#353c33\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "09294ad14fb880cfa2566ce23d9ac2661040427badd16f36dd80850192ccfa5a"
+  "sha256": "9902d7a98c00ae2f4f40d8c2c20adda313ff695247daa0102ad5f7f3332f8462",
+  "atlas": "web/public/assets/character-cast/kigalights-samuel.atlas.json",
+  "textureBytes": 14550084
 }

@@ -33,13 +33,16 @@
       "top.secondary": "#b7883b"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#80563a\",\"#8e8371\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#36756e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#795030\"],[\"headwear.primary\",\"#af8540\"],[\"headwear.secondary\",\"#477c6e\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#dbc593\"],[\"top.secondary\",\"#b7883b\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#80563a\",\"#8e8371\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#36756e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#795030\"],[\"headwear.primary\",\"#af8540\"],[\"headwear.secondary\",\"#477c6e\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#dbc593\"],[\"top.secondary\",\"#b7883b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "2ebd8688a6a3e21d61d4e4c5b53e82009de0693a9851a6b466fb85f25d580583"
+  "sha256": "56d4da89461fbfeec354973ab93073c2894602201502abe8181e5f1b7b6595db",
+  "atlasSha256": "6251a0889d0a1a194cbfe801262cc9f59cd92847645eb81542fac9d3ff7ed29e",
+  "textureBytes": 14277924,
+  "atlas": "web/public/assets/character-cast/kigalights-chantal.atlas.json"
 }

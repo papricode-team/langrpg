@@ -33,13 +33,16 @@
       "top.secondary": "#704059"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c39b71\",\"#a29b89\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#373a34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#664d32\"],[\"headwear.primary\",\"#6e6b65\"],[\"headwear.secondary\",\"#6e6b65\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#704059\"],[\"top.secondary\",\"#704059\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c39b71\",\"#a29b89\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#373a34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#664d32\"],[\"headwear.primary\",\"#6e6b65\"],[\"headwear.secondary\",\"#6e6b65\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#704059\"],[\"top.secondary\",\"#704059\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "24a47b754e4dcce23c656d311dd9ac5fccbbb17efcb0c53b9f33e0fd06c37ac1"
+  "sha256": "4c176221ca662ff65f88b4dc4dc8be96ed0d8261bd3bca387cd20ec2dedf6d7d",
+  "atlasSha256": "c458570b4486de6fd7fa4b8db03a81aa9ee7fb2456adc2ca81fd2555d4cee369",
+  "textureBytes": 14247684,
+  "atlas": "web/public/assets/character-cast/riverweave-phuc.atlas.json"
 }

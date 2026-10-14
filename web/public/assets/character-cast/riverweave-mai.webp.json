@@ -33,13 +33,15 @@
       "top.secondary": "#e7dfc9"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c79e76\",\"#272520\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#30352e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#313833\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#e4d8b9\"],[\"outer.secondary\",\"#e4d8b9\"],[\"top.primary\",\"#e7dfc9\"],[\"top.secondary\",\"#e7dfc9\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c79e76\",\"#272520\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#30352e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#313833\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#e4d8b9\"],[\"outer.secondary\",\"#e4d8b9\"],[\"top.primary\",\"#e7dfc9\"],[\"top.secondary\",\"#e7dfc9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "f2b8ac079af4848a7aa7672bd4c9ac2f997467a1c83b3be269e0d2a8aaebf1c2"
+  "sha256": "38a0aee54e5b6da2fdd88dcbd398e3dcb784df68ebe3d50d66a24f016b8781c8",
+  "atlas": "web/public/assets/character-cast/riverweave-mai.atlas.json",
+  "textureBytes": 14766804
 }

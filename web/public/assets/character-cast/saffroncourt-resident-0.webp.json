@@ -33,13 +33,16 @@
       "top.secondary": "#e4d9c5"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#8f6041\",\"#30251f\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#365b43\"],[\"bottom.primary\",\"#355a86\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2e3031\"],[\"headwear.primary\",\"#ba7c7b\"],[\"headwear.secondary\",\"#ba7c7b\"],[\"neck.primary\",\"#ba7c7b\"],[\"outer.primary\",\"#b9b9af\"],[\"outer.secondary\",\"#b9b9af\"],[\"top.primary\",\"#e4d9c5\"],[\"top.secondary\",\"#e4d9c5\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#8f6041\",\"#30251f\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#365b43\"],[\"bottom.primary\",\"#355a86\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2e3031\"],[\"headwear.primary\",\"#ba7c7b\"],[\"headwear.secondary\",\"#ba7c7b\"],[\"neck.primary\",\"#ba7c7b\"],[\"outer.primary\",\"#b9b9af\"],[\"outer.secondary\",\"#b9b9af\"],[\"top.primary\",\"#e4d9c5\"],[\"top.secondary\",\"#e4d9c5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "6e91a0fcb2179516d2ba305eb50fa3e4cf13d74cad954154561d453a24f02182"
+  "sha256": "920961e74efa219f79cee575320379a9940e804a37d848487e1480b9799574df",
+  "atlasSha256": "3e5e05af220a45a82225e975fadae9fa3f93e92271125ce88ba4fc3b3741e440",
+  "textureBytes": 14733400,
+  "atlas": "web/public/assets/character-cast/saffroncourt-resident-0.atlas.json"
 }

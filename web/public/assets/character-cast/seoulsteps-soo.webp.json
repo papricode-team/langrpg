@@ -33,13 +33,15 @@
       "top.secondary": "#ded2b9"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d1ad8b\",\"#30251e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393739\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4c3c31\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#623a54\"],[\"outer.secondary\",\"#623a54\"],[\"top.primary\",\"#ded2b9\"],[\"top.secondary\",\"#ded2b9\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d1ad8b\",\"#30251e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393739\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4c3c31\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#623a54\"],[\"outer.secondary\",\"#623a54\"],[\"top.primary\",\"#ded2b9\"],[\"top.secondary\",\"#ded2b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "2f5020c1dfcd7d6045c809f977c954cf110ea07c302e38be865e83be747e801d"
+  "sha256": "d05ac20c0ed835e2066e611613836065e929cc76c229ea68edfaaa710d7878c4",
+  "atlas": "web/public/assets/character-cast/seoulsteps-soo.atlas.json",
+  "textureBytes": 13963992
 }

@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/rainmarket-ken.json",
   "recipeSha256": "265d48954c9a64b639344d61a6b34bc13bffceb825310ac72b5c9c9bc017dcdb",
   "atlas": "web/public/assets/character-cast/rainmarket-ken.webp",
-  "atlasSha256": "4980a3f403d0287273914215940dc0e76ac02d62f4506bf41091ef86eecf0e76",
+  "atlasSha256": "c739c99703ff10bc75acd81e3fd0b3ba6aab7c120e9b223e14446c9a04188397",
+  "geometry": "web/public/assets/character-cast/rainmarket-ken.atlas.json",
+  "geometrySha256": "99f751449dc452aa2b44b39da58dce3ed9299ac84efe68dc0f8cbeb3bc46d5c5",
+  "textureBytes": 14193856,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/rainmarket-ken.png",
-  "proofSha256": "e487a18fced7deef91d21d9d8acd90fca034c84388654290eda64353a8e26dbf",
-  "editorSha256": "84abd1b7759c0c033721968e003975e8a90beb31ec844c9249b39a5d91c342cd",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "fa0e6956a5527637a35c0e596c910605ec2d599044693f85570021b00bf948dd",
+  "editorSha256": "47023ecb1912115eb84c88a3f0782325ad873a105ce77b3a960b82def06616d3",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "0d54d0197c700acf1ef066e2a5b0e0208a1d8b37d2c373a911fd433d78e06c18"
+  },
+  "sourceComponentsSha256": "0d54d0197c700acf1ef066e2a5b0e0208a1d8b37d2c373a911fd433d78e06c18"
 }

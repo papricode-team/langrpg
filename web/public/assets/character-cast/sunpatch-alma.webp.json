@@ -33,13 +33,16 @@
       "top.secondary": "#383838"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b28a61\",\"#74695b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454549\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705036\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c79c39\"],[\"outer.secondary\",\"#c79c39\"],[\"top.primary\",\"#383838\"],[\"top.secondary\",\"#383838\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b28a61\",\"#74695b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454549\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705036\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c79c39\"],[\"outer.secondary\",\"#c79c39\"],[\"top.primary\",\"#383838\"],[\"top.secondary\",\"#383838\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "81833bb6d5080609dd5deef16bbe1cc5937db05e96aa146b5d93b7ba6f6e080e"
+  "sha256": "23bda6e1336ae9a7ad95a83805178b7e09da5cbf0613fff2da7441b1fa29d132",
+  "atlasSha256": "2449c4ed593044b76aa41826631c7c18a3b6df05492e600f1aadecb434f23e2d",
+  "textureBytes": 14294896,
+  "atlas": "web/public/assets/character-cast/sunpatch-alma.atlas.json"
 }

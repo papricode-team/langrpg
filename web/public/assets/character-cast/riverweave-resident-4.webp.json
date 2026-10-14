@@ -33,13 +33,16 @@
       "top.secondary": "#d7ad92"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ccaa84\",\"#b6b1a2\",[[\"bag\",\"tote\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#e0d5b9\"],[\"bottom.primary\",\"#4b504c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#437b79\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d7ad92\"],[\"top.secondary\",\"#d7ad92\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ccaa84\",\"#b6b1a2\",[[\"bag\",\"tote\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#e0d5b9\"],[\"bottom.primary\",\"#4b504c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#437b79\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d7ad92\"],[\"top.secondary\",\"#d7ad92\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "6d1fa7b066fa522a126d4493e1e8de4272b04524522c2fec00b0b5f55bd83552"
+  "sha256": "a0956a43fe54d4ad11d0f84880937cc016d3ae034724d1a089e22ee8abf44538",
+  "atlasSha256": "0b2f4aee6334160733f81758193342999fc4800bd91312fef1954d8d912ebeb3",
+  "textureBytes": 14605152,
+  "atlas": "web/public/assets/character-cast/riverweave-resident-4.atlas.json"
 }

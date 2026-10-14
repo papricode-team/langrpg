@@ -33,13 +33,15 @@
       "top.secondary": "#c27942"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b0865b\",\"#2b2119\",[[\"bag\",\"backpack\"],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#717e8b\"],[\"bottom.primary\",\"#626d7b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554739\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27942\"],[\"top.secondary\",\"#c27942\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b0865b\",\"#2b2119\",[[\"bag\",\"backpack\"],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#717e8b\"],[\"bottom.primary\",\"#626d7b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554739\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27942\"],[\"top.secondary\",\"#c27942\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "e40f081a1c4acb458779586bbe98727bcea97049464c0f51a4aabc8d506ec711"
+  "sha256": "928140bc15b498b097b823cf9f7ec91e2a94110906be60064df8154679f4b488",
+  "atlas": "web/public/assets/character-cast/cedarbay-resident-1.atlas.json",
+  "textureBytes": 13971216
 }

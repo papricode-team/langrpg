@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/dunegarden-khalid.json",
   "recipeSha256": "5515a93db886e78cc6a93baa8be0328744acfd1d92a8bb7b105a81b866ec3900",
   "atlas": "web/public/assets/character-cast/dunegarden-khalid.webp",
-  "atlasSha256": "c361680bd3fa61fcb373f25f2e1d0a760c4d39b3d723c9d1591c78397f9c2bd4",
+  "atlasSha256": "9a7c80b9f9a0bfd1bc4af4cd5319492dc86102f873610775a650b65eb80714bc",
+  "geometry": "web/public/assets/character-cast/dunegarden-khalid.atlas.json",
+  "geometrySha256": "1ffdb2d6b9631abe1556a5d9b2ddda532d57015ab689603a4aa892f4f066a1fc",
+  "textureBytes": 14558016,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "3d4f9a61a9fbbcdbb68e6a681cb1211915774b99bfa5cd0252e0453e091dffbb",
   "proof": "art/proofs/character-cast/dunegarden-khalid.png",
-  "proofSha256": "ab04824a75db79ae4549368f52baafff797b2574c5610822069196326a635ae8",
-  "editorSha256": "ea0aad3eaa26825e142c42aa1e5871941f9858618b702204ad3dce833a9eee3c",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "146dafe2ef378cdca1098be884e86ee370820b6a1b6b2bea404225a0d13b3479",
+  "editorSha256": "500125019372b86cb9d8daa593f19b6f493cfcf6aa71241335a8c02a5b6ed5b8",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

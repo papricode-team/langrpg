@@ -33,13 +33,16 @@
       "top.secondary": "#397e7d"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#67422e\",\"#281e15\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#2f342e\"],[\"bottom.primary\",\"#c3b086\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9e9988\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#397e7d\"],[\"top.secondary\",\"#397e7d\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#67422e\",\"#281e15\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#2f342e\"],[\"bottom.primary\",\"#c3b086\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9e9988\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#397e7d\"],[\"top.secondary\",\"#397e7d\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "bb71a42765aa3daf9607e84a0776d7db3e24ce82cf229a6cdba8364927d585e5"
+  "sha256": "8ccc696526b84d45b9ad5f5f2655d4062ff6b38d572c5b328820545b483fc944",
+  "atlasSha256": "212ff51862ef0d1a5e88803d0dbcf89cbda0b7f2ef83d941bbaa20d1409191db",
+  "textureBytes": 14625636,
+  "atlas": "web/public/assets/character-cast/kigalights-resident-5.atlas.json"
 }

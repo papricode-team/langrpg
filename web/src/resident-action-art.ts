@@ -9,7 +9,7 @@ export const residentActionLooks = {
 } as const;
 export type ResidentActionLook=keyof typeof residentActionLooks;
 export const residentActionFrames=['idle','read','read-turn','sit','work','work-down','serve','greet','carry','carry-left','carry-pass','carry-right'] as const;
-export const RESIDENT_ACTION_ART={width:128,height:192,bodyHeight:142,footY:.9,columns:4,rows:3};
+export const RESIDENT_ACTION_ART={width:384,height:576,bodyHeight:376,footY:.9,columns:4,rows:3};
 export const residentActionKey=(mapId:string,look:ResidentActionLook):string=>`${mapId}-resident-actions-${look}`;
 export interface ResidentActionPose {frame:typeof residentActionFrames[number];bakedObject?:ActivityResidentSample['heldObject'];}
 /** Component poses must match the action and leave authored props in their hands. */

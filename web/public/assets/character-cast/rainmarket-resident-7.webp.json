@@ -33,13 +33,15 @@
       "top.secondary": "#a05243"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c39a76\",\"#2d2823\",[[\"bag\",\"satchel\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#ddd3b8\"],[\"bottom.primary\",\"#8fa9b8\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303335\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a05243\"],[\"top.secondary\",\"#a05243\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c39a76\",\"#2d2823\",[[\"bag\",\"satchel\"],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#ddd3b8\"],[\"bottom.primary\",\"#8fa9b8\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303335\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a05243\"],[\"top.secondary\",\"#a05243\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "4adc36b84d7ba82c0be93c178fd046badbf04f8d99895d2850643993b2e00d0b"
+  "sha256": "c9caab09b98030e5412f81b81aa99d5b333a00c1f6678eb4601a4289a8d754a9",
+  "atlas": "web/public/assets/character-cast/rainmarket-resident-7.atlas.json",
+  "textureBytes": 13884528
 }

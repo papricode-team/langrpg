@@ -33,13 +33,16 @@
       "top.secondary": "#743b49"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#946b43\",\"#33251a\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#496743\"],[\"bottom.primary\",\"#30372e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4b402c\"],[\"headwear.primary\",\"#747849\"],[\"headwear.secondary\",\"#747849\"],[\"neck.primary\",\"#747849\"],[\"outer.primary\",\"#c3aa7e\"],[\"outer.secondary\",\"#c3aa7e\"],[\"top.primary\",\"#743b49\"],[\"top.secondary\",\"#743b49\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#946b43\",\"#33251a\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#496743\"],[\"bottom.primary\",\"#30372e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4b402c\"],[\"headwear.primary\",\"#747849\"],[\"headwear.secondary\",\"#747849\"],[\"neck.primary\",\"#747849\"],[\"outer.primary\",\"#c3aa7e\"],[\"outer.secondary\",\"#c3aa7e\"],[\"top.primary\",\"#743b49\"],[\"top.secondary\",\"#743b49\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "626d782474fa74f4ffaf47c07aaa0ace13200f5c40e7e0a8757dffb91292af23"
+  "sha256": "80ba301875ef1e6ac1f93756cb89a5e92438e0140ea63baeb7f52f84fbe13bd4",
+  "atlasSha256": "99b1fb9f05806be06f56ddb6c42d99b5f128b2c07af2a5119d67c7e5ab34b5d3",
+  "textureBytes": 14572480,
+  "atlas": "web/public/assets/character-cast/dunegarden-resident-4.atlas.json"
 }

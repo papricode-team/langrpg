@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/dunegarden-noura.json",
   "recipeSha256": "851476248d8d1c7fb2183f4178dca70c49184807e06a626bbaaa0fbb633a6847",
   "atlas": "web/public/assets/character-cast/dunegarden-noura.webp",
-  "atlasSha256": "053b02d6fb2eeec988bab0213314497779b27ec8c8c7e84f4050bfdecbe39943",
+  "atlasSha256": "f9fb6f21a56790a97256fcdbafdc50e4cd725dbb2d41afb7a536080162c781eb",
+  "geometry": "web/public/assets/character-cast/dunegarden-noura.atlas.json",
+  "geometrySha256": "769f1ad45e6419ed38e4316a592e949a06c3bb019444d48fda81225f89f03375",
+  "textureBytes": 14623104,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "90367bc64b30d85d37be38066e5bcc7533cbc49a90deaf6c9f33288a00d8584c",
   "proof": "art/proofs/character-cast/dunegarden-noura.png",
-  "proofSha256": "bff202f2bb727cc01554eabb482d2e4cf932ab3506bf029cb9c6c28f0611d66d",
-  "editorSha256": "cc7584656da03a808ba4839e21cb58d7c6edffba927ea8950df3dbfbab0c37f8",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "8c6022900093b31dee466c88ebc7061396b695936076a42b2bd54aa9e4ee49e3",
+  "editorSha256": "4e84af2cb71637a781c5a37585bc9167d94cb4e21bb5858da53731d0c0e0f3ff",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

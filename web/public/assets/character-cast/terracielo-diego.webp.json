@@ -33,13 +33,16 @@
       "top.secondary": "#e0d3b5"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "c05a2c0eeaddb8d57945ffd8eafb87215942b952307a27bf24f666940b073e9f"
+  "sha256": "8b98940b309f9a5d1b186b9f11252439e0e3b226c693c9240f11c802d862d5a3",
+  "atlasSha256": "ef3de630027a4231831a77f03de57304ee39afb2a6389f666e2a0933f0d762cf",
+  "textureBytes": 14654612,
+  "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json"
 }

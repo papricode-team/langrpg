@@ -33,13 +33,31 @@
       "top.secondary": "#d4c6a6"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b58d66\",\"#7a7468\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6d4e39\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#344b5e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#347779\"],[\"outer.secondary\",\"#347779\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b58d66\",\"#7a7468\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#6d4e39\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#344b5e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#347779\"],[\"outer.secondary\",\"#347779\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "7b264b1053c304f8c74a92719d4ef63fe157f290356745aabb5fdfdbc64303dd"
+  "sha256": "2ab931d609eee3a0218113e4e2c0e3d5e754719f211956075c4933368d925805",
+  "atlasSha256": "53619beb8f663b1a7e7263f7354d8496a6ef43ef1c561de95cf31390da5ee19f",
+  "textureBytes": 14750896,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-oyun.webp",
+      "sha256": "2ab931d609eee3a0218113e4e2c0e3d5e754719f211956075c4933368d925805",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-oyun.1.webp",
+      "sha256": "76c477790a243ae0b808c2d3faba323525ece5feb6bba5c4b44a064ed769ed5f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-oyun.atlas.json"
 }

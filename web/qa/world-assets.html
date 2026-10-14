@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Living sprite worlds · Lantern Atlas QA</title>
 <style>
-body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{position:fixed;inset:0}header{position:fixed;z-index:2;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px;background:#14352ee8;border:1px solid #9c9c6b}select,button{font:inherit;min-height:44px;padding:8px;background:#fcf1d8;color:#14352e;border:0}label{display:flex;align-items:center;gap:8px;min-height:44px}input{width:20px;height:20px}#status{font-size:12px}canvas{display:block}
+body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{position:fixed;inset:0}header{position:fixed;z-index:2;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px;background:#14352ee8;border:1px solid #9c9c6b}select,button{font:inherit;min-height:44px;padding:8px;background:#fcf1d8;color:#14352e;border:0}label{display:flex;align-items:center;gap:8px;min-height:44px}input{width:20px;height:20px}#status{font-size:12px}canvas{display:block}.controls-hidden header{display:none}
 </style></head>
 <body><div id="world"></div><header><select id="region" aria-label="Region"><option value="lindenhafen">Lindenhafen</option><option value="waldruh">Waldruh</option><option value="nebelstadt">Nebelstadt</option></select><select id="time" aria-label="Time of day"><option value="12">Calm daytime</option><option value="22">Calm nighttime</option><option value="shared">Live shared time</option></select><label><input type="checkbox" id="terrain">Terrain only</label><label><input type="checkbox" id="calm">Still scenery</label><label><input type="checkbox" id="tour">Camera tour</label><span id="status" role="status">Loading assets…</span></header>
 <script type="module">
@@ -12,14 +12,29 @@ import { interiors } from '../src/interiors.ts';
 import { maps, getMap } from '../src/maps.ts';
 import {weatherPreviewLabels} from '../src/world-weather.ts';
 let world, shownRegion='', sharedStatus='';
+// Exercise the real Phaser backing canvas at a requested screen density.
+const qaDensity=Number(new URLSearchParams(location.search).get('density'));
+const pixelDensity=[1,2].includes(qaDensity)?qaDensity:undefined;
 const status=document.querySelector('#status');
 const quayTest=new URLSearchParams(location.search).get('test')==='station-quay';
 const landTest=new URLSearchParams(location.search).get('test')==='clear-land';
 const walkingTest=quayTest||landTest;
 const landStarts={lindenhafen:[360,115],waldruh:[103,416],nebelstadt:[560,435]};
 if(import.meta.env.DEV){
+ const hideControls=document.createElement('button');hideControls.textContent='Hide controls';hideControls.title='Press Escape to restore QA controls';
+ hideControls.addEventListener('click',()=>document.body.classList.add('controls-hidden'));
+ document.querySelector('header').insertBefore(hideControls,status);
+ addEventListener('keydown',event=>{if(event.key==='Escape')document.body.classList.remove('controls-hidden');});
+ const capture=document.createElement('button');capture.textContent='Capture native pixels';
+ const download=document.createElement('a');download.textContent='Download native PNG';download.hidden=true;download.download='character-scene.png';download.id='native-capture';
+ capture.addEventListener('click',()=>{
+  download.hidden=true;
+  document.body.classList.add('controls-hidden');
+  window.atlasGame.renderer.snapshot(image=>{download.href=image.src;download.hidden=false;document.body.classList.remove('controls-hidden');},'image/png');
+ });
+ document.querySelector('header').insertBefore(capture,status);document.querySelector('header').insertBefore(download,status);
  document.querySelector('#region').innerHTML=maps.map(map=>`<option value="${map.id}">${map.name}</option>`).join('');
- world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{
+ world=new World(document.querySelector('#world'),{pixelDensity,motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{
   if(quayTest)world.setPlayers([{id:'quay-qa',name:'Quay QA',mapId:'lindenhafen',x:1285.632/2304,y:355.328/1536,avatar:{hair:'#53462d',skin:'#d5ad86',outfit:'#397c78'}}],'quay-qa');
   world.setInputEnabled(walkingTest);
  },onMapReady:id=>{
@@ -30,7 +45,14 @@ if(import.meta.env.DEV){
  const rooms = document.createElement('select'); rooms.id = 'interior'; rooms.setAttribute('aria-label', 'Interior');
  rooms.innerHTML = '<option value="">Outdoors</option>' + interiors.map(room => `<option value="${room.id}">${room.name}</option>`).join('');
  document.querySelector('header').insertBefore(rooms, status);
- rooms.addEventListener('change', () => rooms.value ? world.enterInterior(rooms.value) : world.leaveInterior());
+ const conversation=document.createElement('label');conversation.innerHTML='<input type="checkbox" id="conversation" disabled>Greta conversation';
+ document.querySelector('header').insertBefore(conversation,status);
+ const conversationInput=conversation.querySelector('input');
+ conversationInput.addEventListener('change',()=>world.setConversationTarget(conversationInput.checked?'greta':undefined));
+ rooms.addEventListener('change', () => {
+  conversationInput.checked=false;conversationInput.disabled=rooms.value!=='inn';world.setConversationTarget(undefined);
+  rooms.value ? world.enterInterior(rooms.value) : world.leaveInterior();
+ });
  const controls = document.createElement('label'); controls.innerHTML = '<input type="checkbox" id="controls">Walk & interact';
  controls.querySelector('input').checked=walkingTest;
  document.querySelector('header').insertBefore(controls, status);
@@ -73,7 +95,7 @@ if(import.meta.env.DEV){
   const activity=observed?` · ${observed.name}: ${observed.state.phase} ${observed.state.action}${observed.state.activityId?' at '+observed.state.activityId:''}${observed.state.interruption?' · rain response':observed.state.resumed?' · resumed':''}${observed.state.exchange?' · '+observed.state.exchange.stage+' · '+observed.state.exchange.german:''}`:'';
   const player=walkingTest?world.getPlayerPosition():undefined;
   const walking=player?` · Player ${player.x.toFixed(1)}, ${player.y.toFixed(1)} · player art ${characterCatalogue.format.runtimeCell.join('×')} (${characterCatalogue.assetVersion})`:'';
-  status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${ground.textures} ground textures / ${(ground.pixels*4/1024/1024).toFixed(1)} MiB RGBA · ${ground.pending} pending · ${stats.p95FrameMs} ms p95 · ${world.getWeather()?'rain':'dry'}${sharedStatus}${activity}${walking}`:'Loading destination artwork…'},250);
+  status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${pixelDensity??window.devicePixelRatio}× density · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${ground.textures} ground textures / ${(ground.pixels*4/1024/1024).toFixed(1)} MiB RGBA · ${ground.pending} pending · ${stats.p95FrameMs} ms p95 · ${world.getWeather()?'rain':'dry'}${sharedStatus}${activity}${walking}`:'Loading destination artwork…'},250);
  addEventListener('pagehide',()=>{clearInterval(timer);clearInterval(sharedTimer);sharedAbort.abort();world.destroy()},{once:true});
 }else status.textContent='This fixture is available on the development server.';
 </script></body></html>

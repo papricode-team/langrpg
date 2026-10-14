@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-ferry-attendant.json",
   "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
   "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.webp",
-  "atlasSha256": "b304f9dc4151eb715e08b653f0947c9d1c136777c61bae29a37f100fda4a7ccd",
+  "atlasSha256": "f735174f8d1cb3556da32a4cd2c9ba2e02e7ebec55338594161c84544c46183d",
+  "geometry": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.atlas.json",
+  "geometrySha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
+  "textureBytes": 10811136,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/poses/wave/lindenhafen-ferry-attendant.png",
-  "proofSha256": "1f675f557e381b2970569e32c58eaf06bf82a94682151c6a9d8707203c9b1572",
-  "editorSha256": "fa1288711a4be4e4923cca3a7b9c7b491a5096fc9b92ba3d87146d659a674e77",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "610d6a9a31411dc3bbc5ded55a5844e750aa3cb169559020fd9ae874ac6b6240",
+  "editorSha256": "388c97353b5d8fd0d545a5e304c39b909378e7d88d360243fc7f784e660ec0e8",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "31e51b300158a37de90cbbcd0d968f785bb7350656d0146805cd92f64c61ca01"
+  },
+  "sourceComponentsSha256": "31e51b300158a37de90cbbcd0d968f785bb7350656d0146805cd92f64c61ca01"
 }

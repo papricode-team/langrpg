@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/kigalights-eric.json",
   "recipeSha256": "f7622c42f950d7cbd0a65375b3bf2943d4af9d4579a787ec56d36097292c504f",
   "atlas": "web/public/assets/character-cast/kigalights-eric.webp",
-  "atlasSha256": "ba9575f8823a92aa6c43b902f4e61382ab88857d5b6f62fce1f2964caf383ee5",
+  "atlasSha256": "96a6640cc018ff9a08c4aa6cbe953e0558532ea654f67ea0b0c5fd72f1265db4",
+  "geometry": "web/public/assets/character-cast/kigalights-eric.atlas.json",
+  "geometrySha256": "91c46714810e4c5013a916dafde17fb9d621e04fc86de5f01790fb74742af368",
+  "textureBytes": 14532956,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/kigalights-eric.png",
-  "proofSha256": "3bf9c85a917e0ee6bae9ffb05f09b9fc9e721f1a3d6267cee187715d3d82067a",
-  "editorSha256": "bff097d0ea55a24b7cdff14238a6a14b53becc966c6d653d62483a60a8109879",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "0be16707897452af811fb2f464e5dd84dcc4d56da549246dbe1d8d2bc7f6ca89",
+  "editorSha256": "10b4e00a4d67fcf72a3551b39a9f49a5f0f9d6aabd1025cadc2509927942ebd1",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "db5e11501b24a0d9bc385d6226010014480b22ca128199428135da7469789882"
+  },
+  "sourceComponentsSha256": "db5e11501b24a0d9bc385d6226010014480b22ca128199428135da7469789882"
 }

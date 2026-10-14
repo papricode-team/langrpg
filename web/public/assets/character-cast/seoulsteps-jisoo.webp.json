@@ -33,13 +33,15 @@
       "top.secondary": "#909691"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#c9a17d\",\"#a19684\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454847\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e5034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#33495e\"],[\"outer.secondary\",\"#33495e\"],[\"top.primary\",\"#909691\"],[\"top.secondary\",\"#909691\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#c9a17d\",\"#a19684\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454847\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e5034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#33495e\"],[\"outer.secondary\",\"#33495e\"],[\"top.primary\",\"#909691\"],[\"top.secondary\",\"#909691\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "58aa7ad48eb1c51d335142685d90049016f996e050cce2045f81c138462dc520"
+  "sha256": "72a1eab8f93955d66db46eac152909b9e406172fa4a94166f467846b20f14a06",
+  "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json",
+  "textureBytes": 14490960
 }

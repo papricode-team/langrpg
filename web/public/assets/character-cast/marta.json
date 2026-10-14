@@ -4,10 +4,47 @@
   "recipe": "art/source/character-kit/cast/marta.json",
   "recipeSha256": "75b5290e40cec1e20bd9c6017894ead34a654d7e6c4ea0c4228c7f2487904fa3",
   "atlas": "web/public/assets/character-cast/marta.webp",
-  "atlasSha256": "c302a4078a55f360608d59c22eff75cade6912ce141c6b6e822c9badc3408867",
+  "atlasSha256": "db49e9644af42f465a87ff78508bd8394c09f3c3aa091899d1aa401da4e89fe9",
+  "geometry": "web/public/assets/character-cast/marta.atlas.json",
+  "geometrySha256": "6265ccd066975dfe8f00a6ed1de157cf7c63cf3938409dd384feccea936f5097",
+  "textureBytes": 14904544,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "9c949acba786b3c78c20a435ba4e4ac2d702259425b41beaab107bbcc4227325",
   "proof": "art/proofs/character-cast/marta.png",
-  "proofSha256": "c0f4c25428f630562ae64a501b21af53a862bf33710babe71272f0594ca1571c",
-  "editorSha256": "fd49fc9a0979bfc3322757df5da40129884ab014cf5a14dab134bdfefdad92ce",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "12275d38f79e15d0d70f2f33b004f154b2f5add5d82a47da5f9e567e75c3193d",
+  "editorSha256": "19773bd66cdfbaee886ee16d139ded6ac824c6247298288c57053e94e52e5c8f",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-marta-native",
+    "image": "web/public/assets/character-cast/native/marta.webp",
+    "atlas": "web/public/assets/character-cast/native/marta.atlas.json",
+    "sha256": "35a8afa09ec1877ff6a3dc91f53c86efc305029c1eded632e1a9dbd2bec23014",
+    "atlasSha256": "124bc6599f0d3928825869354096c09e22155918b01cd59c440cf52910642a49",
+    "textureBytes": 28297400,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/marta.webp",
+        "sha256": "35a8afa09ec1877ff6a3dc91f53c86efc305029c1eded632e1a9dbd2bec23014",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/marta.1.webp",
+        "sha256": "4e90f91f8c7ed47146db3aee539653ee687cefc3cd3e4477e9b2db428ab80fbd",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/marta.webp",
+    "sourceSha256": "19773bd66cdfbaee886ee16d139ded6ac824c6247298288c57053e94e52e5c8f"
+  }
 }

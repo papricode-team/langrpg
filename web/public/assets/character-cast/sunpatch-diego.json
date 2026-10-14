@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/sunpatch-diego.json",
   "recipeSha256": "c2ec6ab31ac20a5c0ebb44b9013360524077ef07100a1801178abbb5af7c6cac",
   "atlas": "web/public/assets/character-cast/sunpatch-diego.webp",
-  "atlasSha256": "9e72ef48e7c119ea8d52635a49db9e9e1475f735495101c689a7d522c27c51fe",
+  "atlasSha256": "64d7640f9c6516ca6e1148b873a7bd7caeb0d6ded9ce846b68dd706aa2e11bbd",
+  "geometry": "web/public/assets/character-cast/sunpatch-diego.atlas.json",
+  "geometrySha256": "df8f941569a61b84f55fbe9a2231e442e3cce1d6cd1755fd9e56f41c0d88bcdc",
+  "textureBytes": 14698076,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "61ad56559a87e70771363eb360ad71ff1d601758a80ac8975bbd552a8092aa31",
   "proof": "art/proofs/character-cast/sunpatch-diego.png",
-  "proofSha256": "4c3b344c1bc4bb5eb2955e0532f75c7009b90223f722808e81b5855313d78f88",
-  "editorSha256": "6021a9c56dfe682549e8ff69d4a3726b6545b69cf2710faa0ccbc8186c0885ec",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "096e86dafb348802b00bddb3b7c825a96b09d4af2ceac67731d9c42ffcf2ec49",
+  "editorSha256": "9df5e32ec2a9a34cb00957bade03b69e62b787859c497b8e5bddbf388eeecab3",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

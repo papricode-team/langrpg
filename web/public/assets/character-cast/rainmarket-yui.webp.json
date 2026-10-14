@@ -33,13 +33,16 @@
       "top.secondary": "#dfd8c7"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#caa17c\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7ebbaa\"],[\"bottom.primary\",\"#d1c5a7\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#a5413a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#79508b\"],[\"outer.secondary\",\"#79508b\"],[\"top.primary\",\"#dfd8c7\"],[\"top.secondary\",\"#dfd8c7\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#caa17c\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7ebbaa\"],[\"bottom.primary\",\"#d1c5a7\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#a5413a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#79508b\"],[\"outer.secondary\",\"#79508b\"],[\"top.primary\",\"#dfd8c7\"],[\"top.secondary\",\"#dfd8c7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "bca7d1fe63371dbdf85ee44edce3bfe891863e4b0cc0efc63633f2103e7d2358"
+  "sha256": "6f0577fd7be27cac5276f4a79ea20366eab9db5d1bd07d1374761f8dff4b3810",
+  "atlasSha256": "a33b4bc24fd2f2da448e31352840b19dc7093995987d445f020d9d60680bf107",
+  "textureBytes": 14381488,
+  "atlas": "web/public/assets/character-cast/rainmarket-yui.atlas.json"
 }

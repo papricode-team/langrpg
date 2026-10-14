@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-resident-reader.json",
   "recipeSha256": "8658e2cf95be2527fb656a5eb79f9659d35d35eb8113bb174c327e88c94e7015",
   "atlas": "web/public/assets/character-cast/lindenhafen-resident-reader.webp",
-  "atlasSha256": "469a9915f6bff90c1ad017a99d07b56d90c758b1dcbabb663f51ea8cb205b6ed",
+  "atlasSha256": "12011133b32fe03d2438af56c769207c1878e04eba579c068182a3c758c9e3f1",
+  "geometry": "web/public/assets/character-cast/lindenhafen-resident-reader.atlas.json",
+  "geometrySha256": "8d5cc53b7e4758508a8d08a5eecba9aece3e8469eb275ec6c7bd29c3b5a85ae8",
+  "textureBytes": 13935096,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/lindenhafen-resident-reader.png",
-  "proofSha256": "10d5349450f859b1bf9682f8236cc49a79fd7ff17e1ca4562392f48ac522fc04",
-  "editorSha256": "cb7f37cd90c7df81c79ed7738395449a798974710141c224d6b79797df1ccb70",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "518f3b637d553580779302f4112655be8278bd275627cb81435d59a2f6f8d8c3",
+  "editorSha256": "f73543ea68a9ea50267c54e615290d01a613676f7295a1e2b358ce37c841100a",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "6cee8716035b42f1c9155f509bae3819af91a3db00647e8e5627ae40f8d876f5"
+  },
+  "sourceComponentsSha256": "6cee8716035b42f1c9155f509bae3819af91a3db00647e8e5627ae40f8d876f5"
 }

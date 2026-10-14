@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/kigalights-diane.json",
   "recipeSha256": "7d156ef0b354d50aa19749aac807e4c970079c5a4b7eca97c4e8936bf620d564",
   "atlas": "web/public/assets/character-cast/kigalights-diane.webp",
-  "atlasSha256": "5cf365e816f5c7e2ef8140e3b181ba9dd401546d1001ea65a92aff02f683c697",
+  "atlasSha256": "24a53a860ca64a7fa99205386083a0192b76b2d81e1b784ec6d0fb639956e622",
+  "geometry": "web/public/assets/character-cast/kigalights-diane.atlas.json",
+  "geometrySha256": "f347f00d4cb3c8f66729d3199a5b41f394a8a182ab2cb0a6c05ea2b70199893e",
+  "textureBytes": 14309328,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "817cfb527958087459ecd5aed91612c808ec284e667b76622783dc490e6a8728",
   "proof": "art/proofs/character-cast/kigalights-diane.png",
-  "proofSha256": "29ac1a0451b75690e76e9bf94b50718cc58fe4f0dec4a7d1e937edf5c34dba09",
-  "editorSha256": "3371c7cfa51b1f725a5d41ab491705539afcdd87c806008a79654777a179537f",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "e8d00a9fc20906f4155a8c3d02dcab0f0a927c97dedc5fc70191be438938e20a",
+  "editorSha256": "5a3ef4c61ad0b151d2a9d868820ecf0e8d6ff3f7f6632c0bcb2646a8deab8f17",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

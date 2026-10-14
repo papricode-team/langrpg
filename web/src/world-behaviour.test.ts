@@ -10,8 +10,8 @@ import { regionPeopleFrames, regionPeopleKey } from './world-map-assets';
 import { buildingEntrances, getInterior } from './interiors';
 import { NavigationGrid, PLAYER_RADIUS } from './navigation';
 import { sampleResidentMotion, type WorldResident } from './world-life';
-import { sampleSceneryFrame } from './scenery-animation';
 import { characterFrame, MODULAR_ART } from './avatar-options';
+import { castActor, castActorsForMap, CAST_ART } from './character-cast';
 import { explorationZoom } from './world-camera';
 import { WorldClock } from './world-clock';
 import { residentActionFrames, residentActionKey, residentActionLooks, type ResidentActionLook } from './resident-action-art';
@@ -35,6 +35,10 @@ const seedTerrain = (game: Phaser.Game, mapId: MapId, period: 'day' | 'night') =
 };
 const manifest = (assets: Record<string, unknown>, terrain?: string) => ({ version: 3, framesPerAsset: 1, terrain, assets });
 const sheet = (key: string, frames = ['tree-0']) => ({ key, frames, fps: 0, width: 100, height: 120, referenceWidth: 100, originX: .5, originY: 1 });
+const seedCastArt = (game: Phaser.Game, id: string) => {
+  const actor = castActor(id)!;
+  seedTexture(game, actor.key, Array.from({ length: 36 }, (_, frame) => frame), CAST_ART.width, CAST_ART.height);
+};
 
 describe('authored resident activities', () => {
   it('keeps authored tasks synchronized while reduced motion, local sky previews and culling change', async () => {
@@ -314,23 +318,29 @@ describe('story characters and routines', () => {
     expect(resumed).toBeGreaterThan(0); expect(resumed).toBeLessThanOrEqual(36 * .05 + .00001);
   });
 
-  it('retains the original painted idle animations independently of walking sheets', async () => {
+  it('holds native standing poses even when obsolete idle animation sheets remain cached', async () => {
     const animation = { key: 'residents-animation-0', frames: ['marta-0', 'marta-1', 'marta-2', 'marta-3', 'marta-4', 'marta-5'],
       fps: 3, width: 147, height: 230, referenceWidth: 147, originX: .5, originY: 1 };
-    const { town, game } = await bootWorld();
+    const { town, game } = await bootWorld({ seed: game => seedCastArt(game, 'marta') });
     seedTexture(game, animation.key, animation.frames);
     seedJson(game, 'residents-animations', { assets: { marta: animation } });
-    game.textures.remove('main-cast');
     const marta = town.createCharacter('marta', 'Marta', 100, 100, avatar, undefined, 0);
+    expect(marta.componentCast).toBe(true);
     expect(marta.walkingAnimation).toBeUndefined();
-    const poses = new Set<string>();
+    expect(marta.idleAnimation).toBeUndefined();
     for (const seconds of [0, .4, .8, 1.2]) {
       town.decorativeElapsed = seconds;
       town.animateCharacter(marta, 0, 0, seconds);
-      expect(marta.figure.frame.name).toBe(sampleSceneryFrame(animation, 'marta', seconds));
-      poses.add(marta.figure.frame.name);
+      expect(marta.figure.texture.key).toBe(castActor('marta')!.key);
+      expect(marta.figure.frame.name).toBe(characterFrame(0));
     }
-    expect(poses.size).toBeGreaterThan(1);
+    town.animateCharacter(marta, 4, 0, 2);
+    expect(marta.figure.frame.name).not.toBe(characterFrame(1));
+    for (const seconds of [2.1, 3, 17]) {
+      town.animateCharacter(marta, 0, 0, seconds);
+      expect(marta.figure.frame.name).toBe(characterFrame(1));
+      expect(marta.figure.originY).toBe(CAST_ART.footY);
+    }
   });
 });
 
@@ -456,10 +466,9 @@ describe('day, night and travel streaming', () => {
     expect(harness.requests.some(key => shared.includes(key))).toBe(false);
   }, 30000);
 
-  it('tints regional paintings for the period and keeps a sheet both periods share', async () => {
+  it('tints native regional fallback characters for the period and keeps shared scenery', async () => {
     const { world, town, game, harness } = await bootWorld({ mapId: 'waldruh', motion: 'reduced', seed: game => {
       seedTerrain(game, 'waldruh', 'day'); seedTerrain(game, 'waldruh', 'night');
-      for (const variant of [0, 4, 10]) seedTexture(game, regionPeopleKey('waldruh', variant), Array.from({ length: 16 }, (_, index) => regionPeopleFrames(index)).flat(), 4, 4, { x: .5, y: .97 });
       for (const period of ['day', 'night'] as const) seedJson(game, `waldruh-${period}-animations`, manifest({ tree: sheet('waldruh-motions') }));
       seedTexture(game, 'waldruh-motions', ['tree-0']);
     } });
@@ -467,6 +476,9 @@ describe('day, night and travel streaming', () => {
     town.characters.set('waldruh-neighbor', neighbor);
     world.setTimePreference({ mode: 'manual', hour: 22 }); await settle(harness, 4);
     expect(town.period).toBe('night');
+    expect(neighbor.modularNpc).toBe(true);
+    expect(neighbor.figure.height).toBe(MODULAR_ART.height);
+    expect(neighbor.avatarLease).toBeDefined();
     expect(neighbor.figure.tintTopLeft).toBe(timeAmbient('waldruh', 22, 'night').people);
     expect(game.textures.exists('waldruh-motions')).toBe(true);
     // The night switch released the day ground; it streams back in before daylight returns.
@@ -479,8 +491,8 @@ describe('day, night and travel streaming', () => {
 });
 
 describe('regional human motion', () => {
-  const regionalArt = (game: Phaser.Game, pivot = { x: .5, y: .97 }) => {
-    for (const variant of [0, 4, 10]) seedTexture(game, regionPeopleKey('waldruh', variant), Array.from({ length: 16 }, (_, index) => regionPeopleFrames(index)).flat(), 4, 4, pivot);
+  const regionalArt = (game: Phaser.Game) => {
+    for (const actor of castActorsForMap('windplain')) seedCastArt(game, actor.id);
   };
   async function regional() {
     const fixture = await bootWorld({ mapId: 'waldruh', seed: game => regionalArt(game) });
@@ -506,21 +518,22 @@ describe('regional human motion', () => {
   }
   const pose = (person: any) => person.figure.frame.name;
 
-  it('binds all sixteen local characters to distinct global frames throughout movement', async () => {
+  it('keeps all sixteen native local identities distinct through every authored facing', async () => {
     const { town } = await regional();
-    const people = Array.from({ length: 16 }, (_, variant) => town.createCharacter(`waldruh-person-${variant}`, `Person ${variant}`, 100, 100, avatar, undefined, variant, variant));
+    const people = castActorsForMap('windplain').map((actor, variant) => town.createCharacter(actor.id, actor.name, 100, 100, actor.recipe!, undefined, variant, variant));
+    expect(people).toHaveLength(16);
     expect(people.map(person => person.localArtVariant)).toEqual(Array.from({ length: 16 }, (_, index) => index));
     expect(new Set(people.map(person => `${person.figure.texture.key}:${pose(person)}`)).size).toBe(16);
     for (const person of people) {
-      expect(person.walkingAnimation.key).toBe(regionPeopleKey('waldruh', person.localArtVariant));
-      expect(person.walkingAnimation.frames).toEqual(regionPeopleFrames(person.localArtVariant));
+      expect(person.componentCast).toBe(true);
+      expect(person.walkingAnimation).toBeUndefined();
       expect(person.idleAnimation).toBeUndefined();
-      for (const seconds of [1, 2, 3]) {
-        town.decorativeElapsed = seconds;
-        town.animateCharacter(person, -3, 1, seconds);
-        expect(person.figure.texture.key).toBe(regionPeopleKey('waldruh', person.localArtVariant));
-        expect(pose(person)).toMatch(new RegExp(`^person-${person.localArtVariant}-[0-3]$`));
-        expect(person.figure.flipX).toBe(true);
+      for (const [facing, dx, dy] of [[0, 0, 3], [1, 3, 0], [2, 0, -3], [3, -3, 0]]) {
+        town.animateCharacter(person, dx, dy, 1);
+        expect(person.figure.texture.key).toBe(castActor(person.id)!.key);
+        expect(Math.floor(Number(pose(person)) / 9)).toBe(facing);
+        expect(person.figure.flipX).toBe(false);
+        expect(person.figure.height).toBe(CAST_ART.height);
       }
     }
   });
@@ -568,98 +581,103 @@ describe('regional human motion', () => {
     expect(person.x).toBeGreaterThan(home.x);
   });
 
-  it('uses the exported sole pivot for ground contact and supports older character pages', async () => {
-    const { town, game, person } = await regional();
+  it('uses the native foot pivot and ignores obsolete regional pivots when composing a new resident', async () => {
+    const fixture = await regional(), { town, game, person } = fixture;
     expect(person.figure.originX).toBe(.5);
-    expect(person.figure.originY).toBe(.97);
-    regionalArt(game, { x: .44, y: .95 });
-    const anchored = town.createCharacter(person.id, 'Anu', 100, 100, person.avatar, undefined, 8, 8);
-    expect(anchored.figure.originX).toBe(.44);
-    expect(anchored.figure.originY).toBe(.95);
-    for (const variant of [0, 4, 10]) seedTexture(game, regionPeopleKey('waldruh', variant), Array.from({ length: 16 }, (_, index) => regionPeopleFrames(index)).flat());
-    const legacy = town.createCharacter(person.id, 'Anu', 100, 100, person.avatar, undefined, 8, 8);
-    expect(legacy.figure.originX).toBe(.5);
-    expect(legacy.figure.originY).toBe(1);
+    expect(person.figure.originY).toBe(CAST_ART.footY);
+    for (const variant of [0, 4, 10]) seedTexture(game, regionPeopleKey('waldruh', variant),
+      Array.from({ length: 16 }, (_, index) => regionPeopleFrames(index)).flat(), 4, 4, { x: .44, y: .95 });
+    const newcomer = town.createCharacter('future-waldruh-resident', 'Neighbor', 100, 100, person.avatar, undefined, 8, 8);
+    expect(newcomer.figure.visible).toBe(false);
+    await fixture.until(() => !!newcomer.avatarLease);
+    expect(newcomer.figure.texture.key).not.toBe(regionPeopleKey('waldruh', 8));
+    expect(newcomer.figure.originX).toBe(.5);
+    expect(newcomer.figure.originY).toBe(MODULAR_ART.footY);
+    expect(newcomer.figure.displayOriginY).toBeCloseTo(MODULAR_ART.height * MODULAR_ART.footY);
   });
 
   it('keeps standing neighbors and paused residents planted instead of cycling step poses', async () => {
     const { town, person, render } = await regional();
     const neighbor = town.createCharacter('windplain-nomin', 'Nomin', 120, 120, person.avatar, undefined, 8, 8);
-    expect(pose(neighbor)).toBe('person-8-0');
+    expect(pose(neighbor)).toBe(characterFrame(0));
     for (const seconds of [.4, 2, 17]) {
       town.decorativeElapsed = seconds;
       town.animateCharacter(neighbor, 0, 0, seconds);
-      expect(pose(neighbor)).toBe('person-8-0');
+      expect(pose(neighbor)).toBe(characterFrame(0));
     }
-    render(.8); expect(pose(person)).toBe('person-8-2');
-    render(2.1); expect(pose(person)).toBe('person-8-0');
+    render(.8); expect(pose(person)).toBe(11);
+    render(2.1); expect(pose(person)).toBe(characterFrame(1));
     const stopped = { x: person.x, y: person.y };
-    render(2.9); expect(pose(person)).toBe('person-8-0');
+    render(2.9); expect(pose(person)).toBe(characterFrame(1));
     expect({ x: person.x, y: person.y }).toEqual(stopped);
     // A new departure starts from a planted pose rather than the old step.
-    render(3.1); expect(pose(person)).toBe('person-8-0');
+    render(3.1); expect(pose(person)).toBe(28);
+    expect(person.walkDistance).toBeCloseTo(4.8);
   });
 
   it('paces steps by route travel across corners and at different strolling speeds', async () => {
     const { town, person, motion, render } = await regional();
-    render(.2); expect(pose(person)).toBe('person-8-0');
-    render(.4); expect(pose(person)).toBe('person-8-1');
-    render(.8); expect(pose(person)).toBe('person-8-2');
+    render(.2); expect(pose(person)).toBe(10);
+    render(.4); expect(pose(person)).toBe(10);
+    render(.8); expect(pose(person)).toBe(11);
     // One late render must count both legs of the corner, not its diagonal.
-    render(1.9); expect(pose(person)).toBe('person-8-1');
+    render(1.9); expect(pose(person)).toBe(4);
+    expect(person.walkDistance).toBeCloseTo(91.2);
     town.residents[0].motion = { ...motion, cycleSeconds: 3, segments: motion.segments.map(segment => ({
       ...segment, startSeconds: segment.startSeconds / 2, durationSeconds: segment.durationSeconds / 2,
       velocityX: segment.velocityX * 2, velocityY: segment.velocityY * 2,
     })) };
-    render(.2); expect(pose(person)).toBe('person-8-1');
+    render(.35); expect(pose(person)).toBe(11);
+    expect(person.walkDistance).toBeCloseTo(33.6);
   });
 
-  it('produces the same pose at every frame rate and while culled, retaining facing through vertical movement', async () => {
+  it('produces the same native pose at every frame rate and while culled, with authored vertical facings', async () => {
     const { town, person, render } = await regional();
     for (let step = 1; step <= 190; step++) render(step / 100);
-    const continuous = { frame: pose(person), x: person.x, y: person.y, flipX: person.figure.flipX };
+    const continuous = { frame: pose(person), x: person.x, y: person.y, facing: person.facing };
     for (let step = 1; step <= 38; step++) render(step / 20);
-    expect({ frame: pose(person), x: person.x, y: person.y, flipX: person.figure.flipX }).toEqual(continuous);
+    expect({ frame: pose(person), x: person.x, y: person.y, facing: person.facing }).toEqual(continuous);
     setView(town, -3000, -3000, -2000, -2000);
-    render(3.8); expect(person.root.visible).toBe(false); expect(person.figure.flipX).toBe(true);
-    render(4.4); expect(person.figure.flipX).toBe(true);
+    render(3.8); expect(person.root.visible).toBe(false); expect(person.facing).toBe(3);
+    render(4.4); expect(person.facing).toBe(2);
     setView(town, 0, 0, 1536, 1024);
     render(4.4); expect(person.root.visible).toBe(true);
-    expect(pose(person)).toBe('person-8-0');
-    // Small lateral variation while going vertically does not reverse facing.
-    town.animateCharacter(person, .1, 2, 4.5); expect(person.figure.flipX).toBe(true);
+    expect(pose(person)).toBe(21);
+    // Small lateral variation keeps the authored back-facing pose.
+    town.animateCharacter(person, .1, -2, 4.5); expect(person.facing).toBe(2);
+    expect(person.figure.flipX).toBe(false);
   });
 
   it('freezes the current pose and facing in still-world mode, then resumes without catching up', async () => {
     const { world, town, person, render } = await regional();
     render(3.8);
-    const held = { frame: pose(person), x: person.x, y: person.y, flipX: person.figure.flipX };
+    const held = { frame: pose(person), x: person.x, y: person.y, facing: person.facing };
     world.setMotionPreference('reduced');
     for (let step = 1; step <= 50; step++) { town.elapsed += .02; render(3.8); }
-    expect({ frame: pose(person), x: person.x, y: person.y, flipX: person.figure.flipX }).toEqual(held);
+    expect({ frame: pose(person), x: person.x, y: person.y, facing: person.facing }).toEqual(held);
     world.setMotionPreference('full'); render(3.81);
-    expect(pose(person)).toBe(held.frame); expect(person.figure.flipX).toBe(true);
-    render(3.99); expect(pose(person)).toBe('person-8-2');
+    expect(pose(person)).toBe(held.frame); expect(person.facing).toBe(3);
+    render(4.01); expect(person.facing).toBe(2); expect(pose(person)).toBe(20);
   });
 
-  it('derives facing from the route when spawning on a vertical leg or skipping the horizontal leg', async () => {
+  it('selects the authored vertical facing when spawning midroute or skipping the preceding leg', async () => {
     const { town, person, motion, render } = await regional();
     render(3.5); render(4.4);
-    const continuous = { frame: pose(person), flipX: person.figure.flipX };
-    expect(continuous.flipX).toBe(true);
-    // The skipped leftward leg must still set the late render's facing.
-    person.figure.setFlipX(false); render(.4); render(4.4);
-    expect({ frame: pose(person), flipX: person.figure.flipX }).toEqual(continuous);
+    const continuous = { frame: pose(person), facing: person.facing };
+    expect(continuous.facing).toBe(2);
+    person.facing = 0; render(.4); render(4.4);
+    expect({ frame: pose(person), facing: person.facing }).toEqual(continuous);
     const newcomer = town.createCharacter(person.id, 'Anu', 100, 100, person.avatar, undefined, 8, 8);
     town.residents[0].character = newcomer;
     motion.phaseSeconds = 4.4;
     render(0);
-    expect({ frame: pose(newcomer), flipX: newcomer.figure.flipX }).toEqual(continuous);
-    // A cycle that starts vertically inherits the preceding loop's leftward leg.
+    expect({ frame: pose(newcomer), facing: newcomer.facing }).toEqual(continuous);
+    // Starting the cycle on its vertical leg selects that same authored facing.
     town.residents[0].motion = { ...motion, phaseSeconds: .4,
       segments: [...motion.segments.slice(4), ...motion.segments.slice(0, 4)].map((segment, index) => ({ ...segment, startSeconds: index })) };
-    newcomer.figure.setFlipX(false); render(0);
-    expect(newcomer.figure.flipX).toBe(true);
+    newcomer.facing = 0; render(0);
+    expect(newcomer.facing).toBe(2);
+    expect(newcomer.figure.flipX).toBe(false);
   });
 });
 

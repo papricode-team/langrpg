@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-leila.json",
   "recipeSha256": "5f18f51be95b3692777115cc282273424f4cf00216a2dde1c3e7d173e35c239d",
   "atlas": "web/public/assets/character-cast/saffroncourt-leila.webp",
-  "atlasSha256": "4195b65e7f964e11189cd966659804e73a2254d79a69b920b9116c150c204f95",
+  "atlasSha256": "e2ee2074f8ec9a9f4255eca3db2381de28c82bacc62e8be22f4ae57cbddfcd89",
+  "geometry": "web/public/assets/character-cast/saffroncourt-leila.atlas.json",
+  "geometrySha256": "aad20d5d08e7d9a8accbc6d80913df15a7a4871e54532bc54c2655e928a037b1",
+  "textureBytes": 14654612,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "b818f497cfb5f4d18afc5affdd84a99cb42bcb53eba2d1be4df5d195d774b31f",
   "proof": "art/proofs/character-cast/saffroncourt-leila.png",
-  "proofSha256": "97f6f0dbcc7568010b3e0e076e388e3d10d58b611e7c7f98373b984de44456f9",
-  "editorSha256": "95a626670deea8b2613c1583469de849feff4865530ff2c6219f8cf5622f1017",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "64fec8afcc9f7f8ed5d4e4330cfe4e762db25094d691c772afd96947be3b588a",
+  "editorSha256": "cb51b602e0e5277a2b81eece3ece3e1a76470bf26f60fa3d358ad84149046b4b",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

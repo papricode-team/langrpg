@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
   "sources": [
     {
       "path": "art/source/character-kit/hd/candidates/hair-braids-page-0-candidate-1.png",
@@ -290,9 +290,10 @@
     },
     {
       "x": 5,
-      "y": 16,
+      "y": -1,
       "error": 509.56439393939394,
       "initial": 5966.865151515151,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 146,
         "top": 2041,
@@ -302,9 +303,10 @@
     },
     {
       "x": 11,
-      "y": 18,
+      "y": -3,
       "error": 523.0510865421273,
       "initial": 10296.181090354556,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 786,
         "top": 2045,
@@ -314,9 +316,10 @@
     },
     {
       "x": 7,
-      "y": 20,
+      "y": 2,
       "error": 578.4239420510866,
       "initial": 8228.620663362562,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 1419,
         "top": 2045,
@@ -326,9 +329,10 @@
     },
     {
       "x": 5,
-      "y": 52,
+      "y": 29,
       "error": 573.2131147540983,
       "initial": 10810.605439642324,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2042,
         "top": 2045,
@@ -338,9 +342,10 @@
     },
     {
       "x": 5,
-      "y": 45,
+      "y": 24,
       "error": 267.49701937406854,
       "initial": 11391.66654247392,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 2689,
         "top": 2042,
@@ -350,9 +355,10 @@
     },
     {
       "x": 6,
-      "y": 48,
+      "y": 23,
       "error": 250.3107302533532,
       "initial": 10336.067064083458,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3331,
         "top": 2045,
@@ -362,9 +368,10 @@
     },
     {
       "x": 8,
-      "y": 41,
+      "y": 22,
       "error": 331.8061009817672,
       "initial": 9624.436535764376,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 3982,
         "top": 2043,
@@ -374,9 +381,10 @@
     },
     {
       "x": 12,
-      "y": 40,
+      "y": 22,
       "error": 461.7877565982405,
       "initial": 13073.055718475074,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 4625,
         "top": 2046,
@@ -386,9 +394,10 @@
     },
     {
       "x": 7,
-      "y": 44,
+      "y": 18,
       "error": 370.5753938484621,
       "initial": 13115.23105776444,
+      "anchor": "rear crown coverage, complete-frame translation",
       "box": {
         "left": 5274,
         "top": 2043,
@@ -505,5 +514,5 @@
       }
     }
   ],
-  "outputSha256": "3ff8bb48dbb4557e843954bd6cb35b256fc5f7d2dd0bd3c0a1f64a9b278d3250"
+  "outputSha256": "24872e9864c6087773536e68dcb0a58221032d31a765fbd34646d048ae8e58c6"
 }

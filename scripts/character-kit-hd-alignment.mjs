@@ -6,7 +6,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
-import {buildReferences} from './character-kit.mjs';
+import {buildReferences,material} from './character-kit.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 export function matchTranslation(base,candidate,width,box,limit=96){
  if(!Number.isInteger(width)||width<1||base.length!==candidate.length||base.length%(width*4)||!Number.isInteger(limit)||limit<0)throw Error('Invalid registration image geometry');
@@ -23,6 +23,42 @@ export function matchTranslation(base,candidate,width,box,limit=96){
  for(let y=-limit;y<=limit;y+=4)for(let x=-limit;x<=limit;x+=4){const error=cost(x,y);if(error<best.error)best={x,y,error};}
  const coarse={...best};for(let y=coarse.y-4;y<=coarse.y+4;y++)for(let x=coarse.x-4;x<=coarse.x+4;x++){if(Math.abs(x)>limit||Math.abs(y)>limit)continue;const error=cost(x,y);if(error<best.error)best={x,y,error};}
  return {...best,initial};
+}
+/** Cover the native skull contour without changing any individual pixels. */
+export function coverCrown(base,candidate,width,frame,match){
+ const h=frame.headBounds,t=frame.transform,cell=t.sourceCell;
+ const hx=cell.left+((h.left+h.right)/2-t.offset.x)/t.scale;
+ const hy=cell.top+(h.top-t.offset.y)/t.scale,hw=(h.right-h.left)/t.scale;
+ const samples=[];
+ // The centre 72% avoids exposed temples and ears, which are part of several
+ // intentional haircuts. Three samples just inside each skull edge reject
+ // antialias fringes while including the broad covering below a bun or peak.
+ for(let x=Math.round(hx-hw*.36);x<=hx+hw*.36;x+=2){
+  for(let y=Math.max(cell.top,Math.round(hy-45));y<Math.min(cell.top+cell.height,hy+45);y++){
+   const p=(y*width+x)*4;
+   if(material(...base.subarray(p,p+3))!=='skin')continue;
+   for(let k=3;k<=11;k+=4){const q=((y+k)*width+x)*4;if(material(...base.subarray(q,q+3))==='skin')samples.push([x,y+k]);}
+   break;
+  }
+ }
+ if(samples.length<30)throw Error('Insufficient native skull contour samples');
+ const coverage=lift=>samples.filter(([x,y])=>{
+  const nx=x-match.x,ny=y-match.y+lift;
+  if(nx<cell.left||nx>=cell.left+cell.width||ny<cell.top||ny>=cell.top+cell.height)return false;
+  const p=(ny*width+nx)*4;
+  return ['primary','secondary'].includes(material(...candidate.subarray(p,p+3)));
+ }).length/samples.length;
+ const before=coverage(0);
+ if(before>=.97)return match;
+ // A tiny deficit can be a neutral painted seam rather than exposed skull.
+ // Do not move a well-covered crown far enough to suspend it above the head.
+ for(let lift=1;lift<=(before>=.9?8:48);lift++){
+  const after=coverage(lift);
+  if(after>=.99)return {...match,y:match.y-lift,anchor:'native skull contour coverage, complete-frame translation',crownCoverage:{before,after,samples:samples.length,lift}};
+ }
+ // Slanted or neutral-colour bands do not always supply enough keyed pixels
+ // for this contour test. Keep their anchor for explicit visual review.
+ return {...match,crownCoverage:{before,after:before,samples:samples.length,lift:0,unresolved:true}};
 }
 export async function alignHD(id,root=resolve(import.meta.dirname,'..')){
  if(!/^[a-z][a-z0-9-]*$/.test(id??''))throw Error('Invalid component id');
@@ -47,7 +83,9 @@ export async function alignHD(id,root=resolve(import.meta.dirname,'..')){
   const left=Math.round(cell.left+(bounds[0]-t.offset.x)/t.scale),top=Math.round(cell.top+(bounds[1]-t.offset.y)/t.scale);
   const box={left,top,width:Math.round((bounds[2]-bounds[0])/t.scale),height:Math.round((bounds[3]-bounds[1])/t.scale)};
   let match=matchTranslation(base.data,candidate.data,width,box);
-  if(e.slot==='hair'&&(e.build!=='regular'||(e.poseSet&&e.poseSet!=='walk'))){
+  const fullHeadwear=e.slot==='headwear'&&!['headband','bucket'].includes(e.optionId);
+  const rearCrown=f.direction===2&&(e.slot==='hair'||fullHeadwear)&&e.build==='regular'&&(!e.poseSet||e.poseSet==='walk');
+  if(rearCrown||e.slot==='hair'&&(e.build!=='regular'||(e.poseSet&&e.poseSet!=='walk'))){
    // Repainted shoulder shading is not an unchanged anchor. Register the
    // complete frame by the crown silhouette in these close-cropped hair pages.
    const hx=cell.left+((h.left+h.right)/2-t.offset.x)/t.scale,hy=cell.top+(h.top-t.offset.y)/t.scale;
@@ -57,8 +95,15 @@ export async function alignHD(id,root=resolve(import.meta.dirname,'..')){
    const crown=rows.slice(0,18),xs=crown.flatMap(r=>r.xs).sort((a,b)=>a-b),center=xs[Math.floor(xs.length/2)];
    let skullTop=hy;
    for(let y=Math.floor(hy-45);y<hy+60;y++){let count=0;for(let x=Math.floor(hx-110);x<hx+110;x++){const p=(y*width+x)*4;if(base.data[p+1]>base.data[p]*1.12&&base.data[p+2]>base.data[p]*1.12)count++;}if(count>=12){skullTop=y;break;}}
-   match={...match,x:Math.round(hx-center),y:Math.round(skullTop-9-rows[0].y),anchor:'crown silhouette, complete-frame translation'};
+   // Shoulder registration can leave a painted rear crown below the skull.
+   // Keep its horizontal registration and lift the complete frame only when
+   // the crown would expose scalp; tall hairstyles and hats stay untouched.
+   match=rearCrown?{...match,y:Math.min(match.y,Math.round(skullTop-9-rows[0].y)),anchor:'rear crown coverage, complete-frame translation'}
+     :{...match,x:Math.round(hx-center),y:Math.round(skullTop-9-rows[0].y),anchor:'crown silhouette, complete-frame translation'};
   }
+  const fullCrown=e.build==='regular'&&(!e.poseSet||e.poseSet==='walk')&&f.direction!==0&&
+   (e.slot==='hair'&&e.optionId!=='mohawk'||fullHeadwear);
+  if(fullCrown)match=coverCrown(base.data,candidate.data,width,f,match);
   if(Math.abs(match.x)===96||Math.abs(match.y)===96)throw Error(`Unresolved registration at search boundary in frame ${offsets.length}`);
   const correction=adjustments?.offsets[offsets.length];
   if(correction){match.automatic={x:match.x,y:match.y};match.x+=correction.x;match.y+=correction.y;}

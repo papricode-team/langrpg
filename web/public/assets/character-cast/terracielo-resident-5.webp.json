@@ -33,13 +33,16 @@
       "top.secondary": "#cfbf9e"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#ad8359\",\"#302720\",[[\"bag\",\"backpack\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#d9c9a4\"],[\"bottom.primary\",\"#984d34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded4bc\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#337a82\"],[\"outer.secondary\",\"#337a82\"],[\"top.primary\",\"#cfbf9e\"],[\"top.secondary\",\"#cfbf9e\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ad8359\",\"#302720\",[[\"bag\",\"backpack\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#d9c9a4\"],[\"bottom.primary\",\"#984d34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded4bc\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#337a82\"],[\"outer.secondary\",\"#337a82\"],[\"top.primary\",\"#cfbf9e\"],[\"top.secondary\",\"#cfbf9e\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "147cbc31d6096016f131e1a7d5d740b99251a843c85532fd63cecfc0ee8d4fa2"
+  "sha256": "9fc5b51cfd13f7ff8f115eeedfdcf8525ba18eece176842f8fbe78bc83482e50",
+  "atlasSha256": "d7ecfbded57711e7d12489bda6faa9f610583742c5d56b6e0a7d15149823a3a3",
+  "textureBytes": 14734296,
+  "atlas": "web/public/assets/character-cast/terracielo-resident-5.atlas.json"
 }

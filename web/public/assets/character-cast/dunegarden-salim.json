@@ -4,10 +4,23 @@
   "recipe": "art/source/character-kit/cast/dunegarden-salim.json",
   "recipeSha256": "5a61497992942a679cb436904c33b02b4f766efd4f979146b16c1c63ee84f7f2",
   "atlas": "web/public/assets/character-cast/dunegarden-salim.webp",
-  "atlasSha256": "e4a1648471039e1cd8423dccc27e0bea733147a06ed379ad250f7257eb1d8756",
+  "atlasSha256": "2bff4af771a73080af13b4a1e72eee7d49a2f6c39f21d0825ea61bd3079778de",
+  "geometry": "web/public/assets/character-cast/dunegarden-salim.atlas.json",
+  "geometrySha256": "c67420a9a78d58d6f5a5b0ebb4e0db0722fa0780694508ce4b09882a5c48d689",
+  "textureBytes": 14511080,
+  "cell": [
+    384,
+    576
+  ],
   "proof": "art/proofs/character-cast/dunegarden-salim.png",
-  "proofSha256": "cc8fbdaada246f6bdf3e316db1a39b2fee53d74b18a5a75e78b756accfa0e270",
-  "editorSha256": "07e6c40eb511718cf163227507556707f107381d6d73262417fb769dc6860117",
-  "assetVersion": "f023205a1a21d51f",
-  "frames": 36
+  "proofSha256": "61707a09d792f0d3e2b0ccdb48409a9ce1f710debb717a94296039b5f234cc09",
+  "editorSha256": "de06b3743d558b0cddb4f80912cd6ab60f9ebc0efbc4cfd541b0d4bb0b345957",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "773e9f1d9fed4487",
+    "to": "4c9d233bf71007a9",
+    "unchangedResolvedInputsSha256": "7fd5326d95d0f28d772bde89480588b76a5ee8fd6ecfe86774872f2d7163f9d3"
+  },
+  "sourceComponentsSha256": "7fd5326d95d0f28d772bde89480588b76a5ee8fd6ecfe86774872f2d7163f9d3"
 }

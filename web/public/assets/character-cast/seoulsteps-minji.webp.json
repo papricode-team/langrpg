@@ -33,13 +33,16 @@
       "top.secondary": "#859272"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#d9b493\",\"#34271f\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#8d693f\"],[\"bottom.primary\",\"#526d87\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dccfb5\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#859272\"],[\"top.secondary\",\"#859272\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d9b493\",\"#34271f\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#8d693f\"],[\"bottom.primary\",\"#526d87\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dccfb5\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#859272\"],[\"top.secondary\",\"#859272\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "b377d1c641a6a9e1c8f9a483cbe65cf342aa158b49b9e212143b35bf3372db49"
+  "sha256": "72b7270c7b0da4fb29b7624d74e38f5f230dd02e6f3c0b802f834c88a6187e16",
+  "atlasSha256": "3ffbab0bff7565bd144b4426e933a4e4b8d43970293b266d11a0cc4144dfdf32",
+  "textureBytes": 14843336,
+  "atlas": "web/public/assets/character-cast/seoulsteps-minji.atlas.json"
 }

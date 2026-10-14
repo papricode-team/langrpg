@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-hana.json",
   "recipeSha256": "1f94b304c886b376d1380dbc4b60a4a021e5533c1b46dec6d8ad5cc1aea41c72",
   "atlas": "web/public/assets/character-cast/seoulsteps-hana.webp",
-  "atlasSha256": "be0aa9abc709b6575b85d2cc5a4465a80af36d47302ecb274d31084dda5d499a",
+  "atlasSha256": "ceec1c5469dec373264d0e7fdff0787c4a63206738835a3ac1911d44bcac08a9",
+  "geometry": "web/public/assets/character-cast/seoulsteps-hana.atlas.json",
+  "geometrySha256": "a47e62e60e370ea6c51eb83c3cf2189a2d1f3e54efa19ce5b5ff7f065c1201dd",
+  "textureBytes": 14874720,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "5e0d13ec9c6f3c117d2170c633297c491154401a4cdd5a4aea3e268a905032fa",
   "proof": "art/proofs/character-cast/seoulsteps-hana.png",
-  "proofSha256": "2e0e8da5d9b44126ff30c55bc85191c004fcf11d97bdf6a81a066dab5bb3500c",
-  "editorSha256": "3b98ade0fa24b509fc520678cba2ed3cf4a66491ec5d46ed75451cbd37d25d9c",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "c4124b92bf668a2b3c028866653df9393f0f84e46a6dda8f6712c48434e0cfbf",
+  "editorSha256": "cf065a97c41435b9646c1601485388719edd7f55fe219e06842db00707d9ba18",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

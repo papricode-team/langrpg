@@ -33,13 +33,16 @@
       "top.secondary": "#305c62"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b98c5f\",\"#33251b\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#484236\"],[\"headwear.primary\",\"#305c62\"],[\"headwear.secondary\",\"#305c62\"],[\"neck.primary\",\"#305c62\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#305c62\"],[\"top.secondary\",\"#305c62\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b98c5f\",\"#33251b\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#484236\"],[\"headwear.primary\",\"#305c62\"],[\"headwear.secondary\",\"#305c62\"],[\"neck.primary\",\"#305c62\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#305c62\"],[\"top.secondary\",\"#305c62\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "169e64f717dabcafad4358a26fdf882abe9b919f65a205437cca1fe5dc0c78e7"
+  "sha256": "6af77e320397969712d287434489faaff4007aa1a8b6e823aac48786e342317e",
+  "atlasSha256": "298af86c4a0df29673fda824e5d17caf2b1f493f729d54f2dcb681c05524f933",
+  "textureBytes": 14739732,
+  "atlas": "web/public/assets/character-cast/dunegarden-maryam.atlas.json"
 }

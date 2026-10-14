@@ -4,10 +4,18 @@
   "recipe": "art/source/character-kit/cast/cedarbay-anjali.json",
   "recipeSha256": "61ac4d0e9895a5195c4476063f2f10dd9fee3ce71a923725ce7cc6fd075d1351",
   "atlas": "web/public/assets/character-cast/cedarbay-anjali.webp",
-  "atlasSha256": "c1a7918659d7c3a193ce8381f342c8e585c161de9caca30c5b16fd19b784170a",
+  "atlasSha256": "0210247f62568717f9907e32814efd8c2fbf84094bff94ae5cf06a51fca0e4a3",
+  "geometry": "web/public/assets/character-cast/cedarbay-anjali.atlas.json",
+  "geometrySha256": "f7947d04b7ded70e1fbf161668881ccc0d38537d3bdda0c875b10cf354be3603",
+  "textureBytes": 14986560,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "7ad7c7519410626a81181a044f804b57d4e1b039c340b4efd6505c373cc96dd3",
   "proof": "art/proofs/character-cast/cedarbay-anjali.png",
-  "proofSha256": "6a48eaea4916a2746d43614e280c33bfe15268266664cf6dd19b4c8acb8ebffc",
-  "editorSha256": "723b606a74a6c78910f4dc22116fc522b23ca92aaf0adff2eddfaaddee607a17",
-  "assetVersion": "f023205a1a21d51f",
+  "proofSha256": "d1ad65f37a37f1e120c92a3f07cf578c9f510ce25f2121ce0ebcbe102784e111",
+  "editorSha256": "ea3b3caa85b8aa686cdd06202be4cedc9af7491a315377ee6d8ac2400fed3294",
+  "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

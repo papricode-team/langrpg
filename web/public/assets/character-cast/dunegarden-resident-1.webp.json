@@ -33,13 +33,16 @@
       "top.secondary": "#c7cac5"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#90653f\",\"#302318\",[[\"bag\",\"satchel\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#634c31\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#775231\"],[\"headwear.primary\",\"#6f939f\"],[\"headwear.secondary\",\"#6f939f\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c7cac5\"],[\"top.secondary\",\"#c7cac5\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#90653f\",\"#302318\",[[\"bag\",\"satchel\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#634c31\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#775231\"],[\"headwear.primary\",\"#6f939f\"],[\"headwear.secondary\",\"#6f939f\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c7cac5\"],[\"top.secondary\",\"#c7cac5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "817dcb261317da3b0aada0752a2ee6e77966b16413064d24a2d29eb957bb610e"
+  "sha256": "f72a3667c9cc351935b73ac3953a42bea39381cb8ab75e25e71f36bccc6bec69",
+  "atlasSha256": "02730d8ef6e7976c083f0d1f54fa00344781b318aa294427e36d07737008805a",
+  "textureBytes": 14814912,
+  "atlas": "web/public/assets/character-cast/dunegarden-resident-1.atlas.json"
 }

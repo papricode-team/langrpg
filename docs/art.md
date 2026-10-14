@@ -113,8 +113,11 @@ their painted width; different builds need their own painted masters. Earlier
 face and hair donors are withheld from the active catalogue while replacement
 edits are made and reviewed. The larger customization library is unfinished.
 
-Every runtime sheet uses the same nine-column, four-row grid of 64×96 cells;
-the editor uses matching 128×192 cells with the same positions and frame order.
+The native character catalogue now supersedes these prototype sizes. Components
+use 384×576 world cells and 512×768 editor cells in four-frame pages. Indoor
+players and NPCs use the native 512×768 detail. See the
+[resolution rebuild](character-resolution-rebuild.md) for the current pipeline.
+The logical animation retains nine poses in each of four facings.
 Rows face down, right, up and left. Column zero contains the painted standing
 pose; columns one through eight contain the walking sequence. All
 selected layers display the same cell at the same origin and width. The

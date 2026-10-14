@@ -33,13 +33,31 @@
       "top.secondary": "#c39b6b"
     }
   },
-  "assetVersion": "f023205a1a21d51f",
-  "recipeKey": "avatar-v2:f023205a1a21d51f:[\"regular\",\"#b99065\",\"#a6a08e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"tall-boots\"],[\"hair\",null],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514736\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b35\"],[\"headwear.primary\",\"#565447\"],[\"headwear.secondary\",\"#565447\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#91432f\"],[\"outer.secondary\",\"#bf9965\"],[\"top.primary\",\"#c39b6b\"],[\"top.secondary\",\"#c39b6b\"]]]",
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b99065\",\"#a6a08e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"tall-boots\"],[\"hair\",null],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514736\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b35\"],[\"headwear.primary\",\"#565447\"],[\"headwear.secondary\",\"#565447\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#91432f\"],[\"outer.secondary\",\"#bf9965\"],[\"top.primary\",\"#c39b6b\"],[\"top.secondary\",\"#c39b6b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
-    64,
-    96
+    384,
+    576
   ],
-  "sha256": "50518986414348fb58b44e17f23875ca12be71a28328f5301cdc13cc8348bae2"
+  "sha256": "589085c44a98408b72f71aeb2a647903ff2ef4c0c305f9c3d66832515af40d08",
+  "atlasSha256": "b8d2af4e155f1a86691d2d8f72a455062ce0fadcbc498ca8577d894a4a0ace84",
+  "textureBytes": 14112624,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-tuya.webp",
+      "sha256": "589085c44a98408b72f71aeb2a647903ff2ef4c0c305f9c3d66832515af40d08",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-tuya.1.webp",
+      "sha256": "0a9f0679e7754936bd73078b86b324233bf7aa9786cad6442b64ceef83c1c338",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-tuya.atlas.json"
 }

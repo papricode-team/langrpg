@@ -23,6 +23,8 @@ import { readWorld, SceneKeys, WorldEvents, writeWorld, type Avatar, type WorldM
 export type { Avatar, WorldPlayer, WorldMotion, WorldStoryState, WorldPresentation } from './world-state';
 
 export interface WorldOptions {
+  /** Development fixtures may simulate a Retina backing canvas. */
+  pixelDensity?: number;
   motion?: WorldMotion;
   time?: WorldTimeOptions;
   onTimeChange?: (state: WorldTimeState) => void;
@@ -61,10 +63,14 @@ export class World {
   private pending: ((scene: ExploreScene) => void)[] = [];
   private handleMotionPreference = () => this.set('reducedMotion', this.reducedMotion);
 
+  private get pixelDensity(): number {
+    return import.meta.env.DEV && this.options.pixelDensity !== undefined ? this.options.pixelDensity : window.devicePixelRatio;
+  }
+
   constructor(private container: HTMLElement, private options: WorldOptions) {
     this.motionMode = options.motion ?? 'auto';
     this.clock = new WorldClock(options.time);
-    const size = canvasSize(container.clientWidth, container.clientHeight, window.devicePixelRatio);
+    const size = canvasSize(container.clientWidth, container.clientHeight, this.pixelDensity);
     this.size = `${size.width}x${size.height}@${size.density}`;
     // The sound manager exists only after boot; read it from the game when audio first plays.
     this.audio = new WorldAudio({ get sound() { return game.sound; }, get cache() { return game.cache; } });
@@ -325,7 +331,7 @@ export class World {
   /** Physical pixels track the container and device ratio; scenes refit their cameras on the scale event. */
   resize(): void {
     if (!this.alive) return;
-    const size = canvasSize(Math.max(this.container.clientWidth, 1), Math.max(this.container.clientHeight, 1), window.devicePixelRatio);
+    const size = canvasSize(Math.max(this.container.clientWidth, 1), Math.max(this.container.clientHeight, 1), this.pixelDensity);
     const key = `${size.width}x${size.height}@${size.density}`;
     if (key === this.size) return;
     this.size = key;
