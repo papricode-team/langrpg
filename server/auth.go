@@ -60,8 +60,9 @@ func (a *App) sessionResponse(token string, account Account) map[string]any {
 }
 
 type credentialInput struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email        string `json:"email"`
+	Password     string `json:"password"`
+	ReferralCode string `json:"referralCode,omitempty"`
 }
 
 func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +103,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	if err = a.store.SetCredentials(ctx, hash, email, encoded); err != nil {
+	if err = a.store.RegisterWithReferral(ctx, hash, email, encoded, validReferralCode(input.ReferralCode), a.now().UTC()); err != nil {
 		if errors.Is(err, ErrCredentialsConflict) {
 			// A response can be lost after the credentials were committed. Repeating
 			// the same signup is safe, but cannot replace an existing password.

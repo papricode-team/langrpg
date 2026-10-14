@@ -3,19 +3,20 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import ts from 'typescript';
 import './register-content-loader.mjs';
 const { applyAuthoredMapPlacements } = await import('../web/src/map-authoring.ts');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-async function contentModule(path, prefix = '') {
-  // UI helpers are used only by render functions, which this exporter never runs.
-  const source = (await readFile(resolve(root, path), 'utf8')).replace(/^import .*;\s*$/gm, '');
-  const compiled = ts.transpileModule(prefix + source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText;
-  return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
+async function exportJSON(path, value) {
+  const file = resolve(root, path), text = `${JSON.stringify(value, null, 2)}\n`;
+  if (process.argv.includes('--check')) {
+    if (await readFile(file, 'utf8') !== text) throw new Error(`${path} is stale; run npm run assets.`);
+  } else await writeFile(file, text);
 }
-const { expeditionRegions } = await contentModule('web/src/expeditions.ts');
-const { expeditionGames } = await contentModule('web/src/expedition-games.ts');
+// The authoring loader resolves these to the complete private corpus. Browser
+// modules now contain presentation registries and cannot produce grading data.
+const { expeditionRegions } = await import('../web/src/expeditions.ts');
+const { expeditionGames } = await import('../web/src/expedition-games.ts');
 const encounters = expeditionRegions.flatMap(region => region.encounters.map(encounter => ({ id: encounter.id, mapId: region.id, choices: encounter.choices.map(choice => choice.correct) })));
 const games = expeditionGames.map(game => {
   const fields = game.fields.map(field => ({ id: field.id, values: field.options.map(option => option.value) }));
@@ -31,12 +32,12 @@ const games = expeditionGames.map(game => {
   if (!validValues.length) throw new Error(`No reachable solution for ${game.id}`);
   return { id: game.id, fields, validValues, order: game.steps.map(step => step.id) };
 });
-await writeFile(resolve(root, 'server/expeditions.json'), `${JSON.stringify({ encounters, games }, null, 2)}\n`);
-const { maps: rawMaps } = await contentModule('web/src/maps.ts');
+await exportJSON('server/expeditions.json', { encounters, games });
+const { maps: rawMaps } = await import('../web/src/maps.ts');
 // Match getMap() exactly: physical proof must use the editor's placements,
 // including after a designer moves an investigation object or its speaker.
 const maps = rawMaps.map(map => applyAuthoredMapPlacements(map));
-const { quests } = await contentModule('web/src/content.ts');
+const { quests } = await import('../web/src/content.ts');
 const graphs = JSON.parse(await readFile(resolve(root, 'web/src/data/dialogue-graphs.json'), 'utf8'));
 const rules = graphs.map(graph => {
   const quest = quests.find(quest => quest.id === graph.questId);
@@ -52,5 +53,5 @@ const rules = graphs.map(graph => {
   const replies = graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : []));
   return { questId: graph.questId, mapId: map.id, npcId: quest.npcId, npc: {id:npc.id,x:npc.x,y:npc.y}, gateExerciseId: graph.gateExerciseId, replyExerciseIds: replies, choiceIds: choiceNode.choices.map(choice => choice.id), choices: choiceNode.choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })), investigationObjectIds: objects.map(object => object.id), objects };
 });
-await writeFile(resolve(root, 'server/story_rules.json'), `${JSON.stringify({ rules }, null, 2)}\n`);
+await exportJSON('server/story_rules.json', { rules });
 process.stdout.write(`Exported ${rules.length} investigations, ${encounters.length} encounters and ${games.length} validated neighborhood plans.\n`);

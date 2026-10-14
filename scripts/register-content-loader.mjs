@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import ts from 'typescript';
 const sourceRoot=fileURLToPath(new URL('../content/source/',import.meta.url));
+const projectURL=new URL('../',import.meta.url).href;
 const authoredModules=new Map(['content','expeditions','expedition-games','interiors','interior-conversations','word-detail','story','story-glossary','contextual-grammar','beginner-dialogue','cinematic-content','activity-engine','npc-dialogue','quest-graph','learning-context','i18n','i18n-units','i18n-course-coverage'].map(name=>[`${name}.ts`,`${name}.ts`]));
 authoredModules.set('course.ts','course-runtime.ts');
 function originalToolingSource(url){
@@ -51,7 +52,8 @@ registerHooks({
     // so relative helper imports resolve normally. Vite never installs this hook.
     const authored=originalToolingSource(url);
     if(authored!==undefined)return {format:'module',shortCircuit:true,source:authored};
-    if(url.startsWith('file:')&&url.endsWith('.json'))return {format:'module',shortCircuit:true,source:`export default JSON.parse(${JSON.stringify(readFileSync(fileURLToPath(url),'utf8'))});`};
+    // Third-party package metadata and native bindings need Node's JSON loader.
+    if(url.startsWith(projectURL)&&!url.includes('/node_modules/')&&!url.endsWith('/package.json')&&url.endsWith('.json'))return {format:'module',shortCircuit:true,source:`export default JSON.parse(${JSON.stringify(readFileSync(fileURLToPath(url),'utf8'))});`};
     return nextLoad(url,context);
   },
 });

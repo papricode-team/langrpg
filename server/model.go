@@ -150,6 +150,7 @@ type Progress struct {
 }
 
 type Account struct {
+	Referrals             ReferralState        `json:"referrals,omitempty"`
 	Access                PlayAccess           `json:"access,omitempty"`
 	Billing               BillingState         `json:"billing,omitempty"`
 	Email                 string               `json:"email,omitempty"`

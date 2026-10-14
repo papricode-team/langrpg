@@ -53,6 +53,7 @@ func safeContent(value any, language string) any {
 			}
 			if key == "support" {
 				if support, ok := child.(map[string]any); ok {
+					out[key] = map[string]any{}
 					selected, exists := support[language]
 					selectedLanguage := language
 					if !exists {

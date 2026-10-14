@@ -24,6 +24,7 @@ type Store interface {
 	UpdateProfile(context.Context, string, string, Avatar) (Account, error)
 	UpdatePreferences(context.Context, string, Preferences) (Account, error)
 	SetCredentials(context.Context, string, string, string) error
+	RegisterWithReferral(context.Context, string, string, string, string, time.Time) error
 	GetByEmail(context.Context, string) (Account, error)
 	AddSession(context.Context, string, string) error
 	DeleteSession(context.Context, string) error
