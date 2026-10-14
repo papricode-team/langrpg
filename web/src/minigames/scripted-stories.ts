@@ -61,7 +61,7 @@ export class ScriptedStoryGame implements MiniGame {
     const action=this.id==='seed-packets'?'action-greta-watering':this.id==='17-59'?'action-otto-watch':undefined;
     if(action&&host.sprites.has(action)){const pose=host.sprites.render(action,'Your host',72);pose.classList.add('story-host');root.querySelector('.story-heading')!.prepend(pose);}
     if(missing.length){
-      this.play.innerHTML=`<div class="story-intro"><h3>The script is still returning.</h3><p>This board needs ${missing.length} more restored words. Its German cards, cues and choices stay within the intake record.</p><button type="button" data-action="todays-words">Practise today’s words</button></div>`;
+      this.play.innerHTML=`<div class="story-intro"><h3>The script is still returning.</h3><p>This board needs ${missing.length} more restored words. Its German cards, cues and choices stay within the intake record.</p><button type="button" class="primary-button" data-action="todays-words">Practise today’s words</button></div>`;
       root.querySelector<HTMLElement>('.story-footer')!.hidden=true;return;
     }
     this.play.innerHTML=`<div class="story-intro"><span class="story-seal">VII</span><p>${e(this.script.brief)}</p><p>${this.script.seconds} seconds · every decision saved by the Atlas</p><button type="button" class="primary-button" data-game-action="start">Restore the story</button></div>`;
