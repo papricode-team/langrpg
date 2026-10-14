@@ -1,6 +1,6 @@
 # Art and audio provenance
 
-Created for the Lantern Atlas concept on 2026-10-08, with separate world terrain and props generated on **2026-10-09**. The original world paintings, new terrain plates, prop and variation sheets, six-frame object animations, portraits, full-body NPCs and directional player walk and grounded idle sheets were generated with **Codex's built-in ImageGen tool**. Runtime images are optimized WebP derivatives. The world and characters use painterly artwork with genuine transparent sprite atlases.
+Created for glotworld concept on 2026-10-08, with separate world terrain and props generated on **2026-10-09**. The original world paintings, new terrain plates, prop and variation sheets, six-frame object animations, portraits, full-body NPCs and directional player walk and grounded idle sheets were generated with **Codex's built-in ImageGen tool**. Runtime images are optimized WebP derivatives. The world and characters use painterly artwork with genuine transparent sprite atlases.
 
 ## Runtime images
 

@@ -1,5 +1,5 @@
 Use case: stylized-concept.
-Asset type: six production STATIC furniture sprites with corrected human-scale proportions for The Lantern Atlas top-down interiors.
+Asset type: six production STATIC furniture sprites with corrected human-scale proportions for glotworld top-down interiors.
 Input images 1, 2, 3: style and object-identity references only (bakery equipment, café equipment, supermarket equipment). Preserve their hand-painted honey walnut, cream marble, sage and brass style, but correct exaggerated vertical proportions and oversized countertop goods.
 Create a genuinely transparent 1024 x 1536 PNG sheet, TWO equal columns and THREE equal rows. Exactly SIX unique separate objects, ONE still sprite per cell, no animation frames or repetitions. Each 512x512 cell has one centered whole object with its floor contact centered at local x=256, y=470; transparent margins at least 30px; isolated and fully visible.
 View for every sprite: elevated 55-degree orthographic adventure-game view looking north, see top and front, horizontal fronts aligned to the screen. Match the references' perspective and warm upper-left light. Real adult-size fixtures, normal short legs and waist-high worktops. Food, bowls, bags, books, knobs and registers must be SMALL relative to the fixture, never enormous or body-height. Fine painterly detail, elegant European shops.

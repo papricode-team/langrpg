@@ -71,7 +71,7 @@ for(const size of [256,128]){
     const encoded=await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts).webp({quality:size===256?88:92,alphaQuality:100,effort:6}).toBuffer();
     if(encoded.length>2*1024*1024)throw Error(`${name}: atlas exceeds the 2 MiB download budget`);
     await writeFile(resolve(output,`${name}.webp`),encoded);
-    await writeFile(resolve(output,`${name}.json`),`${JSON.stringify({frames,meta:{app:'Lantern Atlas prepare-item-art',image:`${name}.webp`,size:{w:width,h:height},scale:String(size/256)}},null,2)}\n`);
+    await writeFile(resolve(output,`${name}.json`),`${JSON.stringify({frames,meta:{app:'glotworld prepare-item-art',image:`${name}.webp`,size:{w:width,h:height},scale:String(size/256)}},null,2)}\n`);
     if(size===256){Object.assign(atlasFrames,frames);for(const sprite of pageSprites)atlasKeys[sprite.name]=key;atlases.push({key,image:`/assets/minigames/${name}.webp`,data:`/assets/minigames/${name}.json`});}
   }
 }

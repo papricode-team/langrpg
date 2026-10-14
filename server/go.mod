@@ -1,4 +1,4 @@
-module lernen01/server
+module glotworld/server
 
 go 1.26
 

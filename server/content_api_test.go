@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func contentTestApp(t *testing.T) (*App, map[string]string) {

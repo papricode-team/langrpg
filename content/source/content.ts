@@ -1,6 +1,6 @@
 import type { Narrative } from './sentence-translations';
 
-/** Original Lantern Atlas learning content. Curriculum tags describe practice, not certification. */
+/** Original glotworld learning content. Curriculum tags describe practice, not certification. */
 export type Level = 'A1' | 'A2' | 'B1';
 export type ExerciseMode = 'choice' | 'listen' | 'sentence' | 'type';
 export interface Exercise {
