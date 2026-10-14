@@ -10,7 +10,7 @@ import { acquireAvatarTexture, bakeAvatarTexture } from './avatar-baker';
 import type { TextureLease } from './avatar-texture-cache';
 import { castActor, CAST_ART } from './character-cast';
 import { residentWalkFrame } from './resident-animation';
-import { worldDepth } from './world-depth';
+import { setDepthIfChanged, worldDepth } from './world-depth';
 import { getExpeditionNpc } from './expeditions';
 import { explorationZoom, conversationZoom, CameraRig } from './world-camera';
 import type { WorldAudio } from './world-audio';
@@ -917,7 +917,8 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   protected animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: ResidentGait): void {
     this.fitCharacterToRoom(character);
-    character.root.setPosition(character.x, character.y).setDepth(worldDepth(character.y, 'character'));
+    character.root.setPosition(character.x, character.y);
+    setDepthIfChanged(character.root, worldDepth(character.y, 'character'));
     if ((!character.npc || character.modularNpc) && !character.avatarPending && (!character.avatarLease || character.avatarRetryAt) && this.time.now >= (character.avatarRetryAt ?? 0)) this.tintCharacter(character);
     const distance = Math.hypot(dx, dy);
     if(character.componentCast || character.modularNpc){

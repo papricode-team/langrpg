@@ -14,7 +14,7 @@ import { residentFacingLeft, residentWalkDistance } from './resident-animation';
 import { WorldScenery } from './world-scenery';
 import { sceneryTextureKey } from './placed-scenery';
 import { createSceneryOcclusion } from './scenery-occlusion';
-import { worldDepth, type OcclusionCharacter } from './world-depth';
+import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
 import { StreamedWorldTerrain, terrainResidency } from './streamed-world-terrain';
 import { getWorldScene } from './scene-data';
 import { sceneTerrainImage } from './scene-terrain';
@@ -382,7 +382,8 @@ export class WorldScene extends ExploreScene {
       const halfWidth = this.bark.width * this.density / (2 * this.cameras.main.zoom);
       const barkX = clamp(this.barkSpeaker.x, view.x + halfWidth + 4, view.right - halfWidth - 4);
       this.bark.setVisible(!this.conversationTarget && !this.cinematicTarget && this.elapsed < this.barkUntil && !this.terrainOnly)
-        .setPosition(barkX, this.barkSpeaker.y - 92).setDepth(worldDepth(this.worldHeight + 100, 'label')).setScale(this.labelScale);
+        .setPosition(barkX, this.barkSpeaker.y - 92).setScale(this.labelScale);
+      setDepthIfChanged(this.bark, worldDepth(this.worldHeight + 100, 'label'));
     }
     this.updateWorldTime();
     this.updateResidents(seconds);
@@ -600,7 +601,8 @@ export class WorldScene extends ExploreScene {
       const componentPose=candidate&&this.textures.exists(candidate.key)?candidate:undefined;
       if(componentPose){
         this.fitCharacterToRoom(character);
-        character.root.setPosition(character.x,character.y).setDepth(worldDepth(character.y, 'character'));
+        character.root.setPosition(character.x,character.y);
+        setDepthIfChanged(character.root,worldDepth(character.y, 'character'));
         const frame=character.facing*9+(this.reducedMotion?3:poseColumn(sample.phaseSeconds*1000,componentPose.frameDurations));
         if(character.componentPoseSet!==poseSet)character.figure!.setTexture(componentPose.key,frame);
         character.componentPoseSet=poseSet;
@@ -689,7 +691,8 @@ export class WorldScene extends ExploreScene {
         .setScale(source.scaleX, source.scaleY).setRotation(source.rotation).setFlip(source.flipX, source.flipY)
         .setTint(0x1b2a33).setTintMode(Phaser.TintModes.FILL).setBlendMode(Phaser.BlendModes.NORMAL).setVisible(source.visible);
     });
-    this.silhouette.setPosition(this.local.x, this.local.y).setDepth(occlusion.depth + 2).setAlpha(.55 * occlusion.strength * this.local.root.alpha).setVisible(true);
+    this.silhouette.setPosition(this.local.x, this.local.y).setAlpha(.55 * occlusion.strength * this.local.root.alpha).setVisible(true);
+    setDepthIfChanged(this.silhouette, occlusion.depth + 2);
   }
 
   private updateNavigationOverlay(): void {
@@ -697,7 +700,8 @@ export class WorldScene extends ExploreScene {
     this.navigationOverlayAt = this.elapsed;
     if (!this.navigationOverlay) this.navigationOverlay = this.add.graphics();
     const graphics = this.navigationOverlay, geometry = this.navigation.debugGeometry(this.cameras.main.worldView);
-    graphics.clear().setDepth(worldDepth(this.worldHeight + 120, 'label')).setVisible(!this.terrainOnly);
+    graphics.clear().setVisible(!this.terrainOnly);
+    setDepthIfChanged(graphics, worldDepth(this.worldHeight + 120, 'label'));
     const polygon = (points: readonly (readonly [number, number])[], colour: number) => {
       if (!points.length) return;
       graphics.lineStyle(1, colour, .85).fillStyle(colour, .1).beginPath().moveTo(points[0][0], points[0][1]);

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { depthAt, worldDepth, isCharacterOccluded, updateOcclusion } from './world-depth';
 import { WorldScenery, type SceneryOcclusionFactory } from './world-scenery';
@@ -99,6 +99,20 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false) {
 }
 
 describe('segmented scenery rendering', () => {
+  it('leaves unchanged static strips alone and restores them after culling and fades',()=>{
+    const {scenery,sprites}=fixture(),view={x:0,y:0,right:300,bottom:300};
+    scenery.update(0,view);
+    const strips=sprites.filter(sprite=>!sprite.destroyed);
+    const visibility=strips.map(sprite=>vi.spyOn(sprite,'setVisible'));
+    const opacity=strips.map(sprite=>vi.spyOn(sprite,'setAlpha'));
+    for(let frame=0;frame<120;frame++)scenery.update(frame/60,view);
+    for(const spy of [...visibility,...opacity])expect(spy.mock.calls.length).toBe(0);
+    scenery.setAlpha(.4);
+    scenery.update(2,{x:1000,y:1000,right:1100,bottom:1100});
+    expect(strips.every(sprite=>!sprite.visible)).toBe(true);
+    scenery.update(3,view);
+    expect(strips.every(sprite=>sprite.visible&&sprite.alpha===.4)).toBe(true);
+  });
   it('keeps canonical wall depth when the night painting has a different crop coordinate frame',()=>{
     const day=fixture('day',true).sprites.filter(sprite=>!sprite.destroyed),night=fixture('night',true).sprites.filter(sprite=>!sprite.destroyed);
     expect(day.length).toBe(night.length);

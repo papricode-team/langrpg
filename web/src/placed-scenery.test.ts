@@ -2,7 +2,7 @@ import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getMap, storyMaps as maps } from './maps';
 import { getPlacedScenery,sceneryAssets,placedSceneryFootprints,sceneryFootprints,type PlacedScenerySpec } from './placed-scenery';
-import { isBuildingScenery,sceneryAnimationTextureKeys,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
+import { isBuildingScenery,sceneryAnimationTextureKeys,sceneryBlend,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
 const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json','../public/assets/*props*.json','../public/assets/story-quality*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
@@ -312,6 +312,20 @@ it('keeps animated scenery opaque throughout frame blends and honors the world f
   scenery.setReducedMotion(true);scenery.update(10,view);
   expect(current.setAlpha.mock.lastCall![0]).toBe(.4);
   expect(next.setAlpha.mock.lastCall![0]).toBe(0);
+});
+
+it('retains every interpolated animation frame without reassigning unchanged blend textures',()=>{
+  const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
+  const view={x:0,y:0,right:3000,bottom:3000},stall=mock.placements.find(spec=>spec.asset==='stall')!;
+  const next=mock.sprites.find(sprite=>sprite.blend&&sprite.x===stall.x&&sprite.y===stall.y)!;
+  const animation=mock.raw.cache.json.get().assets[stall.frame??stall.asset];
+  for(let frame=0;frame<180;frame++){
+    const time=frame/60,expected=sceneryBlend(animation,stall.id,time);
+    scenery.update(time,view);
+    expect(next.frame).toBe(expected.next);
+    expect(next.setAlpha.mock.lastCall![0]).toBeCloseTo(expected.alpha);
+  }
+  expect(next.setFrame.mock.calls.length).toBeLessThanOrEqual(13);
 });
 
 it('selects the requested time-of-day manifest when creating scenery',()=>{

@@ -1,5 +1,5 @@
 import {EventEmitter} from 'node:events';
-import {describe,expect,it} from 'vitest';
+import {describe,expect,it,vi} from 'vitest';
 import type * as Phaser from 'phaser';
 import type {WorldScene} from './scene-schema';
 import {StreamedWorldTerrain,terrainResidency} from './streamed-world-terrain';
@@ -31,6 +31,20 @@ const world={id:'test',width:3072,height:2048,terrain:Array.from({length:16},(_,
 const overview={x:0,y:0,width:3072,height:2048};
 
 describe('streamed terrain renderer',()=>{
+  it('reuses a settled view, while movement and detail zoom changes refresh its leases',async()=>{
+    const f=fixture(),layer=new StreamedWorldTerrain(f.scene,world,'day');
+    layer.update(overview,.4);await f.finish(layer,overview,.4);
+    const retain=vi.spyOn(terrainResidency(f.scene),'retain');
+    for(let frame=0;frame<120;frame++)layer.update({...overview},.5);
+    expect(retain.mock.calls.length).toBe(0);
+    layer.update(overview,2);
+    expect(retain).toHaveBeenCalledTimes(1);
+    await f.finish(layer,overview,2);
+    retain.mockClear();
+    layer.update({x:20,y:20,width:600,height:400},2);
+    expect(retain).toHaveBeenCalledTimes(1);
+    layer.destroy();
+  });
   it('uses bounded overview memory for a whole expanded map and caps detail at close zoom',async()=>{
     const f=fixture(),layer=new StreamedWorldTerrain(f.scene,world,'day');
     layer.update(overview,.4);await f.finish(layer,overview,.4);
@@ -57,5 +71,18 @@ describe('streamed terrain renderer',()=>{
     layer.update(view,2);await f.finish(layer,view,2,'tile-0');
     expect(layer.ready).toBe(true);expect(f.textures.has('tile-0-overview')).toBe(true);expect(f.textures.has('tile-0')).toBe(false);
     expect(terrainResidency(f.scene).snapshot().failed).toBe(1);layer.destroy();
+  });
+  it('retries failed detail without requiring the camera to move',async()=>{
+    const now=vi.spyOn(Date,'now').mockReturnValue(1000);
+    const f=fixture(),layer=new StreamedWorldTerrain(f.scene,world,'day'),view={x:20,y:20,width:600,height:400};
+    try{
+      layer.update(view,2);await f.finish(layer,view,2,'tile-0');
+      expect(f.textures.has('tile-0')).toBe(false);
+      now.mockReturnValue(4000);
+      layer.update(view,2);await f.finish(layer,view,2);
+      expect(f.textures.has('tile-0')).toBe(true);
+      expect(layer.ready).toBe(true);
+      expect(terrainResidency(f.scene).snapshot().failed).toBe(0);
+    }finally{layer.destroy();now.mockRestore();}
   });
 });

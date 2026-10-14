@@ -2,25 +2,36 @@
 export type DepthBand = 'shadow' | 'prop' | 'character' | 'label';
 const bands: Record<DepthBand, number> = { shadow: 0, prop: 1, character: 2, label: 3 };
 export const worldDepth = (footY: number, band: DepthBand = 'prop'): number => Math.floor(footY) * 4 + bands[band];
+/** Phaser queues a full display-list sort even when setDepth receives the same value. */
+export function setDepthIfChanged(object: { depth: number; setDepth(depth: number): unknown }, depth: number): void {
+  if (object.depth !== depth) object.setDepth(depth);
+}
 export type SortLine = readonly (readonly [number, number])[];
 export interface DepthPlacement { x: number; y: number; width: number; flipX?: boolean; sortLine?: SortLine; }
 export interface DepthGeometry { referenceWidth: number; sortLine?: SortLine; }
 
 /** Interpolate authored reference-pixel segments at the queried world x. */
 export function depthAt(spec: DepthPlacement, worldX: number, geometry?: DepthGeometry): number {
+  return createDepthSampler(spec, geometry)(worldX);
+}
+
+/** Compile fixed placement geometry once; callers rebuild it when the scenery changes. */
+export function createDepthSampler(spec: DepthPlacement, geometry?: DepthGeometry): (worldX: number) => number {
   const line = spec.sortLine ?? geometry?.sortLine;
-  if (!line?.length) return spec.y;
+  if (!line?.length) return () => spec.y;
   const scale = spec.width / (geometry?.referenceWidth ?? spec.width);
-  const x = (worldX - spec.x) / scale * (spec.flipX ? -1 : 1);
   const sorted = [...line].sort((a, b) => a[0] - b[0]);
-  if (x <= sorted[0][0]) return spec.y + sorted[0][1] * scale;
-  for (let index = 1; index < sorted.length; index++) {
-    const left = sorted[index - 1], right = sorted[index];
-    if (x > right[0]) continue;
-    const t = right[0] === left[0] ? 1 : (x - left[0]) / (right[0] - left[0]);
-    return spec.y + (left[1] + t * (right[1] - left[1])) * scale;
-  }
-  return spec.y + sorted.at(-1)![1] * scale;
+  return worldX => {
+    const x = (worldX - spec.x) / scale * (spec.flipX ? -1 : 1);
+    if (x <= sorted[0][0]) return spec.y + sorted[0][1] * scale;
+    for (let index = 1; index < sorted.length; index++) {
+      const left = sorted[index - 1], right = sorted[index];
+      if (x > right[0]) continue;
+      const t = right[0] === left[0] ? 1 : (x - left[0]) / (right[0] - left[0]);
+      return spec.y + (left[1] + t * (right[1] - left[1])) * scale;
+    }
+    return spec.y + sorted.at(-1)![1] * scale;
+  };
 }
 
 export interface OcclusionCharacter { id: string; x: number; y: number; depth: number; height?: number; width?: number; }

@@ -5,7 +5,7 @@ import { worldAmbient } from './world-lighting';
 import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, type PlacedScenerySpec } from './placed-scenery';
 import { isBuildingScenery,sampleSceneryFrame,sampleTreeSway,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { getSceneryGeometry } from './scene-schema';
-import { depthAt, worldDepth, isCharacterOccluded, updateOcclusion, type DepthGeometry, type OcclusionCharacter, type OcclusionCircle, type WorldBounds } from './world-depth';
+import { createDepthSampler, worldDepth, isCharacterOccluded, updateOcclusion, type DepthGeometry, type OcclusionCharacter, type OcclusionCircle, type WorldBounds } from './world-depth';
 import type { SceneryOcclusionController } from './scenery-occlusion';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
@@ -14,6 +14,7 @@ interface AnimatedSprite {
   animation?:SceneryAnimation;
   treeSway?:boolean;
   currentFrame:string;
+  nextFrame?:string;
   phaseId:string;
   frames?:Readonly<Record<string,string>>;
   cutout?:SceneryOcclusionController;
@@ -24,11 +25,13 @@ interface SceneryLayer {
   parts:AnimatedSprite[];
   width:number;
   height:number;
-  geometry:DepthGeometry;
+  depthAt:(x:number)=>number;
   bounds:WorldBounds;
-  circles:OcclusionCircle[];
+  circles:readonly OcclusionCircle[];
+  visible?:boolean;
   nightTint?:number;
 }
+const noCircles:readonly OcclusionCircle[]=[];
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
 export interface LampLight { x:number;y:number;footY:number;width:number; }
 export type SceneryOcclusionFactory=(scene:Phaser.Scene,sprite:Phaser.GameObjects.Sprite)=>SceneryOcclusionController|undefined;
@@ -61,9 +64,10 @@ export class WorldScenery {
         // The collision snapshot and wall line share one reference coordinate
         // frame. Night paintings can have different native crop dimensions.
         sortLine:spec.sortLine??(authoredGeometry?authoredGeometry.sortLine:animation?.sortLine)};
+      const sampleDepth=createDepthSampler(spec,geometry);
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
         .setOrigin(base?.originX??animation?.originX??.5,base?.originY??animation?.originY??1).setScale(scale)
-        .setDepth(spec.depth!==undefined?worldDepth(spec.depth):worldDepth(depthAt(spec,spec.x,geometry))).setFlipX(spec.flipX??false);
+        .setDepth(worldDepth(spec.depth??sampleDepth(spec.x))).setFlipX(spec.flipX??false);
       if(tree)sprite.setRotation(sampleTreeSway(spec.id,0,period));
       const parts:AnimatedSprite[]=[{sprite,scale,treeSway:tree,animation:building||tree||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
       for(const overlay of animation?.overlays??[]){
@@ -82,14 +86,15 @@ export class WorldScenery {
       // characters correctly when they stand on opposite sides of one building.
       // A camera-dependent single depth cannot represent both relationships.
       const segmented=geometry.sortLine&&new Set(geometry.sortLine.map(point=>point[1])).size>1&&spec.depth===undefined;
-      const renderedParts=segmented?parts.flatMap(part=>this.segmentPart(part,spec,geometry)):parts;
+      const renderedParts=segmented?parts.flatMap(part=>this.segmentPart(part,sampleDepth)):parts;
       for(const part of renderedParts)if(part.animation&&part.animation.frames.length>1){
         const source=part.sprite;
         part.next=scene.add.sprite(source.x,source.y,part.animation.key,part.frames?.[part.currentFrame]??part.currentFrame)
           .setOrigin(source.originX,source.originY).setScale(part.scale).setDepth(source.depth).setFlipX(spec.flipX??false).setAlpha(0);
+        part.nextFrame=part.currentFrame;
       }
       const originX=spec.flipX?1-sprite.originX:sprite.originX;
-      this.layers.push({spec,parts:renderedParts,width:frame.width*scale,height:frame.height*scale,geometry,circles:[],nightTint:animation?.nightTint,
+      this.layers.push({spec,parts:renderedParts,width:frame.width*scale,height:frame.height*scale,depthAt:x=>worldDepth(spec.depth??sampleDepth(x)),circles:noCircles,nightTint:animation?.nightTint,
         bounds:{x:spec.x-frame.width*scale*originX,right:spec.x+frame.width*scale*(1-originX),y:spec.y-frame.height*scale*sprite.originY,bottom:spec.y+frame.height*scale*(1-sprite.originY)}});
     }
     const ambient=worldAmbient(mapId,period);
@@ -98,7 +103,7 @@ export class WorldScenery {
   get objectCount(){return this.layers.length;}
   get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation||part.treeSway)).length;}
   occlusionFor(id:string):{depth:number;strength:number}|undefined{return this.occluded.get(id);}
-  private segmentPart(part:AnimatedSprite,spec:PlacedScenerySpec,geometry:DepthGeometry):AnimatedSprite[]{
+  private segmentPart(part:AnimatedSprite,sampleDepth:(x:number)=>number):AnimatedSprite[]{
     const source=part.sprite,frame=source.frame;
     // Existing outdoor atlases are untrimmed. Keep externally supplied trimmed
     // art intact rather than changing its painted pivot during a runtime split.
@@ -117,7 +122,7 @@ export class WorldScenery {
       const direction=source.flipX?-1:1;
       const x=source.x+((left+right)/2-source.width*source.originX)*part.scale*direction;
       const sprite=this.scene.add.sprite(x,source.y,texture.key,frames[part.currentFrame]).setOrigin(.5,source.originY)
-        .setScale(part.scale).setFlipX(source.flipX).setDepth(worldDepth(depthAt(spec,x,geometry)));
+        .setScale(part.scale).setFlipX(source.flipX).setDepth(worldDepth(sampleDepth(x)));
       result.push({...part,sprite,frames});
     }
     source.destroy();
@@ -133,7 +138,10 @@ export class WorldScenery {
     this.visible=visible;
     // Hidden worlds stop updating while a room is active, so visibility must
     // take effect here instead of waiting for the next scenery update.
-    if(!visible)for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.setVisible(false);next?.setVisible(false);}
+    if(!visible)for(const item of this.layers){
+      item.visible=false;item.circles=noCircles;
+      for(const {sprite,next} of item.parts){sprite.setVisible(false);next?.setVisible(false);}
+    }
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
   setAlpha(alpha:number){this.opacity=alpha;for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.setAlpha(alpha);next?.setAlpha(0);}}
@@ -152,26 +160,33 @@ export class WorldScenery {
       const {spec,parts,width,height}=item;
       const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
         &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
-      const covered=visible?characters.filter(character=>isCharacterOccluded(character,item.bounds,
-        spec.depth!==undefined?worldDepth(spec.depth):worldDepth(depthAt(spec,character.x,item.geometry)))):[];
-      item.circles=visible?updateOcclusion(item.circles,covered,seconds,this.reducedMotion):[];
+      if(!visible&&item.visible===false)continue;
+      item.visible=visible;
+      // Reject distant bodies before evaluating the local wall boundary.
+      const covered=visible?characters.filter(character=>isCharacterOccluded(character,item.bounds,Infinity)
+        &&item.depthAt(character.x)>character.depth):[];
+      item.circles=visible&&(covered.length||item.circles.length)?updateOcclusion(item.circles,covered,seconds,this.reducedMotion):noCircles;
       for(const part of parts){
-        part.sprite.setVisible(visible);part.next?.setVisible(visible);if(!visible)continue;
+        if(part.sprite.visible!==visible)part.sprite.setVisible(visible);
+        if(part.next&&part.next.visible!==visible)part.next.setVisible(visible);
+        if(!visible)continue;
         const partBounds=item.circles.length?part.sprite.getBounds():undefined;
         const circles=partBounds?item.circles.filter(circle=>part.sprite.depth>circle.depth&&circle.x+90>=partBounds.x&&circle.x-90<=partBounds.right
-          &&circle.y+90>=partBounds.y&&circle.y-90<=partBounds.bottom):[];
+          &&circle.y+90>=partBounds.y&&circle.y-90<=partBounds.bottom):noCircles;
         if(circles.length&&!part.cutout)part.cutout=this.createCutout?.(this.scene,part.sprite);
         part.cutout?.configure(circles);
         if(circles.length&&part.next&&!part.nextCutout)part.nextCutout=this.createCutout?.(this.scene,part.next);
         part.nextCutout?.configure(circles);
         // Canvas has no filter nodes. A bounded fade plus the silhouette keeps
         // the character locatable there, while WebGL gets the local cutout.
-        const alpha=this.opacity*(part.cutout?1:1-.75*Math.max(0,...circles.map(circle=>circle.strength)));
-        part.sprite.setAlpha(alpha);
+        let strength=0;
         for(const circle of circles){
+          strength=Math.max(strength,circle.strength);
           const previous=this.occluded.get(circle.id);
           this.occluded.set(circle.id,{depth:Math.max(previous?.depth??0,part.sprite.depth),strength:Math.max(previous?.strength??0,circle.strength)});
         }
+        const alpha=this.opacity*(part.cutout?1:1-.75*strength);
+        if(part.sprite.alpha!==alpha)part.sprite.setAlpha(alpha);
         // Keeping a single tree painting avoids branches morphing, doubled
         // silhouettes and jumping roots between independently painted poses.
         if(part.treeSway){part.sprite.setRotation(sampleTreeSway(part.phaseId,this.motionTime,this.period));continue;}
@@ -180,7 +195,11 @@ export class WorldScenery {
         if(blend.current!==part.currentFrame){part.sprite.setFrame(part.frames?.[blend.current]??blend.current);part.currentFrame=blend.current;}
         // Source-over draws the next frame over this one. Fading both frames
         // makes opaque scenery lose up to 25% coverage midway through a blend.
-        part.next?.setFrame(part.frames?.[blend.next]??blend.next).setAlpha(this.reducedMotion?0:alpha*blend.alpha);
+        if(part.next){
+          if(part.nextFrame!==blend.next){part.next.setFrame(part.frames?.[blend.next]??blend.next);part.nextFrame=blend.next;}
+          const nextAlpha=this.reducedMotion?0:alpha*blend.alpha;
+          if(part.next.alpha!==nextAlpha)part.next.setAlpha(nextAlpha);
+        }
       }
     }
   }

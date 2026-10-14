@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import './test-support/phaser-dom';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import * as Phaser from 'phaser';
 import { seedJson, seedTexture, settle } from './test-support/phaser-harness';
 import { bootWorld, type Fixture } from './test-support/world-fixture';
@@ -105,6 +105,26 @@ describe('authored resident activities', () => {
 
 /** Run the scene's own update directly, at a fixed frame rate. */
 const frame = (scene: any, ms = 50) => scene.update(0, ms);
+
+it('does not re-sort a still world, but updates ordering when a character changes depth', async () => {
+  const { world, town } = await bootWorld();
+  world.setMotionPreference('reduced');
+  // Story witnesses still walk to their time-of-day positions in reduced motion.
+  for (let index = 0; index < 600; index++) frame(town);
+  town.children.depthSort();
+  const compare = vi.spyOn(town.children, 'sortByDepth');
+  for (let index = 0; index < 120; index++) {
+    frame(town, 1000 / 60);
+    town.children.depthSort();
+  }
+  expect(compare.mock.calls.length).toBe(0);
+  const oldDepth = town.local.root.depth;
+  town.local.y += 1;
+  town.animateCharacter(town.local, 0, 1, town.elapsed);
+  town.children.depthSort();
+  expect(town.local.root.depth).toBe(oldDepth + 4);
+  expect(compare).toHaveBeenCalled();
+});
 
 describe('short player steps', () => {
   it('turns toward the witness when the last path segment approaches sideways', async () => {

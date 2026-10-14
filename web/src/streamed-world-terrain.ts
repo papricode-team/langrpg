@@ -45,6 +45,8 @@ export class StreamedWorldTerrain {
   private wanted: SceneTerrain[] = [];
   private tint = 0xffffff;
   private enabled = true;
+  private settled = false;
+  private detailed = false;
   destroyed = false;
   constructor(private scene: Phaser.Scene, private world: WorldScene, readonly period: 'day'|'night') {
     this.root = scene.add.container(0,0).setDepth(-1000);
@@ -65,6 +67,13 @@ export class StreamedWorldTerrain {
   }
   update(view:TerrainView, zoom=1):void {
     if (this.destroyed || !this.enabled) return;
+    const useDetails = zoom > 1;
+    // Owned textures cannot be evicted by another layer. Once every request is
+    // ready, the same view and detail mode have exactly the same selection.
+    // Pending/failed requests keep updating so completions and retries are seen.
+    if (this.settled && useDetails === this.detailed && view.x === this.lastView.x && view.y === this.lastView.y
+      && view.width === this.lastView.width && view.height === this.lastView.height) return;
+    this.detailed = useDetails;
     this.lastView = {...view};
     const visible = visibleTerrain(this.world.terrain,view);
     // Prefetch lightweight overviews one short walk ahead. Detail is limited
@@ -106,6 +115,7 @@ export class StreamedWorldTerrain {
       const source = sceneTerrainImage(tile,this.period);
       assets.push({key:display.key,asset:source.asset,priority:500});
     }
+    this.settled = assets.every(asset=>this.scene.textures.exists(asset.key));
     this.pool.retain(this,assets);
   }
   setDepth(depth:number):this {this.root.setDepth(depth);return this;}
@@ -113,7 +123,7 @@ export class StreamedWorldTerrain {
   setTint(tint:number):this {this.tint=tint;for(const value of this.images.values())value.image.setTint(tint);return this;}
   setVisible(visible:boolean):this {
     this.root.setVisible(visible);this.enabled=visible;
-    if (!visible) {for(const value of this.images.values())value.image.destroy();this.images.clear();this.pool.release(this);}
+    if (!visible) {this.settled=false;for(const value of this.images.values())value.image.destroy();this.images.clear();this.pool.release(this);}
     return this;
   }
   destroy():void {
