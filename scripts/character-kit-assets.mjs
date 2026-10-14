@@ -4,6 +4,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 import { canonical } from './character-kit-pixels.mjs';
+import { characterSheetPages } from '../web/src/character-sheets.mjs';
 import { CHARACTER_RESOLUTION, characterResolutionErrors } from '../web/src/character-resolution.mjs';
 
 export const ASSET_ROOT = 'web/public/assets/character-kit';
@@ -33,6 +34,14 @@ export function requireNativeDetail(entry, manifest) {
   if(!entry.preparedCandidate||entry.authoring.pages.some(page=>!page.path?.startsWith('art/source/character-kit/hd/candidates/')||!page.prompt))throw new Error(`${entry.id}: native pages need retained candidate and prompt provenance`);
 }
 
+/** A resolution migration must retain every already-published customization. */
+export function requireCompleteHDReplacement(source, published) {
+  if(!source.highResolution)return;
+  const current=[...published.components,...Object.values(published.poseSets??{}).flatMap(pose=>pose.components),...Object.values(published.expressions??{}).flatMap(expression=>expression.components)];
+  const missing=current.filter(part=>!source.entries.some(entry=>entry.id===part.id&&entry.status==='approved'&&entry.authoring?.kind==='native-repaint'));
+  if(missing.length)throw new Error(`High-resolution replacement is incomplete: ${missing.map(part=>part.id).join(', ')}`);
+}
+
 export function expressionDefinition(source, id) {
   const definition = source.expressions?.[id];
   if (!slug(id) || id === 'neutral' || !definition || typeof definition.label !== 'string' || !definition.label.trim()) throw new Error(`Invalid expression ${id}`);
@@ -49,12 +58,13 @@ export function poseDefinition(source, id = 'walk') {
 }
 
 /** Split before interpolation; each sheet carries disjoint native coverage. */
-export function splitMaterials(component, materials, classify) {
+export function splitMaterials(component, materials, classify, detailMaterial) {
   const layers = Object.fromEntries(materials.map(key => [key, Buffer.alloc(component.length)]));
   for (let p = 0; p < component.length; p += 4) {
     if (!component[p + 3]) continue;
     const detected = classify(component[p], component[p + 1], component[p + 2]);
-    const key = materials.includes(detected) ? detected : 'detail';
+    const classified = materials.includes(detected) ? detected : 'detail';
+    const key = classified === 'detail' && detailMaterial ? detailMaterial : classified;
     const layer = layers[key];
     if (!layer) throw new Error(`Undeclared ${key} paint in component`);
     component.copy(layer, p, p, p + 4);
@@ -82,6 +92,7 @@ function requireValid(report) {
 /** Approval binds to actual reviewed pixels and reports, not just a status word. */
 export async function verifyApproval(root, entry) {
   const review = entry.review;
+  let visibleNativeProof = false;
   if (entry.status !== 'approved' || review?.result !== 'approved' || !review.proofs?.length)
     throw new Error(`${entry.id}: visual approval required`);
   if (sha(await readFile(resolve(root, entry.locked))) !== review.lockedSha256)
@@ -96,11 +107,15 @@ export async function verifyApproval(root, entry) {
       if(report.nativeProofs?.length!==18)throw new Error(`${entry.id}: all frames in both palettes need native-resolution proofs`);
       for(const page of report.nativeProofs) {
         if(page.cell?.[0]!==512||page.cell?.[1]!==768||sha(await readFile(resolve(root,page.image)))!==page.imageSha256)throw new Error(`${entry.id}: stale or undersized native proof`);
+        const traces=report.ruleTrace?.filter(trace=>trace.board===page.board)??[];
+        if(!Number.isInteger(page.board)||!traces.some(trace=>trace.visible.includes(entry.id)||trace.hidden.includes(entry.id)))throw new Error(`${entry.id}: native proof does not include the reviewed component`);
+        visibleNativeProof ||= traces.some(trace=>trace.visible.includes(entry.id));
       }
     }
     for (const input of Object.values(report.sources ?? {})) if (sha(await readFile(resolve(root, input.path))) !== input.sha256)
       throw new Error(`${entry.id}: reviewed proof input has changed: ${input.path}`);
   }
+  if(entry.authoring?.kind==='native-repaint'&&!visibleNativeProof)throw new Error(`${entry.id}: native approval needs a proof with the component visible`);
 }
 
 /** Encodes all buffers first; failed validation cannot overwrite exported files. */
@@ -117,15 +132,33 @@ export async function exportComponent(ctx, locked, report, helpers) {
       const pixels=canonical({data:source,info:base.info},frame,format.runtimeCell);
       let first=rh,last=-1;
       for(let y=0;y<rh;y++)for(let x=0;x<rw;x++)if(pixels[(y*rw+x)*4+3]>16){first=Math.min(first,y);last=y;}
-      const errors=characterResolutionErrors({nativeCell:[frame.transform.sourceCell.width,frame.transform.sourceCell.height],outputCell:format.runtimeCell,paintedHeight:last-first+1,surface:'world',authored:true});
+      const errors=characterResolutionErrors({nativeCell:[frame.transform.sourceCell.width,frame.transform.sourceCell.height],outputCell:format.runtimeCell,paintedHeight:last-first+1,surface:'world',authored:true,worldHeightRatio:ctx.entry.poseSet ? Math.min(1,(frame.ground.y-frame.headBounds.top)/CHARACTER_RESOLUTION.registeredStandingHeight) : 1});
       if(errors.length)throw new Error(`${entry.id} frame ${index}: ${errors.join('; ')}`);
     }
   }
-  const layers = splitMaterials(source, entry.materials, helpers.material), files = [], sheets = {};
+  const layers = splitMaterials(source, entry.materials, helpers.material, entry.lock?.detailMaterial), files = [], sheets = {};
   const prefix = `${entry.build}/${entry.id}`;
   for (const [material, data] of Object.entries(layers)) {
     if (!data.some((value, index) => index % 4 === 3 && value)) continue;
     const editor = atlasFor({ data, info: base.info }, manifest.frames, format.editorCell);
+    if(ctx.catalogue.highResolution){
+      const pages={runtimePages:[],editorPages:[]};
+      for(let start=0;start<36;start+=4){
+        const cells=[];
+        for(let tile=0;tile<4;tile++){
+          const frame=start+tile;
+          cells.push(await sharp(editor,{raw:{width:ew*9,height:eh*4,channels:4}}).extract({left:frame%9*ew,top:Math.floor(frame/9)*eh,width:ew,height:eh}).png().toBuffer());
+        }
+        for(const [resolution,w,h]of [['runtime',rw,rh],['editor',ew,eh]]){
+          const overlays=[];
+          for(const [tile,cell]of cells.entries())overlays.push({input:await sharp(cell).resize(w,h).png().toBuffer(),left:tile%2*w,top:Math.floor(tile/2)*h});
+          const buffer=await sharp({create:{width:w*2,height:h*2,channels:4,background:'#00000000'}}).composite(overlays).webp({lossless:true,effort:6}).toBuffer();
+          const path=`${prefix}.${material}.${resolution}.${start/4}.webp`;
+          files.push([path,buffer]);pages[`${resolution}Pages`].push({path,sha256:sha(buffer),firstFrame:start,frameCount:4,columns:2});
+        }
+      }
+      sheets[material]=pages;continue;
+    }
     const editorBuffer = await sharp(editor, { raw: { width: ew*9, height: eh*4, channels: 4 } }).webp({ lossless: true, effort: 6 }).toBuffer();
     // Resize complete cells individually; a filter may never sample its neighbour.
     const runtimeCells = [];
@@ -139,7 +172,7 @@ export async function exportComponent(ctx, locked, report, helpers) {
     sheets[material] = { runtime, editor: editorPath, runtimeSha256: sha(runtimeBuffer), editorSha256: sha(editorBuffer) };
   }
   const palette = { primary: [80, 107, 155], secondary: [198, 174, 105], skin: [214, 160, 125] };
-  const paint = helpers.tintComponent(source, palette, entry.materials);
+  const paint = helpers.tintComponent(source, palette, entry.materials, entry.lock?.detailMaterial);
   const body = entry.lock?.operation === 'replace' ? Buffer.alloc(base.data.length) : helpers.tintComponent(base.data, palette, ['skin', 'detail']);
   const thumbnailBuffer = await sharp(canonical({ data: body, info: base.info }, manifest.frames[0]), { raw: { width: 128, height: 192, channels: 4 } })
     .composite([{ input: canonical({ data: paint, info: base.info }, manifest.frames[0]), raw: { width: 128, height: 192, channels: 4 } }]).webp({ lossless: true }).toBuffer();
@@ -166,13 +199,14 @@ export async function exportComponent(ctx, locked, report, helpers) {
 export function validateMaterialPolicy(entry) {
   const policy = entry.validation ?? {}, facings = ['down', 'right', 'up', 'left'];
   const visible = policy.visibleFacings ?? facings;
-  const materialFacings = policy.materialFacings ?? {}, byFacing = policy.materialCountByFacing ?? [];
+  const materialFacings = policy.materialFacings ?? {}, optional = policy.optionalMaterialFacings ?? {}, byFacing = policy.materialCountByFacing ?? [];
   const isKey = key => key !== 'detail' && entry.materials?.includes(key);
-  if (!materialFacings || typeof materialFacings !== 'object' || Array.isArray(materialFacings)
+  if (!optional || typeof optional !== 'object' || Array.isArray(optional) || Object.entries(optional).some(([key, values]) => !isKey(key) || !Array.isArray(values) || !values.length || new Set(values).size !== values.length || values.some(facing => !(materialFacings[key] ?? visible).includes(facing)))
+    || !materialFacings || typeof materialFacings !== 'object' || Array.isArray(materialFacings)
     || Object.entries(materialFacings).some(([key, values]) => !isKey(key) || !Array.isArray(values) || !values.length
       || new Set(values).size !== values.length || values.some(facing => !facings.includes(facing) || !visible.includes(facing)))
     || !Array.isArray(byFacing) || new Set(byFacing).size !== byFacing.length || byFacing.some(key => !isKey(key))
-    || ((Object.keys(materialFacings).length || byFacing.length) && (entry.slot === 'body' || typeof policy.materialReason !== 'string' || !policy.materialReason.trim()))) {
+    || ((Object.keys(materialFacings).length || Object.keys(optional).length || byFacing.length) && (entry.slot === 'body' || typeof policy.materialReason !== 'string' || !policy.materialReason.trim()))) {
     throw new Error(`Invalid material visibility/count policy for ${entry.id}; exceptions require declared keys, facings and an explanation, and cannot apply to mannequins`);
   }
 }
@@ -207,11 +241,11 @@ export function validateCatalogue(source) {
     if (entry.slot === 'body' && entry.optionId !== entry.build) throw new Error(`Body option must identify its build: ${entry.id}`);
     if (entry.validation) {
       const max = entry.validation.maxRegions ?? 1;
-      if (Object.keys(entry.validation).some(key => !['maxRegions', 'maxRegionsByFacing', 'regionReason', 'visibleFacings', 'visibilityReason', 'materialFacings', 'materialCountByFacing', 'materialReason', 'cellMargin'].includes(key)) || !Number.isInteger(max) || max < 1 || max > (['face', 'markings'].includes(entry.slot) ? 8 : 4) || (entry.slot === 'body' && max !== 1) || (max > 1 && !entry.validation.regionReason?.trim())) throw new Error(`Invalid region validation policy for ${entry.id}`);
+      if (Object.keys(entry.validation).some(key => !['maxRegions', 'maxRegionsByFacing', 'regionReason', 'visibleFacings', 'visibilityReason', 'materialFacings', 'optionalMaterialFacings', 'materialCountByFacing', 'materialReason', 'cellMargin'].includes(key)) || !Number.isInteger(max) || max < 1 || max > (entry.slot === 'markings' ? 16 : entry.slot === 'face' ? 8 : entry.slot === 'outer' ? 6 : 4) || (entry.slot === 'body' && max !== 1) || (max > 1 && !entry.validation.regionReason?.trim())) throw new Error(`Invalid region validation policy for ${entry.id}`);
       const margin = entry.validation.cellMargin ?? 0;
       if (!Number.isInteger(margin) || margin < 0 || margin > 8) throw new Error(`Invalid cell margin for ${entry.id}`);
       const facingRegions = entry.validation.maxRegionsByFacing ?? {};
-      if (!facingRegions || Array.isArray(facingRegions) || typeof facingRegions !== 'object' || Object.entries(facingRegions).some(([facing, count]) => !['down', 'right', 'up', 'left'].includes(facing) || !Number.isInteger(count) || count < 1 || count > (['face', 'markings'].includes(entry.slot) ? 8 : 4) || (entry.slot === 'body' && count !== 1) || (count > 1 && !entry.validation.regionReason?.trim()))) throw new Error(`Invalid facing region validation policy for ${entry.id}`);
+      if (!facingRegions || Array.isArray(facingRegions) || typeof facingRegions !== 'object' || Object.entries(facingRegions).some(([facing, count]) => !['down', 'right', 'up', 'left'].includes(facing) || !Number.isInteger(count) || count < 1 || count > (entry.slot === 'markings' ? 16 : entry.slot === 'face' ? 8 : entry.slot === 'outer' ? 6 : 4) || (entry.slot === 'body' && count !== 1) || (count > 1 && !entry.validation.regionReason?.trim()))) throw new Error(`Invalid facing region validation policy for ${entry.id}`);
       const facings = entry.validation.visibleFacings ?? ['down', 'right', 'up', 'left'];
       if (!Array.isArray(facings) || !facings.length || new Set(facings).size !== facings.length || facings.some(facing => !['down', 'right', 'up', 'left'].includes(facing)) || (facings.length < 4 && (entry.slot === 'body' || !entry.validation.visibilityReason?.trim()))) throw new Error(`Invalid facing validation policy for ${entry.id}`);
     }
@@ -248,7 +282,9 @@ export function compileCatalogue(source, exported) {
   for (const part of allComponents.filter(part=>part.poseSet)) {
     const walk = components.find(base=>base.build===part.build && base.slot===part.slot && base.optionId===part.optionId);
     if (!walk) throw new Error(`No approved walking option for ${part.id}`);
-    if (Object.values(part.tints).some(key=>key && !Object.values(walk.tints).includes(key))) throw new Error(`Pose materials change the recipe contract for ${part.id}`);
+    // Detailed action faces may also shade the skin silhouette. Skin is already
+    // a required global recipe colour, so this adds no per-piece colour field.
+    if (Object.values(part.tints).some(key=>key && !(part.slot==='face'&&key==='skin') && !Object.values(walk.tints).includes(key))) throw new Error(`Pose materials change the recipe contract for ${part.id}`);
   }
   const poseSets = Object.fromEntries([...new Set(allComponents.map(part=>part.poseSet).filter(Boolean))].sort().map(id=>{
     const parts = allComponents.filter(part=>part.poseSet === id);
@@ -266,21 +302,24 @@ export function compileCatalogue(source, exported) {
 }
 
 export async function buildCatalogue(root, source, verify) {
+  if(source.highResolution)requireCompleteHDReplacement(source,await readJSON(resolve(root,'web/src/data/character-kit.json')));
   validateCatalogue(source);
   const directory = assetRoot(source);
   const exported = await readJSON(resolve(root, directory, 'manifest.json'));
   if (exported.schemaVersion !== 1 || fingerprint(exported.format) !== fingerprint(catalogueFormat(source))) throw new Error('Incompatible character-kit export manifest');
+  const compiled = compileCatalogue(source, exported);
   for (const entry of source.entries.filter(entry => entry.status === 'approved')) {
     const { report } = await verify(entry.id); requireValid(report); await verifyApproval(root, entry);
     const asset = exported.assets.find(asset => asset.id === entry.id);
     if (!asset || asset.sourceSha256 !== sha(await readFile(resolve(root, entry.locked))) || fingerprint(asset.provenance) !== fingerprint(await readJSON(resolve(root, `${entry.locked}.json`)))) throw new Error(`Stale export for ${entry.id}; export again`);
     if (!Array.isArray(asset.materials) || !asset.materials.length || asset.materials.some(key => !entry.materials.includes(key)) || entry.materials.filter(key => key !== 'detail').some(key => !asset.materials.includes(key)) || fingerprint([...asset.materials].sort()) !== fingerprint(Object.keys(asset.sheets).sort())) throw new Error(`Incomplete material export for ${entry.id}`);
-    for (const sheet of Object.values(asset.sheets)) for (const [path, expected] of [[sheet.runtime, sheet.runtimeSha256], [sheet.editor, sheet.editorSha256]]) {
-      if (sha(await readFile(resolve(root, directory, path))) !== expected) throw new Error(`Changed derivative ${path}; export again`);
+    for (const sheet of Object.values(asset.sheets)) for (const resolution of ['runtime','editor']) {
+      for(const page of characterSheetPages(sheet,resolution,exported.format[`${resolution}Cell`])) {
+        if (sha(await readFile(resolve(root, directory, page.path))) !== page.sha256) throw new Error(`Changed derivative ${page.path}; export again`);
+      }
     }
     if (sha(await readFile(resolve(root, directory, asset.thumbnail))) !== asset.thumbnailSha256) throw new Error(`Changed thumbnail for ${entry.id}`);
   }
-  const compiled = compileCatalogue(source, exported);
   await saveJSON(resolve(root, 'web/src/data/character-kit.json'), compiled);
   await saveJSON(resolve(root, 'server/character-kit.json'), compiled);
   return compiled;

@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "175fb0ddc391f18093b8203a8fb0d891c50b126866955636c45e4e942a1fdc84",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "2564be9d7169ab9d822c6f5506c230cc5cd0ce95e9b94665775c99a930f33e34",
+  "promptSha256": "498dc6b503f51b6ff1e85b422215782f806962915d9e379cd05d6f25c88e29f8",
+  "generationPromptSha256": "f812ca1b79904ab4f4db1d9fe4b8388ee9bbf17e2413bfa8b2ba6b29e5e2d2a1",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "9b28dbc2cf2181267036d0b1e0038b8961ab2718d2936c5cb12d8b93a8f665c3",
+  "candidate": "art/source/character-kit/hd/top-dress-day-candidate.png",
+  "lockedSha256": "df1342f37e0109be29e8bf182f731b417af07d0f2b0c5fbd84b60b6981aeff2f"
+}

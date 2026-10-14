@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-hair-long-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: nine seated idle poses with subtle breathing and relaxed head inclinations, feet planted throughout. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only the scalp and hair falling beside the face and across the shoulders. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. No natural-colour detail; use only the requested keys.
+Add soft shoulder-length wavy hair entirely in muted violet #7a5a9a. Forehead and face remain visible from front and profiles; cover the back of the head in the rear row. Match the existing head position and small head inclinations in all 36 seated cells. Rounded complete crown, same length and volume throughout. Do not change the mannequin, limbs or pose. No face features, clothing or accessories.

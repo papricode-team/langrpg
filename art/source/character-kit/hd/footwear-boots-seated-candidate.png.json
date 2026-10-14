@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-0-candidate-1.png",
+      "sha256": "9924e5dce9cb82d5f12d28777984a77a497cf942f538bc3d5e7d635b4264a19b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-0-candidate-1.txt",
+      "sha256": "5bd91fccd4a4f4cc735c8745f63df498c109eda19b6873e5058d532b9e9df24b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-0.json",
+      "sha256": "67abaec4c1fbe717e8b8adbb2a0c00e1a413f9cc16184da2ed073d3016536941"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-1-candidate-1.png",
+      "sha256": "872dd3ec4e6f0cb59d2e3d67a92e62a4582217273396b803d0c5af03f12365bb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-1-candidate-1.txt",
+      "sha256": "787593917e11240f5b44d7d3c5b3e0f5eec4b62fffedc658eaf2ad0a62d80529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-1.json",
+      "sha256": "4687465d1af9ec4d19fb87253db55aa027525a8c11db4bdb610b8ca5115bd2cc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-2-candidate-2.png",
+      "sha256": "43d3ce940c9e292d35cbc1d145114c435a4ef1c848cb67a98525c275321ffd20"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-2-candidate-2.txt",
+      "sha256": "787593917e11240f5b44d7d3c5b3e0f5eec4b62fffedc658eaf2ad0a62d80529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-2.json",
+      "sha256": "2ede4441fef6c39ba7d887ded9c7f655b9bb54d9cf9ef0e68a29091b52e141a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-3-candidate-2.png",
+      "sha256": "c19ba691259799892f135864aad54b37b0e6401a197de68487133aa652bed9a7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-3-candidate-2.txt",
+      "sha256": "be2e2881e558e1e8ebe9deb1b2494899c59f34844541885cc2c6d97b7213710c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-3.json",
+      "sha256": "d7ea320b09821ef3c877d1319ee79519a393e8c1f26f027f5316d39b843698a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-4-candidate-1.png",
+      "sha256": "443f03b4e595fbe9aa8f328a31e469b096f8920acf430bf25f472d256aef826e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-4-candidate-1.txt",
+      "sha256": "787593917e11240f5b44d7d3c5b3e0f5eec4b62fffedc658eaf2ad0a62d80529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-4.json",
+      "sha256": "55d41b01666acb37fb0a830a6f4de8e23ac9bb3b4fb1fc52fb3b9a94cfef66e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-5-candidate-1.png",
+      "sha256": "a5a16b734f88d7ae18ccf5cf634f04937a1c07ab5ca36d03f00eae583e9456b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-5-candidate-1.txt",
+      "sha256": "787593917e11240f5b44d7d3c5b3e0f5eec4b62fffedc658eaf2ad0a62d80529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-5.json",
+      "sha256": "800d5446407d94d8504a468f7eb1012495ac1db12e2d88ca416cefbe6bfba9f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    }
+  ],
+  "outputSha256": "1ffc891e5b0ea1753f974e88cb032f1db5e478c20b4a4674ce3578e10afbade5"
+}

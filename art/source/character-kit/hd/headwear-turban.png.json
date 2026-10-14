@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "a41d1f80e4b3b9f15e9c39562b6d2b6a4dd48c34846d0ed4ea9491956c3f5d82",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "58eed95e01b4bc420e9662e6237836b50017882d929435c750d5743fc9184486",
+  "promptSha256": "78471f2673e8590d9498cfa3019044417c6e5b5e295f844dc38d9bfd121965b4",
+  "generationPromptSha256": "cd70e639e85bc78e49df10c00c4d76de646f040597ccecd087725a0d663caddc",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "1122305af03d62fc6c2925725d12fde0647eb749769b8a093ae2d6e72d791576",
+  "candidate": "art/source/character-kit/hd/headwear-turban-aligned.png",
+  "lockedSha256": "7f16386318ee66de46229e9a11e19b587a603a764b90cf73244228288da705bb"
+}

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "e9a10d3d53ae1a316b7d7e3736e6e6c0a13bf7ed88472e9fe4fb48bcf17e6d63",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "2f80d5418148995480ad88cb03ae862f0adcb10c34dc58a33a4b42b573c4f2de",
+  "promptSha256": "524fba60362adc79fd6a9a57ec05d8a5d96df767c777ef99c609f45f2553bd50",
+  "generationPromptSha256": "2e98f877138fa06620ebb5b498898e4acefb419205bda91c834c396e4dd537c8",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The open front has a narrow far band separated by the torso, and raised arm separates the far lapel tip."
+  },
+  "preparationSha256": "a392ca9056afb9d5a9d160cb2aa9e664fa3d707df6eaad0314f48a3ab8faf281",
+  "candidate": "art/source/character-kit/hd/outer-travel-wave-candidate.png",
+  "lockedSha256": "78638df24e2dd620edc290766f74087f105e556b6f142e7887e265378f5edea7"
+}

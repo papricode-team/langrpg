@@ -1,0 +1,1054 @@
+{
+  "id": "outer-travel",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 23181,
+        "secondary": 6679,
+        "detail": 1910
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1804
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 23954,
+        "secondary": 6898,
+        "detail": 1258
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2307
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 22279,
+        "secondary": 6776,
+        "detail": 1029
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2758
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 23515,
+        "secondary": 6837,
+        "detail": 1142
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2866
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 22181,
+        "secondary": 6856,
+        "detail": 935
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3410
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 23136,
+        "secondary": 6986,
+        "detail": 1257
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1880
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 21989,
+        "secondary": 6709,
+        "detail": 1232
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2123
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 22376,
+        "secondary": 6792,
+        "detail": 1134
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2171
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 21541,
+        "secondary": 7349,
+        "detail": 883
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3463
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 20574,
+        "secondary": 4472,
+        "detail": 753
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 534
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 24862,
+        "secondary": 5989,
+        "detail": 883
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1805
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 25570,
+        "secondary": 5711,
+        "detail": 910
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2067
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 20162,
+        "secondary": 4161,
+        "detail": 824
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1479
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 27460,
+        "secondary": 5189,
+        "detail": 743
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1590
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 28712,
+        "secondary": 4572,
+        "detail": 639
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2314
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 24861,
+        "secondary": 5773,
+        "detail": 876
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2519
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 22362,
+        "secondary": 4539,
+        "detail": 924
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1059
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 26192,
+        "secondary": 5029,
+        "detail": 968
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2112
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 40745,
+        "secondary": 4367,
+        "detail": 830
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1065
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 42646,
+        "secondary": 3966,
+        "detail": 688
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1335
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 40789,
+        "secondary": 4663,
+        "detail": 898
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1429
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 39652,
+        "secondary": 4790,
+        "detail": 847
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 870
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 42575,
+        "secondary": 5055,
+        "detail": 852
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1698
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 41813,
+        "secondary": 5002,
+        "detail": 863
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 868
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 40555,
+        "secondary": 4035,
+        "detail": 1029
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2561
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 40806,
+        "secondary": 4117,
+        "detail": 1261
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2623
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 42086,
+        "secondary": 4157,
+        "detail": 1280
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2483
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 21448,
+        "secondary": 4782,
+        "detail": 1102
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2049
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 26263,
+        "secondary": 6333,
+        "detail": 1089
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2801
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 25926,
+        "secondary": 6296,
+        "detail": 1122
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2829
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 20916,
+        "secondary": 5442,
+        "detail": 1858
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2141
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 25311,
+        "secondary": 6206,
+        "detail": 1074
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2458
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 24038,
+        "secondary": 6042,
+        "detail": 1217
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3067
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 25863,
+        "secondary": 5953,
+        "detail": 1194
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3037
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 23857,
+        "secondary": 5550,
+        "detail": 1169
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2037
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 26366,
+        "secondary": 6114,
+        "detail": 1223
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2516
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-0.png",
+      "imageSha256": "ff35a4a77f9d38a5293acde599b608aec5c3964145c615603a54a871880c0109",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-1.png",
+      "imageSha256": "c1568b5dadb4e3b742cf51cabf71bb4c37f0f024b812ae55e1613c360dc21a3f",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-2.png",
+      "imageSha256": "ed86b721b1ee922f573171062e856152795402259387d3430455c96e21ad20c2",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-3.png",
+      "imageSha256": "7171845750f941f528d40cd2c5db7dd4706fa12aa2babc1638d3851408f22163",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-4.png",
+      "imageSha256": "4c6307f04c5cbc210468c06a3c3ac81f8924ca7721a08e09dbec242dcc08a263",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-5.png",
+      "imageSha256": "873d1579545a01234a3ec1e9b3ea90bd649b60af35a1e11b3131e9369a1fd1df",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-6.png",
+      "imageSha256": "d3699f0049408d2bc0a595155c5779caff8dcb746fb4a63bc432831164272aae",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-7.png",
+      "imageSha256": "3f488212d728b95578d4e99b023fac63ef17ac2aab834c09831c473eb102535e",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-8.png",
+      "imageSha256": "7907b9cdb3009352fb4cd40d71903ae7a16b0cb338710228e7a3394d0d6ae28e",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-9.png",
+      "imageSha256": "a715c225d4fede55dc82d99712a3fce2a89cdba154da5765a69b48969bc39199",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-10.png",
+      "imageSha256": "c66d55b56df144d3654ae4f3256ddbd3f684375f116a80de3851981b615a72f5",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-11.png",
+      "imageSha256": "6f24f94225ce2148c0596ae48bd3bc64ce1eac1ae31e36b60f1a7f71c5389cae",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-12.png",
+      "imageSha256": "b87faa49b519a8bf90f3aeaf8b64322a0545f83b7e09ae79de8e21fe2f834804",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-13.png",
+      "imageSha256": "d22b5acf417c5e965a8848fa088a33425aeba48719b3e1b1bc950138c9aca652",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-14.png",
+      "imageSha256": "8dd688ad8548d47d97ad5dcbb3f1b17d23733b860b1f7788ed949e34a7a8f51a",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-15.png",
+      "imageSha256": "81ca2ce0be812660edc7a33d360354f449790dff0cb679b57d390dea6a076e0d",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-16.png",
+      "imageSha256": "97671ad77df8f2377401aff5713c234f514646a4ce49804c10fc5ec6ff4abbca",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-17.png",
+      "imageSha256": "e4e71e68f69a6e24d0fba7d746a491ee32e6b6eafedf5a551a2d4fb9626fbefd",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "outer-travel",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-oval",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": false,
+      "errors": [
+        "Frame 11: expected 1–2 connected paint regions, found 3",
+        "Frame 11: 1 floating paint regions"
+      ]
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "face-oval",
+    "top-shirt",
+    "bottom-straight",
+    "footwear-boots"
+  ],
+  "sources": {
+    "outer-travel": {
+      "path": "art/source/character-kit/hd/outer-travel.png",
+      "sha256": "60b9312f39b7618aadac28d3093a36522d3d229c2afb50359fa310ea32d0cd9d"
+    },
+    "face-oval": {
+      "path": "art/source/character-kit/hd/face-oval.png",
+      "sha256": "22d9ce2bfe81dfef5f32078accdb1d3ece352ec6efa1857375d77de56c3c40db"
+    },
+    "top-shirt": {
+      "path": "art/source/character-kit/hd/top-shirt.png",
+      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
+    },
+    "bottom-straight": {
+      "path": "art/source/character-kit/hd/bottom-straight.png",
+      "sha256": "36f2bd74331e70ee4327bbea38824ccc66ab3a79a96a664b93248f37307217c6"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/hd/footwear-boots.png",
+      "sha256": "218e24c9c0d1155f58b2bd102726a34d1d7883e8cad7bf61f32fa39c5951504a"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-travel"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

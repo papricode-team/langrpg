@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "af53d228ea327533628c931b202aa543619f15034753fb4c5327563848d67176",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "3657a26880f78b29e187aa905f5f26abf00e0e57e7519a3df42555ae71458306",
+  "generationPromptSha256": "0150a2dbb6a71ed505cd9dbacb2dd2b07e36411423fe069d25e1c0cb2c321baf",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2
+    },
+    "regionReason": "The foreground hand separates the far shirt hem from the main garment in frame 12."
+  },
+  "preparationSha256": "e48480954d6fd64ad13cce1f9828cccf74588ad39ac2efd24a4568e805af41aa",
+  "candidate": "art/source/character-kit/hd/top-shirt-slim-candidate.png",
+  "lockedSha256": "1c25d211c648e971916281b286d0bb07548cb5e90518b3d97c45a0cecd373e42"
+}

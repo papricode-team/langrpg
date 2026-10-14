@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-smile-page-0-candidate-1.png",
+      "sha256": "cb5d66f825ae4304103847d3c432a35475fe275c976638bb55d3a0762c34813f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-smile-page-0-candidate-1.txt",
+      "sha256": "f5ccc92bff91aec1910e699dcf5d751e905de29d55c97bf5f72d3b46fcf2a95b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "d2806cf8e52752a462430d23747b4a49ff634fce1af3cb7944acf6f22a077aba"
+}

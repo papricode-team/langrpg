@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "note": "Lossless crop, padding, whole-frame downsampling and page packing records. Original generations and exact prompts remain in candidates/ and prompts/.",
+  "pages": [
+    {
+      "component": "bag-satchel",
+      "page": "art/source/character-kit/hd/candidates/bag-satchel-page-6-candidate-5.png",
+      "pageSha256": "7d9b23d5373560e0699f02f944036adecec387b7ff1ab1cdc6e0e72c3a19a87a",
+      "prompt": "art/source/character-kit/hd/prompts/bag-satchel-page-6-candidate-5.txt",
+      "promptSha256": "e62efeca83dfc4d38312bc688a8d993dbfa8550eeedb3ac378e41b0bd44f26f7",
+      "packing": "art/source/character-kit/hd/candidates/bag-satchel-page-6-candidate-5.png.json",
+      "packingSha256": "cf1eb1869c1bb1f58478427900bf1dbd064a6cbf7e36b91f62d26535251e169e",
+      "operation": "reviewed whole-frame packing",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-satchel-page-6-candidate-4.png",
+          "sha256": "3dc3964183d832636bdfa4aef064e8dce00a08ee79c7c559bccccf93417b2054"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-satchel-frame-25-candidate-5.png",
+          "sha256": "c0969bbaff6eca5f692f6fd0b9d246173e45eb4f5f04e36a80078b1a2831b37a"
+        },
+        {
+          "path": "art/source/character-kit/hd/prompts/bag-satchel-frame-25-candidate-5.txt",
+          "sha256": "31afbb7cf722511e1a8ad835902e4f6a6116c962c8fea094ef8f3c647405ea33"
+        }
+      ],
+      "outputSha256": "7d9b23d5373560e0699f02f944036adecec387b7ff1ab1cdc6e0e72c3a19a87a"
+    },
+    {
+      "component": "bag-tote",
+      "page": "art/source/character-kit/hd/candidates/bag-tote-page-2-candidate-3.png",
+      "pageSha256": "e5f4caf2c7e061b73c54427ff3d59c00b2f335b13febd3fb23245e6afa143be2",
+      "prompt": "art/source/character-kit/hd/prompts/bag-tote-page-2-candidate-3.txt",
+      "promptSha256": "9e2bb34bfc24841651b9aea617294df5b6f400f472dc9e2a83c10dd439d96b92",
+      "packing": "art/source/character-kit/hd/candidates/bag-tote-page-2-candidate-3.png.json",
+      "packingSha256": "b03f174247ebdff077d721381d6d5d728183bdcc2047f773132105d02e29e9c9",
+      "operation": "reviewed whole-frame packing",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-tote-page-2-candidate-2.png",
+          "sha256": "56af0e87228517d2c75ac5694cb8fdf96284465d15dbded2168033106ba6bb00"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-tote-frame-10-candidate-3.png",
+          "sha256": "3155caaf92aa791b111a2381fc0ace21fe780efa734c7a1db550170d8ca503f2"
+        },
+        {
+          "path": "art/source/character-kit/hd/prompts/bag-tote-frame-10-candidate-3.txt",
+          "sha256": "931b0abbe2cd46d865adc9251ff54884234169fc0630b0b0cd04d2329de1c062"
+        }
+      ],
+      "outputSha256": "e5f4caf2c7e061b73c54427ff3d59c00b2f335b13febd3fb23245e6afa143be2"
+    },
+    {
+      "component": "bag-tote",
+      "page": "art/source/character-kit/hd/candidates/bag-tote-page-3-candidate-3.png",
+      "pageSha256": "86033711f2fcd59628b58d2ce0498952ee8b28981be93ee95d93666e14625586",
+      "prompt": "art/source/character-kit/hd/prompts/bag-tote-page-3-candidate-3.txt",
+      "promptSha256": "1942bad145c6bec1b861a2167c0dc422b3a74379ea10bb32da8d7a984397b546",
+      "packing": "art/source/character-kit/hd/candidates/bag-tote-page-3-candidate-3.png.json",
+      "packingSha256": "f820eca907256974933c10c81da9e4fec3a92dc647752af08cadba420d848fc3",
+      "operation": "Whole-frame downsampling and lossless page packing",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-tote-page-3-candidate-2.png",
+          "sha256": "400ad18000931a82a0e05c06ebae2041f830fefeccc18f33e25ab04239ba671a"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/bag-tote-frame-12-candidate-1.png",
+          "sha256": "46fe47c39a90fc8a05d8926d959288a08e4e18c44c723d9381a38f97a40ac655"
+        }
+      ]
+    },
+    {
+      "component": "held-lantern",
+      "page": "art/source/character-kit/hd/candidates/held-lantern-page-3-candidate-4.png",
+      "pageSha256": "3d4a9c30928852e5272bd0f671bec546bce5f419c4ee000a44e83938b58b2b8b",
+      "prompt": "art/source/character-kit/hd/prompts/held-lantern-page-3-candidate-4.txt",
+      "promptSha256": "2fde68dad3bef5cacdf8cf04adbb1d0bb6e2931e6624e9f6aa9196fafdfbcc1e",
+      "packing": "art/source/character-kit/hd/candidates/held-lantern-page-3-candidate-4.png.json",
+      "packingSha256": "8e523f65cf2b5175a6d467547691830139d9bdf2c6e219c6c8790813e61d7a0e",
+      "operation": "reviewed whole-frame packing",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-page-3-candidate-3.png",
+          "sha256": "13aea4983fb45cf5c324374458ff74ea6077b66ce40b920d6d921c1bc50a821a"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-page-3-candidate-2.png",
+          "sha256": "58ada9c6249a719338f413f70766af9cd428bb2babb4644d8eba01308393b453"
+        },
+        {
+          "path": "art/source/character-kit/hd/prompts/held-lantern-page-3-candidate-2.txt",
+          "sha256": "4e3b843274a0f9dd4cbdd1ed5ce4b5682c3413e31e369c07475794080678c89e"
+        }
+      ],
+      "outputSha256": "3d4a9c30928852e5272bd0f671bec546bce5f419c4ee000a44e83938b58b2b8b"
+    },
+    {
+      "component": "held-lantern",
+      "page": "art/source/character-kit/hd/candidates/held-lantern-page-5-candidate-3.png",
+      "pageSha256": "59c187a13e7c33516a3866e900ef680cf5d91eae088d74323fe8d7e4e2042c01",
+      "prompt": "art/source/character-kit/hd/prompts/held-lantern-page-5-candidate-3.txt",
+      "promptSha256": "8683c0501f7c9d8812dadbc5f4056d5f44d611324f4e09ef94c0ede73aa63e5a",
+      "packing": "art/source/character-kit/hd/candidates/held-lantern-page-5-candidate-3.png.json",
+      "packingSha256": "aa66104e6176740f22893819f20bb07b0aa5a26d10692ea623090a7c289a7a11",
+      "operation": "Whole-frame downsampling and page packing; no local transforms",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-page-5-candidate-2.png",
+          "sha256": "f283da724a5a1642fdcbd5775717b8e916a607d2161e0926d7d75594dddd8411"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-frame-20-candidate-2.png",
+          "sha256": "44c47241bd162d84b154aa00084865926286eb42bd5b22939fec233cdd3a5eaa"
+        }
+      ]
+    },
+    {
+      "component": "footwear-boots-seated",
+      "page": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-2-candidate-2.png",
+      "pageSha256": "43d3ce940c9e292d35cbc1d145114c435a4ef1c848cb67a98525c275321ffd20",
+      "prompt": "art/source/character-kit/hd/prompts/footwear-boots-seated-page-2-candidate-2.txt",
+      "promptSha256": "787593917e11240f5b44d7d3c5b3e0f5eec4b62fffedc658eaf2ad0a62d80529",
+      "packing": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-2-candidate-2.png.json",
+      "packingSha256": "c2f6833ad6ae762b103c1500e4cf7877ea202559254a2d570db7e799a558c829",
+      "operation": "One blank pixel added at right edge to restore requested page extent; no resizing",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/footwear-boots-seated-page-2-candidate-1.png",
+          "sha256": "5aafb887ba03abeeb2fbf3acc46f46f6b62b00cf903307352d24970d18c77885"
+        }
+      ]
+    },
+    {
+      "component": "held-lantern-lantern-raise",
+      "page": "art/source/character-kit/hd/candidates/held-lantern-lantern-raise-page-8-candidate-2.png",
+      "pageSha256": "7b584c6cbb723424e9feede00461ff22f814eb8df7fdc007c940c2b96ddf5baa",
+      "prompt": "art/source/character-kit/hd/prompts/held-lantern-lantern-raise-page-8-candidate-2.txt",
+      "promptSha256": "ee97b5c789d0feaa167bbcf1efc0e194031c0a2a57857f0e89a727ef6f64aabb",
+      "packing": "art/source/character-kit/hd/candidates/held-lantern-lantern-raise-page-8-candidate-2.png.json",
+      "packingSha256": "c144361389ab17c2b91c53fee2f3c0eae6084892ea61a019539075dcd408a0d5",
+      "operation": "Whole-frame downsampling and page packing; no local transforms",
+      "sources": [
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-lantern-raise-page-8-candidate-1.png",
+          "sha256": "62d77d3efac7fe2882f8f963ec137fdde6b663c5afe8883e3e4f1a591ca4bcc9"
+        },
+        {
+          "path": "art/source/character-kit/hd/candidates/held-lantern-lantern-raise-frame-33-candidate-2.png",
+          "sha256": "e63a14656317a028c8ebc7e8f9dd91368a0784c427b29278dd1449515ef62645"
+        }
+      ]
+    }
+  ]
+}

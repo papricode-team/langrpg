@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "18f569a62fc01f6179088265c3119dbc55deca578a1b8934d96af0cb7e956838",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "8ce5df7a10f633d6c391150e30102882a27e6485315782830e0e30760a703204",
+  "promptSha256": "98f92e65c1d4b66d29a5d960e12bfd776d61ebb67001dd231a1ce4fa9de68b21",
+  "generationPromptSha256": "b929b8319cbc92bbd9e1b2713a18d702a52e47ec5a4825dca5eae706b6b6dbe7",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "In the left standing profile the far sleeve cuff is partly occluded by the torso and near arm. The small second fabric region touches the mannequin; detached paint remains forbidden."
+  },
+  "preparationSha256": "6e31eac51449326a1706cf505be8ad2d6a60c2eb60ccabd7898c18d6ebf630f5",
+  "candidate": "art/source/character-kit/hd/top-shirt-candidate.png",
+  "lockedSha256": "f41aca70cd1987473ad40be85acb1bac86447b0163638a116ff8c2f076c45dfc"
+}

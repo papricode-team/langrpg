@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "c4ee00ea15f08f4e463fc29121116b84453174c2ec5dcedf0341c5aabebe258b",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "58eed95e01b4bc420e9662e6237836b50017882d929435c750d5743fc9184486",
+  "promptSha256": "b4e42358f17eeede716d8329511816d4b9363b7eaf26f7586162f383ab0bfe5f",
+  "generationPromptSha256": "8a972ba16cd2c94532f5758bd0ef3d07241ad9dfa20cc4333f46729589c8fa54",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "70968aff48e6f1dc5a11ba3101aed3705825b273463a42d53b033f7fc168d4f6",
+  "candidate": "art/source/character-kit/hd/headwear-beret-aligned.png",
+  "lockedSha256": "b0d99b6bef41819c255a4c3b4454cf64997141efdd9487b0dd3774e1b93e14af"
+}

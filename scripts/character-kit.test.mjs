@@ -23,6 +23,29 @@ function fixture() {
   return { base, edit, mask };
 }
 
+test('frame noise cleanup removes only subminimum residual paint and preserves valid marks', () => {
+  const {base, edit, mask}=fixture();
+  for (let y=2;y<6;y++) for(let x=2;x<6;x++) paint(edit,x,y,[90,90,90,255]);
+  paint(edit,3,3,[122,90,154,255]);
+  const clean=lockPixels(base,edit,mask,['primary'],{minFramePaintPixels:6},manifest);
+  const p=(3*info.width+3)*4, next=(3*info.width+11)*4;
+  assert.deepEqual(clean.subarray(p,p+4),base.data.subarray(p,p+4));
+  assert.deepEqual(clean.subarray(next,next+4),edit.data.subarray(next,next+4));
+  for(const value of [0,7,1.5]) assert.throws(()=>lockPixels(base,edit,mask,['primary'],{minFramePaintPixels:value},manifest),/Frame noise/);
+});
+
+test('neutral detail extraction excludes coloured mannequin fringe without changing keyed hair', () => {
+  const {base,edit,mask}=fixture();
+  paint(edit,2,2,[50,80,130,255]);
+  paint(edit,3,2,[30,30,30,255]);
+  const locked=lockPixels(base,edit,mask,['primary','detail'],{detailMaxChroma:.15},manifest);
+  const pixel=(x,y)=>locked.subarray((y*info.width+x)*4,(y*info.width+x)*4+4);
+  assert.deepEqual([...pixel(2,2)],[90,90,90,255]);
+  assert.deepEqual([...pixel(3,2)],[30,30,30,255]);
+  assert.deepEqual([...pixel(4,2)],[122,90,154,255]);
+  for(const value of [-1,2,NaN]) assert.throws(()=>lockPixels(base,edit,mask,['primary','detail'],{detailMaxChroma:value},manifest),/Detail chroma/);
+});
+
 test('key families stay distinct under shading and natural detail is untinted', () => {
   for (const multiplier of [.3, .6, 1, 1.5]) for (const [key, rgb] of Object.entries({ primary: [122, 90, 154], secondary: [90, 154, 106], skin: [90, 154, 154] })) assert.equal(material(...rgb.map(n => Math.round(n * multiplier))), key);
   assert.equal(material(120, 120, 120), 'detail'); assert.equal(material(200, 130, 75), 'detail');
@@ -318,6 +341,24 @@ test('explained paired or occluded regions remain bounded and must each touch th
   assert.match(checkPixels(base, edit, mask, manifest, paired).errors.join('\n'), /expected 1–2/);
 });
 
+test('freckle regions allow sixteen attached marks without relaxing other component limits', () => {
+  const base=image(), edit=image(), mask=new Uint8Array(info.width*info.height);
+  for(const f of frames) for(let y=0;y<8;y++) for(let x=0;x<8;x++) {
+    const px=f.transform.sourceCell.left+x, py=f.transform.sourceCell.top+y;
+    paint(base,px,py,[90,154,154,255]); paint(edit,px,py,[90,154,154,255]);
+    if(x%2===0&&y%2===0) {paint(edit,px,py,[40,40,40,255]);mask[py*info.width+px]=1;}
+  }
+  const freckles={...entry,slot:'markings',materials:['detail'],validation:{maxRegions:16,regionReason:'Separate freckle dots on the face.'}};
+  assert.equal(checkPixels(base,edit,mask,manifest,freckles).valid,true);
+  for(const slot of ['face','hair','body']) assert.throws(()=>checkPixels(base,edit,mask,manifest,{...freckles,slot}),/bounded/);
+  assert.throws(()=>checkPixels(base,edit,mask,manifest,{...freckles,validation:{...freckles.validation,maxRegions:17}}),/bounded/);
+  for(let y=0;y<8;y++) for(let x=0;x<8;x++) {
+    paint(base,x,y,[0,0,0,0]);
+    if(x%2||y%2) paint(edit,x,y,[0,0,0,0]);
+  }
+  assert.match(checkPixels(base,edit,mask,manifest,freckles).errors.join('\n'),/floating paint/);
+});
+
 test('facing-specific occlusion allowances preserve stricter gates in other facings', () => {
   const { base, edit, mask } = fixture();
   const split = frame => {
@@ -570,4 +611,16 @@ test('CLI lock/check keeps check read-only and rejects changed provenance', asyn
     await writeFile(resolve(kit,'catalogue.json'),JSON.stringify(catalogue));
     await assert.rejects(cli(['check','test','--pose-set','wave']),/Stale provenance: poseDefinitionSha256/);
   } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('optional occluded material can disappear behind the body without weakening visible facings', () => {
+  const {base,edit,mask}=fixture();
+  const apron={...entry,slot:'outer',materials:['primary','secondary'],validation:{optionalMaterialFacings:{primary:['up']},materialCountByFacing:['primary'],materialReason:'Rear cloth edges are fully occluded in some poses.'}};
+  for(const f of frames){const c=f.transform.sourceCell;for(let y=2;y<6;y++)for(let x=2;x<6;x++)if(f.direction===2||x>=4)paint(edit,c.left+x,c.top+y,[90,154,106,255]);}
+  const c=frames[18].transform.sourceCell;paint(edit,c.left+2,c.top+2,[122,90,154,255]);
+  assert.deepEqual(checkPixels(base,edit,mask,manifest,apron).errors,[]);
+  for(let y=2;y<6;y++)for(let x=2;x<4;x++)paint(edit,x,y,[90,154,106,255]);
+  assert.match(checkPixels(base,edit,mask,manifest,apron).errors.join(),/Frame 0: missing primary/);
+  assert.throws(()=>checkPixels(base,edit,mask,manifest,{...apron,slot:'body'}),/mannequins/);
+  assert.throws(()=>checkPixels(base,edit,mask,manifest,{...apron,validation:{...apron.validation,optionalMaterialFacings:{primary:['unknown']}}}),/material visibility/);
 });

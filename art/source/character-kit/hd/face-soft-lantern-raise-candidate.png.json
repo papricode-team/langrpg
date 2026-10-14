@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-lantern-raise-page-0-candidate-1.png",
+      "sha256": "a7295d56cd709ec0048e569ed2ecbdf36334bc1d8b69a12cc7dc003a8074de53"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-lantern-raise-page-0-candidate-1.txt",
+      "sha256": "32994849b15e1a592144d66f49758f1de4c05bbf78e76433bfd988555245b3f8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-face/page-0.json",
+      "sha256": "b1a427cc1de0a45245fdea20a1c61f9cc7f190c4bfc4170db9f7906bb737a9fe"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    }
+  ],
+  "outputSha256": "c64884deee57e9662efd024a85dc1bf74fcc8eacb5bd392324fff0362652ef58"
+}

@@ -27,3 +27,10 @@ test('high-density sampling reads distinct native pixels instead of enlarging th
   assert.throws(()=>requireNativeDetail({id:'body',authoring:{kind:'resized-guide',pages:['guide']}},{frames:[frame]}),/native repaint/);
   assert.throws(()=>requireNativeDetail({id:'body',authoring:{kind:'native-repaint',pages:['paint']}},{frames:[{transform:{scale:.5}}]}),/enlarged/);
 });
+
+test('seated poses retain the same device-pixel density at their shorter registered height',()=>{
+  const worldHeightRatio=110/policy.registeredStandingHeight;
+  assert.deepEqual(errors({nativeCell:[640,896],outputCell:policy.runtimeCell,paintedHeight:330,worldHeightRatio,surface:'world',authored:true}),[]);
+  assert.match(errors({nativeCell:[640,896],outputCell:[192,288],paintedHeight:165,worldHeightRatio,surface:'world',authored:true}).join(),/exported painted pixels/);
+  assert.match(errors({nativeCell:[640,896],outputCell:policy.runtimeCell,paintedHeight:330,worldHeightRatio:0,surface:'world',authored:true}).join(),/Invalid/);
+});

@@ -5,19 +5,19 @@ import * as avatarBaker from './avatar-baker';
 import type { TextureLease } from './avatar-texture-cache';
 import { bootWorld } from './test-support/world-fixture';
 import { seedTexture } from './test-support/phaser-harness';
-import { castActor } from './character-cast';
+import { castActor, CAST_ART } from './character-cast';
 import { MODULAR_ART } from './avatar-options';
 
 const frames = Array.from({ length: 36 }, (_, index) => index);
 describe('component characters in the Phaser scenes', () => {
   it('walks a cast bake in all four directions using one sprite', async () => {
     const actor = castActor('marta')!;
-    const { town } = await bootWorld({ seed: game => seedTexture(game, actor.key, frames, MODULAR_ART.width, MODULAR_ART.height) });
+    const { town } = await bootWorld({ seed: game => seedTexture(game, actor.key, frames, CAST_ART.width, CAST_ART.height) });
     const person = town.characters.get('marta');
     expect(person.componentCast).toBe(true);
     expect(person.layers).toHaveLength(1);
     expect(person.figure.texture.key).toBe(actor.key);
-    expect(person.artScale * MODULAR_ART.bodyHeight).toBeCloseTo(MODULAR_ART.worldHeight);
+    expect(person.artScale * CAST_ART.bodyHeight).toBeCloseTo(CAST_ART.worldHeight);
     for (const [facing, velocityX, velocityY] of [[0, 0, 1], [1, 1, 0], [2, 0, -1], [3, -1, 0]]) {
       town.animateCharacter(person, 0, 0, 1, Infinity, { moving: true, distance: 40, velocityX, velocityY });
       expect(person.facing).toBe(facing);

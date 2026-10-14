@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "3d99ddae8d28f6f0a8f6b01b4099a5ce7471668cc5ba63545b1af4b8e969b18c",
+  "baseSha256": "0cf52ccf4a822036c12eebc00c1640b40350f043748b0d9bbc9fe2404b3175ba",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "ed68af3627856afabc738f9273475e72d0e179160c15290a17db5a202aaf5935",
+  "promptSha256": "5d4e9d39cf4af87466160e83954c7f52b06323b930a655bdcb1749038e1a2a41",
+  "generationPromptSha256": "6b8f0e7dd1c862e3a3a2b589856b0881108738a933ecafe20f46a3413f2a8d29",
+  "materials": [
+    "skin"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 6,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "2daed239ef5f42d1a42cc98e8c68767fb7cf4d380292d98c8a6ebab313a8b3ee",
+  "candidate": "art/source/character-kit/hd/body-regular-seated-candidate.png",
+  "lockedSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae"
+}

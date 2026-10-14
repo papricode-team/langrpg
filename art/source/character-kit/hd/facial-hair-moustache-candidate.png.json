@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-moustache-page-0-candidate-1.png",
+      "sha256": "eac9674bc4d7d1547243c23042e9c619a0be90c731ec41f7f3d5e9e575c1de9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-moustache-page-0-candidate-1.txt",
+      "sha256": "a0e31ba404bbc5e1085d071a6a4657c258836d95059684c242bc06a5923e1f69"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "9253fe54c53f7ec51cf890570cf82818560ebc6da233b66fafc52b9190d8a9fa"
+}

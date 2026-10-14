@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-full-beard-page-0-candidate-1.png",
+      "sha256": "f80cb0942925dcd67715a64beee538a21b8bd8031e85c124e2f8a61643cd562e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-full-beard-page-0-candidate-1.txt",
+      "sha256": "23956e7751e0f7b72d3c2ba36c9da6a86efda85fe8d9edf52f8b692154290ddb"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "455d7cb8ee6ac66b2b30abea0054636b627a4a4d634f20af64bf2f6c98f3a25b"
+}

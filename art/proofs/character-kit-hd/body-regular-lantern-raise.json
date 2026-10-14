@@ -1,0 +1,1171 @@
+{
+  "id": "body-regular-lantern-raise",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 114615
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1352,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9535086444864158,
+        "headIoU": 0.8886326439517929,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.3131103515625
+      }
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 111806
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 920,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9604069528400094,
+        "headIoU": 0.8832446021887016,
+        "crownDrift": 1.875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.3125
+      }
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 115583
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1038,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9578012356217409,
+        "headIoU": 0.8922126483498618,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 115469
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1788,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.942742091414256,
+        "headIoU": 0.8868485012152308,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 116406
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 629,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9625721546254691,
+        "headIoU": 0.921152056069649,
+        "crownDrift": 1.0416666666666667,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.4166666666666667
+      }
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 116271
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 841,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.95617419835444,
+        "headIoU": 0.9134961299465824,
+        "crownDrift": 1.25244140625,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 116294
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1135,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9573322112350094,
+        "headIoU": 0.8836188436830835,
+        "crownDrift": 1.669921875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.3131103515625
+      }
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 112929
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1437,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9503799963686353,
+        "headIoU": 0.8648412467229828,
+        "crownDrift": 1.875,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.625
+      }
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 112859
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 384,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9572471055413734,
+        "headIoU": 0.904865876481597,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 73852
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 50,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9361049994276921,
+        "headIoU": 0.8951512639867385,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 77238
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 154,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9430424050399735,
+        "headIoU": 0.8868297335967841,
+        "crownDrift": 0.4166666666666667,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.7291666666666667
+      }
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 81324
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 207,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.929563629639902,
+        "headIoU": 0.9000692852955284,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 84597
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 706,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9537585552424225,
+        "headIoU": 0.9022762545266425,
+        "crownDrift": 0.8349609375,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.3131103515625
+      }
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 84199
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 842,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9404781004331783,
+        "headIoU": 0.9036521026481585,
+        "crownDrift": 0.8333333333333334,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.625
+      }
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 84437
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1227,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9438937078342283,
+        "headIoU": 0.8778544605703846,
+        "crownDrift": 1.043701171875,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.5218505859375
+      }
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 84952
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 825,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9484898658292892,
+        "headIoU": 0.8982379525719799,
+        "crownDrift": 1.043701171875,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.7305908203125
+      }
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 76437
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 259,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9220761835219666,
+        "headIoU": 0.8848901285801756,
+        "crownDrift": 0.8333333333333334,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.5208333333333334
+      }
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 71222
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 220,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9015454116205766,
+        "headIoU": 0.8854230377166157,
+        "crownDrift": 0.8349609375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 113154
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 867,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9435883138169345,
+        "headIoU": 0.83464345873105,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 113465
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 906,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9312980276905913,
+        "headIoU": 0.8548676536563481,
+        "crownDrift": 1.875,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.5208333333333334
+      }
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 119914
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1138,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9650884941168716,
+        "headIoU": 0.9198496546119463,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 121267
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1005,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9669697365414123,
+        "headIoU": 0.9228903486609399,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 122602
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1418,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9618788731938579,
+        "headIoU": 0.9229068248065132,
+        "crownDrift": 1.25,
+        "groundDrift": 0.4166666666666667,
+        "headHorizontalDrift": 0.20833333333333334
+      }
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 122394
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2175,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9533823422609201,
+        "headIoU": 0.9120444533440129,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 119192
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 217,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9721949407832294,
+        "headIoU": 0.9475324949804502,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 118075
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 248,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9724152856274815,
+        "headIoU": 0.9493272258803321,
+        "crownDrift": 0.4166666666666667,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.20833333333333334
+      }
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 117139
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 351,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9700806390835782,
+        "headIoU": 0.9306478108706521,
+        "crownDrift": 1.043701171875,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 79928
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 874,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9579927283375222,
+        "headIoU": 0.8652660712039251,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 83903
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 857,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9484020958395503,
+        "headIoU": 0.8563369687852577,
+        "crownDrift": 1.6666666666666667,
+        "groundDrift": 0.4166666666666667,
+        "headHorizontalDrift": 1.1458333333333335
+      }
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 86040
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 948,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9382444791434308,
+        "headIoU": 0.8761581692066225,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.9393310546875
+      }
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 87610
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 802,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.953733684948426,
+        "headIoU": 0.8972768532526475,
+        "crownDrift": 1.25244140625,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.626220703125
+      }
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 87502
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1116,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9375137853456262,
+        "headIoU": 0.8862158647594278,
+        "crownDrift": 1.25,
+        "groundDrift": 0.4166666666666667,
+        "headHorizontalDrift": 0.7291666666666667
+      }
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 86058
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1386,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.931343449502529,
+        "headIoU": 0.8492374727668845,
+        "crownDrift": 2.08740234375,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.9393310546875
+      }
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 86117
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1373,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9292866637128933,
+        "headIoU": 0.8508733730101128,
+        "crownDrift": 2.08740234375,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.626220703125
+      }
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 83302
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1420,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9269313930740982,
+        "headIoU": 0.8248936297716786,
+        "crownDrift": 2.291666666666667,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 1.1458333333333335
+      }
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 78106
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1396,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9305721897685332,
+        "headIoU": 0.8226621992080414,
+        "crownDrift": 2.296142578125,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 1.25244140625
+      }
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-0.png",
+      "imageSha256": "083398cc1963104a341118f9fc32313b0b54383e7e1a292a8294a62952d06ad8",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-1.png",
+      "imageSha256": "54b6d41a97a5762f437f09c6d9ff9480c9523329f3f35bbd2fa000ec941f61ee",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-2.png",
+      "imageSha256": "2e5fbe80eb817277f5e072300eeb6252c3bbe23883f83dd44d1dc1c47f7aa6af",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-3.png",
+      "imageSha256": "26ff3aae56ae3616ef2b28d50ce9f10e791ead6865f04763972a797af01f6cff",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-4.png",
+      "imageSha256": "4c38d57ebb9e0b811f5e8cf7d09ba288ebe6836f189790b8c8c15181a86cc49d",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-5.png",
+      "imageSha256": "0584fed7cc389607abfb7a62eff68ce089141c8e28c489194bb827e5f7182b96",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-6.png",
+      "imageSha256": "26ae067c9fdc1bb850021630c37326b202cf589389b70344033ac89f67f6d888",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-7.png",
+      "imageSha256": "7e777a3526e4716662cde0b5f59fd3a75eac46e94c9a5ef185f1136e048853ce",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-8.png",
+      "imageSha256": "3ddbd2778b5dfb5e229d9fdbaf1bd5afbd47bcf1e2852b2283b5a7f7275394f1",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-9.png",
+      "imageSha256": "ea356bd22b4a7cca675f4dd012f9255f01cc3b10b4ad6635633f93404f4747dc",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-10.png",
+      "imageSha256": "49df8606385eed8ec7f1583a2cdc6c826457f148b0ee7e662c67772bd015f543",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-11.png",
+      "imageSha256": "a219425b1c102f3370550b35b775aba7872771327ecde541c1c5c961833dd163",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-12.png",
+      "imageSha256": "2e62778a16f05c5e4a06c1ae7b09c0f3a0382e2a22a161277ce580b7cb567a4e",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-13.png",
+      "imageSha256": "140da66ac8a632a7f3f55ef396cc41303b47e89391b5e29790f5e7225d58169b",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-14.png",
+      "imageSha256": "52bc4d143b067634caa15bd5dd4462fbc3415cbb88c9440dfe630053b6531fb0",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-15.png",
+      "imageSha256": "6d633fbdab8389235848929748861844e0694712bb3b2d076ec51ef923429e20",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-16.png",
+      "imageSha256": "99eceff49b3283e176a51ed2fc31a94710228d6145e698aa0593409e09f0c3a4",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-lantern-raise.native-17.png",
+      "imageSha256": "61255b1797f031a6a1fc561fd383f0dd6edf65c43fbf8856d2ead4e7860f2054",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "lantern-raise",
+  "checks": [
+    {
+      "id": "body-regular-lantern-raise",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "body-regular-lantern-raise": {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-lantern-raise"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

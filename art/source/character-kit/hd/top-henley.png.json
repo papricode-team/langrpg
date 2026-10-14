@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "9fb9b2c2e6bf41ad6e74bddac40b67dcf4bca87bf9fa3e2b3c65c8c76037cb00",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "8ce5df7a10f633d6c391150e30102882a27e6485315782830e0e30760a703204",
+  "promptSha256": "724e4cba61996c181171124fefeea6e83d2a7e86341f305370d6ac2b55989824",
+  "generationPromptSha256": "adb9d6e110e47a078156d73a7058b37c6fd62808fdd926badb4f5f1624f47cda",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "c60613c587fc38ff5a8b8f1f2dbb1daaf08a4a349a6318c74507b0a02cdb57b3",
+  "candidate": "art/source/character-kit/hd/top-henley-candidate.png",
+  "lockedSha256": "e5f75e1ae7b2be49a6a18882ca0bbca7a86c4ef746cf5db371b294f56555a214"
+}

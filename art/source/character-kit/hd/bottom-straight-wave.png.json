@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "bd7956e18e13fc142e919f4a3b53f34bd91479abba49b21902dfd2a8ce7f5e74",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "5036d25f8dd495a9dcab41fd217a7a26aae7c89b0a3d381e85479d84c8334349",
+  "promptSha256": "cf92bc20f2bc783b35699bddec0288710434a3c1b9c5d2cb76885aae4498d1c5",
+  "generationPromptSha256": "04e106f283a00965e6fbf79899716d6104dd8c890681132d84ff21473808663d",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "8ed78347d4cf495a3c8d8f2e3ac58fb757969e17deb3a3d9b4369ab08ed33d08",
+  "candidate": "art/source/character-kit/hd/bottom-straight-wave-aligned.png",
+  "lockedSha256": "ac0ea0534858ab06bce78a2596fdffdc2e25671344eff5719c53dc66bc37170a"
+}

@@ -6,6 +6,7 @@ import { resolve, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { characterCatalogue, catalogueForPose, catalogueForExpression, recipeErrors, resolveRecipe, avatarTextureKey } from '../web/src/character-recipe.mjs';
+import { characterSheetPages } from '../web/src/character-sheets.mjs';
 import { composeAtlas } from '../web/src/character-compositor.mjs';
 
 export async function bakeCharacterSheet(recipe, { root = resolve(import.meta.dirname, '..'), out, editor = false, preview = false, poseSet = 'walk', catalogue = characterCatalogue, expression = catalogue.expression ?? 'neutral' } = {}) {
@@ -17,11 +18,15 @@ export async function bakeCharacterSheet(recipe, { root = resolve(import.meta.di
   const resolved = ['down', 'right', 'up', 'left'].map(facing => resolveRecipe(recipe, facing, catalogue));
   const pieces = new Map(resolved.flatMap(result => result.layers.map(layer => [layer.id, layer]))), images = new Map();
   for (const piece of pieces.values()) for (const material of piece.materials) {
-    const sheet = piece.sheets[material], path = resolve(root, 'web/public', catalogue.assetBase.replace(/^\//,''), editor ? sheet.editor : sheet.runtime);
-    const bytes = await readFile(path), expected = editor ? sheet.editorSha256 : sheet.runtimeSha256;
-    if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error(`Stale or changed asset ${piece.id}.${material}`);
-    const { data, info } = await sharp(bytes).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-    images.set(`${piece.id}.${material}`, { data, width: info.width, height: info.height });
+    for(const page of characterSheetPages(piece.sheets[material],editor?'editor':'runtime',[width,height])){
+      const path=resolve(root,'web/public',catalogue.assetBase.replace(/^\//,''),page.path);
+      const bytes=await readFile(path);
+      if(createHash('sha256').update(bytes).digest('hex')!==page.sha256)throw new Error(`Stale or changed asset ${piece.id}.${material}`);
+      const {data,info}=await sharp(bytes).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+      if(info.width!==page.width||info.height!==page.height)throw new Error(`Malformed character page ${page.path}`);
+      const image={data,width:info.width,height:info.height,firstFrame:page.firstFrame,frameCount:page.frameCount,columns:page.columns};
+      for(let frame=page.firstFrame;frame<page.firstFrame+page.frameCount;frame++)images.set(`${piece.id}.${material}.${frame}`,image);
+    }
   }
   const atlas = composeAtlas(resolved.map(result => result.layers), images, width, height);
   const encoded = await sharp(atlas.data, { raw: { width: atlas.width, height: atlas.height, channels: 4 } }).webp({ lossless: true, effort: 6 }).toBuffer();

@@ -218,7 +218,11 @@ export function recoverInk(base, candidate, ink, tolerance) {
 
 /** Registered replacement or overlay, with explicit retained material regions. */
 export function lockPixels(base, candidate, mask, materials, policy = {}, manifest) {
+  if (policy.detailMaxChroma !== undefined && (!Number.isFinite(policy.detailMaxChroma) || policy.detailMaxChroma < 0 || policy.detailMaxChroma > 1 || !materials.includes('detail'))) throw new Error('Detail chroma requires detail and a fraction in 0..1');
+  const rejectedDetail = p => policy.detailMaxChroma !== undefined && classify(candidate.data, p, materials) === 'detail' && (Math.max(...candidate.data.subarray(p, p + 3)) - Math.min(...candidate.data.subarray(p, p + 3))) / Math.max(1, ...candidate.data.subarray(p, p + 3)) > policy.detailMaxChroma;
+  if (policy.detailMaterial !== undefined && (!materials.includes('detail') || policy.detailMaterial === 'detail' || !materials.includes(policy.detailMaterial))) throw new Error('Detail tint material must be a declared key material');
   assertDimensions(candidate, base.info, 'Candidate');
+  if (policy.minFramePaintPixels !== undefined && (!manifest || !Number.isInteger(policy.minFramePaintPixels) || policy.minFramePaintPixels < 1 || policy.minFramePaintPixels > LIMITS.minPixels)) throw new Error('Frame noise cleanup requires registration and a threshold within the minimum paint size');
   if (policy.ignoreKeys && (!Array.isArray(policy.ignoreKeys) || policy.ignoreKeys.some(key => !Object.hasOwn(KEYS, key) || materials.includes(key)))) throw new Error('Ignored keys must be known and absent from component materials');
   if (policy.preserveMaterials && (policy.operation==='replace' || !Array.isArray(policy.preserveMaterials) || policy.preserveMaterials.some(key=>!Object.hasOwn(KEYS,key)||!materials.includes(key)||!policy.keepMaterials?.includes(key)||!policy.materialRegions?.[key]))) throw new Error('Preserved materials require an overlay and explicit retained regions');
   if (policy.minBaseAlpha !== undefined && (!Number.isInteger(policy.minBaseAlpha) || policy.minBaseAlpha < 0 || policy.minBaseAlpha > 255 || policy.operation === 'replace')) throw new Error('Base alpha clipping requires an overlay and a byte threshold');
@@ -258,7 +262,7 @@ export function lockPixels(base, candidate, mask, materials, policy = {}, manife
     }
     const key = classify(candidate.data, p, materials);
     if (policy.preserveMaterials?.includes(key)) continue;
-    if (key === 'detail' && detailExterior?.[i]) continue;
+    if (key === 'detail' && (detailExterior?.[i] || rejectedDetail(p))) continue;
     if (!materials.includes(key) || !areas[key][i] || (fringeMaterials.includes(key) && policy.detailReach)) continue;
     if (policy.operation !== 'replace' && !policy.keepMaterials?.includes(key) && visibleDelta(base.data, candidate.data, p) <= LIMITS.delta) continue;
     candidate.data.copy(locked, p, p, p + 4); count++;
@@ -271,7 +275,7 @@ export function lockPixels(base, candidate, mask, materials, policy = {}, manife
       const c = f.transform.sourceCell;
       for (let y = c.top; y < c.top + c.height; y++) for (let x = c.left; x < c.left + c.width; x++) {
         const i = y * base.info.width + x, p = i * 4;
-        if (classify(candidate.data, p, materials) === 'detail' && detailExterior?.[i]) continue;
+        if (classify(candidate.data, p, materials) === 'detail' && (detailExterior?.[i] || rejectedDetail(p))) continue;
         if (policy.preserveMaterials?.includes(classify(candidate.data,p,materials))) continue;
         if (!mask[i] || matte?.[i] || seeds[i] || base.data[p + 3] < (policy.minBaseAlpha ?? 0) || candidate.data[p + 3] <= LIMITS.alpha || policy.ignoreKeys?.includes(material(...candidate.data.subarray(p, p + 3))) || !fringeMaterials.includes(classify(candidate.data, p, materials))) continue;
         let near = false;
@@ -284,6 +288,17 @@ export function lockPixels(base, candidate, mask, materials, policy = {}, manife
     }
   }
   if (!count) throw new Error('No eligible changed paint inside mask');
+  if (policy.minFramePaintPixels) {
+    const component = extract(base, { info: base.info, data: locked }, mask, policy, manifest);
+    for (const frame of manifest.frames) {
+      const regions = regionsIn(component, base.info, frame.transform.sourceCell);
+      if (regions.reduce((sum, region) => sum + region.length, 0) >= policy.minFramePaintPixels) continue;
+      for (const region of regions) for (const i of region) {
+        if (policy.operation === 'replace') locked.fill(0, i * 4, i * 4 + 4);
+        else base.data.copy(locked, i * 4, i * 4, i * 4 + 4);
+      }
+    }
+  }
   if (policy.maxSpeckPixels || policy.anchorMaterial) {
     if (!manifest) throw new Error('Speck cleanup requires registration');
     const component = extract(base, { info: base.info, data: locked }, mask, policy, manifest);
@@ -316,9 +331,10 @@ export function checkPixels(base, locked, mask, manifest, entry) {
   const cellMargin = entry.validation?.cellMargin ?? 0;
   if (!Number.isInteger(cellMargin) || cellMargin < 0 || cellMargin > 8) throw new Error('Cell margin must be an integer in 0..8 source pixels');
   const maxRegions = entry.validation?.maxRegions ?? 1;
-  if (!Number.isInteger(maxRegions) || maxRegions < 1 || maxRegions > (['face', 'markings'].includes(entry.slot) ? 8 : 4) || (entry.slot === 'body' && maxRegions !== 1) || (maxRegions > 1 && !entry.validation?.regionReason?.trim())) throw new Error('Multiple regions require a bounded, explained component policy; mannequins must stay connected');
+  const regionLimit = entry.slot === 'markings' ? 16 : entry.slot === 'face' ? 8 : entry.slot === 'outer' ? 6 : 4;
+  if (!Number.isInteger(maxRegions) || maxRegions < 1 || maxRegions > regionLimit || (entry.slot === 'body' && maxRegions !== 1) || (maxRegions > 1 && !entry.validation?.regionReason?.trim())) throw new Error('Multiple regions require a bounded, explained component policy; mannequins must stay connected');
   const facingRegions = entry.validation?.maxRegionsByFacing ?? {};
-  if (!facingRegions || Array.isArray(facingRegions) || typeof facingRegions !== 'object' || Object.entries(facingRegions).some(([facing, count]) => !['down', 'right', 'up', 'left'].includes(facing) || !Number.isInteger(count) || count < 1 || count > (['face', 'markings'].includes(entry.slot) ? 8 : 4) || (entry.slot === 'body' && count !== 1) || (count > 1 && !entry.validation?.regionReason?.trim()))) throw new Error('Facing regions require valid facings and bounded, explained counts; mannequins must stay connected');
+  if (!facingRegions || Array.isArray(facingRegions) || typeof facingRegions !== 'object' || Object.entries(facingRegions).some(([facing, count]) => !['down', 'right', 'up', 'left'].includes(facing) || !Number.isInteger(count) || count < 1 || count > regionLimit || (entry.slot === 'body' && count !== 1) || (count > 1 && !entry.validation?.regionReason?.trim()))) throw new Error('Facing regions require valid facings and bounded, explained counts; mannequins must stay connected');
   const visibleFacings = entry.validation?.visibleFacings ?? ['down', 'right', 'up', 'left'];
   if (!Array.isArray(visibleFacings) || !visibleFacings.length || new Set(visibleFacings).size !== visibleFacings.length || visibleFacings.some(facing => !['down', 'right', 'up', 'left'].includes(facing)) || (visibleFacings.length < 4 && (entry.slot === 'body' || !entry.validation?.visibilityReason?.trim()))) throw new Error('Partial facing visibility requires an explained policy; mannequins must be visible in all facings');
   const component = extract(base, locked, mask, entry.lock, manifest), errors = [], frames = [], W = base.info.width;
@@ -369,7 +385,7 @@ export function checkPixels(base, locked, mask, manifest, entry) {
     if (cellEdgePaint) errors.push(`Frame ${index}: ${cellEdgePaint} paint pixels violate ${cellMargin}-pixel cell clearance`);
     for (const key of entry.materials.filter(key => key !== 'detail')) {
       const materialVisible = visible && (entry.validation?.materialFacings?.[key] ?? visibleFacings).includes(['down', 'right', 'up', 'left'][f.direction]);
-      if (materialVisible && counts[key] < LIMITS.minPixels) errors.push(`Frame ${index}: missing ${key} key paint`);
+      if (materialVisible && !entry.validation?.optionalMaterialFacings?.[key]?.includes(['down','right','up','left'][f.direction]) && counts[key] < LIMITS.minPixels) errors.push(`Frame ${index}: missing ${key} key paint`);
       if (!materialVisible && counts[key]) errors.push(`Frame ${index}: ${key} paint in a declared invisible material facing`);
     }
     const coverage = bodyPixels ? skinPixels / bodyPixels : 0;
@@ -389,8 +405,8 @@ export function checkPixels(base, locked, mask, manifest, entry) {
       ? [0, 1, 2, 3].map(direction => visibleFrames.filter(f => f.direction === direction)).filter(group => group.length)
       : [visibleFrames];
     for (const group of groups) {
-      const values = group.map(f => f.counts[key]).sort((a, b) => a - b), median = (values[Math.floor((values.length - 1) / 2)] + values[Math.floor(values.length / 2)]) / 2;
-      for (const f of group) if (f.counts[key] < median * LIMITS.minMedianRatio || f.counts[key] > median * LIMITS.maxMedianRatio)
+      const values = group.filter(f => f.counts[key] || !entry.validation?.optionalMaterialFacings?.[key]?.includes(['down','right','up','left'][f.direction])).map(f => f.counts[key]).sort((a, b) => a - b), median = values.length ? (values[Math.floor((values.length - 1) / 2)] + values[Math.floor(values.length / 2)]) / 2 : 0;
+      for (const f of group) if ((!entry.validation?.optionalMaterialFacings?.[key]?.includes(['down','right','up','left'][f.direction]) && f.counts[key] < median * LIMITS.minMedianRatio) || f.counts[key] > median * LIMITS.maxMedianRatio)
         errors.push(`Frame ${f.index}: ${key} count ${f.counts[key]} outside 0.25–4× median ${median}${groups.length > 1 ? ' for this facing' : ''}`);
     }
   }
@@ -492,11 +508,11 @@ export async function writeKit(ctx, rows = false) {
 }
 
 /** Tint all materials before resampling so shared boundaries retain coverage. */
-export function tintComponent(data, colors, materials = ['primary', 'secondary', 'skin', 'detail']) {
+export function tintComponent(data, colors, materials = ['primary', 'secondary', 'skin', 'detail'], detailMaterial) {
   const out = Buffer.from(data);
   for (let p = 0; p < out.length; p += 4) {
     if (!out[p + 3]) continue;
-    const key = classify(data, p, materials), color = colors[key];
+    const detected = classify(data, p, materials), key = detected === 'detail' && detailMaterial ? detailMaterial : detected, color = colors[key];
     if (!color) continue;
     const gray = Math.min(255, Math.round((data[p] * .2126 + data[p + 1] * .7152 + data[p + 2] * .0722) * 255 / 180));
     for (let channel = 0; channel < 3; channel++) out[p + channel] = Math.round(gray * color[channel] / 255);
@@ -557,7 +573,7 @@ async function proof(ctx, locked, withIds, compareRules = false, output) {
     const proofBase = ctx.entry.lock?.operation === 'replace' || (withOutfit && legacyBody.length) ? { info: ctx.base.info, data: Buffer.alloc(ctx.base.data.length) } : { info: ctx.base.info, data: tintComponent(ctx.base.data, colors, ['skin', 'detail']) };
     const selected = [...(compareRules && board < 2 ? [] : [{ entry: ctx.entry, data: component }]), ...others, ...(withOutfit ? [...legacyBody, ...outfit] : [])];
     const tinted = selected.map(piece => {
-      if (!piece.canonical) return { ...piece, data: tintComponent(piece.data, colors, piece.entry.materials) };
+      if (!piece.canonical) return { ...piece, data: tintComponent(piece.data, colors, piece.entry.materials, piece.entry.lock?.detailMaterial) };
       const data = Buffer.from(piece.data), tint = piece.entry.tintMaterial ? colors[piece.entry.tintMaterial] : piece.entry.tint;
       if (tint) for (let p = 0; p < data.length; p += 4) for (let channel = 0; channel < 3; channel++) data[p + channel] = Math.round(data[p + channel] * tint[channel] / 255);
       return { ...piece, data };
@@ -570,7 +586,9 @@ async function proof(ctx, locked, withIds, compareRules = false, output) {
       const overlays = pieces.map(piece => ({ input: piece.canonical ? fixtureCell(piece.data, index) : canonical({ info: ctx.base.info, data: piece.data }, frame), raw: { width: 128, height: 192, channels: 4 } }));
       const cell = await canvas.composite(overlays).png().toBuffer();
       panels.push({ input: cell, left: (board % 2) * 1152 + (index % 9) * 128, top: Math.floor(board / 2) * 768 + Math.floor(index / 9) * 192 });
-      if(ctx.catalogue.highResolution && board<2) {
+      // Rule comparisons begin with companions alone. Native approval pages
+      // must show the component under review, not just that control board.
+      if(ctx.catalogue.highResolution && (compareRules ? board>=2 : board<2)) {
         if(pieces.some(piece=>piece.canonical))throw new Error('Native proofs cannot use legacy fixtures');
         const raw={width:512,height:768,channels:4};
         const input=await sharp(canonical(proofBase,frame,[512,768]),{raw}).composite(pieces.map(piece=>({input:canonical({info:ctx.base.info,data:piece.data},frame,[512,768]),raw}))).png().toBuffer();
@@ -586,7 +604,7 @@ async function proof(ctx, locked, withIds, compareRules = false, output) {
   for(let page=0;page<nativePanels.length/4;page++) {
     const image=path.replace(/\.png$/,`.native-${page}.png`);
     await sharp({create:{width:1024,height:1536,channels:4,background:'#ece8df'}}).composite(nativePanels.slice(page*4,page*4+4).map((input,i)=>({input,left:i%2*512,top:Math.floor(i/2)*768}))).png().toFile(image);
-    nativeProofs.push({image:image.slice(ctx.root.length+1),imageSha256:hash(await readFile(image)),frames:[0,1,2,3].map(i=>(page*4+i)%36),palette:page<9?'warm':'cool',cell:[512,768]});
+    nativeProofs.push({image:image.slice(ctx.root.length+1),imageSha256:hash(await readFile(image)),frames:[0,1,2,3].map(i=>(page*4+i)%36),board:Math.floor(page/9)+(compareRules?2:0),palette:page<9?'warm':'cool',cell:[512,768]});
   }
   const walk = Buffer.alloc(512 * 192 * 9 * 4);
   for (let column = 0; column < 9; column++) for (let row = 0; row < 4; row++) {
@@ -620,7 +638,9 @@ export async function main(args = process.argv.slice(2), root = ROOT) {
   const helpers = { extract, material, tintComponent };
   const verify = async id => {
     const ctx = await context(id, root, catalogue), locked = await readLocked(ctx);
-    return { ctx, locked, report: checkPixels(ctx.base, locked, ctx.mask, ctx.manifest, ctx.entry) };
+    const report = checkPixels(ctx.base, locked, ctx.mask, ctx.manifest, ctx.entry);
+    if(command==='build-catalogue'&&catalogue.highResolution)console.error(`Checked ${id}: ${report.valid?'valid':'invalid'}`);
+    return { ctx, locked, report };
   };
   if (command === 'build-catalogue') {
     const compiled = await buildCatalogue(root, catalogue, verify);

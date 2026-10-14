@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "752bc66d84a1fc6cf755cf61ea57fe672c5820f2d65c88a59784e44c83816ba9",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "f9672c7f0cefb32841cfa688d7875edc4579d8906f804ba2ba0dbfb8b8edc900",
+  "promptSha256": "fb21e26cce1ae0d91d9b82d4233ee897421267db47196e644e5dba556f75ceb9",
+  "generationPromptSha256": "e33d244e43ab877e167ab6d3bdafffaaec4c34caf618788130615eb8559a0bd2",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2,
+      "down": 3
+    },
+    "regionReason": "In seated front views the resting hands occlude the two hip-side hem sections, leaving the blouse torso and two attached hem patches. In profile the foreground arm can occlude the narrow rear hem. Every visible region must still touch the mannequin."
+  },
+  "preparationSha256": "09b14c514dbf129be0dd8033f17f9332daae8459aaae2c008bdf580f4e6f27a1",
+  "candidate": "art/source/character-kit/hd/top-blouse-seated-candidate.png",
+  "lockedSha256": "043908b2c6f9a316f543c85546b6a1365294b45fd033fc6693299fc662c08b2c"
+}

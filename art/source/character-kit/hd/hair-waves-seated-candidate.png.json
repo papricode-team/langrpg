@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-seated-page-0-candidate-1.png",
+      "sha256": "520385f96250767e01563d1929910c2352d680da179be9ca593f2776751fe7c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-seated-page-0-candidate-1.txt",
+      "sha256": "aefa6c09db82c6a4fb09a9f90bf4b80eb64d0944ae7503a6924e15263dadfdfd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-seated-complete-crown-0.json",
+      "sha256": "b36a7d023ba1d193a48b999fffb3bb03368dadd792bdbd676a10de644de7ebfc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-seated-page-1-candidate-1.png",
+      "sha256": "f0da27760fda22b392389b95e22cf85ae2a57d231f6b089cd341703ea354a8c9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-seated-page-1-candidate-1.txt",
+      "sha256": "4b80f5180052192bd1b731169166138174f50460f30fb1e5ae3bdb33661c6916"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-seated-complete-crown-1.json",
+      "sha256": "848bdf61d796df0cdc3f90cf888060304647df8ef797d6e6edd3aa65a2f5a590"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-seated-page-2-candidate-1.png",
+      "sha256": "ce960777b2290f90bcecea966e2ad4c9cd0c937b53cc3008fc170de6687af18a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-seated-page-2-candidate-1.txt",
+      "sha256": "c30f5106bb27523e66de3986ea524df9044f9b4130d6fb4a63c69fdf3bcf5a5d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-seated-complete-crown-2.json",
+      "sha256": "b246775ded07293036e48756e643dcde091e5b52a800031257f83a13ce6eff36"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-seated-page-3-candidate-1.png",
+      "sha256": "cf578d9ec8db07259c4fde4ebcba773d9338919d955a47c8ba7e9a2c54e3cb95"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-seated-page-3-candidate-1.txt",
+      "sha256": "acfa7d132759c1cc0638fb41c0901ec3dc056db485020df386dd38e00eb0c50e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-seated-complete-crown-3.json",
+      "sha256": "5e2a09445d5eaf0874f2bb3ded262b31173107c2be186754b0472ee71a613c90"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    }
+  ],
+  "outputSha256": "a9c0ca57bc7bdbe438f9d0de424d3ed15d00d75932a24e7ff3557fdf669a0ee0"
+}

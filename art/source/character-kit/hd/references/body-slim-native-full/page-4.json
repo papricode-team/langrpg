@@ -1,0 +1,69 @@
+{
+  "source": "art/source/character-kit/hd/body-slim.png",
+  "size": [
+    1024,
+    1536
+  ],
+  "crops": [
+    {
+      "frame": 16,
+      "source": {
+        "left": 4544,
+        "top": 960,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 17,
+      "source": {
+        "left": 5184,
+        "top": 960,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 18,
+      "source": {
+        "left": 64,
+        "top": 1856,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 0,
+        "top": 768,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 19,
+      "source": {
+        "left": 704,
+        "top": 1856,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 512,
+        "top": 768,
+        "width": 512,
+        "height": 768
+      }
+    }
+  ]
+}

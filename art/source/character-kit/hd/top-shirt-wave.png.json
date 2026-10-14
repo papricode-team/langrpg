@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "18d9e0b3c9049e769311468988b01993663bc08fb529e92159384ab8aac45598",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "7d94d9ea43cfcdee2e0e9b1f4436c6c40e32e1c2f523a43f5dcc23cf623002ad",
+  "promptSha256": "58dd3797e8e7f263a1e664a70df82b6021417d6f8190b09a2c2575cabc039cbd",
+  "generationPromptSha256": "f3d05468c2ad4c2fca9b97a56ddc6b9b3e263c0497864cb6cefa2a35c639d7f2",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The lowered foreground forearm separates the rear shirt tail in left idle frames."
+  },
+  "preparationSha256": "04682f37569ee747febd756deb3bef5e940a6e6e57ebac5c9a166c72fd16706b",
+  "candidate": "art/source/character-kit/hd/top-shirt-wave-candidate.png",
+  "lockedSha256": "e55cab4ee9ce1ebf7fd795adf9c6cc393f0821d7ffdbbc79234adb38b9671f6b"
+}

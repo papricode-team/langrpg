@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "606d6c5173a92fc87be10692a9e4a86ecca46912c10badb3365a50ab2d294b03",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "e204a77aa05147b0815e88534adb3814183a1cbd66027e4b85a8ef663c5d640b",
+  "promptSha256": "877c1ec83401393e0b3f3734a733edac93d74056ec44484188ef62d3befb63a2",
+  "generationPromptSha256": "93a73402bfaec0ca3ce36b68b5cbef122df0c93316dcc9e914c3cfd7b86258ba",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "89ab4d13fb3579f142ca2675897e091c1843bb9a0284b9ece572d9d045098446",
+  "candidate": "art/source/character-kit/hd/hair-waves-wave-aligned.png",
+  "lockedSha256": "301ad4741ce1305a7195aaa061f779a8033e93a111800a55376afd32d450f63e"
+}

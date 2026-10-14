@@ -1,0 +1,144 @@
+{
+  "source": "art/source/character-kit/hd/body-broad.png",
+  "size": [
+    1152,
+    1152
+  ],
+  "crops": [
+    {
+      "frame": 0,
+      "source": {
+        "left": 128,
+        "top": 61,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 0,
+        "top": 0,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 1,
+      "source": {
+        "left": 768,
+        "top": 51,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 384,
+        "top": 0,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 2,
+      "source": {
+        "left": 1407,
+        "top": 51,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 768,
+        "top": 0,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 3,
+      "source": {
+        "left": 2048,
+        "top": 11,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 0,
+        "top": 344,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 4,
+      "source": {
+        "left": 2690,
+        "top": 11,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 384,
+        "top": 344,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 5,
+      "source": {
+        "left": 3329,
+        "top": 11,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 768,
+        "top": 344,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 6,
+      "source": {
+        "left": 3967,
+        "top": 11,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 0,
+        "top": 728,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 7,
+      "source": {
+        "left": 4609,
+        "top": 11,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 384,
+        "top": 728,
+        "width": 384,
+        "height": 360
+      }
+    },
+    {
+      "frame": 8,
+      "source": {
+        "left": 5248,
+        "top": 12,
+        "width": 384,
+        "height": 360
+      },
+      "page": {
+        "left": 768,
+        "top": 728,
+        "width": 384,
+        "height": 360
+      }
+    }
+  ]
+}

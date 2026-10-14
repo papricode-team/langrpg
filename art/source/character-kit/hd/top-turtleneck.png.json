@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "28e202e70cb35375a40219f43c66346b5074c027785a308a3b3fec93947ccbd8",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "8ce5df7a10f633d6c391150e30102882a27e6485315782830e0e30760a703204",
+  "promptSha256": "60a5212c5a81a678e6ad2e383da03c31a3775b56191090cc21a110c478f622c8",
+  "generationPromptSha256": "c142ea9e1e31320cdb1f8765abe7df08aa182ec5dd518915969eb0d0f3900722",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "da7a4b7d43f91f76a85c52571ce1def4a598790a4f6a02bfc82ee04aeef690ca",
+  "candidate": "art/source/character-kit/hd/top-turtleneck-candidate.png",
+  "lockedSha256": "aa4d13c6605475ef2c3fb5adc02da6bab7dd9e457ade65b9170de30b2ef01647"
+}

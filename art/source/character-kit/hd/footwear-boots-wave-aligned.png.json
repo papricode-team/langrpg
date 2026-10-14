@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-0-candidate-1.png",
+      "sha256": "48827f658769be13e92bcafd8b4633ac7263b3df1df7f49c56c4ba04b736af5d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-0-candidate-1.txt",
+      "sha256": "c153e63a5cf12a425288b4bf32e8489f546539726b21fd73d414248532f564ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-0.json",
+      "sha256": "bff0b2f9aa51644d415e3f981f8013cec4bb59bcd02936b5961168f4d2aca8ab"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-1-candidate-1.png",
+      "sha256": "3caee500e7891305ac51df2bfca3b7b4ca2a70eca98912c7416c4b6c05fd5f69"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-1-candidate-1.txt",
+      "sha256": "b501a6806e4cff4df47b7e5f7c207bc787613b673762ef5dfc24026d7179a7d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-1.json",
+      "sha256": "115566f5a7a1d5bca3c9e7dc25536513fef241569f2dcf0d09cc118289c019cd"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-2-candidate-1.png",
+      "sha256": "02b2f43ff3e6f9cb11761e0a51be2f2fa42c5154b59670559ae8eea62c383e6b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-2-candidate-1.txt",
+      "sha256": "b501a6806e4cff4df47b7e5f7c207bc787613b673762ef5dfc24026d7179a7d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-2.json",
+      "sha256": "d808231fab732ef7663b7f6f2fbbcbb3b5616feca3ebf89a1ab74d0ceb41a607"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-3-candidate-1.png",
+      "sha256": "4563e560301974322e9ab4a198a5227b8a430d6749e6f0cca07239e34636a2ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-3-candidate-1.txt",
+      "sha256": "b501a6806e4cff4df47b7e5f7c207bc787613b673762ef5dfc24026d7179a7d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-3.json",
+      "sha256": "ff25bd74371fcd7076cb1d69e3ec86721ac76d4ecc0427776c33ede64d038ef5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-4-candidate-1.png",
+      "sha256": "189d0000f49db42d938f7a66fe505628178f0e6f64b7087301645451a025e6de"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-4-candidate-1.txt",
+      "sha256": "b501a6806e4cff4df47b7e5f7c207bc787613b673762ef5dfc24026d7179a7d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-4.json",
+      "sha256": "74ac0f11be36b9b58452cdafa10ff01c59fd43792045099b8b18475bbdee2b74"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-wave-page-5-candidate-1.png",
+      "sha256": "5fcf6401066b0726f1204cb27c78a377414bfe196e6500603b87b836548b35ac"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-wave-page-5-candidate-1.txt",
+      "sha256": "b501a6806e4cff4df47b7e5f7c207bc787613b673762ef5dfc24026d7179a7d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-lower/page-5.json",
+      "sha256": "465d78d9fea134eaf5601182bb133d8eae44e10df19dae329e74dc2c1641e4bf"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-wave.png",
+      "sha256": "cbd366d6ebf81679e2f4e42c6b4680a37e96794af698a6581355aa72af951c74"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-boots-wave-candidate.png",
+      "sha256": "f28d2019501da56cbe6914a20d477d48cccc16967dbe6bd98f8e354439e45559"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-boots-wave-candidate.png.json",
+      "sha256": "a59b253bfea6ba1138edd12450655b570023b770e5a026a81de5d0a66cf7d8b9"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-wave.png",
+      "sha256": "cbd366d6ebf81679e2f4e42c6b4680a37e96794af698a6581355aa72af951c74"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave/registration.json",
+      "sha256": "3e05261baf3ecfa0671cca95e6f3e5ba9235e2c8777eed9f3e76c584a4c933c8"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 0,
+      "y": 0,
+      "error": 213.44111027756938,
+      "initial": 213.44111027756938,
+      "box": {
+        "left": 165,
+        "top": 495,
+        "width": 309,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 343.2327091513138,
+      "initial": 343.2327091513138,
+      "box": {
+        "left": 806,
+        "top": 496,
+        "width": 308,
+        "height": 86
+      }
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "error": 428.1623376623377,
+      "initial": 547.5262760495318,
+      "box": {
+        "left": 1446,
+        "top": 495,
+        "width": 308,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 182.71054556091852,
+      "initial": 182.71054556091852,
+      "box": {
+        "left": 2082,
+        "top": 495,
+        "width": 317,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 276.8360391984789,
+      "initial": 276.8360391984789,
+      "box": {
+        "left": 2721,
+        "top": 496,
+        "width": 317,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 366.8233037640853,
+      "initial": 376.7079836969552,
+      "box": {
+        "left": 3326,
+        "top": 495,
+        "width": 387,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 140.85397160978556,
+      "initial": 140.85397160978556,
+      "box": {
+        "left": 4006,
+        "top": 495,
+        "width": 308,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 96.05753548776805,
+      "initial": 96.05753548776805,
+      "box": {
+        "left": 4646,
+        "top": 496,
+        "width": 308,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 166.34825215737897,
+      "initial": 166.34825215737897,
+      "box": {
+        "left": 5282,
+        "top": 495,
+        "width": 317,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 53.99957458876914,
+      "initial": 53.99957458876914,
+      "box": {
+        "left": 156,
+        "top": 1391,
+        "width": 327,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 31.394180203342295,
+      "initial": 31.394180203342295,
+      "box": {
+        "left": 762,
+        "top": 1392,
+        "width": 397,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 24.610493756444036,
+      "initial": 25.134150532707068,
+      "box": {
+        "left": 1398,
+        "top": 1391,
+        "width": 405,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 78.3193367786391,
+      "initial": 85.8640180878553,
+      "box": {
+        "left": 2025,
+        "top": 1391,
+        "width": 431,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 72.39366363329962,
+      "initial": 88.36310526907089,
+      "box": {
+        "left": 2673,
+        "top": 1392,
+        "width": 414,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 110.66468023255814,
+      "initial": 110.66468023255814,
+      "box": {
+        "left": 3361,
+        "top": 1391,
+        "width": 319,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 121.75960426570731,
+      "initial": 178.80136194269562,
+      "box": {
+        "left": 3979,
+        "top": 1391,
+        "width": 362,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 122.66250709018718,
+      "initial": 122.66250709018718,
+      "box": {
+        "left": 4636,
+        "top": 1392,
+        "width": 328,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 93.58947816222349,
+      "initial": 93.58947816222349,
+      "box": {
+        "left": 5276,
+        "top": 1391,
+        "width": 327,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 300.1337927074361,
+      "initial": 300.1337927074361,
+      "box": {
+        "left": 158,
+        "top": 2287,
+        "width": 324,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 297.6764160365245,
+      "initial": 297.6764160365245,
+      "box": {
+        "left": 798,
+        "top": 2288,
+        "width": 325,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 158.20575858250277,
+      "initial": 158.20575858250277,
+      "box": {
+        "left": 1390,
+        "top": 2287,
+        "width": 420,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 245.88963870431894,
+      "initial": 245.88963870431894,
+      "box": {
+        "left": 2017,
+        "top": 2287,
+        "width": 447,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 160.86673877771767,
+      "initial": 160.86673877771767,
+      "box": {
+        "left": 2665,
+        "top": 2288,
+        "width": 430,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 510.7113120872811,
+      "initial": 552.8077806488659,
+      "box": {
+        "left": 3358,
+        "top": 2287,
+        "width": 324,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 212.87252368647717,
+      "initial": 243.54622451909273,
+      "box": {
+        "left": 3998,
+        "top": 2287,
+        "width": 324,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 209.90369524896562,
+      "initial": 209.90369524896562,
+      "box": {
+        "left": 4638,
+        "top": 2288,
+        "width": 325,
+        "height": 86
+      }
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "error": 315.2088607594937,
+      "initial": 1404.5765381218723,
+      "box": {
+        "left": 5282,
+        "top": 2287,
+        "width": 315,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 68.69281719163968,
+      "initial": 107.93170444509862,
+      "box": {
+        "left": 163,
+        "top": 3183,
+        "width": 315,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "error": 35.93634551495017,
+      "initial": 86.71388704318937,
+      "box": {
+        "left": 785,
+        "top": 3184,
+        "width": 349,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "error": 38.31895790403297,
+      "initial": 169.24153664998528,
+      "box": {
+        "left": 1443,
+        "top": 3183,
+        "width": 315,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 73.75637530072173,
+      "initial": 101.29863672814756,
+      "box": {
+        "left": 2095,
+        "top": 3183,
+        "width": 289,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 88.33449109030505,
+      "initial": 93.65826034430685,
+      "box": {
+        "left": 2727,
+        "top": 3184,
+        "width": 307,
+        "height": 86
+      }
+    },
+    {
+      "x": 24,
+      "y": -6,
+      "error": 230.63762143067413,
+      "initial": 11444.851928171916,
+      "box": {
+        "left": 3363,
+        "top": 3183,
+        "width": 315,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -5,
+      "error": 256.30740881941796,
+      "initial": 475.3900114372855,
+      "box": {
+        "left": 3977,
+        "top": 3183,
+        "width": 366,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -2,
+      "error": 142.9586399764498,
+      "initial": 289.92346187812774,
+      "box": {
+        "left": 4642,
+        "top": 3184,
+        "width": 315,
+        "height": 86
+      }
+    },
+    {
+      "x": 27,
+      "y": -1,
+      "error": 235.9717197817973,
+      "initial": 12992.628768303186,
+      "box": {
+        "left": 5278,
+        "top": 3183,
+        "width": 323,
+        "height": 86
+      }
+    }
+  ],
+  "outputSha256": "0e88b03aadc010ce56d30f0cf295c7f3435c63601dfd980e7c4768c78c9b94dc"
+}

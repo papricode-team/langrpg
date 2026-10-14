@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-blush-page-0-candidate-1.png",
+      "sha256": "6f98c74c4cd6ea20661a0e79b12b29d06d68c850d716bd01ad9211c5011f84d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-blush-page-0-candidate-1.txt",
+      "sha256": "a4eac5869251c252e314bedb26db0e1e53c1ec7082fdcdcb2110f82b5c925a01"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "a446670efe6ec9b38f39b3bbd7ab6b39a2989464dc8b9ea587c5ae023439006a"
+}

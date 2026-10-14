@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "3ff8bb48dbb4557e843954bd6cb35b256fc5f7d2dd0bd3c0a1f64a9b278d3250",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "171691f9a83b21b851a95b88b6ac4a089d1d16ffa0618290c0d807476ee66dcf",
+  "promptSha256": "d692827dcfa1d7ad7be9f85b0f8d68da19171ee5c4c0d5aae330421b05a01c90",
+  "generationPromptSha256": "11e05b79e55202358b0ba17cc4c35c554d7773352610c60199e579b5e8e6fc7b",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2,
+      "down": 3
+    },
+    "regionReason": "Each braid passes behind an ear before appearing over the chest. The scalp and two visible braids can be separate paint regions in front, with one far braid separated in profiles; all regions must touch the mannequin."
+  },
+  "preparationSha256": "0f62dbcf134c2a13a0749796a5c220357b53849d5229f999d96229588a6eac0d",
+  "candidate": "art/source/character-kit/hd/hair-braids-aligned.png",
+  "lockedSha256": "49aaa012169c363c9cb730c89665d630de67b518aa1c2dc7cedeec909215d2ea"
+}

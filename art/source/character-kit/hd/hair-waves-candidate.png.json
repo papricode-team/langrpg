@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-page-0-candidate-1.png",
+      "sha256": "f403bf2b7096a63718664e12ada16f82b48d068d53436764f0acce01f817c456"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-page-0-candidate-1.txt",
+      "sha256": "f2089f7a52a0ca5a5e10033bc209c8df3eebeb041c90fc5c5f17f0fd25621782"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-crops-0.json",
+      "sha256": "02f9de95df5e5adf308b9fc78cd091bd2c7075ee7bf9c4f3542dd875e7c45c60"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-page-1-candidate-2.png",
+      "sha256": "9fe977792b184cd2f203104b61c0686840e95495e4498914498813e72f4979ab"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-page-1-candidate-2.txt",
+      "sha256": "1df6d69b86613d1ebc1675025cdf87c6faf4788332f5bd35243539f58d0f3dba"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-crops-1.json",
+      "sha256": "76e1d59a8192cab64f1eb2d2d67bfff6a94db1530de5e5241896d354d3fb17ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-page-2-candidate-1.png",
+      "sha256": "74669b8119fc9897d32ce3e900b2f241545b182a638073587da928f294188404"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-page-2-candidate-1.txt",
+      "sha256": "db406a83d673a2a253e8e94bcb18066fa1fd9e10911ac5bfe1d3e4ebfec5ba3f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-crops-2.json",
+      "sha256": "c018ff800f4fe4dd01ca4dd98475ab90b67b13cd501ca6b848220a058bb3f8f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-page-3-candidate-2.png",
+      "sha256": "8cdcd754829005ff907708ab9521caab95be0db292ec24b69b6fb935e67cf92a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-page-3-candidate-2.txt",
+      "sha256": "1df6d69b86613d1ebc1675025cdf87c6faf4788332f5bd35243539f58d0f3dba"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-crops-3.json",
+      "sha256": "816d518a5369fd2b06a8010f6d781a36617a4349969db07d68a554819df24ca5"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "f9546ae855501faccce22cd31566a92c6f8c5f3d48514fb2311edf3c072debfb"
+}

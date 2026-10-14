@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "774668e57aa7e1633b26158efb4a3531abdf2daf479929873a8dfff49c4c635c",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "28a10db5546aac5520c58e079ce270cbe389679ce06a012074973301eb35a6ef",
+  "promptSha256": "039e19f9fb5e25b295294e3a6de29b21c591903d9944c03a9724be03b535dd59",
+  "generationPromptSha256": "b19fb92061337e093cc5a3432f976ffc0d041eae33c07826191e96c972bc8b28",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "26276195e88ee32fc891b579dcb321c6462a08a7aad0307e4d9274d28f8d7ebc",
+  "candidate": "art/source/character-kit/hd/hair-straight-aligned.png",
+  "lockedSha256": "d88933dcb497f31d1bf22f8843364f116a57ba186e6fe2b8264210927b55604a"
+}

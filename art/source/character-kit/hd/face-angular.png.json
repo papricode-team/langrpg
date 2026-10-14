@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "0017ce6390d6dc3a675c1d53d1d44781930ed7ffd2f8945ce7c8d6dd081b6046",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "5e72683c581c03e419ca55ee5dbde3656b9d317032f9d9886fe8d2e808b75cd2",
+  "promptSha256": "f9c86a0b4ef623cbc56d61f34f70555617d8350e24a40f1917ddebcb8e6459a9",
+  "generationPromptSha256": "377e480fa658476cd839e192c5375d1db88373150094b4c9cb1e68f61f606b81",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "maxSpeckPixels": 12
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "17a6ee6391a8e11e7c005d31c6ebcd39dd5fe018a466651138a83dde1a023687",
+  "candidate": "art/source/character-kit/hd/face-angular-aligned.png",
+  "lockedSha256": "ae2489dcf3f4674d2ffbc7e80992551101df69edb7a0a9025a02fb18bbf6ca24"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "333b944615c5db4a9591b72e0a80264fffa2492278e394d8488c7613faace543",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "2564be9d7169ab9d822c6f5506c230cc5cd0ce95e9b94665775c99a930f33e34",
+  "promptSha256": "18a0cf49f03343f589268780948433dea3e7c7b862c7430c00b8181c7378ee60",
+  "generationPromptSha256": "e7338a656285c23d5cfaf224a8a85dbb4b24a221cd44cb71c4aedac6b93544f4",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "ad519fbb363c8e1341d9aaea83a3c700a882f54912988285856e07f0bdf736ff",
+  "candidate": "art/source/character-kit/hd/top-dress-pinafore-candidate.png",
+  "lockedSha256": "f8ef0c81e6003e3d6eef9bd409bb22905e34cb75eac05fea72af9ad63ce8259f"
+}

@@ -5,13 +5,22 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
 import { execFileSync } from 'node:child_process';
-import { splitMaterials, compileCatalogue, validateCatalogue, verifyApproval, buildCatalogue, exportComponent } from './character-kit-assets.mjs';
+import { createHash } from 'node:crypto';
+import { splitMaterials, compileCatalogue, validateCatalogue, verifyApproval, buildCatalogue, exportComponent, requireCompleteHDReplacement } from './character-kit-assets.mjs';
 import { material } from './character-kit.mjs';
 import { normalizeAvatar, recipeErrors, resolveRecipe, avatarTextureKey } from '../web/src/character-recipe.mjs';
 import { combineMaterials, composeFrame, over } from '../web/src/character-compositor.mjs';
 import { bakeCharacterSheet } from './bake-character-sheet.mjs';
+import { characterSheetPages } from '../web/src/character-sheets.mjs';
 const root = resolve(import.meta.dirname, '..');
 const readJSON = async path => JSON.parse(await readFile(path, 'utf8'));
+test('HD publication retains walking options, action poses and expressions',()=>{
+ const published={components:[{id:'body-regular'},{id:'top-shirt'}],poseSets:{wave:{components:[{id:'body-wave'}]}},expressions:{smile:{components:[{id:'face-smile'}]}}};
+ const entries=['body-regular','top-shirt','body-wave','face-smile'].map(id=>({id,status:'approved',authoring:{kind:'native-repaint'}}));
+ assert.doesNotThrow(()=>requireCompleteHDReplacement({highResolution:true,entries},published));
+ for(const id of entries.map(e=>e.id))assert.throws(()=>requireCompleteHDReplacement({highResolution:true,entries:entries.filter(e=>e.id!==id)},published),new RegExp(id));
+ assert.throws(()=>requireCompleteHDReplacement({highResolution:true,entries:entries.map(e=>({...e,status:'candidate'}))},published),/incomplete/);
+});
 const fixture = () => {
   const slots = ['body','hair','headwear','top','bottom','outer','neck','bag','held'].map((id,index)=>({id,label:id,optional:id!=='body',zOrder:{default:index*10}}));
   const component=(slot,optionId,props={})=>({id:`${slot}-${optionId}`,slot,optionId,build:'regular',label:optionId,materials:['primary'],tints:{primary:`${slot}.primary`},zOrder:{default:slots.find(s=>s.id===slot).zOrder.default},occupies:[],hides:[],excludes:[],covers:{},...props});
@@ -111,6 +120,23 @@ test('export refuses failed checks without creating output and approvals reject 
   }finally{await rm(temp,{recursive:true,force:true});}
 });
 
+test('native approval rejects control-only and fully hidden component proofs',async()=>{
+  const dir=await mkdtemp(resolve(tmpdir(),'character-native-review-'));
+  const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+  try{
+    const bytes=Buffer.from('immutable reviewed fixture');
+    for(const path of ['locked.png','proof.png','walk.gif','native.png'])await writeFile(resolve(dir,path),bytes);
+    const report={valid:true,checks:[{valid:true}],sources:{},ruleTrace:[{board:0,visible:['companion'],hidden:[]},{board:2,visible:['shirt','companion'],hidden:[]}],nativeProofs:Array.from({length:18},(_,i)=>({image:'native.png',imageSha256:sha(bytes),cell:[512,768],board:0,frames:Array.from({length:4},(_,n)=>(i*4+n)%36)}))};
+    const entry={id:'shirt',status:'approved',locked:'locked.png',authoring:{kind:'native-repaint'},review:{result:'approved',lockedSha256:sha(bytes),proofs:[{image:'proof.png',imageSha256:sha(bytes),walk:'walk.gif',walkSha256:sha(bytes),report:'proof.json'}]}};
+    const save=async()=>{const data=JSON.stringify(report);await writeFile(resolve(dir,'proof.json'),data);entry.review.proofs[0].reportSha256=sha(data);};
+    await save();await assert.rejects(verifyApproval(dir,entry),/does not include the reviewed component/);
+    for(const page of report.nativeProofs)page.board=2;
+    await save();await verifyApproval(dir,entry);
+    report.ruleTrace[1]={board:2,visible:['companion'],hidden:['shirt']};
+    await save();await assert.rejects(verifyApproval(dir,entry),/component visible/);
+  }finally{await rm(dir,{recursive:true,force:true});}
+});
+
 test('catalogue validates material-facing exceptions before compilation',async()=>{
   const source=await readJSON(resolve(root,'art/source/character-kit/catalogue.json'));
   const outer=source.entries.find(entry=>entry.id==='outer-travel');
@@ -136,9 +162,15 @@ test('catalogue validates material-facing exceptions before compilation',async()
 test('runtime/editor sheets have all 36 frames and client/server catalogues are identical',async()=>{
   const web=await readFile(resolve(root,'web/src/data/character-kit.json')),server=await readFile(resolve(root,'server/character-kit.json'));assert.deepEqual(web,server);
   const catalogue=JSON.parse(web);
+  assert.deepEqual(catalogue.format.runtimeCell,[384,576]);
+  assert.deepEqual(catalogue.format.editorCell,[512,768]);
   for(const component of [...catalogue.components,...Object.values(catalogue.poseSets??{}).flatMap(pose=>pose.components),...Object.values(catalogue.expressions??{}).flatMap(expression=>expression.components)])for(const sheet of Object.values(component.sheets)){
-    const runtime=await sharp(resolve(root,'web/public/assets/character-kit',sheet.runtime)).metadata(),editor=await sharp(resolve(root,'web/public/assets/character-kit',sheet.editor)).metadata();
-    assert.deepEqual([runtime.width,runtime.height],[576,384]);assert.deepEqual([editor.width,editor.height],[1152,768]);
+    for(const resolution of ['runtime','editor'])for(const page of characterSheetPages(sheet,resolution,catalogue.format[`${resolution}Cell`])){
+      const bytes=await readFile(resolve(root,'web/public',catalogue.assetBase.slice(1),page.path));
+      const image=await sharp(bytes).metadata();
+      assert.deepEqual([image.width,image.height],[page.width,page.height]);
+      assert.equal(createHash('sha256').update(bytes).digest('hex'),page.sha256);
+    }
   }
 });
 
@@ -148,7 +180,7 @@ test('offline bake uses the shared compositor, refuses incomplete production rec
   try{
     await assert.rejects(bakeCharacterSheet(recipe,{root,out,catalogue}),/Missing required/);
     const result=await bakeCharacterSheet(recipe,{root,out,catalogue,preview:true});assert.equal(result.preview,true);assert.equal(result.frames,36);
-    const image=await sharp(out).metadata();assert.deepEqual([image.width,image.height],[576,384]);
+    const image=await sharp(out).metadata();assert.deepEqual([image.width,image.height],[catalogue.format.runtimeCell[0]*9,catalogue.format.runtimeCell[1]*4]);
     const second=await bakeCharacterSheet({...recipe,colors:{...recipe.colors,'bottom.primary':'#ab5e51'}},{root,out:resolve(dir,'red.webp'),catalogue,preview:true});assert.notEqual(result.sha256,second.sha256);
   }finally{await rm(dir,{recursive:true,force:true});}
 });
@@ -156,8 +188,8 @@ test('offline bake uses the shared compositor, refuses incomplete production rec
 test('catalogue build detects changed derivative bytes before writing new catalogues',async()=>{
   const dir=await mkdtemp(resolve(tmpdir(),'character-catalogue-'));
   try{
-    await cp(resolve(root,'art/source/character-kit'),resolve(dir,'art/source/character-kit'),{recursive:true,filter:src=>!src.includes('/kits/')});
-    await cp(resolve(root,'art/proofs'),resolve(dir,'art/proofs'),{recursive:true});
+    await cp(resolve(root,'art/source/character-kit'),resolve(dir,'art/source/character-kit'),{recursive:true,filter:src=>!src.includes('/kits/')&&!src.startsWith(resolve(root,'art/source/character-kit/hd'))});
+    await cp(resolve(root,'art/proofs'),resolve(dir,'art/proofs'),{recursive:true,filter:src=>!src.startsWith(resolve(root,'art/proofs/character-kit-hd'))});
     await cp(resolve(root,'web/public/assets/character-kit'),resolve(dir,'web/public/assets/character-kit'),{recursive:true});
     await cp(resolve(root,'web/public/assets/player-layers'),resolve(dir,'web/public/assets/player-layers'),{recursive:true});
     const source=await readJSON(resolve(dir,'art/source/character-kit/catalogue.json')),manifest=await readJSON(resolve(dir,'web/public/assets/character-kit/manifest.json'));
@@ -215,6 +247,18 @@ test('pose variants compile separately from walking options and require matching
   assert.throws(()=>validateCatalogue(source),/Incomplete references/);
 });
 
+test('native action faces share global skin colour without introducing new piece colours',async()=>{
+  const source=await readJSON(resolve(root,'art/source/character-kit/hd/catalogue.json'));
+  const manifest=await readJSON(resolve(root,'web/public/assets/character-kit-hd/manifest.json'));
+  const compiled=compileCatalogue(source,manifest);
+  const face=compiled.poseSets.wave.components.find(p=>p.slot==='face');
+  assert.equal(face.tints.skin,'skin');
+  assert.ok(!compiled.colorKeys.includes('face.skin'));
+  const changed=structuredClone(manifest);
+  changed.assets.find(p=>p.id===face.id).materials.push('primary');
+  assert.throws(()=>compileCatalogue(source,changed),/Pose materials change the recipe contract/);
+});
+
 test('pose baking selects action sheets, keeps distinct keys and rejects unavailable wardrobe pieces',async()=>{
   const catalogue=await readJSON(resolve(root,'web/src/data/character-kit.json'));
   const recipe=normalizeAvatar({});
@@ -257,4 +301,14 @@ test('expression exports stay separate from face identities and bind to a neutra
   assert.throws(()=>compileCatalogue(changed,manifest),/Expression changes face contract/);
   const orphan=structuredClone(source);orphan.entries.find(e=>e.id==='face-soft').status='candidate';
   assert.throws(()=>compileCatalogue(orphan,manifest),/No approved neutral face/);
+});
+
+test('declared hair shadows share the tint mask without losing authored luminance or alpha',()=>{
+  const paint=Buffer.from([28,30,55,255,122,90,154,180]);
+  const split=splitMaterials(paint,['primary','detail'],material,'primary');
+  assert.equal(split.primary[3],255);assert.equal(split.primary[7],180);
+  assert.equal(split.primary[0],split.primary[1]);assert.equal(split.primary[1],split.primary[2]);
+  assert.ok(split.primary[0]<split.primary[4]);assert.ok(split.detail.every(value=>value===0));
+  const neutral=splitMaterials(paint,['primary','detail'],material);
+  assert.deepEqual([...neutral.detail.subarray(0,4)],[28,30,55,255]);
 });

@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-bag-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: standing then eight walking poses. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only the shoulder straps, torso and hip area beside the body for the bag. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. Natural-colour detail is allowed only where explicitly described.
+Add a soft open-top shoulder tote resting against the character’s anatomical LEFT hip, suspended from the LEFT shoulder by a single broad continuous long loop strap. The tote has a simple deep rectangular cloth body and no decoration. All cloth and strap are violet. Keep the bag on the same anatomical side in every pose: viewer-right hip in front, viewer-left hip from behind. In profiles show only portions actually visible beyond the body; the far-side body of the bag is occluded by the torso. No contents, pockets, buckles or loose strings.

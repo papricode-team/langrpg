@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "24de58fe663c646ccce9d5cc46d5d34d9598795e0401609867639655529c9a9c",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "7c010065bd39de24ff9f71625389f9b05f3454ebe95ea5d0b4928ea54c8166b2",
+  "promptSha256": "6d783c51e3dbc3e69e79fd0aed0e5b57d093394b8f6d0b016141f87d704d5499",
+  "generationPromptSha256": "aaad101f98143a19d2c4601ae5c0e3b5c779d63ff53f6629f95b78c5dcc1a6aa",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "left": 3,
+      "right": 3
+    },
+    "regionReason": "The torso occludes far lapel and far hem, leaving separate visible fabric regions in profile."
+  },
+  "preparationSha256": "cb5e770af0cf8857e2cc78c3ab4e3b071d914ff1f65fcff2a688db09da3a5354",
+  "candidate": "art/source/character-kit/hd/outer-blazer-candidate.png",
+  "lockedSha256": "4dbf7fe9f5c1b4ed31fcbb68e9b0b3396747ecb8a4a0915b405f5af8a22ee944"
+}

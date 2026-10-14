@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-0-candidate-1.png",
+      "sha256": "460abd041ecae67ab656482dcc1eb95b13a3540f89963d636b01c187a6604c82"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-0-candidate-1.txt",
+      "sha256": "ab570c46c0d1134c7cdefcc41f5cf9e87b6e0d7b6821b64f6f6edb570a65c80a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-0.json",
+      "sha256": "807063339322fc7a35b33ce27e9246b6ca3493a1ecbc8f63fa20032ae239f3c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-1-candidate-1.png",
+      "sha256": "2ac75b14f0b868077dce8aec639421f85f2404e4243d1f88581a290490172edf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-1-candidate-1.txt",
+      "sha256": "126795a38fb6fdce861ca865135b6e4d1239d76228ea80b115c8b6e20568b6ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-1.json",
+      "sha256": "b66efbd5ade688ed8bbdb9fb7c04a6ff0b041297e2fcaee5285f01c3fc58bfe2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-2-candidate-1.png",
+      "sha256": "00ac86a06102d185a914b04a050b18702bc914ef516dc0a2fe66d9f95d2c3538"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-2-candidate-1.txt",
+      "sha256": "126795a38fb6fdce861ca865135b6e4d1239d76228ea80b115c8b6e20568b6ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-2.json",
+      "sha256": "6c33779ed8d7216b63a1373dcfd763127531e696cda8efecbb115c4b9e8612b6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-3-candidate-1.png",
+      "sha256": "678689075ef7e24deefa82a08ffefed7faa87396ad7da6ed65f656831be6da47"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-3-candidate-1.txt",
+      "sha256": "126795a38fb6fdce861ca865135b6e4d1239d76228ea80b115c8b6e20568b6ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-3.json",
+      "sha256": "fa0da411593a1fa71ba4ce348b4232c9080e256b121092b244e371bf55eef8b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-4-candidate-1.png",
+      "sha256": "f241d6eba4409149e648b37956489f2feb739bdb402982f806ea2d19034ddbe1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-4-candidate-1.txt",
+      "sha256": "126795a38fb6fdce861ca865135b6e4d1239d76228ea80b115c8b6e20568b6ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-4.json",
+      "sha256": "033cadd4954f174ad7b3aebe0e64176ec53a0167da857893ead441a7ab882aa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-page-5-candidate-1.png",
+      "sha256": "d072c8d5b1f6e95a8794cc3e0fc058f77666eae3fd02ae48ed1bff9f67e72696"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-page-5-candidate-1.txt",
+      "sha256": "126795a38fb6fdce861ca865135b6e4d1239d76228ea80b115c8b6e20568b6ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-5.json",
+      "sha256": "15563d62a5dd6c0f036d42381d6a62b76a28b2e1a210cf4825da1b1b05f9dc32"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-tall-boots-candidate.png",
+      "sha256": "8c0318f4935936178d11fe0ae3fa96446a560c0d3a62ac8b1a51aea92cb91e16"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-tall-boots-candidate.png.json",
+      "sha256": "d7d5b01afdb2de2bd74a11a0a6f4085ba7a02c1127cf15aee239a5bc0f337db5"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular/registration.json",
+      "sha256": "11cd204d171786ad693e861450803ad8e66944feebbc169741731ad976bc425f"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 0,
+      "y": 0,
+      "error": 129.06658858959344,
+      "initial": 129.06658858959344,
+      "box": {
+        "left": 190,
+        "top": 457,
+        "width": 277,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 165.06235489220563,
+      "initial": 165.06235489220563,
+      "box": {
+        "left": 832,
+        "top": 453,
+        "width": 268,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 114.65598430346631,
+      "initial": 114.65598430346631,
+      "box": {
+        "left": 1458,
+        "top": 458,
+        "width": 277,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 157.06344015696533,
+      "initial": 157.06344015696533,
+      "box": {
+        "left": 2083,
+        "top": 458,
+        "width": 277,
+        "height": 87
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 148.10424459261668,
+      "initial": 148.10424459261668,
+      "box": {
+        "left": 2734,
+        "top": 451,
+        "width": 286,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 176.16322941646683,
+      "initial": 176.16322941646683,
+      "box": {
+        "left": 3396,
+        "top": 461,
+        "width": 277,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 123.29937867887509,
+      "initial": 123.29937867887509,
+      "box": {
+        "left": 4042,
+        "top": 457,
+        "width": 277,
+        "height": 87
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 228.45471506105835,
+      "initial": 228.45471506105835,
+      "box": {
+        "left": 4690,
+        "top": 455,
+        "width": 268,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 452.1813606386671,
+      "initial": 452.1813606386671,
+      "box": {
+        "left": 5331,
+        "top": 454,
+        "width": 268,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 288.64685067232836,
+      "initial": 288.64685067232836,
+      "box": {
+        "left": 184,
+        "top": 1342,
+        "width": 314,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 107.31240981240981,
+      "initial": 107.31240981240981,
+      "box": {
+        "left": 843,
+        "top": 1354,
+        "width": 307,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 82.18997821350763,
+      "initial": 82.18997821350763,
+      "box": {
+        "left": 1506,
+        "top": 1384,
+        "width": 305,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 49.08407643312102,
+      "initial": 49.08407643312102,
+      "box": {
+        "left": 2107,
+        "top": 1345,
+        "width": 314,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 52.24978354978355,
+      "initial": 52.24978354978355,
+      "box": {
+        "left": 2754,
+        "top": 1348,
+        "width": 307,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 41.32418300653595,
+      "initial": 41.32418300653595,
+      "box": {
+        "left": 3424,
+        "top": 1348,
+        "width": 305,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 57.65661712668082,
+      "initial": 57.65661712668082,
+      "box": {
+        "left": 4066,
+        "top": 1351,
+        "width": 314,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 59.97158931082982,
+      "initial": 59.97158931082982,
+      "box": {
+        "left": 4704,
+        "top": 1345,
+        "width": 316,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 24.233551198257082,
+      "initial": 24.233551198257082,
+      "box": {
+        "left": 5343,
+        "top": 1363,
+        "width": 305,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 200.29856115107913,
+      "initial": 263.9226618705036,
+      "box": {
+        "left": 193,
+        "top": 2290,
+        "width": 278,
+        "height": 87
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 111.32087542087542,
+      "initial": 170.77255892255891,
+      "box": {
+        "left": 831,
+        "top": 2303,
+        "width": 270,
+        "height": 87
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 2414.7929292929293,
+      "initial": 2471.7530303030303,
+      "box": {
+        "left": 1464,
+        "top": 2291,
+        "width": 269,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 2496.2244931327664,
+      "initial": 2578.0887835186395,
+      "box": {
+        "left": 2089,
+        "top": 2309,
+        "width": 278,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 70.47094155844155,
+      "initial": 70.47094155844155,
+      "box": {
+        "left": 2736,
+        "top": 2295,
+        "width": 279,
+        "height": 87
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 2186.2468933943755,
+      "initial": 2186.2468933943755,
+      "box": {
+        "left": 3378,
+        "top": 2309,
+        "width": 278,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 2532.771938131313,
+      "initial": 2549.3835227272725,
+      "box": {
+        "left": 4030,
+        "top": 2309,
+        "width": 287,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 2648.6422222222222,
+      "initial": 2650.953492063492,
+      "box": {
+        "left": 4671,
+        "top": 2307,
+        "width": 279,
+        "height": 89
+      }
+    },
+    {
+      "x": 32,
+      "y": 0,
+      "error": 180.25993265993267,
+      "initial": 17526.93063973064,
+      "box": {
+        "left": 5319,
+        "top": 2282,
+        "width": 269,
+        "height": 88
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 228.54437182280319,
+      "initial": 265.9761801016703,
+      "box": {
+        "left": 172,
+        "top": 3107,
+        "width": 305,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 79.71125635439361,
+      "initial": 79.71125635439361,
+      "box": {
+        "left": 771,
+        "top": 3101,
+        "width": 306,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 62.36964415395788,
+      "initial": 62.36964415395788,
+      "box": {
+        "left": 1413,
+        "top": 3102,
+        "width": 305,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 153.41336336336337,
+      "initial": 153.41336336336337,
+      "box": {
+        "left": 2044,
+        "top": 3099,
+        "width": 296,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 137.2082028337062,
+      "initial": 137.2082028337062,
+      "box": {
+        "left": 2682,
+        "top": 3104,
+        "width": 297,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 218.7951951951952,
+      "initial": 218.7951951951952,
+      "box": {
+        "left": 3333,
+        "top": 3101,
+        "width": 296,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 177.66786786786787,
+      "initial": 177.66786786786787,
+      "box": {
+        "left": 3985,
+        "top": 3096,
+        "width": 296,
+        "height": 89
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 396.1697240865026,
+      "initial": 396.1697240865026,
+      "box": {
+        "left": 4623,
+        "top": 3099,
+        "width": 297,
+        "height": 89
+      }
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "error": 343.01831831831834,
+      "initial": 697.674024024024,
+      "box": {
+        "left": 5259,
+        "top": 3102,
+        "width": 296,
+        "height": 89
+      }
+    }
+  ],
+  "outputSha256": "505a38ae8085806d5910801b39d6718b1bff0e03bdc3b406daa1a38923e30e5a"
+}

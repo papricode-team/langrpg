@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "a52ce376e52befc1235b874d5eca861a214e60caaf673c9591521b7bd4d71e58",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a8c256dfd7c339b7291efb6085a471b3aaf15fb252bbba08468d31de449d00f4",
+  "promptSha256": "f2449dbf90177943bbe0f45de291e099aa07c9e8349ac09dd7a56bf592218974",
+  "generationPromptSha256": "f8432b85b8ebbba4bacf0d8d400976845cf9506ef7f99c398c015a28f23b5e6d",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "A crossing foreground foot separates the rear ankle cuff in one right walk frame; the foreground hand separates a narrow rear hip patch in left idle. Each visible region touches the mannequin."
+  },
+  "preparationSha256": "d2bcfcb20bb6d939a4ba6e5ed5c96190ef0ce77db36c16d3da81be32e3714118",
+  "candidate": "art/source/character-kit/hd/bottom-wide-candidate.png",
+  "lockedSha256": "aeeecf583d963b31304af5864e9519eec67ec7054cf67a871027665be427ef40"
+}

@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "bb8747fe6c090614fe37e682d63480489a2d38a8e9f71c68ec243b131ab002f7",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "7d94d9ea43cfcdee2e0e9b1f4436c6c40e32e1c2f523a43f5dcc23cf623002ad",
+  "promptSha256": "b503e74ee8ec3ab1c609acc04e45529acfc9bfd7d288940d31ab2570e897b552",
+  "generationPromptSha256": "038cd5b782d8254e1fb5bf6f8c4ecfc9528989ed886ab93c4afc2d5bd5e78f37",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2,
+      "down": 2
+    },
+    "regionReason": "The raised hand overlaps the folded cuff and separates its narrow inner visible rim in frame 1."
+  },
+  "preparationSha256": "8e8fef11d063425f4ed5519945a2489971dd4878836c8c425a6367c69ce477de",
+  "candidate": "art/source/character-kit/hd/top-blouse-wave-candidate.png",
+  "lockedSha256": "907ed3b83649fa8f0cad4f0a0ff76ac7a5fd8f5d27967150159d6cb267305919"
+}

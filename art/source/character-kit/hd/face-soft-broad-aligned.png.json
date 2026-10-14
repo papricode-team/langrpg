@@ -1,0 +1,473 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-broad-page-0-candidate-1.png",
+      "sha256": "aeea80384553430bf210e356d13454a93fa6a9d6c093a00c935b8ff3f0bf5306"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-broad-page-0-candidate-1.txt",
+      "sha256": "b75aa4ee8b6cf5d8386fe9df67b9937f4c6c04c330bd3d50206df6e592619595"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-face/page-0.json",
+      "sha256": "2befa7426b6f2d3f4a9858f2f946dca9639cc584d148e6f0a100afefecc38c50"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/face-soft-broad-candidate.png",
+      "sha256": "e669f2dc3f330399235451754c02542f519d32fd3f146ad116532d4d1b0e0ed8"
+    },
+    {
+      "path": "art/source/character-kit/hd/face-soft-broad-candidate.png.json",
+      "sha256": "14485a04b11d483ada5d65fc877a453b786b4c5492b1e810e780c4d3b713e5c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/registration.json",
+      "sha256": "f7b15129de9f5dce12b059eda339df5baa4e1fa38df3d5618c3944a013c29517"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 6,
+      "y": 1,
+      "error": 2711.6084249084247,
+      "initial": 7709.357509157509,
+      "box": {
+        "left": 250,
+        "top": 106,
+        "width": 139,
+        "height": 77
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "error": 1319.0735966735967,
+      "initial": 11626.512266112266,
+      "box": {
+        "left": 896,
+        "top": 97,
+        "width": 129,
+        "height": 74
+      }
+    },
+    {
+      "x": 16,
+      "y": 2,
+      "error": 1466.8290937996821,
+      "initial": 14180.005166931638,
+      "box": {
+        "left": 1531,
+        "top": 97,
+        "width": 135,
+        "height": 73
+      }
+    },
+    {
+      "x": 19,
+      "y": 1,
+      "error": 2139.9113777089783,
+      "initial": 16328.96826625387,
+      "box": {
+        "left": 2172,
+        "top": 97,
+        "width": 136,
+        "height": 75
+      }
+    },
+    {
+      "x": 20,
+      "y": 1,
+      "error": 1491.5652835934527,
+      "initial": 15953.722497145032,
+      "box": {
+        "left": 2811,
+        "top": 97,
+        "width": 142,
+        "height": 74
+      }
+    },
+    {
+      "x": 17,
+      "y": 2,
+      "error": 1818.044776119403,
+      "initial": 14845.440500201694,
+      "box": {
+        "left": 3454,
+        "top": 97,
+        "width": 134,
+        "height": 73
+      }
+    },
+    {
+      "x": 6,
+      "y": 16,
+      "error": 2236.8234172387492,
+      "initial": 13644.533562166285,
+      "box": {
+        "left": 4091,
+        "top": 96,
+        "width": 137,
+        "height": 76
+      }
+    },
+    {
+      "x": 13,
+      "y": 16,
+      "error": 2031.3425101214575,
+      "initial": 19090.5975708502,
+      "box": {
+        "left": 4736,
+        "top": 97,
+        "width": 130,
+        "height": 75
+      }
+    },
+    {
+      "x": 16,
+      "y": 15,
+      "error": 3273.4684270952926,
+      "initial": 22819.990815154993,
+      "box": {
+        "left": 5373,
+        "top": 97,
+        "width": 134,
+        "height": 77
+      }
+    },
+    {
+      "x": 18,
+      "y": 14,
+      "error": 3382.81031090122,
+      "initial": 17809.477371113735,
+      "box": {
+        "left": 249,
+        "top": 1008,
+        "width": 153,
+        "height": 66
+      }
+    },
+    {
+      "x": 20,
+      "y": 14,
+      "error": 2863.8429166666665,
+      "initial": 19112.249583333334,
+      "box": {
+        "left": 887,
+        "top": 1001,
+        "width": 149,
+        "height": 63
+      }
+    },
+    {
+      "x": 14,
+      "y": 15,
+      "error": 2222.9535472972975,
+      "initial": 17045.31418918919,
+      "box": {
+        "left": 1528,
+        "top": 1000,
+        "width": 148,
+        "height": 63
+      }
+    },
+    {
+      "x": 7,
+      "y": 24,
+      "error": 5421.022203602849,
+      "initial": 13298.787180561374,
+      "box": {
+        "left": 2166,
+        "top": 1000,
+        "width": 153,
+        "height": 61
+      }
+    },
+    {
+      "x": 11,
+      "y": 23,
+      "error": 5683.717333333333,
+      "initial": 14245.325333333334,
+      "box": {
+        "left": 2807,
+        "top": 1002,
+        "width": 149,
+        "height": 60
+      }
+    },
+    {
+      "x": 15,
+      "y": 25,
+      "error": 5116.914414414415,
+      "initial": 17182.73918918919,
+      "box": {
+        "left": 3447,
+        "top": 1001,
+        "width": 148,
+        "height": 59
+      }
+    },
+    {
+      "x": 16,
+      "y": 25,
+      "error": 5471.1193967323,
+      "initial": 16312.623795559279,
+      "box": {
+        "left": 4086,
+        "top": 1006,
+        "width": 153,
+        "height": 61
+      }
+    },
+    {
+      "x": 15,
+      "y": 22,
+      "error": 6115.028906577294,
+      "initial": 14490.457059069962,
+      "box": {
+        "left": 4724,
+        "top": 1007,
+        "width": 154,
+        "height": 61
+      }
+    },
+    {
+      "x": 14,
+      "y": 25,
+      "error": 5995.38491717524,
+      "initial": 15436.095466434175,
+      "box": {
+        "left": 5368,
+        "top": 1006,
+        "width": 148,
+        "height": 61
+      }
+    },
+    {
+      "x": 7,
+      "y": 24,
+      "error": 7312.140476190476,
+      "initial": 17111.696190476192,
+      "box": {
+        "left": 253,
+        "top": 1903,
+        "width": 139,
+        "height": 59
+      }
+    },
+    {
+      "x": 16,
+      "y": 25,
+      "error": 7999.574129353234,
+      "initial": 20646.064676616916,
+      "box": {
+        "left": 894,
+        "top": 1893,
+        "width": 134,
+        "height": 59
+      }
+    },
+    {
+      "x": 15,
+      "y": 27,
+      "error": 7499.856407617087,
+      "initial": 20213.065877509005,
+      "box": {
+        "left": 1536,
+        "top": 1893,
+        "width": 133,
+        "height": 58
+      }
+    },
+    {
+      "x": 18,
+      "y": 27,
+      "error": 7228.673913043478,
+      "initial": 19526.76183574879,
+      "box": {
+        "left": 2175,
+        "top": 1893,
+        "width": 137,
+        "height": 60
+      }
+    },
+    {
+      "x": 19,
+      "y": 26,
+      "error": 8120.137431284358,
+      "initial": 19485.972513743127,
+      "box": {
+        "left": 2813,
+        "top": 1894,
+        "width": 138,
+        "height": 57
+      }
+    },
+    {
+      "x": 17,
+      "y": 23,
+      "error": 7584.542728635683,
+      "initial": 18649.027486256873,
+      "box": {
+        "left": 3453,
+        "top": 1893,
+        "width": 137,
+        "height": 58
+      }
+    },
+    {
+      "x": 7,
+      "y": 29,
+      "error": 10006.654187192118,
+      "initial": 22287.77339901478,
+      "box": {
+        "left": 4092,
+        "top": 1893,
+        "width": 140,
+        "height": 58
+      }
+    },
+    {
+      "x": 13,
+      "y": 31,
+      "error": 10445.581862745097,
+      "initial": 23448.804901960786,
+      "box": {
+        "left": 4734,
+        "top": 1893,
+        "width": 136,
+        "height": 60
+      }
+    },
+    {
+      "x": 18,
+      "y": 29,
+      "error": 10515.511494252874,
+      "initial": 26642.73249738767,
+      "box": {
+        "left": 5376,
+        "top": 1893,
+        "width": 132,
+        "height": 58
+      }
+    },
+    {
+      "x": 22,
+      "y": 21,
+      "error": 12375.813344594595,
+      "initial": 24279.051097972973,
+      "box": {
+        "left": 248,
+        "top": 2798,
+        "width": 148,
+        "height": 63
+      }
+    },
+    {
+      "x": 24,
+      "y": 28,
+      "error": 9481.550967741936,
+      "initial": 26735.5711827957,
+      "box": {
+        "left": 882,
+        "top": 2792,
+        "width": 149,
+        "height": 61
+      }
+    },
+    {
+      "x": 18,
+      "y": 27,
+      "error": 10190.056587837838,
+      "initial": 23478.552787162163,
+      "box": {
+        "left": 1525,
+        "top": 2798,
+        "width": 148,
+        "height": 63
+      }
+    },
+    {
+      "x": 15,
+      "y": 22,
+      "error": 10906.583333333334,
+      "initial": 18232.297309027777,
+      "box": {
+        "left": 2168,
+        "top": 2798,
+        "width": 144,
+        "height": 63
+      }
+    },
+    {
+      "x": 19,
+      "y": 21,
+      "error": 11023.888888888889,
+      "initial": 18826.736979166668,
+      "box": {
+        "left": 2807,
+        "top": 2795,
+        "width": 144,
+        "height": 63
+      }
+    },
+    {
+      "x": 24,
+      "y": 22,
+      "error": 11413.274193548386,
+      "initial": 21555.005824372758,
+      "box": {
+        "left": 3446,
+        "top": 2795,
+        "width": 144,
+        "height": 61
+      }
+    },
+    {
+      "x": 27,
+      "y": 20,
+      "error": 11390.005642361111,
+      "initial": 21778.272569444445,
+      "box": {
+        "left": 4086,
+        "top": 2798,
+        "width": 144,
+        "height": 63
+      }
+    },
+    {
+      "x": 31,
+      "y": 22,
+      "error": 11506.671875,
+      "initial": 23402.781684027777,
+      "box": {
+        "left": 4728,
+        "top": 2798,
+        "width": 144,
+        "height": 63
+      }
+    },
+    {
+      "x": 23,
+      "y": 20,
+      "error": 12027.029513888889,
+      "initial": 20412.965711805555,
+      "box": {
+        "left": 5367,
+        "top": 2801,
+        "width": 144,
+        "height": 63
+      }
+    }
+  ],
+  "outputSha256": "aa5220ddc9f1a69e0e88a16c0f1b255a231518aae2fc63e9316d217d0b011ba0"
+}

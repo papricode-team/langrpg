@@ -1,0 +1,1051 @@
+{
+  "id": "headwear-sunhat",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 16971,
+        "secondary": 1298,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14821
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 16527,
+        "secondary": 1370,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14703
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 17073,
+        "secondary": 1374,
+        "detail": 1
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 15023
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 16328,
+        "secondary": 1298,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14652
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 16128,
+        "secondary": 1305,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14650
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 16065,
+        "secondary": 1343,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14318
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 15909,
+        "secondary": 1288,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14521
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 15861,
+        "secondary": 1254,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14469
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 15905,
+        "secondary": 1335,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14364
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 13072,
+        "secondary": 1260,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10932
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 13037,
+        "secondary": 1273,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9427
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 13051,
+        "secondary": 1276,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9836
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 12479,
+        "secondary": 1229,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9118
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 12636,
+        "secondary": 1313,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9012
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 12867,
+        "secondary": 1305,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9179
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 12566,
+        "secondary": 1230,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8774
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 12585,
+        "secondary": 1235,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9078
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 12842,
+        "secondary": 1283,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9403
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 15789,
+        "secondary": 1376,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 11539
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 15871,
+        "secondary": 369,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 11084
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 15791,
+        "secondary": 346,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 11188
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 15991,
+        "secondary": 1022,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10697
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 16030,
+        "secondary": 1350,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10350
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 16162,
+        "secondary": 1297,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10292
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 15936,
+        "secondary": 1435,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 11175
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 15843,
+        "secondary": 1482,
+        "detail": 1
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10709
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 16129,
+        "secondary": 1478,
+        "detail": 1
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 10559
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 13366,
+        "secondary": 1395,
+        "detail": 34
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9700
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 12709,
+        "secondary": 1399,
+        "detail": 35
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8399
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 12924,
+        "secondary": 1407,
+        "detail": 48
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8699
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 13471,
+        "secondary": 1431,
+        "detail": 34
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9521
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 12635,
+        "secondary": 1368,
+        "detail": 29
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8612
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 12721,
+        "secondary": 1390,
+        "detail": 20
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8608
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 13296,
+        "secondary": 1432,
+        "detail": 20
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 9694
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 12517,
+        "secondary": 1374,
+        "detail": 16
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8406
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 12818,
+        "secondary": 1395,
+        "detail": 25
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8966
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-0.png",
+      "imageSha256": "d53c651b58971ca308ee62b452e508b66488804fb4cf495d978795214437f74a",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-1.png",
+      "imageSha256": "07585e4e292337c101c402d7fec3301ed7ba3471b81e359c73c178dd0f3ea774",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-2.png",
+      "imageSha256": "940ebe8c4b52c46331c7c225d169bdcd486643104ac694111c6432df5b1c4fb6",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-3.png",
+      "imageSha256": "c5ed5bb4236719c4aa26bb8e5f777fc60f9917e37c150c931a5c23005f4764d1",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-4.png",
+      "imageSha256": "d131b08ed52e6da936694ea9b30e81b83a35b4682a457282fd90c0efa44f7558",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-5.png",
+      "imageSha256": "9fac8ba8d439f05220e8148a4fba4b7f8bce5382c96cddcb27325ee4554882c2",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-6.png",
+      "imageSha256": "dc45cf0e59d70ae281e6755a82d0ff549d9714b7aa9f1b24b0490deb88f28cdd",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-7.png",
+      "imageSha256": "e1145fff5f5290a33a5a2df909fbb2e808404583e31c3e16292286320b13ecab",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-8.png",
+      "imageSha256": "fa8293764c61b48907eb336b06e97e031149ab75afbaf929fed0ddd6282f4255",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-9.png",
+      "imageSha256": "ad87aff263c0018825e2562e79943dab2aab0fa3dc2d7fef45bf90437503a2ea",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-10.png",
+      "imageSha256": "1adc9d24bbbb9a31ae3e90976b46bdde711caa6a5f43ea81e307a356c64f3789",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-11.png",
+      "imageSha256": "2d40a087433b5b6355dffed81a32856daf591d3ddcf5ffba5f3c0085347ec53e",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-12.png",
+      "imageSha256": "22218d938a8c40feaf34e1ef07f8892279a9be60abada2610fc3a4380290fa3a",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-13.png",
+      "imageSha256": "577d04cb8a8c8df75f184b9d62a80096360750a94e9d5d8204c32afc65c44e71",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-14.png",
+      "imageSha256": "36d24c232679c953b2df0965088e9826c4f19d9adcb44c6638709b3b19c36efb",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-15.png",
+      "imageSha256": "21244df4812ba7fa0b5406a07d32e924ad7066a156f013368995376c4791b3c9",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-16.png",
+      "imageSha256": "140484049aeb7e8c4629bfb1e04a3feb0d5190f0a1cf0ec5cd2319c135547139",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-sunhat--face-oval--top-shirt--bottom-straight--footwear-boots--rules.native-17.png",
+      "imageSha256": "96f7f11a3904c87767c6a28d99d5365bb22e756d00faaa7799752f0e82f0a8f3",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "headwear-sunhat",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-oval",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "face-oval",
+    "top-shirt",
+    "bottom-straight",
+    "footwear-boots"
+  ],
+  "sources": {
+    "headwear-sunhat": {
+      "path": "art/source/character-kit/hd/headwear-sunhat.png",
+      "sha256": "da83da6afc129688ae1ee86e9c8147116d9691ad9e8e0d2ccd813840678f1fb3"
+    },
+    "face-oval": {
+      "path": "art/source/character-kit/hd/face-oval.png",
+      "sha256": "22d9ce2bfe81dfef5f32078accdb1d3ece352ec6efa1857375d77de56c3c40db"
+    },
+    "top-shirt": {
+      "path": "art/source/character-kit/hd/top-shirt.png",
+      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
+    },
+    "bottom-straight": {
+      "path": "art/source/character-kit/hd/bottom-straight.png",
+      "sha256": "36f2bd74331e70ee4327bbea38824ccc66ab3a79a96a664b93248f37307217c6"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/hd/footwear-boots.png",
+      "sha256": "b217655680a44c5469ce984ea9a356e97c73af9cb569ad6a7b466dd2f29caedf"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "headwear-sunhat"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

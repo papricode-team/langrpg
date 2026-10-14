@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "candidateSha256": "f87e92260f28b8c93b7ae64f1af129cf860da2aa5b532f50be73101a755380f9",
+  "baseSha256": "7f9be5fc4d185c37d53066158a2ac0263dfd41b73672ca88ad836952c35aee61",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "4834b3b6b92015df1eeba79703a4a1f6fefed57f66cfd610554d230c9886ced1",
+  "promptSha256": "39c970c09f25fc498c4cb22a257d721a4c107f458c4455589e2ce685e3c08a33",
+  "generationPromptSha256": "c9b2f3dee9c529f1abda4c00d681b37cf167da6e6f0cb101e0a55319aafebe16",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 6,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "79137ec2022b5f3d07dc5054ca632990a9f8828285669db8b6123bcf05bdd54c",
+  "candidate": "art/source/character-kit/hd/body-slim-candidate.png",
+  "lockedSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1"
+}

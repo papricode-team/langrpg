@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-page-0-candidate-1.png",
+      "sha256": "e5233b01a7e359aa2b9efc96742fd6c4bb39029afa180fd2d5c4f82a416e6d0c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-page-0-candidate-1.txt",
+      "sha256": "52d5a12b2f1c660aff9abf82c65c8495518982c09bdd1292999087a1d057f667"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-0.json",
+      "sha256": "02f9de95df5e5adf308b9fc78cd091bd2c7075ee7bf9c4f3542dd875e7c45c60"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-page-1-candidate-2.png",
+      "sha256": "1a797770b90e8e64aa30a76fdf6e3134a3fb0470f9fb4843080c1844fcc47792"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-page-1-candidate-2.txt",
+      "sha256": "1df6d69b86613d1ebc1675025cdf87c6faf4788332f5bd35243539f58d0f3dba"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-straight-crops-1.json",
+      "sha256": "8a75da40555065da7f70d0a1fc705ad9da706c87f7e463fb2f77b70194f2ea44"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-page-2-candidate-1.png",
+      "sha256": "72659e14baa42968c328415e8ffb661a490166828ada31a0388d2cddeccfa138"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-page-2-candidate-1.txt",
+      "sha256": "1d272d25d6c7a7be7c4a37b0299d26b75dae7d3b3b2267cfc96fab244d18027f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-2.json",
+      "sha256": "827702d28712edacb356621afac4ec42fda3ed989797707ae004d7f6902d781c"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-page-3-candidate-2.png",
+      "sha256": "d1111aaf3bbdbff2b27a7bca28db76e9cdc7e4e56ed9a37c1ce180c368784959"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-page-3-candidate-2.txt",
+      "sha256": "1df6d69b86613d1ebc1675025cdf87c6faf4788332f5bd35243539f58d0f3dba"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-3.json",
+      "sha256": "816d518a5369fd2b06a8010f6d781a36617a4349969db07d68a554819df24ca5"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "6d8e4e4a2722c46d6220acc841a92cfb070197c0e627757fdeb04c848e08c7b0"
+}

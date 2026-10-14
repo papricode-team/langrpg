@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-page-0-candidate-2.png",
+      "sha256": "1e2869e5ee08dad5fda13b9f6dc2f935bbaa217127b7db8938bac3b702848ad2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-page-0-candidate-2.txt",
+      "sha256": "dce8dd5598dce8eb3acd047f67e7a2ee2491e0376a330f91e51e4c4f3a10228d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "b3bfcfcc25cef8750741a9ce5dc7b95ee5d32e54dca5b8ed1682b41e30136ab5"
+}

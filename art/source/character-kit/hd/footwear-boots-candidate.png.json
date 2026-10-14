@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-0-candidate-2.png",
+      "sha256": "9e6650322f28810bc60ca90b4ee9c8634f1f3aaa32b1ee5bbc118f02790fe525"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-0-candidate-2.txt",
+      "sha256": "49fc58f6975481702f80c1d5c07905d476379c6f5bd23e086f20405cd15af846"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-0.json",
+      "sha256": "807063339322fc7a35b33ce27e9246b6ca3493a1ecbc8f63fa20032ae239f3c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-1-candidate-3.png",
+      "sha256": "6ae7348b844533416cb56744363d9b6454962b9e17e3e299252b3a500c13b3db"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-1-candidate-3.txt",
+      "sha256": "27a606cbcf4ef90ce8a1c5b39f602bcb73de767c5fab97558865234c26320d0f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-1.json",
+      "sha256": "b66efbd5ade688ed8bbdb9fb7c04a6ff0b041297e2fcaee5285f01c3fc58bfe2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-2-candidate-1.png",
+      "sha256": "83f02700c639707f408b76f507ab485e2e532fab8869994d3039c0ab322719c9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-2-candidate-1.txt",
+      "sha256": "cb94f36d101128c71c74d6d27f9bd5458369ffce6bf0eb3c9e81fb5ec6897638"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-2.json",
+      "sha256": "6c33779ed8d7216b63a1373dcfd763127531e696cda8efecbb115c4b9e8612b6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-3-candidate-1.png",
+      "sha256": "6486c07b6ad0c9a45e693c0b3de7972dd1be5cfb7e89cb4d6d747fe8b47093eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-3-candidate-1.txt",
+      "sha256": "cb94f36d101128c71c74d6d27f9bd5458369ffce6bf0eb3c9e81fb5ec6897638"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-3.json",
+      "sha256": "fa0da411593a1fa71ba4ce348b4232c9080e256b121092b244e371bf55eef8b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-4-candidate-1.png",
+      "sha256": "7bc27347718565c3fd70bd5a62b15448375cbddfc26ad503c50424b257ecbee5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-4-candidate-1.txt",
+      "sha256": "cb94f36d101128c71c74d6d27f9bd5458369ffce6bf0eb3c9e81fb5ec6897638"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-4.json",
+      "sha256": "033cadd4954f174ad7b3aebe0e64176ec53a0167da857893ead441a7ab882aa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-page-5-candidate-1.png",
+      "sha256": "8bcffc8b3c4d607050bf27f469ec0b9fc390cd76feac4dfc0fd5c0245be86d2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-page-5-candidate-1.txt",
+      "sha256": "cb94f36d101128c71c74d6d27f9bd5458369ffce6bf0eb3c9e81fb5ec6897638"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-5.json",
+      "sha256": "15563d62a5dd6c0f036d42381d6a62b76a28b2e1a210cf4825da1b1b05f9dc32"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "4f699df14ec7bb8dcc6de38c4665de8ab5d479b7551bcbfaeb0df5961ddf4122"
+}

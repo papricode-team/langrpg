@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "9ac94136142ec3a42e0a93fe7bcd05226d2eb2e0ae4bee9891bcf15546f54a99",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "28dad3fa47be8bc4a178c532e1b61dc722c31b682a092b2a553a92ed06a06c0f",
+  "promptSha256": "8df1116cea4484d7c0139d88be2bf05f27b3f0564d5d73bb5b04c3fafacae3d6",
+  "generationPromptSha256": "b77e6a78b2d093a90b05781350adfa8950910d8235a38cf32a5ed5af888d091c",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary"
+    ],
+    "maxSpeckPixels": 12,
+    "minBaseAlpha": 240,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "keepMaterials": [
+      "skin"
+    ]
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "fe17c4133a20045aa61f1a7b899c4bda1f20cffc63bf14a674575c3f8a3b542a",
+  "candidate": "art/source/character-kit/hd/face-soft-seated-aligned.png",
+  "lockedSha256": "993a772609ff3d5447e05267a5696984acb633e6385857631b789b9e1d57d7d0"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "294bb23a5d88f93703bb94c0ba71818b9024ad480208f4acb518d5fa58d400f7",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a9ef36987850638d2d3eaccf1d568dc3d1ba609497e5695d869a69ac028b4391",
+  "promptSha256": "9e57613d71c5b57504bcc32c06db2ac71fce09d09c7c5c267138b35e2147f980",
+  "generationPromptSha256": "9ac9adc636627dd00d9b7acda25708e403e9e495f46913f51733e7e71bc155b6",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "8ab1691362705259bed32c5f873df64455b002b0f5ff290f2e9aeba0ea72d19b",
+  "candidate": "art/source/character-kit/hd/neck-cowl-aligned.png",
+  "lockedSha256": "894774cd1f521950569bf422a515cbb54dfe343c9b5d04d7afdf05f9caa22a84"
+}

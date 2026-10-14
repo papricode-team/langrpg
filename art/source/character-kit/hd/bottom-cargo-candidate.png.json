@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-0-candidate-1.png",
+      "sha256": "609d539cb08b53bf996cfe028b700443c06bddc9335d1f47d2207720c5e4f5f9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-0-candidate-1.txt",
+      "sha256": "449f42457b1b133b29e38524be886b8ab936975b00be92cf105a6e53e18c91e3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-0.json",
+      "sha256": "807063339322fc7a35b33ce27e9246b6ca3493a1ecbc8f63fa20032ae239f3c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-1-candidate-1.png",
+      "sha256": "b5a2f2cfedf3e0fbc74b0f17678a1d0bc688cb52ad0cc3582e2c310a1cc09c66"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-1-candidate-1.txt",
+      "sha256": "fa55a64b9716d14701b535df133290b0854643047a13f42767eaf502ec479127"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-1.json",
+      "sha256": "b66efbd5ade688ed8bbdb9fb7c04a6ff0b041297e2fcaee5285f01c3fc58bfe2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-2-candidate-1.png",
+      "sha256": "0a811504d8f753c58751ffdca60de61605d275917c7ed53654b4c7137e6f598f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-2-candidate-1.txt",
+      "sha256": "fa55a64b9716d14701b535df133290b0854643047a13f42767eaf502ec479127"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-2.json",
+      "sha256": "6c33779ed8d7216b63a1373dcfd763127531e696cda8efecbb115c4b9e8612b6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-3-candidate-1.png",
+      "sha256": "d5e0ae31591d1e0e996c1365579e5caccc7c260066bd51ef0c29107ee5121454"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-3-candidate-1.txt",
+      "sha256": "fa55a64b9716d14701b535df133290b0854643047a13f42767eaf502ec479127"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-3.json",
+      "sha256": "fa0da411593a1fa71ba4ce348b4232c9080e256b121092b244e371bf55eef8b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-4-candidate-1.png",
+      "sha256": "b3ffd2d4d7edad7754766d99d472013583042cd6a627088c102acda90ddf3496"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-4-candidate-1.txt",
+      "sha256": "fa55a64b9716d14701b535df133290b0854643047a13f42767eaf502ec479127"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-4.json",
+      "sha256": "033cadd4954f174ad7b3aebe0e64176ec53a0167da857893ead441a7ab882aa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-page-5-candidate-1.png",
+      "sha256": "7c6bb11d3de0ffb3407702d6490db6b311add45df781cc446f3f9a095e9a98d2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-page-5-candidate-1.txt",
+      "sha256": "fa55a64b9716d14701b535df133290b0854643047a13f42767eaf502ec479127"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-lower/page-5.json",
+      "sha256": "15563d62a5dd6c0f036d42381d6a62b76a28b2e1a210cf4825da1b1b05f9dc32"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "527ee983af81813ad2a8a2bb5616f54c3ae90025ef88db23f9ca7942ee611ebd"
+}

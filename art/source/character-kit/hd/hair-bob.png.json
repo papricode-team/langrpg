@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "1541801ccb8f8905cd4ee899d9f8c8190fc811deaf3e35cbe6c536f5049fd8f4",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "6a1de7d338cc9ee1ec31a1d074f863ee95cc1c43636a51f135ea791d829f2930",
+  "promptSha256": "b05a5c020e1793cacc64fd8a3c89c6714fd529851cff5c70aec43e0e98d9e20f",
+  "generationPromptSha256": "4b1fcf7b38b904ce9728494ff7deca5fcffece9c9612dc850fe18a9a770e7c90",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "404bf74fc9141e51408f79eb4e62aae9db793a880f46b8c91f1c16391428c2f8",
+  "candidate": "art/source/character-kit/hd/hair-bob-aligned.png",
+  "lockedSha256": "925850b8d23758f691b4c16599e3c61811bddb36fe05b8412ee62640937e20f5"
+}

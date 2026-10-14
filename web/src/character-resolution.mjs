@@ -8,11 +8,12 @@ export const CHARACTER_RESOLUTION = Object.freeze({
   sourcePageColumns: 2,
   sourcePageRows: 2,
   frames: 36,
+  registeredStandingHeight: 142,
   // Largest player portrait is the 80px inn panel; HUD/chat/dialogue are smaller.
   maximumDisplay: { worldBodyCss: 180, conversationZoom: 1.12, density: 2, builderWidthCss: 200, portraitCss: 80, portraitDensity: 3 },
 });
 
-export function characterResolutionErrors({ nativeCell, outputCell, paintedHeight, surface, authored = false }) {
+export function characterResolutionErrors({ nativeCell, outputCell, paintedHeight, surface, authored = false, worldHeightRatio = 1 }) {
   const errors = [];
   const pair = value => Array.isArray(value) && value.length === 2 && value.every(n => Number.isInteger(n) && n > 0);
   if (!pair(nativeCell) || !pair(outputCell)) return ['Resolution requires positive native and output dimensions'];
@@ -23,7 +24,8 @@ export function characterResolutionErrors({ nativeCell, outputCell, paintedHeigh
     const minimum = Math.ceil(display.portraitCss * display.portraitDensity);
     if (nativeCell.some(n=>n<minimum) || outputCell.some(n=>n<minimum)) errors.push(`Portrait needs at least ${minimum} native and exported pixels per side`);
   } else if (surface === 'world') {
-    const minimum = Math.ceil(display.worldBodyCss * display.conversationZoom * display.density);
+    if (!Number.isFinite(worldHeightRatio) || worldHeightRatio <= 0 || worldHeightRatio > 1) return [...errors, 'Invalid registered pose height ratio'];
+    const minimum = Math.ceil(display.worldBodyCss * display.conversationZoom * display.density * worldHeightRatio);
     if (!Number.isFinite(paintedHeight) || paintedHeight < minimum) errors.push(`World body needs at least ${minimum} exported painted pixels`);
   } else if (surface === 'editor') {
     const minimum = display.builderWidthCss * display.density;

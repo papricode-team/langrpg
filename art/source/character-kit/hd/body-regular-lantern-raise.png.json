@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "9c8c00eccd7d7a045038dbd55c361b1631423d4ccff370305776d331a98f7b72",
+  "baseSha256": "9c45879864f01abe0c34d81d3e2efa2070f3f049921afab152c8aca2ad764b81",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "85d8bd0a812ab7e1dd86b20ebd620c348e78c2f56a16942b817747360f1592be",
+  "promptSha256": "afe15c4ea4b7fd74462b1c7089349610c966280be41e6615920917b82f6f4411",
+  "generationPromptSha256": "c9b2f3dee9c529f1abda4c00d681b37cf167da6e6f0cb101e0a55319aafebe16",
+  "materials": [
+    "skin"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 6,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "c1a1e5a08c781ed46ea0eab8563169e595b377fb4b2ce7a15da84ebc0ec4f1e0",
+  "candidate": "art/source/character-kit/hd/body-regular-lantern-raise-candidate.png",
+  "lockedSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e"
+}

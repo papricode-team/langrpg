@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "b9bc12cd9c560d54f1671b00471188339603d851ffb2e270913cbb83f1ee0708",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "2564be9d7169ab9d822c6f5506c230cc5cd0ce95e9b94665775c99a930f33e34",
+  "promptSha256": "0096580661d5becc7fa4de672f65d8f130f5829123960bc34e5325ad9f199c49",
+  "generationPromptSha256": "3921b25427f40283240ed178f417b49154892e6d08a2b66a99c57da3e0d08eb6",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "48712eafc37925e9e1b43aec004b3fdfef3f7e296637a16cac2963aa64e324b5",
+  "candidate": "art/source/character-kit/hd/top-dress-wrap-candidate.png",
+  "lockedSha256": "afe0d095a97a97e9d2d9cb1f66ca79f4a5d4325e6ca95c36548805b553a97686"
+}

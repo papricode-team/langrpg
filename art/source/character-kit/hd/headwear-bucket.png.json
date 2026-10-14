@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "37ed340067e11742a5db895d23d891fc6912ddd3873e53c92bb6d2b313c86089",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "58eed95e01b4bc420e9662e6237836b50017882d929435c750d5743fc9184486",
+  "promptSha256": "97e820b8e62d2d83d3642fbe8da001d6ddea681f0dfa58897ba1fd7c675106a3",
+  "generationPromptSha256": "e82ece23a8ae5a2a2b2e781cc574b0b652bad571d1cd5354f4b222c644e77244",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "489f561ff0fa277564bc48cb0cd07cca1d00b352735f8baeeb293748a871f338",
+  "candidate": "art/source/character-kit/hd/headwear-bucket-aligned.png",
+  "lockedSha256": "43a82c3d5b2b10f0f172ee4dec90e06b5d9d0feb1bc31f5d8ab24846a5a12162"
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-page-0-candidate-1.png",
+      "sha256": "49c80c1471556c8cfd036bc5862b192099a8d8e2f0beff06cadf17e3b4126ecf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-page-0-candidate-1.txt",
+      "sha256": "a59b4c7d910fdb88e451b6c77cd6e4602151084557c93e3924be7cc1eff79b6e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "7228623c5ea37273c339791502e1a9420e9d2e7b1d7fb06462a38eb0d0a6d0aa"
+}

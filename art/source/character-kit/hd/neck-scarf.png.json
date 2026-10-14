@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "96fc61e1ed4b25ab1292dad2694403d76083b5b407f51fc986e3dd2cb68f9fdf",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a9ef36987850638d2d3eaccf1d568dc3d1ba609497e5695d869a69ac028b4391",
+  "promptSha256": "04bc41698c07bde9f22e3ad686ce9d527fc0df41b9881e7e3531ac5d201b4b7b",
+  "generationPromptSha256": "2432df71ce00fbae31ac850a90749a9446fce37e859b0238878a34e56eef311c",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "7e3865bcbe93574a239813e9f18b19b9e2c1f7a3c791cc52ebe6a4065b8a4085",
+  "candidate": "art/source/character-kit/hd/neck-scarf-aligned.png",
+  "lockedSha256": "e5469063081f7d284258baa14d228d4051555255912d9f54edfba9c3fed3b134"
+}

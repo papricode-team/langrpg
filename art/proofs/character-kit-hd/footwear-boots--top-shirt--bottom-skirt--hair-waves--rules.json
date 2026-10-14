@@ -1,0 +1,989 @@
+{
+  "id": "footwear-boots",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 8904,
+        "detail": 1723
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 622
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 10407,
+        "detail": 1486
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 366
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 9859,
+        "detail": 1449
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 519
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 9583,
+        "detail": 1560
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 317
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 9667,
+        "detail": 1521
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 371
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 10144,
+        "detail": 1569
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 335
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 8449,
+        "detail": 2265
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 589
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 8944,
+        "detail": 2215
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 602
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 8028,
+        "detail": 2225
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5728
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 9903,
+        "detail": 2141
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1334
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 14254,
+        "detail": 3791
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1788
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 12484,
+        "detail": 3377
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7166
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 9972,
+        "detail": 1955
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1973
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 14133,
+        "detail": 3535
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2209
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 14377,
+        "detail": 3460
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2028
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 13313,
+        "detail": 4013
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2682
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 12872,
+        "detail": 2833
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1464
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 13673,
+        "detail": 2931
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1884
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 9154,
+        "detail": 2331
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1386
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 7699,
+        "detail": 7114
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1020
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 9181,
+        "detail": 10127
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1061
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 7916,
+        "detail": 10568
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 993
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 9431,
+        "detail": 2993
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1179
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 9060,
+        "detail": 10432
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 795
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 7154,
+        "detail": 12190
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 409
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 7204,
+        "detail": 11711
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 344
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 10132,
+        "detail": 7001
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 850
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 11706,
+        "detail": 2355
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1259
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 14497,
+        "detail": 3711
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1937
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 14073,
+        "detail": 3682
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2016
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 10557,
+        "detail": 2739
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 866
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 14334,
+        "detail": 3275
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1330
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 14528,
+        "detail": 3460
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1303
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 14720,
+        "detail": 3407
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1492
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 10921,
+        "detail": 2739
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4037
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 14698,
+        "detail": 3399
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1408
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-0.png",
+      "imageSha256": "4047832900ef5c28b974dde6be1e2e897d9be5c2f89ac346a620e34ad1138890",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-1.png",
+      "imageSha256": "8961e6c602954a6942aa962e1ad52ec7de301ac74333693f52840f8628e812a7",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-2.png",
+      "imageSha256": "0484550eba6c90601b7f2e16163e5085344c706e99cab793e87d56bab28585fb",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-3.png",
+      "imageSha256": "4360dd50468da91e0d4fbba48307af5e7d6cd51c9ee37f02c18be53cba6c4c3a",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-4.png",
+      "imageSha256": "7a42a45d7fc32b90d039b2d963e31d9789c8d58f5207cfc3b2702643ebae85e1",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-5.png",
+      "imageSha256": "cde7d5451fec71bd511fde3775ea271ca7982ed3d1e1eb5029613e839717af98",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-6.png",
+      "imageSha256": "f14c7a1da3a64315fd9a3d612043b93a609b5040e252dcbdc6239a6fa3888de3",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-7.png",
+      "imageSha256": "d6740d4d0546f37df8f0c210bb91c40cb256a3cb1aa7d52ec88b7c33c25f5e83",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-8.png",
+      "imageSha256": "c47fb8ff660d75fdd12c78d1ed17cccb3a30c27cbf26e8ed7ca1e4dfbd14f55a",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-9.png",
+      "imageSha256": "06fd006d47f022ff8c5240e1a11bbd5f7715353c89e78906a5d9a54f5daa383b",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-10.png",
+      "imageSha256": "0515c534e63cd4010454675398ea53498ef27fba764d08a9dd27df5ddaa0312f",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-11.png",
+      "imageSha256": "ed9306ff03f9e6f4e558337641979c0b269fea135abd19f1bf22da0d1b588618",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-12.png",
+      "imageSha256": "965ac399bb6bc2c5f52367152206b6905560cbc7eba879a3f68aa3e771a2f2fe",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-13.png",
+      "imageSha256": "52f28b75d9fd03b07e6bad2093cafecdb78abd061f9e24e9b2fe894a99cb74c7",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-14.png",
+      "imageSha256": "a0ce0c5df3453059ad8dbc52ec739ccda5b23e1caf33af45937a3d6754f20d47",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-15.png",
+      "imageSha256": "51ea9ea8304dbd652dac30f1593d1577d8bebe22f076040c9b358ac7b16fbb7a",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-16.png",
+      "imageSha256": "373357ed696434ff6037fae335044785b9dc8c0073accfe7fce93c9973097072",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/footwear-boots--top-shirt--bottom-skirt--hair-waves--rules.native-17.png",
+      "imageSha256": "0be754502dad3cde45be12861f0cf15f799d33f4f99c9db822146cc3a32e876d",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-skirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "top-shirt",
+    "bottom-skirt",
+    "hair-waves"
+  ],
+  "sources": {
+    "footwear-boots": {
+      "path": "art/source/character-kit/hd/footwear-boots.png",
+      "sha256": "c084ece91c1403ae43d1cb871f56b2820157a9071d3b7dd6840438565ff8172b"
+    },
+    "top-shirt": {
+      "path": "art/source/character-kit/hd/top-shirt.png",
+      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
+    },
+    "bottom-skirt": {
+      "path": "art/source/character-kit/hd/bottom-skirt.png",
+      "sha256": "8d86ad7d06f98d8a9842263376612fd2f2e785b9252eba1ffada0cb37461d7e5"
+    },
+    "hair-waves": {
+      "path": "art/source/character-kit/hd/hair-waves.png",
+      "sha256": "089ee884defe6e2e33a558e14c670ada3fc0015b581bee9b08b510478c49bc2a"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "footwear-boots",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

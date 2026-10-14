@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-0-candidate-1.png",
+      "sha256": "184e3c5c3d4406e2094f23029f3919d1698efa02ad9ea2263fc25ac6a076f6d6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-0-candidate-1.txt",
+      "sha256": "01edf7b03163f983200b50adb779bca9cb8761274711fd237c7c6b348b499596"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-0.json",
+      "sha256": "67abaec4c1fbe717e8b8adbb2a0c00e1a413f9cc16184da2ed073d3016536941"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-1-candidate-1.png",
+      "sha256": "f3080265d5c7caf02c90b5d8dfdb9b890961a28c1daa6147979eaf4b5db2b7ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-1-candidate-1.txt",
+      "sha256": "fe277fdb01cc1a5b16634e05c75ed6ee746771713d3cca40a5f0b345d865b630"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-1.json",
+      "sha256": "4687465d1af9ec4d19fb87253db55aa027525a8c11db4bdb610b8ca5115bd2cc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-2-candidate-2.png",
+      "sha256": "0f6dd829441467e03a2dc659b10f7baa7f0727e81a18e10782f1a569ed36248d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-2-candidate-2.txt",
+      "sha256": "6af892e5dc9700082750a2136b502aeafeffb099f0faee4b8b8d73a253dd1239"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-2.json",
+      "sha256": "2ede4441fef6c39ba7d887ded9c7f655b9bb54d9cf9ef0e68a29091b52e141a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-3-candidate-1.png",
+      "sha256": "75797cdac3a279759b70c59f5f0a200ba3c8d11d60bf3519e733ffc5ea64980f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-3-candidate-1.txt",
+      "sha256": "fe277fdb01cc1a5b16634e05c75ed6ee746771713d3cca40a5f0b345d865b630"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-3.json",
+      "sha256": "d7ea320b09821ef3c877d1319ee79519a393e8c1f26f027f5316d39b843698a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-4-candidate-1.png",
+      "sha256": "ed402bf9c156697b92400217c18351c3591fb3318b0ec19863c2da8a0e93226c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-4-candidate-1.txt",
+      "sha256": "fe277fdb01cc1a5b16634e05c75ed6ee746771713d3cca40a5f0b345d865b630"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-4.json",
+      "sha256": "55d41b01666acb37fb0a830a6f4de8e23ac9bb3b4fb1fc52fb3b9a94cfef66e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-seated-page-5-candidate-1.png",
+      "sha256": "2eac8a74a452783e4c95bcdcd7bf96349e2b30a4fa777ee9c565c54b8b47af68"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-seated-page-5-candidate-1.txt",
+      "sha256": "fe277fdb01cc1a5b16634e05c75ed6ee746771713d3cca40a5f0b345d865b630"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-lower/page-5.json",
+      "sha256": "800d5446407d94d8504a468f7eb1012495ac1db12e2d88ca416cefbe6bfba9f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    }
+  ],
+  "outputSha256": "d008b6141c326007659ea0ca4f55be7cb8dc91599aaf506179fc292d3ec6aa2b"
+}

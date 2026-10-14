@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-0-candidate-1.png",
+      "sha256": "dc8d162a18901e3f8f1d4de558d3f21a757da209ea8e8ec46bad43dc95304b38"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-0-candidate-1.txt",
+      "sha256": "983d7659e6593ffb2685d03fbe60abfd1901b427ef31d705f69b5798c141d432"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-0.json",
+      "sha256": "99e4da00a1755cf7cd8ab681e562e96ae23969540ac5b516cb848457bbdf12f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-1-candidate-1.png",
+      "sha256": "396410185ebcede14374d4feb7a2460f272eb1b607f9d1a19de1c169671d4e31"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-1-candidate-1.txt",
+      "sha256": "affeebce6be991735cd49fa35954e1410df68393346384dd563c5195227e7529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-1.json",
+      "sha256": "1e1398bd274e9dcacdc7581b3e955047e27f95266e9fa56e055815046eb9d3bb"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-2-candidate-1.png",
+      "sha256": "af9faa9301ca353593d365c02136e30660efbe00c964f248d926d6a4a19801d4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-2-candidate-1.txt",
+      "sha256": "5b5a1ded5ceb851bfc11e46178c420dd5a0c99e1799d45c76bb1d408bd7da3ee"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-2.json",
+      "sha256": "4756a2f06140a7818378e6d15c598df394660a5ed8ab81979a283cd58f542f87"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-3-candidate-1.png",
+      "sha256": "6ec900528c235c49f7697a4c5e08adae2d3c44328e69254188161701fdd6de8c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-3-candidate-1.txt",
+      "sha256": "ec82376a7171a21b2f6338b360eb2cb7f33d1c5274a7fb522204fd8aaab919b3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-3.json",
+      "sha256": "c37d537480963fcc378d9638bb47e705b4ca993e29d1fa533e781a2374a83f76"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    }
+  ],
+  "outputSha256": "6990ad517f8c5d6f90043626f18569e6bab7ae11100e37a9f2741807589a535e"
+}

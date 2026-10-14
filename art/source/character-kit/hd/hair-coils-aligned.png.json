@@ -1,0 +1,509 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; unchanged face/shoulder registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-page-0-candidate-1.png",
+      "sha256": "3a8ebde246b3bc111ac0fd26754d1f1a821f019925bfdbf15057b09d6689e111"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-page-0-candidate-1.txt",
+      "sha256": "543dca2216cdb20d72fd8396ce561d641f6c32391216f88978a1a941c419b9ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-0.json",
+      "sha256": "02f9de95df5e5adf308b9fc78cd091bd2c7075ee7bf9c4f3542dd875e7c45c60"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-page-1-candidate-1.png",
+      "sha256": "c77c4c0752d4f9157d6ab94c5430f8f159576d3e1a15ff62d5f4958805a36688"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-page-1-candidate-1.txt",
+      "sha256": "1e477b7a6a97f1fda499787c2a85962fc60f810aac5d17a25a0051057b798d02"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-1.json",
+      "sha256": "171acf23d90919ca4f93b7c1a3496d0edd92dee5d4cd1b5e21cf06379ff1285b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-page-2-candidate-1.png",
+      "sha256": "ed35aad99db33e161920ea800bda8fa157a7744d1d1942024fff4811d4eac63b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-page-2-candidate-1.txt",
+      "sha256": "1d272d25d6c7a7be7c4a37b0299d26b75dae7d3b3b2267cfc96fab244d18027f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-2.json",
+      "sha256": "827702d28712edacb356621afac4ec42fda3ed989797707ae004d7f6902d781c"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-page-3-candidate-1.png",
+      "sha256": "ee22cdc38e1ca23e7c80b8245c244afafdff33a641c4f495df857f24d4818e5c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-page-3-candidate-1.txt",
+      "sha256": "d9b3276aa3b8b56f26f1fefa0f8a06d677ee1e0d3229cd631d6150e1222ec700"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-3.json",
+      "sha256": "816d518a5369fd2b06a8010f6d781a36617a4349969db07d68a554819df24ca5"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    },
+    {
+      "path": "art/source/character-kit/hd/hair-coils-candidate.png",
+      "sha256": "eb55e261d0b1444ddb78e36b5221419bfd92524bc49023108db304e23c37393d"
+    },
+    {
+      "path": "art/source/character-kit/hd/hair-coils-candidate.png.json",
+      "sha256": "0c751c81bbb3425e78c015d8e0961340c55e4e13adfa4ca88b013ee4eccb2605"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular/registration.json",
+      "sha256": "11cd204d171786ad693e861450803ad8e66944feebbc169741731ad976bc425f"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 0,
+      "y": 0,
+      "error": 290.5419642857143,
+      "initial": 290.5419642857143,
+      "box": {
+        "left": 301,
+        "top": 162,
+        "width": 55,
+        "height": 79
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 210.59444444444443,
+      "initial": 210.59444444444443,
+      "box": {
+        "left": 939,
+        "top": 153,
+        "width": 54,
+        "height": 79
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 212.7930402930403,
+      "initial": 212.7930402930403,
+      "box": {
+        "left": 1569,
+        "top": 155,
+        "width": 55,
+        "height": 78
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 259.5473214285714,
+      "initial": 259.5473214285714,
+      "box": {
+        "left": 2194,
+        "top": 156,
+        "width": 55,
+        "height": 79
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 285.9336870026525,
+      "initial": 285.9336870026525,
+      "box": {
+        "left": 2848,
+        "top": 155,
+        "width": 57,
+        "height": 78
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 254.89743589743588,
+      "initial": 254.89743589743588,
+      "box": {
+        "left": 3507,
+        "top": 158,
+        "width": 55,
+        "height": 78
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 215.77857142857144,
+      "initial": 215.77857142857144,
+      "box": {
+        "left": 4153,
+        "top": 156,
+        "width": 55,
+        "height": 79
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 239.05185185185186,
+      "initial": 239.05185185185186,
+      "box": {
+        "left": 4797,
+        "top": 156,
+        "width": 54,
+        "height": 79
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 205.47407407407408,
+      "initial": 205.47407407407408,
+      "box": {
+        "left": 5438,
+        "top": 156,
+        "width": 54,
+        "height": 79
+      }
+    },
+    {
+      "x": 14,
+      "y": 12,
+      "error": 4460.282608695652,
+      "initial": 17988.230179028134,
+      "box": {
+        "left": 351,
+        "top": 1029,
+        "width": 68,
+        "height": 91
+      }
+    },
+    {
+      "x": 27,
+      "y": 10,
+      "error": 5289.727272727273,
+      "initial": 23787.979946524065,
+      "box": {
+        "left": 1007,
+        "top": 1029,
+        "width": 67,
+        "height": 87
+      }
+    },
+    {
+      "x": 28,
+      "y": 11,
+      "error": 3969.799154334038,
+      "initial": 24023.82100070472,
+      "box": {
+        "left": 1669,
+        "top": 1027,
+        "width": 66,
+        "height": 86
+      }
+    },
+    {
+      "x": 13,
+      "y": 34,
+      "error": 5105.388655462185,
+      "initial": 19835.647759103642,
+      "box": {
+        "left": 2274,
+        "top": 1026,
+        "width": 68,
+        "height": 84
+      }
+    },
+    {
+      "x": 21,
+      "y": 35,
+      "error": 5543.177905308465,
+      "initial": 22391.7962697274,
+      "box": {
+        "left": 2917,
+        "top": 1024,
+        "width": 67,
+        "height": 82
+      }
+    },
+    {
+      "x": 22,
+      "y": 34,
+      "error": 5491.653362897266,
+      "initial": 23664.58019216556,
+      "box": {
+        "left": 3587,
+        "top": 1026,
+        "width": 66,
+        "height": 81
+      }
+    },
+    {
+      "x": 11,
+      "y": 32,
+      "error": 4082.4593837535012,
+      "initial": 16766.63305322129,
+      "box": {
+        "left": 4233,
+        "top": 1026,
+        "width": 68,
+        "height": 84
+      }
+    },
+    {
+      "x": 18,
+      "y": 32,
+      "error": 3648.5632653061225,
+      "initial": 18258.802721088436,
+      "box": {
+        "left": 4872,
+        "top": 1025,
+        "width": 69,
+        "height": 84
+      }
+    },
+    {
+      "x": 22,
+      "y": 32,
+      "error": 4984.693362193362,
+      "initial": 22377.90836940837,
+      "box": {
+        "left": 5506,
+        "top": 1026,
+        "width": 66,
+        "height": 84
+      }
+    },
+    {
+      "x": 4,
+      "y": 21,
+      "error": 256.8037878787879,
+      "initial": 6449.095833333334,
+      "box": {
+        "left": 146,
+        "top": 2041,
+        "width": 88,
+        "height": 120
+      }
+    },
+    {
+      "x": 13,
+      "y": 22,
+      "error": 258.96797560045746,
+      "initial": 12217.760579489135,
+      "box": {
+        "left": 786,
+        "top": 2045,
+        "width": 85,
+        "height": 121
+      }
+    },
+    {
+      "x": 8,
+      "y": 21,
+      "error": 403.5505146778498,
+      "initial": 9594.706061761342,
+      "box": {
+        "left": 1419,
+        "top": 2045,
+        "width": 85,
+        "height": 122
+      }
+    },
+    {
+      "x": 9,
+      "y": 31,
+      "error": 270.26415797317435,
+      "initial": 9475.335320417287,
+      "box": {
+        "left": 2042,
+        "top": 2045,
+        "width": 88,
+        "height": 122
+      }
+    },
+    {
+      "x": 7,
+      "y": 26,
+      "error": 274.86661698956783,
+      "initial": 9362.51564828614,
+      "box": {
+        "left": 2689,
+        "top": 2042,
+        "width": 88,
+        "height": 121
+      }
+    },
+    {
+      "x": 7,
+      "y": 28,
+      "error": 478.0350223546945,
+      "initial": 8539.036140089418,
+      "box": {
+        "left": 3331,
+        "top": 2045,
+        "width": 88,
+        "height": 122
+      }
+    },
+    {
+      "x": 9,
+      "y": 14,
+      "error": 189.63008415147266,
+      "initial": 7861.504908835905,
+      "box": {
+        "left": 3982,
+        "top": 2043,
+        "width": 91,
+        "height": 123
+      }
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "error": 839.1865835777126,
+      "initial": 10668.240469208211,
+      "box": {
+        "left": 4625,
+        "top": 2046,
+        "width": 88,
+        "height": 123
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "error": 955.1444111027757,
+      "initial": 7479.804576144036,
+      "box": {
+        "left": 5274,
+        "top": 2043,
+        "width": 85,
+        "height": 123
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "error": 2374.5757575757575,
+      "initial": 14611.605355884425,
+      "box": {
+        "left": 248,
+        "top": 2795,
+        "width": 66,
+        "height": 86
+      }
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "error": 2696.5266955266957,
+      "initial": 16706.122655122654,
+      "box": {
+        "left": 847,
+        "top": 2789,
+        "width": 66,
+        "height": 84
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "error": 2445.026074700493,
+      "initial": 12776.214235377027,
+      "box": {
+        "left": 1489,
+        "top": 2790,
+        "width": 66,
+        "height": 86
+      }
+    },
+    {
+      "x": 12,
+      "y": 30,
+      "error": 2192.015261627907,
+      "initial": 14078.639534883721,
+      "box": {
+        "left": 2118,
+        "top": 2790,
+        "width": 64,
+        "height": 86
+      }
+    },
+    {
+      "x": 14,
+      "y": 30,
+      "error": 2405.6468023255816,
+      "initial": 14950.296511627907,
+      "box": {
+        "left": 2756,
+        "top": 2792,
+        "width": 64,
+        "height": 86
+      }
+    },
+    {
+      "x": 13,
+      "y": 30,
+      "error": 2432.410714285714,
+      "initial": 13020.279761904761,
+      "box": {
+        "left": 3407,
+        "top": 2792,
+        "width": 64,
+        "height": 84
+      }
+    },
+    {
+      "x": 13,
+      "y": 20,
+      "error": 3581.8975290697676,
+      "initial": 13626.552325581395,
+      "box": {
+        "left": 4059,
+        "top": 2790,
+        "width": 64,
+        "height": 86
+      }
+    },
+    {
+      "x": 14,
+      "y": 20,
+      "error": 3105.218023255814,
+      "initial": 14941.653343023256,
+      "box": {
+        "left": 4697,
+        "top": 2791,
+        "width": 64,
+        "height": 86
+      }
+    },
+    {
+      "x": 10,
+      "y": 19,
+      "error": 3133.0581395348836,
+      "initial": 13026.767441860466,
+      "box": {
+        "left": 5333,
+        "top": 2793,
+        "width": 64,
+        "height": 86
+      }
+    }
+  ],
+  "outputSha256": "456001d5690f6f2dbf188888cff69730c0c967f9414661055518d434d21a6ec0"
+}

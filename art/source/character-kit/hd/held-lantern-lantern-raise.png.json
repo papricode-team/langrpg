@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "cbf65b17a723d734a4dfbd403039b80d43efeb72cee9b446edae33372ca76f2a",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "2303a77f01bc8e81197680212ef8ad366b0292f933381586cd82f1225b09ec8f",
+  "promptSha256": "66f8118a7143f07978d85180431dfe5d45ce73897e36e50904cde382fb3e3e0f",
+  "generationPromptSha256": "948478f60de656a067dbf4d8e7d4e8b99cbf0b9157c349cc12172a8da3cbb55c",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "maxSpeckPixels": 96,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "up": 2
+    },
+    "regionReason": "The holding arm or torso occludes the connection between visible segments of the lantern handle and casing."
+  },
+  "preparationSha256": "5586241ba030158a9e376e7a4307e33a36e6d48a94416b491c0d4e6bd9374e8c",
+  "candidate": "art/source/character-kit/hd/held-lantern-lantern-raise-candidate.png",
+  "lockedSha256": "37b8ab78d9690affa6c8c4e7e50be594827c7666314761b5984789608831014c"
+}

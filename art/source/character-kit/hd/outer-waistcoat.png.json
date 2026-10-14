@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "16e86e0f279a128cdce9ade0e11cb24c266b86a1ba8b2fad4993a196dd79b0e2",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "7c010065bd39de24ff9f71625389f9b05f3454ebe95ea5d0b4928ea54c8166b2",
+  "promptSha256": "ab3177c0db785f5289a072cbab39d53e96a4e82286a94399d16262885f205321",
+  "generationPromptSha256": "b587989c8b68b9ec11698a32bb307103955534263085718400ecab4764b0a50f",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 96,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The far neckline and armhole binding are separated from the near panel by the exposed torso or swinging arm in profile."
+  },
+  "preparationSha256": "b39d667812df1789dfa2fd29d86a025c47db6cecad128489fd9ce52a4c6021d9",
+  "candidate": "art/source/character-kit/hd/outer-waistcoat-candidate.png",
+  "lockedSha256": "2f4d6b0bcb1f586d6bd6c4dd3761aac4b9e10879580bcd235ba3b1861aa2626b"
+}

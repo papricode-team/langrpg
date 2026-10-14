@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-footwear-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: rest, lift, five steady raised-lantern holds, lower, rest. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only the lower calves, ankles and feet, following each planted or lifted foot. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. No natural-colour detail; use only the requested keys.
+Add practical close-fitting ankle-high walking boots, entirely in muted violet #7a5a9a including soles, cuffs and laces. Keep each boot fitted directly over the existing cyan foot. Both feet remain planted exactly where they are. Same paired boot design and cuff height across all 36 cells. Keep cyan legs and the entire upper mannequin unchanged. No trousers, shirt, hair or other accessories.

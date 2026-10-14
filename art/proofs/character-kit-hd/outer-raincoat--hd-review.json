@@ -1,0 +1,1103 @@
+{
+  "id": "outer-raincoat",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 53951,
+        "secondary": 10006,
+        "detail": 317
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4169
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 52991,
+        "secondary": 10181,
+        "detail": 187
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4484
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 50536,
+        "secondary": 9954,
+        "detail": 189
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4837
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 50975,
+        "secondary": 9756,
+        "detail": 206
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4570
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 51347,
+        "secondary": 10230,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5001
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 51179,
+        "secondary": 10283,
+        "detail": 154
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3237
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 48470,
+        "secondary": 10039,
+        "detail": 130
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2931
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 50143,
+        "secondary": 10105,
+        "detail": 126
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3085
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 48290,
+        "secondary": 9433,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5022
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 34062,
+        "secondary": 5988,
+        "detail": 251
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1881
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 46137,
+        "secondary": 4564,
+        "detail": 86
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4158
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 47094,
+        "secondary": 5386,
+        "detail": 108
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5725
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 36835,
+        "secondary": 4817,
+        "detail": 268
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4113
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 50959,
+        "secondary": 3841,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3682
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 58394,
+        "secondary": 1307,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7445
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 51213,
+        "secondary": 2765,
+        "detail": 36
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5224
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 37905,
+        "secondary": 6070,
+        "detail": 332
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3084
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 49861,
+        "secondary": 5574,
+        "detail": 90
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 6144
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 65083,
+        "secondary": 1596,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2114
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 67678,
+        "secondary": 1533,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2600
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 66190,
+        "secondary": 1393,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3014
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 64978,
+        "secondary": 1383,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1476
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 70210,
+        "secondary": 1387,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3956
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 67527,
+        "secondary": 1390,
+        "detail": 27
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2019
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 70236,
+        "secondary": 1558,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4017
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 70432,
+        "secondary": 1516,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3660
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 69124,
+        "secondary": 1592,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2050
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 37439,
+        "secondary": 6966,
+        "detail": 296
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4121
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 54477,
+        "secondary": 7699,
+        "detail": 82
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5387
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 53428,
+        "secondary": 7443,
+        "detail": 166
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 8664
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 40217,
+        "secondary": 6706,
+        "detail": 49
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4291
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 53623,
+        "secondary": 7166,
+        "detail": 108
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7212
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 52883,
+        "secondary": 7588,
+        "detail": 88
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4890
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 51758,
+        "secondary": 7597,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5679
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 49214,
+        "secondary": 7587,
+        "detail": 85
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 6294
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 50693,
+        "secondary": 7465,
+        "detail": 75
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4798
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-0.png",
+      "imageSha256": "92bf114ad7fc19bf0bd2ae1528ee2cab9c7ddc1caa7ece4a0b0bb934d6058177",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-1.png",
+      "imageSha256": "d05d9e67fea8dbb5bdc1981a09ce1c3dee5d833e06314d26cd354a9c13de99b7",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-2.png",
+      "imageSha256": "45f6aa427c4c8fea8bdbe95f49b79056766b07ab60f57b3fd7e3018df0c4525f",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-3.png",
+      "imageSha256": "0cb7e6630835e97777cc72291ab84fdf9906406f0fb37ae94bb51cffddcf65bf",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-4.png",
+      "imageSha256": "f91ce4c7a9d7e11150fa50c57253d4dadf734b2986514de83030d37492de83e5",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-5.png",
+      "imageSha256": "0b866664ed6f6e1c1a6d3891af68a53534dde218794d7b491914282e7423f05e",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-6.png",
+      "imageSha256": "73ad0eb626c3254f22657b506492169c5e21a7ac03b928514fad52e8e0100c9b",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-7.png",
+      "imageSha256": "4a270f3a14503737aafccc0be6ef47e28809924480cdca251b90064d65064935",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-8.png",
+      "imageSha256": "ff5f7ff274cfc79de0d5b729e788eae16e2ce4222d09a04e4e560ef7ed236282",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-9.png",
+      "imageSha256": "5b46bd98fbd16b349eb54e9a9d48a3dadb10ada8ccc5b9c88bf14976f7b7408c",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-10.png",
+      "imageSha256": "edd6692c89d9203343ecb7680b999771983256d6814d872b39f123a90cf0dc8a",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-11.png",
+      "imageSha256": "8555cde7c761ac73163defe0f343a65647f13e1848ebee57ae5ac5d1045a2744",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-12.png",
+      "imageSha256": "7141caf4084b17c75fdd348dcb83ad00bfc6249051659990fadfd3974f994ea9",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-13.png",
+      "imageSha256": "6fdfe4122685f9e238bb273dc5e88b497edf7b5cf6ecd3c4e95d0cb801382d50",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-14.png",
+      "imageSha256": "1994d55825507d08d0b6c82118fc38513da880c08ce58b2ee1b8c2a740677bd6",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-15.png",
+      "imageSha256": "9dee1e2663a505467de772027910cbb0f3963f382bd1eac0cb6ece6d9476b102",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-16.png",
+      "imageSha256": "daafb67bb533f4138214500fcc6a4c92f3c4802e0432f6e1ed8422b1ec2e4145",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-raincoat--hd-review.native-17.png",
+      "imageSha256": "955ee1361729481ce53212cd75b55183fb5cffb52fac4475d3508c448b3cf759",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "outer-raincoat",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-regular",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-oval",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-crop",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-regular",
+    "face-oval",
+    "hair-crop",
+    "top-shirt",
+    "bottom-straight",
+    "footwear-boots"
+  ],
+  "sources": {
+    "outer-raincoat": {
+      "path": "art/source/character-kit/hd/outer-raincoat.png",
+      "sha256": "9e40208c7c8a8d399c1f77d54f4c7329ff372a2c0e03815e23f0a608f6071d78"
+    },
+    "body-regular": {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    },
+    "face-oval": {
+      "path": "art/source/character-kit/hd/face-oval.png",
+      "sha256": "22d9ce2bfe81dfef5f32078accdb1d3ece352ec6efa1857375d77de56c3c40db"
+    },
+    "hair-crop": {
+      "path": "art/source/character-kit/hd/hair-crop.png",
+      "sha256": "1bddb2923ce4b2ac8f1bd2ed105cf62e380ca6c64a1edcea8a2e3fa8946fbb41"
+    },
+    "top-shirt": {
+      "path": "art/source/character-kit/hd/top-shirt.png",
+      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
+    },
+    "bottom-straight": {
+      "path": "art/source/character-kit/hd/bottom-straight.png",
+      "sha256": "36f2bd74331e70ee4327bbea38824ccc66ab3a79a96a664b93248f37307217c6"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/hd/footwear-boots.png",
+      "sha256": "b217655680a44c5469ce984ea9a356e97c73af9cb569ad6a7b466dd2f29caedf"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular",
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-shirt",
+        "outer-raincoat",
+        "hair-crop"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

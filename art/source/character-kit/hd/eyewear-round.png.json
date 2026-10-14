@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "419bb90564c02a8bb654f3f781d39914d38689198b6e9a3b76840e5f3ec94664",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "60fbaebd1481b0c1ccd13f59ad09e0a8ec24e2c66972b3fbeba918d3293bfbbd",
+  "promptSha256": "3e880b076386eceaf90669cf2ecb2d86a7f96b01f24d2f37003b4d6f52f3a20a",
+  "generationPromptSha256": "35c1d740a3bbd0fe3442b3366b7a098a2193f37fecacce05ec223e264786eb7b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "preparationSha256": "fa9ad6037bb0e2060aa117c04fdc2fef27941087e98a6c59c730844b938afe5e",
+  "candidate": "art/source/character-kit/hd/eyewear-round-aligned.png",
+  "lockedSha256": "6bd47c3d94ce5154925004f3b434c58b718d3fac0838ad2fab681678c0545639"
+}

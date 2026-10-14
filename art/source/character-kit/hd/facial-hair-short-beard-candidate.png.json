@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-page-0-candidate-1.png",
+      "sha256": "618d3db0d97b60ccdcb11acfc3b9c5b16905fe98937a43be746d59c69d699e7f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-page-0-candidate-1.txt",
+      "sha256": "caddbfd764c0ff0694650009c260dcb1f05e52bb55928857bdb32175d63e5092"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "f6cda9252971eab6b80050154af1faf9e9900e1fe345da6941a404ea680870b6"
+}

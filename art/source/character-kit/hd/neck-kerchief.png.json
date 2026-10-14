@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "62b8b9ea9d4d1d7e4356a029583669cbb97c4b7130ecf906afb66825db8b09c1",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a9ef36987850638d2d3eaccf1d568dc3d1ba609497e5695d869a69ac028b4391",
+  "promptSha256": "aa64e1cf3ad1bcb533e2917948696ccb202a4a9397244624073b71e46d33ec56",
+  "generationPromptSha256": "03d9bf2699f39e0c75c45e10dcfcdab5cf18aab7be56f5680cb68dd1bd57acad",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "398d1e17350e1ef0f0c9738e394996b60df470323cb2fa6bfa3349ef2ef3cc5a",
+  "candidate": "art/source/character-kit/hd/neck-kerchief-aligned.png",
+  "lockedSha256": "8fb6071a05fbb769e73ba4d93e7f11e025150e754fda1c3bc4d0fc32530106fb"
+}

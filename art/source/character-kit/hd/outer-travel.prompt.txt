@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-outer-short-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: standing then eight walking poses. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only from the neck across the shoulders and arms through the hip-length outer hem. Everything outside the mask must stay unchanged.
+Paint primary in the #7a5a9a key-colour family, preserving hue in highlights and shadows. Paint secondary in the #5a9a6a key-colour family, preserving hue in highlights and shadows. Natural-colour detail is allowed only where explicitly described.
+Add the existing short open travel jacket with notched lapels, fitted waist, small hip-length tails and rolled mid-forearm cuffs. Primary cloth is muted violet #7a5a9a; collar, lapels and cuff facings are muted green #5a9a6a. Leave the open center cyan; do not paint an undershirt. Preserve all poses.

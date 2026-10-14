@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "ad6dbfa13cbb8a0da3a23fed8d7330dce8191dc00d255ebd73745439928d27ee",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "8ce5df7a10f633d6c391150e30102882a27e6485315782830e0e30760a703204",
+  "promptSha256": "9ddc84a816bc89901138c792bc9b6dc4e4c7310be3c6d44a489f7a1c32cd1042",
+  "generationPromptSha256": "ad1f9f2abff6e8ae6b4fc338aa2855e27b1e8342715a8a7d29e7ab1aa01aedea",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "Foreground arms occlude the connection to narrow visible rear-hem sections in profile views."
+  },
+  "preparationSha256": "b06e99ee3eca69dfe31319117ecd0e3ae8ac79e74594aceda104710d78c966ff",
+  "candidate": "art/source/character-kit/hd/top-blouse-candidate.png",
+  "lockedSha256": "af699e432f02c8e58a7e27cba42a17e0794cd261cc768063f8f4b664199be282"
+}

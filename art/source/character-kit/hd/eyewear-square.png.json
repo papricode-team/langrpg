@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "2a9616d8cd00fd55d330272ebfaf7e72130f5cd8b7968bf9ac146f82b6cfd799",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "60fbaebd1481b0c1ccd13f59ad09e0a8ec24e2c66972b3fbeba918d3293bfbbd",
+  "promptSha256": "baaf12756acea7a2b113e3186179bd4ee6c28f37a673e8b4fd3cde1a9d18be74",
+  "generationPromptSha256": "b084b813555f5f1ca991a1ef713c4aadc561caf160e1deb3f8808bc6f50cf420",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "preparationSha256": "e6435387abfa626bbce4c0891b363008d03d8f9b77eef7e2cd9bfa86b5d68f3c",
+  "candidate": "art/source/character-kit/hd/eyewear-square-aligned.png",
+  "lockedSha256": "2a543c6a4106cb8e3a9530ac2da679a33ec79db80b46f11a3a0f3ab6a1f2b07d"
+}

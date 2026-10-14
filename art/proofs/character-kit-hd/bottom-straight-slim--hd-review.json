@@ -1,0 +1,1041 @@
+{
+  "id": "bottom-straight-slim",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 41962,
+        "detail": 163
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1328
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 36059,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1262
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 34959,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 980
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 35525,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 867
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 39590,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1137
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 37557,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 723
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 35913,
+        "detail": 9
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 144
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 35079,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 246
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 39044,
+        "detail": 2
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 234
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 34569,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 463
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 49451,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2148
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 43675,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3317
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 29974,
+        "detail": 1
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 568
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 44720,
+        "detail": 8
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1621
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 45401,
+        "detail": 9
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1415
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 39435,
+        "detail": 5
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1547
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 30207,
+        "detail": 3
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 648
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 43484,
+        "detail": 8
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1458
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 44787,
+        "detail": 136
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 839
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 42589,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1027
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 41129,
+        "detail": 5
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 598
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 38300,
+        "detail": 2
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 303
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 47319,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 967
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 40154,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 262
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 37675,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 91
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 37887,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 109
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 42337,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 231
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 30802,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 478
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 46516,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1547
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 39884,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 972
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 30613,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 187
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 42454,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1238
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 43688,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1114
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 40667,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1164
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 33678,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 306
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 43302,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1292
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-0.png",
+      "imageSha256": "75ac8d559f63aa57c4f63f89c04351bb75ccd0afd3922019cef6038650b74b42",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-1.png",
+      "imageSha256": "e5d82aafa2d913073738c1351f4204b70110a43d949db577788f8ae1e37a03c7",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-2.png",
+      "imageSha256": "7868e54674bc415a5ab0056e44db1020c24ef46a33a3ab1aed8220379fa769aa",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-3.png",
+      "imageSha256": "400910e461f3b7b4fc073602df7f0111524bdf1874b40ffda6dec867d19ab129",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-4.png",
+      "imageSha256": "2efa4e1fc23d7187e68a7b56a1f4ee8baacac9ebc46bc0ab9b519aa48f5d60c1",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-5.png",
+      "imageSha256": "7b76b11834a20b9d400c9192796393a50712c58d42a25e9d42f34e3ad222ab04",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-6.png",
+      "imageSha256": "36ab7ac086b9b46c05bfe5e4074d2625fa8c6a8a2f9b98d02f671c7229bce2d3",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-7.png",
+      "imageSha256": "76fb770010e13f9b98618b65dd64732ed8b27f36a8982aace9fc5cbb3ff2aec2",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-8.png",
+      "imageSha256": "8c4f8c88be0e52bb690a91062843a912997995b35a4a6dc078e6d6336dc8dc4d",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-9.png",
+      "imageSha256": "25ae6e18473fe04a0c672a5193b06f30888a516dc793c9db54440d6a52abf586",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-10.png",
+      "imageSha256": "dde1d1ba0df9def782e752bc86907613d75287a9cdcab74017b8a1777a25fd9a",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-11.png",
+      "imageSha256": "e18b469d33a492ee02c33f809733e319707f85958d493efb76ce2df094b850be",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-12.png",
+      "imageSha256": "a4698e093b6382a52456e55b83c2d5263db4eb82fcdf831dad371799ef0f3c59",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-13.png",
+      "imageSha256": "edb42f24803e178d4380f6823c5a78dbebe272a55c9e0736b3f3fb8291677680",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-14.png",
+      "imageSha256": "7145f38f08f059f6ce813f3642d5af622d102c39544611f5e8d318b4db0ce220",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-15.png",
+      "imageSha256": "991d729672b0986f9aaa4c0f1e71ccfec2215f6b61441aa94150fac6e81b1c62",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-16.png",
+      "imageSha256": "65452e54c7ca412667e19604b37e77e16063f3ec8f0517eba8297e2b9d771f12",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/bottom-straight-slim--hd-review.native-17.png",
+      "imageSha256": "e1d66f1c623c75ed6dec80daac151f7629e7258662b798091ac4c555f10060cd",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "bottom-straight-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-slim",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-slim",
+    "face-soft-slim",
+    "hair-waves-slim",
+    "top-shirt-slim",
+    "footwear-boots-slim"
+  ],
+  "sources": {
+    "bottom-straight-slim": {
+      "path": "art/source/character-kit/hd/bottom-straight-slim.png",
+      "sha256": "5c4d04323280a9782940f7fbf8ddf3bcb7cb3b288b4b5daa19230837c3fe6a9a"
+    },
+    "body-slim": {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    },
+    "face-soft-slim": {
+      "path": "art/source/character-kit/hd/face-soft-slim.png",
+      "sha256": "d8abb211ca904c903739a72bb36145117485707a79dcc7d9eb6b0e9536d9f681"
+    },
+    "hair-waves-slim": {
+      "path": "art/source/character-kit/hd/hair-waves-slim.png",
+      "sha256": "dadc11687efc2874985e799a5ef95eee0cd2f8f16b7a8210f1728e15fad5ea3b"
+    },
+    "top-shirt-slim": {
+      "path": "art/source/character-kit/hd/top-shirt-slim.png",
+      "sha256": "6a1045d2857a25ed90b1399f512b49c11884c4f9f0b8a6d4c25edcaf5dd680d7"
+    },
+    "footwear-boots-slim": {
+      "path": "art/source/character-kit/hd/footwear-boots-slim.png",
+      "sha256": "0561da3fda8a80f1e9ca239a549705e5017707d16d6e8ab1970d0ffebccd1150"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-slim",
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

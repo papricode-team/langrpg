@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "candidateSha256": "a3d9337ff68094bad910d69436f841f7a667ff245e433cd0566141941222b5e1",
+  "baseSha256": "95af7b982c96f6a7c5c24b35a7351e0b171a7cd1b9fefde3a8239f5d7d303b3a",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "4834b3b6b92015df1eeba79703a4a1f6fefed57f66cfd610554d230c9886ced1",
+  "promptSha256": "b7a5da59d8970fb6c5a54f230f1cec779600b146d990cdb6613a4a50cfbadbd5",
+  "generationPromptSha256": "c9b2f3dee9c529f1abda4c00d681b37cf167da6e6f0cb101e0a55319aafebe16",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "operation": "replace",
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "5274fed82e2b0e713ccec1300c7467ecd81b5e82ab23de50be5de337292b10a4",
+  "candidate": "art/source/character-kit/hd/body-broad-candidate.png",
+  "lockedSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba"
+}

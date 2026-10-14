@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-0-candidate-1.png",
+      "sha256": "ece6274ef9fe51835728eb61649b340c1cb7fc832cb80d8983e3cdcab184f71a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-0-candidate-1.txt",
+      "sha256": "c153e63a5cf12a425288b4bf32e8489f546539726b21fd73d414248532f564ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-0.json",
+      "sha256": "e8604a1edf00c51704b742fa85ad642e80bbd2d581d57ea63ee8cd2bec5e9b92"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-1-candidate-1.png",
+      "sha256": "c8577844cdf83d4d41c3fae2bf1ddfa61056ca33ccd23c2367528221baa222b9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-1-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-1.json",
+      "sha256": "75a9fe9f6c41e2cb39f324541ae546d6db20b804f3a8fc7a44cf2f34a34aebac"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-2-candidate-1.png",
+      "sha256": "9dc4c908e5b9c64bd964af0c6c1a9fc99574148187c4247649932c861473d015"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-2-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-2.json",
+      "sha256": "e2abf86e5fb4b1d7e9907110215bd3a5b92043adb66ed15387a0dde6eaf89517"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-3-candidate-1.png",
+      "sha256": "22e7882d8f6d1d5d94341186d7f42b5e0827d470dbabc934c39e105243fba99b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-3-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-3.json",
+      "sha256": "cf1fba22363645ed6b0a944d2efaf97c86e07c8a7a8e0bc7a30461a2258900da"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-4-candidate-1.png",
+      "sha256": "8466bbfbf87cf107688136bbabc52718208f932f6f2bffe00a91263b30b7e755"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-4-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-4.json",
+      "sha256": "2e5f3861edafca572923d67123b5b22e558e2b53f2314bb54fa7e85759d2fad5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-5-candidate-1.png",
+      "sha256": "5853efcbe8c4ab99201933e372524b084c17f81bdc1f649fdf09fef71c8a0458"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-5-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-5.json",
+      "sha256": "f8cfda9de25ba9c5362fe6d37389277960091f236737aeebeca64b68f3529f27"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-boots-lantern-raise-candidate.png",
+      "sha256": "30ce640daf9984ae9a2dcdcf4829a8edb3c6c83a8cf50dde06df811ca6c1426b"
+    },
+    {
+      "path": "art/source/character-kit/hd/footwear-boots-lantern-raise-candidate.png.json",
+      "sha256": "2b4560f90827adef7a2e1bc6e61c235281c16c1342e14acd1d26a91986485f3b"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise/registration.json",
+      "sha256": "359b5a0b2dab5915519071c71e5ec7b151d261ab796d54c9716bbd932080bbd6"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 0,
+      "y": -1,
+      "error": 343.2029598308668,
+      "initial": 346.30457188160676,
+      "box": {
+        "left": 144,
+        "top": 495,
+        "width": 352,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 250.7970043358297,
+      "initial": 271.1367757193536,
+      "box": {
+        "left": 784,
+        "top": 496,
+        "width": 353,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 368.50581395348837,
+      "initial": 498.8841173361522,
+      "box": {
+        "left": 1424,
+        "top": 495,
+        "width": 352,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 270.35544397463,
+      "initial": 270.35544397463,
+      "box": {
+        "left": 2064,
+        "top": 495,
+        "width": 352,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 311.4796351021457,
+      "initial": 311.4796351021457,
+      "box": {
+        "left": 2699,
+        "top": 496,
+        "width": 361,
+        "height": 86
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "error": 360.16381857895414,
+      "initial": 373.43093922651934,
+      "box": {
+        "left": 3340,
+        "top": 495,
+        "width": 361,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 144.5414364640884,
+      "initial": 144.5414364640884,
+      "box": {
+        "left": 3980,
+        "top": 495,
+        "width": 361,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 141.5749572986467,
+      "initial": 141.5749572986467,
+      "box": {
+        "left": 4624,
+        "top": 496,
+        "width": 353,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 352.18861621482716,
+      "initial": 352.18861621482716,
+      "box": {
+        "left": 5260,
+        "top": 495,
+        "width": 361,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 108.27511627906976,
+      "initial": 109.84627906976745,
+      "box": {
+        "left": 120,
+        "top": 1391,
+        "width": 399,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 84.04378329219176,
+      "initial": 93.12680265038327,
+      "box": {
+        "left": 782,
+        "top": 1392,
+        "width": 357,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 80.70281951018728,
+      "initial": 80.70281951018728,
+      "box": {
+        "left": 1374,
+        "top": 1391,
+        "width": 452,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 38.412842148590244,
+      "initial": 38.412842148590244,
+      "box": {
+        "left": 2014,
+        "top": 1391,
+        "width": 452,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 65.20209919736571,
+      "initial": 65.20209919736571,
+      "box": {
+        "left": 2654,
+        "top": 1392,
+        "width": 452,
+        "height": 86
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "error": 87.21912697425694,
+      "initial": 181.48513866434524,
+      "box": {
+        "left": 3333,
+        "top": 1391,
+        "width": 373,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 25.57861699938259,
+      "initial": 25.57861699938259,
+      "box": {
+        "left": 3934,
+        "top": 1391,
+        "width": 452,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "error": 82.6078003875969,
+      "initial": 86.34580910852713,
+      "box": {
+        "left": 4609,
+        "top": 1392,
+        "width": 383,
+        "height": 86
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "error": 119.71654693778157,
+      "initial": 169.55436503104835,
+      "box": {
+        "left": 5249,
+        "top": 1391,
+        "width": 382,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 345.7817070246943,
+      "initial": 599.6726204747063,
+      "box": {
+        "left": 126,
+        "top": 2287,
+        "width": 387,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 177.5154222766218,
+      "initial": 334.7112607099143,
+      "box": {
+        "left": 770,
+        "top": 2288,
+        "width": 380,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 369.23649980291685,
+      "initial": 621.9010642491131,
+      "box": {
+        "left": 1423,
+        "top": 2287,
+        "width": 353,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 377.1471483942414,
+      "initial": 507.0490033222591,
+      "box": {
+        "left": 2072,
+        "top": 2287,
+        "width": 336,
+        "height": 86
+      }
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "error": 284.46691583610186,
+      "initial": 484.68936877076413,
+      "box": {
+        "left": 2712,
+        "top": 2288,
+        "width": 336,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 308.50731239510907,
+      "initial": 332.7699592423879,
+      "box": {
+        "left": 3326,
+        "top": 2287,
+        "width": 387,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 143.6155598177895,
+      "initial": 143.6155598177895,
+      "box": {
+        "left": 3966,
+        "top": 2287,
+        "width": 387,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 145.22129742962056,
+      "initial": 145.22129742962056,
+      "box": {
+        "left": 4610,
+        "top": 2288,
+        "width": 380,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 123.31754974826181,
+      "initial": 123.31754974826181,
+      "box": {
+        "left": 5246,
+        "top": 2287,
+        "width": 387,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 81.99733888696055,
+      "initial": 81.99733888696055,
+      "box": {
+        "left": 119,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 43.884285391736285,
+      "initial": 43.884285391736285,
+      "box": {
+        "left": 755,
+        "top": 3184,
+        "width": 411,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 47.166377415249336,
+      "initial": 61.163137799375214,
+      "box": {
+        "left": 1399,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "error": 71.72625245863705,
+      "initial": 76.72266574106213,
+      "box": {
+        "left": 2039,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 62.869374059932895,
+      "initial": 62.869374059932895,
+      "box": {
+        "left": 2679,
+        "top": 3184,
+        "width": 402,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 40.19541825754946,
+      "initial": 40.19541825754946,
+      "box": {
+        "left": 3319,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 59.76906166840217,
+      "initial": 59.76906166840217,
+      "box": {
+        "left": 3959,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 45.32928381349068,
+      "initial": 45.32928381349068,
+      "box": {
+        "left": 4599,
+        "top": 3184,
+        "width": 402,
+        "height": 86
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "error": 83.2008561841953,
+      "initial": 83.2008561841953,
+      "box": {
+        "left": 5239,
+        "top": 3183,
+        "width": 401,
+        "height": 86
+      }
+    }
+  ],
+  "outputSha256": "aa2d3e2c8d4c73c534c417df374a4bf4f1bcbc860d85180cb489a0ade475195b"
+}

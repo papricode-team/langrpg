@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "b71577a69b6965fc414efbf5ecf1a628ec2d9916fdb564d4a8295d077d3ed171",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "5036d25f8dd495a9dcab41fd217a7a26aae7c89b0a3d381e85479d84c8334349",
+  "promptSha256": "0ba154885b9134797d243c8f9334695688318372a9ce8007b804ca535a158c22",
+  "generationPromptSha256": "ee9aaf5bd00e4e47be716f95db8ba2a274c901def680dd3eda1485c8b179d522",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "72f7c2d9721710a374204df127619fa5be0559befa62226b4bbc18727f20e2ad",
+  "candidate": "art/source/character-kit/hd/bottom-straight-lantern-raise-aligned.png",
+  "lockedSha256": "0a6958bbd63a69eb40885d3568117bb7420e042daaf8ddb4196f1aaf01092d28"
+}

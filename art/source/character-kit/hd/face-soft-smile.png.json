@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "expression": "smile",
+  "candidateSha256": "cefb93d98b94b60a973d0f6b86fff06e7bba90480a5c1ae693aa2d76f117b546",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "5e72683c581c03e419ca55ee5dbde3656b9d317032f9d9886fe8d2e808b75cd2",
+  "promptSha256": "7bbd75e7674e98495541fb17a86d7b1d234dc0b0e5b9f1a6580016fb654d5d20",
+  "generationPromptSha256": "f5ccc92bff91aec1910e699dcf5d751e905de29d55c97bf5f72d3b46fcf2a95b",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "maxSpeckPixels": 12,
+    "minBaseAlpha": 240,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "a4838c4515cb83a620b15f6eb4a4f47d7b7d181f9ec5eb4ad002cce0f9d9632b",
+  "candidate": "art/source/character-kit/hd/face-soft-smile-aligned.png",
+  "lockedSha256": "8dc014b35cc11951837bbb1c402421910afad67da0512951add2c7921a818574"
+}

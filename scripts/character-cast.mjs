@@ -6,7 +6,7 @@ import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 import {bakeCharacterSheet} from './bake-character-sheet.mjs';
-import {characterCatalogue, catalogueForPose, recipeErrors} from '../web/src/character-recipe.mjs';
+import {catalogueForPose, recipeErrors} from '../web/src/character-recipe.mjs';
 
 const ROOT=resolve(import.meta.dirname,'..');
 const SOURCE='art/source/character-kit/cast';
@@ -14,6 +14,9 @@ const OUTPUT='web/public/assets/character-cast';
 const json=async path=>JSON.parse(await readFile(path,'utf8'));
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const safe=id=>typeof id==='string'&&/^[a-z][a-z0-9-]*$/.test(id);
+// Existing cast atlases remain bound to the component revision that produced
+// their reviewed pixels. A player wardrobe update must not re-author the cast.
+const characterCatalogue=await json(resolve(ROOT,SOURCE,'component-catalogue.json'));
 
 export async function castInventory() {
   await import('./register-content-loader.mjs');
@@ -64,11 +67,11 @@ export async function bakeCastEntry(entry,{root=ROOT,poseSet='walk'}={}) {
   const recipe=JSON.parse(recipeBytes),errors=recipeErrors(recipe,catalogue);
   if(errors.length)throw new Error(`${entry.id}: ${errors.join('; ')}`);
   const {atlas,proof,editor}=paths;
-  const result=await bakeCharacterSheet(recipe,{root,out:atlas,poseSet});
+  const result=await bakeCharacterSheet(recipe,{root,out:atlas,poseSet,catalogue:characterCatalogue});
   await mkdir(dirname(resolve(root,proof)),{recursive:true});
   // A complete editor-resolution sheet is the review artifact, never a subset
   // of poses. Its report binds the same recipe and component asset version.
-  const editorResult=await bakeCharacterSheet(recipe,{root,out:editor,editor:true,poseSet});
+  const editorResult=await bakeCharacterSheet(recipe,{root,out:editor,editor:true,poseSet,catalogue:characterCatalogue});
   await sharp(resolve(root,editor)).flatten({background:'#ece8df'}).png().toFile(resolve(root,proof));
   const report={id:entry.id,poseSet,recipe:recipePath,recipeSha256:hash(recipeBytes),atlas,
     atlasSha256:result.sha256,proof,proofSha256:hash(await readFile(resolve(root,proof))),

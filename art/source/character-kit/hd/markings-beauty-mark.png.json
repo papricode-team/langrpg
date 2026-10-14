@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "candidateSha256": "7228623c5ea37273c339791502e1a9420e9d2e7b1d7fb06462a38eb0d0a6d0aa",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "5e72683c581c03e419ca55ee5dbde3656b9d317032f9d9886fe8d2e808b75cd2",
+  "promptSha256": "4b39ea048439b527cb1843d08faae2583b3f1ef8979b806edfd175b8767b85a8",
+  "generationPromptSha256": "f37be37626ad53620d676885af4113e9d03bcebcf44755180d408005b2c53a58",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "detailInk": {
+      "color": "#694525",
+      "tolerance": 12
+    },
+    "maxSpeckPixels": 4,
+    "minFramePaintPixels": 6
+  },
+  "validation": {
+    "maxRegions": 1,
+    "regionReason": "A single beauty mark lies on the left cheek.",
+    "visibleFacings": [
+      "down",
+      "right"
+    ],
+    "visibilityReason": "The left cheek is visible only from the front and right-facing view; the rear and opposite profile must contain no mark."
+  },
+  "preparationSha256": "f7d40a49d50fa4601d6ced3de8f6d31b259f7042f26e748003c7b3fdcf912c7d",
+  "candidate": "art/source/character-kit/hd/markings-beauty-mark-aligned.png",
+  "lockedSha256": "f5e403d2fda1221b7aff112494251ce4eff60295c74772167ac8c22b6df84476"
+}

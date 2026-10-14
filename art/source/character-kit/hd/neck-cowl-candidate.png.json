@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-page-0-candidate-1.png",
+      "sha256": "734c58dbd2dc0a4baa05c9cb0da077bae7ce108ccc47390c126bfedd60e7bfc4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-page-0-candidate-1.txt",
+      "sha256": "9ac9adc636627dd00d9b7acda25708e403e9e495f46913f51733e7e71bc155b6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-0.json",
+      "sha256": "02f9de95df5e5adf308b9fc78cd091bd2c7075ee7bf9c4f3542dd875e7c45c60"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-page-1-candidate-1.png",
+      "sha256": "7a42170937e39797e7e81ba321b6a07b1e6e7f5e37b77a1966bbbebaf5bdaaee"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-page-1-candidate-1.txt",
+      "sha256": "9aa1e7e02711b244979beecc5de22ebc788c8f5103af567df39575b5b6af2054"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-1.json",
+      "sha256": "171acf23d90919ca4f93b7c1a3496d0edd92dee5d4cd1b5e21cf06379ff1285b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-page-2-candidate-1.png",
+      "sha256": "e495bff63719058b192613d3249dbc2561ad3b5b1d356f80b2f77b29f5340558"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-page-2-candidate-1.txt",
+      "sha256": "9aa1e7e02711b244979beecc5de22ebc788c8f5103af567df39575b5b6af2054"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-2.json",
+      "sha256": "827702d28712edacb356621afac4ec42fda3ed989797707ae004d7f6902d781c"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-page-3-candidate-1.png",
+      "sha256": "9d6bd06c5abd900a8ff8d00d6fd220b4bf3c955359ea4d85b9ab348f740f2f92"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-page-3-candidate-1.txt",
+      "sha256": "9aa1e7e02711b244979beecc5de22ebc788c8f5103af567df39575b5b6af2054"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-native-crops-3.json",
+      "sha256": "816d518a5369fd2b06a8010f6d781a36617a4349969db07d68a554819df24ca5"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "d4696ab994b654309d2adcf0fd0ea477a3b338b1413d5d112dc7b04700f6c368"
+}

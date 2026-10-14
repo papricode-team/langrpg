@@ -1,0 +1,1104 @@
+{
+  "id": "outer-blazer-seated",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 23365,
+        "secondary": 4344,
+        "detail": 140
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2991
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 23423,
+        "secondary": 4411,
+        "detail": 115
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2880
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 23701,
+        "secondary": 4256,
+        "detail": 160
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2975
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 24301,
+        "secondary": 4254,
+        "detail": 176
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3707
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 22213,
+        "secondary": 4287,
+        "detail": 166
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2120
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 22306,
+        "secondary": 4228,
+        "detail": 162
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2142
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 22390,
+        "secondary": 4213,
+        "detail": 171
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2190
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 22452,
+        "secondary": 4190,
+        "detail": 173
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2205
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 25775,
+        "secondary": 4797,
+        "detail": 160
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3970
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 24179,
+        "secondary": 2425,
+        "detail": 107
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2230
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 23910,
+        "secondary": 2401,
+        "detail": 142
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2598
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 23926,
+        "secondary": 2406,
+        "detail": 168
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2113
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 21118,
+        "secondary": 2046,
+        "detail": 83
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 928
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 21149,
+        "secondary": 1944,
+        "detail": 109
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1296
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 21167,
+        "secondary": 2033,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 997
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 21096,
+        "secondary": 2059,
+        "detail": 86
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1255
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 20675,
+        "secondary": 1761,
+        "detail": 321
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 447
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 20626,
+        "secondary": 1764,
+        "detail": 308
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 573
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 40836,
+        "secondary": 0,
+        "detail": 135
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 349
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 40868,
+        "secondary": 0,
+        "detail": 152
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 240
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 45849,
+        "secondary": 1247,
+        "detail": 10
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 363
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 45595,
+        "secondary": 1249,
+        "detail": 22
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 473
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 45088,
+        "secondary": 1213,
+        "detail": 20
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 664
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 45066,
+        "secondary": 1207,
+        "detail": 26
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 697
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 45053,
+        "secondary": 0,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 900
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 44961,
+        "secondary": 0,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 865
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 44982,
+        "secondary": 0,
+        "detail": 7
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 840
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 24353,
+        "secondary": 1637,
+        "detail": 36
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 856
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 23327,
+        "secondary": 2134,
+        "detail": 71
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1502
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 23295,
+        "secondary": 2134,
+        "detail": 76
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1913
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 23347,
+        "secondary": 2123,
+        "detail": 76
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1862
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 23337,
+        "secondary": 2148,
+        "detail": 66
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1917
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 22862,
+        "secondary": 2224,
+        "detail": 93
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 685
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 22910,
+        "secondary": 2125,
+        "detail": 86
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 733
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 23117,
+        "secondary": 2236,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1036
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 23211,
+        "secondary": 2259,
+        "detail": 92
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 948
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-0.png",
+      "imageSha256": "bebb9468ebbe686a37054d7e567351a888f5112e22edb795adc0efc05b222fd0",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-1.png",
+      "imageSha256": "5e69ddd140aa65eebd22c832991bff31634f315d64ce718ffa07f19ab0f0c218",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-2.png",
+      "imageSha256": "f3ecaaa1b06292039325c0f25eac0623c98baaf2bd682f495db7a3def8a6889c",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-3.png",
+      "imageSha256": "0c62b33ab3ff6930163a308770cd5d0f10da3b302b82a1ffe3974cc7e9e357a2",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-4.png",
+      "imageSha256": "0fc300de13dc19f99b4116ab8b33e1b307dabcbea66df5f0750b0d0500877ff0",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-5.png",
+      "imageSha256": "9906f05910d8370a72dbf75edb128d04a3bcc4abec3df7f371a12bc3627dc36f",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-6.png",
+      "imageSha256": "f3b305c8a243127f3be16b68311c785b9711f38b67b405d414c29f145dbd247f",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-7.png",
+      "imageSha256": "271c7bf484b350ed481304d8de6439a5419c1385d1f81fc8583452577e43dd9e",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-8.png",
+      "imageSha256": "71724c92d62b5dcc16396ae4db50f02b0bb51016b05c1f7d3690fb98c5b73da4",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-9.png",
+      "imageSha256": "aef2df07996167670376c5d18160473e182343bb658e3a3774e4d4c99712edf5",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-10.png",
+      "imageSha256": "b2a6dadfcc6ea1d1fb5e1c5de5431c51677dba10dcf4d3e6e72b4226393b9296",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-11.png",
+      "imageSha256": "8d1cb7f8c86c724ba25a98c46ddaed3e83d1b873f5614f600c868af189135fc6",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-12.png",
+      "imageSha256": "c91e6da1725e6ef19a26cb7f44d2c3764a3c8042a9ff157977f90b80c0688c31",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-13.png",
+      "imageSha256": "999d5aef29bf0529aacd6c827a2a6da9f2e9c4039621973b854d0cd24b23528e",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-14.png",
+      "imageSha256": "8af474c492a66c952c846e3ffd369e7a97aeca797daf1c33d87c5d2b55dab687",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-15.png",
+      "imageSha256": "48b3ece009d7c358f107087c22264aeb6edf68dad0177f78f0014b005c4090bd",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-16.png",
+      "imageSha256": "4cbdca9663063d2bd585a7278ab34bf005edc76dc94ef14bd71bf5fcdec0338e",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-seated--hd-review.native-17.png",
+      "imageSha256": "e5bf33318b23ff9ca14b06825b816daae8bae99aec4249883667cf611ac2ea10",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "seated",
+  "checks": [
+    {
+      "id": "outer-blazer-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-regular-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-seated",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-regular-seated",
+    "face-soft-seated",
+    "hair-waves-seated",
+    "top-shirt-seated",
+    "bottom-straight-seated",
+    "footwear-boots-seated"
+  ],
+  "sources": {
+    "outer-blazer-seated": {
+      "path": "art/source/character-kit/hd/outer-blazer-seated.png",
+      "sha256": "2d07538942679f3edceecbcc129248038c12bc3915eac8e125c7465520b3c683"
+    },
+    "body-regular-seated": {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    },
+    "face-soft-seated": {
+      "path": "art/source/character-kit/hd/face-soft-seated.png",
+      "sha256": "1e933e5e5c51d09ada33381d0c51a89017646e61952ba17e7a9586b327e8df67"
+    },
+    "hair-waves-seated": {
+      "path": "art/source/character-kit/hd/hair-waves-seated.png",
+      "sha256": "200fec8f852a7f8a121a9f0788a0dddf2e07006aa814ceed02421fe84287bc99"
+    },
+    "top-shirt-seated": {
+      "path": "art/source/character-kit/hd/top-shirt-seated.png",
+      "sha256": "0104df840ba1434247d410a30b7572b2735b330363575c3028bba7cb4d5662df"
+    },
+    "bottom-straight-seated": {
+      "path": "art/source/character-kit/hd/bottom-straight-seated.png",
+      "sha256": "1e6a6a0d883f801efb5ccf5f3e7a29fd86baa612851bf8eb6e5dea3920a3cff3"
+    },
+    "footwear-boots-seated": {
+      "path": "art/source/character-kit/hd/footwear-boots-seated.png",
+      "sha256": "d24302464ba03b1069af9706f36ad219749b4e86f7ce5b8bd47bfd97c2d61fe2"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-blazer-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

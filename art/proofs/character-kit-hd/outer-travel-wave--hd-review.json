@@ -1,0 +1,1104 @@
+{
+  "id": "outer-travel-wave",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 22152,
+        "secondary": 7241,
+        "detail": 408
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2120
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 19630,
+        "secondary": 6557,
+        "detail": 363
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1678
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 21068,
+        "secondary": 7112,
+        "detail": 390
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1708
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 21102,
+        "secondary": 7128,
+        "detail": 380
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1632
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 18761,
+        "secondary": 7418,
+        "detail": 329
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2046
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 19087,
+        "secondary": 7356,
+        "detail": 340
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2087
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 18954,
+        "secondary": 7483,
+        "detail": 310
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1711
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 17899,
+        "secondary": 7083,
+        "detail": 305
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1906
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 20311,
+        "secondary": 6372,
+        "detail": 272
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1837
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 18633,
+        "secondary": 3773,
+        "detail": 170
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 368
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 15461,
+        "secondary": 3306,
+        "detail": 137
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 330
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 18427,
+        "secondary": 3118,
+        "detail": 151
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 522
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 17350,
+        "secondary": 4336,
+        "detail": 162
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 663
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 17255,
+        "secondary": 4392,
+        "detail": 190
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 693
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 18049,
+        "secondary": 4393,
+        "detail": 172
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 643
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 16678,
+        "secondary": 4265,
+        "detail": 184
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 919
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 17004,
+        "secondary": 3943,
+        "detail": 202
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 958
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 18235,
+        "secondary": 4130,
+        "detail": 250
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 530
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 35157,
+        "secondary": 5234,
+        "detail": 316
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1369
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 36437,
+        "secondary": 4692,
+        "detail": 322
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1215
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 37494,
+        "secondary": 4959,
+        "detail": 276
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1404
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 38260,
+        "secondary": 5048,
+        "detail": 266
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1584
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 37556,
+        "secondary": 5000,
+        "detail": 290
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1125
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 37940,
+        "secondary": 5036,
+        "detail": 269
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1252
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 36937,
+        "secondary": 4452,
+        "detail": 318
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1107
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 36782,
+        "secondary": 4224,
+        "detail": 333
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 916
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 35947,
+        "secondary": 4440,
+        "detail": 331
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 977
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 18681,
+        "secondary": 4274,
+        "detail": 176
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 841
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 18080,
+        "secondary": 2909,
+        "detail": 166
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 479
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 17961,
+        "secondary": 2935,
+        "detail": 172
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 631
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 18498,
+        "secondary": 2882,
+        "detail": 154
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 932
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 18220,
+        "secondary": 2962,
+        "detail": 163
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 784
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 18482,
+        "secondary": 3608,
+        "detail": 169
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1027
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 17655,
+        "secondary": 3667,
+        "detail": 135
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 917
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 17873,
+        "secondary": 3492,
+        "detail": 137
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 768
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 17186,
+        "secondary": 4613,
+        "detail": 181
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 600
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-0.png",
+      "imageSha256": "1fa2d4b57d53501a737c748f13980332bb16df2d1720e519d5ba41147cf75d86",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-1.png",
+      "imageSha256": "0262d32c8c8676ba5a71beedc67ecbff4535909b3aaef27579446fde6b431f16",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-2.png",
+      "imageSha256": "f6564369af85db9aa33569ccbebadabc2028ef38ffbca91e1cb1e310ef828159",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-3.png",
+      "imageSha256": "736055b8cc893b639b1e5b5cf4343ce65c421bfb89e80f2087c4cbe126125eb2",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-4.png",
+      "imageSha256": "2d14357cc4fd199bb3f51446de873e3a515a4be99e91f3b9546b4f0c1af2e1b2",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-5.png",
+      "imageSha256": "336a80e4e7ed5016aef0d75127d8524269c84741a57357d048a8f0fd77fa929a",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-6.png",
+      "imageSha256": "07e17bf9f86a0005f9543730555078ccfa20964907445917590404ddb4a9ab2e",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-7.png",
+      "imageSha256": "1ef7f4df0b224af158b0fb4c3976586589807da2cd5925e0056c5f50714d6b4a",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-8.png",
+      "imageSha256": "143fc65f9c467b8f07227999b8dc7860db2eb8063099dc6ceeb45bf5f4e54c55",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-9.png",
+      "imageSha256": "b5b6d66419f2b498f1a4ecaba3bcdc01e9241157156133a4dd24abe0c1ba1484",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-10.png",
+      "imageSha256": "b9ccd6d01cff61885bdd3f062107d1299ca394c79a6f6f1f06c0b12ab7828950",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-11.png",
+      "imageSha256": "03e593d8217513bb0199291a55edfbeaeed94c00a678e5de74776137f9f2f52a",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-12.png",
+      "imageSha256": "fbfa7bfd141b4f474d5df533ed3ee3a89fa2432e32414d1d99bbe08f31302230",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-13.png",
+      "imageSha256": "269118eec3b2524938e1abfccd74f51c72f72a92adec680b610b7eba180989b3",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-14.png",
+      "imageSha256": "64b9ec0938df6608d8933ba6d1f87f7cee897d29ec02f138c9f5dd99c0668e80",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-15.png",
+      "imageSha256": "9eb58bd43e0ab1ed2ea04facebf6b31fa9f4d87777b41ff1ec8f11b3e5dff51b",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-16.png",
+      "imageSha256": "bb6a99dcd80bb8ff93cb2b8d79f57b0ac226d9f55ad6441e1153db713f6f0c3a",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-wave--hd-review.native-17.png",
+      "imageSha256": "314caf3e7ec7eb2bbe26239ba3f6ff84cd6ffd6d8108c9a53a60210d56068e75",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "wave",
+  "checks": [
+    {
+      "id": "outer-travel-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-regular-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-wave",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-regular-wave",
+    "face-soft-wave",
+    "hair-waves-wave",
+    "top-shirt-wave",
+    "bottom-straight-wave",
+    "footwear-boots-wave"
+  ],
+  "sources": {
+    "outer-travel-wave": {
+      "path": "art/source/character-kit/hd/outer-travel-wave.png",
+      "sha256": "a011dbcca2ff71ac1b93b51bbcbb815ff2a78bb1406a5ba40c459f7f21408d40"
+    },
+    "body-regular-wave": {
+      "path": "art/source/character-kit/hd/body-regular-wave.png",
+      "sha256": "cbd366d6ebf81679e2f4e42c6b4680a37e96794af698a6581355aa72af951c74"
+    },
+    "face-soft-wave": {
+      "path": "art/source/character-kit/hd/face-soft-wave.png",
+      "sha256": "c9863d0d5859d37c74f338df9a3cf7969dd35fd455f03d1ec8e764a21659490b"
+    },
+    "hair-waves-wave": {
+      "path": "art/source/character-kit/hd/hair-waves-wave.png",
+      "sha256": "10e0190fa25df95bbd02b87bb2c3c11e78322f90466199a138560b8a57f04895"
+    },
+    "top-shirt-wave": {
+      "path": "art/source/character-kit/hd/top-shirt-wave.png",
+      "sha256": "e9083fade0e148fd6bc199556a3e4d937d343dfe63b3cde880d7ac6cf47f680e"
+    },
+    "bottom-straight-wave": {
+      "path": "art/source/character-kit/hd/bottom-straight-wave.png",
+      "sha256": "f35ddd996772119f0c4a17562327554a25b6ef28bd4394bcb4a691909fb2d219"
+    },
+    "footwear-boots-wave": {
+      "path": "art/source/character-kit/hd/footwear-boots-wave.png",
+      "sha256": "d2644f6ad01ccedd4fd7b3e431164eeff48ff80689460895e965b01490f3dd97"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-travel-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

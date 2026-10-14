@@ -1,0 +1,99 @@
+{
+  "source": "art/source/character-kit/hd/body-slim.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "crops": [
+    {
+      "frame": 0,
+      "source": {
+        "left": 64,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 1,
+      "source": {
+        "left": 704,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 2,
+      "source": {
+        "left": 1344,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 1024,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 3,
+      "source": {
+        "left": 1984,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 0,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 4,
+      "source": {
+        "left": 2624,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 512,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 5,
+      "source": {
+        "left": 3264,
+        "top": 352,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 1024,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    }
+  ]
+}

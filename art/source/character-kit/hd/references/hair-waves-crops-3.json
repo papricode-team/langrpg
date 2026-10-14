@@ -105,7 +105,7 @@
       },
       "page": {
         "left": 0,
-        "top": 768,
+        "top": 736,
         "width": 384,
         "height": 384
       }
@@ -120,7 +120,7 @@
       },
       "page": {
         "left": 384,
-        "top": 768,
+        "top": 736,
         "width": 384,
         "height": 384
       }
@@ -135,10 +135,11 @@
       },
       "page": {
         "left": 768,
-        "top": 768,
+        "top": 736,
         "width": 384,
         "height": 384
       }
     }
-  ]
+  ],
+  "reason": "The generated third-row crowns extend above the nominal grid border; a 32-pixel earlier crop retains the entire crown before whole-frame registration."
 }

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-freckles-page-0-candidate-1.png",
+      "sha256": "4b9d5a244671fbde394daec1b34cc8d14bd7465d466ccbd44303e6b29a5bcf39"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-freckles-page-0-candidate-1.txt",
+      "sha256": "5c987730f5e71f7b88c321f0dde709a655d1cfdd8e3f658c9ed0a4b5875d50ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "37f9af5c9651a72b64143dea8f323d621217112b125136af1c147bf6faec1f76"
+}

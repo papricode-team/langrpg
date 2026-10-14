@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-square-page-0-candidate-1.png",
+      "sha256": "fa7a241bfcba7205148dc74774e9e4e4628108333f911fca8c034ab03e7ba946"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-square-page-0-candidate-1.txt",
+      "sha256": "d803294437e2a5df5768536d018c50c9b90064f166e66e3c05b710a26c579816"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "b38653a42ee332b3bb21b75dfb4ccc2047e587e8fa5afdafc47e424bd34fbc36"
+}

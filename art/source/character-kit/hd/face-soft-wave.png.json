@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "poseSet": "wave",
+  "poseDefinitionSha256": "30095033aa02eb811d7d88c77d344744ee3e7d10287a5e1f3e058902b3198092",
+  "candidateSha256": "7b36056dc692c37220b5dbf90aa25a928f2a0c005f26a537aa5bd8d220f1d939",
+  "baseSha256": "76cdd6809fa73e2ee6b277f8c8c9723297aabc8a504c86a151a7c2585d77c6dc",
+  "registrationSha256": "a124fd825fa828e84cbc80a34baea2bcb521a14ca851f5e4eeef1a238cf97442",
+  "maskSha256": "1f8e426d3569fe2844c21d7b3c991d08c27776e7dd8fc353545964a900eb5a8d",
+  "promptSha256": "c8864c138e082d36f017f476afdd2544f485ca2b46c9d16bcfe78909611bcf0b",
+  "generationPromptSha256": "b7bce8c0862e019b26d4b94edc5376774c56b6499624cb3b35c190cbe2652003",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary"
+    ],
+    "maxSpeckPixels": 12,
+    "minBaseAlpha": 240,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "keepMaterials": [
+      "skin"
+    ]
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "70ef5a2df3e01c1657ddd69ec0bcfaa65051af67982aca8db8f382cf777d3d72",
+  "candidate": "art/source/character-kit/hd/face-soft-wave-aligned.png",
+  "lockedSha256": "17152fd6d2998b9ab5317c786485f5b6b30e7717579276900a5fabf41f382e40"
+}

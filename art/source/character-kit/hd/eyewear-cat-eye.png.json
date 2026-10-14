@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "2175d9fb89f214fab640ec9390704b7fdc34cd4cf0966bb6425960e7a77f6a85",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "60fbaebd1481b0c1ccd13f59ad09e0a8ec24e2c66972b3fbeba918d3293bfbbd",
+  "promptSha256": "7fd90155b3257ccbf3046d5c2cb04819e65a8feabecc7d9128afbca9bf4002ef",
+  "generationPromptSha256": "642fa579d571e3fadbb783b97705bf4cb75c89581e20aedea523200c9bf3cea9",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind.",
+    "maxRegionsByFacing": {
+      "right": 2
+    },
+    "regionReason": "In right profile the far lens rim and near frame can separate where the nose occludes the bridge. Both regions must touch the head; detached paint remains forbidden."
+  },
+  "preparationSha256": "41d7b5e792c08f854323aeafe2a038d9f63cf08eef598675b0e761121f38b6dd",
+  "candidate": "art/source/character-kit/hd/eyewear-cat-eye-aligned.png",
+  "lockedSha256": "a3814960641fed3e058562b5ce92314cfee8d693dd20980bbbb132cfe82e7941"
+}

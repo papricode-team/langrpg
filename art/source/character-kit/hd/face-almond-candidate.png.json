@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-page-0-candidate-1.png",
+      "sha256": "85be59cbedbb4b60610a70bd86f82e88556cf911da852244c977f20017f94e73"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-page-0-candidate-1.txt",
+      "sha256": "ef02cb1eaa5919df67096f789d3d29ef9e919463aacbc1b5dff334f264af2ffd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "78e1f1fdd6f9c6e4938022a7eaeff194ac02579be16c66009428cd5b50ae5bce"
+}

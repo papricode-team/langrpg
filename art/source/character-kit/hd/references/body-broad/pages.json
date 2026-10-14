@@ -1,0 +1,108 @@
+{
+  "id": "body-broad",
+  "kind": "resized-pose-guide",
+  "publishable": false,
+  "pages": [
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-0.png",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-1.png",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-2.png",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-3.png",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-4.png",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-5.png",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-6.png",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-7.png",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad/page-8.png",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "publishable": false,
+      "kind": "resized-pose-guide"
+    }
+  ],
+  "source": "art/source/character-kit/body-broad-walk-v2.png",
+  "registration": "art/source/character-kit/hd/references/body-broad/registration.json"
+}

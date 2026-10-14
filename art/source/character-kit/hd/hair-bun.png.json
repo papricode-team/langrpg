@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "21c9990daad2ec8c070945537ed6b70c253458ffdb62cf4e792d1929ac5c247a",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "6a1de7d338cc9ee1ec31a1d074f863ee95cc1c43636a51f135ea791d829f2930",
+  "promptSha256": "c3599c66562a172c7985f84493d8460cecbf646e4a683b163ac78c86a88ea8be",
+  "generationPromptSha256": "0e4d043a835d28dc1575c10bb54a8ed547d4d3cf113ac71fb8efe7e3a36e918c",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "32c8de6affadcbceea5dae2e6bf3315cac700ab8583ddab7a6a63b60c5ec98a9",
+  "candidate": "art/source/character-kit/hd/hair-bun-aligned.png",
+  "lockedSha256": "3d74565adbbb9041659c83ce37c970d3ee1d1b3ef9cd0f6658d42ff1f04dbc99"
+}

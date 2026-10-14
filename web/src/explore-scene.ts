@@ -8,7 +8,7 @@ import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
 import { normalizeAvatar, avatarTextureKey } from './character-recipe.mjs';
 import { bakeAvatarTexture } from './avatar-baker';
 import type { TextureLease } from './avatar-texture-cache';
-import { castActor } from './character-cast';
+import { castActor, CAST_ART } from './character-cast';
 import { residentWalkFrame } from './resident-animation';
 import { worldDepth } from './world-depth';
 import { regionPeopleKey, regionPeopleFrames } from './world-map-assets';
@@ -819,7 +819,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     for (const npc of this.characters.values()) {
       const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
       const animation = npc.walkingAnimation ?? npc.idleAnimation;
-      const art = npc.componentCast ? MODULAR_ART : NPC_ART;
+      const art = npc.componentCast ? CAST_ART : NPC_ART;
       const frameWidth = animation?.width ?? art.width;
       const frameHeight = animation?.height ?? art.height;
       const footY = animation?.originY ?? art.footY;
@@ -850,7 +850,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
       character.root.add([character.marker, character.hint]);
       const animation = character.walkingAnimation ?? character.idleAnimation;
-      const hitArt = character.componentCast ? MODULAR_ART : NPC_ART;
+      const hitArt = character.componentCast ? CAST_ART : NPC_ART;
       const hitPadding = hitArt.width / NPC_ART.width * 40, hitTop = hitArt.width / NPC_ART.width * 12;
       character.figure.setInteractive({
         useHandCursor: true,
@@ -928,7 +928,7 @@ export abstract class ExploreScene extends Phaser.Scene {
         const vx=this.local.x-character.x,vy=this.local.y-character.y;
         character.facing=Math.abs(vx)>Math.abs(vy)?(vx>0?1:3):(vy>0?0:2);
       }
-      this.setCharacterFrame(character,characterFrame(character.facing,moving?character.walkDistance/(MODULAR_ART.cycleDistance*character.artScale)*WALK_POSE_COLUMNS.length:undefined));
+      this.setCharacterFrame(character,characterFrame(character.facing,moving?character.walkDistance/(CAST_ART.cycleDistance*character.artScale)*WALK_POSE_COLUMNS.length:undefined));
       return;
     }
     if (!character.npc && this.playerArtReady) {
@@ -996,7 +996,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   protected fitCharacterToRoom(character: Character): void {
-    const art = character.componentCast ? MODULAR_ART : character.npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
+    const art = character.componentCast ? CAST_ART : character.npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
     const animation = character.walkingAnimation ?? character.idleAnimation;
     const canvasHeight = animation?.height ?? art.height;
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
@@ -1045,7 +1045,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     // A neutral placeholder handles a failed regional page download; its global
     // identity is never interpreted as an index into the original story sheet.
     const frame = baked?0:castRow !== undefined ? castRow * 4 : npc ? (localArtVariant === undefined ? npcFrame : 7) : 0;
-    const art = baked?MODULAR_ART:npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
+    const art = baked?CAST_ART:npc || !this.playerArtReady ? NPC_ART : MODULAR_ART;
     const keys = castRow !== undefined ? [mainCastRow===undefined?'story-cast':'main-cast'] : [NPC_ART.key];
     const idleManifest = this.cache.json.get('residents-animations') as SceneryAnimationManifest | undefined;
     const localKey = localArtVariant === undefined ? undefined : regionPeopleKey(this.regionId, localArtVariant);
@@ -1062,8 +1062,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     const idleAnimation = authoredIdle && this.textures.exists(authoredIdle.key) ? authoredIdle : undefined;
     const animation = walkingAnimation ?? idleAnimation;
     const idleFrame = walkingAnimation?.frames[0] ?? (idleAnimation ? sampleSceneryFrame(idleAnimation, id, this.decorativeElapsed) : undefined);
-    const artScale = baked || !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
-    const layers = baked?[this.add.sprite(0,0,baked.key,0).setOrigin(.5,MODULAR_ART.footY).setScale(artScale)]:!npc ? [this.add.sprite(0, 0, NPC_ART.key, 0).setOrigin(.5, art.footY).setScale(artScale)] : animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
+    const artScale = baked ? CAST_ART.worldHeight / CAST_ART.bodyHeight : !npc && this.playerArtReady ? MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight : 82 / (animation?.height ?? art.height);
+    const layers = baked?[this.add.sprite(0,0,baked.key,0).setOrigin(.5,CAST_ART.footY).setScale(artScale)]:!npc ? [this.add.sprite(0, 0, NPC_ART.key, 0).setOrigin(.5, art.footY).setScale(artScale)] : animation ? [this.add.image(0, 0, animation.key, idleFrame).setOrigin(animation.originX, animation.originY).setScale(artScale)] : keys.map(key => this.add.image(0, 0, key, npc ? frame : this.playerArtReady ? frame : 7).setOrigin(0.5, art.footY).setScale(artScale));
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y, 'character'));

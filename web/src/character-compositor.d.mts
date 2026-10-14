@@ -1,4 +1,4 @@
-export interface PixelSheet { data: Uint8Array | Uint8ClampedArray; width: number; height: number; }
+export interface PixelSheet { data: Uint8Array | Uint8ClampedArray; width: number; height: number; firstFrame?:number; frameCount?:number; columns?:number; }
 export interface PixelLayer { id: string; materials: string[]; tints: Record<string, number>; }
 export function combineMaterials(materials: { data: Uint8Array | Uint8ClampedArray; tint?: number }[]): Uint8ClampedArray<ArrayBuffer>;
 export function over(target: Uint8ClampedArray, source: Uint8Array | Uint8ClampedArray): Uint8ClampedArray;

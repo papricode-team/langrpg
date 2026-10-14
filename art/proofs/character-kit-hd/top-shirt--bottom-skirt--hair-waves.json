@@ -1,0 +1,971 @@
+{
+  "id": "top-shirt",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 40579,
+        "detail": 139
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1055
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 41235,
+        "detail": 151
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 819
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 39647,
+        "detail": 140
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1144
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 40406,
+        "detail": 149
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1015
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 39898,
+        "detail": 137
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1534
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 41805,
+        "detail": 143
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 955
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 40300,
+        "detail": 141
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1599
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 39931,
+        "detail": 157
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1168
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 39366,
+        "detail": 140
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1615
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 28162,
+        "detail": 81
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 468
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 33096,
+        "detail": 59
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1425
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 33180,
+        "detail": 68
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1353
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 25947,
+        "detail": 81
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 868
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 33063,
+        "detail": 31
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1563
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 33197,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1654
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 33376,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1318
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 28963,
+        "detail": 93
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1023
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 33946,
+        "detail": 100
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2046
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 46914,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1558
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 47658,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1122
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 50555,
+        "detail": 65
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1592
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 50191,
+        "detail": 68
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1256
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 50713,
+        "detail": 70
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1705
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 50843,
+        "detail": 33
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1205
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 48990,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1099
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 49864,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1172
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 50492,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1211
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 30630,
+        "detail": 139
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1139
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 37550,
+        "detail": 99
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1154
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 35813,
+        "detail": 97
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 898
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 30767,
+        "detail": 97
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1088
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 36026,
+        "detail": 91
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 903
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 35924,
+        "detail": 92
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1434
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 36508,
+        "detail": 93
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1438
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 33994,
+        "detail": 98
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1131
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 36382,
+        "detail": 92
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1142
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-0.png",
+      "imageSha256": "8c9a8e2948b3f5885ee12ffedd03d232e7514a2a79d682889e18415d2f4b810b",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-1.png",
+      "imageSha256": "80c4acaab8928b5b976ca19c541bd48d741e56e645946e9e678105bc58e7ce77",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-2.png",
+      "imageSha256": "d856bbe1086f58b42ec6e4dcbf37aeb776fcb2afe8c09cd94a7a21db149027dd",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-3.png",
+      "imageSha256": "30adf50c9c3186f082a7d9517ac7080f075bff271eabec77bc76b50a6ce4a1c2",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-4.png",
+      "imageSha256": "ce2057469eca86f6d0b394514021539aee6ce90ebcd8e3bf86ff20b4c31b5199",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-5.png",
+      "imageSha256": "737a2028f401083d951ada2e796b6efe84ca30976b2f206c9ebc2e85e9d83bbe",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-6.png",
+      "imageSha256": "bfc3122f1187e3e09eed60ed3629f15a4e490cd40731245440b65f5c1e329234",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-7.png",
+      "imageSha256": "3e20affc2f3af7b16181e9e1ed1b50af908a06f5354ee00f7bd62017a9e7ebfe",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-8.png",
+      "imageSha256": "839f39c5150c8b62ca16a2141caf7787510757b41dfe90ddcb026464e5e180a0",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-9.png",
+      "imageSha256": "f397185bcd0bdeda5ed7570aac4dc3dc0f6f672127df4eacaf660790d638fa50",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-10.png",
+      "imageSha256": "087c9c8325a4984292076bb0e0ab08e480d3aea2c62eae369caa941b7f0d92a3",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-11.png",
+      "imageSha256": "7c6c5121a83e51b1a6c68f4b79b7f3c8502a98581ebd0ba78e1a9a4e21c43c4b",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-12.png",
+      "imageSha256": "abd6f879cb73db5956550a066cd03522654b297eb5ea02bb6aefd651abf4f92f",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-13.png",
+      "imageSha256": "4a5ba0813e2f207807865ecd86a2f5d8b04007cf7fb1b017e354441dbb4e90e6",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-14.png",
+      "imageSha256": "f92ab6407b0e90b24c1ead8bb450beccf9a67892d7f88c8f9a4365cc7f930b86",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-15.png",
+      "imageSha256": "a764b4b1e42378f13a5f53117b90cef32662113d9d23400caa0e55f2fb4b312c",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-16.png",
+      "imageSha256": "0f6200a5f12e8c97c0e4a4b9d7f32c0cca4c365268cb4bc34191e0ec2d3fa56c",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-shirt--bottom-skirt--hair-waves.native-17.png",
+      "imageSha256": "794c03498f21c9fb03514287fcc2a321311171ce3ddde620b96cdad76b9aecc1",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "top-shirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-skirt",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "bottom-skirt",
+    "hair-waves"
+  ],
+  "sources": {
+    "top-shirt": {
+      "path": "art/source/character-kit/hd/top-shirt.png",
+      "sha256": "b959563f9d148ac026897c51de6efe59c10dc184e56405510ebf2255d0700a8d"
+    },
+    "bottom-skirt": {
+      "path": "art/source/character-kit/hd/bottom-skirt.png",
+      "sha256": "8d86ad7d06f98d8a9842263376612fd2f2e785b9252eba1ffada0cb37461d7e5"
+    },
+    "hair-waves": {
+      "path": "art/source/character-kit/hd/hair-waves.png",
+      "sha256": "089ee884defe6e2e33a558e14c670ada3fc0015b581bee9b08b510478c49bc2a"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "bottom-skirt",
+        "top-shirt",
+        "hair-waves"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

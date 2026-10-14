@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-broad-page-0-candidate-1.png",
+      "sha256": "f59ac84be0f057748ac08125030a7494367881b45cc68b508aec014afae3bd0a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-broad-page-0-candidate-1.txt",
+      "sha256": "c9e12f5f35ecc5a671bcd7e5661e0cf4d6964af5df2595e3e6c380a582a0f42f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-broad-complete-crown-0.json",
+      "sha256": "0b026d953c1db8f849770105fe547b7de3d5d142d1c206eb30bea570e2fc2a23"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-broad-page-1-candidate-1.png",
+      "sha256": "acc4d4c22c8f5da30485a651a4c2ac149619269491bd2e0495cfecfa6de0ee56"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-broad-page-1-candidate-1.txt",
+      "sha256": "b300b186fdfe1f24f917f2d6ed48b4a1d4e0221845c1ea151817985aa34c8170"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-broad-complete-crown-1.json",
+      "sha256": "9c48699a83c4e622507324e53490491b1aaa230ffddf7131003ac278ba8ef2cb"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-broad-page-2-candidate-2.png",
+      "sha256": "58925819fbe7a75f8ffb8755b9319b54e8d3c17099cde53549fd7a60520283a6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-broad-page-2-candidate-2.txt",
+      "sha256": "bf49ac55480651c1be298a3565d19d96d3829db63fd080a14c4c3311d7fc71c1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-broad-complete-crown-2.json",
+      "sha256": "a608b7cfd7c19b53e7a8e20f34437f51ef4e9130d57f9e93a36459463ffbccfe"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-broad-page-3-candidate-1.png",
+      "sha256": "8f7bf5f4dac206de5d980add5f5b8e942bb086266ad412b351282f620826b9d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-broad-page-3-candidate-1.txt",
+      "sha256": "b300b186fdfe1f24f917f2d6ed48b4a1d4e0221845c1ea151817985aa34c8170"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-broad-complete-crown-3.json",
+      "sha256": "6435a2d23a13ec57d0d655701800e4d588ea9a9e874443fb5bc89f59cb2192b9"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "6d45df06d9037dac81871d5c9f7d330009e95e56266fda38e978b2b183c90348"
+}

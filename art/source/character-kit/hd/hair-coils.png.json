@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "456001d5690f6f2dbf188888cff69730c0c967f9414661055518d434d21a6ec0",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "6a1de7d338cc9ee1ec31a1d074f863ee95cc1c43636a51f135ea791d829f2930",
+  "promptSha256": "8183639e97f3a68cec1514c96a6851ec842e49f7f45fd5a96660e09327709fea",
+  "generationPromptSha256": "23e260dd306197f0a006865dedbe655b861219552d1631af863f8b04e8f33ec0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "dc2bd82824dd8c8c6914a858ce23e30558f041f175a7007b1c750537c1d97842",
+  "candidate": "art/source/character-kit/hd/hair-coils-aligned.png",
+  "lockedSha256": "a99c8242f06b2f515123019a1df9fe217a95822298c07c7c931f0ea1a07fd0c8"
+}

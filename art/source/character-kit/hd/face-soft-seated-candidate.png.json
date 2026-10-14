@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-seated-page-0-candidate-1.png",
+      "sha256": "9024aa95e035ef443dde5622a108310bf42c853a0e3ec4ed0f0afa72c831052a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-seated-page-0-candidate-1.txt",
+      "sha256": "b77e6a78b2d093a90b05781350adfa8950910d8235a38cf32a5ed5af888d091c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-seated-native-face/page-0.json",
+      "sha256": "4330d7d9e706bb0f152d1c69d54e47b1075cae9a3beea8660c6e7643b53703d4"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    }
+  ],
+  "outputSha256": "07701165d7c134dc8f32aed9426ecb9678abe99d82c4300b1d8aaa17e79254b3"
+}

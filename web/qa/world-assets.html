@@ -6,6 +6,7 @@ body{margin:0;background:#132b29;color:#fcf1d8;font:14px system-ui}#world{positi
 </style></head>
 <body><div id="world"></div><header><select id="region" aria-label="Region"><option value="lindenhafen">Lindenhafen</option><option value="waldruh">Waldruh</option><option value="nebelstadt">Nebelstadt</option></select><select id="time" aria-label="Time of day"><option value="12">Calm daytime</option><option value="22">Calm nighttime</option><option value="shared">Live shared time</option></select><label><input type="checkbox" id="terrain">Terrain only</label><label><input type="checkbox" id="calm">Still scenery</label><label><input type="checkbox" id="tour">Camera tour</label><span id="status" role="status">Loading assets…</span></header>
 <script type="module">
+import { characterCatalogue } from '../src/character-recipe.mjs';
 import { World } from '../src/world.ts';
 import { interiors } from '../src/interiors.ts';
 import { maps, getMap } from '../src/maps.ts';
@@ -71,7 +72,7 @@ if(import.meta.env.DEV){
   const observed=residents.find(resident=>resident.id===observer.value);
   const activity=observed?` · ${observed.name}: ${observed.state.phase} ${observed.state.action}${observed.state.activityId?' at '+observed.state.activityId:''}${observed.state.interruption?' · rain response':observed.state.resumed?' · resumed':''}${observed.state.exchange?' · '+observed.state.exchange.stage+' · '+observed.state.exchange.german:''}`:'';
   const player=walkingTest?world.getPlayerPosition():undefined;
-  const walking=player?` · Player ${player.x.toFixed(1)}, ${player.y.toFixed(1)}`:'';
+  const walking=player?` · Player ${player.x.toFixed(1)}, ${player.y.toFixed(1)} · player art ${characterCatalogue.format.runtimeCell.join('×')} (${characterCatalogue.assetVersion})`:'';
   status.textContent=shownRegion?`${maps.find(map=>map.id===shownRegion).name} · ${clock.label} ${stats.period} · ${stats.objects} placed sprites · ${stats.animated} animated · ${stats.residents} residents · ${ground.width}×${ground.height} terrain · ${ground.pixelZoom.toFixed(2)}× pixel zoom · ${ground.textures} ground textures / ${(ground.pixels*4/1024/1024).toFixed(1)} MiB RGBA · ${ground.pending} pending · ${stats.p95FrameMs} ms p95 · ${world.getWeather()?'rain':'dry'}${sharedStatus}${activity}${walking}`:'Loading destination artwork…'},250);
  addEventListener('pagehide',()=>{clearInterval(timer);clearInterval(sharedTimer);sharedAbort.abort();world.destroy()},{once:true});
 }else status.textContent='This fixture is available on the development server.';

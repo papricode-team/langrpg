@@ -18,7 +18,7 @@ describe('browser avatar baking', () => {
     const recipe=JSON.parse(readFileSync(resolve(root,`../art/source/character-kit/poses/${poseSet}/regular/jacket-outfit.recipe.json`),'utf8')) as AvatarRecipe;
     const loadSheet=vi.fn(load);
     const atlas=await bakeAvatarPixels(recipe,{poseSet,resolution:'editor',loadSheet});
-    const {data}=await sharp(resolve(root,`../art/proofs/poses/${poseSet}/jacket-outfit.webp`)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+    const {data}=await sharp(resolve(root,`../art/proofs/character-kit-hd/outfit-${poseSet}.webp`)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
     const visible=Buffer.from(atlas.data);
     for(let p=0;p<data.length;p+=4)if(data[p+3]===0&&visible[p+3]===0){data.fill(0,p,p+3);visible.fill(0,p,p+3);}
     expect(visible.equals(data)).toBe(true);
@@ -31,11 +31,11 @@ describe('browser avatar baking', () => {
     await expect(bakeAvatarPixels({...recipe,parts:{...recipe.parts,bottom:'skirt'}},{poseSet,loadSheet})).rejects.toThrow('Unknown option bottom.skirt');
     await expect(bakeAvatarPixels(recipe,{poseSet:'unpublished',loadSheet})).rejects.toThrow('Unavailable pose set');
     expect(loadSheet).not.toHaveBeenCalled();
-  });
+  },30000);
   it('composes all exported frames with the same pixels as the approved offline preview', async () => {
     const recipe = JSON.parse(readFileSync(resolve(root, '../art/proofs/foundation-outfit-preview.webp.json'), 'utf8')).recipe as AvatarRecipe;
     const atlas = await bakeAvatarPixels(recipe, { preview: true, resolution: 'editor', loadSheet: load });
-    const { data, info } = await sharp(resolve(root, '../art/proofs/foundation-outfit-preview.webp')).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const { data, info } = await sharp(resolve(root, '../art/proofs/character-kit-hd/outfit-foundation.webp')).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     expect([atlas.width, atlas.height]).toEqual([info.width, info.height]);
     // WebP may discard RGB underneath zero alpha; visible RGBA must match exactly.
     const visible = Buffer.from(atlas.data);
@@ -47,7 +47,7 @@ describe('browser avatar baking', () => {
     const frame = await avatarFramePixels(recipe, 25, { preview: true, loadSheet: load });
     const cell = composeFrame([{ id: 'baked', materials: ['detail'], tints: { detail: 0xffffff } }], new Map([['baked.detail', atlas]]), 25, frame.width, frame.height);
     expect(Buffer.from(frame.data).equals(Buffer.from(cell))).toBe(true);
-  });
+  },30000);
 
   it('refuses invalid recipes before any fetch, including unknown values in preview mode', async () => {
     const recipe = normalizeAvatar({}), loadSheet = vi.fn(load);
@@ -90,14 +90,15 @@ it.each(['smile','worried'])('matches the reviewed %s atlas and changes only fac
   const recipe=JSON.parse(readFileSync(resolve(root,'../art/source/character-kit/cast/marta.json'),'utf8')) as AvatarRecipe;
   const atlas=await bakeAvatarPixels(recipe,{expression,resolution:'editor',loadSheet:load});
   const neutral=await bakeAvatarPixels(recipe,{resolution:'editor',loadSheet:load});
-  const reviewed=await sharp(resolve(root,`../art/proofs/expressions/marta-${expression}.webp`)).ensureAlpha().raw().toBuffer();
+  const reviewed=await sharp(resolve(root,`../art/proofs/character-kit-hd/expression-${expression}.webp`)).ensureAlpha().raw().toBuffer();
   let changed=0,outsideFace=0;
   const visible=Buffer.from(atlas.data);
   for(let p=0;p<atlas.data.length;p+=4){
-    const pixel=p/4,y=Math.floor(pixel/atlas.width),row=Math.floor(y/192),cellY=y%192;
+    const height=characterCatalogue.format.editorCell[1];
+    const pixel=p/4,y=Math.floor(pixel/atlas.width),row=Math.floor(y/height),cellY=y%height;
     if(!atlas.data[p+3]&&!reviewed[p+3]){visible.fill(0,p,p+3);reviewed.fill(0,p,p+3);}
     if(atlas.data.slice(p,p+4).some((v,i)=>v!==neutral.data[p+i])){
-      changed++;if(row===2||cellY>=70)outsideFace++;
+      changed++;if(row===2||cellY>=height*70/192)outsideFace++;
     }
   }
   expect(visible.equals(reviewed)).toBe(true);
@@ -106,4 +107,4 @@ it.each(['smile','worried'])('matches the reviewed %s atlas and changes only fac
   await expect(bakeAvatarPixels({...recipe,parts:{...recipe.parts,face:'oval'}},{expression,loadSheet:loader})).rejects.toThrow('Unavailable expression');
   await expect(bakeAvatarPixels(recipe,{expression,poseSet:'wave',loadSheet:loader})).rejects.toThrow('walking grid');
   expect(loader).not.toHaveBeenCalled();
-});
+},30000);

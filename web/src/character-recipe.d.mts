@@ -11,7 +11,7 @@ export interface CharacterComponent {
   materials: string[]; tints: Record<string, string | null>;
   occupies: string[]; hides: string[]; excludes: string[]; covers: Record<string, string>;
   zOrder: { default: number } & Partial<Record<Facing, number>>;
-  sheets: Record<string, { runtime: string; editor: string; runtimeSha256: string; editorSha256: string }>;
+  sheets: Record<string, import('./character-sheets.mjs').CharacterMaterialSheet>;
   thumbnail: string; sourceSha256: string;
 }
 export interface CharacterCatalogue {

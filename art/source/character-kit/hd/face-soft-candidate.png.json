@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-page-0-candidate-1.png",
+      "sha256": "3c5a90bae146ca94e79172cd7c8056519a1a82c63ea45c2a31604243eb3aaac8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-page-0-candidate-1.txt",
+      "sha256": "885c743a4da5e4c6d149696ebe355d3c0b54792e29630d7f451146d5f673c216"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "3f6015fad190a3f599f3420d132e8cdbd331231d2d96fe76e89b94b32a4c0f81"
+}

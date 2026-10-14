@@ -1,0 +1,69 @@
+{
+  "source": "art/source/character-kit/hd/body-regular-seated.png",
+  "size": [
+    1024,
+    1536
+  ],
+  "crops": [
+    {
+      "frame": 0,
+      "source": {
+        "left": 64,
+        "top": 64,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 1,
+      "source": {
+        "left": 704,
+        "top": 64,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 2,
+      "source": {
+        "left": 1344,
+        "top": 64,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 0,
+        "top": 768,
+        "width": 512,
+        "height": 768
+      }
+    },
+    {
+      "frame": 3,
+      "source": {
+        "left": 1984,
+        "top": 64,
+        "width": 512,
+        "height": 768
+      },
+      "page": {
+        "left": 512,
+        "top": 768,
+        "width": 512,
+        "height": 768
+      }
+    }
+  ]
+}

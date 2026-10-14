@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-goatee-page-0-candidate-2.png",
+      "sha256": "7ebe999f16848c05f9eb659d8e4f8d2ea30e1c6693caeea69fe2fe01e5632d07"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-goatee-page-0-candidate-2.txt",
+      "sha256": "fa8aa3411692b67159fa85ba5357e51c08786f80bef3e3b427b3f3f9c0c6108c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "7a40818ffb96fe4f2fe090ff523d964bdde64455d611262f648173cb5af26c27"
+}

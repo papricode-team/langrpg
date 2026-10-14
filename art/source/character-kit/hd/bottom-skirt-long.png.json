@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "8f7e5d2e724547fb04716d74ddb6ca5828deb8f7b8286797b826e4d00e708096",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a8c256dfd7c339b7291efb6085a471b3aaf15fb252bbba08468d31de449d00f4",
+  "promptSha256": "663bf94c5d3acf4c3d7064aa1561d11827f733c2abf97573cb5d454c963e71d3",
+  "generationPromptSha256": "05a163653e0c42d43596304e5c9ab6b680773a7612576544495b0b2f54d0b765",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "565532e2948708fa6b32462e7f4575da45f0bde0fa3b2fb43bad13bc172933de",
+  "candidate": "art/source/character-kit/hd/bottom-skirt-long-candidate.png",
+  "lockedSha256": "aa49b05624c9d8faf5d216a0176d0cd9371bdbc88fd16aefb5e4c8c457f198de"
+}

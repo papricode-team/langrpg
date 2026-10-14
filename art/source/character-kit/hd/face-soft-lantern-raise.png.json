@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "9812d149fba99bc635b96adcb93cde8daf030d1aee4791e7120beb4333472586",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "5767bd48b607a4aed191bdb5a63c75a40e94adff1a8203cc4fd3a972fe5b1960",
+  "promptSha256": "e671dc736f0b567c9d31d0ec8363994b30e929a71daae1b0cb2d677d01e2eb82",
+  "generationPromptSha256": "32994849b15e1a592144d66f49758f1de4c05bbf78e76433bfd988555245b3f8",
+  "materials": [
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary"
+    ],
+    "maxSpeckPixels": 12,
+    "minBaseAlpha": 240,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "keepMaterials": [
+      "skin"
+    ]
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "87e78bc2551559beb786948faa673e6a3b9ad352a4538e899fa42920300f4356",
+  "candidate": "art/source/character-kit/hd/face-soft-lantern-raise-aligned.png",
+  "lockedSha256": "517c9db03ed7316d2af249cc11312e850c706f8fc12e6b6461ff3f83d2896289"
+}

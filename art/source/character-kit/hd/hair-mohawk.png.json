@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "cfd983743db3613b6125ad91049b6e0512dba0acb99c6119dfe04650dc8e6c27",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "6a1de7d338cc9ee1ec31a1d074f863ee95cc1c43636a51f135ea791d829f2930",
+  "promptSha256": "36f756afd8e91d5a9227842926e24312f97d8c731a15cfd421ca53274cb63aff",
+  "generationPromptSha256": "e0cf388b6a1d09c100edbde444bf34023f6284fc028d768e22b4d377b8057867",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "29cbfbcaa4c64fc025f3c1ced0cdfbb411ae0ab3dfcbd95a937be6e7c53340d3",
+  "candidate": "art/source/character-kit/hd/hair-mohawk-aligned.png",
+  "lockedSha256": "7485ef2b785bc8df6e25bbe543a2caba768ef18a51da0c9aa4d6b15ba21bef97"
+}

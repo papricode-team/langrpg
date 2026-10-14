@@ -1,0 +1,99 @@
+{
+  "source": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "crops": [
+    {
+      "frame": 12,
+      "source": {
+        "left": 1984,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 13,
+      "source": {
+        "left": 2624,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 14,
+      "source": {
+        "left": 3264,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 1024,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 15,
+      "source": {
+        "left": 3904,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 0,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 16,
+      "source": {
+        "left": 4544,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 512,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "frame": 17,
+      "source": {
+        "left": 5184,
+        "top": 1248,
+        "width": 512,
+        "height": 512
+      },
+      "page": {
+        "left": 1024,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    }
+  ]
+}

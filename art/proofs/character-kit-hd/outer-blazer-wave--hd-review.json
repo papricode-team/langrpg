@@ -1,0 +1,1104 @@
+{
+  "id": "outer-blazer-wave",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 33779,
+        "secondary": 4971,
+        "detail": 80
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3392
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 29722,
+        "secondary": 4968,
+        "detail": 85
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2255
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 33046,
+        "secondary": 4894,
+        "detail": 80
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2279
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 33083,
+        "secondary": 4876,
+        "detail": 83
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2202
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 32027,
+        "secondary": 5250,
+        "detail": 87
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2671
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 32619,
+        "secondary": 5220,
+        "detail": 84
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1786
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 32068,
+        "secondary": 5202,
+        "detail": 85
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2372
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 29043,
+        "secondary": 5208,
+        "detail": 93
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2433
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 33716,
+        "secondary": 5014,
+        "detail": 85
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3294
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 26462,
+        "secondary": 1863,
+        "detail": 53
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 339
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 26571,
+        "secondary": 1395,
+        "detail": 63
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 451
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 30419,
+        "secondary": 1016,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 441
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 27532,
+        "secondary": 1785,
+        "detail": 130
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1086
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 27465,
+        "secondary": 1786,
+        "detail": 103
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1029
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 28509,
+        "secondary": 1742,
+        "detail": 173
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 811
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 26739,
+        "secondary": 1665,
+        "detail": 198
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 988
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 27373,
+        "secondary": 2056,
+        "detail": 142
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1169
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 26461,
+        "secondary": 2362,
+        "detail": 161
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 725
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 51426,
+        "secondary": 1080,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 885
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 52135,
+        "secondary": 1070,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1013
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 47993,
+        "secondary": 1221,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1012
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 48611,
+        "secondary": 1245,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 878
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 48650,
+        "secondary": 1239,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 788
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 49219,
+        "secondary": 1225,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 849
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 50548,
+        "secondary": 1085,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 940
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 50086,
+        "secondary": 1070,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 761
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 50050,
+        "secondary": 1081,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 912
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 25959,
+        "secondary": 2637,
+        "detail": 122
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1062
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 27684,
+        "secondary": 1746,
+        "detail": 121
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1728
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 28489,
+        "secondary": 1638,
+        "detail": 108
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1510
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 29079,
+        "secondary": 1533,
+        "detail": 104
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1895
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 29306,
+        "secondary": 1370,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1777
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 28288,
+        "secondary": 1296,
+        "detail": 150
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1368
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 27642,
+        "secondary": 1070,
+        "detail": 161
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1012
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 26863,
+        "secondary": 1198,
+        "detail": 141
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 935
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 25276,
+        "secondary": 1981,
+        "detail": 149
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 943
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-0.png",
+      "imageSha256": "47d06b49b06d8895ad20cd318a6a0afd27e6f94ae756d20e4c779ef2472d1073",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-1.png",
+      "imageSha256": "cbba04b86fd2ebc0a7c8f58b56cc7d51fe0350dcb20447e3c07aaf98346506d3",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-2.png",
+      "imageSha256": "39bcad8a4e0e88c971df334018eac8371a70ea50d94f6456bffedcc155e91375",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-3.png",
+      "imageSha256": "d19f723851580e5ad053f2fffb03e07c23a3c4653533bad7203579b494329481",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-4.png",
+      "imageSha256": "551380415e572eb6b9d674720973df1ed0b5f35e5ac98211043d1119c3b86987",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-5.png",
+      "imageSha256": "79ded9a99d62579753f7e7e3dd0ce832a62bf34797e4fb94c50d26c2e4544501",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-6.png",
+      "imageSha256": "ec91ea2535b0a3aa414c84971082359b4237b46c0dfe19f38e545c15304f6c3c",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-7.png",
+      "imageSha256": "51dd9de6fcaa45e8b859fa47bb550756e26ee7167320fd44d8d779a73e948f3f",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-8.png",
+      "imageSha256": "4184d8ab6f418539219da92f639e112223a4ceb581daff702ff561d8a3fcb8ab",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-9.png",
+      "imageSha256": "d0a59974bda46178c79529dbb950b598683e2bfd725366ab24bbe260a2df5b07",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-10.png",
+      "imageSha256": "54f1e0f98f6633cfd250868d42d6cbb9b405bdfcf7937777e01f46f74cc84881",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-11.png",
+      "imageSha256": "a8f70a07c57b15fdf6309651a27ad0427a75c5d8b1e98f4aa82c7635e9a264e1",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-12.png",
+      "imageSha256": "9c67b1e51498725836bd2d96efece0f4cacfb0c0320b80b970460130954f6d0e",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-13.png",
+      "imageSha256": "ed327fde1db9e6ed813a2f330100f29cae902eeaea7768726827315bb6c3511e",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-14.png",
+      "imageSha256": "f91b4e11fa01db38310f7316d2902251ba8e8cdcfac160bd400883dfe5c93e50",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-15.png",
+      "imageSha256": "86afe07782244a9624717061c67dcba08a485671c326099decee34e1f435bd25",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-16.png",
+      "imageSha256": "dfaa427416902d2570b83d12da999d8005546eed2329e5d296f6674c2a6cd613",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-blazer-wave--hd-review.native-17.png",
+      "imageSha256": "dd2880c31f56c1c8583873f84b132818a464d6e28ec868f56281e9bb7aeb8df5",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "wave",
+  "checks": [
+    {
+      "id": "outer-blazer-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-regular-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-wave",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-wave",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-regular-wave",
+    "face-soft-wave",
+    "hair-waves-wave",
+    "top-shirt-wave",
+    "bottom-straight-wave",
+    "footwear-boots-wave"
+  ],
+  "sources": {
+    "outer-blazer-wave": {
+      "path": "art/source/character-kit/hd/outer-blazer-wave.png",
+      "sha256": "a122d948001f9cdce2b161c0c2667a366e6dad9e090814a6cd2b4d87fa37cc07"
+    },
+    "body-regular-wave": {
+      "path": "art/source/character-kit/hd/body-regular-wave.png",
+      "sha256": "cbd366d6ebf81679e2f4e42c6b4680a37e96794af698a6581355aa72af951c74"
+    },
+    "face-soft-wave": {
+      "path": "art/source/character-kit/hd/face-soft-wave.png",
+      "sha256": "c9863d0d5859d37c74f338df9a3cf7969dd35fd455f03d1ec8e764a21659490b"
+    },
+    "hair-waves-wave": {
+      "path": "art/source/character-kit/hd/hair-waves-wave.png",
+      "sha256": "10e0190fa25df95bbd02b87bb2c3c11e78322f90466199a138560b8a57f04895"
+    },
+    "top-shirt-wave": {
+      "path": "art/source/character-kit/hd/top-shirt-wave.png",
+      "sha256": "e9083fade0e148fd6bc199556a3e4d937d343dfe63b3cde880d7ac6cf47f680e"
+    },
+    "bottom-straight-wave": {
+      "path": "art/source/character-kit/hd/bottom-straight-wave.png",
+      "sha256": "f35ddd996772119f0c4a17562327554a25b6ef28bd4394bcb4a691909fb2d219"
+    },
+    "footwear-boots-wave": {
+      "path": "art/source/character-kit/hd/footwear-boots-wave.png",
+      "sha256": "d2644f6ad01ccedd4fd7b3e431164eeff48ff80689460895e965b01490f3dd97"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-wave",
+        "face-soft-wave",
+        "bottom-straight-wave",
+        "footwear-boots-wave",
+        "top-shirt-wave",
+        "outer-blazer-wave",
+        "hair-waves-wave"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

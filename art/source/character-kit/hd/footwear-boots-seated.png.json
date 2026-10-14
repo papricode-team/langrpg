@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "78e403b207c6cc4d7dcf2457cfad50eebdb420d867b156f2747ab6f4e829167c",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "5c0991280425a77f2c4fa5b5592f94af3798cfc14e492bcf3b8c0a3d4d23525d",
+  "promptSha256": "688616cb6f43f1cae8fc646243feb8c8cdc65d3ee85fa9e1ecb5d3b9dae218d2",
+  "generationPromptSha256": "5bd91fccd4a4f4cc735c8745f63df498c109eda19b6873e5058d532b9e9df24b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+  },
+  "preparationSha256": "de320fdf415bcbc0aa34cd14023b8252d39d9457a0c8fba42c6dd510c9ec95e9",
+  "candidate": "art/source/character-kit/hd/footwear-boots-seated-aligned.png",
+  "lockedSha256": "1ecbcbc33af21a7fbe233470223f893a23fe13d45b2f541a8ff31a43989482ef"
+}

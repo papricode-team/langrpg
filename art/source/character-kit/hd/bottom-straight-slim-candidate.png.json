@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-0-candidate-1.png",
+      "sha256": "0aecafa3f6d53716dfb4e562cb83f4adf878e9cb70e4721cad737010ddbf382c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-0-candidate-1.txt",
+      "sha256": "eeb0a9bf669e9519e11990e5b6be9fa5a0b901ca2c94d37a5f810237a774b36d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-1-candidate-1.png",
+      "sha256": "b6630d07129fabf998c9839f56119e14c9bf302eef6377ecee1efe95fa91fdf5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-1-candidate-1.txt",
+      "sha256": "a8a112dcc82e6233d4cb699731f0bd962989cb9ca006d7238edd24e40f9dc371"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-2-candidate-1.png",
+      "sha256": "d998d829a94559247abc04ed27336a16efece7d2c44f40ed81dcc63cdc1fef2a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-2-candidate-1.txt",
+      "sha256": "a8a112dcc82e6233d4cb699731f0bd962989cb9ca006d7238edd24e40f9dc371"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-3-candidate-1.png",
+      "sha256": "f4aeddb8289c3b77f38f6e5fe3fb06d9adc74df6fdf9c9cc02d8384760bc5473"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-3-candidate-1.txt",
+      "sha256": "a8a112dcc82e6233d4cb699731f0bd962989cb9ca006d7238edd24e40f9dc371"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-4-candidate-2.png",
+      "sha256": "14f02e3f2e71cc2c9c03418bb88d9e44cf918f01a2d903cec3faf488a1193b4d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-4-candidate-2.txt",
+      "sha256": "37052f750c3570c7c615f06f6edb097759fc83673db32b469b53705e4cc43bac"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-straight-slim-page-5-candidate-1.png",
+      "sha256": "2f4359dad6b2eb7e643131761c9025cfc58f402c884128b9c8423e49175fd5ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-straight-slim-page-5-candidate-1.txt",
+      "sha256": "a8a112dcc82e6233d4cb699731f0bd962989cb9ca006d7238edd24e40f9dc371"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "20353f62ed38dea3ff22a3211659c921a35c90f67317909f7953abfddd125f35"
+}

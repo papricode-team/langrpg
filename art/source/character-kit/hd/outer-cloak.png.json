@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "candidateSha256": "2df04a5ed2b71e84fa989c655b8a7262eb3c51a03f726d58205f182c692a4e29",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "e3cd55c36eaa4fbacc6a80cf748d0edd5f5f83354410f8d86ea3c6234ff09914",
+  "promptSha256": "18258c9f9b513155219c53926799a71254e1fade2c12f56a68c6444c32ef86bd",
+  "generationPromptSha256": "92ed71a784adf78ff7004e5931e6b86c0c5df0578e6daa74656d750a268de9b6",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3,
+      "right": 2,
+      "left": 3
+    },
+    "regionReason": "Open front panels, rear cloth visible between the legs and cloth revealed around the swinging arm can form separate attached regions.",
+    "materialCountByFacing": [
+      "secondary"
+    ],
+    "materialReason": "The rear neck binding is much smaller than the long front edge lining; compare each walk against its own facing."
+  },
+  "preparationSha256": "8f377902476109e998c87b8ac526c33c8b90777c8f75d15a1ed565fe9f250032",
+  "candidate": "art/source/character-kit/hd/outer-cloak-candidate.png",
+  "lockedSha256": "3d4b6b9dabe9dbda6af7696285a2cb2c79be8e467b230d75aac98af6cb669f0a"
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-page-0-candidate-1.png",
+      "sha256": "f4b7e37626074833e2799df992e2107881775a3d44cae6dd89bdfa3ee4fee594"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-page-0-candidate-1.txt",
+      "sha256": "efec24c08a2c2ddca5c4cf8180d6d0f0c213bbd95012201ac6ae3aa47fdfce7d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "6569d23ffa0a5dacd15fba7d2d320c53c82f9f4060893b9196bbf838b0dfaf2f"
+}

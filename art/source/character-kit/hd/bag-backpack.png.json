@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "c4d1f97449e63615778a0c7ab3f967198bcf51435483a4683ad1302afd0cb52b",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a58dd8d1ece6cea544d2634db504c03b25499355df1fa4f37925353be8e28ac7",
+  "promptSha256": "2b93dc6015d252b4683183504832d36cb8da3e50c0baedf7df1683f61afcb4c1",
+  "generationPromptSha256": "2fb98557aebe30d48f3384f846fc4aad91356b264f75d8e9e275ac8794af4122",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 2
+    },
+    "regionReason": "In profile, the near arm interrupts the chest strap and the far shoulder strap can peek beyond the torso. Front harness and rear pack each remain connected."
+  },
+  "preparationSha256": "8f87bc51de2bd539098098c95ccb441a8d84232cbb076fc51b4fea50f284df3f",
+  "candidate": "art/source/character-kit/hd/bag-backpack-candidate.png",
+  "lockedSha256": "e5dbb62c5c642f2a0d9529d3402f22a5f20f15b225bda68dde811d64ca8865dc"
+}

@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "838814512ae984016aa4dfcde85801b11a421b76a33b6c8b9112df4c9c1fd2d4",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "7d94d9ea43cfcdee2e0e9b1f4436c6c40e32e1c2f523a43f5dcc23cf623002ad",
+  "promptSha256": "436f6bf1ee655a5a6dbbf88bf895701131399fedd8836935e7701ffc1feb1310",
+  "generationPromptSha256": "8161e29e198e2895f288c400de14da8a8e3569497c371180d1873c5bebf14443",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The lowered foreground forearm separates the rear shirt tail in the last left-facing frame."
+  },
+  "preparationSha256": "ced17afd6710cf02df9731b65eee63a3aecfcc508db8848aeebd9cff2ecf6134",
+  "candidate": "art/source/character-kit/hd/top-shirt-lantern-raise-candidate.png",
+  "lockedSha256": "7337c2240b0c99b46810f9f1acdbdaf926b5a33f3f19168409bdae6cd0228783"
+}

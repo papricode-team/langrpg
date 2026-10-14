@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "fe65ad5b597863a25daf8df75c678972e576c77d9478c265c19e8ea5f612d495",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a8c256dfd7c339b7291efb6085a471b3aaf15fb252bbba08468d31de449d00f4",
+  "promptSha256": "5e02b281219254ebfd93ca2992186b75a09677f0066f4901a9f98427612e7ded",
+  "generationPromptSha256": "e9b877bd06adec16bc0c3c5643f668a89b9c1fbcc63225927d143a8b130b479d",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 2
+    },
+    "regionReason": "Crossed legs and the foreground hand separate the visible rear hip and rear ankle cuff from the main trouser region."
+  },
+  "preparationSha256": "dbdc7768a199cc12f9cc48d7a325cae93ebaed766db7ef843f375e23e9da5021",
+  "candidate": "art/source/character-kit/hd/bottom-slim-aligned.png",
+  "lockedSha256": "d18275a5b933502c6bfb164de747d6a2acd133466a206df5b412af406001590a"
+}

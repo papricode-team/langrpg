@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-page-0-candidate-1.png",
+      "sha256": "940621a529185dfede3348deca73346e690af3e3641a7221e96f0ad287a02957"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-page-0-candidate-1.txt",
+      "sha256": "1b3324455941b7dba4f54415f44cda6f89b8f18306fcb63cb9bd0a0f786348dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "2281dc205c28a045bdb6ca5f451c2b346d10853cf553fbdbf9506d650ae872fb"
+}

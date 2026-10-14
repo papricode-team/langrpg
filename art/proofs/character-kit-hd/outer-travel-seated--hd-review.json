@@ -1,0 +1,1104 @@
+{
+  "id": "outer-travel-seated",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 14627,
+        "secondary": 6040,
+        "detail": 287
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1689
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 14796,
+        "secondary": 6094,
+        "detail": 279
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1782
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 14696,
+        "secondary": 6032,
+        "detail": 264
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1712
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 14888,
+        "secondary": 6190,
+        "detail": 270
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2191
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 14553,
+        "secondary": 6145,
+        "detail": 276
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1582
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 14370,
+        "secondary": 5851,
+        "detail": 227
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1086
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 14589,
+        "secondary": 5913,
+        "detail": 241
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 964
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 14513,
+        "secondary": 5910,
+        "detail": 238
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 803
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 13995,
+        "secondary": 6504,
+        "detail": 288
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1656
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 12926,
+        "secondary": 2994,
+        "detail": 122
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 765
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 13057,
+        "secondary": 2965,
+        "detail": 110
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 616
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 30602,
+        "secondary": 3540,
+        "detail": 203
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 14639
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 12288,
+        "secondary": 2743,
+        "detail": 143
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 462
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 12279,
+        "secondary": 2733,
+        "detail": 133
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 595
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 12305,
+        "secondary": 2652,
+        "detail": 130
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 396
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 12263,
+        "secondary": 2716,
+        "detail": 143
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 610
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 13591,
+        "secondary": 3068,
+        "detail": 173
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 572
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 13724,
+        "secondary": 3029,
+        "detail": 150
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 811
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 30209,
+        "secondary": 3400,
+        "detail": 210
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 480
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 30299,
+        "secondary": 3410,
+        "detail": 218
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 538
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 31625,
+        "secondary": 3499,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5742
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 31612,
+        "secondary": 3163,
+        "detail": 211
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5981
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 31548,
+        "secondary": 3587,
+        "detail": 220
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5968
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 31620,
+        "secondary": 3515,
+        "detail": 199
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5977
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 29952,
+        "secondary": 3387,
+        "detail": 193
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1123
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 29979,
+        "secondary": 3387,
+        "detail": 216
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1223
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 29986,
+        "secondary": 3420,
+        "detail": 202
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 978
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 13314,
+        "secondary": 2916,
+        "detail": 196
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 384
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 12913,
+        "secondary": 3591,
+        "detail": 177
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1139
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 12891,
+        "secondary": 3667,
+        "detail": 136
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1145
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 12888,
+        "secondary": 3539,
+        "detail": 156
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1184
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 12852,
+        "secondary": 3590,
+        "detail": 127
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1131
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 14314,
+        "secondary": 3404,
+        "detail": 146
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 885
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 14648,
+        "secondary": 3449,
+        "detail": 156
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1202
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 14272,
+        "secondary": 3397,
+        "detail": 130
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 815
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 14735,
+        "secondary": 3499,
+        "detail": 143
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1481
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-0.png",
+      "imageSha256": "a55d3508aef49010875895de2883f8ccbac092175ab1c06a1435aefedf2d887d",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-1.png",
+      "imageSha256": "15463c065e8f5de2332ff2b9d94129331a9f09de8e56d9ed1614fa5a5c0876d2",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-2.png",
+      "imageSha256": "ef032e3fa318721d22bca974d3059482dbb4a35ec31a42fb0fcec9c0dd5093c4",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-3.png",
+      "imageSha256": "bdf0c80d6c39e0b7b69675ec0d8d395bbcc20028d543f0a8df0311e88bee2f6a",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-4.png",
+      "imageSha256": "42ec07002f7b193e6c6c44ae559bb0a66eb09fcbb896aeecd53e5d0f957d2f7f",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-5.png",
+      "imageSha256": "7430ee23ee6d3dce9a0a7075acb8f6fa14c72c9dcc411151a0dfeeef2be7d329",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-6.png",
+      "imageSha256": "48ab949c80c8e6cbca4e82292e958170ad23d694ce19e395e64f83d8bcff1c75",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-7.png",
+      "imageSha256": "5c1f08db790f4b64a49e8175a8299bb46de6d863c645f257dc76f518db0fe5df",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-8.png",
+      "imageSha256": "2f2751a6e40f53d9dd58580509567ec411edf354168225a61d3e25de957f4116",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-9.png",
+      "imageSha256": "c225c0552f993fabe63a753f8c976ef723f03db859c1b4a39909738de1e613e7",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-10.png",
+      "imageSha256": "e89e30b3a279e7ee5fa5d18e7f4a1b2109d26d05d6492ee116235326141bce3b",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-11.png",
+      "imageSha256": "c688cdf43309054c4f6d7ede592ff80450e027dc625e6153f2c4b992cbc47639",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-12.png",
+      "imageSha256": "6ad3b87d6eed0061e5b58c7b7f560cbeefe2c9e97023340d4907029a7a2f08f4",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-13.png",
+      "imageSha256": "f7234ba11fba1f119c9680cc0941df42d3de84586f0f3a7609ef788958523cdb",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-14.png",
+      "imageSha256": "5ac6f4a3c1cc37432950c82bcedebf59b034937dfa4aa5ce614afd5ed4a164d8",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-15.png",
+      "imageSha256": "a8fd4e8af51d4a59c15b70e9ef348f0dd62ae8438aa7eabb342424439d1e008b",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-16.png",
+      "imageSha256": "b6f6b642e340951b560ee60e6703b2f2a77053c1bdb81816939e96d3782573db",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-travel-seated--hd-review.native-17.png",
+      "imageSha256": "911978662694cbf0d908df540d94e4b720d9f41787f83e5e18de64033ef5f137",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "seated",
+  "checks": [
+    {
+      "id": "outer-travel-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "body-regular-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-seated",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-seated",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "body-regular-seated",
+    "face-soft-seated",
+    "hair-waves-seated",
+    "top-shirt-seated",
+    "bottom-straight-seated",
+    "footwear-boots-seated"
+  ],
+  "sources": {
+    "outer-travel-seated": {
+      "path": "art/source/character-kit/hd/outer-travel-seated.png",
+      "sha256": "60bb73bc39c6871b8cb014a5b58886ae200392ba24268b7b6545ab959f717f61"
+    },
+    "body-regular-seated": {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    },
+    "face-soft-seated": {
+      "path": "art/source/character-kit/hd/face-soft-seated.png",
+      "sha256": "1e933e5e5c51d09ada33381d0c51a89017646e61952ba17e7a9586b327e8df67"
+    },
+    "hair-waves-seated": {
+      "path": "art/source/character-kit/hd/hair-waves-seated.png",
+      "sha256": "200fec8f852a7f8a121a9f0788a0dddf2e07006aa814ceed02421fe84287bc99"
+    },
+    "top-shirt-seated": {
+      "path": "art/source/character-kit/hd/top-shirt-seated.png",
+      "sha256": "0104df840ba1434247d410a30b7572b2735b330363575c3028bba7cb4d5662df"
+    },
+    "bottom-straight-seated": {
+      "path": "art/source/character-kit/hd/bottom-straight-seated.png",
+      "sha256": "1e6a6a0d883f801efb5ccf5f3e7a29fd86baa612851bf8eb6e5dea3920a3cff3"
+    },
+    "footwear-boots-seated": {
+      "path": "art/source/character-kit/hd/footwear-boots-seated.png",
+      "sha256": "d24302464ba03b1069af9706f36ad219749b4e86f7ce5b8bd47bfd97c2d61fe2"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated",
+        "face-soft-seated",
+        "bottom-straight-seated",
+        "footwear-boots-seated",
+        "top-shirt-seated",
+        "outer-travel-seated",
+        "hair-waves-seated"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

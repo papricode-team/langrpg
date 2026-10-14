@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "afaa224015805632ae2ff2d13eba359183bea2226c133d0ddda7b9dc3d37fa54",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "3b5ab83f2f4b0e8257704c333d9e43b4ec8c8c16f6506951c48965feb29a3b08",
+  "generationPromptSha256": "3283b51e7d0590591115b4a262c69a2e6ab4a4e98ebc210a05f527498005231b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1,
+    "maxRegionsByFacing": {
+      "left": 2,
+      "right": 2
+    },
+    "regionReason": "The neck separates the far wavy hair lock from the main crown in right profile."
+  },
+  "preparationSha256": "21436669f6df1c0f59084e3e454066de9667688875570af8357781e7e2caf96b",
+  "candidate": "art/source/character-kit/hd/hair-waves-slim-aligned.png",
+  "lockedSha256": "ab376b59dd336e614e6beb019230000986468f2a9d5e2792253e93e012b5e84b"
+}

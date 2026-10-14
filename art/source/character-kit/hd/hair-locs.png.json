@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "036ce8b7ff5ce016bb34741eb4690eeac14cd1f206f9d7cf8eafcad9b01de59f",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "28a10db5546aac5520c58e079ce270cbe389679ce06a012074973301eb35a6ef",
+  "promptSha256": "b67bd5177a89104801b2994b87006c267948090e7a6868302e71309691fe5d37",
+  "generationPromptSha256": "0391dc8bb045d663155d0da7ecfce4c693be9d42c0a305297cac64ef59446e15",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "958473afcac0fcad77550e10414d2d8035fa450e0acb2aeedc7f0602800fbaa8",
+  "candidate": "art/source/character-kit/hd/hair-locs-aligned.png",
+  "lockedSha256": "88854ca6a72940381106c76b33b0c04480c597a0101e9958a3c7646a7ed1b702"
+}

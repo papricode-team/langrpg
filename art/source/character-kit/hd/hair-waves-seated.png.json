@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "96413978b09a0195ad6cb9f7c14e08798c5b92c453e906a0233d0cbbddc74a0d",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "b3857b267bf9f98b44d8f87c586ffe5e7e062c929d79585daa9103f0d6d7fcac",
+  "promptSha256": "495f8e81777c35861e7c9700a18a9be952ce7790aa9aae6092f49224661643b8",
+  "generationPromptSha256": "aefa6c09db82c6a4fb09a9f90bf4b80eb64d0944ae7503a6924e15263dadfdfd",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1,
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The profile neck occludes the connection to the visible far-side hair curl."
+  },
+  "preparationSha256": "3c9c7a24766670f060e68d323602c07d449235d69aae9dd23b4554af49318c1d",
+  "candidate": "art/source/character-kit/hd/hair-waves-seated-aligned.png",
+  "lockedSha256": "7f93223037e92e62343d365247e340fb77765778ecd19f02e1d114a4c153a7fd"
+}

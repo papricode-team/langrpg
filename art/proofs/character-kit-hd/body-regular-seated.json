@@ -1,0 +1,1245 @@
+{
+  "id": "body-regular-seated",
+  "valid": false,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "skin": 77600
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1415,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9585216867932743,
+        "headIoU": 0.8895777178796047,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "skin": 77861
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1116,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9606522374591716,
+        "headIoU": 0.8916935195130684,
+        "crownDrift": 1.25,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.4166666666666667
+      }
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "skin": 78117
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1123,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9638039539762253,
+        "headIoU": 0.906107075598601,
+        "crownDrift": 1.25244140625,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "skin": 77525
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1833,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9546807637035516,
+        "headIoU": 0.885533245556287,
+        "crownDrift": 1.461181640625,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "skin": 78864
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1649,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9582151992842651,
+        "headIoU": 0.8577494692144374,
+        "crownDrift": 2.0833333333333335,
+        "groundDrift": 0.625,
+        "headHorizontalDrift": 0.20833333333333334
+      }
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "skin": 78927
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 4139,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9223909013477629,
+        "headIoU": 0.7615804733328838,
+        "crownDrift": 5.009765625,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.7305908203125
+      }
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "skin": 79937
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3810,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9284099378881988,
+        "headIoU": 0.7704593743131365,
+        "crownDrift": 3.75732421875,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "skin": 79473
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3933,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9254125412541254,
+        "headIoU": 0.7595177664974619,
+        "crownDrift": 3.75,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.3125
+      }
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "skin": 79528
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3422,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9301200323403197,
+        "headIoU": 0.8453261600537996,
+        "crownDrift": 2.296142578125,
+        "groundDrift": 1.043701171875,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "skin": 61076
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1134,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9545024932372975,
+        "headIoU": 0.9620948840216601,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 1.043701171875,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "skin": 62285
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1464,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9525679032128835,
+        "headIoU": 0.9320327249842668,
+        "crownDrift": 1.0416666666666667,
+        "groundDrift": 0.625,
+        "headHorizontalDrift": 0.20833333333333334
+      }
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "skin": 61900
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1474,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9455232277768848,
+        "headIoU": 0.9134424223887444,
+        "crownDrift": 1.043701171875,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.626220703125
+      }
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "skin": 60214
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 4427,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8633228642224713,
+        "headIoU": 0.7408022130013832,
+        "crownDrift": 4.1748046875,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.3131103515625
+      }
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "skin": 60417
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2976,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8947802502815271,
+        "headIoU": 0.8180541179949726,
+        "crownDrift": 2.291666666666667,
+        "groundDrift": 0.625,
+        "headHorizontalDrift": 0.5208333333333334
+      }
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "skin": 60207
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 4077,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8849496393632231,
+        "headIoU": 0.7294150263376767,
+        "crownDrift": 4.1748046875,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "skin": 60371
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3622,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8848688399337833,
+        "headIoU": 0.7732259903106298,
+        "crownDrift": 2.92236328125,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.626220703125
+      }
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "skin": 61657
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3922,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9003245100534487,
+        "headIoU": 0.7567911714770797,
+        "crownDrift": 3.75,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.7291666666666667
+      }
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "skin": 62089
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 3027,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9162303664921466,
+        "headIoU": 0.8326623234023863,
+        "crownDrift": 2.08740234375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "skin": 76821
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 4605,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8687932003028601,
+        "headIoU": 0.7895277207392197,
+        "crownDrift": 3.131103515625,
+        "groundDrift": 2.92236328125,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "skin": 76940
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 4361,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8646905348601247,
+        "headIoU": 0.7851040525739321,
+        "crownDrift": 3.125,
+        "groundDrift": 3.125,
+        "headHorizontalDrift": 0.4166666666666667
+      }
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "skin": 83204
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 8485,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8442286699224361,
+        "headIoU": 0.6292278627582424,
+        "crownDrift": 6.26220703125,
+        "groundDrift": 1.25244140625,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "skin": 82491
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 11587,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8098528574912609,
+        "headIoU": 0.4964873448176306,
+        "crownDrift": 11.063232421875,
+        "groundDrift": 1.043701171875,
+        "headHorizontalDrift": 0.3131103515625
+      }
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "skin": 79651
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 8412,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.8069254622717353,
+        "headIoU": 0.617631248880129,
+        "crownDrift": 6.458333333333334,
+        "groundDrift": 3.125,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "skin": 79558
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 9439,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.7977238292409294,
+        "headIoU": 0.5420740503285782,
+        "crownDrift": 8.76708984375,
+        "groundDrift": 2.92236328125,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "skin": 74607
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 6540,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.7966170099115675,
+        "headIoU": 0.6541976201433173,
+        "crownDrift": 5.218505859375,
+        "groundDrift": 5.8447265625,
+        "headHorizontalDrift": 0.1043701171875
+      }
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "skin": 74523
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 9297,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.7630426266870838,
+        "headIoU": 0.5145542753183747,
+        "crownDrift": 10.416666666666668,
+        "groundDrift": 6.041666666666667,
+        "headHorizontalDrift": 0.3125
+      }
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "skin": 74688
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 6574,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.79389674138033,
+        "headIoU": 0.6497300110597879,
+        "crownDrift": 5.42724609375,
+        "groundDrift": 6.053466796875,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "skin": 61549
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 841,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9584929962968927,
+        "headIoU": 0.9238563327032137,
+        "crownDrift": 0.8349609375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "skin": 61178
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 606,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9659313765214995,
+        "headIoU": 0.9290041945005437,
+        "crownDrift": 0.8333333333333334,
+        "groundDrift": 0,
+        "headHorizontalDrift": 0
+      }
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "skin": 61120
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1400,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9284833148821762,
+        "headIoU": 0.9506163084702908,
+        "crownDrift": 0.41748046875,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "skin": 61122
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1423,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9430878646309943,
+        "headIoU": 0.8645599880472135,
+        "crownDrift": 1.878662109375,
+        "groundDrift": 0.208740234375,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "skin": 61114
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1628,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9293274426292035,
+        "headIoU": 0.930298273155416,
+        "crownDrift": 0.8333333333333334,
+        "groundDrift": 0.20833333333333334,
+        "headHorizontalDrift": 0.20833333333333334
+      }
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "skin": 62591
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1166,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9509777445950025,
+        "headIoU": 0.9076911112839257,
+        "crownDrift": 1.25244140625,
+        "groundDrift": 0.41748046875,
+        "headHorizontalDrift": 0.41748046875
+      }
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "skin": 62585
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 502,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9634204578014072,
+        "headIoU": 0.9603755569700827,
+        "crownDrift": 0.208740234375,
+        "groundDrift": 0.626220703125,
+        "headHorizontalDrift": 0.208740234375
+      }
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "skin": 62982
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 2071,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9385645631450406,
+        "headIoU": 0.8690038285414008,
+        "crownDrift": 1.875,
+        "groundDrift": 0.625,
+        "headHorizontalDrift": 0.3125
+      }
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "skin": 63473
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 1,
+      "outsideSilhouette": 1474,
+      "cellEdgePaint": 0,
+      "pose": {
+        "silhouetteIoU": 0.9467560053728173,
+        "headIoU": 0.9307734332318739,
+        "crownDrift": 0.208740234375,
+        "groundDrift": 0.8349609375,
+        "headHorizontalDrift": 0.8349609375
+      }
+    }
+  ],
+  "errors": [
+    "Frame 5: pose/head silhouette overlap below 0.8",
+    "Frame 5: crownDrift 5.01 exceeds 3 editor pixels",
+    "Frame 6: pose/head silhouette overlap below 0.8",
+    "Frame 6: crownDrift 3.76 exceeds 3 editor pixels",
+    "Frame 7: pose/head silhouette overlap below 0.8",
+    "Frame 7: crownDrift 3.75 exceeds 3 editor pixels",
+    "Frame 12: pose/head silhouette overlap below 0.8",
+    "Frame 12: crownDrift 4.17 exceeds 3 editor pixels",
+    "Frame 14: pose/head silhouette overlap below 0.8",
+    "Frame 14: crownDrift 4.17 exceeds 3 editor pixels",
+    "Frame 15: pose/head silhouette overlap below 0.8",
+    "Frame 16: pose/head silhouette overlap below 0.8",
+    "Frame 16: crownDrift 3.75 exceeds 3 editor pixels",
+    "Frame 18: pose/head silhouette overlap below 0.8",
+    "Frame 18: crownDrift 3.13 exceeds 3 editor pixels",
+    "Frame 19: pose/head silhouette overlap below 0.8",
+    "Frame 19: crownDrift 3.13 exceeds 3 editor pixels",
+    "Frame 19: groundDrift 3.13 exceeds 3 editor pixels",
+    "Frame 20: pose/head silhouette overlap below 0.8",
+    "Frame 20: crownDrift 6.26 exceeds 3 editor pixels",
+    "Frame 21: pose/head silhouette overlap below 0.8",
+    "Frame 21: crownDrift 11.06 exceeds 3 editor pixels",
+    "Frame 22: pose/head silhouette overlap below 0.8",
+    "Frame 22: crownDrift 6.46 exceeds 3 editor pixels",
+    "Frame 22: groundDrift 3.13 exceeds 3 editor pixels",
+    "Frame 23: pose/head silhouette overlap below 0.8",
+    "Frame 23: crownDrift 8.77 exceeds 3 editor pixels",
+    "Frame 24: pose/head silhouette overlap below 0.8",
+    "Frame 24: crownDrift 5.22 exceeds 3 editor pixels",
+    "Frame 24: groundDrift 5.84 exceeds 3 editor pixels",
+    "Frame 25: pose/head silhouette overlap below 0.8",
+    "Frame 25: crownDrift 10.42 exceeds 3 editor pixels",
+    "Frame 25: groundDrift 6.04 exceeds 3 editor pixels",
+    "Frame 26: pose/head silhouette overlap below 0.8",
+    "Frame 26: crownDrift 5.43 exceeds 3 editor pixels",
+    "Frame 26: groundDrift 6.05 exceeds 3 editor pixels"
+  ],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-0.png",
+      "imageSha256": "4ac39a8593ec7d7dbecebaad1d3e2ac72832795d4dbc3ceed626af90b096a26e",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-1.png",
+      "imageSha256": "36480159197982bde612b83e56477f8e1ec2f156af79f49c355e84678877dbe5",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-2.png",
+      "imageSha256": "fdc39d78b845f4bdce02a228a8ac7653448bbf2d74d5aa802e08173c15aefaac",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-3.png",
+      "imageSha256": "ec3fccd375e5fb8918c087124927ad667fb03132668818db5583e04789af910c",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-4.png",
+      "imageSha256": "c86d77ab5e6ce0cb4769b5debec56108f0010817126efd07cff129122d43c585",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-5.png",
+      "imageSha256": "3f9ffac6e13c8324139d804059acee85e4b5132e7672e155716f42f4c7f437e6",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-6.png",
+      "imageSha256": "581f2e78308b37b48ab9fc3ea88a8af1db456b04fd90ba5b99e6757afb5de3e8",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-7.png",
+      "imageSha256": "552de141b3b9cee89035260166163dd82066cae90d6c0f48fd4713ad4d2326b6",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-8.png",
+      "imageSha256": "668b97a517f09742782e26a393a2d58033b20ab532d881f1fa4e6bb19d0d94ca",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-9.png",
+      "imageSha256": "57993f5edf69dc109ff9a74c4aa61da2dc16c3b8747931e5d7d8fc8095ccf7ce",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-10.png",
+      "imageSha256": "116b2d90a2d5774a305d543dea2776242157176217dce22eb12a99408d1ab61a",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-11.png",
+      "imageSha256": "5acf3fe3b04d01874db70a6ec8bf1b91579250ae04ccf891045748e645dc7bb9",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-12.png",
+      "imageSha256": "e7fffdda5ac67a5a2bdbe50df6ad1b80407cefb16001d5bde0fbdc7807bfb1e3",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-13.png",
+      "imageSha256": "f225c66378b21db90896a820d509500c2c1c3d9ef1b4a328db1d88c6c55a34b1",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-14.png",
+      "imageSha256": "2ba875cd0aadb9582dfa1976e98db11fe0e32691b3ba621f363fa916c8ef7a37",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-15.png",
+      "imageSha256": "aecebaa232d0a85e6b792a1659b6b57e4a6d10d54accd365caa4e88ec0b6d8cf",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-16.png",
+      "imageSha256": "0fa53ac1e4a5939fe7e4b93c99e5ce710fa28d9f8f84fa4c67e84a474d6b0472",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/body-regular-seated.native-17.png",
+      "imageSha256": "16c2bde83d2d52ccfd1ca8e5e0f15ac2e256245839c46d260f8469cc041a08fe",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "poseSet": "seated",
+  "checks": [
+    {
+      "id": "body-regular-seated",
+      "valid": false,
+      "errors": [
+        "Frame 5: pose/head silhouette overlap below 0.8",
+        "Frame 5: crownDrift 5.01 exceeds 3 editor pixels",
+        "Frame 6: pose/head silhouette overlap below 0.8",
+        "Frame 6: crownDrift 3.76 exceeds 3 editor pixels",
+        "Frame 7: pose/head silhouette overlap below 0.8",
+        "Frame 7: crownDrift 3.75 exceeds 3 editor pixels",
+        "Frame 12: pose/head silhouette overlap below 0.8",
+        "Frame 12: crownDrift 4.17 exceeds 3 editor pixels",
+        "Frame 14: pose/head silhouette overlap below 0.8",
+        "Frame 14: crownDrift 4.17 exceeds 3 editor pixels",
+        "Frame 15: pose/head silhouette overlap below 0.8",
+        "Frame 16: pose/head silhouette overlap below 0.8",
+        "Frame 16: crownDrift 3.75 exceeds 3 editor pixels",
+        "Frame 18: pose/head silhouette overlap below 0.8",
+        "Frame 18: crownDrift 3.13 exceeds 3 editor pixels",
+        "Frame 19: pose/head silhouette overlap below 0.8",
+        "Frame 19: crownDrift 3.13 exceeds 3 editor pixels",
+        "Frame 19: groundDrift 3.13 exceeds 3 editor pixels",
+        "Frame 20: pose/head silhouette overlap below 0.8",
+        "Frame 20: crownDrift 6.26 exceeds 3 editor pixels",
+        "Frame 21: pose/head silhouette overlap below 0.8",
+        "Frame 21: crownDrift 11.06 exceeds 3 editor pixels",
+        "Frame 22: pose/head silhouette overlap below 0.8",
+        "Frame 22: crownDrift 6.46 exceeds 3 editor pixels",
+        "Frame 22: groundDrift 3.13 exceeds 3 editor pixels",
+        "Frame 23: pose/head silhouette overlap below 0.8",
+        "Frame 23: crownDrift 8.77 exceeds 3 editor pixels",
+        "Frame 24: pose/head silhouette overlap below 0.8",
+        "Frame 24: crownDrift 5.22 exceeds 3 editor pixels",
+        "Frame 24: groundDrift 5.84 exceeds 3 editor pixels",
+        "Frame 25: pose/head silhouette overlap below 0.8",
+        "Frame 25: crownDrift 10.42 exceeds 3 editor pixels",
+        "Frame 25: groundDrift 6.04 exceeds 3 editor pixels",
+        "Frame 26: pose/head silhouette overlap below 0.8",
+        "Frame 26: crownDrift 5.43 exceeds 3 editor pixels",
+        "Frame 26: groundDrift 6.05 exceeds 3 editor pixels"
+      ]
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [],
+  "sources": {
+    "body-regular-seated": {
+      "path": "art/source/character-kit/hd/body-regular-seated.png",
+      "sha256": "750d606f93fdb96ee1ac0de2cd2e572bc330b47357abbc6093d63d6129af6e83"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "body-regular-seated"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

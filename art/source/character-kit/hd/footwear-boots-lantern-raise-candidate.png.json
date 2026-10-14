@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-0-candidate-1.png",
+      "sha256": "ece6274ef9fe51835728eb61649b340c1cb7fc832cb80d8983e3cdcab184f71a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-0-candidate-1.txt",
+      "sha256": "c153e63a5cf12a425288b4bf32e8489f546539726b21fd73d414248532f564ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-0.json",
+      "sha256": "e8604a1edf00c51704b742fa85ad642e80bbd2d581d57ea63ee8cd2bec5e9b92"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-1-candidate-1.png",
+      "sha256": "c8577844cdf83d4d41c3fae2bf1ddfa61056ca33ccd23c2367528221baa222b9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-1-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-1.json",
+      "sha256": "75a9fe9f6c41e2cb39f324541ae546d6db20b804f3a8fc7a44cf2f34a34aebac"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-2-candidate-1.png",
+      "sha256": "9dc4c908e5b9c64bd964af0c6c1a9fc99574148187c4247649932c861473d015"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-2-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-2.json",
+      "sha256": "e2abf86e5fb4b1d7e9907110215bd3a5b92043adb66ed15387a0dde6eaf89517"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-3-candidate-1.png",
+      "sha256": "22e7882d8f6d1d5d94341186d7f42b5e0827d470dbabc934c39e105243fba99b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-3-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-3.json",
+      "sha256": "cf1fba22363645ed6b0a944d2efaf97c86e07c8a7a8e0bc7a30461a2258900da"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-4-candidate-1.png",
+      "sha256": "8466bbfbf87cf107688136bbabc52718208f932f6f2bffe00a91263b30b7e755"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-4-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-4.json",
+      "sha256": "2e5f3861edafca572923d67123b5b22e558e2b53f2314bb54fa7e85759d2fad5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-lantern-raise-page-5-candidate-1.png",
+      "sha256": "5853efcbe8c4ab99201933e372524b084c17f81bdc1f649fdf09fef71c8a0458"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-lantern-raise-page-5-candidate-1.txt",
+      "sha256": "38c92415e424850c67bf3ad722b326a4dd750650c2b2e4a21529c31df6bb24ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise-native-lower/page-5.json",
+      "sha256": "f8cfda9de25ba9c5362fe6d37389277960091f236737aeebeca64b68f3529f27"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    }
+  ],
+  "outputSha256": "30ce640daf9984ae9a2dcdcf4829a8edb3c6c83a8cf50dde06df811ca6c1426b"
+}

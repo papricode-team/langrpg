@@ -1,0 +1,1051 @@
+{
+  "id": "top-tunic",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 48264,
+        "secondary": 4601,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2332
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 48609,
+        "secondary": 4813,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2483
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 45314,
+        "secondary": 4575,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2416
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 45749,
+        "secondary": 4218,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2267
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 44142,
+        "secondary": 4483,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2187
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 46865,
+        "secondary": 4484,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1631
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 43388,
+        "secondary": 4386,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1453
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 44865,
+        "secondary": 4230,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1566
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 42693,
+        "secondary": 4980,
+        "detail": 3
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2591
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 29814,
+        "secondary": 2982,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 621
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 35569,
+        "secondary": 4391,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1437
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 36659,
+        "secondary": 4443,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1554
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 26506,
+        "secondary": 3049,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 687
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 35921,
+        "secondary": 4634,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1453
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 36234,
+        "secondary": 4510,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1739
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 36668,
+        "secondary": 4557,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1935
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 29759,
+        "secondary": 3567,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1753
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 39278,
+        "secondary": 4701,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3235
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 51089,
+        "secondary": 4845,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 947
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 52511,
+        "secondary": 4958,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 902
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 52453,
+        "secondary": 4890,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1084
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 53111,
+        "secondary": 5039,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1334
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 52596,
+        "secondary": 5055,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 965
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 53246,
+        "secondary": 5106,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 636
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 51524,
+        "secondary": 5334,
+        "detail": 12
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1730
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 52820,
+        "secondary": 5443,
+        "detail": 17
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1862
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 52665,
+        "secondary": 5310,
+        "detail": 12
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1357
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 31570,
+        "secondary": 3261,
+        "detail": 0
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1826
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 41041,
+        "secondary": 4289,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1619
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 39478,
+        "secondary": 3985,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2180
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 31579,
+        "secondary": 3233,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1012
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 40228,
+        "secondary": 4083,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2102
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 41007,
+        "secondary": 4210,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2204
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 41061,
+        "secondary": 4131,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2627
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 38294,
+        "secondary": 3976,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1463
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 41284,
+        "secondary": 4213,
+        "detail": 0
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1650
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-0.png",
+      "imageSha256": "623d988f4040946365cf556cde2379aa904b5a758343b7565e306896394e458b",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-1.png",
+      "imageSha256": "c520580ec0c0039bdfcf5fd89f149bf788685577217df8311b54e6de0acda2e6",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-2.png",
+      "imageSha256": "c7c7c8b657779f74b7802d3ce3652501c2c830f1651713b495bacd8ed951a082",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-3.png",
+      "imageSha256": "cefa9b062b0f5cbfd6af3263a851b22f0b21b756022158b67e79248cc5ba3077",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-4.png",
+      "imageSha256": "605bb3a3abe0ee9be71da78941f067ab61226abc5e32b3be8e4cf982b0627bc8",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-5.png",
+      "imageSha256": "35bf1a08881d8f615d4c163baa0861e1d82d436c4264c15a8267977e61159b08",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-6.png",
+      "imageSha256": "5575f4c7749633f58ccfcf58cc51e37217b1a40cf7b67d880b27435a0f7bebfb",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-7.png",
+      "imageSha256": "ec164b3527e2dd21b58799a6d43b2d9be7701d851f217ab708b81d54f0fe3acb",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-8.png",
+      "imageSha256": "589c4fbd496729954837e1a193b4c6d6640525591e1326cb01f289815cb17250",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 2,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-9.png",
+      "imageSha256": "5b9d9e96fa8cf7bbd4be226e7bde23aa9cb5040243cd8d3871e73e9e6dc8e6fc",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-10.png",
+      "imageSha256": "98dfca5a1fb045988a2fb09de472c3405a161d746549b8ec90119be043034e63",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-11.png",
+      "imageSha256": "fb7224ab286627206d693ecba81a0da865bfb5ce1dbf898d6b296c8a26b71457",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-12.png",
+      "imageSha256": "e5c18e14bafa5bf1781147ed948df401d003cba7946c15f9a9543dadbb9b8fa6",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-13.png",
+      "imageSha256": "56556f298a17a696ee06e2e6599a665aedf4465340f9b9bb435e9b5ce618167f",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-14.png",
+      "imageSha256": "e2e6a7bb926d7bd568399f4b7d552169e3b772ce90e0c90631fd3dc162e6b0cb",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-15.png",
+      "imageSha256": "9f482fd6ad64113a146aed12ff08e5ee859d20eebf9ed402615d10e887face08",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-16.png",
+      "imageSha256": "93a1fd1b75a7076040352b393b227853dc76dd4a17911d91f010f1a5575c5ad8",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/top-tunic--face-oval--hair-crop--bottom-straight--footwear-boots--rules.native-17.png",
+      "imageSha256": "2b1b42e6bac254c0859fe6295d1fc56735472b04e4cdabeb9cf84e945e48cae3",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 3,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "top-tunic",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-oval",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-crop",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "companions only · warm",
+    "companions only · cool",
+    "component + companions · warm",
+    "component + companions · cool"
+  ],
+  "with": [
+    "face-oval",
+    "hair-crop",
+    "bottom-straight",
+    "footwear-boots"
+  ],
+  "sources": {
+    "top-tunic": {
+      "path": "art/source/character-kit/hd/top-tunic.png",
+      "sha256": "4e43159773efcbd3345c598d3695bd7588c1b66b168aea030bfa197f00752e90"
+    },
+    "face-oval": {
+      "path": "art/source/character-kit/hd/face-oval.png",
+      "sha256": "22d9ce2bfe81dfef5f32078accdb1d3ece352ec6efa1857375d77de56c3c40db"
+    },
+    "hair-crop": {
+      "path": "art/source/character-kit/hd/hair-crop.png",
+      "sha256": "1bddb2923ce4b2ac8f1bd2ed105cf62e380ca6c64a1edcea8a2e3fa8946fbb41"
+    },
+    "bottom-straight": {
+      "path": "art/source/character-kit/hd/bottom-straight.png",
+      "sha256": "36f2bd74331e70ee4327bbea38824ccc66ab3a79a96a664b93248f37307217c6"
+    },
+    "footwear-boots": {
+      "path": "art/source/character-kit/hd/footwear-boots.png",
+      "sha256": "fd3f0da0b59078a7c994b90ee93ce314d79d8ea298e73e118e590d8165a880cb"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-oval",
+        "bottom-straight",
+        "footwear-boots",
+        "top-tunic",
+        "hair-crop"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

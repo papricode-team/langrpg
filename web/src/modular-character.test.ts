@@ -8,7 +8,8 @@ describe('registered sprite layers', () => {
     for (let facing = 0; facing < 4; facing++) for (const phase of [undefined,0,1,2,3,4,5,6,7]) {
       const frame=characterFrame(facing,phase), layers=characterLayers(avatar,frame);
       expect(layers.length).toBeGreaterThan(5);
-      expect(layers.every(layer=>layer.frame===frame)).toBe(true);
+      expect(layers.every(layer=>layer.frame===frame%4)).toBe(true);
+      expect(layers.every(layer=>layer.key.endsWith(`.editor.${Math.floor(frame/4)}.webp`))).toBe(true);
       expect(layers.every(layer=>!('rotation' in layer)&&!('x' in layer)&&!('y' in layer))).toBe(true);
     }
   });

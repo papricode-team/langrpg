@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-oval-page-0-candidate-1.png",
+      "sha256": "38657270c040d821a3d0d47da3f887e8fe407c1ba2f7afcdd86dc35a216285d3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-oval-page-0-candidate-1.txt",
+      "sha256": "a4cf8b5bc71f3355cf75bcc6a0ae265af72e5b02e7058a1a5dea8ea0465a9de6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "9aa6e2b505441678d03adb5e37f35037fae30c1d6fdd067fe63f060127daec34"
+}

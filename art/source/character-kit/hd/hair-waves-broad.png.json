@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "543c7ea0eb3848fc70dafbca1b225a87e93c0ef2bbfa109866cdc195f32e9c80",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "3b5ab83f2f4b0e8257704c333d9e43b4ec8c8c16f6506951c48965feb29a3b08",
+  "generationPromptSha256": "c9e12f5f35ecc5a671bcd7e5661e0cf4d6964af5df2595e3e6c380a582a0f42f",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "4a84685b74e25dbd166d446d73af9b95605ff428509d0605c0679c1a7659dadb",
+  "candidate": "art/source/character-kit/hd/hair-waves-broad-aligned.png",
+  "lockedSha256": "870d8b8cee1362056ef8d31698bd574acb8c30ff5606f6efd9c508ed3bd042a4"
+}

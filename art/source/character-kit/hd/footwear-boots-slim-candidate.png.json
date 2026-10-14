@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-0-candidate-1.png",
+      "sha256": "7a6c600019aefc1b9d73896f3174be274e8c2c343127f3e342e6e7528dda2ae4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-0-candidate-1.txt",
+      "sha256": "2120a9d26c09e11efaf0efd432f3572d91c64900bf638607c7cef5428bb788c1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-1-candidate-1.png",
+      "sha256": "4b698c1eeec84b0448cd1a6c87da95b6d1198dfdedcbde8b75917e8894048146"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-1-candidate-1.txt",
+      "sha256": "0d8e2d416d811f2ec118552c11bfcce78930254d10e0edba6988053fa14dee10"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-2-candidate-1.png",
+      "sha256": "3e72829c1cf8859b03f0487e768754a8645bd1ea5bb54fe0828fe7ff30e158ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-2-candidate-1.txt",
+      "sha256": "0d8e2d416d811f2ec118552c11bfcce78930254d10e0edba6988053fa14dee10"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-3-candidate-1.png",
+      "sha256": "efc146cebc03157934750de97a3a303e455ca41284ec0a2f59776272ceb3bbcf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-3-candidate-1.txt",
+      "sha256": "0d8e2d416d811f2ec118552c11bfcce78930254d10e0edba6988053fa14dee10"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-4-candidate-1.png",
+      "sha256": "2deb8939a1fd881944cb28590a0fa8bacef0919b3251b3bc4d52306b693520fd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-4-candidate-1.txt",
+      "sha256": "0d8e2d416d811f2ec118552c11bfcce78930254d10e0edba6988053fa14dee10"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-boots-slim-page-5-candidate-1.png",
+      "sha256": "65eccb65a8c32a06c7eb49d1ba3b725df0d8db1078874444f05a070dade29e5f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-boots-slim-page-5-candidate-1.txt",
+      "sha256": "0d8e2d416d811f2ec118552c11bfcce78930254d10e0edba6988053fa14dee10"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "87689f81e24f28bd62c62af3e7a1090901429755c59bfe0b8f4c96a247afd142"
+}

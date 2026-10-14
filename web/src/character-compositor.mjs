@@ -42,9 +42,10 @@ export function composeFrame(layers, images, frame, cellWidth, cellHeight, colum
   for (const layer of layers) {
     const materials = [];
     for (const material of layer.materials) {
-      const image = images.get(`${layer.id}.${material}`);
-      if (!image || image.width !== cellWidth * columns || image.height !== cellHeight * 4 || image.data.length !== image.width * image.height * 4) throw new Error(`Missing or malformed ${layer.id}.${material} sheet`);
-      const data = new Uint8ClampedArray(output.length), left = frame % columns * cellWidth, top = Math.floor(frame / columns) * cellHeight;
+      const image = images.get(`${layer.id}.${material}.${frame}`) ?? images.get(`${layer.id}.${material}`);
+      const pageColumns=image?.columns??columns, count=image?.frameCount??36, localFrame=frame-(image?.firstFrame??0);
+      if (!image || !Number.isInteger(pageColumns)||pageColumns<1||localFrame<0||localFrame>=count||image.width !== cellWidth * pageColumns || image.height !== cellHeight * Math.ceil(count/pageColumns) || image.data.length !== image.width * image.height * 4) throw new Error(`Missing or malformed ${layer.id}.${material} sheet`);
+      const data = new Uint8ClampedArray(output.length), left = localFrame % pageColumns * cellWidth, top = Math.floor(localFrame / pageColumns) * cellHeight;
       for (let y = 0; y < cellHeight; y++) {
         const from = ((top + y) * image.width + left) * 4;
         data.set(image.data.subarray(from, from + cellWidth * 4), y * cellWidth * 4);

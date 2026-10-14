@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "fdebb2525c91219f680844bf3521ce6a35b65dcdbfdbf9d1bca92bce0846a5cc",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "f2cbe2044501a54602a0206393fd7785b6ea59b453f06b215124630d73116e87",
+  "promptSha256": "7bd3fdc6ead6e2329cbe7cdf9c42be5418e4c5b85356f160bb7570ec6325a3ea",
+  "generationPromptSha256": "983d7659e6593ffb2685d03fbe60abfd1901b427ef31d705f69b5798c141d432",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "cellMargin": 1
+  },
+  "preparationSha256": "78165817d0f9ee5b363c8e072b6093911455dc29ea33060d32a3651379dbd771",
+  "candidate": "art/source/character-kit/hd/hair-waves-lantern-raise-aligned.png",
+  "lockedSha256": "dc4fea94a710a1f71679482a52a6e029369e67aa1c3a64cd529fca8ac1e99511"
+}

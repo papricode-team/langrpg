@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "40d8964cb84633266da93b137df0fbfb9bd8978eb7bc61a65c36449b19cf69b5",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "e417e6d96e6f05e9a6933449017ed202176eb4c88742da1d2119c4db2d63391b",
+  "promptSha256": "7e05bd3790055d47b01b24776d13aff97f1760e26725e5b2a41bc05f0d5e7573",
+  "generationPromptSha256": "dcf9c021d9d844076f4e234c8f17f5a5e85a69d7942f7f52bda622c1fcf54a1d",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 4,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The open jacket has two front panels; resting hands separate small hem tips, and the torso occludes far lapels in profile."
+  },
+  "preparationSha256": "f7829e25071661006eeced732d301d66a072496f841f613f1c1cc6b17cf45c56",
+  "candidate": "art/source/character-kit/hd/outer-travel-seated-candidate.png",
+  "lockedSha256": "7487701064050a38cf27f8a1f9778a89fab8ea6bcd60573fb804d08b9959a43d"
+}

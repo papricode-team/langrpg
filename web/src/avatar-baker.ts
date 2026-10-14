@@ -1,7 +1,8 @@
 import type Phaser from 'phaser';
 import { characterCatalogue, catalogueForPose, catalogueForExpression, recipeErrors, resolveRecipe, avatarTextureKey } from './character-recipe.mjs';
 import type { AvatarRecipe, CharacterCatalogue, Facing, ResolvedComponent } from './character-recipe.mjs';
-import { composeAtlas, composeFrame } from './character-compositor.mjs';
+import { composeFrame } from './character-compositor.mjs';
+import { characterSheetPages } from './character-sheets.mjs';
 import type { PixelSheet } from './character-compositor.mjs';
 import { AvatarTextureCache } from './avatar-texture-cache';
 import type { TextureLease } from './avatar-texture-cache';
@@ -41,7 +42,7 @@ export class AvatarSheetCache {
 async function decodeSheet(url: string, width: number, height: number): Promise<PixelSheet> {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Missing character sheet ${url} (${response.status})`);
-  const bitmap = await createImageBitmap(await response.blob(), { colorSpaceConversion: 'none', premultiplyAlpha: 'none' });
+  const bitmap = await createImageBitmap(await response.blob(), { colorSpaceConversion: 'none', premultiplyAlpha: 'none' }).catch(() => {throw new Error(`Could not decode character sheet ${url}`);});
   try {
     if (bitmap.width !== width || bitmap.height !== height) throw new Error(`Malformed character sheet ${url}`);
     const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
@@ -58,14 +59,16 @@ function validate(recipe: AvatarRecipe, catalogue: CharacterCatalogue, preview: 
   if (errors.length) throw new Error(`Invalid avatar: ${errors.join('; ')}`);
 }
 
-async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatalogue, resolution: Resolution, load: SheetLoader): Promise<Map<string, PixelSheet>> {
+async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatalogue, resolution: Resolution, load: SheetLoader, frames: number[]): Promise<Map<string, PixelSheet>> {
   const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
   const unique = new Map(layers.map(layer => [layer.id, layer]));
   const images = new Map<string, PixelSheet>();
   await Promise.all([...unique.values()].flatMap(layer => layer.materials.map(async material => {
-    const sheet = layer.sheets[material];
-    const url = `${catalogue.assetBase}${sheet[resolution]}?v=${catalogue.assetVersion}`;
-    images.set(`${layer.id}.${material}`, await load(url, width * 9, height * 4));
+    for (const page of characterSheetPages(layer.sheets[material], resolution, [width,height], frames)) {
+      const url = `${catalogue.assetBase}${page.path}?v=${catalogue.assetVersion}`;
+      const image = {...await load(url, page.width, page.height), firstFrame:page.firstFrame, frameCount:page.frameCount, columns:page.columns};
+      for (const frame of frames) if (frame>=page.firstFrame&&frame<page.firstFrame+page.frameCount) images.set(`${layer.id}.${material}.${frame}`,image);
+    }
   })));
   return images;
 }
@@ -77,9 +80,19 @@ export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = chara
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, preview);
   const resolved = facings.map(facing => resolveRecipe(snapshot, facing, catalogue).layers);
-  const images = await loadLayers(resolved.flat(), catalogue, resolution, loadSheet);
   const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
-  return composeAtlas(resolved, images, width, height);
+  const atlasWidth=width*9, atlasHeight=height*4, data=new Uint8ClampedArray(atlasWidth*atlasHeight*4);
+  const sourceCache=new AvatarSheetCache(loadSheet);
+  // Release each source page before decoding the next; only the final atlas persists.
+  for(let start=0;start<36;start+=4){
+    const frames=Array.from({length:4},(_,i)=>start+i);
+    const images=await loadLayers(frames.flatMap(frame=>resolved[Math.floor(frame/9)]),catalogue,resolution,sourceCache.load,frames);
+    for(const frame of frames){
+      const pixels=composeFrame(resolved[Math.floor(frame/9)],images,frame,width,height);
+      for(let y=0;y<height;y++)data.set(pixels.subarray(y*width*4,(y+1)*width*4),((Math.floor(frame/9)*height+y)*atlasWidth+frame%9*width)*4);
+    }
+  }
+  return {data,width:atlasWidth,height:atlasHeight};
 }
 
 export async function avatarFramePixels(recipe: AvatarRecipe, frame: number, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'editor', preview = false, loadSheet = sheets.load }: BakeOptions = {}) {
@@ -88,7 +101,7 @@ export async function avatarFramePixels(recipe: AvatarRecipe, frame: number, { c
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, preview);
   const layers = resolveRecipe(snapshot, facings[Math.floor(frame / 9)], catalogue).layers;
-  const images = await loadLayers(layers, catalogue, resolution, loadSheet);
+  const images = await loadLayers(layers, catalogue, resolution, loadSheet, [frame]);
   const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
   return { data: composeFrame(layers, images, frame, width, height), width, height };
 }
@@ -102,7 +115,7 @@ function pixelCanvas(pixels: { data: Uint8ClampedArray<ArrayBuffer>; width: numb
 }
 
 type PreviewResources = { layers: ResolvedComponent[][]; images: Map<string, PixelSheet>; width: number; height: number };
-const previews = new AvatarTextureCache<PreviewResources>(() => {}, 2, {maxBytes:128*1024*1024,sizeOf:resource=>[...resource.images.values()].reduce((sum,sheet)=>sum+sheet.data.byteLength,0)});
+const previews = new AvatarTextureCache<PreviewResources>(() => {}, 2, {maxBytes:128*1024*1024,sizeOf:resource=>[...new Set(resource.images.values())].reduce((sum,sheet)=>sum+sheet.data.byteLength,0)});
 const paints = new WeakMap<HTMLCanvasElement, { version: number; key: string; resources: Promise<TextureLease<PreviewResources>> }>();
 export function releaseAvatarPreview(canvas: HTMLCanvasElement): void {
   const state = paints.get(canvas); paints.delete(canvas);
@@ -112,12 +125,14 @@ export async function paintAvatar(canvas: HTMLCanvasElement, recipe: AvatarRecip
   if (!Number.isInteger(frame) || frame < 0 || frame >= 36) throw new Error('Frame must be in 0..35');
   catalogue = catalogueForPose(poseSet, catalogue);
   const snapshot = structuredClone(recipe); validate(snapshot, catalogue, false);
-  const key = avatarTextureKey(snapshot, catalogue); let state = paints.get(canvas);
+  const pageStart=Math.floor(frame/4)*4;
+  const key = `${avatarTextureKey(snapshot, catalogue)}:page-${pageStart}`; let state = paints.get(canvas);
   if (!state || state.key !== key) {
     void state?.resources.then(lease => lease.release()).catch(() => {});
     const resources = previews.acquire(key, async () => {
       const layers = facings.map(facing => resolveRecipe(snapshot, facing, catalogue).layers);
-      const images = await loadLayers(layers.flat(), catalogue, 'editor', sheets.load);
+      const frames=Array.from({length:4},(_,i)=>pageStart+i);
+      const images = await loadLayers(frames.flatMap(frame=>layers[Math.floor(frame/9)]), catalogue, 'editor', sheets.load, frames);
       const [width, height] = catalogue.format.editorCell;
       return { layers, images, width, height };
     });

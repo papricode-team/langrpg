@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "bdab3ec47af0044c596b73114eb627f3d0a016c740f87a84c8415c82255593b5",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "6a1de7d338cc9ee1ec31a1d074f863ee95cc1c43636a51f135ea791d829f2930",
+  "promptSha256": "119e292209f370e5b50c54e41a88dc4fae0d72443855a9e835d0f03f6efd6a3f",
+  "generationPromptSha256": "140b40592cb2e83b1621d207594d5ea69a7864ebaf506b5bc45c3214a190ab1e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "098fb9cb2189f53080337232ec11091d3e23ef6ecb451e92b1d3b1cdc226b60a",
+  "candidate": "art/source/character-kit/hd/hair-crop-aligned.png",
+  "lockedSha256": "06403fbf7e806b8a45fc53169503e2d43478e84a9ac908cba96d2a63ff4d4445"
+}

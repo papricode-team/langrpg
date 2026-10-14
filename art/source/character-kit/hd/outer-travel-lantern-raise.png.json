@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "poseSet": "lantern-raise",
+  "poseDefinitionSha256": "d9244781b50337c64373d7cf38721647cebb106f2e2fa24eb3d7ea966fd7f1e2",
+  "candidateSha256": "7fa824874a88b722b49b92203c3855df4a5180dd5c405f390567474dff594971",
+  "baseSha256": "ad2e1097d66117b62349016f159fb24dd353958014b3cc4289615d74a3f9e60e",
+  "registrationSha256": "ca6fe77152ecc6479b894772c4b7c70d1300784d9b613f97bc7b1637ec1d07d8",
+  "maskSha256": "2f80d5418148995480ad88cb03ae862f0adcb10c34dc58a33a4b42b573c4f2de",
+  "promptSha256": "8c32f94fa7ecc782441cc2f09ee3288c7c458595724bd4998e0aaace96011bd9",
+  "generationPromptSha256": "5782f7099f80b73ac6fef6d950e8419aa13920b7bc42dba241e4bf4c9d578bb6",
+  "materials": [
+    "primary",
+    "secondary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3,
+      "left": 3,
+      "right": 2
+    },
+    "regionReason": "The torso separates the far open lapel, and the lowered arm separates a small rear hem corner."
+  },
+  "preparationSha256": "40d88bd27c4d9d9c18dcb09c1792d9e30a2526818fc09e49dd1536f4516d10b5",
+  "candidate": "art/source/character-kit/hd/outer-travel-lantern-raise-candidate.png",
+  "lockedSha256": "e7545b99b826f08f7a0509c19edcf700a2ddd41ea96694c3bae34980fe699f38"
+}

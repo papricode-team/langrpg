@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "poseSet": "seated",
+  "poseDefinitionSha256": "6290d5c8b172d04e8d6096b0df2f796b64caecca30a28a91f438438fa67c8375",
+  "candidateSha256": "fb69eebb81ef583a378ba97d27e2c463af45c9510e293555e5b72a24e6b2c46b",
+  "baseSha256": "e6a52b282388ce62bbaef47e094adeba518d8f60963e3fd2b706a5e5ddcaf5ae",
+  "registrationSha256": "a332cc679dbcdb1fbdb78a601d9d9bff18ba69850f19178515fd961798f9f8e6",
+  "maskSha256": "04341dfa442e647f1a7ad65b678cf135f8060bfe03b559f8236232181d0d4759",
+  "promptSha256": "44bd7e5821328418c2299e130305db76671bfdbaefd76cfc957576c4247365be",
+  "generationPromptSha256": "01edf7b03163f983200b50adb779bca9cb8761274711fd237c7c6b348b499596",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The resting foreground hand separates a small visible waistband corner above the lap."
+  },
+  "preparationSha256": "b5ef634cc38c28a83fe9b97bbdb538071cd7c97144ee3f5035cc701b3ee5ff3d",
+  "candidate": "art/source/character-kit/hd/bottom-straight-seated-aligned.png",
+  "lockedSha256": "75123533bdc45caac256b985d4c65068dfca001e40c176995a2029b3082e6372"
+}

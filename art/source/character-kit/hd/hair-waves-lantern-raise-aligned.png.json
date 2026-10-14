@@ -1,0 +1,545 @@
+{
+  "version": 1,
+  "operation": "one integer translation per complete frame; recorded landmark registration; no resizing or per-part warps",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-0-candidate-1.png",
+      "sha256": "dc8d162a18901e3f8f1d4de558d3f21a757da209ea8e8ec46bad43dc95304b38"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-0-candidate-1.txt",
+      "sha256": "983d7659e6593ffb2685d03fbe60abfd1901b427ef31d705f69b5798c141d432"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-0.json",
+      "sha256": "99e4da00a1755cf7cd8ab681e562e96ae23969540ac5b516cb848457bbdf12f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-1-candidate-1.png",
+      "sha256": "396410185ebcede14374d4feb7a2460f272eb1b607f9d1a19de1c169671d4e31"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-1-candidate-1.txt",
+      "sha256": "affeebce6be991735cd49fa35954e1410df68393346384dd563c5195227e7529"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-1.json",
+      "sha256": "1e1398bd274e9dcacdc7581b3e955047e27f95266e9fa56e055815046eb9d3bb"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-2-candidate-1.png",
+      "sha256": "af9faa9301ca353593d365c02136e30660efbe00c964f248d926d6a4a19801d4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-2-candidate-1.txt",
+      "sha256": "5b5a1ded5ceb851bfc11e46178c420dd5a0c99e1799d45c76bb1d408bd7da3ee"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-2.json",
+      "sha256": "4756a2f06140a7818378e6d15c598df394660a5ed8ab81979a283cd58f542f87"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-lantern-raise-page-3-candidate-1.png",
+      "sha256": "6ec900528c235c49f7697a4c5e08adae2d3c44328e69254188161701fdd6de8c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-lantern-raise-page-3-candidate-1.txt",
+      "sha256": "ec82376a7171a21b2f6338b360eb2cb7f33d1c5274a7fb522204fd8aaab919b3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-lantern-raise-complete-crown-3.json",
+      "sha256": "c37d537480963fcc378d9638bb47e705b4ca993e29d1fa533e781a2374a83f76"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    },
+    {
+      "path": "art/source/character-kit/hd/hair-waves-lantern-raise-candidate.png",
+      "sha256": "6990ad517f8c5d6f90043626f18569e6bab7ae11100e37a9f2741807589a535e"
+    },
+    {
+      "path": "art/source/character-kit/hd/hair-waves-lantern-raise-candidate.png.json",
+      "sha256": "6e8a924edd5285d00b4da353c88939e3b87d1490c7c02bd3015c861916a40f1a"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-lantern-raise.png",
+      "sha256": "471faf9c44f255d5c406815c01d8f407110433b6f1bbaf33bcbf26bfdc9ed09c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-lantern-raise/registration.json",
+      "sha256": "359b5a0b2dab5915519071c71e5ec7b151d261ab796d54c9716bbd932080bbd6"
+    }
+  ],
+  "offsets": [
+    {
+      "x": 7,
+      "y": 3,
+      "error": 341.71927966101697,
+      "initial": 2169.3273305084745,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 261,
+        "top": 344,
+        "width": 117,
+        "height": 96
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "error": 370.79272598870057,
+      "initial": 2052.1783192090397,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 901,
+        "top": 345,
+        "width": 118,
+        "height": 96
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "error": 266.37994350282486,
+      "initial": 588.4375,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 1541,
+        "top": 344,
+        "width": 117,
+        "height": 96
+      }
+    },
+    {
+      "x": 5,
+      "y": 21,
+      "error": 407.07521186440675,
+      "initial": 883.2033898305085,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2181,
+        "top": 344,
+        "width": 117,
+        "height": 96
+      }
+    },
+    {
+      "x": 5,
+      "y": 25,
+      "error": 502.5833333333333,
+      "initial": 704.0732638888888,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2820,
+        "top": 345,
+        "width": 120,
+        "height": 96
+      }
+    },
+    {
+      "x": -1,
+      "y": 24,
+      "error": 206.015625,
+      "initial": 208.39791666666667,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 3460,
+        "top": 344,
+        "width": 120,
+        "height": 96
+      }
+    },
+    {
+      "x": 6,
+      "y": 41,
+      "error": 275.884375,
+      "initial": 1324.1048611111112,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4100,
+        "top": 344,
+        "width": 120,
+        "height": 96
+      }
+    },
+    {
+      "x": 11,
+      "y": 40,
+      "error": 321.75247175141243,
+      "initial": 1249.7828389830509,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4741,
+        "top": 345,
+        "width": 118,
+        "height": 96
+      }
+    },
+    {
+      "x": 4,
+      "y": 47,
+      "error": 563.8881944444445,
+      "initial": 1360.4732638888888,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 5380,
+        "top": 344,
+        "width": 120,
+        "height": 96
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "error": 1710.9872512437812,
+      "initial": 14263.711442786069,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 253,
+        "top": 1239,
+        "width": 133,
+        "height": 96
+      }
+    },
+    {
+      "x": 21,
+      "y": 6,
+      "error": 2088.6364583333334,
+      "initial": 11571.402430555556,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 901,
+        "top": 1239,
+        "width": 119,
+        "height": 96
+      }
+    },
+    {
+      "x": 39,
+      "y": 8,
+      "error": 1972.5871710526317,
+      "initial": 4535.556469298245,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 1525,
+        "top": 1239,
+        "width": 151,
+        "height": 96
+      }
+    },
+    {
+      "x": 23,
+      "y": 24,
+      "error": 1148.6277412280701,
+      "initial": 3942.6631030701756,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2165,
+        "top": 1239,
+        "width": 151,
+        "height": 96
+      }
+    },
+    {
+      "x": 22,
+      "y": 24,
+      "error": 1455.7845394736842,
+      "initial": 4912.533442982456,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2805,
+        "top": 1239,
+        "width": 151,
+        "height": 96
+      }
+    },
+    {
+      "x": 17,
+      "y": 22,
+      "error": 2130.3259408602153,
+      "initial": 2130.3259408602153,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 3458,
+        "top": 1239,
+        "width": 124,
+        "height": 96
+      }
+    },
+    {
+      "x": 18,
+      "y": 49,
+      "error": 451.6595394736842,
+      "initial": 3668.8070175438597,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4085,
+        "top": 1239,
+        "width": 151,
+        "height": 96
+      }
+    },
+    {
+      "x": 13,
+      "y": 50,
+      "error": 885.3284505208334,
+      "initial": 7255.682291666667,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4736,
+        "top": 1239,
+        "width": 128,
+        "height": 96
+      }
+    },
+    {
+      "x": 8,
+      "y": 49,
+      "error": 1104.5791015625,
+      "initial": 2443.5081380208335,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 5376,
+        "top": 1239,
+        "width": 127,
+        "height": 96
+      }
+    },
+    {
+      "x": 11,
+      "y": -5,
+      "error": 2686.6685897435896,
+      "initial": 7303.949358974359,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 255,
+        "top": 2134,
+        "width": 129,
+        "height": 96
+      }
+    },
+    {
+      "x": 23,
+      "y": -2,
+      "error": 1169.6070963541667,
+      "initial": 14666.089192708334,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 897,
+        "top": 2134,
+        "width": 127,
+        "height": 96
+      }
+    },
+    {
+      "x": 28,
+      "y": 0,
+      "error": 189.39053672316385,
+      "initial": 11840.83615819209,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 1541,
+        "top": 2134,
+        "width": 118,
+        "height": 96
+      }
+    },
+    {
+      "x": 22,
+      "y": 27,
+      "error": 158.05915178571428,
+      "initial": 3987.176711309524,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2184,
+        "top": 2134,
+        "width": 112,
+        "height": 96
+      }
+    },
+    {
+      "x": 24,
+      "y": 28,
+      "error": 153.13392857142858,
+      "initial": 4131.409598214285,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2824,
+        "top": 2134,
+        "width": 112,
+        "height": 96
+      }
+    },
+    {
+      "x": 25,
+      "y": 27,
+      "error": 1216.1291666666666,
+      "initial": 5431.292948717949,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 3455,
+        "top": 2134,
+        "width": 129,
+        "height": 96
+      }
+    },
+    {
+      "x": 13,
+      "y": 54,
+      "error": 660.9455128205128,
+      "initial": 10506.08173076923,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4095,
+        "top": 2134,
+        "width": 129,
+        "height": 96
+      }
+    },
+    {
+      "x": 20,
+      "y": 54,
+      "error": 1665.4388020833333,
+      "initial": 11431.806315104166,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4737,
+        "top": 2134,
+        "width": 127,
+        "height": 96
+      }
+    },
+    {
+      "x": 23,
+      "y": 51,
+      "error": 1169.6410256410256,
+      "initial": 10412.570512820514,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 5375,
+        "top": 2134,
+        "width": 129,
+        "height": 96
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "error": 2378.4717039800994,
+      "initial": 16304.29539800995,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 253,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 28,
+      "y": 3,
+      "error": 1802.8411835748793,
+      "initial": 26792.053140096617,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 892,
+        "top": 3032,
+        "width": 137,
+        "height": 96
+      }
+    },
+    {
+      "x": 23,
+      "y": 5,
+      "error": 2284.0628109452737,
+      "initial": 22545.759950248757,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 1533,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 3,
+      "y": 29,
+      "error": 3275.8874378109454,
+      "initial": 8587.106032338308,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2173,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 26,
+      "y": 29,
+      "error": 2453.9076492537315,
+      "initial": 12748.844527363184,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 2813,
+        "top": 3032,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 24,
+      "y": 26,
+      "error": 3277.9919154228855,
+      "initial": 12849.908582089553,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 3453,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 4,
+      "y": 58,
+      "error": 3875.553171641791,
+      "initial": 13578.143345771145,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4093,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 28,
+      "y": 58,
+      "error": 3082.7851368159204,
+      "initial": 17314.02487562189,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 4733,
+        "top": 3032,
+        "width": 134,
+        "height": 96
+      }
+    },
+    {
+      "x": 25,
+      "y": 58,
+      "error": 1333.585199004975,
+      "initial": 14195.291355721392,
+      "anchor": "crown silhouette, complete-frame translation",
+      "box": {
+        "left": 5373,
+        "top": 3031,
+        "width": 134,
+        "height": 96
+      }
+    }
+  ],
+  "outputSha256": "fdebb2525c91219f680844bf3521ce6a35b65dcdbfdbf9d1bca92bce0846a5cc"
+}

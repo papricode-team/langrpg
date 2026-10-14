@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-sunglasses-page-0-candidate-1.png",
+      "sha256": "e59d4342ec280c4d224bbcadb3efe44cc26a837c4f24fa8ac0ec9b8adaaa0a62"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-sunglasses-page-0-candidate-1.txt",
+      "sha256": "6fe39f36bc66d70a9dcae32b393ad903726ba1286257e9beb57c17f9646bc31c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/regular-faces/page-0.json",
+      "sha256": "6b4419f238e72ce5eaffdc6c5e055d351db43b6f208a157ee4f23861ed30cfd3"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular.png",
+      "sha256": "6da2dab2158f82192012f334eb5438bb26781be429b12b8c57e667a936d640e2"
+    }
+  ],
+  "outputSha256": "67ac9fe3fd47a8fa4cc7e6b02264aa45ebe58e70df1889f9c9aaa5cd80f3fca6"
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-soft-wave-page-0-candidate-2.png",
+      "sha256": "789e8f6cb2e4fa77bb4991d709d0ec08bfef331f3720411c8fc7b57f7506596b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-soft-wave-page-0-candidate-2.txt",
+      "sha256": "b7bce8c0862e019b26d4b94edc5376774c56b6499624cb3b35c190cbe2652003"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-regular-wave-native-face/page-0.json",
+      "sha256": "e3d18288f7285f5d772be965e2da2c53a567efad0aacdc4b92b83c0e08e88199"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-regular-wave.png",
+      "sha256": "cbd366d6ebf81679e2f4e42c6b4680a37e96794af698a6581355aa72af951c74"
+    }
+  ],
+  "outputSha256": "43e2e7d42fe53e4cce9775b0dd3bc70c1dccc5ed9e701ae25c6f71380937d0db"
+}

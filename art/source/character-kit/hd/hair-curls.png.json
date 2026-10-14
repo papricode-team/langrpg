@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "560e601e5821b3f617ef306d613036cba6202817ec705c143d221aa9a5433430",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "28a10db5546aac5520c58e079ce270cbe389679ce06a012074973301eb35a6ef",
+  "promptSha256": "0a17122184b29c615bc8585b06d18d9b7f7a149556ac7d8300a4d5da8bcea8a0",
+  "generationPromptSha256": "3952a2304844f3a4f10f856bd1cac0a896d560948c14bd1c90f801f1e0b584da",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "17a411445536a494337ab653b08723fb1815b919b7f8032c2c555d73f03b07a1",
+  "candidate": "art/source/character-kit/hd/hair-curls-aligned.png",
+  "lockedSha256": "cd592a2b71c0d37361b6c8a5a0f8f602c83b54915862abe9069939e6d63cc68f"
+}

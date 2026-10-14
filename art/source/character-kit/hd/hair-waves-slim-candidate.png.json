@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-slim-page-0-candidate-1.png",
+      "sha256": "f6e94c8aa0cdb322c871f9e95de53a895dced60829deea11f730c9e725e4b2bf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-slim-page-0-candidate-1.txt",
+      "sha256": "3283b51e7d0590591115b4a262c69a2e6ab4a4e98ebc210a05f527498005231b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-slim-complete-crown-0.json",
+      "sha256": "c0f9f5bb8fb2ddc97e45ee6bc170af3c71a195c5267f9ed97756f792c71fc43c"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-slim-page-1-candidate-1.png",
+      "sha256": "2f0012ed4e6a125bc9873e8b3aaf253db0a0ae1ee0da3b52baca9798e2ffa855"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-slim-page-1-candidate-1.txt",
+      "sha256": "fca458df2c9248c9d580aae9379939b5d2af76a2caa1e6ee86fffc17d1096624"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-slim-complete-crown-1.json",
+      "sha256": "73464cc851dd05eeae47bbf874c0fb7dfc30c46e23160fb82743d0d841c74482"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-slim-page-2-candidate-1.png",
+      "sha256": "23a92f1ba6a55e54639f757f09fc5dab956a72a266a9f3e18cf824cb6ad16784"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-slim-page-2-candidate-1.txt",
+      "sha256": "fca458df2c9248c9d580aae9379939b5d2af76a2caa1e6ee86fffc17d1096624"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-slim-complete-crown-2.json",
+      "sha256": "3efa22f5e62b1b6096c211d729776f0c1ae5cc4df461b6707d76c4b82d6901c6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-waves-slim-page-3-candidate-1.png",
+      "sha256": "8ee0c4ed865e88ed83fbb04a51c78553053a4e092d6bb44c50da669c5d9afe69"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-waves-slim-page-3-candidate-1.txt",
+      "sha256": "fca458df2c9248c9d580aae9379939b5d2af76a2caa1e6ee86fffc17d1096624"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/hair-waves-slim-complete-crown-3.json",
+      "sha256": "24dde4d20e93dbabc2e11c7bdfbacc741084f82c02a4ad541d6fdb34b14f74e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "b65f15dff7827c57d294158c4a64f0b7aa22f1b885da03e8212eea906901ef5e"
+}

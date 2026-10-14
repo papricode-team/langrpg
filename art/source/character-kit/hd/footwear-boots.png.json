@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "candidateSha256": "4f699df14ec7bb8dcc6de38c4665de8ab5d479b7551bcbfaeb0df5961ddf4122",
+  "baseSha256": "a4eec640153c30e056b4adb47899e5bbe62d5df947b3f01ba3447c0216fb31d8",
+  "registrationSha256": "635282fa1dcc1645fa2120623e69cbb778a838f7525a270864d249ba7f8dbbb6",
+  "maskSha256": "a30b76d4c3a18124d3d3da4f4ba5c776b8b9f6c96e4a92ccca057fe510d0eda5",
+  "promptSha256": "adeb676102db24141414b9754da709b524c65980204ebc16905f46c17f5d4238",
+  "generationPromptSha256": "5bdf416027e1daeba56ab69c7ea03e91e0e06db62752cca63193ad82d5e44443",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ]
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of boots has two disconnected visible regions when the feet are apart. Each boot must touch its mannequin foot."
+  },
+  "preparationSha256": "eb6708529319fd87ba35209129ccb8e84c12f28c606f7402534c3c424af51802",
+  "candidate": "art/source/character-kit/hd/footwear-boots-candidate.png",
+  "lockedSha256": "7607d8c734a4ca38722a8b9719d383cacf151e503e7c055931f80c30a891bdde"
+}
