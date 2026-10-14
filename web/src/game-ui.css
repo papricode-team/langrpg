@@ -30,7 +30,7 @@
 .journey-hero-caption { position:absolute; right:23px; bottom:24px; display:flex; gap:7px; align-items:center; font-size:8px; letter-spacing:.16em; color:#e9dfbe; }
 .journey-hero-caption>.icon { width:15px; height:15px; }
 .journey-hero-caption>span { display:none; }
-.journey-tools { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:14px; }
+.journey-tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
 .journey-tools>button { display:flex; gap:12px; align-items:center; min-height:88px; padding:16px; text-align:left; background:#14292399; border:1px solid var(--game-line); }
 .journey-tools>button:hover { border-color:#d8bb8070; background:#243b30; }
 .journey-tools>button>.icon:first-child { width:20px; height:20px; color:var(--game-gold); flex:none; }
@@ -39,6 +39,7 @@
 .journey-tools strong { display:block; color:var(--game-text); font:400 16px/1.3 'Fraunces',serif; }
 .journey-tools small { display:block; color:var(--game-muted); font-size:10px; line-height:1.6; margin-top:5px; }
 .journey-detours { margin-top:26px; }
+.journey-detours .journey-tools { grid-template-columns:repeat(3,minmax(0,1fr)); }
 .journey-section-label { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; }
 .journey-section-label>.eyebrow { font-size:9px; color:#aeae95; }
 .journey-section-label>span:last-child { font-size:10px; color:#9cab9f; }
@@ -169,7 +170,7 @@
 }
 @media(max-width:1100px) {
   .journey-hero { padding:27px; }
-  .journey-tools { grid-template-columns:1fr; gap:7px; }
+  .journey-tools,.journey-detours .journey-tools { grid-template-columns:1fr; gap:7px; }
   .journey-tools>button,.journey-detours .journey-tools>button { min-height:65px; }
   .journey-tools small { margin-top:3px; }
 }
@@ -184,7 +185,7 @@
   .journey-hero .primary-button { width:100%; min-width:0; }
   .journey-hero-caption { display:none; }
   .journey-progress { max-width:none; }
-  .journey-tools { grid-template-columns:1fr; }
+  .journey-tools,.journey-detours .journey-tools { grid-template-columns:1fr; }
   .camp-bottom { gap:14px; }
   .camp-bottom>.text-button:first-child { width:100%; }
   .dialog[open].npc-dialog { width:calc(100vw - 24px); margin:auto; max-height:calc(100dvh - 24px); padding:0; }

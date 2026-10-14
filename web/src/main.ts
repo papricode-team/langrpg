@@ -25,8 +25,8 @@ import '@fontsource/dm-sans/700.css';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import './style.css';
-import './event-log.css';
-import { EventLog, installFormNotifications } from './event-log';
+import './notifications.css';
+import { Notifications, installFormNotifications } from './notifications';
 import './course-ui.css';
 import './game-ui.css';
 import './game-menu.css';
@@ -39,6 +39,7 @@ import { mountExpeditionEncounter } from './expedition-encounter';
 import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
 import { adventureHome } from './game-panels';
 import './interiors.css';
+import './quest-cta.css';
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
@@ -215,7 +216,7 @@ let speechRate = Number(localStorage.getItem('atlas.speechRate') || '0.82');
 if (![0.65, 0.82, 1].includes(speechRate)) speechRate = 0.82;
 const chatMessages: ChatMessage[] = [];
 let world: World;
-let eventLog: EventLog | undefined;
+let notifications: Notifications | undefined;
 let removeFormNotifications: (() => void) | undefined;
 let screenFilterControls: ScreenFilterControls | undefined;
 type Submission = AttemptSubmission;
@@ -279,7 +280,7 @@ function portrait(id: string, className = '', expression = 'neutral') {
 function currentQuest() { return quests.find(q => q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds)) ?? quests.find(q => q.level === level)!; }
 function completedAtLevel(l: Level) { return quests.filter(q => q.level === l && progress.completedQuestIds.includes(q.id)).length; }
 function toast(message: string, bad = false) {
-  eventLog?.notify(message, bad);
+  notifications?.notify(message, bad);
 }
 function renderShell() {
   screenFilterControls?.destroy();
@@ -294,7 +295,6 @@ function renderShell() {
         <section class="interior-location" id="interior-location" aria-label="${e(t('Current building'))}" hidden></section>
         <div class="world-status">
           <div class="bell-tracker" id="bell-tracker" aria-label="${e(t('The seventh bell'))}"><span>${icon('clock')}</span><strong id="bell-count">0 / 7</strong><small id="story-day">${upper(t('Day {day}', { day: 1 }))}</small></div>
-          <button class="region-compass" data-view="atlas" aria-label="${e(t('Open the region atlas'))}">${icon('compass')}<span><strong id="region-name">Lindenhafen</strong><small>${upper(t('Region atlas'))}</small></span></button>
           <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
         </div>
         <section class="chat-card" id="chat-card" aria-label="${e(t('Local chat'))}"><button class="chat-header" data-action="chat-toggle" aria-label="${e(t('Toggle local chat'))}" aria-expanded="false" aria-controls="chat-body"><span>${icon('chat')}<strong id="chat-region">Lindenhafen</strong><small>${t('LOCAL')}</small></span><span class="chat-toggle-icon">${icon('plus')}</span></button><div class="chat-body" id="chat-body" hidden><div class="chat-messages" id="chat-messages"><p class="chat-welcome">${t('Say Hallo. Every wanderer has a story.')}</p></div><form id="chat-form" class="chat-input"><input id="chat-input" maxlength="280" autocomplete="off" placeholder="${e(t('Say something…'))}" aria-label="${e(t('Message to this region'))}"/><button type="submit" aria-label="${e(t('Send message'))}">${icon('send')}</button></form></div></section>
@@ -305,8 +305,8 @@ function renderShell() {
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>
       <dialog class="menu-layer" id="menu-layer" aria-labelledby="menu-title" data-input="pointer" hidden><div class="menu-frame"><header class="menu-header"><div class="menu-brand"><span class="menu-crest">${icon('lantern')}</span><span class="menu-kicker">THE LANTERN ATLAS</span><h1 id="menu-title" class="menu-sr-only">${t('Your adventure')}</h1></div><nav class="menu-tabs" id="menu-tabs" aria-label="${e(t('Game sections'))}"></nav><button class="menu-close" data-view="world" aria-label="${e(t('Return to game'))}">${icon('close')}</button></header><nav class="menu-pages" id="menu-pages" aria-label="${e(t('Pages'))}"></nav><div id="other-view" class="menu-content" tabindex="-1"></div><footer class="menu-footer"><p class="menu-help" id="menu-help" aria-live="polite"></p><div class="menu-prompts" id="menu-prompts" aria-hidden="true"></div><div class="menu-footer-meta"><span class="german-flag"></span><span id="language-pair">${t('GERMAN FROM ENGLISH')}</span><span class="connection-pill" id="connection-pill"><span></span> ${t('Connecting')}</span></div></footer></div></dialog>
     </main><dialog id="dialog" class="dialog" aria-label="${e(t('Adventure encounter'))}"></dialog><dialog id="account-dialog" class="dialog account-dialog" aria-labelledby="account-title"></dialog>`;
-  eventLog?.destroy();
-  eventLog = new EventLog();
+  notifications?.destroy();
+  notifications = new Notifications();
   removeFormNotifications?.();
   removeFormNotifications = installFormNotifications(toast);
   world = new World(document.querySelector('#world-container')!, {
@@ -426,7 +426,6 @@ function syncLocation() {
   else delete shell.dataset.interior;
   document.querySelector('#breadcrumb-current')!.textContent = room?.name ?? region.name;
   document.querySelector('#location-subtitle')!.textContent = upper(room ? room.subtitle : localized(region.subtitle));
-  document.querySelector('#region-name')!.textContent = room ? `${region.name} · ${t('Indoors')}` : region.name;
   document.querySelector('#watch-region')!.textContent = room?.name ?? region.name;
   document.querySelector('#explore-view')!.setAttribute('aria-label', room ? t('{place} interior', { place: room.name }) : region.name);
   const chip = document.querySelector<HTMLElement>('#interior-location')!;
@@ -529,7 +528,7 @@ function updateProgress() {
     document.querySelector<HTMLElement>('#chapter-fill')!.style.width = `${(encountered + (status === 'completed' ? 1 : 0)) / (expedition.encounters.length + 1) * 100}%`;
     document.querySelector('#hud-level')!.textContent = `${level} · ${upper(titleLabel(rewards.title))}`;
     world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
-    document.querySelector('#quest-panel')!.innerHTML = `<button class="tracker-heading" data-expedition-game="${expedition.id}"><span class="quest-diamond">${icon(status === 'completed' ? 'check' : 'flag')}</span><span><small>${t('LOCAL AGREEMENT')} · ${status === 'completed' ? t('REMEMBERED') : t('BUILD A PLAN')}</small><strong>${e(game.title)}</strong></span>${icon('chevron')}</button>`;
+    document.querySelector('#quest-panel')!.innerHTML = `<button class="tracker-heading" data-expedition-game="${expedition.id}"><span class="quest-diamond">${icon(status === 'completed' ? 'check' : 'flag')}<span class="quest-spark" aria-hidden="true"></span></span><span><small>${t('LOCAL AGREEMENT')} · ${status === 'completed' ? t('REMEMBERED') : t('BUILD A PLAN')}</small><strong>${e(game.title)}</strong></span>${icon('chevron')}</button>`;
     document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
     if (['journal', 'quests', 'story', 'menu'].includes(view)) renderOther();
     return;
@@ -545,7 +544,7 @@ function updateProgress() {
   const investigation = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
   world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigation.objectId}` : q.npcId);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}</span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigation.objectId)?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong></span>${icon('chevron')}</button>`;
+  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}<span class="quest-spark" aria-hidden="true"></span></span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigation.objectId)?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong></span>${icon('chevron')}</button>`;
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') renderOther();
 }
@@ -611,7 +610,7 @@ function setView(next: View) {
   }
 }
 function menuPages(): MenuPage[] {
-  if (view === 'world') return [];
+  if (view === 'world' || view === 'atlas') return [];
   if (view === 'settings') return optionsTabs.map(tab => ({ label: tab.label(), attributes: `data-options-tab="${tab.id}"`, selected: tab.id === optionsTab }));
   return sectionOf(view).views.map(item => ({ label: viewLabel(item), attributes: `data-view="${item}"`, selected: item === view }));
 }
@@ -782,7 +781,7 @@ function expeditionOverview() {
   const region = getExpedition(mapId)!;
   const game = getExpeditionGame(mapId)!, status = expeditionGameStatus(mapId, level, progress.story?.expeditionPlans ?? {});
   const solved = region.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length;
-  return `<section class="expedition-overview"><div class="eyebrow">${e(region.feeling)}</div><h2>${e(region.name)}</h2><p>${e(region.description)}</p><p>${e(region.culture)}</p><div class="expedition-stat-row"><span>${t('{count} local neighbors', { count: region.npcs.length })}</span><span>${t('{count} discoveries', { count: region.objects.length })}</span><span>${t('{solved} / {total} connections made', { solved, total: region.encounters.length })}</span></div><section class="interior-practice-card"><span>${icon('compass')}</span><div><small>${status === 'completed' ? t('AN AGREEMENT REMEMBERED') : t('PLAY THIS NEIGHBORHOOD')}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><span>${t('A1 / A2 / B1 scaffold · saved with your adventure')}</span></div><button class="primary-button" data-expedition-game="${region.id}">${status === 'started' ? t('Resume the plan') : status === 'completed' ? t('Revisit the agreement') : t('Build the plan')} ${icon('arrow')}</button></section><p>${icon('book')} ${e(region.languageFocus)}</p><div class="expedition-cast">${region.npcs.map(npc => `<button data-expedition-target="${npc.id}">${portrait(npc.id)}<span><strong>${e(npc.name)}</strong><small>${e(npc.role)}</small><small>${e(npc.relationship)}</small></span></button>`).join('')}</div><div class="expedition-game-actions"><button class="outline-button" data-view="atlas">${t('Explore the region atlas')} ${icon('map')}</button><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')} ${icon('arrow')}</button></div></section>`;
+  return `<section class="expedition-overview"><div class="eyebrow">${e(region.feeling)}</div><h2>${e(region.name)}</h2><p>${e(region.description)}</p><p>${e(region.culture)}</p><div class="expedition-stat-row"><span>${t('{count} local neighbors', { count: region.npcs.length })}</span><span>${t('{count} discoveries', { count: region.objects.length })}</span><span>${t('{solved} / {total} connections made', { solved, total: region.encounters.length })}</span></div><section class="interior-practice-card"><span>${icon('compass')}</span><div><small>${status === 'completed' ? t('AN AGREEMENT REMEMBERED') : t('PLAY THIS NEIGHBORHOOD')}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><span>${t('A1 / A2 / B1 scaffold · saved with your adventure')}</span></div><button class="primary-button" data-expedition-game="${region.id}">${status === 'started' ? t('Resume the plan') : status === 'completed' ? t('Revisit the agreement') : t('Build the plan')} ${icon('arrow')}</button></section><p>${icon('book')} ${e(region.languageFocus)}</p><div class="expedition-cast">${region.npcs.map(npc => `<button data-expedition-target="${npc.id}">${portrait(npc.id)}<span><strong>${e(npc.name)}</strong><small>${e(npc.role)}</small><small>${e(npc.relationship)}</small></span></button>`).join('')}</div><div class="expedition-game-actions"><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')} ${icon('arrow')}</button></div></section>`;
 }
 function startExpeditionGame(id: string, requestedLevel?: Level) {
   const game = getExpeditionGame(id);
@@ -1784,7 +1783,7 @@ function showResetGuest(): void {
       miniGameHost?.destroy(); miniGameHost = undefined;
       deliveryController?.destroy(); deliveryController = undefined;
       deliveryHost?.destroy(); deliveryHost = undefined;
-      eventLog?.destroy(); eventLog = undefined;
+      notifications?.destroy(); notifications = undefined;
       if (reminderTimer !== undefined) clearInterval(reminderTimer);
       reminderTimer = undefined; accountReminder = undefined;
       clearGuestProgress(localStorage, result.player.id, result.player.name);
@@ -2097,5 +2096,5 @@ function updateConnection() {
   el.innerHTML = `<span></span>${connection === 'online' ? (count === 1 ? t('{count} wanderer here', { count }) : t('{count} wanderers here', { count })) : connection === 'connecting' ? t('Connecting') : connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting')}`;
 }
 document.addEventListener('visibilitychange', () => { syncAccessActivity(); updateAccessHud(); void sendAccessHeartbeat(accessIsActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

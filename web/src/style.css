@@ -3221,23 +3221,14 @@ kbd {
 .location-banner { top:24px; left:50%; transform:translateX(-50%); width:260px; max-width:30vw; text-align:center; }
 .location-title { font-size:23px; margin:0; }
 .location-subtitle { font-size:8px; margin-top:7px; letter-spacing:1.4px; }
-.region-compass { position:absolute; top:max(22px,env(safe-area-inset-top)); right:max(24px,env(safe-area-inset-right)); display:flex; align-items:center; gap:11px; padding:11px 16px; min-height:48px; background:#142c24d9; border:1px solid #d5b87572; color:#f2dfb3; box-shadow:0 3px 12px #08231b4d; }
-.region-compass>.icon { width:25px; height:25px; }
-.region-compass strong,.region-compass small { display:block; text-align:left; }
-.region-compass strong { font:16px 'Fraunces',serif; }
-.region-compass small { margin-top:4px; font-size:7px; letter-spacing:1.6px; color:#c8c0a4; }
 .world-status { display:contents; }
 @media(min-width:761px) and (min-height:521px) {
   .world-status { position:absolute; top:max(22px,env(safe-area-inset-top)); right:max(24px,env(safe-area-inset-right)); display:flex; flex-direction:column; align-items:flex-end; gap:12px; width:max-content; max-width:calc(50vw - 166px); }
-  .world-status>.region-compass,.world-status>.bell-tracker,.world-status>.quest-tracker { position:static; max-width:100%; }
-  /* Keep the event log beside the atlas, then let the status and objective flow below. */
-  .world-status>.region-compass { order:-1; margin-right:56px; max-width:calc(100% - 56px); }
-  .world-status>.region-compass>span { min-width:0; }
-  .world-status>.region-compass strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .world-status>.bell-tracker,.world-status>.quest-tracker { position:static; max-width:100%; }
   .world-status>.bell-tracker strong { white-space:nowrap; }
   .world-status>.bell-tracker small { min-width:0; overflow-wrap:anywhere; }
 }
-.quest-tracker { top:101px; right:max(24px,env(safe-area-inset-right)); left:auto; width:254px; max-width:none; background:#142c24df; box-shadow:0 4px 13px #0b261e30; border-left:2px solid #c7a76b; }
+.quest-tracker { top:76px; right:max(24px,env(safe-area-inset-right)); left:auto; width:254px; max-width:none; background:#142c24df; box-shadow:0 4px 13px #0b261e30; border-left:2px solid #c7a76b; }
 .quest-tracker::after { display:none; }
 .tracker-heading { align-items:center; gap:10px; padding:12px 14px; min-height:54px; }
 .tracker-heading>span:nth-child(2) { min-width:0; flex:1; }
@@ -3386,9 +3377,6 @@ kbd {
   .player-meta .xp-badge { display:none; }
   .player-progress { margin:6px 0 0; height:3px; }
   .location-banner { display:none; }
-  .region-compass { top:max(14px,env(safe-area-inset-top)); right:max(15px,env(safe-area-inset-right)); width:46px; height:46px; min-height:46px; padding:0; }
-  .region-compass>.icon { width:27px; height:27px; }
-  .region-compass>span { display:none; }
   .quest-tracker { top:76px; left:max(14px,env(safe-area-inset-left)); right:auto; width:min(312px,calc(100vw - 28px)); max-width:none; }
   .tracker-heading { min-height:48px; padding:9px 11px; gap:9px; }
   .tracker-heading small { font-size:7px; letter-spacing:.8px; }
@@ -3481,8 +3469,6 @@ kbd {
   .player-medallion .portrait { width:38px; height:38px; }
   .player-name { font-size:14px; }
   .location-banner { display:none; }
-  .region-compass { top:max(13px,env(safe-area-inset-top)); right:max(17px,env(safe-area-inset-right)); width:44px; height:44px; min-height:44px; padding:0; }
-  .region-compass>span { display:none; }
   .quest-tracker { top:70px; left:max(15px,env(safe-area-inset-left)); right:auto; width:min(280px,44vw); }
   .tracker-heading { padding:8px 10px; min-height:46px; }
   .tracker-heading strong { font-size:12px; }

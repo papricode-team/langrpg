@@ -1,8 +1,8 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { EventLog, installFormNotifications } from './event-log';
+import { Notifications, installFormNotifications } from './notifications';
 
-let log: EventLog | undefined;
+let log: Notifications | undefined;
 let removeValidation: (() => void) | undefined;
 afterEach(() => {
   removeValidation?.(); removeValidation = undefined;
@@ -12,53 +12,51 @@ afterEach(() => {
 });
 
 describe('event notifications', () => {
-  it('expires overlapping notifications independently and retains both in history', () => {
+  it('expires overlapping notifications independently without persistent log controls', () => {
     vi.useFakeTimers();
-    log = new EventLog();
+    log = new Notifications();
     log.notify('Evidence saved. Return to Emil.');
     vi.advanceTimersByTime(3000);
     log.notify('Following the lanterns…');
     vi.advanceTimersByTime(2500);
-    const recent = log.host.querySelector('.event-log-recent')!;
+    const recent = log.host.querySelector('.notifications-recent')!;
     expect(recent.textContent).not.toContain('Evidence saved');
     expect(recent.textContent).toContain('Following the lanterns');
     vi.advanceTimersByTime(3000);
     expect(recent.children).toHaveLength(0);
-    log.host.querySelector<HTMLButtonElement>('.event-log-toggle')!.click();
-    const history = log.host.querySelector<HTMLElement>('.event-log-history')!;
-    expect(history.hidden).toBe(false);
-    expect([...history.querySelectorAll('li span')].map(item => item.textContent)).toEqual(['Following the lanterns…', 'Evidence saved. Return to Emil.']);
-    expect(history.querySelectorAll('time[datetime]')).toHaveLength(2);
+    expect(log.host.querySelectorAll('button, section, ol')).toHaveLength(0);
+    expect(log.host.querySelector('[role="status"]')?.textContent).toBe('Following the lanterns…');
   });
 
-  it('limits on-screen cards, pauses reading on hover, and keeps dismissed events reviewable', () => {
+  it('limits on-screen cards and pauses reading on hover', () => {
     vi.useFakeTimers();
-    log = new EventLog();
+    log = new Notifications();
     for (let i = 0; i < 4; i++) log.notify(`Update ${i}`);
-    const cards = log.host.querySelectorAll('.event-log-notification');
+    const cards = log.host.querySelectorAll('.notification-card');
     expect(cards).toHaveLength(3);
     cards[0].dispatchEvent(new MouseEvent('mouseenter'));
     vi.advanceTimersByTime(6000);
-    expect(log.host.querySelectorAll('.event-log-notification')).toHaveLength(1);
+    expect(log.host.querySelectorAll('.notification-card')).toHaveLength(1);
     cards[0].querySelector<HTMLButtonElement>('button')!.click();
-    expect(log.host.querySelectorAll('.event-log-notification')).toHaveLength(0);
-    expect(log.host.querySelectorAll('.event-log-history li')).toHaveLength(4);
+    expect(log.host.querySelectorAll('.notification-card')).toHaveLength(0);
   });
 
-  it('escapes messages, caps session history, and clears active notifications with the log', () => {
-    log = new EventLog();
+  it('escapes messages and cleans up active notifications on destroy', () => {
+    vi.useFakeTimers();
+    log = new Notifications();
     for (let i = 0; i < 55; i++) log.notify(`Update ${i}`);
     log.notify('<img src=x onerror=alert(1)>', true);
     expect(log.host.querySelector('img')).toBeNull();
-    expect(log.host.querySelector('.event-log-notification.bad p')?.textContent).toBe('<img src=x onerror=alert(1)>');
-    expect(log.host.querySelectorAll('.event-log-history li')).toHaveLength(50);
-    log.host.querySelector<HTMLButtonElement>('[data-log-clear]')!.click();
-    expect(log.host.querySelectorAll('.event-log-history li, .event-log-notification')).toHaveLength(0);
-    expect(log.host.querySelector<HTMLElement>('.event-log-empty')!.hidden).toBe(false);
+    expect(log.host.querySelector('.notification-card.bad p')?.textContent).toBe('<img src=x onerror=alert(1)>');
+    const host = log.host;
+    log.destroy(); log = undefined;
+    expect(host.isConnected).toBe(false);
+    vi.advanceTimersByTime(10000);
+    expect(document.querySelector('.notifications')).toBeNull();
   });
 
-  it('retains history and controls when a modal opens, replaces its content, and closes', async () => {
-    log = new EventLog();
+  it('retains active notifications when a modal opens, replaces its content, and closes', async () => {
+    log = new Notifications();
     log.notify('A clue remembered.');
     const modal = document.createElement('dialog');
     modal.id = 'account-dialog';
@@ -69,12 +67,11 @@ describe('event notifications', () => {
     modal.innerHTML = '<p>Updated form</p>';
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(log.host.parentElement).toBe(modal);
-    expect(log.host.querySelector('.event-log-history')?.textContent).toContain('A clue remembered.');
+    expect(log.host.querySelector('.notifications-recent')?.textContent).toContain('A clue remembered.');
     modal.close();
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(log.host.parentElement).toBe(document.body);
-    log.host.querySelector<HTMLButtonElement>('.event-log-toggle')!.click();
-    expect(log.host.querySelector<HTMLElement>('.event-log-history')!.hidden).toBe(false);
+    expect(log.host.querySelector('.notifications-recent')?.textContent).toContain('A clue remembered.');
   });
 });
 

@@ -8,14 +8,13 @@ import type { UiSound } from './ui-sounds';
  * inside a tab. Pointer play keeps working, the cursor simply follows whatever was last used.
  */
 export type MenuView = 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
-export type MenuSectionId = 'journey' | 'atlas' | 'words' | 'character' | 'options';
+export type MenuSectionId = 'journey' | 'words' | 'character' | 'options';
 export interface MenuSection { readonly id: MenuSectionId; readonly icon: string; readonly label: string; readonly views: readonly MenuView[] }
 export type InputMode = 'pointer' | 'keys' | 'pad';
 export type Direction = 'up' | 'down' | 'left' | 'right';
 
 export const menuSections: readonly MenuSection[] = [
   { id: 'journey', icon: 'scroll', get label() { return t('Journal'); }, views: ['menu', 'quests', 'story'] },
-  { id: 'atlas', icon: 'map', get label() { return t('Atlas'); }, views: ['atlas'] },
   { id: 'words', icon: 'leaf', get label() { return t('Words'); }, views: ['journal', 'course', 'activities'] },
   { id: 'character', icon: 'shirt', get label() { return t('Character'); }, views: ['character'] },
   { id: 'options', icon: 'settings', get label() { return t('Options'); }, views: ['settings'] },
@@ -32,7 +31,10 @@ export function sectionOf(view: MenuView): MenuSection {
 /** Remembers the page last open inside each tab, so flipping tabs returns where the player was. */
 export class MenuMemory {
   private readonly last = new Map<MenuSectionId, MenuView>();
-  remember(view: MenuView): void { this.last.set(sectionOf(view).id, view); }
+  remember(view: MenuView): void {
+    const section = menuSections.find(section => section.views.includes(view));
+    if (section) this.last.set(section.id, view);
+  }
   entry(section: MenuSection): MenuView { return this.last.get(section.id) ?? section.views[0]; }
   neighbour(view: MenuView, step: 1 | -1): MenuView {
     const index = menuSections.indexOf(sectionOf(view));
@@ -80,7 +82,7 @@ export function promptStrip(mode: InputMode, pages: boolean): string {
 
 /** The tab bar and the page row beneath it. Every button is a plain [data-view] or caller-supplied control. */
 export function menuTabsMarkup(view: MenuView, memory: MenuMemory, mode: InputMode): string {
-  const active = sectionOf(view);
+  const active = menuSections.find(section => section.views.includes(view));
   const glyph = (key: string, pad: string) => `<kbd class="menu-tab-glyph" data-key="${e(key)}" data-pad="${e(pad)}" aria-hidden="true">${e(mode === 'pad' ? pad : key)}</kbd>`;
   return `${glyph('Q', 'LB')}${menuSections.map(section => `<button class="menu-tab ${section === active ? 'active' : ''}" data-view="${section === active ? view : memory.entry(section)}" data-menu-section="${section.id}" aria-current="${section === active ? 'page' : 'false'}">${icon(section.icon)}<span>${e(section.label)}</span></button>`).join('')}${glyph('E', 'RB')}`;
 }

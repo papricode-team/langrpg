@@ -159,8 +159,6 @@
   #menu-layer .option-row { grid-template-columns:1fr; gap:8px; padding:12px 8px 12px 22px; }
 }
 @media(max-width:650px) {
-  /* Reserve the floating event-log control beside the close button. */
-  #menu-layer .menu-close { margin-right:52px; }
   #menu-layer .menu-tab span { font-size:11px; }
   #menu-layer .menu-tab .icon { width:19px; height:19px; }
 }

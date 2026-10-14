@@ -5,18 +5,21 @@ import { MenuMemory, MenuNavigator, menuPagesMarkup, menuSections, menuTabsMarku
 const box = (left: number, top: number, width = 100, height = 40): Box => ({ left, top, right: left + width, bottom: top + height });
 
 describe('menu sections', () => {
-  it('folds the nine pages into five tabs', () => {
-    expect(menuSections.map(section => section.id)).toEqual(['journey', 'atlas', 'words', 'character', 'options']);
-    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'atlas', 'character', 'course', 'journal', 'menu', 'quests', 'settings', 'story']);
+  it('folds the eight menu pages into four tabs', () => {
+    expect(menuSections.map(section => section.id)).toEqual(['journey', 'words', 'character', 'options']);
+    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'character', 'course', 'journal', 'menu', 'quests', 'settings', 'story']);
     expect(sectionOf('course').id).toBe('words');
   });
 
   it('returns to the last page of a tab and wraps at the ends', () => {
     const memory = new MenuMemory();
-    expect(memory.neighbour('menu', 1)).toBe('atlas');
+    expect(memory.neighbour('menu', 1)).toBe('journal');
     expect(memory.neighbour('menu', -1)).toBe('settings');
     memory.remember('course');
-    expect(memory.neighbour('atlas', 1)).toBe('course');
+    expect(memory.neighbour('menu', 1)).toBe('course');
+    memory.remember('atlas');
+    expect(menuTabsMarkup('atlas', memory, 'keys')).not.toContain('data-view="atlas"');
+    expect(memory.neighbour('settings', 1)).toBe('menu');
   });
 
   it('marks the active tab and gives the other tabs their remembered page', () => {
