@@ -66,10 +66,10 @@ describe('server-backed game access clock', () => {
 
 describe('hosted billing URLs', () => {
   it('accepts HTTPS checkout and portal URLs', () => {
-    expect(billingURL('https://polar.sh/checkout/example')).toBe('https://polar.sh/checkout/example');
+    expect(billingURL('https://creem.io/checkout/example')).toBe('https://creem.io/checkout/example');
   });
   it('rejects executable, insecure and credential-bearing links', () => {
-    for (const value of ['javascript:alert(1)', 'http://polar.sh/checkout', 'https://user:password@polar.sh/checkout']) expect(() => billingURL(value)).toThrow();
+    for (const value of ['javascript:alert(1)', 'http://creem.io/checkout', 'https://user:password@creem.io/checkout']) expect(() => billingURL(value)).toThrow();
   });
 });
 

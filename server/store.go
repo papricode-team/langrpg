@@ -29,6 +29,7 @@ type Store interface {
 	UpdateAccount(context.Context, string, func(*Account) error) (Account, error)
 	ResetGuest(context.Context, string) (Account, error)
 	GetAccountByID(context.Context, string) (Account, error)
+	FindBillingAccount(context.Context, string, string) (string, error)
 	UpdateAccountByID(context.Context, string, func(*Account) error) (Account, error)
 	Mutate(context.Context, string, string, json.RawMessage, func(*Account) (Receipt, error)) (Account, Receipt, bool, error)
 	ActivityProofs(context.Context, string, string, string, []string) (map[string]SavedAction, int, error)

@@ -104,9 +104,9 @@ together.
 Users start with a browser-held guest session token. After five minutes of play,
 the mandatory account wall requires signup/login or a guest restart that clears
 all progress while keeping the character. Registration preserves guest progress
-and unlocks the remainder of fifteen total free minutes. Then Polar paid access
+and unlocks the remainder of fifteen total free minutes. Then Creem paid access
 is required. Trial usage and verified billing state persist in the account JSONB.
-Configure billing using [the Polar setup guide](billing.md) and the server-only
+Configure billing using [the Creem setup guide](billing.md) and the server-only
 variables in `.env.example`; Compose passes them to the Go application.
 Email/password login restores the same character and progress on another device.
 Password recovery is not implemented; clearing browser storage before saving an

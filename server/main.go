@@ -58,7 +58,7 @@ func main() {
 	}
 	app := NewApp(store, curriculum, strings.Split(env("ALLOWED_ORIGINS", "http://localhost:5187,http://127.0.0.1:5187,http://127.240.77.9:5187,http://localhost:8097"), ","), maxPlayers)
 	defer app.Close()
-	app.billing, err = polarBillingFromEnv()
+	app.billing, err = creemBillingFromEnv()
 	if err != nil {
 		slog.Error("billing configuration is invalid", "error", err)
 		os.Exit(1)

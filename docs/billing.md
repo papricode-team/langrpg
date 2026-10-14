@@ -1,99 +1,89 @@
-# Trials and Polar billing
+# Trials and Creem billing
 
-Players can play anonymously for five minutes. At the account wall they can
-create an account to retain progress, log into an existing account, or explicitly
-restart their guest adventure. A guest restart deletes all learning and story
-progress, saved slots, rewards and receipts while keeping the same character,
-name and preferences. Registered accounts share a fifteen-minute total free
-allowance across devices, including time played before registration. Free time
-does not reset on page reload, login, story-slot load or backend restart.
+The game permits five minutes of anonymous play. At expiry, signup keeps the
+character and progress and unlocks the remainder of fifteen total free minutes.
+Logging into an existing account restores that account's own allowance. An
+explicit guest restart clears progress and moves the same character back to the
+beginning. The server persists elapsed play and enforces access on HTTP and
+WebSocket mutations across devices, reloads and tabs.
 
-The countdown starts with gameplay. Background tabs and account/payment forms
-pause by disconnecting from the world and reporting inactive play. The server
-measures elapsed time using persisted bounded leases and enforces the wall on
-REST gameplay and WebSockets. Browser elapsed-time claims cannot increase the
-allowance. Overlapping tabs do not multiply free time. Paid accounts have
-unlimited play while their verified entitlement remains valid.
+## Products
 
-## Products created in Polar
-
-The following production products were created on October 14, 2026 in the
-`sgk-consulting` organization (`05cd934b-93ee-4ee7-bff7-8fb57708b9e5`). Both are EUR:
+Both live products belong to the SGK Consulting Creem store. Tax is included;
+there is no provider subscription trial (the game manages its own play clock).
 
 | Plan | Price | Product ID |
 | --- | --- | --- |
-| [The Lantern Atlas — Monthly](https://polar.sh/dashboard/sgk-consulting/products/a84e62e5-d902-43d9-a659-c00d65bf6209) | €2.99, recurring every month | `a84e62e5-d902-43d9-a659-c00d65bf6209` |
-| [The Lantern Atlas — Lifetime](https://polar.sh/dashboard/sgk-consulting/products/7e211030-d059-4bbc-b5a0-9c575c30b42c) | €29.99, one-time purchase | `7e211030-d059-4bbc-b5a0-9c575c30b42c` |
+| Monthly | €2.99 every month | `prod_1cFiyLX3dyjxxWvFPxoOui` |
+| Lifetime | €29.99 once | `prod_4XfWawwYu4GzlIacB6FFBd` |
 
-Polar's organization default currency is EUR. No Polar subscription trial is
-needed: the game's five/fifteen-minute allowance is implemented by the server.
-The game grants access from verified orders/subscriptions, so these products do
-not need a separate Polar benefit.
+## Production configuration
 
-## Enable production checkout
+Finish Creem's business details, identity verification, payout setup and store
+review before accepting live payments. Configure a server-only API key with
+`checkouts:read`, `checkouts:write`, `subscriptions:read`, `transactions:read`, and
+`customers:write` (for customer portal sessions). Do not grant refunds, product
+editing, subscription editing or full access to the runtime key.
 
-1. Finish Polar's business onboarding/review if requested in **Finance → Account**.
-2. Create an organization access token for the game backend with only
-   `checkouts:write`, `customers:read`, `orders:read`, and
-   `customer_sessions:write` scopes. Keep it in the deployment's secret
-   environment, never source control, browser code, chat or a screenshot.
-3. Create a **raw JSON** webhook endpoint for
-   `https://langrpg.papricode.com/api/billing/webhook`, with API version **2026-10**.
-   Select `customer.state_changed`, `customer.deleted`, `order.paid`,
-   `order.refunded`, `order.updated`, `subscription.created`,
-   `subscription.updated`, `subscription.active`, `subscription.canceled`,
-   `subscription.revoked`, and `subscription.uncanceled`.
-   Store the full endpoint secret, including its `whsec_` prefix.
-4. Set the following in Dokploy's environment and deploy the updated source:
+Create a live webhook at:
+`https://langrpg.papricode.com/api/billing/webhook`
+Subscribe to `checkout.completed`, every `subscription.*` event,
+`refund.created` and `dispute.created`. Save the full signing secret.
 
-   ```dotenv
-   PUBLIC_URL=https://langrpg.papricode.com
-   POLAR_SERVER=production
-   POLAR_ACCESS_TOKEN=YOUR_ORGANIZATION_TOKEN
-   POLAR_WEBHOOK_SECRET=YOUR_FULL_WEBHOOK_SECRET
-   POLAR_MONTHLY_PRODUCT_ID=a84e62e5-d902-43d9-a659-c00d65bf6209
-   POLAR_LIFETIME_PRODUCT_ID=7e211030-d059-4bbc-b5a0-9c575c30b42c
-   ```
+Set these in Dokploy's compose environment (never in `VITE_*` variables):
 
-   Keep `ALLOWED_ORIGINS` set to the exact game origin. The checkout return URL
-   comes from `PUBLIC_URL`, never an untrusted request header or browser input.
-   Billing remains unavailable if both credentials are blank; configuring only
-   part of the credential set fails startup rather than accepting insecure
-   notifications. Trial walls remain enforced when billing is unavailable.
-5. Verify the webhook succeeds in Polar's delivery log after deployment.
+```dotenv
+PUBLIC_URL=https://langrpg.papricode.com
+CREEM_SERVER=production
+CREEM_API_KEY=YOUR_LIVE_SCOPED_KEY
+CREEM_WEBHOOK_SECRET=YOUR_FULL_SIGNING_SECRET
+CREEM_MONTHLY_PRODUCT_ID=prod_1cFiyLX3dyjxxWvFPxoOui
+CREEM_LIFETIME_PRODUCT_ID=prod_4XfWawwYu4GzlIacB6FFBd
+```
 
-The integration pins `Polar-Version: 2026-10` on every API request. The server
-chooses the product from its allowlist and binds checkout/customer-portal
-sessions to the player's immutable ID using `external_customer_id`. Redirects
-to `?billing=success` prompt verification; they do not grant access. No payment
-card data passes through this application.
+Remove old `POLAR_*` environment entries. Deploy the compose update and verify
+webhook deliveries in Creem. No schema migration or progress reset is required.
 
-Monthly access requires the configured EUR subscription and a paid order for
-the current period. Cancellation retains access through the paid period;
-revocation, expired periods, and refunded orders remove access. Lifetime access
-requires a paid EUR lifetime order that has not been refunded. Signed webhook
-notifications trigger reconciliation with Polar rather than trusting event
-deltas, so old notifications cannot re-grant revoked access. Duplicate deliveries
-are persisted and handled idempotently. Billing checks refresh periodically;
-previously verified access has a bounded grace period during a Polar outage.
-Payment expiry preserves player progress behind the paywall.
+## Payment verification
 
-## Sandbox verification
+The server creates allowlisted checkouts, binds them to the immutable game
+account and a private billing reference, and persists the returned session ID.
+Neither customer email nor browser redirect parameters establish payment
+ownership. Sync retrieves pending sessions from Creem; a signed webhook can
+recover a completed checkout that was pruned from the pending list.
 
-Create separate EUR monthly and one-time products in the Polar sandbox, using
-their own IDs, token and webhook secret. Set `POLAR_SERVER=sandbox` and use an
-HTTPS development origin or `http://localhost:5187` as `PUBLIC_URL`. A local
-webhook requires a public HTTPS forwarding endpoint. Production IDs cannot be
-used with sandbox credentials.
+Paid access requires an authoritative unrefunded EUR transaction. Monthly
+access also requires a matching subscription and payment covering its current
+period. Scheduled cancellation preserves the already-paid period. Refunds,
+disputes and expiration remove access at reconciliation; the character and
+progress remain saved. VAT-inclusive subtotals can vary by billing country.
 
-Test both purchases using Polar sandbox payment methods, then verify reload and
-login on another device preserve paid access. Verify a canceled monthly plan
-remains usable until its paid end, a refunded lifetime order becomes paywalled,
-and an unpaid checkout or manually typed success URL never unlocks play. Test
-guest expiry, registration at the wall, and guest restart separately. The Go
-tests use fake Polar HTTP responses and signed webhook fixtures, with no real
-charges.
+Creem signatures use HMAC-SHA256 of the exact raw body in `creem-signature`.
+The handler checks signed event age within the 24-hour retry window and stores
+bounded event receipts. Reconciliation runs inside the account transaction so
+late or duplicate events cannot overwrite current refunded state. References
+are looked up by subscription/transaction IDs, never by matching email.
 
-See Polar's [checkout API](https://polar.sh/docs/features/checkout/session),
-[customer state](https://polar.sh/docs/integrate/customer-state), and
-[webhook validation](https://polar.sh/docs/integrate/webhooks/delivery) guides.
+Payment state refreshes at most once per minute during play, and immediately
+on payment sync, portal access, checkout and webhooks. During a provider outage,
+previously verified access has at most 24 hours of grace; monthly access never
+extends beyond its verified paid period. Unverified payments never gain access.
+
+## Test mode
+
+Use separate test products, a scoped test key and test webhook secret, with
+`CREEM_SERVER=sandbox`. The API base becomes `https://test-api.creem.io` and
+HTTP localhost is permitted for `PUBLIC_URL`. Production rejects test-mode
+payment objects. Exercise initial payment, renewal, cancellation, partial/full
+refunds, disputes, duplicate events and out-of-order delivery. Do not run test
+purchases against live products.
+
+Server tests use fake authenticated Creem HTTP responses and signed webhook
+fixtures. PostgreSQL tests require a disposable `TEST_DATABASE_URL`. Frontend
+access and account tests verify clocks, redirects, registration and stale
+response handling.
+
+References: [checkout API](https://docs.creem.io/api-reference/endpoint/create-checkout),
+[webhooks](https://docs.creem.io/code/webhooks),
+[subscriptions](https://docs.creem.io/api-reference/endpoint/get-subscription),
+[transactions](https://docs.creem.io/api-reference/endpoint/get-transaction).

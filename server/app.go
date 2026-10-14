@@ -25,7 +25,7 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Message }
 
 type App struct {
-	billing    *PolarBilling
+	billing    *CreemBilling
 	leaseOwner string
 	store      Store
 	world      *World

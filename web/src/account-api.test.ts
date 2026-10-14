@@ -61,7 +61,7 @@ describe('account session lifecycle', () => {
   });
   it('requests billing links with the signed-in identity and an explicit plan', async () => {
     saved.set('atlas.token', 'account-token');
-    const fetch = vi.fn().mockResolvedValue(new Response('{"url":"https://polar.sh/checkout/example"}'));
+    const fetch = vi.fn().mockResolvedValue(new Response('{"url":"https://www.creem.io/payment/example"}'));
     vi.stubGlobal('fetch', fetch);
     const api = new Api();
     await api.checkout('monthly');

@@ -19,7 +19,7 @@ func (s *JSONStore) GetAccountByID(_ context.Context, id string) (Account, error
 }
 
 // Reconciliation runs inside the same account lock as its write. An older
-// webhook can never overwrite a later, authoritative Polar snapshot.
+// webhook can never overwrite a later, authoritative Creem snapshot.
 func (s *JSONStore) UpdateAccountByID(_ context.Context, id string, fn func(*Account) error) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -87,4 +87,38 @@ func (s *PGStore) UpdateAccountByID(ctx context.Context, id string, fn func(*Acc
 		return Account{}, err
 	}
 	return account, nil
+}
+
+// Locate refunds/disputes by payment references, never by an email address or
+// customer alone (one Creem customer can have purchases for several accounts).
+func billingPurchaseMatches(billing BillingState, subscriptionID, transactionID string) bool {
+	for _, purchase := range billing.Purchases {
+		if subscriptionID != "" && purchase.SubscriptionID == subscriptionID || transactionID != "" && purchase.TransactionID == transactionID {
+			return true
+		}
+	}
+	return false
+}
+func (s *JSONStore) FindBillingAccount(_ context.Context, subscriptionID, transactionID string) (string, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	for id, account := range s.state.Accounts {
+		if billingPurchaseMatches(account.Billing, subscriptionID, transactionID) {
+			return id, nil
+		}
+	}
+	return "", ErrUnauthorized
+}
+func (s *PGStore) FindBillingAccount(ctx context.Context, subscriptionID, transactionID string) (string, error) {
+	if subscriptionID == "" && transactionID == "" {
+		return "", ErrUnauthorized
+	}
+	var id string
+	err := s.pool.QueryRow(ctx, `SELECT id FROM accounts WHERE EXISTS (
+ SELECT 1 FROM jsonb_array_elements(COALESCE(data->'billing'->'purchases','[]'::jsonb)) purchase
+ WHERE ($1<>'' AND purchase->>'subscriptionId'=$1) OR ($2<>'' AND purchase->>'transactionId'=$2)) LIMIT 1`, subscriptionID, transactionID).Scan(&id)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return "", ErrUnauthorized
+	}
+	return id, err
 }

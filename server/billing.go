@@ -5,7 +5,7 @@ import (
 	"context"
 	"crypto/hmac"
 	"crypto/sha256"
-	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,12 +13,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 )
 
-const polarAPIVersion = "2026-10"
 const billingRefreshInterval = time.Minute
 const billingVerificationLifetime = 24 * time.Hour
 
@@ -26,6 +24,8 @@ const billingVerificationLifetime = 24 * time.Hour
 // input never write an entitlement. Periodic reconciliation bounds stale access
 // even if a refund/revocation webhook could not be delivered.
 type BillingState struct {
+	Reference       string               `json:"reference,omitempty"`
+	Purchases       []CreemPurchase      `json:"purchases,omitempty"`
 	Plan            string               `json:"plan,omitempty"`
 	CustomerID      string               `json:"customerId,omitempty"`
 	SubscriptionID  string               `json:"subscriptionId,omitempty"`
@@ -35,7 +35,7 @@ type BillingState struct {
 	WebhookReceipts map[string]time.Time `json:"webhookReceipts,omitempty"`
 }
 
-type PolarBilling struct {
+type CreemBilling struct {
 	accessToken     string
 	webhookSecret   string
 	monthlyProduct  string
@@ -48,8 +48,8 @@ type PolarBilling struct {
 // All configuration is server-only: never put a token or webhook secret in a
 // VITE_ variable. Empty configuration keeps the trial walls active while checkout
 // reports that billing is unavailable.
-func polarBillingFromEnv() (*PolarBilling, error) {
-	keys := []string{"POLAR_ACCESS_TOKEN", "POLAR_WEBHOOK_SECRET", "POLAR_MONTHLY_PRODUCT_ID", "POLAR_LIFETIME_PRODUCT_ID"}
+func creemBillingFromEnv() (*CreemBilling, error) {
+	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID"}
 	values := make([]string, len(keys))
 	for i, key := range keys {
 		values[i] = strings.TrimSpace(os.Getenv(key))
@@ -59,18 +59,18 @@ func polarBillingFromEnv() (*PolarBilling, error) {
 	}
 	for i, value := range values {
 		if value == "" {
-			return nil, fmt.Errorf("%s is required when Polar billing is configured", keys[i])
+			return nil, fmt.Errorf("%s is required when Creem billing is configured", keys[i])
 		}
 	}
 	if values[2] == values[3] {
-		return nil, errors.New("Polar monthly and lifetime product IDs must differ")
+		return nil, errors.New("Creem monthly and lifetime product IDs must differ")
 	}
-	server := env("POLAR_SERVER", "production")
-	base := "https://api.polar.sh"
+	server := env("CREEM_SERVER", "production")
+	base := "https://api.creem.io"
 	if server == "sandbox" {
-		base = "https://sandbox-api.polar.sh"
+		base = "https://test-api.creem.io"
 	} else if server != "production" {
-		return nil, errors.New("POLAR_SERVER must be production or sandbox")
+		return nil, errors.New("CREEM_SERVER must be production or sandbox")
 	}
 	public := strings.TrimRight(strings.TrimSpace(os.Getenv("PUBLIC_URL")), "/")
 	u, err := url.Parse(public)
@@ -78,9 +78,9 @@ func polarBillingFromEnv() (*PolarBilling, error) {
 		return nil, errors.New("PUBLIC_URL must be an absolute HTTPS game URL (sandbox also permits HTTP localhost)")
 	}
 	if len(values[1]) < 24 {
-		return nil, errors.New("POLAR_WEBHOOK_SECRET must contain the full endpoint secret")
+		return nil, errors.New("CREEM_WEBHOOK_SECRET must contain the full endpoint secret")
 	}
-	return &PolarBilling{accessToken: values[0], webhookSecret: values[1], monthlyProduct: values[2], lifetimeProduct: values[3], publicURL: public, baseURL: base, client: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
+	return &CreemBilling{accessToken: values[0], webhookSecret: values[1], monthlyProduct: values[2], lifetimeProduct: values[3], publicURL: public, baseURL: base, client: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
 }
 
 func (a *App) billingAvailable() bool {
@@ -95,11 +95,11 @@ func (a *App) hasPaidAccess(account Account, now time.Time) bool {
 	return b.Plan == "lifetime" && b.LifetimeOrderID != "" || b.Plan == "monthly" && b.SubscriptionID != "" && now.Before(b.PaidUntil)
 }
 
-type polarHTTPError struct{ status int }
+type creemHTTPError struct{ status int }
 
-func (e *polarHTTPError) Error() string { return fmt.Sprintf("Polar returned HTTP %d", e.status) }
+func (e *creemHTTPError) Error() string { return fmt.Sprintf("Creem returned HTTP %d", e.status) }
 
-func (p *PolarBilling) request(ctx context.Context, method, path string, input, output any) error {
+func (p *CreemBilling) request(ctx context.Context, method, path string, input, output any) error {
 	var body io.Reader
 	if input != nil {
 		data, err := json.Marshal(input)
@@ -112,151 +112,30 @@ func (p *PolarBilling) request(ctx context.Context, method, path string, input, 
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", "Bearer "+p.accessToken)
-	req.Header.Set("Polar-Version", polarAPIVersion)
+	req.Header.Set("x-api-key", p.accessToken)
 	req.Header.Set("Accept", "application/json")
 	if input != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}
 	resp, err := p.client.Do(req)
 	if err != nil {
-		return errors.New("Polar is temporarily unreachable")
+		return errors.New("Creem is temporarily unreachable")
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return &polarHTTPError{resp.StatusCode}
+		return &creemHTTPError{resp.StatusCode}
 	}
 	if output == nil {
 		return nil
 	}
 	data, err := io.ReadAll(io.LimitReader(resp.Body, (1<<20)+1))
 	if err != nil || len(data) > 1<<20 {
-		return errors.New("invalid Polar response size")
+		return errors.New("invalid Creem response size")
 	}
 	if err = json.Unmarshal(data, output); err != nil {
-		return errors.New("invalid Polar response")
+		return errors.New("invalid Creem response")
 	}
 	return nil
-}
-
-type polarCustomer struct {
-	ID         string     `json:"id"`
-	ExternalID string     `json:"external_id"`
-	DeletedAt  *time.Time `json:"deleted_at"`
-}
-type polarSubscription struct {
-	ID                 string     `json:"id"`
-	ProductID          string     `json:"product_id"`
-	Status             string     `json:"status"`
-	Currency           string     `json:"currency"`
-	Amount             int64      `json:"amount"`
-	RecurringInterval  string     `json:"recurring_interval"`
-	CancelAtPeriodEnd  bool       `json:"cancel_at_period_end"`
-	CurrentPeriodStart time.Time  `json:"current_period_start"`
-	CurrentPeriodEnd   time.Time  `json:"current_period_end"`
-	EndsAt             *time.Time `json:"ends_at"`
-}
-type polarCustomerState struct {
-	polarCustomer
-	ActiveSubscriptions []polarSubscription `json:"active_subscriptions"`
-}
-type polarOrder struct {
-	ID             string        `json:"id"`
-	CustomerID     string        `json:"customer_id"`
-	Customer       polarCustomer `json:"customer"`
-	ProductID      string        `json:"product_id"`
-	SubscriptionID string        `json:"subscription_id"`
-	Status         string        `json:"status"`
-	Paid           bool          `json:"paid"`
-	Currency       string        `json:"currency"`
-	SubtotalAmount int64         `json:"subtotal_amount"`
-	TaxAmount      int64         `json:"tax_amount"`
-	TotalAmount    int64         `json:"total_amount"`
-	NetAmount      int64         `json:"net_amount"`
-	RefundedAmount int64         `json:"refunded_amount"`
-	CreatedAt      time.Time     `json:"created_at"`
-	Items          []struct {
-		EndTimestamp *time.Time `json:"end_timestamp"`
-	} `json:"items"`
-}
-
-func (p *PolarBilling) snapshot(ctx context.Context, externalID string, now time.Time) (BillingState, error) {
-	result := BillingState{VerifiedAt: now}
-	var customer polarCustomerState
-	err := p.request(ctx, "GET", "/v1/customers/external/"+url.PathEscape(externalID)+"/state", nil, &customer)
-	var httpError *polarHTTPError
-	if errors.As(err, &httpError) && httpError.status == 404 {
-		return result, nil
-	}
-	if err != nil {
-		return BillingState{}, err
-	}
-	if customer.ID == "" || customer.ExternalID != externalID {
-		return BillingState{}, errors.New("Polar customer identity mismatch")
-	}
-	if customer.DeletedAt != nil {
-		return result, nil
-	}
-	result.CustomerID = customer.ID
-	// Read orders for both allowlisted products, including refunds. A subscription
-	// being active alone is insufficient: the current period must have been paid.
-	var orders []polarOrder
-	for page := 1; page <= 100; page++ {
-		query := url.Values{"external_customer_id": {externalID}, "product_id": {p.monthlyProduct, p.lifetimeProduct}, "limit": {"100"}, "page": {strconv.Itoa(page)}, "sorting": {"-created_at"}}
-		var response struct {
-			Items      []polarOrder `json:"items"`
-			Pagination struct {
-				MaxPage int `json:"max_page"`
-			} `json:"pagination"`
-		}
-		if err = p.request(ctx, "GET", "/v1/orders/?"+query.Encode(), nil, &response); err != nil {
-			return BillingState{}, err
-		}
-		orders = append(orders, response.Items...)
-		if page >= response.Pagination.MaxPage {
-			break
-		}
-		if page == 100 {
-			return BillingState{}, errors.New("Polar order pagination limit exceeded")
-		}
-	}
-	validOrder := func(order polarOrder) bool {
-		return order.ID != "" && order.CustomerID == customer.ID && order.Customer.ExternalID == externalID && order.Status == "paid" && order.Paid && order.RefundedAmount == 0 && order.Currency == "eur" && order.NetAmount > 0
-	}
-	for _, order := range orders {
-		// Polar extracts VAT from inclusive prices, so order.subtotal_amount
-		// varies by billing country. The immutable product ID identifies the
-		// configured plan; nominal prices are set on those products in Polar.
-		if validOrder(order) && order.ProductID == p.lifetimeProduct && order.SubscriptionID == "" {
-			result.Plan, result.LifetimeOrderID = "lifetime", order.ID
-			return result, nil
-		}
-	}
-	for _, subscription := range customer.ActiveSubscriptions {
-		if subscription.ID == "" || subscription.ProductID != p.monthlyProduct || subscription.Status != "active" || subscription.Currency != "eur" || subscription.RecurringInterval != "month" || subscription.CurrentPeriodStart.After(now) || !subscription.CurrentPeriodEnd.After(now) {
-			continue
-		}
-		paidUntil := subscription.CurrentPeriodEnd
-		if subscription.EndsAt != nil && subscription.EndsAt.Before(paidUntil) {
-			paidUntil = *subscription.EndsAt
-		}
-		if !paidUntil.After(now) {
-			continue
-		}
-		for _, order := range orders {
-			if !validOrder(order) || order.ProductID != p.monthlyProduct || order.SubscriptionID != subscription.ID {
-				continue
-			}
-			coversPeriod := !order.CreatedAt.Before(subscription.CurrentPeriodStart.Add(-5 * time.Minute))
-			for _, item := range order.Items {
-				coversPeriod = coversPeriod || item.EndTimestamp != nil && !item.EndTimestamp.Before(paidUntil)
-			}
-			if coversPeriod && paidUntil.After(result.PaidUntil) {
-				result.Plan, result.SubscriptionID, result.PaidUntil = "monthly", subscription.ID, paidUntil
-			}
-		}
-	}
-	return result, nil
 }
 
 func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (Account, error) {
@@ -271,7 +150,7 @@ func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (
 		if !force && billingSnapshotFresh(current.Billing, now) {
 			return nil
 		}
-		snapshot, err := a.billing.snapshot(ctx, current.Player.ID, now)
+		snapshot, err := a.billing.snapshot(ctx, current.Player.ID, current.Billing, now)
 		if err != nil {
 			return err
 		}
@@ -314,9 +193,9 @@ func (a *App) billingAccount(w http.ResponseWriter, r *http.Request) (Account, b
 	return account, true
 }
 
-func validPolarURL(value string) bool {
+func validCreemURL(value string) bool {
 	u, err := url.Parse(value)
-	return err == nil && u.Scheme == "https" && u.User == nil && u.Port() == "" && (u.Hostname() == "polar.sh" || strings.HasSuffix(u.Hostname(), ".polar.sh"))
+	return err == nil && u.Scheme == "https" && u.User == nil && u.Port() == "" && (u.Hostname() == "creem.io" || strings.HasSuffix(u.Hostname(), ".creem.io"))
 }
 
 func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
@@ -349,22 +228,58 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 409, "your account already has paid access")
 		return
 	}
-	var response struct {
-		URL string `json:"url"`
-	}
-	err = a.billing.request(ctx, "POST", "/v1/checkouts/", map[string]any{
-		"products": []string{product}, "external_customer_id": account.Player.ID,
-		"customer_email": account.Email, "customer_name": account.Player.Name,
-		"allow_trial": false, "allow_discount_codes": false,
-		"success_url": a.billing.publicURL + "/?billing=success&checkout_id={CHECKOUT_ID}",
-		"return_url":  a.billing.publicURL + "/?billing=cancelled",
-		"metadata":    map[string]string{"account_id": account.Player.ID, "plan": input.Plan},
-	}, &response)
-	if err != nil || !validPolarURL(response.URL) {
+	var checkoutURL string
+	_, err = a.store.UpdateAccountByID(ctx, account.Player.ID, func(current *Account) error {
+		// Serialize checkout creation with webhook reconciliation. Only IDs and
+		// references returned by our own server-created sessions are persisted.
+		if a.hasPaidAccess(*current, a.now()) {
+			return errors.New("already subscribed")
+		}
+		kept := make([]CreemPurchase, 0, len(current.Billing.Purchases))
+		for _, purchase := range current.Billing.Purchases {
+			if purchase.CustomerID != "" || a.now().Sub(purchase.CreatedAt) < 24*time.Hour {
+				kept = append(kept, purchase)
+			}
+		}
+		if len(kept) >= 32 {
+			return errors.New("too many pending purchases; use billing management")
+		}
+		if current.Billing.Reference == "" {
+			current.Billing.Reference, err = randomID(24)
+			if err != nil {
+				return err
+			}
+		}
+		requestID, err := randomID(24)
+		if err != nil {
+			return err
+		}
+		customer := map[string]string{"email": current.Email}
+		if current.Billing.CustomerID != "" {
+			customer["id"] = current.Billing.CustomerID
+		}
+		var response creemCheckout
+		err = a.billing.request(ctx, "POST", "/v1/checkouts", map[string]any{
+			"product_id": product, "request_id": requestID, "units": 1,
+			"customer":    customer,
+			"success_url": a.billing.publicURL + "/?billing=success",
+			"metadata":    map[string]string{"account_id": current.Player.ID, "billing_reference": current.Billing.Reference},
+		}, &response)
+		if err != nil {
+			return err
+		}
+		if response.ID == "" || response.RequestID != requestID || !validCreemURL(response.URL) {
+			return errors.New("invalid checkout response")
+		}
+		current.Billing.Purchases = append(kept, CreemPurchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, CreatedAt: a.now().UTC()})
+		checkoutURL = response.URL
+		return nil
+	})
+	if err != nil {
 		writeError(w, 503, "unable to start checkout; please try again")
 		return
 	}
-	writeJSON(w, 200, map[string]string{"url": response.URL})
+	writeJSON(w, 200, map[string]string{"url": checkoutURL})
 }
 
 func (a *App) billingPortal(w http.ResponseWriter, r *http.Request) {
@@ -384,10 +299,10 @@ func (a *App) billingPortal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var response struct {
-		URL string `json:"customer_portal_url"`
+		URL string `json:"customer_portal_link"`
 	}
-	err = a.billing.request(ctx, "POST", "/v1/customer-sessions/", map[string]string{"customer_id": account.Billing.CustomerID, "return_url": a.billing.publicURL + "/?billing=portal"}, &response)
-	if err != nil || !validPolarURL(response.URL) {
+	err = a.billing.request(ctx, "POST", "/v1/customers/billing", map[string]string{"customer_id": account.Billing.CustomerID}, &response)
+	if err != nil || !validCreemURL(response.URL) {
 		writeError(w, 503, "unable to open billing management; please try again")
 		return
 	}
@@ -409,42 +324,14 @@ func (a *App) billingSync(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, map[string]any{"access": a.accessState(account, a.now())})
 }
 
-func verifyPolarWebhook(secret string, headers http.Header, body []byte, now time.Time) bool {
-	id, timestamp := headers.Get("Webhook-Id"), headers.Get("Webhook-Timestamp")
-	if id == "" || len(id) > 200 || strings.ContainsAny(id, ". \t\r\n") {
-		return false
-	}
-	seconds, err := strconv.ParseInt(timestamp, 10, 64)
+func verifyCreemWebhook(secret string, headers http.Header, body []byte) bool {
+	provided, err := hex.DecodeString(headers.Get("Creem-Signature"))
 	if err != nil {
 		return false
 	}
-	delta := now.Sub(time.Unix(seconds, 0))
-	if delta < -5*time.Minute || delta > 5*time.Minute {
-		return false
-	}
-	// New Polar secrets follow Standard Webhooks. Polar also supports older
-	// endpoints whose HMAC key is the complete UTF-8 secret, as do their SDKs.
-	keys := [][]byte{[]byte(secret)}
-	if decoded, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(secret, "whsec_")); err == nil && len(decoded) >= 24 {
-		keys = append(keys, decoded)
-	}
-	message := append([]byte(id+"."+timestamp+"."), body...)
-	for _, key := range keys {
-		mac := hmac.New(sha256.New, key)
-		_, _ = mac.Write(message)
-		expected := mac.Sum(nil)
-		for _, signature := range strings.Fields(headers.Get("Webhook-Signature")) {
-			version, encoded, ok := strings.Cut(signature, ",")
-			if !ok || version != "v1" {
-				continue
-			}
-			provided, err := base64.StdEncoding.DecodeString(encoded)
-			if err == nil && hmac.Equal(expected, provided) {
-				return true
-			}
-		}
-	}
-	return false
+	mac := hmac.New(sha256.New, []byte(secret))
+	_, _ = mac.Write(body)
+	return hmac.Equal(mac.Sum(nil), provided)
 }
 
 func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
@@ -457,64 +344,95 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 413, "webhook body is too large")
 		return
 	}
-	now := a.now().UTC()
-	if !verifyPolarWebhook(a.billing.webhookSecret, r.Header, body, now) {
+	if !verifyCreemWebhook(a.billing.webhookSecret, r.Header, body) {
 		writeError(w, 403, "invalid webhook signature")
 		return
 	}
 	var event struct {
-		Type string `json:"type"`
-		Data struct {
-			ID         string        `json:"id"`
-			ExternalID string        `json:"external_id"`
-			CustomerID string        `json:"customer_id"`
-			OrderID    string        `json:"order_id"`
-			Customer   polarCustomer `json:"customer"`
-		} `json:"data"`
+		ID        string `json:"id"`
+		Type      string `json:"eventType"`
+		CreatedAt int64  `json:"created_at"`
+		Object    struct {
+			ID           string            `json:"id"`
+			Metadata     map[string]string `json:"metadata"`
+			Subscription creemRef          `json:"subscription"`
+			Transaction  creemRef          `json:"transaction"`
+		} `json:"object"`
 	}
-	if err = json.Unmarshal(body, &event); err != nil {
+	if json.Unmarshal(body, &event) != nil || event.ID == "" || len(event.ID) > 200 {
 		writeError(w, 400, "invalid webhook body")
 		return
 	}
-	if !strings.HasPrefix(event.Type, "customer.") && !strings.HasPrefix(event.Type, "subscription.") && !strings.HasPrefix(event.Type, "order.") && !strings.HasPrefix(event.Type, "refund.") {
-		w.WriteHeader(202)
+	now := a.now().UTC()
+	age := now.Sub(creemTime(event.CreatedAt))
+	// Creem signs the raw payload (including created_at), without a separate
+	// delivery timestamp. Accept its documented retry window, reject old replays.
+	if event.CreatedAt <= 0 || age < -5*time.Minute || age > 24*time.Hour {
+		writeError(w, 403, "webhook timestamp outside retry window")
+		return
+	}
+	if event.Type != "checkout.completed" && !strings.HasPrefix(event.Type, "subscription.") && event.Type != "refund.created" && event.Type != "dispute.created" {
+		w.WriteHeader(200)
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 	defer cancel()
-	externalID := event.Data.Customer.ExternalID
-	if strings.HasPrefix(event.Type, "customer.") {
-		externalID = event.Data.ExternalID
-	}
-	if externalID == "" && event.Data.OrderID != "" {
-		var order polarOrder
-		if err = a.billing.request(ctx, "GET", "/v1/orders/"+url.PathEscape(event.Data.OrderID), nil, &order); err != nil {
+	accountID := event.Object.Metadata["account_id"]
+	var checkout *creemCheckout
+	if event.Type == "checkout.completed" {
+		var authoritative creemCheckout
+		if err = a.billing.get(ctx, "checkouts", "checkout_id", event.Object.ID, &authoritative); err != nil {
 			writeError(w, 503, "unable to reconcile webhook")
 			return
 		}
-		externalID = order.Customer.ExternalID
-	}
-	if externalID == "" && event.Data.CustomerID != "" {
-		var customer polarCustomer
-		if err = a.billing.request(ctx, "GET", "/v1/customers/"+url.PathEscape(event.Data.CustomerID), nil, &customer); err != nil {
+		accountID = authoritative.Metadata["account_id"]
+		checkout = &authoritative
+	} else if accountID == "" {
+		subscriptionID, transactionID := event.Object.Subscription.ID, event.Object.Transaction.ID
+		if strings.HasPrefix(event.Type, "subscription.") {
+			subscriptionID = event.Object.ID
+		}
+		accountID, err = a.store.FindBillingAccount(ctx, subscriptionID, transactionID)
+		if errors.Is(err, ErrUnauthorized) && transactionID != "" {
+			var transaction creemTransaction
+			if err = a.billing.get(ctx, "transactions", "transaction_id", transactionID, &transaction); err != nil {
+				writeError(w, 503, "unable to reconcile webhook")
+				return
+			}
+			accountID, err = a.store.FindBillingAccount(ctx, transaction.Subscription.ID, transactionID)
+		}
+		if err != nil && !errors.Is(err, ErrUnauthorized) {
 			writeError(w, 503, "unable to reconcile webhook")
 			return
 		}
-		externalID = customer.ExternalID
 	}
-	if externalID == "" {
-		w.WriteHeader(202)
+	if accountID == "" {
+		w.WriteHeader(200)
 		return
 	}
-	_, err = a.store.UpdateAccountByID(ctx, externalID, func(account *Account) error {
+	_, err = a.store.UpdateAccountByID(ctx, accountID, func(account *Account) error {
 		if account.Email == "" {
 			return nil
 		}
-		id := r.Header.Get("Webhook-Id")
-		if _, duplicate := account.Billing.WebhookReceipts[id]; duplicate {
+		if _, duplicate := account.Billing.WebhookReceipts[event.ID]; duplicate {
 			return nil
 		}
-		snapshot, err := a.billing.snapshot(ctx, account.Player.ID, now)
+		if checkout != nil {
+			if !a.billing.checkoutBelongsTo(*checkout, account.Player.ID, account.Billing.Reference) {
+				return nil
+			}
+			found := false
+			for _, purchase := range account.Billing.Purchases {
+				found = found || purchase.CheckoutID == checkout.ID
+			}
+			if !found {
+				if len(account.Billing.Purchases) >= 64 {
+					return errors.New("purchase reconciliation limit exceeded")
+				}
+				account.Billing.Purchases = append(account.Billing.Purchases, CreemPurchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, CreatedAt: now})
+			}
+		}
+		snapshot, err := a.billing.snapshot(ctx, account.Player.ID, account.Billing, now)
 		if err != nil {
 			return err
 		}
@@ -534,17 +452,17 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 			}
 			delete(snapshot.WebhookReceipts, oldestKey)
 		}
-		snapshot.WebhookReceipts[id] = now
+		snapshot.WebhookReceipts[event.ID] = now
 		account.Billing = snapshot
 		return nil
 	})
 	if errors.Is(err, ErrUnauthorized) {
-		w.WriteHeader(202)
+		w.WriteHeader(200)
 		return
 	}
 	if err != nil {
 		writeError(w, 503, "unable to reconcile webhook")
 		return
 	}
-	w.WriteHeader(202)
+	w.WriteHeader(200)
 }

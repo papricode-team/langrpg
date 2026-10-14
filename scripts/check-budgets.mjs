@@ -19,11 +19,12 @@ for(const asset of artSizes)if(asset.size>2*1024*1024)throw new Error(`Individua
 const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
 const expansionPrefix=resolve(root,'assets/world-expansions')+'/';
 // Character sheets are loaded per recipe or destination. Reserve a separate
-// 64 MiB package for native portraits, component atlases and staged HD proofs.
+// 160 MiB package for native portraits, component atlases and staged HD proofs.
+// The native-detail player artwork added in ebad27cd occupies about 142 MiB.
 const characterPrefixes=['character-kit','character-kit-hd','character-cast','character-portraits','player-portraits'].map(name=>resolve(root,'assets',name)+'/');
 const characterArt=artSizes.filter(item=>characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const characterArtTotal=characterArt.reduce((sum,item)=>sum+item.size,0);
-if(characterArtTotal>64*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
+if(characterArtTotal>160*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
 const baseArt=artSizes.filter(item=>!item.path.startsWith(expansionPrefix)&&!characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const expansionArt=artSizes.filter(item=>item.path.startsWith(expansionPrefix));
 const baseArtTotal=baseArt.reduce((sum,item)=>sum+item.size,0);
