@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
@@ -11,7 +12,11 @@ import (
 
 var ErrCredentialsConflict = errors.New("account credentials already exist")
 
-func (s *JSONStore) SetCredentials(_ context.Context, hash, email, encoded string) error {
+func (s *JSONStore) SetCredentials(ctx context.Context, hash, email, encoded string) error {
+	return s.RegisterWithReferral(ctx, hash, email, encoded, "", time.Now().UTC())
+}
+
+func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded, referralID string, now time.Time) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	id, ok := s.state.Sessions[hash]
@@ -28,10 +33,19 @@ func (s *JSONStore) SetCredentials(_ context.Context, hash, email, encoded strin
 		}
 	}
 	account := cloneAccount(previous)
+	previousInviter, exists := s.state.Accounts[referralID]
+	inviter := cloneAccount(previousInviter)
+	credited := exists && creditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
 	s.state.Accounts[id] = account
+	if credited {
+		s.state.Accounts[referralID] = inviter
+	}
 	if err := s.save(); err != nil {
 		s.state.Accounts[id] = previous
+		if credited {
+			s.state.Accounts[referralID] = previousInviter
+		}
 		return err
 	}
 	return nil
@@ -63,29 +77,63 @@ func (s *JSONStore) AddSession(_ context.Context, hash, id string) error {
 }
 
 func (s *PGStore) SetCredentials(ctx context.Context, hash, email, encoded string) error {
+	return s.RegisterWithReferral(ctx, hash, email, encoded, "", time.Now().UTC())
+}
+
+func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded, referralID string, now time.Time) error {
 	tx, err := s.pool.Begin(ctx)
 	if err != nil {
 		return err
 	}
 	defer tx.Rollback(ctx)
 	var id string
-	var data []byte
-	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &data)
+	err = tx.QueryRow(ctx, "SELECT account_id FROM sessions WHERE token_hash=$1", hash).Scan(&id)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return ErrUnauthorized
 	}
 	if err != nil {
 		return err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
+	ids := []string{id}
+	if referralID != "" && referralID != id {
+		ids = append(ids, referralID)
+	}
+	// Every registration locks both accounts in the same order. Concurrent
+	// signups for an inviter cannot lose a credit or deadlock with another pair.
+	rows, err := tx.Query(ctx, "SELECT id,data FROM accounts WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE", ids)
+	if err != nil {
 		return err
+	}
+	accounts := map[string]Account{}
+	for rows.Next() {
+		var rowID string
+		var data []byte
+		var account Account
+		if err = rows.Scan(&rowID, &data); err == nil {
+			err = json.Unmarshal(data, &account)
+		}
+		if err != nil {
+			rows.Close()
+			return err
+		}
+		accounts[rowID] = account
+	}
+	err = rows.Err()
+	rows.Close()
+	if err != nil {
+		return err
+	}
+	account, exists := accounts[id]
+	if !exists {
+		return ErrUnauthorized
 	}
 	if account.Email != "" {
 		return ErrCredentialsConflict
 	}
+	inviter, exists := accounts[referralID]
+	credited := exists && creditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
-	data, err = json.Marshal(account)
+	data, err := json.Marshal(account)
 	if err != nil {
 		return err
 	}
@@ -96,6 +144,15 @@ func (s *PGStore) SetCredentials(ctx context.Context, hash, email, encoded strin
 	}
 	if err != nil {
 		return err
+	}
+	if credited {
+		data, err = json.Marshal(inviter)
+		if err != nil {
+			return err
+		}
+		if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", referralID, data); err != nil {
+			return err
+		}
 	}
 	return tx.Commit(ctx)
 }

@@ -1,11 +1,13 @@
 export type AccessPhase = 'guest' | 'trial' | 'login_required' | 'payment_required' | 'paid';
-export type BillingPlan = 'monthly' | 'lifetime';
+export type BillingPlan = 'monthly' | 'yearly' | 'lifetime';
 export interface GameAccess {
   phase: AccessPhase;
   remainingSeconds: number;
   playedSeconds: number;
   registered: boolean;
   billingAvailable: boolean;
+  referralBonusSeconds?: number;
+  referralSignups?: number;
   plan?: BillingPlan;
 }
 

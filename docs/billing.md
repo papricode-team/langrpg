@@ -9,15 +9,31 @@ fifteen minutes. Players can repeat this as often as they like; credentials,
 preferences and paid access are preserved. The server persists elapsed play and enforces access on HTTP and
 WebSocket mutations across devices, reloads and tabs.
 
+During registered free play, **Invite a friend** creates a public link at
+`https://glotworld.com/?ref=PLAYER_ID`. Each new account that signs up through
+that link grants the inviter another 90 minutes of play. The friend receives
+the normal trial. Issued links remain valid after the inviter's trial expires;
+a later signup reopens free play without resetting progress. Existing-account
+logins, self-referrals and repeated signup requests award no extra time.
+Attribution survives reloads until signup or login succeeds. Registration and
+the inviter's credit are saved in one transaction, including concurrent signups.
+An explicit game reset discards remaining referral time along with progress;
+issued links still work and future new signups can earn further bonuses.
+
 ## Products
 
-Both live products belong to the SGK Consulting Creem store. Tax is included;
+The monthly and lifetime live products belong to the SGK Consulting Creem store. Tax is included;
 there is no provider subscription trial (the game manages its own play clock).
 
 | Plan | Price | Product ID |
 | --- | --- | --- |
 | Monthly | €2.99 every month | `prod_1cFiyLX3dyjxxWvFPxoOui` |
 | Lifetime | €29.99 once | `prod_4XfWawwYu4GzlIacB6FFBd` |
+
+The active sandbox also includes Yearly at **€9.99/year**. Its test product is
+`prod_10t4ufdUqzos08ORT5v7WD`; create the matching yearly live product before
+switching to production. Monthly test: `prod_JGpN2YOTJn2QPgOt1xN62`; lifetime
+test: `prod_6AQXBsKXG0L85hP4UMZipq`. All three plans include tax.
 
 ## Production configuration
 
@@ -40,6 +56,7 @@ CREEM_SERVER=production
 CREEM_API_KEY=YOUR_LIVE_SCOPED_KEY
 CREEM_WEBHOOK_SECRET=YOUR_FULL_SIGNING_SECRET
 CREEM_MONTHLY_PRODUCT_ID=prod_1cFiyLX3dyjxxWvFPxoOui
+CREEM_YEARLY_PRODUCT_ID=YOUR_YEARLY_LIVE_PRODUCT
 CREEM_LIFETIME_PRODUCT_ID=prod_4XfWawwYu4GzlIacB6FFBd
 ```
 
@@ -55,7 +72,7 @@ ownership. The billing portal uses Creem’s email-authenticated My Orders login
 the game does not issue a customer-wide magic link based on an unverified email. Sync retrieves pending sessions from Creem; a signed webhook can
 recover a completed checkout that was pruned from the pending list.
 
-Paid access requires an authoritative unrefunded EUR transaction. Monthly
+Paid access requires an authoritative unrefunded EUR transaction. Monthly and yearly
 access also requires a matching subscription and payment covering its current
 period. Scheduled cancellation preserves the already-paid period. Refunds,
 disputes and expiration remove access at reconciliation; the character and
@@ -69,7 +86,7 @@ are looked up by subscription/transaction IDs, never by matching email.
 
 Payment state refreshes at most once per minute during play, and immediately
 on payment sync, portal access, checkout and webhooks. During a provider outage,
-previously verified access has at most 24 hours of grace; monthly access never
+previously verified access has at most 24 hours of grace; subscription access never
 extends beyond its verified paid period. Unverified payments never gain access.
 
 ## Test mode

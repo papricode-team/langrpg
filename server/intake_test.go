@@ -89,7 +89,7 @@ func TestNewAdventureReceivesTheOpeningWordsThenTenPerHour(t *testing.T) {
 	app, clock := pacedStoryTestApp(t)
 	token, _ := createSession(t, app, "Ada")
 	// This vocabulary pacing check runs for an hour, beyond the free trial.
-	app.billing = &CreemBilling{accessToken: "test", monthlyProduct: "monthly", lifetimeProduct: "lifetime"}
+	app.billing = &CreemBilling{accessToken: "test", monthlyProduct: "monthly", yearlyProduct: "yearly", lifetimeProduct: "lifetime"}
 	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
 		account.Email = "vocabulary@example.com"
 		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}

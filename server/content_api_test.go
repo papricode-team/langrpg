@@ -320,3 +320,15 @@ func TestContentInteriorStationExercisesFollowTheRoom(t *testing.T) {
 		t.Errorf("station phrase: %d %s", response.Code, response.Body.String())
 	}
 }
+
+// German-only narrative lines still need the support dictionary expected by
+// the client, even when there is no translation in the requested language.
+func TestSafeContentPreservesEmptyLineSupport(t *testing.T) {
+	for _, support := range []map[string]any{{}, {"fr": map[string]any{"text": "French only"}}} {
+		line := safeContent(map[string]any{"de": map[string]any{"text": "Hallo"}, "support": support}, "en").(map[string]any)
+		translations, ok := line["support"].(map[string]any)
+		if !ok || len(translations) != 0 {
+			t.Fatal("missing translations must remain an empty support dictionary")
+		}
+	}
+}

@@ -1,7 +1,8 @@
 import { chromium } from 'playwright';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { uiContentFixtures } from './ui-content-fixtures.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const directory = path.join(root, 'docs/screenshots/ui');
@@ -15,6 +16,7 @@ const viewports = [
 if (!viewports.length || !surfaces.length) throw new Error('Choose a valid UI viewport and at least one surface.');
 const report = [];
 const failures = [];
+const contentFixture = uiContentFixtures(JSON.parse(await readFile(path.join(root, 'server/content.json'), 'utf8')));
 const landscapeOnly = viewports.length === 1 && viewports[0].name === 'landscape';
 
 await mkdir(directory, { recursive: true });
@@ -35,6 +37,11 @@ try {
     });
     for (const surface of surfaces) {
       const page = await context.newPage();
+      await page.route('**/api/content/**', async route => {
+        const request = route.request();
+        const result = contentFixture(request.url(), request.method(), surface);
+        await route.fulfill({ status: result.status, contentType: 'application/json', body: JSON.stringify(result.body) });
+      });
       const runtimeErrors = [];
       const attempts = [];
       page.on('pageerror', error => runtimeErrors.push(error.message));

@@ -26,7 +26,7 @@ func (t creemTestTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	return w.Result(), nil
 }
 func testCreem(handler http.Handler) *CreemBilling {
-	return &CreemBilling{accessToken: "test-secret-token", webhookSecret: "test-webhook-secret-at-least-32-bytes", monthlyProduct: "monthly-product", lifetimeProduct: "lifetime-product", publicURL: "https://game.example", baseURL: "https://api.creem.io", client: &http.Client{Transport: creemTestTransport{handler}}}
+	return &CreemBilling{accessToken: "test-secret-token", webhookSecret: "test-webhook-secret-at-least-32-bytes", monthlyProduct: "monthly-product", yearlyProduct: "yearly-product", lifetimeProduct: "lifetime-product", publicURL: "https://game.example", baseURL: "https://api.creem.io", client: &http.Client{Transport: creemTestTransport{handler}}}
 }
 func copyWebhookReceipts(receipts map[string]time.Time) map[string]time.Time {
 	out := map[string]time.Time{}
@@ -61,13 +61,18 @@ func newCreemFixture(accountID, plan string, now time.Time) *creemFixture {
 	f.checkout.Order.Customer.ID = "customer"
 	f.checkout.Order.Transaction.ID = "transaction"
 	f.transaction = creemTransaction{ID: "transaction", Mode: "prod", Status: "paid", Currency: "EUR", Type: "payment", AmountPaid: 2999, Customer: creemRef{ID: "customer"}, Order: creemRef{ID: "order"}, CreatedAt: now.UnixMilli()}
-	if plan == "monthly" {
+	if plan == "monthly" || plan == "yearly" {
 		f.checkout.Subscription.ID = "subscription"
 		f.transaction.Type = "invoice"
 		f.transaction.Subscription.ID = "subscription"
 		f.transaction.AmountPaid = 299
 		f.transaction.PeriodEnd = now.Add(30 * 24 * time.Hour).UnixMilli()
-		f.subscription = creemSubscription{ID: "subscription", Mode: "prod", Product: creemRef{ID: "monthly-product"}, Customer: creemRef{ID: "customer"}, Status: "active", LastTransactionID: "transaction", CurrentPeriodStart: now.Add(-time.Hour), CurrentPeriodEnd: now.Add(30 * 24 * time.Hour)}
+		f.subscription = creemSubscription{ID: "subscription", Mode: "prod", Product: creemRef{ID: plan + "-product"}, Customer: creemRef{ID: "customer"}, Status: "active", LastTransactionID: "transaction", CurrentPeriodStart: now.Add(-time.Hour), CurrentPeriodEnd: now.Add(30 * 24 * time.Hour)}
+	}
+	if plan == "yearly" {
+		f.transaction.AmountPaid = 999
+		f.subscription.CurrentPeriodEnd = now.AddDate(1, 0, 0)
+		f.transaction.PeriodEnd = f.subscription.CurrentPeriodEnd.UnixMilli()
 	}
 	return f
 }
@@ -114,7 +119,9 @@ func TestCreemEntitlementsRequireBoundCheckoutAndPaidTransactions(t *testing.T) 
 		change           func(*creemFixture)
 		fail             bool
 	}{
-		{"lifetime", "lifetime", "lifetime", nil, false}, {"monthly", "monthly", "monthly", nil, false},
+		{"lifetime", "lifetime", "lifetime", nil, false}, {"monthly", "monthly", "monthly", nil, false}, {"yearly", "yearly", "yearly", nil, false},
+		{"expired yearly", "yearly", "", func(f *creemFixture) { f.subscription.CurrentPeriodEnd = now }, false},
+		{"refunded yearly", "yearly", "", func(f *creemFixture) { f.transaction.RefundedAmount = 999 }, false},
 		{"pending checkout", "lifetime", "", func(f *creemFixture) { f.checkout.Status = "pending" }, false},
 		{"other account", "lifetime", "", func(f *creemFixture) { f.checkout.Metadata["account_id"] = "other" }, true},
 		{"wrong reference", "lifetime", "", func(f *creemFixture) { f.checkout.Metadata["billing_reference"] = "other" }, true},
@@ -155,7 +162,7 @@ func TestCreemEntitlementsRequireBoundCheckoutAndPaidTransactions(t *testing.T) 
 			if (err != nil) != tc.fail || got.Plan != tc.want {
 				t.Fatalf("snapshot=%+v err=%v", got, err)
 			}
-			if got.Plan == "monthly" && !got.PaidUntil.Equal(f.subscription.CurrentPeriodEnd) {
+			if (got.Plan == "monthly" || got.Plan == "yearly") && !got.PaidUntil.Equal(f.subscription.CurrentPeriodEnd) {
 				t.Fatal("wrong expiry")
 			}
 		})
@@ -261,53 +268,58 @@ func TestCreemWebhookRefundDuplicateReplayAndOutage(t *testing.T) {
 	}
 }
 func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
-	app := testApp(t)
-	token, player := createSession(t, app, "Checkout Ada")
-	if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "monthly"}); w.Code != 401 {
-		t.Fatal("guest allowed")
-	}
-	app.store.SetCredentials(context.Background(), tokenHash(token), "ada@example.com", "encoded")
-	f := newCreemFixture(player.ID, "monthly", app.now())
-	app.billing = testCreem(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/v1/checkouts" && r.Method == "POST" {
-			var input struct {
-				ProductID  string            `json:"product_id"`
-				RequestID  string            `json:"request_id"`
-				Customer   map[string]string `json:"customer"`
-				Metadata   map[string]string `json:"metadata"`
-				SuccessURL string            `json:"success_url"`
+	for _, plan := range []string{"monthly", "yearly"} {
+		t.Run(plan, func(t *testing.T) {
+			app := testApp(t)
+			token, player := createSession(t, app, "Checkout Ada")
+			if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": plan}); w.Code != 401 {
+				t.Fatal("guest allowed")
 			}
-			json.NewDecoder(r.Body).Decode(&input)
-			if input.ProductID != "monthly-product" || input.Customer["email"] != "ada@example.com" || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/?billing=success" {
-				t.Error("checkout identity/config not server bound")
+			app.store.SetCredentials(context.Background(), tokenHash(token), "ada@example.com", "encoded")
+			f := newCreemFixture(player.ID, plan, app.now())
+			app.billing = testCreem(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.Path == "/v1/checkouts" && r.Method == "POST" {
+					var input struct {
+						ProductID  string            `json:"product_id"`
+						RequestID  string            `json:"request_id"`
+						Customer   map[string]string `json:"customer"`
+						Metadata   map[string]string `json:"metadata"`
+						SuccessURL string            `json:"success_url"`
+					}
+					json.NewDecoder(r.Body).Decode(&input)
+					if input.ProductID != plan+"-product" || input.Customer["email"] != "ada@example.com" || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/?billing=success" {
+						t.Error("checkout identity/config not server bound")
+					}
+					f.checkout.RequestID = input.RequestID
+					f.checkout.Metadata = input.Metadata
+					// The real create response omits request_id; retrieval includes it.
+					writeJSON(w, 200, map[string]string{"id": "checkout", "checkout_url": "https://www.creem.io/payment/checkout"})
+					return
+				}
+				f.serve(w, r)
+			}))
+			if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "unrelated"}); w.Code != 400 {
+				t.Fatal("unlisted plan allowed")
 			}
-			f.checkout.RequestID = input.RequestID
-			f.checkout.Metadata = input.Metadata
-			// The real create response omits request_id; retrieval includes it.
-			writeJSON(w, 200, map[string]string{"id": "checkout", "checkout_url": "https://www.creem.io/payment/checkout"})
-			return
-		}
-		f.serve(w, r)
-	}))
-	if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "unrelated"}); w.Code != 400 {
-		t.Fatal("unlisted plan allowed")
-	}
-	w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "monthly"})
-	if w.Code != 200 {
-		t.Fatal(w.Code, w.Body.String())
-	}
-	a, _ := app.store.GetAccountByID(context.Background(), player.ID)
-	if len(a.Billing.Purchases) != 1 || a.Billing.Plan != "" || a.Billing.Purchases[0].RequestID == "" || a.Billing.Purchases[0].RequestID != f.checkout.RequestID {
-		t.Fatal("checkout itself granted access")
-	}
-	if w = request(app, "POST", "/api/billing/sync", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), `"phase":"paid"`) {
-		t.Fatal("paid sync failed", w.Code, w.Body.String())
-	}
-	if w = request(app, "POST", "/api/billing/portal", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), "my-orders/login") {
-		t.Fatal("portal failed", w.Code)
-	}
-	if w = request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "monthly"}); w.Code != 409 {
-		t.Fatal("duplicate subscription allowed", w.Code)
+			w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": plan})
+			if w.Code != 200 {
+				t.Fatal(w.Code, w.Body.String())
+			}
+			a, _ := app.store.GetAccountByID(context.Background(), player.ID)
+			if len(a.Billing.Purchases) != 1 || a.Billing.Plan != "" || a.Billing.Purchases[0].RequestID == "" || a.Billing.Purchases[0].RequestID != f.checkout.RequestID {
+				t.Fatal("checkout itself granted access")
+			}
+			if w = request(app, "POST", "/api/billing/sync", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), `"phase":"paid"`) {
+				t.Fatal("paid sync failed", w.Code, w.Body.String())
+			}
+			if w = request(app, "POST", "/api/billing/portal", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), "my-orders/login") {
+				t.Fatal("portal failed", w.Code)
+			}
+			if w = request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": plan}); w.Code != 409 {
+				t.Fatal("duplicate subscription allowed", w.Code)
+			}
+
+		})
 	}
 }
 func TestCreemRenewalRefreshAndOutageGrace(t *testing.T) {
@@ -341,11 +353,12 @@ func mustBillingAccount(t *testing.T, app *App, id string) Account {
 	return a
 }
 func TestCreemEnvironmentValidation(t *testing.T) {
-	for _, key := range []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_SERVER", "PUBLIC_URL"} {
+	for _, key := range []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID", "CREEM_SERVER", "PUBLIC_URL"} {
 		t.Setenv(key, "")
 	}
 	t.Setenv("CREEM_MONTHLY_PRODUCT_ID", "monthly")
 	t.Setenv("CREEM_LIFETIME_PRODUCT_ID", "lifetime")
+	t.Setenv("CREEM_YEARLY_PRODUCT_ID", "yearly")
 	if cfg, err := creemBillingFromEnv(); err != nil || cfg != nil {
 		t.Fatal("empty billing must be disabled", err)
 	}
