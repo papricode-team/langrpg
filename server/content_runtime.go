@@ -154,6 +154,16 @@ func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Cour
 	return c, nil
 }
 func (a *App) storyRule(id string) (StoryRule, bool) {
+	if a.editing != nil && (a.curriculum.Target == "" || a.curriculum.Target == "de") {
+		a.editing.mu.RLock()
+		defer a.editing.mu.RUnlock()
+		for _, rule := range a.editing.current.Investigations.Rules {
+			if rule.QuestID == id {
+				return rule, true
+			}
+		}
+		return StoryRule{}, false
+	}
 	if a.curriculum.StoryRules != nil {
 		rule, ok := a.curriculum.StoryRules[id]
 		return rule, ok
@@ -390,6 +400,27 @@ func (a *App) nearCourseStoryTarget(account *Account, mapID string, target MapSp
 		}
 	}
 	return a.world.nearStoryTarget(account.Player.ID, mapID, target, radius)
+}
+
+func (a *App) classroomCourse(id string) bool {
+	var world struct {
+		Interaction string `json:"interaction"`
+	}
+	_ = json.Unmarshal(a.content.ByCourse[id].World, &world)
+	return world.Interaction == "classroom"
+}
+func (a *App) saveCourseLocation(account *Account) {
+	frame := account.CourseStates[account.ActiveCourseID].LocationFrame
+	if a.classroomCourse(account.ActiveCourseID) {
+		account.Player = a.world.SavedPlayer(account.Player)
+		frame = WorldCoordinateFrame{}
+	} else {
+		account.Player, frame = a.world.SavedCourseLocation(account.Player, frame)
+	}
+	snapshotCourse(account)
+	state := account.CourseStates[account.ActiveCourseID]
+	state.LocationFrame = frame
+	account.CourseStates[account.ActiveCourseID] = state
 }
 func courseStartingPlayer(base Player, course contentstore.Course) Player {
 	var config struct {

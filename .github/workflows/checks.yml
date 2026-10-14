@@ -23,6 +23,39 @@ jobs:
       - run: npm run assets
       - run: node scripts/audit-dialogue-levels.mjs --check
       - run: npm run i18n
+      - name: Install browser for UI checks
+        run: npx playwright install --with-deps chromium
+      - name: Check UI font floor and regenerate screenshots
+        env:
+          ATLAS_UI_URL: http://127.0.0.1:5187
+        run: |
+          node node_modules/vite/bin/vite.js web --host 127.0.0.1 --port 5187 --strictPort > "$RUNNER_TEMP/atlas-ui-vite.log" 2>&1 &
+          ui_server_pid=$!
+          trap 'kill "$ui_server_pid" 2>/dev/null || true; wait "$ui_server_pid" 2>/dev/null || true' EXIT
+          ui_server_ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent "$ATLAS_UI_URL" > /dev/null; then
+              ui_server_ready=true
+              break
+            fi
+            if ! kill -0 "$ui_server_pid" 2>/dev/null; then
+              cat "$RUNNER_TEMP/atlas-ui-vite.log"
+              exit 1
+            fi
+            sleep 1
+          done
+          if [ "$ui_server_ready" != true ]; then
+            cat "$RUNNER_TEMP/atlas-ui-vite.log"
+            exit 1
+          fi
+          npm run ui:check
+      - name: Upload UI screenshot gallery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshot-gallery
+          path: docs/screenshots/ui/
+          if-no-files-found: warn
       - run: git diff --exit-code -- server/curriculum.json server/course.json server/story_rules.json server/expeditions.json server/activity_boards.json web/src/data/course.json web/src/data/course-meta.json web/src/data/course-exercises-a1.json web/src/data/course-exercises-a2.json web/src/data/course-exercises-b1.json docs/audits/dialogue-levels.json web/src/data/syllabus.json server/syllabus.json docs/audits/pacing.json
       - run: npm run build
       - run: npm run budgets

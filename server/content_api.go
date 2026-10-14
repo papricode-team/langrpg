@@ -93,8 +93,7 @@ func (a *App) activateCourse(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	account, err := a.store.UpdateAccount(r.Context(), hash, func(account *Account) error {
-		account.Player = a.world.SavedPlayer(account.Player)
-		snapshotCourse(account)
+		a.saveCourseLocation(account)
 		if input.CourseID != account.ActiveCourseID {
 			settlePlay(account, a.now().UTC())
 			account.Access.Generation++
@@ -116,6 +115,10 @@ func (a *App) activateCourse(w http.ResponseWriter, r *http.Request) {
 			account.Player.Name = name
 			account.Player.Avatar = avatar
 			account.ActiveCourseID = input.CourseID
+			if exists && !a.classroomCourse(input.CourseID) {
+				account.Player, saved.LocationFrame = a.world.RestoreSavedCourseLocation(account.Player, saved.LocationFrame)
+				account.CourseStates[input.CourseID] = saved
+			}
 		}
 		account.Preferences.BaseLanguage = input.SupportLanguage
 		c := a.courseCurricula[input.CourseID]
@@ -174,7 +177,7 @@ func (a *App) readContent(w http.ResponseWriter, r *http.Request) {
 			writeError(w, 400, "content IDs must be UUIDs")
 			return
 		}
-		record = a.content.ByID[strings.ToLower(id)]
+		record = a.content.ByID[a.canonical.translate(strings.ToLower(id), true)]
 		singular := map[string]string{"graphs": "graph", "exercises": "exercise", "units": "unit", "expeditions": "expedition", "minigames": "minigame", "contexts": "context"}[kind]
 		if record.Kind != singular {
 			record = contentstore.Record{}
@@ -242,7 +245,7 @@ func (a *App) contentBatch(w http.ResponseWriter, r *http.Request, account Accou
 	}
 	records := []map[string]any{}
 	for _, id := range ids {
-		record, exists := a.content.ByID[strings.ToLower(id)]
+		record, exists := a.content.ByID[a.canonical.translate(strings.ToLower(id), true)]
 		if exists && record.Kind == kind && a.recordVisible(record, account) {
 			records = append(records, a.publicRecordForAccount(record, account))
 		} else {
@@ -315,7 +318,7 @@ func (a *App) publicRecord(record contentstore.Record, lang string) map[string]a
 	return map[string]any{"id": record.ID, "courseId": record.CourseID, "kind": record.Kind, "version": record.Version, "body": stripContent(value, lang, "")}
 }
 
-var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "explanation": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true}
+var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "explanation": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true, "expected": true}
 
 func stripContent(value any, lang, parent string) any {
 	switch v := value.(type) {

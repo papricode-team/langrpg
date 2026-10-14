@@ -2,9 +2,8 @@ import { escapeHtml as e, icon } from './icons';
 import { t } from './i18n';
 
 /**
- * Options are rows, not a form: one label, one value between ◀ ▶ arrows, and the explanation in
- * the menu's help line rather than a paragraph under every control. Left/right (or the D-pad)
- * change the selected row; Enter, A or a click steps it forward.
+ * Each row has one label and one value. Explanations are available from the page's help control.
+ * Left/right (or the D-pad) change the selected row; Enter, A or a click steps it forward.
  */
 export interface OptionChoice { value: string; label: string }
 export type OptionRow =
@@ -31,22 +30,23 @@ export function stepOption(row: Extract<OptionRow, { kind: 'choice' | 'scale' }>
 
 function rowMarkup(row: OptionRow): string {
   const label = `<span class="option-label" id="option-label-${e(row.id)}">${e(row.label)}</span>`;
-  if (row.kind === 'action') return `<div class="option-row" data-help="${e(row.help)}">${label}<button class="option-action" data-action="${e(row.action)}" aria-describedby="option-label-${e(row.id)}">${row.glyph ? icon(row.glyph) : ''}<span>${e(row.button)}</span>${icon('chevron')}</button></div>`;
-  if (row.kind === 'custom') return `<div class="option-row option-row-custom" data-help="${e(row.help)}">${label}<div class="option-custom">${row.html}</div></div>`;
+  if (row.kind === 'action') return `<div class="option-row">${label}<button class="option-action" data-action="${e(row.action)}" aria-describedby="option-label-${e(row.id)}">${row.glyph ? icon(row.glyph) : ''}<span>${e(row.button)}</span>${icon('chevron')}</button></div>`;
+  if (row.kind === 'custom') return `<div class="option-row option-row-custom">${label}<div class="option-custom">${row.html}</div></div>`;
   const arrows = (atStart: boolean, atEnd: boolean) => [`<button class="option-arrow" tabindex="-1" data-option-step="-1" data-option-for="${e(row.id)}" aria-hidden="true" ${atStart ? 'disabled' : ''}>◀</button>`, `<button class="option-arrow" tabindex="-1" data-option-step="1" data-option-for="${e(row.id)}" aria-hidden="true" ${atEnd ? 'disabled' : ''}>▶</button>`];
   if (row.kind === 'scale') {
     const cells = Math.round((row.max - row.min) / row.step) + 1, filled = Math.round((row.value - row.min) / row.step) + 1;
     const [left, right] = arrows(row.value <= row.min, row.value >= row.max);
-    return `<div class="option-row" data-help="${e(row.help)}">${label}<div class="option-control">${left}<button class="option-value option-scale" data-option="${e(row.id)}" data-nav-horizontal role="slider" aria-labelledby="option-label-${e(row.id)}" aria-valuemin="${row.min}" aria-valuemax="${row.max}" aria-valuenow="${row.value}" aria-valuetext="${e(row.display)}"><span class="option-cells" style="--cells:${cells}">${Array.from({ length: cells }, (_, index) => `<i class="${index < filled ? 'on' : ''}"></i>`).join('')}</span><output ${row.valueId ? `id="${e(row.valueId)}"` : ''}>${e(row.display)}</output></button>${right}</div></div>`;
+    return `<div class="option-row">${label}<div class="option-control">${left}<button class="option-value option-scale" data-option="${e(row.id)}" data-nav-horizontal role="slider" aria-labelledby="option-label-${e(row.id)}" aria-valuemin="${row.min}" aria-valuemax="${row.max}" aria-valuenow="${row.value}" aria-valuetext="${e(row.display)}"><span class="option-cells" style="--cells:${cells}" aria-hidden="true">${Array.from({ length: cells }, (_, index) => `<i class="${index < filled ? 'on' : ''}"></i>`).join('')}</span><output ${row.valueId ? `id="${e(row.valueId)}"` : ''}>${e(row.display)}</output></button>${right}</div></div>`;
   }
   const index = row.choices.findIndex(choice => choice.value === row.value);
   const wrap = row.wrap ?? row.choices.length === 2;
   const [left, right] = arrows(!wrap && index <= 0, !wrap && index >= row.choices.length - 1);
-  return `<div class="option-row" data-help="${e(row.help)}">${label}<div class="option-control">${left}<button class="option-value" data-option="${e(row.id)}" data-nav-horizontal aria-labelledby="option-label-${e(row.id)}" aria-roledescription="${e(t('option'))}" ${row.disabled ? 'disabled' : ''}><span>${e(row.choices[index]?.label ?? row.value)}</span><span class="option-pips" aria-hidden="true">${row.choices.map((_, pip) => `<i class="${pip === index ? 'on' : ''}"></i>`).join('')}</span></button>${right}</div></div>`;
+  return `<div class="option-row">${label}<div class="option-control">${left}<button class="option-value" data-option="${e(row.id)}" data-nav-horizontal aria-labelledby="option-label-${e(row.id)}" aria-roledescription="${e(t('option'))}" ${row.disabled ? 'disabled' : ''}><span>${e(row.choices[index]?.label ?? row.value)}</span></button>${right}</div></div>`;
 }
 
 export function optionsMarkup(tab: OptionsTab, rows: readonly OptionRow[], extra = ''): string {
-  return `<div class="options-panel" data-options-panel="${tab}"><div class="option-rows">${rows.map(rowMarkup).join('')}</div>${extra}</div>`;
+  const help = rows.filter(row => row.help).map(row => `<p><strong>${e(row.label)}:</strong> ${e(row.help)}</p>`).join('');
+  return `<section class="options-panel" data-options-panel="${tab}"><header class="options-heading"><h2>${e(optionsTabs.find(item => item.id === tab)!.label())}</h2>${help ? `<details class="options-help"><summary aria-label="${e(t('Help'))}">?</summary><div>${help}</div></details>` : ''}</header><div class="option-rows">${rows.map(rowMarkup).join('')}</div>${extra}</section>`;
 }
 
 /**

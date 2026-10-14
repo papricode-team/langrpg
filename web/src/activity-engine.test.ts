@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { emptyProgress, type MemoryItem } from './api';
+import { courseExerciseById, type CourseExercise } from './course';
+import publicFixture from './test-fixtures/content-public.json';
 import {
   activityAudioJobs, activityDefinitions, activityScenarios, applyActivityAction, evaluateActivity, exerciseForScenario,
   initialActivityState, marketTotal, selectActivityScenarios, shuffledDetectiveBoard, shuffledCafeActions, type ActivityAction, type ActivityScenario, type ActivityState,
@@ -47,6 +49,15 @@ function solve(scene:ActivityScenario):ActivityState {
 }
 
 describe('the authored activity catalog',()=>{
+  it('resolves an authorized fetched activity exercise even when its owning quest is absent from the visible catalog', () => {
+    const record = publicFixture.records.find(record => record.id === 'f4974bda-2400-570c-9737-50cb9c9239a3')!;
+    const exercise = { ...record.body, id: record.id, german: '', english: '', answer: '', explanation: '' } as unknown as CourseExercise;
+    const scene = { ...activityScenarios.find(scene => scene.activityId === 'cafe')!, exerciseId: exercise.id };
+    const previous = courseExerciseById.get(exercise.id);
+    courseExerciseById.set(exercise.id, exercise);
+    try { expect(exerciseForScenario(scene)).toBe(exercise); expect(exerciseForScenario(scene).answer).toBe(''); }
+    finally { if (previous) courseExerciseById.set(exercise.id, previous); else courseExerciseById.delete(exercise.id); }
+  });
   it('has twelve scenes for each playable mechanic, four per level, with valid canonical targets',()=>{
     expect(activityDefinitions.map(definition=>definition.id)).toEqual(['cafe','market','detective','delivery']);
     expect(activityScenarios).toHaveLength(48);
@@ -168,6 +179,18 @@ describe('evidence reconstruction',()=>{
     }
   });
 
+  it('checks public detective-board completeness without needing a private expected answer',()=>{
+    const scene = structuredClone(activityScenarios.find(scene => scene.board.kind === 'detective')!);
+    if (scene.board.kind !== 'detective') throw new Error('Wrong board.');
+    for (const slot of scene.board.slots) delete (slot as Partial<typeof slot>).expected;
+    let state = initialActivityState(scene);
+    expect(evaluateActivity(scene, state).valid).toBe(false);
+    scene.board.slots.forEach((slot, index) => { state = applyActivityAction(scene, state, { type: 'link', slotId: slot.id, cardId: scene.board.kind === 'detective' ? scene.board.cards[index].id : '' }); });
+    expect(evaluateActivity(scene, state).valid).toBe(true);
+    if (state.kind !== 'detective') throw new Error('Wrong board.');
+    state.links[scene.board.slots[1].id] = state.links[scene.board.slots[0].id];
+    expect(evaluateActivity(scene, state).valid).toBe(false);
+  });
   it('needs all links, prevents duplicate placement, and permits moving the same slip',()=>{
     const scene=activityScenarios.find(scene=>scene.id==='detective-b1-a-timetable-disagrees')!,board=scene.board;
     if(board.kind!=='detective')throw new Error('Wrong board.');

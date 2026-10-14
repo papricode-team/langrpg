@@ -22,16 +22,15 @@ func dialMap(t *testing.T, ctx context.Context, server *httptest.Server, token, 
 	return conn
 }
 
-func mapValue(t *testing.T, packet map[string]json.RawMessage) (string, MapSpawn, []Player, []ChatMessage) {
+func mapValue(t *testing.T, packet map[string]json.RawMessage) (string, MapSpawn, []Player) {
 	t.Helper()
 	var id string
 	var spawn MapSpawn
 	var players []Player
-	var messages []ChatMessage
 	for _, field := range []struct {
 		key         string
 		destination any
-	}{{"mapId", &id}, {"spawn", &spawn}, {"players", &players}, {"messages", &messages}} {
+	}{{"mapId", &id}, {"spawn", &spawn}, {"players", &players}} {
 		if err := json.Unmarshal(packet[field.key], field.destination); err != nil {
 			t.Fatalf("invalid %s: %v", field.key, err)
 		}
@@ -41,31 +40,40 @@ func mapValue(t *testing.T, packet map[string]json.RawMessage) (string, MapSpawn
 			t.Fatalf("foreign player %s in %s snapshot", player.MapID, id)
 		}
 	}
-	for _, message := range messages {
-		if message.MapID != id {
-			t.Fatalf("foreign chat %s in %s history", message.MapID, id)
-		}
+	if _, exists := packet["messages"]; exists {
+		t.Fatal("map snapshot includes retired chat history")
 	}
-	return id, spawn, players, messages
+	return id, spawn, players
 }
 
-// Inspect every frame up to an own-chat barrier. A foreign chat cannot be hidden
-// by readWorld's filtering or by an earlier queued players snapshot.
-func readIsolatedChat(t *testing.T, ctx context.Context, conn *websocket.Conn, mapID, expected string) ChatMessage {
+// An invalid move gives us an ordered reply without changing world state.
+// Inspect every queued snapshot before that reply so filtering cannot hide
+// presence leaked from a different map or a retired chat broadcast.
+func worldBarrier(t *testing.T, ctx context.Context, conn *websocket.Conn, mapID string) {
 	t.Helper()
+	writeWorld(t, ctx, conn, map[string]any{"type": "move", "x": -1, "y": 0})
 	for {
 		_, raw, err := conn.Read(ctx)
 		if err != nil {
 			t.Fatal(err)
 		}
 		var packet struct {
-			Type    string      `json:"type"`
-			MapID   string      `json:"mapId"`
-			Players []Player    `json:"players"`
-			Message ChatMessage `json:"message"`
+			Type    string   `json:"type"`
+			MapID   string   `json:"mapId"`
+			Players []Player `json:"players"`
+			Error   string   `json:"error"`
 		}
 		if err = json.Unmarshal(raw, &packet); err != nil {
 			t.Fatal(err)
+		}
+		if packet.Type == "error" {
+			if packet.Error != "coordinates must be between 0 and 1" {
+				t.Fatalf("unexpected barrier response: %s", packet.Error)
+			}
+			return
+		}
+		if packet.Type == "chat" {
+			t.Fatal("retired chat broadcast was delivered")
 		}
 		if packet.MapID != mapID {
 			t.Fatalf("%s packet leaked from %s into %s", packet.Type, packet.MapID, mapID)
@@ -75,16 +83,10 @@ func readIsolatedChat(t *testing.T, ctx context.Context, conn *websocket.Conn, m
 				t.Fatalf("foreign presence %+v", player)
 			}
 		}
-		if packet.Type == "chat" {
-			if packet.Message.Text != expected || packet.Message.MapID != mapID {
-				t.Fatalf("foreign chat delivered %+v", packet.Message)
-			}
-			return packet.Message
-		}
 	}
 }
 
-func TestMapPresenceChatAndHistoryAreIsolated(t *testing.T) {
+func TestMapPresenceIsIsolated(t *testing.T) {
 	app := testApp(t)
 	tokenA, playerA := createSession(t, app, "Ada")
 	tokenB, playerB := createSession(t, app, "Mira")
@@ -93,30 +95,78 @@ func TestMapPresenceChatAndHistoryAreIsolated(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	one := dialMap(t, ctx, server, tokenA, "lindenhafen")
-	mapA, spawnA, playersA, _ := mapValue(t, readWorld(t, ctx, one, "welcome"))
+	mapA, spawnA, playersA := mapValue(t, readWorld(t, ctx, one, "welcome"))
 	if mapA != "lindenhafen" || spawnA != mapSpawns[mapA] || len(playersA) != 1 || playersA[0].ID != playerA.ID {
 		t.Fatalf("first map welcome %s %+v %+v", mapA, spawnA, playersA)
 	}
 	two := dialMap(t, ctx, server, tokenB, "waldruh")
-	mapB, spawnB, playersB, _ := mapValue(t, readWorld(t, ctx, two, "welcome"))
+	mapB, spawnB, playersB := mapValue(t, readWorld(t, ctx, two, "welcome"))
 	if mapB != "waldruh" || spawnB != mapSpawns[mapB] || len(playersB) != 1 || playersB[0].ID != playerB.ID {
 		t.Fatalf("second map welcome %s %+v %+v", mapB, spawnB, playersB)
 	}
-	writeWorld(t, ctx, one, map[string]any{"type": "chat", "mapId": mapA, "message": "Linden only"})
-	readIsolatedChat(t, ctx, one, mapA, "Linden only")
-	writeWorld(t, ctx, two, map[string]any{"type": "chat", "mapId": mapB, "message": "Wald only"})
-	readIsolatedChat(t, ctx, two, mapB, "Wald only")
-	writeWorld(t, ctx, one, map[string]any{"type": "chat", "mapId": mapA, "message": "Linden barrier"})
-	readIsolatedChat(t, ctx, one, mapA, "Linden barrier")
+	worldBarrier(t, ctx, one, mapA)
+	worldBarrier(t, ctx, two, mapB)
+	worldBarrier(t, ctx, one, mapA)
 	writeWorld(t, ctx, one, map[string]any{"type": "joinMap", "mapId": "waldruh"})
-	joined, _, players, history := mapValue(t, readWorld(t, ctx, one, "map"))
-	if joined != "waldruh" || len(players) != 2 || len(history) != 1 || history[0].Text != "Wald only" {
-		t.Fatalf("new map state %s %+v %+v", joined, players, history)
+	joined, _, players := mapValue(t, readWorld(t, ctx, one, "map"))
+	if joined != "waldruh" || len(players) != 2 {
+		t.Fatalf("new map state %s %+v", joined, players)
 	}
 	writeWorld(t, ctx, one, map[string]any{"type": "joinMap", "mapId": "lindenhafen"})
-	joined, _, players, history = mapValue(t, readWorld(t, ctx, one, "map"))
-	if joined != "lindenhafen" || len(players) != 1 || len(history) != 2 {
-		t.Fatalf("returning map state %s %+v %+v", joined, players, history)
+	joined, _, players = mapValue(t, readWorld(t, ctx, one, "map"))
+	if joined != "lindenhafen" || len(players) != 1 {
+		t.Fatalf("returning map state %s %+v", joined, players)
+	}
+}
+
+func TestChatIsRejectedAndNeverReplayed(t *testing.T) {
+	app := testApp(t)
+	tokenA, _ := createSession(t, app, "Ada")
+	tokenB, _ := createSession(t, app, "Mira")
+	server := httptest.NewServer(app.Handler())
+	defer server.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	one := dialMap(t, ctx, server, tokenA, "lindenhafen")
+	mapValue(t, readWorld(t, ctx, one, "welcome"))
+	two := dialMap(t, ctx, server, tokenB, "lindenhafen")
+	mapValue(t, readWorld(t, ctx, two, "welcome"))
+	writeWorld(t, ctx, one, map[string]any{"type": "chat", "mapId": "lindenhafen", "message": "Retired chat"})
+	packet := readWorld(t, ctx, one, "error")
+	var message string
+	if err := json.Unmarshal(packet["error"], &message); err != nil || message != "unknown message type" {
+		t.Fatalf("legacy chat was accepted: %s", packet["error"])
+	}
+	worldBarrier(t, ctx, two, "lindenhafen")
+	writeWorld(t, ctx, one, map[string]any{"type": "joinMap", "mapId": "waldruh"})
+	mapValue(t, readWorld(t, ctx, one, "map"))
+	_ = one.CloseNow()
+	reconnected := dialMap(t, ctx, server, tokenA, "waldruh")
+	mapValue(t, readWorld(t, ctx, reconnected, "welcome"))
+}
+
+func TestWorldMessageRateLimit(t *testing.T) {
+	app := testApp(t)
+	token, _ := createSession(t, app, "Ada")
+	server := httptest.NewServer(app.Handler())
+	defer server.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	conn := dialMap(t, ctx, server, token, "lindenhafen")
+	readWorld(t, ctx, conn, "welcome")
+	for range 40 {
+		worldBarrier(t, ctx, conn, "lindenhafen")
+	}
+	writeWorld(t, ctx, conn, map[string]any{"type": "move", "x": -1, "y": 0})
+	for {
+		_, _, err := conn.Read(ctx)
+		if err == nil {
+			continue
+		}
+		if websocket.CloseStatus(err) != websocket.StatusPolicyViolation {
+			t.Fatalf("message flood was not rejected: %v", err)
+		}
+		break
 	}
 }
 
@@ -132,13 +182,11 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "unknown"})
 	readWorld(t, ctx, conn, "error")
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "nebelstadt", "x": 1, "y": 1})
-	id, spawn, players, _ := mapValue(t, readWorld(t, ctx, conn, "map"))
+	id, spawn, players := mapValue(t, readWorld(t, ctx, conn, "map"))
 	if id != "nebelstadt" || spawn != mapSpawns[id] || len(players) != 1 {
 		t.Fatalf("server accepted client spawn %+v", spawn)
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": "lindenhafen", "x": 1, "y": 1})
-	readWorld(t, ctx, conn, "error")
-	writeWorld(t, ctx, conn, map[string]any{"type": "chat", "mapId": "lindenhafen", "message": "Stale map"})
 	readWorld(t, ctx, conn, "error")
 	app.world.mu.Lock()
 	for _, client := range app.world.clients {
@@ -167,7 +215,7 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 	}
 }
 
-func TestMapReconnectRestoresPositionAndChatLimits(t *testing.T) {
+func TestMapReconnectRestoresPosition(t *testing.T) {
 	app := testApp(t)
 	token, _ := createSession(t, app, "Ada")
 	server := httptest.NewServer(app.Handler())
@@ -175,7 +223,7 @@ func TestMapReconnectRestoresPositionAndChatLimits(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	one := dialMap(t, ctx, server, token, "waldruh")
-	_, spawn, _, _ := mapValue(t, readWorld(t, ctx, one, "welcome"))
+	_, spawn, _ := mapValue(t, readWorld(t, ctx, one, "welcome"))
 	writeWorld(t, ctx, one, map[string]any{"type": "move", "mapId": "waldruh", "coordinateVersion": compiledWorldMaps.Maps["waldruh"].CoordinateVersion, "x": 1, "y": 1})
 	var expected MapSpawn
 	for {
@@ -187,18 +235,14 @@ func TestMapReconnectRestoresPositionAndChatLimits(t *testing.T) {
 			break
 		}
 	}
-	for _, text := range []string{"one", "two", "three"} {
-		writeWorld(t, ctx, one, map[string]any{"type": "chat", "message": text})
-		readIsolatedChat(t, ctx, one, "waldruh", text)
-	}
+	worldBarrier(t, ctx, one, "waldruh")
 	_ = one.CloseNow()
 	two := dialMap(t, ctx, server, token, "waldruh")
-	id, resumed, players, history := mapValue(t, readWorld(t, ctx, two, "welcome"))
-	if id != "waldruh" || resumed != expected || len(players) != 1 || len(history) != 3 {
-		t.Fatalf("reconnect lost map state %s %+v %+v %+v", id, resumed, players, history)
+	id, resumed, players := mapValue(t, readWorld(t, ctx, two, "welcome"))
+	if id != "waldruh" || resumed != expected || len(players) != 1 {
+		t.Fatalf("reconnect lost map state %s %+v %+v", id, resumed, players)
 	}
-	writeWorld(t, ctx, two, map[string]any{"type": "chat", "message": "fourth"})
-	readWorld(t, ctx, two, "error")
+	worldBarrier(t, ctx, two, "waldruh")
 }
 
 func TestNewTabReplacesSessionWithoutRetryableDisconnect(t *testing.T) {
@@ -226,8 +270,7 @@ func TestNewTabReplacesSessionWithoutRetryableDisconnect(t *testing.T) {
 		break
 	}
 	// Cleanup from the old handler must leave the new connection registered.
-	writeWorld(t, ctx, two, map[string]any{"type": "chat", "mapId": "waldruh", "message": "Still connected"})
-	readIsolatedChat(t, ctx, two, "waldruh", "Still connected")
+	worldBarrier(t, ctx, two, "waldruh")
 }
 
 func TestMapJoinRateLimitSurvivesReconnect(t *testing.T) {
@@ -241,7 +284,7 @@ func TestMapJoinRateLimitSurvivesReconnect(t *testing.T) {
 	readWorld(t, ctx, one, "welcome")
 	for _, id := range []string{"waldruh", "nebelstadt", "lindenhafen", "waldruh"} {
 		writeWorld(t, ctx, one, map[string]any{"type": "joinMap", "mapId": id})
-		actual, _, _, _ := mapValue(t, readWorld(t, ctx, one, "map"))
+		actual, _, _ := mapValue(t, readWorld(t, ctx, one, "map"))
 		if actual != id {
 			t.Fatalf("joined %s", actual)
 		}
@@ -307,7 +350,7 @@ func TestProfileUpdatePreservesCurrentMapAndPosition(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	conn := dialMap(t, ctx, server, token, "nebelstadt")
-	_, spawn, _, _ := mapValue(t, readWorld(t, ctx, conn, "welcome"))
+	_, spawn, _ := mapValue(t, readWorld(t, ctx, conn, "welcome"))
 	avatar := Avatar{Hair: "#d9bc75", Skin: "#533728", Outfit: "#6c7894"}
 	response := request(app, "POST", "/api/session", token, map[string]any{"name": "New Ada", "avatar": avatar})
 	if response.Code != 200 {
@@ -343,8 +386,7 @@ func TestReconnectCannotBypassMapJoinRateLimit(t *testing.T) {
 		t.Fatalf("query map bypassed join limit: %v", err)
 	}
 	// A rejected replacement must not cancel the original authenticated socket.
-	writeWorld(t, ctx, conn, map[string]any{"type": "chat", "mapId": "waldruh", "message": "Still here"})
-	readIsolatedChat(t, ctx, conn, "waldruh", "Still here")
+	worldBarrier(t, ctx, conn, "waldruh")
 }
 
 func TestRetiredExpeditionTravelIsRejected(t *testing.T) {

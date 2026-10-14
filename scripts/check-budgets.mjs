@@ -10,8 +10,10 @@ const largest = Math.max(...sizes.map(item => item.size));
 const total = sizes.reduce((sum,item) => sum + item.size,0);
 // Learning records are served by the API. Browser JavaScript contains the engine,
 // presentation and interface strings, with a hard startup and aggregate ceiling.
-const mainChunks = sizes.filter(item => /(?:index|main)-[^/]+\.js$/.test(item.path));
-if (!mainChunks.length) throw new Error('Unable to identify the startup JavaScript chunk');
+const startupHTML = await readFile(resolve(root, 'index.html'), 'utf8');
+const startupPaths = new Set([...startupHTML.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)].map(([,source]) => resolve(root, source.replace(/^\//, '').split(/[?#]/, 1)[0])));
+const mainChunks = sizes.filter(item => startupPaths.has(item.path));
+if (!mainChunks.length || mainChunks.length !== startupPaths.size) throw new Error('Unable to identify the startup JavaScript chunk');
 for (const chunk of mainChunks) if (chunk.size > 3 * 1024 * 1024) throw new Error(`Main JavaScript budget exceeded: ${chunk.size}`);
 if (largest > 3 * 1024 * 1024 || total > 5 * 1024 * 1024) throw new Error(`JavaScript budget exceeded: largest ${largest}, total ${total}`);
 const art=assets.filter(path=>path.includes('/assets/')&&/\.(webp|png|jpg)$/.test(path));

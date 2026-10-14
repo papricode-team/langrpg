@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-async function moduleAt(path, bindings = {}) {
-  const source = (await readFile(resolve(root, path), 'utf8')).replace(/^import .*;.*$/gm, '');
+async function moduleAt(path, bindings = {}, exports = []) {
+  const source = (await readFile(resolve(root, path), 'utf8')).replace(/^import .*;.*$/gm, '')+(exports.length?`\nexport {${exports.join(',')}};`:'');
   const prefix = Object.entries(bindings).map(([key, value]) => `const ${key}=${typeof value === 'function' ? value.toString() : JSON.stringify(value)};`).join('\n');
   const compiled = stripTypeScriptTypes(prefix + source, { mode:'strip' });
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
@@ -42,6 +42,8 @@ const lexical = await moduleAt('web/src/i18n-lexical.ts');
 const routines = await moduleAt('web/src/world-routines.ts');
 const cinemas = await moduleAt('web/src/cinematic-content.ts');
 const maps = await moduleAt('web/src/maps.ts');
+const conversations = await moduleAt('web/src/interior-conversations.ts');
+const wordFacts = await moduleAt('web/src/word-detail.ts',{},['interiorMeanings','extraInteriorExamples']);
 const cinematicRows=[];
 for(const mapId of ['lindenhafen','waldruh','nebelstadt'])for(const kind of ['arrival','platform','recording','erasure','clockmill','confession','dark-beam','ledger','storm','bell','travel'])for(const ending of kind==='bell'?[undefined,...cinemas.endingIds]:[undefined])cinematicRows.push({kind,mapId,...(ending?{ending}:{}),beats:cinemas.cinematicBeats(kind,mapId,ending)});
 const overlays = await Promise.all(['tr-story','tr-course','tr-ui'].map(name => read(`web/src/data/i18n/${name}.json`)));
@@ -55,5 +57,7 @@ const files = { curriculum:'curriculum.json',course:'course.json',syllabus:'syll
 const legacyServer = Object.fromEntries(await Promise.all(Object.entries(files).map(async ([kind, path]) => [kind, await read(`server/${path}`)])));
 const snapshot = { version:1,npcs:content.npcs,chapters:content.chapters,quests:content.quests,course,graphs,storyText,journalNarratives:story.journalNarratives,ambientCallbacks:npcs.ambientCallbacks,greetings:[...new Map(greetings.map(line=>[line.id+line.german,line])).values()],npcRoutines:routines.npcRoutines,cinematics:cinematicRows,storyMaps:maps.storyMaps,interiors:interiors.interiors,expeditionRegions:expeditions.expeditionRegions,expeditionGames:plans.expeditionGames,activityDefinitions:engine.activityDefinitions,activityScenarios:engine.activityScenarios,inventory:engine.inventory,activityDiscoveries:activities.activityDiscoveries,beginnerGateTranslations:beginner.beginnerGateTranslations,greetingMeanings:beginner.greetingMeanings,contextualGrammar:Object.fromEntries(content.quests.map(quest=>[quest.id,grammar.grammarForQuest(quest.id)])),miniGameDefinitions:miniGames.miniGameDefinitions,miniGameScripts:await read('web/src/minigames/story-scripts.json'),miniGameAudio:await read('web/src/minigames/audio-data.json'),audioManifest:await read('web/public/audio/manifest.json'),loopData:await read('web/src/minigames/loop-data.json'),overlays:{story:overlays[0],course:overlays[1],ui:overlays[2]},legacyServer };
 await mkdir(resolve(root,'content'),{recursive:true});
+snapshot.interiorConversations=conversations.interiorConversations;
+snapshot.interiorWordFacts={meanings:wordFacts.interiorMeanings,examples:wordFacts.extraInteriorExamples};
 await writeFile(resolve(root,'content/source.json'),JSON.stringify(snapshot)+'\n');
 console.log(`Imported ${snapshot.quests.length} quests, ${course.exercises.length} exercises and ${graphs.length} graphs into server-owned authoring source.`);

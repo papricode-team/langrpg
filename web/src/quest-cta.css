@@ -1,86 +1,68 @@
-/* The next story objective is the primary action over the painted world. */
-.quest-tracker:has(.tracker-heading) {
-  width:282px;
-  border:1px solid #ffe3a0;
-  border-radius:3px;
-  background:#d9ae59;
-  box-shadow:0 0 0 3px #332d2059,0 0 24px #f4c66855,0 6px 18px #0b211c66;
-  animation:quest-beacon 4s ease-in-out infinite;
+/* One objective over the world, with optional bell progress during a bell scene. */
+.quest-tracker {
+  position:absolute;
+  top:max(20px,env(safe-area-inset-top));
+  left:max(24px,env(safe-area-inset-left));
+  right:auto;
+  width:auto;
+  max-width:min(480px,calc(100vw - 180px));
+  border:0;
+  background:none;
+  box-shadow:none;
+  pointer-events:auto;
 }
-.tracker-heading {
-  position:relative;
-  isolation:isolate;
+
+.quest-tracker::after {
+  content:none;
+}
+
+.objective-chip {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  min-height:52px;
+  padding:12px 16px;
+  border:1px solid #d8bb8060;
+  border-radius:8px;
+  color:#f4e7c3;
+  background:#122b24ec;
+  box-shadow:0 4px 14px #07191150;
+  font:500 var(--type-body)/1.4 'DM Sans',sans-serif;
+  text-align:left;
+}
+
+.objective-chip>.icon {
+  color:var(--game-gold);
+}
+
+.objective-text {
+  min-width:0;
   overflow:hidden;
-  min-height:74px;
-  padding:15px 16px;
-  gap:15px;
-  border-radius:2px;
-  color:#20372c;
-  background:linear-gradient(115deg,#ffe6ae,#e8c377 60%,#dcb05f);
-  box-shadow:inset 0 1px 0 #fff6d9,inset 0 -1px 0 #a67b3c;
-  transition:background .2s,box-shadow .2s;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
-.tracker-heading::before {
-  content:'';
-  position:absolute;
-  z-index:-1;
-  inset:0;
-  background:linear-gradient(110deg,transparent 25%,#fff8db90 50%,transparent 75%);
-  transform:translateX(-130%);
-  animation:quest-shimmer 6s ease-in-out infinite;
-  pointer-events:none;
+
+.objective-bell {
+  flex:none;
+  margin-left:auto;
+  color:var(--game-gold);
+  font-size:var(--type-caption);
 }
-.tracker-heading:hover,.tracker-heading:focus-visible {
-  background:linear-gradient(115deg,#fff0c6,#f4d592 60%,#eac276);
-  box-shadow:inset 0 1px 0 #fff9e4,0 0 18px #ffe6a366;
-}
-.tracker-heading:focus-visible { outline:2px solid #fff3ce; outline-offset:5px; }
-.tracker-heading:active { box-shadow:inset 0 2px 7px #946b3c50; }
-.tracker-heading small { display:block; color:#4b4a2c; font-weight:700; letter-spacing:.9px; }
-.tracker-heading strong { color:#183328; font-size:16px; text-shadow:0 1px 0 #fff4d455; }
-.tracker-heading>.icon { color:#304d36; width:16px; height:16px; margin-top:0; flex:none; }
-.tracker-heading .quest-diamond {
-  position:relative;
-  width:29px;
-  height:29px;
-  border-color:#fff0ba;
-  color:#fff2c5;
-  background:linear-gradient(135deg,#426044,#203d2c);
-  box-shadow:0 0 0 3px #b58b3c35,0 0 12px #fff0b080;
-}
-.tracker-heading .quest-diamond>.icon { width:17px; height:17px; }
-.quest-spark {
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:64px;
-  height:64px;
-  transform:translate(-50%,-50%) rotate(-45deg);
-  background:url('/assets/ui/quest-spark.svg') 0 0 / 512px 64px no-repeat;
-  animation:quest-spark 2.4s steps(8) infinite;
-  pointer-events:none;
-}
-@keyframes quest-beacon {
-  0%,100% { box-shadow:0 0 0 3px #332d2059,0 0 18px #f4c66840,0 6px 18px #0b211c66; }
-  50% { box-shadow:0 0 0 3px #332d2059,0 0 30px #f4c66880,0 6px 18px #0b211c66; }
-}
-@keyframes quest-shimmer {
-  0%,55% { transform:translateX(-130%); }
-  85%,100% { transform:translateX(130%); }
-}
-@keyframes quest-spark { to { background-position:-512px 0; } }
-@media(max-width:760px), (max-height:520px) {
-  .quest-tracker:has(.tracker-heading) { width:min(312px,calc(100vw - 28px)); }
-  .tracker-heading { min-height:62px; padding:11px 13px; gap:13px; }
-  .tracker-heading strong { font-size:14px; }
-  .tracker-heading .quest-diamond { width:25px; height:25px; }
-  .tracker-heading .quest-diamond>.icon { width:15px; height:15px; }
-}
-@media(max-height:520px) and (min-width:701px) {
-  .quest-tracker:has(.tracker-heading) { width:min(280px,44vw); }
-}
-@media(prefers-reduced-motion:reduce) {
-  .quest-tracker:has(.tracker-heading),.tracker-heading::before,.quest-spark { animation:none; }
-  .tracker-heading { transition:none; }
-  .tracker-heading::before { display:none; }
+
+@media (--phone) {
+  .quest-tracker {
+    top:max(16px,env(safe-area-inset-top));
+    left:16px;
+    max-width:calc(100vw - 88px);
+  }
+  .objective-chip {
+    min-height:48px;
+    gap:8px;
+    padding:10px 12px;
+  }
+  .objective-chip>.icon {
+    width:18px;
+    height:18px;
+  }
 }

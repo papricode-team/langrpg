@@ -230,6 +230,12 @@ export async function loadExercise(id: string): Promise<Exercise> {
   const module = await import('./course');
   if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
   module.courseExerciseById.set(id, exercise as CourseExercise);
+  if (Array.isArray(body.wordIds)) {
+    const wordIds = body.wordIds.filter((value): value is string => typeof value === 'string');
+    const courseData = runtimeObject('courseData'), contextWords = data(courseData.contextWordIds);
+    contextWords[id] = wordIds; courseData.contextWordIds = contextWords;
+    if (module.courseContextWordIds) module.courseContextWordIds[id] = wordIds;
+  }
   const quest = runtimeArray<Quest>('quests').find(quest => quest.id === body.questId); if (quest && !quest.exercises.some(row => row.id === id)) quest.exercises.push(exercise);
   return exercise;
 }
@@ -311,6 +317,14 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
     if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
     const entry = data(value);
     if (category === 'grammar') upsert('courseGrammar', { ...entry, id, explanation: entry.teachingNotes ?? '' });
+    else if (category === 'interiorConversation') {
+      const existing = runtimeArray<JsonObject>('interiorConversations').find(conversation => conversation.objectId === entry.objectId);
+      upsert('interiorConversations', { ...entry, nodes: { ...data(existing?.nodes), ...data(entry.nodes) } }, 'objectId');
+    }
+    else if (category === 'interiorWordFacts') {
+      Object.assign(runtimeObject('interiorMeanings'), data(data(entry.meanings)[baseLanguage()]));
+      Object.assign(runtimeObject('extraInteriorExamples'), data(entry.examples));
+    }
     else if (category === 'questGrammar') runtimeObject('contextualGrammar')[String(meta.ownerId)] = { ...entry, explanation: entry.teachingNotes ?? '' };
     else if (category === 'npcGreeting') upsert(`greetings:${entry.speaker ?? meta.worldId}:${meta.level ?? 'A1'}`, { ...entry, condition: meta.condition ?? entry.when, german: entry.german ?? '', english: entry.english ?? '' }, 'sentenceId');
     else if (category === 'npcTitleGreeting') runtimeObject('titleGreetings')[`${entry.speaker ?? meta.worldId}:${entry.title ?? meta.title}`] = entry;
@@ -359,7 +373,19 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
   }
   return { loaded, remaining: Math.max(0, selected.length - loaded) };
 }
-export async function loadInterior(id: string): Promise<void> { await loadContexts('interior', id); }
+export async function loadInterior(id: string): Promise<void> { await loadContexts('interior', id); await loadContexts('interiorWordFacts', id); }
+export async function loadInteriorConversation(objectId: string, nodeId?: string): Promise<void> {
+  const generation = revision;
+  const entries = matchingContexts('interiorConversation', objectId);
+  const target = nodeId ?? String(entries[0]?.[1].startNodeId ?? '');
+  const entry = entries.find(([, meta]) => meta.nodeId === target);
+  if (!entry || resolvedContexts.has(entry[0])) return;
+  const value = data(await loadContext(entry[0]));
+  if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
+  const existing = runtimeArray<JsonObject>('interiorConversations').find(conversation => conversation.objectId === value.objectId);
+  upsert('interiorConversations', { ...value, nodes: { ...data(existing?.nodes), ...data(value.nodes) } }, 'objectId');
+  resolvedContexts.add(entry[0]);
+}
 export async function loadActivity(id: string, level: string): Promise<void> {
   await loadContexts('activityInventory'); await loadContexts('activityDefinitions'); await loadContexts('activityDiscovery', `${id}:${level}`, level); await loadContexts('activityScenario', id, level);
 }

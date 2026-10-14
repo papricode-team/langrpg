@@ -9,6 +9,7 @@ import { LevelEditorCanvas, type PaletteItem } from './level-editor-canvas';
 import { applyScatter, generateScatter, type ScatterProposal } from './level-editor-generation';
 import { LevelEditorHistory, duplicateScenery, removeScenery, editScenery, groupScenery, ungroupScenery, makeDraft, nextSceneryId, readDraft } from './level-editor-model';
 import {copyScenery,pasteScenery,checkClipboard,ObjectPaintStroke,type SceneryClipboard,type BrushSettings} from './level-editor-object-tools';
+import { WorldEditorApi, validatedWorldImport, worldExportJSON, WorldEditorError } from './world-editor-api';
 
 import {stampPrefab,selectedPrefabInstance,previewPrefabUpdate,savePrefabFromSelection,detachPrefab,setPrefabLocked,preservePrefabPlacement,sceneInstanceIds,type PrefabUpdate} from './level-editor-prefabs';
 
@@ -17,6 +18,9 @@ const escape = (value: unknown): string => String(value).replace(/[&<>"']/g, cha
 const draftKey = 'atlas.world-studio.draft.v1';
 const query = <T extends HTMLElement = HTMLElement>(selector: string): T => document.querySelector<T>(selector)!;
 let history: LevelEditorHistory, revision = '', savedDocument = '', mapId = 'lindenhafen';
+let worldApi: WorldEditorApi;
+const embedded = new URLSearchParams(location.search).get('embedded') === '1' && window.parent !== window;
+const notifyParent = (message: unknown): void => { if (embedded) window.parent.postMessage(message, location.origin); };
 let selected = new Set<string>(), palette: PaletteItem[] = [], currentAsset: PaletteItem | undefined;
 let busy = false, dragChanged = false;
 let clipboard:SceneryClipboard|undefined,pasting=false,pastePoint='';
@@ -59,6 +63,10 @@ const scene = (): WorldScene => history.document.maps[mapId];
 const dirty = (): boolean => JSON.stringify(history.document) !== savedDocument;
 const status = (message: string): void => { query('#save-status').textContent = message; const secondary=document.querySelector('#footer-status');if(secondary)secondary.textContent=message; };
 const diagnostics = (messages: string[], error = false): void => { query('#diagnostics').innerHTML = messages.map(message => `<p class="${error ? 'error' : ''}">${escape(message)}</p>`).join(''); };
+function syncMapOptions():void {
+  if(!history.document.maps[mapId])mapId=Object.keys(history.document.maps)[0];
+  query<HTMLSelectElement>('#map-select').innerHTML=Object.values(history.document.maps).map(map=>`<option value="${escape(map.id)}"${map.id===mapId?' selected':''}>${escape(maps.find(spec=>spec.id===map.id)?.name??map.id)}</option>`).join('');
+}
 
 function clearPaste():void {if(pasting){pasting=false;pastePoint='';canvas.preview([]);}}
 function refreshObjectTools():void {
@@ -106,13 +114,6 @@ function paintStroke(point:{x:number;y:number}):void {
   if(!stroke)return;stroke.move(point);history.preview(stroke.scene);canvas.paint(scene());query('#canvas-help').textContent=stroke.summary+' Release to finish · Esc cancels';
 }
 
-async function request(path: string, options?: RequestInit): Promise<{document?:unknown;revision?:string;error?:string;diagnostics?:string[]}> {
-  const response = await fetch(path, options);
-  const value = await response.json().catch(() => ({ error: 'The authoring service did not return a scene document.' }));
-  if (!response.ok) throw new Error(value.error ?? value.diagnostics?.join('\n') ?? `Authoring service returned ${response.status}.`);
-  return value;
-}
-
 function persistDraft(): void {
   try {
     if (dirty()) localStorage.setItem(draftKey, JSON.stringify(makeDraft(history.document, revision)));
@@ -135,6 +136,10 @@ function refresh(): void {
   query<HTMLButtonElement>('#undo').disabled = !history.canUndo || busy;
   query<HTMLButtonElement>('#redo').disabled = !history.canRedo || busy;
   query<HTMLButtonElement>('#save').disabled = !dirty() || busy;
+  query<HTMLButtonElement>('#validate').disabled = busy;
+  query<HTMLButtonElement>('#import-world').disabled = busy;
+  query<HTMLButtonElement>('#export-world').disabled = busy;
+  notifyParent({ type: 'atlas:editor-state', dirty: dirty(), busy });
   query('#map-size').textContent = `${scene().width.toLocaleString()} × ${scene().height.toLocaleString()} world units`;
   query('#object-count').textContent = String(scene().scenery.length);
   query('#map-name').textContent = maps.find(map => map.id === mapId)?.name ?? mapId;
@@ -178,7 +183,7 @@ function renderPrefabs():void {
   query<HTMLInputElement>('#search').placeholder=libraryMode==='objects'?'Find trees, lamps, houses…':'Find reusable groups…';
   const catalog=history.document.prefabs??[],search=query<HTMLInputElement>('#search').value.trim().toLowerCase();
   const compatible=catalog.filter(prefab=>(libraryMode!=='groups'||prefab.name.toLowerCase().includes(search))&&prefab.scenery.every(child=>palette.some(item=>item.asset===child.asset&&item.frame===(child.frame??child.asset)&&item.variant===!!child.variant)));
-  query('#prefab-tools').innerHTML=`<h3>Reusable groups</h3><p class="panel-note">Choose a group, then click the world. Its objects and activity positions stay editable.</p><div class="palette">${compatible.map(prefab=>`<button class="asset-card${currentPrefabId===prefab.id?' active':''}" data-prefab="${escape(prefab.id)}" title="Place ${escape(prefab.name)}"><span>${escape(prefab.name)}</span><small>${prefab.scenery.length} objects · v${prefab.revision}</small></button>`).join('')}</div>${compatible.length?'':'<p class="panel-note">Select objects to create your first reusable group.</p>'}`;
+  query('#prefab-tools').innerHTML=`<h3>Reusable groups</h3><p class="panel-note">Choose a group, then click the world. Its objects and activity positions stay editable.</p><div class="palette">${compatible.map(prefab=>`<button class="asset-card${currentPrefabId===prefab.id?' active':''}" data-prefab="${escape(prefab.id)}" title="Place ${escape(prefab.name)}"><span>${escape(prefab.name)}</span><span class="caption">${prefab.scenery.length} objects · v${prefab.revision}</span></button>`).join('')}</div>${compatible.length?'':'<p class="panel-note">Select objects to create your first reusable group.</p>'}`;
   query('#prefab-tools').querySelectorAll<HTMLButtonElement>('[data-prefab]').forEach(button=>button.onclick=()=>{
     canvas.cancelGesture();clearPaste();canvas.paintMode=undefined;
     clearPrefabPreview();proposal=undefined;canvas.preview([]);renderGenerator();
@@ -331,7 +336,7 @@ function renderGenerator():void {
     <label>Generation region<select id="generation-zone"><option value="">${generationZone?'Drawn region':'Choose or draw a region'}</option>${zones.map(zone=>`<option value="zone:${zone.id}"${generationZone?.id===zone.id?' selected':''}>${escape(zone.id)}</option>`).join('')}${scene().districts.map(district=>`<option value="district:${district.id}">${escape(district.label??district.id)}</option>`).join('')}</select></label>
     <div class="generation-actions"><button id="draw-generation-zone">Draw region</button></div>
     <div class="generation-fields"><label>Seed<input id="generation-seed" type="number" step="1" value="${generationZone?.seed??42}"></label><label>Object count<input id="generation-count" type="number" min="1" max="300" value="${generationZone?.count??12}"></label><label>Spacing<input id="generation-spacing" type="number" min="8" value="${generationZone?.minSpacing??70}"></label><label>Path clearance<input id="generation-clearance" type="number" min="0" value="${generationZone?.clearance??12}"></label></div>
-    <label style="margin-top:10px">Palette <small>Ctrl / Cmd to choose several</small><select id="generation-palette" multiple size="5">${palette.map((item,index)=>`<option value="${index}"${generationZone?.palette.includes(item.frame)||!generationZone&&item.asset==='tree'?' selected':''}>${escape(item.frame.replaceAll('-',' '))}</option>`).join('')}</select></label>
+    <label style="margin-top:10px">Palette <span class="caption">Ctrl / Cmd to choose several</span><select id="generation-palette" multiple size="5">${palette.map((item,index)=>`<option value="${index}"${generationZone?.palette.includes(item.frame)||!generationZone&&item.asset==='tree'?' selected':''}>${escape(item.frame.replaceAll('-',' '))}</option>`).join('')}</select></label>
     <div class="generation-actions"><button id="preview-generation">Preview</button><button id="apply-generation" class="primary" disabled>Apply</button><button id="clear-generation">Clear preview</button></div><p id="generation-summary" class="panel-note">${generationZone?'Region ready. Choose objects and preview.':'Draw a region on land to begin.'}</p>`;
   query('#draw-generation-zone').onclick=()=>{canvas.cancelGesture();clearPaste();canvas.paintMode=undefined;currentPrefabId=undefined;clearPrefabPreview();canvas.zoneMode=true;canvas.boxMode=false;canvas.placing=false;canvas.panMode=false;currentAsset=undefined;renderPalette();refreshObjectTools();query('#canvas-help').textContent='Drag a rectangle over buildable land · Include no water';};
   query<HTMLSelectElement>('#generation-zone').onchange=()=>{
@@ -358,18 +363,38 @@ function renderGenerator():void {
 
 async function validate():Promise<void> {
   if(busy)return;canvas.cancelGesture();clearPaste();busy=true;refresh();status('Validating paths and artwork…');
-  try {await request('/__authoring/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(history.document)});diagnostics(['Valid scene. All registered interactions are reachable, and artwork references resolve.']);status(dirty()?'Valid · ready to save':'All changes saved');}
+  try {await worldApi.validate(history.document);diagnostics(['Valid scene. All registered interactions are reachable, and artwork references resolve.']);status(dirty()?'Valid · ready to save':'All changes saved');}
   catch(error){diagnostics(String(error instanceof Error?error.message:error).split('\n'),true);status('Validation needs attention');}
   finally{busy=false;refresh();}
 }
 async function save():Promise<void> {
-  if(busy||!dirty())return;canvas.cancelGesture();clearPaste();busy=true;refresh();status('Validating and saving…');const submitted=JSON.stringify(history.document);
+  if(busy||!dirty())return;canvas.cancelGesture();clearPaste();busy=true;refresh();status('Validating and saving…');
   try {
-    const result=await request('/__authoring/world',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':`"${revision}"`},body:submitted});
-    revision=result.revision!;savedDocument=submitted;persistDraft();status('All changes saved');
-    diagnostics(['Saved the world and server interaction registry. Restart the development game server to load updated server coordinates.']);
+    const result=await worldApi.save(history.document,revision);
+    revision=result.revision;history.document=result.document;savedDocument=JSON.stringify(result.document);persistDraft();status('All changes saved');
+    diagnostics(['Saved and published the world. Return to the game to explore your changes.']);
+    if(result.contentVersion)notifyParent({type:'atlas:world-saved',contentVersion:result.contentVersion});
   } catch(error){diagnostics(String(error instanceof Error?error.message:error).split('\n'),true);status('Save stopped · draft retained');persistDraft();}
   finally{busy=false;refresh();}
+}
+
+function exportWorld():void {
+  if(busy)return;canvas.cancelGesture();
+  const url=URL.createObjectURL(new Blob([worldExportJSON(history.document)],{type:'application/json'}));
+  const link=document.createElement('a');link.href=url;link.download=`lantern-atlas-world-${new Date().toISOString().slice(0,10)}.json`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  diagnostics([dirty()?'Exported the current world draft, including unsaved edits. Save world publishes those edits.':'Exported the complete world, including all maps and reusable groups.']);
+}
+async function importWorld(file:File):Promise<void> {
+  if(busy)return;canvas.cancelGesture();clearPaste();busy=true;refresh();status('Checking imported world…');
+  try{
+    if(!file.name.toLowerCase().endsWith('.json'))throw new Error('Choose a world JSON file exported from World Studio.');
+    if(file.size>2*1024*1024)throw new Error('World JSON files must be 2 MiB or smaller.');
+    const imported=await validatedWorldImport(await file.text(),document=>worldApi.validate(document));
+    if(!replaceDocument(imported))return;
+    syncMapOptions();
+    changed(false);await loadMap();diagnostics(['Imported the complete world as a draft. Undo restores the previous world. Save world publishes the imported maps.']);
+  }catch(error){diagnostics([error instanceof Error?error.message:String(error)],true);status('Import stopped · current world retained');}
+  finally{busy=false;query<HTMLInputElement>('#import-file').value='';refresh();}
 }
 
 const canvas=new LevelEditorCanvas({
@@ -428,25 +453,33 @@ const canvas=new LevelEditorCanvas({
 });
 
 async function boot():Promise<void> {
-  if(!import.meta.env.DEV)throw new Error('World Studio is available in the development build.');
-  const result=await request('/__authoring/world');history=new LevelEditorHistory(parseWorldSceneDocument(result.document));revision=result.revision!;savedDocument=JSON.stringify(history.document);
+  worldApi=new WorldEditorApi(localStorage.getItem('atlas.token')??'');
+  await worldApi.authenticate();
+  const result=await worldApi.load();history=new LevelEditorHistory(result.document);revision=result.revision;savedDocument=JSON.stringify(history.document);
   const requested=new URLSearchParams(location.search).get('map');if(requested&&history.document.maps[requested])mapId=requested;
-  root.innerHTML=`<main class="studio"><header class="topbar"><div class="brand"><span class="brand-icon">⌖</span><div><small>The Lantern Atlas</small><h1>World Studio</h1></div></div><div class="toolbar"><select id="map-select" aria-label="World map">${Object.values(history.document.maps).map(map=>`<option value="${map.id}"${map.id===mapId?' selected':''}>${escape(maps.find(spec=>spec.id===map.id)?.name??map.id)}</option>`).join('')}</select><button id="undo" title="Undo · Ctrl/Cmd Z" aria-label="Undo">↶</button><button id="redo" title="Redo · Ctrl/Cmd Shift Z" aria-label="Redo">↷</button><div class="toolbar-end"><span id="save-status" class="save-status" aria-live="polite">All changes saved</span><button id="validate">Validate</button><button id="save" class="primary">Save world</button></div></div></header>
+  root.innerHTML=`<main class="studio"><header class="topbar"><div class="brand"><span class="brand-icon">⌖</span><div><span class="caption">The Lantern Atlas</span><h1>World Studio</h1></div></div><div class="toolbar"><select id="map-select" aria-label="World map">${Object.values(history.document.maps).map(map=>`<option value="${map.id}"${map.id===mapId?' selected':''}>${escape(maps.find(spec=>spec.id===map.id)?.name??map.id)}</option>`).join('')}</select><button id="undo" title="Undo · Ctrl/Cmd Z" aria-label="Undo">↶</button><button id="redo" title="Redo · Ctrl/Cmd Shift Z" aria-label="Redo">↷</button><div class="toolbar-end"><span id="save-status" class="save-status" aria-live="polite">All changes saved</span><button id="import-world">Import</button><input id="import-file" type="file" accept=".json,application/json" hidden><button id="export-world">Export</button><button id="validate">Validate</button><button id="save" class="primary">Save world</button></div></div></header>
   <div id="draft-banner" class="draft-banner" hidden><span id="draft-description"></span><button id="recover-draft">Recover draft</button><button id="discard-draft">Dismiss</button></div>
   <div class="studio-body"><aside class="sidebar palette-panel"><div class="panel-title"><h2>Object library</h2><span id="object-count" class="count"></span></div><div class="library-tabs"><button id="show-objects" aria-pressed="true">Objects</button><button id="show-groups" aria-pressed="false">Groups</button><button id="show-placed" aria-pressed="false">Placed</button></div><input class="search" id="search" type="search" placeholder="Find trees, lamps, houses…" aria-label="Search object library"><div id="object-tools" class="object-tools"><div class="object-actions"><button id="copy-objects" title="Copy selection · Ctrl/Cmd C">Copy</button><button id="paste-objects" title="Paste objects · Ctrl/Cmd V" disabled>Paste</button></div><p id="clipboard-status" class="tool-note"></p><div class="object-actions" aria-label="Object placement tools"><button id="stamp-objects" aria-pressed="false">Stamp</button><button id="brush-objects" aria-pressed="false" title="Paint objects · B">Brush</button><button id="erase-objects" aria-pressed="false" title="Erase objects · E">Erase</button></div><details><summary>Brush & erase settings</summary><div class="generation-fields"><label>Brush spacing<input id="brush-spacing" type="number" min="8" max="512" value="70"></label><label>Size variation %<input id="brush-variation" type="number" min="0" max="30" value="10"></label><label>Path clearance<input id="brush-clearance" type="number" min="0" max="120" value="12"></label><label>Erase radius<input id="erase-radius" type="number" min="4" max="256" value="32"></label></div><label class="check"><input id="brush-paths" type="checkbox" checked> Keep paths clear</label><p class="tool-note">Paint on buildable ground. Each stroke is one undo step. Erase keeps locked, hidden, pinned and referenced objects.</p></details></div><div id="palette" class="palette"></div><p id="palette-help" class="panel-note">Choose an object, then place it anywhere in the world. Each instance stays independently editable.</p><div id="prefab-tools" class="section"></div><div id="outliner" hidden></div><div class="section"><h3>View</h3><label class="check"><input id="navigation-toggle" type="checkbox"> Paths, collision & activity slots</label><label class="check"><input id="grid-toggle" type="checkbox"> Show world grid</label><label class="check"><input id="snap-toggle" type="checkbox"> Snap to 16 units</label><label>Lighting<select id="period"><option value="day">Day</option><option value="night">Night</option></select></label><label class="section">Go to district<select id="district-focus"><option value="">Entire map</option></select></label></div><div id="generation-tools" class="section"></div></aside>
   <section class="canvas-shell" aria-label="Editable world canvas"><div id="canvas" class="canvas-host"></div><div class="canvas-top"><span id="map-name" class="pill"></span><span id="map-size" class="pill"></span></div><div class="canvas-tools"><button id="select-mode" title="Select objects">Select</button><button id="box-mode" title="Box select objects" aria-pressed="false">Box</button><button id="pan-mode" title="Pan map">Pan</button><button id="frame-selection" title="Frame selection · F">Frame</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="fit">Fit</button></div><div id="canvas-help" class="canvas-help">Loading the world…</div><div id="loading" class="canvas-loading">Opening the world…</div></section>
   <aside class="sidebar inspector-panel"><div class="panel-title"><h2>Inspector</h2><span id="selection-count" class="count">0</span></div><div id="inspector"></div><div class="section"><div class="panel-title"><h2>Validation</h2></div><div id="diagnostics" class="diagnostics" aria-live="polite"></div></div><div class="section"><h3>This map</h3><div id="scene-stats" class="stats"></div></div></aside></div>
-  <footer class="footer"><span>Development workspace</span><span id="footer-status" aria-live="polite">All changes saved</span><span id="coordinates">0, 0</span></footer></main>`;
+  <footer class="footer"><span>Admin world editor</span><span id="footer-status" aria-live="polite">All changes saved</span><span id="coordinates">0, 0</span></footer></main>`;
   outliner=new EditorOutliner(query('#outliner'));
   query<HTMLSelectElement>('#map-select').onchange=()=>{canvas.cancelGesture();mapId=query<HTMLSelectElement>('#map-select').value;void loadMap();};
   query<HTMLInputElement>('#search').oninput=()=>{renderPalette();renderPrefabs();};
   for(const mode of ['objects','groups','placed'] as const)query(`#show-${mode}`).onclick=()=>{libraryMode=mode;query<HTMLInputElement>('#search').value='';renderPalette();renderPrefabs();};
-  const changeHistory=(redo=false):void=>{const cancelled=canvas.cancelGesture();clearPaste();if(!cancelled){if(redo)history.redo();else history.undo();}changed();};
+  const changeHistory=(redo=false):void=>{
+    const cancelled=canvas.cancelGesture(),previous=scene();clearPaste();
+    if(!cancelled){if(redo)history.redo();else history.undo();}syncMapOptions();
+    const reload=previous.id!==scene().id||previous.width!==scene().width||previous.height!==scene().height||JSON.stringify(previous.terrain)!==JSON.stringify(scene().terrain);
+    changed(!reload);if(reload)void loadMap();
+  };
   query('#undo').onclick=()=>changeHistory();query('#redo').onclick=()=>changeHistory(true);
   query('#copy-objects').onclick=copySelection;query('#paste-objects').onclick=startPaste;
   for(const mode of ['stamp','brush','erase'] as const)query(`#${mode}-objects`).onclick=()=>objectMode(mode);
   query<HTMLInputElement>('#erase-radius').onchange=()=>{if(canvas.paintMode==='erase')objectMode('erase');};
   query('#validate').onclick=()=>void validate();query('#save').onclick=()=>void save();
+  query('#export-world').onclick=exportWorld;query('#import-world').onclick=()=>query<HTMLInputElement>('#import-file').click();
+  query<HTMLInputElement>('#import-file').onchange=()=>{const file=query<HTMLInputElement>('#import-file').files?.[0];if(file)void importWorld(file);};
   query('#select-mode').onclick=()=>selectMode();
   query('#box-mode').onclick=()=>selectMode(true);query('#frame-selection').onclick=()=>canvas.frameSelection();
   query('#pan-mode').onclick=()=>{selectMode();canvas.panMode=true;query('#canvas-help').textContent='Drag to pan · Scroll to zoom · Select to edit objects';};
@@ -477,9 +510,9 @@ async function boot():Promise<void> {
   });
   document.addEventListener('keyup',event=>{if(event.code==='Space')canvas.spacePan=false;});
   window.addEventListener('blur',()=>{canvas.spacePan=false;canvas.cancelGesture();});
-  window.addEventListener('beforeunload',event=>{if(dirty()){event.preventDefault();event.returnValue='';}});
+  if(!embedded)window.addEventListener('beforeunload',event=>{if(dirty()){event.preventDefault();event.returnValue='';}});
   const host=query('#canvas');
   const game=new Phaser.Game({type:Phaser.AUTO,parent:host,width:host.clientWidth,height:host.clientHeight,transparent:true,antialias:true,scene:[canvas],input:{mouse:{preventDefaultWheel:true}},render:{pixelArt:false,roundPixels:false}});
   new ResizeObserver(()=>{game.scale.resize(Math.max(1,host.clientWidth),Math.max(1,host.clientHeight));if(canvas.world)canvas.frameDistrict(query<HTMLSelectElement>('#district-focus').value);}).observe(host);
 }
-void boot().catch(error=>{root.innerHTML=`<div class="error-page"><h1>World Studio</h1><p>${escape(error instanceof Error?error.message:error)}</p><p>Start the development workspace with <code>npm run dev</code>, then open <code>http://localhost:5187/editor.html</code>.</p></div>`;});
+void boot().catch(error=>{root.innerHTML=`<div class="error-page"><h1>World Studio</h1><p role="alert">${escape(error instanceof Error?error.message:error)}</p><p>${error instanceof WorldEditorError&&[401,403].includes(error.status)?'Use an admin account to edit, import and export worlds.':'Your saved world has not been changed. Return to the game and try opening World Studio again.'}</p><p><a href="/"${embedded?' target="_top"':''}>Back to the game and login</a></p></div>`;});

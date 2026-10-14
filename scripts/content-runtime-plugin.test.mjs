@@ -19,7 +19,7 @@ test('production source transformations remove the authored banks and parse corr
     ['content.ts','Guten Morgen!'],['course.ts','course-exercises-a1.json'],['quest-graph.ts','dialogue-graphs.json'],
     ['story.ts','Ein Bahnsteig, ein leerer Brief'],['npc-dialogue.ts','Ihre Fahrkarte, bitte. Auch meine Akten'],
     ['activity-engine.ts','Ich möchte einen Kaffee. Erst die Tasse'],['activity-stories.ts','Deine Gäste gehen satt nach Hause'],
-    ['interiors.ts','Der Kaffee ist fertig.'],['expeditions.ts','Das Paket ist für Youssef.'],
+    ['interiors.ts','Der Kaffee ist fertig.'],['interior-conversations.ts','Die Kaffeemaschine ist bereit.'],['word-detail.ts','Die Tüte liegt auf der Theke.'],['expeditions.ts','Das Paket ist für Youssef.'],
     ['expedition-games.ts','Das Paket ist für den gemeinsamen Hof.'],['cinematic-content.ts','Der Zug ist da. Auf Bahnsteig sieben?'],
     ['world-routines.ts','Die Lampe bleibt an.'],['minigames/scripted-stories.ts','story-scripts.json'],
   ];
@@ -32,6 +32,14 @@ test('factory literals preserve presentation strings and numeric offsets',async(
   const marta=result.npcs.find(npc=>npc.id==='marta');
   assert.equal(marta.name,'Marta');assert.equal(marta.x,.442);assert.equal(marta.color,'#F4B17D');
   assert.equal(marta.greeting,'');assert.equal(result.quests.length,0);
+});
+test('interior presentation looks up conversations installed after module initialization',async()=>{
+  const source='export const interiorConversations=[];const conversationsByObject=new Map(interiorConversations.map(conversation=>[conversation.objectId,conversation]));export function interiorConversationFor(objectId){return conversationsByObject.get(objectId);}';
+  const transformed=plugin.transform(source,resolve(root,'web/src/interior-conversations.ts')).code;
+  const code=ts.transpileModule(transformed,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText.replace(/^import .*;\s*$/gm,'');
+  const result=await import(`data:text/javascript;base64,${Buffer.from("const runtimeArray=()=>[];const runtimeObject=()=>({});const runtimeReference=()=>'';"+code).toString('base64')}`);
+  const conversation={objectId:'interior:cafe:coffee',nodes:{}};result.interiorConversations.push(conversation);
+  assert.equal(result.interiorConversationFor(conversation.objectId),conversation);
 });
 test('literal identities and embedded reference flags become exact committed UUIDs',()=>{
   const source="export const quest='a1-arrival';export const flag='quest:a1-arrival';export const map='lindenhafen';export const npc='otto';export const exercise='a1-arrival-exercise-7';";
@@ -78,6 +86,7 @@ test('authoring test files are never transformed',()=>{
 });
 test('bundle validation rejects accidental learning JSON imports',()=>{
   assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,'web/src/data/course-meta.json')]:{} }}}),/Learning content entered/);
+  assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,'web/src/test-fixtures/content-public.json')]:{} }}}),/Learning content entered/);
   assert.doesNotThrow(()=>plugin.generateBundle({}, {safe:{type:'chunk',modules:{[resolve(root,'web/src/data/world-scenes.json')]:{} }}}));
 });
 test('public media metadata excludes transcripts, model answers and lexical facts',()=>{
@@ -114,8 +123,8 @@ test('development manifest requests, including encoded paths, use redacted respo
 });
 test('development blocks direct authoring banks while transformed modules and presentation stay available',()=>{
   for(const path of ['content/source.json','server/content.json','server/grading-fixtures.json','content_ids.json'])assert(privateDevelopmentRequest(`/@fs/${resolve(root,path)}`,root),path);
-  for(const path of ['/src/data/course.json','/src/data/course-exercises-a1.json?import','/src/data/i18n/tr-story.json?raw','/src/minigames/story-scripts.json','/src/content.ts?raw','/src/npc-dialogue.ts?url',`/@fs/${resolve(root,'web/src/expeditions.ts')}?raw`,'/src/%64ata/course-meta.json','/src/content.ts?r%61w'])assert(privateDevelopmentRequest(path,root),path);
-  for(const path of ['/src/content.ts','/src/npc-dialogue.ts?import','/src/data/world-scenes.json','/src/data/i18n/tr-ui.json','/src/maps.ts?raw','/assets/interior-bakery-objects.json','/audio/a1-arrival-exercise-1.mp3'])assert.equal(privateDevelopmentRequest(path,root),false,path);
+  for(const path of ['/src/data/course.json','/src/data/course-exercises-a1.json?import','/src/data/i18n/tr-story.json?raw','/src/minigames/story-scripts.json','/src/content.ts?raw','/src/npc-dialogue.ts?url',`/@fs/${resolve(root,'web/src/expeditions.ts')}?raw`,'/src/%64ata/course-meta.json','/src/content.ts?r%61w','/src/interior-conversations.ts?raw','/src/word-detail.ts?raw','/src/test-fixtures/content-public.json','/src/test-fixtures/content-public.json?raw','/src/test-fixtures/content-public.json?url&import'])assert(privateDevelopmentRequest(path,root),path);
+  for(const path of ['/src/content.ts','/src/npc-dialogue.ts?import','/src/data/world-scenes.json','/src/data/i18n/tr-ui.json','/src/maps.ts?raw','/assets/interior-bakery-objects.json','/audio/a1-arrival-exercise-1.mp3','/src/test-fixtures/content-public.json?import'])assert.equal(privateDevelopmentRequest(path,root),false,path);
 });
 test('development denies private JSON and raw lesson requests before Vite file serving',()=>{
   let middleware;

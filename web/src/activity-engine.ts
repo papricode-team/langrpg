@@ -1,4 +1,5 @@
 import { quests, type Exercise, type Level } from './content.ts';
+import { courseExerciseById } from './course';
 import type { Progress } from './api';
 import { seededShuffle } from './game-shuffle.ts';
 
@@ -161,7 +162,7 @@ export const activityAudioJobs: {id:string;text:string}[] = [
   {id:'activity-direction-back',text:'Kehre um.'},
 ];
 export const exerciseForScenario = (scenario:ActivityScenario): Exercise => {
-  const exercise = quests.flatMap(quest=>quest.exercises).find(item=>item.id===scenario.exerciseId);
+  const exercise = courseExerciseById.get(scenario.exerciseId) ?? quests.flatMap(quest=>quest.exercises).find(item=>item.id===scenario.exerciseId);
   if (!exercise) throw new Error(`Missing authored activity exercise: ${scenario.exerciseId}`);
   return exercise;
 };
@@ -264,7 +265,13 @@ export function evaluateActivity(scenario:ActivityScenario,state:ActivityState):
     if (change!==expected) feedback.push(`Check the change: payment ${money(board.tender)} minus basket ${money(marketTotal(state))}${board.method==='card'?'; card payments need no coins':''}.`);
     if (board.trade&&!state.traded) feedback.push('Use the agreed exchange offer; buying new goods does not complete the trade.');
   } else if (board.kind==='detective'&&state.kind==='detective') {
-    for (const slot of board.slots) if (state.links[slot.id]!==slot.expected) feedback.push(`Recheck the evidence linked to “${slot.german}”.`);
+    const placed = new Set<string>();
+    for (const slot of board.slots) {
+      const cardId = state.links[slot.id];
+      if (slot.expected !== undefined) { if (cardId !== slot.expected) feedback.push(`Recheck the evidence linked to “${slot.german}”.`); }
+      else if (!board.cards.some(card => card.id === cardId) || placed.has(cardId)) feedback.push(`Link one evidence slip to “${slot.german}”.`);
+      if (cardId) placed.add(cardId);
+    }
   } else if (board.kind==='delivery'&&state.kind==='delivery') {
     if (cellKey(state.position)!==cellKey(board.goal)) feedback.push(`The parcel has not reached ${board.goalName} yet.`);
     if (!state.trail.some(cell=>cellKey(cell)===cellKey(board.checkpoint))) feedback.push(`The dispatch requires a stop at ${board.checkpointName}.`);

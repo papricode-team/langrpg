@@ -389,7 +389,7 @@ func writeWorld(t *testing.T, ctx context.Context, conn *websocket.Conn, message
 	}
 }
 
-func TestConcurrentPlayersChatAndAuthoritativeMovement(t *testing.T) {
+func TestConcurrentPlayersAndAuthoritativeMovement(t *testing.T) {
 	app := testApp(t)
 	tokenOne, playerOne := createSession(t, app, "Ada")
 	tokenTwo, _ := createSession(t, app, "Mira")
@@ -422,16 +422,9 @@ func TestConcurrentPlayersChatAndAuthoritativeMovement(t *testing.T) {
 	if len(players) != 2 {
 		t.Fatalf("second welcome sees %d players", len(players))
 	}
-	writeWorld(t, ctx, one, map[string]any{"type": "chat", "message": "Guten Tag, Mira!"})
-	message := readWorld(t, ctx, two, "chat")
-	var chat ChatMessage
-	_ = json.Unmarshal(message["message"], &chat)
-	if chat.PlayerID != playerOne.ID || chat.Text != "Guten Tag, Mira!" {
-		t.Fatalf("chat delivery %+v", chat)
-	}
 	writeWorld(t, ctx, one, map[string]any{"type": "move", "coordinateVersion": compiledWorldMaps.Maps[DefaultMapID].CoordinateVersion, "x": 1, "y": 1})
 	for {
-		message = readWorld(t, ctx, two, "players")
+		message := readWorld(t, ctx, two, "players")
 		_ = json.Unmarshal(message["players"], &players)
 		moved := false
 		for _, player := range players {

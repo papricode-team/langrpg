@@ -87,8 +87,103 @@ func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testin
 	if w := request(app, "POST", "/api/attempt", token, attemptFor("blocked")); w.Code != 402 || !strings.Contains(w.Body.String(), "payment_required") {
 		t.Fatalf("payment wall bypass: %d %s", w.Code, w.Body.String())
 	}
-	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 403 {
-		t.Fatalf("registered trial was reset: %d %s", w.Code, w.Body.String())
+	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
+		t.Fatalf("registered trial could not restart: %d %s", w.Code, w.Body.String())
+	}
+}
+
+func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
+	app := testApp(t)
+	clock := trialTestClock(app)
+	token, player := createSession(t, app, "Restart Ada")
+	credentials := credentialInput{Email: "restart@example.com", Password: "a long restart password"}
+	if w := request(app, "POST", "/api/account/register", token, credentials); w.Code != 200 {
+		t.Fatalf("register: %d %s", w.Code, w.Body.String())
+	}
+	secondToken, _ := randomID(32)
+	if err := app.store.AddSession(context.Background(), tokenHash(secondToken), player.ID); err != nil {
+		t.Fatal(err)
+	}
+	for generation := int64(1); generation <= 3; generation++ {
+		// These simulated fifteen-minute sessions run within one real rate window.
+		app.rateMu.Lock()
+		delete(app.limits, "access:"+tokenHash(token))
+		app.rateMu.Unlock()
+		decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("repeat-registered-reset")))
+		if status := playTrial(t, app, token, clock, trialPlayLimit); status.Phase != "payment_required" {
+			t.Fatalf("round %d did not expire: %+v", generation, status)
+		}
+		w := request(app, "POST", "/api/access/reset", token, nil)
+		var response struct {
+			Token    string
+			Player   Player
+			Access   AccessStatus
+			Progress Progress
+		}
+		if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &response) != nil {
+			t.Fatalf("round %d reset: %d %s", generation, w.Code, w.Body.String())
+		}
+		if response.Token != token || response.Player.ID != player.ID || response.Access.Phase != "trial" || !response.Access.Registered || response.Access.RemainingSeconds != 900 || response.Access.PlayedSeconds != 0 || response.Progress.XP != 0 {
+			t.Fatalf("round %d reset retained progress or changed identity: %+v", generation, response)
+		}
+		if status := trialStatus(t, app, secondToken, nil); status.Phase != "trial" || status.RemainingSeconds != 900 {
+			t.Fatalf("second device did not receive restart: %+v", status)
+		}
+	}
+	w := request(app, "POST", "/api/account/login", "", credentials)
+	var login struct {
+		Player Player
+		Access AccessStatus
+	}
+	if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &login) != nil || login.Player.ID != player.ID || login.Access.RemainingSeconds != 900 {
+		t.Fatalf("restart lost account credentials or allowance: %d %s", w.Code, w.Body.String())
+	}
+}
+
+func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
+	app := testApp(t)
+	clock := trialTestClock(app)
+	token, _ := createSession(t, app, "Guest Restart Ada")
+	for _, duration := range []time.Duration{guestPlayLimit, trialPlayLimit, trialPlayLimit} {
+		app.rateMu.Lock()
+		delete(app.limits, "access:"+tokenHash(token))
+		app.rateMu.Unlock()
+		if status := playTrial(t, app, token, clock, duration); status.Phase != "login_required" {
+			t.Fatalf("guest round did not expire: %+v", status)
+		}
+		if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
+			t.Fatalf("guest restart: %d %s", w.Code, w.Body.String())
+		}
+		if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 900 || status.PlayedSeconds != 0 {
+			t.Fatalf("guest restart did not grant fifteen minutes: %+v", status)
+		}
+	}
+}
+
+func TestGameResetPreservesPaidAccess(t *testing.T) {
+	app := testApp(t)
+	trialTestClock(app)
+	app.billing = testCreem(nil)
+	token, _ := createSession(t, app, "Paid Restart Ada")
+	before, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
+		account.Email, account.PasswordHash = "paid-restart@example.com", "preserved-password"
+		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
+		account.Progress.XP = 100
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := request(app, "POST", "/api/access/reset", token, nil)
+	if w.Code != 200 {
+		t.Fatalf("paid reset: %d %s", w.Code, w.Body.String())
+	}
+	after, err := app.store.Get(context.Background(), tokenHash(token))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(before.Billing, after.Billing) || after.Email != before.Email || after.PasswordHash != before.PasswordHash || after.Progress.XP != 0 || !app.hasPaidAccess(after, app.now()) {
+		t.Fatal("reset lost billing, credentials or retained progress")
 	}
 }
 
@@ -216,7 +311,7 @@ func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.
 	if after.Progress.XP != 0 || after.Progress.Attempts != 0 || len(after.Progress.Items) != 0 || len(after.Progress.CompletedQuestIDs) != 0 || len(after.Progress.CompletedUnitIDs) != 0 || after.Progress.Intake.ActiveSeconds != 0 || len(after.StorySaves) != 0 || len(after.RewardedQuestIDs) != 0 || len(after.RewardedExpeditionIDs) != 0 {
 		t.Fatalf("reset retained learning or narrative progress: %+v", after)
 	}
-	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 300 || response.Access.Phase != "guest" || app.world.memories[player.ID] != nil {
+	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 900 || response.Access.Phase != "guest" || app.world.memories[player.ID] != nil {
 		t.Fatalf("reset retained location or clock: %+v", response)
 	}
 	again := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("repeat-after-reset")))
@@ -386,7 +481,7 @@ func TestQueuedMutationCannotRecreateProgressAfterReset(t *testing.T) {
 	token, _ := createSession(t, app, "Reset Race Ada")
 	base := app.store
 	app.store = delayedTrialStore{Store: base, beforeMutation: func() {
-		if _, err := base.ResetGuest(context.Background(), tokenHash(token)); err != nil {
+		if _, err := base.ResetGame(context.Background(), tokenHash(token)); err != nil {
 			t.Fatal(err)
 		}
 	}}
@@ -420,7 +515,7 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
 		t.Fatalf("reset on other server: %d %s", w.Code, w.Body.String())
 	}
-	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"chat","message":"stale session"}`)); err != nil {
+	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"move","x":0.5,"y":0.5}`)); err != nil {
 		t.Fatal(err)
 	}
 	for {
@@ -517,7 +612,7 @@ func TestWorldEnforcesTrialOnExistingSocketAndReconnect(t *testing.T) {
 	inactive := false
 	trialStatus(t, app, token, &inactive)
 	clock.Add(int64(2 * time.Second))
-	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"chat","message":"cannot bypass the wall"}`)); err != nil {
+	if err := conn.Write(ctx, websocket.MessageText, []byte(`{"type":"move","x":0.5,"y":0.5}`)); err != nil {
 		t.Fatal(err)
 	}
 	for {
@@ -577,11 +672,23 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 	if err := store.pool.QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
 		t.Fatalf("Postgres reset retained receipts: %d %v", receipts, err)
 	}
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 0 || status.RemainingSeconds != 300 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 0 || status.RemainingSeconds != 900 {
 		t.Fatalf("Postgres reset retained clock: %+v", status)
 	}
 	result := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("pg-reset-receipt")))
 	if result.Duplicate || result.XPAdded == 0 {
 		t.Fatal("Postgres reset retained idempotency key")
+	}
+	if err := store.SetCredentials(ctx, tokenHash(token), player.ID+"@example.invalid", "preserved-password"); err != nil {
+		t.Fatal(err)
+	}
+	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
+		t.Fatalf("registered Postgres reset: %d %s", w.Code, w.Body.String())
+	}
+	if status := trialStatus(t, app, token, nil); status.Phase != "trial" || status.RemainingSeconds != 900 || status.PlayedSeconds != 0 {
+		t.Fatalf("registered Postgres reset did not renew trial: %+v", status)
+	}
+	if err := store.pool.QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
+		t.Fatalf("registered Postgres reset retained receipts: %d %v", receipts, err)
 	}
 }

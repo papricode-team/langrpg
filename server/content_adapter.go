@@ -19,12 +19,13 @@ type canonicalStore struct {
 	reverse        map[string]string
 	nodes          map[string]string
 	choices        map[string]string
+	published      map[string]string
 	defaultCourse  string
 	expectedCourse string
 }
 
 func newCanonicalStore(base Store, b *contentstore.Bundle) (*canonicalStore, error) {
-	s := &canonicalStore{Store: base, forward: map[string]string{}, reverse: map[string]string{}, nodes: map[string]string{}, choices: map[string]string{}}
+	s := &canonicalStore{Store: base, forward: map[string]string{}, reverse: map[string]string{}, nodes: map[string]string{}, choices: map[string]string{}, published: map[string]string{}}
 	for _, c := range b.Courses {
 		if s.defaultCourse == "" || c.Target == "de" {
 			s.defaultCourse = c.ID
@@ -59,9 +60,24 @@ func newCanonicalStore(base Store, b *contentstore.Bundle) (*canonicalStore, err
 		s.forward[e.slug] = e.id
 		s.reverse[e.id] = e.slug
 	}
+	kinds := map[string]string{"quests": "quest", "exercises": "exercise", "items": "item", "lexemes": "lexeme", "units": "unit", "graphs": "graph", "nodes": "node", "choices": "choice", "expeditions": "expedition", "minigames": "minigame"}
+	for key, oldID := range b.PublishedIDs {
+		kind, slug, _ := strings.Cut(key, ":")
+		if normalized := kinds[kind]; normalized != "" {
+			if currentID := b.IDs[normalized+":"+slug]; currentID != "" {
+				s.published[oldID] = currentID
+				s.reverse[oldID] = slug
+			}
+		}
+	}
 	return s, nil
 }
 func (s *canonicalStore) translate(value string, forward bool) string {
+	if forward {
+		if current, ok := s.published[value]; ok {
+			return current
+		}
+	}
 	table := s.reverse
 	if forward {
 		table = s.forward
@@ -74,6 +90,11 @@ func (s *canonicalStore) translate(value string, forward bool) string {
 	for _, prefix := range []string{"reply:", "reply-help:", "answer-help:", "hint:", "exercise:", "word:", "quest:", "unit:", "answer-reveal:", "attempt:"} {
 		if strings.HasPrefix(value, prefix) {
 			tail := strings.TrimPrefix(value, prefix)
+			if forward {
+				if current, ok := s.published[tail]; ok {
+					return prefix + current
+				}
+			}
 			if v, ok := table[tail]; ok {
 				return prefix + v
 			}
@@ -82,6 +103,11 @@ func (s *canonicalStore) translate(value string, forward bool) string {
 	for _, mode := range []string{":production", ":recognition", ":listening"} {
 		if strings.HasSuffix(value, mode) {
 			head := strings.TrimSuffix(value, mode)
+			if forward {
+				if current, ok := s.published[head]; ok {
+					return current + mode
+				}
+			}
 			if v, ok := table[head]; ok {
 				return v + mode
 			}
@@ -250,6 +276,11 @@ func (s *canonicalStore) account(account Account, forward bool) Account {
 	_ = json.Unmarshal(s.raw(data, forward), &out)
 	ensureProgress(&out.Progress)
 	if out.ActiveCourseID == "" {
+		// Before courses existed, a nonzero generation meant an explicit restart.
+		// Course switching now advances it solely to revoke old play leases.
+		if out.Access.Generation > 0 {
+			out.Access.ResetTrial = true
+		}
 		out.ActiveCourseID = s.defaultCourse
 	}
 	if out.CourseStates == nil {
@@ -264,7 +295,7 @@ func snapshotCourse(a *Account) {
 	if a.CourseStates == nil {
 		a.CourseStates = map[string]CourseState{}
 	}
-	a.CourseStates[a.ActiveCourseID] = CourseState{Progress: a.Progress, Player: a.Player, StorySaves: a.StorySaves, RewardedQuestIDs: a.RewardedQuestIDs, RewardedExpeditionIDs: a.RewardedExpeditionIDs, SupportLanguage: a.Preferences.BaseLanguage}
+	a.CourseStates[a.ActiveCourseID] = CourseState{Progress: a.Progress, Player: a.Player, LocationFrame: a.CourseStates[a.ActiveCourseID].LocationFrame, StorySaves: a.StorySaves, RewardedQuestIDs: a.RewardedQuestIDs, RewardedExpeditionIDs: a.RewardedExpeditionIDs, SupportLanguage: a.Preferences.BaseLanguage}
 }
 func (s *canonicalStore) check(a Account) error {
 	if s.expectedCourse != "" && a.ActiveCourseID != "" && a.ActiveCourseID != s.expectedCourse {
@@ -300,6 +331,27 @@ func (s *canonicalStore) Create(ctx context.Context, hash string, a Account) err
 	}
 	snapshotCourse(&a)
 	return s.Store.Create(ctx, hash, s.account(a, true))
+}
+
+func (s *canonicalStore) LoadWorldContent(ctx context.Context) (*WorldContent, error) {
+	if storage, ok := s.Store.(worldContentStore); ok {
+		return storage.LoadWorldContent(ctx)
+	}
+	return nil, fmt.Errorf("world editing storage is unavailable")
+}
+func (s *canonicalStore) SaveWorldContent(ctx context.Context, expected string, next *WorldContent) error {
+	if storage, ok := s.Store.(worldContentStore); ok {
+		return storage.SaveWorldContent(ctx, expected, next)
+	}
+	return fmt.Errorf("world editing storage is unavailable")
+}
+func (s *canonicalStore) WorldContentRevision(ctx context.Context) (string, error) {
+	if storage, ok := s.Store.(interface {
+		WorldContentRevision(context.Context) (string, error)
+	}); ok {
+		return storage.WorldContentRevision(ctx)
+	}
+	return "", nil
 }
 func (s *canonicalStore) callback(fn func(*Account) error) func(*Account) error {
 	return func(raw *Account) error {
@@ -340,12 +392,12 @@ func (s *canonicalStore) UpdateProfile(ctx context.Context, hash, name string, a
 func (s *canonicalStore) UpdatePreferences(ctx context.Context, hash string, p Preferences) (Account, error) {
 	return s.UpdateAccount(ctx, hash, func(a *Account) error { a.Preferences = normalizedPreferences(p); return nil })
 }
-func (s *canonicalStore) ResetGuest(ctx context.Context, hash string) (Account, error) {
-	a, err := s.Store.ResetGuest(ctx, hash)
+func (s *canonicalStore) ResetGame(ctx context.Context, hash string) (Account, error) {
+	a, err := s.Store.ResetGame(ctx, hash)
 	if err != nil {
 		return a, err
 	}
-	return s.UpdateAccount(ctx, hash, func(a *Account) error { a.CourseStates = map[string]CourseState{}; return nil })
+	return s.account(a, false), nil
 }
 func (s *canonicalStore) actionKey(key string) string {
 	course := s.expectedCourse
@@ -470,7 +522,7 @@ func (s *canonicalStore) Migrate(ctx context.Context) error {
 		base.mu.Lock()
 		defer base.mu.Unlock()
 		old := base.state
-		next := diskState{Version: old.Version, World: old.World, Sessions: old.Sessions, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
+		next := diskState{Version: old.Version, World: old.World, WorldContent: old.WorldContent, Sessions: old.Sessions, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
 		for id, a := range old.Accounts {
 			next.Accounts[id] = migrate(a)
 		}

@@ -28,7 +28,7 @@ function createApi() { const api = new Api(); clients.push(api); return api; }
 function latestSocket() { return MockSocket.instances.at(-1)!; }
 function packet(mapId: MapId = 'lindenhafen', type = 'welcome') {
   const {width,height,coordinateVersion}=getWorldScene(mapId);
-  return { type, selfId: 'self', mapId, scene:{width,height,coordinateVersion,contentVersion:sceneVersion.contentVersion}, spawn: { x: .52, y: .61 }, players: [{ id: 'self', mapId }], messages: [] };
+  return { type, selfId: 'self', mapId, scene:{width,height,coordinateVersion,contentVersion:sceneVersion.contentVersion}, spawn: { x: .52, y: .61 }, players: [{ id: 'self', mapId }] };
 }
 function onlineApi(mapId: MapId = 'lindenhafen') {
   const api = createApi(); api.connect(); const socket = latestSocket(); socket.open(); socket.receive(packet(mapId));
@@ -61,24 +61,22 @@ describe('map-aware multiplayer API', () => {
     storage.set('atlas.map', value); expect(createApi().mapId).toBe('lindenhafen');
   });
 
-  it('acknowledges the map before presence and replays only its chat history', () => {
+  it('acknowledges the map before presence and ignores retired chat history', () => {
     const api = createApi(); const order: string[] = [];
     api.onMap = (id, spawn) => { expect(id).toBe('waldruh'); expect(spawn).toEqual({ x: .52, y: .54 }); order.push('map'); };
     api.onPlayers = (_players, selfId) => { expect(selfId).toBe('self'); order.push('players'); };
-    api.onChat = message => { expect(message.id).toBe('local'); order.push('chat'); };
     api.connect(); const socket = latestSocket(); socket.open();
     socket.receive({ ...packet('waldruh'), spawn: { x: .52, y: .54 }, messages: [{ id: 'foreign', mapId: 'nebelstadt' }, { id: 'local', mapId: 'waldruh' }] });
-    expect(order).toEqual(['map', 'players', 'chat']); expect(storage.get('atlas.map')).toBe('waldruh');
+    expect(order).toEqual(['map', 'players']); expect(storage.get('atlas.map')).toBe('waldruh');
   });
 
-  it('waits for an authoritative join acknowledgement and pauses movement/chat meanwhile', () => {
+  it('waits for an authoritative join acknowledgement and pauses movement meanwhile', () => {
     const { api, socket } = onlineApi();
     expect(api.joinMap('waldruh')).toBe(true); expect(socket.sent).toEqual([{ type: 'joinMap', mapId: 'waldruh' }]);
     expect(api.mapId).toBe('lindenhafen'); expect(api.joinMap('nebelstadt')).toBe(false);
-    api.move(.7, .7); expect(socket.sent).toHaveLength(1); expect(() => api.chat('hello')).toThrow(/Arriving/);
+    api.move(.7, .7); expect(socket.sent).toHaveLength(1);
     socket.receive(packet('waldruh', 'map')); expect(api.mapId).toBe('waldruh');
     api.move(.7, .7); expect(socket.sent.at(-1)).toEqual({ type: 'move', mapId: 'waldruh', coordinateVersion: getWorldScene('waldruh').coordinateVersion, x: .7, y: .7 });
-    api.chat('hello'); expect(socket.sent.at(-1)).toEqual({ type: 'chat', mapId: 'waldruh', message: 'hello' });
   });
 
   it('does not request invalid maps, offline joins or joins through a congested socket', () => {
@@ -99,15 +97,12 @@ describe('map-aware multiplayer API', () => {
     expect(api.mapId).toBe('lindenhafen'); expect(onMap).not.toHaveBeenCalled();
   });
 
-  it('filters stale presence/chat packets from the previous map', () => {
-    const { api, socket } = onlineApi('waldruh'); const onPlayers = vi.fn(), onChat = vi.fn(); api.onPlayers = onPlayers; api.onChat = onChat;
+  it('filters stale presence packets from the previous map', () => {
+    const { api, socket } = onlineApi('waldruh'); const onPlayers = vi.fn(); api.onPlayers = onPlayers;
     socket.receive({ type: 'players', mapId: 'lindenhafen', players: [] });
-    socket.receive({ type: 'chat', mapId: 'lindenhafen', message: { mapId: 'lindenhafen' } });
-    socket.receive({ type: 'chat', mapId: 'waldruh', message: { mapId: 'nebelstadt' } });
-    expect(onPlayers).not.toHaveBeenCalled(); expect(onChat).not.toHaveBeenCalled();
+    expect(onPlayers).not.toHaveBeenCalled();
     socket.receive({ type: 'players', mapId: 'waldruh', players: [] });
-    socket.receive({ type: 'chat', mapId: 'waldruh', message: { mapId: 'waldruh', id: 'local' } });
-    expect(onPlayers).toHaveBeenCalledOnce(); expect(onChat).toHaveBeenCalledOnce();
+    expect(onPlayers).toHaveBeenCalledOnce();
   });
 
   it('releases pending state after rejection while keeping the acknowledged map', () => {
@@ -152,10 +147,14 @@ describe('map-aware multiplayer API', () => {
     expect(vi.getTimerCount()).toBe(0); replacement.open(); replacement.receive(packet('waldruh')); expect(onMap).toHaveBeenCalledOnce();
   });
 
-  it('preserves the client chat guard through map switches', () => {
-    const { api, socket } = onlineApi(); for (const text of ['one', 'two', 'three']) api.chat(text);
-    api.joinMap('waldruh'); socket.receive(packet('waldruh', 'map')); expect(() => api.chat('four')).toThrow(/moment to reply/);
-    vi.advanceTimersByTime(10000); expect(() => api.chat('four')).not.toThrow();
+  it('has no chat capability and ignores legacy chat packets', () => {
+    const { api, socket } = onlineApi();
+    const onMap = vi.fn(), onPlayers = vi.fn(), onError = vi.fn();
+    api.onMap = onMap; api.onPlayers = onPlayers; api.onError = onError;
+    expect('chat' in api).toBe(false); expect('onChat' in api).toBe(false);
+    for (const mapId of ['lindenhafen', 'waldruh']) socket.receive({ type: 'chat', mapId, message: { id: 'retired', mapId, text: 'hello' } });
+    expect(onMap).not.toHaveBeenCalled(); expect(onPlayers).not.toHaveBeenCalled(); expect(onError).not.toHaveBeenCalled();
+    expect(api.mapId).toBe('lindenhafen'); expect(socket.sent).toEqual([]);
   });
 
   it('stops reconnects and ignores late map acknowledgements after destruction', async () => {

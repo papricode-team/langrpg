@@ -7,6 +7,45 @@ import { exportSheet,importSheet,validateBundle,validateReviews } from './word-m
 import { resolve } from 'node:path';
 
 const words = sourceTokens('Sie sieht Sie.');
+test('published v4 progress identities keep a complete canonical bridge without replacing existing IDs',()=>{
+  const {bundle}=buildContent();
+  const published=JSON.parse(readFileSync(resolve(root,'content/published-content-ids.json'),'utf8'));
+  assert.deepEqual(bundle.publishedIds,published);
+  const kinds={quests:'quest',exercises:'exercise',items:'item',lexemes:'lexeme',units:'unit',nodes:'node',choices:'choice',expeditions:'expedition',minigames:'minigame'};
+  for(const key of Object.keys(published)) {
+    const split=key.indexOf(':'),kind=kinds[key.slice(0,split)];if(kind)assert(uuidPattern.test(bundle.ids[`${kind}:${key.slice(split+1)}`]),key);
+  }
+  const committed=JSON.parse(readFileSync(resolve(root,'content_ids.json'),'utf8'));
+  for(const [key,value]of Object.entries(committed))assert.equal(bundle.ids[key],value,key);
+});
+test('interior conversations use scoped node contexts with exact support translations and pending review',()=>{
+  const {bundle,source}=buildContent();
+  const authored=source.interiorConversations[0],contexts=bundle.records.filter(record=>record.kind==='context'&&record.body.category==='interiorConversation'&&record.body.data.objectId===authored.objectId);
+  assert.equal(contexts.length,Object.keys(authored.nodes).length);
+  const start=contexts.find(record=>record.body.data.nodes[record.body.data.start]);
+  assert(start);assert.equal(Object.keys(start.body.data.nodes).length,1);
+  const node=start.body.data.nodes[start.body.data.start];
+  assert(uuidPattern.test(node.id));assert(node.choices.every(choice=>uuidPattern.test(choice.id)&&uuidPattern.test(choice.next)));
+  const line=bundle.records.find(record=>record.id===node.line.sentenceId);
+  assert.equal(line.body.text,authored.nodes[authored.start].line.german);
+  assert.equal(line.body.translations.en.text,authored.nodes[authored.start].line.english);
+  assert.equal(line.body.translations.tr.text,authored.nodes[authored.start].line.turkish);
+  assert.equal(line.body.authoring.review.status,'pending-native-speaker-review');
+  const facts=bundle.records.find(record=>record.kind==='context'&&record.body.category==='interiorWordFacts'&&record.body.owners[0].id==='inn');
+  assert(facts.body.data.examples.Bett.sentenceId);
+  assert.equal(facts.body.data.meanings.tr.Bett,'yatak');
+  assert.deepEqual(Object.keys(facts.body.data.meanings),['tr']);
+});
+test('story exercises inherit authored contextual vocabulary as canonical UUID references',()=>{
+  const {bundle,source}=buildContent();
+  for(const slug of ['a1-cafe-exercise-1','a1-workshop-exercise-1','b1-witness-exercise-1']) {
+    const expected=source.legacyServer.course.contextWordIds[slug];
+    assert(expected.length>0,slug);
+    const record=bundle.records.find(record=>record.kind==='exercise'&&record.slug===slug);
+    assert.deepEqual(record.body.wordIds,expected.map(word=>bundle.ids[`lexeme:${word}`]),slug);
+    assert(record.body.wordIds.every(word=>uuidPattern.test(word)&&bundle.records.some(lexeme=>lexeme.kind==='lexeme'&&lexeme.id===word)),slug);
+  }
+});
 test('exact selectors distinguish occurrences and reject substring matches',()=>{
   assert.deepEqual(selectorRange('Sie sieht Sie.',{text:'Sie',occurrence:2}),{start:10,end:13});
   assert.throws(()=>selectorRange('Anna is at a_name cash.',{text:'a',occurrence:1}),/does not resolve/);

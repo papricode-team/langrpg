@@ -3,25 +3,24 @@ import { t } from './i18n';
 import type { UiSound } from './ui-sounds';
 
 /**
- * The pause menu is driven like a console menu: a selection cursor moved by arrows, WASD, the
- * D-pad or the stick; Q/E or the bumpers flip between the top tabs; [ ] or the triggers flip pages
- * inside a tab. Pointer play keeps working, the cursor simply follows whatever was last used.
+ * Arrows, WASD, the D-pad or the stick move a selection cursor. Q/E or the bumpers change
+ * sections; brackets or triggers change pages. Touch players open a section's page tiles.
  */
 export type MenuView = 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
-export type MenuSectionId = 'journey' | 'words' | 'character' | 'options';
+export type MenuSectionId = 'map' | 'story' | 'learn' | 'you';
 export interface MenuSection { readonly id: MenuSectionId; readonly icon: string; readonly label: string; readonly views: readonly MenuView[] }
 export type InputMode = 'pointer' | 'keys' | 'pad';
 export type Direction = 'up' | 'down' | 'left' | 'right';
 
 export const menuSections: readonly MenuSection[] = [
-  { id: 'journey', icon: 'scroll', get label() { return t('Journal'); }, views: ['menu', 'quests', 'story'] },
-  { id: 'words', icon: 'leaf', get label() { return t('Words'); }, views: ['journal', 'course', 'activities'] },
-  { id: 'character', icon: 'shirt', get label() { return t('Character'); }, views: ['character'] },
-  { id: 'options', icon: 'settings', get label() { return t('Options'); }, views: ['settings'] },
+  { id: 'map', icon: 'compass', get label() { return t('Map'); }, views: ['atlas'] },
+  { id: 'story', icon: 'scroll', get label() { return t('Story'); }, views: ['menu', 'quests', 'story'] },
+  { id: 'learn', icon: 'book', get label() { return t('Learn'); }, views: ['course', 'journal', 'activities'] },
+  { id: 'you', icon: 'shirt', get label() { return t('You'); }, views: ['character', 'settings'] },
 ];
 
 export function viewLabel(view: MenuView): string {
-  return { menu: t('Overview'), quests: t('Story quests'), story: t('Discoveries'), atlas: t('Region atlas'), journal: t('Your words'), course: t('Learning routes'), activities: t('Side activities'), character: t('Character'), settings: t('Options') }[view];
+  return { menu: t('Overview'), quests: t('Quests'), story: t('Discoveries'), atlas: t('Map'), journal: t('Words'), course: t('Course'), activities: t('Activities'), character: t('Character'), settings: t('Settings') }[view];
 }
 
 export function sectionOf(view: MenuView): MenuSection {
@@ -68,30 +67,31 @@ export function nearestInDirection<T>(from: Box, candidates: readonly { item: T;
   return best?.item;
 }
 
-type Glyphs = Record<'move' | 'select' | 'back' | 'tabs' | 'pages', string[]>;
-const keyGlyphs: Glyphs = { move: ['↑', '↓', '←', '→'], select: ['Enter'], back: ['Esc'], tabs: ['Q', 'E'], pages: ['[', ']'] };
-const padGlyphs: Glyphs = { move: ['✚'], select: ['A'], back: ['B'], tabs: ['LB', 'RB'], pages: ['LT', 'RT'] };
-
-/** The button prompts along the bottom of the menu, drawn for the device the player last touched. */
-export function promptStrip(mode: InputMode, pages: boolean): string {
-  const glyphs = mode === 'pad' ? padGlyphs : keyGlyphs;
-  const prompts: [keyof Glyphs, string][] = [['move', t('Move')], ['select', t('Select')], ['back', t('Back')], ['tabs', t('Tabs')]];
-  if (pages) prompts.push(['pages', t('Pages')]);
-  return prompts.map(([action, label]) => `<span class="menu-prompt">${glyphs[action].map(glyph => `<kbd class="${mode === 'pad' ? `pad-glyph pad-${glyph.toLowerCase()}` : ''}">${e(glyph)}</kbd>`).join('')}<span>${e(label)}</span></span>`).join('');
-}
-
-/** The tab bar and the page row beneath it. Every button is a plain [data-view] or caller-supplied control. */
+/** Device hints live inside the section buttons, so they do not add another chrome row. */
 export function menuTabsMarkup(view: MenuView, memory: MenuMemory, mode: InputMode): string {
   const active = menuSections.find(section => section.views.includes(view));
-  const glyph = (key: string, pad: string) => `<kbd class="menu-tab-glyph" data-key="${e(key)}" data-pad="${e(pad)}" aria-hidden="true">${e(mode === 'pad' ? pad : key)}</kbd>`;
-  return `${glyph('Q', 'LB')}${menuSections.map(section => `<button class="menu-tab ${section === active ? 'active' : ''}" data-view="${section === active ? view : memory.entry(section)}" data-menu-section="${section.id}" aria-current="${section === active ? 'page' : 'false'}">${icon(section.icon)}<span>${e(section.label)}</span></button>`).join('')}${glyph('E', 'RB')}`;
+  const glyph = (key: string, pad: string) => `<kbd class="menu-tab-glyph" data-key="${e(key)}" data-pad="${e(pad)}" aria-hidden="true" ${mode === 'pointer' ? 'hidden' : ''}>${e(mode === 'pad' ? pad : key)}</kbd>`;
+  return menuSections.map((section, index) => `<button class="menu-tab ${section === active ? 'active' : ''}" data-view="${section === active ? view : memory.entry(section)}" data-menu-section="${section.id}" aria-current="${section === active ? 'page' : 'false'}">${index === 0 ? glyph('Q', 'LB') : ''}${icon(section.icon)}<span>${e(section.label)}</span>${index === menuSections.length - 1 ? glyph('E', 'RB') : ''}</button>`).join('');
 }
 
 export interface MenuPage { label: string; attributes: string; selected: boolean }
-export function menuPagesMarkup(pages: readonly MenuPage[], mode: InputMode): string {
-  if (pages.length < 2) return '';
-  const glyph = (key: string, pad: string) => `<kbd class="menu-tab-glyph" data-key="${e(key)}" data-pad="${e(pad)}" aria-hidden="true">${e(mode === 'pad' ? pad : key)}</kbd>`;
-  return `${glyph('[', 'LT')}${pages.map((page, index) => `<button class="menu-page ${page.selected ? 'selected' : ''}" ${page.attributes} aria-pressed="${page.selected}"><small aria-hidden="true">${index + 1}</small>${e(page.label)}</button>`).join('')}${glyph(']', 'RT')}`;
+export function menuPagesMarkup(pages: readonly MenuPage[]): string {
+  return pages.map(page => `<button class="menu-page ${page.selected ? 'selected' : ''}" ${page.attributes} data-menu-page aria-pressed="${page.selected}"><span>${e(page.label)}</span>${icon('chevron')}</button>`).join('');
+}
+
+export interface MenuChromeOptions {
+  view: MenuView;
+  memory: MenuMemory;
+  mode: InputMode;
+  pages: readonly MenuPage[];
+  /** Phones show either the section's page tiles or a pushed page. */
+  pageOpen: boolean;
+  offline?: boolean;
+}
+
+/** One chrome contract shared by the desktop rail and the phone section hub. */
+export function menuChromeMarkup({ view, memory, mode, pages, pageOpen, offline = false }: MenuChromeOptions): string {
+  return `<header class="menu-header"><div class="menu-brand"><span class="menu-crest" aria-hidden="true">${icon('lantern')}</span><h1 id="menu-title" class="menu-sr-only">${e(viewLabel(view))}</h1></div><nav class="menu-tabs" id="menu-tabs" aria-label="${e(t('Game sections'))}">${menuTabsMarkup(view, memory, mode)}</nav><button class="menu-close" data-view="world" aria-label="${e(t('Return to game'))}">${icon('close')}${offline ? `<span class="connection-dot" role="status" aria-label="${e(t('Offline'))}"></span>` : ''}</button></header><nav class="menu-pages" id="menu-pages" aria-label="${e(t('Pages'))}">${menuPagesMarkup(pages)}</nav><button class="menu-back" id="menu-back" data-menu-back ${pageOpen ? '' : 'hidden'}>${icon('chevron')}<span>${e(t('Back'))}</span></button>`;
 }
 
 export interface MenuNavigatorOptions {
@@ -102,6 +102,8 @@ export interface MenuNavigatorOptions {
   canOpen(): boolean;
   open(): void;
   close(): void;
+  /** Pops a pushed page; returns false when the section hub is already visible. */
+  backPage?(): boolean;
   section(step: 1 | -1): void;
   sound(kind: UiSound): void;
   onModeChange(mode: InputMode): void;
@@ -122,11 +124,9 @@ export class MenuNavigator {
   constructor(private readonly options: MenuNavigatorOptions) {
     const { root } = options;
     const onPointer = (event: PointerEvent) => { if (event.pointerType !== 'touch' || event.type === 'pointerdown') this.setMode('pointer'); };
-    const onFocus = (event: FocusEvent) => this.showHelp(event.target as HTMLElement);
     document.addEventListener('pointerdown', onPointer, true);
     document.addEventListener('pointermove', onPointer, true);
-    root.addEventListener('focusin', onFocus);
-    this.cleanup.push(() => { document.removeEventListener('pointerdown', onPointer, true); document.removeEventListener('pointermove', onPointer, true); root.removeEventListener('focusin', onFocus); });
+    this.cleanup.push(() => { document.removeEventListener('pointerdown', onPointer, true); document.removeEventListener('pointermove', onPointer, true); });
     if (typeof requestAnimationFrame === 'function') this.frame = requestAnimationFrame(this.poll);
   }
 
@@ -165,9 +165,10 @@ export class MenuNavigator {
 
   /** One step back: from inside a page to its tab, then out of the menu. Pointer players close at once. */
   back(): void {
+    if (this.options.backPage?.()) { this.options.sound('back'); return; }
     const active = document.activeElement as HTMLElement | null;
     if (this.mode !== 'pointer' && active?.closest('.menu-content')) {
-      const tab = this.options.root.querySelector<HTMLElement>('.menu-page.selected') ?? this.options.root.querySelector<HTMLElement>('.menu-tab.active');
+      const tab = this.navigationAnchor();
       if (tab) { tab.focus({ preventScroll: true }); this.options.sound('back'); return; }
     }
     this.options.close();
@@ -175,7 +176,7 @@ export class MenuNavigator {
 
   /** Puts the cursor on the active tab after the page changes. */
   focusTab(): void {
-    const tab = this.options.root.querySelector<HTMLElement>('.menu-page.selected') ?? this.options.root.querySelector<HTMLElement>('.menu-tab.active');
+    const tab = this.navigationAnchor();
     tab?.focus({ preventScroll: true });
   }
 
@@ -194,9 +195,16 @@ export class MenuNavigator {
 
   private pages(): HTMLElement[] { return [...this.options.root.querySelectorAll<HTMLElement>('.menu-page')]; }
 
+  private navigationAnchor(): HTMLElement | undefined {
+    return ['.menu-page.selected', '.menu-tab.active'].map(selector => this.options.root.querySelector<HTMLElement>(selector)).find((element): element is HTMLElement => !!element && !element.closest('[hidden],[inert]') && element.getClientRects().length > 0);
+  }
+
   /** Redraws the glyphs that depend on the input device without touching focus. */
   refreshGlyphs(): void {
-    this.options.root.querySelectorAll<HTMLElement>('.menu-tab-glyph').forEach(glyph => { glyph.textContent = (this.mode === 'pad' ? glyph.dataset.pad : glyph.dataset.key) ?? ''; });
+    this.options.root.querySelectorAll<HTMLElement>('.menu-tab-glyph').forEach(glyph => {
+      glyph.hidden = this.mode === 'pointer';
+      glyph.textContent = (this.mode === 'pad' ? glyph.dataset.pad : glyph.dataset.key) ?? '';
+    });
   }
 
   private focusables(): HTMLElement[] {
@@ -208,7 +216,7 @@ export class MenuNavigator {
     if (!items.length) return;
     const active = document.activeElement as HTMLElement | null;
     const current = active && items.includes(active) ? active : undefined;
-    if (!current) { this.select(this.options.root.querySelector<HTMLElement>('.menu-page.selected') ?? this.options.root.querySelector<HTMLElement>('.menu-tab.active') ?? items[0]); return; }
+    if (!current) { this.select(this.navigationAnchor() ?? items[0]); return; }
     const box = (element: HTMLElement): Box => element.getBoundingClientRect();
     const next = nearestInDirection(box(current), items.filter(item => item !== current).map(item => ({ item, box: box(item) })), direction);
     if (next) this.select(next);
@@ -218,11 +226,6 @@ export class MenuNavigator {
     element.focus({ preventScroll: true });
     element.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
     this.options.sound('move');
-  }
-
-  private showHelp(target: HTMLElement): void {
-    const help = this.options.root.querySelector<HTMLElement>('#menu-help');
-    if (help) help.textContent = target.closest<HTMLElement>('[data-help]')?.dataset.help ?? '';
   }
 
   private readonly poll = (now: number) => {

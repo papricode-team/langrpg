@@ -2,8 +2,7 @@ import type { Avatar, WorldPlayer } from './world';
 import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
 import { isStoryMap, type MapId } from './maps';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
-import {getWorldScene} from './scene-data';
-import sceneVersion from './data/world-scene-version.json';
+import {getWorldScene,sceneContentVersion} from './scene-data';
 import type { StoryState } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
 import type { BillingPlan, GameAccess } from './game-access';
@@ -60,9 +59,8 @@ export interface ActivityCompletionInput { id: string; activityId: ActivityId; l
 export interface CompletionResult { xpAdded: number; duplicate: boolean; progress: Progress; }
 export interface ActivityCompletionResult extends CompletionResult { reason: string; activity: ActivityProgress; }
 export interface ExposureInput { exerciseId?: string; unitId?: string; activityId?: ActivityId; scenarioId?: string; npcId?: string; level?: CourseLevel; wordIds?: string[]; }
-export interface ChatMessage { mapId?: MapId; id: string; playerId: string; name: string; text: string; at: string; }
 export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced' | 'incompatible';
-export interface AccountStatus { registered: boolean; email: string; access?: GameAccess; }
+export interface AccountStatus { registered: boolean; email: string; admin?: boolean; access?: GameAccess; }
 /** Account-wide settings that follow the player across devices. */
 export interface Preferences { baseLanguage: BaseLanguage; }
 export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; activeCourseId?: string; }
@@ -70,7 +68,7 @@ export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: 
 /** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {
   const metadata = result.account, language = result.preferences?.baseLanguage;
-  return { ...result, account: { registered: metadata?.registered === true, email: typeof metadata?.email === 'string' ? metadata.email : '' }, preferences: { baseLanguage: isBaseLanguage(language) ? language : 'en' } };
+  return { ...result, account: { registered: metadata?.registered === true, email: typeof metadata?.email === 'string' ? metadata.email : '', admin: metadata?.admin === true, ...(metadata?.access ? { access: metadata.access } : {}) }, preferences: { baseLanguage: isBaseLanguage(language) ? language : 'en' } };
 }
 export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQuestIds: [], completedUnitIds: [], attempts: 0, correctAttempts: 0, items: {}, words: {}, activities: {}, exerciseStats: {}, recentAttempts: {} });
 
@@ -90,7 +88,7 @@ export function compatibleScene(value: unknown, mapId: MapId, interiorId?: Inter
   if(!value||typeof value!=='object')return false;
   const scene=value as {width?:unknown;height?:unknown;coordinateVersion?:unknown;contentVersion?:unknown};
   return scene.width===expected.width&&scene.height===expected.height&&scene.coordinateVersion===expected.coordinateVersion
-    &&scene.contentVersion===sceneVersion.contentVersion;
+    &&scene.contentVersion===sceneContentVersion;
 }
 const initialMap = (): MapId => {
   try { const value = localStorage.getItem('atlas.map'); return isMapId(value) ? value : 'lindenhafen'; }
@@ -113,17 +111,17 @@ export class Api {
   private stopped = false;
   private worldReady = false;
   private incompatible = false;
-  private chatTimes: number[] = [];
+  private worldRefreshSequence = 0;
   private requestSequence = 0;
   private publishedAccessSequence = 0;
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
   onClock?: (clock: SharedWorldTime) => void;
-  onChat?: (message: ChatMessage) => void;
   onStatus?: (status: ConnectionStatus) => void;
   onError?: (message: string) => void;
   onAccess?: (access: GameAccess) => void;
+  onWorldChanged?: () => Promise<void>;
   selfId = '';
 
   async request<T>(path: string, body?: unknown): Promise<T> {
@@ -179,7 +177,7 @@ export class Api {
   }
   access() { return this.request<{ access: GameAccess }>('/access'); }
   accessHeartbeat(active: boolean) { return this.request<{ access: GameAccess }>('/access/heartbeat', { active }); }
-  async resetGuest(): Promise<SessionResult> {
+  async resetGame(): Promise<SessionResult> {
     const result = await this.request<SessionResult>('/access/reset', {});
     return this.rememberSession(result);
   }
@@ -250,9 +248,6 @@ export class Api {
           this.onInterior?.(this.interiorId);
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
-          for (const message of Array.isArray(value.messages) ? value.messages : []) {
-            if (message?.mapId === this.mapId) this.onChat?.(message);
-          }
           if (value.type === 'welcome') this.onStatus?.('online');
         } else if (value.type === 'interior' && value.mapId === this.mapId) {
           if (!validInterior(this.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
@@ -267,8 +262,7 @@ export class Api {
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
-        } else if (value.type === 'chat' && value.mapId === this.mapId && value.message?.mapId === this.mapId) {
-          this.onChat?.(value.message);
+
         } else if (value.type === 'error') {
           this.pendingMap = undefined;
           if (this.pendingInterior) {
@@ -320,15 +314,6 @@ export class Api {
     if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
       ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y });
   }
-  chat(message: string) {
-    if (this.pendingMap) throw new Error('Arriving in the next region. Your message is still here.');
-    if (this.socket?.readyState !== WebSocket.OPEN) throw new Error('Chat reconnecting. Please try again in a moment.');
-    const now = Date.now();
-    this.chatTimes = this.chatTimes.filter(at => now - at < 10000);
-    if (this.chatTimes.length >= 3) throw new Error('Give the town a moment to reply. Your message is still here.');
-    if (!this.send({ type: 'chat', mapId: this.mapId, message })) throw new Error('The connection is busy. Your message is still here; try again in a moment.');
-    this.chatTimes.push(now);
-  }
   private send(message: unknown) {
     if (!this.worldReady || this.stopped || this.incompatible || this.socket?.readyState !== WebSocket.OPEN || this.socket.bufferedAmount >= 32768) return false;
     this.socket.send(JSON.stringify(message));
@@ -342,8 +327,11 @@ export class Api {
     this.pendingInterior = undefined;
     clearTimeout(this.reconnectTimer);
     this.onStatus?.('incompatible');
-    this.onError?.('The world has changed. Reload to load the matching map before continuing.');
     this.socket?.close();
+    if(this.onWorldChanged) {
+      const token=this.token,sequence=++this.worldRefreshSequence;
+      void this.onWorldChanged().then(()=>{if(sequence===this.worldRefreshSequence&&token===this.token){this.incompatible=false;this.connect();}}).catch(error=>this.onError?.(error instanceof Error?error.message:'The saved world could not be loaded. Reload to try again.'));
+    } else this.onError?.('The world has changed. Reload to load the matching map before continuing.');
   }
-  destroy() { this.stopped = true; this.worldReady = false; clearTimeout(this.reconnectTimer); this.socket?.close(); }
+  destroy() { this.worldRefreshSequence++;this.incompatible=false;this.stopped = true; this.worldReady = false; clearTimeout(this.reconnectTimer); this.socket?.close(); }
 }

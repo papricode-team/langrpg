@@ -82,16 +82,20 @@ describe('account session lifecycle', () => {
     expect(fetch.mock.calls[0][0]).toBe('/api/billing/sync');
     expect(api.onAccess).toHaveBeenCalledWith(access);
   });
-  it('remembers the server-preserved character after a guest progress reset', async () => {
+  it('remembers the character, registered account and fresh allowance after a game reset', async () => {
     saved.set('atlas.token', 'guest-token');
-    const reset = { ...session('guest-token'), account: { registered: false, email: '' }, progress: emptyProgress() };
+    const access = { phase: 'trial', remainingSeconds: 900, playedSeconds: 0, registered: true, billingAvailable: true };
+    const reset = { ...session('guest-token'), access, progress: emptyProgress() };
     const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify(reset)));
     vi.stubGlobal('fetch', fetch);
     const api = new Api();
-    const result = await api.resetGuest();
+    api.onAccess = vi.fn();
+    const result = await api.resetGame();
     expect(fetch.mock.calls[0][0]).toBe('/api/access/reset');
     expect(result.player).toEqual(reset.player);
     expect(result.progress.xp).toBe(0);
+    expect(result.account.registered).toBe(true);
+    expect(api.onAccess).toHaveBeenCalledWith(access);
     expect(api.token).toBe('guest-token');
     expect(api.selfId).toBe('original-player');
   });
@@ -130,7 +134,7 @@ describe('account session lifecycle', () => {
     const { account: _account, ...legacy } = session('legacy-token');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(legacy))));
     const result = await new Api().resume();
-    expect(result?.account).toEqual({ registered: false, email: '' });
+    expect(result?.account).toEqual({ registered: false, email: '', admin: false });
     expect(result?.player.id).toBe('original-player');
     expect(saved.get('atlas.token')).toBe('legacy-token');
   });

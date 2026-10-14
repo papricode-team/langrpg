@@ -38,7 +38,7 @@ describe('dialogue with Turkish support', () => {
     expect(line.getAttribute('lang')).toBe('de');
     expect(line.textContent).toBe('Guten Morgen! Willkommen in Lindenhafen.');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] small')).toBeNull();
+    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     document.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!.click();
     const meaning = document.querySelector('.dialogue-translation')!;
@@ -51,11 +51,11 @@ describe('dialogue with Turkish support', () => {
     expect(tools).not.toContain('What did they say?');
     // Reply meanings are Turkish too; the German reply ids sent to the server are unchanged.
     const reply = document.querySelector<HTMLButtonElement>('[data-dialogue-choice="Guten Morgen!"]')!;
-    expect(reply.querySelector('small')!.getAttribute('lang')).toBe('tr');
-    expect(reply.querySelector('small')!.textContent).not.toBe('Good morning!');
+    expect(reply.querySelector(':scope > [lang]:not([lang="de"])')!.getAttribute('lang')).toBe('tr');
+    expect(reply.querySelector(':scope > [lang]:not([lang="de"])')!.textContent).not.toBe('Good morning!');
     document.querySelector<HTMLButtonElement>('[data-dialogue-action="translate"]')!.click();
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] small')).toBeNull();
+    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     expect(document.querySelector('.dialogue-line')!.textContent).toBe(line.textContent);
   });

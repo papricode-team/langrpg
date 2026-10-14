@@ -74,6 +74,14 @@ function mount(root:EventRoot,override:Partial<MountActivityOptions>={}){
 }
 
 describe('playable mission controller',()=>{
+  it('accepts a durable server assessment when the public client has no answer key', async () => {
+    const root = new EventRoot(), submit = vi.fn<MountActivityOptions['submit']>(async (_exercise, _answer, _hinted, _mode, context) => ({ correct: true, progress: emptyProgress(), xpAdded: 0, attemptId: context!.attemptId }));
+    const { controller } = mount(root, { id: 'detective', submit });
+    root.click('submit'); await flush();
+    expect(run().stage).toBe('scene-complete');
+    expect(run().attemptIds).toEqual([submit.mock.calls[0][4]!.attemptId]);
+    controller.destroy();
+  });
   it('keeps evidence stable through edits and reopening, then shuffles a new attempt',async()=>{
     const root=new EventRoot(),{controller}=mount(root,{id:'detective'});
     const current=scene(),board=current.board;
@@ -175,7 +183,7 @@ describe('playable mission controller',()=>{
     const root=new EventRoot(),{controller}=mount(root),current=scene();
     if(current.board.kind!=='cafe')throw new Error('Wrong board.');
     root.click('add-item',current.board.stock[0]);root.click('hint');
-    const before=run();controller.pause();expect(root.innerHTML).toContain('YOUR PLACE IS KEPT');
+    const before=run();controller.pause();expect(root.innerHTML).toContain('data-act="resume"');expect(run().state).toEqual(before.state);
     controller.resume();expect(run().state).toEqual(before.state);controller.destroy();
     const resumed=new EventRoot(),mounted=mount(resumed);
     expect(run().runId).toBe(before.runId);expect(run().state).toEqual(before.state);expect(run().hinted).toBe(true);

@@ -1,40 +1,56 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { MenuMemory, MenuNavigator, menuPagesMarkup, menuSections, menuTabsMarkup, nearestInDirection, promptStrip, sectionOf, type Box } from './menu-navigation';
+import { MenuMemory, MenuNavigator, menuChromeMarkup, menuPagesMarkup, menuSections, menuTabsMarkup, nearestInDirection, sectionOf, type Box } from './menu-navigation';
 
 const box = (left: number, top: number, width = 100, height = 40): Box => ({ left, top, right: left + width, bottom: top + height });
 
 describe('menu sections', () => {
-  it('folds the eight menu pages into four tabs', () => {
-    expect(menuSections.map(section => section.id)).toEqual(['journey', 'words', 'character', 'options']);
-    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'character', 'course', 'journal', 'menu', 'quests', 'settings', 'story']);
-    expect(sectionOf('course').id).toBe('words');
+  it('places every menu page in Map, Story, Learn or You', () => {
+    expect(menuSections.map(section => section.id)).toEqual(['map', 'story', 'learn', 'you']);
+    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'atlas', 'character', 'course', 'journal', 'menu', 'quests', 'settings', 'story']);
+    expect(sectionOf('atlas').id).toBe('map');
+    expect(sectionOf('course').id).toBe('learn');
   });
 
   it('returns to the last page of a tab and wraps at the ends', () => {
     const memory = new MenuMemory();
-    expect(memory.neighbour('menu', 1)).toBe('journal');
-    expect(memory.neighbour('menu', -1)).toBe('settings');
+    expect(memory.neighbour('menu', 1)).toBe('course');
+    expect(memory.neighbour('menu', -1)).toBe('atlas');
     memory.remember('course');
     expect(memory.neighbour('menu', 1)).toBe('course');
     memory.remember('atlas');
-    expect(menuTabsMarkup('atlas', memory, 'keys')).not.toContain('data-view="atlas"');
-    expect(memory.neighbour('settings', 1)).toBe('menu');
+    expect(menuTabsMarkup('atlas', memory, 'keys')).toContain('class="menu-tab active" data-view="atlas"');
+    expect(memory.neighbour('settings', 1)).toBe('atlas');
   });
 
   it('marks the active tab and gives the other tabs their remembered page', () => {
     const memory = new MenuMemory(); memory.remember('story');
     const markup = menuTabsMarkup('course', memory, 'pad');
     expect(markup).toContain('class="menu-tab active" data-view="course"');
-    expect(markup).toContain('data-view="story" data-menu-section="journey"');
+    expect(markup).toContain('data-view="story" data-menu-section="story"');
     expect(markup).toContain('>LB<');
   });
 
-  it('draws prompts for the device in hand', () => {
-    expect(promptStrip('keys', true)).toContain('>Esc<');
-    expect(promptStrip('pad', false)).toContain('pad-a');
-    expect(promptStrip('pad', false)).not.toContain('LT');
-    expect(menuPagesMarkup([{ label: 'Only', attributes: '', selected: true }], 'keys')).toBe('');
+  it('keeps page navigation usable when a section has only one page', () => {
+    const markup = menuPagesMarkup([{ label: 'Map', attributes: 'data-view="atlas"', selected: true }]);
+    expect(markup).toContain('data-view="atlas"');
+    expect(markup).toContain('data-menu-page');
+    expect(markup).not.toContain('<small');
+    expect(markup).not.toContain('<kbd');
+  });
+
+  it('renders one chrome header, one back control and an offline dot', () => {
+    document.body.innerHTML = menuChromeMarkup({ view: 'menu', memory: new MenuMemory(), mode: 'pointer', pages: [{ label: 'Overview', attributes: 'data-view="menu"', selected: true }], pageOpen: true, offline: true });
+    expect(document.querySelectorAll('.menu-header').length).toBe(1);
+    expect(document.querySelectorAll('.menu-tab').length).toBe(4);
+    expect(document.querySelectorAll('[data-menu-back]').length).toBe(1);
+    expect(document.querySelector('.menu-back')!.hasAttribute('hidden')).toBe(false);
+    expect(document.querySelector('.connection-dot')!.getAttribute('aria-label')).toBe('Offline');
+    expect([...document.querySelectorAll('.menu-tab-glyph')].every(glyph => glyph.hasAttribute('hidden') && glyph.closest('.menu-tab'))).toBe(true);
+    expect(document.querySelector('.menu-prompts,.menu-footer,.menu-kicker')).toBeNull();
+    document.body.innerHTML = menuChromeMarkup({ view: 'atlas', memory: new MenuMemory(), mode: 'keys', pages: [], pageOpen: false });
+    expect(document.querySelector('.menu-back')!.hasAttribute('hidden')).toBe(true);
+    expect([...document.querySelectorAll('.menu-tab-glyph')].every(glyph => !glyph.hasAttribute('hidden'))).toBe(true);
   });
 });
 
@@ -56,7 +72,7 @@ describe('MenuNavigator', () => {
   afterEach(() => { navigator?.destroy(); navigator = undefined; document.body.replaceChildren(); });
 
   function mount(open = true) {
-    document.body.innerHTML = `<div id="menu"><nav><button class="menu-tab active" id="tab">Tab</button></nav><nav><button class="menu-page selected" id="p1">One</button><button class="menu-page" id="p2">Two</button></nav><div class="menu-content"><button id="first" data-help="First help">First</button><button id="second">Second</button><button id="arrow" tabindex="-1">◀</button><input id="search"></div><p id="menu-help"></p></div>`;
+    document.body.innerHTML = `<div id="menu"><nav><button class="menu-tab active" id="tab">Tab</button></nav><nav><button class="menu-page selected" id="p1">One</button><button class="menu-page" id="p2">Two</button></nav><div class="menu-content"><button id="first">First</button><button id="second">Second</button><button id="arrow" tabindex="-1">◀</button><input id="search"></div></div>`;
     const positions: Record<string, Box> = { tab: box(0, 0), p1: box(0, 50), p2: box(120, 50), first: box(0, 100), second: box(0, 150), arrow: box(0, 175, 20, 20), search: box(0, 200) };
     for (const [id, rect] of Object.entries(positions)) {
       const element = document.getElementById(id)!;
@@ -74,7 +90,6 @@ describe('MenuNavigator', () => {
     expect(key('ArrowDown')).toBe(true);
     expect(document.activeElement?.id).toBe('p1');
     key('s'); expect(document.activeElement?.id).toBe('first');
-    expect(document.getElementById('menu-help')!.textContent).toBe('First help');
     key('ArrowDown'); expect(document.activeElement?.id).toBe('second');
     key('ArrowDown'); expect(document.activeElement?.id).toBe('search');
     key('ArrowUp', document.activeElement!); expect(document.activeElement?.id).toBe('second');
@@ -99,6 +114,16 @@ describe('MenuNavigator', () => {
     expect(key('e', search)).toBe(false);
   });
 
+  it('starts on the visible section tab when the phone page rail is hidden', () => {
+    mount();
+    document.getElementById('p1')!.getClientRects = () => [] as unknown as DOMRectList;
+    document.getElementById('p2')!.getClientRects = () => [] as unknown as DOMRectList;
+    key('ArrowDown');
+    expect(document.activeElement?.id).toBe('tab');
+    navigator!.focusTab();
+    expect(document.activeElement?.id).toBe('tab');
+  });
+
   it('steps back to the tab bar before closing', () => {
     const calls = mount();
     key('ArrowDown'); key('ArrowDown');
@@ -112,6 +137,19 @@ describe('MenuNavigator', () => {
   it('ignores keys while the menu is closed', () => {
     mount(false);
     expect(key('ArrowDown')).toBe(false);
+  });
+
+  it('pops a pushed page before closing the menu', () => {
+    let pageOpen = true;
+    const close = vi.fn();
+    const backPage = vi.fn(() => { if (!pageOpen) return false; pageOpen = false; return true; });
+    const root = document.createElement('div'); document.body.append(root);
+    navigator = new MenuNavigator({ root, isOpen: () => true, canOpen: () => true, open: () => undefined, close, backPage, section: () => undefined, sound: () => undefined, onModeChange: () => undefined });
+    navigator.back();
+    expect(pageOpen).toBe(false);
+    expect(close).not.toHaveBeenCalled();
+    navigator.back();
+    expect(close).toHaveBeenCalledOnce();
   });
 
   it('drives the menu from a controller: Start opens, the D-pad moves, A selects, B backs out', () => {

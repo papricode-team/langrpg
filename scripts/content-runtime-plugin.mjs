@@ -8,7 +8,7 @@ export const publicLearningManifestPaths=[
 ];
 const publicLearningFields=new Set(['text','german','english','answer','acceptedAnswers','explanation','correctedAnswer','correctAnswer','answers','modelAnswer','sourceGerman','sourceText','translation','translations','meanings','glosses','words','lemma','article','articleForm','plural','surfaceForms','forms','example','prompt','hint']);
 const privateLearningJSON=/^(?:data\/(?:course(?:-[^/]+)?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?)\.json|data\/i18n\/(?:tr-course|tr-story)\.json|minigames\/(?:item-data|audio-data|story-scripts|loop-data)\.json)$/;
-const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
+const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','interior-conversations.ts','word-detail.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
 /** Vite may serve files directly; only the retained learning authoring banks are blocked. */
 export function privateDevelopmentRequest(requestURL,root,{webRoot=resolve(root,'web')}={}) {
   let url,path;try{url=new URL(requestURL,'http://localhost');path=posix.normalize(decodeURIComponent(url.pathname));}catch{return false;}
@@ -19,6 +19,7 @@ export function privateDevelopmentRequest(requestURL,root,{webRoot=resolve(root,
   if(!file.startsWith(source))return false;
   const relative=file.slice(source.length);
   if(privateLearningJSON.test(relative))return true;
+  if(relative==='test-fixtures/content-public.json')return url.searchParams.has('raw')||url.searchParams.has('url')||!url.searchParams.has('import');
   return (url.searchParams.has('raw')||url.searchParams.has('url'))&&retainedLearningModules.has(relative);
 }
 /** Public manifests describe media; their authoring transcripts/facts stay private. */
@@ -62,6 +63,7 @@ export function contentRuntimePlugin(root) {
     'expedition-games.ts': { expeditionGames: 'expeditionGames' },
     'minigames/catalogue.ts': {miniGameDefinitions:'miniGameDefinitions'},
     'minigames/scripted-stories.ts': { canonicalStoryExercises: 'canonicalStoryExercises', scriptedStoryExercises: 'scriptedStoryExercises' },
+    'interior-conversations.ts': {interiorConversations:'interiorConversations'},
   };
   const objects = {
     'story.ts': { objectStories: 'objectStories', journalNarratives: 'journalNarratives' },
@@ -71,6 +73,7 @@ export function contentRuntimePlugin(root) {
     'activity-engine.ts': { inventory: 'activityInventory' },
     'world-routines.ts': {npcRoutines:'npcRoutines'},
     'story-glossary.ts': {baseStoryGlossary:'storyGlossary',storyGlossary:'storyGlossary'},
+    'word-detail.ts': {interiorMeanings:'interiorMeanings',extraInteriorExamples:'extraInteriorExamples'},
   };
   const dataImports = {
     'data/course-meta.json': ['courseData', { edition: '', sources: [], lexicon: [], units: [], grammar: [], contextWordIds: {}, activityWordIds: {}, npcWordIds: {}, referenceCoverage: {} }],
@@ -192,6 +195,15 @@ export function contentRuntimePlugin(root) {
             }
           }
           if (relative === 'activity-engine.ts' && ts.isExpressionStatement(node) && ts.isCallExpression(node.expression) && ts.isIdentifier(node.expression.expression) && /^add(Cafe|Market|Detective|Delivery)$/.test(node.expression.expression.text)) { changed = true; return undefined; }
+          if(relative==='interior-conversations.ts'&&ts.isFunctionDeclaration(node)&&node.name?.text==='script'){changed=true;return undefined;}
+          if(relative==='interior-conversations.ts'&&ts.isVariableDeclaration(node)&&ts.isIdentifier(node.name)&&node.name.text==='conversationsByObject') {
+            changed=true;
+            return ts.factory.updateVariableDeclaration(node,node.name,node.exclamationToken,node.type,literal(undefined));
+          }
+          if(relative==='interior-conversations.ts'&&ts.isFunctionDeclaration(node)&&node.name?.text==='interiorConversationFor') {
+            changed=true;
+            return ts.factory.updateFunctionDeclaration(node,node.modifiers,node.asteriskToken,node.name,node.typeParameters,node.parameters,node.type,parsedBody("return interiorConversations.find(conversation=>conversation.objectId===objectId);"));
+          }
           if (relative === 'npc-dialogue.ts' && ts.isFunctionDeclaration(node) && node.name && ['baseConversation', 'earnedTitleGreeting'].includes(node.name.text)) {
             changed = true;
             const expression = node.name.text === 'baseConversation' ? `return runtimeArray('greetings:' + npc.id + ':' + level).filter(line=>conditionMet(line.condition ?? line.when,state));` : `return runtimeObject('titleGreetings')[npc.id + ':' + title];`;
@@ -248,7 +260,7 @@ export function contentRuntimePlugin(root) {
     generateBundle(_options, bundle) {
       const forbidden = /\/(?:data\/(?:course(?:-(?:meta|lexicon|exercises-[a-z0-9]+))?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?|i18n\/(?:tr-story|tr-course))|minigames\/(?:story-scripts|loop-data|audio-data|item-data))\.json(?:\?|$)/;
       for (const output of Object.values(bundle)) if (output.type === 'chunk') {
-        for (const module of Object.keys(output.modules)) if (forbidden.test(module.replaceAll('\\', '/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
+        for (const module of Object.keys(output.modules)) if (forbidden.test(module.replaceAll('\\', '/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
       }
     },
   };

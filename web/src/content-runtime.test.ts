@@ -6,11 +6,11 @@ import { setBaseLanguage, setTargetLanguage } from './i18n';
 import { contentApi } from './content-api';
 import { intakeStatus, missingWordCount, syllabus, syllabusPosition, wordScheduled } from './intake';
 import { getSentence } from './translated-sentence';
-import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadNpcConversation, loadCinematic, loadMiniGame, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
+import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
 
-const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), install: vi.fn() }));
+const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), courseContextWordIds: {} as Record<string, string[]>, install: vi.fn() }));
 const publicSyllabus = vi.hoisted(() => ({ version: '', wordsPerHour: 10, openingWords: 10, bankCap: 15, storyShare: .5, brake: { maxUnsettled: 12, maxDue: 20 }, wordIds: [] as string[], quests: [] }));
-vi.mock('./course', () => ({ lexemeById: indexes.lexemeById, courseExerciseById: indexes.courseExerciseById }));
+vi.mock('./course', () => ({ lexemeById: indexes.lexemeById, courseExerciseById: indexes.courseExerciseById, courseContextWordIds: indexes.courseContextWordIds }));
 vi.mock('./expedition-learning', () => ({ installExpeditionBindings: indexes.install }));
 vi.mock('./data/syllabus.json', () => ({ default: publicSyllabus }));
 type Json = Record<string, unknown>;
@@ -25,6 +25,7 @@ function session(): SessionResult {
 }
 beforeEach(async () => {
   indexes.install.mockReset(); indexes.lexemeById.clear(); indexes.courseExerciseById.clear(); contentApi.clear();
+  for (const key of Object.keys(indexes.courseContextWordIds)) delete indexes.courseContextWordIds[key];
   runtimeObject('syllabus', syllabus);
   fetcher = vi.fn(async (url: string) => {
     const path = new URL(url, 'https://atlas.example').pathname;
@@ -139,6 +140,15 @@ describe('server record adapters', () => {
     expect(runtimeReference('exercise', fixture.lexemeId, 'production')).toBe((lexical.exerciseIds as Json).production);
     expect(indexes.lexemeById.get(fixture.lexemeId)).toBe(words[0]);
   });
+  it.each(['f4974bda-2400-570c-9737-50cb9c9239a3', '811ad618-21c8-58a2-971e-fcdc597b50f5', 'bc31c0f1-924f-5500-9801-c0cb8d86bf97'])('registers the fetched contextual vocabulary for canonical exercise %s', async id => {
+    const exercise = await loadExercise(id), served = records.get(id)!.body;
+    expect(served.wordIds).toHaveLength(id === 'f4974bda-2400-570c-9737-50cb9c9239a3' ? 4 : id === '811ad618-21c8-58a2-971e-fcdc597b50f5' ? 5 : 10);
+    expect((exercise as typeof exercise & { wordIds: string[] }).wordIds).toEqual(served.wordIds);
+    expect(indexes.courseContextWordIds[id]).toEqual(served.wordIds);
+    expect((runtimeObject<Json>('courseData').contextWordIds as Json)[id]).toEqual(served.wordIds);
+    expect(exercise.answer).toBe(''); expect(exercise.acceptedAnswers).toBeUndefined();
+    expect(fetcher.mock.calls.some(([url]) => String(url).endsWith(`/exercises/${id}`))).toBe(true);
+  });
   it('hydrates per-room word cards while preserving geometry object references', async () => {
     const interiorMeta = meta('interior'), data = records.get(String(interiorMeta.id))!.body.data as Json;
     const object = { id: String(list(data.objects)[0].id), vocabulary: [], exerciseIds: [] };
@@ -150,6 +160,41 @@ describe('server record adapters', () => {
     const vocabulary = list(list(room.objects)[0].vocabulary);
     expect(vocabulary.length).toBeGreaterThan(0); expect(vocabulary[0].german).toBeTruthy(); expect(vocabulary[0].english).toBeTruthy();
     expect(vocabulary[0].sentenceId).toBeTruthy();
+  });
+  it('loads the current interior turn and its choices while retaining earlier hydrated nodes', async () => {
+    const objectId = 'interior:cafe:coffee';
+    await loadInteriorConversation(objectId);
+    const conversation = runtimeArray<Json>('interiorConversations').find(row => row.objectId === objectId)!;
+    const startId = String(conversation.start), first = (conversation.nodes as Record<string, Json>)[startId];
+    expect(Object.keys(conversation.nodes as Json)).toEqual([startId]);
+    expect((first.line as Json).german).toBeTruthy(); expect((first.line as Json).sentenceId).toBeTruthy();
+    const choice = list(first.choices)[0], nextId = String(choice.next);
+    expect((choice.line as Json).german).toBeTruthy();
+    await loadInteriorConversation(objectId, nextId);
+    expect(runtimeArray<Json>('interiorConversations').find(row => row.objectId === objectId)).toBe(conversation);
+    expect(Object.keys(conversation.nodes as Json).sort()).toEqual([startId, nextId].sort());
+    expect((conversation.nodes as Record<string, Json>)[startId]).toBe(first);
+    const before = fetcher.mock.calls.length; await loadInteriorConversation(objectId, nextId);
+    expect(fetcher.mock.calls).toHaveLength(before);
+    await loadInterior('cafe');
+    expect(runtimeObject<Json>('interiorMeanings').Kaffee).toBe('kahve');
+    expect(runtimeObject<Json>('interiorMeanings').Milch).toBe('süt');
+    expect(runtimeObject<Json>('interiorMeanings')).not.toHaveProperty('tr');
+    await loadInterior('inn');
+    const extra = runtimeObject<Json>('extraInteriorExamples').Bett as Json;
+    expect(extra.german).toBeTruthy(); expect(extra.sentenceId).toBeTruthy();
+    for (const [url] of fetcher.mock.calls.filter(([url]) => String(url).includes('/sentences?'))) expect(new URL(String(url), 'https://atlas.example').searchParams.get('ids')!.split(',').length).toBeLessThanOrEqual(12);
+  });
+  it('does not install withheld interior Turkish meanings during an English support session', async () => {
+    await setBaseLanguage('en');
+    const changed = session(); changed.preferences.baseLanguage = 'en';
+    await loadServerContent(changed);
+    const factsMeta = list(body.contexts).find(row => row.kind === 'interiorWordFacts' && row.ownerId === 'cafe')!;
+    const facts = structuredClone(records.get(String(factsMeta.id))!);
+    (facts.body.data as Json).meanings = {};
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(facts), { status: 200 }));
+    await loadContexts('interiorWordFacts', 'cafe');
+    expect(runtimeObject<Json>('interiorMeanings')).toEqual({});
   });
   it('selects NPC speech by current manifest conditions and hydrates title, routines and cinematic registries', async () => {
     const greeting = meta('npcGreeting'), title = meta('npcTitleGreeting'), progress = emptyProgress();

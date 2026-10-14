@@ -27,7 +27,7 @@ type Store interface {
 	AddSession(context.Context, string, string) error
 	DeleteSession(context.Context, string) error
 	UpdateAccount(context.Context, string, func(*Account) error) (Account, error)
-	ResetGuest(context.Context, string) (Account, error)
+	ResetGame(context.Context, string) (Account, error)
 	GetAccountByID(context.Context, string) (Account, error)
 	FindBillingAccount(context.Context, string, string) (string, error)
 	UpdateAccountByID(context.Context, string, func(*Account) error) (Account, error)
@@ -39,11 +39,12 @@ type Store interface {
 }
 
 type diskState struct {
-	World    *WorldIdentity                    `json:"world,omitempty"`
-	Version  int                               `json:"version"`
-	Accounts map[string]Account                `json:"accounts"`
-	Sessions map[string]string                 `json:"sessions"`
-	Actions  map[string]map[string]SavedAction `json:"actions"`
+	WorldContent *WorldContent                     `json:"worldContent,omitempty"`
+	World        *WorldIdentity                    `json:"world,omitempty"`
+	Version      int                               `json:"version"`
+	Accounts     map[string]Account                `json:"accounts"`
+	Sessions     map[string]string                 `json:"sessions"`
+	Actions      map[string]map[string]SavedAction `json:"actions"`
 }
 
 // JSONStore is a single-process development fallback, not shared production storage.
@@ -254,7 +255,8 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS accounts (id TEXT PRIMARY KEY, data JSONB NOT NULL);
 	CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id), created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
 	CREATE TABLE IF NOT EXISTS learning_events (account_id TEXT NOT NULL REFERENCES accounts(id), event_key TEXT NOT NULL, request JSONB NOT NULL, receipt JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (account_id,event_key));
-	CREATE TABLE IF NOT EXISTS world_state (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);`)
+	CREATE TABLE IF NOT EXISTS world_state (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);
+	CREATE TABLE IF NOT EXISTS world_content (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);`)
 	if err != nil {
 		pool.Close()
 		return nil, err

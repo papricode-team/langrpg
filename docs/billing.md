@@ -3,8 +3,10 @@
 The game permits five minutes of anonymous play. At expiry, signup keeps the
 character and progress and unlocks the remainder of fifteen total free minutes.
 Logging into an existing account restores that account's own allowance. An
-explicit guest restart clears progress and moves the same character back to the
-beginning. The server persists elapsed play and enforces access on HTTP and
+explicit game restart is available to guests and registered accounts. It clears
+progress, moves the same character back to the beginning and grants a fresh
+fifteen minutes. Players can repeat this as often as they like; credentials,
+preferences and paid access are preserved. The server persists elapsed play and enforces access on HTTP and
 WebSocket mutations across devices, reloads and tabs.
 
 ## Products

@@ -87,6 +87,11 @@ func main() {
 	}
 	app.installProductionManifests()
 	defer app.Close()
+	app.adminEmails, err = parseAdminEmails(os.Getenv("ADMIN_EMAILS"))
+	if err != nil {
+		slog.Error("admin configuration is invalid", "error", err)
+		os.Exit(1)
+	}
 	app.billing, err = creemBillingFromEnv()
 	if err != nil {
 		slog.Error("billing configuration is invalid", "error", err)
@@ -103,7 +108,11 @@ func main() {
 			slog.Warn("frontend version metadata is unavailable", "error", err)
 		}
 	}
-	server := &http.Server{Addr: ":" + env("PORT", "8097"), Handler: app.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
+	if err = app.initWorldEditing(context.Background(), env("SCENE_SOURCE_PATH", "../web/src/data/world-scenes.json"), env("SCENE_COMPILER_PATH", "../scripts/admin-world-compiler.mjs")); err != nil {
+		slog.Error("world editing initialization failed", "error", err)
+		os.Exit(1)
+	}
+	server := &http.Server{Addr: ":" + env("PORT", "8097"), Handler: app.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 65 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
 	stopped := make(chan os.Signal, 1)
 	shutdownDone := make(chan struct{})
 	signal.Notify(stopped, os.Interrupt, syscall.SIGTERM)

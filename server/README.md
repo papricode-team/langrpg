@@ -1,10 +1,10 @@
 # Language world server
 
-The Go service owns session credentials, player movement, region-scoped chat, curriculum grading, quest rewards, narrative state and FSRS vocabulary review state. One process hosts thirteen maps: the three story towns and ten coastal expeditions. Lindenhafen opens first; Lina's letter restores Waldruh, Ada's confession opens Nebelstadt, and the final Atlas promise opens the coast. `MAX_ZONE_PLAYERS` defaults to 128 connected players **per map** and accepts values from 2 to 1000; this is a configured capacity limit, not a measured concurrency guarantee. Horizontal zone routing, account recovery, durable chat moderation/history, and a production rollout remain future work.
+The Go service owns session credentials, player movement, curriculum grading, quest rewards, narrative state and FSRS vocabulary review state. One process hosts the three story towns. Lindenhafen opens first; Lina's letter restores Waldruh and Ada's confession opens Nebelstadt. Coastal expeditions remain learning games rather than multiplayer maps. `MAX_ZONE_PLAYERS` defaults to 128 connected players **per map** and accepts values from 2 to 1000; this is a configured capacity limit, not a measured concurrency guarantee. Horizontal zone routing, account recovery and a production rollout remain future work.
 
 ## Run locally
 
-Install Go 1.26 or newer, then run from this directory:
+Install Go 1.26 or newer and Node.js 24 or newer. Run `npm install` from the repository root to install the world validator's dependencies, then start Go from this directory:
 
 ```sh
 go run .
@@ -16,6 +16,10 @@ Set `STATIC_DIR=../web/dist` after `npm run build` to serve the compiled fronten
 
 The Vite frontend uses port 5187 and proxies `/api` to this server. Development browser origins are explicitly allowed: `http://localhost:5187`, `http://127.0.0.1:5187`, `http://127.240.77.9:5187`, and `http://localhost:8097`. Override `ALLOWED_ORIGINS` with a comma-separated list of exact origins. Browser-origin checks apply to REST and WebSocket upgrades; command-line clients without an Origin still require the same token for authenticated endpoints. No cookie authentication is used.
 
+Set `ADMIN_EMAILS` to a comma-separated list of registered admin account emails, for example `ADMIN_EMAILS=editor@example.com,owner@example.com`. Admins see **Edit** while playing, opening World Studio as an overlay at their current region; **Back to game** resumes play. The editor supports **Export**, **Import**, **Validate** and **Save world**. Imports are complete World Studio JSON documents up to 2 MiB and become drafts only after server validation. Saving validates again and publishes the complete world; exports include unsaved draft changes. The server normalizes addresses with the same rules as signup and checks the authenticated account on every admin operation. The list stays on the server; clients receive only their own `account.admin` flag. Empty configuration grants nobody access; any invalid entry prevents startup. Compose passes `ADMIN_EMAILS` from `.env`, and standalone development reads the shell environment. Restart after configuration changes. Register intended accounts before enabling their emails, because account signup has no email verification.
+
+Published world content, its revision, movement/entrance definitions and story interaction positions persist together in the JSON save file or PostgreSQL `world_content` row. Publishing changes shared world content without rewriting repository files or replacing player progress. Processes check persisted revisions every five seconds and notify connected clients when world content changes. Unsaved drafts remain in browser storage. At startup, `SCENE_SOURCE_PATH` supplies the initial world only when storage has no published revision; its default is `../web/src/data/world-scenes.json`. `SCENE_COMPILER_PATH` defaults to `../scripts/admin-world-compiler.mjs`. Docker supplies both paths, Node and compiler dependencies outside the static public directory. Stored publications take precedence after restarts and deployments.
+
 ```sh
 go test -race ./...
 go vet ./...
@@ -25,7 +29,7 @@ go vet ./...
 
 ## PostgreSQL and Compose
 
-Set `DATABASE_URL` to use PostgreSQL. Startup creates the account, session, learning-event and world-state tables. The content importer creates the course and typed content tables described below. Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
+Set `DATABASE_URL` to use PostgreSQL. Startup creates account, session, learning-event, world-state and published-world tables. The content importer creates the course and typed content tables described below. Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
 
 From the repository root:
 
@@ -43,25 +47,36 @@ Redis is deliberately absent from this first deployment because the current worl
 
 ## API
 
-All POST bodies use `Content-Type: application/json` and are limited to 8 KiB, except `/api/attempt` arrays, which allow 64 KiB. REST auth is `Authorization: Bearer TOKEN`.
+All POST and PUT bodies use `Content-Type: application/json`. Ordinary POST requests are limited to 8 KiB; `/api/attempt` arrays allow 64 KiB, and world validation/publication allows 2 MiB. REST auth is `Authorization: Bearer TOKEN`.
 
 `GET /api/health` returns `{status:"ok",storage:"json-development"|"postgres",players:number}`. Readiness returns 503 if the database is unavailable.
 
 `GET /api/version` returns `{version:string}` without session authentication and with `Cache-Control: no-store`. It reports the frontend build ID loaded from `STATIC_DIR/version.json` at startup and remains available during database outages. Restarting the same build preserves the ID; deploying a new build changes it, allowing an open frontend to offer a page refresh. API-only development and older builds without version metadata return 503; malformed metadata logs a warning and also leaves version checks unavailable.
 
-`POST /api/session` accepts `{name,avatar:{hair,skin,outfit},level?:"A1"|"A2"|"B1",baseLanguage?:"en"|"tr"}`. Names contain 2–24 letters/numbers, spaces, dashes, underscores or apostrophes. The `hair`, `skin`, and `outfit` colour values are safe palette names or hex strings, up to 32 characters. Optional `face`, `hairstyle`, `jacket`, `bottom`, and `build` fields select allowlisted character pieces; `pants` sets trouser colour. These parts persist on the account and appear in multiplayer snapshots. Profiles without part fields retain their colour choices and use default pieces. Returns `{token,player:{id,name,mapId,x,y,avatar},progress,account:{registered,email},preferences:{baseLanguage}}`. A valid existing bearer credential with an empty body `{}` resumes its saved profile and progress; providing a full profile updates that account’s name/appearance while preserving progress. Connected players see these changes in snapshots. Creating a fresh session replaces no previous account. Keep the token in the browser and never log it or publish it in screenshots.
+`POST /api/session` accepts `{name,avatar:{hair,skin,outfit},level?:"A1"|"A2"|"B1",baseLanguage?:"en"|"tr"}`. Names contain 2–24 letters/numbers, spaces, dashes, underscores or apostrophes. The `hair`, `skin`, and `outfit` colour values are safe palette names or hex strings, up to 32 characters. Optional `face`, `hairstyle`, `jacket`, `bottom`, and `build` fields select allowlisted character pieces; `pants` sets trouser colour. These parts persist on the account and appear in multiplayer snapshots. Profiles without part fields retain their colour choices and use default pieces. Returns `{token,player:{id,name,mapId,x,y,avatar},progress,account:{registered,email,admin},preferences:{baseLanguage}}`. A valid existing bearer credential with an empty body `{}` resumes its saved profile and progress; providing a full profile updates that account’s name/appearance while preserving progress. Connected players see these changes in snapshots. Creating a fresh session replaces no previous account. Keep the token in the browser and never log it or publish it in screenshots.
 
 `POST /api/preferences` requires a bearer session and accepts `{baseLanguage:"en"|"tr"|"de"}`; it returns `{preferences}`. The selected language must belong to the active course's support languages. The base language controls meanings, hints and interface text (see [docs/turkish-route.md](../docs/turkish-route.md)). It is stored in the account document, so older saves without the field (JSON or PostgreSQL) read as English with no schema migration. Grading, scheduling and story rules never read it.
 
-`POST /api/account/register` requires a bearer session and accepts `{email,password}`. It links credentials to the current player without replacing their progress. Email addresses are trimmed, lowercased and unique; passwords contain 10–128 characters. Duplicate emails or attempts to replace linked credentials return 409; retries with the same credentials on the same account succeed. Passwords are salted and stored with PBKDF2-HMAC-SHA256 at 600,000 iterations, following the [OWASP password storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html). Registration is limited to six requests per session per minute. Credentials persist in the JSON account or PostgreSQL account JSONB, with an additive unique email index. Password hashes are never included in API responses or learning receipts.
+`POST /api/account/register` requires a bearer session and accepts `{email,password}`. It links credentials to the current player without replacing their progress and returns `{registered,email,admin,access}`. Email addresses are trimmed, lowercased and unique; passwords contain 10–128 characters. Duplicate emails or attempts to replace linked credentials return 409; retries with the same credentials on the same account succeed. Passwords are salted and stored with PBKDF2-HMAC-SHA256 at 600,000 iterations, following the [OWASP password storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html). Registration is limited to six requests per session per minute. Credentials persist in the JSON account or PostgreSQL account JSONB, with an additive unique email index. Password hashes are never included in API responses or learning receipts.
 
-`POST /api/account/login` accepts `{email,password}` and returns the same session response as above with a fresh token for the original player. Existing device tokens stay valid; profile, progress, trial usage and learning receipts are shared across devices. Failed logins use a generic error and are limited to ten attempts per minute by direct remote address and normalized email. Deploy behind HTTPS. Anonymous play stops at five minutes; registration retains guest progress and unlocks the remainder of a fifteen-minute total trial. Registered players need paid access after fifteen minutes. Email verification, credential changes and forgotten-password recovery are outside this implementation.
+`POST /api/account/login` accepts `{email,password}` and returns the same session response as above with a fresh token for the original player. Existing device tokens stay valid; profile, progress, trial usage and learning receipts are shared across devices. Failed logins use a generic error and are limited to ten attempts per minute by direct remote address and normalized email. Deploy behind HTTPS. Anonymous play stops at five minutes; registration retains guest progress and unlocks the remainder of a fifteen-minute total trial. After fifteen minutes, registered players can pay to keep their progress or reset the game for another free fifteen-minute session. Email verification, credential changes and forgotten-password recovery are outside this implementation.
 
 `GET /api/access` and `POST /api/access/heartbeat` (`{active:boolean}`) return `{access:{phase,remainingSeconds,playedSeconds,registered,plan?,billingAvailable}}`. Phases are `guest`, `trial`, `login_required`, `payment_required`, and `paid`. The account's server clock persists in JSON/PostgreSQL and gameplay REST routes and WebSockets enforce it. Active requests and a connected world renew bounded play leases; the browser disconnects during account forms and hidden-tab pauses. Multiple devices consume the same account allowance.
 
-`POST /api/access/reset` is available to an unregistered guest and returns a fresh session response for the same character. It clears all learning and narrative progress, saved story slots, reward ledgers, event receipts and world location. Registered accounts cannot use it to obtain another trial.
+`POST /api/access/reset` is available to guests and registered accounts and returns a fresh session response for the same character. It clears all learning and narrative progress, saved story slots, reward ledgers, event receipts and world location. Every reset grants fifteen fresh minutes and can be repeated without a lifetime limit. Account credentials, character appearance, preferences and billing remain intact.
 
 `POST /api/billing/checkout` accepts `{plan:"monthly"|"lifetime"}` and returns `{url}` for Creem's hosted checkout. `POST /api/billing/portal` returns `{url}` for Creem's email-authenticated customer portal. `POST /api/billing/sync` reconciles paid access with Creem and returns `{access}`. All require the registered account's bearer credential; product IDs, prices and customer identity are selected by the server. `POST /api/billing/webhook` accepts signed Creem notifications, verifies the raw-body signature and signed event age, and reconciles the account against authoritative Creem state. A successful browser redirect never grants paid access. See [billing configuration and verification](../docs/billing.md).
+
+World authoring endpoints require a bearer session whose persisted email is in `ADMIN_EMAILS`. They remain available when that account's play trial has expired; the admin role does not grant paid gameplay access.
+
+| Endpoint | Request and response |
+| --- | --- |
+| `GET /api/admin/world` | Returns `{document,revision,diagnostics}` and an `ETag` containing the quoted revision. |
+| `POST /api/admin/world/validate` | Accepts the complete scene document as the JSON body and returns `{valid:true,contentVersion,diagnostics}` without publishing. |
+| `PUT /api/admin/world` | Accepts the complete scene document and `If-Match: "REVISION"`; validates, atomically persists and publishes, then returns `{document,revision,contentVersion,diagnostics}` with the new `ETag`. |
+| `GET /api/world-content` | Public read of `{document,contentVersion}` for game rendering. Contains scene geometry and placement metadata; credentials, admin addresses and compiler authority remain server-side. |
+
+Validation and publication accept at most **2 MiB** of JSON. The compiler checks schema, registered artwork, complete required maps and interactions, navigation reachability and coordinate migrations. Changing bounds or origins requires increasing `coordinateVersion`. Invalid JSON returns 400, excessive size 413, unsupported content type 415 and invalid scenes 422; unavailable validation/storage returns 503. Invalid sessions return 401 and nonadmins return 403. A missing or stale `If-Match` returns 409, preserving the published world and the browser draft; reopen the latest world before reconciling edits. Concurrent publication uses the persisted revision to prevent overwriting another admin's changes. Player progress and canonical exercise grading rules remain separate from world publications.
 
 `GET /api/progress` returns the progress object directly:
 
@@ -137,21 +152,24 @@ The scheduler uses the upstream `github.com/open-spaced-repetition/go-fsrs/v4` v
 
 Connect to `/api/world?token=TOKEN&mapId=lindenhafen` with a secure `wss://` URL in production. The map query is optional: without it, the server uses the player's remembered map or Lindenhafen. Unknown map IDs are rejected before upgrade. WebSocket constructors cannot send an Authorization header, so the token is supplied during the initial handshake; configure proxy access logs to omit query strings for this route.
 
-- Initial server message: `{type:"welcome",selfId,mapId,spawn:{x,y},players:Player[],messages:ChatMessage[]}`.
+- Initial server message: `{type:"welcome",selfId,mapId,spawn:{x,y},players:Player[]}`.
 - Server snapshots at 10 Hz: `{type:"players",mapId,players:Player[]}`. Players include `mapId`; only occupants of that map receive its snapshots.
-- Players inside a building also include `interiorId:"cafe"|"bakery"|"supermarket"|"inn"`; outdoors, this field is omitted. Clients render players matching both the current region and building. Town chat remains region-scoped.
-- Client building entry/exit: `{type:"joinInterior",mapId,interiorId}` with an empty `interiorId` to leave. Buildings are available in Lindenhafen, Waldruh and Nebelstadt. The server confirms with `{type:"interior",selfId,mapId,interiorId,spawn,players,messages}` and broadcasts updated presence. Room entry uses the authored indoor spawn; exit restores the separate outdoor position. Welcome/map acknowledgements also include `interiorId` (empty outdoors), so reconnect restores the current room before applying its coordinates. Changing regions leaves the building.
-- Client travel: `{type:"joinMap",mapId:"waldruh"}`. The server checks current durable quest discoveries on every change and on initial map requests; CEFR settings cannot open a route. The server confirms entry with `{type:"map",selfId,mapId,spawn:{x,y},players:Player[],messages:ChatMessage[]}`. Apply the acknowledgement before its presence and history; `spawn` contains the authoritative current position, including a remembered return position. Locked or invalid maps, full destinations or excessive travel return an error and keep the player in the current map.
+- Players inside a building also include `interiorId:"cafe"|"bakery"|"supermarket"|"inn"`; outdoors, this field is omitted. Clients render players matching both the current region and building.
+- Client building entry/exit: `{type:"joinInterior",mapId,interiorId}` with an empty `interiorId` to leave. Buildings are available in Lindenhafen, Waldruh and Nebelstadt. The server confirms with `{type:"interior",selfId,mapId,interiorId,spawn,players}` and broadcasts updated presence. Room entry uses the authored indoor spawn; exit restores the separate outdoor position. Welcome/map acknowledgements also include `interiorId` (empty outdoors), so reconnect restores the current room before applying its coordinates. Changing regions leaves the building.
+- Client travel: `{type:"joinMap",mapId:"waldruh"}`. The server checks current durable quest discoveries on every change and on initial map requests; CEFR settings cannot open a route. The server confirms entry with `{type:"map",selfId,mapId,spawn:{x,y},players:Player[]}`. Apply the acknowledgement before its presence; `spawn` contains the authoritative current position, including a remembered return position. Locked or invalid maps, full destinations or excessive travel return an error and keep the player in the current map.
 - Client move: `{type:"move",mapId,interiorId?,x,y}` with normalized coordinates in `[0,1]`. Include the confirmed building indoors; omit `interiorId` outdoors. Animate locally and send sampled current positions after the transition acknowledgement. The server caps aggregate motion at 0.24 world units/second with a small bounded startup/latency credit; large requested jumps are clipped. Movement tagged with another map or building is rejected.
-- Client chat: `{type:"chat",mapId,message:"text"}`. Chat tagged with another map is rejected.
-- Server chat: `{type:"chat",mapId,message:{mapId,id,playerId,name,text,at}}`. Only occupants of that map receive the message.
 - Validation/rate errors: `{type:"error",error:"message"}`.
 
-Chat contains 1–280 characters with no control characters and is limited to three messages per ten seconds. Successful map changes are limited to four per ten seconds, including changes requested by reconnecting with a different map query. Both limits follow the player across regions and recent reconnects. Reconnecting the same player replaces the older connection. Each outgoing queue is bounded, slow clients disconnect, and ping/timeouts detect dead connections.
+Live chat is unavailable. Legacy `chat` requests receive an unknown-message error, and snapshots contain no message history. Successful map changes are limited to four per ten seconds, including changes requested by reconnecting with a different map query. This limit follows the player across regions and recent reconnects. Each connection is limited to 40 requests per second. Reconnecting the same player replaces the older connection. Each outgoing queue is bounded, slow clients disconnect, and ping/timeouts detect dead connections.
 
-The server remembers each player's map and separate positions in visited maps for up to ten minutes after disconnect. This in-memory cache is bounded to 4096 accounts and may evict older offline entries earlier. A region replays its last 50 chat messages on entry or reconnect; these histories have no ten-minute expiry, but reset on server restart. Map positions and rate windows also reset on restart. New or expired positions use the region's spawn: Lindenhafen `(0.52, 0.61)`, Waldruh `(0.52, 0.54)`, and Nebelstadt `(0.50, 0.55)`.
+The server remembers each player's map and separate positions in visited maps for up to ten minutes after disconnect. This in-memory cache is bounded to 4096 accounts and may evict older offline entries earlier. Map positions and rate windows reset on restart. New or expired positions use the region's authored spawn.
 
-World positions and chat are transient; learner profiles, learning events, quest rewards and FSRS review state remain durable in PostgreSQL or the development JSON store. The current server validates movement bounds/speed and map membership; shared server collision geometry and horizontal zone scaling remain future work.
+Visited-map caches are transient. Each course durably saves its current location
+and coordinate frame alongside progress; restoring an inactive course converts
+that location when World Studio changes map bounds. The English classroom keeps
+its own authored teacher coordinates. Learner profiles, events, rewards and FSRS
+state also remain durable. Shared collision geometry and horizontal zone scaling
+remain future work.
 
 Model answers are withheld from content reads and returned only after a recorded graded attempt, as described below. Server grading and authenticated idempotency preserve progress consistency.
 
@@ -175,6 +193,11 @@ The importer does not alter accounts, rewards, FSRS cards, or attempt receipts.
 `MIGRATE_CONTENT_UUIDS=true` runs the opt-in, idempotent account migration at boot.
 It covers current progress, every course snapshot, story slots, reward ledgers,
 scoped story nodes/choices, derived word-item IDs, and immutable event requests.
+The generated bundle retains the earlier published UUID catalog in `publishedIds`.
+Previously saved UUIDs remain accepted as aliases and migrate to the current
+identities without losing evidence or receipts. Importing into that catalog's
+PostgreSQL schema adds course ownership and replaces legacy content rows within
+the import transaction. Published World Studio data remains intact.
 
 `GET /api/content/courses` lists course configuration and enrollment.
 `POST /api/course/enroll` and `POST /api/course/activate` accept
@@ -183,6 +206,10 @@ selected course's progress, story slots, rewards, and location. It validates the
 course's declared support languages. Trial usage and billing remain account-wide.
 The German course supports English/Turkish; the English proof course supports
 Turkish/German and uses its own declared grading configuration.
+Resetting the game clears every enrolled course's saved learning state and
+receipts while preserving credentials, appearance, support preferences and
+billing. An explicit reset grants fifteen minutes; switching courses keeps the
+account's existing trial allowance.
 
 Authenticated reads under `/api/content/` return record envelopes
 `{id,courseId,kind,version,body}`. Batched `sentences?ids=...` (at most 12) and

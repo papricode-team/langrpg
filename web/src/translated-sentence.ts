@@ -134,6 +134,6 @@ export function sourceSentenceMarkup(presentation: SentencePresentation, options
 export function renderTranslatedSentence(reference: SentenceReference | AuthoredSentence, name = '', showTranslation = false): string {
   const presentation = presentSentence(reference, name);
   const id = presentation.sentence?.id ? ` data-sentence-id="${e(presentation.sentence.id)}"` : '';
-  const translation = showTranslation && presentation.translation ? `<small class="sentence-inline-translation" data-sentence-inline-translation lang="${e(presentation.supportLanguage)}">${e(presentation.translation)}</small>` : '';
+  const translation = showTranslation && presentation.translation ? `<span class="sentence-inline-translation" data-sentence-inline-translation lang="${e(presentation.supportLanguage)}">${e(presentation.translation)}</span>` : '';
   return `<span class="translated-sentence" lang="${e(presentation.target)}" tabindex="0"${id} data-translation="${e(presentation.translation)}" data-translation-lang="${e(presentation.supportLanguage)}">${sourceSentenceMarkup(presentation)}${translation}</span>`;
 }

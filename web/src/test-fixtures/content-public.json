@@ -1492,6 +1492,72 @@
             "kind": "beginnerChoices",
             "ownerId": "22f0cd8d-8141-5d29-98ae-cf6b4db9f79f",
             "ownerKind": "exercise"
+          },
+          {
+            "id": "ed8b6fee-411b-5435-9cfd-9485e67e0bb2",
+            "kind": "interiorConversation",
+            "worldId": "interior:cafe:coffee",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1",
+            "nodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+            "startNodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f"
+          },
+          {
+            "id": "7e9dc743-a1d7-5914-b890-d2aeaefd2167",
+            "kind": "interiorConversation",
+            "worldId": "interior:cafe:coffee",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1",
+            "nodeId": "a2defbf6-0ec8-5e7a-85eb-5805f2213dac",
+            "startNodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f"
+          },
+          {
+            "id": "f7376163-a93e-5c90-b66d-f206a547dfd6",
+            "kind": "interiorConversation",
+            "worldId": "interior:cafe:coffee",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1",
+            "nodeId": "7ca384cc-5964-55ca-9ed1-d689da065ef6",
+            "startNodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f"
+          },
+          {
+            "id": "0987a36f-0364-559e-9d32-eda8a1a7b624",
+            "kind": "interiorConversation",
+            "worldId": "interior:cafe:coffee",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1",
+            "nodeId": "6447c1a6-c892-5f42-bcdf-89abd301175c",
+            "startNodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f"
+          },
+          {
+            "id": "fc423eea-e73a-53fc-ab15-e2dafade46b9",
+            "kind": "interiorConversation",
+            "worldId": "interior:cafe:coffee",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1",
+            "nodeId": "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc",
+            "startNodeId": "4e9e7c18-5b3d-5f13-997f-f08c8531616f"
+          },
+          {
+            "id": "90144475-ae46-55e9-8824-95dcc9c31c0c",
+            "kind": "interiorWordFacts",
+            "worldId": "cafe",
+            "ownerId": "cafe",
+            "ownerKind": "interior",
+            "level": "A1"
+          },
+          {
+            "id": "e71be570-9537-53d6-a8d0-c67223d5623f",
+            "kind": "interiorWordFacts",
+            "worldId": "inn",
+            "ownerId": "inn",
+            "ownerKind": "interior",
+            "level": "A1"
           }
         ],
         "syllabus": {
@@ -2961,8 +3027,17 @@
         "itemId": "d7ac2449-2687-519b-b1c9-c12cf15b5efc",
         "questId": "f462ba4f-4b2a-5d9e-9086-301e58fb322e",
         "level": "A1",
-        "wordIds": [],
+        "wordIds": [
+          "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+          "a0867068-10db-579b-bd7f-c9d5f42e8d51"
+        ],
         "support": {
+          "en": {
+            "prompt": "Order a coffee politely.",
+            "hint": "Use Ich möchte, then einen Kaffee."
+          },
           "tr": {
             "prompt": "Kibarca bir kahve sipariş et.",
             "hint": "Ich möchte kullan, ardından einen Kaffee.",
@@ -2972,7 +3047,10 @@
         "grading": {
           "caseSensitive": true
         },
-        "sentenceId": "eea67378-a538-522e-b0e0-f3245a99a01f"
+        "sentenceId": "eea67378-a538-522e-b0e0-f3245a99a01f",
+        "audio": {
+          "path": "/audio/a1-cafe-exercise-1.mp3"
+        }
       }
     },
     {
@@ -12016,6 +12094,2771 @@
             }
           }
         ]
+      }
+    },
+    {
+      "id": "ed8b6fee-411b-5435-9cfd-9485e67e0bb2",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorConversation",
+        "data": {
+          "objectId": "interior:cafe:coffee",
+          "npcId": "marta",
+          "name": "Marta",
+          "role": {
+            "english": "Host",
+            "turkish": "Ev sahibi"
+          },
+          "title": {
+            "english": "Order your favourite coffee",
+            "turkish": "Sevdiğin kahveyi sipariş et"
+          },
+          "start": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+          "nodes": {
+            "4e9e7c18-5b3d-5f13-997f-f08c8531616f": {
+              "id": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+              "line": {
+                "sentenceId": "345a2158-1562-5c51-9a16-e7cb6d12e7f7"
+              },
+              "choices": [
+                {
+                  "id": "a843abad-dde8-554a-a4d5-e215ff523631",
+                  "line": {
+                    "sentenceId": "dd773234-ff1b-556c-9fcb-4e8309eb199b"
+                  },
+                  "next": "a2defbf6-0ec8-5e7a-85eb-5805f2213dac"
+                },
+                {
+                  "id": "47317cc7-3e0c-5910-9128-c8b8ba53eb18",
+                  "line": {
+                    "sentenceId": "7dc6f84a-e300-5547-ba93-65d0d42c1d9e"
+                  },
+                  "next": "7ca384cc-5964-55ca-9ed1-d689da065ef6"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "7e9dc743-a1d7-5914-b890-d2aeaefd2167",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorConversation",
+        "data": {
+          "objectId": "interior:cafe:coffee",
+          "npcId": "marta",
+          "name": "Marta",
+          "role": {
+            "english": "Host",
+            "turkish": "Ev sahibi"
+          },
+          "title": {
+            "english": "Order your favourite coffee",
+            "turkish": "Sevdiğin kahveyi sipariş et"
+          },
+          "start": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+          "nodes": {
+            "a2defbf6-0ec8-5e7a-85eb-5805f2213dac": {
+              "id": "a2defbf6-0ec8-5e7a-85eb-5805f2213dac",
+              "line": {
+                "sentenceId": "6b5da444-2c80-5ef6-adc1-a6656f1e0b92"
+              },
+              "choices": [
+                {
+                  "id": "0adb25e2-c089-5763-ba5a-b8073b900ff4",
+                  "line": {
+                    "sentenceId": "34ad7eb7-48fc-5ab2-bc12-47e8b1e54a47"
+                  },
+                  "next": "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc"
+                },
+                {
+                  "id": "916904ba-5e87-593a-b9af-50e81ed148fb",
+                  "line": {
+                    "sentenceId": "f6b8adc3-c258-5769-ae77-c763078a8224"
+                  },
+                  "next": "6447c1a6-c892-5f42-bcdf-89abd301175c"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "f7376163-a93e-5c90-b66d-f206a547dfd6",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorConversation",
+        "data": {
+          "objectId": "interior:cafe:coffee",
+          "npcId": "marta",
+          "name": "Marta",
+          "role": {
+            "english": "Host",
+            "turkish": "Ev sahibi"
+          },
+          "title": {
+            "english": "Order your favourite coffee",
+            "turkish": "Sevdiğin kahveyi sipariş et"
+          },
+          "start": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+          "nodes": {
+            "7ca384cc-5964-55ca-9ed1-d689da065ef6": {
+              "id": "7ca384cc-5964-55ca-9ed1-d689da065ef6",
+              "line": {
+                "sentenceId": "5f6aec59-5f0c-5b0f-a390-88eb7de0e403"
+              },
+              "choices": [
+                {
+                  "id": "91a9f1c6-7a44-5b3f-9d36-65aa3683e968",
+                  "line": {
+                    "sentenceId": "a6ea2e2f-db17-5050-9e0b-6fb9cb1760b1"
+                  },
+                  "next": "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc"
+                },
+                {
+                  "id": "e4763e5d-cac9-5ae8-bc5f-afb3af61a43a",
+                  "line": {
+                    "sentenceId": "6bc674ab-08dc-5f6c-8068-06b2b88e0412"
+                  },
+                  "next": "6447c1a6-c892-5f42-bcdf-89abd301175c"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "0987a36f-0364-559e-9d32-eda8a1a7b624",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorConversation",
+        "data": {
+          "objectId": "interior:cafe:coffee",
+          "npcId": "marta",
+          "name": "Marta",
+          "role": {
+            "english": "Host",
+            "turkish": "Ev sahibi"
+          },
+          "title": {
+            "english": "Order your favourite coffee",
+            "turkish": "Sevdiğin kahveyi sipariş et"
+          },
+          "start": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+          "nodes": {
+            "6447c1a6-c892-5f42-bcdf-89abd301175c": {
+              "id": "6447c1a6-c892-5f42-bcdf-89abd301175c",
+              "line": {
+                "sentenceId": "cc078b24-dceb-5323-9b54-24f09fbc1443"
+              },
+              "choices": [
+                {
+                  "id": "2245cd6d-6286-5366-bd46-a946cbb57e58",
+                  "line": {
+                    "sentenceId": "c25a434d-c190-56f3-b0ac-7bc3812ec8c6"
+                  },
+                  "next": "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fc423eea-e73a-53fc-ab15-e2dafade46b9",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorConversation",
+        "data": {
+          "objectId": "interior:cafe:coffee",
+          "npcId": "marta",
+          "name": "Marta",
+          "role": {
+            "english": "Host",
+            "turkish": "Ev sahibi"
+          },
+          "title": {
+            "english": "Order your favourite coffee",
+            "turkish": "Sevdiğin kahveyi sipariş et"
+          },
+          "start": "4e9e7c18-5b3d-5f13-997f-f08c8531616f",
+          "nodes": {
+            "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc": {
+              "id": "2cc556c6-f1bc-546c-b26e-fc6ba1782fbc",
+              "line": {
+                "sentenceId": "47d8d7dc-7f77-5189-81c6-7f0256531811"
+              },
+              "choices": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "90144475-ae46-55e9-8824-95dcc9c31c0c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorWordFacts",
+        "data": {
+          "meanings": {
+            "tr": {
+              "Kaffee": "kahve",
+              "Milch": "süt",
+              "Zucker": "şeker",
+              "Tee": "çay",
+              "Wasser": "su",
+              "Tasse": "fincan",
+              "Kuchen": "kek",
+              "Croissant": "kruvasan",
+              "Speisekarte": "menü",
+              "Tisch": "masa",
+              "Rechnung": "hesap",
+              "Trinkgeld": "bahşiş"
+            }
+          },
+          "examples": {}
+        }
+      }
+    },
+    {
+      "id": "e71be570-9537-53d6-a8d0-c67223d5623f",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorWordFacts",
+        "data": {
+          "meanings": {
+            "tr": {
+              "Tee": "çay",
+              "Tasse": "fincan",
+              "Zimmer": "oda",
+              "Bett": "yatak",
+              "Lampe": "lamba",
+              "Brief": "mektup"
+            }
+          },
+          "examples": {
+            "Bett": {
+              "sentenceId": "1299717d-65b8-525d-bdb0-c6c510a8e37e"
+            },
+            "Lampe": {
+              "sentenceId": "e330f2ac-d6bb-5fa5-8f65-e5d9f059cf9d"
+            },
+            "Brief": {
+              "sentenceId": "858b5f04-b8c1-5777-94f9-41ddb4d645e6"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "6b5da444-2c80-5ef6-adc1-a6656f1e0b92",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Gern. Hier ist dein Kaffee mit Milch. Möchtest du Zucker?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Of course. Here is your coffee with milk. Would you like sugar?",
+            "words": []
+          },
+          "tr": {
+            "text": "Elbette. İşte sütlü kahven. Şeker ister misin?",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Gern",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "3616a509-c91d-56a4-9c68-e0ce2ca928d8",
+            "glosses": {
+              "en": "gladly; with pleasure",
+              "tr": "seve seve; memnuniyetle"
+            }
+          },
+          {
+            "source": {
+              "text": "Hier",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 10
+            },
+            "lexemeId": "a6edc76e-697b-51f9-b31b-77fede145cf6",
+            "glosses": {
+              "en": "here",
+              "tr": "burada"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "dein",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 19
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / your (informal singular) / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / senin / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 26
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "mit",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 27,
+              "end": 30
+            },
+            "lexemeId": "8e669e92-b3b3-502a-b00c-d7d760acec4f",
+            "glosses": {
+              "en": "with",
+              "tr": "ile"
+            }
+          },
+          {
+            "source": {
+              "text": "Milch",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 31,
+              "end": 36
+            },
+            "lexemeId": "218aa0aa-0d3c-52ea-ad05-491e46263737",
+            "glosses": {
+              "en": "milk",
+              "tr": "süt"
+            }
+          },
+          {
+            "source": {
+              "text": "Möchtest",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 38,
+              "end": 46
+            },
+            "lexemeId": "a0867068-10db-579b-bd7f-c9d5f42e8d51",
+            "glosses": {
+              "en": "to like",
+              "tr": "sevmek, hoşlanmak"
+            }
+          },
+          {
+            "source": {
+              "text": "du",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 47,
+              "end": 49
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "Zucker",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 50,
+              "end": 56
+            },
+            "lexemeId": "6c76b7e3-5b5a-51c7-befc-e69912b60a2b",
+            "glosses": {
+              "en": "sugar",
+              "tr": "şeker"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "34ad7eb7-48fc-5ab2-bc12-47e8b1e54a47",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Nein, danke. Das ist alles.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "No, thank you. That is everything.",
+            "words": []
+          },
+          "tr": {
+            "text": "Hayır, teşekkür ederim. Hepsi bu.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Nein",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "14d34102-a7cb-5a51-82db-6d914d7186b4",
+            "glosses": {
+              "en": "no",
+              "tr": "hayır"
+            }
+          },
+          {
+            "source": {
+              "text": "danke",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 11
+            },
+            "glosses": {
+              "en": "to thank / thank you",
+              "tr": "teşekkür etmek / teşekkürler"
+            }
+          },
+          {
+            "source": {
+              "text": "Das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 16
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 17,
+              "end": 20
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "alles",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 21,
+              "end": 26
+            },
+            "lexemeId": "42614229-58e2-5bb0-add0-c782e96d5d45",
+            "glosses": {
+              "en": "everything; all",
+              "tr": "her şey; hepsi"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "c25a434d-c190-56f3-b0ac-7bc3812ec8c6",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Danke, das ist alles.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Thank you, that is everything.",
+            "words": []
+          },
+          "tr": {
+            "text": "Teşekkür ederim, hepsi bu.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Danke",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "36b71f6a-756c-599d-9ea7-ba4412fa611c",
+            "glosses": {
+              "en": "thanks, gratitude, appreciation",
+              "tr": "teşekkür, minnet"
+            }
+          },
+          {
+            "source": {
+              "text": "das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 7,
+              "end": 10
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "alles",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 20
+            },
+            "lexemeId": "42614229-58e2-5bb0-add0-c782e96d5d45",
+            "glosses": {
+              "en": "everything; all",
+              "tr": "her şey; hepsi"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/a1-cafe-exercise-7.mp3"
+        }
+      }
+    },
+    {
+      "id": "1299717d-65b8-525d-bdb0-c6c510a8e37e",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Das Bett ist bereit.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The bed is ready.",
+            "words": []
+          },
+          "tr": {
+            "text": "Yatak hazır.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Bett",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 8
+            },
+            "lexemeId": "f5492228-d4a7-5b2b-b2b6-e146033c242b",
+            "glosses": {
+              "en": "bed",
+              "tr": "yatak"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 9,
+              "end": 12
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "bereit",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 19
+            },
+            "lexemeId": "2ef8f900-90f9-5b2d-8657-a46fe8dc0b5c",
+            "glosses": {
+              "en": "ready",
+              "tr": "hazır"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "345a2158-1562-5c51-9a16-e7cb6d12e7f7",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Guten Morgen! Die Kaffeemaschine ist bereit. Was möchtest du trinken?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Good morning! The coffee machine is ready. What would you like to drink?",
+            "words": []
+          },
+          "tr": {
+            "text": "Günaydın! Kahve makinesi hazır. Ne içmek istersin?",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Guten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "d1cdb1bb-2f7f-5f5a-9114-33bf64aa7cdd",
+            "glosses": {
+              "en": "good; well",
+              "tr": "iyi; güzel"
+            }
+          },
+          {
+            "source": {
+              "text": "Morgen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 12
+            },
+            "lexemeId": "84a68681-8c21-5721-8d02-df56e6b2f0fe",
+            "glosses": {
+              "en": "morning",
+              "tr": "sabah"
+            }
+          },
+          {
+            "source": {
+              "text": "Die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 14,
+              "end": 17
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 33,
+              "end": 36
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "bereit",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 37,
+              "end": 43
+            },
+            "lexemeId": "2ef8f900-90f9-5b2d-8657-a46fe8dc0b5c",
+            "glosses": {
+              "en": "ready",
+              "tr": "hazır"
+            }
+          },
+          {
+            "source": {
+              "text": "Was",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 45,
+              "end": 48
+            },
+            "glosses": {
+              "en": "what / something",
+              "tr": "ne / bir şey"
+            }
+          },
+          {
+            "source": {
+              "text": "möchtest",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 49,
+              "end": 57
+            },
+            "lexemeId": "a0867068-10db-579b-bd7f-c9d5f42e8d51",
+            "glosses": {
+              "en": "to like",
+              "tr": "sevmek, hoşlanmak"
+            }
+          },
+          {
+            "source": {
+              "text": "du",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 58,
+              "end": 60
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "trinken",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 61,
+              "end": 68
+            },
+            "lexemeId": "723084df-a33d-52f3-9ce5-ebfd38214805",
+            "glosses": {
+              "en": "to drink (to drink liquids by mouth)",
+              "tr": "içmek"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "47d8d7dc-7f77-5189-81c6-7f0256531811",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Bitte schön. Lass dir den Kaffee schmecken!",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Here you are. Enjoy your coffee!",
+            "words": []
+          },
+          "tr": {
+            "text": "Buyur. Kahveni afiyetle iç!",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "dd00b972-c84b-5605-ab3b-fbcae3f59f72",
+            "glosses": {
+              "en": "request",
+              "tr": "rica"
+            }
+          },
+          {
+            "source": {
+              "text": "schön",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 11
+            },
+            "lexemeId": "ce0e08af-d222-5aeb-84fa-ad41aace777e",
+            "glosses": {
+              "en": "beautiful; nice",
+              "tr": "güzel; hoş"
+            }
+          },
+          {
+            "source": {
+              "text": "Lass",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 17
+            },
+            "lexemeId": "5a200317-d086-588b-95c6-237df38ed573",
+            "glosses": {
+              "en": "to let; leave; have done",
+              "tr": "izin vermek; bırakmak; yaptırmak"
+            }
+          },
+          {
+            "source": {
+              "text": "dir",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 18,
+              "end": 21
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "den",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 22,
+              "end": 25
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 26,
+              "end": 32
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "schmecken",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 33,
+              "end": 42
+            },
+            "lexemeId": "9f4126f5-d4bc-5831-a602-e231e1599682",
+            "glosses": {
+              "en": "to taste",
+              "tr": "tadı olmak; tadına bakmak"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "dd773234-ff1b-556c-9fcb-4e8309eb199b",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Einen Kaffee mit Milch, bitte.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "A coffee with milk, please.",
+            "words": []
+          },
+          "tr": {
+            "text": "Sütlü bir kahve, lütfen.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Einen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)",
+              "tr": "bir (eril ya da nötr belirsiz tanımlık)"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 12
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "mit",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 16
+            },
+            "lexemeId": "8e669e92-b3b3-502a-b00c-d7d760acec4f",
+            "glosses": {
+              "en": "with",
+              "tr": "ile"
+            }
+          },
+          {
+            "source": {
+              "text": "Milch",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 17,
+              "end": 22
+            },
+            "lexemeId": "218aa0aa-0d3c-52ea-ad05-491e46263737",
+            "glosses": {
+              "en": "milk",
+              "tr": "süt"
+            }
+          },
+          {
+            "source": {
+              "text": "bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 24,
+              "end": 29
+            },
+            "glosses": {
+              "en": "please; you are welcome / to ask, to beg, to plead, to bid, to request",
+              "tr": "lütfen; rica ederim / rica etmek, istemek"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/minigame-tray-with-milk.mp3"
+        }
+      }
+    },
+    {
+      "id": "5f6aec59-5f0c-5b0f-a390-88eb7de0e403",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ein schwarzer Kaffee. Die kleine Tasse ist noch warm. Möchtest du Zucker?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "A black coffee. The little cup is still warm. Would you like sugar?",
+            "words": []
+          },
+          "tr": {
+            "text": "Bir sade kahve. Küçük fincan hâlâ sıcak. Şeker ister misin?",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ein",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)",
+              "tr": "bir (eril ya da nötr belirsiz tanımlık)"
+            }
+          },
+          {
+            "source": {
+              "text": "schwarzer",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 13
+            },
+            "lexemeId": "941e7663-4cde-5865-b58b-9f2dcbea9dc4",
+            "glosses": {
+              "en": "black, reflecting little or no light",
+              "tr": "siyah"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 14,
+              "end": 20
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "Die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 22,
+              "end": 25
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "kleine",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 26,
+              "end": 32
+            },
+            "lexemeId": "bd734dff-360c-567b-a970-f72bab46e7ea",
+            "glosses": {
+              "en": "small, little, wee",
+              "tr": "küçük"
+            }
+          },
+          {
+            "source": {
+              "text": "Tasse",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 33,
+              "end": 38
+            },
+            "lexemeId": "3163d413-46cc-52c0-8b9d-b110bef9348c",
+            "glosses": {
+              "en": "cup, mug",
+              "tr": "fincan; kupa"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 39,
+              "end": 42
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "noch",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 43,
+              "end": 47
+            },
+            "lexemeId": "d06c5b7e-10a2-505a-bb2b-5486c3b90a14",
+            "glosses": {
+              "en": "still; yet; another",
+              "tr": "hâlâ; henüz; bir … daha"
+            }
+          },
+          {
+            "source": {
+              "text": "warm",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 48,
+              "end": 52
+            },
+            "lexemeId": "40b5de03-85d0-5f92-9f1a-254754fc8211",
+            "glosses": {
+              "en": "warm; mildly hot",
+              "tr": "sıcak; ılık"
+            }
+          },
+          {
+            "source": {
+              "text": "Möchtest",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 54,
+              "end": 62
+            },
+            "lexemeId": "a0867068-10db-579b-bd7f-c9d5f42e8d51",
+            "glosses": {
+              "en": "to like",
+              "tr": "sevmek, hoşlanmak"
+            }
+          },
+          {
+            "source": {
+              "text": "du",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 63,
+              "end": 65
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "Zucker",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 66,
+              "end": 72
+            },
+            "lexemeId": "6c76b7e3-5b5a-51c7-befc-e69912b60a2b",
+            "glosses": {
+              "en": "sugar",
+              "tr": "şeker"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "a6ea2e2f-db17-5050-9e0b-6fb9cb1760b1",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Nein, danke. Das ist alles.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "No, thank you. That is everything.",
+            "words": []
+          },
+          "tr": {
+            "text": "Hayır, teşekkür ederim. Hepsi bu.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Nein",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "14d34102-a7cb-5a51-82db-6d914d7186b4",
+            "glosses": {
+              "en": "no",
+              "tr": "hayır"
+            }
+          },
+          {
+            "source": {
+              "text": "danke",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 11
+            },
+            "glosses": {
+              "en": "to thank / thank you",
+              "tr": "teşekkür etmek / teşekkürler"
+            }
+          },
+          {
+            "source": {
+              "text": "Das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 16
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 17,
+              "end": 20
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "alles",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 21,
+              "end": 26
+            },
+            "lexemeId": "42614229-58e2-5bb0-add0-c782e96d5d45",
+            "glosses": {
+              "en": "everything; all",
+              "tr": "her şey; hepsi"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "6bc674ab-08dc-5f6c-8068-06b2b88e0412",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Was kostet der Kaffee?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "How much is the coffee?",
+            "words": []
+          },
+          "tr": {
+            "text": "Kahve ne kadar?",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Was",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "what / something",
+              "tr": "ne / bir şey"
+            }
+          },
+          {
+            "source": {
+              "text": "kostet",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 10
+            },
+            "lexemeId": "1065c06c-f673-50d7-9993-7a64ba0363d0",
+            "glosses": {
+              "en": "to cost",
+              "tr": "(fiyatı) tutmak, -e mal olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 21
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "858b5f04-b8c1-5777-94f9-41ddb4d645e6",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Der Brief liegt auf dem Schreibtisch.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The letter is on the desk.",
+            "words": []
+          },
+          "tr": {
+            "text": "Mektup çalışma masasının üzerinde.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Brief",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 9
+            },
+            "lexemeId": "bffa9b80-23a9-59a2-a035-9d5e95ed1a93",
+            "glosses": {
+              "en": "letter",
+              "tr": "mektup"
+            }
+          },
+          {
+            "source": {
+              "text": "liegt",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 10,
+              "end": 15
+            },
+            "lexemeId": "b2f36e1a-c251-5a59-a9e6-d8da1811c3c4",
+            "glosses": {
+              "en": "to lie; be located",
+              "tr": "yatmak; bulunmak"
+            }
+          },
+          {
+            "source": {
+              "text": "auf",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 19
+            },
+            "lexemeId": "4b0b47b2-d60d-52c3-811c-1f2de833747b",
+            "glosses": {
+              "en": "on; onto",
+              "tr": "üstünde; üstüne"
+            }
+          },
+          {
+            "source": {
+              "text": "dem",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 23
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "7dc6f84a-e300-5547-ba93-65d0d42c1d9e",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Einen schwarzen Kaffee, bitte.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "A black coffee, please.",
+            "words": []
+          },
+          "tr": {
+            "text": "Sade bir kahve, lütfen.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Einen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)",
+              "tr": "bir (eril ya da nötr belirsiz tanımlık)"
+            }
+          },
+          {
+            "source": {
+              "text": "schwarzen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 15
+            },
+            "lexemeId": "941e7663-4cde-5865-b58b-9f2dcbea9dc4",
+            "glosses": {
+              "en": "black, reflecting little or no light",
+              "tr": "siyah"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 22
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 24,
+              "end": 29
+            },
+            "glosses": {
+              "en": "please; you are welcome / to ask, to beg, to plead, to bid, to request",
+              "tr": "lütfen; rica ederim / rica etmek, istemek"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "e330f2ac-d6bb-5fa5-8f65-e5d9f059cf9d",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Die Lampe steht auf dem Tisch.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The lamp is on the table.",
+            "words": []
+          },
+          "tr": {
+            "text": "Lamba masanın üzerinde.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Lampe",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 9
+            },
+            "lexemeId": "c529a8e3-0d46-5265-84db-4130bdc8f804",
+            "glosses": {
+              "en": "lamp, light",
+              "tr": "lamba"
+            }
+          },
+          {
+            "source": {
+              "text": "steht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 10,
+              "end": 15
+            },
+            "lexemeId": "62085801-5e65-52d8-b29e-7ce0b4fbe52e",
+            "glosses": {
+              "en": "to stand",
+              "tr": "ayakta durmak"
+            }
+          },
+          {
+            "source": {
+              "text": "auf",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 16,
+              "end": 19
+            },
+            "lexemeId": "4b0b47b2-d60d-52c3-811c-1f2de833747b",
+            "glosses": {
+              "en": "on; onto",
+              "tr": "üstünde; üstüne"
+            }
+          },
+          {
+            "source": {
+              "text": "dem",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 23
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Tisch",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 24,
+              "end": 29
+            },
+            "lexemeId": "17ffa9b4-2911-5c20-be4a-6ccf61bc3537",
+            "glosses": {
+              "en": "table ; specific uses include:",
+              "tr": "masa"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cc078b24-dceb-5323-9b54-24f09fbc1443",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Der Kaffee kostet drei Euro. Du kannst mit Karte bezahlen.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The coffee costs three euros. You can pay by card.",
+            "words": []
+          },
+          "tr": {
+            "text": "Kahve üç avro. Kartla ödeyebilirsin.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 10
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          },
+          {
+            "source": {
+              "text": "kostet",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 17
+            },
+            "lexemeId": "1065c06c-f673-50d7-9993-7a64ba0363d0",
+            "glosses": {
+              "en": "to cost",
+              "tr": "(fiyatı) tutmak, -e mal olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "drei",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 18,
+              "end": 22
+            },
+            "lexemeId": "9b3fa4e3-2824-5e3f-9758-6859261ce9aa",
+            "glosses": {
+              "en": "three",
+              "tr": "üç"
+            }
+          },
+          {
+            "source": {
+              "text": "Euro",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 23,
+              "end": 27
+            },
+            "lexemeId": "07fd3508-6c2d-5636-b027-c745b3cf4ba9",
+            "glosses": {
+              "en": "euro",
+              "tr": "avro"
+            }
+          },
+          {
+            "source": {
+              "text": "Du",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 29,
+              "end": 31
+            },
+            "lexemeId": "34d8ffce-6d67-5b16-9e2c-fd6cba862df6",
+            "glosses": {
+              "en": "you (informal singular)",
+              "tr": "sen"
+            }
+          },
+          {
+            "source": {
+              "text": "kannst",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 32,
+              "end": 38
+            },
+            "lexemeId": "82f6b507-4ca8-5c71-8e4a-b05ba78bb39d",
+            "glosses": {
+              "en": "to be able to; can",
+              "tr": "-ebilmek; yapabilmek"
+            }
+          },
+          {
+            "source": {
+              "text": "mit",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 39,
+              "end": 42
+            },
+            "lexemeId": "8e669e92-b3b3-502a-b00c-d7d760acec4f",
+            "glosses": {
+              "en": "with",
+              "tr": "ile"
+            }
+          },
+          {
+            "source": {
+              "text": "Karte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 43,
+              "end": 48
+            },
+            "lexemeId": "eba6436b-4a83-5699-8fdd-1c855b9b980b",
+            "glosses": {
+              "en": "card; map; ticket",
+              "tr": "kart; harita; bilet"
+            }
+          },
+          {
+            "source": {
+              "text": "bezahlen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 49,
+              "end": 57
+            },
+            "lexemeId": "18394da6-90a4-54be-a7d7-5e2e4f2c81b2",
+            "glosses": {
+              "en": "to pay, give money",
+              "tr": "ödemek"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "f6b8adc3-c258-5769-ae77-c763078a8224",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Was kostet der Kaffee?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "How much is the coffee?",
+            "words": []
+          },
+          "tr": {
+            "text": "Kahve ne kadar?",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Was",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "what / something",
+              "tr": "ne / bir şey"
+            }
+          },
+          {
+            "source": {
+              "text": "kostet",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 10
+            },
+            "lexemeId": "1065c06c-f673-50d7-9993-7a64ba0363d0",
+            "glosses": {
+              "en": "to cost",
+              "tr": "(fiyatı) tutmak, -e mal olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 21
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee",
+              "tr": "kahve"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "811ad618-21c8-58a2-971e-fcdc597b50f5",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "listen",
+        "prompt": "Listen. Where is the key?",
+        "hint": "Tisch means table; auf means on.",
+        "options": [
+          "Auf dem Tisch",
+          "Unter dem Stuhl",
+          "Im Schrank"
+        ],
+        "id": "811ad618-21c8-58a2-971e-fcdc597b50f5",
+        "itemId": "4ac643f0-8ff7-54f9-8e2e-069d7a37fe04",
+        "questId": "569c03ef-6ee1-57c2-bd07-83e53a08da17",
+        "level": "A1",
+        "wordIds": [
+          "4b0b47b2-d60d-52c3-811c-1f2de833747b",
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "fe3a2f55-6219-553f-b2e9-a1c58a356d64",
+          "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+          "17ffa9b4-2911-5c20-be4a-6ccf61bc3537"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Listen. Where is the key?",
+            "hint": "Tisch means table; auf means on."
+          },
+          "tr": {
+            "prompt": "Dinle. Anahtar nerede?",
+            "hint": "Tisch “masa”, auf “üstünde” demektir.",
+            "english": "Anahtar masanın üstünde."
+          }
+        },
+        "grading": {
+          "caseSensitive": false
+        },
+        "sentenceId": "083c895a-ff6c-533d-b581-d5e33eaf36f3",
+        "audio": {
+          "path": "/audio/a1-workshop-exercise-1.mp3"
+        }
+      }
+    },
+    {
+      "id": "bc31c0f1-924f-5500-9801-c0cb8d86bf97",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Report: \"When I arrived at the station, the train had already gone.\"",
+        "hint": "In the als clause, ankam goes last. Then comes war.",
+        "tokens": [
+          "Als",
+          "ich",
+          "am",
+          "Bahnhof",
+          "ankam,",
+          "war",
+          "der",
+          "Zug",
+          "schon",
+          "weg."
+        ],
+        "id": "bc31c0f1-924f-5500-9801-c0cb8d86bf97",
+        "itemId": "b2f8a8fa-e32d-51ff-9223-c4a4313b8a39",
+        "questId": "80f18fed-2dd7-583a-8f11-f4bc0b24b434",
+        "level": "B1",
+        "wordIds": [
+          "a1da6257-d775-54bc-b545-540d6d916810",
+          "60ca4c83-d8d9-503e-9d8f-13ac21ece093",
+          "bb287512-842c-5604-ab3e-2b7bf17ab4e3",
+          "f5ea829c-2e7c-50e5-ab74-55922584c492",
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "ae3b2a15-87dc-506e-8dd4-03ecaa93bdf5",
+          "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+          "0ef8955f-b574-5fe7-acac-c3c3a1add8ed",
+          "07178d20-c9e7-5fe2-bbaa-1285c07aeddf"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Report: \"When I arrived at the station, the train had already gone.\"",
+            "hint": "In the als clause, ankam goes last. Then comes war."
+          },
+          "tr": {
+            "prompt": "Bildir: “İstasyona vardığımda tren çoktan gitmişti.”",
+            "hint": "als yan cümlesinde ankam sona gider. Ardından war gelir.",
+            "english": "İstasyona vardığımda tren çoktan gitmişti."
+          }
+        },
+        "grading": {
+          "caseSensitive": true
+        },
+        "sentenceId": "9370d60a-ae51-5548-9144-516e61495a50",
+        "audio": {
+          "path": "/audio/b1-witness-exercise-1.mp3"
+        }
+      }
+    },
+    {
+      "id": "c20ab5d7-069f-53b2-817f-2980eed582f5",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "Tell Emil that you need a lamp.",
+        "hint": "Lampe is feminine: eine Lampe.",
+        "tokens": [
+          "Ich",
+          "brauche",
+          "eine",
+          "Lampe."
+        ],
+        "id": "c20ab5d7-069f-53b2-817f-2980eed582f5",
+        "itemId": "931dae10-3526-577a-a649-2bd4a7c47c37",
+        "questId": "569c03ef-6ee1-57c2-bd07-83e53a08da17",
+        "level": "A1",
+        "wordIds": [
+          "c2e7b73e-dc24-5538-9e9a-0e5b8abd3034",
+          "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "c529a8e3-0d46-5265-84db-4130bdc8f804"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Tell Emil that you need a lamp.",
+            "hint": "Lampe is feminine: eine Lampe.",
+            "explanation": "With a feminine object, eine stays eine."
+          },
+          "tr": {
+            "prompt": "Emil'e bir lambaya ihtiyacın olduğunu söyle.",
+            "hint": "Lampe dişildir: eine Lampe.",
+            "explanation": "Dişil bir nesnede eine değişmeden eine kalır.",
+            "english": "Bir lambaya ihtiyacım var."
+          }
+        },
+        "sentenceId": "6b4ae710-6b01-56db-be52-61b501e6454c",
+        "audio": {
+          "path": "/audio/a1-workshop-exercise-2.mp3"
+        }
+      }
+    },
+    {
+      "id": "6b4ae710-6b01-56db-be52-61b501e6454c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ich brauche eine Lampe.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "I need a lamp.",
+            "words": []
+          },
+          "tr": {
+            "text": "Bir lambaya ihtiyacım var.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ich",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+            "glosses": {
+              "en": "I",
+              "tr": "ben"
+            }
+          },
+          {
+            "source": {
+              "text": "brauche",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 11
+            },
+            "lexemeId": "c2e7b73e-dc24-5538-9e9a-0e5b8abd3034",
+            "glosses": {
+              "en": "to need, to be in need of, to require",
+              "tr": "ihtiyaç duymak, gerek olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "eine",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 16
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)",
+              "tr": "bir (eril ya da nötr belirsiz tanımlık)"
+            }
+          },
+          {
+            "source": {
+              "text": "Lampe",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 17,
+              "end": 22
+            },
+            "lexemeId": "c529a8e3-0d46-5265-84db-4130bdc8f804",
+            "glosses": {
+              "en": "lamp, light",
+              "tr": "lamba"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/a1-workshop-exercise-2.mp3"
+        }
+      }
+    },
+    {
+      "id": "369e7bf5-802e-52fe-80ee-117cbcab76cd",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "listen",
+        "prompt": "Listen to the price. How much is the tea?",
+        "hint": "drei is three.",
+        "options": [
+          "drei Euro",
+          "zwei Euro",
+          "dreizehn Euro"
+        ],
+        "id": "369e7bf5-802e-52fe-80ee-117cbcab76cd",
+        "itemId": "74950dd0-3814-5027-8624-21ecfa4f33c1",
+        "questId": "f462ba4f-4b2a-5d9e-9086-301e58fb322e",
+        "level": "A1",
+        "wordIds": [
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "9b3fa4e3-2824-5e3f-9758-6859261ce9aa",
+          "07fd3508-6c2d-5636-b027-c745b3cf4ba9",
+          "1065c06c-f673-50d7-9993-7a64ba0363d0",
+          "16674c35-78df-59b1-abd5-cd32261d9aca"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Listen to the price. How much is the tea?",
+            "hint": "drei is three.",
+            "explanation": "German uses Euro after a number without adding an s."
+          },
+          "tr": {
+            "prompt": "Fiyatı dinle. Çay kaç para?",
+            "hint": "drei “üç” demektir.",
+            "explanation": "Almancada sayıdan sonra Euro kelimesine -s eklenmez.",
+            "english": "Çay üç avro."
+          }
+        },
+        "sentenceId": "e8bfc4ae-3331-524d-86dd-16dc7a6f7d1c",
+        "audio": {
+          "path": "/audio/a1-cafe-exercise-4.mp3"
+        }
+      }
+    },
+    {
+      "id": "e8bfc4ae-3331-524d-86dd-16dc7a6f7d1c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Der Tee kostet drei Euro.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The tea costs three euros.",
+            "words": []
+          },
+          "tr": {
+            "text": "Çay üç avro.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Tee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 7
+            },
+            "lexemeId": "16674c35-78df-59b1-abd5-cd32261d9aca",
+            "glosses": {
+              "en": "tea",
+              "tr": "çay"
+            }
+          },
+          {
+            "source": {
+              "text": "kostet",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 8,
+              "end": 14
+            },
+            "lexemeId": "1065c06c-f673-50d7-9993-7a64ba0363d0",
+            "glosses": {
+              "en": "to cost",
+              "tr": "(fiyatı) tutmak, -e mal olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "drei",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 19
+            },
+            "lexemeId": "9b3fa4e3-2824-5e3f-9758-6859261ce9aa",
+            "glosses": {
+              "en": "three",
+              "tr": "üç"
+            }
+          },
+          {
+            "source": {
+              "text": "Euro",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 24
+            },
+            "lexemeId": "07fd3508-6c2d-5636-b027-c745b3cf4ba9",
+            "glosses": {
+              "en": "euro",
+              "tr": "avro"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/a1-cafe-exercise-4.mp3"
+        }
+      }
+    },
+    {
+      "id": "392a4cd0-491c-588e-b77e-cbadb4aab65f",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "type",
+        "caseSensitive": true,
+        "prompt": "Write a cautious response: \"I am not sure whether that is true.\"",
+        "hint": "Use Ich bin mir nicht sicher, ob …",
+        "id": "392a4cd0-491c-588e-b77e-cbadb4aab65f",
+        "itemId": "64ba0d23-aad7-5098-bc99-1f9e3948695c",
+        "questId": "80f18fed-2dd7-583a-8f11-f4bc0b24b434",
+        "level": "B1",
+        "wordIds": [
+          "4161c961-950c-5ce7-bb6b-75ef892f7cce",
+          "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+          "4bcfe885-010c-55ad-a5a7-fdad64259660",
+          "47f02cbb-259d-55ab-89cf-05cb9fd61df8",
+          "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+          "12e11638-1382-5bad-8829-6d405fc2e4c1",
+          "b80271b3-06c3-5862-924f-796d3937a75d"
+        ],
+        "support": {
+          "en": {
+            "prompt": "Write a cautious response: \"I am not sure whether that is true.\"",
+            "hint": "Use Ich bin mir nicht sicher, ob …",
+            "explanation": "ob introduces an indirect yes/no question; stimmt goes at the end."
+          },
+          "tr": {
+            "prompt": "Temkinli bir yanıt yaz: “Bunun doğru olup olmadığından emin değilim.”",
+            "hint": "Ich bin mir nicht sicher, ob … kalıbını kullan.",
+            "explanation": "ob, dolaylı bir evet/hayır sorusu başlatır; stimmt sona gider.",
+            "english": "Bunun doğru olup olmadığından emin değilim."
+          }
+        },
+        "sentenceId": "e15b7e37-b16c-57f2-81e9-c7b87292273f",
+        "audio": {
+          "path": "/audio/b1-witness-exercise-3.mp3"
+        }
+      }
+    },
+    {
+      "id": "e15b7e37-b16c-57f2-81e9-c7b87292273f",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ich bin mir nicht sicher, ob das stimmt.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "I am not sure whether that is true.",
+            "words": []
+          },
+          "tr": {
+            "text": "Bunun doğru olup olmadığından emin değilim.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ich",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+            "glosses": {
+              "en": "I",
+              "tr": "ben"
+            }
+          },
+          {
+            "source": {
+              "text": "bin",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 7
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be",
+              "tr": "olmak"
+            }
+          },
+          {
+            "source": {
+              "text": "mir",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 8,
+              "end": 11
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "nicht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 17
+            },
+            "lexemeId": "4bcfe885-010c-55ad-a5a7-fdad64259660",
+            "glosses": {
+              "en": "not",
+              "tr": "değil; -me/-ma"
+            }
+          },
+          {
+            "source": {
+              "text": "sicher",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 18,
+              "end": 24
+            },
+            "glosses": {
+              "en": "safe; certain / to secure",
+              "tr": "güvenli; kesin; elbette / güvenceye almak; emniyete almak"
+            }
+          },
+          {
+            "source": {
+              "text": "ob",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 26,
+              "end": 28
+            },
+            "lexemeId": "47f02cbb-259d-55ab-89cf-05cb9fd61df8",
+            "glosses": {
+              "en": "whether; if",
+              "tr": "-ip -mediği; acaba"
+            }
+          },
+          {
+            "source": {
+              "text": "das",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 29,
+              "end": 32
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "stimmt",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 33,
+              "end": 39
+            },
+            "lexemeId": "b80271b3-06c3-5862-924f-796d3937a75d",
+            "glosses": {
+              "en": "to be correct; vote; tune",
+              "tr": "doğru olmak; oy vermek; akort etmek"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/b1-witness-exercise-3.mp3"
+        }
+      }
+    },
+    {
+      "id": "c6aaebc0-4eab-5f15-8484-4ab5e74f1e3a",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "exercise",
+      "version": 1,
+      "body": {
+        "mode": "sentence",
+        "caseSensitive": true,
+        "prompt": "State your opinion that the route should reopen.",
+        "hint": "Begin Meiner Meinung nach; sollten is the finite verb.",
+        "tokens": [
+          "Meiner",
+          "Meinung",
+          "nach",
+          "sollten",
+          "wir",
+          "die",
+          "Strecke",
+          "wieder",
+          "öffnen."
+        ],
+        "id": "c6aaebc0-4eab-5f15-8484-4ab5e74f1e3a",
+        "itemId": "9d1020d4-10bb-52ee-a794-6d8e5caf843f",
+        "questId": "2cb1389b-7c64-5197-9ad4-50adc77b82aa",
+        "level": "B1",
+        "wordIds": [
+          "5204a760-70aa-59be-b7c0-2dcea65642e1",
+          "ddfa2d80-fad2-5160-b434-c3987a89813b",
+          "982f7f1f-ff2f-513f-bd04-23143e11d1d4",
+          "cca6d8ac-7b12-51e9-ade7-a2542fd967d4",
+          "a414916a-db03-506b-81e5-d7e61db0a5a1",
+          "e562d778-da1c-53e1-9087-f539cd86d6b9",
+          "c02a70be-397d-51ff-a393-9e1d3fedd1e0",
+          "d62af7b6-ccf7-5e62-8c3e-a716307f1154",
+          "435eb77e-f741-5e0b-964e-70b5f7f67c32"
+        ],
+        "support": {
+          "en": {
+            "prompt": "State your opinion that the route should reopen.",
+            "hint": "Begin Meiner Meinung nach; sollten is the finite verb.",
+            "explanation": "Meiner Meinung nach is a common way to introduce an opinion."
+          },
+          "tr": {
+            "prompt": "Güzergâhın yeniden açılması gerektiği yönündeki görüşünü söyle.",
+            "hint": "Meiner Meinung nach ile başla; çekimli fiil sollten'dir.",
+            "explanation": "Meiner Meinung nach, bir görüşü dile getirmenin yaygın bir yoludur.",
+            "english": "Bence güzergâhı yeniden açmalıyız."
+          }
+        },
+        "sentenceId": "14c4d219-a262-5042-a584-985c450428a7",
+        "audio": {
+          "path": "/audio/b1-council-exercise-1.mp3"
+        }
+      }
+    },
+    {
+      "id": "14c4d219-a262-5042-a584-985c450428a7",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Meiner Meinung nach sollten wir die Strecke wieder öffnen.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "In my opinion, we should reopen the route.",
+            "words": []
+          },
+          "tr": {
+            "text": "Bence güzergâhı yeniden açmalıyız.",
+            "words": []
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Meiner",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 6
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / my / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / benim / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "Meinung",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 7,
+              "end": 14
+            },
+            "lexemeId": "982f7f1f-ff2f-513f-bd04-23143e11d1d4",
+            "glosses": {
+              "en": "opinion",
+              "tr": "fikir; görüş"
+            }
+          },
+          {
+            "source": {
+              "text": "nach",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 15,
+              "end": 19
+            },
+            "lexemeId": "cca6d8ac-7b12-51e9-ade7-a2542fd967d4",
+            "glosses": {
+              "en": "after; to (a destination)",
+              "tr": "sonra; -e/-a (bir yere)"
+            }
+          },
+          {
+            "source": {
+              "text": "sollten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 20,
+              "end": 27
+            },
+            "lexemeId": "e562d778-da1c-53e1-9087-f539cd86d6b9",
+            "glosses": {
+              "en": "to be supposed to; should",
+              "tr": "-meli/-malı; gerekmek"
+            }
+          },
+          {
+            "source": {
+              "text": "wir",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 28,
+              "end": 31
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular)",
+              "tr": "ben / o (dişil); onlar / o (nötr) / biz / o (eril) / siz (samimi, çoğul); onun (dişil) / sen"
+            }
+          },
+          {
+            "source": {
+              "text": "die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 32,
+              "end": 35
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)",
+              "tr": "belirli tanımlık (eril) / belirli tanımlık (nötr)"
+            }
+          },
+          {
+            "source": {
+              "text": "Strecke",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 36,
+              "end": 43
+            },
+            "lexemeId": "c02a70be-397d-51ff-a393-9e1d3fedd1e0",
+            "glosses": {
+              "en": "stretch",
+              "tr": "hat; mesafe"
+            }
+          },
+          {
+            "source": {
+              "text": "wieder",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 44,
+              "end": 50
+            },
+            "lexemeId": "d62af7b6-ccf7-5e62-8c3e-a716307f1154",
+            "glosses": {
+              "en": "again",
+              "tr": "yine, tekrar"
+            }
+          },
+          {
+            "source": {
+              "text": "öffnen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 51,
+              "end": 57
+            },
+            "lexemeId": "a414916a-db03-506b-81e5-d7e61db0a5a1",
+            "glosses": {
+              "en": "to open",
+              "tr": "açmak"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/b1-council-exercise-1.mp3"
+        }
       }
     }
   ],

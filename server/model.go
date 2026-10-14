@@ -170,6 +170,7 @@ type Account struct {
 type CourseState struct {
 	Progress              Progress             `json:"progress"`
 	Player                Player               `json:"player"`
+	LocationFrame         WorldCoordinateFrame `json:"locationFrame,omitempty"`
 	StorySaves            map[string]StorySave `json:"storySaves,omitempty"`
 	RewardedQuestIDs      []string             `json:"rewardedQuestIds,omitempty"`
 	RewardedExpeditionIDs []string             `json:"rewardedExpeditionIds,omitempty"`

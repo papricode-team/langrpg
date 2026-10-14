@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && node ../scripts/check-ui-templates.mjs",
+    "ui:check": "node ../scripts/check-ui.mjs",
     "test": "vitest run",
     "lint": "eslint src vite.config.ts"
   },
@@ -20,6 +21,7 @@
     "@types/node": "^26.6.5",
     "eslint": "^10.12.0",
     "happy-dom": "^20.14.6",
+    "playwright": "^1.64.0",
     "sharp": "^0.35.5",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.71.1",

@@ -157,7 +157,7 @@ describe('English course proof flow', () => {
     const input = f.api.request.mock.calls[0][1];
     expect(input).toMatchObject({ exerciseId, itemId: 'ticket-item', answer: 'ticket', mode: 'production', hinted: false });
     expect(input).not.toHaveProperty('questId'); expect(input).not.toHaveProperty('sceneAttempt');
-    await vi.waitFor(() => expect(root.querySelector('.course-word-list small')?.textContent).toBe('1'));
+    await vi.waitFor(() => expect(root.querySelector('.course-word-list .caption')?.textContent).toBe('1'));
     f.click('[data-action="next"]');
     await vi.waitFor(() => expect(root.querySelector('[name="answer"]')).toBeNull());
     expect(root.querySelector('.course-current-line')?.textContent).toBe(line.german);

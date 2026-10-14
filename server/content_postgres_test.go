@@ -3,19 +3,56 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"lernen01/server/internal/contentstore"
+	neturl "net/url"
 	"os"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 )
+
+func contentTestSchemaURL(t *testing.T, databaseURL string) string {
+	t.Helper()
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	pool, err := pgxpool.New(ctx, databaseURL)
+	if err != nil {
+		t.Fatal(err)
+	}
+	schema := fmt.Sprintf("content_upgrade_%d", time.Now().UnixNano())
+	if _, err = pool.Exec(ctx, "CREATE SCHEMA "+schema); err != nil {
+		pool.Close()
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+		defer cancel()
+		_, _ = pool.Exec(ctx, "DROP SCHEMA "+schema+" CASCADE")
+		pool.Close()
+	})
+	if strings.Contains(databaseURL, "://") {
+		parsed, err := neturl.Parse(databaseURL)
+		if err != nil {
+			t.Fatal(err)
+		}
+		query := parsed.Query()
+		query.Set("search_path", schema)
+		parsed.RawQuery = query.Encode()
+		return parsed.String()
+	}
+	return databaseURL + " search_path=" + schema
+}
 
 func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	url := os.Getenv("TEST_DATABASE_URL")
 	if url == "" {
 		t.Skip("set TEST_DATABASE_URL to a disposable PostgreSQL database")
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	url = contentTestSchemaURL(t, url)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 	store, err := NewPGStore(ctx, url)
 	if err != nil {
@@ -27,6 +64,18 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	// Exercise the exact legacy table shape published before multi-course IDs.
+	for kind, table := range contentstore.Tables {
+		if kind == "sentence" {
+			continue
+		}
+		if _, err = store.pool.Exec(ctx, "CREATE TABLE "+table+"(id UUID PRIMARY KEY,slug TEXT NOT NULL UNIQUE,version INT NOT NULL,body JSONB NOT NULL)"); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err = store.pool.Exec(ctx, `INSERT INTO content_exercises(id,slug,version,body) VALUES($1,'a1-arrival-exercise-1',1,'{"answer":"published legacy row"}')`, bundle.PublishedIDs["exercises:a1-arrival-exercise-1"]); err != nil {
+		t.Fatal(err)
+	}
 	if err = contentstore.Import(ctx, store.pool, bundle); err != nil {
 		t.Fatal(err)
 	}
@@ -34,7 +83,7 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(loaded.Records) != len(bundle.Records) || !reflect.DeepEqual(loaded.IDs, bundle.IDs) || len(loaded.Courses) != len(bundle.Courses) {
+	if len(loaded.Records) != len(bundle.Records) || !reflect.DeepEqual(loaded.IDs, bundle.IDs) || !reflect.DeepEqual(loaded.PublishedIDs, bundle.PublishedIDs) || len(loaded.Courses) != len(bundle.Courses) {
 		t.Fatal("PostgreSQL catalog differs from the imported bundle")
 	}
 	for _, source := range bundle.Records {
@@ -74,16 +123,17 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	hash := tokenHash(token)
 	// Seed the pre-UUID representation, including an immutable graded receipt.
 	exercise := app.curriculum.Exercises["a1-arrival-exercise-1"]
-	input := AttemptInput{ID: "postgres-legacy-content-proof", ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: exercise.Mode, Answer: exercise.Answer}
+	input := AttemptInput{ID: "postgres-legacy-content-proof", ExerciseID: bundle.PublishedIDs["exercises:"+exercise.ID], ItemID: bundle.PublishedIDs["items:"+exercise.ItemID], Mode: exercise.Mode, Answer: exercise.Answer}
 	requestBody, _ := json.Marshal(input)
 	_, err = store.UpdateAccount(ctx, hash, func(account *Account) error {
 		account.ActiveCourseID = ""
 		account.CourseStates = nil
-		account.Progress.CompletedQuestIDs = []string{"a1-arrival"}
-		account.Progress.Words["ich-pron"] = WordMemory{WordID: "ich-pron", Exposures: 7}
-		account.Progress.Story.Nodes["a1-arrival"] = "complete"
-		account.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: account.Progress.Story, CompletedQuestIDs: []string{"a1-arrival"}}}
-		account.RewardedQuestIDs = []string{"a1-arrival"}
+		oldQuest, oldWord := bundle.PublishedIDs["quests:a1-arrival"], bundle.PublishedIDs["lexemes:ich-pron"]
+		account.Progress.CompletedQuestIDs = []string{oldQuest}
+		account.Progress.Words[oldWord] = WordMemory{WordID: oldWord, Exposures: 7}
+		account.Progress.Story.Nodes[oldQuest] = bundle.PublishedIDs["nodes:a1-arrival:complete"]
+		account.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: account.Progress.Story, CompletedQuestIDs: []string{oldQuest}}}
+		account.RewardedQuestIDs = []string{oldQuest}
 		return nil
 	})
 	if err != nil {
@@ -96,6 +146,13 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+	legacyAccount, err := app.store.Get(ctx, hash)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if eligible, err := app.hasRecordedExercise(ctx, hash, legacyAccount, exercise.ID); err != nil || !eligible {
+		t.Fatalf("published PG receipt lost recovery eligibility before migration: %v", err)
 	}
 	for range 2 {
 		if err = app.canonical.Migrate(ctx); err != nil {

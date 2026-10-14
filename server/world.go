@@ -6,11 +6,8 @@ import (
 	"math"
 	"net/http"
 	"sort"
-	"strings"
 	"sync"
 	"time"
-	"unicode"
-	"unicode/utf8"
 
 	"github.com/coder/websocket"
 )
@@ -40,20 +37,10 @@ type worldMemory struct {
 	interiorFrame    WorldCoordinateFrame
 	positions        map[string]MapSpawn
 	positionFrames   map[string]WorldCoordinateFrame
-	chatTimes        []time.Time
 	joinTimes        []time.Time
 	lastSeen         time.Time
 	lastMove         time.Time
 	movementCredit   float64
-}
-
-type ChatMessage struct {
-	MapID    string    `json:"mapId"`
-	ID       string    `json:"id"`
-	PlayerID string    `json:"playerId"`
-	Name     string    `json:"name"`
-	Text     string    `json:"text"`
-	At       time.Time `json:"at"`
 }
 
 type worldClient struct {
@@ -71,7 +58,6 @@ type worldClient struct {
 type World struct {
 	mu             sync.Mutex
 	clients        map[string]*worldClient
-	messages       map[string][]ChatMessage
 	memories       map[string]*worldMemory
 	cancel         context.CancelFunc
 	done           chan struct{}
@@ -92,12 +78,9 @@ func NewWorld(maxPlayers int, origins []string) *World {
 
 func newWorldWithIdentity(maxPlayers int, origins []string, identity WorldIdentity) *World {
 	ctx, cancel := context.WithCancel(context.Background())
-	w := &World{clients: map[string]*worldClient{}, messages: map[string][]ChatMessage{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]WorldMapDefinition, len(compiledWorldMaps.Maps)), contentVersion: compiledWorldMaps.ContentVersion}
+	w := &World{clients: map[string]*worldClient{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]WorldMapDefinition, len(compiledWorldMaps.Maps)), contentVersion: compiledWorldMaps.ContentVersion}
 	for id, definition := range compiledWorldMaps.Maps {
 		w.maps[id] = definition
-	}
-	for _, mapID := range mapIDs {
-		w.messages[mapID] = []ChatMessage{}
 	}
 	go w.run(ctx)
 	return w
@@ -336,7 +319,6 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			Type              string   `json:"type"`
 			X                 *float64 `json:"x"`
 			Y                 *float64 `json:"y"`
-			Message           string   `json:"message"`
 			MapID             string   `json:"mapId"`
 			InteriorID        string   `json:"interiorId"`
 			CoordinateVersion *int     `json:"coordinateVersion"`
@@ -360,10 +342,6 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			}
 		case "joinMap":
 			if err := w.joinMap(client, message.MapID, now); err != "" {
-				w.clientError(client, err)
-			}
-		case "chat":
-			if err := w.chatInMap(client, message.MapID, message.Message, now); err != "" {
 				w.clientError(client, err)
 			}
 		default:
@@ -478,53 +456,6 @@ func (w *World) moveInLocationVersioned(client *worldClient, mapID, interiorID s
 	return ""
 }
 
-func (w *World) chat(client *worldClient, text string, now time.Time) string {
-	return w.chatInMap(client, "", text, now)
-}
-
-func (w *World) chatInMap(client *worldClient, mapID string, text string, now time.Time) string {
-	text = strings.TrimSpace(text)
-	if text == "" || utf8.RuneCountInString(text) > 280 || len(text) > 1120 {
-		return "chat messages must contain 1–280 characters"
-	}
-	for _, r := range text {
-		if unicode.IsControl(r) {
-			return "chat messages cannot contain control characters"
-		}
-	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if w.clients[client.player.ID] != client {
-		return "session was replaced"
-	}
-	if mapID != "" && mapID != client.player.MapID {
-		return "chat belongs to another map"
-	}
-	fresh := client.memory.chatTimes[:0]
-	for _, at := range client.memory.chatTimes {
-		if now.Sub(at) < 10*time.Second {
-			fresh = append(fresh, at)
-		}
-	}
-	client.memory.chatTimes = fresh
-	if len(fresh) >= 3 {
-		return "please wait before sending another message"
-	}
-	id, err := randomID(12)
-	if err != nil {
-		return "could not send message"
-	}
-	message := ChatMessage{MapID: client.player.MapID, ID: id, PlayerID: client.player.ID, Name: client.player.Name, Text: text, At: now.UTC()}
-	client.memory.chatTimes = append(client.memory.chatTimes, now)
-	zone := client.player.MapID
-	w.messages[zone] = append(w.messages[zone], message)
-	if len(w.messages[zone]) > 50 {
-		w.messages[zone] = w.messages[zone][len(w.messages[zone])-50:]
-	}
-	w.broadcastLocked(zone, map[string]any{"type": "chat", "mapId": zone, "message": message})
-	return ""
-}
-
 func (w *World) mapCountLocked(mapID string) int {
 	count := 0
 	for _, client := range w.clients {
@@ -541,7 +472,7 @@ func (w *World) broadcastPlayersLocked(mapID string) {
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
 	mapID := client.player.MapID
-	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "messages": w.messages[mapID], "clock": w.Clock(), "scene": w.sceneMetadata(mapID, client.player.InteriorID)})
+	message, _ := json.Marshal(map[string]any{"type": kind, "selfId": client.player.ID, "mapId": mapID, "interiorId": client.player.InteriorID, "spawn": MapSpawn{X: client.player.X, Y: client.player.Y}, "players": w.playersLocked(mapID), "clock": w.Clock(), "scene": w.sceneMetadata(mapID, client.player.InteriorID)})
 	w.enqueueLocked(client, message)
 }
 
@@ -697,22 +628,53 @@ func (w *World) ResetPlayer(playerID string) {
 // SavedPlayer takes a snapshot at course switches and periodic access renewals.
 // Course snapshots preserve the current town/interior and actual world position.
 func (w *World) SavedPlayer(fallback Player) Player {
+	player, _ := w.SavedCourseLocation(fallback, WorldCoordinateFrame{})
+	return player
+}
+
+func (w *World) SavedCourseLocation(fallback Player, source WorldCoordinateFrame) (Player, WorldCoordinateFrame) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if client := w.clients[fallback.ID]; client != nil {
-		return client.player
+		return client.player, w.locationDefinition(client.player.MapID, client.player.InteriorID).WorldCoordinateFrame
 	}
 	if memory := w.memories[fallback.ID]; memory != nil {
 		fallback.MapID = memory.mapID
 		fallback.InteriorID = memory.interiorID
 		position := memory.restorePosition(memory.mapID, w.mapDefinition(memory.mapID))
 		if memory.interiorID != "" {
-			position = memory.interiorPosition
+			position = restoreWorldPosition(memory.interiorPosition, memory.interiorFrame, w.locationDefinition(memory.mapID, memory.interiorID))
 		}
 		fallback.X = position.X
 		fallback.Y = position.Y
+	} else if source.valid() {
+		position := restoreWorldPosition(MapSpawn{fallback.X, fallback.Y}, source, w.locationDefinition(fallback.MapID, fallback.InteriorID))
+		fallback.X, fallback.Y = position.X, position.Y
 	}
-	return fallback
+	return fallback, w.locationDefinition(fallback.MapID, fallback.InteriorID).WorldCoordinateFrame
+}
+
+// Restoring an inactive course must ignore the currently active course's memory.
+func (w *World) RestoreSavedCourseLocation(player Player, source WorldCoordinateFrame) (Player, WorldCoordinateFrame) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if !validMapID(player.MapID) {
+		player.MapID, player.InteriorID = DefaultMapID, ""
+		spawn := w.mapDefinition(DefaultMapID).Spawn
+		player.X, player.Y = spawn.X, spawn.Y
+		return player, w.mapDefinition(DefaultMapID).WorldCoordinateFrame
+	}
+	definition := w.locationDefinition(player.MapID, player.InteriorID)
+	if !source.valid() {
+		if player.InteriorID != "" {
+			source = legacyCoordinateFrame()
+		} else {
+			source = compiledWorldMaps.Maps[player.MapID].WorldCoordinateFrame
+		}
+	}
+	position := restoreWorldPosition(MapSpawn{player.X, player.Y}, source, definition)
+	player.X, player.Y = position.X, position.Y
+	return player, definition.WorldCoordinateFrame
 }
 
 func (w *World) RestoreCoursePlayer(player Player, generation int64) {

@@ -42,12 +42,13 @@ type Record struct {
 	Body     json.RawMessage `json:"body"`
 }
 type Bundle struct {
-	Version  int               `json:"version"`
-	Courses  []Course          `json:"courses"`
-	Records  []Record          `json:"records"`
-	IDs      map[string]string `json:"ids"`
-	ByID     map[string]Record `json:"-"`
-	ByCourse map[string]Course `json:"-"`
+	Version      int               `json:"version"`
+	Courses      []Course          `json:"courses"`
+	Records      []Record          `json:"records"`
+	IDs          map[string]string `json:"ids"`
+	PublishedIDs map[string]string `json:"publishedIds,omitempty"`
+	ByID         map[string]Record `json:"-"`
+	ByCourse     map[string]Course `json:"-"`
 }
 
 // Private manifests share the same catalog lifecycle, but are never exposed by
@@ -117,6 +118,11 @@ func (b *Bundle) Validate() error {
 			return fmt.Errorf("invalid stable identifier %q", key)
 		}
 	}
+	for key, id := range b.PublishedIDs {
+		if key == "" || !UUID.MatchString(id) {
+			return fmt.Errorf("invalid published identifier %q", key)
+		}
+	}
 	return nil
 }
 func (b *Bundle) Private(courseID, kind string) (json.RawMessage, bool) {
@@ -130,13 +136,16 @@ func (b *Bundle) Private(courseID, kind string) (json.RawMessage, bool) {
 
 func EnsureSchema(ctx context.Context, pool *pgxpool.Pool) error {
 	_, err := pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS content_courses(id UUID PRIMARY KEY,slug TEXT NOT NULL UNIQUE,body JSONB NOT NULL);
-	CREATE TABLE IF NOT EXISTS content_metadata(id TEXT PRIMARY KEY CHECK(id='main'),version INTEGER NOT NULL,ids JSONB NOT NULL);
+	CREATE TABLE IF NOT EXISTS content_metadata(id TEXT PRIMARY KEY CHECK(id='main'),version INTEGER NOT NULL,ids JSONB NOT NULL,published_ids JSONB NOT NULL DEFAULT '{}');
+	ALTER TABLE content_metadata ADD COLUMN IF NOT EXISTS published_ids JSONB NOT NULL DEFAULT '{}';
 	CREATE TABLE IF NOT EXISTS content_manifests(id UUID PRIMARY KEY,course_id UUID NOT NULL REFERENCES content_courses(id),slug TEXT NOT NULL,kind TEXT NOT NULL,version INTEGER NOT NULL,body JSONB NOT NULL,UNIQUE(course_id,kind,slug));`)
 	if err != nil {
 		return err
 	}
 	for _, table := range Tables {
-		_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS `+table+`(id UUID PRIMARY KEY,course_id UUID NOT NULL REFERENCES content_courses(id),slug TEXT NOT NULL,version INTEGER NOT NULL CHECK(version>0),body JSONB NOT NULL,UNIQUE(course_id,slug)); CREATE INDEX IF NOT EXISTS `+table+`_course ON `+table+`(course_id);`)
+		_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS `+table+`(id UUID PRIMARY KEY,course_id UUID NOT NULL REFERENCES content_courses(id),slug TEXT NOT NULL,version INTEGER NOT NULL CHECK(version>0),body JSONB NOT NULL,UNIQUE(course_id,slug));
+		ALTER TABLE `+table+` ADD COLUMN IF NOT EXISTS course_id UUID REFERENCES content_courses(id);
+		CREATE INDEX IF NOT EXISTS `+table+`_course ON `+table+`(course_id);`)
 		if err != nil {
 			return err
 		}
@@ -158,6 +167,16 @@ func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
 		return err
 	}
 	defer tx.Rollback(ctx)
+	// The first published catalog used these table names without course_id and
+	// assigned different UUIDs. Replace its rows atomically; account references
+	// remain recoverable through the published identifier map.
+	for _, table := range tableNames() {
+		if _, err = tx.Exec(ctx, `DELETE FROM `+table+` WHERE course_id IS NULL;
+		ALTER TABLE `+table+` DROP CONSTRAINT IF EXISTS `+table+`_slug_key;
+		CREATE UNIQUE INDEX IF NOT EXISTS `+table+`_course_id_slug_key ON `+table+`(course_id,slug);`); err != nil {
+			return err
+		}
+	}
 	for _, c := range b.Courses {
 		body, _ := json.Marshal(c)
 		if _, err = tx.Exec(ctx, `INSERT INTO content_courses(id,slug,body) VALUES($1,$2,$3) ON CONFLICT(id) DO UPDATE SET slug=EXCLUDED.slug,body=EXCLUDED.body`, c.ID, c.Slug, body); err != nil {
@@ -188,6 +207,9 @@ func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
 		if _, err = tx.Exec(ctx, `DELETE FROM `+table+` WHERE NOT(id=ANY($1::uuid[]))`, ids); err != nil {
 			return err
 		}
+		if _, err = tx.Exec(ctx, `ALTER TABLE `+table+` ALTER COLUMN course_id SET NOT NULL`); err != nil {
+			return err
+		}
 	}
 	var courseIDs []string
 	for _, course := range b.Courses {
@@ -197,7 +219,11 @@ func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
 		return err
 	}
 	ids, _ := json.Marshal(b.IDs)
-	if _, err = tx.Exec(ctx, `INSERT INTO content_metadata(id,version,ids) VALUES('main',$1,$2) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,ids=EXCLUDED.ids`, b.Version, ids); err != nil {
+	published, _ := json.Marshal(b.PublishedIDs)
+	if b.PublishedIDs == nil {
+		published = []byte("{}")
+	}
+	if _, err = tx.Exec(ctx, `INSERT INTO content_metadata(id,version,ids,published_ids) VALUES('main',$1,$2,$3) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,ids=EXCLUDED.ids,published_ids=EXCLUDED.published_ids`, b.Version, ids, published); err != nil {
 		return err
 	}
 	return tx.Commit(ctx)
@@ -212,11 +238,14 @@ func tableNames() []string {
 }
 func LoadPostgres(ctx context.Context, pool *pgxpool.Pool) (*Bundle, error) {
 	var b Bundle
-	var ids []byte
-	if err := pool.QueryRow(ctx, `SELECT version,ids FROM content_metadata WHERE id='main'`).Scan(&b.Version, &ids); err != nil {
+	var ids, published []byte
+	if err := pool.QueryRow(ctx, `SELECT version,ids,COALESCE(to_jsonb(m)->'published_ids','{}'::jsonb) FROM content_metadata m WHERE id='main'`).Scan(&b.Version, &ids, &published); err != nil {
 		return nil, fmt.Errorf("content is not imported: %w", err)
 	}
 	if err := json.Unmarshal(ids, &b.IDs); err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(published, &b.PublishedIDs); err != nil {
 		return nil, err
 	}
 	rows, err := pool.Query(ctx, `SELECT body FROM content_courses ORDER BY slug`)

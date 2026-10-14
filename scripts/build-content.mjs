@@ -12,10 +12,16 @@ export function buildContent({ directory = root } = {}) {
   if (!source) throw new Error('content/source.json is missing; import the legacy content first.');
   const proof = json(resolve(directory,'content/english-proof.json'));
   const ids = json(resolve(directory,'content_ids.json'), {});
+  const publishedIds = json(resolve(directory,'content/published-content-ids.json'), {});
   const authored = json(resolve(directory,'content/word-maps.json'), {});
   const fixtures = json(resolve(directory,'content/authored-maps.json'), []);
   const records = [], byId = new Map();
   const id = (kind, slug) => stableId(`${kind}:${slug}`, ids);
+  const publishedKinds={quests:'quest',exercises:'exercise',items:'item',lexemes:'lexeme',units:'unit',nodes:'node',choices:'choice',expeditions:'expedition',minigames:'minigame'};
+  for(const key of Object.keys(publishedIds)) {
+    const split=key.indexOf(':'),kind=publishedKinds[key.slice(0,split)],slug=key.slice(split+1);
+    if(kind&&slug)id(kind,slug);
+  }
   const germanId = id('course','german'), englishId = id('course','english');
   const german = { id:germanId,slug:'german',target:'de',supportLanguages:['en','tr'],title:'German · Lantern Atlas',grading:{keyboardSubstitutions:{'ä':'ae','ö':'oe','ü':'ue','Ä':'Ae','Ö':'Oe','Ü':'Ue','ß':'ss','ẞ':'SS'},meaningfulCapitals:['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres'],ignoreTrailing:'.!?',mechanicalTypos:true,caseSensitive:false},voice:'de-DE' };
   const english = { id:englishId,...proof.course };
@@ -55,7 +61,7 @@ export function buildContent({ directory = root } = {}) {
     if (existing) { for(const value of owners) if(!existing.body.owners.some(old=>JSON.stringify(old)===JSON.stringify(value)))existing.body.owners.push(value); return key; }
     const text = pair.text ?? pair.german;
     let translations = pair.translations ? structuredClone(pair.translations) : { en:{text:pair.english ?? pair.translation ?? '',words:[]} };
-    if (course.target === 'de' && trBySentence.has(text)) translations.tr = {text:trBySentence.get(text),words:[]};
+    if (course.target === 'de' && (pair.turkish || trBySentence.has(text))) translations.tr = {text:pair.turkish??trBySentence.get(text),words:[]};
     const rawWords = sourceTokens(text), words = [];
     const fixture = fixtures.find(item=>item.text === text && Object.entries(item.translations).every(([lang,value])=>translations[lang]?.text===value.text));
     if(authored[key] && authored[key].sourceText!==text)throw new Error(`${slug}: source text changed after alignment authoring`);
@@ -104,7 +110,7 @@ export function buildContent({ directory = root } = {}) {
     if (Array.isArray(value)) return value.map((item,index)=>refs(item,`${path}:${item?.id ?? index}`,owners,course));
     if (!value || typeof value!=='object') return value;
     if (typeof value.german==='string') {
-      const {german:_,english:__,translation:___,...rest}=value;
+      const {german:_,english:__,translation:___,turkish:____,...rest}=value;
       const meaning=value.english??value.translation??value.hint??lexicalForms.get(value.german)?.[0]?.english;
       return {...refs(rest,path,owners,course),sentenceId:sentence(path,{...value,...(meaning?{english:meaning}:{})},owners,course)};
     }
@@ -132,7 +138,8 @@ export function buildContent({ directory = root } = {}) {
   const exerciseRecord = (exercise, binding) => {
     const {german:text,english,answer,acceptedAnswers,explanation,...rest}=exercise;
     const tr = overlay.course.exercises[exercise.id]?.tr;
-    const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(exercise.wordIds),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
+    const contextWords=exercise.wordIds??source.legacyServer.course.contextWordIds?.[exercise.id];
+    const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(contextWords),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
     if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);const audio=byId.get(body.sentenceId).body.audio;if(audio)body.audio=audio;}
     add('exercise',exercise.id,body);
   };
@@ -181,6 +188,20 @@ export function buildContent({ directory = root } = {}) {
   }
   const interiorData=source.interiors.map(room=>({...room,objects:room.objects.map(object=>({...object,exerciseIds:object.exerciseIds.map(value=>id('exercise',value)),vocabulary:object.vocabulary.map((word,index)=>{const surface=`${word.article} ${word.lemma}`,{english,...rest}=word;return {...rest,sentenceId:sentence(`interior:${object.id}:${index}`,{german:surface,english},[{kind:'interior',id:room.id}])};})}))}));
   for(const room of interiorData)context(`interior:${room.id}`,'interior',room,[{kind:'interior',id:room.id,level:'A1'}]);
+  for(const conversation of source.interiorConversations??[]) {
+    const {nodes,...metadata}=conversation,roomId=conversation.objectId.split(':')[1];
+    const nodeID=stage=>id('node',`interior:${conversation.objectId}:${stage}`),startNodeId=nodeID(conversation.start);
+    for(const [stage,node]of Object.entries(nodes)) {
+      const nodeId=nodeID(stage),publicNode={...node,id:nodeId,choices:node.choices.map(choice=>({...choice,id:id('choice',`interior:${conversation.objectId}:${stage}:${choice.id}`),next:nodeID(choice.next)}))};
+      context(`interior-conversation:${conversation.objectId}:${stage}`,'interiorConversation',{...metadata,start:startNodeId,nodes:{[nodeId]:publicNode}},[{kind:'interior',id:roomId,level:'A1'}],{worldId:conversation.objectId,nodeId,startNodeId});
+    }
+  }
+  for(const room of source.interiors) {
+    const surfaces=new Set(room.objects.flatMap(object=>object.vocabulary.map(word=>word.lemma)));
+    const meanings=Object.fromEntries(Object.entries(source.interiorWordFacts?.meanings??{}).filter(([lemma])=>surfaces.has(lemma)));
+    const examples=Object.fromEntries(Object.entries(source.interiorWordFacts?.examples??{}).filter(([lemma])=>surfaces.has(lemma)).map(([lemma,[german,english,turkish]])=>[lemma,{german,english,turkish}]));
+    context(`interior-word-facts:${room.id}`,'interiorWordFacts',{meanings:{tr:meanings},examples},[{kind:'interior',id:room.id,level:'A1'}]);
+  }
   for(const scenario of source.activityScenarios??[])context(`scenario:${scenario.id}`,'activityScenario',{...scenario,exerciseId:id('exercise',scenario.exerciseId)},[{kind:'activity',id:scenario.activityId,level:scenario.level}]);
   context('activity-inventory','activityInventory',source.inventory??{},[{kind:'activity',level:'A1'}]);
   context('activity-definitions','activityDefinitions',source.activityDefinitions??[],[{kind:'activity',level:'A1'}]);
@@ -249,7 +270,7 @@ export function buildContent({ directory = root } = {}) {
     if(record.kind!=='lexeme'&&record.courseId===germanId)record.body=foldMetadata(record.body);
     if(record.kind==='graph'&&record.courseId===germanId)record.body.objectives=record.body.objectives.map(objective=>trByText.has(objective.text)?{...objective,support:{...(objective.support??{}),tr:{...(objective.support?.tr??{}),text:trByText.get(objective.text)}}}:objective);
   }
-  return {bundle:{version:1,courses,records,ids},source};
+  return {bundle:{version:1,courses,records,ids,...(Object.keys(publishedIds).length?{publishedIds}:{})},source};
 }
 
 export function writeContent({ directory = root } = {}) {

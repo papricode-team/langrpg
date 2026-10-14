@@ -19,6 +19,7 @@ const (
 // saves and idempotent learning receipts can never grant more free play.
 // The account-wide lease prevents reconnects or another tab resetting time.
 type PlayAccess struct {
+	ResetTrial        bool                 `json:"resetTrial,omitempty"`
 	Generation        int64                `json:"generation,omitempty"`
 	PlayedNanoseconds int64                `json:"playedNanoseconds,omitempty"`
 	ActiveSince       time.Time            `json:"activeSince,omitempty"`
@@ -36,7 +37,8 @@ type AccessStatus struct {
 }
 
 func playLimit(account Account) time.Duration {
-	if account.Email != "" {
+	// Every explicit restart receives fifteen minutes, including guest restarts.
+	if account.Email != "" || account.Access.ResetTrial || account.ActiveCourseID == "" && account.Access.Generation > 0 {
 		return trialPlayLimit
 	}
 	return guestPlayLimit
@@ -94,7 +96,7 @@ func (a *App) touchAccess(ctx context.Context, hash string, active *bool) (Accou
 	now := a.now().UTC()
 	return a.store.UpdateAccount(ctx, hash, func(account *Account) error {
 		if a.content != nil {
-			account.Player = a.world.SavedPlayer(account.Player)
+			a.saveCourseLocation(account)
 		}
 		if err := checkAccessGeneration(ctx, *account); err != nil {
 			return err
@@ -209,9 +211,9 @@ func accessBlocked(status AccessStatus) bool {
 }
 
 func writeAccessBlocked(w http.ResponseWriter, status AccessStatus) {
-	code, message := http.StatusForbidden, "sign in or create an account to keep your progress and continue playing"
+	code, message := http.StatusForbidden, "sign in or create an account to keep your progress, or reset the game for another 15 free minutes"
 	if status.Phase == "payment_required" {
-		code, message = http.StatusPaymentRequired, "subscribe to continue playing"
+		code, message = http.StatusPaymentRequired, "subscribe to keep your progress, or reset the game for another 15 free minutes"
 	}
 	writeJSON(w, code, map[string]any{"error": message, "access": status})
 }
@@ -333,10 +335,20 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, err := a.store.ResetGuest(ctx, hash)
+	account, err := a.store.ResetGame(ctx, hash)
 	if err != nil {
 		apiFailure(w, err)
 		return
+	}
+	if a.content != nil {
+		account, err = a.store.UpdateAccount(ctx, hash, func(account *Account) error {
+			account.Player = courseStartingPlayer(account.Player, a.content.ByCourse[account.ActiveCourseID])
+			return nil
+		})
+		if err != nil {
+			apiFailure(w, err)
+			return
+		}
 	}
 	a.world.ResetPlayer(account.Player.ID)
 	account, err = a.getAccount(ctx, hash)
@@ -347,15 +359,13 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, a.sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
 }
 
-func resetGuestProgress(account *Account) error {
-	if account.Email != "" {
-		return &APIError{403, "registered accounts cannot reset their free trial"}
-	}
+func resetGameProgress(account *Account) error {
 	revision := account.Progress.Revision
 	generation := account.Access.Generation
 	account.Progress = newProgress()
 	account.Progress.Revision = revision + 1
-	account.Access = PlayAccess{Generation: generation + 1}
+	account.Access = PlayAccess{Generation: generation + 1, ResetTrial: true}
+	account.CourseStates = nil
 	account.StorySaves, account.RewardedQuestIDs, account.RewardedExpeditionIDs = nil, nil, nil
 	spawn := mapSpawns[DefaultMapID]
 	account.Player.MapID, account.Player.InteriorID = DefaultMapID, ""

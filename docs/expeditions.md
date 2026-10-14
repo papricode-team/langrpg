@@ -54,7 +54,7 @@ Terrain and navigation use the region’s normalized route nodes and links. The 
 
 ## Saved progress
 
-Original quests, course work, graded activity rewards and review schedules continue to use the server. Multiplayer presence, chat and travel support all thirteen regions.
+Original quests, course work, graded activity rewards and review schedules continue to use the server. Multiplayer presence and travel support all thirteen regions.
 
 Neighborhood agreements and encounter outcomes are saved in the authenticated server profile. Draft boards also use browser `localStorage` so an unfinished allocation can resume. The server checks complete plan values and sequence constraints independently of lexical practice; a correct individual placement cannot complete the whole agreement. Encounter progress remembers an earlier connection after a later unsuccessful reply.
 

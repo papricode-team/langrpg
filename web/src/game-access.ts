@@ -53,7 +53,7 @@ export function billingURL(value: string): string {
 }
 
 /** Clear browser-only game progress after the server has reset this character. */
-export function clearGuestProgress(storage: Pick<Storage, 'length' | 'key' | 'removeItem' | 'setItem'>, playerId: string, playerName: string): void {
+export function clearGameProgress(storage: Pick<Storage, 'length' | 'key' | 'removeItem' | 'setItem'>, playerId: string, playerName: string): void {
   const exact = new Set(['atlas.placement', `atlas.accountReminder.${playerId}`, `atlas.acts.${playerId}`, `atlas.objects.${playerId}`]);
   const prefixes = [
     `atlas.sceneHinted.${playerId}.`,

@@ -268,7 +268,9 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
-		if response.ID == "" || response.RequestID != requestID || !validCreemURL(response.URL) {
+		// Creem may omit request_id from creation responses. Retrieval returns it,
+		// and reconciliation verifies it against our persisted request before access.
+		if response.ID == "" || response.RequestID != "" && response.RequestID != requestID || !validCreemURL(response.URL) {
 			return errors.New("invalid checkout response")
 		}
 		current.Billing.Purchases = append(kept, CreemPurchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, CreatedAt: a.now().UTC()})

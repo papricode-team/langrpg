@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyProgress, type AttemptResult } from '../api';
 import {quests,type Exercise} from '../content';
 import {courseContextWordIds} from '../course';
+import publicFixture from '../test-fixtures/content-public.json';
+import loopData from './loop-data.json';
 import { RetrievalGame } from './engine';
 import { miniGameDefinitions } from './catalogue';
 import { loadMiniGame } from './index';
@@ -18,6 +20,13 @@ async function advance(ms:number){
 const item=(lemma:string,extra:Partial<GameItem>={}):GameItem=>({lexemeId:`${lemma.toLowerCase()}-noun`,lemma,english:lemma,article:'der',plural:`${lemma}e`,topic:'food',level:'A1',pos:'noun',audio:'',exerciseIds:{recognition:'',listening:'',production:''},stability:0,due:{recognition:false,listening:false,production:false},seen:{recognition:false,listening:false,production:false},recalls:{recognition:0,listening:0,production:0},...extra});
 const foods=[item('Kaffee'),item('Tee',{article:'die'}),item('Brot',{article:'das'}),item('Wasser')];
 const receipt=(result:RoundResult,correct=true):AttemptResult=>({attemptId:`attempt-${result.lexemeId}`,correct,xpAdded:0,duplicate:false,correctedAnswer:result.answer,reason:'Saved',progress:emptyProgress()});
+function publicStoryExercise(prefix: string, mode: string): Exercise & { wordIds: string[]; questId: string; audio: { path: string } } {
+  const record = publicFixture.records.find(record => record.kind === 'exercise' && (record.body as { mode?: string }).mode === mode && (record.body as { audio?: { path?: string } }).audio?.path?.startsWith(`/audio/${prefix}`));
+  expect(record, `public ${prefix} ${mode} exercise`).toBeDefined();
+  const body = record!.body as unknown as Exercise & { sentenceId: string; wordIds: string[]; questId: string; audio: { path: string } };
+  const sentence = publicFixture.records.find(record => record.id === body.sentenceId)?.body as { text?: string } | undefined;
+  return { ...body, id: record!.id, answer: '', explanation: '', english: '', german: sentence?.text ?? '' };
+}
 function setup(id='departure-board',extra:Partial<MiniGameHost>={},opts:Partial<MiniGameOptions>={},definition:Partial<MiniGameDefinition>={}){
   const root=document.createElement('div');document.body.append(root);
   const host={pool:vi.fn(()=>foods.map(food=>({...food}))),submit:vi.fn(async(result:RoundResult)=>receipt(result)),speak:vi.fn(async()=>{}),speakText:vi.fn(async()=>{}),sprites:{has:vi.fn(()=>false),preload:vi.fn(async()=>{}),render:vi.fn((_frame:string,alt:string)=>{const image=document.createElement('img');image.alt=alt;return image;})},audio:{sfx:vi.fn(),stop:vi.fn()},input:{bind:vi.fn(()=>vi.fn())},end:vi.fn(),expose:vi.fn(),progress:()=>emptyProgress(),exercises:new Map(),playerName:'Ada',silent:false,reducedMotion:true,...extra} as unknown as MiniGameHost;
@@ -40,6 +49,62 @@ beforeEach(()=>{
 afterEach(()=>{for(const game of games)game.destroy();document.body.replaceChildren();vi.useRealTimers();vi.unstubAllGlobals();});
 
 describe('shared mini-game lifecycle and authoritative evidence',()=>{
+  it('keeps a fetched UUID workshop sentence eligible for the workbench after its lexical rounds', async () => {
+    const exercise = publicStoryExercise('a1-workshop-', 'sentence');
+    const restored = { ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: [...exercise.wordIds] } };
+    const pool = () => [item('Lampe', { lexemeId: exercise.wordIds[0] }), item('Tisch', { lexemeId: exercise.wordIds[1] })];
+    const { root, host, start, click } = setup('workbench', { pool, progress: () => restored, exercises: new Map([[exercise.id, exercise]]) }, {}, { questIds: [exercise.questId] });
+    await start();
+    for (let round = 0; round < 2; round++) {
+      for (const word of ['Lampe', 'Tisch']) [...root.querySelectorAll<HTMLButtonElement>('[data-game-option]')].find(button => button.textContent?.includes(word))!.click();
+      click('serve'); await flush(); await advance(650);
+    }
+    expect(root.querySelector('.minigame-story-prompt')?.textContent).toBe(exercise.prompt);
+    for (const token of exercise.tokens!) [...root.querySelectorAll<HTMLButtonElement>('[data-game-option]')].find(button => button.querySelector('.minigame-object-label')?.textContent === token)!.click();
+    click('check'); await flush();
+    expect(vi.mocked(host.submit).mock.calls.at(-1)?.[0]).toMatchObject({ exerciseId: exercise.id, modality: 'production', answer: exercise.tokens!.join(' '), hinted: true });
+    expect(vi.mocked(host.submit).mock.calls.at(-1)?.[0].answerKind).toBeUndefined();
+  });
+  it('plays the fetched kettle listening exercise only while all its canonical word references are restored', async () => {
+    const exercise = publicStoryExercise('a1-cafe-', 'listen');
+    const progress = { ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: [...exercise.wordIds] } };
+    const pool = () => [item('Regen', { lexemeId: exercise.wordIds[0] }), item('Sonne', { lexemeId: exercise.wordIds[1] })];
+    const first = setup('kettle-forecast', { pool, progress: () => progress, exercises: new Map([[exercise.id, exercise]]) }, {}, { questIds: [exercise.questId] });
+    await first.start();
+    expect(first.host.speakText).toHaveBeenCalledWith(exercise.german, exercise.audio.path);
+    first.choose(exercise.options![0]); await flush();
+    expect(vi.mocked(first.host.submit).mock.calls[0][0]).toMatchObject({ exerciseId: exercise.id, modality: 'listening', answer: exercise.options![0] });
+    first.game.destroy();
+    const missing = { ...progress, intake: { ...progress.intake, wordIds: exercise.wordIds.slice(1) } };
+    const second = setup('kettle-forecast', { pool, progress: () => missing, exercises: new Map([[exercise.id, exercise]]) }, {}, { questIds: [exercise.questId] });
+    await second.start();
+    expect(second.host.speakText).not.toHaveBeenCalled();
+    expect(second.root.querySelector('.minigame-story-prompt')).toBeNull();
+  });
+  it('uses the canonical recording reference to grade a fetched tape transcription', async () => {
+    const exercise = publicStoryExercise('b1-witness-', 'type');
+    const progress = { ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: [...exercise.wordIds] } };
+    const clip = { ...loopData.clips[0], exerciseId: exercise.id, text: exercise.german, path: exercise.audio.path }; loopData.clips.push(clip);
+    try {
+      const { root, host, start } = setup('looping-tape', { pool: () => [item('sicher', { lexemeId: exercise.wordIds[0], pos: 'adj', level: 'B1' })], progress: () => progress, exercises: new Map([[exercise.id, exercise]]) }, { level: 'B1' }, { questIds: [exercise.questId] });
+      await start();
+      expect(host.speakText).toHaveBeenCalledWith(exercise.german, clip.path);
+      expect(root.querySelector('.minigame-scaffold')).toBeNull();
+      root.querySelector<HTMLInputElement>('input')!.value = 'A recorded attempt';
+      root.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); await flush();
+      expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({ exerciseId: exercise.id, modality: 'production', answer: 'A recorded attempt', hinted: true });
+    } finally { loopData.clips.splice(loopData.clips.indexOf(clip), 1); }
+  });
+  it('assembles a fetched council sentence by its canonical quest membership', async () => {
+    const exercise = publicStoryExercise('b1-council-', 'sentence');
+    const progress = { ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: [...exercise.wordIds] } };
+    const { root, host, start, click } = setup('seven-chairs', { pool: () => [item('Rat', { lexemeId: exercise.wordIds[0], level: 'B1' })], progress: () => progress, exercises: new Map([[exercise.id, exercise]]) }, { level: 'B1' }, { questIds: [exercise.questId] });
+    await start();
+    expect(root.querySelector('.minigame-story-prompt')?.textContent).toBe(exercise.prompt);
+    for (const token of exercise.tokens!) [...root.querySelectorAll<HTMLButtonElement>('[data-game-option]')].find(button => button.querySelector('.minigame-object-label')?.textContent === token)!.click();
+    click('check'); await flush();
+    expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({ exerciseId: exercise.id, modality: 'production', answer: exercise.tokens!.join(' '), hinted: true });
+  });
   it('does not put two spellings of the same number into indistinguishable catching lanes',async()=>{
     const pool=[item('hundert',{lexemeId:'hundert-num',pos:'num'}),item('einhundert',{lexemeId:'einhundert-num',pos:'num'}),item('zwei',{lexemeId:'zwei-num',pos:'num'})];
     const {root,start}=setup('numbered-apples',{pool:()=>pool});await start();

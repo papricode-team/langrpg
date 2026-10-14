@@ -93,5 +93,15 @@ func (a *App) hasRecordedExercise(ctx context.Context, hash string, account Acco
 	if !ok {
 		return false, nil
 	}
-	return reader.exerciseReceiptExists(ctx, hash, account.ActiveCourseID, exerciseID, a.canonical.forward[exerciseID], account.ActiveCourseID == a.canonical.defaultCourse)
+	legacy := account.ActiveCourseID == a.canonical.defaultCourse
+	eligible, err := reader.exerciseReceiptExists(ctx, hash, account.ActiveCourseID, exerciseID, a.canonical.forward[exerciseID], legacy)
+	if err != nil || eligible {
+		return eligible, err
+	}
+	if legacy && a.content != nil {
+		if published := a.content.PublishedIDs["exercises:"+exerciseID]; published != "" {
+			return reader.exerciseReceiptExists(ctx, hash, account.ActiveCourseID, exerciseID, published, true)
+		}
+	}
+	return false, nil
 }

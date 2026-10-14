@@ -49,11 +49,12 @@ func verifyPassword(password, encoded string) bool {
 }
 
 func sessionResponse(token string, account Account) map[string]any {
-	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email}, "preferences": normalizedPreferences(account.Preferences)}
+	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email, "admin": false}, "preferences": normalizedPreferences(account.Preferences)}
 }
 
 func (a *App) sessionResponse(token string, account Account) map[string]any {
 	response := sessionResponse(token, account)
+	response["account"].(map[string]any)["admin"] = a.isAdmin(account)
 	response["access"] = a.accessState(account, a.now().UTC())
 	if a.content != nil {
 		response["activeCourseId"] = account.ActiveCourseID
@@ -117,7 +118,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if linked.Email == email && verifyPassword(input.Password, linked.PasswordHash) {
-				writeJSON(w, 200, map[string]any{"registered": true, "email": email, "access": a.accessState(linked, a.now().UTC())})
+				writeJSON(w, 200, map[string]any{"registered": true, "email": email, "admin": a.isAdmin(linked), "access": a.accessState(linked, a.now().UTC())})
 				return
 			}
 			writeError(w, 409, "this account is already linked or the email is already in use")
@@ -131,7 +132,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 200, map[string]any{"registered": true, "email": email, "access": a.accessState(linked, a.now().UTC())})
+	writeJSON(w, 200, map[string]any{"registered": true, "email": email, "admin": a.isAdmin(linked), "access": a.accessState(linked, a.now().UTC())})
 }
 
 func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {

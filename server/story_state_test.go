@@ -442,7 +442,7 @@ func TestStoryRoutesCannotBeBypassedThroughWebSocketOrReconnect(t *testing.T) {
 	}
 	seedStoryProgress(t, app, token, storyQuestsThrough(actOneFinale))
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
-	if mapID, _, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != "waldruh" {
+	if mapID, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != "waldruh" {
 		t.Fatal("live quest progression was not read")
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "nebelstadt"})
@@ -475,7 +475,7 @@ func TestLoadingAnEarlierStorySlotWithdrawsTheLiveLockedRoute(t *testing.T) {
 	if r := request(app, "POST", "/api/story/load", token, map[string]string{"slot": "1"}); r.Code != 200 {
 		t.Fatal(r.Body.String())
 	}
-	if mapID, _, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != DefaultMapID {
+	if mapID, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != DefaultMapID {
 		t.Fatal("rewound save retained its withdrawn route")
 	}
 	app.world.mu.Lock()

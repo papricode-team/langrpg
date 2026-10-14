@@ -4,6 +4,8 @@
 
 Build the records with `node scripts/build-content.mjs`. The build writes `server/content.json`, the committed `content_ids.json` identity catalog and stripped presentation geometry. Existing catalog UUIDs are preserved. Dialogue nodes and choices use quest-scoped keys because their old names repeat across quests.
 
+`published-content-ids.json` preserves the earlier published catalog as compatibility aliases. The bundle carries this map unchanged so the server can restore saved references without replacing current UUIDs. Keep both catalogs across rebuilds. Interior conversations and word-detail examples are captured in `source.json` and exported as scoped contexts; conversation reads load one node and its choices at a time.
+
 ## Word-map review
 
 1. Run `node scripts/word-map.mjs --export` to refresh `word-map-review.tsv`.

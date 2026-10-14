@@ -39,7 +39,7 @@ One `Phaser.Game` holds five scenes, in render order:
 - **Input** (`World.setInputEnabled`): whether the player can walk and interact.
 - **Presentation** (`World.setPresentation`): `live` for normal play, `paused` behind the menu (still drawn, nothing advances), `hidden` under a full-screen activity. These map to the scene manager's pause and resume and the scene's visibility, so closing a dialog never resizes the canvas or snaps the camera.
 
-Every place that opens or closes a dialog, menu, chat, cinematic, delivery run or account screen calls `syncWorldMode` instead of toggling the world directly. Phaser already pauses its loop when the tab is hidden.
+Every place that opens or closes a dialog, menu, cinematic, delivery run or account screen calls `syncWorldMode` instead of toggling the world directly. Phaser already pauses its loop when the tab is hidden.
 
 ## Time, motion and the camera
 
