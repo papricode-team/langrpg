@@ -46,10 +46,10 @@ describe('conversation scene lifecycle', () => {
     await f.controller.open('a1-arrival');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Good morning');
-    expect([...document.querySelectorAll('[data-dialogue-choice] > [lang]:not([lang="de"])')].map(meaning => meaning.textContent)).toEqual(expect.arrayContaining(['Good morning!', 'Goodbye!', 'Good night!']));
+    expect([...document.querySelectorAll('.dialogue-choice [data-sentence-inline-translation]')].map(meaning => meaning.textContent)).toEqual(expect.arrayContaining(['Good morning!', 'Goodbye!', 'Good night!']));
     expect(document.querySelector('input, textarea')).toBeNull();
     f.click('[data-dialogue-choice="Guten Morgen!"]');
     await vi.waitFor(() => expect(f.api.request).toHaveBeenCalled());
@@ -66,12 +66,12 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('input, textarea, form')).toBeNull();
     expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('Choose a reply.');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')];
     expect(choices).toHaveLength(2);
-    expect(choices.every(choice => !!choice.querySelector(':scope > [lang]:not([lang="de"])')?.textContent)).toBe(true);
+    expect(choices.every(choice => !!choice.closest('.dialogue-choice')?.querySelector('[data-sentence-inline-translation]')?.textContent)).toBe(true);
     choices.find(choice => choice.dataset.dialogueChoice === exercise.answer)!.click();
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { exerciseId, answer: exercise.answer, mode: 'recognition', hinted: true, guidedChoice: true, sceneAttempt: true }]);
@@ -113,7 +113,7 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('#dialogue-answer')).toBeNull();
     expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(2);
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
   });
 
   it('reveals requested meanings in the next town while allowing its written gate to submit with assistance', async () => {
@@ -207,13 +207,13 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     f.click('[data-dialogue-action="next"]');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
-    expect(document.querySelectorAll('[data-dialogue-choice] > [lang]:not([lang="de"])')).toHaveLength(2);
+    expect(document.querySelectorAll('.dialogue-choice [data-sentence-inline-translation]')).toHaveLength(2);
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     f.click('[data-dialogue-action="translate"]');
     f.controller.greet(marta, 'A1');

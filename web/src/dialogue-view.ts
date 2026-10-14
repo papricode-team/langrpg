@@ -36,9 +36,7 @@ function historyMarkup(history: DialogueHistoryEntry[] | undefined): string {
 }
 function choiceMarkup(choice: DialogueChoice, p: DialoguePresentation): string {
   const sentence = presentSentence(choice, p.name);
-  if (sentence.sentence) return `<div class="dialogue-authored-choice">${renderTranslatedSentence(choice, p.name, p.help)}<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" aria-label="${e(personalized(choice.german,p.name))}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
-  const meaning = choice.english ? supportText(choice) : undefined;
-  return `<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}><span lang="${e(sentence.target)}">${e(choice.german)}</span>${p.help && meaning?.text ? `<span class="caption" lang="${meaning.lang}">${e(meaning.text)}</span>` : ''}</button>`;
+  return `<div class="dialogue-choice"><div class="dialogue-choice-phrase">${renderTranslatedSentence(choice, p.name, p.help)}</div><button type="button" class="dialogue-choice-submit" data-dialogue-choice="${e(choice.id)}" aria-label="${e(`${t('Say it')}: ${sentence.text}`)}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
 }
 export function dialogueMarkup(p: DialoguePresentation): string {
   const sentence = presentSentence(p.line, p.name);

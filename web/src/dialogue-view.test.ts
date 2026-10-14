@@ -170,3 +170,34 @@ describe('conversation history', () => {
   });
 });
 
+describe('conversation reply controls', () => {
+  it('keeps both authored and plain reply help separate from submission', () => {
+    const choices = [
+      { id: 'authored', german: 'Möchtest du einen Kaffee?', english: 'Would you like a coffee?', next: '', effects: [] },
+      { id: 'plain', german: 'Nein, danke, {name}.', english: 'No, thank you, {name}.', next: '', effects: [] },
+    ];
+    const f = fixture({ choices });
+    expect(f.view.host.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
+    f.view.render({ ...f.presentation, help: true });
+    const rows = [...f.view.host.querySelectorAll('.dialogue-choice')];
+    expect(rows).toHaveLength(2);
+    expect(rows.map(row => row.querySelector('[data-sentence-inline-translation]')?.textContent)).toEqual(['Would you like a coffee?', 'No, thank you, Willow.']);
+    for (const row of rows) {
+      const phrase = row.querySelector<HTMLElement>('.translated-sentence')!;
+      expect(phrase.closest('[data-dialogue-choice]')).toBeNull();
+      phrase.click();
+    }
+    expect(f.actions.choice).not.toHaveBeenCalled();
+    const submit = rows[1].querySelector<HTMLButtonElement>('[data-dialogue-choice]')!;
+    expect(submit.getAttribute('aria-label')).toBe('Say it: Nein, danke, Willow.');
+    submit.click();
+    expect(f.actions.choice).toHaveBeenCalledExactlyOnceWith('plain');
+    f.view.render({ ...f.presentation, busy: true });
+    for (const button of f.view.host.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')) {
+      expect(button.disabled).toBe(true);
+      button.click();
+    }
+    expect(f.actions.choice).toHaveBeenCalledTimes(1);
+  });
+});
+
