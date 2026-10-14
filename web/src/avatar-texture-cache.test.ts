@@ -8,6 +8,25 @@ const deferred = <T>() => {
 };
 
 describe('avatar texture ownership and eviction', () => {
+  it('acquires ready textures synchronously and pins them across scene handoffs', async () => {
+    const destroy = vi.fn(), cache = new AvatarTextureCache<string>(destroy, 1), pending = deferred<string>();
+    expect(cache.acquireReady('avatar')).toBeUndefined();
+    const loading = cache.acquire('avatar', () => pending.promise);
+    expect(cache.acquireReady('avatar')).toBeUndefined();
+    pending.resolve('avatar');
+    const original = await loading, nextScene = cache.acquireReady('avatar')!;
+    original.release(true);
+    expect(nextScene.value).toBe('avatar');
+    expect(destroy).not.toHaveBeenCalled();
+    (await cache.acquire('another', async () => 'another')).release();
+    expect(destroy).toHaveBeenCalledExactlyOnceWith('another');
+    nextScene.release(); nextScene.release();
+    expect(cache.snapshot()).toEqual({ total: 1, active: 0, pending: 0 });
+    cache.dispose();
+    expect(cache.acquireReady('avatar')).toBeUndefined();
+    expect(destroy).toHaveBeenLastCalledWith('avatar');
+  });
+
   it('bounds retained bytes even below the entry limit without invalidating live sprites', async () => {
     const destroy = vi.fn(), cache = new AvatarTextureCache<{bytes:number}>(destroy,32,{maxBytes:100,sizeOf:value=>value.bytes});
     const a=await cache.acquire('a',async()=>({bytes:70}));

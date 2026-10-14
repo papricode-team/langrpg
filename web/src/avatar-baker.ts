@@ -155,39 +155,46 @@ export async function paintAvatar(canvas: HTMLCanvasElement, recipe: AvatarRecip
   ctx.drawImage(pixelCanvas(pixels), (canvas.width - pixels.width * scale) / 2, (canvas.height - pixels.height * scale) / 2, pixels.width * scale, pixels.height * scale);
 }
 
-const sceneCaches = new WeakMap<Phaser.Scene, { cache: AvatarTextureCache<string>; prefix: string }>();
-let sceneSerial = 0;
-/** Retain while a sprite uses the texture; release on change, release(true) on leave. */
+const gameCaches = new WeakMap<Phaser.Game, AvatarTextureCache<string>>();
+function textureLayout(recipe: AvatarRecipe, catalogue: CharacterCatalogue, resolution: Resolution) {
+  // Eight native columns keep 512px cells within a 4096px GPU texture limit.
+  const atlasColumns = resolution === 'editor' ? 8 : 9, atlasRows = Math.ceil(36 / atlasColumns);
+  return { atlasColumns, key: `avatar:${avatarTextureKey(recipe, catalogue)}:${resolution}:${atlasColumns}x${atlasRows}` };
+}
+
+/** Reuse an existing game texture without leaving a hidden sprite for a frame. */
+export function acquireAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime' }: TextureBakeOptions = {}): TextureLease<string> | undefined {
+  catalogue = catalogueForPose(poseSet, catalogue);
+  return gameCaches.get(scene.game)?.acquireReady(textureLayout(recipe, catalogue, resolution).key);
+}
+
+/** Textures belong to the game; scene changes release leases without clearing the bounded cache. */
 export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime' }: TextureBakeOptions = {}): Promise<TextureLease<string>> {
   catalogue = catalogueForPose(poseSet, catalogue);
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, false);
-  let state = sceneCaches.get(scene);
-  if (!state) {
-    const cache = new AvatarTextureCache<string>(key => { scene.textures.remove(key); }, 32, {maxBytes:128*1024*1024,sizeOf:key=>{
-      const source=scene.textures.get(key).getSourceImage();
+  const game = scene.game, textures = scene.textures;
+  let cache = gameCaches.get(game);
+  if (!cache) {
+    cache = new AvatarTextureCache<string>(key => { if (textures.exists(key)) textures.remove(key); }, 32, {maxBytes:128*1024*1024,sizeOf:key=>{
+      const source=textures.get(key).getSourceImage();
       // Canvas CPU backing and GPU RGBA allocation both belong to this cache.
       return source.width*source.height*8;
     }});
-    state = { cache, prefix: `avatar-scene-${++sceneSerial}:` }; sceneCaches.set(scene, state);
-    const dispose = () => {
-      cache.dispose(); sceneCaches.delete(scene);
-      scene.events.off('shutdown', dispose); scene.events.off('destroy', dispose);
-    };
-    scene.events.once('shutdown', dispose); scene.events.once('destroy', dispose);
+    gameCaches.set(game, cache);
+    const ownedCache = cache;
+    game.events.once('destroy', () => { ownedCache.dispose(); gameCaches.delete(game); });
   }
-  // Eight native columns keep 512px cells within a 4096px GPU texture limit.
-  const atlasColumns=resolution==='editor'?8:9,atlasRows=Math.ceil(36/atlasColumns);
-  const { cache, prefix } = state, key = `${prefix}${avatarTextureKey(snapshot, catalogue)}:${resolution}:${atlasColumns}x${atlasRows}`;
+  const { key, atlasColumns } = textureLayout(snapshot, catalogue, resolution);
   return cache.acquire(key, async () => {
     const canvas = pixelCanvas(await bakeAvatarPixels(snapshot, { catalogue, resolution, atlasColumns }));
-    if (sceneCaches.get(scene)?.cache !== cache) throw new Error('Avatar scene stopped while baking');
-    const texture = scene.textures.addCanvas(key, canvas);
+    if (gameCaches.get(game) !== cache) throw new Error('Avatar game destroyed while baking');
+    const texture = textures.addCanvas(key, canvas);
     if (!texture) throw new Error(`Could not register avatar texture ${key}`);
     try {
       const [frameWidth, frameHeight] = resolution==='editor'?catalogue.format.editorCell:catalogue.format.runtimeCell;
-      if (!scene.textures.addSpriteSheet(key, texture, { frameWidth, frameHeight, endFrame: 35 })) throw new Error('Could not register avatar frames');
-    } catch (error) { scene.textures.remove(key); throw error; }
+      if (!textures.addSpriteSheet(key, texture, { frameWidth, frameHeight, endFrame: 35 })) throw new Error('Could not register avatar frames');
+    } catch (error) { textures.remove(key); throw error; }
     return key;
   });
 }

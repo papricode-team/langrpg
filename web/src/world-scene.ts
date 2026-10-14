@@ -252,7 +252,6 @@ export class WorldScene extends ExploreScene {
     this.enteringInterior = true;
     this.refreshControls();
     this.entranceTransition = this.tweens.add({ targets: this.local, x: entrance.x * this.worldWidth, y: entrance.y * this.worldHeight, duration: 250, ease: 'Sine.easeIn',
-      onUpdate: (tween: Phaser.Tweens.Tween) => this.local.root.setAlpha(1 - tween.progress),
       onComplete: () => {
         this.entranceTransition = undefined; this.enteringInterior = false; this.local.root.setAlpha(1);
         this.refreshControls();

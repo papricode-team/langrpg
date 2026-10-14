@@ -68,14 +68,13 @@ describe('scene lifecycle on the real Phaser scene manager', () => {
     expect({ x: town.local.x, y: town.local.y }).toEqual({ x: door.returnPoint.x * getMap('lindenhafen').width, y: door.returnPoint.y * getMap('lindenhafen').height });
   });
 
-  it('walks into the doorway for 250ms on a tween, holding input until the room opens', async () => {
+  it('walks into the doorway for 250ms without fading the avatar, holding input until the room opens', async () => {
     const { world, town, room, harness, until } = await bootWorld();
     world.setInputEnabled(true);
     world.enterInterior('cafe');
     expect(town.controlsEnabled).toBe(false);
     harness.advance(125);
-    expect(town.local.root.alpha).toBeGreaterThan(.2);
-    expect(town.local.root.alpha).toBeLessThan(.8);
+    expect(town.local.root.alpha).toBe(1);
     harness.advance(200);
     expect(town.local.root.alpha).toBe(1);
     await until(() => room().ready);

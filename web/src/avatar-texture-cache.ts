@@ -37,6 +37,18 @@ export class AvatarTextureCache<T> {
     entry.refs++; entry.touched = ++this.clock;
     const value = await entry.promise;
     if (this.disposed) throw new Error('Avatar texture cache is disposed');
+    return this.lease(key, entry, value);
+  }
+
+  /** Pin an already baked texture synchronously, before a new scene's first frame. */
+  acquireReady(key: string): TextureLease<T> | undefined {
+    const entry = this.entries.get(key);
+    if (this.disposed || !entry?.ready) return undefined;
+    entry.refs++; entry.touched = ++this.clock;
+    return this.lease(key, entry, entry.value!);
+  }
+
+  private lease(key: string, entry: Entry<T>, value: T): TextureLease<T> {
     let released = false;
     return { value, release: (evict = false) => {
       if (released) return;

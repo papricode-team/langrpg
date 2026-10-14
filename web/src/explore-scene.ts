@@ -6,7 +6,7 @@ import { NPC_ART, INTERIOR_CHARACTER_HEIGHT, characterArtScale, createContactSha
 import { characterFrame, MODULAR_ART, NATIVE_MODULAR_ART } from './avatar-options';
 import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
 import { normalizeAvatar, avatarTextureKey } from './character-recipe.mjs';
-import { bakeAvatarTexture } from './avatar-baker';
+import { acquireAvatarTexture, bakeAvatarTexture } from './avatar-baker';
 import type { TextureLease } from './avatar-texture-cache';
 import { castActor, CAST_ART } from './character-cast';
 import { residentWalkFrame } from './resident-animation';
@@ -1025,16 +1025,38 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (character.npc && !character.modularNpc || character.avatarDisposed) return;
     const revision = (character.avatarRevision ?? 0) + 1;
     character.avatarRevision = revision; character.avatarPending = true;
-    void bakeAvatarTexture(this, normalizeAvatar(character.avatar), {resolution:character.nativePixels?'editor':'runtime'}).then(lease => {
-      if (character.avatarDisposed || character.avatarRevision !== revision) { lease.release(true); return; }
-      const previous = character.avatarLease;
-      character.avatarLease = lease;
-      character.figure.setTexture(lease.value, character.frame).setOrigin(.5, MODULAR_ART.footY).setScale(character.artScale).setVisible(true);
-      previous?.release(); character.avatarRetryAt = 0;
-      this.setCharacterAmbient(character, character.ambientTint ?? 0xffffff);
+    const recipe = normalizeAvatar(character.avatar), nativePixels = this.indoor;
+    const options = { resolution: nativePixels ? 'editor' as const : 'runtime' as const };
+    const cached = acquireAvatarTexture(this, recipe, options);
+    if (cached) {
+      this.applyAvatarTexture(character, cached, nativePixels);
+      character.avatarPending = false; character.avatarRetryAt = 0;
+      return;
+    }
+    // A first indoor visit can show the town's existing avatar while its native
+    // frames bake. Later visits use the native texture immediately.
+    if (!character.avatarLease && nativePixels) {
+      const fallback = acquireAvatarTexture(this, recipe);
+      if (fallback) this.applyAvatarTexture(character, fallback, false);
+    }
+    void bakeAvatarTexture(this, recipe, options).then(lease => {
+      if (character.avatarDisposed || character.avatarRevision !== revision) { lease.release(character.id !== 'self'); return; }
+      this.applyAvatarTexture(character, lease, nativePixels);
+      character.avatarRetryAt = 0;
     }).catch(() => {
       if (!character.avatarDisposed && character.avatarRevision === revision) character.avatarRetryAt = this.time.now + 1000;
     }).finally(() => { if (character.avatarRevision === revision) character.avatarPending = false; });
+  }
+
+  private applyAvatarTexture(character: Character, lease: TextureLease<string>, nativePixels: boolean): void {
+    const previous = character.avatarLease, resized = character.nativePixels !== nativePixels;
+    character.avatarLease = lease; character.nativePixels = nativePixels;
+    character.figure.setTexture(lease.value, character.frame).setOrigin(.5, MODULAR_ART.footY).setVisible(true);
+    this.fitCharacterToRoom(character);
+    character.figure.setScale(character.artScale);
+    if (resized && character.figure.input) this.resizeHitTargets();
+    previous?.release();
+    this.setCharacterAmbient(character, character.ambientTint ?? 0xffffff);
   }
 
   /** Regional paintings take the period's people tint; layered avatars keep their own colours. */
@@ -1054,8 +1076,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     const nativePixels=this.indoor;
     const art = nativePixels ? NATIVE_MODULAR_ART : baked ? CAST_ART : MODULAR_ART;
     const artScale = art.worldHeight / art.bodyHeight;
-    // Every download fallback is composed from native components. A hidden
-    // empty sprite reserves the interaction target until its HD bake resolves.
+    // Reserve the interaction target until a cached or newly baked texture is
+    // available; indoor entry can reuse the town's frames immediately.
     const layers = [this.add.sprite(0, 0, baked?.key ?? '__WHITE', baked ? frame : undefined).setOrigin(.5, art.footY).setScale(artScale)];
     const figure = layers[0];
     const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
@@ -1070,7 +1092,8 @@ export abstract class ExploreScene extends Phaser.Scene {
       figure.setVisible(false);
       root.once('destroy', () => {
         character.avatarDisposed = true;
-        character.avatarLease?.release(true); character.avatarLease = undefined;
+        // Keep our own appearance in the bounded cache for the next scene.
+        character.avatarLease?.release(character.id !== 'self'); character.avatarLease = undefined;
       });
     }
     this.fitCharacterToRoom(character);

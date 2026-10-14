@@ -2,7 +2,8 @@ import { describe, expect, it, vi } from 'vitest';
 import sharp from 'sharp';
 import { resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
-import { AvatarSheetCache, avatarFramePixels, bakeAvatarPixels, bakeAvatarTexture } from './avatar-baker';
+import { EventEmitter } from 'node:events';
+import { AvatarSheetCache, acquireAvatarTexture, avatarFramePixels, bakeAvatarPixels, bakeAvatarTexture } from './avatar-baker';
 import { characterCatalogue, normalizeAvatar } from './character-recipe.mjs';
 import type { AvatarRecipe, CharacterCatalogue } from './character-recipe.mjs';
 import { composeFrame } from './character-compositor.mjs';
@@ -114,11 +115,17 @@ describe('browser avatar baking', () => {
     const canvases=new Map<string,StubCanvas>();
     const registrations=new Map<string,{frameWidth:number;frameHeight:number;endFrame:number}>();
     const addCanvas=vi.fn((key:string,canvas:StubCanvas)=>{canvases.set(key,canvas);return{getSourceImage:()=>canvas};});
-    const scene={textures:{addCanvas,addSpriteSheet:vi.fn((key:string,_texture:unknown,config:{frameWidth:number;frameHeight:number;endFrame:number})=>{registrations.set(key,config);return{};}),get:(key:string)=>({getSourceImage:()=>canvases.get(key)!}),remove:vi.fn()},events:{once:vi.fn(),off:vi.fn()}} as unknown as Phaser.Scene;
+    const textures={addCanvas,addSpriteSheet:vi.fn((key:string,_texture:unknown,config:{frameWidth:number;frameHeight:number;endFrame:number})=>{registrations.set(key,config);return{};}),get:(key:string)=>({getSourceImage:()=>canvases.get(key)!}),exists:(key:string)=>canvases.has(key),remove:vi.fn((key:string)=>canvases.delete(key))};
+    const game={events:new EventEmitter()}, scene={game,textures,events:new EventEmitter()} as unknown as Phaser.Scene;
+    const nextScene={game,textures,events:new EventEmitter()} as unknown as Phaser.Scene;
     try{
       const runtime=await bakeAvatarTexture(scene,recipe,{catalogue});
-      const native=await bakeAvatarTexture(scene,recipe,{catalogue,resolution:'editor'});
-      const reused=await bakeAvatarTexture(scene,recipe,{catalogue,resolution:'editor'});
+      const loading=bakeAvatarTexture(scene,recipe,{catalogue,resolution:'editor'});
+      const shared=bakeAvatarTexture(nextScene,recipe,{catalogue,resolution:'editor'});
+      // A scene stopping during a bake must neither cancel it nor remove a shared texture.
+      scene.events.emit('shutdown');
+      scene.events.emit('destroy');
+      const [native,reused]=await Promise.all([loading,shared]);
       expect(runtime.value).not.toBe(native.value);expect(reused.value).toBe(native.value);
       expect(runtime.value).toContain(':runtime:9x4');expect(native.value).toContain(':editor:8x5');
       expect(addCanvas).toHaveBeenCalledTimes(2);
@@ -133,7 +140,21 @@ describe('browser avatar baking', () => {
         }
       }
       expect(fetchSheet.mock.calls).toHaveLength(2);
-      runtime.release(true);native.release();reused.release(true);
+      runtime.release();native.release();reused.release();
+      const returned=acquireAvatarTexture(nextScene,recipe,{catalogue,resolution:'editor'})!;
+      expect(returned.value).toBe(native.value);
+      const outdoors=acquireAvatarTexture(nextScene,recipe,{catalogue})!;
+      expect(outdoors.value).toBe(runtime.value);
+      expect(addCanvas).toHaveBeenCalledTimes(2);
+      expect(textures.remove).not.toHaveBeenCalled();
+      returned.release();outdoors.release();
+      const late=bakeAvatarTexture(nextScene,{...recipe,skin:'#123456'},{catalogue});
+      await Promise.resolve();
+      game.events.emit('destroy');
+      await expect(late).rejects.toThrow('Avatar game destroyed while baking');
+      expect(addCanvas).toHaveBeenCalledTimes(2);
+      expect(textures.remove.mock.calls).toEqual([[runtime.value],[native.value]]);
+      expect(acquireAvatarTexture(nextScene,recipe,{catalogue})).toBeUndefined();
     }finally{vi.unstubAllGlobals();}
     expect(NATIVE_MODULAR_ART.width*NATIVE_MODULAR_ART.columns).toBe(4096);
     expect(NATIVE_MODULAR_ART.height*NATIVE_MODULAR_ART.rows).toBe(3840);
