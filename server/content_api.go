@@ -95,7 +95,9 @@ func (a *App) activateCourse(w http.ResponseWriter, r *http.Request) {
 	account, err := a.store.UpdateAccount(r.Context(), hash, func(account *Account) error {
 		a.saveCourseLocation(account)
 		if input.CourseID != account.ActiveCourseID {
-			settlePlay(account, a.now().UTC())
+			if a.billing != nil {
+				settlePlay(account, a.now().UTC())
+			}
 			account.Access.Generation++
 			account.Access.ActiveSince = time.Time{}
 			account.Access.ActiveUntil = time.Time{}

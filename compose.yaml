@@ -27,6 +27,7 @@ services:
       MAX_ZONE_PLAYERS: "${MAX_ZONE_PLAYERS:-128}"
       ADMIN_EMAILS: "${ADMIN_EMAILS:-}"
       PUBLIC_URL: "${PUBLIC_URL:-}"
+      FREE_TO_PLAY: "${FREE_TO_PLAY:-false}"
       CREEM_SERVER: "${CREEM_SERVER:-production}"
       CREEM_API_KEY: "${CREEM_API_KEY:-}"
       CREEM_WEBHOOK_SECRET: "${CREEM_WEBHOOK_SECRET:-}"

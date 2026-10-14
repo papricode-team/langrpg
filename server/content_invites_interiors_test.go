@@ -11,6 +11,7 @@ import (
 func TestContentReferralsStayAccountWideAcrossCoursesAndResets(t *testing.T) {
 	t.Setenv("PUBLIC_URL", "https://glotworld.com")
 	app := contentTestApp(t)
+	app.billing = testCreem(nil)
 	inviterToken, inviter := createSession(t, app, "Course inviter")
 	german, english := app.canonical.defaultCourse, testContentID(t, app, "course", "english")
 	update := func(token string, fn func(*Account) error) Account {

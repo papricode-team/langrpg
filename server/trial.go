@@ -75,6 +75,9 @@ func minTime(left, right time.Time) time.Time {
 }
 
 func (a *App) accessState(account Account, now time.Time) AccessStatus {
+	if a.billing == nil {
+		return AccessStatus{Phase: "free", Registered: account.Email != "", PlayedSeconds: int(max(0, account.Access.PlayedNanoseconds) / int64(time.Second))}
+	}
 	settlePlay(&account, now)
 	status := AccessStatus{Registered: account.Email != "", PlayedSeconds: int(account.Access.PlayedNanoseconds / int64(time.Second)), BillingAvailable: a.billingAvailable()}
 	if a.hasPaidAccess(account, now) {
@@ -110,7 +113,7 @@ func (a *App) touchAccess(ctx context.Context, hash string, active *bool) (Accou
 		if err := checkAccessGeneration(ctx, *account); err != nil {
 			return err
 		}
-		if a.hasPaidAccess(*account, now) {
+		if a.billing == nil || a.hasPaidAccess(*account, now) {
 			account.Access.ActiveSince, account.Access.ActiveUntil = time.Time{}, time.Time{}
 			account.Access.SessionLeases = nil
 			return nil
@@ -193,7 +196,7 @@ func (a *App) mutate(ctx context.Context, hash, key string, request json.RawMess
 		if status := a.accessState(*account, now); accessBlocked(status) {
 			return Receipt{}, &AccessDeniedError{Access: status}
 		}
-		if !a.hasPaidAccess(*account, now) {
+		if a.billing != nil && !a.hasPaidAccess(*account, now) {
 			settlePlay(account, now)
 		}
 		receipt, err := fn(account)

@@ -1,4 +1,4 @@
-export type AccessPhase = 'guest' | 'trial' | 'login_required' | 'payment_required' | 'paid';
+export type AccessPhase = 'free' | 'guest' | 'trial' | 'login_required' | 'payment_required' | 'paid';
 export type BillingPlan = 'monthly' | 'yearly' | 'lifetime';
 export interface GameAccess {
   phase: AccessPhase;
@@ -33,7 +33,7 @@ export class AccessClock {
   snapshot(now: number): GameAccess | undefined {
     if (!this.value) return undefined;
     const value = { ...this.value };
-    if (!this.active || value.phase === 'paid' || accessBlocked(value)) return value;
+    if (!this.active || value.phase === 'free' || value.phase === 'paid' || accessBlocked(value)) return value;
     const elapsed = Math.max(0, now - this.previous) / 1000;
     value.playedSeconds += Math.min(elapsed, value.remainingSeconds);
     value.remainingSeconds = Math.max(0, value.remainingSeconds - elapsed);

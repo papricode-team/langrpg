@@ -28,6 +28,6 @@ describe('referral attribution', () => {
     const trial: GameAccess = { registered: true, phase: 'trial', remainingSeconds: 600, playedSeconds: 300, billingAvailable: true };
     expect(referralAvailable(trial)).toBe(true);
     expect(referralAvailable({ ...trial, referralBonusSeconds: 5400, remainingSeconds: 6000 })).toBe(true);
-    for (const phase of ['guest', 'login_required', 'payment_required', 'paid'] as const) expect(referralAvailable({ ...trial, phase })).toBe(false);
+    for (const phase of ['free', 'guest', 'login_required', 'payment_required', 'paid'] as const) expect(referralAvailable({ ...trial, phase })).toBe(false);
   });
 });

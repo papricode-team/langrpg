@@ -118,7 +118,7 @@ func TestAdminStatusInSignupSessionAndLogin(t *testing.T) {
 }
 
 func TestAdminAuthoringAccessDoesNotRequirePaidPlay(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	app.adminEmails = map[string]bool{"admin@example.com": true}
 	token, _ := createSession(t, app, "Owner")
 	if err := app.store.SetCredentials(context.Background(), tokenHash(token), "admin@example.com", "stored-password-hash"); err != nil {

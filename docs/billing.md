@@ -1,7 +1,16 @@
 # Trials and Creem billing
 
-The game permits five minutes of anonymous play. At expiry, signup keeps the
-character and progress and unlocks the remainder of fifteen total free minutes.
+Without Creem credentials (`CREEM_API_KEY` and `CREEM_WEBHOOK_SECRET` both empty or
+unset), the game is free to play with no time limit, signup wall or payment wall.
+Account creation remains optional for saving progress across devices. Product IDs
+and `CREEM_SERVER` alone do not enable billing. Free play does not consume the
+saved trial allowance. Set `FREE_TO_PLAY=true` to force this mode even when Creem
+credentials are present; this also disables checkout. With `FREE_TO_PLAY=false`
+(the default), Creem configuration controls whether trials apply. Partial credential
+configuration remains a startup error unless free play is explicitly enabled.
+
+With Creem configured and free play disabled, the game permits five minutes of
+anonymous play. At expiry, signup keeps the character and progress and unlocks the remainder of fifteen total free minutes.
 Logging into an existing account restores that account's own allowance. An
 explicit game restart is available to guests and registered accounts. It clears
 progress, moves the same character back to the beginning and grants a fresh
@@ -52,6 +61,7 @@ Set these in Dokploy's compose environment (never in `VITE_*` variables):
 ```dotenv
 PUBLIC_URL=https://glotworld.com
 ALLOWED_ORIGINS=https://glotworld.com
+FREE_TO_PLAY=false
 CREEM_SERVER=production
 CREEM_API_KEY=YOUR_LIVE_SCOPED_KEY
 CREEM_WEBHOOK_SECRET=YOUR_FULL_SIGNING_SECRET

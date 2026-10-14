@@ -30,7 +30,7 @@ func issueInvite(t *testing.T, app *App, token string) string {
 }
 
 func TestReferralSignupExtendsInviterOnlyAndIsIdempotent(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	inviterToken, inviter := createSession(t, app, "Inviter")
 	if w := request(app, "POST", "/api/referral/link", inviterToken, nil); w.Code != 403 {
 		t.Fatal("guest issued an invite", w.Code)
@@ -77,7 +77,7 @@ func TestReferralSignupExtendsInviterOnlyAndIsIdempotent(t *testing.T) {
 }
 
 func TestReferralAfterTrialReopensOnlyTheNewAllowance(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	token, _ := createSession(t, app, "Expired inviter")
 	app.store.SetCredentials(context.Background(), tokenHash(token), "expired@example.com", "encoded")
 	code := issueInvite(t, app, token)
@@ -111,7 +111,7 @@ func TestReferralAfterTrialReopensOnlyTheNewAllowance(t *testing.T) {
 func TestReferralInvalidUnissuedAndSelfLinksDoNotEarnCredit(t *testing.T) {
 	for _, kind := range []string{"unknown", "unissued", "self"} {
 		t.Run(kind, func(t *testing.T) {
-			app := testApp(t)
+			app := trialTestApp(t)
 			inviterToken, inviter := createSession(t, app, "Inviter")
 			app.store.SetCredentials(context.Background(), tokenHash(inviterToken), "inviter@example.com", "encoded")
 			friendToken, friend := createSession(t, app, "Friend")
@@ -136,7 +136,7 @@ func TestReferralInvalidUnissuedAndSelfLinksDoNotEarnCredit(t *testing.T) {
 }
 
 func TestReferralRegistrationJSONRollback(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	store := app.store.(*JSONStore)
 	token, _ := createSession(t, app, "Inviter")
 	store.SetCredentials(context.Background(), tokenHash(token), "rollback-inviter@example.com", "encoded")
@@ -173,6 +173,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 				t.Fatal(err)
 			}
 			app := NewApp(store, testCurriculum(), nil, 20)
+			app.billing = testCreem(nil)
 			var ids []string
 			t.Cleanup(func() {
 				if pg, ok := store.(*PGStore); ok {
@@ -242,7 +243,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 }
 
 func TestReferralResetDiscardsOldBonusButPreservesInvites(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	token, _ := createSession(t, app, "Reset inviter")
 	if err := app.store.SetCredentials(context.Background(), tokenHash(token), "reset-inviter@example.com", "encoded"); err != nil {
 		t.Fatal(err)
@@ -268,6 +269,7 @@ func TestReferralResetDiscardsOldBonusButPreservesInvites(t *testing.T) {
 
 func TestReferralBonusReopensGatedLearningContent(t *testing.T) {
 	app := contentTestApp(t)
+	app.billing = testCreem(nil)
 	token, _ := createSession(t, app, "Content inviter")
 	ctx := context.Background()
 	if err := app.store.SetCredentials(ctx, tokenHash(token), "content-inviter@example.com", "encoded"); err != nil {

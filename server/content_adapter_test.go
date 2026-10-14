@@ -258,7 +258,7 @@ func TestContentStructuralJSONKeysAreNeverContentIdentifiers(t *testing.T) {
 	if err := json.Unmarshal(session["access"], &access); err != nil {
 		t.Fatalf("session access structure missing: %s", resumed.Body.String())
 	}
-	if access.Phase != "guest" {
+	if access.Phase != "free" {
 		t.Fatalf("session access phase changed: %+v", access)
 	}
 	// Every known legacy slug could collide with a structural field. Only

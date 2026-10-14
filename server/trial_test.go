@@ -16,6 +16,13 @@ import (
 	"github.com/coder/websocket"
 )
 
+func trialTestApp(t *testing.T) *App {
+	t.Helper()
+	app := testApp(t)
+	app.billing = testCreem(nil)
+	return app
+}
+
 func trialTestClock(app *App) *atomic.Int64 {
 	clock := &atomic.Int64{}
 	clock.Store(time.Date(2026, 10, 14, 10, 0, 0, 0, time.UTC).UnixNano())
@@ -56,7 +63,7 @@ func playTrial(t *testing.T, app *App, token string, clock *atomic.Int64, durati
 }
 
 func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Ada")
 	if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 300 || status.Registered {
@@ -93,7 +100,7 @@ func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testin
 }
 
 func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Restart Ada")
 	credentials := credentialInput{Email: "restart@example.com", Password: "a long restart password"}
@@ -141,7 +148,7 @@ func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
 }
 
 func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Guest Restart Ada")
 	for _, duration := range []time.Duration{guestPlayLimit, trialPlayLimit, trialPlayLimit} {
@@ -161,7 +168,7 @@ func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
 }
 
 func TestGameResetPreservesPaidAccess(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	trialTestClock(app)
 	app.billing = testCreem(nil)
 	token, _ := createSession(t, app, "Paid Restart Ada")
@@ -188,7 +195,7 @@ func TestGameResetPreservesPaidAccess(t *testing.T) {
 }
 
 func TestEarlySignupGetsFifteenTotalMinutes(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Early Ada")
 	playTrial(t, app, token, clock, 2*time.Minute)
@@ -201,7 +208,7 @@ func TestEarlySignupGetsFifteenTotalMinutes(t *testing.T) {
 }
 
 func TestSignupSettlesGuestLimitBeforeExpandingTrial(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Delayed Signup Ada")
 	playTrial(t, app, token, clock, 295*time.Second)
@@ -216,7 +223,7 @@ func TestSignupSettlesGuestLimitBeforeExpandingTrial(t *testing.T) {
 }
 
 func TestTrialUsesServerTimePausesAndCannotBeExtendedByOtherSessions(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Clock Ada")
 	clock.Add(int64(time.Hour))
@@ -266,7 +273,7 @@ func TestTrialUsesServerTimePausesAndCannotBeExtendedByOtherSessions(t *testing.
 }
 
 func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	trialTestClock(app)
 	token, player := createSession(t, app, "Reset Ada")
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("repeat-after-reset")))
@@ -321,7 +328,7 @@ func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.
 }
 
 func TestPausingOneDeviceCannotPauseAnotherDevicesLease(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Two Devices Ada")
 	secondToken, _ := randomID(32)
@@ -330,6 +337,7 @@ func TestPausingOneDeviceCannotPauseAnotherDevicesLease(t *testing.T) {
 	}
 	// Two application worlds emulate separate server instances sharing storage.
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
+	secondApp.billing = testCreem(nil)
 	t.Cleanup(secondApp.world.Close)
 	secondApp.now = app.now
 	active, inactive := true, false
@@ -349,10 +357,11 @@ func TestPausingOneDeviceCannotPauseAnotherDevicesLease(t *testing.T) {
 }
 
 func TestSameTokenTabCannotPauseSocketOnAnotherServer(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Remote Socket Ada")
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
+	secondApp.billing = testCreem(nil)
 	t.Cleanup(secondApp.world.Close)
 	secondApp.now = app.now
 	secondApp.world.mu.Lock()
@@ -400,7 +409,7 @@ func (s delayedTrialStore) Mutate(ctx context.Context, hash, key string, input j
 }
 
 func TestQueuedMutationCannotWriteAfterTrialExpires(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Queued Ada")
 	base := app.store
@@ -422,7 +431,7 @@ func TestQueuedMutationCannotWriteAfterTrialExpires(t *testing.T) {
 }
 
 func TestBatchStopsAtTrialBoundaryWithoutWritingLaterRounds(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Batch Ada")
 	base := app.store
@@ -450,7 +459,7 @@ func TestBatchStopsAtTrialBoundaryWithoutWritingLaterRounds(t *testing.T) {
 }
 
 func TestMutationThatRunsPastTrialBoundaryRollsBack(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Slow Mutation Ada")
 	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
@@ -476,7 +485,7 @@ func TestMutationThatRunsPastTrialBoundaryRollsBack(t *testing.T) {
 }
 
 func TestQueuedMutationCannotRecreateProgressAfterReset(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	trialTestClock(app)
 	token, _ := createSession(t, app, "Reset Race Ada")
 	base := app.store
@@ -496,10 +505,11 @@ func TestQueuedMutationCannotRecreateProgressAfterReset(t *testing.T) {
 }
 
 func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	trialTestClock(app)
 	token, player := createSession(t, app, "Remote Reset Ada")
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
+	secondApp.billing = testCreem(nil)
 	secondApp.now = app.now
 	t.Cleanup(secondApp.world.Close)
 	server := httptest.NewServer(secondApp.Handler())
@@ -547,7 +557,7 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 }
 
 func TestIntakeHeartbeatStartsTrialWithoutTrustingClaimedSeconds(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Intake Ada")
 	w := request(app, "POST", "/api/intake/heartbeat", token, heartbeatInput{ID: "first-play", Seconds: 120})
@@ -567,6 +577,7 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 		t.Fatal(err)
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
+	app.billing = testCreem(nil)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Saved Ada")
 	playTrial(t, app, token, clock, 95*time.Second)
@@ -576,6 +587,7 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 		t.Fatal(err)
 	}
 	app = NewApp(reopened, testCurriculum(), nil, 10)
+	app.billing = testCreem(nil)
 	t.Cleanup(app.Close)
 	app.now = func() time.Time { return time.Unix(0, clock.Load()).UTC() }
 	resume := request(app, "POST", "/api/session", token, map[string]any{})
@@ -589,7 +601,7 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 }
 
 func TestWorldEnforcesTrialOnExistingSocketAndReconnect(t *testing.T) {
-	app := testApp(t)
+	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "World Ada")
 	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
@@ -642,6 +654,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 		t.Fatal(err)
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
+	app.billing = testCreem(nil)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "PG Trial Ada")
 	t.Cleanup(func() {

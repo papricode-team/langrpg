@@ -43,7 +43,28 @@ describe('server-backed game access clock', () => {
     clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 900, remainingSeconds: 0 }, 30_000);
     expect(clock.snapshot(50_000)?.phase).toBe('payment_required');
   });
-  it('grants unlimited access only when the server confirms a paid plan', () => {
+  it.each([false, true])('keeps server-confirmed free play unlimited (registered: %s)', registered => {
+    const clock = new AccessClock();
+    const free: GameAccess = { phase: 'free', registered, billingAvailable: false, remainingSeconds: 0, playedSeconds: 900 };
+    clock.update(free, 0);
+    clock.setActive(true, 0);
+    expect(clock.snapshot(86_400_000)).toEqual(free);
+    expect(accessBlocked(clock.snapshot(86_400_000))).toBe(false);
+    clock.setActive(false, 86_400_000);
+    clock.setActive(true, 90_000_000);
+    expect(clock.snapshot(100_000_000)).toEqual(free);
+  });
+  it('uses the latest server phase when billing is disabled or enabled', () => {
+    const clock = new AccessClock();
+    clock.update({ ...guest(0), phase: 'login_required' }, 0);
+    clock.setActive(true, 0);
+    expect(accessBlocked(clock.snapshot(0))).toBe(true);
+    clock.update({ ...guest(0), phase: 'free', billingAvailable: false }, 1000);
+    expect(accessBlocked(clock.snapshot(86_400_000))).toBe(false);
+    clock.update(guest(10), 86_400_000);
+    expect(clock.snapshot(86_410_000)?.phase).toBe('login_required');
+  });
+  it('grants unlimited access when the server confirms a paid plan', () => {
     const clock = new AccessClock();
     clock.update({ ...guest(), phase: 'paid', registered: true, remainingSeconds: 0, playedSeconds: 900, plan: 'lifetime' }, 0);
     clock.setActive(true, 0);

@@ -102,7 +102,11 @@ Changing `POSTGRES_PASSWORD` after initialization does not change the existing
 database role's password; rotate the role password and backend configuration
 together.
 
-Users start with a browser-held guest session token. After five minutes of play,
+Users start with a browser-held guest session token. When `CREEM_API_KEY` and
+`CREEM_WEBHOOK_SECRET` are both unset or empty, play is free and unlimited; signup
+is optional for saving progress across devices. Set `FREE_TO_PLAY=true` to force
+free play and disable checkout even with Creem configured. With the default
+`FREE_TO_PLAY=false` and Creem configured, after five minutes of play,
 the mandatory account wall requires signup/login or a guest restart that clears
 all progress while keeping the character. Registration preserves guest progress
 and unlocks the remainder of fifteen total free minutes. Then Creem paid access

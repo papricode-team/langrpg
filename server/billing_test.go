@@ -353,8 +353,11 @@ func mustBillingAccount(t *testing.T, app *App, id string) Account {
 	return a
 }
 func TestCreemEnvironmentValidation(t *testing.T) {
-	for _, key := range []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID", "CREEM_SERVER", "PUBLIC_URL"} {
+	for _, key := range []string{"FREE_TO_PLAY", "CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID", "CREEM_SERVER", "PUBLIC_URL"} {
 		t.Setenv(key, "")
+	}
+	if cfg, err := creemBillingFromEnv(); err != nil || cfg != nil {
+		t.Fatal("absent Creem configuration must enable free play", err)
 	}
 	t.Setenv("CREEM_MONTHLY_PRODUCT_ID", "monthly")
 	t.Setenv("CREEM_LIFETIME_PRODUCT_ID", "lifetime")
@@ -381,6 +384,28 @@ func TestCreemEnvironmentValidation(t *testing.T) {
 	cfg, err = creemBillingFromEnv()
 	if err != nil || cfg.baseURL != "https://test-api.creem.io" {
 		t.Fatal(err)
+	}
+	t.Setenv("FREE_TO_PLAY", "true")
+	cfg, err = creemBillingFromEnv()
+	if err != nil || cfg != nil {
+		t.Fatal("free-to-play override must disable configured billing", err)
+	}
+	app := testApp(t)
+	app.billing = cfg
+	if status := app.accessState(Account{Email: "free@example.com", Access: PlayAccess{PlayedNanoseconds: int64(trialPlayLimit)}}, app.now()); status.Phase != "free" || status.BillingAvailable {
+		t.Fatalf("free-to-play override did not bypass the expired trial: %+v", status)
+	}
+	t.Setenv("CREEM_WEBHOOK_SECRET", "")
+	if cfg, err = creemBillingFromEnv(); err != nil || cfg != nil {
+		t.Fatal("free-to-play override must ignore incomplete Creem configuration", err)
+	}
+	t.Setenv("FREE_TO_PLAY", "false")
+	if _, err = creemBillingFromEnv(); err == nil {
+		t.Fatal("disabling free-to-play override must restore Creem validation")
+	}
+	t.Setenv("FREE_TO_PLAY", "invalid")
+	if _, err = creemBillingFromEnv(); err == nil {
+		t.Fatal("invalid free-to-play flag accepted")
 	}
 }
 func TestBillingAccountUpdatesRollbackAndSerialize(t *testing.T) {

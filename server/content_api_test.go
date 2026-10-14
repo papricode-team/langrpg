@@ -172,6 +172,7 @@ func TestContentNewSessionIncludesPersistedDefaultCourse(t *testing.T) {
 }
 func TestContentETagChecksAccessAndSupportLanguageBefore304(t *testing.T) {
 	app := contentTestApp(t)
+	app.billing = testCreem(nil)
 	token, player := createSession(t, app, "Ada")
 	id := testContentID(t, app, "graph", "a1-arrival")
 	first := request(app, "GET", "/api/content/graphs/"+id, token, nil)
@@ -207,6 +208,10 @@ func TestContentETagChecksAccessAndSupportLanguageBefore304(t *testing.T) {
 	}
 	if res := conditional(); res.Code == 304 || res.Code != 403 {
 		t.Fatalf("expired access must not receive 304: %d %s", res.Code, res.Body.String())
+	}
+	app.billing = nil
+	if res := conditional(); res.Code != 200 {
+		t.Fatalf("disabling billing must reopen content: %d %s", res.Code, res.Body.String())
 	}
 }
 func TestContentEnglishBothSupportsAttemptRevealAndIndependentProgress(t *testing.T) {

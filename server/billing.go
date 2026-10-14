@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -47,9 +48,16 @@ type CreemBilling struct {
 }
 
 // All configuration is server-only: never put a token or webhook secret in a
-// VITE_ variable. Empty configuration keeps the trial walls active while checkout
-// reports that billing is unavailable.
+// VITE_ variable. FREE_TO_PLAY or empty credentials disable billing and allow
+// unlimited free play.
 func creemBillingFromEnv() (*CreemBilling, error) {
+	freeToPlay, err := strconv.ParseBool(strings.TrimSpace(env("FREE_TO_PLAY", "false")))
+	if err != nil {
+		return nil, errors.New("FREE_TO_PLAY must be true or false")
+	}
+	if freeToPlay {
+		return nil, nil
+	}
 	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID"}
 	values := make([]string, len(keys))
 	for i, key := range keys {
