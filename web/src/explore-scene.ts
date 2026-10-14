@@ -922,7 +922,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     const distance = Math.hypot(dx, dy);
     if(character.componentCast || character.modularNpc){
       if(this.reducedMotion)return;
-      const moving=residentGait?.moving??distance>.05;
+      // Slow NPC steps must not alternate with idle as frame duration varies.
+      const moving=residentGait?.moving??distance>(character.npc?1e-6:.05);
       if(moving){
         const vx=residentGait?.velocityX??dx,vy=residentGait?.velocityY??dy;
         const horizontal=Math.abs(vx)>Math.abs(vy)*(character.facing%2?.88:1.12);
@@ -952,7 +953,11 @@ export abstract class ExploreScene extends Phaser.Scene {
       }
     }
     if (character.castRow !== undefined) {
-      if (Math.hypot(character.x - this.local.x, character.y - this.local.y) < 170 || this.conversationTarget === character.id) {
+      if (residentGait?.moving ?? distance > 1e-6) {
+        const vx = residentGait?.velocityX ?? dx, vy = residentGait?.velocityY ?? dy;
+        const horizontal = Math.abs(vx) > Math.abs(vy) * (character.facing % 2 ? .88 : 1.12);
+        character.facing = horizontal ? (vx >= 0 ? 1 : 3) : (vy >= 0 ? 0 : 2);
+      } else if (Math.hypot(character.x - this.local.x, character.y - this.local.y) < 170 || this.conversationTarget === character.id) {
         // Passers-by can draw a glance without changing the player's gait.
         const lookX = this.local.x - character.x, lookY = this.local.y - character.y;
         character.facing = Math.abs(lookX) > Math.abs(lookY) ? lookX > 0 ? 1 : 3 : lookY > 0 ? 0 : 2;
@@ -965,7 +970,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       // Still-world mode holds the currently planted pose and facing. Regional
       // paintings are walking poses; stationary neighbors keep one painting.
       if (this.reducedMotion) return;
-      const moving = residentGait?.moving ?? distance > .05;
+      const moving = residentGait?.moving ?? distance > 1e-6;
       if (residentGait?.facingLeft !== undefined) character.figure.setFlipX(residentGait.facingLeft);
       if (moving) {
         character.walkDistance = residentGait?.distance ?? character.walkDistance + distance;

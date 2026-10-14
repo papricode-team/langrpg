@@ -17,6 +17,7 @@ describe('painted town resident routes', () => {
         expect(resident.segments.some(segment => !segment.moving)).toBe(true);
         let previous = resident.segments[0].from;
         for (const segment of resident.segments) {
+          if (segment.moving) expect(segment.durationSeconds).toBeGreaterThanOrEqual(1);
           expect(segment.from).toEqual(previous);
           const samples = Math.max(1, Math.ceil(Math.hypot(segment.to.x - segment.from.x, segment.to.y - segment.from.y) / 2));
           for (let index = 0; index <= samples; index++) {
