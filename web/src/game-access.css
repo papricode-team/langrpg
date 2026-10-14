@@ -231,7 +231,7 @@
 
 @media (--phone) {
   .access-hud {
-    top: max(83px, calc(env(safe-area-inset-top) + 73px));
+    top: max(148px, calc(env(safe-area-inset-top) + 140px));
     left: max(14px, env(safe-area-inset-left));
     padding: 7px 8px;
     gap: 7px;

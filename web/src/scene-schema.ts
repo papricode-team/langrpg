@@ -8,6 +8,8 @@ export interface SceneCollision { referenceWidth: number; polygons: readonly Sce
 export interface SceneTerrainCollision { id: string; kind: 'water'|'cliff'|'rock'|'wall'; polygon: ScenePolygon; }
 export interface SceneryGeometry {
   referenceWidth: number;
+  /** Complete day/night artwork envelope, relative to the painted foot anchor. */
+  visualBounds?: {left:number;top:number;right:number;bottom:number};
   footprint?: ScenePolygon;
   sortLine?: readonly (readonly [number, number])[];
   /** Painted opening relative to the foot anchor, in reference pixels. */

@@ -29,7 +29,7 @@ await sharp({ create: { width: 1024, height: 768, channels: 4, background: '#000
 for (const [row, id] of ['inspector', 'elise'].entries()) {
   await sharp(source).extract({ left: 65, top: row * 512 + 6, width: 260, height: 250 }).resize(256, 256, { fit: 'contain', background: '#00000000' }).webp({ quality: 92 }).toFile(`web/public/assets/story-cast/${id}-portrait.webp`);
 }
-await writeFile('web/public/assets/story-cast/manifest.json', JSON.stringify({ source, tool: 'Built-in image_gen', cell: [256,384], rows: ['inspector','elise'], directions: ['south','east','north','west'], registration: 'One uniform scale per character; soles at y=346; generated alpha preserved.', license: 'Generated for The Lantern Atlas', prompt: 'art/source/story-cast/prompt.txt' }, null, 2) + '\n');
+await writeFile('web/public/assets/story-cast/manifest.json', JSON.stringify({ source, tool: 'Built-in image_gen', cell: [256,384], rows: ['inspector','elise'], directions: ['south','east','north','west'], registration: 'One uniform scale per character; soles at y=346; generated alpha preserved.', license: 'Generated for glotworld', prompt: 'art/source/story-cast/prompt.txt' }, null, 2) + '\n');
 
 const mainSource='art/source/story-cast/main-cast-directions.png';
 const main=await sharp(mainSource).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -54,4 +54,4 @@ for(let role=0;role<7;role++){
   }
 }
 await sharp({create:{width:1024,height:2688,channels:4,background:'#00000000'}}).composite(mainFrames).webp({lossless:true}).toFile('web/public/assets/story-cast/main-directions.webp');
-await writeFile('web/public/assets/story-cast/main-manifest.json',JSON.stringify({source:mainSource,tool:'Built-in image_gen',cell:[256,384],rows:['marta','otto','lina','emil','ada','fritz','greta'],directions:['south','east','north','west'],registration:'Uniform scale per character; soles at y=346; generated transparency preserved.',prompt:'art/source/story-cast/main-cast-prompt.txt',license:'Generated for The Lantern Atlas'},null,2)+'\n');
+await writeFile('web/public/assets/story-cast/main-manifest.json',JSON.stringify({source:mainSource,tool:'Built-in image_gen',cell:[256,384],rows:['marta','otto','lina','emil','ada','fritz','greta'],directions:['south','east','north','west'],registration:'Uniform scale per character; soles at y=346; generated transparency preserved.',prompt:'art/source/story-cast/main-cast-prompt.txt',license:'Generated for glotworld'},null,2)+'\n');

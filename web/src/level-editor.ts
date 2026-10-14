@@ -4,6 +4,7 @@ import { parseWorldSceneDocument, sceneActivityUsers, type WorldScene, type Scen
 import {EditorOutliner} from './level-editor-outliner';
 import {assertEditorViewEditable,readEditorView,writeEditorView,lockedScenery,type EditorViewState} from './level-editor-selection';
 import {renderResidentTools} from './level-editor-residents';
+import {editorLayerLabels,editorArtworkLayers,editorGuideLayers,editorArtworkView,editorSceneryLayer,editorSceneryVisible,type EditorLayers} from './level-editor-layers';
 import { maps } from './maps';
 import { LevelEditorCanvas, type PaletteItem } from './level-editor-canvas';
 import { applyScatter, generateScatter, type ScatterProposal } from './level-editor-generation';
@@ -47,7 +48,26 @@ function viewChanged():void {
 function selectPlaced(ids:string[],add=false):void {
   if(busy)return;
   selectMode();
-  selected=new Set([...(add?selected:[]),...ids.filter(id=>!editorView().hidden.has(id))]);refresh();
+  selected=new Set([...(add?selected:[]),...ids.filter(id=>{const item=scene().scenery.find(item=>item.id===id);return !!item&&editorSceneryVisible(item,canvas.layers,editorView().hidden);})]);refresh();
+}
+function layerPanel():string {
+  const controls=(keys:readonly (keyof EditorLayers)[])=>keys.map(key=>`<label class="check"><input type="checkbox" id="layer-${key}" data-layer="${key}"${canvas.layers[key]?' checked':''}> ${editorLayerLabels[key]}</label>`).join('');
+  return `<details id="layer-controls" class="layer-controls" open><summary>Layers</summary><fieldset><legend>Artwork</legend>${controls(editorArtworkLayers)}</fieldset><div class="object-actions"><button id="terrain-only">Terrain only</button><button id="show-all-artwork">Show all artwork</button></div><fieldset><legend>Inspection guides</legend>${controls(editorGuideLayers)}</fieldset><p class="tool-note">Visibility only. Hidden artwork stays in the map.</p></details>`;
+}
+function refreshLayers():void {
+  if(!document.querySelector('#layer-controls'))return;
+  for(const key of [...editorArtworkLayers,...editorGuideLayers]){
+    const input=query<HTMLInputElement>(`#layer-${key}`);input.checked=canvas.layers[key];input.disabled=busy;
+  }
+  const master=query<HTMLInputElement>('#navigation-toggle'),visible=editorGuideLayers.filter(key=>canvas.layers[key]).length;
+  master.checked=visible===editorGuideLayers.length;master.indeterminate=visible>0&&visible<editorGuideLayers.length;
+}
+function changeLayers(next:EditorLayers):void {
+  if(busy)return;selectMode();canvas.setLayers(next);selected=new Set(canvas.selected);refresh();
+}
+function revealArtwork(items:readonly Pick<SceneScenery,'asset'|'frame'>[]):void {
+  const next={...canvas.layers};for(const item of items)next[editorSceneryLayer(item)]=true;
+  if(JSON.stringify(next)!==JSON.stringify(canvas.layers)){canvas.setLayers(next);refreshLayers();}
 }
 function selectMode(box=false):void {
   canvas.cancelGesture();clearPaste();canvas.paintMode=undefined;canvas.placing=false;canvas.panMode=false;canvas.boxMode=box;currentAsset=undefined;currentPrefabId=undefined;clearPrefabPreview();renderPalette();renderPrefabs();refreshObjectTools();
@@ -90,7 +110,7 @@ function previewPaste(x:number,y:number):void {
 }
 function startPaste():void {
   if(!clipboard||busy)return;
-  try{checkClipboard(clipboard,palette,history.document.prefabs??[]);selectMode();clearScatterPreview();pasting=true;canvas.placing=true;
+  try{checkClipboard(clipboard,palette,history.document.prefabs??[]);selectMode();clearScatterPreview();revealArtwork(clipboard.scenery);pasting=true;canvas.placing=true;
     const point=canvas.centerPoint();previewPaste(point.x,point.y);refreshObjectTools();
     if(pasting)query('#canvas-help').textContent=`Click to paste ${clipboard.scenery.length} objects · Esc cancels · Ctrl/Cmd V repeats`;
   }catch(error){diagnostics([error instanceof Error?error.message:String(error)],true);}
@@ -130,9 +150,10 @@ function changed(render = true): void {
 function refresh(): void {
   root.classList.toggle('is-busy',busy);
   canvas.editable=!busy;
-  selected = new Set([...selected].filter(id => !editorView().hidden.has(id)&&scene().scenery.some(item => item.id === id)));
+  selected = new Set([...selected].filter(id => scene().scenery.some(item => item.id === id&&editorSceneryVisible(item,canvas.layers,editorView().hidden))));
   canvas.hidden=editorView().hidden;canvas.locked=lockedScenery(scene(),editorView());
   canvas.selected = selected; canvas.drawGuides();
+  refreshLayers();
   query<HTMLButtonElement>('#undo').disabled = !history.canUndo || busy;
   query<HTMLButtonElement>('#redo').disabled = !history.canRedo || busy;
   query<HTMLButtonElement>('#save').disabled = !dirty() || busy;
@@ -188,6 +209,7 @@ function renderPrefabs():void {
     canvas.cancelGesture();clearPaste();canvas.paintMode=undefined;
     clearPrefabPreview();proposal=undefined;canvas.preview([]);renderGenerator();
     currentPrefabId=button.dataset.prefab;currentAsset=undefined;canvas.placing=true;canvas.panMode=false;canvas.boxMode=false;canvas.zoneMode=false;
+    revealArtwork(catalog.find(item=>item.id===currentPrefabId)!.scenery);
     query('#canvas-help').textContent=`Click to place ${catalog.find(item=>item.id===currentPrefabId)!.name} · Esc to select`;
     renderPalette();renderPrefabs();refreshObjectTools();
   });
@@ -312,6 +334,7 @@ function renderPalette():void {
     canvas.cancelGesture();clearPaste();clearPrefabPreview();clearScatterPreview();currentPrefabId=undefined;
     canvas.paintMode=canvas.paintMode==='brush'?'brush':undefined;
     currentAsset=palette[Number(button.dataset.palette)];canvas.placing=true;canvas.panMode=false;canvas.boxMode=false;canvas.zoneMode=false;
+    revealArtwork([currentAsset]);
     canvas.paintRadius=Math.max(8,currentAsset.width*.2);
     query('#canvas-help').textContent=canvas.paintMode?`Drag to paint ${currentAsset.frame.replaceAll('-',' ')} · Esc cancels the stroke`:`Click to place ${currentAsset.frame.replaceAll('-',' ')} · Esc to select`;
     renderPalette();refreshObjectTools();
@@ -381,7 +404,7 @@ async function save():Promise<void> {
 function exportWorld():void {
   if(busy)return;canvas.cancelGesture();
   const url=URL.createObjectURL(new Blob([worldExportJSON(history.document)],{type:'application/json'}));
-  const link=document.createElement('a');link.href=url;link.download=`lantern-atlas-world-${new Date().toISOString().slice(0,10)}.json`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const link=document.createElement('a');link.href=url;link.download=`glotworld-world-${new Date().toISOString().slice(0,10)}.json`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   diagnostics([dirty()?'Exported the current world draft, including unsaved edits. Save world publishes those edits.':'Exported the complete world, including all maps and reusable groups.']);
 }
 async function importWorld(file:File):Promise<void> {
@@ -404,7 +427,7 @@ const canvas=new LevelEditorCanvas({
   beginStroke(mode,point,individual){
     clearPaste();clearPrefabPreview();clearScatterPreview();
     try{stroke=new ObjectPaintStroke(scene(),mode,currentAsset,brushSettings(),
-      {hidden:new Set(editorView().hidden),locked:lockedScenery(scene(),editorView())},item=>canvas.bounds(item),individual);
+      {hidden:canvas.hiddenScenery(),locked:lockedScenery(scene(),editorView())},item=>canvas.bounds(item),individual);
       strokeSelection=new Set(selected);history.begin();paintStroke(point);
     }catch(error){stroke=undefined;diagnostics([error instanceof Error?error.message:String(error)],true);}
   },
@@ -457,9 +480,9 @@ async function boot():Promise<void> {
   await worldApi.authenticate();
   const result=await worldApi.load();history=new LevelEditorHistory(result.document);revision=result.revision;savedDocument=JSON.stringify(history.document);
   const requested=new URLSearchParams(location.search).get('map');if(requested&&history.document.maps[requested])mapId=requested;
-  root.innerHTML=`<main class="studio"><header class="topbar"><div class="brand"><span class="brand-icon">⌖</span><div><span class="caption">The Lantern Atlas</span><h1>World Studio</h1></div></div><div class="toolbar"><select id="map-select" aria-label="World map">${Object.values(history.document.maps).map(map=>`<option value="${map.id}"${map.id===mapId?' selected':''}>${escape(maps.find(spec=>spec.id===map.id)?.name??map.id)}</option>`).join('')}</select><button id="undo" title="Undo · Ctrl/Cmd Z" aria-label="Undo">↶</button><button id="redo" title="Redo · Ctrl/Cmd Shift Z" aria-label="Redo">↷</button><div class="toolbar-end"><span id="save-status" class="save-status" aria-live="polite">All changes saved</span><button id="import-world">Import</button><input id="import-file" type="file" accept=".json,application/json" hidden><button id="export-world">Export</button><button id="validate">Validate</button><button id="save" class="primary">Save world</button></div></div></header>
+  root.innerHTML=`<main class="studio"><header class="topbar"><div class="brand"><span class="brand-icon"><img src="/favicon.svg" width="32" height="32" alt=""/></span><div><span class="caption">glotworld</span><h1>World Studio</h1></div></div><div class="toolbar"><select id="map-select" aria-label="World map">${Object.values(history.document.maps).map(map=>`<option value="${map.id}"${map.id===mapId?' selected':''}>${escape(maps.find(spec=>spec.id===map.id)?.name??map.id)}</option>`).join('')}</select><button id="undo" title="Undo · Ctrl/Cmd Z" aria-label="Undo">↶</button><button id="redo" title="Redo · Ctrl/Cmd Shift Z" aria-label="Redo">↷</button><div class="toolbar-end"><span id="save-status" class="save-status" aria-live="polite">All changes saved</span><button id="import-world">Import</button><input id="import-file" type="file" accept=".json,application/json" hidden><button id="export-world">Export</button><button id="validate">Validate</button><button id="save" class="primary">Save world</button></div></div></header>
   <div id="draft-banner" class="draft-banner" hidden><span id="draft-description"></span><button id="recover-draft">Recover draft</button><button id="discard-draft">Dismiss</button></div>
-  <div class="studio-body"><aside class="sidebar palette-panel"><div class="panel-title"><h2>Object library</h2><span id="object-count" class="count"></span></div><div class="library-tabs"><button id="show-objects" aria-pressed="true">Objects</button><button id="show-groups" aria-pressed="false">Groups</button><button id="show-placed" aria-pressed="false">Placed</button></div><input class="search" id="search" type="search" placeholder="Find trees, lamps, houses…" aria-label="Search object library"><div id="object-tools" class="object-tools"><div class="object-actions"><button id="copy-objects" title="Copy selection · Ctrl/Cmd C">Copy</button><button id="paste-objects" title="Paste objects · Ctrl/Cmd V" disabled>Paste</button></div><p id="clipboard-status" class="tool-note"></p><div class="object-actions" aria-label="Object placement tools"><button id="stamp-objects" aria-pressed="false">Stamp</button><button id="brush-objects" aria-pressed="false" title="Paint objects · B">Brush</button><button id="erase-objects" aria-pressed="false" title="Erase objects · E">Erase</button></div><details><summary>Brush & erase settings</summary><div class="generation-fields"><label>Brush spacing<input id="brush-spacing" type="number" min="8" max="512" value="70"></label><label>Size variation %<input id="brush-variation" type="number" min="0" max="30" value="10"></label><label>Path clearance<input id="brush-clearance" type="number" min="0" max="120" value="12"></label><label>Erase radius<input id="erase-radius" type="number" min="4" max="256" value="32"></label></div><label class="check"><input id="brush-paths" type="checkbox" checked> Keep paths clear</label><p class="tool-note">Paint on buildable ground. Each stroke is one undo step. Erase keeps locked, hidden, pinned and referenced objects.</p></details></div><div id="palette" class="palette"></div><p id="palette-help" class="panel-note">Choose an object, then place it anywhere in the world. Each instance stays independently editable.</p><div id="prefab-tools" class="section"></div><div id="outliner" hidden></div><div class="section"><h3>View</h3><label class="check"><input id="navigation-toggle" type="checkbox"> Paths, collision & activity slots</label><label class="check"><input id="grid-toggle" type="checkbox"> Show world grid</label><label class="check"><input id="snap-toggle" type="checkbox"> Snap to 16 units</label><label>Lighting<select id="period"><option value="day">Day</option><option value="night">Night</option></select></label><label class="section">Go to district<select id="district-focus"><option value="">Entire map</option></select></label></div><div id="generation-tools" class="section"></div></aside>
+  <div class="studio-body"><aside class="sidebar palette-panel">${layerPanel()}<div class="panel-title"><h2>Object library</h2><span id="object-count" class="count"></span></div><div class="library-tabs"><button id="show-objects" aria-pressed="true">Objects</button><button id="show-groups" aria-pressed="false">Groups</button><button id="show-placed" aria-pressed="false">Placed</button></div><input class="search" id="search" type="search" placeholder="Find trees, lamps, houses…" aria-label="Search object library"><div id="object-tools" class="object-tools"><div class="object-actions"><button id="copy-objects" title="Copy selection · Ctrl/Cmd C">Copy</button><button id="paste-objects" title="Paste objects · Ctrl/Cmd V" disabled>Paste</button></div><p id="clipboard-status" class="tool-note"></p><div class="object-actions" aria-label="Object placement tools"><button id="stamp-objects" aria-pressed="false">Stamp</button><button id="brush-objects" aria-pressed="false" title="Paint objects · B">Brush</button><button id="erase-objects" aria-pressed="false" title="Erase objects · E">Erase</button></div><details><summary>Brush & erase settings</summary><div class="generation-fields"><label>Brush spacing<input id="brush-spacing" type="number" min="8" max="512" value="70"></label><label>Size variation %<input id="brush-variation" type="number" min="0" max="30" value="10"></label><label>Path clearance<input id="brush-clearance" type="number" min="0" max="120" value="12"></label><label>Erase radius<input id="erase-radius" type="number" min="4" max="256" value="32"></label></div><label class="check"><input id="brush-paths" type="checkbox" checked> Keep paths clear</label><p class="tool-note">Paint on buildable ground. Each stroke is one undo step. Erase keeps locked, hidden, pinned and referenced objects.</p></details></div><div id="palette" class="palette"></div><p id="palette-help" class="panel-note">Choose an object, then place it anywhere in the world. Each instance stays independently editable.</p><div id="prefab-tools" class="section"></div><div id="outliner" hidden></div><div class="section"><h3>View</h3><label class="check"><input id="navigation-toggle" type="checkbox"> Paths, collision & activity slots</label><label class="check"><input id="grid-toggle" type="checkbox"> Show world grid</label><label class="check"><input id="snap-toggle" type="checkbox"> Snap to 16 units</label><label>Lighting<select id="period"><option value="day">Day</option><option value="night">Night</option></select></label><label class="section">Go to district<select id="district-focus"><option value="">Entire map</option></select></label></div><div id="generation-tools" class="section"></div></aside>
   <section class="canvas-shell" aria-label="Editable world canvas"><div id="canvas" class="canvas-host"></div><div class="canvas-top"><span id="map-name" class="pill"></span><span id="map-size" class="pill"></span></div><div class="canvas-tools"><button id="select-mode" title="Select objects">Select</button><button id="box-mode" title="Box select objects" aria-pressed="false">Box</button><button id="pan-mode" title="Pan map">Pan</button><button id="frame-selection" title="Frame selection · F">Frame</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="fit">Fit</button></div><div id="canvas-help" class="canvas-help">Loading the world…</div><div id="loading" class="canvas-loading">Opening the world…</div></section>
   <aside class="sidebar inspector-panel"><div class="panel-title"><h2>Inspector</h2><span id="selection-count" class="count">0</span></div><div id="inspector"></div><div class="section"><div class="panel-title"><h2>Validation</h2></div><div id="diagnostics" class="diagnostics" aria-live="polite"></div></div><div class="section"><h3>This map</h3><div id="scene-stats" class="stats"></div></div></aside></div>
   <footer class="footer"><span>Admin world editor</span><span id="footer-status" aria-live="polite">All changes saved</span><span id="coordinates">0, 0</span></footer></main>`;
@@ -484,7 +507,10 @@ async function boot():Promise<void> {
   query('#box-mode').onclick=()=>selectMode(true);query('#frame-selection').onclick=()=>canvas.frameSelection();
   query('#pan-mode').onclick=()=>{selectMode();canvas.panMode=true;query('#canvas-help').textContent='Drag to pan · Scroll to zoom · Select to edit objects';};
   query('#zoom-in').onclick=()=>canvas.zoom(1.2);query('#zoom-out').onclick=()=>canvas.zoom(1/1.2);query('#fit').onclick=()=>{query<HTMLSelectElement>('#district-focus').value='';canvas.fit();};
-  query<HTMLInputElement>('#navigation-toggle').onchange=()=>{canvas.navigationVisible=query<HTMLInputElement>('#navigation-toggle').checked;canvas.drawGuides();};
+  query('#layer-controls').querySelectorAll<HTMLInputElement>('[data-layer]').forEach(input=>input.onchange=()=>changeLayers({...canvas.layers,[input.dataset.layer!]:input.checked}));
+  query('#terrain-only').onclick=()=>changeLayers(editorArtworkView(canvas.layers,true));
+  query('#show-all-artwork').onclick=()=>changeLayers(editorArtworkView(canvas.layers));
+  query<HTMLInputElement>('#navigation-toggle').onchange=()=>{canvas.navigationVisible=query<HTMLInputElement>('#navigation-toggle').checked;refreshLayers();canvas.drawGuides();};
   query<HTMLInputElement>('#grid-toggle').onchange=()=>{canvas.gridVisible=query<HTMLInputElement>('#grid-toggle').checked;canvas.drawGuides();};
   query<HTMLInputElement>('#snap-toggle').onchange=()=>{canvas.snap=query<HTMLInputElement>('#snap-toggle').checked?16:0;};
   query<HTMLSelectElement>('#period').onchange=()=>{canvas.period=query<HTMLSelectElement>('#period').value as 'day'|'night';void loadMap();};

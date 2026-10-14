@@ -38,10 +38,10 @@ describe('conversation scene lifecycle', () => {
     await f.controller.open('a1-arrival');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Good morning');
-    expect([...document.querySelectorAll('[data-dialogue-choice] > [lang]:not([lang="de"])')].map(meaning => meaning.textContent)).toEqual(expect.arrayContaining(['Good morning!', 'Goodbye!', 'Good night!']));
+    expect([...document.querySelectorAll('.dialogue-choice-phrase [lang]:not([lang="de"])')].map(meaning => meaning.textContent)).toEqual(expect.arrayContaining(['Good morning!', 'Goodbye!', 'Good night!']));
     expect(document.querySelector('input, textarea')).toBeNull();
     f.click('[data-dialogue-choice="Guten Morgen!"]');
     await vi.waitFor(() => expect(f.api.request).toHaveBeenCalled());
@@ -58,12 +58,12 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('input, textarea, form')).toBeNull();
     expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('Choose a reply.');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')];
     expect(choices).toHaveLength(2);
-    expect(choices.every(choice => !!choice.querySelector(':scope > [lang]:not([lang="de"])')?.textContent)).toBe(true);
+    expect(choices.every(choice => !!choice.parentElement?.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')?.textContent)).toBe(true);
     choices.find(choice => choice.dataset.dialogueChoice === exercise.answer!)!.click();
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { exerciseId, answer: exercise.answer!, mode: 'recognition', hinted: true, guidedChoice: true, sceneAttempt: true }]);
@@ -105,7 +105,7 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('#dialogue-answer')).toBeNull();
     expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(2);
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')).toBeNull();
   });
 
   it('reveals requested meanings in the next town while allowing its written gate to submit with assistance', async () => {
@@ -187,6 +187,25 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('true');
   });
 
+  it('hydrates fetched greetings with the resident voice and uses only authored audio clips', async () => {
+    const f=fixture('intro','a1-arrival',true);
+    const marta=npcs.find(npc=>npc.id==='marta')!;
+    const first={id:'00000000-0000-4000-8000-000000000301',de:{text:'Hallo!',tokens:[[0,5]]},support:{en:{text:'Hello!',tokens:[[0,5]],align:[[0,0]]}},npcId:'00000000-0000-4000-8000-000000000303'};
+    const second={id:'00000000-0000-4000-8000-000000000302',de:{text:'Bis später!',tokens:[[0,3],[4,10]]},support:{en:{text:'See you later!',tokens:[[0,3],[4,7],[8,13]],align:[[0,0],[0,1],[1,2]]}},npcId:first.npcId,clipId:'greeting-marta-authored'};
+    const lines=vi.fn(async()=>[first,second]);
+    Object.assign(f.options,{content:{lines}});
+    await f.controller.greet({...marta,greetingLineIds:[first.id,second.id]},'A1');
+    expect(lines).toHaveBeenCalledWith([first.id,second.id]);
+    expect(f.options.onOpen).toHaveBeenLastCalledWith('marta');
+    expect(f.options.portrait).toHaveBeenLastCalledWith('marta','neutral');
+    expect(f.options.speak).toHaveBeenLastCalledWith('Hallo!','marta','',false,undefined);
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Hallo!');
+    f.click('[data-dialogue-action="next"]');
+    await vi.waitFor(()=>expect(f.options.speak).toHaveBeenLastCalledWith('Bis später!','marta','greeting-marta-authored',false,undefined));
+    expect(first).not.toHaveProperty('speaker');
+    expect(first).not.toHaveProperty('clipId');
+  });
+
   it('starts beginner resident greetings hidden and toggles the current line and reply meanings', () => {
     const f = fixture('intro', 'a1-arrival', true);
     const marta = npcs.find(npc => npc.id === 'marta')!;
@@ -199,13 +218,13 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     f.click('[data-dialogue-action="next"]');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')).toBeNull();
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
-    expect(document.querySelectorAll('[data-dialogue-choice] > [lang]:not([lang="de"])')).toHaveLength(2);
+    expect(document.querySelectorAll('.dialogue-choice-phrase [lang]:not([lang="de"])')).toHaveLength(2);
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
-    expect(document.querySelector('[data-dialogue-choice] > [lang]:not([lang="de"])')).toBeNull();
+    expect(document.querySelector('.dialogue-choice-phrase [lang]:not([lang="de"])')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     f.click('[data-dialogue-action="translate"]');
     f.controller.greet(marta, 'A1');

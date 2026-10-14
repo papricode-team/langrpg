@@ -66,6 +66,7 @@ export interface AccountStatus { registered: boolean; email: string; admin?: boo
 export interface Preferences { baseLanguage: BaseLanguage; }
 export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; }
 export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
+export interface ExpeditionAnswerResult { progress: Progress; feedback?: string; duplicate?: boolean; }
 /** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {
   const metadata = result.account, language = result.preferences?.baseLanguage;

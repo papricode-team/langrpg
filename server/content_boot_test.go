@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func TestBuiltContentCatalogueBootsAndMatchesGrading(t *testing.T) {
@@ -89,6 +89,107 @@ func TestCatalogueMinigameReadsRedactEveryMatchingAnswerKey(t *testing.T) {
 	assertNoContentAnswers(t, response.Body.Bytes())
 	if !strings.Contains(response.Body.String(), "Auf dem Tisch") || !strings.Contains(response.Body.String(), `"id":"table"`) {
 		t.Fatal("redaction removed the visible matching task")
+	}
+}
+
+func TestCatalogueExpeditionFeedbackRequiresRecordedSelection(t *testing.T) {
+	data, err := curriculumFiles.ReadFile("content.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	catalogue, err := contentstore.Parse(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	curriculum, err := curriculumFromContent(catalogue)
+	if err != nil {
+		t.Fatal(err)
+	}
+	privateFeedback := 0
+	for _, record := range catalogue.Records["expeditions"] {
+		if strings.Contains(string(record.Body), `"response"`) {
+			privateFeedback++
+		}
+		for _, language := range []string{"en", "tr"} {
+			response, err := json.Marshal(safeContent(contentBody(record), language))
+			if err != nil {
+				t.Fatal(err)
+			}
+			assertNoContentAnswers(t, response)
+		}
+	}
+	if privateFeedback == 0 {
+		t.Fatal("regression catalogue lacks private expedition choice feedback")
+	}
+	store, err := NewJSONStore("")
+	if err != nil {
+		t.Fatal(err)
+	}
+	app := NewApp(store, curriculum, nil, 10)
+	t.Cleanup(app.Close)
+	app.installContent(catalogue, true)
+	token, _ := createSession(t, app, "Ada")
+	encounterID := catalogue.Resolve("expeditions", "saffroncourt-encounter-salma")
+	regionID := catalogue.Resolve("expeditions", "saffroncourt")
+	encounter, ok := catalogue.Get("expeditions", encounterID)
+	if !ok {
+		t.Fatal("regression encounter missing")
+	}
+	choices, _ := contentBody(encounter)["choices"].([]any)
+	if len(choices) != 2 {
+		t.Fatal("regression encounter must have two choices")
+	}
+	selected := 1
+	selectedFeedback := contentString(choices[selected].(map[string]any), "response")
+	otherFeedback := contentString(choices[0].(map[string]any), "response")
+	input := map[string]any{"id": "private-feedback", "encounterId": encounterID, "selected": selected}
+	response := request(app, "POST", "/api/expedition/answer", token, input)
+	if response.Code != 403 || strings.Contains(response.Body.String(), selectedFeedback) {
+		t.Fatalf("locked encounter disclosed feedback: %d %s", response.Code, response.Body.String())
+	}
+	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
+		account.Progress.CompletedQuestIDs = []string{"b1-atlas"}
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
+	for _, id := range []string{regionID, encounterID} {
+		response = request(app, "GET", "/api/content/expeditions/"+id, token, nil)
+		if response.Code != 200 {
+			t.Fatalf("expedition read: %d %s", response.Code, response.Body.String())
+		}
+		assertNoContentAnswers(t, response.Body.Bytes())
+		if strings.Contains(response.Body.String(), selectedFeedback) || strings.Contains(response.Body.String(), otherFeedback) {
+			t.Fatal("expedition read disclosed private choice feedback")
+		}
+		if !strings.Contains(response.Body.String(), "Ich bringe es hinter das blaue Tor.") {
+			t.Fatal("redaction removed the selectable reply text")
+		}
+	}
+	for _, duplicate := range []bool{false, true} {
+		response = request(app, "POST", "/api/expedition/answer", token, input)
+		if response.Code != 200 {
+			t.Fatalf("answer: %d %s", response.Code, response.Body.String())
+		}
+		var result struct {
+			Feedback  string           `json:"feedback"`
+			Record    ExpeditionRecord `json:"record"`
+			Duplicate bool             `json:"duplicate"`
+		}
+		if err := json.Unmarshal(response.Body.Bytes(), &result); err != nil {
+			t.Fatal(err)
+		}
+		if result.Feedback != selectedFeedback || result.Record.Selected != selected || result.Record.Attempts != 1 || result.Duplicate != duplicate {
+			t.Fatalf("selected feedback or receipt mismatch: %+v", result)
+		}
+		if strings.Contains(response.Body.String(), otherFeedback) {
+			t.Fatal("answer disclosed feedback for an unselected choice")
+		}
+	}
+	input["selected"] = 0
+	response = request(app, "POST", "/api/expedition/answer", token, input)
+	if response.Code != 409 || strings.Contains(response.Body.String(), otherFeedback) {
+		t.Fatalf("conflicting retry disclosed unrecorded feedback: %d %s", response.Code, response.Body.String())
 	}
 }
 

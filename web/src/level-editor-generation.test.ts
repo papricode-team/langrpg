@@ -1,7 +1,8 @@
 import {describe,expect,it} from 'vitest';
 import {applyScatter,generateScatter,polygonsIntersect} from './level-editor-generation';
 import {sceneryFootprints} from './placed-scenery';
-import type {WorldScene,SceneGenerationZone} from './scene-schema';
+import {BUILDING_SPACING,buildingBounds} from './building-spacing';
+import {getSceneryGeometryMap,type WorldScene,type SceneGenerationZone} from './scene-schema';
 const scene=():WorldScene=>({id:'lindenhafen',coordinateVersion:1,width:1000,height:800,spawn:{x:50,y:50},npcs:[],objects:[],walkable:[[[14,14],[150,14],[150,750],[14,750]]],obstacles:[],scenery:[{id:'manual-tree',asset:'tree',x:400,y:400,width:80}],terrain:[{id:'core',x:0,y:0,width:1000,height:800,dayAsset:'/assets/test.webp'}],districts:[]});
 const zone:SceneGenerationZone={id:'woodland',seed:42,rulesVersion:1,polygon:[[200,20],[980,20],[980,780],[200,780]],palette:['tree']};
 const templates=[{asset:'tree' as const,frame:'tree',width:80}];
@@ -73,6 +74,35 @@ describe('seeded scenery generation',()=>{
     const foundation=sceneryFootprints(occupied.scenery)[0];
     expect(adjacent.added).toHaveLength(8);
     expect(adjacent.added.every(item=>sceneryFootprints([item]).every(base=>!polygonsIntersect(base,foundation)))).toBe(true);
+  });
+  it('keeps complete registered buildings clear even when their foundations are separate',()=>{
+    const source={...clearLand(),id:'lindenhafen'},manifest=getSceneryGeometryMap(source.id);
+    const inn={id:'inn',asset:'house' as const,frame:'house-inn',x:500,y:400,width:220};
+    source.scenery=[inn];
+    const candidate={...inn,id:'candidate',y:560};
+    const bases=sceneryFootprints([inn,candidate],manifest);
+    expect(polygonsIntersect(bases[0],bases[1])).toBe(false);
+    expect(buildingBounds(candidate,manifest.assets['house-inn'])!.top).toBeLessThan(buildingBounds(inn,manifest.assets['house-inn'])!.bottom);
+    // Include the entire foundation, leaving anchors only in the overlapping-roof band.
+    const behind={...zone,polygon:[[320,430],[680,430],[680,650],[320,650]] as const};
+    const buildingTemplate=[{asset:'house' as const,frame:'house-inn',width:220}],buildingSettings={...settings,count:1,minSpacing:8,clearance:0,minScale:1,maxScale:1};
+    const uncrowded=generateScatter({...source,scenery:[{...inn,x:120}]},behind,buildingTemplate,buildingSettings);
+    expect(uncrowded.added).toHaveLength(1);
+    const crowded=generateScatter(source,behind,buildingTemplate,buildingSettings);
+    expect(crowded.added).toHaveLength(0);expect(crowded.rejected.occupied).toBeGreaterThan(0);
+    const decorated=generateScatter(source,behind,[{asset:'tree',frame:'tree',width:60}],{...settings,count:1,minSpacing:8,clearance:0,minScale:1,maxScale:1});
+    expect(decorated.added).toHaveLength(1);
+  });
+  it('leaves a visible gap between newly generated buildings at minimum scatter spacing',()=>{
+    const source={...clearLand(),id:'lindenhafen'},manifest=getSceneryGeometryMap(source.id);
+    const proposal=generateScatter(source,zone,[{asset:'house',frame:'house-inn',width:220}],{...settings,count:20,minSpacing:8,clearance:0,minScale:1,maxScale:1});
+    expect(proposal.added.length).toBeGreaterThan(1);
+    const roofs=proposal.added.map(item=>buildingBounds(item,manifest.assets['house-inn'])!);
+    for(let i=0;i<roofs.length;i++)for(let j=i+1;j<roofs.length;j++){
+      const a=roofs[i],b=roofs[j];
+      const xGap=Math.max(0,a.left-b.right,b.left-a.right),yGap=Math.max(0,a.top-b.bottom,b.top-a.bottom);
+      expect(Math.hypot(xGap,yGap)).toBeGreaterThanOrEqual(BUILDING_SPACING-1e-7);
+    }
   });
   it('protects separate activity places when land has no street whitelist',()=>{
     const source=clearLand();source.scenery=[{id:'bench',asset:'bench',x:450,y:200,width:64}];

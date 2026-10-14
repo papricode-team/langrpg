@@ -1,0 +1,245 @@
+/* Who you are and where you stand: a brass player plate and a cartographer's place name. */
+.player-hud {
+  position:absolute;
+  top:max(20px,env(safe-area-inset-top));
+  left:max(24px,env(safe-area-inset-left));
+  display:flex;
+  align-items:center;
+  gap:14px;
+  pointer-events:none;
+}
+
+.player-medallion {
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:64px;
+  height:64px;
+  padding:0;
+  border:2px solid #d8bb80;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,#2f4f3f,#132a22);
+  box-shadow:0 0 0 3px #10211fcc,0 0 0 4px #d8bb8055,0 6px 18px #06140f80;
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+
+.player-medallion .portrait {
+  width:56px;
+  height:56px;
+}
+
+.player-medallion:hover {
+  transform:scale(1.04);
+  box-shadow:0 0 0 3px #10211fcc,0 0 0 4px #f0d49a,0 0 22px #f0d49a60;
+}
+
+.player-medallion:focus-visible {
+  outline:none;
+  box-shadow:0 0 0 3px #10211f,0 0 0 5px #fff3ce,0 0 24px #f0d49a90;
+}
+
+/* The gem takes the crest earned through the acts. */
+.medallion-gem {
+  position:absolute;
+  right:-2px;
+  bottom:2px;
+  width:14px;
+  height:14px;
+  border:2px solid #10211f;
+  background:linear-gradient(135deg,#ffd98a,#c47a35);
+  box-shadow:0 0 8px #ffcf7a90;
+  transform:rotate(45deg);
+}
+
+[data-crest='leaf'] .medallion-gem { background:linear-gradient(135deg,#d9f0a0,#5d8e46); box-shadow:0 0 8px #bfe58a90; }
+[data-crest='silver'] .medallion-gem { background:linear-gradient(135deg,#ffffff,#9aa8b2); box-shadow:0 0 8px #e8f1f890; }
+[data-crest='star'] .medallion-gem { background:linear-gradient(135deg,#fff6c8,#e0a93a); box-shadow:0 0 12px #ffe08ab0; }
+
+.player-details {
+  display:grid;
+  gap:4px;
+  min-width:150px;
+  text-shadow:0 1px 3px #061410d0;
+}
+
+.player-name {
+  color:#f8eed2;
+  font:400 var(--type-title)/1.15 'Fraunces',serif;
+}
+
+.player-meta {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#e7d29d;
+  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  letter-spacing:.4px;
+}
+
+.xp-badge {
+  padding:2px 8px;
+  border:1px solid #d8bb8066;
+  border-radius:999px;
+  color:#f6e6bb;
+  background:#10211fb3;
+  text-shadow:none;
+}
+
+.xp-badge strong {
+  color:#ffe6a6;
+}
+
+.player-progress {
+  position:relative;
+  display:block;
+  width:100%;
+  height:5px;
+  overflow:hidden;
+  border-radius:3px;
+  background:#0c1c18b3;
+  box-shadow:inset 0 0 0 1px #d8bb8040;
+}
+
+.player-progress>span {
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#b98d47,#ffe2a0);
+  box-shadow:0 0 8px #ffd98a90;
+  transition:width .6s ease;
+}
+
+/* The place name rests quietly at the top and swells into a title card on arrival. */
+.location-banner {
+  position:absolute;
+  top:max(26px,env(safe-area-inset-top));
+  left:50%;
+  display:grid;
+  justify-items:center;
+  gap:2px;
+  max-width:min(440px,calc(100vw - 760px));
+  padding:6px 28px 10px;
+  transform:translateX(-50%);
+  text-align:center;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,#0a1a15a0,transparent 72%);
+}
+
+.location-title {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:#f8eed2;
+  font:400 var(--type-title)/1.2 'Fraunces',serif;
+  text-shadow:0 2px 8px #061410;
+  white-space:nowrap;
+}
+
+.location-title::before,.location-title::after {
+  content:'';
+  width:44px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#e7cf95);
+}
+
+.location-title::after {
+  transform:scaleX(-1);
+}
+
+.location-subtitle {
+  color:#e2d3ac;
+  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  text-shadow:0 1px 4px #061410;
+}
+
+.location-subtitle:empty {
+  display:none;
+}
+
+.location-banner.arriving {
+  animation:location-arrive 3.2s ease both;
+}
+
+@keyframes location-arrive {
+  0% { opacity:0; transform:translate(-50%,8px) scale(1.25); }
+  18%,62% { opacity:1; transform:translate(-50%,0) scale(1.25); }
+  100% { opacity:1; transform:translate(-50%,0) scale(1); }
+}
+
+@media (--tablet) {
+  /* Narrow screens keep only the arrival title card, centred above the player. */
+  .location-banner {
+    top:28%;
+    max-width:calc(100vw - 32px);
+    opacity:0;
+  }
+  .location-banner.arriving {
+    animation:location-card 3.2s ease both;
+  }
+  @keyframes location-card {
+    0% { opacity:0; transform:translate(-50%,8px); }
+    15%,75% { opacity:1; transform:translate(-50%,0); }
+    100% { opacity:0; transform:translate(-50%,-6px); }
+  }
+}
+
+@media (--phone) {
+  .player-hud {
+    top:max(16px,env(safe-area-inset-top));
+    left:16px;
+    gap:10px;
+  }
+  .player-medallion {
+    width:48px;
+    height:48px;
+  }
+  .player-medallion .portrait {
+    width:42px;
+    height:42px;
+  }
+  .player-details {
+    min-width:0;
+    gap:2px;
+  }
+  .player-name {
+    font-size:var(--type-body);
+  }
+  .player-progress {
+    width:120px;
+  }
+}
+
+@media (--short-landscape) {
+  .player-hud {
+    top:max(12px,env(safe-area-inset-top));
+  }
+  .player-medallion {
+    width:48px;
+    height:48px;
+  }
+  .player-medallion .portrait {
+    width:42px;
+    height:42px;
+  }
+  .player-name {
+    font-size:var(--type-body);
+  }
+}
+
+/* While a conversation or cinematic owns the screen, the frame steps aside. */
+.dialogue-open :is(.player-hud,.location-banner),.cinematic-open :is(.player-hud,.location-banner) {
+  opacity:0;
+  visibility:hidden;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .location-banner.arriving {
+    animation:none;
+  }
+  .player-progress>span,.player-medallion {
+    transition:none;
+  }
+}

@@ -64,6 +64,43 @@ export function applyCachedAlignment(line, cache) {
   return result;
 }
 
+/** Strip literal instruction wrappers by renumbering existing authored pairs only. */
+export function projectAuthoredAlignment(oldLine,newLine,cache) {
+  try {
+    if(oldLine?.de?.text!==newLine?.de?.text)return null;
+    const oldLanguages=Object.keys(oldLine.support??{}).sort(),newLanguages=Object.keys(newLine.support??{}).sort();
+    if(!oldLanguages.length||JSON.stringify(oldLanguages)!==JSON.stringify(newLanguages))return null;
+    const derivedFromHash=alignmentHash(oldLine),entry=cache.entries?.[derivedFromHash];
+    if(!entry||!['reviewed','authored'].includes(entry.status))return null;
+    const original=applyCachedAlignment(oldLine,cache);
+    if(validateAlignment({...original,glosses:undefined}).length)return null;
+    const support={};
+    for(const language of newLanguages) {
+      const previous=original.support[language],next=newLine.support[language];
+      if(!next||typeof next.text!=='string'||!next.text||!next.tokens?.length||JSON.stringify(next.tokens)!==JSON.stringify(tokenize(next.text)))return null;
+      let projected;
+      // An identical substring can occur twice; only an occurrence retaining every
+      // claimed source token is eligible. Text and punctuation are never rewritten.
+      for(let start=previous.text.indexOf(next.text);start>=0;start=previous.text.indexOf(next.text,start+1)) {
+        const end=start+next.text.length;
+        const retained=previous.tokens.map(([tokenStart,tokenEnd],index)=>({index,span:[tokenStart-start,tokenEnd-start]}))
+          .filter(({span:[tokenStart,tokenEnd]})=>tokenStart>=0&&tokenEnd<=end-start);
+        if(JSON.stringify(retained.map(token=>token.span))!==JSON.stringify(next.tokens))continue;
+        const indices=new Map(retained.map((token,index)=>[token.index,index]));
+        if(previous.align.some(([,target])=>!indices.has(target)))continue;
+        projected={...structuredClone(next),align:previous.align.map(([source,target])=>[source,indices.get(target)])};
+        if(previous.untranslated)projected.untranslated=structuredClone(previous.untranslated);
+        else delete projected.untranslated;
+        break;
+      }
+      if(!projected)return null;
+      support[language]=projected;
+    }
+    if(validateAlignment({...newLine,support,glosses:undefined,alignmentStatus:'authored'}).length)return null;
+    return {...structuredClone(entry),status:'authored',authorship:entry.authorship??'codex',nativeReview:'pending',derivedFromHash,support};
+  }catch {return null;}
+}
+
 /** Original lexical labels explicitly bind the whole lemma to its whole meaning. */
 export function authorLexicalTemplates(artifact, cache) {
   const lines=new Map(artifact.records.lines.map(record=>[record.id,record.body]));

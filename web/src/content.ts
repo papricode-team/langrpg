@@ -1,6 +1,7 @@
 import type { Narrative } from './sentence-translations';
+import type { AlignedLine } from './aligned-line';
 
-/** Original Lantern Atlas learning content. Curriculum tags describe practice, not certification. */
+/** Original glotworld learning content. Curriculum tags describe practice, not certification. */
 export type Level = 'A1' | 'A2' | 'B1';
 export type ExerciseMode = 'choice' | 'listen' | 'sentence' | 'type';
 export interface Exercise {
@@ -10,6 +11,8 @@ export interface Exercise {
   placementLineId?:string; placementSpeaker?:string;
   /** Context lexeme IDs; practice waits until each word is restored. */
   wordIds?: string[];
+  exampleLineId?:string;
+  aligned?:AlignedLine;
   itemId: string;
   mode: ExerciseMode;
   prompt: string;

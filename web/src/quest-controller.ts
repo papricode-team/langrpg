@@ -10,7 +10,7 @@ import { localized, localizedExercise, t } from './i18n';
 
 import { lanternRewards } from './lantern-rewards';
 import { grammarForQuest, loadContextualGrammar, type ContextualGrammar } from './contextual-grammar';
-import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } from './beginner-dialogue';
+import { beginnerGateChoices, beginnerReplyMeaning, beginnerReplyContent, installBeginnerLines, needsBeginnerStorySupport } from './beginner-dialogue';
 
 
 export interface QuestControllerOptions {
@@ -107,10 +107,14 @@ export class QuestController {
     const missing=exerciseIds.filter(id=>!quests.find(quest=>quest.id===graph.questId)?.exercises.some(exercise=>exercise.id===id));
     if(missing.length)await this.content.exercises(missing);
     if(this.index===lines.length-1) {
-      const choices=node.choices??[],topics=node.stage==='intro'?dialogueTopics(graph,storyState(this.options.progress().story)):[];
-      const ids=[...choices.map(choice=>choice.lineId),...topics.map(topic=>topic.lineId)].filter((id):id is string=>!!id);
+      const choices=dialogueChoices(node,storyState(this.options.progress().story)),topics=node.stage==='intro'?dialogueTopics(graph,storyState(this.options.progress().story)):[];
+      const exercise=quests.find(quest=>quest.id===graph.questId)?.exercises.find(exercise=>exercise.id===line?.reply?.exerciseId);
+      const guided=this.beginner&&node.stage==='gate'?beginnerGateChoices(graph.gateExerciseId):[];
+      const replyRefs=(exercise?.options??[]).map(beginnerReplyContent);
+      const ids=[...choices.map(choice=>choice.lineId),...topics.map(topic=>topic.lineId),...guided.map(choice=>choice.lineId),...replyRefs.map(choice=>choice.lineId)].filter((id):id is string=>!!id);
       if(ids.length){const records=await this.content.lines(ids),byID=new Map(records.map(record=>[record.id,toDialogueLine(record)]));
-        for(const item of [...choices,...topics]){const line=item.lineId&&byID.get(item.lineId);if(line){item.german=line.german;item.english=line.english;}}
+        installBeginnerLines(records);
+        for(const item of [...choices,...topics]){const line=item.lineId&&byID.get(item.lineId);if(line){item.german=line.german;item.english=line.english;item.aligned=line.aligned;}}
       }
     }
     const next=node.next&&graph.nodes.find(candidate=>candidate.id===node.next);
@@ -125,7 +129,10 @@ export class QuestController {
     if(node.stage==='gate'&&!this.replay&&!grammarForQuest(graph.questId))return false;
     if(Object.values(source?.aligned?.glosses??{}).some(id=>!lexemeById.has(id)))return false;
     if(ids.some(id=>!quests.find(quest=>quest.id===graph.questId)?.exercises.some(exercise=>exercise.id===id)))return false;
-    return this.index!==lines.length-1||[...(node.choices??[]),...(node.stage==='intro'?graph.topics??[]:[])].every(item=>!item.lineId||!!item.german);
+    const guided=this.beginner&&node.stage==='gate'?beginnerGateChoices(graph.gateExerciseId):[];
+    const replyExercise=quests.find(quest=>quest.id===graph.questId)?.exercises.find(exercise=>exercise.id===source?.reply?.exerciseId);
+    const replyRefs=(replyExercise?.options??[]).map(beginnerReplyContent);
+    return this.index!==lines.length-1||[...dialogueChoices(node,storyState(this.options.progress().story)),...(node.stage==='intro'?graph.topics??[]:[]),...guided,...replyRefs].every(item=>!item.lineId||!!item.aligned);
   }
   private async present(voice=true):Promise<void> {
     if(this.currentReady()){this.render(voice);return;}
@@ -175,7 +182,7 @@ export class QuestController {
     this.generation++;this.topic=undefined;this.replyCorrection=undefined;this.graph=undefined;this.node=undefined;this.artifact=undefined;this.answerShown=false;
     const generation=this.generation;
     try {
-      const lines=npc.greetingLineIds?.length?(await this.content.lines(npc.greetingLineIds)).map(toDialogueLine):
+      const lines=npc.greetingLineIds?.length?(await this.content.lines(npc.greetingLineIds)).map(record=>({...toDialogueLine(record),speaker:npc.id,clipId:record.clipId??''})):
         (npc.greetingSentences??[]).map((line,index)=>({id:`${npc.id}:${index}`,speaker:npc.id,clipId:`npc-${npc.id}-${index}`,...line}));
       if(generation!==this.generation)return;
       if(!lines.length)throw new Error(t('This content could not open. Try again.'));
@@ -217,7 +224,7 @@ export class QuestController {
     const guidedGate = gate && this.beginner && beginnerGateChoices(gate.id).length > 0;
     if (this.beginner && !this.replay) this.hinted = true;
     const topicMenu = !this.topic && !this.artifact && !guidedGate && !reply && atEnd && this.node?.stage === 'intro' ? this.topicChoices(graph, state) : [];
-    const choices = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
+    const choices = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '',...beginnerReplyContent(german), next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
     this.view.render({ audioEnabled, meanings:contentMeanings(line.aligned), title: this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)!.title), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact ? this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay ? t('Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); if (audioEnabled) this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
     if (gate && focusGate) { this.startedAt = performance.now(); if (!guidedGate) this.view.focusGate(); }
@@ -228,7 +235,7 @@ export class QuestController {
     if (!topics.length) return [];
     const continueEnglish = !this.replay && !this.allInspected() ? t('Examine the evidence') : t('Continue');
     return [
-      ...topics.map(topic => ({ id: `topic:${topic.id}`, german: topic.german, english: topic.english, next: '', effects: [] })),
+      ...topics.map(topic => ({ id: `topic:${topic.id}`, german: topic.german, english: topic.english, aligned:topic.aligned, next: '', effects: [] })),
       { id: 'topic-continue', german: 'Weiter.', english: continueEnglish, next: '', effects: [], localized: true },
     ];
   }

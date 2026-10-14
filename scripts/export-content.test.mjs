@@ -30,7 +30,8 @@ test('entire authoring corpus exports instead of only regression fixtures',()=>{
   assert.ok(coverage.lines>12000);
   assert.ok(coverage.turkish>12000);
   assert.ok(coverage.authored>9800);
-  assert.ok(coverage.authored+coverage.reviewed<coverage.lines,'pending corpus remains explicitly visible');
+  const pending=artifact.records.lines.filter(record=>record.body.alignmentStatus==='pending').length;
+  assert.equal(coverage.authored+coverage.reviewed+pending,coverage.lines,'every line has an explicit authoring status');
 });
 
 test('line offsets remain unchanged and every exported line has a visibility owner',()=>{
@@ -82,6 +83,30 @@ test('Turkish lexical meanings and exercise support are folded into records',()=
   assert.equal(exercise.body.support.tr.english,'kahve');
   const line=artifact.records.lines.find(record=>record.id===exercise.body.exampleLineId);
   assert.ok(tokenTexts(line.body.support.tr).includes('kahve'));
+});
+
+test('expedition replies have independently authored bilingual aligned lines in the current encounter slice',()=>{
+  const lines=new Map(artifact.records.lines.map(row=>[row.id,row]));
+  const encounters=artifact.records.expeditions.filter(row=>row.body.kind==='encounter');
+  assert.equal(encounters.length,180);
+  for(const row of encounters){
+    assert.equal(row.body.choices.length,2);
+    for(const choice of row.body.choices){
+      const line=lines.get(choice.lineId);
+      assert.ok(line,row.slug);assert.equal(line.body.de.text,choice.text);assert.equal(line.body.mapId,row.body.mapId);
+      assert.equal(line.body.alignmentStatus,'authored');assert.ok(line.body.support.en?.text);assert.ok(line.body.support.tr?.text);
+    }
+  }
+});
+
+test('guided and greeting choices reference the existing authored lines without changing grading values',()=>{
+  const lines=new Map(artifact.records.lines.map(row=>[row.id,row]));
+  let guided=0,greetings=0;
+  for(const row of artifact.records.exercises){
+    for(const choice of row.body.guidedChoices??[]){guided++;assert.equal(lines.get(choice.lineId)?.body.de.text,choice.german);}
+    for(const [german,lineId]of Object.entries(row.body.optionLineIds??{})){greetings++;assert.equal(lines.get(lineId)?.body.de.text,german);assert.ok(row.body.options.includes(german));}
+  }
+  assert.ok(guided>=36);assert.ok(greetings>=3);
 });
 
 test('committed catalogue is reproducible from authoring sources and the UUID map',async()=>{

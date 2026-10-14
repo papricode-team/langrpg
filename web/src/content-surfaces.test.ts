@@ -22,13 +22,16 @@ describe('learning surfaces fetch the selected record',()=>{
   });
   it('hydrates one encounter and installs only its admitted recall metadata',async()=>{
     const encounter=expeditionRegions[0].encounters[0],recognition='00000000-0000-4000-8000-000000000001';
-    service.expedition.mockResolvedValue({id:encounter.recordId,lineId:line.id,prompt:'Read the ticket.',choices:[{text:'Bitte.',response:''}],learning:{encounterId:encounter.id,exerciseIds:{recognition,listening:recognition},audio:'/audio/ticket.mp3',supported:false},learningExercises:[]});
-    service.lines.mockResolvedValue([line]);
+    const reply={...line,id:'00000000-0000-4000-8000-000000000020'};
+    service.expedition.mockResolvedValue({id:encounter.recordId,lineId:line.id,prompt:'Read the ticket.',choices:[{lineId:reply.id,response:''}],learning:{encounterId:encounter.id,exerciseIds:{recognition,listening:recognition},audio:'/audio/ticket.mp3',supported:false},learningExercises:[]});
+    service.lines.mockResolvedValue([line,reply]);
     await loadExpeditionEncounter(encounter);
     expect(service.expedition).toHaveBeenCalledExactlyOnceWith(encounter.recordId);
-    expect(service.lines).toHaveBeenCalledExactlyOnceWith([line.id]);
+    expect(service.lines).toHaveBeenCalledExactlyOnceWith([line.id,reply.id]);
     expect(encounter.aligned).toBe(line);
     expect(encounter.german).toContain('Ihre Fahrkarte');
+    expect(encounter.choices[0].aligned).toBe(reply);
+    expect(encounter.choices[0].text).toBe(reply.de.text);
     expect(encounterLearning.size).toBe(1);
     expect(expeditionRegions[0].encounters[1].german).toBe('');
   });

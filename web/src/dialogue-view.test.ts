@@ -29,6 +29,25 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
 }
 
 describe('conversation word lookup', () => {
+  it('looks up a reply without choosing it or selecting the same index in the current line',()=>{
+    const aligned=alignmentFixtures.find(line=>line.fixture==='npc-invitation') as unknown as AlignedLine;
+    const f=fixture({choices:[{id:'coffee-reply',german:aligned.de.text,english:aligned.support.en!.text,aligned,next:'',effects:[]} ]});
+    const reply=()=>f.view.host.querySelector<HTMLElement>('[data-dialogue-reply-line="coffee-reply"]')!;
+    const word=()=>reply().querySelector<HTMLButtonElement>('[data-aligned-token="3"]')!;
+    expect(word().closest('[data-dialogue-choice]')).toBeNull();
+    word().focus();word().click();
+    expect(f.actions.choice).not.toHaveBeenCalled();
+    expect(f.actions.gloss).toHaveBeenCalledTimes(1);
+    expect(reply().querySelector('mark')?.textContent).toBe('coffee');
+    expect(f.translation()).toBeNull();
+    expect(f.view.host.querySelector('.dialogue-line .is-selected')).toBeNull();
+    expect(document.activeElement).toBe(word());
+    const choose=f.view.host.querySelector<HTMLButtonElement>('[data-dialogue-choice="coffee-reply"]')!;
+    expect(choose.getAttribute('aria-label')).toBe(aligned.de.text);
+    expect(choose.querySelector('.dialogue-word')).toBeNull();
+    choose.click();
+    expect(f.actions.choice).toHaveBeenCalledExactlyOnceWith('coffee-reply');
+  });
   it('keeps the plot-critical letter meaning hidden until requested', () => {
     const f = fixture({ line: { id: 'letter', speaker: 'lina', german: 'Bevor du uns wieder auslöschst, komm.', english: 'Before you erase us again, come.', clipId: 'letter' } });
     expect(f.translation()).toBeNull();

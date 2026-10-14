@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func contentTestApp(t *testing.T) (*App, map[string]string) {
@@ -153,7 +153,7 @@ func assertNoContentAnswers(t *testing.T, data []byte) {
 		case map[string]any:
 			for key, child := range typed {
 				switch strings.ToLower(key) {
-				case "answer", "acceptedanswers", "explanation", "expected", "modelanswer", "correct", "validvalues", "slug", "localid":
+				case "answer", "acceptedanswers", "explanation", "response", "expected", "modelanswer", "correct", "validvalues", "slug", "localid":
 					t.Errorf("private field %q disclosed: %s", key, data)
 				}
 				visit(child)

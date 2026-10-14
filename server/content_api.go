@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"lernen01/server/internal/contentstore"
+	"glotworld/server/internal/contentstore"
 )
 
 func contentBody(record contentstore.Record) map[string]any {
@@ -48,7 +48,7 @@ func safeContent(value any, language string) any {
 		var selectedSupport map[string]any
 		for key, child := range value {
 			switch strings.ToLower(key) {
-			case "slug", "localid", "legacyid", "answer", "acceptedanswers", "explanation", "orderexplanation", "expected", "correct", "correctanswer", "modelanswer", "validvalues", "solutions", "solution", "turkish":
+			case "slug", "localid", "legacyid", "answer", "acceptedanswers", "explanation", "orderexplanation", "response", "expected", "correct", "correctanswer", "modelanswer", "validvalues", "solutions", "solution", "turkish":
 				continue
 			}
 			if key == "support" {
@@ -748,6 +748,31 @@ func (a *App) contentRouteVisible(record contentstore.Record, p *Progress) bool 
 		route = record.Slug
 	}
 	return route != "" && routeUnlocked(route, p.CompletedQuestIDs)
+}
+
+// Choice feedback belongs to the selected, recorded reply. Reading an encounter
+// must not disclose this text for every candidate before the player answers.
+func (a *App) contentExpeditionFeedback(encounterID string, selected int, language string) string {
+	if a.content == nil {
+		return ""
+	}
+	record, exists := a.content.Get("expeditions", a.content.Resolve("expeditions", encounterID))
+	if !exists {
+		return ""
+	}
+	choices, _ := contentBody(record)["choices"].([]any)
+	if selected < 0 || selected >= len(choices) {
+		return ""
+	}
+	choice, _ := choices[selected].(map[string]any)
+	if support, ok := choice["support"].(map[string]any); ok {
+		if localized, ok := support[language].(map[string]any); ok {
+			if feedback := contentString(localized, "response"); feedback != "" {
+				return feedback
+			}
+		}
+	}
+	return contentString(choice, "response")
 }
 
 func (a *App) contentBatch(w http.ResponseWriter, r *http.Request, kind string, cap, limit int, visible func(contentstore.Record, *Progress) bool) {

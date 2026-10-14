@@ -8,165 +8,67 @@
   --game-line: #d8bb802e;
 }
 
-.menu-layer button:focus-visible,.dialog button:focus-visible,.dialog input:focus-visible,.menu-layer input:focus-visible,.menu-layer select:focus-visible {
-  outline:2px solid #edd29b;
-  outline-offset:4px;
+/* Focus is a lit brass ring with a dark gap, so it reads on gold buttons and forest glass alike. */
+:root {
+  --focus-ring:0 0 0 2px #0b1b17,0 0 0 4px #f6dc9f,0 0 20px 2px #f0d49a70;
 }
 
-.journey-hero {
+:is(.menu-layer,.dialog,.game-hud) :is(button,input,select,summary,a,[tabindex]):focus-visible {
+  outline:none;
+  box-shadow:var(--focus-ring);
+}
+
+/* The main action in menus and encounters: polished brass with a light sweep on hover. */
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button,.menu-layer .primary-button {
   position:relative;
   isolation:isolate;
   overflow:hidden;
-  min-height:405px;
-  padding:36px;
-  border:1px solid #d8bb8040;
-  background:#16302a;
+  border:1px solid #ffe3a0;
+  border-radius:4px;
+  color:#16251e;
+  background:linear-gradient(115deg,#ffe8b4,#e6c27a 55%,#cf9f55);
+  box-shadow:inset 0 1px 0 #fff7dd,inset 0 -1px 0 #a67b3c,0 6px 18px #0a161a55,0 0 18px #f4c66830;
+  font-weight:700;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
 }
 
-.journey-hero::before {
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button::after,.menu-layer .primary-button::after {
   content:'';
   position:absolute;
-  inset:0;
-  z-index:-2;
-  background:var(--journey-art) 75% 38%/cover;
-  filter:saturate(.8);
-}
-
-.journey-hero::after {
-  content:'';
-  position:absolute;
-  inset:0;
   z-index:-1;
-  background:linear-gradient(90deg,#10231ff7 0%,#10231feb 36%,#10231f66 75%),linear-gradient(0deg,#10231f,transparent 55%);
+  inset:0;
+  background:linear-gradient(110deg,transparent 30%,#fffbe8b0 50%,transparent 70%);
+  transform:translateX(-130%);
+  transition:transform .7s ease;
+  pointer-events:none;
 }
 
-.journey-hero-copy {
-  max-width:540px;
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover:not(:disabled),.menu-layer .primary-button:hover:not(:disabled) {
+  filter:brightness(1.05);
+  transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 #fff9e4,inset 0 -1px 0 #a67b3c,0 10px 22px #0a161a66,0 0 28px #f4c66860;
 }
 
-.journey-hero h2 {
-  color:var(--game-text);
-  font: 400 var(--type-display)/1.12 'Fraunces',serif;
-  margin:16px 0;
-  letter-spacing:-.03em;
-  max-width:490px;
-  text-wrap:balance;
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:is(:hover,:focus-visible)::after,.menu-layer .primary-button:is(:hover,:focus-visible)::after {
+  transform:translateX(130%);
 }
 
-.journey-hero-copy>p {
-  color:#bfcbc1;
-  font-size: var(--type-body);
-  line-height:1.7;
-  max-width:420px;
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:focus-visible,.menu-layer .primary-button:focus-visible {
+  box-shadow:inset 0 1px 0 #fff9e4,var(--focus-ring);
 }
 
-.journey-next {
-  display:flex;
-  gap:15px;
-  align-items:center;
-  margin:27px 0 22px;
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button .icon,.menu-layer .primary-button .icon {
+  transition:transform .18s ease;
 }
 
-.journey-next>.portrait {
-  width:50px;
-  height:50px;
-  border:1px solid #d8bb8080;
-  box-shadow:none;
+.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover .icon,.menu-layer .primary-button:hover .icon {
+  transform:translateX(3px);
 }
 
-.journey-next>div>span {
-  font-size: var(--type-caption);
-  letter-spacing: .6px;
-  color:var(--game-gold);
-}
-
-.journey-next h3 {
-  font: 400 var(--type-title)/1.3 'Fraunces',serif;
-  color:var(--game-text);
-  margin:5px 0;
-}
-
-.journey-next p {
-  color:var(--game-muted);
-  font-size: var(--type-body);
-  margin:0;
-}
-
-.journey-hero .primary-button {
-  min-width:240px;
-  justify-content:space-between;
-  min-height:50px;
-}
-
-.journey-tools {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-  margin-top:14px;
-}
-
-.journey-tools>button {
-  display:flex;
-  gap:12px;
-  align-items:center;
-  min-height:88px;
-  padding:16px;
-  text-align:left;
-  background:#14292399;
-  border:1px solid var(--game-line);
-}
-
-.journey-tools>button:hover {
-  border-color:#d8bb8070;
-  background:#243b30;
-}
-
-.journey-tools>button>.icon:first-child {
-  width:20px;
-  height:20px;
-  color:var(--game-gold);
-  flex:none;
-}
-
-.journey-tools>button>.icon:last-child {
-  width:12px;
-  height:12px;
-  color:var(--game-muted);
-  margin-left:auto;
-  flex:none;
-}
-
-.journey-tools>button>span {
-  min-width:0;
-}
-
-.journey-tools strong {
-  display:block;
-  color:var(--game-text);
-  font: 400 var(--type-body)/1.3 'Fraunces',serif;
-}
-
-.journey-tools .caption {
-  display:block;
-  color:var(--game-muted);
-  font-size: var(--type-caption);
-  line-height:1.6;
-  margin-top:5px;
-}
-
-.camp-bottom {
-  gap:24px;
-  padding-top:18px;
-}
-
-.camp-bottom>.text-button {
-  font-size: var(--type-caption);
-  color:var(--game-muted);
-}
-
-.camp-bottom>.text-button:first-child {
-  margin-right:auto;
-  color:var(--game-gold);
+@media (prefers-reduced-motion:reduce) {
+  .dialog .primary-button,.menu-layer .primary-button,.dialog .primary-button .icon,.menu-layer .primary-button .icon,.dialog .primary-button::after,.menu-layer .primary-button::after {
+    transition:none;
+  }
 }
 
 /* All encounters use the same quiet frame; native dialogs retain focus and Escape handling. */
@@ -202,17 +104,6 @@
   background:#0d211b90;
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button,.menu-layer .primary-button {
-  background:linear-gradient(110deg,#dfc590,#c8a66a);
-  color:#16251e;
-  border-color:#edd2a0;
-  box-shadow:inset 0 1px 0 #fff0ca50,0 4px 20px #0a161a33;
-  font-weight:600;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover,.menu-layer .primary-button:hover {
-  background:#eed7a5;
-}
 
 .dialog:not(.activity-dialog):not(.interior-dialog) .outline-button {
   color:var(--game-gold);
@@ -615,59 +506,7 @@
   border-color:#d8bb8060;
 }
 
-@media(--desktop) {
-  .journey-hero {
-    min-height:460px;
-    padding:48px;
-  }
-}
-
-@media(--tablet) {
-  .journey-hero {
-    padding:27px;
-  }
-  .journey-tools {
-    grid-template-columns:1fr;
-    gap:7px;
-  }
-  .journey-tools>button {
-    min-height:65px;
-  }
-  .journey-tools .caption {
-    margin-top:3px;
-  }
-}
-
 @media(--phone) {
-  .journey-hero {
-    padding:24px 20px;
-    min-height:390px;
-  }
-  .journey-hero h2 {
-    font-size: var(--type-display);
-  }
-  .journey-hero-copy>p {
-    font-size: var(--type-body);
-  }
-  .journey-next h3 {
-    font-size: var(--type-title);
-  }
-  .journey-next {
-    margin:24px 0 20px;
-  }
-  .journey-hero .primary-button {
-    width:100%;
-    min-width:0;
-  }
-  .journey-tools {
-    grid-template-columns:1fr;
-  }
-  .camp-bottom {
-    gap:14px;
-  }
-  .camp-bottom>.text-button:first-child {
-    width:100%;
-  }
   .dialog[open].npc-dialog {
     width:calc(100vw - 24px);
     margin:auto;
@@ -714,17 +553,6 @@
 }
 
 @media (--short-landscape) {
-  .journey-hero {
-    min-height:0;
-    padding:22px;
-  }
-  .journey-hero h2 {
-    font-size: var(--type-display);
-    margin:10px 0;
-  }
-  .journey-next {
-    margin:15px 0;
-  }
   .dialog[open].npc-dialog {
     width:min(960px,calc(100vw - 24px));
     max-height:calc(100dvh - 24px);
@@ -768,41 +596,6 @@
   }
 }
 
-/* Vocabulary intake: the Atlas restores about ten words an hour. */
-
-/* Page headings and primary actions share the same scale across every surface. */
-.journey-hero {
-  min-height:280px;
-  padding:32px;
-}
-
-.journey-hero h2 {
-  margin:0 0 20px;
-}
-
-.journey-next {
-  margin:16px 0 24px;
-}
-
-.journey-next h3 {
-  margin:0;
-}
-
-.journey-tools {
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-  margin-top:16px;
-}
-
-.journey-tools>button {
-  min-height:76px;
-  padding:18px;
-}
-
-.journey-tools strong {
-  font-size:var(--type-body);
-}
-
 /* Shared native dialogs are desktop panes and phone sheets. */
 .dialog[open]:not(#menu-layer) {
   max-width:calc(100vw - 48px);
@@ -833,22 +626,6 @@
 }
 
 @media (--phone) {
-  .journey-hero {
-    min-height:250px;
-    padding:24px 20px;
-  }
-  .journey-hero .primary-button {
-    width:100%;
-    min-width:0;
-  }
-  .journey-tools {
-    grid-template-columns:minmax(0,1fr);
-    gap:10px;
-  }
-  .journey-tools>button {
-    min-height:60px;
-    padding:16px;
-  }
   .dialog[open]:not(#menu-layer) {
     width:100%;
     max-width:100%;

@@ -38,7 +38,13 @@
             478.59,
             -148.68
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -556.5,
+          "top": -1235,
+          "right": 556.5,
+          "bottom": 4.000000000000042
+        }
       },
       "cafe": {
         "referenceWidth": 1070,
@@ -77,7 +83,13 @@
             460.09999999999997,
             -142.79999999999998
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -535,
+          "top": -1201.6309412861137,
+          "right": 535,
+          "bottom": 3.999999999999986
+        }
       },
       "station": {
         "referenceWidth": 1144,
@@ -116,7 +128,13 @@
             491.92,
             -140.88
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -572,
+          "top": -1170,
+          "right": 572,
+          "bottom": 4.0000000000000036
+        }
       },
       "workshop": {
         "referenceWidth": 1161,
@@ -155,7 +173,13 @@
             499.23,
             -142.44
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -580.5,
+          "top": -1183,
+          "right": 580.5,
+          "bottom": 4.000000000000002
+        }
       },
       "house": {
         "referenceWidth": 553,
@@ -194,7 +218,13 @@
             237.79,
             -72.11999999999999
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -276.5,
+          "top": -601.0869565217391,
+          "right": 276.5,
+          "bottom": 4.808695652173896
+        }
       },
       "greenhouse": {
         "referenceWidth": 1211,
@@ -233,13 +263,31 @@
             520.73,
             -147.35999999999999
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -605.5,
+          "top": -1224,
+          "right": 605.5,
+          "bottom": 4.000000000000002
+        }
       },
       "fountain": {
-        "referenceWidth": 519
+        "referenceWidth": 519,
+        "visualBounds": {
+          "left": -259.5,
+          "top": -529,
+          "right": 259.5,
+          "bottom": 0
+        }
       },
       "boat": {
-        "referenceWidth": 303
+        "referenceWidth": 303,
+        "visualBounds": {
+          "left": -151.5,
+          "top": -178,
+          "right": 151.5,
+          "bottom": 0
+        }
       },
       "tree": {
         "referenceWidth": 677,
@@ -260,7 +308,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "cypress": {
         "referenceWidth": 241,
@@ -281,13 +335,31 @@
             -12.05,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -120.5,
+          "top": -695,
+          "right": 120.5,
+          "bottom": 0
+        }
       },
       "lamp": {
-        "referenceWidth": 158
+        "referenceWidth": 158,
+        "visualBounds": {
+          "left": -79,
+          "top": -655,
+          "right": 79,
+          "bottom": 0
+        }
       },
       "arch": {
-        "referenceWidth": 644
+        "referenceWidth": 644,
+        "visualBounds": {
+          "left": -322,
+          "top": -562,
+          "right": 322,
+          "bottom": 4.000000000000028
+        }
       },
       "stall": {
         "referenceWidth": 675,
@@ -318,16 +390,40 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "bench": {
-        "referenceWidth": 617
+        "referenceWidth": 617,
+        "visualBounds": {
+          "left": -308.5,
+          "top": -524,
+          "right": 308.5,
+          "bottom": 0
+        }
       },
       "planter": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "sign": {
-        "referenceWidth": 465
+        "referenceWidth": 465,
+        "visualBounds": {
+          "left": -232.5,
+          "top": -585,
+          "right": 232.5,
+          "bottom": 0
+        }
       },
       "house-1": {
         "referenceWidth": 1207,
@@ -366,7 +462,13 @@
             519.01,
             -134.28
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -603.5,
+          "top": -1116.1505376344087,
+          "right": 603.5,
+          "bottom": 4.000000000000044
+        }
       },
       "house-2": {
         "referenceWidth": 782,
@@ -405,7 +507,13 @@
             336.26,
             -139.79999999999998
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -391,
+          "top": -1162.0280612244899,
+          "right": 391,
+          "bottom": 4.000000000000029
+        }
       },
       "house-3": {
         "referenceWidth": 615,
@@ -444,7 +552,13 @@
             264.45,
             -72.96
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -307.5,
+          "top": -644.0967741935483,
+          "right": 307.5,
+          "bottom": 5.290322580645173
+        }
       },
       "house-4": {
         "referenceWidth": 567,
@@ -483,7 +597,13 @@
             243.81,
             -69.72
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -283.5,
+          "top": -577,
+          "right": 283.5,
+          "bottom": 4.6475409836065715
+        }
       },
       "tree-1": {
         "referenceWidth": 677,
@@ -504,7 +624,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-2": {
         "referenceWidth": 677,
@@ -525,7 +651,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-3": {
         "referenceWidth": 677,
@@ -546,7 +678,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-4": {
         "referenceWidth": 677,
@@ -567,7 +705,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "stall-1": {
         "referenceWidth": 675,
@@ -598,7 +742,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-2": {
         "referenceWidth": 675,
@@ -629,7 +779,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-3": {
         "referenceWidth": 675,
@@ -660,7 +816,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-4": {
         "referenceWidth": 675,
@@ -691,19 +853,49 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "planter-1": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "planter-2": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "garden-1": {
-        "referenceWidth": 209
+        "referenceWidth": 209,
+        "visualBounds": {
+          "left": -103,
+          "top": -227,
+          "right": 106,
+          "bottom": 0
+        }
       },
       "garden-2": {
-        "referenceWidth": 220
+        "referenceWidth": 220,
+        "visualBounds": {
+          "left": -109,
+          "top": -219,
+          "right": 111.99999999999999,
+          "bottom": 0
+        }
       },
       "house-inn": {
         "referenceWidth": 1248,
@@ -780,6 +972,12 @@
           "y": -590,
           "width": 260,
           "height": 440
+        },
+        "visualBounds": {
+          "left": -624,
+          "top": -1163,
+          "right": 624,
+          "bottom": 0
         }
       },
       "house-bakery": {
@@ -857,6 +1055,12 @@
           "y": -547,
           "width": 198,
           "height": 450
+        },
+        "visualBounds": {
+          "left": -623.5,
+          "top": -1162,
+          "right": 623.5,
+          "bottom": 0
         }
       },
       "house-grocery": {
@@ -926,6 +1130,12 @@
           "y": -442,
           "width": 245,
           "height": 400
+        },
+        "visualBounds": {
+          "left": -621,
+          "top": -1037,
+          "right": 621,
+          "bottom": 0
         }
       }
     }
@@ -969,7 +1179,13 @@
             173.72,
             -62.16
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -202.00000000000003,
+          "top": -522.5870646766169,
+          "right": 202.00000000000003,
+          "bottom": 0
+        }
       },
       "cafe": {
         "referenceWidth": 1179,
@@ -1008,7 +1224,13 @@
             506.96999999999997,
             -134.4
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -589.5,
+          "top": -1116,
+          "right": 589.5,
+          "bottom": 3.999999999999986
+        }
       },
       "station": {
         "referenceWidth": 1212,
@@ -1047,7 +1269,13 @@
             521.16,
             -122.28
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -606,
+          "top": -1018.1599340478153,
+          "right": 606,
+          "bottom": 3.999999999999985
+        }
       },
       "workshop": {
         "referenceWidth": 1215,
@@ -1086,7 +1314,13 @@
             522.45,
             -149.4
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -607.5,
+          "top": -1241,
+          "right": 607.5,
+          "bottom": 3.999999999999939
+        }
       },
       "house": {
         "referenceWidth": 512,
@@ -1125,7 +1359,13 @@
             220.16,
             -57
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -256,
+          "top": -479.93737769080235,
+          "right": 256,
+          "bottom": 0
+        }
       },
       "greenhouse": {
         "referenceWidth": 1211,
@@ -1164,13 +1404,31 @@
             520.73,
             -147.35999999999999
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -605.5,
+          "top": -1224,
+          "right": 605.5,
+          "bottom": 4.000000000000002
+        }
       },
       "fountain": {
-        "referenceWidth": 519
+        "referenceWidth": 519,
+        "visualBounds": {
+          "left": -259.5,
+          "top": -529,
+          "right": 259.5,
+          "bottom": 0
+        }
       },
       "boat": {
-        "referenceWidth": 303
+        "referenceWidth": 303,
+        "visualBounds": {
+          "left": -151.5,
+          "top": -178,
+          "right": 151.5,
+          "bottom": 0
+        }
       },
       "tree": {
         "referenceWidth": 677,
@@ -1191,7 +1449,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "cypress": {
         "referenceWidth": 241,
@@ -1212,13 +1476,31 @@
             -12.05,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -120.5,
+          "top": -695,
+          "right": 120.5,
+          "bottom": 0
+        }
       },
       "lamp": {
-        "referenceWidth": 158
+        "referenceWidth": 158,
+        "visualBounds": {
+          "left": -79,
+          "top": -655,
+          "right": 79,
+          "bottom": 0
+        }
       },
       "arch": {
-        "referenceWidth": 644
+        "referenceWidth": 644,
+        "visualBounds": {
+          "left": -322,
+          "top": -562,
+          "right": 322,
+          "bottom": 4.000000000000028
+        }
       },
       "stall": {
         "referenceWidth": 675,
@@ -1249,16 +1531,40 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "bench": {
-        "referenceWidth": 617
+        "referenceWidth": 617,
+        "visualBounds": {
+          "left": -308.5,
+          "top": -524,
+          "right": 308.5,
+          "bottom": 0
+        }
       },
       "planter": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "sign": {
-        "referenceWidth": 465
+        "referenceWidth": 465,
+        "visualBounds": {
+          "left": -232.5,
+          "top": -585,
+          "right": 232.5,
+          "bottom": 0
+        }
       },
       "house-1": {
         "referenceWidth": 1198,
@@ -1297,7 +1603,13 @@
             515.14,
             -139.56
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -599,
+          "top": -1169.024186822352,
+          "right": 599,
+          "bottom": 3.9999999999999734
+        }
       },
       "house-2": {
         "referenceWidth": 382,
@@ -1336,7 +1648,13 @@
             164.26,
             -58.919999999999995
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -191,
+          "top": -493.7075718015666,
+          "right": 191,
+          "bottom": 1.000000000000016
+        }
       },
       "house-3": {
         "referenceWidth": 470,
@@ -1375,7 +1693,13 @@
             202.1,
             -52.199999999999996
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -235,
+          "top": -452.03821656050957,
+          "right": 235,
+          "bottom": 4.000000000000024
+        }
       },
       "house-4": {
         "referenceWidth": 501,
@@ -1414,7 +1738,13 @@
             215.43,
             -48.12
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -250.5,
+          "top": -401.7920792079208,
+          "right": 250.5,
+          "bottom": 4.000000000000018
+        }
       },
       "tree-1": {
         "referenceWidth": 677,
@@ -1435,7 +1765,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-2": {
         "referenceWidth": 677,
@@ -1456,7 +1792,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-3": {
         "referenceWidth": 677,
@@ -1477,7 +1819,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-4": {
         "referenceWidth": 677,
@@ -1498,7 +1846,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "stall-1": {
         "referenceWidth": 675,
@@ -1529,7 +1883,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-2": {
         "referenceWidth": 675,
@@ -1560,7 +1920,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-3": {
         "referenceWidth": 675,
@@ -1591,7 +1957,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-4": {
         "referenceWidth": 675,
@@ -1622,19 +1994,49 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "planter-1": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "planter-2": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "garden-1": {
-        "referenceWidth": 215
+        "referenceWidth": 215,
+        "visualBounds": {
+          "left": -106,
+          "top": -204,
+          "right": 108.99999999999999,
+          "bottom": 0
+        }
       },
       "garden-2": {
-        "referenceWidth": 198
+        "referenceWidth": 198,
+        "visualBounds": {
+          "left": -102.4824120603015,
+          "top": -226,
+          "right": 96,
+          "bottom": 0
+        }
       },
       "house-inn": {
         "referenceWidth": 1248,
@@ -1711,6 +2113,12 @@
           "y": -590,
           "width": 260,
           "height": 440
+        },
+        "visualBounds": {
+          "left": -624,
+          "top": -1163,
+          "right": 624,
+          "bottom": 0
         }
       },
       "house-bakery": {
@@ -1788,6 +2196,12 @@
           "y": -547,
           "width": 198,
           "height": 450
+        },
+        "visualBounds": {
+          "left": -623.5,
+          "top": -1162,
+          "right": 623.5,
+          "bottom": 0
         }
       },
       "house-grocery": {
@@ -1857,6 +2271,12 @@
           "y": -442,
           "width": 245,
           "height": 400
+        },
+        "visualBounds": {
+          "left": -621,
+          "top": -1037,
+          "right": 621,
+          "bottom": 0
         }
       }
     }
@@ -1900,7 +2320,13 @@
             518.58,
             -141.6
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -603,
+          "top": -1176,
+          "right": 603,
+          "bottom": 3.999999999999937
+        }
       },
       "cafe": {
         "referenceWidth": 1130,
@@ -1939,7 +2365,13 @@
             485.9,
             -145.32
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -565,
+          "top": -1207,
+          "right": 565,
+          "bottom": 3.9999999999999787
+        }
       },
       "station": {
         "referenceWidth": 1219,
@@ -1978,7 +2410,13 @@
             524.17,
             -128.04
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -609.5,
+          "top": -1063.5102207686018,
+          "right": 609.5,
+          "bottom": 3.9999999999999427
+        }
       },
       "workshop": {
         "referenceWidth": 1152,
@@ -2017,7 +2455,13 @@
             495.36,
             -132.48
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -576,
+          "top": -1100,
+          "right": 576,
+          "bottom": 4.000000000000018
+        }
       },
       "house": {
         "referenceWidth": 933,
@@ -2056,7 +2500,13 @@
             401.19,
             -147.35999999999999
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -466.5,
+          "top": -1224,
+          "right": 466.5,
+          "bottom": 4.000000000000002
+        }
       },
       "greenhouse": {
         "referenceWidth": 1211,
@@ -2095,13 +2545,31 @@
             520.73,
             -147.35999999999999
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -605.5,
+          "top": -1224,
+          "right": 605.5,
+          "bottom": 4.000000000000002
+        }
       },
       "fountain": {
-        "referenceWidth": 519
+        "referenceWidth": 519,
+        "visualBounds": {
+          "left": -259.5,
+          "top": -529,
+          "right": 259.5,
+          "bottom": 0
+        }
       },
       "boat": {
-        "referenceWidth": 303
+        "referenceWidth": 303,
+        "visualBounds": {
+          "left": -151.5,
+          "top": -178,
+          "right": 151.5,
+          "bottom": 0
+        }
       },
       "tree": {
         "referenceWidth": 677,
@@ -2122,7 +2590,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "cypress": {
         "referenceWidth": 241,
@@ -2143,13 +2617,31 @@
             -12.05,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -120.5,
+          "top": -695,
+          "right": 120.5,
+          "bottom": 0
+        }
       },
       "lamp": {
-        "referenceWidth": 158
+        "referenceWidth": 158,
+        "visualBounds": {
+          "left": -79,
+          "top": -655,
+          "right": 79,
+          "bottom": 0
+        }
       },
       "arch": {
-        "referenceWidth": 644
+        "referenceWidth": 644,
+        "visualBounds": {
+          "left": -322,
+          "top": -562,
+          "right": 322,
+          "bottom": 4.000000000000028
+        }
       },
       "stall": {
         "referenceWidth": 675,
@@ -2180,16 +2672,40 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "bench": {
-        "referenceWidth": 617
+        "referenceWidth": 617,
+        "visualBounds": {
+          "left": -308.5,
+          "top": -524,
+          "right": 308.5,
+          "bottom": 0
+        }
       },
       "planter": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "sign": {
-        "referenceWidth": 465
+        "referenceWidth": 465,
+        "visualBounds": {
+          "left": -232.5,
+          "top": -585,
+          "right": 232.5,
+          "bottom": 0
+        }
       },
       "house-1": {
         "referenceWidth": 427,
@@ -2228,7 +2744,13 @@
             183.60999999999999,
             -59.879999999999995
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -213.5,
+          "top": -499,
+          "right": 213.5,
+          "bottom": 0
+        }
       },
       "house-2": {
         "referenceWidth": 519,
@@ -2267,7 +2789,13 @@
             223.17,
             -53.64
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -259.5,
+          "top": -447.13846153846157,
+          "right": 259.5,
+          "bottom": 0
+        }
       },
       "house-3": {
         "referenceWidth": 408,
@@ -2306,7 +2834,13 @@
             175.44,
             -63.839999999999996
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -204,
+          "top": -532,
+          "right": 204,
+          "bottom": 0
+        }
       },
       "house-4": {
         "referenceWidth": 502,
@@ -2345,7 +2879,13 @@
             215.85999999999999,
             -57
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -251,
+          "top": -472.9421157684631,
+          "right": 251,
+          "bottom": 4.007984031936114
+        }
       },
       "tree-1": {
         "referenceWidth": 677,
@@ -2366,7 +2906,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-2": {
         "referenceWidth": 677,
@@ -2387,7 +2933,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-3": {
         "referenceWidth": 677,
@@ -2408,7 +2960,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "tree-4": {
         "referenceWidth": 677,
@@ -2429,7 +2987,13 @@
             -33.85,
             0
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -338.5,
+          "top": -691,
+          "right": 338.5,
+          "bottom": 0
+        }
       },
       "stall-1": {
         "referenceWidth": 675,
@@ -2460,7 +3024,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-2": {
         "referenceWidth": 675,
@@ -2491,7 +3061,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-3": {
         "referenceWidth": 675,
@@ -2522,7 +3098,13 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "stall-4": {
         "referenceWidth": 675,
@@ -2553,19 +3135,49 @@
             256.5,
             -15.93
           ]
-        ]
+        ],
+        "visualBounds": {
+          "left": -337.5,
+          "top": -531,
+          "right": 337.5,
+          "bottom": 0
+        }
       },
       "planter-1": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "planter-2": {
-        "referenceWidth": 447
+        "referenceWidth": 447,
+        "visualBounds": {
+          "left": -223.5,
+          "top": -565,
+          "right": 223.5,
+          "bottom": 0
+        }
       },
       "garden-1": {
-        "referenceWidth": 209
+        "referenceWidth": 209,
+        "visualBounds": {
+          "left": -100.48076923076923,
+          "top": -225.07692307692307,
+          "right": 108.99999999999999,
+          "bottom": 0
+        }
       },
       "garden-2": {
-        "referenceWidth": 179
+        "referenceWidth": 179,
+        "visualBounds": {
+          "left": -92,
+          "top": -221.76111111111112,
+          "right": 87.51111111111112,
+          "bottom": 0.9944444444444409
+        }
       },
       "house-inn": {
         "referenceWidth": 1248,
@@ -2642,6 +3254,12 @@
           "y": -590,
           "width": 260,
           "height": 440
+        },
+        "visualBounds": {
+          "left": -624,
+          "top": -1163,
+          "right": 624,
+          "bottom": 0
         }
       },
       "house-bakery": {
@@ -2719,6 +3337,12 @@
           "y": -547,
           "width": 198,
           "height": 450
+        },
+        "visualBounds": {
+          "left": -623.5,
+          "top": -1162,
+          "right": 623.5,
+          "bottom": 0
         }
       },
       "house-grocery": {
@@ -2788,6 +3412,12 @@
           "y": -442,
           "width": 245,
           "height": 400
+        },
+        "visualBounds": {
+          "left": -621,
+          "top": -1037,
+          "right": 621,
+          "bottom": 0
         }
       }
     }

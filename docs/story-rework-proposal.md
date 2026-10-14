@@ -1,4 +1,4 @@
-# The Lantern Atlas — story rework proposal
+# glotworld — story rework proposal
 
 > **Status (2026-10-13).** **Act I is implemented** (commit `7dd9507`, "Rebuild Act I as one clear path of eighteen A1 scenes"): the six main scenes were rewritten to the simplified spine and twelve everyday scenes were added, for 18 A1 scenes and 30 quests overall. The one magic rule is "names fade unless somebody says them aloud"; platform seven is a real old platform; the kettle and the tomorrow-dated receipt are gone; Frau Berg is a retired teacher at Gartenstraße 7 who carries the act; Greta runs Lindenhafen's pharmacy and garden. The current rules are in `docs/story-bible.md`, the scenes in `docs/screenplay.md`.
 >

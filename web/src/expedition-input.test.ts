@@ -7,6 +7,8 @@ import expeditionLearningManifest from './data/expedition-learning.json';
 import {expeditionRegions} from './expeditions';
 import {expeditionGames,mountExpeditionGame} from './expedition-games';
 import {mountExpeditionEncounter,pendingEncounterCommands} from './expedition-encounter';
+import alignmentFixtures from '../../content/alignments/fixtures.json';
+import type {AlignedLine} from './aligned-line';
 
 const key=(name:string)=>{const event=new KeyboardEvent('keydown',{key:name,bubbles:true,cancelable:true});(document.activeElement??document.body).dispatchEvent(event);return event;};
 const dialog=()=>{const outer=document.createElement('dialog');outer.open=true;const root=document.createElement('div');outer.append(root);document.body.append(outer);return root;};
@@ -14,6 +16,15 @@ beforeEach(()=>{vi.stubGlobal('requestAnimationFrame',vi.fn(()=>1));vi.stubGloba
 afterEach(()=>{pendingEncounterCommands.clear();document.body.replaceChildren();vi.unstubAllGlobals();});
 
 describe('shared expedition controller input',()=>{
+ it('keeps reply word arrows and Enter inside the aligned phrase',()=>{
+  const aligned=alignmentFixtures.find(line=>line.fixture==='npc-invitation') as unknown as AlignedLine;
+  const source=expeditionRegions[0].encounters[0],encounter={...source,choices:source.choices.map((choice,index)=>index===0?{...choice,text:aligned.de.text,aligned}:choice)},root=dialog(),progress=emptyProgress(),expose=vi.fn(async()=>({progress})),saveStory=vi.fn(async()=>({progress}));
+  const learning=new ExpeditionLearning({api:{selfId:'player',token:'session',expose} as unknown as Api,progress:()=>progress,onProgress:vi.fn()});
+  const controller=mountExpeditionEncounter(root,encounter,{learning,progress:()=>progress,onProgress:vi.fn(),saveStory,speak:async()=>{},stopSpeech:vi.fn(),silent:true,previouslyAnswered:false});
+  const words=[...root.querySelectorAll<HTMLButtonElement>('.expedition-reply-line [data-aligned-token]')];words[0].focus();
+  expect(key('ArrowRight').defaultPrevented).toBe(true);expect(document.activeElement).toBe(words[1]);key('Enter');
+  expect(saveStory).not.toHaveBeenCalled();expect(words[1].getAttribute('aria-pressed')).toBe('true');expect(root.querySelector('.expedition-reply-line mark')?.textContent).toBe('you');controller.destroy();
+ });
  it('arrows and Enter can choose the initial listening mode without a mouse or a printed cue',()=>{
   const root=dialog(),encounter=expeditionRegions[0].encounters[0],mapping=expeditionLearningManifest.encounters[0],progress={...emptyProgress(),intake:{version:1,wordIds:mapping.wordIds,activeSeconds:0,creditSeconds:0,lastBeatAt:''}};
   const learning=new ExpeditionLearning({api:{selfId:'player',token:'session',expose:vi.fn(async()=>({progress}))} as unknown as Api,progress:()=>progress,onProgress:vi.fn()}),speak=vi.fn(()=>new Promise<void>(()=>{}));

@@ -58,6 +58,23 @@ export async function buildContent(root) {
   const [course,story,graphs,trStory,trCourse,trUI,expeditionLearning,miniStories,legacyBase,legacyCourse,solutions,activityBoards,miniLoop,miniItems,placementDialogue] = results;
   const ids = await loadJSON(root,'content/content_ids.json',{});
   const cache = await loadJSON(root,'content/alignments/reviewed.json',{version:1,entries:{}});
+  const authoredChoices=(await Promise.all(['a','b'].map(part=>loadJSON(root,`content/source/expedition-choice-alignments-${part}.json`,[])))).flat();
+  const choiceAlignments=new Map();
+  for(const row of authoredChoices){
+    if(choiceAlignments.has(row.de))throw new Error(`Repeated authored expedition reply: ${row.de}.`);
+    const line={id:`authored-expedition-reply-${row.index}`,de:tokenized(row.de),support:{en:{...tokenized(row.en),align:row.enAlign,untranslated:row.enUntranslated??{}},tr:{...tokenized(row.tr),align:row.trAlign,untranslated:row.trUntranslated??{}}},alignmentStatus:'authored'};
+    const failures=validateAlignment(line);if(failures.length)throw new Error(`${line.id}: ${failures.join('\n')}`);
+    choiceAlignments.set(row.de,line);
+  }
+  const alignmentTranslations=await loadJSON(root,'content/source/alignment-translations.json',{});
+  const usedTranslations=new Set();
+  for(const [slug,value] of Object.entries(alignmentTranslations)){
+    if(!value||typeof value!=='object'||Array.isArray(value)||typeof value.de!=='string'||!value.de)throw new Error(`${slug}: invalid alignment translation overlay.`);
+    for(const key of Object.keys(value))if(!['de','en','tr','omitGlossTokens','replaceSupport'].includes(key))throw new Error(`${slug}: unknown alignment translation field ${key}.`);
+    for(const language of ['en','tr'])if(language in value&&(typeof value[language]!=='string'||!value[language].trim()))throw new Error(`${slug}: ${language} translation must be nonempty text.`);
+    if('replaceSupport' in value&&typeof value.replaceSupport!=='boolean')throw new Error(`${slug}: replaceSupport must be a boolean.`);
+    if('omitGlossTokens' in value&&(!Array.isArray(value.omitGlossTokens)||value.omitGlossTokens.some(index=>!Number.isInteger(index)||index<0)))throw new Error(`${slug}: invalid authored gloss omission indices.`);
+  }
   const base = await authoringModule(root,'content.ts');
   const [regions,plans,rooms,residents,beginners,storyModule,lexical,contextual,cinematic,activities,interiorConversations,interiorWordFacts] = await Promise.all([
     authoringModule(root,'expeditions.ts'), authoringModule(root,'expedition-games.ts'),
@@ -127,14 +144,22 @@ export async function buildContent(root) {
   const lexemes = () => new Map(records.lexemes.map(record=>[record.id,record.body]));
   const lineTexts = new Map();
   const addLine = (slug,value,owner={},extra={}) => {
-    const german=value.german ?? value.de, english=value.english ?? value.translation ?? value.en;
+    const german=value.german ?? value.de;let english=value.english ?? value.translation ?? value.en;
     if (typeof german !== 'string' || !german) return undefined;
-    const turkish=value.turkish ?? translatedSentences.get(german);
+    const translation=alignmentTranslations[slug];
+    if(translation&&translation.de!==german)throw new Error(`${slug}: alignment translation overlay is stale; German text changed.`);
+    if(translation)usedTranslations.add(slug);
+    if((!english||translation?.replaceSupport)&&translation?.en)english=translation.en;
+    const existingTurkish=value.turkish || translatedSentences.get(german);
+    const turkish=translation?.replaceSupport&&translation.tr?translation.tr:existingTurkish||translation?.tr;
     const de=tokenized(german), support={};
     if(typeof english==='string'&&english) support.en={...tokenized(english),align:[]};
     if (turkish) support.tr={...tokenized(turkish),align:[]};
     const glosses = {};
+    const omitted=translation?.omitGlossTokens??[];
+    if(!Array.isArray(omitted)||omitted.some(index=>!Number.isInteger(index)||index<0||index>=de.tokens.length))throw new Error(`${slug}: invalid authored gloss omission indices.`);
     for (const [index,word] of tokenTexts(de).entries()) {
+      if(omitted.includes(index))continue;
       const meaning=value.glosses?.[normalize(word)] ?? value.glosses?.[word];
       const lexemeID=explicitGloss(word,meaning);
       if (lexemeID) glosses[index]=lexemeID;
@@ -193,11 +218,12 @@ export async function buildContent(root) {
     const tr=exact && exact.german===exercise.german ? exact.tr : generated;
     const support={en:{english,prompt:exercise.prompt,hint:exercise.hint,explanation:exercise.explanation}};
     if (tr) support.tr={...tr,...(exact?.options?{options:exact.options}:{})};
-    const guidedChoices=(beginners.beginnerGateTranslations[slug] ?? []).map(([german,english])=>({german,english,turkish:translatedSentences.get(german) ?? textTR(english)}));
+    const guidedChoices=(beginners.beginnerGateTranslations[slug] ?? []).map(([german,english],index)=>({german,english,turkish:translatedSentences.get(german) ?? textTR(english),lineId:contentID(ids,'lines',`beginner:${slug}:${index}`)}));
     const optionMeanings=Object.fromEntries((exercise.options ?? []).filter(option=>beginners.greetingMeanings[option]).map(option=>[option,beginners.greetingMeanings[option]]));
     if(Object.keys(optionMeanings).length){support.en.optionMeanings=optionMeanings;support.tr??={};support.tr.optionMeanings=Object.fromEntries(Object.entries(optionMeanings).map(([option,english])=>[option,translatedSentences.get(option)??textTR(english)]));}
     const exampleLineId=addLine(`exercise:${slug}`,{german:exercise.german,english,turkish:tr?.english},{exerciseId:slug,...(exercise.questId?{questId:exercise.questId}:{}),...(exercise.unitId?{unitId:exercise.unitId}:{}),level:exercise.level, ...(exercise.regionId?{regionId:exercise.regionId}:{}),...(exercise.miniGameId?{miniGameId:exercise.miniGameId}:{})});
-    const record=add('exercises',slug,{...rewriteReferences(body,ids),audioPath:`/audio/${slug}.mp3`,support,...(guidedChoices.length?{guidedChoices}:{}),...(exampleLineId?{exampleLineId}:{})});
+    const optionLineIds=Object.fromEntries(Object.keys(optionMeanings).map(german=>[german,contentID(ids,'lines',`greeting:${german}`)]));
+    const record=add('exercises',slug,{...rewriteReferences(body,ids),audioPath:`/audio/${slug}.mp3`,support,...(guidedChoices.length?{guidedChoices}:{}),...(Object.keys(optionLineIds).length?{optionLineIds}:{}),...(exampleLineId?{exampleLineId}:{})});
     if(placementDialogue[slug]){
       const context=placementDialogue[slug];
       record.body.placementLineId=addLine(`placement:${slug}`,context,{exerciseId:slug,placement:true,level:exercise.level});
@@ -240,7 +266,12 @@ export async function buildContent(root) {
     const encounters=region.encounters.map(encounter=>{
       const lineId=addLine(`expedition:${encounter.id}`,encounter,{regionId:region.id,level:encounter.difficulty});
       const {german,translation,...rest}=encounter;
-      return {...rest,lineId};
+      const choices=encounter.choices.map((choice,index)=>{
+        const authored=choiceAlignments.get(choice.text);if(!authored)throw new Error(`Missing authored expedition reply: ${choice.text}.`);
+        const choiceLineId=addLine(`expedition:${encounter.id}:choice:${index}`,{german:authored.de.text,english:authored.support.en.text,turkish:authored.support.tr.text},{regionId:region.id,level:encounter.difficulty},{encounterId:contentID(ids,'expeditions',encounter.id)});
+        return {...choice,lineId:choiceLineId};
+      });
+      return {...rest,choices,lineId};
     });
     const {encounters:rawEncounters,...rest}=region;
     add('expeditions',region.id,{...rest,mapId:region.id,encounters,exerciseIds:expeditionLearning.exercises.filter(exercise=>exercise.regionId===region.id).map(exercise=>contentID(ids,'exercises',exercise.id))});
@@ -314,6 +345,7 @@ export async function buildContent(root) {
     const scenarios=activities.activityScenarios.filter(scenario=>scenario.activityId===definition.id&&scenario.level===level).map(scenario=>recordIndex.minigames.get(scenario.id).body);
     add('minigames',`activity:${definition.id}:${level}`,{kind:'activity',activityId:definition.id,mapId:levelMap[level],level,scenarios,inventory:activities.inventory});
   }
+  for(const slug of Object.keys(alignmentTranslations))if(!usedTranslations.has(slug))throw new Error(`Unknown alignment translation slug ${slug}.`);
   const grading={};
   for (const key of ['quests','items','exercises','lexicon','units']) {
     const merged=new Map([...(legacyBase[key] ?? []),...(legacyCourse[key] ?? [])].map(value=>[value.id,value]));

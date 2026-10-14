@@ -1,4 +1,5 @@
 import type { Exercise, Level } from './content';
+import type { TranslatedSentence } from './sentence-translations';
 
 /** Lexical facts from attributed open dictionaries; levels are course placements. */
 export interface CourseLexeme {
@@ -57,7 +58,7 @@ export interface CourseGrammar {
   level: Level;
   title: string;
   explanation: string;
-  examples: { german: string; english: string }[];
+  examples: TranslatedSentence[];
 }
 export interface CourseSource {
   id: string;

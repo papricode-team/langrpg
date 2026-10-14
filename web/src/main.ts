@@ -1,4 +1,5 @@
 import { castPortraitMarkup } from './cast-portrait';
+import { brandMarkup } from './branding';
 import {loadPublishedWorld,sceneContentVersion} from './scene-data';
 import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
@@ -35,6 +36,7 @@ import { Notifications, installFormNotifications } from './notifications';
 import './course-ui.css';
 import './game-ui.css';
 import './game-menu.css';
+import './menu-home.css';
 import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
@@ -45,6 +47,7 @@ import { expeditionGames, getExpeditionGame, loadExpeditionGame, expeditionGameS
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import './quest-cta.css';
+import './hud.css';
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
@@ -53,7 +56,7 @@ import { Api, emptyProgress } from './api';
 import { canEditWorld, updateWorldEditButton, WorldEditorOverlay } from './admin-world-editor';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
-import type { Progress, ExposureInput, ConnectionStatus, SessionResult, AccountStatus } from './api';
+import type { Progress, ExposureInput, ConnectionStatus, SessionResult, AccountStatus, ExpeditionAnswerResult } from './api';
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
@@ -82,6 +85,7 @@ import type { InteriorId, InteriorObjectSpec } from './interiors';
 import { renderInteriorEncounter } from './encounter-panels';
 import { createInteriorConversationState, chooseInteriorConversation, backInteriorConversation, replayInteriorConversation, renderInteriorConversation, interiorConversationFor, loadInteriorConversation, type InteriorConversationState } from './interior-conversations';
 import { courseWordDetail, interiorWordDetail, renderWordDetail, type WordDetailModel } from './word-detail';
+import { loadExerciseExample, renderCourseExample } from './course-examples';
 
 import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
@@ -316,8 +320,9 @@ function renderShell() {
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
         <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button></div>
-        <div class="arrival-label" id="arrival-label" hidden></div>
-          <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
+        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-meta"><span id="hud-level">A1 · ${e(titleLabel('Wanderer'))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
+        <div class="location-banner" id="location-banner"><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
+        <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
         <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
@@ -444,7 +449,7 @@ function syncLocation() {
   const shell = document.querySelector<HTMLElement>('#game-shell')!;
   if (room) shell.dataset.interior = room.id;
   else delete shell.dataset.interior;
-  showArrival(room?.name ?? region.name);
+  showArrival(room?.name ?? region.name, room ? t('Inside {place}', { place: region.name }) : localized(region.subtitle));
   document.querySelector('#watch-region')!.textContent = room?.name ?? region.name;
   document.querySelector('#explore-view')!.setAttribute('aria-label', room ? t('{place} interior', { place: room.name }) : region.name);
 
@@ -563,7 +568,8 @@ async function openCourseWord(id: string) {
   const memory=progress.words[id];
   const example=quests.flatMap(quest=>quest.exercises).find(ex=>module.courseContextWordIds[ex.id]?.includes(id)&&(ex.german.match(/\p{L}+/gu)?.length??0)>=3);
   const details=memory?(['recognition','listening','production'] as const).flatMap(mode=>memory.evidence[mode]?.attempts?[{label:mode==='recognition'?t('Read'):mode==='listening'?t('Hear'):t('Recall'),value:memory.evidence[mode].status==='retained'?t('retained'):t('growing')}]:[]):[];
-  showWordDetail(courseWordDetail(word,{example:example?[{german:example.german,english:localizedExercise(example).english,localized:true}]:undefined,details}),document.querySelector('.lexicon-list')?.innerHTML??lexemeCards([word]));
+  const narrative=await loadExerciseExample(example);
+  showWordDetail(courseWordDetail(word,{example:narrative,details}),document.querySelector('.lexicon-list')?.innerHTML??lexemeCards([word]));
 }
 function openPhrase(id: string) {
   const phrase=vocabulary.find(item=>item.id===id);if(!phrase)return;
@@ -589,6 +595,7 @@ function updateProgress() {
   const savedStory = storyState(progress.story);
   const rewards = lanternRewards(progress);
   document.querySelector<HTMLElement>('#game-shell')!.dataset.crest = rewards.crest;
+  updatePlayerHud(titleLabel(rewards.title));
   world.setStoryState({ completedQuestIds: progress.completedQuestIds, bellCount: savedStory.bell, flags: savedStory.flags, playerName: profile.name });
   if (course) world.setLearningContext(course.courseLexicon,progress,introducedSet(),barkLineAllowed);
   const expedition = getExpedition(mapId);
@@ -597,7 +604,7 @@ function updateProgress() {
 
 
     world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
-    document.querySelector('#quest-panel')!.innerHTML = `<button class="objective-chip" data-expedition-game="${expedition.id}">${icon(status === 'completed' ? 'check' : 'flag')}<span class="objective-text">${e(game.title)}</span></button>`;
+    document.querySelector('#quest-panel')!.innerHTML = storyBeacon({ attributes: `data-expedition-game="${expedition.id}"`, glyph: status === 'completed' ? 'check' : 'compass', label: expedition.name, text: game.title });
     document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
     if (['journal', 'quests', 'story', 'menu'].includes(view)) refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
     return;
@@ -614,21 +621,40 @@ function updateProgress() {
   world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigation.objectId}` : q.npcId);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
   const objective = finished ? nextAct ? t('Travel to {place}',{place:getMap(nextAct.mapId).name}) : t('Read your discoveries') : investigation ? t('Inspect {name}',{name:findObject(investigation.objectId)?.label??t('the evidence')}) : t('Speak with {name}',{name:localizedName(npc.name)});
-  document.querySelector('#quest-panel')!.innerHTML = `<button class="objective-chip" data-action="${interiorId?'leave-interior':'next-objective'}">${icon(interiorId?'arrow':finished?'map':'flag')}<span class="objective-text">${e(interiorId?t('Leave {name}',{name:getInterior(interiorId).name}):objective)}</span>${!interiorId&&savedStory.bell>0&&savedStory.bell<7?`<span class="objective-bell" aria-label="${e(t('The seventh bell'))}">${savedStory.bell}/7</span>`:''}</button>`;
+  document.querySelector('#quest-panel')!.innerHTML = interiorId
+    ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId).name }), quiet: true })
+    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined });
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
+}
+/** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
+function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean }): string {
+  const { attributes, glyph, label, text, bell, quiet } = options;
+  return `<button class="story-beacon${quiet ? ' quiet' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell" aria-label="${e(t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}</button>`;
+}
+function updatePlayerHud(title: string) {
+  const done = completedAtLevel(level), total = quests.filter(item => item.level === level).length || 1;
+  document.querySelector('#profile-name')!.textContent = profile.name;
+  document.querySelector('#hud-level')!.textContent = `${level} · ${title}`;
+  document.querySelector('#xp-value')!.textContent = String(progress.xp);
+  document.querySelector<HTMLElement>('#chapter-fill')!.style.width = `${Math.round(done / total * 100)}%`;
+  const bar = document.querySelector<HTMLElement>('#chapter-progress')!;
+  bar.setAttribute('aria-valuenow', String(done)); bar.setAttribute('aria-valuemax', String(total));
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let arrivalTimer: ReturnType<typeof setTimeout> | undefined;
 let arrivalName = '';
-function showArrival(name: string) {
+/** The location banner stays as a quiet caption and swells briefly whenever the player arrives somewhere new. */
+function showArrival(name: string, subtitle: string) {
+  const banner = document.querySelector<HTMLElement>('#location-banner');
+  if (!banner) return;
+  banner.querySelector('#location-title')!.textContent = name;
+  banner.querySelector('#location-subtitle')!.textContent = subtitle;
   if (name === arrivalName) return;
   arrivalName = name;
-  const label = document.querySelector<HTMLElement>('#arrival-label');
-  if (!label) return;
   if (arrivalTimer) clearTimeout(arrivalTimer);
-  label.textContent = name; label.hidden = false;
-  arrivalTimer = setTimeout(() => { label.hidden = true; }, 2000);
+  banner.classList.remove('arriving'); void banner.offsetWidth; banner.classList.add('arriving');
+  arrivalTimer = setTimeout(() => banner.classList.remove('arriving'), 3200);
 }
 function showFirstControls() {
   const hint = document.querySelector<HTMLElement>('.game-controls-hint');
@@ -665,7 +691,7 @@ function syncWorldMode(): void {
 }
 function setView(next: View, openPage = true) {
   menuPageOpen = openPage;
-  if(started&&['journal','story','quests'].includes(next))void loadStoryContent(mapId,progress.completedQuestIds).then(()=>{if(view===next)renderOther();}).catch(error=>toast(error.message,true));
+  if(started&&['menu','journal','story','quests'].includes(next))void loadStoryContent(mapId,progress.completedQuestIds).then(()=>{if(view===next)renderOther();}).catch(error=>toast(error.message,true));
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
   exposureObserver?.disconnect();
@@ -861,7 +887,7 @@ async function showExpeditionEncounter(targetId:string) {
   activityController={destroy(){alive=false;runtime.controller?.destroy();runtime.speechHost?.destroy();root.replaceChildren();},pause(){paused=true;runtime.controller?.pause();},resume(){paused=false;runtime.controller?.resume();},reset(){runtime.controller?.reset();}};
   const {createMiniGameHost}=await import('./minigames/host');if(!alive||!root.isConnected||!currentPlayer())return;
   runtime.speechHost=createMiniGameHost({api,gameId:'expedition-encounters',lexicon:[],exercises:[],progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},onEnd:()=>{},playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
-  runtime.controller=mountExpeditionEncounter(root,encounter,{learning:expeditionLearning,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},saveStory:(selected,id)=>api.request<{progress:Progress}>('/expedition/answer',{id,selected,encounterId:encounter.id}),speak:(text,path)=>runtime.speechHost!.speakText(text,path),stopSpeech:()=>runtime.speechHost?.audio.stop(),silent:silentMode,initialPaused:paused||document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open,previouslyAnswered:!!expeditionEncounterResult(encounter.id)?.attempts});
+  runtime.controller=mountExpeditionEncounter(root,encounter,{learning:expeditionLearning,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},saveStory:(selected,id)=>api.request<ExpeditionAnswerResult>('/expedition/answer',{id,selected,encounterId:encounter.id}),speak:(text,path)=>runtime.speechHost!.speakText(text,path),stopSpeech:()=>runtime.speechHost?.audio.stop(),silent:silentMode,initialPaused:paused||document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open,previouslyAnswered:!!expeditionEncounterResult(encounter.id)?.attempts});
 }
 function expeditionActivityBoard() {
   if (!routeUnlocked('windplain', progress.completedQuestIds)) return '';
@@ -1086,7 +1112,7 @@ function renderCourse(el: Element) {
       return `<button class="route-unit ${done ? 'found' : missing ? 'locked' : ''}" data-course-unit="${e(unit.id)}" ${missing ? 'aria-disabled="true"' : ''} aria-label="${e(`${localized(unit.title)}: ${label}`)}"><strong>${e(localized(unit.title))}</strong><span class="unit-progress" role="progressbar" aria-label="${e(t('Route progress'))}" aria-valuemin="0" aria-valuemax="${unit.exerciseCount??unit.exerciseIds.length}" aria-valuenow="${practiced}">${icon(done ? 'check' : missing ? 'lock' : 'chevron')}</span></button>`;
     }).join('')}</div>${pageCount > 1 ? `<div class="route-pagination"><button class="outline-button" data-course-page="${coursePage - 1}" ${coursePage === 0 ? 'disabled' : ''}>${t('Previous')}</button><span>${coursePage + 1} / ${pageCount}</span><button class="outline-button" data-course-page="${coursePage + 1}" ${coursePage === pageCount - 1 ? 'disabled' : ''}>${t('Next')}</button></div>` : ''}${todaysWordsCard()}`;
   } else if (courseTab === 'grammar') {
-    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source), unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<details class="grammar-route" data-grammar-guide="${guide.id}"><summary>${e(guide.title)}</summary><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note">${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${e(example.german)} <button class="icon-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}',{text:example.german}))}">${icon('volume')}</button><span class="caption">${e(example.english)}</span></blockquote>`).join('')}${!guide.examples.length&&guide.unitId?`<button class="primary-button" data-grammar-unit="${guide.unitId}" ${guide.unlocked===false?'disabled':''}>${e(t('Open grammar guide'))}</button>`:''}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')}</button>` : ''}</details>`; }).join('');
+    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source), unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<details class="grammar-route" data-grammar-guide="${guide.id}"><summary>${e(guide.title)}</summary><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note">${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${renderCourseExample(example)} <button class="icon-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}',{text:example.german}))}">${icon('volume')}</button></blockquote>`).join('')}${!guide.examples.length&&guide.unitId?`<button class="primary-button" data-grammar-unit="${guide.unitId}" ${guide.unlocked===false?'disabled':''}>${e(t('Open grammar guide'))}</button>`:''}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')}</button>` : ''}</details>`; }).join('');
   } else {
     content.innerHTML = `<label class="route-search">${icon('clue')}<input id="lexicon-search" type="search" placeholder="${e(t('Find a German word or English meaning…'))}" aria-label="${e(t('Search the word atlas'))}"/></label><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>`;
     bindLexiconSearch(words.filter(word => wordIntroduced(progress, word.id)));
@@ -1171,7 +1197,7 @@ async function startCourseUnit(id: string) {
   run = { unitId:id, queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:localized(unit.title), started:Date.now() };
   const guides = module.courseGrammar.filter(guide => unit.grammarIds.includes(guide.id)).map(guide => localizedGrammar(guide));
   const unitTitle = localized(unit.title), unitSummary = localized(unit.summary);
-  openDialog(`<div class="quest-intro"><h2>${e(unitTitle)}</h2><div class="course-intro-reference"><p class="intro-story">${e(unitSummary)}</p>${guides.map(guide => `<div class="course-intro-examples">${guide.title !== unitTitle ? `<strong>${e(guide.title)}</strong>` : ''}${guide.explanation !== unitSummary ? `<p>${e(guide.explanation)}</p>` : ''}${guide.examples.slice(0,2).map(example => `<p><b>${e(example.german)}</b><br/>${e(example.english)}</p>`).join('')}</div>`).join('')}</div><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Follow this learning route') : t('Save this completed route')} ${icon('arrow')}</button></div>`, 'quest-dialog course-dialog');
+  openDialog(`<div class="quest-intro"><h2>${e(unitTitle)}</h2><div class="course-intro-reference"><p class="intro-story">${e(unitSummary)}</p>${guides.map(guide => `<div class="course-intro-examples">${guide.title !== unitTitle ? `<strong>${e(guide.title)}</strong>` : ''}${guide.explanation !== unitSummary ? `<p>${e(guide.explanation)}</p>` : ''}${guide.examples.slice(0,2).map(example => `<p>${renderCourseExample(example)}</p>`).join('')}</div>`).join('')}</div><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Follow this learning route') : t('Save this completed route')} ${icon('arrow')}</button></div>`, 'quest-dialog course-dialog');
 }
 async function startAdaptiveReview() {
   const module = await loadCourse().catch(() => undefined);
@@ -1229,7 +1255,16 @@ function renderOther() {
     const act = actFor(mapId), clueCount = discoveredClues(progress.completedQuestIds).length;
     const quest = currentQuest(), npc = npcs.find(item => item.id === quest.npcId)!;
     const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-    el.innerHTML = adventureHome({ act, region: getMap(mapId).name, regionArt: getMap(mapId).previewAsset, quest, npc, portrait: portrait(npc.id), completed: completedAtLevel(level), total: quests.filter(item => item.level === level).length, nextRegion: nextAct ? getMap(nextAct.mapId).name : undefined, clueCount, dueCount: dueItems(progress).length });
+    const map = getMap(mapId), storyRoutes = maps.filter(item => !getExpedition(item.id)), promise = progress.story?.promise;
+    el.innerHTML = adventureHome({
+      act, quest, npc, portrait: portrait(npc.id), clueCount,
+      region: { name: map.name, subtitle: localized(map.subtitle), description: localized(map.description), art: map.previewAsset },
+      completed: completedAtLevel(level), total: quests.filter(item => item.level === level).length, nextRegion: nextAct ? getMap(nextAct.mapId).name : undefined,
+      dueCount: dueItems(progress).length, wordCount: introducedSet().size,
+      townsOpen: storyRoutes.filter(item => routeUnlocked(item.id, progress.completedQuestIds)).length, townsTotal: storyRoutes.length,
+      places: buildingEntrances(mapId).map(entrance => { const room = getInterior(entrance.interiorId); return { id: room.id, name: room.name, glyph: interiorIcon(room.id) }; }),
+      promise: promise ? { title: localized(promise.title), done: Math.min(promise.correctAnswers, promise.target), target: promise.target, lit: !!promise.completed } : undefined,
+    });
   } else if (view === 'quests') {
     const act = actFor(mapId), chapterQuests = quests.filter(q => q.level === level);
     el.innerHTML = `<div class="quest-log-heading"><h2>${e(localized(act.title))}</h2></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questAvailable(q.id, progress) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><strong>${e(localized(q.title))}</strong></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
@@ -1965,7 +2000,7 @@ function showAccountDialog(html: string, required = false) {
     activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
     if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
   }
-  dialog.innerHTML = html;
+  dialog.innerHTML = brandMarkup + html;
   dialog.dataset.accessWall = required ? 'required' : '';
   dialog.dataset.accessPhase = required ? accessClock.snapshot(performance.now())?.phase ?? 'checking' : '';
   dialog.classList.remove('billing-dialog');
@@ -2167,10 +2202,10 @@ function showLogin() {
 
 /** Deterministic development previews exercise the production renderers with a throwaway guest's content. */
 async function openUiCheck(surface: string) {
-  // Content is entitled per account, so the preview reads it as a fresh guest and sends nothing else.
-  if(!await api.resume())await api.session('Wanderer',profile.avatar);
+  // Learning content is session-gated, so the preview holds a throwaway guest token for content reads only.
   const request=api.request.bind(api);
-  api.request=async<T>(path:string,body?:unknown):Promise<T>=>{if(body===undefined&&path.startsWith('/content/'))return request<T>(path);throw new Error(t('This preview does not save progress.'));};
+  api.token=(await request<{token:string}>('/session',{name:'Wanderer',avatar:{hair:'#5b3a29',skin:'#e0b08c',outfit:'#2f5d50'}})).token;
+  api.request=async<T>(path:string,body?:unknown):Promise<T>=>{if(path.startsWith('/content/'))return request<T>(path,body);throw new Error(t('This preview does not save progress.'));};
   api.selfId='ui-check';
   const module=await loadCourse();
   const wordIds=surface==='encounter'?[]:(surface==='activity'?module.courseLexicon:module.courseLexicon.filter(word=>word.level==='A1').slice(0,24)).map(word=>word.id);
