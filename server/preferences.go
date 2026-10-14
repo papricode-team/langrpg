@@ -13,6 +13,7 @@ import (
 const (
 	BaseLanguageEnglish = "en"
 	BaseLanguageTurkish = "tr"
+	BaseLanguageGerman  = "de"
 )
 
 // Preferences are per-account settings that follow the player across devices.
@@ -27,7 +28,7 @@ func validBaseLanguage(value string) bool {
 
 // normalizedPreferences fills safe defaults for old or partial saved state.
 func normalizedPreferences(p Preferences) Preferences {
-	if !validBaseLanguage(p.BaseLanguage) {
+	if !validBaseLanguage(p.BaseLanguage) && p.BaseLanguage != BaseLanguageGerman {
 		p.BaseLanguage = BaseLanguageEnglish
 	}
 	return p
@@ -45,8 +46,12 @@ func (a *App) updatePreferences(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	input.BaseLanguage = strings.TrimSpace(input.BaseLanguage)
-	if !validBaseLanguage(input.BaseLanguage) {
-		writeError(w, 400, "baseLanguage must be en or tr")
+	valid := validBaseLanguage(input.BaseLanguage)
+	if a.content != nil {
+		valid = contains(a.content.ByCourse[a.curriculum.CourseID].SupportLanguages, input.BaseLanguage)
+	}
+	if !valid {
+		writeError(w, 400, "choose a support language declared by the active course")
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)

@@ -693,3 +693,41 @@ func (w *World) ResetPlayer(playerID string) {
 		}
 	}
 }
+
+// SavedPlayer takes a snapshot at course switches and periodic access renewals.
+// Course snapshots preserve the current town/interior and actual world position.
+func (w *World) SavedPlayer(fallback Player) Player {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if client := w.clients[fallback.ID]; client != nil {
+		return client.player
+	}
+	if memory := w.memories[fallback.ID]; memory != nil {
+		fallback.MapID = memory.mapID
+		fallback.InteriorID = memory.interiorID
+		position := memory.restorePosition(memory.mapID, w.mapDefinition(memory.mapID))
+		if memory.interiorID != "" {
+			position = memory.interiorPosition
+		}
+		fallback.X = position.X
+		fallback.Y = position.Y
+	}
+	return fallback
+}
+
+func (w *World) RestoreCoursePlayer(player Player, generation int64) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if w.memories[player.ID] != nil || !validMapID(player.MapID) {
+		return
+	}
+	now := time.Now()
+	memory := &worldMemory{accessGeneration: generation, mapID: player.MapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: worldMoveInitialCredit}
+	memory.rememberPosition(player.MapID, MapSpawn{player.X, player.Y}, w.mapDefinition(player.MapID).WorldCoordinateFrame)
+	if player.InteriorID != "" && validInterior(player.MapID, player.InteriorID) {
+		memory.interiorID = player.InteriorID
+		memory.interiorPosition = MapSpawn{player.X, player.Y}
+		memory.interiorFrame = w.locationDefinition(player.MapID, player.InteriorID).WorldCoordinateFrame
+	}
+	w.memories[player.ID] = memory
+}

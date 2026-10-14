@@ -25,7 +25,7 @@ go vet ./...
 
 ## PostgreSQL and Compose
 
-Set `DATABASE_URL` to use PostgreSQL. Startup creates the three small schema tables: `accounts` (profile/progress JSONB), `sessions` (hashed credentials), and `learning_events` (requests and reward receipts). Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
+Set `DATABASE_URL` to use PostgreSQL. Startup creates the account, session, learning-event and world-state tables. The content importer creates the course and typed content tables described below. Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
 
 From the repository root:
 
@@ -51,7 +51,7 @@ All POST bodies use `Content-Type: application/json` and are limited to 8 KiB, e
 
 `POST /api/session` accepts `{name,avatar:{hair,skin,outfit},level?:"A1"|"A2"|"B1",baseLanguage?:"en"|"tr"}`. Names contain 2–24 letters/numbers, spaces, dashes, underscores or apostrophes. The `hair`, `skin`, and `outfit` colour values are safe palette names or hex strings, up to 32 characters. Optional `face`, `hairstyle`, `jacket`, `bottom`, and `build` fields select allowlisted character pieces; `pants` sets trouser colour. These parts persist on the account and appear in multiplayer snapshots. Profiles without part fields retain their colour choices and use default pieces. Returns `{token,player:{id,name,mapId,x,y,avatar},progress,account:{registered,email},preferences:{baseLanguage}}`. A valid existing bearer credential with an empty body `{}` resumes its saved profile and progress; providing a full profile updates that account’s name/appearance while preserving progress. Connected players see these changes in snapshots. Creating a fresh session replaces no previous account. Keep the token in the browser and never log it or publish it in screenshots.
 
-`POST /api/preferences` requires a bearer session and accepts `{baseLanguage:"en"|"tr"}`; it returns `{preferences}`. The base language is the support language for meanings, hints and interface text (see [docs/turkish-route.md](../docs/turkish-route.md)). It is stored in the account document, so older saves without the field (JSON or PostgreSQL) read as English with no schema migration. Grading, scheduling and story rules never read it.
+`POST /api/preferences` requires a bearer session and accepts `{baseLanguage:"en"|"tr"|"de"}`; it returns `{preferences}`. The selected language must belong to the active course's support languages. The base language controls meanings, hints and interface text (see [docs/turkish-route.md](../docs/turkish-route.md)). It is stored in the account document, so older saves without the field (JSON or PostgreSQL) read as English with no schema migration. Grading, scheduling and story rules never read it.
 
 `POST /api/account/register` requires a bearer session and accepts `{email,password}`. It links credentials to the current player without replacing their progress. Email addresses are trimmed, lowercased and unique; passwords contain 10–128 characters. Duplicate emails or attempts to replace linked credentials return 409; retries with the same credentials on the same account succeed. Passwords are salted and stored with PBKDF2-HMAC-SHA256 at 600,000 iterations, following the [OWASP password storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html). Registration is limited to six requests per session per minute. Credentials persist in the JSON account or PostgreSQL account JSONB, with an additive unique email index. Password hashes are never included in API responses or learning receipts.
 
@@ -88,9 +88,9 @@ All POST bodies use `Content-Type: application/json` and are limited to 8 KiB, e
 }
 ```
 
-`POST /api/attempt` accepts `{id,itemId,exerciseId,answer,hinted,mode,questId?}`. `id` is a unique client-generated attempt ID (1–100 ASCII letters, digits, dashes or underscores). Modes are `recognition`, `production`, and `listening`. The server validates exercise/item/mode against the embedded `curriculum.json`, grades the submitted answer, then updates progress. A listening exercise may be submitted as `recognition` with `hinted:true` when only its transcript is available; this does not count as unaided listening mastery. A client `correct` field is ignored. Returns `{correct,xpAdded,duplicate,progress}`. Normalization is case-insensitive by default, uses NFC, collapses whitespace and ignores terminal `.?!`; authored exercises may opt into case sensitivity. German umlauts and ß remain meaningful. Accepted alternatives are explicitly authored in the manifest.
+`POST /api/attempt` accepts `{id,itemId,exerciseId,answer,hinted,mode,questId?}`. `id` is a unique client-generated attempt ID (1–100 ASCII letters, digits, dashes or underscores). Modes are `recognition`, `production`, and `listening`. The server validates exercise/item/mode against the active course's content-store curriculum, grades the submitted answer, then updates progress. A listening exercise may be submitted as `recognition` with `hinted:true` when only its transcript is available; this does not count as unaided listening mastery. A client `correct` field is ignored. Returns `{correct,xpAdded,duplicate,progress}`. Normalization uses the course's declared grading rules: the German course keeps its established NFC, whitespace, punctuation and capitalization behavior. Accepted alternatives are explicitly authored in the private catalog.
 
-The server also embeds `course.json` when present and merges its canonical lexicon, units and exercises without replacing any existing story IDs. Attempts return `attemptId`, `correctedAnswer` and `reason` from the authored grading target. Optional `{activityId,runId,level}` fields bind an attempt to a known mini-game; the exercise must belong to that activity's authored level-specific pool.
+The runtime catalog supplies the canonical lexicon, units and exercises with stable UUIDs. Attempts return `attemptId`, `correctedAnswer` and localized `reason` from the authored grading target. Optional `{activityId,runId,level}` fields bind an attempt to a known mini-game; the exercise must belong to that activity's authored level-specific pool.
 
 The same `/api/attempt` endpoint accepts a top-level array of **1–30** attempt objects. It returns `{results,progress,retrievals}`; `results` preserves input order and each successful entry contains `{attemptId,status:200,correct,correctedAnswer,reason,xpAdded,duplicate}`. A failed entry contains `{attemptId,status,error}` (for example, 400 for invalid curriculum context or 409 for unrestored vocabulary or a conflicting ID). Each entry commits independently with the same immutable receipt as an individual request. A failed entry leaves accepted entries intact; retry the same IDs and bodies to recover safely, including after an interrupted response. A duplicate entry earns no additional XP, review evidence or telemetry. Malformed arrays, invalid authentication and the 120-attempts-per-minute limit use ordinary HTTP errors for the whole request. Arrays count every submitted entry toward that limit.
 
@@ -153,4 +153,59 @@ The server remembers each player's map and separate positions in visited maps fo
 
 World positions and chat are transient; learner profiles, learning events, quest rewards and FSRS review state remain durable in PostgreSQL or the development JSON store. The current server validates movement bounds/speed and map membership; shared server collision geometry and horizontal zone scaling remain future work.
 
-Curriculum answers are necessarily available to the client for learning feedback. Server grading and authenticated idempotency protect progress consistency, but this is not a high-stakes examination or cheat-resistant economy.
+Model answers are withheld from content reads and returned only after a recorded graded attempt, as described below. Server grading and authenticated idempotency preserve progress consistency.
+
+## Server-owned courses and content
+
+Learning content is loaded from the generated `content.json` catalog, rather than
+compiled into the Go binary. Run `node scripts/build-content.mjs` from the root
+when authoring changes. JSON development reads `CONTENT_PATH`, otherwise
+`.data/content.json` beside the state file, with the checked-in `content.json` as
+its initial fallback. PostgreSQL uses the content tables and never falls back to
+an embedded curriculum. Import before boot with:
+
+```sh
+go run ./cmd/import-content -content content.json -validate
+DATABASE_URL=... go run ./cmd/import-content -content content.json
+```
+
+The Docker entrypoint performs this atomic import before startup; set
+`IMPORT_CONTENT_ON_BOOT=false` when deployment manages the import separately.
+The importer does not alter accounts, rewards, FSRS cards, or attempt receipts.
+`MIGRATE_CONTENT_UUIDS=true` runs the opt-in, idempotent account migration at boot.
+It covers current progress, every course snapshot, story slots, reward ledgers,
+scoped story nodes/choices, derived word-item IDs, and immutable event requests.
+
+`GET /api/content/courses` lists course configuration and enrollment.
+`POST /api/course/enroll` and `POST /api/course/activate` accept
+`{courseId,supportLanguage}`. Activation saves the current course and restores the
+selected course's progress, story slots, rewards, and location. It validates the
+course's declared support languages. Trial usage and billing remain account-wide.
+The German course supports English/Turkish; the English proof course supports
+Turkish/German and uses its own declared grading configuration.
+
+Authenticated reads under `/api/content/` return record envelopes
+`{id,courseId,kind,version,body}`. Batched `sentences?ids=...` (at most 12) and
+`lexemes?ids=...` (at most 24) return `{records}`. Other reads are `bootstrap`,
+`graphs/{uuid}`, `exercises/{uuid}`, `units/{uuid}`, `contexts/{uuid}`,
+`expeditions/{uuid}`, and `minigames/{uuid}`. Course discovery can page
+`units?offset=0&limit=12` (maximum 24). Records are restricted by course, story
+reach, restored vocabulary, and trial/payment access; unknown and inaccessible
+records have the same 404 behavior. Batches silently omit unavailable records.
+Only the selected support language is returned. Answers and grading explanations
+are recursively removed, including legacy hints that quote production answers.
+Production target sentence references cannot disclose an exercise's model answer.
+
+Private conditional caching includes account, course, support language, progress
+revision and record version. Authentication and entitlement run before returning
+304. Per-account, per-minute read limits charge batches by record count: sentences
+120, lexemes 240, exercises 60, graphs 10, bootstrap 6. Accounts share these limits
+across sessions. Unavailable reads and exhausted budgets are logged without bans.
+
+Model answers return from recorded attempts only. After a graded attempt,
+`POST /api/attempt` with `{recover:true,exerciseId}` recovers that account/course's
+model answer and localized explanation, records assistance, and grants no new
+attempt evidence or XP. Before the first graded attempt it returns 409; previews
+and empty answers never establish eligibility. Following answer recovery, practice during the one-hour assistance gate is assisted
+and cannot manufacture unaided FSRS evidence. Later scheduled reviews can earn
+unaided evidence; fetching the model answer again renews this assistance gate.

@@ -1,6 +1,8 @@
-import { supportText } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
+import { markTranslation, renderTranslatedSentence, type AuthoredSentence } from './translated-sentence.ts';
 
 export interface TranslatedSentence {
+  id?: string;
+  sentenceId?: string;
   german: string;
   english: string;
   /** Set when `english` was already produced by t() for a dynamic sentence. */
@@ -14,22 +16,13 @@ const translationDelay = 1_000;
 const dismissalGrace = 180;
 let nextTooltipId = 0;
 
-function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, character => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[character]!);
-}
-
-/** Keep each translation attached to its complete German sentence, in the learner's support language. */
-export function renderNarrative(sentences: Narrative): string {
-  return sentences.map(sentence => {
-    const support = supportText(sentence);
-    return `<span class="translated-sentence" lang="de" tabindex="0" data-translation="${escapeHtml(support.text)}" data-translation-lang="${support.lang}">${escapeHtml(sentence.german)}</span>`;
-  }).join(' ');
+/** All narrative surfaces share the authored occurrence renderer with dialogue. */
+export function renderNarrative(sentences: readonly (TranslatedSentence | AuthoredSentence)[]): string {
+  return sentences.map(sentence => renderTranslatedSentence(sentence)).join(' ');
 }
 
 /** Install once on a stable root; newly rendered encounters work through delegation. */
-export function installSentenceTranslations(root: HTMLElement | Document): () => void {
+export function installSentenceTranslations(root: HTMLElement | Document, onHelp?: (sentence: HTMLElement, word?: HTMLElement) => void): () => void {
   const page = root.nodeType === 9 ? root as Document : root.ownerDocument!;
   const browser = page.defaultView!;
   const tooltip = page.createElement('div');
@@ -50,6 +43,7 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
   let tooltipPressed = false;
   let touchSentence: HTMLElement | null = null;
   let disposed = false;
+  let selectedWord: HTMLButtonElement | null = null;
 
   function sentenceFor(target: EventTarget | null): HTMLElement | null {
     if (!(target instanceof Element)) return null;
@@ -78,7 +72,14 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     if (timer !== undefined) clearTimeout(timer);
     timer = undefined;
     clearDismissal();
-    if (active) removeDescription(active);
+    if (active) {
+      removeDescription(active);
+      const inline = active.querySelector<HTMLElement>('[data-sentence-inline-translation]');
+      if (inline) inline.textContent = active.dataset.translation ?? '';
+    }
+    selectedWord?.setAttribute('aria-pressed', 'false');
+    selectedWord?.classList.remove('is-selected');
+    selectedWord = null;
     active = null;
     pointer = null;
     tooltipHovered = false;
@@ -143,7 +144,17 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
   function show(): void {
     timer = undefined;
     if (!active || !isAvailable(active)) { dismiss(); return; }
-    tooltip.textContent = active.dataset.translation ?? '';
+    const translation = active.dataset.translation ?? '';
+    let ranges = [];
+    try { ranges = JSON.parse(selectedWord?.dataset.sentenceRanges ?? '[]'); } catch { /* Invalid ranges never create a guessed alignment. */ }
+    tooltip.innerHTML = markTranslation(translation, Array.isArray(ranges) ? ranges : []);
+    const inline = active.querySelector<HTMLElement>('[data-sentence-inline-translation]');
+    if (inline) inline.innerHTML = tooltip.innerHTML;
+    if (selectedWord?.dataset.sentenceGloss) {
+      const gloss = page.createElement('span'); gloss.className = 'sentence-word-gloss';
+      gloss.textContent = `${selectedWord.textContent ?? ''} · ${selectedWord.dataset.sentenceGloss}`;
+      tooltip.prepend(gloss);
+    }
     tooltip.lang = active.dataset.translationLang ?? 'en';
     tooltip.scrollTop = 0;
     // A modal dialog is in the browser's top layer, above overlays in the body.
@@ -242,6 +253,21 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     if (wasShown) { event.preventDefault(); event.stopImmediatePropagation(); }
   }
 
+  function onWordClick(event: Event): void {
+    const target = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('[data-sentence-word-index]') : null;
+    const sentence = sentenceFor(target);
+    if (!target || target.disabled || !sentence || !isAvailable(sentence)) return;
+    event.preventDefault();
+    if (active !== sentence) { dismiss(); active = sentence; }
+    if (timer !== undefined) clearTimeout(timer);
+    timer = undefined;
+    selectedWord?.setAttribute('aria-pressed', 'false'); selectedWord?.classList.remove('is-selected');
+    selectedWord = target; target.setAttribute('aria-pressed', 'true'); target.classList.add('is-selected');
+    focusedSentence = sentence; touchSentence = sentence;
+    onHelp?.(sentence, target);
+    show();
+  }
+
   function onDialogClose(event: Event): void {
     if (active && event.target instanceof Element && event.target.contains(active)) dismiss();
   }
@@ -256,6 +282,7 @@ export function installSentenceTranslations(root: HTMLElement | Document): () =>
     ['pointerover', onPointerOver], ['pointerout', onPointerOut], ['pointermove', onPointerMove],
     ['pointerdown', onPointerDown], ['pointerup', onPointerUp],
     ['focusin', onFocusIn], ['focusout', onFocusOut], ['keydown', onKeyDown],
+    ['click', onWordClick],
     ['close', onDialogClose, true], ['cancel', onDialogClose, true],
   ];
   // Listen on the document because the shared tooltip can be outside an element

@@ -12,7 +12,7 @@ import { courseCoverage, coverageSummary } from './i18n-course-coverage';
 import recordedCoverage from './data/i18n/tr-coverage.json';
 import { Api, normalizeSession, emptyProgress, type SessionResult } from './api';
 import { renderNarrative } from './sentence-translations';
-import { translationHighlights } from './dialogue-translation';
+import { markTranslation } from './translated-sentence';
 import { quests } from './content';
 import { courseExercises, courseExerciseById, courseLexicon, courseUnits } from './course';
 import { exerciseOptionsMarkup } from './exercise-options';
@@ -314,15 +314,10 @@ describe('Turkish meanings in narratives and highlights', () => {
     expect(html).toContain('data-translation="No entry." data-translation-lang="en"');
   });
 
-  it('highlights a Turkish gloss only on an exact whole-word match', () => {
-    const german = 'Ich brauche eine Lampe.';
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'Lampe', gloss: 'die Lampe — lamba', language: 'tr' })).toEqual([{ start: 4, end: 9 }]);
-    // Suffixed forms are not evidence: no highlight instead of a guess.
-    expect(translationHighlights({ german, english: 'Lambayı ver.', word: 'Lampe', gloss: 'lamba', language: 'tr' })).toEqual([]);
-    // English heuristics (articles) never apply to Turkish.
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'eine', gloss: 'bir', language: 'tr' })).toEqual([{ start: 0, end: 3 }]);
-    expect(translationHighlights({ german, english: 'Bir lamba lazım.', word: 'eine', gloss: '', language: 'tr' })).toEqual([]);
-    // Turkish casing: İ in the sentence still matches a lowercase gloss.
-    expect(translationHighlights({ german: 'Der Bahnhof ist hier.', english: 'İstasyon burada.', word: 'Bahnhof', gloss: 'istasyon', language: 'tr' })).toEqual([{ start: 0, end: 8 }]);
+  it('renders authored Turkish spans including suffixes without applying English gloss rules', () => {
+    expect(markTranslation('Bir lamba lazım.', [{ start: 4, end: 9 }])).toBe('Bir <mark>lamba</mark> lazım.');
+    expect(markTranslation('Lambayı ver.', [{ start: 0, end: 7 }])).toBe('<mark>Lambayı</mark> ver.');
+    expect(markTranslation('Bir lamba lazım.', [])).toBe('Bir lamba lazım.');
+    expect(markTranslation('İstasyon burada.', [{ start: 0, end: 8 }])).toBe('<mark>İstasyon</mark> burada.');
   });
 });

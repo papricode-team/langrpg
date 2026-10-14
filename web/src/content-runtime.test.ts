@@ -1,0 +1,221 @@
+// @vitest-environment happy-dom
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import fixture from './test-fixtures/content-public.json';
+import { emptyProgress, type SessionResult } from './api';
+import { setBaseLanguage, setTargetLanguage } from './i18n';
+import { contentApi } from './content-api';
+import { intakeStatus, missingWordCount, syllabus, syllabusPosition, wordScheduled } from './intake';
+import { getSentence } from './translated-sentence';
+import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadNpcConversation, loadCinematic, loadMiniGame, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
+
+const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), install: vi.fn() }));
+const publicSyllabus = vi.hoisted(() => ({ version: '', wordsPerHour: 10, openingWords: 10, bankCap: 15, storyShare: .5, brake: { maxUnsettled: 12, maxDue: 20 }, wordIds: [] as string[], quests: [] }));
+vi.mock('./course', () => ({ lexemeById: indexes.lexemeById, courseExerciseById: indexes.courseExerciseById }));
+vi.mock('./expedition-learning', () => ({ installExpeditionBindings: indexes.install }));
+vi.mock('./data/syllabus.json', () => ({ default: publicSyllabus }));
+type Json = Record<string, unknown>;
+const records = new Map(fixture.records.map(record => [record.id, record as unknown as { id: string; kind: string; body: Json; version: number; courseId: string }]));
+const bootstrap = records.get(fixture.bootstrapId)!;
+const body = bootstrap.body;
+let fetcher: ReturnType<typeof vi.fn>;
+function list(value: unknown): Json[] { return Array.isArray(value) ? value as Json[] : []; }
+function meta(kind: string): Json { return list(body.contexts).find(row => row.kind === kind)!; }
+function session(): SessionResult {
+  return { token: 'public-session', activeCourseId: fixture.course.id, player: { id: 'public-player', name: 'Ada' }, progress: emptyProgress(), preferences: { baseLanguage: 'tr' }, account: { registered: false, email: '' } } as unknown as SessionResult;
+}
+beforeEach(async () => {
+  indexes.install.mockReset(); indexes.lexemeById.clear(); indexes.courseExerciseById.clear(); contentApi.clear();
+  runtimeObject('syllabus', syllabus);
+  fetcher = vi.fn(async (url: string) => {
+    const path = new URL(url, 'https://atlas.example').pathname;
+    if (path.endsWith('/bootstrap')) return new Response(JSON.stringify(bootstrap), { status: 200 });
+    if (path.endsWith('/sentences') || path.endsWith('/lexemes')) {
+      const ids = new URL(url, 'https://atlas.example').searchParams.get('ids')!.split(',');
+      return new Response(JSON.stringify({ records: ids.map(id => records.get(id)).filter(Boolean) }), { status: 200 });
+    }
+    const id = path.split('/').at(-1)!;
+    return new Response(JSON.stringify(records.get(id) ?? { error: 'content not found' }), { status: records.has(id) ? 200 : 404 });
+  });
+  vi.stubGlobal('fetch', fetcher); await setBaseLanguage('tr');
+  await loadServerContent(session()); fetcher.mockClear();
+});
+afterEach(async () => { contentApi.clear(); vi.unstubAllGlobals(); vi.restoreAllMocks(); await setBaseLanguage('en'); setTargetLanguage('de'); });
+
+describe('server record adapters', () => {
+  it('loads the emitted public bootstrap as metadata without requesting sentences or exercises', () => {
+    expect(activeCourse?.id).toBe(fixture.course.id);
+    expect(runtimeArray<Json>('quests')[0].id).toBe(list(body.quests)[0].id);
+    expect(runtimeArray<Json>('quests')[0].title).toBe((list(body.quests)[0].support as Record<string, Json>).tr.title);
+    expect(runtimeArray<Json>('quests')[0].exercises).toEqual([]);
+    expect(runtimeArray<Json>('npcs')[0].id).toBe(list(body.npcs)[0].worldId);
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('counts the public syllabus total and registers only fetched word positions until the course changes', async () => {
+    const updated = structuredClone(bootstrap);
+    updated.body.syllabus = { ...(updated.body.syllabus as Json), wordIds: [], totalWords: 6000 };
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200 }));
+    await loadServerContent(session());
+    const progress = emptyProgress();
+    progress.intake = { version: 1, activeSeconds: 0, creditSeconds: 3600, lastBeatAt: '', wordIds: ['opening-one', 'opening-two'] };
+    expect(syllabus.wordIds).toEqual([]);
+    expect(intakeStatus(progress)).toMatchObject({ introduced: 2, remaining: 5998, pending: 8 });
+    expect(wordScheduled(fixture.lexemeId)).toBe(false);
+    const lexical = structuredClone(records.get(fixture.lexemeId)!); lexical.body.syllabusIndex = 7;
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ records: [lexical] }), { status: 200 }));
+    await loadWords([fixture.lexemeId]);
+    expect(syllabusPosition.size).toBe(1); expect(syllabusPosition.get(fixture.lexemeId)).toBe(7);
+    expect(wordScheduled(fixture.lexemeId)).toBe(true);
+    expect(missingWordCount([fixture.lexemeId, 'unserved-bank-word'], progress)).toBe(1);
+    progress.intake.wordIds.push(fixture.lexemeId);
+    expect(missingWordCount([fixture.lexemeId], progress)).toBe(0);
+    const switched = session(); switched.token = 'new-course-session';
+    (switched as SessionResult & { activeCourseId: string }).activeCourseId = 'new-course';
+    await loadServerContent(switched);
+    expect(syllabusPosition.size).toBe(0); expect(wordScheduled(fixture.lexemeId)).toBe(false);
+  });
+  it('pages story records in bounded slices and preserves hydrated sentences and quest exercises', async () => {
+    const quest = runtimeArray<Json>('quests')[0];
+    const retainedExercises = quest.exercises as unknown[]; retainedExercises.push({ id: 'already-loaded' });
+    const first = await loadStoryContent();
+    expect(first.loaded).toBeLessThanOrEqual(12); expect(first.remaining).toBeGreaterThan(0);
+    const requested = fetcher.mock.calls.map(([url]) => new URL(String(url), 'https://atlas.example').searchParams.get('ids')!.split(','));
+    expect(requested).toHaveLength(1); expect(requested[0]).toHaveLength(12);
+    const sentence = getSentence(requested[0][0]); expect(sentence?.text).toBeTruthy();
+    await loadStoryContent(24);
+    expect(getSentence(requested[0][0])).toBe(sentence);
+    expect(quest.exercises).toBe(retainedExercises);
+    expect(retainedExercises).toEqual([{ id: 'already-loaded' }]);
+    expect(storyContentRemaining).toBeLessThan(first.remaining);
+    for (const [url] of fetcher.mock.calls) expect(new URL(String(url), 'https://atlas.example').searchParams.get('ids')!.split(',').length).toBeLessThanOrEqual(12);
+  });
+  it('refreshes unlocked bootstrap metadata without resetting cached learning or quest identities', async () => {
+    await loadStoryContent();
+    const quest = runtimeArray<Json>('quests')[0], units = runtimeArray<Json>('courseUnits');
+    const exercises = quest.exercises as unknown[]; exercises.push({ id: 'existing' });
+    Object.assign(units[0], { exerciseIds: ['served-exercise'], wordIds: ['served-word'] });
+    await refreshBootstrap();
+    expect(runtimeArray<Json>('quests')[0]).toBe(quest); expect(quest.exercises).toBe(exercises);
+    expect(units[0].exerciseIds).toEqual(['served-exercise']); expect(units[0].wordIds).toEqual(['served-word']);
+    expect(fetcher.mock.calls.filter(([url]) => String(url).endsWith('/bootstrap'))).toHaveLength(1);
+  });
+  it('localizes dictionary metadata translations when a support object omits the field', async () => {
+    const updated = structuredClone(bootstrap), unit = list(updated.body.units)[0];
+    unit.support = { tr: { title: 'Destek nesnesindeki başlık' } };
+    unit.titleTranslations = { tr: 'Sözlük başlığı' };
+    unit.summaryTranslations = { tr: 'Sözlükteki Türkçe özet', de: 'Deutsche Zusammenfassung' };
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200 }));
+    await refreshBootstrap();
+    const localized = runtimeArray<Json>('courseUnits')[0];
+    expect(localized.title).toBe('Destek nesnesindeki başlık');
+    expect(localized.summary).toBe('Sözlükteki Türkçe özet');
+    expect((localized.support as Record<string, Json>).tr).not.toHaveProperty('summary');
+    await setBaseLanguage('de');
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200 }));
+    await refreshBootstrap();
+    expect(runtimeArray<Json>('courseUnits')[0].summary).toBe('Deutsche Zusammenfassung');
+  });
+  it('keeps graph reads separate from lazy current-sentence reads and preserves compiled metadata', async () => {
+    const questId = String(list(body.quests)[0].id), graph = (await loadQuestGraph(questId))!;
+    expect(graph.nodes[0].lines[0].german).toBe('');
+    expect(fetcher.mock.calls).toHaveLength(1); expect(String(fetcher.mock.calls[0][0])).toContain('/graphs/');
+    const hydrated = await loadDialogueSentence(graph.nodes[0].lines[0]);
+    const id = (hydrated as typeof hydrated & { sentenceId: string }).sentenceId;
+    expect(hydrated.german).toBe(getSentence(id)?.text);
+    expect(hydrated.english).toBe(getSentence(id)?.translations.tr?.text);
+    expect(getSentence(id)?.words).toBeDefined();
+    await loadDialogueSentence(graph.nodes[0].lines[0]); expect(fetcher.mock.calls).toHaveLength(2);
+  });
+  it('adapts public exercises and generic lexical forms without exposing local grading targets', async () => {
+    const graph = (await loadQuestGraph(String(list(body.quests)[0].id)))!;
+    const exercise = await loadExercise(graph.gateExerciseId);
+    expect(exercise.answer).toBe(''); expect(exercise.explanation).toBe(''); expect(exercise.acceptedAnswers).toBeUndefined();
+    expect(runtimeArray<Json>('quests')[0].exercises).toEqual([exercise]);
+    await Promise.all([loadWords([fixture.lexemeId]), loadWords([fixture.lexemeId])]);
+    const words = runtimeArray<Json>('courseLexicon'); expect(words.filter(word => word.id === fixture.lexemeId)).toHaveLength(1);
+    const lexical = records.get(fixture.lexemeId)!.body;
+    expect(words[0].english).toBe((lexical.meanings as Json).tr);
+    expect(words[0].surfaceForms).toEqual(lexical.forms);
+    expect(runtimeReference('item', fixture.lexemeId)).toBe(lexical.itemId);
+    expect(runtimeReference('exercise', fixture.lexemeId, 'production')).toBe((lexical.exerciseIds as Json).production);
+    expect(indexes.lexemeById.get(fixture.lexemeId)).toBe(words[0]);
+  });
+  it('hydrates per-room word cards while preserving geometry object references', async () => {
+    const interiorMeta = meta('interior'), data = records.get(String(interiorMeta.id))!.body.data as Json;
+    const object = { id: String(list(data.objects)[0].id), vocabulary: [], exerciseIds: [] };
+    const room = { id: String(data.id), objects: [object], width: 1536 };
+    runtimeArray<Json>('interiors').splice(0, runtimeArray('interiors').length, room);
+    await loadInterior(String(data.id));
+    expect(runtimeArray<Json>('interiors')[0]).toBe(room);
+    expect(list(room.objects)[0]).toBe(object);
+    const vocabulary = list(list(room.objects)[0].vocabulary);
+    expect(vocabulary.length).toBeGreaterThan(0); expect(vocabulary[0].german).toBeTruthy(); expect(vocabulary[0].english).toBeTruthy();
+    expect(vocabulary[0].sentenceId).toBeTruthy();
+  });
+  it('selects NPC speech by current manifest conditions and hydrates title, routines and cinematic registries', async () => {
+    const greeting = meta('npcGreeting'), title = meta('npcTitleGreeting'), progress = emptyProgress();
+    await loadNpcConversation(String(greeting.ownerId), String(greeting.level), progress, String(title.title));
+    const lines = runtimeArray<Json>(`greetings:${greeting.worldId}:${greeting.level}`);
+    expect(lines[0].german).toBeTruthy(); expect(lines[0].sentenceId).toBeTruthy();
+    expect(runtimeObject<Json>('titleGreetings')[`${title.worldId}:${title.title}`]).toBeTruthy();
+    const routine = meta('npcRoutine'); await loadContexts('npcRoutine', String(routine.ownerId));
+    expect(list(runtimeObject<Json>('npcRoutines')[String(routine.worldId)])[0].german).toBeTruthy();
+    const cinema = meta('cinematic'); await loadCinematic(String(cinema.scene), String(cinema.worldId));
+    expect(runtimeArray<Json>(`cinematic:${cinema.worldId}:${cinema.scene}:`)[0].german).toBeTruthy();
+  });
+  it('loads activity arrays and contextual grammar using their emitted UUID references', async () => {
+    await loadContexts('grammar'); await loadContexts('questGrammar'); await loadContexts('activityDefinitions'); await loadContexts('activityInventory'); await loadContexts('activityScenario'); await loadContexts('activityDiscovery');
+    const guide = runtimeArray<Json>('courseGrammar')[0]; expect(guide.explanation).toBeTruthy(); expect(guide.id).toBe(meta('grammar').id);
+    const note = runtimeObject<Json>('contextualGrammar')[String(meta('questGrammar').ownerId)] as Json;
+    expect(note.german).toBeTruthy(); expect(note.guideId).toBeTruthy();
+    expect(runtimeArray<Json>('activityDefinitions')[0].id).toBe('cafe');
+    expect((runtimeObject<Json>('activityInventory').coffee as Json).german).toBeTruthy();
+    expect(runtimeArray<Json>('activityScenarios')[0].german).toBeTruthy();
+    expect(runtimeObject<Json>('activityDiscoveries')[String(meta('activityDiscovery').ownerId)]).toBeTruthy();
+  });
+  it('does not let a prior session bootstrap populate a newly activated course', async () => {
+    let resolve!: (response: Response) => void;
+    fetcher.mockImplementationOnce(() => new Promise<Response>(done => { resolve = done; }));
+    const old = loadServerContent(session());
+    const updated = session(); (updated as SessionResult & { activeCourseId: string }).activeCourseId = 'different-course'; updated.token = 'new-token';
+    await loadServerContent(updated);
+    resolve(new Response(JSON.stringify(bootstrap), { status: 200 }));
+    await expect(old).rejects.toMatchObject({ name: 'AbortError' });
+    expect(activeCourse?.id).toBe(fixture.course.id);
+  });
+  it('preserves dense static NPC and interior arrays when switching from German to English', async () => {
+    const interior = { id: 'cafe', objects: [{ id: 'coffee-counter', x: .4, y: .5 }], width: 1536 };
+    runtimeArray<Json>('interiors').splice(0, runtimeArray('interiors').length, interior);
+    const nextCourse = { id: 'english-proof-course', target: 'en', title: 'First conversations', supportLanguages: ['tr', 'de'] };
+    const nextBootstrap = { ...bootstrap, courseId: nextCourse.id, body: { course: nextCourse, npcs: [{ id: 'sam-uuid', worldId: 'sam', name: 'Sam' }], quests: [], units: [], contexts: [], acts: [], clues: [], objects: {}, journalNarratives: {} } };
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(nextBootstrap), { status: 200 }));
+    const next = session(); (next as SessionResult & { activeCourseId: string }).activeCourseId = nextCourse.id;
+    await loadServerContent(next);
+    expect(runtimeArray<Json>('npcs').map(npc => npc.id)).toEqual(['sam']);
+    expect(runtimeArray<Json>('interiors')).toEqual([interior]);
+    expect(Object.keys(runtimeArray<Json>('interiors'))).toEqual(['0']);
+    expect(runtimeArray<Json>('interiors')[0].objects).toEqual([{ id: 'coffee-counter', x: .4, y: .5 }]);
+    expect(activeCourse?.target).toBe('en');
+  });
+  it('keeps the minigame catalogue live and installs authorized scripts, exercises and audio into stable registries', async () => {
+    const catalogue = await import('./minigames/catalogue');
+    const metadata = list(body.minigames)[0], gameId = String(metadata.worldId), gameRecord = records.get(String(metadata.id))!;
+    const graphRecord = records.get(String(list(body.quests)[0].graphId))!;
+    const firstLine = list(list(graphRecord.body.nodes)[0].lines)[0], sentenceId = String(firstLine.sentenceId), exerciseId = String(graphRecord.body.gateExerciseId);
+    const retained = {}; runtimeObject<Json>('miniGameScripts').games = { [gameId]: retained };
+    catalogue.miniGameById.clear();
+    fetcher.mockImplementation(async (url: string) => {
+      const path = new URL(url, 'https://atlas.example').pathname;
+      if (path.endsWith(`/minigames/${metadata.id}`)) return new Response(JSON.stringify({ ...gameRecord, body: { ...gameRecord.body, scripts: { intro: { sentenceId } }, exerciseIds: [exerciseId], audio: { clips: [{ id: 'authorized-clip', sentenceId, path: '/audio/authorized.mp3' }] } } }), { status: 200 });
+      if (path.endsWith('/sentences')) return new Response(JSON.stringify({ records: [records.get(sentenceId)] }), { status: 200 });
+      const record = records.get(path.split('/').at(-1)!);
+      return new Response(JSON.stringify(record ?? { error: 'content not found' }), { status: record ? 200 : 404 });
+    });
+    await loadMiniGame(gameId);
+    expect(catalogue.miniGameById.get(gameId)?.instruction).toBeTruthy();
+    expect((runtimeObject<Json>('miniGameScripts').games as Json)[gameId]).toBe(retained);
+    expect((retained as Json).intro).toHaveProperty('german');
+    expect(runtimeArray<Json>('canonicalStoryExercises').find(exercise => exercise.id === exerciseId)).toHaveProperty('mode', 'production');
+    expect(runtimeArray<Json>('scriptedStoryExercises').find(exercise => exercise.id === exerciseId)).toHaveProperty('answer', '');
+    expect(list(runtimeObject<Json>('miniGameAudio').clips)[0]).toMatchObject({ id: 'authorized-clip', text: getSentence(sentenceId)?.text, path: '/audio/authorized.mp3' });
+  });
+});

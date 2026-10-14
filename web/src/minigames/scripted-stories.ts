@@ -16,7 +16,8 @@ export const scriptedStoryExercises: CourseExercise[] = canonicalStoryExercises.
   mode:({recognition:'choice',listening:'listen',production:'type'} as const)[row.mode],kind:'word',unitId:row.contentId,english:'',hint:'',
 }));
 export const scriptedStoryData = data;
-const exerciseById = new Map(canonicalStoryExercises.map(row=>[row.id,row]));
+// The server hydrates this registry after the module has initialized.
+const exerciseById = { get(id: string) { return canonicalStoryExercises.find(row => row.id === id); } };
 const clock=data.games['lost-hour'],garden=data.games['seed-packets'],rail=data.games['17-59'];
 const slotTime=(index:number)=>`23:${String(index*5).padStart(2,'0')}`;
 const clockSlotIndex=(time:string)=>Array.from({length:12},(_,index)=>slotTime(index)).indexOf(time);

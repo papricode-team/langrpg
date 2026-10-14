@@ -59,7 +59,7 @@ type DailyPromiseRecord struct {
 
 func ensureDailyPromise(s *StoryState) {
 	s.Promise.Day = s.Day
-	s.Promise.Title = "Make three unaided German connections"
+	s.Promise.Title = "Make three unaided connections"
 	s.Promise.Target = 3
 }
 

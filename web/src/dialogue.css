@@ -39,3 +39,4 @@
 .dialogue-history li.is-player{justify-content:flex-end;text-align:right;color:#d8c591}.dialogue-history li.is-player small{order:1;color:#b9a774}
 .dialogue-history+.dialogue-line{margin-top:12px}
 @media(max-width:760px){.dialogue-history{max-height:min(7.5em,18dvh);font-size:12px}}
+.dialogue-authored-choice{display:grid;gap:12px;padding:13px 18px;border:1px solid #b8aa7980;border-radius:10px;line-height:1.5}.dialogue-authored-choice .outline-button{justify-self:end;padding:7px 12px}.dialogue-authored-choice .translated-sentence{text-decoration:none}.dialogue-authored-choice small[data-sentence-inline-translation]{display:block;margin-top:5px;color:#bfcbb8}.dialogue-authored-choice mark{background:#f5df8c;color:#17372d;border-radius:2px}

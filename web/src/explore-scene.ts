@@ -837,7 +837,8 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   protected createMapCharacters(map: Pick<WorldMapSpec, 'npcs'>, configure?: (character: Character) => void): void {
     for (const position of map.npcs) {
-      const index = npcs.findIndex(npc => npc.id === position.id);
+      if (!position) continue;
+      const index = npcs.findIndex(npc => npc?.id === position.id);
       const localNpc = getExpeditionNpc(position.id);
       const npc = localNpc ?? npcs[index];
       if (!npc) continue;

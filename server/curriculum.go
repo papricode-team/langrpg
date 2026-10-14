@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"os"
 	"regexp"
 	"sort"
 	"strings"
@@ -14,8 +15,32 @@ import (
 	"golang.org/x/text/unicode/norm"
 )
 
-//go:embed *.json
-var curriculumFiles embed.FS
+// Only presentation geometry and the avatar kit are compiled into the binary.
+// Learning manifests are populated from the content store before production boot.
+// Tests can still read their deliberately retained legacy fixture files.
+//
+//go:embed character-kit.json world_maps.json
+var presentationFiles embed.FS
+
+type manifestFiles struct {
+	content map[string][]byte
+	sealed  bool
+}
+
+func (f manifestFiles) ReadFile(name string) ([]byte, error) {
+	if data, ok := f.content[name]; ok {
+		return data, nil
+	}
+	if name == "character-kit.json" || name == "world_maps.json" {
+		return presentationFiles.ReadFile(name)
+	}
+	if f.sealed {
+		return nil, fs.ErrNotExist
+	}
+	return os.ReadFile(name)
+}
+
+var curriculumFiles = manifestFiles{}
 
 type Quest struct {
 	ID              string   `json:"id"`
@@ -24,15 +49,16 @@ type Quest struct {
 }
 
 type Exercise struct {
-	ID              string   `json:"id"`
-	ItemID          string   `json:"itemId"`
-	Mode            string   `json:"mode"`
-	Answer          string   `json:"answer"`
-	AcceptedAnswers []string `json:"acceptedAnswers"`
-	CaseSensitive   bool     `json:"caseSensitive"`
-	WordIDs         []string `json:"wordIds,omitempty"`
-	TargetWordID    string   `json:"targetWordId,omitempty"`
-	Explanation     string   `json:"explanation,omitempty"`
+	ID              string         `json:"id"`
+	ItemID          string         `json:"itemId"`
+	Mode            string         `json:"mode"`
+	Answer          string         `json:"answer"`
+	AcceptedAnswers []string       `json:"acceptedAnswers"`
+	CaseSensitive   bool           `json:"caseSensitive"`
+	WordIDs         []string       `json:"wordIds,omitempty"`
+	TargetWordID    string         `json:"targetWordId,omitempty"`
+	Explanation     string         `json:"explanation,omitempty"`
+	Grading         *CourseGrading `json:"-"`
 }
 
 type Item struct {
@@ -54,7 +80,11 @@ type Curriculum struct {
 	ActivityPrices  map[string]int
 	MiniGameContent map[string]MiniGameContentBinding
 	// Generated introduction order and pacing settings; nil when not installed.
-	Syllabus *Syllabus
+	Syllabus   *Syllabus
+	StoryRules map[string]StoryRule
+	CourseID   string
+	Target     string
+	Grading    CourseGrading
 }
 
 type Lexeme struct {
@@ -382,6 +412,9 @@ func normalizeAnswer(answer string, caseSensitive bool) string {
 }
 
 func (e Exercise) Grade(answer string) bool {
+	if e.Grading != nil {
+		return courseGrade(e, answer)
+	}
 	production := e.Mode == "production"
 	normalized := normalizeAnswer(answer, e.CaseSensitive && !production)
 	for _, accepted := range append([]string{e.Answer}, e.AcceptedAnswers...) {

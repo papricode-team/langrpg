@@ -55,6 +55,12 @@ func sessionResponse(token string, account Account) map[string]any {
 func (a *App) sessionResponse(token string, account Account) map[string]any {
 	response := sessionResponse(token, account)
 	response["access"] = a.accessState(account, a.now().UTC())
+	if a.content != nil {
+		response["activeCourseId"] = account.ActiveCourseID
+		if course, ok := a.content.ByCourse[account.ActiveCourseID]; ok {
+			response["course"] = publicCourse(course)
+		}
+	}
 	return response
 }
 
@@ -175,6 +181,11 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 	if err = a.store.AddSession(ctx, tokenHash(token), account.Player.ID); err != nil {
 		apiFailure(w, err)
 		return
+	}
+	if a.content != nil {
+		if curriculum, ok := a.courseCurricula[account.ActiveCourseID]; ok {
+			a.curriculum = curriculum
+		}
 	}
 	// Apply the same additive migrations used by session resume.
 	account, err = a.getAccount(ctx, tokenHash(token))

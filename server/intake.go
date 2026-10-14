@@ -168,7 +168,8 @@ func migrateIntake(p *Progress, s *Syllabus) {
 			keep[id] = true
 		}
 	}
-	for _, questID := range storyQuestOrder {
+	for _, quest := range s.Quests {
+		questID := quest.QuestID
 		if contains(p.CompletedQuestIDs, questID) || p.Story.Nodes[questID] != "" {
 			for _, id := range s.QuestWordIDs(questID) {
 				keep[id] = true

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"lernen01/server/internal/contentstore"
 	"log/slog"
 	"net"
 	"net/http"
@@ -25,17 +26,21 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Message }
 
 type App struct {
-	billing    *CreemBilling
-	leaseOwner string
-	store      Store
-	world      *World
-	curriculum Curriculum
-	origins    map[string]bool
-	frontend   http.Handler
-	version    string
-	now        func() time.Time
-	rateMu     sync.Mutex
-	limits     map[string]rateWindow
+	billing         *CreemBilling
+	leaseOwner      string
+	store           Store
+	world           *World
+	curriculum      Curriculum
+	content         *contentstore.Bundle
+	courseCurricula map[string]Curriculum
+	canonical       *canonicalStore
+	lexemeSentences map[string][]string
+	origins         map[string]bool
+	frontend        http.Handler
+	version         string
+	now             func() time.Time
+	rateMu          *sync.Mutex
+	limits          map[string]rateWindow
 }
 type rateWindow struct {
 	At    time.Time
@@ -43,7 +48,7 @@ type rateWindow struct {
 }
 
 func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int) *App {
-	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}}
+	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}, rateMu: &sync.Mutex{}}
 	a.leaseOwner, _ = randomID(16)
 	if a.leaseOwner == "" {
 		a.leaseOwner = fmt.Sprintf("%p-%d", a, time.Now().UnixNano())
@@ -62,40 +67,44 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 
 func (a *App) Handler() http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /api/health", a.health)
-	mux.HandleFunc("GET /api/version", a.deploymentVersion)
-	mux.HandleFunc("POST /api/session", a.session)
-	mux.HandleFunc("POST /api/account/register", a.registerAccount)
-	mux.HandleFunc("POST /api/account/login", a.loginAccount)
-	mux.HandleFunc("POST /api/account/logout", a.logoutAccount)
-	mux.HandleFunc("GET /api/access", a.access)
-	mux.HandleFunc("POST /api/access/heartbeat", a.accessHeartbeat)
-	mux.HandleFunc("POST /api/access/reset", a.resetAccess)
-	mux.HandleFunc("POST /api/billing/checkout", a.billingCheckout)
-	mux.HandleFunc("POST /api/billing/portal", a.billingPortal)
-	mux.HandleFunc("POST /api/billing/sync", a.billingSync)
-	mux.HandleFunc("POST /api/billing/webhook", a.billingWebhook)
-	mux.HandleFunc("POST /api/preferences", a.updatePreferences)
-	mux.HandleFunc("GET /api/progress", a.progress)
-	mux.HandleFunc("POST /api/attempt", a.attempt)
-	mux.HandleFunc("GET /api/retrievals", a.retrievals)
-	mux.HandleFunc("POST /api/exposure", a.exposure)
-	mux.HandleFunc("POST /api/intake/heartbeat", a.heartbeat)
-	mux.HandleFunc("POST /api/quest/complete", a.completeQuest)
-	mux.HandleFunc("POST /api/course/complete", a.completeUnit)
-	mux.HandleFunc("POST /api/activity/complete", a.completeActivity)
-	mux.HandleFunc("GET /api/story", a.story)
-	mux.HandleFunc("POST /api/story/transition", a.transitionStory)
-	mux.HandleFunc("POST /api/story/inspect", a.inspectStory)
-	mux.HandleFunc("POST /api/story/save", a.saveStory)
-	mux.HandleFunc("POST /api/story/load", a.loadStory)
-	mux.HandleFunc("POST /api/story/sleep", a.sleepStory)
-	mux.HandleFunc("POST /api/story/cinematic", a.storyCinematic)
-	mux.HandleFunc("GET /api/world-clock", a.worldClock)
-	mux.HandleFunc("POST /api/expedition/answer", a.answerExpedition)
-	mux.HandleFunc("POST /api/expedition/plan", a.planExpedition)
-	mux.HandleFunc("GET /api/world", a.connect)
+	mux.HandleFunc("GET /api/health", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.health(w, r) }))
+	mux.HandleFunc("GET /api/version", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.deploymentVersion(w, r) }))
+	mux.HandleFunc("POST /api/session", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.session(w, r) }))
+	mux.HandleFunc("POST /api/account/register", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.registerAccount(w, r) }))
+	mux.HandleFunc("POST /api/account/login", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.loginAccount(w, r) }))
+	mux.HandleFunc("POST /api/account/logout", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.logoutAccount(w, r) }))
+	mux.HandleFunc("GET /api/access", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.access(w, r) }))
+	mux.HandleFunc("POST /api/access/heartbeat", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.accessHeartbeat(w, r) }))
+	mux.HandleFunc("POST /api/access/reset", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.resetAccess(w, r) }))
+	mux.HandleFunc("POST /api/billing/checkout", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingCheckout(w, r) }))
+	mux.HandleFunc("POST /api/billing/portal", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingPortal(w, r) }))
+	mux.HandleFunc("POST /api/billing/sync", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingSync(w, r) }))
+	mux.HandleFunc("POST /api/billing/webhook", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingWebhook(w, r) }))
+	mux.HandleFunc("POST /api/preferences", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.updatePreferences(w, r) }))
+	mux.HandleFunc("GET /api/progress", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.progress(w, r) }))
+	mux.HandleFunc("POST /api/attempt", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.attempt(w, r) }))
+	mux.HandleFunc("GET /api/retrievals", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.retrievals(w, r) }))
+	mux.HandleFunc("POST /api/exposure", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.exposure(w, r) }))
+	mux.HandleFunc("POST /api/intake/heartbeat", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.heartbeat(w, r) }))
+	mux.HandleFunc("POST /api/quest/complete", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.completeQuest(w, r) }))
+	mux.HandleFunc("POST /api/course/complete", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.completeUnit(w, r) }))
+	mux.HandleFunc("POST /api/activity/complete", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.completeActivity(w, r) }))
+	mux.HandleFunc("GET /api/story", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.story(w, r) }))
+	mux.HandleFunc("POST /api/story/transition", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.transitionStory(w, r) }))
+	mux.HandleFunc("POST /api/story/inspect", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.inspectStory(w, r) }))
+	mux.HandleFunc("POST /api/story/save", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.saveStory(w, r) }))
+	mux.HandleFunc("POST /api/story/load", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.loadStory(w, r) }))
+	mux.HandleFunc("POST /api/story/sleep", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.sleepStory(w, r) }))
+	mux.HandleFunc("POST /api/story/cinematic", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.storyCinematic(w, r) }))
+	mux.HandleFunc("GET /api/world-clock", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.worldClock(w, r) }))
+	mux.HandleFunc("POST /api/expedition/answer", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.answerExpedition(w, r) }))
+	mux.HandleFunc("POST /api/expedition/plan", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.planExpedition(w, r) }))
+	mux.HandleFunc("GET /api/world", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.connect(w, r) }))
 	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
+	mux.HandleFunc("GET /api/content/courses", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.listCourses(w, r) }))
+	mux.HandleFunc("GET /api/content/{path...}", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.readContent(w, r) }))
+	mux.HandleFunc("POST /api/course/activate", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.activateCourse(w, r) }))
+	mux.HandleFunc("POST /api/course/enroll", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.enrollCourse(w, r) }))
 	mux.HandleFunc("/api/", missing)
 	mux.HandleFunc("/api", missing)
 	if a.frontend != nil {
@@ -114,8 +123,9 @@ func (a *App) Handler() http.Handler {
 			}
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Add("Vary", "Origin")
+			w.Header().Set("Access-Control-Expose-Headers", "ETag")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-None-Match")
 		}
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusNoContent)
@@ -316,6 +326,9 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC(), Preferences: normalizedPreferences(Preferences{BaseLanguage: input.BaseLanguage})}
+	if a.content != nil {
+		account.ActiveCourseID = a.curriculum.CourseID
+	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	if err = a.store.Create(ctx, tokenHash(token), account); err != nil {
@@ -365,12 +378,13 @@ type AttemptInput struct {
 	SceneAttempt      bool            `json:"sceneAttempt,omitempty"`
 	GuidedChoice      bool            `json:"guidedChoice,omitempty"`
 	Preview           bool            `json:"preview,omitempty"`
+	Recover           bool            `json:"recover,omitempty"`
 }
 
 // Opening A1 conversations offer authored replies to tap. They prove supported
 // comprehension of this scene, never independently producing the German phrase.
 func (a *App) isGuidedStoryGate(input AttemptInput) bool {
-	rule, known := storyRule(input.QuestID)
+	rule, known := a.storyRule(input.QuestID)
 	exercise, installed := a.curriculum.Exercises[input.ExerciseID]
 	return input.GuidedChoice && input.SceneAttempt && input.Mode == "recognition" && input.Hinted &&
 		known && installed && exercise.Mode == "production" && input.ExerciseID == rule.GateExerciseID &&
@@ -539,6 +553,9 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
 		playing := false
 		_, _ = a.touchAccess(ctx, hash, &playing)
+	}
+	if a.content != nil {
+		a.world.RestoreCoursePlayer(account.Player, account.Access.Generation)
 	}
 	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, authorize, guard, stopped)
 }

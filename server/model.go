@@ -136,6 +136,7 @@ type Progress struct {
 	Words               map[string]WordMemory           `json:"words"`
 	CompletedUnitIDs    []string                        `json:"completedUnitIds"`
 	Activities          map[string]ActivityProgress     `json:"activities"`
+	AnswerHelpAt        map[string]time.Time            `json:"answerHelpAt,omitempty"`
 	ExerciseStats       map[string]ExerciseEvidence     `json:"exerciseStats"`
 	RecentAttempts      map[string]AttemptEvidence      `json:"recentAttempts"`
 	MiniGameStats       map[string]ModeStats            `json:"miniGameStats,omitempty"`
@@ -149,17 +150,30 @@ type Progress struct {
 }
 
 type Account struct {
-	Access                PlayAccess           `json:"access,omitempty"`
-	Billing               BillingState         `json:"billing,omitempty"`
-	Email                 string               `json:"email,omitempty"`
-	PasswordHash          string               `json:"passwordHash,omitempty"`
-	Player                Player               `json:"player"`
+	ActiveCourseID        string                 `json:"activeCourseId,omitempty"`
+	CourseStates          map[string]CourseState `json:"courseStates,omitempty"`
+	Access                PlayAccess             `json:"access,omitempty"`
+	Billing               BillingState           `json:"billing,omitempty"`
+	Email                 string                 `json:"email,omitempty"`
+	PasswordHash          string                 `json:"passwordHash,omitempty"`
+	Player                Player                 `json:"player"`
+	Progress              Progress               `json:"progress"`
+	CreatedAt             time.Time              `json:"createdAt"`
+	StorySaves            map[string]StorySave   `json:"storySaves,omitempty"`
+	RewardedQuestIDs      []string               `json:"rewardedQuestIds,omitempty"`
+	RewardedExpeditionIDs []string               `json:"rewardedExpeditionIds,omitempty"`
+	Preferences           Preferences            `json:"preferences,omitempty"`
+}
+
+// Billing and credentials stay account scoped. Everything earned through play,
+// including narrative saves and reward ledgers, travels with its course.
+type CourseState struct {
 	Progress              Progress             `json:"progress"`
-	CreatedAt             time.Time            `json:"createdAt"`
+	Player                Player               `json:"player"`
 	StorySaves            map[string]StorySave `json:"storySaves,omitempty"`
 	RewardedQuestIDs      []string             `json:"rewardedQuestIds,omitempty"`
 	RewardedExpeditionIDs []string             `json:"rewardedExpeditionIds,omitempty"`
-	Preferences           Preferences          `json:"preferences,omitempty"`
+	SupportLanguage       string               `json:"supportLanguage"`
 }
 
 type Receipt struct {

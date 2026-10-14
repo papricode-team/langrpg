@@ -23,7 +23,7 @@ export function routeLockReason(mapId: MapId, completedQuestIds: readonly string
 
 /** The final scene of a level's act; finishing it opens the next town. */
 export function lastQuestOf(level: 'A1' | 'A2' | 'B1'): string {
-  return quests.filter(q => q.level === level).at(-1)!.id;
+  return quests.filter(q => q.level === level).at(-1)?.id ?? '';
 }
 
 /** Everyday scenes inserted into Act I after adventures had already begun (mirrors server/progression.go). */

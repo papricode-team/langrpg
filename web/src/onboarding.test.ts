@@ -27,14 +27,23 @@ afterEach(async () => {
 });
 
 describe('two-step language onboarding', () => {
-  it('asks for the mother tongue and offers only German as the learning language', () => {
+  it('offers both target courses with support languages compatible with the selected course', () => {
     const { onConfirm } = mount();
     expect([...document.querySelectorAll<HTMLInputElement>('[name="mother-tongue"]')].map(input => input.value)).toEqual(['en', 'tr']);
-    expect([...document.querySelectorAll<HTMLInputElement>('[name="learning-language"]')].map(input => input.value)).toEqual(['de']);
+    expect([...document.querySelectorAll<HTMLInputElement>('[name="learning-language"]')].map(input => input.value)).toEqual(['de', 'en']);
     expect(document.querySelector<HTMLInputElement>('[name="learning-language"]')!.checked).toBe(true);
     expect(document.querySelector('.character-builder')).toBeNull();
     expect(document.querySelector('[aria-current="step"]')?.textContent).toBe('1Languages');
     expect(onConfirm).not.toHaveBeenCalled();
+  });
+  it('confirms English with German support and never offers the target as its own support language', async () => {
+    const { onConfirm } = mount();
+    click('[name="learning-language"][value="en"]');
+    expect([...document.querySelectorAll<HTMLInputElement>('[name="mother-tongue"]')].map(input => input.value)).toEqual(['tr', 'de']);
+    click('[name="mother-tongue"][value="de"]'); click('[type="submit"]'); await flush();
+    await vi.waitFor(() => expect(document.querySelector('#confirm-languages')).not.toBeNull());
+    click('#confirm-languages');
+    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'de', learningLanguage: 'en' });
   });
 
   it('requires an explicit answer to the confirmation question before opening the builder', async () => {
@@ -68,7 +77,7 @@ describe('two-step language onboarding', () => {
     click('[type="submit"]'); await flush();
     click('#change-languages');
     expect(document.querySelector<HTMLInputElement>('[value="tr"]')!.checked).toBe(true);
-    click('[value="en"]'); click('[type="submit"]'); await flush();
+    click('[name="mother-tongue"][value="en"]'); click('[type="submit"]'); await flush();
     expect(document.body.textContent).toContain('Your mother tongue is English, and you want to learn German. Is that right?');
     expect(onConfirm).not.toHaveBeenCalled();
     click('#confirm-languages');

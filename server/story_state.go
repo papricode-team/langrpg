@@ -86,9 +86,10 @@ type StoryEffect struct {
 }
 
 type StoryObject struct {
-	ID string  `json:"id"`
-	X  float64 `json:"x"`
-	Y  float64 `json:"y"`
+	WorldID string  `json:"worldId,omitempty"`
+	ID      string  `json:"id"`
+	X       float64 `json:"x"`
+	Y       float64 `json:"y"`
 }
 
 // Warning choices can bring a bell forward within an act. The later canonical
@@ -239,10 +240,10 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 		return err
 	}
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "gate" {
-		return &APIError{409, "open this conversation's current German request first"}
+		return &APIError{409, "open this conversation's current request first"}
 	}
-	rule, _ := storyRule(questID)
-	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
+	rule, _ := a.storyRule(questID)
+	if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk back to this conversation's character first"}
 	}
 	return nil
@@ -255,8 +256,8 @@ func (a *App) requireStoryReply(account *Account, questID string) error {
 	if contains(account.Progress.CompletedQuestIDs, questID) || storyNode(&account.Progress, questID) != "intro" {
 		return &APIError{409, "open this character's greeting first"}
 	}
-	rule, _ := storyRule(questID)
-	if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
+	rule, _ := a.storyRule(questID)
+	if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk to this conversation's character first"}
 	}
 	return nil
@@ -277,8 +278,17 @@ func (a *App) story(w http.ResponseWriter, r *http.Request) {
 	}
 	ensureStory(&account.Progress)
 	rules := []StoryRule{}
-	for _, id := range storyQuestOrder {
-		rule, _ := storyRule(id)
+	for _, id := range a.questOrder() {
+		if a.content != nil && !a.questVisible(id, account) {
+			continue
+		}
+		rule, _ := a.storyRule(id)
+		if a.content != nil {
+			rule.Objects = append([]StoryObject{}, rule.Objects...)
+			for i := range rule.Objects {
+				rule.Objects[i].WorldID = rule.Objects[i].ID
+			}
+		}
 		rules = append(rules, rule)
 	}
 	saves := []map[string]any{}
@@ -308,7 +318,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	rule, known := storyRule(input.QuestID)
+	rule, known := a.storyRule(input.QuestID)
 	if !known || !safeID.MatchString(input.ID) {
 		writeError(w, 400, "unknown story scene or invalid action ID")
 		return
@@ -330,7 +340,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 	var proof SavedAction
 	if input.NodeID == "gate" {
 		if !safeID.MatchString(input.AttemptID) {
-			writeError(w, 409, "answer this conversation's German request first")
+			writeError(w, 409, "answer this conversation's request first")
 			return
 		}
 		proofs, _, proofErr := a.store.ActivityProofs(ctx, hash, "", "", []string{input.AttemptID})
@@ -342,7 +352,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		proof, ok = proofs[input.AttemptID]
 		var attempt AttemptInput
 		if !ok || json.Unmarshal(proof.Request, &attempt) != nil || proof.Receipt.Correct == nil || !*proof.Receipt.Correct || attempt.ExerciseID != rule.GateExerciseID || attempt.QuestID != input.QuestID || (attempt.Mode != "production" && !a.isGuidedStoryGate(attempt)) || !attempt.SceneAttempt {
-			writeError(w, 409, "a correct saved German answer from this conversation is required")
+			writeError(w, 409, "a correct saved answer from this conversation is required")
 			return
 		}
 	}
@@ -359,7 +369,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		if storyNode(&account.Progress, input.QuestID) != input.NodeID {
 			return Receipt{}, &APIError{409, "the conversation has moved on; reopen the current line"}
 		}
-		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, rule.NPC, storyNPCRange) {
+		if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
 			return Receipt{}, &APIError{409, "walk back to this conversation's character first"}
 		}
 		s := &account.Progress.Story
@@ -384,7 +394,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 			}
 		case "gate":
 			if !contains(s.GateAttempts[input.QuestID], input.AttemptID) {
-				return Receipt{}, &APIError{409, "answer the current conversation's German request first"}
+				return Receipt{}, &APIError{409, "answer the current conversation's request first"}
 			}
 			s.Nodes[input.QuestID] = "choice"
 		case "choice":
@@ -402,7 +412,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 			s.Choices[input.QuestID] = input.ChoiceID
 			s.Flags["quest:"+input.QuestID] = true
 			giveStoryItem(s, input.QuestID+"-evidence")
-			applyStoryChoice(s, input.QuestID, input.ChoiceID)
+			a.applyStoryChoice(s, input.QuestID, input.ChoiceID)
 			account.Progress.CompletedQuestIDs = append(account.Progress.CompletedQuestIDs, input.QuestID)
 			ensureStory(&account.Progress)
 			reward := 0
@@ -428,6 +438,13 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 
 func applyStoryChoice(s *StoryState, questID, choiceID string) {
 	rule, _ := storyRule(questID)
+	applyStoryChoiceRule(s, questID, choiceID, rule)
+}
+func (a *App) applyStoryChoice(s *StoryState, questID, choiceID string) {
+	rule, _ := a.storyRule(questID)
+	applyStoryChoiceRule(s, questID, choiceID, rule)
+}
+func applyStoryChoiceRule(s *StoryState, questID, choiceID string, rule StoryRule) {
 	for _, choice := range rule.Choices {
 		if choice.ID == choiceID {
 			for _, effect := range choice.Effects {
@@ -578,7 +595,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	rule, ok := storyRule(input.QuestID)
+	rule, ok := a.storyRule(input.QuestID)
 	if !ok || !safeID.MatchString(input.ID) || !contains(rule.InvestigationObjectIDs, input.ObjectID) {
 		writeError(w, 400, "this object is not evidence for the named investigation")
 		return
@@ -601,7 +618,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || storyNode(&account.Progress, input.QuestID) != "intro" {
 			return Receipt{}, &APIError{409, "this investigation has already moved on"}
 		}
-		if !a.world.nearStoryTarget(account.Player.ID, rule.MapID, target, storyEvidenceRange) {
+		if !a.nearCourseStoryTarget(account, rule.MapID, target, storyEvidenceRange) {
 			return Receipt{}, &APIError{409, "walk to this piece of evidence first"}
 		}
 		inspected := account.Progress.Story.Inspections[input.QuestID]

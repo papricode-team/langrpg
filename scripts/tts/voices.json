@@ -1,5 +1,5 @@
 {
-  "_comment": "Cast for scripts/tts/qwen_tts.py. 'description' feeds Qwen3-TTS VoiceDesign (English). 'referenceText' is spoken once to create art/source/voices/<speaker>.wav. 'aliases' maps story speaker names to a voice. 'sameVoiceAs' reuses another voice's reference and applies an ffmpeg 'effect'.",
+  "_comment": "Cast for scripts/tts/qwen_tts.py. 'description' feeds Qwen3-TTS VoiceDesign (English). 'referenceText' is spoken once to create art/source/voices/<speaker>.wav. 'aliases' maps story speaker names to a voice. 'sameVoiceAs' reuses another voice's reference and applies an ffmpeg 'effect'. courses selects a language and cast with --course. German uses the unchanged legacy top-level voices; other courses have separate reference and clip directories. The English proof currently uses browser TTS; its teacher set prepares optional authored recordings.",
   "language": "german",
   "aliases": {
     "Evidence": "narrator"
@@ -53,6 +53,35 @@
     "narrator": {
       "description": "Speak in clear, standard High German (Hochdeutsch) with careful, slightly slow articulation suitable for language learners. A neutral, clear, calm adult voice with medium pace, like a documentary narrator.",
       "referenceText": "Auf dem Zettel steht eine Adresse in der Lindenstraße. Darunter finden sich ein Datum und eine kurze Notiz. Der Brief wurde vor drei Tagen abgestempelt."
+    }
+  },
+  "version": 2,
+  "defaultCourse": "german",
+  "courses": {
+    "german": {
+      "id": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "target": "de",
+      "language": "german",
+      "locale": "de-DE",
+      "legacyCast": true
+    },
+    "english": {
+      "id": "4b081b02-2807-54c6-ab7e-669cebe73405",
+      "target": "en",
+      "language": "english",
+      "locale": "en-GB",
+      "aliases": {
+        "sam": "teacher",
+        "Sam": "teacher",
+        "narrator": "teacher",
+        "Evidence": "teacher"
+      },
+      "voices": {
+        "teacher": {
+          "description": "Speak in clear standard British English, with careful, slightly slow articulation suitable for beginning language learners. A friendly adult station greeter, calm and encouraging, with a warm medium pitch and natural phrasing.",
+          "referenceText": "Hello, and welcome to the station. My name is Sam. Please take your time, and ask me to say it again whenever you need."
+        }
+      }
     }
   }
 }

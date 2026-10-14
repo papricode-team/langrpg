@@ -50,3 +50,21 @@
 .sentence-translation-tooltip[hidden] {
   display: none;
 }
+
+.sentence-word {
+  display: inline;
+  border: 0;
+  border-bottom: 1px dotted currentColor;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.sentence-word.is-selected { background: #dfc47c44; }
+.sentence-word:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.sentence-word-gloss { display: block; margin-bottom: 5px; color: #f1dfa8; }
+.sentence-translation-tooltip mark { background: #f5df8c; color: #17372d; border-radius: 2px; }
+.sentence-inline-translation { display: block; margin-top: .35em; font-size: .75em; line-height: 1.5; }
+.sentence-inline-translation mark { background: #f5df8c; color: #17372d; border-radius: 2px; }

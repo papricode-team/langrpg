@@ -3,12 +3,23 @@ import { introducedWords } from './intake';
 import type { Api, AttemptResult, Progress } from './api';
 import type { Level } from './content';
 import type { ServerExpeditionPlan } from './expedition-games';
+import { activeCourse } from './content-runtime';
 
 export const expeditionLearningManifest=data;
 export const encounterLearning=new Map(data.encounters.map(row=>[row.encounterId,row]));
 export const placementLearning=new Map(data.placements.map(row=>[`${row.mapId}:${row.level}:${row.fieldId}`,row]));
 export type ExpeditionLearningExercise=typeof data.exercises[number];
 const exercises=new Map(data.exercises.map(row=>[row.id,row]));
+/** Register only the binding and exercises fetched for the current encounter. */
+export function installExpeditionBindings(binding: unknown, records: readonly { id: string; itemId: string; mode: string }[]): void {
+ if (!binding || typeof binding !== 'object') return;
+ const mapping = binding as typeof data.encounters[number];
+ encounterLearning.set(mapping.encounterId, mapping);
+ for (const record of records) {
+  const mode = record.mode === 'choice' ? 'recognition' : record.mode === 'listen' ? 'listening' : record.mode;
+  exercises.set(record.id, { ...record, mode } as ExpeditionLearningExercise);
+ }
+}
 export interface ExpeditionAttempt {
  id:string;exerciseId:string;itemId:string;answer:string;mode:'recognition'|'listening';hinted:boolean;responseTimeMs:number;
  miniGameId:'expedition-encounters'|'neighborhood-boards';regionId:string;contentId:string;level:Level;selectedValue?:number;
@@ -26,7 +37,7 @@ export class ExpeditionLearning {
  private owners=new WeakMap<ExpeditionAttempt,()=>boolean>();
  private plans=new Map<string,{command:ExpeditionPlanCommand;isCurrent:()=>boolean;pending?:Promise<ExpeditionPlanResult>}>();
  constructor(private options:{api:Api;progress:()=>Progress;onProgress:(progress:Progress)=>void}){}
- captureOwner(){const owner=this.options.api.selfId,token=this.options.api.token;return ()=>this.options.api.selfId===owner&&this.options.api.token===token;}
+ captureOwner(){const owner=this.options.api.selfId,token=this.options.api.token,courseId=activeCourse?.id;return ()=>this.options.api.selfId===owner&&this.options.api.token===token&&(!courseId||activeCourse?.id===courseId);}
  private owns(command:ExpeditionAttempt){return this.owners.get(command)?.()===true;}
  ready(exerciseId:string){const exercise=exercises.get(exerciseId);return !!exercise&&expeditionRecallReady(exercise,this.options.progress());}
  pendingPlacements(){for(const command of this.failed)if(!this.owns(command))this.failed.delete(command);return [...this.failed].filter(command=>command.miniGameId==='neighborhood-boards').length;}

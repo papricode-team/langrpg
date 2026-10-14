@@ -5,8 +5,8 @@ import type { Exercise, NPC } from './content';
 import './dialogue.css';
 import type { LanternRewards } from './lantern-rewards';
 import type { ContextualGrammar } from './contextual-grammar';
-import { translationHighlights } from './dialogue-translation';
-import { baseLanguage, localizedName, supportText, t } from './i18n';
+import { markTranslation, presentSentence, renderTranslatedSentence, sourceSentenceMarkup, wordTargetRanges } from './translated-sentence';
+import { localizedName, supportText, t, targetLanguage } from './i18n';
 
 interface WordLookup { word: string; index: number; gloss: string; }
 /** A line already spoken in this conversation, kept above the current one. */
@@ -21,6 +21,9 @@ export interface DialoguePresentation {
   lookup?: WordLookup;
   audioEnabled?: boolean;
   answerShown?: boolean;
+  /** Recorded feedback returned by /attempt, never an embedded exercise answer. */
+  exactAnswer?: string;
+  answerAvailable?: boolean;
   gate?: Exercise; gatePrompt?: string; advanceLabel?: string; powers?: LanternRewards; wordlight?: boolean; grammar?: ContextualGrammar; grammarShown?: boolean;
   history?: DialogueHistoryEntry[];
 }
@@ -29,38 +32,29 @@ function speakerOf(p: DialoguePresentation): string {
 }
 function historyMarkup(history: DialogueHistoryEntry[] | undefined): string {
   if (!history?.length) return '';
-  return `<ol class="dialogue-history" aria-label="${e(t('Earlier in this conversation'))}">${history.map(entry => `<li class="${entry.player ? 'is-player' : ''}"><small>${e(entry.speaker)}</small><span lang="de">${e(entry.german)}</span></li>`).join('')}</ol>`;
+  return `<ol class="dialogue-history" aria-label="${e(t('Earlier in this conversation'))}">${history.map(entry => `<li class="${entry.player ? 'is-player' : ''}"><small>${e(entry.speaker)}</small><span lang="${e(targetLanguage())}">${e(entry.german)}</span></li>`).join('')}</ol>`;
+}
+function choiceMarkup(choice: DialogueChoice, p: DialoguePresentation): string {
+  const sentence = presentSentence(choice, p.name);
+  if (sentence.sentence) return `<div class="dialogue-authored-choice">${renderTranslatedSentence(choice, p.name, p.help)}<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
+  const meaning = choice.english ? supportText(choice) : undefined;
+  return `<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}><span lang="${e(sentence.target)}">${e(choice.german)}</span>${p.help && meaning?.text ? `<small lang="${meaning.lang}">${e(meaning.text)}</small>` : ''}</button>`;
 }
 export function dialogueMarkup(p: DialoguePresentation): string {
-  const text = personalized(p.line.german, p.name);
-  const language = baseLanguage();
-  // The meaning follows the German actually shown (a simpler variant has its own meaning).
-  const support = supportText(p.line);
-  const english = personalized(support.text, p.name);
-  const tokens = text.split(/(\p{L}+)/u).map((token,index) => {
-    const gloss = p.glosses[token.toLocaleLowerCase('de')];
-    const selected = p.lookup?.index === index;
-    return gloss !== undefined ? `<button type="button" class="dialogue-word ${p.wordlight ? 'wordlight-lit' : ''} ${selected ? 'is-selected' : ''}" data-dialogue-gloss="${e(gloss)}" data-dialogue-word-index="${index}" aria-label="${e(t('Meaning of {word}', { word: token }))}" aria-pressed="${selected}">${e(token)}</button>` : e(token);
-  }).join('');
-  // Highlight only inside the language the meaning is actually shown in; never guess.
-  const ranges = p.lookup ? translationHighlights({ german: text, english, word: p.lookup.word, gloss: p.lookup.gloss, language: support.lang }) : [];
-  let translated = '', cursor = 0;
-  for (const range of ranges) {
-    translated += `${e(english.slice(cursor,range.start))}<mark>${e(english.slice(range.start,range.end))}</mark>`;
-    cursor = range.end;
-  }
-  translated += e(english.slice(cursor));
-  // Turkish suffixes rarely let a gloss match a whole word, so the tapped word's meaning is shown on its own.
-  const wordGloss = language !== 'en' && p.lookup?.gloss ? `<span class="dialogue-word-gloss"><strong lang="de">${e(p.lookup.word)}</strong> ${e(p.lookup.gloss)}</span>` : '';
+  const sentence = presentSentence(p.line, p.name);
+  const support = { text: sentence.translation, lang: sentence.supportLanguage };
+  const tokens = sourceSentenceMarkup(sentence, { selectedIndex: p.lookup?.index, dialogue: true, wordlight: p.wordlight });
+  const ranges = p.lookup ? wordTargetRanges(sentence, p.lookup.index) : [];
+  const translated = markTranslation(sentence.translation, ranges);
+  const wordGloss = p.lookup?.gloss ? `<span class="dialogue-word-gloss"><strong lang="${e(sentence.target)}">${e(p.lookup.word)}</strong> ${e(p.lookup.gloss)}</span>` : '';
   const translationVisible = p.help || !!p.lookup;
-  const translation = translationVisible ? `<p class="dialogue-translation" lang="${support.lang}" role="status">${wordGloss}${translated}</p>` : '';
+  const translation = translationVisible ? `<p class="dialogue-translation" lang="${support.lang}" role="status">${wordGloss}<span class="dialogue-translation-body">${translated}</span></p>` : '';
   const audioEnabled = p.audioEnabled !== false;
   const audioToggle = `<button type="button" class="dialogue-audio" data-dialogue-action="audio" aria-label="${e(t('Dialogue audio'))}" aria-pressed="${audioEnabled}" title="${e(audioEnabled ? t('Audio on. Click to disable.') : t('Audio off. Click to enable.'))}">${icon(audioEnabled ? 'volume' : 'muted')}</button>`;
-  const gateMeaning = p.gate ? supportText({ german: p.gate.answer, english: p.gate.english }) : undefined;
-  const answerHelp = p.gate && p.answerShown ? `<aside id="dialogue-exact-answer" class="dialogue-answer-help" role="status"><strong>${e(t('Exact answer'))}</strong><p lang="de">${e(p.gate.answer)}</p><small lang="${gateMeaning!.lang}">${e(gateMeaning!.text)}</small><button type="button" class="outline-button" data-dialogue-action="use-answer" ${p.busy ? 'disabled' : ''}>${e(t('Use this answer'))} ${icon('arrow')}</button><small>${e(t('You can use this reply to continue. This counts as assisted practice.'))}</small></aside>` : '';
+  const answerHelp = p.gate && p.answerShown && p.exactAnswer ? `<aside id="dialogue-exact-answer" class="dialogue-answer-help" role="status"><strong>${e(t('Exact answer'))}</strong><p lang="${e(sentence.target)}">${e(p.exactAnswer)}</p><button type="button" class="outline-button" data-dialogue-action="use-answer" ${p.busy ? 'disabled' : ''}>${e(t('Use this answer'))} ${icon('arrow')}</button><small>${e(t('You can use this reply to continue. This counts as assisted practice.'))}</small></aside>` : '';
   const grammarMeaning = p.grammar ? supportText({ german: p.grammar.german, english: p.grammar.english }) : undefined;
   const speaker = speakerOf(p);
-  return `<section class="world-dialogue" aria-label="${e(t('Conversation with {name}', { name: speaker }))}"><div class="dialogue-heading">${p.portrait}<div><small>${e(p.title)}</small><h2>${e(speaker)}</h2></div>${audioToggle}<button type="button" class="dialogue-close" data-dialogue-action="close" aria-label="${e(t('Leave conversation'))}">${icon('close')}</button></div>${historyMarkup(p.history)}<p class="dialogue-line" lang="de">${tokens}</p>${translation}<div class="dialogue-tools"><button type="button" data-dialogue-action="listen" aria-label="${e(t('Listen to this line'))}" ${audioEnabled ? '' : 'disabled'}>${icon('volume')} ${e(t('Listen again'))}</button><button type="button" data-dialogue-action="translate" aria-pressed="${translationVisible}">${e(t('What did they say?'))}</button>${p.powers?.echo ? `<button type="button" data-dialogue-action="slow" ${audioEnabled ? '' : 'disabled'}>${e(t('Echo · slower'))}</button>` : ''}${p.powers?.wordlight ? `<button type="button" data-dialogue-action="wordlight" aria-pressed="${!!p.wordlight}">${e(t('Wordlight'))}</button>` : ''}<span>${p.index + 1} / ${p.total}</span></div>${p.error ? `<p class="dialogue-feedback" role="alert">${e(p.error)}</p>` : ''}${p.gate ? `<form class="dialogue-gate"><label for="dialogue-answer">${e(p.gatePrompt ?? p.gate.prompt)}</label><div><input id="dialogue-answer" name="answer" autocomplete="off" autocapitalize="off" spellcheck="false" lang="de" required maxlength="240" aria-describedby="dialogue-gate-help" ${p.busy ? 'disabled' : ''}/><button class="primary-button" type="submit" ${p.busy ? 'disabled' : ''}>${e(p.busy ? t('Saving…') : t('Say it'))} ${icon('arrow')}</button></div><small id="dialogue-gate-help">${e(t('Type your reply in German. Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.'))}</small><div class="dialogue-hint-tools"><button type="button" class="text-button" data-dialogue-action="hint">${e(t('A little help'))}</button>${p.grammar ? `<button type="button" class="text-button" data-dialogue-action="grammar">${e(t('Why this phrase?'))}</button>` : ''}<button type="button" class="text-button" data-dialogue-action="show-answer" aria-expanded="${!!p.answerShown}" ${p.answerShown ? 'aria-controls="dialogue-exact-answer"' : ''} ${p.busy ? 'disabled' : ''}>${e(p.answerShown ? t('Hide exact answer') : t('Show exact answer'))}</button></div>${answerHelp}${p.grammar && p.grammarShown ? `<aside class="dialogue-grammar"><strong lang="de">${e(p.grammar.german)}</strong><p lang="${grammarMeaning!.lang}">${e(grammarMeaning!.text)}</p>${p.grammar.explanation ? `<small>${e(p.grammar.explanation)}</small>` : ''}${p.grammar.note ? `<small class="dialogue-grammar-note"><strong>${e(t('For Turkish speakers'))}</strong> ${e(p.grammar.note)}</small>` : ''}<button type="button" class="text-button" data-dialogue-action="guide">${e(p.grammar.title ? t('Read {title}', { title: p.grammar.title }) : t('Read the grammar guide'))}</button></aside>` : ''}</form>` : p.choices?.length ? `<div class="dialogue-replies">${p.choicePrompt ? `<p class="dialogue-choice-prompt">${e(p.choicePrompt)}<small>${e(t('Choose a reply.'))}</small></p>` : ''}<div class="dialogue-choices" aria-label="${e(t('Your reply'))}">${p.choices.map(choice => { const meaning = choice.english ? supportText(choice) : undefined; return `<button type="button" class="outline-button" data-dialogue-choice="${e(choice.id)}" ${p.busy ? 'disabled' : ''}><span lang="de">${e(choice.german)}</span>${p.help && meaning?.text ? `<small lang="${meaning.lang}">${e(meaning.text)}</small>` : ''}</button>`; }).join('')}</div></div>` : `<button type="button" class="primary-button dialogue-advance" data-dialogue-action="next" ${p.busy ? 'disabled' : ''}>${e(p.busy ? t('Saving…') : p.advanceLabel ?? t('Continue'))} ${icon('arrow')}</button>`}</section>`;
+  return `<section class="world-dialogue" aria-label="${e(t('Conversation with {name}', { name: speaker }))}"><div class="dialogue-heading">${p.portrait}<div><small>${e(p.title)}</small><h2>${e(speaker)}</h2></div>${audioToggle}<button type="button" class="dialogue-close" data-dialogue-action="close" aria-label="${e(t('Leave conversation'))}">${icon('close')}</button></div>${historyMarkup(p.history)}<p class="dialogue-line" lang="${e(sentence.target)}">${tokens}</p>${translation}<div class="dialogue-tools"><button type="button" data-dialogue-action="listen" aria-label="${e(t('Listen to this line'))}" ${audioEnabled ? '' : 'disabled'}>${icon('volume')} ${e(t('Listen again'))}</button><button type="button" data-dialogue-action="translate" aria-pressed="${translationVisible}">${e(t('What did they say?'))}</button>${p.powers?.echo ? `<button type="button" data-dialogue-action="slow" ${audioEnabled ? '' : 'disabled'}>${e(t('Echo · slower'))}</button>` : ''}${p.powers?.wordlight ? `<button type="button" data-dialogue-action="wordlight" aria-pressed="${!!p.wordlight}">${e(t('Wordlight'))}</button>` : ''}<span>${p.index + 1} / ${p.total}</span></div>${p.error ? `<p class="dialogue-feedback" role="alert">${e(p.error)}</p>` : ''}${p.gate ? `<form class="dialogue-gate"><label for="dialogue-answer">${e(p.gatePrompt ?? p.gate.prompt)}</label><div><input id="dialogue-answer" name="answer" autocomplete="off" autocapitalize="off" spellcheck="false" lang="${e(sentence.target)}" required maxlength="240" aria-describedby="dialogue-gate-help" ${p.busy ? 'disabled' : ''}/><button class="primary-button" type="submit" ${p.busy ? 'disabled' : ''}>${e(p.busy ? t('Saving…') : t('Say it'))} ${icon('arrow')}</button></div><small id="dialogue-gate-help">${e(sentence.target === 'de' ? t('Type your reply in German. Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.') : t('Type your reply in {language}.', { language: sentence.target === 'en' ? t('English') : sentence.target }))}</small><div class="dialogue-hint-tools"><button type="button" class="text-button" data-dialogue-action="hint">${e(t('A little help'))}</button>${p.grammar ? `<button type="button" class="text-button" data-dialogue-action="grammar">${e(t('Why this phrase?'))}</button>` : ''}<button type="button" class="text-button" data-dialogue-action="show-answer" aria-expanded="${!!p.answerShown}" ${p.answerShown ? 'aria-controls="dialogue-exact-answer"' : ''} ${p.busy || !(p.answerAvailable || p.exactAnswer) ? 'disabled' : ''}>${e(p.answerShown ? t('Hide exact answer') : t('Show exact answer'))}</button></div>${answerHelp}${p.grammar && p.grammarShown ? `<aside class="dialogue-grammar"><strong lang="${e(sentence.target)}">${e(p.grammar.german)}</strong><p lang="${grammarMeaning!.lang}">${e(grammarMeaning!.text)}</p>${p.grammar.explanation ? `<small>${e(p.grammar.explanation)}</small>` : ''}${p.grammar.note ? `<small class="dialogue-grammar-note"><strong>${e(t('For Turkish speakers'))}</strong> ${e(p.grammar.note)}</small>` : ''}<button type="button" class="text-button" data-dialogue-action="guide">${e(p.grammar.title ? t('Read {title}', { title: p.grammar.title }) : t('Read the grammar guide'))}</button></aside>` : ''}</form>` : p.choices?.length ? `<div class="dialogue-replies">${p.choicePrompt ? `<p class="dialogue-choice-prompt">${e(p.choicePrompt)}<small>${e(t('Choose a reply.'))}</small></p>` : ''}<div class="dialogue-choices" aria-label="${e(t('Your reply'))}">${p.choices.map(choice => choiceMarkup(choice, p)).join('')}</div></div>` : `<button type="button" class="primary-button dialogue-advance" data-dialogue-action="next" ${p.busy ? 'disabled' : ''}>${e(p.busy ? t('Saving…') : p.advanceLabel ?? t('Continue'))} ${icon('arrow')}</button>`}</section>`;
 }
 
 export class DialogueView {
@@ -88,7 +82,7 @@ export class DialogueView {
       }
     });
     this.host.addEventListener('submit', event => { event.preventDefault(); this.actions.answer(this.host.querySelector<HTMLInputElement>('#dialogue-answer')?.value ?? ''); });
-    this.host.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); this.actions.action('close'); } });
+    this.host.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); if (this.lookup && this.presentation) { this.lookup = undefined; this.render(this.presentation); } else this.actions.action('close'); } });
   }
   render(presentation: DialoguePresentation) {
     const previous = this.presentation;

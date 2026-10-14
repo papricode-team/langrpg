@@ -1,0 +1,1636 @@
+{
+ "course": {
+  "slug": "english",
+  "target": "en",
+  "supportLanguages": [
+   "tr",
+   "de"
+  ],
+  "title": "English · First conversations",
+  "grading": {
+   "keyboardSubstitutions": {},
+   "meaningfulCapitals": [],
+   "ignoreTrailing": ".!?",
+   "mechanicalTypos": false,
+   "caseSensitive": false
+  },
+  "voice": "en-GB",
+  "world": {
+   "interaction": "classroom",
+   "spawn": {
+    "mapId": "lindenhafen",
+    "x": 0.442,
+    "y": 0.459
+   }
+  }
+ },
+ "sentences": [
+  {
+   "slug": "en-hello",
+   "text": "Hello!",
+   "translations": {
+    "tr": {
+     "text": "Merhaba!",
+     "pairs": [
+      [
+       "Hello",
+       "Merhaba"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Hallo!",
+     "pairs": [
+      [
+       "Hello",
+       "Hallo"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-my-name",
+   "text": "My name is {name}.",
+   "translations": {
+    "tr": {
+     "text": "Benim adım {name}.",
+     "pairs": [
+      [
+       "My",
+       "Benim"
+      ],
+      [
+       "name",
+       "adım"
+      ],
+      [
+       "is",
+       null
+      ]
+     ]
+    },
+    "de": {
+     "text": "Mein Name ist {name}.",
+     "pairs": [
+      [
+       "My",
+       "Mein"
+      ],
+      [
+       "name",
+       "Name"
+      ],
+      [
+       "is",
+       "ist"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-your-name",
+   "text": "What is your name?",
+   "translations": {
+    "tr": {
+     "text": "Adın ne?",
+     "pairs": [
+      [
+       "What",
+       "ne"
+      ],
+      [
+       "is",
+       null
+      ],
+      [
+       "your",
+       "Adın"
+      ],
+      [
+       "name",
+       "Adın"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Wie heißt du?",
+     "pairs": [
+      [
+       "What",
+       "Wie"
+      ],
+      [
+       "is",
+       "heißt"
+      ],
+      [
+       "your",
+       "du"
+      ],
+      [
+       "name",
+       "heißt"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-have-ticket",
+   "text": "I have a ticket.",
+   "translations": {
+    "tr": {
+     "text": "Bir biletim var.",
+     "pairs": [
+      [
+       "I",
+       "biletim"
+      ],
+      [
+       "have",
+       "var"
+      ],
+      [
+       "a",
+       "Bir"
+      ],
+      [
+       "ticket",
+       "biletim"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Ich habe eine Fahrkarte.",
+     "pairs": [
+      [
+       "I",
+       "Ich"
+      ],
+      [
+       "have",
+       "habe"
+      ],
+      [
+       "a",
+       "eine"
+      ],
+      [
+       "ticket",
+       "Fahrkarte"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-ticket-please",
+   "text": "Your ticket, please.",
+   "translations": {
+    "tr": {
+     "text": "Biletiniz, lütfen.",
+     "pairs": [
+      [
+       "Your",
+       "Biletiniz"
+      ],
+      [
+       "ticket",
+       "Biletiniz"
+      ],
+      [
+       "please",
+       "lütfen"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Ihre Fahrkarte, bitte.",
+     "pairs": [
+      [
+       "Your",
+       "Ihre"
+      ],
+      [
+       "ticket",
+       "Fahrkarte"
+      ],
+      [
+       "please",
+       "bitte"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-coffee",
+   "text": "Would you like a coffee?",
+   "translations": {
+    "tr": {
+     "text": "Bir kahve ister misin?",
+     "pairs": [
+      [
+       "Would",
+       "ister misin"
+      ],
+      [
+       "you",
+       "misin"
+      ],
+      [
+       "like",
+       "ister"
+      ],
+      [
+       "a",
+       "Bir"
+      ],
+      [
+       "coffee",
+       "kahve"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Möchtest du einen Kaffee?",
+     "pairs": [
+      [
+       "Would",
+       "Möchtest"
+      ],
+      [
+       "you",
+       "du"
+      ],
+      [
+       "like",
+       "Möchtest"
+      ],
+      [
+       "a",
+       "einen"
+      ],
+      [
+       "coffee",
+       "Kaffee"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-train",
+   "text": "The train is here.",
+   "translations": {
+    "tr": {
+     "text": "Tren burada.",
+     "pairs": [
+      [
+       "The",
+       null
+      ],
+      [
+       "train",
+       "Tren"
+      ],
+      [
+       "is",
+       null
+      ],
+      [
+       "here",
+       "burada"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Der Zug ist hier.",
+     "pairs": [
+      [
+       "The",
+       "Der"
+      ],
+      [
+       "train",
+       "Zug"
+      ],
+      [
+       "is",
+       "ist"
+      ],
+      [
+       "here",
+       "hier"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-read",
+   "text": "She reads. You read.",
+   "translations": {
+    "tr": {
+     "text": "O okur. Sen okursun.",
+     "pairs": [
+      [
+       "She",
+       "O"
+      ],
+      [
+       "reads",
+       "okur"
+      ],
+      [
+       "You",
+       "Sen"
+      ],
+      [
+       "read",
+       "okursun"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Sie liest. Du liest.",
+     "pairs": [
+      [
+       "She",
+       "Sie"
+      ],
+      [
+       "reads",
+       "liest"
+      ],
+      [
+       "You",
+       "Du"
+      ],
+      [
+       "read",
+       {
+        "text": "liest",
+        "occurrence": 2
+       }
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-again",
+   "text": "Please say it again.",
+   "translations": {
+    "tr": {
+     "text": "Lütfen tekrar söyle.",
+     "pairs": [
+      [
+       "Please",
+       "Lütfen"
+      ],
+      [
+       "say",
+       "söyle"
+      ],
+      [
+       "it",
+       null
+      ],
+      [
+       "again",
+       "tekrar"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Bitte sag es noch einmal.",
+     "pairs": [
+      [
+       "Please",
+       "Bitte"
+      ],
+      [
+       "say",
+       "sag"
+      ],
+      [
+       "it",
+       "es"
+      ],
+      [
+       "again",
+       "noch einmal"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  },
+  {
+   "slug": "en-goodbye",
+   "text": "Thank you. Goodbye!",
+   "translations": {
+    "tr": {
+     "text": "Teşekkür ederim. Hoşça kal!",
+     "pairs": [
+      [
+       "Thank",
+       "Teşekkür ederim"
+      ],
+      [
+       "you",
+       "Teşekkür ederim"
+      ],
+      [
+       "Goodbye",
+       "Hoşça kal"
+      ]
+     ]
+    },
+    "de": {
+     "text": "Danke. Auf Wiedersehen!",
+     "pairs": [
+      [
+       "Thank",
+       "Danke"
+      ],
+      [
+       "you",
+       "Danke"
+      ],
+      [
+       "Goodbye",
+       "Auf Wiedersehen"
+      ]
+     ]
+    }
+   },
+   "wordGlosses": {
+    "My": {
+     "tr": "benim",
+     "de": "mein"
+    },
+    "name": {
+     "tr": "ad; isim",
+     "de": "Name"
+    },
+    "is": {
+     "tr": "olmak fiilinin şimdiki zaman biçimi",
+     "de": "ist"
+    },
+    "What": {
+     "tr": "ne",
+     "de": "was"
+    },
+    "your": {
+     "tr": "senin",
+     "de": "dein"
+    },
+    "I": {
+     "tr": "ben",
+     "de": "ich"
+    },
+    "have": {
+     "tr": "sahip olmak",
+     "de": "haben"
+    },
+    "a": {
+     "tr": "bir",
+     "de": "ein; eine"
+    },
+    "Your": {
+     "tr": "sizin; senin",
+     "de": "Ihr; dein"
+    },
+    "please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "Would": {
+     "tr": "kibar istek bildirir",
+     "de": "würde; möchte"
+    },
+    "you": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "like": {
+     "tr": "istemek; beğenmek",
+     "de": "mögen"
+    },
+    "The": {
+     "tr": "belirli tanımlık",
+     "de": "der; die; das"
+    },
+    "train": {
+     "tr": "tren",
+     "de": "Zug"
+    },
+    "here": {
+     "tr": "burada",
+     "de": "hier"
+    },
+    "She": {
+     "tr": "o (kadın)",
+     "de": "sie"
+    },
+    "reads": {
+     "tr": "okur",
+     "de": "liest"
+    },
+    "You": {
+     "tr": "sen; siz",
+     "de": "du; Sie"
+    },
+    "Please": {
+     "tr": "lütfen",
+     "de": "bitte"
+    },
+    "say": {
+     "tr": "söylemek",
+     "de": "sagen"
+    },
+    "it": {
+     "tr": "o; onu",
+     "de": "es"
+    },
+    "again": {
+     "tr": "tekrar",
+     "de": "noch einmal"
+    },
+    "Thank": {
+     "tr": "teşekkür etmek",
+     "de": "danken"
+    },
+    "Goodbye": {
+     "tr": "hoşça kal",
+     "de": "auf Wiedersehen"
+    }
+   }
+  }
+ ],
+ "lexemes": [
+  {
+   "slug": "en-hello-word",
+   "lemma": "hello",
+   "pos": "intj",
+   "meanings": {
+    "tr": "merhaba",
+    "de": "hallo"
+   },
+   "forms": [
+    "Hello"
+   ],
+   "exampleSlug": "en-hello"
+  },
+  {
+   "slug": "en-ticket-word",
+   "lemma": "ticket",
+   "pos": "noun",
+   "meanings": {
+    "tr": "bilet",
+    "de": "Fahrkarte"
+   },
+   "forms": [
+    "ticket",
+    "tickets"
+   ],
+   "exampleSlug": "en-have-ticket"
+  },
+  {
+   "slug": "en-coffee-word",
+   "lemma": "coffee",
+   "pos": "noun",
+   "meanings": {
+    "tr": "kahve",
+    "de": "Kaffee"
+   },
+   "forms": [
+    "coffee"
+   ],
+   "exampleSlug": "en-coffee"
+  },
+  {
+   "slug": "en-read-word",
+   "lemma": "read",
+   "pos": "verb",
+   "meanings": {
+    "tr": "okumak",
+    "de": "lesen"
+   },
+   "forms": [
+    "read",
+    "reads"
+   ],
+   "exampleSlug": "en-read"
+  }
+ ],
+ "exercise": {
+  "slug": "en-first-request",
+  "itemSlug": "en-first-request-item",
+  "mode": "type",
+  "level": "A1",
+  "kind": "writing",
+  "prompt": "Ask the speaker to repeat the sentence.",
+  "sentenceSlug": "en-again",
+  "answer": "Please say it again.",
+  "acceptedAnswers": [
+   "Please repeat that."
+  ],
+  "hint": "Begin with Please.",
+  "explanation": "Please say it again. is a polite request to repeat something.",
+  "support": {
+   "tr": {
+    "prompt": "Konuşmacıdan cümleyi tekrar etmesini iste.",
+    "hint": "Please ile başla.",
+    "explanation": "Please say it again. bir şeyi tekrarlamaya yönelik kibar bir istektir."
+   },
+   "de": {
+    "prompt": "Bitte die sprechende Person, den Satz zu wiederholen.",
+    "hint": "Beginne mit Please.",
+    "explanation": "Please say it again. ist eine höfliche Bitte, etwas zu wiederholen."
+   }
+  }
+ },
+ "quest": {
+  "slug": "en-first-conversation",
+  "level": "A1",
+  "title": "A first conversation",
+  "subtitle": "Meet Sam at the station",
+  "npcId": "sam",
+  "location": "Railway station",
+  "mapId": "lindenhafen",
+  "reward": 40,
+  "support": {
+   "tr": {
+    "title": "İlk konuşma",
+    "subtitle": "İstasyonda Sam ile tanış",
+    "location": "Tren istasyonu"
+   },
+   "de": {
+    "title": "Ein erstes Gespräch",
+    "subtitle": "Triff Sam am Bahnhof",
+    "location": "Bahnhof"
+   }
+  }
+ },
+ "unit": {
+  "slug": "en-first-unit",
+  "level": "A1",
+  "title": "First conversations",
+  "topic": "greetings",
+  "summary": "Say hello, introduce yourself and ask for repetition.",
+  "reward": 40,
+  "support": {
+   "tr": {
+    "title": "İlk konuşmalar",
+    "summary": "Selam ver, kendini tanıt ve tekrar edilmesini iste."
+   },
+   "de": {
+    "title": "Erste Gespräche",
+    "summary": "Begrüße jemanden, stelle dich vor und bitte um Wiederholung."
+   }
+  }
+ },
+ "npc": {
+  "id": "sam",
+  "name": "Sam",
+  "role": "Station greeter",
+  "x": 0.442,
+  "y": 0.459,
+  "color": "#8CA7E8",
+  "support": {
+   "tr": {
+    "role": "İstasyon karşılama görevlisi"
+   },
+   "de": {
+    "role": "Begrüßung am Bahnhof"
+   }
+  }
+ },
+ "authoring": {
+  "status": "authored",
+  "review": "pending-native-speaker-review",
+  "note": "Initial proof content; never implies reviewer approval."
+ }
+}

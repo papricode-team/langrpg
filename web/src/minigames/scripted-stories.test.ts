@@ -60,6 +60,17 @@ beforeEach(()=>{
 afterEach(()=>{for(const game of games)game.destroy();document.body.replaceChildren();vi.useRealTimers();vi.unstubAllGlobals();});
 
 describe('authored story boards and authoritative actual placements',()=>{
+  it('reads exercises installed after module initialization through the live registry',async()=>{
+    const event=scriptedStoryData.games['lost-hour'].events[0],original=event.exerciseId;
+    const exercise={...exById.get(original)!,id:'newly-served-clock-exercise'};
+    const registry=canonicalStoryExercises as unknown as Array<(typeof canonicalStoryExercises)[number]>;
+    registry.push(exercise);exById.set(exercise.id,exercise);event.exerciseId=exercise.id;
+    try{
+      const context=setup('lost-hour');await context.start();context.click(`[data-clock-card="${event.id}"]`);context.click('[data-clock-slot="0"]');await flush();
+      expect(vi.mocked(context.host.submit).mock.calls[0][0]).toMatchObject({exerciseId:exercise.id,answer:'23:00'});
+      expect(context.root.querySelector('[data-clock-slot="0"]')?.classList.contains('is-restored')).toBe(true);
+    }finally{event.exerciseId=original;registry.splice(registry.indexOf(exercise),1);exById.delete(exercise.id);}
+  });
   it('gates supporting words as well as targets and applies the explicit reduced-motion preference',()=>{
     const progress=emptyProgress();progress.intake={version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:canonicalStoryExercises.filter(row=>row.miniGameId==='lost-hour').map(row=>row.targetWordId)};
     const context=setup('lost-hour',{progress:()=>progress});expect(context.root.textContent).toContain('more restored words');expect(context.root.querySelector('[data-clock-card]')).toBeNull();

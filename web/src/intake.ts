@@ -13,6 +13,8 @@ export interface Syllabus {
   version: string; wordsPerHour: number; openingWords: number; bankCap: number; storyShare: number;
   brake: { maxUnsettled: number; maxDue: number };
   wordIds: string[]; quests: SyllabusQuest[];
+  /** The public course reports its total without publishing the word bank. */
+  totalWords?: number;
 }
 export interface IntakeState { version: number; activeSeconds: number; creditSeconds: number; lastBeatAt: string; wordIds: string[]; }
 export interface IntakeStatus {
@@ -22,7 +24,11 @@ export interface IntakeStatus {
 export interface HeartbeatResult { progress: Progress; introduced: string[]; status: IntakeStatus; duplicate: boolean; }
 
 export const syllabus = syllabusData as Syllabus;
-export const syllabusPosition: ReadonlyMap<string, number> = new Map(syllabus.wordIds.map((id, index) => [id, index]));
+const positions = new Map(syllabus.wordIds.map((id, index) => [id, index]));
+export const syllabusPosition: ReadonlyMap<string, number> = positions;
+/** Register only lexical records made available by the active course. */
+export function registerSyllabusWord(id: string, index: number): void { if (id && Number.isInteger(index) && index >= 0) positions.set(id, index); }
+export function clearSyllabusWords(): void { positions.clear(); }
 const questById = new Map(syllabus.quests.map(quest => [quest.questId, quest]));
 export const secondsPerWord = (): number => 3600 / syllabus.wordsPerHour;
 
@@ -49,7 +55,7 @@ export function wordDue(progress: Pick<Progress, 'words'>, id: string, now = Dat
 
 export function intakeStatus(progress: EvidenceProgress, now = Date.now()): IntakeStatus {
   const ids = introducedWordIds(progress), intake = progress.intake;
-  const status: IntakeStatus = { introduced: ids.length, remaining: Math.max(0, syllabus.wordIds.length - ids.length), pending: 0, nextWordInSeconds: 0, paused: '', unsettled: 0, due: 0 };
+  const status: IntakeStatus = { introduced: ids.length, remaining: Math.max(0, (syllabus.totalWords ?? syllabus.wordIds.length) - ids.length), pending: 0, nextWordInSeconds: 0, paused: '', unsettled: 0, due: 0 };
   for (const id of ids) { if (wordUnsettled(progress, id)) status.unsettled++; if (wordDue(progress, id, now)) status.due++; }
   const perWord = secondsPerWord(), credit = intake?.creditSeconds ?? 0;
   const earned = Math.floor(credit / perWord);

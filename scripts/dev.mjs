@@ -1,4 +1,4 @@
-import {spawn} from 'node:child_process';
+import {spawn,spawnSync} from 'node:child_process';
 import {readdir,stat} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 
@@ -28,8 +28,8 @@ function startServer() {
   });
 }
 
-// Go embeds these files. A completed editor save must restart the authority
-// process as well as Vite's client modules. Debounce the compiler's staged batch.
+// The authority reads the generated catalog at boot. A completed catalog or Go
+// save must restart the process as well as Vite's client modules. Debounce batches.
 let signature,checking=false;
 const watcher=setInterval(async()=>{
   if(closing||checking)return;
@@ -61,8 +61,10 @@ function stop(code=0) {
   for(const child of children)terminate(child);
   setTimeout(()=>process.exit(code),150).unref();
 }
+const contentBuild=spawnSync(process.execPath,['scripts/build-content.mjs'],{cwd:root,stdio:'inherit'});
+if(contentBuild.status!==0)process.exit(contentBuild.status??1);
 startServer();
-const frontend=spawn('npm',['run','dev','--workspace','web','--','--port',webPort],{cwd:root,detached:grouped,stdio:'inherit',env:{...process.env,
+const frontend=spawn('npm',['run','dev','--workspace','web','--','--port',webPort,'--host',process.env.ATLAS_WEB_HOST||'127.0.0.1'],{cwd:root,detached:grouped,stdio:'inherit',env:{...process.env,
   ATLAS_API_ORIGIN:process.env.ATLAS_API_ORIGIN||`http://127.0.0.1:${apiPort}`,
 }});
 children.add(frontend);

@@ -16,7 +16,6 @@ import { beginnerGateTranslations, greetingMeanings } from './beginner-dialogue'
 import { storyMaps } from './maps';
 import { specialItems, endings } from './story-panels';
 import { placementDialogue } from './learning-context';
-import { baseStoryGlossary } from './story-glossary';
 import type { Level } from './content';
 import type { OverlayEntry } from './i18n';
 
@@ -110,7 +109,6 @@ export function storyUnits(): TranslationUnit[] {
 
   for (const [id, item] of Object.entries(specialItems)) { text(`item:${id}:title`, item.title); text(`item:${id}:text`, item.text); }
   for (const [id, item] of Object.entries(endings)) { text(`ending:${id}:title`, item.title); text(`ending:${id}:text`, item.text); }
-  for (const [word, gloss] of Object.entries(baseStoryGlossary)) text(`glossary:${word}:${gloss}`, gloss);
 
   // One unit per id; the same German sentence appearing twice keeps its first id.
   const seen = new Set<string>();

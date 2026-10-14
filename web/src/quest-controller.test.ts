@@ -6,16 +6,17 @@ import { emptyStory, type DialogueLine } from './dialogue';
 import { questGraphs } from './quest-graph';
 import { npcs, quests } from './content';
 import { answerMatches } from './learning';
+import { clearSentences, registerSentence } from './translated-sentence';
 
 let controller: QuestController | undefined;
-afterEach(() => { controller?.destroy(); document.body.innerHTML = ''; vi.restoreAllMocks(); });
+afterEach(() => { controller?.destroy(); clearSentences(); document.body.innerHTML = ''; vi.restoreAllMocks(); });
 function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arrival', beginner = false) {
   let audioEnabled = true;
   let progress: Progress = {...emptyProgress(), story:emptyStory()};
   progress.story!.nodes[questId] = stage;
   const bump = () => { progress = {...progress,revision:progress.revision+1,story:structuredClone(progress.story)}; return progress; };
   const api = {
-    request:vi.fn(async (_path?:string,input?:{mode?:string;exerciseId?:string}) => {
+    request:vi.fn(async (_path?:string,input?:{mode?:string;exerciseId?:string}): Promise<{attemptId:string;correct:boolean;progress:Progress;correctedAnswer?:string;reason?:string}> => {
       if(input?.mode==='recognition' && input.exerciseId) progress.story!.flags[`reply:${input.exerciseId}`]=true;
       return {attemptId:'saved-reply',correct:true,progress:bump()};
     }),
@@ -23,6 +24,13 @@ function fixture(stage: 'intro' | 'gate' | 'choice' = 'intro', questId = 'a1-arr
     storyTransition:vi.fn(async (input:{nodeId:string}) => { progress.story!.nodes[questId] = input.nodeId === 'intro' ? 'gate' : input.nodeId === 'gate' ? 'choice' : 'complete'; if(input.nodeId==='choice'){progress.completedQuestIds.push(questId);progress.xp+=40;} return {story:progress.story!,progress:bump()}; }),
   };
   const options = {beginnerMode:()=>beginner,api:api as never,progress:()=>progress,playerName:()=>'<Willow>',portrait:vi.fn((_id:string,_expression?:string)=>''),speak:vi.fn(),audioEnabled:()=>audioEnabled,setAudioEnabled:vi.fn((enabled:boolean)=>{audioEnabled=enabled;}),stopSpeech:vi.fn(),onOpen:vi.fn(),onClose:vi.fn(),onProgress:(next:Progress)=>{progress=next;},onInvestigate:vi.fn(),onComplete:vi.fn(),expose:vi.fn()};
+  for (const graph of questGraphs) for (const line of [...graph.nodes.flatMap(node => node.lines), ...(graph.topics ?? []).flatMap(topic => topic.lines)]) {
+    const word = line.german.match(/\p{L}+/u)?.[0];
+    if (!word) continue;
+    const range = { start: line.german.indexOf(word), end: line.german.indexOf(word) + word.length };
+    const source = { text: word, occurrence: 1 };
+    registerSentence({ id: line.id, text: line.german, target: 'de', translations: { en: { text: line.english, words: [{ source, targets: [], sourceRange: range, targetRanges: [] }] } }, words: [{ source, range, glosses: { en: 'authored support' } }] });
+  }
   controller = new QuestController(options);
   const click = (selector:string) => document.querySelector<HTMLButtonElement>(selector)!.click();
   return {api,options,controller,get progress(){return progress;},click};
@@ -241,38 +249,52 @@ describe('conversation scene lifecycle', () => {
     expect(f.api.storyTransition.mock.calls[0][0]).toEqual(f.api.storyTransition.mock.calls[1][0]);
   });
 
-  it('reveals Marta’s accepted repair request and fills it without submitting automatically', async () => {
+  it('requires one recorded graded attempt, then reveals server feedback and fills it without submitting automatically', async () => {
     const f = fixture('gate', 'a2-apartment');
     const exercise = quests.find(q => q.id === 'a2-apartment')!.exercises.find(ex => ex.id === 'a2-apartment-exercise-6')!;
     f.options.setAudioEnabled(false);
     await f.controller.open('a2-apartment'); until('#dialogue-answer');
     document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = 'Könnten Sie der Tür reparieren?';
     expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(true);
     f.click('[data-dialogue-action="show-answer"]');
-    expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Könnten Sie das bitte reparieren?');
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    f.api.request.mockResolvedValueOnce({ attemptId: 'graded-wrong', correct: false, progress: f.progress, correctedAnswer: exercise.answer, reason: 'Try again.' });
+    document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    await vi.waitFor(() => expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(false));
+    f.click('[data-dialogue-action="show-answer"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Könnten Sie das bitte reparieren?'));
+    expect(f.api.request.mock.calls[1]).toEqual(['/attempt', { recover: true, exerciseId: exercise.id }]);
     expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Könnten Sie der Tür reparieren?');
     expect(f.options.expose).toHaveBeenCalledWith(exercise.id);
     expect(f.options.speak).not.toHaveBeenCalled();
-    expect(f.api.request).not.toHaveBeenCalled();
+    expect(f.api.request).toHaveBeenCalledTimes(2);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
     f.click('[data-dialogue-action="use-answer"]');
     const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
     expect(input.value).toBe(exercise.answer);
     expect(answerMatches(exercise, input.value)).toBe(true);
     expect(document.activeElement).toBe(input);
-    expect(f.api.request).not.toHaveBeenCalled();
+    expect(f.api.request).toHaveBeenCalledTimes(2);
     document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
     await vi.waitFor(() => expect(f.api.storyTransition).toHaveBeenCalled());
-    expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', {answer:exercise.answer,hinted:true,sceneAttempt:true,questId:'a2-apartment'}]);
+    expect(f.api.request.mock.calls[2]).toMatchObject(['/attempt', {answer:exercise.answer,hinted:true,sceneAttempt:true,questId:'a2-apartment'}]);
     expect(f.api.storyTransition.mock.calls[0][0]).toMatchObject({nodeId:'gate',attemptId:'saved-reply'});
   });
 
-  it('keeps revealed help while replaying a line, hides it on request, and resets it for another conversation', async () => {
+  it('recovers recorded feedback after reopening and keeps separate eligibility for another exercise', async () => {
     const f = fixture('gate');
+    const exerciseId = questGraphs.find(graph => graph.questId === 'a1-arrival')!.gateExerciseId;
+    f.progress.exerciseStats[exerciseId] = { attempts: 1, correct: 0, unaidedSuccesses: 0, lastAttemptAt: '', lastCorrectAt: '' };
+    f.api.request.mockResolvedValueOnce({ attemptId: 'old-recorded', correct: false, progress: f.progress, correctedAnswer: 'Noch einmal, bitte.' });
     await f.controller.open('a1-arrival'); until('#dialogue-answer');
+    await vi.waitFor(() => expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(false));
+    expect(f.api.request).not.toHaveBeenCalled();
     f.click('[data-dialogue-action="show-answer"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Noch einmal, bitte.'));
+    expect(f.api.request.mock.calls[0]).toEqual(['/attempt', { recover: true, exerciseId }]);
     f.click('[data-dialogue-action="listen"]');
-    expect(document.querySelector('.dialogue-answer-help')).not.toBeNull();
+    expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Noch einmal, bitte.');
     f.click('[data-dialogue-action="show-answer"]');
     expect(document.querySelector('.dialogue-answer-help')).toBeNull();
     f.click('[data-dialogue-action="show-answer"]');
@@ -280,9 +302,10 @@ describe('conversation scene lifecycle', () => {
     f.progress.story!.nodes['a2-apartment'] = 'gate';
     await f.controller.open('a2-apartment'); until('#dialogue-answer');
     expect(document.querySelector('.dialogue-answer-help')).toBeNull();
-    expect(document.querySelector('[data-dialogue-action="show-answer"]')?.getAttribute('aria-expanded')).toBe('false');
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(true);
     f.click('[data-dialogue-action="show-answer"]');
-    expect(document.querySelector('.dialogue-answer-help p')?.textContent).toBe('Könnten Sie das bitte reparieren?');
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    expect(f.api.request).toHaveBeenCalledTimes(2);
   });
 
   it('stays quiet while audio is off, enables the current line and stops playback when disabled', async () => {
@@ -410,7 +433,7 @@ describe('conversation scene lifecycle', () => {
     const f=fixture('gate');await f.controller.open('a1-arrival');until('#dialogue-answer');
     document.querySelector<HTMLInputElement>('#dialogue-answer')!.value='Noch einmal, bitte.';
     f.click('.dialogue-word');
-    expect(document.querySelector('.dialogue-translation')?.textContent).toBe(questGraphs[0].nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
+    expect(document.querySelector('.dialogue-translation-body')?.textContent).toBe(questGraphs[0].nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
     expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Noch einmal, bitte.');
     expect(f.options.expose).toHaveBeenCalledTimes(1);
     expect(f.options.expose).toHaveBeenCalledWith('a1-arrival-exercise-7');
@@ -489,6 +512,68 @@ describe('optional conversation topics', () => {
     expect(document.querySelector('.dialogue-line')?.textContent).toBe(menuLine);
     expect(document.querySelectorAll('[data-dialogue-choice^="topic:"]')).toHaveLength(graph.topics!.length);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
+  });
+});
+
+describe('server content loading', () => {
+  it('loads a graph on approach and requests only the displayed and next line', async () => {
+    const f = fixture('intro');
+    const graph = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
+    const loadGraph = vi.fn(async () => graph);
+    const loadSentence = vi.fn(async (line: DialogueLine) => line);
+    Object.assign(f.options, { loadGraph, loadSentence });
+    expect(loadGraph).not.toHaveBeenCalled();
+    await f.controller.open(graph.questId);
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')).not.toBeNull());
+    expect(loadGraph).toHaveBeenCalledWith(graph.questId);
+    expect(loadSentence.mock.calls.map(([line]) => line.id)).toEqual(graph.nodes.find(node => node.stage === 'intro')!.lines.slice(0, 2).map(line => line.id));
+  });
+  it('does not display a late sentence response after the conversation closes', async () => {
+    const f = fixture('intro');
+    let resolve!: (line: DialogueLine) => void;
+    const loadSentence = vi.fn((_line: DialogueLine) => new Promise<DialogueLine>(done => { resolve = done; }));
+    Object.assign(f.options, { loadSentence });
+    await f.controller.open('a1-arrival');
+    expect(document.querySelector('.dialogue-line')).toBeNull();
+    f.controller.close();
+    resolve(loadSentence.mock.calls[0][0]);
+    await Promise.resolve(); await Promise.resolve();
+    expect(f.controller.isOpen).toBe(false);
+    expect(document.querySelector('.dialogue-line')).toBeNull();
+    expect(f.options.speak).not.toHaveBeenCalled();
+  });
+  it('does not use an embedded exercise answer when server feedback differs', async () => {
+    const f = fixture('gate');
+    const graph = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
+    const exercise = quests.find(quest => quest.id === graph.questId)!.exercises.find(exercise => exercise.id === graph.gateExerciseId)!;
+    Object.assign(f.options, { loadExercise: vi.fn(async () => ({ ...exercise, answer: 'EMBEDDED SECRET' })) });
+    f.api.request.mockResolvedValueOnce({ attemptId: 'recorded', correct: false, progress: f.progress, correctedAnswer: 'SERVER MODEL ANSWER', reason: 'Try again.' });
+    await f.controller.open(graph.questId);
+    for (let line = 0; line < graph.nodes.find(node => node.stage === 'gate')!.lines.length - 1; line++) press();
+    await vi.waitFor(() => expect(document.querySelector('#dialogue-answer')).not.toBeNull());
+    expect(f.api.request).not.toHaveBeenCalled();
+    expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(true);
+    document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = 'first attempt';
+    document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    await vi.waitFor(() => expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(false));
+    f.click('[data-dialogue-action="show-answer"]');
+    await vi.waitFor(() => expect(document.querySelector('[data-dialogue-action="use-answer"]')).not.toBeNull());
+    f.click('[data-dialogue-action="use-answer"]');
+    expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('SERVER MODEL ANSWER');
+    expect(document.body.textContent).not.toContain('EMBEDDED SECRET');
+  });
+  it('does not reveal a cached answer when persisting the explicit reveal fails', async () => {
+    const f = fixture('gate');
+    f.api.request.mockResolvedValueOnce({ attemptId: 'recorded', correct: false, progress: f.progress, correctedAnswer: 'SERVER MODEL ANSWER', reason: 'Try again.' }).mockRejectedValueOnce(new Error('Reveal receipt unavailable'));
+    await f.controller.open('a1-arrival'); until('#dialogue-answer');
+    document.querySelector<HTMLInputElement>('#dialogue-answer')!.value = 'first try';
+    document.querySelector('form')!.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    await vi.waitFor(() => expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="show-answer"]')!.disabled).toBe(false));
+    f.click('[data-dialogue-action="show-answer"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toBe('Reveal receipt unavailable'));
+    expect(document.querySelector('.dialogue-answer-help')).toBeNull();
+    expect(document.body.textContent).not.toContain('SERVER MODEL ANSWER');
+    expect(f.api.request.mock.calls[1]).toEqual(['/attempt', { recover: true, exerciseId: questGraphs[0].gateExerciseId }]);
   });
 });
 

@@ -58,6 +58,10 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 429, "too many attempts; try again in a minute")
 		return
 	}
+	if len(inputs) == 1 && inputs[0].Recover {
+		a.recoverAnswer(w, r, hash, inputs[0])
+		return
+	}
 	for _, input := range inputs {
 		if input.Preview {
 			continue
@@ -183,11 +187,11 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		}
 	}
 	if input.SceneAttempt {
-		rule, known := storyRule(input.QuestID)
+		rule, known := a.storyRule(input.QuestID)
 		gate := input.ExerciseID == rule.GateExerciseID && (input.Mode == "production" || guidedGate)
 		reply := contains(rule.ReplyExerciseIDs, input.ExerciseID) && input.Mode == "recognition"
 		if !known || (!gate && !reply) || input.ActivityID != "" {
-			return nil, &APIError{400, "the scene answer must match its authored German request"}
+			return nil, &APIError{400, "the scene answer must match its authored request"}
 		}
 	}
 	boardCorrect, boardHandled, boardErr := a.curriculum.activityBoardGrade(input)
@@ -210,6 +214,9 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
 			return nil, &AccessDeniedError{Access: status}
 		}
+		if a.content != nil && !a.exerciseVisible(exercise, account) {
+			return nil, &APIError{404, "exercise not found"}
+		}
 		if err := a.requireMiniGameVocabulary(input, exercise, &account.Progress); err != nil {
 			return nil, err
 		}
@@ -220,6 +227,9 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		return map[string]any{"attemptId": input.ID, "preview": true, "correct": correct}, nil
 	}
 	account, receipt, duplicate, err := a.mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
+		if a.content != nil && !a.exerciseVisible(exercise, *account) {
+			return Receipt{}, &APIError{404, "exercise not found"}
+		}
 		if input.SceneAttempt {
 			check := a.requireStoryGate
 			if input.Mode == "recognition" && !guidedGate {
@@ -245,6 +255,15 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 			correct = boardCorrect
 		}
 		gradedInput := input
+		if account.Progress.Story.Flags["answer-help:"+input.ExerciseID] {
+			revealed := account.Progress.AnswerHelpAt[input.ExerciseID]
+			if revealed.IsZero() || now.Before(revealed.Add(time.Hour)) {
+				gradedInput.Hinted = true
+			} else {
+				delete(account.Progress.Story.Flags, "answer-help:"+input.ExerciseID)
+				delete(account.Progress.AnswerHelpAt, input.ExerciseID)
+			}
+		}
 		if binding, authored := a.curriculum.MiniGameContent[exercise.ID]; authored && binding.ForceHinted {
 			gradedInput.Hinted = true
 		}
@@ -288,7 +307,7 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 	if duplicate {
 		added = 0
 	}
-	reason := exercise.Feedback(input.Answer)
+	reason := a.courseFeedback(exercise, input.Answer, account.Preferences.BaseLanguage)
 	if input.AnswerKind == "surface" {
 		reason = "Write the target word's form from this recording."
 		if receipt.Correct != nil && *receipt.Correct {

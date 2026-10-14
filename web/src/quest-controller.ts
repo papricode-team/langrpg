@@ -1,10 +1,8 @@
 import type { Api, AttemptResult, Progress, StoryResult } from './api';
-import { quests, npcs, type NPC, type Level } from './content';
-import { storyGlossary as glossary } from './story-glossary';
-import { conditionMet, dialogueChoices, dialogueLines, dialogueTopics, nodeForStage, personalized, storyState, type DialogueEffect, type DialogueNode, type DialogueLine, type QuestGraph } from './dialogue';
+import { quests, npcs, type NPC, type Level, type Exercise } from './content';
+import { conditionMet, dialogueChoices, dialogueLines, dialogueTopics, nodeForStage, personalized, storyState, type DialogueEffect, type DialogueNode, type DialogueLine, type DialogueChoice, type QuestGraph } from './dialogue';
 import { DialogueView } from './dialogue-view';
 import { questGraph } from './quest-graph';
-import { attemptFeedback } from './learning';
 import { localized, localizedExercise, t } from './i18n';
 import { residentConversation, earnedTitleGreeting } from './npc-dialogue';
 import { lanternRewards } from './lantern-rewards';
@@ -14,6 +12,9 @@ import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } 
 
 export interface QuestControllerOptions {
   api: Pick<Api, 'request' | 'storyTransition' | 'inspectStory'>;
+  loadGraph?(questId: string): Promise<QuestGraph | undefined>;
+  loadSentence?(line: DialogueLine): Promise<DialogueLine>;
+  loadExercise?(exerciseId: string): Promise<Exercise>;
   progress(): Progress;
   playerName(): string;
   portrait(id: string, expression?: string): string;
@@ -73,22 +74,31 @@ export class QuestController {
   private replyCorrection?: DialogueLine;
   private topic?: { id: string; lines: DialogueLine[]; returnTo: number };
   private ambient?: { npc: NPC; lines: ReturnType<typeof residentConversation> };
+  private loadedLines = new Map<string, DialogueLine>();
+  private loadedExercises = new Map<string, Exercise>();
+  private loading = new Map<string, Promise<unknown>>();
+  private exactAnswers = new Map<string, string>();
   constructor(private options: QuestControllerOptions) {
     this.view = new DialogueView({ action: action => void this.action(action), choice: id => void this.choose(id), answer: answer => void this.answer(answer), gloss: () => { this.translated = true; this.hint(); this.render(); } });
   }
   get isOpen(): boolean { return !this.view.host.hidden; }
+  /** The delegated sentence tooltip reports assistance without replacing its DOM. */
+  recordWordHelp(): void { this.hint(); }
   refreshAudio() { if (this.isOpen) this.render(); }
   async open(questId: string): Promise<void> {
-    const graph = questGraph(questId); if (!graph) return;
-    this.generation++; this.topic = undefined; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId); this.answerShown = false; this.replyCorrection = undefined;
+    const generation = ++this.generation;
+    this.view.close(); this.graph = undefined; this.node = undefined;
+    this.loadedLines.clear(); this.loadedExercises.clear(); this.loading.clear(); this.exactAnswers.clear();
+    const graph = this.options.loadGraph ? await this.options.loadGraph(questId) : questGraph(questId);
+    if (!graph || generation !== this.generation) return;
+    this.topic = undefined; this.graph = graph; this.replay = this.options.progress().completedQuestIds.includes(questId); this.answerShown = false; this.replyCorrection = undefined;
     // Keep an open conversation in the same format when learning evidence changes.
     this.beginner = this.options.beginnerMode?.() ?? needsBeginnerStorySupport(this.options.progress());
-    const generation = this.generation;
     this.ambient = undefined;
     this.hinted = this.beginner || (this.options.wasHinted?.(questId)??false); this.translated = false; this.grammarShown = false; this.error = ''; this.artifact = undefined; this.pending = undefined; this.busy = false; this.gateProof = undefined;
     const state = storyState(this.options.progress().story), stage = this.replay ? 'intro' : state.nodes[questId] ?? 'intro';
     this.node = nodeForStage(graph, stage); this.index = 0;
-    this.options.onOpen(quests.find(q => q.id === questId)!.npcId);
+    this.options.onOpen(quests.find(q => q.id === questId)?.npcId ?? '');
     const repliesDone = graph.nodes.flatMap(node => node.lines).every(line => !line.reply || state.flags[`reply:${line.reply.exerciseId}`]);
     if (!this.replay && stage === 'intro' && this.allInspected() && repliesDone) {
       await this.transition('intro');
@@ -98,10 +108,13 @@ export class QuestController {
     }
     this.startedAt = performance.now(); this.render(true);
   }
-  inspect(questId: string, objectId: string) {
-    const graph = questGraph(questId), artifact = graph?.investigations.find(item => item.objectId === objectId);
+  async inspect(questId: string, objectId: string): Promise<boolean> {
+    const generation = ++this.generation;
+    this.view.close();
+    const graph = this.options.loadGraph ? await this.options.loadGraph(questId) : questGraph(questId), artifact = graph?.investigations.find(item => item.objectId === objectId);
+    if (generation !== this.generation) return false;
     if (!graph || !artifact) return false;
-    this.generation++; this.topic = undefined; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
+    this.topic = undefined; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
     this.beginner = this.options.beginnerMode?.() ?? needsBeginnerStorySupport(this.options.progress());
     this.translated = false; this.hinted = false; this.busy = false; this.error = ''; this.pending = undefined;
     this.replay = (this.options.progress().story?.inspections?.[questId] ?? []).includes(objectId) || this.options.progress().completedQuestIds.includes(questId);
@@ -126,29 +139,88 @@ export class QuestController {
     this.translationLine = key;
     return this.translated;
   }
+  private load(key: string, run: () => Promise<unknown>, rerender = true, voice = false, rate?: number): void {
+    if (this.loading.has(key)) return;
+    const generation = this.generation;
+    const promise = run().catch(error => {
+      if (generation === this.generation && !(error instanceof DOMException && error.name === 'AbortError')) this.error = error instanceof Error ? error.message : t('The route could not save. Try again.');
+    }).finally(() => {
+      if (generation !== this.generation) return;
+      this.loading.delete(key);
+      if (rerender) this.render(voice, rate);
+    });
+    this.loading.set(key, promise);
+  }
+  private line(source: DialogueLine, voice = false, rate?: number): DialogueLine | undefined {
+    if (!this.options.loadSentence) return source;
+    const loaded = this.loadedLines.get(source.id);
+    if (loaded) return loaded;
+    if (this.error) return source;
+    const generation = this.generation;
+    this.load(`sentence:${source.id}`, async () => { const line = await this.options.loadSentence!(source); if (generation === this.generation) this.loadedLines.set(source.id, line); }, true, voice, rate);
+    return undefined;
+  }
+  private exercise(id: string): Exercise | undefined {
+    if (!this.options.loadExercise) return quests.flatMap(quest => quest.exercises).find(exercise => exercise.id === id);
+    const loaded = this.loadedExercises.get(id);
+    if (loaded) return loaded;
+    if (this.error) return undefined;
+    const generation = this.generation;
+    this.load(`exercise:${id}`, async () => { const exercise = await this.options.loadExercise!(id); if (generation === this.generation) this.loadedExercises.set(id, exercise); });
+    return undefined;
+  }
+  private async recoverAnswer(id: string): Promise<void> {
+    if (!this.exactAnswers.has(id) && !this.options.progress().exerciseStats[id]?.attempts) return;
+    const generation = this.generation;
+    const result = await this.options.api.request<AttemptResult>('/attempt', { recover: true, exerciseId: id });
+    if (generation !== this.generation) return;
+    this.options.onProgress(result.progress);
+    if (result.correctedAnswer) this.exactAnswers.set(id, result.correctedAnswer);
+  }
+  private hydrateChoices(rows: DialogueChoice[]): { choices: DialogueChoice[]; loading: boolean } {
+    let loading = false;
+    const choices = rows.map(choice => {
+      if (!this.options.loadSentence || !('sentenceId' in choice)) return choice;
+      const line = this.line({ ...choice, speaker: '', clipId: '' });
+      if (!line) { loading = true; return choice; }
+      return { ...choice, german: line.german, english: line.english };
+    });
+    return { choices, loading };
+  }
   private render(voice = false, rate?: number, focusGate = voice) {
     const powers = lanternRewards(this.options.progress());
     const audioEnabled = this.options.audioEnabled();
     if (this.ambient) {
-      const { npc, lines } = this.ambient, source = lines[this.index], line = this.options.prepareLine?.(source) ?? source, atEnd = this.index === lines.length - 1;
-      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??localizedGlosses(glossary),powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      const { npc, lines } = this.ambient, source = this.line(lines[this.index], voice, rate), atEnd = this.index === lines.length - 1;
+      if (!source) return;
+      const line = this.options.prepareLine?.(source) ?? source;
+      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
       if (voice) { this.options.onOpen(npc.id); if (audioEnabled) this.options.speak(line.german,npc.id,line.clipId,false,rate); }
       return;
     }
     const graph = this.graph; if (!graph) return;
-    const state = storyState(this.options.progress().story), lines = this.artifact ? [{ id: this.artifact.objectId, speaker: 'Evidence', german: this.artifact.german, english: this.artifact.english, clipId: `artifact-${graph.questId}-${this.artifact.objectId}` }] : this.topic ? this.topic.lines.filter(line => conditionMet(line.condition, state)) : dialogueLines(this.node!, state);
+    const state = storyState(this.options.progress().story), lines = this.artifact ? [{ ...this.artifact, id: this.artifact.objectId, speaker: 'Evidence', german: this.artifact.german, english: this.artifact.english, clipId: `artifact-${graph.questId}-${this.artifact.objectId}` }] : this.topic ? this.topic.lines.filter(line => conditionMet(line.condition, state)) : dialogueLines(this.node!, state);
     const source = lines[this.index]; if (!source) return;
-    const presented = this.replyCorrection ?? source;
+    const presented = this.line(this.replyCorrection ?? source, voice, rate);
+    if (!presented) return;
+    const next = lines[this.index + 1] ?? (this.node?.next ? this.graph?.nodes.find(node => node.id === this.node?.next)?.lines[0] : undefined);
+    if (next && this.options.loadSentence && !this.loadedLines.has(next.id)) {
+      const generation = this.generation;
+      this.load(`sentence:${next.id}`, async () => { const line = await this.options.loadSentence!(next); if (generation === this.generation) this.loadedLines.set(next.id, line); }, false);
+    }
     const line = this.options.prepareLine?.(presented) ?? presented;
     const atEnd = this.index === lines.length - 1;
-    const gateSource = !this.replay && this.node?.stage === 'gate' && atEnd ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId) : undefined;
+    const gateId = !this.replay && this.node?.stage === 'gate' && atEnd ? graph.gateExerciseId : undefined;
+    const gateSource = gateId ? this.exercise(gateId) : undefined;
     const gate = gateSource && localizedExercise(gateSource);
-    const reply = !this.replay && !this.artifact && source.reply && !state.flags[`reply:${source.reply.exerciseId}`] ? quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === source.reply!.exerciseId) : undefined;
+    const replyId = !this.replay && !this.artifact && source.reply && !state.flags[`reply:${source.reply.exerciseId}`] ? source.reply.exerciseId : undefined;
+    const reply = replyId ? this.exercise(replyId) : undefined;
     const guidedGate = gate && this.beginner && beginnerGateChoices(gate.id).length > 0;
     if (this.beginner && !this.replay) this.hinted = true;
     const topicMenu = !this.topic && !this.artifact && !guidedGate && !reply && atEnd && this.node?.stage === 'intro' ? this.topicChoices(graph, state) : [];
-    const choices = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
-    this.view.render({ audioEnabled, title: this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)!.title), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? localizedGlosses(glossary)), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact ? this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay ? t('Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
+    const choiceRows = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
+    const { choices, loading: choicesLoading } = this.hydrateChoices(choiceRows);
+    this.view.render({ audioEnabled, title: this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)?.title ?? ''), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy || !!(gateId && !gate) || !!(replyId && !reply) || choicesLoading, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, exactAnswer:this.exactAnswers.get(graph.gateExerciseId), answerAvailable:this.exactAnswers.has(graph.gateExerciseId) || !!this.options.progress().exerciseStats[graph.gateExerciseId]?.attempts, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact ? this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay ? t('Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); if (audioEnabled) this.options.speak(personalized(line.german, this.options.playerName()), line.speaker, line.clipId, line.german.includes('{name}'),rate); }
     if (gate && focusGate) { this.startedAt = performance.now(); if (!guidedGate) this.view.focusGate(); }
   }
@@ -158,7 +230,7 @@ export class QuestController {
     if (!topics.length) return [];
     const continueEnglish = !this.replay && !this.allInspected() ? t('Examine the evidence') : t('Continue');
     return [
-      ...topics.map(topic => ({ id: `topic:${topic.id}`, german: topic.german, english: topic.english, next: '', effects: [] })),
+      ...topics.map(topic => ({ ...topic, id: `topic:${topic.id}`, german: topic.german, english: topic.english, next: '', effects: [] })),
       { id: 'topic-continue', german: 'Weiter.', english: continueEnglish, next: '', effects: [], localized: true },
     ];
   }
@@ -182,21 +254,29 @@ export class QuestController {
     }
     if (!this.graph || this.busy) return;
     if ((action === 'show-answer' || action === 'use-answer') && this.node?.stage === 'gate' && !this.replay) {
-      const ex = quests.find(q => q.id === this.graph!.questId)!.exercises.find(ex => ex.id === this.graph!.gateExerciseId)!;
+      const ex = this.exercise(this.graph.gateExerciseId);
+      if (!ex || !this.exactAnswers.has(ex.id) && !this.options.progress().exerciseStats[ex.id]?.attempts) return;
       if (action === 'show-answer') {
+        if (!this.answerShown) {
+          this.busy = true; this.error = ''; this.render();
+          try { await this.recoverAnswer(ex.id); }
+          catch (error) { if (generation === this.generation) this.error = error instanceof Error ? error.message : t('The route could not save. Try again.'); }
+          finally { if (generation === this.generation) { this.busy = false; this.render(); } }
+          if (generation !== this.generation || this.error || !this.exactAnswers.has(ex.id)) return;
+        }
         this.answerShown = !this.answerShown;
         if (this.answerShown) this.hint();
         this.render();
         if (this.answerShown) this.view.revealGateAnswer();
       } else if (this.answerShown) {
-        this.view.fillGate(ex.answer);
+        this.hint(); this.view.fillGate(this.exactAnswers.get(ex.id)!);
       }
       return;
     }
     if (action === 'grammar' && this.node?.stage === 'gate') { const note = this.options.grammar?.(this.graph.questId) ?? grammarForQuest(this.graph.questId); this.grammarShown = !this.grammarShown; this.hint(); this.render(); if(note && this.grammarShown) this.options.speak(note.german,quests.find(q=>q.id===this.graph!.questId)!.npcId,note.clipId,false); return; }
     if (action === 'guide') { const note = grammarForQuest(this.graph.questId); if(note) this.options.onGrammarGuide?.(note.guideId); return; }
     if (action === 'translate') { this.translated = !this.translated; if (this.translated) this.hint(); this.render(); return; }
-    if (action === 'hint') { this.hint(); const ex = quests.find(q => q.id === this.graph!.questId)!.exercises.find(ex => ex.id === this.graph!.gateExerciseId)!; this.error = localizedExercise(ex).hint; this.render(); return; }
+    if (action === 'hint') { this.hint(); const ex = this.exercise(this.graph.gateExerciseId); if (!ex) return; this.error = localizedExercise(ex).hint; this.render(); return; }
     if (action === 'listen') { this.render(true); return; }
     if (action !== 'next') return;
     if (this.topic) {
@@ -231,17 +311,19 @@ export class QuestController {
   }
   private async command(key: string, send: () => Promise<StoryResult>) {
     const generation = this.generation; this.busy = true; this.error = ''; this.commandId(key); this.render();
-    try { const result = await send(); this.options.onProgress(result.progress); if (generation !== this.generation) return; this.pending = undefined; }
+    try { const result = await send(); if (generation !== this.generation) return; this.options.onProgress(result.progress); this.pending = undefined; }
     catch (error) { if (generation === this.generation) this.error = error instanceof Error ? error.message : t('The route could not save. Try again.'); }
     finally { if (generation === this.generation) { this.busy = false; this.render(); } }
   }
-  private async transition(nodeId: 'intro' | 'gate' | 'choice', extra?: { attemptId?: string; choiceId?: string }) {
+  private async transition(stage: 'intro' | 'gate' | 'choice', extra?: { attemptId?: string; choiceId?: string }) {
+    const nodeId = this.node?.stage === stage ? this.node.id : this.graph!.nodes.find(node => node.stage === stage)?.id ?? stage;
     const questId = this.graph!.questId, key = `${questId}:${nodeId}:${extra?.choiceId ?? extra?.attemptId ?? ''}`;
     await this.command(key, () => this.options.api.storyTransition({ id: this.commandId(key), questId, nodeId, ...extra }));
   }
   private async answer(answer: string, guidedChoice = false) {
     if (!this.graph || this.busy || !answer.trim() || this.node?.stage !== 'gate') return;
-    const graph = this.graph, ex = quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === graph.gateExerciseId)!, generation = this.generation;
+    const graph = this.graph, ex = this.exercise(graph.gateExerciseId), generation = this.generation;
+    if (!ex) return;
     if (this.beginner && beginnerGateChoices(ex.id).length > 0 && (!guidedChoice || !beginnerGateChoices(ex.id).some(choice => choice.id === answer))) return;
     if (this.gateProof) {
       await this.transition('gate', { attemptId: this.gateProof });
@@ -253,10 +335,11 @@ export class QuestController {
     this.busy = true; this.error = ''; this.render();
     try {
       const result = await this.options.api.request<AttemptResult>('/attempt', input);
-      this.options.onProgress(result.progress);
       if (generation !== this.generation) return;
+      this.options.onProgress(result.progress);
       this.pending = undefined;
-      if (!result.correct) { this.error = guidedChoice ? t('Try another reply. {meaning}', { meaning: localized({ german: ex.answer, english: ex.english }) }) : attemptFeedback(ex, answer, result.reason); return; }
+      if (result.correctedAnswer) this.exactAnswers.set(ex.id, result.correctedAnswer);
+      if (!result.correct) { this.error = guidedChoice ? t('Try another reply. {meaning}', { meaning: localized({ german: result.correctedAnswer ?? '', english: ex.english }) }) : result.reason || t('Try again.'); return; }
       this.gateProof = result.attemptId || input.id;
       this.busy = false;
       await this.transition('gate', { attemptId: this.gateProof });
@@ -290,15 +373,15 @@ export class QuestController {
     this.node = this.graph.nodes.find(node => node.id === choice.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
   }
   private async reply(answer: string, source: DialogueLine) {
-    const graph = this.graph!, exercise = quests.find(q => q.id === graph.questId)!.exercises.find(ex => ex.id === source.reply!.exerciseId)!;
-    if (!exercise.options?.includes(answer)) return;
+    const graph = this.graph!, exercise = this.exercise(source.reply!.exerciseId);
+    if (!exercise || !exercise.options?.includes(answer)) return;
     const generation = this.generation, key = `reply:${graph.questId}:${answer}:${this.hinted}`;
     const input = this.attemptInput(key, { itemId: exercise.itemId, exerciseId: exercise.id, answer, hinted: this.hinted || !!this.options.progress().story?.flags[`reply-help:${exercise.id}`], mode: 'recognition', questId: graph.questId, sceneAttempt: true });
     this.busy = true; this.error = ''; this.render();
     try {
       const result = await this.options.api.request<AttemptResult>('/attempt', input);
-      this.options.onProgress(result.progress);
       if (generation !== this.generation) return;
+      this.options.onProgress(result.progress);
       this.pending = undefined;
       if (result.correct) { this.replyCorrection = undefined; this.index++; this.translated = false; }
       else { this.hinted = true; this.replyCorrection = source.reply!.correction; }

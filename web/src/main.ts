@@ -2,8 +2,11 @@ import { castPortraitMarkup } from './cast-portrait';
 import { avatarPortraitMarkup, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement, placementCTAMarkup } from './placement-ui';
-import { createGlossLookup, glossesForLine, selectInputVariant, filterKnownGlosses } from './learning-context';
 import { QuestController } from './quest-controller';
+import { createGlossLookup } from './learning-context';
+import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadActivity, loadMiniGame, loadExpeditionEncounter, activeCourse } from './content-runtime';
+import { contentApi, configureContentSession, getSentence } from './content-api';
+import { mountCoursePlayer, mountCoursePicker } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
 import { storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
@@ -34,6 +37,7 @@ import './game-menu.css';
 import './expedition-games.css';
 import './sentence-translations.css';
 import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
+import { renderTranslatedSentence, findSentence } from './translated-sentence';
 import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions } from './expeditions';
 import { ExpeditionLearning, placementLearning } from './expedition-learning';
 import { mountExpeditionEncounter } from './expedition-encounter';
@@ -77,7 +81,6 @@ import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
-import minigameAudio from './minigames/audio-data.json';
 
 type View = 'world' | 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
 type CourseModule = typeof import('./course');
@@ -117,7 +120,12 @@ let pendingExpeditionGame: string | undefined;
 let mapConfirmed = false;
 let regionReady = false;
 const app = document.querySelector<HTMLDivElement>('#app')!;
-const removeSentenceTranslations = installSentenceTranslations(document);
+const removeSentenceTranslations = installSentenceTranslations(document, sentence => {
+  if (run) run.hinted = true;
+  if (sentence.closest('.dialogue-layer')) questController?.recordWordHelp();
+  const wordIds = getSentence(sentence.dataset.sentenceId ?? '')?.words.flatMap(word => word.lexemeId ? [word.lexemeId] : []) ?? [];
+  if (wordIds.length) recordExposure({ wordIds: [...new Set(wordIds)].slice(0, 36) });
+});
 function translationHelp() { return `<small class="translation-help">${t('Hover over a German sentence for one second to see its English translation. You can also focus it with Tab or tap it.')}</small>`; }
 const api = new Api();
 let stopUpdateChecks: (() => void) | undefined;
@@ -133,6 +141,7 @@ let pendingStoryBeat: CutsceneKind | undefined;
 let pendingTravelBeat = false;
 const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
+let entryTarget: 'de' | 'en' = sessionStorage.getItem('atlas.entryTarget') === 'en' ? 'en' : 'de';
 let shellLanguage: BaseLanguage = 'en';
 let entryLanguage: BaseLanguage | undefined;
 let entryLanguageSelection: BaseLanguage | undefined;
@@ -229,9 +238,19 @@ let run: { quest?: Quest; unitId?: string; queue: Exercise[]; index: number; cor
 let attemptBusy = false;
 function cancelRun() { exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;run?.reviewAttempt?.cancel(); run = undefined; }
 let progressOwner: string | undefined;
+let bootstrapRefresh: Promise<void> | undefined;
+function entitlementKey(value: Progress): string {
+  return JSON.stringify([value.completedQuestIds, value.completedUnitIds, value.intake?.wordIds, value.story?.inspections, value.story?.choices, value.story?.inventory, value.story?.ending]);
+}
 function acceptProgress(value: Progress, owner?: string) {
+  const previousEntitlements = entitlementKey(progress);
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
-  if (progressStore.replace(value, owner ?? progressOwner)) progress = progressStore.get();
+  if (progressStore.replace(value, owner ?? progressOwner)) {
+    progress = progressStore.get();
+    if (started && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
+      bootstrapRefresh ??= refreshBootstrap().then(async () => { await loadRestoredWords(progress); updateProgress(); if (view !== 'world') renderOther(); }).catch(error => toast(error.message, true)).finally(() => { bootstrapRefresh = undefined; });
+    }
+  }
 }
 const exposedContexts = new Set<string>();
 const pendingWordExposures = new Set<string>();
@@ -345,14 +364,13 @@ function renderShell() {
       const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
       speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
     }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
-    glosses: text => course ? glossesForLine(text, createGlossLookup(course.courseLexicon, progress)) : undefined,
-    prepareLine: line => { const lookup = course ? createGlossLookup(course.courseLexicon,progress) : () => undefined; const selected = selectInputVariant([line,...(line.variants ?? []).map(variant=>({...line,...variant}))],lookup,.95,introducedSet()); return {...selected.variant,glosses:{...selected.glosses,...filterKnownGlosses(line.glosses ?? {},lookup)}}; },
+    loadGraph: loadQuestGraph, loadSentence: loadDialogueSentence, loadExercise,
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
     onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic()); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
-    onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(next.objectId); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
+    onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
     onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
@@ -480,7 +498,8 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
     return [exercise.mode === 'sentence' && hasSuccessfulEncounter(exercise.itemId) ? { ...exercise, mode: 'type' as const, prompt: t('Write in German: {english}', { english: localizedExercise(exercise).english }) } : exercise];
   }));
 }
-function showInteriorObject(id: string) {
+async function showInteriorObject(id: string) {
+  if (interiorId) { try { await loadInterior(interiorId); } catch (error) { toast((error as Error).message, true); return; } }
   if (interiorId === 'inn') {
     if (id === 'interior:inn:review') { void startAdaptiveReview(); return; }
     if (id === 'interior:inn:evidence') { setView('story'); return; }
@@ -493,7 +512,7 @@ function showInteriorObject(id: string) {
   if (npc) recordExposure({npcId:npc.id});
   const game = object.activityId ? activityInfo.find(item => item.id === object.activityId) : undefined;
   const gameCopy = interiorGameCopy(room.id);
-  const words = object.vocabulary.map(word => `<article class="interior-word"><div><span class="interior-word-article">${e(word.article)}</span><strong>${e(word.lemma)}</strong><button class="icon-button" data-speak="${e(`${word.article} ${word.lemma}`)}" aria-label="${e(t('Hear {word}', { word: word.lemma }))}">${icon('volume')}</button></div><p>${e(word.english)}</p><small><span>${t('PLURAL')}</span> ${e(word.plural)}</small></article>`).join('');
+  const words = object.vocabulary.map(word => { const sentenceId = (word as typeof word & { sentenceId?: string }).sentenceId; const sentence = sentenceId ? getSentence(sentenceId) : undefined; return `<article class="interior-word"><div><span class="interior-word-article">${e(word.article)}</span><strong>${sentence ? renderTranslatedSentence(sentence, '', true) : e(word.lemma)}</strong><button class="icon-button" data-speak="${e(`${word.article} ${word.lemma}`)}" aria-label="${e(t('Hear {word}', { word: word.lemma }))}">${icon('volume')}</button></div>${sentence ? '' : `<p>${e(word.english)}</p>`}<small><span>${t('PLURAL')}</span> ${e(word.plural)}</small></article>`; }).join('');
   openDialog(`<div class="interior-encounter"><header class="interior-encounter-heading">${npc ? portrait(npc.id, 'large-portrait') : `<span class="interior-object-emblem">${icon(interiorIcon(room.id))}</span>`}<div><div class="eyebrow">${e(room.name.toUpperCase())} · ${npc ? t('A FRIENDLY FACE') : t('LOOK A LITTLE CLOSER')}</div><h2>${e(object.label)}</h2></div></header>${miniGameHostLinks(id==='interior:inn:evidence'?'re-ink':id==='interior:inn:review'?'word-chain':id==='interior:cafe:coffee'?'tray-rush':id==='interior:cafe:tea'?'kettle-forecast':id==='interior:supermarket:scales'?'numbered-apples':undefined)}<p class="interior-description">${e(object.description)}</p>${object.dialogue ? `<blockquote class="interior-dialogue"><span>“${e(object.dialogue)}”</span><button class="icon-button" data-speak="${e(object.dialogue)}" aria-label="${e(t('Hear this German greeting'))}">${icon('volume')}</button></blockquote>` : ''}<div class="interior-word-heading"><span>${icon('book')} ${t('Words you can use here')}</span><small>${t('ARTICLE · WORD · PLURAL')}</small></div><div class="interior-words">${words}</div><section class="interior-practice-card"><span>${icon('chat')}</span><div><small>${t('A FOCUSED LEARNING SESSION')}</small><h3>${e(object.sessionTitle)}</h3><p>${e(object.prompt)}</p><span>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })} · ${t('Answers saved as you go')}</span></div>${queue.length ? `<button class="primary-button" data-practice-interior="${e(id)}">${t('Practise here')} ${icon('arrow')}</button>` : ''}</section>${game ? `<section class="interior-game-card"><small>${t('PLAY A LITTLE · A1 EVERYDAY GERMAN')}</small><h3>${e(gameCopy.title)}</h3><p>${e(gameCopy.description)}</p><button class="outline-button interior-activity" data-interior-activity="${e(id)}">${icon(game.icon)} ${e(gameCopy.action)} ${icon('arrow')}</button></section>` : ''}<button class="text-button interior-back" data-action="close-dialog">${e(t('Keep exploring {place}', { place: room.name }))} ${icon('arrow')}</button></div>`, 'interior-dialog', npc?.id);
 }
 function startInteriorPractice(id: string) {
@@ -512,7 +531,9 @@ function placesSection() {
   return `<section class="interior-places"><header><div><span class="eyebrow">${t('STEP INSIDE')}</span><h3>${t('Everyday places. Useful German.')}</h3><p>${t('Walk to a doorway, enter, and stay for a short learning session.')}</p></div>${icon('compass')}</header><div class="interior-place-list">${entrances.map(entrance => { const room = getInterior(entrance.interiorId); return `<button data-focus-building="${room.id}"><span class="interior-place-icon">${icon(interiorIcon(room.id))}</span><span><strong>${e(room.name)}</strong><small>${e(room.subtitle)}</small></span>${icon('arrow')}</button>`; }).join('')}</div></section>`;
 }
 function nextInvestigation(graph: QuestGraph) { return graph.investigations.find(item => !(progress.story?.inspections?.[graph.questId] ?? []).includes(item.objectId)); }
+function investigationWorldId(item: QuestGraph['investigations'][number]): string { return (item as typeof item & { worldId?: string }).worldId ?? item.objectId; }
 function updateProgress() {
+  if (!quests.length || !started || activeCourse?.target !== 'de') return;
   const savedStory = storyState(progress.story);
   const rewards = lanternRewards(progress);
   document.querySelector<HTMLElement>('#game-shell')!.dataset.crest = rewards.crest;
@@ -546,11 +567,11 @@ function updateProgress() {
   document.querySelector('#hud-level')!.textContent = `${level} · ${upper(titleLabel(rewards.title))}`;
   const finished = done === total && progress.completedQuestIds.includes(q.id);
   const graph = questGraph(q.id);
-  if (graph && !investigationQuest && (savedStory.inspections[q.id]??[]).length && (savedStory.nodes[q.id]??'intro')==='intro') investigationQuest=q.id;
+  if (graph && !investigationQuest && (savedStory.inspections[q.id]??[]).length && (savedStory.nodes[q.id]??graph.start)===graph.nodes.find(node => node.stage === 'intro')?.id) investigationQuest=q.id;
   const investigation = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
-  world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigation.objectId}` : q.npcId);
+  world.setObjective(finished || interiorId || q.level !== level ? undefined : investigation ? `object:${investigationWorldId(investigation)}` : q.npcId);
   const nextAct = storyActs[storyActs.findIndex(item => item.mapId === mapId) + 1];
-  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}<span class="quest-spark" aria-hidden="true"></span></span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigation.objectId)?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong></span>${icon('chevron')}</button>`;
+  document.querySelector('#quest-panel')!.innerHTML = interiorId ? `<div class="interior-session-hint"><span>${icon('book')}</span><div><small>${t('A LITTLE GERMAN, IN CONTEXT')}</small><strong>${t('Talk, notice, practise.')}</strong><p>${t('Walk to people and glowing objects.')}</p></div></div>` : `<button class="tracker-heading" data-action="next-objective" aria-label="${e(finished ? t('View the next chapter') : t('Next objective: speak with {name}', { name: localizedName(npc.name) }))}"><span class="quest-diamond">${icon(finished ? 'map' : 'flag')}<span class="quest-spark" aria-hidden="true"></span></span><span><small>${e(upper(t('Act {number}', { number: act.number })))} <b>·</b> ${finished ? t('ROUTE RESTORED') : investigation ? e(t('READ {thing}', { thing: findObject(investigationWorldId(investigation))?.label.toUpperCase() ?? upper(t('the evidence')) })) : e(t('FIND {name}', { name: upper(localizedName(npc.name)) }))}</small><strong>${finished ? nextAct ? e(t('The road to {place}', { place: getMap(nextAct.mapId).name })) : t('The Atlas remembers') : e(localized(q.title))}</strong></span>${icon('chevron')}</button>`;
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') renderOther();
 }
@@ -606,6 +627,7 @@ function setView(next: View) {
     menuNavigator?.focusTab();
     const content = document.querySelector<HTMLElement>('#other-view')!;
     renderOther(); content.scrollTop = 0;
+    if (['story', 'menu', 'quests'].includes(next) && previous !== next) void loadStoryPage();
     // Pages slide in from the side they were flipped towards; a fresh menu rises into place.
     const order = (item: MenuView) => menuSections.flatMap(section => section.views).indexOf(item);
     content.dataset.enter = previous === 'world' ? 'rise' : order(next) < order(previous) ? 'left' : 'right';
@@ -655,6 +677,7 @@ async function playPendingCinematic(): Promise<void> {
   document.querySelector('#game-shell')!.classList.add('cinematic-open');
   syncWorldMode(); stopSpeech();
   try {
+    await loadCinematic(kind, mapId, progress.story?.ending);
     if (kind !== 'travel') {
       try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
       catch { /* The world beat can still play while its saved marker reconnects. */ }
@@ -667,15 +690,24 @@ async function playPendingCinematic(): Promise<void> {
     document.querySelector<HTMLElement>('#world-container')!.focus();
   }
 }
+const loadedRegions = new Set<string>();
+const loadingRegions = new Set<string>();
 function onRegionReady(id: MapId) {
   if (!started || !mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
+  if (!loadedRegions.has(id)) {
+    if (!loadingRegions.has(id)) {
+      loadingRegions.add(id);
+      void loadRegionContent(id).then(() => { loadedRegions.add(id); updateProgress(); onRegionReady(id); }).catch(error => toast(error.message, true)).finally(() => loadingRegions.delete(id));
+    }
+    return;
+  }
   if (cinematicActive) return;
   if (!worldCanInteract()) return;
   if (pendingStoryBeat || pendingTravelBeat || id === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival')) { void playPendingCinematic().then(() => { if (id === mapId) onRegionReady(id); }); return; }
   if (!readSeen('acts').includes(id)) { rememberSeen('acts', id); const q = currentQuest(); if (!getExpedition(id)) { world.focusNpc(q.npcId); toast(t('Find {name} to begin Act {act}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name), act: actFor(id).number })); } else showActIntro(id); return; }
   continueDestination();
 }
-function showActIntro(id: MapId) {
+async function showActIntro(id: MapId) {
   const expedition = getExpedition(id);
   if (expedition) {
     const map = getMap(id), game = getExpeditionGame(id)!;
@@ -683,7 +715,7 @@ function showActIntro(id: MapId) {
     openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>${t('EXPEDITION')} · A1 / A2 / B1</span></div><div class="act-copy"><div class="eyebrow">${e(expedition.feeling)}</div><h2>${e(expedition.name)}</h2><p>${e(expedition.description)}</p><p>${e(expedition.culture)}</p><div class="story-objective">${icon('flag')}<span>${e(game.summary)}</span></div><p class="expedition-save-note">${t('Meet eight local neighbors and ten discoveries. Choose a language scaffold when you play. Expedition agreements are saved with your adventure.')}</p><button class="primary-button" data-action="act-begin">${e(t('Explore {place}', { place: expedition.name }))} ${icon('arrow')}</button></div></div>`, 'act-dialog');
     return;
   }
-  const act = actFor(id), map = getMap(id);
+  const act = await hydrateNarratives(actFor(id)), map = getMap(id);
   rememberSeen('acts', id);
   openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>${e(upper(t('Act {number}', { number: act.number })))} · ${act.level}</span></div><div class="act-copy"><div class="eyebrow">${e(map.name.toUpperCase())}</div><h2>${e(localized(act.title))}</h2>${translationHelp()}${act.introduction.map(p => `<p>${renderNarrative(p)}</p>`).join('')}<div class="story-objective">${icon('flag')}<span>${renderNarrative(act.goal)}</span></div><button class="primary-button" data-action="act-begin">${e(t('Step into {place}', { place: map.name }))} ${icon('arrow')}</button></div></div>`, 'act-dialog');
 }
@@ -693,8 +725,9 @@ function consequenceNote(effects: readonly { faction?: string }[] = []): string 
   return note ? ` · ${note}` : '';
 }
 /** Until her name is revealed in the parcel scene, the notes are signed only "E.". */
-const unsignedQuests = quests.slice(0, quests.findIndex(quest => quest.id === 'a1-lost-parcel')).map(quest => quest.id);
+
 function eliseLetter(letter: Narrative, questId: string): string {
+  const unsignedQuests = quests.slice(0, quests.findIndex(quest => quest.id === 'a1-lost-parcel')).map(quest => quest.id);
   return letter.length ? `<blockquote class="elise-letter"><span>${t('A note from {name}', { name: unsignedQuests.includes(questId) ? 'E.' : 'Elise' })}</span>${renderNarrative(letter)}<small class="elise-signature">— ${unsignedQuests.includes(questId) ? 'E.' : 'Elise'}</small></blockquote>` : '';
 }
 function continueDestination() {
@@ -735,7 +768,7 @@ function showNextObjective() {
     openDialog(`<div class="completion"><div class="completion-mark">${icon('map')}</div><div class="eyebrow">${e(upper(t('Act {number}', { number: act.number })))} · ${t('A ROUTE REMEMBERED')}</div><h2>${nextAct ? e(t('Beyond {place}', { place: getMap(mapId).name })) : t('Three towns. One new promise.')}</h2><p>${renderNarrative(act.cliffhanger)}</p>${nextAct ? `<button class="primary-button" data-travel="${nextAct.mapId}">${e(t('Travel to {place}', { place: getMap(nextAct.mapId).name }))} ${icon('arrow')}</button>` : `<button class="primary-button" data-view="story">${t('Read your discoveries')}</button>`}<button class="text-button" data-action="close-dialog">${t('Keep exploring here')}</button></div>`); return;
   }
   const graph = questGraph(q.id), target = investigationQuest === q.id && graph ? nextInvestigation(graph) : undefined;
-  if (target) { world.focusObject(target.objectId); toast(t('Read {thing}, then return to the witness.', { thing: findObject(target.objectId)?.label ?? t('the evidence') })); return; }
+  if (target) { world.focusObject(investigationWorldId(target)); toast(t('Read {thing}, then return to the witness.', { thing: findObject(investigationWorldId(target))?.label ?? t('the evidence') })); return; }
   const npc = npcs.find(item => item.id === q.npcId)!;
   const chapterQuests = quests.filter(item => item.level === level);
   const previous = chapterQuests.slice(0, chapterQuests.findIndex(item => item.id === q.id)).reverse().find(item => progress.completedQuestIds.includes(item.id));
@@ -748,13 +781,12 @@ function activityForObject(object: WorldObjectSpec): ActivityId {
   if (object.kind === 'parcel' || object.id.includes('timetable') || object.id.includes('route-sign') || object.kind === 'lantern' || object.id.includes('chart')) return 'delivery';
   return 'detective';
 }
-const questLevels = new Map<string, Level>(quests.map(quest => [quest.id, quest.level]));
-const storyExerciseLevels = new Map<string, Level>(quests.flatMap(quest => quest.exercises.map(ex => [ex.id, quest.level] as const)));
 /** Letters shown under a typed answer; they fade with unaided recalls and vanish once the learner has moved past the sentence's level. */
 function typedScaffold(ex: Exercise & { level?: Level; targetWordId?: string }): string {
-  const level = ex.level ?? storyExerciseLevels.get(ex.id) ?? 'A1';
+  const level = ex.level ?? quests.find(quest => quest.exercises.some(exercise => exercise.id === ex.id))?.level ?? 'A1';
+  const questLevels = new Map<string, Level>(quests.map(quest => [quest.id, quest.level]));
   const recalls = Math.max(progress.items[ex.itemId]?.modeStats.production?.unaidedSuccesses ?? 0, ex.targetWordId ? progress.words[ex.targetWordId]?.evidence?.production?.unaidedSuccesses ?? 0 : 0);
-  return scaffoldText(ex.answer, scaffoldStage(level, learnerLevel(progress.completedQuestIds, questLevels), recalls));
+  return ex.answer ? scaffoldText(ex.answer, scaffoldStage(level, learnerLevel(progress.completedQuestIds, questLevels), recalls)) : '';
 }
 function hasSuccessfulEncounter(itemId: string): boolean { return Object.values(progress.items[itemId]?.modeStats ?? {}).some(stats => stats.correct > 0); }
 function availableObjectExercises(object: WorldObjectSpec): Exercise[] {
@@ -769,6 +801,11 @@ const expeditionLearning = new ExpeditionLearning({api,progress:()=>progress,onP
 async function showExpeditionEncounter(targetId:string) {
   const region=expeditionRegions.find(region=>!!getExpeditionEncounter(region.id,targetId));if(!region)return;
   const encounter=getExpeditionEncounter(region.id,targetId)!,npc=getExpeditionNpc(targetId),object=region.objects.find(object=>object.id===targetId);
+  try {
+    const served = await loadExpeditionEncounter(encounter.id);
+    if (!served) throw new Error('This encounter is unavailable.');
+    Object.assign(encounter, served); if (npc) npc.encounterId = encounter.id; if (object) object.encounterId = encounter.id;
+  } catch (error) { toast((error as Error).message, true); return; }
   if(object)rememberSeen('objects',object.id);
   activityController?.destroy();activityController=undefined;
   openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><div class="eyebrow">${e(region.name)} · ${encounter.difficulty}</div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
@@ -789,7 +826,8 @@ function expeditionOverview() {
   const solved = region.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length;
   return `<section class="expedition-overview"><div class="eyebrow">${e(region.feeling)}</div><h2>${e(region.name)}</h2><p>${e(region.description)}</p><p>${e(region.culture)}</p><div class="expedition-stat-row"><span>${t('{count} local neighbors', { count: region.npcs.length })}</span><span>${t('{count} discoveries', { count: region.objects.length })}</span><span>${t('{solved} / {total} connections made', { solved, total: region.encounters.length })}</span></div><section class="interior-practice-card"><span>${icon('compass')}</span><div><small>${status === 'completed' ? t('AN AGREEMENT REMEMBERED') : t('PLAY THIS NEIGHBORHOOD')}</small><h3>${e(game.title)}</h3><p>${e(game.summary)}</p><span>${t('A1 / A2 / B1 scaffold · saved with your adventure')}</span></div><button class="primary-button" data-expedition-game="${region.id}">${status === 'started' ? t('Resume the plan') : status === 'completed' ? t('Revisit the agreement') : t('Build the plan')} ${icon('arrow')}</button></section><p>${icon('book')} ${e(region.languageFocus)}</p><div class="expedition-cast">${region.npcs.map(npc => `<button data-expedition-target="${npc.id}">${portrait(npc.id)}<span><strong>${e(npc.name)}</strong><small>${e(npc.role)}</small><small>${e(npc.relationship)}</small></span></button>`).join('')}</div><div class="expedition-game-actions"><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')} ${icon('arrow')}</button></div></section>`;
 }
-function startExpeditionGame(id: string, requestedLevel?: Level) {
+async function startExpeditionGame(id: string, requestedLevel?: Level) {
+  try { await loadContexts('expeditionGame', id); } catch (error) { toast((error as Error).message, true); return; }
   const game = getExpeditionGame(id);
   if (!game) return;
   if (!routeUnlocked(game.id, progress.completedQuestIds)) { toast(routeLockReason(game.id, progress.completedQuestIds)); return; }
@@ -801,15 +839,17 @@ function startExpeditionGame(id: string, requestedLevel?: Level) {
   activityController = mountExpeditionGame(document.querySelector<HTMLElement>('#expedition-game-root')!, game, { level, speak, onExposure: context => recordExpeditionExposure(context.text), onPlacement: context => expeditionLearning.place(context), placementPrompt:(value,fieldId)=>placementLearning.get(`${game.id}:${value}:${fieldId}`)?.prompt??'', placementReady:(value,fieldId)=>{const mapping=placementLearning.get(`${game.id}:${value}:${fieldId}`);return !!mapping&&expeditionLearning.ready(mapping.exerciseId);},pendingLearning:()=>expeditionLearning.pendingPlacements(),retryLearning:()=>expeditionLearning.retryPlacements(), initialPlan: value => progress.story?.expeditionPlans?.[`${game.id}:${value}`], submitPlan: plan => expeditionLearning.submitPlan({mapId:game.id,level:plan.level,values:plan.values,order:plan.order}), onLevelChange: value => { level = value; localStorage.setItem('atlas.level', value); updateProgress(); }, onComplete: () => { updateProgress(); playCue(true); toast(t('An agreement remembered in your expedition notebook.')); } });
   document.querySelector<HTMLDialogElement>('#dialog')!.scrollTop = 0;
 }
-function showObject(id: string) {
+async function showObject(id: string) {
   if(deliveryController)return;
-  const active = currentQuest(), graph = questGraph(active.id);
-  if (graph?.investigations.some(item => item.objectId === id) && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (questController?.inspect(active.id, id)) return; }
+  const active = currentQuest();
+  const graph = questGraph(active.id) ?? await loadQuestGraph(active.id).catch(() => undefined);
+  const investigation = graph?.investigations.find(item => investigationWorldId(item) === id);
+  if (investigation && questAvailable(active.id, progress) && !progress.completedQuestIds.includes(active.id)) { investigationQuest = active.id; if (await questController?.inspect(active.id, investigation.objectId)) return; }
   if (expeditionRegions.some(region => getExpeditionEncounter(region.id, id))) { showExpeditionEncounter(id); return; }
   const object = findObject(id); if (!object) return;
   rememberSeen('objects', id);
   const objectMap = maps.find(map => map.objects.some(item => item.id === id))!;
-  const lore = objectStories[id], queue = objectMap.id === mapId ? availableObjectExercises(object) : [];
+  const lore = objectStories[id] ? await hydrateNarratives(objectStories[id]) : undefined, queue = objectMap.id === mapId ? availableObjectExercises(object) : [];
   const game = activityInfo.find(game => game.id === activityForObject(object))!;
   const miniGames = miniGameHostLinks(object.minigame);
   openDialog(`<div class="object-encounter"><div class="object-crest">${icon(object.kind === 'clock' ? 'clock' : object.kind === 'garden' ? 'leaf' : object.kind === 'noticeboard' ? 'scroll' : 'lantern')}</div><div class="eyebrow">${t('A LITTLE THING THAT REMEMBERS')}</div><h2>${e(object.label)}</h2>${translationHelp()}<p>${lore ? renderNarrative(lore.detail) : e(object.description)}</p><blockquote>${id === 'nebelstadt-observatory' && !progress.completedQuestIds.includes('b1-atlas') ? renderNarrative(journalNarratives.observatoryWaiting) : lore ? renderNarrative(lore.secret) : e(localized(object.prompt))}</blockquote>${objectMap.id === mapId ? `${miniGames}<div class="object-games"><span class="eyebrow">${t('OPTIONAL SIDE ACTIVITY')}</span><button class="outline-button" data-activity="${game.id}">${icon(game.icon)} ${e(game.action)} ${icon('arrow')}</button></div>` : ''}<div class="object-language"><span>${icon('book')} ${e(localized(object.prompt))}</span>${objectMap.id !== mapId ? `<button class="primary-button" data-travel="${objectMap.id}">${e(t('Travel to {place}', { place: objectMap.name }))} ${icon('arrow')}</button>` : queue.length ? `<button class="text-button" data-practice-object="${id}">${t('Try a short language encounter')} <small>${queue.length === 1 ? t('{count} expression', { count: queue.length }) : t('{count} expressions', { count: queue.length })}</small> ${icon('arrow')}</button>` : `<p class="resting-note">${t('Lore is always here. Familiar expressions rest until their next encounter.')}</p>`}</div><button class="text-button" data-action="close-dialog">${t('Back to exploring')} ${icon('arrow')}</button></div>`, 'object-dialog');
@@ -825,12 +865,14 @@ function startObjectPractice(id: string) {
 }
 async function loadCourse(): Promise<CourseModule> {
   if (course) return course;
-  coursePromise ??= import('./course').then(module => {
+  coursePromise ??= import('./course').then(async module => {
+    await loadRestoredWords(progress);
+    await loadContexts('grammar', undefined, courseLevel);
     course = module;
     world.setLearningContext(module.courseLexicon,progress,introducedSet(),barkLineAllowed);
-    for (const word of module.courseLexicon) if (!audioPaths.has(spokenWord(word))) audioPaths.set(spokenWord(word), `/audio/word-${word.id}.mp3`);
-    for (const ex of module.courseExercises) if (!audioPaths.has(ex.german)) audioPaths.set(ex.german, `/audio/${ex.id}.mp3`);
-    for (const guide of module.courseGrammar) guide.examples.forEach((example, index) => { if (!audioPaths.has(example.german)) audioPaths.set(example.german, `/audio/guide-${guide.id}-${index + 1}.mp3`); });
+    for (const word of module.courseLexicon) { const audio = audioReference((word as typeof word & { audio?: unknown }).audio); if (audio && !audioPaths.has(spokenWord(word))) audioPaths.set(spokenWord(word), audio); }
+    for (const ex of module.courseExercises) { const audio = audioReference((ex as typeof ex & { audio?: unknown }).audio); if (audio && !audioPaths.has(ex.german)) audioPaths.set(ex.german, audio); }
+    for (const guide of module.courseGrammar) guide.examples.forEach(example => { const audio = audioReference((example as typeof example & { audio?: unknown }).audio); if (!audioPaths.has(example.german) && audio) audioPaths.set(example.german, audio); });
     return module;
   }).catch(error => { coursePromise = undefined; throw error; });
   return coursePromise;
@@ -842,6 +884,14 @@ async function showCourseSources() {
   openDialog(`<div class="exercise-content"><div class="eyebrow">${e(t('LEARNING CONTENT & CREDITS'))}</div><h2>${t('German with a traceable source.')}</h2><p>${t('The vocabulary is placed against A1–B1 reference lists. Grammar explanations, story dialogue, mini-game situations and practice passages were written for this game. Completing the course is practice evidence; proficiency also depends on using German in unfamiliar situations.')}</p><p>${t('Audio uses a German synthetic voice. Speaking exercises are not included.')}</p>${module.courseSources.map(source => `<article class="grammar-route"><h3><a href="${e(source.url)}" target="_blank" rel="noopener noreferrer">${e(source.title)}</a></h3><p>${e(source.description)}</p><small><a href="${e(source.licenseUrl)}" target="_blank" rel="noopener noreferrer">${e(source.license)}</a></small></article>`).join('')}<button class="primary-button" data-action="close-dialog">${t('Back to exploring')}</button></div>`, 'credits-dialog');
 }
 function spokenWord(word: { lemma: string; article?: string; articleForm?: string }) { return word.article ? `${word.article} ${word.articleForm ?? word.lemma}` : word.lemma; }
+function audioReference(value: unknown): string | undefined {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object' && 'path' in value && typeof value.path === 'string') return value.path;
+}
+async function loadWordDrills(ids: readonly string[], limit = 12): Promise<void> {
+  const exerciseIds = (['recognition', 'listening', 'production'] as const).flatMap(mode => ids.map(id => runtimeReference('exercise', id, mode))).filter(Boolean).slice(0, limit);
+  for (const id of exerciseIds) await loadExercise(id);
+}
 function requestCourseRender(el: Element) {
   el.innerHTML = `<div class="route-loading">${icon('book')}<h2>${t('Opening your learning routes…')}</h2><p>${t('The world stays light while your course is closed.')}</p></div>`;
   void loadCourse().then(() => { if (el.isConnected && (view === 'course' || view === 'journal')) renderOther(); }).catch(() => { if (el.isConnected) el.innerHTML = `<div class="route-loading"><h2>${t('The route could not open.')}</h2><button class="primary-button" data-action="course-retry">${t('Try again')}</button></div>`; });
@@ -873,6 +923,7 @@ function recordExpeditionExposure(text:string):void {
   }).catch(()=>{});
 }
 async function startMiniGame(id:string):Promise<void>{
+  try { await loadMiniGame(id); } catch (error) { toast((error as Error).message, true); return; }
   const definition=miniGameById.get(id);if(!definition)return;
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   if(id==='neighborhood-boards'){
@@ -920,6 +971,7 @@ async function startWorldDelivery():Promise<void>{
   deliveryController=controller;deliveryHost=host;syncWorldMode();
 }
 async function startActivity(id: ActivityId, source?: {roomId:InteriorId; stationId:string}) {
+  try { await loadActivity(id, source ? 'A1' : level); } catch (error) { toast((error as Error).message, true); return; }
   if (!activityInfo.some(game => game.id === id)) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try the adventure again in a moment.'), true); return; }
   const room = source ? getInterior(source.roomId) : undefined;
@@ -970,7 +1022,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
 let coursePage = 0;
 function exerciseHasSuccess(exercise: Exercise): boolean {
   const evidence = progress.exerciseStats?.[exercise.id] ?? progress.items[exercise.itemId]?.modeStats[modeFor(exercise)];
-  const successes = exercise.itemId.startsWith('word-') ? evidence?.unaidedSuccesses : evidence?.correct;
+  const successes = (exercise as Exercise & { targetWordId?: string }).targetWordId ? evidence?.unaidedSuccesses : evidence?.correct;
   return (successes ?? 0) > 0;
 }
 function renderCourse(el: Element) {
@@ -985,7 +1037,7 @@ function renderCourse(el: Element) {
     const pageCount = Math.max(1, Math.ceil(units.length / 24)); coursePage = Math.min(coursePage, pageCount - 1);
     content.innerHTML = `${todaysWordsCard()}<div class="route-unit-list">${units.slice(coursePage * 24, coursePage * 24 + 24).map(unit => { const done = progress.completedUnitIds?.includes(unit.id); const missing = done ? 0 : missingWordCount(unit.wordIds, progress); const practiced = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return ex && exerciseHasSuccess(ex); }).length; return `<button class="route-unit ${done ? 'found' : missing ? 'locked' : ''}" data-course-unit="${e(unit.id)}" ${missing ? 'disabled' : ''}>${icon(done ? 'check' : missing ? 'leaf' : 'scroll')}<span><small>${unit.level} · ${e(localized(unit.topic))}</small><strong>${e(localized(unit.title))}</strong><em>${e(missing ? (missing === 1 ? t('Opens after {count} more restored word', { count: missing }) : t('Opens after {count} more restored words', { count: missing })) : t('{done} / {total} encounters saved', { done: practiced, total: unit.exerciseIds.length }))}</em></span>${icon('chevron')}</button>`; }).join('')}</div>${pageCount > 1 ? `<div class="route-pagination"><button class="outline-button" data-course-page="${coursePage - 1}" ${coursePage === 0 ? 'disabled' : ''}>${t('Previous')}</button><span>${coursePage + 1} / ${pageCount}</span><button class="outline-button" data-course-page="${coursePage + 1}" ${coursePage === pageCount - 1 ? 'disabled' : ''}>${t('Next')}</button></div>` : ''}`;
   } else if (courseTab === 'grammar') {
-    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source); const unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<article class="grammar-route" data-grammar-guide="${guide.id}"><small class="eyebrow">${guide.level} · ${t('YOUR LANGUAGE TOOLKIT')}</small><h3>${e(guide.title)}</h3><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note"><strong>${e(t('For Turkish speakers'))}</strong> ${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${e(example.german)} <button class="text-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}', { text: example.german }))}">${icon('volume')}</button><small>${e(example.english)}</small></blockquote>`).join('')}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')} ${icon('arrow')}</button>` : ''}</article>`; }).join('');
+    content.innerHTML = grammar.map(source => { const guide = localizedGrammar(source); const unit = units.find(unit => unit.grammarIds.includes(guide.id)); return `<article class="grammar-route" data-grammar-guide="${guide.id}"><small class="eyebrow">${guide.level} · ${t('YOUR LANGUAGE TOOLKIT')}</small><h3>${e(guide.title)}</h3><p>${e(guide.explanation)}</p>${guide.note ? `<p class="grammar-note"><strong>${e(t('For Turkish speakers'))}</strong> ${e(guide.note)}</p>` : ''}${guide.examples.map(example => `<blockquote>${renderTranslatedSentence(example, '', true)} <button class="text-button" data-speak="${e(example.german)}" aria-label="${e(t('Listen to {text}', { text: example.german }))}">${icon('volume')}</button></blockquote>`).join('')}${unit ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Try it in a scene')} ${icon('arrow')}</button>` : ''}</article>`; }).join('');
   } else {
     content.innerHTML = `<label class="route-search">${icon('clue')}<input id="lexicon-search" type="search" placeholder="${e(t('Find a German word or English meaning…'))}" aria-label="${e(t('Search the word atlas'))}"/></label><p class="lexicon-status">${e(t('{restored} of {total} words at this level have returned to the Atlas; the rest arrive as you play.', { restored: words.filter(word => wordIntroduced(progress, word.id)).length, total: words.length }))}</p><p class="lexicon-status" id="lexicon-status"></p><div class="lexicon-list" id="lexicon-list"></div>`;
     bindLexiconSearch(words.filter(word => wordIntroduced(progress, word.id)));
@@ -1003,6 +1055,7 @@ async function startTodaysWords() {
   if (!module) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const ids = todaysWords(progress);
+  try { await loadWordDrills(ids); } catch (error) { toast((error as Error).message, true); return; }
   // Meaning first, then the sound, then recall: every mode across today's words before the next mode begins.
   const queue = playablePractice((['recognition', 'listening', 'production'] as const).flatMap(mode => ids.flatMap(id => { const ex = module.courseExerciseById.get(`lex-${id}-${mode}`); return ex && !exerciseHasSuccess(ex) ? [ex] : []; }))).slice(0, 12);
   if (!queue.length) { toast(t('You have met every restored word. New words return as you play.')); return; }
@@ -1039,6 +1092,7 @@ function renderWordJournal(el: Element) {
 async function startWordPractice(id: string) {
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
   const word = module?.lexemeById.get(id); if (!word || !module) return;
+  try { await loadWordDrills([id]); } catch (error) { toast((error as Error).message, true); return; }
   if (wordScheduled(id) && !wordIntroduced(progress, id)) { toast(t('This word has not returned to the Atlas yet. Keep playing and it will.')); return; }
   const memory = progress.words?.[id];
   if (memory?.mastery === 'retained' && Date.parse(memory.dueAt) > Date.now()) {
@@ -1052,6 +1106,7 @@ async function startWordPractice(id: string) {
   openDialog('', 'quest-dialog'); renderExercise();
 }
 async function startCourseUnit(id: string) {
+  try { await loadUnit(id, progress); } catch (error) { toast((error as Error).message, true); return; }
   const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
   const unit = module?.courseUnits.find(item => item.id === id); if (!module || !unit) return;
   const missing = progress.completedUnitIds?.includes(unit.id) ? 0 : missingWordCount(unit.wordIds, progress);
@@ -1067,11 +1122,12 @@ async function startCourseUnit(id: string) {
   run = { unitId:id, queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:false, label:localized(unit.title), started:Date.now() };
   const guides = module.courseGrammar.filter(guide => unit.grammarIds.includes(guide.id)).map(guide => localizedGrammar(guide));
   const unitTitle = localized(unit.title), unitSummary = localized(unit.summary);
-  openDialog(`<div class="quest-intro"><div class="eyebrow">${unit.level} · ${e(localized(unit.topic))}</div><h2>${e(unitTitle)}</h2><div class="course-intro-reference"><p class="intro-story">${e(unitSummary)}</p>${guides.map(guide => `<div class="course-intro-examples">${guide.title !== unitTitle ? `<strong>${e(guide.title)}</strong>` : ''}${guide.explanation !== unitSummary ? `<p>${e(guide.explanation)}</p>` : ''}${guide.examples.slice(0,2).map(example => `<p><b>${e(example.german)}</b><br/>${e(example.english)}</p>`).join('')}</div>`).join('')}</div><div class="intro-details"><span>${icon('book')} ${queue.length === 1 ? t('{count} encounter in this short visit', { count: queue.length }) : t('{count} encounters in this short visit', { count: queue.length })}</span><span>${t('{count} remaining on this route', { count: pending.length })}</span></div><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Follow this learning route') : t('Save this completed route')} ${icon('arrow')}</button><small>${t('Already saved answers stay with you. You can leave at any time.')}</small></div>`, 'quest-dialog course-dialog');
+  openDialog(`<div class="quest-intro"><div class="eyebrow">${unit.level} · ${e(localized(unit.topic))}</div><h2>${e(unitTitle)}</h2><div class="course-intro-reference"><p class="intro-story">${e(unitSummary)}</p>${guides.map(guide => `<div class="course-intro-examples">${guide.title !== unitTitle ? `<strong>${e(guide.title)}</strong>` : ''}${guide.explanation !== unitSummary ? `<p>${e(guide.explanation)}</p>` : ''}${guide.examples.slice(0,2).map(example => `<p>${renderTranslatedSentence(example, '', true)}</p>`).join('')}</div>`).join('')}</div><div class="intro-details"><span>${icon('book')} ${queue.length === 1 ? t('{count} encounter in this short visit', { count: queue.length }) : t('{count} encounters in this short visit', { count: queue.length })}</span><span>${t('{count} remaining on this route', { count: pending.length })}</span></div><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Follow this learning route') : t('Save this completed route')} ${icon('arrow')}</button><small>${t('Already saved answers stay with you. You can leave at any time.')}</small></div>`, 'quest-dialog course-dialog');
 }
 async function startAdaptiveReview() {
   const module = await loadCourse().catch(() => undefined);
   if (!module) { startReview(); return; }
+  try { await loadWordDrills(module.courseLexicon.filter(word => progress.words[word.id] && wordReadyForReview(progress.words[word.id])).map(word => word.id)); } catch (error) { toast((error as Error).message, true); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode, writingReady());
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
@@ -1109,9 +1165,24 @@ function earnedActivityJournal(): string {
   if (!discoveries.length) return '';
   return `<section class="field-notes"><div class="eyebrow">${t('WHAT YOUR ACTIONS UNCOVERED')}</div><h3>${t('Witnesses from the road')}</h3>${discoveries.map(clue => `<article class="grammar-route"><small class="eyebrow">${clue.level} · ${e(maps.find(map => map.level === clue.level)!.name)}</small><h3>${e(localized(clue.title))}</h3><p>${renderNarrative(clue.text)}</p><blockquote>${renderNarrative(clue.lead)}</blockquote></article>`).join('')}</section>`;
 }
+let loadingStoryPage = false;
+async function loadStoryPage() {
+  if (loadingStoryPage) return;
+  loadingStoryPage = true;
+  try { await loadStoryContent(); if (['story', 'menu', 'quests'].includes(view)) renderOther(); }
+  catch (error) { toast((error as Error).message, true); }
+  finally { loadingStoryPage = false; }
+}
 function renderOther() {
+  queueMicrotask(() => { if (['story', 'menu', 'quests'].includes(view) && storyContentRemaining > 0) { const panel = document.querySelector('#other-view'); if (panel && !panel.querySelector('[data-action=load-story-page]')) panel.insertAdjacentHTML('beforeend', `<button class=outline-button data-action=load-story-page>${e(t('Load more stories'))}</button>`); } });
   exposureObserver?.disconnect();
   if (view !== 'settings') { unbindOptions?.(); unbindOptions = undefined; }
+  queueMicrotask(() => {
+    if (!['menu', 'settings', 'course'].includes(view) || !started) return;
+    const panel = document.querySelector<HTMLElement>('#other-view'); if (!panel || panel.querySelector('[data-course-picker]')) return;
+    const picker = document.createElement('section'); picker.dataset.coursePicker = ''; panel.prepend(picker);
+    void mountCoursePicker(picker, api).catch(error => toast(error.message, true));
+  });
   const el = document.querySelector('#other-view')!;
   if (view === 'activities') { renderActivities(el); return; }
   if (view === 'course') { renderCourse(el); return; }
@@ -1237,17 +1308,17 @@ function openDialog(html: string, className = '', speakerId?:string) {
   syncWorldMode();
   dialog.scrollTop = 0;
 }
-function showNpc(id: string) {
+async function showNpc(id: string) {
   if(deliveryController)return;
   if (getExpeditionNpc(id)) { showExpeditionEncounter(id); return; }
   const npc = npcs.find(n => n.id === id);
   if (!npc) return;
   const available = quests.find(q => q.npcId === id && q.level === level && !progress.completedQuestIds.includes(q.id) && questUnlocked(q.id, progress.completedQuestIds));
   if (available) {
-    void questController?.open(available.id); return;
+    try { await loadContexts('questGrammar', available.id); await questController?.open(available.id); } catch (error) { toast((error as Error).message, true); } return;
   }
   recordExposure({npcId:id});
-  questController?.greet(npc, level);
+  try { await loadNpcConversation(id, level, progress, lanternRewards(progress).title); questController?.greet(npc, level); } catch (error) { toast((error as Error).message, true); }
 }
 function startQuest(id: string) {
   const quest = quests.find(q => q.id === id); if (!quest) return;
@@ -1369,6 +1440,8 @@ async function submitAnswer(selected?: string, rating?: RecallRating) {
     acceptProgress(result.progress);
     updateProgress();
     if (run !== activeRun) return;
+    ex.answer = result.correctedAnswer ?? ex.answer;
+    ex.explanation = result.reason ?? '';
     activeRun.answered = true;
     if (result.correct) { activeRun.correct++; playCue(true); }
     else { activeRun.queue.push(ex); playCue(false); }
@@ -1402,9 +1475,10 @@ async function finishRun() {
     let gained = 0;
     if (activeRun.unitId && course) {
       const unit = course.courseUnits.find(unit => unit.id === activeRun.unitId)!;
-      const remainingExercises = unit.exerciseIds.flatMap(id => { const ex = course!.courseExerciseById.get(id); return ex && !exerciseHasSuccess(ex) ? [ex] : []; });
+      const remainingIds = unit.exerciseIds.filter(id => { const ex = course!.courseExerciseById.get(id); return !ex || !exerciseHasSuccess(ex); });
+      const remainingExercises = remainingIds.flatMap(id => { const ex = course!.courseExerciseById.get(id); return ex ? [ex] : []; });
       if (!writingReady() && remainingExercises.some(ex => ex.mode === 'sentence' || ex.mode === 'type') && !playablePractice(remainingExercises).length) { showOpeningPracticeNotice(); playCue(true); return; }
-      const remaining = remainingExercises.length;
+      const remaining = remainingIds.length;
       if (!remaining) { const result = await api.completeUnit(unit.id); acceptProgress(result.progress); gained = result.xpAdded; updateProgress(); }
       if (run !== activeRun) return;
       document.querySelector('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close learning route'))}">${icon('close')}</button><div class="completion"><div class="completion-mark">${icon(remaining ? 'leaf' : 'check')}</div><div class="eyebrow">${t('YOUR LEARNING ROUTE, SAVED')}</div><h2>${remaining ? t('A little further along the route.') : t('A route you can use.')}</h2><p>${e(localized(unit.title))} · ${remaining ? (remaining === 1 ? t('{count} encounter remains. Your completed answers are saved; continue when you are ready.', { count: remaining }) : t('{count} encounters remain. Your completed answers are saved; continue when you are ready.', { count: remaining })) : t('Your answers are saved. Try this German in an adventure or let it rest until its next encounter.')}</p><div class="completion-stats"><span><strong>${activeRun.targetCount}</strong> ${t('encounters saved')}</span><span><strong>${gained ? '+' + gained : '✓'}</strong> ${gained ? t('adventure XP') : t('progress saved')}</span></div>${remaining ? `<button class="primary-button" data-course-unit="${unit.id}">${t('Continue this route')} ${icon('arrow')}</button>` : `<button class="primary-button" data-view="activities">${t('Use it in an adventure')} ${icon('arrow')}</button>`}<button class="text-button" data-view="course">${t('Return to your learning routes')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`;
@@ -1473,11 +1547,7 @@ function bindProfileForm() {
   };
 }
 function showProfile() { openDialog(`<div class="profile-dialog-heading"><div class="eyebrow">${t('LET’S MAKE THIS YOUR ADVENTURE.')}</div><h2>${t('Nice to meet you.')}</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
-const audioPaths = new Map([
-  ...minigameAudio.clips.map(clip=>[clip.text,clip.path] as const),
-  ...quests.flatMap(q => q.exercises.map(ex => [ex.german, `/audio/${ex.id}.mp3`] as const)),
-  ...npcs.map(npc => [npc.greeting, `/audio/npc-${npc.id}.mp3`] as const),
-]);
+const audioPaths = new Map<string, string>();
 let activeSpeech: HTMLAudioElement | undefined;
 let speechGeneration = 0;
 function stopSpeech() {
@@ -1531,7 +1601,7 @@ function speak(text: string, speaker?: string, clipId?: string, rate = speechRat
     utterance.lang = 'de-DE'; utterance.voice = voice; utterance.rate = rate;
     speechSynthesis.speak(utterance);
   };
-  const path = clipId ? `/audio/dialogue/${clipId}.mp3` : audioPaths.get(text);
+  const path = clipId ? `/audio/dialogue/${clipId}.mp3` : audioReference((findSentence(text) as { audio?: unknown } | undefined)?.audio) ?? audioPaths.get(text);
   if (path) {
     const audio = new Audio(path);
     activeSpeech = audio;
@@ -1590,8 +1660,9 @@ function bindGlobalEvents() {
     if (target.dataset.view) { cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView(target.dataset.view as View); return; }
     if (target.dataset.minigame) { void startMiniGame(target.dataset.minigame); return; }
     if (target.dataset.activity) { void startActivity(target.dataset.activity as ActivityId); return; }
+    if (target.dataset.action === 'load-story-page') { void loadStoryPage(); return; }
     if (target.dataset.coursePage) { coursePage = Math.max(0, Number(target.dataset.coursePage)); renderOther(); return; }
-    if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; renderOther(); return; }
+    if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; void loadContexts('grammar', undefined, courseLevel).then(() => renderOther()).catch(error => toast(error.message, true)); return; }
     if (target.dataset.courseTab) { coursePage = 0; courseTab = target.dataset.courseTab as typeof courseTab; renderOther(); return; }
     if (target.dataset.optionsTab) { optionsTab = target.dataset.optionsTab as OptionsTab; uiSounds.play('page'); renderMenuChrome(); renderOther(); menuNavigator?.focusTab(); return; }
     if (target.dataset.journalTab) { journalTab = target.dataset.journalTab as typeof journalTab; renderOther(); return; }
@@ -1714,7 +1785,7 @@ function accessIsActive(): boolean {
   return started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
 }
 async function sendAccessHeartbeat(active: boolean): Promise<void> {
-  if (!started) return;
+  if (!started || activeCourse?.target && activeCourse.target !== 'de') return;
   if (accessHeartbeatBusy) { pendingAccessHeartbeat = active; return; }
   accessHeartbeatBusy = true;
   accessHeartbeatAt = performance.now();
@@ -1729,6 +1800,10 @@ async function sendAccessHeartbeat(active: boolean): Promise<void> {
 }
 function syncAccessActivity(): void {
   if (!started || accessResetting) return;
+  if (activeCourse?.target && activeCourse.target !== 'de') {
+    accessClock.setActive(!document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now())), performance.now());
+    return;
+  }
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   const paused = document.hidden || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
   // A closed world socket releases the server's active-play lease.
@@ -1829,6 +1904,7 @@ async function verifyBilling(attempt = 0, revision = ++billingVerificationRevisi
     if (result.access.phase === 'paid') {
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
       toast('Payment confirmed. Your adventure is ready to continue.');
+      if (!activeCourse) location.reload();
       return;
     }
     if (attempt < 11) { billingVerificationTimer = window.setTimeout(() => void verifyBilling(attempt + 1, revision), 2500); return; }
@@ -1863,14 +1939,16 @@ function showAccountDialog(html: string, required = false) {
   accountReminder?.tick(performance.now(), false);
 }
 function accountError(error: unknown) {
+  if (import.meta.env.DEV) console.error(error);
   document.querySelector<HTMLElement>('#account-error')!.textContent = error instanceof Error ? error.message : t('Please try again.');
 }
 function showLanguageEntry(restoreName = false, initialLanguage = entryLanguageSelection ?? baseLanguage()) {
   entryLanguage = undefined;
   showAccountDialog('');
   mountLanguageOnboarding(document.querySelector<HTMLDialogElement>('#account-dialog')!, {
-    initialLanguage,
+    initialLanguage, initialLearningLanguage: entryTarget,
     onConfirm: languages => {
+      entryTarget = languages.learningLanguage; sessionStorage.setItem('atlas.entryTarget', entryTarget);
       entryLanguage = entryLanguageSelection = languages.motherTongue;
       showNameEntry(restoreName);
     },
@@ -1880,6 +1958,8 @@ function showLanguageEntry(restoreName = false, initialLanguage = entryLanguageS
 const pendingLanguageKey = 'atlas.baseLanguagePending';
 /** Switch the support language, save it with the account, then repaint every screen in it. */
 async function changeBaseLanguage(language: BaseLanguage) {
+  if (activeCourse && !activeCourse.supportLanguages.includes(language)) return;
+  configureContentSession(() => api.token, { accountId: api.selfId, courseId: activeCourse?.id, supportLanguage: language });
   const applied = await setBaseLanguage(language);
   if (applied !== language) toast(t('Turkish support could not load. Check your connection and try again.'), true);
   if (started) {
@@ -1904,7 +1984,7 @@ function showNameEntry(restoreName = false) {
   try { typed = sessionStorage.getItem('atlas.entryName'); sessionStorage.removeItem('atlas.entryName'); } catch { /* Optional convenience only. */ }
   const selected = entryDraft?.name ?? (typed?.trim() ? typed.trim().slice(0, 24) : restoreName ? profile.name : entryNames[0]);
   const suggestions = entryNames.includes(selected) ? entryNames : [selected, ...entryNames.slice(0, 3)];
-  showAccountDialog(`${onboardingStepsMarkup(2)}<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage())}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><small id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</small>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
+  showAccountDialog(`${onboardingStepsMarkup(2)}<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage(), entryTarget)}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><small id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</small>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
   const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
   const input = document.querySelector<HTMLInputElement>('#entry-name')!;
   const getAvatar = bindCharacterBuilder(form, entryDraft?.avatar ?? profile.avatar);
@@ -1926,12 +2006,20 @@ function showNameEntry(restoreName = false) {
     document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = true;
     document.querySelector<HTMLButtonElement>('#entry-login')!.disabled = true;
     try {
-      let result = await api.session(input.value.trim(), getAvatar(), baseLanguage());
+      const requestedSupport = baseLanguage();
+      let result = await api.session(input.value.trim(), getAvatar(), entryTarget === 'en' ? 'en' : requestedSupport);
+      if (entryTarget === 'en') {
+        configureContentSession(() => api.token, { accountId: result.player.id, supportLanguage: baseLanguage() });
+        const listing = await contentApi.courses<{ courses: import('./content-api').ContentCourse[] }>();
+        const course = listing.courses.find(course => course.target === entryTarget);
+        if (!course) throw new Error('This course is unavailable.');
+        const activated = await contentApi.activate<{ player: WorldPlayer; progress: Progress; preferences: SessionResult['preferences']; activeCourseId: string }>(course.id, requestedSupport);
+        result = { ...result, ...activated };
+      }
       // Resuming a saved guest keeps its stored preference; apply the choice made on this screen.
       if (result.preferences.baseLanguage !== baseLanguage()) result = { ...result, preferences: await api.savePreferences({ baseLanguage: baseLanguage() }) };
       localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-      enterGame(result);
-      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+      if (await enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     } catch (error) { accountError(error); }
     finally {
       button.disabled = false; button.innerHTML = `${t('Start my adventure')} ${icon('arrow')}`;
@@ -1941,10 +2029,36 @@ function showNameEntry(restoreName = false) {
   };
   sync();
 }
-function enterGame(result: SessionResult) {
-  if (reconcileBaseLanguage(result)) return;
+async function enterGame(result: SessionResult): Promise<boolean> {
+  await setBaseLanguage(result.preferences.baseLanguage);
+  account = result.account;
+  if (result.access) accessClock.update(result.access, performance.now());
+  const params = new URLSearchParams(location.search);
+  if (params.get('billing') === 'success') {
+    for (const key of ['billing', 'checkout_id', 'order_id', 'customer_id', 'subscription_id', 'product_id', 'request_id', 'signature']) params.delete(key);
+    history.replaceState(null, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
+    queueMicrotask(() => void verifyBilling());
+  }
+
+  if (result.access && accessBlocked(result.access)) {
+    started = true; account = result.account; profile = { name: result.player.name, avatar: result.player.avatar };
+    acceptProgress(result.progress, result.player.id); accessClock.update(result.access, performance.now());
+    if (result.access.phase === 'login_required') showSaveAccount(true); else showPaywall();
+    return false;
+  }
+  await loadServerContent(result);
+  if (activeCourse?.target !== 'de') {
+    started = true; account = result.account; acceptProgress(result.progress, result.player.id); profile = { name: result.player.name, avatar: result.player.avatar };
+    if (result.access) accessClock.update(result.access, performance.now());
+    document.querySelector<HTMLElement>('#game-shell')!.hidden = true; world.destroy();
+    document.body.classList.add('course-player-mode');
+    const host = document.createElement('main'); host.className = 'course-player'; document.body.append(host);
+    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? showLogin() : showSaveAccount(), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
+    return true;
+  }
+  if (reconcileBaseLanguage(result)) return false;
   // The builder updates in place. Repaint the world shell once the new adventure is saved.
-  if (shellLanguage !== baseLanguage()) { window.location.reload(); return; }
+  if (shellLanguage !== baseLanguage()) { window.location.reload(); return false; }
   started = true;
   account = result.account;
   acceptProgress(result.progress, result.player.id);
@@ -1959,7 +2073,7 @@ function enterGame(result: SessionResult) {
   accessConnectionPaused = true;
   updateProgress(); updateAccessHud();
   void sendHeartbeat(0);
-  void loadCourse().catch(() => {});
+  void loadCourse().catch(error => toast(error.message, true));
   const owner = result.player.id;
   void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); updateProgress(); }).catch(error => toast(error.message, true));
   accountReminder = new AccountReminder(result.player.id, localStorage);
@@ -1974,12 +2088,7 @@ function enterGame(result: SessionResult) {
     if (performance.now() - accessHeartbeatAt >= 10000) void sendAccessHeartbeat(accessIsActive());
   }, 1000);
   queueMicrotask(() => { enforceAccessWall(); syncAccessActivity(); });
-  const params = new URLSearchParams(location.search);
-  if (params.get('billing') === 'success') {
-    for (const key of ['billing', 'checkout_id', 'order_id', 'customer_id', 'subscription_id', 'product_id', 'request_id', 'signature']) params.delete(key);
-    history.replaceState(null, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
-    queueMicrotask(() => void verifyBilling());
-  }
+  return true;
 }
 function showSaveAccount(required = accessClock.snapshot(performance.now())?.phase === 'login_required', subscribeAfter = false) {
   if (!started || account.registered) return;
@@ -2001,6 +2110,7 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
       account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
       password.value = ''; confirmation.value = '';
       if (!account.access) await api.access();
+      if (!activeCourse) { location.reload(); return; }
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
       if (subscribeAfter) showPaywall();
       if (view === 'settings') renderOther();
@@ -2098,15 +2208,15 @@ async function boot() {
       profile = { name: result.player.name, avatar: result.player.avatar };
       account = result.account;
       if (account.registered || localStorage.getItem(`atlas.nameChosen.${result.player.id}`) === 'true') {
-        enterGame(result);
-        document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+        if (await enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
       } else showLanguageEntry(true, result.preferences.baseLanguage);
     } else showLanguageEntry();
-  } catch {
+  } catch (error) {
+    if (import.meta.env.DEV) console.error(error);
     connection = 'offline'; updateConnection();
     showLanguageEntry(!!api.token);
-    const error = document.querySelector<HTMLElement>('#account-error')!;
-    error.textContent = t('The town could not connect. You can try starting again in a moment.');
+    const message = document.querySelector<HTMLElement>('#account-error')!;
+    message.textContent = t('The town could not connect. You can try starting again in a moment.');
   }
 }
 function updateConnection() {

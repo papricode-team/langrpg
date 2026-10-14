@@ -1,78 +1,58 @@
 import { describe, expect, it } from 'vitest';
-import { translationHighlights, type TranslationLookup } from './dialogue-translation';
+import { markTranslation, personalizeSentence, presentSentence, wordTargetRanges, type AuthoredSentence } from './translated-sentence';
 
-function highlighted(input: TranslationLookup): string[] {
-  return translationHighlights(input).map(span => input.english.slice(span.start, span.end));
+/** The selectors here are written independently of dictionary meanings. */
+function authored(text: string, translated: string, mapping: [string, string[]][], language = 'en'): AuthoredSentence {
+  const occurrences = new Map<string, number>();
+  const words = mapping.map(([source, targets]) => {
+    const occurrence = (occurrences.get(source) ?? 0) + 1; occurrences.set(source, occurrence);
+    let start = -1;
+    for (let i = 0; i < occurrence; i++) start = text.indexOf(source, start + 1);
+    return { source: { text: source, occurrence }, targets: targets.map(target => ({ text: target, occurrence: 1 })), sourceRange: { start, end: start + source.length }, targetRanges: targets.map(target => ({ start: translated.indexOf(target), end: translated.indexOf(target) + target.length })) };
+  });
+  return { text, target: 'de', translations: { [language]: { text: translated, words } }, words: words.map(word => ({ source: word.source, range: word.sourceRange, glosses: { [language]: `meaning: ${word.source.text}` } })) };
+}
+function highlights(sentence: AuthoredSentence, index: number, language = 'en'): string[] {
+  const p = presentSentence(sentence, '', language);
+  return wordTargetRanges(p, index).map(range => p.translation.slice(range.start, range.end));
 }
 
-describe('contextual sentence translation highlights', () => {
-  const marta = { german: 'Hallo, Ada! Möchtest du einen Kaffee?', english: 'Hello, Ada! Would you like a coffee?' };
-  it.each([
-    ['Hallo', 'hello', 'Hello'], ['Möchtest', 'to want', 'Would you like'],
-    ['du', 'you', 'you'], ['einen', 'a (accusative masculine)', 'a'], ['Kaffee', 'der Kaffee — coffee', 'coffee'],
-  ])('aligns Marta’s %s in the whole translated sentence', (word, gloss, equivalent) => {
-    expect(highlighted({ ...marta, word, gloss })).toEqual(word === 'Möchtest' ? ['Would', 'like'] : [equivalent]);
+describe('authored sentence translation highlights', () => {
+  it('uses inflected Turkish counterparts rather than dictionary gloss substrings', () => {
+    const sentence = authored('Ihre Fahrkarte, bitte. Auch meine Akten müssen geprüft werden.', 'Biletiniz, lütfen. Benim dosyalarımın da denetlenmesi gerekiyor.', [['Fahrkarte', ['Biletiniz']], ['geprüft', ['denetlenmesi']], ['Auch', ['da']], ['werden', []]], 'tr');
+    expect(highlights(sentence, 0, 'tr')).toEqual(['Biletiniz']);
+    expect(highlights(sentence, 1, 'tr')).toEqual(['denetlenmesi']);
+    expect(highlights(sentence, 2, 'tr')).toEqual(['da']);
+    expect(highlights(sentence, 3, 'tr')).toEqual([]);
+    expect(sentence.words[3].glosses.tr).toBeDefined();
   });
-
-  const otto = { german: 'Guten Morgen, Ada! Willkommen in Lindenhafen.', english: 'Good morning, Ada! Welcome to Lindenhafen.' };
-  it.each([
-    ['Guten', 'good', 'Good'], ['Morgen', 'morning / tomorrow', 'morning'],
-    ['Willkommen', 'welcome', 'Welcome'], ['in', 'in', 'to'],
-  ])('aligns Otto’s introductory %s in context', (word, gloss, equivalent) => {
-    expect(highlighted({ ...otto, word, gloss })).toEqual([equivalent]);
+  it('keeps would and like separate from the pronoun and marks English bitte', () => {
+    const sentence = authored('Möchtest du Kaffee, bitte?', 'Would you like coffee, please?', [['Möchtest', ['Would', 'like']], ['du', ['you']], ['bitte', ['please']]]);
+    expect(highlights(sentence, 0)).toEqual(['Would', 'like']);
+    expect(highlights(sentence, 1)).toEqual(['you']);
+    expect(highlights(sentence, 2)).toEqual(['please']);
   });
-
-  it('uses the corresponding sentence rather than unrelated equivalents later in a line', () => {
-    const input = { german: 'Dein Zug ist da. Die Tauben schlafen noch.', english: 'Your train is here. The pigeons are still sleeping.' };
-    expect(highlighted({ ...input, word: 'Dein', gloss: 'your' })).toEqual(['Your']);
-    expect(highlighted({ ...input, word: 'ist', gloss: 'to be' })).toEqual(['is']);
-    expect(highlighted({ ...input, word: 'schlafen', gloss: 'to sleep' })).toEqual(['sleeping']);
-    expect(highlighted({ ...input, word: 'Die', gloss: 'the (feminine)' })).toEqual(['The']);
+  it('distinguishes repeated Sie occurrences using their authored source ranges', () => {
+    const sentence = authored('Sie sagt: Helfen Sie mir.', 'She says: Please help me, will you?', [['Sie', ['She']], ['Sie', ['you']]]);
+    expect(highlights(sentence, 0)).toEqual(['She']);
+    expect(highlights(sentence, 1)).toEqual(['you']);
   });
-
-  it('uses slash alternatives and explicit infinitive inflections', () => {
-    expect(highlighted({ german: 'Kann ich helfen?', english: 'Can I help?', word: 'helfen', gloss: 'helfen — to help / to assist' })).toEqual(['help']);
-    expect(highlighted({ german: 'Ich will helfen.', english: 'I want to help.', word: 'helfen', gloss: 'to help' })).toEqual(['to help']);
-    expect(highlighted({ german: 'Er hilft.', english: 'He helps.', word: 'hilft', gloss: 'to help' })).toEqual(['helps']);
+  it('never guesses from alternative glosses, ambiguous senses, or a missing map', () => {
+    const sentence = authored('Die Bank ist dort.', 'The bank is beside the bench.', [['Bank', []]]);
+    sentence.words[0].glosses.en = 'bank / bench';
+    expect(highlights(sentence, 0)).toEqual([]);
+    sentence.translations.en!.words = [];
+    expect(highlights(sentence, 0)).toEqual([]);
   });
-
-  it('aligns the invitation verb separately from its pronoun, including lowercase German', () => {
-    const input = { german: 'Hallo, möchtest du einen Kaffee?', english: 'Hello, would you like a coffee?', word: 'möchtest', gloss: 'would like' };
-    expect(highlighted(input)).toEqual(['would', 'like']);
-    expect(highlighted({ ...input, word: 'du', gloss: 'you' })).toEqual(['you']);
-    expect(highlighted({ german: 'Möchten Sie Kaffee?', english: 'Would you like coffee?', word: 'Möchten', gloss: 'would like' })).toEqual(['Would', 'like']);
+  it('adjusts source and target offsets around personalized names without rematching', () => {
+    const sentence = authored('Hallo {name}, Kaffee bitte.', 'Hello {name}, coffee please.', [['Kaffee', ['coffee']], ['bitte', ['please']]]);
+    const personalized = personalizeSentence(sentence, { name: '🌙 coffee <Ada & Bo>' });
+    expect(highlights(personalized, 0)).toEqual(['coffee']);
+    const p = presentSentence(personalized);
+    expect(wordTargetRanges(p, 0)[0].start).toBe(p.translation.lastIndexOf('coffee'));
+    expect(markTranslation(p.translation, wordTargetRanges(p, 0))).toContain('&lt;Ada &amp; Bo&gt;, <mark>coffee</mark>');
   });
-
-  it('does not match articles or meanings inside other words', () => {
-    expect(highlighted({ german: 'Ein Name.', english: 'Anna is at a_name cash.', word: 'Ein', gloss: 'a' })).toEqual([]);
-    expect(highlighted({ german: 'Ich helfe.', english: 'I am helpful.', word: 'helfe', gloss: 'to help' })).toEqual([]);
-  });
-
-  it('distinguishes third-person Sie from formal Sie using the clause', () => {
-    expect(highlighted({ german: 'Sie sagt: Du kannst lesen.', english: 'She says: You can read.', word: 'Sie', gloss: 'she / they / formal you' })).toEqual(['She']);
-    expect(highlighted({ german: 'Helfen Sie mir.', english: 'Please help me, will you?', word: 'Sie', gloss: 'she / they / formal you' })).toEqual(['you']);
-    expect(highlighted({ german: 'Hier helfen sie.', english: 'Here they help you.', word: 'sie', gloss: 'she / they / formal you' })).toEqual(['they']);
-    expect(highlighted({ german: 'Sie sind hier.', english: 'They are here with you.', word: 'Sie', gloss: 'she / they / formal you' })).toEqual([]);
-  });
-
-  it('does not infer a sense when two alternative meanings occur in the same sentence', () => {
-    expect(highlighted({ german: 'Die Bank ist dort.', english: 'The bank is beside the bench.', word: 'Bank', gloss: 'bank / bench' })).toEqual([]);
-    expect(highlighted({ german: 'Das ist gut.', english: 'That is good.', word: 'Das', gloss: 'the' })).toEqual([]);
-  });
-
-  it('returns indices in the original string, including emoji and HTML-sensitive names', () => {
-    const input = { german: 'Hallo, 🌙 <Ada & Bo>! Möchtest du einen Kaffee?', english: 'Hello, 🌙 <Ada & Bo>! Would you like a coffee?', word: 'Kaffee', gloss: 'coffee' };
-    const start = input.english.indexOf('coffee');
-    expect(translationHighlights(input)).toEqual([{ start, end: start + 6 }]);
-    expect(input.english).toContain('<Ada & Bo>');
-  });
-
-  it('treats glossary punctuation literally and requires the German word to be present', () => {
-    const input = { german: 'Hier steht Code.', english: 'Use C++ (not CCC).', word: 'Code', gloss: 'C++' };
-    expect(highlighted(input)).toEqual(['C++']);
-    expect(highlighted({ ...input, word: 'Kaffee', gloss: 'Use' })).toEqual([]);
-    expect(highlighted({ ...marta, word: 'Kaffee', gloss: 'unknown sense' })).toEqual(['coffee']);
-    expect(highlighted({ german: 'Die Wolke.', english: 'A cloud.', word: 'Wolke', gloss: 'sky' })).toEqual([]);
-    expect(highlighted({ german: 'Die Wolke.', english: 'A cloud.', word: 'Wolke', gloss: 'Wolke—cloud' })).toEqual(['cloud']);
+  it('rejects stale or out-of-bounds ranges and escapes all unmarked content', () => {
+    expect(markTranslation('<cloud> is helpful', [{ start: -1, end: 2 }, { start: 0, end: 100 }])).toBe('&lt;cloud&gt; is helpful');
   });
 });

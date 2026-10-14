@@ -17,6 +17,7 @@ export interface AttemptResult {
   xpAdded: number;
   duplicate: boolean;
   reason?: string;
+  correctedAnswer?: string;
   progress: Progress;
 }
 interface ReviewTransport {

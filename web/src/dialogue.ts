@@ -8,7 +8,8 @@ export interface StoryState {
   reputation: Record<Faction, number>;
   bell: number;
   bellWarnings?: number;
-  nodes: Record<string, StoryStage>;
+  /** Server cursors are node UUIDs; legacy saves may still contain a stage. */
+  nodes: Record<string, string>;
   choices: Record<string, string>;
   inspections: Record<string, string[]>;
   day: number;
@@ -76,7 +77,7 @@ export function dialogueLines(node: DialogueNode, state: StoryState): DialogueLi
 export function dialogueTopics(graph: QuestGraph, state: StoryState): DialogueTopic[] { return (graph.topics ?? []).filter(topic => conditionMet(topic.condition, state)); }
 export function dialogueChoices(node: DialogueNode, state: StoryState): DialogueChoice[] { return (node.choices ?? []).filter(choice => conditionMet(choice.condition, state)); }
 export function personalized(line: string, name: string): string { return line.replaceAll('{name}', name); }
-export function nodeForStage(graph: QuestGraph, stage: StoryStage): DialogueNode {
+export function nodeForStage(graph: QuestGraph, stage: string): DialogueNode {
   return graph.nodes.find(node => node.id === stage) ?? graph.nodes.find(node => node.stage === stage)!;
 }
 /** Validate authored links, evidence, stages and reachability before a scene ships. */

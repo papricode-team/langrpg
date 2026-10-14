@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { installSentenceTranslations, renderNarrative } from './sentence-translations';
+import { registerSentence, clearSentences } from './translated-sentence';
 
 describe('German narrative sentence translations', () => {
   let root: HTMLElement;
@@ -29,6 +30,7 @@ describe('German narrative sentence translations', () => {
 
   afterEach(() => {
     stop();
+    clearSentences();
     document.body.replaceChildren();
     vi.restoreAllMocks();
     vi.useRealTimers();
@@ -338,5 +340,23 @@ describe('German narrative sentence translations', () => {
     window.dispatchEvent(new Event('resize'));
     expect(Number.parseFloat(shown.style.left)).toBeLessThanOrEqual(window.innerWidth - 312);
     expect(Number.parseFloat(shown.style.top)).toBe(window.innerHeight - 98);
+  });
+
+  it('makes authored words keyboard-accessible and marks their supplied spans on tap', () => {
+    registerSentence({ id: 'ticket', text: 'Fahrkarte werden', target: 'de', translations: { en: { text: 'Your ticket.', words: [{ source: { text: 'Fahrkarte', occurrence: 1 }, targets: [{ text: 'ticket', occurrence: 1 }], sourceRange: { start: 0, end: 9 }, targetRanges: [{ start: 5, end: 11 }] }, { source: { text: 'werden', occurrence: 1 }, targets: [], sourceRange: { start: 10, end: 16 }, targetRanges: [] }] } }, words: [{ source: { text: 'Fahrkarte', occurrence: 1 }, range: { start: 0, end: 9 }, glosses: { en: 'ticket' } }, { source: { text: 'werden', occurrence: 1 }, range: { start: 10, end: 16 }, glosses: { en: 'passive auxiliary' } }] });
+    root.innerHTML = renderNarrative([{ id: 'ticket', german: 'Fahrkarte werden', english: 'Your ticket.' }]);
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('.sentence-word')];
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0].getAttribute('aria-label')).toBe('Meaning of Fahrkarte');
+    buttons[0].focus(); buttons[0].click();
+    expect(tooltip()?.querySelector('mark')?.textContent).toBe('ticket');
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+    buttons[1].click();
+    expect(tooltip()?.querySelector('mark')).toBeNull();
+    expect(tooltip()?.textContent).toContain('passive auxiliary');
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('false');
+    buttons[1].dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }));
+    expect(tooltip()).toBeNull();
+    expect(buttons[1].getAttribute('aria-pressed')).toBe('false');
   });
 });

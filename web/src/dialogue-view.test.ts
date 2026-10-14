@@ -1,9 +1,10 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DialogueView, type DialoguePresentation } from './dialogue-view';
+import { clearSentences, registerSentence } from './translated-sentence';
 
 let view: DialogueView | undefined;
-afterEach(() => { view?.destroy(); view = undefined; document.body.replaceChildren(); });
+afterEach(() => { view?.destroy(); view = undefined; document.body.replaceChildren(); clearSentences(); });
 
 function fixture(overrides: Partial<DialoguePresentation> = {}) {
   const actions = { action: vi.fn(), choice: vi.fn(), answer: vi.fn(), gloss: vi.fn() };
@@ -14,9 +15,13 @@ function fixture(overrides: Partial<DialoguePresentation> = {}) {
     glosses: { möchtest: 'would like', du: 'you', einen: 'a (accusative masculine)', kaffee: 'coffee' },
     ...overrides,
   };
+  const source = presentation.line.german, translated = presentation.line.english;
+  const authored = [['Möchtest', ['Would', 'like']], ['möchtest', ['Would', 'like']], ['du', ['you']], ['einen', ['a']], ['Kaffee', ['coffee']]] as [string, string[]][];
+  const words = authored.filter(([word]) => source.includes(word)).map(([word, targets]) => ({ source: { text: word, occurrence: 1 }, targets: targets.map(text => ({ text, occurrence: 1 })), sourceRange: { start: source.indexOf(word), end: source.indexOf(word) + word.length }, targetRanges: targets.map(text => ({ start: translated.indexOf(text), end: translated.indexOf(text) + text.length })) }));
+  registerSentence({ id: presentation.line.id, text: source, target: 'de', translations: { en: { text: translated, words } }, words: words.map(word => ({ source: word.source, range: word.sourceRange, glosses: { en: presentation.glosses[word.source.text.toLocaleLowerCase('de')] } })) });
   view.render(presentation);
   const word = (text: string) => view!.host.querySelector<HTMLButtonElement>(`button[aria-label="Meaning of ${text}"]`)!;
-  const translation = () => view!.host.querySelector<HTMLElement>('.dialogue-translation');
+  const translation = () => view!.host.querySelector<HTMLElement>('.dialogue-translation-body');
   return { view, actions, presentation, word, translation };
 }
 

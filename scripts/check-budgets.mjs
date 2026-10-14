@@ -8,11 +8,12 @@ const js = assets.filter(path => path.endsWith('.js'));
 const sizes = await Promise.all(js.map(async path => ({ path, size: (await stat(path)).size })));
 const largest = Math.max(...sizes.map(item => item.size));
 const total = sizes.reduce((sum,item) => sum + item.size,0);
-// The complete offline curriculum is distributed as four bounded data chunks.
-// This aggregate includes that content, Phaser, and application code.
-// Total includes the lazily loaded course and translation chunks. Raised from 12 to 13 MiB when Act I grew
-// from 6 to 18 scenes; the startup-critical largest chunk keeps its 4 MiB cap.
-if (largest > 4 * 1024 * 1024 || total > 13 * 1024 * 1024) throw new Error(`JavaScript budget exceeded: largest ${largest}, total ${total}`);
+// Learning records are served by the API. Browser JavaScript contains the engine,
+// presentation and interface strings, with a hard startup and aggregate ceiling.
+const mainChunks = sizes.filter(item => /(?:index|main)-[^/]+\.js$/.test(item.path));
+if (!mainChunks.length) throw new Error('Unable to identify the startup JavaScript chunk');
+for (const chunk of mainChunks) if (chunk.size > 3 * 1024 * 1024) throw new Error(`Main JavaScript budget exceeded: ${chunk.size}`);
+if (largest > 3 * 1024 * 1024 || total > 5 * 1024 * 1024) throw new Error(`JavaScript budget exceeded: largest ${largest}, total ${total}`);
 const art=assets.filter(path=>path.includes('/assets/')&&/\.(webp|png|jpg)$/.test(path));
 const artSizes=await Promise.all(art.map(async path=>({path,size:(await stat(path)).size})));
 for(const asset of artSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);

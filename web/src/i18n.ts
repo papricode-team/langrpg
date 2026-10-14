@@ -9,9 +9,9 @@
  */
 import { generatedLexicalExerciseText, generatedLexicalOption, translatedLexemeForm } from './i18n-lexical.ts';
 
-export type BaseLanguage = 'en' | 'tr';
-export const baseLanguages: readonly BaseLanguage[] = ['en', 'tr'];
-export const baseLanguageNames: Record<BaseLanguage, string> = { en: 'English', tr: 'Türkçe' };
+export type BaseLanguage = 'en' | 'tr' | 'de';
+export const baseLanguages: readonly BaseLanguage[] = ['en', 'tr', 'de'];
+export const baseLanguageNames: Record<BaseLanguage, string> = { en: 'English', tr: 'Türkçe', de: 'Deutsch' };
 
 /** A story unit: the source it translates (German sentence or English text) and its Turkish. */
 export interface OverlayEntry { de?: string; en?: string; tr: string; }
@@ -30,6 +30,15 @@ export interface LanguageOverlay {
 
 const storageKey = 'atlas.baseLanguage';
 let current: BaseLanguage = 'en';
+let target = 'de';
+let germanUi: Record<string, string> = {};
+const servedTexts = new Map<string, string>();
+export function targetLanguage(): string { return target; }
+export function setTargetLanguage(language: string): void { target = language; servedTexts.clear(); }
+/** Register only support text delivered for the current account and course. */
+export function installContentTranslations(entries: Iterable<readonly [string, string]>): void {
+  for (const [source, translated] of entries) servedTexts.set(source, translated);
+}
 let overlay: LanguageOverlay | undefined;
 let sentences = new Map<string, string>();
 let texts = new Map<string, string>();
@@ -40,7 +49,7 @@ const missing = new Map<string, number>();
 const listeners = new Set<(language: BaseLanguage) => void>();
 
 export function isBaseLanguage(value: unknown): value is BaseLanguage {
-  return value === 'en' || value === 'tr';
+  return value === 'en' || value === 'tr' || value === 'de';
 }
 
 export function baseLanguage(): BaseLanguage { return current; }
@@ -76,6 +85,7 @@ function index(value: LanguageOverlay): void {
 
 /** Load the overlay for a language. English needs nothing. */
 export async function loadBaseLanguage(language: BaseLanguage): Promise<void> {
+  if (language === 'de') { germanUi = (await import('./i18n-de')).germanUi; return; }
   if (language === 'en' || overlay) return;
   loading ??= import('./i18n-tr').then(module => module.turkishOverlay).catch(error => { loading = undefined; throw error; });
   const value = await loading;
@@ -98,6 +108,7 @@ export async function setBaseLanguage(language: BaseLanguage, options: { persist
     try { await loadBaseLanguage('tr'); }
     catch { language = 'en'; }
   }
+  if (language === 'de') await loadBaseLanguage('de');
   const changed = current !== language;
   current = language;
   if (options.persist !== false) { try { localStorage.setItem(storageKey, language); } catch { /* Storage is a convenience cache only. */ } }
@@ -127,12 +138,13 @@ function fill(text: string, vars?: Record<string, string | number>): string {
 /** Interface chrome. The English string is the key; `{name}` placeholders are filled after lookup. */
 export function t(english: string, vars?: Record<string, string | number>): string {
   if (current === 'en') return fill(english, vars);
+  if (current === 'de') return fill(germanUi[english] ?? english, vars);
   const turkish = overlay?.ui[english];
   if (turkish === undefined) miss('ui', english);
   return fill(turkish ?? english, vars);
 }
 
-export interface SupportedText { german?: string; english: string; localized?: boolean; }
+export interface SupportedText { german?: string; english: string; localized?: boolean; text?: string; translations?: Partial<Record<BaseLanguage, string | { text: string }>>; }
 /**
  * Content support text. A `{german, english}` pair is looked up by its German
  * sentence; a bare English content string (title, objective, gloss) by its source.
@@ -142,7 +154,13 @@ export function localized(value: SupportedText | string): string { return suppor
 
 /** Like localized(), also reporting the language actually shown (English when a translation is missing). */
 export function supportText(value: SupportedText | string): { text: string; lang: BaseLanguage } {
+  if (typeof value !== 'string') {
+    const translated = value.translations?.[current];
+    if (translated !== undefined) return { text: typeof translated === 'string' ? translated : translated.text, lang: current };
+  }
   const english = typeof value === 'string' ? value : value.english;
+  const supplied = servedTexts.get(typeof value === 'string' ? value : value.text ?? value.german ?? english);
+  if (supplied !== undefined) return { text: supplied, lang: current };
   if (current === 'en') return { text: english, lang: 'en' };
   if (typeof value !== 'string' && value.localized) return { text: english, lang: current };
   if (typeof value !== 'string' && value.german !== undefined) {
@@ -175,6 +193,9 @@ export function hasSentenceTranslation(german: string): boolean {
 
 /** Word glosses: the course lexicon overlay by lexeme id, falling back to the English gloss. */
 export function lexemeMeaning(word: { id: string; english: string }): string {
+  const supplied = word as typeof word & { meanings?: Partial<Record<BaseLanguage, string>>; meaning?: string };
+  if (supplied.meaning !== undefined) return supplied.meaning;
+  if (supplied.meanings?.[current] !== undefined) return supplied.meanings[current]!;
   if (current === 'en') return word.english;
   const entry = overlay?.course.lexicon[word.id];
   // A gloss written for a different English sense is stale; fall back rather than mislead.
@@ -204,6 +225,8 @@ export function localizedExercise<T extends { id: string; prompt: string; hint: 
 
 /** Recognition meanings are localized for display; German listening options stay German. */
 export function localizedExerciseOption(exercise: { id: string; mode: string }, option: string): string {
+  const authored = (exercise as typeof exercise & { optionTranslations?: Partial<Record<BaseLanguage, Record<string, string>>> }).optionTranslations?.[current]?.[option];
+  if (authored !== undefined) return authored;
   if (current === 'en') return option;
   const options = overlay?.course.exercises[exercise.id]?.options;
   if (options) {

@@ -1,4 +1,4 @@
-# Local German character TTS (Qwen3-TTS, design-then-clone)
+# Local course character TTS (Qwen3-TTS, design-then-clone)
 
 `qwen_tts.py` renders dialogue lines to `<clipId>.mp3` fully offline on Apple Silicon.
 
@@ -7,6 +7,10 @@
 3. ffmpeg trims silence, loudness-normalises (loudnorm I=-18, TP=-1.5), mono 24 kHz, libmp3lame 32 kbps (`--bitrate`; 32k keeps the distribution within its 80 MB audio budget).
 
 `stimme` reuses Elise's reference and adds a band-pass/bit-crush/pink-noise "old recording" filter. Story speaker `Evidence` maps to `narrator` (`aliases` in `voices.json`).
+
+The default cast and all existing German commands, reference paths and cache hashes remain unchanged. `voices.json` also declares course sets: German inherits the original cast, and English has one teacher voice, with `sam` mapped to that voice. `--course english` (also `en` or the configured course UUID) selects the English synthesis language and isolated output/reference directories.
+
+The English proof currently plays browser speech synthesis using its `en-GB` course configuration. No English reference clips or Qwen recordings have been generated in this implementation. The teacher set prepares the optional authored-clip pipeline; its voice still needs generation and listening review before production use.
 
 ## Setup (once)
 
@@ -23,14 +27,22 @@ Weights download on first run to the default Hugging Face cache (~5.1 GB total; 
 ```sh
 ~/.cache/lantern-tts/venv/bin/python scripts/tts/qwen_tts.py --jobs jobs.json
 # jobs.json: [{"clipId":"otto-greeting-1","speaker":"otto","german":"Guten Morgen!"}, ...]
+
+# Canonical jobs use text and sentence UUIDs; this planning command loads no models.
+python3 scripts/tts/qwen_tts.py --course english --jobs english-jobs.json --dry-run
+# english-jobs.json: [{"clipId":"<sentence UUID>","speaker":"sam","text":"Hello!","courseId":"4b081b02-2807-54c6-ab7e-669cebe73405"}]
 ```
-Options: `--out DIR` (default `web/public/audio/dialogue`), `--only REGEX` (on clipId), `--limit N`, `--dry-run`, `--redesign SPEAKER` (re-create the reference and regenerate that voice's lines; repeatable), `--temperature` (default 0.7), `--seed`.
+
+Canonical `text` takes precedence over legacy `german`. An explicitly supplied job course must match the selected course. Non-German defaults are `web/public/audio/courses/<course UUID>/<clipId>.mp3` and `art/source/voices/<course>/<voice>.wav` plus its transcript. `--out` and `--voices-dir` override these paths. A course's `language` is passed to both VoiceDesign and Base; `locale` documents the intended pronunciation. Placeholder sentences need authored name-free or personalized job text, as they do in the German workflow.
+Options: `--out DIR` (German default `web/public/audio/dialogue`), `--only REGEX` (on clipId), `--limit N`, `--dry-run`, `--redesign SPEAKER` (re-create the reference and regenerate that voice's lines; repeatable), `--temperature` (default 0.7), `--seed`.
 
 Skipping: a hidden `.qwen-tts-cache.json` in `--out` stores sha256(text, reference wav+txt, effect, clone repo, temperature) per clip; a clip is re-rendered only if the mp3 is missing or the hash changed. Editing a reference wav/txt or a line therefore regenerates exactly the affected clips. Changing `description` alone does nothing until you `--redesign` that speaker.
 
 ## Add a character
 
-Add an entry to `voices.json` (`description` in English, always asking for clear, slightly slow standard High German; `referenceText` = 2-3 neutral German sentences, ~8-10 s) and run the tool with any job for that speaker. Listen to `art/source/voices/<name>.wav`; if unhappy, tweak the description and run with `--redesign <name>` (the sampling seed is fixed, change `--seed` for a different take). Alias a story name with `aliases`, or derive a variant with `sameVoiceAs` + `effect`.
+Add an entry to the selected course's `voices` set (`description` in English, asking for clear speech in that course's target language; `referenceText` = 2-3 neutral target-language sentences, ~8-10 s) and run the tool with any job for that speaker. The legacy German cast remains at the top level. Listen to the course's reference WAV; if unhappy, tweak the description and run with `--redesign <voice name>` (the sampling seed is fixed, change `--seed` for a different take). Alias a story name with `aliases`, or derive a variant with `sameVoiceAs` + `effect`.
+
+Cheap validation: `python3 scripts/tts/qwen_tts_test.py` checks cast selection, canonical/legacy job handling, course isolation and the dry-run CLI without MLX, downloads or synthesis. The measurements below describe the previous German run; they are not measurements of the new English voice.
 
 ## Measured on M2 Max / 32 GB / macOS 15.6 (mlx-audio 0.5.8)
 

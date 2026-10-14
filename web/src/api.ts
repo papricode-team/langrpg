@@ -4,7 +4,7 @@ import { isStoryMap, type MapId } from './maps';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import {getWorldScene} from './scene-data';
 import sceneVersion from './data/world-scene-version.json';
-import type { StoryState, StoryStage } from './dialogue';
+import type { StoryState } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
 import type { BillingPlan, GameAccess } from './game-access';
 
@@ -65,7 +65,7 @@ export type ConnectionStatus = 'connecting' | 'online' | 'offline' | 'replaced' 
 export interface AccountStatus { registered: boolean; email: string; access?: GameAccess; }
 /** Account-wide settings that follow the player across devices. */
 export interface Preferences { baseLanguage: BaseLanguage; }
-export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; }
+export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; activeCourseId?: string; }
 export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
 /** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {
@@ -205,7 +205,7 @@ export class Api {
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }
   story() { return this.request<StoryResult>('/story'); }
-  storyTransition(input: { id: string; questId: string; nodeId: StoryStage; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
+  storyTransition(input: { id: string; questId: string; nodeId: string; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
   inspectStory(input: { id: string; questId: string; objectId: string }) { return this.request<StoryResult>('/story/inspect', input); }
   saveStory(slot: string, name: string) { return this.request<StoryResult>('/story/save', { slot, name }); }
   loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }

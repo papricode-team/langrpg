@@ -93,6 +93,9 @@ func (a *App) accessState(account Account, now time.Time) AccessStatus {
 func (a *App) touchAccess(ctx context.Context, hash string, active *bool) (Account, error) {
 	now := a.now().UTC()
 	return a.store.UpdateAccount(ctx, hash, func(account *Account) error {
+		if a.content != nil {
+			account.Player = a.world.SavedPlayer(account.Player)
+		}
 		if err := checkAccessGeneration(ctx, *account); err != nil {
 			return err
 		}
@@ -217,6 +220,10 @@ func writeAccessBlocked(w http.ResponseWriter, status AccessStatus) {
 // Every learning endpoint is protected, including reads and receipt replays.
 func (a *App) enforceGameAccess(w http.ResponseWriter, r *http.Request) bool {
 	path := r.URL.Path
+	contentRead := strings.HasPrefix(path, "/api/content/") && path != "/api/content/courses"
+	if contentRead {
+		path = "/api/progress"
+	}
 	switch path {
 	case "/api/progress", "/api/attempt", "/api/retrievals", "/api/exposure", "/api/intake/heartbeat", "/api/quest/complete", "/api/course/complete", "/api/activity/complete", "/api/story", "/api/story/transition", "/api/story/inspect", "/api/story/save", "/api/story/load", "/api/story/sleep", "/api/story/cinematic", "/api/expedition/answer", "/api/expedition/plan":
 	default:

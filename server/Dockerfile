@@ -9,6 +9,9 @@ COPY server server
 # Include Vite plugins, their transitive imports and packaging scripts in this
 # build stage only. The runtime image receives only the compiled frontend.
 COPY scripts scripts
+COPY content content
+COPY content_ids.json content_ids.json
+RUN node scripts/build-content.mjs
 # The frontend typecheck includes regression tests that import these fixtures.
 COPY docs/audits/living-world-area-baseline.json docs/audits/lindenhafen-core-v1.json docs/audits/waldruh-core-v1.json docs/audits/
 COPY docs/archive/expedition-scenes.json docs/archive/
@@ -20,15 +23,19 @@ COPY server/go.mod server/go.sum ./
 RUN go mod download
 COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/world .
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/import-content ./cmd/import-content
 
 FROM alpine:3.22
 RUN apk add --no-cache ca-certificates && addgroup -S game && adduser -S game -G game
 WORKDIR /app
 COPY --from=build /out/world /app/world
+COPY --from=build /out/import-content /app/import-content
+COPY --from=frontend /app/server/content.json /app/content.json
+COPY server/entrypoint.sh /app/entrypoint.sh
 COPY --from=frontend /app/web/dist /app/public
 ENV PORT=8080 STATIC_DIR=/app/public
 RUN mkdir -p /app/.data && chown game:game /app/.data
 USER game
 EXPOSE 8080
 HEALTHCHECK --interval=15s --timeout=4s --start-period=15s --retries=3 CMD ["/app/world", "healthcheck"]
-ENTRYPOINT ["/app/world"]
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]

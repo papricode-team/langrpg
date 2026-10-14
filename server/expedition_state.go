@@ -130,7 +130,22 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 200, map[string]any{"record": account.Progress.Story.Expeditions[input.EncounterID], "progress": account.Progress, "duplicate": duplicate})
+	result := map[string]any{"record": account.Progress.Story.Expeditions[input.EncounterID], "progress": account.Progress, "duplicate": duplicate}
+	if a.content != nil {
+		if id, ok := a.content.IDs["expedition:"+input.EncounterID]; ok {
+			record := a.content.ByID[id]
+			var body map[string]any
+			_ = json.Unmarshal(record.Body, &body)
+			choices := anyValues(body["choices"])
+			if input.Selected < len(choices) {
+				choice, _ := choices[input.Selected].(map[string]any)
+				if feedback, ok := choice["response"].(string); ok {
+					result["feedback"] = feedback
+				}
+			}
+		}
+	}
+	writeJSON(w, 200, result)
 }
 
 func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {

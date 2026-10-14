@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local German TTS with distinct character voices (Qwen3-TTS via mlx-audio).
+"""Local course TTS with distinct character voices (Qwen3-TTS via mlx-audio).
 
 Workflow: VoiceDesign creates ONE reference clip per character from a text
 description (art/source/voices/<speaker>.wav + .txt); the Base model then clones
@@ -7,6 +7,7 @@ that reference for every line so each character sounds the same everywhere.
 
 Usage:
   ~/.cache/lantern-tts/venv/bin/python scripts/tts/qwen_tts.py --jobs jobs.json
+  python3 scripts/tts/qwen_tts.py --course english --jobs jobs.json --dry-run
 See scripts/tts/README.md.
 """
 import argparse, hashlib, json, re, subprocess, sys, tempfile, time
@@ -79,12 +80,77 @@ def resolve_voice(cast, speaker):
     return name, None, name
 
 
-def main():
+def select_course_cast(document, requested=None):
+    """The legacy top-level German cast and paths remain the default."""
+    courses = document.get("courses", {})
+    name = requested or document.get("defaultCourse", "german")
+    if not courses:
+        if requested and requested not in {"german", "de"}:
+            raise SystemExit(f"--course: unknown course {requested}")
+        cast = {**document, "courseSlug": "german", "legacyPaths": True}
+    else:
+        if name not in courses:
+            matches = [key for key, value in courses.items()
+                       if name in {value.get("id"), value.get("target")}]
+            if len(matches) != 1:
+                raise SystemExit(f"--course: unknown course {name}; choose {', '.join(sorted(courses))}")
+            name = matches[0]
+        spec = courses[name]
+        cast = {**({"language": document.get("language", "german"),
+                    "aliases": document.get("aliases", {}),
+                    "voices": document.get("voices", {})} if spec.get("legacyCast") else {}),
+                **spec, "courseSlug": name, "legacyPaths": bool(spec.get("legacyCast"))}
+    if not isinstance(cast.get("voices"), dict) or not cast["voices"]:
+        raise SystemExit(f"course {name} has no voice set")
+    for voice, spec in cast["voices"].items():
+        if "sameVoiceAs" in spec:
+            if spec["sameVoiceAs"] not in cast["voices"]:
+                raise SystemExit(f"voice {voice} refers to an unknown voice")
+        elif not spec.get("description") or not spec.get("referenceText"):
+            raise SystemExit(f"voice {voice} needs a description and referenceText")
+    for speaker in cast.get("aliases", {}):
+        resolve_voice(cast, speaker)
+    return cast
+
+
+def normalize_jobs(jobs, cast):
+    """Canonical text wins; previous {german: ...} authoring jobs still work."""
+    if not isinstance(jobs, list):
+        raise SystemExit("--jobs must contain a JSON array")
+    result = []
+    allowed_courses = {cast["courseSlug"], cast.get("id"), cast.get("target")}
+    for job in jobs:
+        if not isinstance(job, dict):
+            raise SystemExit("every job must be an object")
+        text = job["text"] if "text" in job else job.get("german")
+        if not isinstance(text, str) or not text.strip():
+            raise SystemExit(f"job {job.get('clipId', '?')} needs nonempty text (or legacy german)")
+        if not isinstance(job.get("clipId"), str) or not job["clipId"] or not isinstance(job.get("speaker"), str):
+            raise SystemExit("every job needs clipId and speaker")
+        job_course = job.get("courseId", job.get("course"))
+        if job_course is not None and job_course not in allowed_courses:
+            raise SystemExit(f"job {job['clipId']} belongs to another course; choose its --course")
+        result.append({**job, "text": text})
+    return result
+
+
+def course_paths(cast, out=None, voices_dir=None):
+    if cast["legacyPaths"]:
+        default_out = REPO / "web/public/audio/dialogue"
+        default_voices = REPO / "art/source/voices"
+    else:
+        default_out = REPO / "web/public/audio/courses" / str(cast.get("id") or cast["courseSlug"])
+        default_voices = REPO / "art/source/voices" / cast["courseSlug"]
+    return Path(out) if out else default_out, Path(voices_dir) if voices_dir else default_voices
+
+
+def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--jobs", required=True, help="JSON array of {clipId, speaker, german}")
+    ap.add_argument("--jobs", required=True, help="JSON array of {clipId, speaker, text}; legacy german is also accepted")
     ap.add_argument("--cast", default=str(REPO / "scripts/tts/voices.json"))
-    ap.add_argument("--out", default=str(REPO / "web/public/audio/dialogue"))
-    ap.add_argument("--voices-dir", default=str(REPO / "art/source/voices"))
+    ap.add_argument("--course", help="course slug, UUID or target code from the cast config (default: German)")
+    ap.add_argument("--out", help="clip directory (German default unchanged; other courses use audio/courses/<course UUID>)")
+    ap.add_argument("--voices-dir", help="reference directory (other courses are isolated under art/source/voices/<course>)")
     ap.add_argument("--cache", help="skip-cache JSON path (default: <out>/%s)" % CACHE_NAME)
     ap.add_argument("--only", help="regex on clipId")
     ap.add_argument("--limit", type=int)
@@ -94,17 +160,17 @@ def main():
     ap.add_argument("--temperature", type=float, default=0.7, help="clone sampling temperature")
     ap.add_argument("--seed", type=int, default=1234)
     ap.add_argument("--bitrate", default="32k", help="MP3 bitrate for the output clips")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
 
-    cast = json.loads(Path(a.cast).read_text())
+    cast = select_course_cast(json.loads(Path(a.cast).read_text()), a.course)
     lang = cast.get("language", "german")
-    jobs = json.loads(Path(a.jobs).read_text())
+    jobs = normalize_jobs(json.loads(Path(a.jobs).read_text()), cast)
     if a.only:
         rx = re.compile(a.only)
         jobs = [j for j in jobs if rx.search(j["clipId"])]
     if a.limit:
         jobs = jobs[: a.limit]
-    out = Path(a.out); vdir = Path(a.voices_dir)
+    out, vdir = course_paths(cast, a.out, a.voices_dir)
     cache_file = Path(a.cache) if a.cache else out / CACHE_NAME
     cache = json.loads(cache_file.read_text()) if cache_file.exists() else {}
 
@@ -131,16 +197,17 @@ def main():
     todo = []
     for j, v, effect in plan:
         mp3 = out / f"{j['clipId']}.mp3"
-        h = sha(j["german"], voice_hash(v, effect), a.temperature, a.bitrate)
+        h = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)
         redo = v in redesign or j["speaker"] in redesign
         if mp3.exists() and cache.get(j["clipId"]) == h and not redo:
             continue
         todo.append((j, v, effect, h))
     to_design = [v for v in needed if v in redesign or not all(p.exists() for p in ref_paths(v))]
     log(f"{len(jobs)} jobs, {len(todo)} to synthesize, voices to design: {to_design or 'none'}")
+    log(f"course {cast['courseSlug']}, target {cast.get('target', 'de')}, synthesis language {lang}; output {out}; references {vdir}")
     if a.dry_run:
         for j, v, e, _ in todo:
-            log(f"  would synth {j['clipId']} [{j['speaker']}->{v}{'+'+e if e else ''}] {j['german'][:60]}")
+            log(f"  would synth {j['clipId']} [{j['speaker']}->{v}{'+'+e if e else ''}] {j['text'][:60]}")
         return
 
     import mlx.core as mx
@@ -179,7 +246,7 @@ def main():
         mx.random.seed(a.seed)
         t0 = time.time()
         ra, rt = refs[v]
-        audio, _ = generate_audio(cm, text=j["german"], ref_audio=ra, ref_text=rt, lang_code=lang,
+        audio, _ = generate_audio(cm, text=j["text"], ref_audio=ra, ref_text=rt, lang_code=lang,
                                   temperature=a.temperature, max_tokens=2000)
         dur = len(audio) / cm.sample_rate
         mp3 = out / f"{j['clipId']}.mp3"
@@ -190,7 +257,7 @@ def main():
             ffmpeg_to_mp3(wav, mp3, effect, a.bitrate)
         el = time.time() - t0
         tot_audio += dur; tot_time += el
-        cache[j["clipId"]] = sha(j["german"], voice_hash(v, effect), a.temperature, a.bitrate)  # recomputed: reference may have just been designed
+        cache[j["clipId"]] = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)  # recomputed: reference may have just been designed
         cache_file.write_text(json.dumps(cache, indent=1, sort_keys=True))
         log(f"[{i}/{len(todo)}] {j['clipId']} ({j['speaker']}) {dur:.1f}s audio in {el:.1f}s (RTF {el/max(dur,1e-6):.2f})")
     log(f"done: {tot_audio:.0f}s audio in {tot_time:.0f}s (RTF {tot_time/max(tot_audio,1e-6):.2f})")
