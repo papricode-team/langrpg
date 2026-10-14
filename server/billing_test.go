@@ -283,7 +283,8 @@ func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
 			}
 			f.checkout.RequestID = input.RequestID
 			f.checkout.Metadata = input.Metadata
-			writeJSON(w, 200, map[string]string{"id": "checkout", "request_id": input.RequestID, "checkout_url": "https://www.creem.io/payment/checkout"})
+			// The real create response omits request_id; retrieval includes it.
+			writeJSON(w, 200, map[string]string{"id": "checkout", "checkout_url": "https://www.creem.io/payment/checkout"})
 			return
 		}
 		f.serve(w, r)
@@ -296,7 +297,7 @@ func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
 		t.Fatal(w.Code, w.Body.String())
 	}
 	a, _ := app.store.GetAccountByID(context.Background(), player.ID)
-	if len(a.Billing.Purchases) != 1 || a.Billing.Plan != "" {
+	if len(a.Billing.Purchases) != 1 || a.Billing.Plan != "" || a.Billing.Purchases[0].RequestID == "" || a.Billing.Purchases[0].RequestID != f.checkout.RequestID {
 		t.Fatal("checkout itself granted access")
 	}
 	if w = request(app, "POST", "/api/billing/sync", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), `"phase":"paid"`) {
