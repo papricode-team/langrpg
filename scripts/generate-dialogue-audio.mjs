@@ -54,7 +54,7 @@ await writeFile(resolve(dialogueDir, 'manifest.json'), JSON.stringify({
   provider: 'Qwen3-TTS 1.7B (VoiceDesign + Base clone, 8-bit MLX) via mlx-audio, run locally',
   productionStatus: 'Synthetic character voices designed from text descriptions in scripts/tts/voices.json; human voice-over remains a production milestone.',
   cast, bitRate: 32000,
-  dynamicNames: 'German browser synthesis when available; otherwise play the recorded name-free version while displaying the chosen name.',
+  dynamicNames: 'Lines containing runtime variables remain visible and silent, including personalized names.',
   clips,
 }, null, 2) + '\n');
 // Mark character-voiced exercise clips so the pronunciation generator (generate-audio.mjs) keeps them.

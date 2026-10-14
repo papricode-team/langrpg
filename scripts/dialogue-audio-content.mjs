@@ -4,22 +4,13 @@ import './register-content-loader.mjs';
 const { npcs,quests } = await import('../web/src/content.ts');
 const { grammarForQuest } = await import('../web/src/contextual-grammar.ts');
 const { residentConversation,earnedTitleGreeting,ambientCallbackLines } = await import('../web/src/npc-dialogue.ts');
-const { emptyStory } = await import('../web/src/dialogue.ts');
+const { canVoiceDialogue, emptyStory } = await import('../web/src/dialogue.ts');
 const { cinematicBeats, endingIds } = await import('../web/src/cinematic-content.ts');
 /** Story speaker → character voice in scripts/tts/voices.json. */
 export const cast = { marta: 'marta', otto: 'otto', lina: 'lina', emil: 'emil', ada: 'ada', fritz: 'fritz', greta: 'greta', inspector: 'inspector', elise: 'elise', stimme: 'stimme', berg: 'berg', Evidence: 'narrator' };
 const graphs = JSON.parse(await readFile('web/src/data/dialogue-graphs.json', 'utf8'));
-const scenes = graphs.flatMap(graph => [...graph.nodes.flatMap(node => node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)].flatMap(line=>[line,...(line.reply?[line.reply.correction]:[]),...(line.variants??[]).map(variant=>({...line,...variant,variants:undefined}))])).filter(line => !line.german.includes('{'));
-const named=graphs.flatMap(graph=>[...graph.nodes.flatMap(node=>node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)]).filter(line=>line.german.includes('{name}')).map(line=>({...line,clipId:`${line.clipId}-name-free`,german:line.german.replace(/,?\s*\{name\}/g,'').replace(/\s+([.!?,])/g,'$1')}));
-const nameFreeArtifacts={
- 'lindenhafen-platform-ticket':'Fahrkarte für dich. Bahnsteig sieben. Unten: E.',
- 'lindenhafen-cafe-receipt':'Für dich. Bezahlt. Datum: …',
- 'lindenhafen-parcel':'Für dich. Absender: E. Adresse: … Die Tinte geht weg.',
- 'waldruh-housing-board':'Mietvertrag für Zimmer 7. Mieter: du. Die Miete für ein Jahr hat Elise im Voraus bezahlt. Zwei Adressen: Gasthaus Waldruh und Martas Café in Lindenhafen. Eine Tür. Gültig seit drei Monaten. Am Papier hängt ein schwerer Schlüssel mit einer kleinen Laterne.',
- 'nebelstadt-observatory':'Der Schlüssel liegt auf dem Pult, neben einem Stapel Briefentwürfe an dich. Die ersten haben nur ein paar Wörter.',
-};
-const artifacts=graphs.flatMap(graph=>graph.investigations.map(item=>({german:item.german.includes('{name}')?nameFreeArtifacts[item.objectId]:item.german,speaker:'Evidence',clipId:`artifact-${graph.questId}-${item.objectId}${item.german.includes('{name}')?'-name-free':''}`})));
-for(const artifact of artifacts)if(!artifact.german)throw new Error(`Missing personalized evidence fallback: ${artifact.clipId}`);
+const scenes = graphs.flatMap(graph => [...graph.nodes.flatMap(node => node.lines),...(graph.topics??[]).flatMap(topic=>topic.lines)].flatMap(line=>[line,...(line.reply?[line.reply.correction]:[]),...(line.variants??[]).map(variant=>({...line,...variant,variants:undefined}))]));
+const artifacts=graphs.flatMap(graph=>graph.investigations.map(item=>({german:item.german,speaker:'Evidence',clipId:`artifact-${graph.questId}-${item.objectId}`})));
 const grammar=quests.flatMap(quest=>{const note=grammarForQuest(quest.id);return note?[{...note,speaker:quest.npcId}]:[];});
 const initial=emptyStory(),experienced=emptyStory();
 experienced.flags={'quest:b1-work':true,'quest:a2-archive':true};experienced.reputation={brassOffice:3,lamplighters:3,unwritten:3};
@@ -28,7 +19,8 @@ const callbacks=ambientCallbackLines();
 const titles=npcs.flatMap(npc=>['Lantern Bearer','Lamplighter','Route Keeper','Atlas Keeper'].flatMap(title=>earnedTitleGreeting(npc,title)??[]));
 const cinematics=['arrival','platform','recording','erasure','clockmill','confession','dark-beam','ledger','storm','bell','travel'].flatMap(kind=>cinematicBeats(kind,'lindenhafen').map((beat,index)=>({...beat,speaker:beat.speaker.toLowerCase(),clipId:`cinematic-${kind}-${index}`})));
 cinematics.push(...endingIds.flatMap(ending=>cinematicBeats('bell','nebelstadt',ending).map(beat=>({...beat,speaker:beat.speaker.toLowerCase()}))));
-const corpus=new Map();for(const line of [...scenes,...named,...artifacts,...grammar,...ambient,...callbacks,...titles,...cinematics]){
+const corpus=new Map();for(const line of [...scenes,...artifacts,...grammar,...ambient,...callbacks,...titles,...cinematics]){
+  if(!canVoiceDialogue(line.german))continue;
   const existing=corpus.get(line.clipId);if(existing&&existing.german!==line.german)throw new Error(`One clip ID has two texts: ${line.clipId}`);
   corpus.set(line.clipId,line);
 }

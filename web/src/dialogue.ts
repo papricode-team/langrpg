@@ -80,6 +80,8 @@ export function dialogueLines(node: DialogueNode, state: StoryState): DialogueLi
 export function dialogueTopics(graph: QuestGraph, state: StoryState): DialogueTopic[] { return (graph.topics ?? []).filter(topic => conditionMet(topic.condition, state)); }
 export function dialogueChoices(node: DialogueNode, state: StoryState): DialogueChoice[] { return (node.choices ?? []).filter(choice => conditionMet(choice.condition, state)); }
 export function personalized(line: string, name: string): string { return line.replaceAll('{name}', name); }
+/** Lines with runtime variables stay visible but have no spoken version. */
+export function canVoiceDialogue(text: string): boolean { return !/\{[^{}]+\}/.test(text); }
 export function nodeForStage(graph: QuestGraph, stage: StoryStage): DialogueNode {
   return graph.nodes.find(node => node.id === stage) ?? graph.nodes.find(node => node.stage === stage)!;
 }

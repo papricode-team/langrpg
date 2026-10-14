@@ -361,10 +361,7 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, content:contentClient, onError:message=>toast(message,true), progress: () => progress, playerName: () => profile.name,
-    portrait: (id, expression) => portrait(id, '', expression), speak: (text, speaker, clipId, personalized, rate) => {
-      const hasGermanVoice='speechSynthesis' in window&&speechSynthesis.getVoices().some(voice=>voice.lang.startsWith('de'));
-      speak(text,speaker,personalized?(hasGermanVoice?undefined:`${clipId}-name-free`):clipId,rate);
-    }, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
+    portrait: (id, expression) => portrait(id, '', expression), speak, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
