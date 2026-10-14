@@ -17,6 +17,7 @@ import { IntakeClock, intakeStatus, introducedWords, missingWordCount, syllabus,
 import type { CourseLexeme } from './course';
 import { createStateStore } from './game-state';
 import { characterBuilderMarkup, bindCharacterBuilder } from './character-builder';
+import { mountLanguageOnboarding, onboardingLanguageSummary, onboardingStepsMarkup } from './onboarding';
 import { localHour, type WorldTimeMode } from './world-clock';
 import '@fontsource/dm-sans/400.css';
 import '@fontsource/dm-sans/500.css';
@@ -132,6 +133,10 @@ let pendingStoryBeat: CutsceneKind | undefined;
 let pendingTravelBeat = false;
 const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
+let shellLanguage: BaseLanguage = 'en';
+let entryLanguage: BaseLanguage | undefined;
+let entryLanguageSelection: BaseLanguage | undefined;
+let entryDraft: { name: string; avatar: Avatar } | undefined;
 let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
@@ -283,6 +288,7 @@ function toast(message: string, bad = false) {
   notifications?.notify(message, bad);
 }
 function renderShell() {
+  shellLanguage = baseLanguage();
   screenFilterControls?.destroy();
   app.innerHTML = `
     <main class="game-shell" id="game-shell" data-view="world" data-map="lindenhafen">
@@ -1859,8 +1865,17 @@ function showAccountDialog(html: string, required = false) {
 function accountError(error: unknown) {
   document.querySelector<HTMLElement>('#account-error')!.textContent = error instanceof Error ? error.message : t('Please try again.');
 }
-function baseLanguagePicker() {
-  return `<fieldset class="base-language-picker"><legend>${t('I speak')}</legend>${(['en', 'tr'] as const).map(language => `<label lang="${language}"><input type="radio" name="base-language" value="${language}" ${language === baseLanguage() ? 'checked' : ''}/> ${baseLanguageNames[language]}</label>`).join('')}<small>${t('Meanings, hints and menus use this language. You learn German either way.')}</small></fieldset>`;
+function showLanguageEntry(restoreName = false, initialLanguage = entryLanguageSelection ?? baseLanguage()) {
+  entryLanguage = undefined;
+  showAccountDialog('');
+  mountLanguageOnboarding(document.querySelector<HTMLDialogElement>('#account-dialog')!, {
+    initialLanguage,
+    onConfirm: languages => {
+      entryLanguage = entryLanguageSelection = languages.motherTongue;
+      showNameEntry(restoreName);
+    },
+    onLogin: languages => { entryLanguageSelection = languages.motherTongue; showLogin(); },
+  });
 }
 const pendingLanguageKey = 'atlas.baseLanguagePending';
 /** Switch the support language, save it with the account, then repaint every screen in it. */
@@ -1887,13 +1902,13 @@ function reconcileBaseLanguage(result: SessionResult): boolean {
 function showNameEntry(restoreName = false) {
   let typed: string | null = null;
   try { typed = sessionStorage.getItem('atlas.entryName'); sessionStorage.removeItem('atlas.entryName'); } catch { /* Optional convenience only. */ }
-  const selected = typed?.trim() ? typed.trim().slice(0, 24) : restoreName ? profile.name : entryNames[0];
+  const selected = entryDraft?.name ?? (typed?.trim() ? typed.trim().slice(0, 24) : restoreName ? profile.name : entryNames[0]);
   const suggestions = entryNames.includes(selected) ? entryNames : [selected, ...entryNames.slice(0, 3)];
-  showAccountDialog(`<div class="eyebrow">${t('YOUR FIRST STEP INTO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${name}">${name}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><small id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</small>${baseLanguagePicker()}${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
+  showAccountDialog(`${onboardingStepsMarkup(2)}<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage())}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><small id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</small>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
   const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
   const input = document.querySelector<HTMLInputElement>('#entry-name')!;
-  const getAvatar = bindCharacterBuilder(form, profile.avatar);
-  if (!restoreName && !typed) getAvatar.applyPreset(selected);
+  const getAvatar = bindCharacterBuilder(form, entryDraft?.avatar ?? profile.avatar);
+  if (!entryDraft && !restoreName && !typed) getAvatar.applyPreset(selected);
   const sync = () => {
     const name = input.value.trim();
     input.setCustomValidity(/^[\p{L}\p{N}\p{M} _'-]{2,24}$/u.test(name) ? '' : t('Choose a name with 2–24 letters, numbers, spaces, dashes, underscores or apostrophes.'));
@@ -1901,17 +1916,15 @@ function showNameEntry(restoreName = false) {
   };
   input.addEventListener('input', sync);
   form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; getAvatar.applyPreset(input.value); sync(); }; });
-  document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => showLogin();
-  form.querySelectorAll<HTMLInputElement>('input[name="base-language"]').forEach(radio => { radio.onchange = () => {
-    if (!radio.checked) return;
-    // Keep the typed name across the reload that repaints every screen in the chosen language.
-    try { sessionStorage.setItem('atlas.entryName', input.value); } catch { /* The name is easy to type again. */ }
-    void changeBaseLanguage(radio.value as BaseLanguage);
-  }; });
+  const saveDraft = () => { entryDraft = { name: input.value, avatar: getAvatar() }; };
+  document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => { saveDraft(); showLogin(); };
+  document.querySelector<HTMLButtonElement>('#entry-languages')!.onclick = () => { saveDraft(); showLanguageEntry(restoreName); };
   form.onsubmit = async event => {
     event.preventDefault(); sync(); if (!form.checkValidity()) return;
     const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
     button.disabled = true; button.textContent = t('Opening the town…');
+    document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = true;
+    document.querySelector<HTMLButtonElement>('#entry-login')!.disabled = true;
     try {
       let result = await api.session(input.value.trim(), getAvatar(), baseLanguage());
       // Resuming a saved guest keeps its stored preference; apply the choice made on this screen.
@@ -1920,12 +1933,18 @@ function showNameEntry(restoreName = false) {
       enterGame(result);
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     } catch (error) { accountError(error); }
-    finally { button.disabled = false; button.innerHTML = `${t('Start my adventure')} ${icon('arrow')}`; }
+    finally {
+      button.disabled = false; button.innerHTML = `${t('Start my adventure')} ${icon('arrow')}`;
+      document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = false;
+      document.querySelector<HTMLButtonElement>('#entry-login')!.disabled = false;
+    }
   };
   sync();
 }
 function enterGame(result: SessionResult) {
   if (reconcileBaseLanguage(result)) return;
+  // The builder updates in place. Repaint the world shell once the new adventure is saved.
+  if (shellLanguage !== baseLanguage()) { window.location.reload(); return; }
   started = true;
   account = result.account;
   acceptProgress(result.progress, result.player.id);
@@ -2006,8 +2025,12 @@ function showLogout() {
 
 function showLogin() {
   const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
-  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="guest-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : t('Back to choosing a name')}</button>`}`, required);
-  document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => { if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); else showNameEntry(!!api.token); });
+  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="guest-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
+  document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => {
+    if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+    else if (entryLanguage) showNameEntry(!!api.token);
+    else showLanguageEntry(!!api.token);
+  });
   document.querySelector<HTMLButtonElement>('#login-signup')?.addEventListener('click', () => showSaveAccount(required));
   document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGuest);
   const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
@@ -2077,11 +2100,11 @@ async function boot() {
       if (account.registered || localStorage.getItem(`atlas.nameChosen.${result.player.id}`) === 'true') {
         enterGame(result);
         document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-      } else showNameEntry(true);
-    } else showNameEntry();
+      } else showLanguageEntry(true, result.preferences.baseLanguage);
+    } else showLanguageEntry();
   } catch {
     connection = 'offline'; updateConnection();
-    showNameEntry(!!api.token);
+    showLanguageEntry(!!api.token);
     const error = document.querySelector<HTMLElement>('#account-error')!;
     error.textContent = t('The town could not connect. You can try starting again in a moment.');
   }
