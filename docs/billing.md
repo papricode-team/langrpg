@@ -21,8 +21,7 @@ there is no provider subscription trial (the game manages its own play clock).
 
 Finish Creem's business details, identity verification, payout setup and store
 review before accepting live payments. Configure a server-only API key with
-`checkouts:read`, `checkouts:write`, `subscriptions:read`, `transactions:read`, and
-`customers:write` (for customer portal sessions). Do not grant refunds, product
+`checkouts:read`, `checkouts:write`, `subscriptions:read`, and `transactions:read`. Do not grant refunds, product
 editing, subscription editing or full access to the runtime key.
 
 Create a live webhook at:
@@ -49,7 +48,8 @@ webhook deliveries in Creem. No schema migration or progress reset is required.
 The server creates allowlisted checkouts, binds them to the immutable game
 account and a private billing reference, and persists the returned session ID.
 Neither customer email nor browser redirect parameters establish payment
-ownership. Sync retrieves pending sessions from Creem; a signed webhook can
+ownership. The billing portal uses Creem’s email-authenticated My Orders login;
+the game does not issue a customer-wide magic link based on an unverified email. Sync retrieves pending sessions from Creem; a signed webhook can
 recover a completed checkout that was pruned from the pending list.
 
 Paid access requires an authoritative unrefunded EUR transaction. Monthly

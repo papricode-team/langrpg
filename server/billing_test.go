@@ -302,7 +302,7 @@ func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
 	if w = request(app, "POST", "/api/billing/sync", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), `"phase":"paid"`) {
 		t.Fatal("paid sync failed", w.Code, w.Body.String())
 	}
-	if w = request(app, "POST", "/api/billing/portal", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), "customer-portal") {
+	if w = request(app, "POST", "/api/billing/portal", token, nil); w.Code != 200 || !strings.Contains(w.Body.String(), "my-orders/login") {
 		t.Fatal("portal failed", w.Code)
 	}
 	if w = request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "monthly"}); w.Code != 409 {
@@ -469,5 +469,34 @@ func TestPostgresCreemBillingPersistRefundAndRollback(t *testing.T) {
 	saved, err := js2.GetAccountByID(ctx, player.ID)
 	if err != nil || len(saved.Billing.Purchases) != 1 || len(saved.Billing.WebhookReceipts) != 1 {
 		t.Fatal("JSON references lost")
+	}
+}
+
+func TestCreemExistingCustomerCheckoutUsesIDWithoutEmail(t *testing.T) {
+	app := testApp(t)
+	token, player := createSession(t, app, "Returning Ada")
+	app.store.SetCredentials(context.Background(), tokenHash(token), "ada@example.com", "encoded")
+	_, err := app.store.UpdateAccountByID(context.Background(), player.ID, func(a *Account) error { a.Billing.CustomerID = "customer"; return nil })
+	if err != nil {
+		t.Fatal(err)
+	}
+	app.billing = testCreem(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" || r.URL.Path != "/v1/checkouts" {
+			t.Error("unexpected request", r.URL.Path)
+			w.WriteHeader(400)
+			return
+		}
+		var input struct {
+			RequestID string            `json:"request_id"`
+			Customer  map[string]string `json:"customer"`
+		}
+		json.NewDecoder(r.Body).Decode(&input)
+		if len(input.Customer) != 1 || input.Customer["id"] != "customer" {
+			t.Fatal("Creem accepts ID or email, not both")
+		}
+		writeJSON(w, 200, map[string]string{"id": "checkout", "request_id": input.RequestID, "checkout_url": "https://www.creem.io/payment/checkout"})
+	}))
+	if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "lifetime"}); w.Code != 200 {
+		t.Fatal(w.Code, w.Body.String())
 	}
 }

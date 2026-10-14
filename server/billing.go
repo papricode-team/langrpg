@@ -256,7 +256,7 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		}
 		customer := map[string]string{"email": current.Email}
 		if current.Billing.CustomerID != "" {
-			customer["id"] = current.Billing.CustomerID
+			customer = map[string]string{"id": current.Billing.CustomerID}
 		}
 		var response creemCheckout
 		err = a.billing.request(ctx, "POST", "/v1/checkouts", map[string]any{
@@ -298,15 +298,10 @@ func (a *App) billingPortal(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 409, "subscribe first to manage billing")
 		return
 	}
-	var response struct {
-		URL string `json:"customer_portal_link"`
-	}
-	err = a.billing.request(ctx, "POST", "/v1/customers/billing", map[string]string{"customer_id": account.Billing.CustomerID}, &response)
-	if err != nil || !validCreemURL(response.URL) {
-		writeError(w, 503, "unable to open billing management; please try again")
-		return
-	}
-	writeJSON(w, 200, map[string]string{"url": response.URL})
+	// Game signup does not verify mailbox ownership. Creem can reuse a customer
+	// for the same billing email, so a store-generated magic link could expose
+	// unrelated purchases. Let Creem authenticate the billing email itself.
+	writeJSON(w, 200, map[string]string{"url": "https://www.creem.io/my-orders/login"})
 }
 
 func (a *App) billingSync(w http.ResponseWriter, r *http.Request) {
