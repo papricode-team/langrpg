@@ -114,7 +114,7 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	request, _ := json.Marshal(input)
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, "expedition:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, "expedition:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if !routeUnlocked(rule.MapID, account.Progress.CompletedQuestIDs) {
 			return Receipt{}, routeLockedError(rule.MapID)
 		}
@@ -200,7 +200,7 @@ func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	request, _ := json.Marshal(input)
 	key := input.MapID + ":" + input.Level
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "expedition-plan:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "expedition-plan:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if !routeUnlocked(input.MapID, account.Progress.CompletedQuestIDs) {
 			return Receipt{}, routeLockedError(input.MapID)
 		}

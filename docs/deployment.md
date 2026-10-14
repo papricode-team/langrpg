@@ -101,8 +101,13 @@ Changing `POSTGRES_PASSWORD` after initialization does not change the existing
 database role's password; rotate the role password and backend configuration
 together.
 
-Users start with a browser-held session token and can save their account with
-an email and password after five minutes of visible play, or from the menu.
+Users start with a browser-held guest session token. After five minutes of play,
+the mandatory account wall requires signup/login or a guest restart that clears
+all progress while keeping the character. Registration preserves guest progress
+and unlocks the remainder of fifteen total free minutes. Then Polar paid access
+is required. Trial usage and verified billing state persist in the account JSONB.
+Configure billing using [the Polar setup guide](billing.md) and the server-only
+variables in `.env.example`; Compose passes them to the Go application.
 Email/password login restores the same character and progress on another device.
 Password recovery is not implemented; clearing browser storage before saving an
 account loses access to that identity. Map positions, presence, chat and the

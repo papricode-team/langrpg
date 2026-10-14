@@ -1,0 +1,59 @@
+.access-hud {
+  position: absolute;
+  top: max(97px, calc(env(safe-area-inset-top) + 84px));
+  left: max(24px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: calc(100vw - 48px);
+  padding: 8px 10px 8px 12px;
+  border: 1px solid #d8c99165;
+  border-radius: 13px;
+  color: #f7efcf;
+  background: #142d26eb;
+  box-shadow: 0 4px 18px #071e2033;
+  pointer-events: auto;
+}
+.access-hud[hidden] { display: none; }
+.access-clock-icon { display: flex; color: #e9c780; }
+.access-clock-icon svg { width: 18px; height: 18px; }
+.access-hud small { display: block; font-size: 9px; color: #ded7b7; line-height: 1.25; }
+.access-hud strong { display: block; font-size: 14px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.access-hud button { min-height: 34px; padding: 6px 11px; border: 1px solid #d4c99666; border-radius: 9px; background: #e8d597; color: #20352a; font-weight: 700; font-size: 11px; }
+.access-hud button:hover { background: #fff0b7; }
+.access-hud[data-phase='login_required'], .access-hud[data-phase='payment_required'] { border-color: #edb083; }
+.access-hud[data-phase='paid'] .access-clock-icon { color: #add8ac; }
+.account-switch { display: flex; gap: 8px; margin: 20px 0 4px; }
+.account-switch button { flex: 1; min-height: 40px; border: 1px solid #b9b08a66; border-radius: 10px; background: transparent; color: var(--paper); font-weight: 600; }
+.account-switch button.selected { background: #d9ce9a; border-color: #d9ce9a; color: #20372a; }
+.account-dialog .guest-reset-note { margin: 22px 0 0; color: #e1d8b8; font-size: 12px; }
+.account-dialog .reset-progress-button { background: #aa5144; color: #fff2de; }
+.account-dialog.billing-dialog { width: min(660px, calc(100vw - 32px)); }
+.billing-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0 18px; }
+.billing-plan { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; text-align: left; padding: 22px 18px; border: 1px solid #b9b08a88; border-radius: 16px; background: #1c382f; color: #f6edc9; transition: background .15s, border-color .15s; }
+.billing-plan:hover { border-color: #edce87; background: #26473a; }
+.billing-plan:disabled { opacity: .55; cursor: default; }
+.billing-plan > span { font-weight: 600; font-size: 14px; }
+.billing-plan > strong { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px; font-family: 'Fraunces', Georgia, serif; font-size: 32px; line-height: 1.2; }
+.billing-plan > strong small { font-family: 'DM Sans', sans-serif; color: #ded6b9; font-size: 12px; font-weight: 400; }
+.billing-plan p { margin: 0; font-size: 12px; color: #ded6b9; }
+.billing-plan b { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; margin-top: auto; font-size: 12px; color: #f3d895; }
+.billing-plan b svg { width: 16px; height: 16px; flex-shrink: 0; }
+.billing-plan-lifetime { background: #3b3b2b; border-color: #d4b975; }
+.account-dialog .billing-note { font-size: 11px; color: #cfc6a7; }
+.billing-unavailable { padding: 12px 14px; border: 1px solid #ccaa7b77; border-radius: 10px; font-size: 13px; }
+.access-hud button:focus-visible, .account-switch button:focus-visible, .billing-plan:focus-visible { outline: 3px solid #f3d895; outline-offset: 3px; }
+@media (max-width: 640px) {
+  .access-hud { top: max(83px, calc(env(safe-area-inset-top) + 73px)); left: max(14px, env(safe-area-inset-left)); padding: 7px 8px; gap: 7px; }
+  .access-hud small { font-size: 8px; }
+  .access-hud strong { font-size: 12px; }
+  .access-hud button { min-height: 34px; padding: 6px 9px; font-size: 10px; }
+  .billing-plans { gap: 10px; }
+  .billing-plan { padding: 18px 12px; }
+  .billing-plan > strong { font-size: 28px; }
+}
+@media (max-width: 380px) {
+  .billing-plans { grid-template-columns: 1fr; }
+  .billing-plan { gap: 9px; }
+}

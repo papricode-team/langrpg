@@ -258,8 +258,20 @@ func (a *App) heartbeat(w http.ResponseWriter, r *http.Request) {
 	request, _ := json.Marshal(input)
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
+	if input.Seconds > 0 {
+		playing := true
+		account, err := a.touchAccess(ctx, hash, &playing)
+		if err != nil {
+			apiFailure(w, err)
+			return
+		}
+		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
+			writeAccessBlocked(w, status)
+			return
+		}
+	}
 	introduced := []string{}
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, "intake:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, "intake:"+input.ID, request, func(account *Account) (Receipt, error) {
 		now := a.now().UTC()
 		migrateContextExposures(&account.Progress, a.curriculum, now)
 		migrateIntake(&account.Progress, a.curriculum.Syllabus)

@@ -25,6 +25,8 @@ type APIError struct {
 func (e *APIError) Error() string { return e.Message }
 
 type App struct {
+	billing    *PolarBilling
+	leaseOwner string
 	store      Store
 	world      *World
 	curriculum Curriculum
@@ -42,6 +44,10 @@ type rateWindow struct {
 
 func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int) *App {
 	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}}
+	a.leaseOwner, _ = randomID(16)
+	if a.leaseOwner == "" {
+		a.leaseOwner = fmt.Sprintf("%p-%d", a, time.Now().UnixNano())
+	}
 	var allowed []string
 	for _, origin := range origins {
 		origin = strings.TrimRight(strings.TrimSpace(origin), "/")
@@ -62,6 +68,13 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/account/register", a.registerAccount)
 	mux.HandleFunc("POST /api/account/login", a.loginAccount)
 	mux.HandleFunc("POST /api/account/logout", a.logoutAccount)
+	mux.HandleFunc("GET /api/access", a.access)
+	mux.HandleFunc("POST /api/access/heartbeat", a.accessHeartbeat)
+	mux.HandleFunc("POST /api/access/reset", a.resetAccess)
+	mux.HandleFunc("POST /api/billing/checkout", a.billingCheckout)
+	mux.HandleFunc("POST /api/billing/portal", a.billingPortal)
+	mux.HandleFunc("POST /api/billing/sync", a.billingSync)
+	mux.HandleFunc("POST /api/billing/webhook", a.billingWebhook)
 	mux.HandleFunc("POST /api/preferences", a.updatePreferences)
 	mux.HandleFunc("GET /api/progress", a.progress)
 	mux.HandleFunc("POST /api/attempt", a.attempt)
@@ -108,6 +121,9 @@ func (a *App) Handler() http.Handler {
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}
+		if !a.enforceGameAccess(w, r) {
+			return
+		}
 		mux.ServeHTTP(w, r)
 	})
 }
@@ -125,7 +141,10 @@ func writeError(w http.ResponseWriter, status int, message string) {
 
 func apiFailure(w http.ResponseWriter, err error) {
 	var apiError *APIError
+	var accessError *AccessDeniedError
 	switch {
+	case errors.As(err, &accessError):
+		writeAccessBlocked(w, accessError.Access)
 	case errors.As(err, &apiError):
 		writeError(w, apiError.Status, apiError.Message)
 	case errors.Is(err, ErrUnauthorized):
@@ -258,7 +277,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 			}
 			account.Player = a.world.UpdateProfile(account.Player)
 		}
-		writeJSON(w, 200, sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
+		writeJSON(w, 200, a.sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
 		return
 	}
 	input.Name = strings.TrimSpace(input.Name)
@@ -303,7 +322,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	writeJSON(w, 201, sessionResponse(token, account))
+	writeJSON(w, 201, a.sessionResponse(token, account))
 }
 
 func (a *App) progress(w http.ResponseWriter, r *http.Request) {
@@ -393,7 +412,7 @@ func (a *App) completeQuest(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
 		if contains(account.Progress.CompletedQuestIDs, quest.ID) {
 			return Receipt{}, nil
 		}
@@ -452,10 +471,23 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
-	account, err := a.getAccount(ctx, tokenHash(token))
+	hash := tokenHash(token)
+	account, err := a.getAccount(ctx, hash)
+	if err == nil {
+		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
+		playing := true
+		account, err = a.touchAccess(ctx, hash, &playing)
+	}
+	if err == nil && account.Billing.Plan != "" && !a.hasPaidAccess(account, a.now().UTC()) {
+		account = a.refreshAccessBilling(ctx, account)
+	}
 	cancel()
 	if err != nil {
 		apiFailure(w, err)
+		return
+	}
+	if access := a.accessState(account, a.now().UTC()); accessBlocked(access) {
+		writeAccessBlocked(w, access)
 		return
 	}
 	if mapID := r.URL.Query().Get("mapId"); mapID != "" && !validMapID(mapID) {
@@ -479,7 +511,36 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	a.world.ServeHTTP(w, r, account.Player, account.Progress, authorize)
+	guard := func(ctx context.Context, renew bool) (AccessStatus, error) {
+		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
+		// Movement messages check authoritative time without writing account JSON
+		// for every frame. The socket ticker persists and renews the same lease.
+		var current Account
+		var err error
+		if renew {
+			current, err = a.touchAccess(ctx, hash, nil)
+		} else {
+			current, err = a.store.Get(ctx, hash)
+		}
+		if err != nil {
+			return AccessStatus{}, err
+		}
+		if err := checkAccessGeneration(ctx, current); err != nil {
+			return AccessStatus{}, err
+		}
+		if current.Billing.Plan != "" && !a.hasPaidAccess(current, a.now().UTC()) {
+			current = a.refreshAccessBilling(ctx, current)
+		}
+		return a.accessState(current, a.now().UTC()), nil
+	}
+	stopped := func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
+		playing := false
+		_, _ = a.touchAccess(ctx, hash, &playing)
+	}
+	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, authorize, guard, stopped)
 }
 
 func (a *App) Close() { a.world.Close(); a.store.Close() }

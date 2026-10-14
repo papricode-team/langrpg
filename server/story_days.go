@@ -125,7 +125,7 @@ func (a *App) sleepStory(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	request, _ := json.Marshal(input)
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, "story-sleep:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, "story-sleep:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if !a.world.atInn(account.Player.ID) {
 			return Receipt{}, &APIError{409, "return to your room at the inn before resting"}
 		}

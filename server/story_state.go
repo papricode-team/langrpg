@@ -347,7 +347,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	request, _ := json.Marshal(input)
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "story:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "story:"+input.ID, request, func(account *Account) (Receipt, error) {
 		ensureStory(&account.Progress)
 		migrateIntake(&account.Progress, a.curriculum.Syllabus)
 		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
@@ -492,7 +492,7 @@ func (a *App) saveStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account, _, _, err := a.store.Mutate(ctx, hash, "story-save:"+actionID, request, func(account *Account) (Receipt, error) {
+	account, _, _, err := a.mutate(ctx, hash, "story-save:"+actionID, request, func(account *Account) (Receipt, error) {
 		ensureStory(&account.Progress)
 		if account.StorySaves == nil {
 			account.StorySaves = map[string]StorySave{}
@@ -537,7 +537,7 @@ func (a *App) loadStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account, _, _, err := a.store.Mutate(ctx, hash, "story-load:"+actionID, request, func(account *Account) (Receipt, error) {
+	account, _, _, err := a.mutate(ctx, hash, "story-load:"+actionID, request, func(account *Account) (Receipt, error) {
 		save, ok := account.StorySaves[input.Slot]
 		if !ok {
 			return Receipt{}, &APIError{404, "that story slot is empty"}
@@ -593,7 +593,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	request, _ := json.Marshal(input)
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, "story-inspect:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, "story-inspect:"+input.ID, request, func(account *Account) (Receipt, error) {
 		migrateIntake(&account.Progress, a.curriculum.Syllabus)
 		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
 			return Receipt{}, err
@@ -640,7 +640,7 @@ func (a *App) storyCinematic(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	request, _ := json.Marshal(input)
-	account, _, duplicate, err := a.store.Mutate(ctx, hash, "story-cinematic:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, _, duplicate, err := a.mutate(ctx, hash, "story-cinematic:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if questID != "" && !contains(account.Progress.CompletedQuestIDs, questID) {
 			return Receipt{}, &APIError{409, "that story moment has not happened yet"}
 		}

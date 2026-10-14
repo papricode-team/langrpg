@@ -50,6 +50,8 @@ import type { Progress, ChatMessage, ExposureInput, ConnectionStatus, SessionRes
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
+import { AccessClock, accessBlocked, billingURL, clearGuestProgress, formatAccessTime, type BillingPlan, type GameAccess } from './game-access';
+import './game-access.css';
 import { reviewExercises,wordReadyForReview } from './review';
 import { ReviewAttempt } from './review-attempt';
 import { learnerLevel, scaffoldStage, scaffoldText } from './typing-scaffold';
@@ -132,6 +134,15 @@ let started = false;
 let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
+const accessClock = new AccessClock();
+let accessHeartbeatBusy = false;
+let accessHeartbeatAt = 0;
+let pendingAccessHeartbeat: boolean | undefined;
+let accessWasActive = false;
+let accessConnectionPaused = false;
+let accessResetting = false;
+let billingVerificationTimer: number | undefined;
+let billingVerificationRevision = 0;
 /** Vocabulary intake: one heartbeat per minute of visible, connected play; the server introduces words at its own pace. */
 const intakeClock = new IntakeClock();
 let heartbeatBusy = false;
@@ -278,6 +289,7 @@ function renderShell() {
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
         <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><div class="player-meta"><span id="hud-level">A1 · ${e(upper(titleLabel('Wanderer')))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span><button class="ink-badge" id="ink-badge" data-paused="" data-view="journal" aria-label="${e(t('Restored words'))}"></button></div><div class="player-progress"><span id="chapter-fill"></span></div></div></div>
+        <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><small id="access-label">Free play</small><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button></div>
         <div class="location-banner"><div class="location-title" id="breadcrumb-current">Lindenhafen</div><div class="location-subtitle" id="location-subtitle">${upper(t('The first missing route'))}</div></div>
         <section class="interior-location" id="interior-location" aria-label="${e(t('Current building'))}" hidden></section>
         <div class="world-status">
@@ -361,8 +373,22 @@ function renderShell() {
     onModeChange: () => { menuNavigator?.refreshGlyphs(); renderMenuPrompts(); },
   });
   const accountDialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  accountDialog.addEventListener('cancel', event => { if (!started) event.preventDefault(); });
-  accountDialog.addEventListener('close', () => { if(!document.hidden){if(!accountKeptActivityPaused)activityController?.resume();miniGameController?.resume();deliveryController?.resume();}accountKeptActivityPaused=false;accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online'); syncWorldMode(); if (started && regionReady) onRegionReady(mapId); });
+  accountDialog.addEventListener('cancel', event => { if (!started || accessBlocked(accessClock.snapshot(performance.now())) || accountDialog.dataset.accessWall === 'required') event.preventDefault(); });
+  accountDialog.addEventListener('close', () => {
+    if (accountDialog.open) return;
+    if (started && accessBlocked(accessClock.snapshot(performance.now()))) { enforceAccessWall(); return; }
+    if (!document.hidden) { if (!accountKeptActivityPaused) activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); }
+    accountKeptActivityPaused = false;
+    accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online');
+    syncAccessActivity(); syncWorldMode();
+    if (started && regionReady) onRegionReady(mapId);
+  });
+  document.querySelector<HTMLButtonElement>('#access-button')!.onclick = () => {
+    const access = accessClock.snapshot(performance.now());
+    if (access?.phase === 'paid') showBillingAccount();
+    else if (access?.registered) showPaywall();
+    else showSaveAccount(access?.phase === 'login_required');
+  };
   syncWorldMode();
 }
 function watchWorld(watching: boolean): void {
@@ -525,7 +551,7 @@ function updateProgress() {
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
+function worldCanInteract() { return started && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen && document.querySelector<HTMLElement>('#chat-body')!.hidden; }
 let dialogueOpen = false;
 let worldInput = false;
 let syncingWorld = false;
@@ -541,7 +567,7 @@ function syncWorldMode(): void {
     const input = worldCanInteract();
     const dialog = document.querySelector<HTMLDialogElement>('#dialog');
     const covered = !!dialog?.open && dialog.classList.contains('activity-dialog');
-    const presentation: WorldPresentation = view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
+    const presentation: WorldPresentation = document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
     if (worldInput && !input) document.dispatchEvent(new Event('atlas-controls-reset'));
     worldInput = input;
     world.setInputEnabled(input);
@@ -1530,6 +1556,7 @@ function bindGlobalEvents() {
   window.addEventListener('resize', syncTrackerState);
   document.addEventListener('keydown', event => {
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
+    if (document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now()))) return;
     if (cinematicActive) return;
     if (questController?.isOpen) { if (event.key === 'Escape') { event.preventDefault(); questController.close(); } return; }
     if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
@@ -1678,7 +1705,143 @@ function renderChat() {
   el.innerHTML = chatMessages.slice(-40).map(message => `<div class="chat-message">${chatPortrait(message)}<p><strong>${e(message.name)}${message.playerId === api.selfId ? `<small>${t('you')}</small>` : ''}</strong><span>${e(message.text)}</span></p><time>${new Date(message.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}</time></div>`).join('');
   el.scrollTop = el.scrollHeight;
 }
-function showAccountDialog(html: string) {
+function accessIsActive(): boolean {
+  return started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
+}
+async function sendAccessHeartbeat(active: boolean): Promise<void> {
+  if (!started) return;
+  if (accessHeartbeatBusy) { pendingAccessHeartbeat = active; return; }
+  accessHeartbeatBusy = true;
+  accessHeartbeatAt = performance.now();
+  try { await api.accessHeartbeat(active); }
+  catch { /* Keep the last server allowance; the local boundary still blocks play. */ }
+  finally {
+    accessHeartbeatBusy = false;
+    const pending = pendingAccessHeartbeat;
+    pendingAccessHeartbeat = undefined;
+    if (pending !== undefined && pending !== active) void sendAccessHeartbeat(pending);
+  }
+}
+function syncAccessActivity(): void {
+  if (!started || accessResetting) return;
+  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  const paused = document.hidden || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
+  // A closed world socket releases the server's active-play lease.
+  if (paused && !accessConnectionPaused) { accessConnectionPaused = true; api.destroy(); }
+  else if (!paused && accessConnectionPaused) { accessConnectionPaused = false; api.connect(); }
+  const active = accessIsActive();
+  accessClock.setActive(active, performance.now());
+  if (active !== accessWasActive) { accessWasActive = active; void sendAccessHeartbeat(active); }
+}
+function updateAccessHud(): void {
+  const hud = document.querySelector<HTMLElement>('#access-hud');
+  if (!hud) return;
+  hud.hidden = !started;
+  const access = accessClock.snapshot(performance.now());
+  const paid = access?.phase === 'paid';
+  hud.dataset.phase = access?.phase ?? 'checking';
+  document.querySelector('#access-label')!.textContent = paid ? 'Unlimited play' : access?.registered ? 'Free trial left' : 'Guest play left';
+  const time = document.querySelector('#access-time')!;
+  time.textContent = paid ? access.plan === 'lifetime' ? 'Lifetime' : 'Subscribed' : access ? formatAccessTime(access.remainingSeconds) : 'Checking…';
+  time.setAttribute('aria-label', paid ? 'Unlimited game access' : `${access?.registered ? 'Trial' : 'Guest play'} time remaining: ${access ? formatAccessTime(access.remainingSeconds) : 'checking'}`);
+  document.querySelector('#access-button')!.textContent = paid ? 'Manage' : access?.registered ? 'Subscribe' : 'Login';
+}
+function applyAccess(access: GameAccess): void {
+  accessClock.update(access, performance.now());
+  updateAccessHud();
+  if (!started || accessResetting) return;
+  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  if (!accessBlocked(access) && dialog.open && dialog.dataset.accessWall === 'required') dialog.close();
+  enforceAccessWall(); syncAccessActivity(); syncWorldMode();
+}
+function enforceAccessWall(): void {
+  if (!started) return;
+  const access = accessClock.snapshot(performance.now());
+  if (!accessBlocked(access)) return;
+  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
+  if (dialog.open && dialog.dataset.accessWall === 'required' && dialog.dataset.accessPhase === (access?.phase ?? 'checking')) return;
+  if (access?.phase === 'payment_required') showPaywall(true);
+  else if (access?.phase === 'login_required') showSaveAccount(true);
+  else {
+    showAccountDialog(`<div class="eyebrow">THE LANTERN ATLAS</div><h2 id="account-title">Checking your play time…</h2><p>Your adventure will continue when your saved allowance is confirmed.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button" id="access-retry">Try again</button>`, true);
+    document.querySelector<HTMLButtonElement>('#access-retry')!.onclick = () => { void api.access().catch(accountError); };
+    void api.access().catch(accountError);
+  }
+}
+function showResetGuest(): void {
+  showAccountDialog(`<div class="eyebrow">START FROM THE BEGINNING</div><h2 id="account-title">Delete your guest progress?</h2><p>Starting over deletes all quests, XP, learned words, practice results and story saves. Your character and name stay the same, and you return to the beginning with 5 free minutes.</p><p>Sign up instead to keep this adventure and unlock the rest of your 15-minute trial.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button reset-progress-button" id="guest-reset-confirm">Delete progress &amp; start over</button><button type="button" class="text-button" id="guest-reset-back">Keep my progress &amp; sign up</button>`, true);
+  document.querySelector<HTMLButtonElement>('#guest-reset-back')!.onclick = () => showSaveAccount(true);
+  document.querySelector<HTMLButtonElement>('#guest-reset-confirm')!.onclick = async event => {
+    const button = event.currentTarget as HTMLButtonElement;
+    button.disabled = true;
+    try {
+      accessResetting = true;
+      api.destroy();
+      const result = await api.resetGuest();
+      // Activity destruction persists its draft, so dispose it before clearing.
+      activityController?.destroy(); activityController = undefined;
+      miniGameController?.destroy(); miniGameController = undefined;
+      miniGameHost?.destroy(); miniGameHost = undefined;
+      deliveryController?.destroy(); deliveryController = undefined;
+      deliveryHost?.destroy(); deliveryHost = undefined;
+      eventLog?.destroy(); eventLog = undefined;
+      if (reminderTimer !== undefined) clearInterval(reminderTimer);
+      reminderTimer = undefined; accountReminder = undefined;
+      clearGuestProgress(localStorage, result.player.id, result.player.name);
+      location.reload();
+    } catch (error) { accessResetting = false; accountError(error); button.disabled = false; }
+  };
+}
+function showPaywall(required = accessClock.snapshot(performance.now())?.phase === 'payment_required', notice = ''): void {
+  const access = accessClock.snapshot(performance.now());
+  if (!access?.registered) { showSaveAccount(access?.phase === 'login_required', true); return; }
+  if (access.phase === 'paid') { showBillingAccount(); return; }
+  showAccountDialog(`<div class="eyebrow">KEEP THE LANTERNS LIT</div><h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'You have played your 15 free minutes. Choose a plan to continue from exactly where you left off.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<small>/ month</small></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<small>once</small></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><small class="billing-note">Prices in EUR. Secure checkout with Polar. Applicable taxes are shown at checkout.</small>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="text-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="text-button" id="billing-back">Back to my free trial</button>'}`, required);
+  document.querySelector('#account-dialog')!.classList.add('billing-dialog');
+  document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
+    buttons.forEach(item => { item.disabled = true; });
+    try { const result = await api.checkout(button.dataset.billingPlan as BillingPlan); location.assign(billingURL(result.url)); }
+    catch (error) { accountError(error); buttons.forEach(item => { item.disabled = !access.billingAvailable; }); }
+  }; });
+  document.querySelector<HTMLButtonElement>('#billing-back')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
+  document.querySelector<HTMLButtonElement>('#billing-check')!.onclick = () => void verifyBilling();
+}
+async function verifyBilling(attempt = 0, revision = ++billingVerificationRevision): Promise<void> {
+  if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer);
+  const access = accessClock.snapshot(performance.now());
+  if (attempt === 0) showAccountDialog(`<div class="eyebrow">SECURE CHECKOUT WITH POLAR</div><h2 id="account-title">Confirming your payment…</h2><p role="status">We’re checking your payment with Polar. Your progress is saved.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="text-button" id="billing-verification-back">${accessBlocked(access) ? 'Back to plans' : 'Back to my adventure'}</button>`, accessBlocked(access));
+  document.querySelector<HTMLButtonElement>('#billing-verification-back')!.onclick = () => {
+    billingVerificationRevision++;
+    if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer);
+    billingVerificationTimer = undefined;
+    if (accessBlocked(accessClock.snapshot(performance.now()))) showPaywall();
+    else document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+  };
+  try {
+    const result = await api.syncBilling();
+    if (revision !== billingVerificationRevision) return;
+    if (result.access.phase === 'paid') {
+      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+      toast('Payment confirmed. Your adventure is ready to continue.');
+      return;
+    }
+    if (attempt < 11) { billingVerificationTimer = window.setTimeout(() => void verifyBilling(attempt + 1, revision), 2500); return; }
+    showPaywall(undefined, 'Your payment is still processing. Check payment status again in a moment.');
+  } catch (error) { if (revision === billingVerificationRevision) showPaywall(undefined, error instanceof Error ? error.message : 'Could not check payment. Please try again.'); }
+}
+function showBillingAccount(): void {
+  const access = accessClock.snapshot(performance.now());
+  showAccountDialog(`<div class="eyebrow">YOUR ADVENTURE</div><h2 id="account-title">${access?.plan === 'lifetime' ? 'Lifetime access is yours.' : 'Your subscription is active.'}</h2><p>Enjoy unlimited play. Manage your ${access?.plan === 'lifetime' ? 'purchase and receipts' : 'subscription, payment details and cancellation'} securely with Polar.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button" id="billing-portal">Open billing portal ${icon('arrow')}</button><button type="button" class="text-button" id="billing-account-back">Back to my adventure</button>`);
+  document.querySelector<HTMLButtonElement>('#billing-account-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+  document.querySelector<HTMLButtonElement>('#billing-portal')!.onclick = async event => {
+    const button = event.currentTarget as HTMLButtonElement;
+    button.disabled = true;
+    try { const result = await api.billingPortal(); location.assign(billingURL(result.url)); }
+    catch (error) { accountError(error); button.disabled = false; }
+  };
+}
+function showAccountDialog(html: string, required = false) {
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   if(!dialog.open){
     accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
@@ -1686,7 +1849,11 @@ function showAccountDialog(html: string) {
     if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
   }
   dialog.innerHTML = html;
+  dialog.dataset.accessWall = required ? 'required' : '';
+  dialog.dataset.accessPhase = required ? accessClock.snapshot(performance.now())?.phase ?? 'checking' : '';
+  dialog.classList.remove('billing-dialog');
   if (!dialog.open) dialog.showModal();
+  syncAccessActivity();
   syncWorldMode();
   accountReminder?.tick(performance.now(), false);
 }
@@ -1770,7 +1937,9 @@ function enterGame(result: SessionResult) {
   world.setAvatar(profile.avatar);
   updateSelfPortraits(document, profile.avatar);
   api.mapId = firstAvailableMap(api.mapId, progress.completedQuestIds);
-  updateProgress(); api.connect();
+  if (result.access) accessClock.update(result.access, performance.now());
+  accessConnectionPaused = true;
+  updateProgress(); updateAccessHud();
   void sendHeartbeat(0);
   void loadCourse().catch(() => {});
   const owner = result.player.id;
@@ -1781,23 +1950,31 @@ function enterGame(result: SessionResult) {
   reminderTimer = window.setInterval(() => {
     const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
     const active = !document.hidden && connection === 'online' && !dialog.open;
-    const due = accountReminder!.tick(performance.now(), active);
+    accountReminder!.tick(performance.now(), active);
     if (intakeClock.tick(performance.now(), active)) void sendHeartbeat(intakeClock.consume());
-    if (!account.registered && due && writingReady() && !document.hidden && view === 'world' && !watchingWorld && !dialog.open && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !questController?.isOpen) {
-      showSaveAccount(true);
-      accountReminder!.markShown();
-    }
+    syncAccessActivity(); updateAccessHud(); enforceAccessWall();
+    if (performance.now() - accessHeartbeatAt >= 10000) void sendAccessHeartbeat(accessIsActive());
   }, 1000);
+  queueMicrotask(() => { enforceAccessWall(); syncAccessActivity(); });
+  const params = new URLSearchParams(location.search);
+  if (params.get('billing') === 'success') {
+    params.delete('billing'); params.delete('checkout_id');
+    history.replaceState(null, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
+    queueMicrotask(() => void verifyBilling());
+  }
 }
-function showSaveAccount(reminder = false) {
+function showSaveAccount(required = accessClock.snapshot(performance.now())?.phase === 'login_required', subscribeAfter = false) {
   if (!started || account.registered) return;
-  showAccountDialog(`<div class="eyebrow">${reminder ? t('SAVE YOUR ADVENTURE') : t('KEEP YOUR ADVENTURE CLOSE')}</div><h2 id="account-title">${e(t('You’re {name} here.', { name: profile.name }))}</h2><p>${t('Add your email and a password to return as {name} on another device, with your character and progress.', { name: `<strong>${e(profile.name)}</strong>` })}</p><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">${t('Use 10–128 characters.')}</small><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Save my adventure')} ${icon('check')}</button></form><button class="text-button" id="account-later">${t('Keep playing — I’ll do this later')}</button><small>${t('You can add these in Menu → Settings whenever you’re ready.')}</small>`);
+  const allowance = accessClock.snapshot(performance.now());
+  showAccountDialog(`<div class="eyebrow">${required ? 'YOUR 5 FREE GUEST MINUTES ARE UP' : 'KEEP YOUR ADVENTURE'}</div><h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${required ? 'Create a free account to keep all your progress and play for 10 more minutes.' : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><small id="password-help">${t('Use 10–128 characters.')}</small><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="guest-reset-note">To play anonymously again, you must delete your progress and start at the beginning. Your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
+  document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGuest);
+  document.querySelector<HTMLButtonElement>('#account-later')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
   const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
   const password = document.querySelector<HTMLInputElement>('#account-password')!;
   const confirmation = document.querySelector<HTMLInputElement>('#account-password-confirm')!;
   const checkConfirmation = () => confirmation.setCustomValidity(confirmation.value === password.value ? '' : t('The passwords must match.'));
   confirmation.oninput = checkConfirmation; password.oninput = checkConfirmation;
-  document.querySelector<HTMLButtonElement>('#account-later')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
   form.onsubmit = async event => {
     event.preventDefault(); checkConfirmation(); if (!form.checkValidity()) return;
     const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
@@ -1805,7 +1982,9 @@ function showSaveAccount(reminder = false) {
     try {
       account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
       password.value = ''; confirmation.value = '';
+      if (!account.access) await api.access();
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+      if (subscribeAfter) showPaywall();
       if (view === 'settings') renderOther();
       toast(t('Saved, {name}. Use your email and password to log in on another device.', { name: profile.name }));
     } catch (error) { accountError(error); }
@@ -1827,8 +2006,11 @@ function showLogout() {
 }
 
 function showLogin() {
-  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p><form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form><button class="text-button" id="login-back">${started ? t('Back to my adventure') : t('Back to choosing a name')}</button>`);
-  document.querySelector<HTMLButtonElement>('#login-back')!.onclick = () => { if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); else showNameEntry(!!api.token); };
+  const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
+  showAccountDialog(`<div class="eyebrow">${t('WELCOME BACK TO {brand}', { brand: 'THE LANTERN ATLAS' })}</div><h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="guest-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Start over as a guest</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : t('Back to choosing a name')}</button>`}`, required);
+  document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => { if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); else showNameEntry(!!api.token); });
+  document.querySelector<HTMLButtonElement>('#login-signup')?.addEventListener('click', () => showSaveAccount(required));
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGuest);
   const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
   form.onsubmit = async event => {
     event.preventDefault();
@@ -1847,6 +2029,7 @@ async function boot() {
   // Paint in the cached support language; the account's saved choice is applied once the session resumes.
   await setBaseLanguage(cachedBaseLanguage(), { persist: false });
   renderShell();
+  api.onAccess = applyAccess;
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
   if (import.meta.env.PROD) {
@@ -1882,7 +2065,7 @@ async function boot() {
     if (value !== 'online' && pendingMap) {
       pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined;
     }
-    syncWorldMode();
+    syncAccessActivity(); syncWorldMode();
     updateConnection();
   };
   api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; syncWorldMode(); } toast(message, true); };
@@ -1913,6 +2096,6 @@ function updateConnection() {
   el.className = `connection-pill ${connection}`;
   el.innerHTML = `<span></span>${connection === 'online' ? (count === 1 ? t('{count} wanderer here', { count }) : t('{count} wanderers here', { count })) : connection === 'connecting' ? t('Connecting') : connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting')}`;
 }
-document.addEventListener('visibilitychange', () => { accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+document.addEventListener('visibilitychange', () => { syncAccessActivity(); updateAccessHud(); void sendAccessHeartbeat(accessIsActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
+window.addEventListener('beforeunload', () => { eventLog?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();

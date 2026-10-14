@@ -34,7 +34,7 @@ func (a *App) completeUnit(w http.ResponseWriter, r *http.Request) {
 	request, _ := json.Marshal(input)
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "unit:"+unit.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "unit:"+unit.ID, request, func(account *Account) (Receipt, error) {
 		ensureProgress(&account.Progress)
 		if contains(account.Progress.CompletedUnitIDs, unit.ID) {
 			return Receipt{}, nil
@@ -171,7 +171,7 @@ func (a *App) completeActivity(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "activity-run:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "activity-run:"+input.ID, request, func(account *Account) (Receipt, error) {
 		ensureProgress(&account.Progress)
 		now := a.now().UTC()
 		answered := map[string]bool{}

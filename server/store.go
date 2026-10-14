@@ -26,6 +26,10 @@ type Store interface {
 	GetByEmail(context.Context, string) (Account, error)
 	AddSession(context.Context, string, string) error
 	DeleteSession(context.Context, string) error
+	UpdateAccount(context.Context, string, func(*Account) error) (Account, error)
+	ResetGuest(context.Context, string) (Account, error)
+	GetAccountByID(context.Context, string) (Account, error)
+	UpdateAccountByID(context.Context, string, func(*Account) error) (Account, error)
 	Mutate(context.Context, string, string, json.RawMessage, func(*Account) (Receipt, error)) (Account, Receipt, bool, error)
 	ActivityProofs(context.Context, string, string, string, []string) (map[string]SavedAction, int, error)
 	Health(context.Context) error
@@ -199,7 +203,7 @@ func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar A
 	}
 	previous := s.state.Accounts[id]
 	account := cloneAccount(previous)
-	account.Player.Name, account.Player.Avatar = name, avatar
+	account.Player.Name, account.Player.Avatar = name, normalizeAvatar(avatar)
 	account.Progress.Revision++
 	s.state.Accounts[id] = account
 	if err := s.save(); err != nil {
@@ -428,7 +432,7 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, avatar A
 		return Account{}, err
 	}
 	ensureProgress(&account.Progress)
-	account.Player.Name, account.Player.Avatar = name, avatar
+	account.Player.Name, account.Player.Avatar = name, normalizeAvatar(avatar)
 	account.Progress.Revision++
 	data, err = json.Marshal(account)
 	if err != nil {

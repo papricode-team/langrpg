@@ -58,6 +58,24 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 429, "too many attempts; try again in a minute")
 		return
 	}
+	for _, input := range inputs {
+		if input.Preview {
+			continue
+		}
+		ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+		playing := true
+		account, err := a.touchAccess(ctx, hash, &playing)
+		cancel()
+		if err != nil {
+			apiFailure(w, err)
+			return
+		}
+		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
+			writeAccessBlocked(w, status)
+			return
+		}
+		break
+	}
 	if !batch {
 		result, err := a.applyAttempt(r.Context(), hash, inputs[0])
 		if err != nil {
@@ -79,6 +97,11 @@ func (a *App) attempt(w http.ResponseWriter, r *http.Request) {
 	for _, input := range inputs {
 		result, err := a.applyAttempt(ctx, hash, input)
 		if err != nil {
+			var accessError *AccessDeniedError
+			if errors.As(err, &accessError) {
+				writeAccessBlocked(w, accessError.Access)
+				return
+			}
 			status, message := attemptFailure(err)
 			results = append(results, map[string]any{"attemptId": input.ID, "status": status, "error": message})
 			continue
@@ -181,6 +204,12 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		if err != nil {
 			return nil, err
 		}
+		if err := checkAccessGeneration(ctx, account); err != nil {
+			return nil, err
+		}
+		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
+			return nil, &AccessDeniedError{Access: status}
+		}
 		if err := a.requireMiniGameVocabulary(input, exercise, &account.Progress); err != nil {
 			return nil, err
 		}
@@ -190,7 +219,7 @@ func (a *App) applyAttempt(ctx context.Context, hash string, input AttemptInput)
 		}
 		return map[string]any{"attemptId": input.ID, "preview": true, "correct": correct}, nil
 	}
-	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
+	account, receipt, duplicate, err := a.mutate(ctx, hash, "attempt:"+input.ID, request, func(account *Account) (Receipt, error) {
 		if input.SceneAttempt {
 			check := a.requireStoryGate
 			if input.Mode == "recognition" && !guidedGate {
