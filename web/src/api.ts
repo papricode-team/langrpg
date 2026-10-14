@@ -1,3 +1,4 @@
+import { analyticsHeaders, analyticsAdmin, rotateAnalytics, trackAnalytics } from './analytics-client';
 import type { Avatar, WorldPlayer } from './world';
 import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
 import { isStoryMap, type MapId } from './maps';
@@ -137,15 +138,16 @@ export class Api {
     const token = this.token, sequence = ++this.requestSequence;
     const response = await fetch(`/api${path}`, {
       method: body === undefined ? 'GET' : 'POST',
-      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: { 'Content-Type': 'application/json', ...analyticsHeaders(), ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       body: body === undefined ? undefined : JSON.stringify(body),
       signal: AbortSignal.timeout(12000),
-    });
+    }).catch((error: unknown) => { trackAnalytics('client_error', 'network'); throw error; });
     const value = await response.json().catch(() => ({}));
     if (value.access && token === this.token && sequence >= this.publishedAccessSequence) {
       this.publishedAccessSequence = sequence;
       this.onAccess?.(value.access);
     }
+    if (response.status >= 500) trackAnalytics('client_error', path === '/billing/checkout' ? 'checkout' : 'server');
     if (!response.ok) throw new ApiError(value.error ?? `Request failed (${response.status})`, response.status);
     return value as T;
   }
@@ -165,6 +167,7 @@ export class Api {
   }
   private rememberSession(result: SessionResult) {
     result = normalizeSession(result);
+    analyticsAdmin(result.account.admin === true);
     if (result.account.registered) clearReferral(localStorage);
     this.token = result.token;
     this.selfId = result.player.id;
@@ -186,6 +189,7 @@ export class Api {
     const referralCode = pendingReferral(localStorage);
     const result = await this.request<AccountStatus>('/account/register', { email, password, ...(referralCode ? { referralCode } : {}) });
     clearReferral(localStorage);
+    analyticsAdmin(result.admin === true);
     return result;
   }
   referralLink() { return this.request<ReferralLink>('/referral/link', {}); }
@@ -199,6 +203,7 @@ export class Api {
   billingPortal() { return this.request<{ url: string }>('/billing/portal', {}); }
   syncBilling() { return this.request<{ access: GameAccess }>('/billing/sync', {}); }
   async login(email: string, password: string): Promise<SessionResult> {
+    rotateAnalytics();
     const result = await this.request<SessionResult>('/account/login', { email, password });
     this.destroy();
     return this.rememberSession(result);
@@ -209,6 +214,7 @@ export class Api {
     this.token = ''; this.selfId = '';
     localStorage.removeItem('atlas.token');
     localStorage.removeItem('atlas.profile');
+    rotateAnalytics();
   }
   async savePreferences(preferences: Preferences): Promise<Preferences> {
     const result = await this.request<{ preferences?: Partial<Preferences> }>('/preferences', preferences);

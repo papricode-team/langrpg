@@ -119,6 +119,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if linked.Email == email && verifyPassword(input.Password, linked.PasswordHash) {
+				a.recordSessionAnalytics(r, linked)
 				writeJSON(w, 200, map[string]any{"registered": true, "email": email, "admin": a.isAdmin(linked), "access": a.accessState(linked, a.now().UTC())})
 				return
 			}
@@ -133,6 +134,7 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	a.recordSessionAnalytics(r, linked)
 	writeJSON(w, 200, map[string]any{"registered": true, "email": email, "admin": a.isAdmin(linked), "access": a.accessState(linked, a.now().UTC())})
 }
 
@@ -200,6 +202,7 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	a.recordSessionAnalytics(r, account)
 	writeJSON(w, 200, a.sessionResponse(token, account))
 }
 

@@ -165,6 +165,9 @@ func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (
 		}
 		snapshot.WebhookReceipts = current.Billing.WebhookReceipts
 		current.Billing = snapshot
+		if a.hasPaidAccess(*current, now) && current.Analytics.PaidAt.IsZero() {
+			current.Analytics.PaidAt = now
+		}
 		return nil
 	})
 }
@@ -289,9 +292,11 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 	if err != nil {
+		a.recordAnalytics(r.Context(), account, AnalyticsEvent{Name: "checkout_failed", Detail: input.Plan})
 		writeError(w, 503, "unable to start checkout; please try again")
 		return
 	}
+	a.recordAnalytics(r.Context(), account, AnalyticsEvent{Name: "checkout_started", Detail: input.Plan})
 	writeJSON(w, 200, map[string]string{"url": checkoutURL})
 }
 
@@ -462,6 +467,9 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 		}
 		snapshot.WebhookReceipts[event.ID] = now
 		account.Billing = snapshot
+		if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
+			account.Analytics.PaidAt = now
+		}
 		return nil
 	})
 	if errors.Is(err, ErrUnauthorized) {

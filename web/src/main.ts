@@ -1,3 +1,4 @@
+import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
 import { pendingReferral, referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
@@ -141,6 +142,7 @@ const removeSentenceTranslations = installSentenceTranslations(document, sentenc
   const wordIds = getSentence(sentence.dataset.sentenceId ?? '')?.words.flatMap(word => word.lexemeId ? [word.lexemeId] : []) ?? [];
   if (wordIds.length) recordExposure({ wordIds: [...new Set(wordIds)].slice(0, 36) });
 });
+if (!uiCheckSurface) startAnalytics(() => api.token);
 const api = new Api();
 let stopUpdateChecks: (() => void) | undefined;
 let removeUpdateNotice: (() => void) | undefined;
@@ -341,6 +343,7 @@ function renderShell() {
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
         <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
+        <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" hidden>Analytics</a>
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="${e(t('Touch movement joystick'))}"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="${e(t('Interact with something nearby'))}" hidden disabled>${icon('chat')}<span id="nearby-name"></span></button></div>
       </div>
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>
@@ -1382,6 +1385,7 @@ function optionRows(): OptionRow[] {
     { kind: 'action', id: 'course-sources', label: t('Learning content & credits'), help: t('Where the course material comes from.'), action: 'course-sources', button: t('Open'), glyph: 'book' },
   ];
   return [
+    { kind: 'choice', id: 'usage-analytics', label: t('Usage analytics'), help: t('Share visits and app issues with Glotworld to help improve the game. No external analytics services. Your browser privacy preference takes priority. Learning progress and billing records are saved separately.'), value: browserAnalyticsEnabled() ? 'on' : 'off', choices: onOff },
     { kind: 'action', id: 'manage-access', label: t('Game access'), help: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Enjoy unlimited free play.') : t('Manage your access and billing.'), action: 'manage-access', button: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Free to play') : accessClock.snapshot(performance.now())?.phase === 'paid' ? t('Manage access') : t('View access options'), glyph: 'clock' },
     { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 15 minutes'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
   ];
@@ -1404,6 +1408,7 @@ function changeOption(id: string, value: string) {
   switch (id) {
     case 'sound': muted = value === 'off'; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted }); if (!muted) playCue(true); break;
     case 'silent': if (attemptBusy) { toast(t('Your answer is saving. Try again in a moment.')); return; } setSilentMode(value === 'on'); return;
+    case 'usage-analytics': setBrowserAnalyticsEnabled(value === 'on'); break;
     case 'speech-rate': speechRate = Number(value); localStorage.setItem('atlas.speechRate', String(speechRate)); break;
     case 'world-motion': worldMotion = value as WorldMotion; localStorage.setItem('atlas.worldMotion', worldMotion); world.setMotionPreference(worldMotion); break;
     case 'time-mode': worldTimeMode = value as WorldTimeMode; localStorage.setItem('atlas.worldTimeMode', worldTimeMode); world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
@@ -1669,6 +1674,7 @@ function bindProfileForm() {
       const result = await api.session(name, getAvatar());
       account = result.account;
       updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
       profile = { name: result.player.name, avatar: result.player.avatar };
       localStorage.setItem('atlas.profile', JSON.stringify(profile));
       acceptProgress(result.progress, result.player.id);
@@ -2060,6 +2066,7 @@ function showPaywall(required = accessClock.snapshot(performance.now())?.phase =
   if (access?.phase === 'free') { showFreeAccess(); return; }
   if (!access?.registered) { showSaveAccount(access?.phase === 'login_required', true); return; }
   if (access.phase === 'paid') { showBillingAccount(); return; }
+  trackAnalytics('paywall_viewed', required ? 'required' : 'optional');
   showAccountDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'Your free play time is used up. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<span class="caption">/ month</span></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan" data-billing-plan="yearly" ${access.billingAvailable ? '' : 'disabled'}><span>Yearly</span><strong>€9.99<span class="caption">/ year</span></strong><p>Billed yearly. Cancel anytime.</p><b>Subscribe yearly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<span class="caption">once</span></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><span class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
 
   document.querySelector('#account-dialog')!.classList.add('billing-dialog');
@@ -2110,6 +2117,7 @@ function showBillingAccount(): void {
   };
 }
 function showAccountDialog(html: string, required = false) {
+  if (account.admin) html += '<a class="text-button" href="/admin.html">Open admin analytics</a>';
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   if(!dialog.open){
     accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
@@ -2217,8 +2225,10 @@ function showNameEntry(restoreName = false) {
   sync();
 }
 async function enterGame(result: SessionResult): Promise<boolean> {
+  trackAnalytics('page_view', 'game');
   await setBaseLanguage(result.preferences.baseLanguage);
   account = result.account;
+  document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
   if (result.access) accessClock.update(result.access, performance.now());
   const params = new URLSearchParams(location.search);
   if (params.get('billing') === 'success') {
@@ -2250,6 +2260,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   showFirstControls();
   account = result.account;
   updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+  document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
   acceptProgress(result.progress, result.player.id);
   profile = { name: result.player.name, avatar: result.player.avatar };
   localStorage.setItem('atlas.profile', JSON.stringify(profile));
@@ -2301,6 +2312,7 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
     try {
       account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
       updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
       password.value = ''; confirmation.value = '';
       if (!account.access) await api.access();
       if (!activeCourse) { location.reload(); return; }

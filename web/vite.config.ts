@@ -29,6 +29,7 @@ export default defineConfig(({ command, mode }) => {
       rolldownOptions: {
         input: {
           game: fileURLToPath(new URL('./index.html', import.meta.url)),
+          admin: fileURLToPath(new URL('./admin.html', import.meta.url)),
           editor: fileURLToPath(new URL('./editor.html', import.meta.url)),
         },
         output: {

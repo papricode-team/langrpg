@@ -37,6 +37,7 @@ func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded
 	inviter := cloneAccount(previousInviter)
 	credited := exists && creditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
+	account.Analytics.RegisteredAt = now
 	s.state.Accounts[id] = account
 	if credited {
 		s.state.Accounts[referralID] = inviter
@@ -133,6 +134,7 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 	inviter, exists := accounts[referralID]
 	credited := exists && creditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
+	account.Analytics.RegisteredAt = now
 	data, err := json.Marshal(account)
 	if err != nil {
 		return err

@@ -17,6 +17,8 @@ import (
 )
 
 type Store interface {
+	RecordAnalytics(context.Context, []AnalyticsEvent, time.Time) error
+	ReadAnalytics(context.Context, time.Time, time.Time) ([]AnalyticsFact, []AnalyticsAccount, error)
 	WorldIdentity() WorldIdentity
 	Create(context.Context, string, Account) error
 	Get(context.Context, string) (Account, error)
@@ -40,6 +42,7 @@ type Store interface {
 }
 
 type diskState struct {
+	Analytics    map[string]AnalyticsEvent         `json:"analytics,omitempty"`
 	WorldContent *WorldContent                     `json:"worldContent,omitempty"`
 	World        *WorldIdentity                    `json:"world,omitempty"`
 	Version      int                               `json:"version"`
@@ -259,6 +262,10 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	CREATE TABLE IF NOT EXISTS world_state (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);
 	CREATE TABLE IF NOT EXISTS world_content (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);`)
 	if err != nil {
+		pool.Close()
+		return nil, err
+	}
+	if err = s.initAnalytics(ctx); err != nil {
 		pool.Close()
 		return nil, err
 	}

@@ -150,6 +150,7 @@ type Progress struct {
 }
 
 type Account struct {
+	Analytics             AnalyticsMilestones    `json:"analytics,omitempty"`
 	Referrals             ReferralState          `json:"referrals,omitempty"`
 	ActiveCourseID        string                 `json:"activeCourseId,omitempty"`
 	CourseStates          map[string]CourseState `json:"courseStates,omitempty"`

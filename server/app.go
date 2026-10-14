@@ -70,6 +70,8 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 
 func (a *App) Handler() http.Handler {
 	mux := http.NewServeMux()
+	mux.HandleFunc("POST /api/analytics/events", a.collectAnalytics)
+	mux.HandleFunc("GET /api/admin/analytics", a.adminAnalytics)
 	mux.HandleFunc("GET /api/health", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.health(w, r) }))
 	mux.HandleFunc("GET /api/version", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.deploymentVersion(w, r) }))
 	mux.HandleFunc("POST /api/session", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.session(w, r) }))
@@ -135,7 +137,7 @@ func (a *App) Handler() http.Handler {
 			w.Header().Add("Vary", "Origin")
 			w.Header().Set("Access-Control-Expose-Headers", "ETag")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match, If-None-Match")
+			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match, If-None-Match, X-Analytics-Visitor, X-Analytics-Session")
 		}
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusNoContent)
@@ -297,6 +299,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 			}
 			account.Player = a.world.UpdateProfile(account.Player)
 		}
+		a.recordSessionAnalytics(r, account)
 		writeJSON(w, 200, a.sessionResponse(strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "), account))
 		return
 	}
@@ -345,6 +348,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	a.recordSessionAnalytics(r, account)
 	writeJSON(w, 201, a.sessionResponse(token, account))
 }
 

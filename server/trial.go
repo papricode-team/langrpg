@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -188,6 +189,7 @@ func (a *App) mutate(ctx context.Context, hash, key string, request json.RawMess
 		}
 		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
 	}
+	var completedQuests, completedUnits []string
 	account, receipt, duplicate, err := a.store.Mutate(ctx, hash, key, request, func(account *Account) (Receipt, error) {
 		if err := checkAccessGeneration(ctx, *account); err != nil {
 			return Receipt{}, err
@@ -199,7 +201,28 @@ func (a *App) mutate(ctx context.Context, hash, key string, request json.RawMess
 		if a.billing != nil && !a.hasPaidAccess(*account, now) {
 			settlePlay(account, now)
 		}
+		beforeQuests := append([]string(nil), account.Progress.CompletedQuestIDs...)
+		beforeUnits := append([]string(nil), account.Progress.CompletedUnitIDs...)
 		receipt, err := fn(account)
+		if err == nil {
+			if strings.HasPrefix(key, "quest:") || strings.HasPrefix(key, "story:") {
+				for _, id := range account.Progress.CompletedQuestIDs {
+					if !contains(beforeQuests, id) {
+						completedQuests = append(completedQuests, id)
+					}
+				}
+			}
+			if strings.HasPrefix(key, "unit:") {
+				for _, id := range account.Progress.CompletedUnitIDs {
+					if !contains(beforeUnits, id) {
+						completedUnits = append(completedUnits, id)
+					}
+				}
+			}
+		}
+		if err == nil && receipt.Correct != nil && account.Analytics.ActivatedAt.IsZero() {
+			account.Analytics.ActivatedAt = now
+		}
 		if err == nil {
 			if status := a.accessState(*account, a.now().UTC()); accessBlocked(status) {
 				return Receipt{}, &AccessDeniedError{Access: status}
@@ -213,6 +236,15 @@ func (a *App) mutate(ctx context.Context, hash, key string, request json.RawMess
 		}
 		if status := a.accessState(account, a.now().UTC()); accessBlocked(status) {
 			return Account{}, Receipt{}, false, &AccessDeniedError{Access: status}
+		}
+	}
+	if err == nil && !duplicate {
+		a.recordLearningAnalytics(ctx, account, key, request, receipt)
+		for _, id := range completedQuests {
+			a.recordAnalytics(ctx, account, AnalyticsEvent{ID: fmt.Sprintf("quest:%s:%s:%d:%s", account.Player.ID, account.ActiveCourseID, account.Access.Generation, id), Name: "quest_completed"})
+		}
+		for _, id := range completedUnits {
+			a.recordAnalytics(ctx, account, AnalyticsEvent{ID: fmt.Sprintf("unit:%s:%s:%d:%s", account.Player.ID, account.ActiveCourseID, account.Access.Generation, id), Name: "unit_completed"})
 		}
 	}
 	return account, receipt, duplicate, err
