@@ -1,0 +1,234 @@
+/* You pages share the settings page's width, heading, dividers and controls. */
+#menu-layer .character-settings-body {
+  border-top:1px solid var(--game-line);
+  padding:24px 16px 0;
+}
+
+#menu-layer .character-settings .form-label {
+  color:var(--game-text);
+  font-size:var(--type-body);
+}
+
+#menu-layer .character-settings .name-input {
+  max-width:420px;
+  border-radius:4px;
+  color:var(--game-text);
+  background:#0d1e19;
+  font-family:inherit;
+  font-size:var(--type-body);
+}
+
+#menu-layer .character-builder {
+  grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr);
+  gap:24px;
+  margin:24px 0;
+}
+
+#menu-layer .builder-preview,#menu-layer .builder-editor {
+  background:none;
+  border:0;
+  border-radius:0;
+  color:var(--game-text);
+  padding:0;
+}
+
+#menu-layer .builder-preview p {
+  color:var(--game-muted);
+  font:400 var(--type-caption)/1.5 'DM Sans',sans-serif;
+  margin-top:12px;
+}
+
+#menu-layer .builder-editor :is(h3,legend),#menu-layer .builder-none {
+  color:var(--game-text);
+}
+
+#menu-layer :is(.builder-turns,.builder-actions) :is(button,select),#menu-layer .builder-tile {
+  border:1px solid #d8bb8040;
+  border-radius:4px;
+  background:#0d1e19;
+  color:var(--game-text);
+  min-height:44px;
+}
+
+#menu-layer .builder-tabs button {
+  min-height:44px;
+  border-radius:4px;
+  color:var(--game-muted);
+}
+
+#menu-layer .builder-tabs button[aria-selected=true],#menu-layer .builder-tile[aria-pressed=true] {
+  background:#d8bb801a;
+  color:var(--game-text);
+  border-color:var(--game-gold);
+}
+
+#menu-layer .builder-rule {
+  border-radius:4px;
+  background:#d8bb8012;
+  color:var(--game-muted);
+}
+
+#menu-layer .builder-colours {
+  gap:10px;
+}
+
+#menu-layer .builder-colours button,#menu-layer .builder-colours input {
+  width:32px;
+  height:32px;
+}
+
+#menu-layer .builder-colours button {
+  border-color:#10211f;
+  box-shadow:0 0 0 1px var(--game-line);
+}
+
+#menu-layer .builder-colours button[aria-pressed=true] {
+  box-shadow:0 0 0 2px var(--game-gold);
+}
+
+#menu-layer .character-settings .honest-note {
+  margin-top:16px;
+}
+
+#menu-layer .profile-rewards {
+  border-top:1px solid var(--game-line);
+  padding-top:20px;
+}
+
+#menu-layer .profile-rewards>summary {
+  color:var(--game-text);
+  cursor:pointer;
+}
+
+.controls-help-rows {
+  border-top:1px solid var(--game-line);
+}
+
+.controls-help-row {
+  display:grid;
+  grid-template-columns:160px minmax(0,1fr);
+  gap:24px;
+  padding:24px 16px;
+  border-bottom:1px solid var(--game-line);
+}
+
+.controls-help-row h3 {
+  color:var(--game-text);
+  font:500 var(--type-body)/1.6 'DM Sans',sans-serif;
+}
+
+.controls-help-row p {
+  color:var(--game-muted);
+  line-height:1.7;
+}
+
+.controls-help-row strong {
+  color:var(--game-text);
+  font-weight:500;
+}
+
+.account-current-email {
+  display:block;
+  overflow-wrap:anywhere;
+  color:var(--game-text);
+  margin-bottom:10px;
+}
+
+.account-credential-editor>summary {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:48px;
+  padding:10px 14px;
+  border:1px solid #d8bb8040;
+  border-radius:4px;
+  color:var(--game-gold);
+  background:#0d1e19;
+  cursor:pointer;
+  list-style:none;
+}
+
+.account-credential-editor>summary::-webkit-details-marker { display:none; }
+.account-credential-editor[open]>summary .icon { transform:rotate(90deg); }
+
+.account-credential-editor form {
+  display:grid;
+  gap:10px;
+  padding-top:20px;
+  min-width:0;
+}
+
+.account-credential-editor input:not([type=hidden]) {
+  width:100%;
+  min-width:0;
+  min-height:48px;
+  padding:10px 12px;
+  border:1px solid #d8bb8040;
+  border-radius:4px;
+  color:var(--game-text);
+  background:#0d1e19;
+}
+
+.account-credential-editor label { color:var(--game-text); }
+.account-credential-editor .caption { color:var(--game-muted); }
+.account-credential-error { color:#f0bcae; overflow-wrap:anywhere; }
+.account-credential-error:empty { display:none; }
+.account-credential-actions { display:flex; align-items:center; gap:12px; margin-top:6px; }
+
+#menu-layer .options-panel .course-picker {
+  margin:0;
+  padding:20px 0;
+  border:0;
+  border-top:1px solid var(--game-line);
+  border-radius:0;
+}
+
+#menu-layer .options-panel .course-picker select {
+  min-height:48px;
+  max-width:100%;
+  border:1px solid #d8bb8040;
+  border-radius:4px;
+  color:var(--game-text);
+  background:#0d1e19;
+}
+
+#menu-layer .options-panel .course-picker [role=status]:empty { display:none; }
+
+/* Nine-slice SVG artwork gives every menu control the same painted focus effect.
+   Border-image widths do not change layout or replace a control's background. */
+#menu-layer :is(button,input,select,summary,a,[tabindex]):focus-visible,
+#menu-layer[data-input='pad'] :is(button,input,select,summary,a,[tabindex]):focus {
+  outline:none;
+  box-shadow:none;
+  border-image:url('/assets/ui/menu-focus.svg') 16 fill / 16px / 3px stretch;
+}
+
+@media (forced-colors:active) {
+  #menu-layer :is(button,input,select,summary,a,[tabindex]):focus-visible,
+  #menu-layer[data-input='pad'] :is(button,input,select,summary,a,[tabindex]):focus {
+    border-image:none;
+    outline:2px solid Highlight;
+    outline-offset:3px;
+  }
+}
+
+@media (--tablet) {
+  #menu-layer .character-builder { grid-template-columns:minmax(0,1fr); }
+  #menu-layer .builder-preview {
+    position:relative;
+    display:grid;
+    grid-template-columns:140px minmax(0,1fr);
+    align-items:center;
+  }
+  #menu-layer .builder-preview>canvas { grid-row:1/4; max-width:140px; }
+  #menu-layer .builder-preview p { display:none; }
+  .controls-help-row { grid-template-columns:minmax(0,1fr); gap:8px; }
+}
+
+@media (--phone) {
+  #menu-layer .character-settings-body { padding:20px 0 0; }
+  #menu-layer .builder-preview { grid-template-columns:110px minmax(0,1fr); }
+  #menu-layer .builder-preview>canvas { max-width:110px; }
+  .controls-help-row { padding:20px 0; }
+}

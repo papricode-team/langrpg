@@ -206,6 +206,83 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, a.sessionResponse(token, account))
 }
 
+func (a *App) changeCredentials(w http.ResponseWriter, r *http.Request) {
+	hash, err := bearer(r)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+	account, err := a.store.Get(ctx, hash)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	if account.Email == "" {
+		writeError(w, 403, "add an email and password before changing account details")
+		return
+	}
+	if !a.allow("credentials:"+account.Player.ID, 6) {
+		writeError(w, 429, "too many account requests; try again in a minute")
+		return
+	}
+	var input struct {
+		CurrentPassword string  `json:"currentPassword"`
+		Email           *string `json:"email"`
+		NewPassword     *string `json:"newPassword"`
+	}
+	if err = decodeJSON(w, r, &input); err != nil {
+		apiFailure(w, err)
+		return
+	}
+	if (input.Email == nil) == (input.NewPassword == nil) {
+		writeError(w, 400, "change either your email or your password")
+		return
+	}
+	if input.CurrentPassword == "" || utf8.RuneCountInString(input.CurrentPassword) > 128 || !verifyPassword(input.CurrentPassword, account.PasswordHash) {
+		writeError(w, 403, "current password is incorrect")
+		return
+	}
+	change := CredentialChange{PreviousEmail: account.Email, PreviousHash: account.PasswordHash, Email: account.Email, PasswordHash: account.PasswordHash}
+	if input.Email != nil {
+		email, valid := normalizeEmail(*input.Email)
+		if !valid {
+			writeError(w, 400, "enter a valid email address")
+			return
+		}
+		// An unverified email edit must never grant deployment-managed privileges.
+		if email != account.Email && a.adminEmails[email] {
+			writeError(w, 409, "this email address is unavailable")
+			return
+		}
+		change.Email = email
+	} else {
+		if utf8.RuneCountInString(*input.NewPassword) < 10 || utf8.RuneCountInString(*input.NewPassword) > 128 {
+			writeError(w, 400, "use a password with 10–128 characters")
+			return
+		}
+		change.PasswordHash, err = hashPassword(*input.NewPassword)
+		if err != nil {
+			apiFailure(w, err)
+			return
+		}
+	}
+	if err = a.store.ChangeCredentials(ctx, hash, change); err != nil {
+		switch {
+		case errors.Is(err, ErrCredentialsConflict):
+			writeError(w, 409, "this email address is already in use")
+		case errors.Is(err, ErrCredentialsChanged):
+			writeError(w, 409, err.Error())
+		default:
+			apiFailure(w, err)
+		}
+		return
+	}
+	account.Email, account.PasswordHash = change.Email, change.PasswordHash
+	writeJSON(w, 200, map[string]any{"registered": true, "email": account.Email, "admin": a.isAdmin(account), "access": a.accessState(account, a.now().UTC())})
+}
+
 func (a *App) logoutAccount(w http.ResponseWriter, r *http.Request) {
 	hash, err := bearer(r)
 	if err != nil {

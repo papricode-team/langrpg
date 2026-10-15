@@ -43,7 +43,7 @@ The menu has four sections: Map, Story, Learn and You. Desktop has one header ro
 
 ## Focus and selection
 
-Keyboard and controller focus uses one brass ring, `--focus-ring` in `web/src/game-ui.css`: a dark gap, a light gold ring and a soft glow, drawn with `box-shadow` so it follows rounded corners. Selection is a separate signal: the active section tab carries a lit underline and the selected page carries a lit bar on its left edge. Never express selection with the focus ring, and never draw a second outline around a focused control.
+Menu keyboard and controller focus uses `web/public/assets/ui/menu-focus.svg`: a translucent wash, a feathered underline and small corner glints, rendered as a nine-slice border image without shifting layout. Forced-colors mode falls back to a system highlight outline. Selection remains separate: the active section tab carries a lit underline and the selected page carries a lit bar on its left edge. Do not stack the old brass focus ring over the image effect.
 
 Encounters put the German line and word chips before a full-width primary session action. Translation is disclosed on interaction. Keep one secondary mini-game link beside Leave. Scripted conversations provide an action when graded practice is unavailable; their dialogue choices are ungraded and do not award learning credit or bypass word and route unlocks. Live chat is removed from the interface, client API and world server.
 

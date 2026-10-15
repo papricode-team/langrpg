@@ -76,6 +76,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/version", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.deploymentVersion(w, r) }))
 	mux.HandleFunc("POST /api/session", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.session(w, r) }))
 	mux.HandleFunc("POST /api/account/register", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.registerAccount(w, r) }))
+	mux.HandleFunc("POST /api/account/credentials", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.changeCredentials(w, r) }))
 	mux.HandleFunc("POST /api/referral/link", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.referralLink(w, r) }))
 	mux.HandleFunc("POST /api/account/login", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.loginAccount(w, r) }))
 	mux.HandleFunc("POST /api/account/logout", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.logoutAccount(w, r) }))

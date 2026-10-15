@@ -6,7 +6,7 @@ import type { UiSound } from './ui-sounds';
  * Arrows, WASD, the D-pad or the stick move a selection cursor. Q/E or the bumpers change
  * sections; brackets or triggers change pages. Touch players open a section's page tiles.
  */
-export type MenuView = 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
+export type MenuView = 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'help' | 'activities' | 'course';
 export type MenuSectionId = 'map' | 'story' | 'learn' | 'you';
 export interface MenuSection { readonly id: MenuSectionId; readonly icon: string; readonly label: string; readonly views: readonly MenuView[] }
 export type InputMode = 'pointer' | 'keys' | 'pad';
@@ -16,11 +16,11 @@ export const menuSections: readonly MenuSection[] = [
   { id: 'map', icon: 'compass', get label() { return t('Map'); }, views: ['atlas'] },
   { id: 'story', icon: 'scroll', get label() { return t('Story'); }, views: ['menu', 'quests', 'story'] },
   { id: 'learn', icon: 'book', get label() { return t('Learn'); }, views: ['course', 'journal', 'activities'] },
-  { id: 'you', icon: 'shirt', get label() { return t('You'); }, views: ['character', 'settings'] },
+  { id: 'you', icon: 'shirt', get label() { return t('You'); }, views: ['character', 'settings', 'help'] },
 ];
 
 export function viewLabel(view: MenuView): string {
-  return { menu: t('Overview'), quests: t('Quests'), story: t('Discoveries'), atlas: t('Map'), journal: t('Words'), course: t('Course'), activities: t('Activities'), character: t('Character'), settings: t('Settings') }[view];
+  return { menu: t('Overview'), quests: t('Quests'), story: t('Discoveries'), atlas: t('Map'), journal: t('Words'), course: t('Course'), activities: t('Activities'), character: t('Character'), settings: t('Settings'), help: t('Controls & help') }[view];
 }
 
 export function sectionOf(view: MenuView): MenuSection {

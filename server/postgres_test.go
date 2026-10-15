@@ -380,4 +380,42 @@ func TestPostgresAccountCredentials(t *testing.T) {
 	if got := request(app, "GET", "/api/progress", result.Token, nil).Code; got != 200 {
 		t.Fatalf("new device session failed: %d", got)
 	}
+	// Credential edits retain the same identity and rely on the database's
+	// unique email index. A conflicting write must roll back the entire change.
+	unlinked := other
+	if owner.Player.ID == second.ID {
+		unlinked = token
+	}
+	occupied := "occupied-" + email
+	if err := store.SetCredentials(ctx, tokenHash(unlinked), occupied, encoded); err != nil {
+		t.Fatal(err)
+	}
+	conflict := request(app, "POST", "/api/account/credentials", result.Token, map[string]string{"currentPassword": "a long lantern password", "email": occupied})
+	if conflict.Code != 409 {
+		t.Fatalf("duplicate email edit: %d %s", conflict.Code, conflict.Body.String())
+	}
+	newEmail := "updated-" + email
+	for _, input := range []map[string]string{
+		{"currentPassword": "a long lantern password", "email": newEmail},
+		{"currentPassword": "a long lantern password", "newPassword": "an updated lantern password"},
+	} {
+		response := request(app, "POST", "/api/account/credentials", result.Token, input)
+		if response.Code != 200 {
+			t.Fatalf("database credential edit: %d %s", response.Code, response.Body.String())
+		}
+	}
+	updated, err := store.GetByEmail(ctx, newEmail)
+	if err != nil || updated.Player.ID != owner.Player.ID || updated.Progress.XP != before.Progress.XP || !verifyPassword("an updated lantern password", updated.PasswordHash) {
+		t.Fatal("database credential edit lost account data")
+	}
+	if _, err := store.GetByEmail(ctx, email); !errors.Is(err, ErrUnauthorized) {
+		t.Fatal("old email still owns the account")
+	}
+	stale := CredentialChange{newEmail, encoded, "stale-" + email, encoded}
+	if err := store.ChangeCredentials(ctx, tokenHash(result.Token), stale); !errors.Is(err, ErrCredentialsChanged) {
+		t.Fatalf("stale database edit accepted: %v", err)
+	}
+	if login := request(app, "POST", "/api/account/login", "", map[string]string{"email": newEmail, "password": "an updated lantern password"}); login.Code != 200 {
+		t.Fatalf("login after database credential edit: %d", login.Code)
+	}
 }

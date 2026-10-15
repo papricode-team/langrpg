@@ -7,9 +7,10 @@ const box = (left: number, top: number, width = 100, height = 40): Box => ({ lef
 describe('menu sections', () => {
   it('places every menu page in Map, Story, Learn or You', () => {
     expect(menuSections.map(section => section.id)).toEqual(['map', 'story', 'learn', 'you']);
-    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'atlas', 'character', 'course', 'journal', 'menu', 'quests', 'settings', 'story']);
+    expect(menuSections.flatMap(section => section.views).sort()).toEqual(['activities', 'atlas', 'character', 'course', 'help', 'journal', 'menu', 'quests', 'settings', 'story']);
     expect(sectionOf('atlas').id).toBe('map');
     expect(sectionOf('course').id).toBe('learn');
+    expect(sectionOf('help').id).toBe('you');
   });
 
   it('returns to the last page of a tab and wraps at the ends', () => {

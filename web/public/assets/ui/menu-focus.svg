@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="80" viewBox="0 0 160 80">
+  <defs>
+    <linearGradient id="wash" x2="0" y2="1">
+      <stop stop-color="#d6eee8" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#d6eee8" stop-opacity=".16"/>
+    </linearGradient>
+    <linearGradient id="stroke">
+      <stop stop-color="#edf8f4" stop-opacity="0"/>
+      <stop offset=".18" stop-color="#edf8f4" stop-opacity=".7"/>
+      <stop offset=".5" stop-color="#fffdf2"/>
+      <stop offset=".82" stop-color="#edf8f4" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#edf8f4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- A translucent painted wash, feathered underline and four small glints. -->
+  <path d="M5 6 155 4 157 73 80 76 4 73Z" fill="url(#wash)"/>
+  <path d="m12 73 41-1 28 1 27-1 40 1-24 2-44 1-41-1Z" fill="url(#stroke)"/>
+  <g fill="#e8f5ef" stroke="#10211f" stroke-width=".5">
+    <path d="m6 1 1.5 4.5L12 7l-4.5 1.5L6 13 4.5 8.5 0 7l4.5-1.5Z"/>
+    <path d="m154 1 1.5 4.5L160 7l-4.5 1.5L154 13l-1.5-4.5L148 7l4.5-1.5Z"/>
+    <path d="m6 67 1.5 4.5L12 73l-4.5 1.5L6 79l-1.5-4.5L0 73l4.5-1.5Z"/>
+    <path d="m154 67 1.5 4.5L160 73l-4.5 1.5L154 79l-1.5-4.5L148 73l4.5-1.5Z"/>
+  </g>
+</svg>

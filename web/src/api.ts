@@ -193,6 +193,11 @@ export class Api {
     return result;
   }
   referralLink() { return this.request<ReferralLink>('/referral/link', {}); }
+  async changeCredentials(input: { currentPassword: string; email?: string; newPassword?: string }): Promise<AccountStatus> {
+    const result = await this.request<AccountStatus>('/account/credentials', input);
+    analyticsAdmin(result.admin === true);
+    return result;
+  }
   access() { return this.request<{ access: GameAccess }>('/access'); }
   accessHeartbeat(active: boolean) { return this.request<{ access: GameAccess }>('/access/heartbeat', { active }); }
   async resetGame(): Promise<SessionResult> {

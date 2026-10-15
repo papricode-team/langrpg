@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const directory = path.join(root, 'docs/screenshots/ui');
+const directory = process.env.ATLAS_UI_DIRECTORY ?? path.join(root, 'docs/screenshots/ui');
 const origin = process.env.ATLAS_UI_URL ?? 'http://127.0.0.1:5187';
 const surfaces = (process.env.ATLAS_UI_SURFACES ?? 'home,options,encounter,journal,activity').split(',');
 const viewports = [
@@ -155,6 +155,30 @@ async function checkFlows(page, surface, viewport) {
       } else {
         await page.keyboard.press('e');
         if (await page.locator('.menu-tab.active').getAttribute('data-menu-section') !== 'learn') errors.push('Keyboard section navigation failed.');
+      }
+    } else if (['character', 'help', 'account'].includes(surface)) {
+      if (await page.locator('[data-action="course-sources"]').count()) errors.push('Removed credits screen is still linked.');
+      if (await page.locator('#other-view>.options-panel>.options-heading').count() !== 1) errors.push('You page is missing its shared page heading.');
+      if (surface === 'account') {
+        if (await page.locator('.account-current-email').textContent() !== 'wanderer@example.com') errors.push('Current email is not visible in plain text.');
+        await page.locator('.account-credential-editor').first().locator('summary').click();
+        if (await page.locator('#account-new-email').getAttribute('type') !== 'email' || await page.locator('#account-new-email').inputValue() !== 'wanderer@example.com') errors.push('Email editor masks or loses the current email.');
+        await page.locator('[data-credential-form="email"] [data-cancel-credentials]').click();
+        await page.locator('[data-action="logout-account"]').click();
+        if (!await page.locator('#logout-confirm').isVisible()) errors.push('Log out is unavailable.');
+        await page.locator('#logout-cancel').click();
+      }
+      if (viewport === 'phone') await page.locator('[data-menu-back]').click();
+      await page.locator('.menu-page[data-view="help"]').click();
+      if (!await page.locator('.controls-help').isVisible() || await page.locator('#dialog[open]').count()) errors.push('Controls & help does not open as a menu page.');
+      if (await page.locator('.menu-page[data-view="help"]').getAttribute('aria-pressed') !== 'true') errors.push('Help is not selected in the page rail.');
+      if (viewport === 'phone') {
+        await page.locator('[data-menu-back]').click();
+        if (!await page.locator('#menu-pages').isVisible()) errors.push('Help Back did not restore the phone hub.');
+      } else {
+        await page.keyboard.press('ArrowUp');
+        const focus = await page.evaluate(() => ({ image: getComputedStyle(document.activeElement).borderImageSource, shadow: getComputedStyle(document.activeElement).boxShadow }));
+        if (!focus.image.includes('menu-focus.svg') || focus.shadow !== 'none') errors.push('Menu keyboard focus is not using the image effect.');
       }
     } else if (surface === 'encounter') {
       await page.locator('.word-chip').first().click();

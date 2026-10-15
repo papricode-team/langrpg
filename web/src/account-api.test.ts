@@ -20,6 +20,20 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('account session lifecycle', () => {
+  it('updates credentials on the current session without changing the saved token', async () => {
+    saved.set('atlas.token', 'account-token');
+    const account = { registered: true, email: 'updated@example.com' };
+    const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify(account)));
+    vi.stubGlobal('fetch', fetch);
+    const api = new Api();
+    const input = { currentPassword: 'current lantern password', email: account.email };
+    expect(await api.changeCredentials(input)).toEqual(account);
+    expect(fetch.mock.calls[0][0]).toBe('/api/account/credentials');
+    expect(fetch.mock.calls[0][1].headers.Authorization).toBe('Bearer account-token');
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual(input);
+    expect(saved.get('atlas.token')).toBe('account-token');
+    expect([...saved.values()]).not.toContain(input.currentPassword);
+  });
   it('keeps referral attribution across a failed signup and clears it only after success', async () => {
     saved.set('atlas.token', 'guest-token');
     saved.set('atlas.pendingReferral', 'friend-player-123');

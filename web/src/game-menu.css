@@ -144,7 +144,7 @@
   color:var(--game-gold);
 }
 
-/* The selected section and page carry a lit brass bar; focus adds the ring on top. */
+/* The selected section and page carry a lit brass bar; focus adds a painted image highlight. */
 #menu-layer .menu-tab::after {
   content:'';
   position:absolute;

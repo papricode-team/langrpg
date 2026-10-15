@@ -83,6 +83,9 @@ import { ScreenFilterControls } from './screen-filter-controls';
 import { MenuMemory, MenuNavigator, menuChromeMarkup, menuSections, sectionOf, viewLabel, type MenuPage, type MenuView } from './menu-navigation';
 import { bindOptionRows, optionsMarkup, optionsTabs, type OptionRow, type OptionsTab } from './options-menu';
 import { UiSounds } from './ui-sounds';
+import { controlsHelpMarkup } from './menu-help';
+import { accountCredentialRows, bindAccountCredentials } from './account-settings';
+import './you-menu.css';
 import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors } from './interiors';
 import type { InteriorId, InteriorObjectSpec } from './interiors';
 import { renderInteriorEncounter } from './encounter-panels';
@@ -96,9 +99,9 @@ import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
-const uiCheckSurface = uiCheckRequest && ['home','options','encounter','journal','activity','course','world'].includes(uiCheckRequest) ? uiCheckRequest : null;
+const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckRequest) ? uiCheckRequest : null;
 
-type View = 'world' | 'menu' | 'quests' | 'story' | 'atlas' | 'journal' | 'character' | 'settings' | 'activities' | 'course';
+type View = 'world' | MenuView;
 type CourseModule = typeof import('./course');
 type ActivityModule = typeof import('./activities');
 type ActivityId = 'cafe' | 'market' | 'detective' | 'delivery';
@@ -768,8 +771,7 @@ function menuPages(): MenuPage[] {
   if (sectionOf(view).id === 'you') return [
     {label:t('Character'),attributes:'data-view="character"',selected:view==='character'},
     ...optionsTabs.map(tab => ({label:tab.label(),attributes:`data-options-tab="${tab.id}"`,selected:view==='settings'&&tab.id===optionsTab})),
-    {label:t('Controls & help'),attributes:'data-action="help"',selected:false},
-    {label:t('Learning content & credits'),attributes:'data-action="course-sources"',selected:false},
+    {label:t('Controls & help'),attributes:'data-view="help"',selected:view==='help'},
   ];
   return sectionOf(view).views.map(item => ({label:viewLabel(item),attributes:`data-view="${item}"`,selected:item===view}));
 }
@@ -1001,12 +1003,6 @@ async function loadCourse(): Promise<CourseModule> {
     return module;
   }).catch(error => { coursePromise = undefined; throw error; });
   return coursePromise;
-}
-async function showCourseSources() {
-  const module = await loadCourse().catch(() => undefined);
-  if (!module) { toast(t('The credits could not open. Try again in a moment.'), true); return; }
-  setView('world');
-  openDialog(`<div class="exercise-content"><h2>${t('German with a traceable source.')}</h2><p>${t('The vocabulary is placed against A1–B1 reference lists. Grammar explanations, story dialogue, mini-game situations and practice passages were written for this game. Completing the course is practice evidence; proficiency also depends on using German in unfamiliar situations.')}</p><p>${t('Audio uses a German synthetic voice. Speaking exercises are not included.')}</p>${module.courseSources.map(source => `<article class="grammar-route"><h3><a href="${e(source.url)}" target="_blank" rel="noopener noreferrer">${e(source.title)}</a></h3><p>${e(source.description)}</p><span class="caption"><a href="${e(source.licenseUrl)}" target="_blank" rel="noopener noreferrer">${e(source.license)}</a></span></article>`).join('')}<button class="primary-button" data-action="close-dialog">${t('Back to exploring')}</button></div>`, 'credits-dialog');
 }
 function spokenWord(word: { lemma: string; article?: string; articleForm?: string }) { return word.article ? `${word.article} ${word.articleForm ?? word.lemma}` : word.lemma; }
 function audioReference(value: unknown): string | undefined {
@@ -1303,7 +1299,7 @@ function renderOther() {
   exposureObserver?.disconnect();
   if (view !== 'settings') { unbindOptions?.(); unbindOptions = undefined; }
   queueMicrotask(() => {
-    if (!['menu', 'settings', 'course'].includes(view) || !started) return;
+    if (!['menu', 'course'].includes(view) || !started) return;
     const panel = document.querySelector<HTMLElement>('#other-view'); if (!panel || panel.querySelector('[data-course-picker]')) return;
     const picker = document.createElement('section'); picker.dataset.coursePicker = ''; panel.prepend(picker);
     void mountCoursePicker(picker, api).catch(error => toast(error.message, true));
@@ -1354,8 +1350,10 @@ function renderOther() {
       document.querySelectorAll<HTMLElement>('[data-word]').forEach(card => { card.hidden = !card.dataset.word!.includes(query); });
     });
   } else if (view === 'character') {
-    el.innerHTML = `<section class="character-page"><div class="character-illustration profile-tile">${portrait('self','large-portrait')}<h2>${e(profile.name)}</h2><p>${level}</p>${progress.xp ? `<span class="character-xp">${icon('sparkles')} ${t('{xp} adventure XP', {xp:progress.xp})}</span>` : ''}</div><div class="character-options">${profileForm()}<p class="honest-note">${t('Your character appears in town and is visible to other players.')}</p></div></section><details class="profile-rewards"><summary>${e(t('Rewards'))}</summary>${lanternRewardsMarkup(progress)}</details>`;
+    el.innerHTML = `<section class="options-panel character-settings"><header class="options-heading"><h2>${e(t('Character'))}</h2></header><div class="character-settings-body">${profileForm()}<p class="honest-note">${t('Your character appears in town and is visible to other players.')}</p></div><details class="profile-rewards"><summary>${e(t('Rewards'))}</summary>${lanternRewardsMarkup(progress)}</details></section>`;
     bindProfileForm();
+  } else if (view === 'help') {
+    el.innerHTML = controlsHelpMarkup();
   } else if (view === 'settings') {
     renderOptions(el as HTMLElement);
   }
@@ -1382,9 +1380,9 @@ function optionRows(): OptionRow[] {
     { kind: 'choice', id: 'base-language', label: t('Support language'), help: `${t('Meanings, hints, explanations and menus appear in this language. The German, its audio and how answers are checked stay the same.')}${baseLanguage() === 'tr' ? ` ${t('Turkish text is machine-written and awaits native-speaker review.')}` : ''}`, value: baseLanguage(), choices: (['en', 'tr'] as const).map(language => ({ value: language, label: baseLanguageNames[language] })) },
     { kind: 'custom', id: 'chapter', label: t('Your learning chapter'), help: t('Routes open when you restore their names. Your learning scaffold follows the route.'), html: `<div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" ${routeUnlocked(maps.find(map => map.level === l)!.id, progress.completedQuestIds) ? '' : 'disabled'} class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div>` },
     { kind: 'action', id: 'placement', label: t('Practice starting point'), help: t('A two-minute sample recommends useful language support.'), action: 'placement', button: t('Find my comfortable German level'), glyph: 'compass' },
-    { kind: 'action', id: 'course-sources', label: t('Learning content & credits'), help: t('Where the course material comes from.'), action: 'course-sources', button: t('Open'), glyph: 'book' },
   ];
   return [
+    ...accountCredentialRows(account),
     { kind: 'choice', id: 'usage-analytics', label: t('Usage analytics'), help: t('Share visits and app issues with Glotworld to help improve the game. No external analytics services. Your browser privacy preference takes priority. Learning progress and billing records are saved separately.'), value: browserAnalyticsEnabled() ? 'on' : 'off', choices: onOff },
     { kind: 'action', id: 'manage-access', label: t('Game access'), help: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Enjoy unlimited free play.') : t('Manage your access and billing.'), action: 'manage-access', button: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Free to play') : accessClock.snapshot(performance.now())?.phase === 'paid' ? t('Manage access') : t('View access options'), glyph: 'clock' },
     { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 15 minutes'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
@@ -1395,12 +1393,28 @@ function renderOptions(el: HTMLElement) {
   const focused = el.contains(document.activeElement) ? (document.activeElement as HTMLElement).dataset.option : undefined, scroll = el.scrollTop;
   const rows = optionRows();
   let extra = '';
-  if (optionsTab === 'language' && baseLanguage() === 'tr') extra = `<p class="honest-note">${t('Turkish support covers the story and all A1, A2 and B1 course exercises.')} ${t('Coverage: story {story}%, interface {ui}%, course words {words}%, course tasks {tasks}%.', turkishCoverage)}</p>`;
+  if (optionsTab === 'language') extra = `<section data-course-picker></section>${baseLanguage() === 'tr' ? `<p class="honest-note">${t('Turkish support covers the story and all A1, A2 and B1 course exercises.')} ${t('Coverage: story {story}%, interface {ui}%, course words {words}%, course tasks {tasks}%.', turkishCoverage)}</p>` : ''}`;
   if (optionsTab === 'account') {
     const performance = world.getWorldStats();
     extra = saveSlotsMarkup(storySaves) + `<div class="connection-info">${icon('users')} ${connection === 'online' ? t('Your route is connected. Your progress is saved on the server.') : connection === 'incompatible' ? t('The world has changed. Reload this page to continue.') : connection === 'replaced' ? t('Your character is active in another tab. Continue there, or close it and reload this page.') : t('The route is reconnecting. Keep this tab open.')}</div><details class="world-performance"><summary>${t('World performance')}</summary><p>${performance.fps ? t('{fps} frames per second · average {frame} ms · 95th percentile {p95} ms', { fps: performance.fps, frame: performance.frameMs, p95: performance.p95FrameMs }) : t('The world is warming up.')}</p><span class="caption">${t('{residents} residents · {objects} objects · {animated} animated details', { residents: performance.residents, objects: performance.objects, animated: performance.animated })}</span></details>`;
   }
   el.innerHTML = optionsMarkup(optionsTab, rows, extra);
+  const picker = el.querySelector<HTMLElement>('[data-course-picker]');
+  if (picker && started) void mountCoursePicker(picker, api).catch(error => toast(error.message, true));
+  if (optionsTab === 'account') {
+    const owner = api.token;
+    bindAccountCredentials(el, api, (updated, kind) => {
+      if (api.token !== owner) return;
+      account = updated;
+      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
+      if (view === 'settings' && optionsTab === 'account') {
+        renderOptions(el);
+        el.querySelector<HTMLElement>(`.account-credential-editor:has([data-credential-form="${kind}"]) summary`)?.focus();
+      }
+      toast(t(kind === 'email' ? 'Your email has been updated.' : 'Your password has been updated.'));
+    });
+  }
   unbindOptions = bindOptionRows(el, rows, (row, value) => changeOption(row.id, String(value)), kind => uiSounds.play(kind));
   if (focused) { el.querySelector<HTMLElement>(`[data-option="${focused}"]`)?.focus({ preventScroll: true }); el.scrollTop = scroll; }
 }
@@ -1874,9 +1888,8 @@ function bindGlobalEvents() {
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))); break;
       case 'close-dialog': interiorConversation=undefined;wordDetailReturn=undefined;cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); pendingDestination = undefined; pendingExpeditionGame = undefined; break;
       case 'manage-access': if(accessClock.snapshot(performance.now())?.phase==='paid')showBillingAccount();else if(account.registered)showPaywall();else showSaveAccount();break;
-      case 'course-help': openDialog(`<div class="help-dialog"><h2>${t('Learning routes')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p><button class="text-button" data-action="course-sources">${t('Learning content & credits')}</button><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
+      case 'course-help': openDialog(`<div class="help-dialog"><h2>${t('Learning routes')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
       case 'journal-help': openDialog(`<div class="help-dialog"><h2>${t('Your words')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
-      case 'help': openDialog(`<div class="help-dialog"><div class="completion-mark">${icon('compass')}</div><h2>${t('Follow your curiosity.')}</h2><p>${t('Click a path to wander, or use {keys}. On your phone, move with the {joystick} or tap a destination.', { keys: `<strong>${t('WASD / arrow keys')}</strong>`, joystick: `<strong>${t('joystick')}</strong>` })}</p><p>${t('Tap a character to meet them, press {key} nearby, or use the {talk} button on your phone. Their stories become your adventures, and each adventure brings a little more German.', { key: '<strong>E</strong>', talk: `<strong>${t('Talk')}</strong>` })}</p><p>${t('Choose a café, bakery or supermarket from {menu} to walk to its doorway. Interact to enter, then talk to people or inspect the glowing objects for a focused German session. Use {leave} to return outside.', { menu: `<strong>${t('Menu / Atlas')}</strong>`, leave: `<strong>${t('Leave')}</strong>` })}</p><p>${t('Open your quests with {q}, journal with {j}, character with {c}, settings with {o}, and map with {m}. Press {escape} to return to the world.', { q: '<strong>Q</strong>', j: '<strong>J</strong>', c: '<strong>C</strong>', o: '<strong>O</strong>', m: '<strong>M</strong>', escape: '<strong>Escape</strong>' })}</p><p>${t('Use {help} whenever you need it. Mistakes are part of finding your way. Ready words return in your journal; strong words get longer rests.', { help: `<strong>${t('A little help')}</strong>` })}</p><button class="primary-button" data-action="close-dialog">${t('Let’s wander')} ${icon('arrow')}</button></div>`); break;
       case 'begin-exercises': renderExercise(); break;
       case 'check-answer': void submitAnswer(); break;
       case 'retry-review-answer': void submitAnswer(); break;
@@ -1885,7 +1898,6 @@ function bindGlobalEvents() {
       case 'review': void startAdaptiveReview(); break;
       case 'placement': void startPlacement(); break;
       case 'sleep': if (interiorId === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast(t('A new day. Your lantern keeps the promises you made.')); }).catch(error => toast(error.message, true)); } break;
-      case 'course-sources': void showCourseSources(); break;
     case 'todays-words': void startTodaysWords(); break;
       case 'course-retry': coursePromise = undefined; void loadCourse().then(() => renderOther()).catch(error => toast(error.message, true)); break;
       case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
@@ -2379,6 +2391,9 @@ async function openUiCheck(surface: string) {
   updateProgress();updateAccessHud();
   if(surface==='home')setView('menu');
   else if(surface==='options')setView('settings');
+  else if(surface==='character')setView('character');
+  else if(surface==='help')setView('help');
+  else if(surface==='account'){account={registered:true,email:'wanderer@example.com'};optionsTab='account';setView('settings');}
   else if(surface==='journal')setView('journal');
   else if(surface==='course')setView('course');
   else if(surface==='encounter'){interiorId='cafe';syncLocation();await showInteriorObject('interior:cafe:coffee');}
@@ -2412,7 +2427,7 @@ async function boot() {
   renderShell();
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
-  if (uiCheckSurface && ['home','options','encounter','journal','activity','course','world'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
+  if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
   api.onAccess = applyAccess;
   let refreshWorld:Promise<void>|undefined;
   const refreshPublishedWorld=():Promise<void>=>refreshWorld??=(async()=>{

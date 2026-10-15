@@ -11,6 +11,43 @@ import (
 )
 
 var ErrCredentialsConflict = errors.New("account credentials already exist")
+var ErrCredentialsChanged = errors.New("account credentials changed; try again with your current password")
+
+type CredentialChange struct {
+	PreviousEmail, PreviousHash string
+	Email, PasswordHash         string
+}
+
+// Compare the credentials that were verified before hashing, under the same
+// lock as the write. Concurrent edits cannot restore an old email or password.
+func (change CredentialChange) apply(account *Account) error {
+	if account.Email == "" || account.Email != change.PreviousEmail || account.PasswordHash != change.PreviousHash {
+		return ErrCredentialsChanged
+	}
+	account.Email, account.PasswordHash = change.Email, change.PasswordHash
+	return nil
+}
+
+func (s *JSONStore) ChangeCredentials(ctx context.Context, hash string, change CredentialChange) error {
+	_, err := s.UpdateAccount(ctx, hash, func(account *Account) error {
+		for id, other := range s.state.Accounts {
+			if id != account.Player.ID && other.Email == change.Email {
+				return ErrCredentialsConflict
+			}
+		}
+		return change.apply(account)
+	})
+	return err
+}
+
+func (s *PGStore) ChangeCredentials(ctx context.Context, hash string, change CredentialChange) error {
+	_, err := s.UpdateAccount(ctx, hash, change.apply)
+	var pgErr *pgconn.PgError
+	if errors.As(err, &pgErr) && pgErr.Code == "23505" {
+		return ErrCredentialsConflict
+	}
+	return err
+}
 
 func (s *JSONStore) SetCredentials(ctx context.Context, hash, email, encoded string) error {
 	return s.RegisterWithReferral(ctx, hash, email, encoded, "", time.Now().UTC())
