@@ -1,13 +1,15 @@
 import type { MapId } from './maps';
-import { worldPeriod, type WorldPeriod } from './world-clock';
+import { nightIntensity, worldPeriod, type WorldPeriod } from './world-clock';
 import { hasRegionPeople } from './world-map-assets';
+import { foundationPalette } from './world-foundations';
 
-interface WorldAmbient { terrain: number; scenery: number; people: number; light: number; }
-const daylight: Readonly<WorldAmbient> = { terrain: 0xffffff, scenery: 0xffffff, people: 0xffffff, light: 0xffffff };
-const moonlight: Readonly<WorldAmbient> = { terrain: 0x596b86, scenery: 0x8899b6, people: 0xdce3f3, light: 0xffedd0 };
+interface WorldAmbient { terrain: number; scenery: number; people: number; light: number; ground: number; }
+const daylight: Readonly<WorldAmbient> = { terrain: 0xffffff, scenery: 0xffffff, people: 0xffffff, light: 0xffffff, ground: 0xffffff };
+const moonlight: Readonly<WorldAmbient> = { terrain: 0x596b86, scenery: 0x8899b6, people: 0xdce3f3, light: 0xffedd0, ground: 0x8899b6 };
 /** Expedition periods reuse their painted pages with steady ambient lighting. */
 export function worldAmbient(mapId: MapId, period: WorldPeriod): Readonly<WorldAmbient> {
-  return hasRegionPeople(mapId) && period === 'night' ? moonlight : daylight;
+  if (period === 'night') return hasRegionPeople(mapId) ? moonlight : { ...daylight, ground: moonlight.ground };
+  return { ...daylight, scenery: mix(daylight.scenery, foundationPalette(mapId).bounce, .04) };
 }
 
 const mix = (a: number, b: number, ratio: number) => [16, 8, 0].reduce((result, shift) =>
@@ -23,6 +25,7 @@ export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod = wo
   const tint = mix(left[1], right[1], linear * linear * (3 - 2 * linear));
   const nativeNight = !hasRegionPeople(mapId) && period === 'night';
   return { terrain: nativeNight ? mix(0xffffff, tint, .18) : tint,
-    scenery: nativeNight ? mix(0xffffff, tint, .18) : mix(tint, 0xffffff, .18),
-    people: mix(tint, 0xffffff, .55), light: 0xffedd0 };
+    scenery: nativeNight ? mix(0xffffff, tint, .18) : mix(mix(tint, 0xffffff, .18), foundationPalette(mapId).bounce, .04 * (1 - nightIntensity(h))),
+    // Runtime ground effects have no painted night variant: use the full ambient.
+    ground: tint, people: mix(tint, 0xffffff, .55), light: 0xffedd0 };
 }

@@ -512,7 +512,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       this.lastAmbient = ambientStamp;
       const ambient = timeAmbient(this.mapSpec.id, state.hour, this.period);
       this.background?.setTint(ambient.terrain);
-      this.scenery?.setAmbientTint(ambient.scenery, ambient.light);
+      this.scenery?.setAmbientTint(ambient.scenery, ambient.light, ambient.ground);
       this.applyAmbient();
     }
     const request = `${this.mapSpec.id}-${state.period}`;
@@ -588,7 +588,11 @@ export class WorldScene extends ExploreScene implements EditSurface {
       const fade = { alpha: 0 };
       this.scenery.setAlpha(0);
       this.periodFade = this.tweens.add({ targets: fade, alpha: 1, duration: previous !== period ? 1300 : 400, ease: 'Sine.easeInOut',
-        onUpdate: () => { this.scenery?.setAlpha(fade.alpha); if (this.previousBackground) this.background?.setAlpha(fade.alpha); },
+        onUpdate: () => {
+          this.scenery?.setAlpha(fade.alpha);
+          this.previousScenery?.setGroundContactAlpha(1-fade.alpha);
+          if (this.previousBackground) this.background?.setAlpha(fade.alpha);
+        },
         onComplete: () => this.finishPeriodTransition() });
     } else {
       oldScenery?.destroy();

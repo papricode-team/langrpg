@@ -53,6 +53,49 @@ Waldruh's 1211 × 1228 base. The manifest aliases reference the existing encoded
 textures directly, preserving source detail and avoiding historical LFS fetches.
 They reuse the daylight base with the same runtime night tint as the new props.
 
+Building ground contact is rendered separately by `web/src/world-foundations.ts`.
+It traces the lower opaque edge of each actual building frame for the feathered
+multiply contact shadow and soil/moss wear. Placed footprints guide the trace to
+exclude roofs and other raised details; they are also the fallback when a frame
+cannot be sampled. Collision polygons often sit inside the painted stones and
+must not be treated as their visible contact edge. A narrow material band is
+masked to the building's alpha and uses the exact wall-strip depths, darkening
+the lowest stones without covering people standing in front. Ground marks stay
+below characters and architecture. Matching frames with identical dressing share
+textures; they follow ambient light and fades and release with the last instance.
+The regional daylight bounce colours come from `docs/style`, rather than sampling
+terrain tiles that may not yet be resident. Use **Foundation contact** on
+`/qa/world-assets.html` for an in-place comparison in each region and period.
+The **Inspect building foundation** selector visits every placed building in the
+selected town, including houses, stations, workshops, greenhouses and arches.
+Use `?map=waldruh&building=waldruh-clockmill` to open a particular base directly. The same
+renderer applies contact to every building asset, including custom frame names,
+mirrored instances and non-collidable decorative placements.
+
+`web/src/foundation-dressing.ts` adds irregular earth washes, moss flecks and a
+few curved grass tufts to each traced base. Ground colour and vegetation density
+come from compact daylight samples of the actual terrain under each contact
+point, not the building palette. Paving gets fewer tufts than planted ground;
+water and authored door approaches suppress growth. Arrangement is seeded by
+placement ID, so repeated houses differ without flickering. Soil stays on the
+ground; moss and grass use normal blending at each wall strip's depth, allowing
+them to cross the stone edge while characters in front remain unobscured.
+
+After repainting terrain, run `node scripts/foundation-terrain.mjs` to refresh
+`web/src/data/foundation-terrain.json`. It samples the registered daytime terrain
+overviews (or the day crop when no overview exists), so dressing stays consistent
+when GPU tiles stream out or the night art loads. Unknown terrain assets use a
+restrained neutral fallback until sampled. A four-frame atlas per dressed base
+is bounded to 512 pixels per frame dimension; the current largest town uses about
+30 MiB for all 34 building contact atlases together.
+
+Future building repaints may include a thin, neutral contact band at the lowest
+foundation stones: crevice occlusion, a few grass blades or soil crumbs fading
+to transparent. Keep the reviewed crop, pivot, footprint and doorway unchanged;
+do not add a floor plane, opaque apron or detached cast shadow. Review the source
+sidecar and export registration if any visible bounds change. Runtime shadows
+already supply broad contact, so the painted band should stay restrained.
+
 During a geometry content pass, `--preserve-house-geometry` leaves existing inn,
 bakery and grocery manifest entries untouched while refreshing the other assets.
 This prevents a parallel art export from replacing reviewed doorway metadata.

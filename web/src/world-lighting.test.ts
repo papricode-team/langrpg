@@ -3,7 +3,8 @@ import type * as Phaser from 'phaser';
 import { WorldScenery } from './world-scenery';
 import { getPlacedScenery, type PlacedScenerySpec } from './placed-scenery';
 import archive from '../../docs/archive/expedition-scenes.json';
-import { worldAmbient } from './world-lighting';
+import { timeAmbient, worldAmbient } from './world-lighting';
+import { foundationScene } from './test-support/foundation-scene';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
 
@@ -19,6 +20,7 @@ class Sprite {
 }
 const placements = (mapId: MapId): readonly PlacedScenerySpec[] => mapId in archive.maps ? archive.maps[mapId as keyof typeof archive.maps].scenery as readonly PlacedScenerySpec[] : getPlacedScenery(mapId);
 function fixture(mapId: MapId, period: WorldPeriod) {
+  const ground = foundationScene();
   const sprites: Sprite[] = [];
   const assets = Object.fromEntries(['tree','cloth','lamp','water'].map(kind => [`motion-${kind}`, {
     key: `${mapId}-motions`, frames: Array.from({length:6},(_,frame)=>`motion-${kind}-${frame}`),
@@ -26,8 +28,8 @@ function fixture(mapId: MapId, period: WorldPeriod) {
   }]));
   const scene = {
     cache: { json: { get: () => ({assets}) } },
-    textures: { exists: () => true, get: () => ({has:()=>true,get:()=>({width:120,height:160})}) },
-    add: { sprite: (x: number, y: number, key: string, frame: string) => {
+    textures: { createCanvas: ground.createCanvas, remove: ground.remove, exists: () => true, get: () => ({has:()=>true,get:()=>({width:120,height:160})}) },
+    add: { image: ground.image, sprite: (x: number, y: number, key: string, frame: string) => {
       const sprite = new Sprite(x,y,key,frame); sprites.push(sprite); return sprite;
     } },
   } as unknown as Phaser.Scene;
@@ -61,9 +63,21 @@ describe('steady expedition night lighting', () => {
   });
   it('leaves native night paintings in the three original towns untinted', () => {
     for(const id of ['lindenhafen','waldruh','nebelstadt'] as const) {
-      expect(Object.values(worldAmbient(id,'night')).every(tint=>tint===0xffffff)).toBe(true);
+      const {ground,...paintings}=worldAmbient(id,'night');
+      expect(Object.values(paintings).every(tint=>tint===0xffffff)).toBe(true);
+      expect(ground&255).toBeGreaterThan(ground>>16&255);
       expect(fixture(id,'night').sprites.every(sprite=>sprite.tint===0xffffff)).toBe(true);
     }
+  });
+  it('borrows a small amount of regional ground colour in daylight and keeps full blue ambient for runtime contact at night',()=>{
+    const day=timeAmbient('lindenhafen',12),night=timeAmbient('lindenhafen',22);
+    expect(day.terrain).toBe(0xffffff);
+    expect(day.scenery>>16&255).toBeGreaterThan(day.scenery&255);
+    expect(day.scenery&255).toBeGreaterThanOrEqual(250);
+    expect(timeAmbient('waldruh',12).scenery).not.toBe(day.scenery);
+    expect(night.ground&255).toBeGreaterThan(night.ground>>16&255);
+    expect(night.ground).not.toBe(night.scenery);
+    expect(timeAmbient('lindenhafen',36)).toEqual(day);
   });
   it('keeps opaque scenery covered at the midpoint of animated frame blends', () => {
     const { sprites, scenery } = fixture('saffroncourt', 'day');

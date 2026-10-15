@@ -1,9 +1,10 @@
 import { describe,expect,it,vi } from 'vitest';
 import type * as Phaser from 'phaser';
-import { getMap, storyMaps as maps } from './maps';
+import { getMap, storyMaps as maps, type MapId } from './maps';
 import { getPlacedScenery,sceneryAssets,placedSceneryFootprints,sceneryFootprints,type PlacedScenerySpec } from './placed-scenery';
 import { isBuildingScenery,sceneryAnimationTextureKeys,sceneryBlend,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
+import { foundationScene } from './test-support/foundation-scene';
 const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json','../public/assets/*props*.json','../public/assets/story-quality*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
 
@@ -99,10 +100,11 @@ describe('authored sprite worlds',()=>{
   });
 });
 
-function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings?:boolean}={}){
+function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings?:boolean;mapId?:MapId;placements?:readonly PlacedScenerySpec[]}={}){
+  const ground=foundationScene();
   const sprites:{blend:boolean;originX:number;originY:number;depth:number;key:string;x:number;y:number;frame:string;visible:boolean;rotation:number;destroy:ReturnType<typeof vi.fn>;setFrame:ReturnType<typeof vi.fn>;setScale:ReturnType<typeof vi.fn>;setOrigin:ReturnType<typeof vi.fn>;setDepth:ReturnType<typeof vi.fn>;setFlipX:ReturnType<typeof vi.fn>;setAlpha:ReturnType<typeof vi.fn>;setRotation:ReturnType<typeof vi.fn>}[]=[];
   // Runtime tests use distinct feet; authored groups may intentionally share an anchor.
-  const specs=getPlacedScenery('lindenhafen').map((spec,index)=>({...spec,x:100+(index%100)*13,y:200+index*4.123}));
+  const specs=(options.placements??getPlacedScenery(options.mapId??'lindenhafen')).map((spec,index)=>({...spec,x:100+(index%100)*13,y:200+index*4.123}));
   const assets:Record<string,SceneryAnimation>={};
   for(const spec of specs){
     const name=spec.frame??spec.asset;
@@ -115,8 +117,8 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
     }
   }
   const frame={width:200,height:250};
-  const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:vi.fn(()=>{throw Error('Procedural scenery is forbidden')})},
-    add:{sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
+  const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:ground.createCanvas,remove:ground.remove},
+    add:{image:ground.image,sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
       const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setTint:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),destroy:vi.fn()};
       for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
       sprite.setOrigin.mockImplementation((x:number,y:number)=>{sprite.originX=x;sprite.originY=y;return sprite});
@@ -126,8 +128,32 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
       sprite.setRotation.mockImplementation((rotation:number)=>{sprite.rotation=rotation;return sprite});
       sprites.push(sprite);return sprite;
     })}};
-  return {scene:scene as unknown as Phaser.Scene,sprites,raw:scene,placements:specs};
+  return {scene:scene as unknown as Phaser.Scene,sprites,raw:scene,placements:specs,ground};
 }
+
+describe('foundation coverage across towns',()=>{
+  for(const map of maps)for(const period of ['day','night'] as const)it(`grounds every ${map.name} building in ${period}`,()=>{
+    const mock=mockScene(true,{mapId:map.id,staticBuildings:true});
+    const scenery=new WorldScenery(mock.scene,map.id,period,mock.placements);
+    const buildings=mock.placements.filter(spec=>isBuildingScenery(spec.asset)||isBuildingScenery(spec.frame??spec.asset));
+    expect(buildings.length).toBeGreaterThan(10);
+    expect(mock.ground.images).toHaveLength(buildings.length*2);
+    expect(mock.ground.images.filter(image=>image.frame==='shadow').every(image=>image.blendMode==='MULTIPLY')).toBe(true);
+    expect(mock.ground.images.filter(image=>image.frame==='wear').every(image=>image.blendMode==='NORMAL')).toBe(true);
+    scenery.destroy();
+    expect(mock.ground.images.every(image=>image.destroyed)).toBe(true);
+  });
+  it('retains contact for renamed building frames, decorative buildings and mirrored prefabs',()=>{
+    const mock=mockScene(false,{placements:[
+      {id:'renamed-shop',asset:'house',frame:'custom-shop-front',x:0,y:0,width:240,flipX:true,collidable:false},
+      {id:'renamed-depot',asset:'workshop',frame:'custom-depot',x:400,y:0,width:180,motion:'still'},
+      {id:'tree',asset:'tree',x:700,y:0,width:100},
+    ]});
+    const scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
+    expect(mock.ground.images).toHaveLength(4);
+    scenery.destroy();
+  });
+});
 
 it('keeps tree and cypress silhouettes stable with one gently swaying sprite, including still scenery and fades',()=>{
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
@@ -204,7 +230,7 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
   for(const sprite of mock.sprites){expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95])}
   const bases=mock.sprites.filter(sprite=>sprite.key!=='details'&&!sprite.blend);
   expect(bases.every((sprite,i)=>sprite.x===mock.placements[i].x&&sprite.y===mock.placements[i].y)).toBe(true);
-  expect(mock.raw.textures.createCanvas).not.toHaveBeenCalled();
+  expect(mock.raw.textures.createCanvas.mock.calls.every(([key])=>String(key).startsWith('foundation-'))).toBe(true);
   scenery.update(44,{x:5000,y:5000,right:5100,bottom:5100});expect(mock.sprites.every(sprite=>!sprite.visible)).toBe(true);
   scenery.update(44,view);expect(mock.sprites.some(sprite=>sprite.visible)).toBe(true);
   scenery.setVisible(false);scenery.update(44,view);expect(mock.sprites.every(sprite=>!sprite.visible)).toBe(true);

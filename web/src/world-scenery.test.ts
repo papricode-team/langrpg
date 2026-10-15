@@ -5,6 +5,7 @@ import { WorldScenery, type SceneryOcclusionFactory } from './world-scenery';
 import { getSceneryGeometry } from './scene-schema';
 import { sceneryFootprints } from './placed-scenery';
 import { NavigationGrid } from './navigation';
+import { foundationScene } from './test-support/foundation-scene';
 
 describe('world depth segments', () => {
   const spec={x:200,y:300,width:100,sortLine:[[-100,-80],[0,-40],[100,0]] as const};
@@ -83,22 +84,72 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false) {
     constructor(public x:number,public y:number,_key:string,name:string){this.frame=texture.get(name);}
     get width(){return this.frame.width;}get height(){return this.frame.height;}get displayWidth(){return this.width*this.scaleX;}
     setOrigin(x:number,y:number){this.originX=x;this.originY=y;return this;}setScale(scale:number){this.scaleX=this.scaleY=scale;return this;}
+    setPosition(x:number,y:number){this.x=x;this.y=y;return this;}
     setDepth(depth:number){this.depth=depth;return this;}setFlipX(flip:boolean){this.flipX=flip;return this;}setTint(){return this;}
     setRotation(rotation:number){this.rotation=rotation;return this;}setAlpha(alpha:number){this.alpha=alpha;return this;}
     setVisible(visible:boolean){this.visible=visible;return this;}setFrame(name:string){this.frame=texture.get(name);return this;}
     getBounds(){return{x:this.x-this.width*this.scaleX*this.originX,right:this.x+this.width*this.scaleX*(1-this.originX),y:this.y-this.height*this.scaleY*this.originY,bottom:this.y+this.height*this.scaleY*(1-this.originY)};}
     destroy(){this.destroyed=true;}
   }
-  const sprites:Sprite[]=[];
+  const sprites:Sprite[]=[],ground=foundationScene();
   const scene={cache:{json:{get:()=>({assets:{house:{key:texture.key,frames:['house'],fps:0,width:reference,height:reference,referenceWidth:reference,originX:.5,originY:1,
     sortLine:period==='night'?[[-reference/2,-reference*.8],[reference/2,-reference*.6]]:canonical.sortLine}}})}},
-    textures:{exists:()=>true,get:()=>texture},add:{sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
+    textures:{exists:()=>true,get:()=>texture,createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image,sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
   const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:()=>undefined})) as unknown as SceneryOcclusionFactory;
   const placement={id:'test-wall',asset:'house' as const,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
-  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames};
+  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement};
 }
 
 describe('segmented scenery rendering', () => {
+  it('moves ground contact with editor previews and cleans it up when edited buildings are rebuilt or removed',()=>{
+    const {scenery,ground,placement}=fixture();
+    const originals=ground.images.map(image=>({x:image.x,y:image.y}));
+    scenery.setAmbientTint(0xffffff,0xffedd0,0x445566);
+    scenery.previewMove(placement.id,20,30);
+    ground.images.forEach((image,i)=>expect([image.x,image.y]).toEqual([originals[i].x+20,originals[i].y+30]));
+    scenery.previewMove(placement.id,40,60);
+    ground.images.forEach((image,i)=>expect([image.x,image.y]).toEqual([originals[i].x+40,originals[i].y+60]));
+    scenery.clearPreview();
+    ground.images.forEach((image,i)=>expect([image.x,image.y]).toEqual([originals[i].x,originals[i].y]));
+    scenery.setGroundContactAlpha(.25);scenery.setAlpha(.4);scenery.setGroundContactVisible(false);
+    scenery.sync([{...placement,x:placement.x+80}]);
+    expect(ground.images.slice(0,2).every(image=>image.destroyed)).toBe(true);
+    expect(ground.remove).toHaveBeenCalledTimes(1);
+    ground.images.slice(2).forEach((image,i)=>{
+      expect([image.x,image.y]).toEqual([originals[i].x+80,originals[i].y]);
+      expect(image.tint).toBe(0x445566);expect(image.alpha).toBe(.1);expect(image.visible).toBe(false);
+    });
+    scenery.sync([]);
+    expect(ground.images.every(image=>image.destroyed)).toBe(true);
+    expect(ground.remove).toHaveBeenCalledTimes(2);
+    scenery.destroy();
+    expect(ground.remove).toHaveBeenCalledTimes(2);
+  });
+  it('keeps ground effects under all strips, culls and fades them, and releases textures on exit',()=>{
+    const {scenery,sprites,ground}=fixture(),view={x:0,y:0,right:300,bottom:300};
+    expect(ground.images).toHaveLength(2);
+    expect(ground.images.every(image=>sprites.filter(sprite=>!sprite.destroyed).every(sprite=>image.depth<sprite.depth))).toBe(true);
+    scenery.setAmbientTint(0xffffff,0xffedd0,0x8899b6);
+    expect(ground.images.every(image=>image.tint===0x8899b6)).toBe(true);
+    scenery.setAlpha(.4);
+    scenery.update(0,view,[{id:'behind',x:145,y:175,depth:worldDepth(175,'character')}],.15);
+    expect(ground.images.every(image=>image.alpha===.4)).toBe(true);
+    scenery.setGroundContactAlpha(.25);
+    expect(ground.images.every(image=>image.alpha===.1)).toBe(true);
+    expect(sprites.filter(sprite=>!sprite.destroyed).every(sprite=>sprite.alpha===.4)).toBe(true);
+    scenery.setAlpha(.8);
+    expect(ground.images.every(image=>image.alpha===.2)).toBe(true);
+    scenery.setGroundContactAlpha(1);
+    scenery.setVisible(false);
+    expect(ground.images.every(image=>!image.visible)).toBe(true);
+    scenery.setVisible(true);scenery.update(1,view);
+    expect(ground.images.every(image=>image.visible)).toBe(true);
+    scenery.update(2,{x:1000,y:1000,right:1100,bottom:1100});
+    expect(ground.images.every(image=>!image.visible)).toBe(true);
+    scenery.destroy();
+    expect(ground.images.every(image=>image.destroyed)).toBe(true);
+    expect(ground.remove).toHaveBeenCalledTimes(1);
+  });
   it('leaves unchanged static strips alone and restores them after culling and fades',()=>{
     const {scenery,sprites}=fixture(),view={x:0,y:0,right:300,bottom:300};
     scenery.update(0,view);

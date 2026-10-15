@@ -18,10 +18,10 @@ describe('world edit operations', () => {
     const scene = town(), lamp = scene.scenery.find(item => item.asset === 'lamp')!;
     const document = {version: 3 as const, maps: {[scene.id]: scene}};
     const ops: WorldEditOp[] = [{kind: 'move', map: scene.id, id: lamp.id, x: lamp.x + 10, y: lamp.y}, {kind: 'update', map: scene.id, id: lamp.id, flipX: true}];
-    let undo: WorldEditOp[] = [], current = document;
+    let current = document;
     const steps: WorldEditOp[][] = [];
     for (const op of ops) { steps.push(inverseEditOps(current, op)); current = applyEditOps(current, [op]).document; }
-    undo = steps.reverse().flat();
+    const undo = steps.reverse().flat();
     expect(current.maps[scene.id].scenery.find(item => item.id === lamp.id)).toMatchObject({x: lamp.x + 10, flipX: true});
     expect(document.maps[scene.id].scenery.find(item => item.id === lamp.id)!.x).toBe(lamp.x);
     const restored = applyEditOps(current, undo).document.maps[scene.id].scenery.find(item => item.id === lamp.id)!;
