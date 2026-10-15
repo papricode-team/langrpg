@@ -1,5 +1,7 @@
 # Living-world implementation status
 
+> Historical status report. On 15 October 2026 World Studio was replaced by in-game edit mode and the admin map editor; see [the redesign handover](map-editor-redesign-handover.md). References to World Studio below describe the earlier tool.
+
 11 October 2026. Work is paused at the user's wrap-up request after the first two Waldruh districts. The full plan in [the design report](living-world-and-level-editor-report.md) remains unfinished. Outdoor maps must double both width and height to at least 3072 × 2048 logical units, and each must independently pass the recorded 2× connected-area threshold.
 
 ## Latest-main integration

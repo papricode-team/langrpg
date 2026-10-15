@@ -38,7 +38,7 @@ English data files stay canonical. Turkish lives in `web/src/data/i18n/`:
 - `tr-ui.json` — `{ "<English UI string>": "<Turkish>" }`.
 - `tr-course.json` — every A1–B1 lexicon gloss by lexeme id (with its English source), grammar guides, all authored exercises by id, and route titles/summaries by English source. An exercise's optional `options` map translates visible answer labels; its canonical answer and submitted values remain unchanged. Generated lexical exercises use shared templates rather than individual overlay entries.
 
-Why the source text is stored next to each translation: `scripts/i18n-coverage.mjs` and `web/src/i18n-coverage.test.ts` enumerate every story unit from the live data (`web/src/i18n-units.ts`) and **fail** when a unit has no Turkish entry, or when its stored source no longer matches the current German/English (the story changed and the translation is stale). Turkish cannot silently rot. The same check verifies `{name}` placeholders, that identical German sentences have one Turkish meaning, and that every `t('…')` key in the source has a Turkish entry.
+Why the source text is stored next to each translation: `scripts/i18n-coverage.mjs` (`npm run i18n`) and `web/src/i18n.test.ts` enumerate every story unit from the live data (`web/src/i18n-units.ts`) and **fail** when a unit has no Turkish entry, or when its stored source no longer matches the current German/English (the story changed and the translation is stale). Turkish cannot silently rot. The same check verifies `{name}` placeholders, that identical German sentences have one Turkish meaning, and that every `t('…')` key in the source has a Turkish entry.
 
 At runtime the story overlay is indexed by source text, so consumers call `localized(line)` without threading ids.
 

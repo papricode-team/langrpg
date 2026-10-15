@@ -105,7 +105,7 @@ go test -race ./...
 go vet ./...
 ```
 
-CI runs frontend, tooling and Go checks, lint, build and distribution budgets. Frontend tests cover dialogue graph reachability, scene receipts and retries, earned progression, preview recovery, learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. [Character motion](http://localhost:5187/qa/character-motion.html) enlarges all sixteen regional identities with fixed ground pivots, pose selection, walking speeds and pauses. Go tests cover grading, persistence, idempotency, scheduling, story proximity and ordering, save/load reward safety, expedition solutions, days, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
+CI runs four parallel jobs: the Go service against PostgreSQL, frontend lint, types and tests, the UI screenshot check, and the production build with distribution budgets and the Docker image. `npm run check` validates word-map structure only. `npm run release:check` additionally requires every sentence to carry a native reviewer and is a release gate, not a CI step. Frontend tests cover dialogue graph reachability, scene receipts and retries, earned progression, preview recovery, learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. [Character motion](http://localhost:5187/qa/character-motion.html) enlarges all sixteen regional identities with fixed ground pivots, pose selection, walking speeds and pauses. Go tests cover grading, persistence, idempotency, scheduling, story proximity and ordering, save/load reward safety, expedition solutions, days, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
 
 Content and asset tooling has one entry point:
 
@@ -176,16 +176,19 @@ Keep all three processes running. Check `/api/health` with the tunnel URL as the
 
 | Location | Purpose |
 | --- | --- |
-| `web/src/main.ts`, `game-state.ts` | Application wiring, revision-guarded state, panels and character |
+| `web/src/main.ts`, `game-state.ts`, `game-mode.ts` | Application wiring, revision-guarded state, panels, character and the current game mode |
+| `web/src/access-session.ts`, `speech.ts`, `dialog-session.ts` | Trial, paywall, billing and account dialog; German speech; one cancellation token for every encounter dialog that loads before it opens |
 | `web/src/dialogue.ts`, `quest-controller.ts`, `dialogue-view.ts`, `data/dialogue-graphs.json` | Validated story graphs, scene lifecycle, German dialogue and production gates |
 | `web/src/story-panels.ts`, `quest-objectives.ts`, `contextual-grammar.ts`, `lantern-rewards.ts` | Evidence, objectives, contextual explanations and earned progression |
-| `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser world, thirteen region definitions, movement and routing |
+| `web/src/world.ts`, `maps.ts`, `navigation.ts` | Phaser game facade, thirteen region definitions, movement and routing |
+| `web/src/explore-scene.ts`, `world-scene.ts`, `interior-scene.ts`, `travel-scene.ts`, `boot-scene.ts` | One Phaser scene per mode: shared walking and camera, town, rooms, travel curtain and boot |
+| `web/src/world-edit-mode.ts`, `world-edit-*.ts`, `world-patch.ts`, `admin-map-editor.ts` | In-game edit mode, placement rules, published world patches and the admin map editor |
 | `web/src/expeditions.ts`, `expedition-games.ts` | Ten local casts, encounter catalog, terrain geometry and neighborhood planning games |
-| `web/src/placed-scenery.ts`, `placed-<region>.ts`, `world-scenery.ts` | Reusable transparent objects, regional placement, motion and foot depth |
+| `web/src/placed-scenery.ts`, `world-scenery.ts` | Reusable transparent objects, placement, motion and foot depth |
 | `web/src/scenery-animation.ts`, `world-life.ts`, `world-atmosphere.ts`, `world-audio.ts`, `cutscene.ts` | Animation, resident routines, weather, sound and cinematic scene |
 | `scripts/prepare-world-art.mjs` | Alpha-preserving prop atlases and composed interface previews |
 | `scripts/prepare-expedition-art.mjs`, `art/source/expeditions/` | Generated expedition source sheets, prompts and alpha-preserving exports |
-| `web/src/content.ts`, `story.ts` | NPCs, quests, learning content and connected story discoveries |
+| `web/src/content.ts`, `story.ts`, `content-runtime.ts` | Legacy authoring NPCs and quests, story discoveries, and the runtime registry the production build loads from the server by UUID |
 | `web/src/course.ts`, `data/course*.json` | Attributed lexicon, original lessons and canonical course tasks |
 | `web/src/activities.ts`, `activity-engine.ts` | Stateful mission controls and pure gameplay rules |
 | `scripts/build-course.mjs`, `build-story-curriculum.mjs`, `export-world-content.mjs` | Generate matching frontend/Go content, story rules and interaction registries |
