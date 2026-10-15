@@ -60,7 +60,7 @@ export class WorldScenery {
   private occluded=new Map<string,{depth:number;strength:number}>();
   private manifest?:SceneryAnimationManifest;
   private tint?:{scenery:number;light:number;ground:number};
-  private preview?:{id:string;dx:number;dy:number};
+  private previews=new Map<string,{dx:number;dy:number;valid:boolean}>();
   private destroyed=false;
   private loadingDetails=new Set<string>();
   private terrainStamp='';
@@ -186,26 +186,33 @@ export class WorldScenery {
     }
     return best?.spec;
   }
-  /** Move an object's sprites while it is dragged, without changing its placement. */
+  /**
+   * Move an object's sprites while it is dragged, without changing its
+   * placement. Several objects can be previewed at once for a group drag.
+   */
   previewMove(id:string,dx:number,dy:number,valid=true):void{
-    if(this.preview&&this.preview.id!==id)this.clearPreview();
     const layer=this.layers.find(item=>item.spec.id===id);if(!layer)return;
-    const before=this.preview??{id,dx:0,dy:0};
+    const before=this.previews.get(id)??{dx:0,dy:0,valid:true};
     layer.foundation?.moveBy(dx-before.dx,dy-before.dy);
     for(const {sprite,next} of layer.parts){
       sprite.setPosition(sprite.x+dx-before.dx,sprite.y+dy-before.dy).setDepth(sprite.depth);
       next?.setPosition(next.x+dx-before.dx,next.y+dy-before.dy);
     }
-    this.preview={id,dx,dy};
+    this.previews.set(id,{dx,dy,valid});
+    if(valid===before.valid)return;
     if(valid)this.reapplyTint();
     else for(const {sprite,next} of layer.parts){sprite.setTint(0xff8a7a);next?.setTint(0xff8a7a);}
   }
-  clearPreview():void{
-    const preview=this.preview;if(!preview)return;
-    this.preview=undefined;
-    const layer=this.layers.find(item=>item.spec.id===preview.id);if(!layer)return;
-    layer.foundation?.moveBy(-preview.dx,-preview.dy);
-    for(const {sprite,next} of layer.parts){sprite.setPosition(sprite.x-preview.dx,sprite.y-preview.dy);next?.setPosition(next.x-preview.dx,next.y-preview.dy);}
+  /** Put previewed objects back where their placement says; all of them without an ID. */
+  clearPreview(id?:string):void{
+    if(!this.previews.size)return;
+    for(const [key,preview] of [...this.previews]){
+      if(id!==undefined&&key!==id)continue;
+      this.previews.delete(key);
+      const layer=this.layers.find(item=>item.spec.id===key);if(!layer)continue;
+      layer.foundation?.moveBy(-preview.dx,-preview.dy);
+      for(const {sprite,next} of layer.parts){sprite.setPosition(sprite.x-preview.dx,sprite.y-preview.dy);next?.setPosition(next.x-preview.dx,next.y-preview.dy);}
+    }
     this.reapplyTint();
   }
   /** Keep the current time-of-day light after sprites are rebuilt or a drag ends. */
@@ -317,7 +324,7 @@ export class WorldScenery {
     for(const item of this.layers){
       const {spec,parts,width,height}=item;
       // A dragged object is drawn where the pointer took it.
-      const offset=this.preview?.id===spec.id?this.preview:undefined,x=spec.x+(offset?.dx??0),y=spec.y+(offset?.dy??0);
+      const offset=this.previews.get(spec.id),x=spec.x+(offset?.dx??0),y=spec.y+(offset?.dy??0);
       const visible=this.visible&&x+width*.7>=view.x&&x-width*.7<=view.right
         &&y+height*.12>=view.y&&y-height*1.1<=view.bottom;
       if(!visible&&item.visible===false)continue;
@@ -375,7 +382,7 @@ export class WorldScenery {
   destroy(){
     this.destroyed=true;
     for(const layer of this.layers)this.destroyLayer(layer);
-    this.preview=undefined;
+    this.previews.clear();
     this.layers=[];
   }
 }

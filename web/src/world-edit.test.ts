@@ -132,6 +132,26 @@ describe('placement rules', () => {
     expect(placementProblems(scene, overlap.scene, overlap.changed, {before: reach, after: reach.with(overlap.scene)}))
       .toContainEqual(expect.objectContaining({code: 'overlap', objectIds: ['second-house', 'first-house']}));
   });
+  it('lets an object that already stands inside another move without blaming it', () => {
+    const scene = town();
+    delete scene.modularTerrain;
+    delete scene.navigation;
+    scene.width = 800; scene.height = 600;
+    scene.terrain = [{...scene.terrain[0], x: 0, y: 0, width: 800, height: 600}];
+    scene.walkable = [[[0, 0], [800, 0], [800, 600], [0, 600]]];
+    scene.obstacles = []; scene.npcs = []; scene.objects = [];
+    scene.activities = []; scene.residents = []; scene.spawn = {x: 50, y: 50};
+    const square = {referenceWidth: 170, polygons: [[[-20, -20], [20, -20], [20, 20], [-20, 20]]] as [number, number][][]};
+    // Authored this close: the tree stands inside the house's base.
+    scene.scenery = [{id: 'house', asset: 'house', frame: 'house-4', x: 200, y: 300, width: 170, collision: square},
+      {id: 'tree', asset: 'tree', x: 205, y: 300, width: 170, collision: square}];
+    const nudged = apply(scene, [{kind: 'move', map: scene.id, id: 'tree', x: 210, y: 300}]);
+    expect(placementProblems(scene, nudged.scene, nudged.changed).filter(problem => problem.code === 'overlap')).toEqual([]);
+    // A third object moving in is still refused.
+    scene.scenery.push({id: 'lamp', asset: 'lamp', x: 600, y: 300, width: 40, collision: square});
+    const crowded = apply(scene, [{kind: 'move', map: scene.id, id: 'lamp', x: 202, y: 300}]);
+    expect(placementProblems(scene, crowded.scene, crowded.changed)).toContainEqual(expect.objectContaining({code: 'overlap'}));
+  });
   it('derive size limits and room eligibility from the artwork', () => {
     const scene = town(), host = scene.scenery.find(item => item.interior)!, tree = scene.scenery.find(item => item.asset === 'tree')!;
     expect(roomOptions(scene.id, host)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);

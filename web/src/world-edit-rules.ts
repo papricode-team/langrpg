@@ -288,11 +288,16 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
     }
     // Footprints may touch, as a tree trunk beside a wall does. An object
     // standing inside another object's base is always a mistake.
+    const standsInside = (scene: WorldScene, a: SceneScenery, aShapes: readonly ScenePolygon[], b: SceneScenery) => {
+      const bShapes = footprintsOf(scene, b);
+      const within = bShapes.some(shape => inside(shape, a.x, a.y)) || aShapes.some(shape => inside(shape, b.x, b.y));
+      return within && aShapes.some(shape => bShapes.some(value => polygonsOverlap(shape, value)));
+    };
     for (const other of after.scenery) {
-      if (other.id === id || other.collidable === false) continue;
-      const otherShapes = footprintsOf(after, other);
-      const within = otherShapes.some(shape => inside(shape, item.x, item.y)) || shapes.some(shape => inside(shape, other.x, other.y));
-      if (!within || !shapes.some(shape => otherShapes.some(value => polygonsOverlap(shape, value)))) continue;
+      if (other.id === id || other.collidable === false || !standsInside(after, item, shapes, other)) continue;
+      // Authored towns have objects that already stand this close; moving one of them is not a new problem.
+      const otherBefore = previous.get(other.id);
+      if (old && otherBefore && old.collidable !== false && otherBefore.collidable !== false && standsInside(before, old, oldShapes, otherBefore)) continue;
       problems.push(problem('overlap', map, `${capital(name)} would stand inside ${objectLabel(after, other.id)}.`, [id, other.id], item));
       break;
     }
