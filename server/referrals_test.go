@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing/billingtest"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -142,7 +143,7 @@ func TestReferralRegistrationJSONRollback(t *testing.T) {
 	store.SetCredentials(context.Background(), tokenHash(token), "rollback-inviter@example.com", "encoded")
 	code := issueInvite(t, app, token)
 	friend, _ := createSession(t, app, "Friend")
-	store.path = t.TempDir() // Renaming the saved file over a directory must fail.
+	store.SetPathForTest(t.TempDir()) // Renaming the saved file over a directory must fail.
 	if err := store.RegisterWithReferral(context.Background(), tokenHash(friend), "rollback-friend@example.com", "encoded", code, app.now()); err == nil {
 		t.Fatal("expected persistence failure")
 	}
@@ -173,13 +174,13 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 				t.Fatal(err)
 			}
 			app := NewApp(store, testCurriculum(), nil, 20)
-			app.billing = testCreem(nil)
+			app.billing = billingtest.NewClient(nil)
 			var ids []string
 			t.Cleanup(func() {
 				if pg, ok := store.(*PGStore); ok {
-					pg.pool.Exec(ctx, "DELETE FROM learning_events WHERE account_id=ANY($1::text[])", ids)
-					pg.pool.Exec(ctx, "DELETE FROM sessions WHERE account_id=ANY($1::text[])", ids)
-					pg.pool.Exec(ctx, "DELETE FROM accounts WHERE id=ANY($1::text[])", ids)
+					pg.Pool().Exec(ctx, "DELETE FROM learning_events WHERE account_id=ANY($1::text[])", ids)
+					pg.Pool().Exec(ctx, "DELETE FROM sessions WHERE account_id=ANY($1::text[])", ids)
+					pg.Pool().Exec(ctx, "DELETE FROM accounts WHERE id=ANY($1::text[])", ids)
 				}
 				app.Close()
 			})
@@ -269,7 +270,7 @@ func TestReferralResetDiscardsOldBonusButPreservesInvites(t *testing.T) {
 
 func TestReferralBonusReopensGatedLearningContent(t *testing.T) {
 	app := contentTestApp(t)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	token, _ := createSession(t, app, "Content inviter")
 	ctx := context.Background()
 	if err := app.store.SetCredentials(ctx, tokenHash(token), "content-inviter@example.com", "encoded"); err != nil {

@@ -1,20 +1,22 @@
-package main
+package store
 
 import (
 	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
+	"glotworld/server/internal/avatar"
 	"glotworld/server/internal/contentstore"
 	"sort"
 	"strings"
 )
 
-// canonicalStore is a persistence boundary for the established German engine.
+// Canonical is a persistence boundary for the established German engine.
 // Its grading/story code may use fixture slugs internally; every stored account,
 // course snapshot, immutable request, and response uses the stable UUID catalog.
-type canonicalStore struct {
+type Canonical struct {
 	Store
+	hooks          Hooks
 	forward        map[string]string
 	reverse        map[string]string
 	nodes          map[string]string
@@ -24,8 +26,11 @@ type canonicalStore struct {
 	expectedCourse string
 }
 
-func newCanonicalStore(base Store, b *contentstore.Bundle) (*canonicalStore, error) {
-	s := &canonicalStore{Store: base, forward: map[string]string{}, reverse: map[string]string{}, nodes: map[string]string{}, choices: map[string]string{}, published: map[string]string{}}
+func NewCanonical(base Store, b *contentstore.Bundle, hooks Hooks) (*Canonical, error) {
+	if err := hooks.validate(); err != nil {
+		return nil, err
+	}
+	s := &Canonical{Store: base, hooks: hooks, forward: map[string]string{}, reverse: map[string]string{}, nodes: map[string]string{}, choices: map[string]string{}, published: map[string]string{}}
 	for _, c := range b.Courses {
 		if s.defaultCourse == "" || c.Target == "de" {
 			s.defaultCourse = c.ID
@@ -72,7 +77,53 @@ func newCanonicalStore(base Store, b *contentstore.Bundle) (*canonicalStore, err
 	}
 	return s, nil
 }
-func (s *canonicalStore) translate(value string, forward bool) string {
+
+// DefaultCourse is the course legacy saves and new accounts start in.
+func (s *Canonical) DefaultCourse() string { return s.defaultCourse }
+
+// ExpectedCourse is the course this view's writes are bound to ("" for any).
+func (s *Canonical) ExpectedCourse() string { return s.expectedCourse }
+
+// WithCourse returns a view whose account writes fail with ErrCourseChanged
+// unless the account's active course is courseID ("" accepts any course).
+func (s *Canonical) WithCourse(courseID string) *Canonical {
+	view := *s
+	view.expectedCourse = courseID
+	return &view
+}
+
+// WithStore returns a view over a different base store with the same
+// identifier tables, for example a store wrapped with instrumentation.
+func (s *Canonical) WithStore(base Store) *Canonical {
+	view := *s
+	view.Store = base
+	return &view
+}
+
+// ForwardSlugs lists every legacy slug that has a stable UUID.
+func (s *Canonical) ForwardSlugs() []string {
+	slugs := make([]string, 0, len(s.forward))
+	for slug := range s.forward {
+		slugs = append(slugs, slug)
+	}
+	return slugs
+}
+
+// ForwardID maps a legacy slug to its stable content UUID.
+func (s *Canonical) ForwardID(slug string) (string, bool) {
+	id, ok := s.forward[slug]
+	return id, ok
+}
+
+// ReverseID maps a content UUID back to its legacy slug.
+func (s *Canonical) ReverseID(id string) (string, bool) {
+	slug, ok := s.reverse[id]
+	return slug, ok
+}
+
+// Translate maps one identifier between legacy slugs (forward=false) and
+// stable UUIDs (forward=true), including prefixed evidence keys.
+func (s *Canonical) Translate(value string, forward bool) string {
 	if forward {
 		if current, ok := s.published[value]; ok {
 			return current
@@ -137,11 +188,11 @@ var contentReferenceFields = map[string]bool{
 }
 var referenceValueMaps = map[string]bool{"contextWordIds": true, "activityWordIds": true, "npcWordIds": true, "inspections": true, "exerciseIds": true, "wordIds": true, "itemIds": true}
 
-func (s *canonicalStore) transform(value any, forward bool, parent string) any {
+func (s *Canonical) transform(value any, forward bool, parent string) any {
 	switch v := value.(type) {
 	case string:
 		if contentReferenceFields[parent] {
-			return s.translate(v, forward)
+			return s.Translate(v, forward)
 		}
 		return v
 	case []any:
@@ -154,7 +205,7 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 		for key, item := range v {
 			next := key
 			if identityReferenceMaps[parent] {
-				next = s.translate(key, forward)
+				next = s.Translate(key, forward)
 			}
 			if parent == "objects" {
 				next = key
@@ -181,7 +232,7 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 				if node, ok := item.(string); ok {
 					quest := key
 					if !forward {
-						quest = s.translate(key, false)
+						quest = s.Translate(key, false)
 					}
 					if forward {
 						scoped := s.nodes
@@ -201,7 +252,7 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 			if (key == "nodeId" || key == "choiceId") && forward {
 				if node, ok := item.(string); ok {
 					quest, _ := v["questId"].(string)
-					quest = s.translate(quest, false)
+					quest = s.Translate(quest, false)
 					scoped := s.nodes
 					if key == "choiceId" {
 						scoped = s.choices
@@ -216,7 +267,7 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 					if slug, found := s.reverse[node]; found {
 						if owner, stage, has := strings.Cut(slug, ":"); has {
 							quest, _ := v["questId"].(string)
-							quest = s.translate(quest, false)
+							quest = s.Translate(quest, false)
 							if quest == "" || quest == owner {
 								item = stage
 							}
@@ -226,7 +277,7 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 			}
 
 			if quest, ok := v["questId"].(string); ok {
-				quest = s.translate(quest, false)
+				quest = s.Translate(quest, false)
 				if key == "choiceIds" {
 					if values, ok := item.([]any); ok {
 						for i, value := range values {
@@ -259,7 +310,9 @@ func (s *canonicalStore) transform(value any, forward bool, parent string) any {
 		return v
 	}
 }
-func (s *canonicalStore) raw(data []byte, forward bool) []byte {
+
+// Raw rewrites every content reference inside a JSON document.
+func (s *Canonical) Raw(data []byte, forward bool) []byte {
 	var value any
 	if json.Unmarshal(data, &value) != nil {
 		return data
@@ -270,11 +323,11 @@ func (s *canonicalStore) raw(data []byte, forward bool) []byte {
 	}
 	return out
 }
-func (s *canonicalStore) account(account Account, forward bool) Account {
+func (s *Canonical) account(account Account, forward bool) Account {
 	data, _ := json.Marshal(account)
 	var out Account
-	_ = json.Unmarshal(s.raw(data, forward), &out)
-	ensureProgress(&out.Progress)
+	_ = json.Unmarshal(s.Raw(data, forward), &out)
+	s.hooks.NormalizeProgress(&out.Progress)
 	if out.ActiveCourseID == "" {
 		// Before courses existed, a nonzero generation meant an explicit restart.
 		// Course switching now advances it solely to revoke old play leases.
@@ -288,7 +341,7 @@ func (s *canonicalStore) account(account Account, forward bool) Account {
 	}
 	return out
 }
-func snapshotCourse(a *Account) {
+func SnapshotCourse(a *Account) {
 	if a.ActiveCourseID == "" {
 		return
 	}
@@ -297,13 +350,13 @@ func snapshotCourse(a *Account) {
 	}
 	a.CourseStates[a.ActiveCourseID] = CourseState{Progress: a.Progress, Player: a.Player, LocationFrame: a.CourseStates[a.ActiveCourseID].LocationFrame, StorySaves: a.StorySaves, RewardedQuestIDs: a.RewardedQuestIDs, RewardedExpeditionIDs: a.RewardedExpeditionIDs, SupportLanguage: a.Preferences.BaseLanguage}
 }
-func (s *canonicalStore) check(a Account) error {
+func (s *Canonical) check(a Account) error {
 	if s.expectedCourse != "" && a.ActiveCourseID != "" && a.ActiveCourseID != s.expectedCourse {
-		return &APIError{409, "the active course changed; reload its saved state"}
+		return ErrCourseChanged
 	}
 	return nil
 }
-func (s *canonicalStore) Get(ctx context.Context, hash string) (Account, error) {
+func (s *Canonical) Get(ctx context.Context, hash string) (Account, error) {
 	a, err := s.Store.Get(ctx, hash)
 	if err != nil {
 		return a, err
@@ -311,49 +364,47 @@ func (s *canonicalStore) Get(ctx context.Context, hash string) (Account, error) 
 	a = s.account(a, false)
 	return a, s.check(a)
 }
-func (s *canonicalStore) GetByEmail(ctx context.Context, email string) (Account, error) {
+func (s *Canonical) GetByEmail(ctx context.Context, email string) (Account, error) {
 	a, err := s.Store.GetByEmail(ctx, email)
 	if err == nil {
 		a = s.account(a, false)
 	}
 	return a, err
 }
-func (s *canonicalStore) GetAccountByID(ctx context.Context, id string) (Account, error) {
+func (s *Canonical) GetAccountByID(ctx context.Context, id string) (Account, error) {
 	a, err := s.Store.GetAccountByID(ctx, id)
 	if err == nil {
 		a = s.account(a, false)
 	}
 	return a, err
 }
-func (s *canonicalStore) Create(ctx context.Context, hash string, a Account) error {
+func (s *Canonical) Create(ctx context.Context, hash string, a Account) error {
 	if a.ActiveCourseID == "" {
 		a.ActiveCourseID = s.defaultCourse
 	}
-	snapshotCourse(&a)
+	SnapshotCourse(&a)
 	return s.Store.Create(ctx, hash, s.account(a, true))
 }
 
-func (s *canonicalStore) LoadWorldContent(ctx context.Context) (*WorldContent, error) {
-	if storage, ok := s.Store.(worldContentStore); ok {
-		return storage.LoadWorldContent(ctx)
+func (s *Canonical) LoadWorldDocument(ctx context.Context) (json.RawMessage, error) {
+	if storage, ok := s.Store.(WorldDocuments); ok {
+		return storage.LoadWorldDocument(ctx)
 	}
 	return nil, fmt.Errorf("world editing storage is unavailable")
 }
-func (s *canonicalStore) SaveWorldContent(ctx context.Context, expected string, next *WorldContent) error {
-	if storage, ok := s.Store.(worldContentStore); ok {
-		return storage.SaveWorldContent(ctx, expected, next)
+func (s *Canonical) SaveWorldDocument(ctx context.Context, expected string, document json.RawMessage) error {
+	if storage, ok := s.Store.(WorldDocuments); ok {
+		return storage.SaveWorldDocument(ctx, expected, document)
 	}
 	return fmt.Errorf("world editing storage is unavailable")
 }
-func (s *canonicalStore) WorldContentRevision(ctx context.Context) (string, error) {
-	if storage, ok := s.Store.(interface {
-		WorldContentRevision(context.Context) (string, error)
-	}); ok {
-		return storage.WorldContentRevision(ctx)
+func (s *Canonical) WorldDocumentRevision(ctx context.Context) (string, error) {
+	if storage, ok := s.Store.(WorldDocuments); ok {
+		return storage.WorldDocumentRevision(ctx)
 	}
 	return "", nil
 }
-func (s *canonicalStore) callback(fn func(*Account) error) func(*Account) error {
+func (s *Canonical) callback(fn func(*Account) error) func(*Account) error {
 	return func(raw *Account) error {
 		a := s.account(*raw, false)
 		if err := s.check(a); err != nil {
@@ -362,44 +413,44 @@ func (s *canonicalStore) callback(fn func(*Account) error) func(*Account) error 
 		if err := fn(&a); err != nil {
 			return err
 		}
-		snapshotCourse(&a)
+		SnapshotCourse(&a)
 		*raw = s.account(a, true)
 		return nil
 	}
 }
-func (s *canonicalStore) UpdateAccount(ctx context.Context, hash string, fn func(*Account) error) (Account, error) {
+func (s *Canonical) UpdateAccount(ctx context.Context, hash string, fn func(*Account) error) (Account, error) {
 	a, err := s.Store.UpdateAccount(ctx, hash, s.callback(fn))
 	if err == nil {
 		a = s.account(a, false)
 	}
 	return a, err
 }
-func (s *canonicalStore) UpdateAccountByID(ctx context.Context, id string, fn func(*Account) error) (Account, error) {
+func (s *Canonical) UpdateAccountByID(ctx context.Context, id string, fn func(*Account) error) (Account, error) {
 	a, err := s.Store.UpdateAccountByID(ctx, id, s.callback(fn))
 	if err == nil {
 		a = s.account(a, false)
 	}
 	return a, err
 }
-func (s *canonicalStore) UpdateProfile(ctx context.Context, hash, name string, avatar Avatar) (Account, error) {
+func (s *Canonical) UpdateProfile(ctx context.Context, hash, name string, recipe avatar.Avatar) (Account, error) {
 	return s.UpdateAccount(ctx, hash, func(a *Account) error {
 		a.Player.Name = name
-		a.Player.Avatar = normalizeAvatar(avatar)
+		a.Player.Avatar = avatar.Normalize(recipe)
 		a.Progress.Revision++
 		return nil
 	})
 }
-func (s *canonicalStore) UpdatePreferences(ctx context.Context, hash string, p Preferences) (Account, error) {
-	return s.UpdateAccount(ctx, hash, func(a *Account) error { a.Preferences = normalizedPreferences(p); return nil })
+func (s *Canonical) UpdatePreferences(ctx context.Context, hash string, p Preferences) (Account, error) {
+	return s.UpdateAccount(ctx, hash, func(a *Account) error { a.Preferences = NormalizePreferences(p); return nil })
 }
-func (s *canonicalStore) ResetGame(ctx context.Context, hash string) (Account, error) {
+func (s *Canonical) ResetGame(ctx context.Context, hash string) (Account, error) {
 	a, err := s.Store.ResetGame(ctx, hash)
 	if err != nil {
 		return a, err
 	}
 	return s.account(a, false), nil
 }
-func (s *canonicalStore) actionKey(key string) string {
+func (s *Canonical) actionKey(key string) string {
 	course := s.expectedCourse
 	if course == "" {
 		course = s.defaultCourse
@@ -407,18 +458,18 @@ func (s *canonicalStore) actionKey(key string) string {
 	if strings.HasPrefix(key, "attempt:") {
 		return "attempt:" + course + ":" + strings.TrimPrefix(key, "attempt:")
 	}
-	return "course:" + course + ":" + s.translate(key, true)
+	return "course:" + course + ":" + s.Translate(key, true)
 }
-func (s *canonicalStore) Mutate(ctx context.Context, hash, key string, request json.RawMessage, fn func(*Account) (Receipt, error)) (Account, Receipt, bool, error) {
-	request = s.raw(request, true)
+func (s *Canonical) Mutate(ctx context.Context, hash, key string, request json.RawMessage, fn func(*Account) (Receipt, error)) (Account, Receipt, bool, error) {
+	request = s.Raw(request, true)
 	if s.expectedCourse == "" || s.expectedCourse == s.defaultCourse {
-		if reader, ok := s.Store.(legacyReceiptReader); ok {
-			old, exists, err := reader.legacyReceipt(ctx, hash, key)
+		if reader, ok := s.Store.(LegacyReceiptReader); ok {
+			old, exists, err := reader.LegacyReceipt(ctx, hash, key)
 			if err != nil {
 				return Account{}, Receipt{}, false, err
 			}
 			if exists {
-				if !bytes.Equal(s.raw(old.Request, true), request) {
+				if !bytes.Equal(s.Raw(old.Request, true), request) {
 					return Account{}, Receipt{}, false, ErrConflict
 				}
 				account, err := s.Get(ctx, hash)
@@ -426,10 +477,10 @@ func (s *canonicalStore) Mutate(ctx context.Context, hash, key string, request j
 					return account, Receipt{}, false, err
 				}
 				if account.ActiveCourseID != s.defaultCourse {
-					return Account{}, Receipt{}, false, &APIError{409, "the active course changed; reload its saved state"}
+					return Account{}, Receipt{}, false, ErrCourseChanged
 				}
 				data, _ := json.Marshal(old.Receipt)
-				_ = json.Unmarshal(s.raw(data, false), &old.Receipt)
+				_ = json.Unmarshal(s.Raw(data, false), &old.Receipt)
 				return account, old.Receipt, true, nil
 			}
 		}
@@ -443,10 +494,10 @@ func (s *canonicalStore) Mutate(ctx context.Context, hash, key string, request j
 		if err != nil {
 			return receipt, err
 		}
-		snapshotCourse(&a)
+		SnapshotCourse(&a)
 		*raw = s.account(a, true)
 		data, _ := json.Marshal(receipt)
-		_ = json.Unmarshal(s.raw(data, true), &receipt)
+		_ = json.Unmarshal(s.Raw(data, true), &receipt)
 		return receipt, nil
 	})
 	if err != nil {
@@ -454,10 +505,10 @@ func (s *canonicalStore) Mutate(ctx context.Context, hash, key string, request j
 	}
 	a = s.account(a, false)
 	data, _ := json.Marshal(receipt)
-	_ = json.Unmarshal(s.raw(data, false), &receipt)
+	_ = json.Unmarshal(s.Raw(data, false), &receipt)
 	return a, receipt, duplicate, s.check(a)
 }
-func (s *canonicalStore) ActivityProofs(ctx context.Context, hash, activityID, runID string, attemptIDs []string) (map[string]SavedAction, int, error) {
+func (s *Canonical) ActivityProofs(ctx context.Context, hash, activityID, runID string, attemptIDs []string) (map[string]SavedAction, int, error) {
 	course := s.expectedCourse
 	if course == "" {
 		course = s.defaultCourse
@@ -466,34 +517,34 @@ func (s *canonicalStore) ActivityProofs(ctx context.Context, hash, activityID, r
 	for i, id := range attemptIDs {
 		ids[i] = course + ":" + id
 	}
-	proofs, count, err := s.Store.ActivityProofs(ctx, hash, s.translate(activityID, true), runID, ids)
+	proofs, count, err := s.Store.ActivityProofs(ctx, hash, s.Translate(activityID, true), runID, ids)
 	if err != nil {
 		return nil, 0, err
 	}
 	out := map[string]SavedAction{}
 	if course == s.defaultCourse {
-		if reader, ok := s.Store.(legacyReceiptReader); ok {
+		if reader, ok := s.Store.(LegacyReceiptReader); ok {
 			for _, id := range attemptIDs {
 				if _, exists := proofs[course+":"+id]; exists {
 					continue
 				}
-				proof, exists, err := reader.legacyReceipt(ctx, hash, "attempt:"+id)
+				proof, exists, err := reader.LegacyReceipt(ctx, hash, "attempt:"+id)
 				if err != nil {
 					return nil, 0, err
 				}
 				if exists {
-					proof.Request = s.raw(proof.Request, false)
+					proof.Request = s.Raw(proof.Request, false)
 					data, _ := json.Marshal(proof.Receipt)
-					_ = json.Unmarshal(s.raw(data, false), &proof.Receipt)
+					_ = json.Unmarshal(s.Raw(data, false), &proof.Receipt)
 					out[id] = proof
 				}
 			}
 		}
 	}
 	for id, proof := range proofs {
-		proof.Request = s.raw(proof.Request, false)
+		proof.Request = s.Raw(proof.Request, false)
 		data, _ := json.Marshal(proof.Receipt)
-		_ = json.Unmarshal(s.raw(data, false), &proof.Receipt)
+		_ = json.Unmarshal(s.Raw(data, false), &proof.Receipt)
 		out[strings.TrimPrefix(id, course+":")] = proof
 	}
 	return out, count, nil
@@ -501,12 +552,12 @@ func (s *canonicalStore) ActivityProofs(ctx context.Context, hash, activityID, r
 
 // Migration is deliberately opt-in. All saved references and immutable receipts
 // change in one transaction/save; retries still locate the original attempt.
-func (s *canonicalStore) Migrate(ctx context.Context) error {
-	migrate := func(a Account) Account { a = s.account(a, false); snapshotCourse(&a); return s.account(a, true) }
+func (s *Canonical) Migrate(ctx context.Context) error {
+	migrate := func(a Account) Account { a = s.account(a, false); SnapshotCourse(&a); return s.account(a, true) }
 	event := func(key string, action SavedAction) (string, SavedAction) {
-		action.Request = s.raw(action.Request, true)
+		action.Request = s.Raw(action.Request, true)
 		data, _ := json.Marshal(action.Receipt)
-		_ = json.Unmarshal(s.raw(data, true), &action.Receipt)
+		_ = json.Unmarshal(s.Raw(data, true), &action.Receipt)
 		alreadyNamespaced := false
 		if strings.HasPrefix(key, "attempt:") {
 			prefix, _, scoped := strings.Cut(strings.TrimPrefix(key, "attempt:"), ":")
@@ -517,106 +568,14 @@ func (s *canonicalStore) Migrate(ctx context.Context) error {
 		}
 		return s.actionKey(key), action
 	}
-	switch base := s.Store.(type) {
-	case *JSONStore:
-		base.mu.Lock()
-		defer base.mu.Unlock()
-		old := base.state
-		next := diskState{Version: old.Version, World: old.World, WorldContent: old.WorldContent, Sessions: old.Sessions, SessionUse: old.SessionUse, Analytics: old.Analytics, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
-		for id, a := range old.Accounts {
-			next.Accounts[id] = migrate(a)
-		}
-		for id, actions := range old.Actions {
-			mapped := map[string]SavedAction{}
-			for key, action := range actions {
-				k, v := event(key, action)
-				mapped[k] = v
-			}
-			next.Actions[id] = mapped
-		}
-		base.state = next
-		if err := base.save(); err != nil {
-			base.state = old
-			return err
-		}
-		return nil
-	case *PGStore:
-		tx, err := base.pool.Begin(ctx)
-		if err != nil {
-			return err
-		}
-		defer tx.Rollback(ctx)
-		rows, err := tx.Query(ctx, `SELECT id,data FROM accounts FOR UPDATE`)
-		if err != nil {
-			return err
-		}
-		accounts := map[string][]byte{}
-		for rows.Next() {
-			var id string
-			var data []byte
-			if err = rows.Scan(&id, &data); err != nil {
-				rows.Close()
-				return err
-			}
-			var a Account
-			if err = json.Unmarshal(data, &a); err != nil {
-				rows.Close()
-				return err
-			}
-			accounts[id], _ = json.Marshal(migrate(a))
-		}
-		err = rows.Err()
-		rows.Close()
-		if err != nil {
-			return err
-		}
-		for id, data := range accounts {
-			if _, err = tx.Exec(ctx, `UPDATE accounts SET data=$2 WHERE id=$1`, id, data); err != nil {
-				return err
-			}
-		}
-		rows, err = tx.Query(ctx, `SELECT account_id,event_key,request,receipt FROM learning_events FOR UPDATE`)
-		if err != nil {
-			return err
-		}
-		type update struct {
-			id, old, key     string
-			request, receipt []byte
-		}
-		var updates []update
-		for rows.Next() {
-			var id, key string
-			var action SavedAction
-			var receipt []byte
-			if err = rows.Scan(&id, &key, &action.Request, &receipt); err != nil {
-				rows.Close()
-				return err
-			}
-			if err = json.Unmarshal(receipt, &action.Receipt); err != nil {
-				rows.Close()
-				return err
-			}
-			k, v := event(key, action)
-			data, _ := json.Marshal(v.Receipt)
-			updates = append(updates, update{id, key, k, v.Request, data})
-		}
-		err = rows.Err()
-		rows.Close()
-		if err != nil {
-			return err
-		}
-		for _, u := range updates {
-			if _, err = tx.Exec(ctx, `UPDATE learning_events SET event_key=$3,request=$4,receipt=$5 WHERE account_id=$1 AND event_key=$2`, u.id, u.old, u.key, u.request, u.receipt); err != nil {
-				return err
-			}
-		}
-		return tx.Commit(ctx)
-	default:
+	migrator, ok := s.Store.(ReferenceMigrator)
+	if !ok {
 		return fmt.Errorf("content migration unsupported for %s", s.Store.Kind())
 	}
+	return migrator.MigrateReferences(ctx, migrate, event)
 }
 
-func (s *canonicalStore) scopedChoice(quest, choice string, forward bool) string {
+func (s *Canonical) scopedChoice(quest, choice string, forward bool) string {
 	if forward {
 		if id, ok := s.choices[quest+":"+choice]; ok {
 			return id

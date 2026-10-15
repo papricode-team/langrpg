@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing"
 	"strings"
 	"testing"
 	"time"
@@ -55,7 +56,7 @@ func restoreVocabulary(t *testing.T, app *App, token string, wordIDs ...string) 
 	_, _, _, err := app.store.Mutate(context.Background(), tokenHash(token), "test-restore:"+strings.Join(wordIDs, ","), json.RawMessage(`{}`), func(a *Account) (Receipt, error) {
 		migrateIntake(&a.Progress, app.curriculum.Syllabus)
 		for _, id := range wordIDs {
-			if !a.Progress.wordIntroduced(id) {
+			if !a.Progress.WordIntroduced(id) {
 				a.Progress.Intake.WordIDs = append(a.Progress.Intake.WordIDs, id)
 			}
 		}
@@ -89,10 +90,10 @@ func TestNewAdventureReceivesTheOpeningWordsThenTenPerHour(t *testing.T) {
 	app, clock := pacedStoryTestApp(t)
 	token, _ := createSession(t, app, "Ada")
 	// This vocabulary pacing check runs for an hour, beyond the free trial.
-	app.billing = &CreemBilling{accessToken: "test", monthlyProduct: "monthly", yearlyProduct: "yearly", lifetimeProduct: "lifetime"}
+	app.billing = &billing.Client{AccessToken: "test", MonthlyProduct: "monthly", YearlyProduct: "yearly", LifetimeProduct: "lifetime"}
 	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
 		account.Email = "vocabulary@example.com"
-		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
+		account.Billing = billing.State{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
 		return nil
 	}); err != nil {
 		t.Fatal(err)

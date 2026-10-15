@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -11,32 +12,6 @@ import (
 	"time"
 	"unicode/utf8"
 )
-
-type SupportGrant struct {
-	Lifetime bool      `json:"lifetime"`
-	Until    time.Time `json:"until"`
-}
-type PasswordReset struct {
-	Hash      string    `json:"hash,omitempty"`
-	ExpiresAt time.Time `json:"expiresAt,omitempty"`
-}
-type SupportSession struct {
-	ActorSession string    `json:"actorSession"`
-	ExpiresAt    time.Time `json:"expiresAt"`
-}
-type AdminAuditEntry struct {
-	At         time.Time `json:"at"`
-	ActorID    string    `json:"actorId"`
-	ActorEmail string    `json:"actorEmail"`
-	Action     string    `json:"action"`
-	Reason     string    `json:"reason"`
-}
-type AccountSupport struct {
-	Grant    SupportGrant              `json:"grant"`
-	Reset    PasswordReset             `json:"reset,omitempty"`
-	Sessions map[string]SupportSession `json:"sessions,omitempty"`
-	Audit    []AdminAuditEntry         `json:"audit,omitempty"`
-}
 
 func hasSupportAccess(account Account, now time.Time) bool {
 	return account.Support.Grant.Lifetime || now.Before(account.Support.Grant.Until)
@@ -169,6 +144,8 @@ func (a *App) manageAdminUser(w http.ResponseWriter, r *http.Request) {
 	sessionHash := ""
 	response := map[string]any{}
 	var change func(*Account) error
+	// prepare runs outside the account lock (Creem calls) before each attempt.
+	var prepare func() error
 	switch action {
 	case "rename":
 		input.Name = strings.TrimSpace(input.Name)
@@ -253,46 +230,47 @@ func (a *App) manageAdminUser(w http.ResponseWriter, r *http.Request) {
 		}
 		response["token"] = token
 		response["expiresAt"] = expires
-	case "sync-billing":
+	case "sync-billing", "cancel-subscription":
 		if !a.billingAvailable() {
 			writeError(w, 409, "Creem billing is not configured")
 			return
 		}
-		// Reconcile and audit within the same account lock used by webhooks.
-		change = func(account *Account) error {
-			snapshot, e := a.billing.snapshot(ctx, id, account.Billing, now)
+		// Creem is queried (and a cancellation issued) before the account row is
+		// locked; the result is applied under the lock only if the purchase
+		// ledger it was computed from is unchanged, otherwise it is recomputed.
+		var base, snapshot billing.State
+		cancelSubscription := action == "cancel-subscription"
+		prepare = func() error {
+			current, e := a.store.GetAccountByID(ctx, id)
 			if e != nil {
 				return e
 			}
-			snapshot.WebhookReceipts = account.Billing.WebhookReceipts
-			account.Billing = snapshot
-			if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
-				account.Analytics.PaidAt = now
-			}
-			return nil
-		}
-	case "cancel-subscription":
-		if !a.billingAvailable() {
-			writeError(w, 409, "Creem billing is not configured")
-			return
-		}
-		change = func(account *Account) error {
-			snapshot, e := a.billing.snapshot(ctx, id, account.Billing, now)
-			if e != nil {
+			base = current.Billing
+			if snapshot, e = a.billing.Snapshot(ctx, id, base, now); e != nil {
 				return e
+			}
+			if !cancelSubscription {
+				return nil
 			}
 			if snapshot.SubscriptionID == "" {
 				return &APIError{409, "no verified recurring subscription to cancel"}
 			}
 			if snapshot.SubscriptionStatus != "scheduled_cancel" && snapshot.SubscriptionStatus != "canceled" {
 				// https://docs.creem.io/skills/creem-api/REFERENCE — keep the paid period.
-				if e = a.billing.request(ctx, "POST", "/v1/subscriptions/"+url.PathEscape(snapshot.SubscriptionID)+"/cancel", map[string]string{"mode": "scheduled", "onExecute": "cancel"}, nil); e != nil {
+				if e = a.billing.Request(ctx, "POST", "/v1/subscriptions/"+url.PathEscape(snapshot.SubscriptionID)+"/cancel", map[string]string{"mode": "scheduled", "onExecute": "cancel"}, nil); e != nil {
 					return e
 				}
 				snapshot.SubscriptionStatus = "scheduled_cancel"
 			}
-			snapshot.WebhookReceipts = account.Billing.WebhookReceipts
-			account.Billing = snapshot
+			return nil
+		}
+		change = func(account *Account) error {
+			if !billing.SameLedger(account.Billing, base) {
+				return billing.ErrLedgerChanged
+			}
+			next := snapshot
+			next.WebhookReceipts = account.Billing.WebhookReceipts
+			account.Billing = next
 			if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
 				account.Analytics.PaidAt = now
 			}
@@ -302,16 +280,33 @@ func (a *App) manageAdminUser(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 404, "unknown admin action")
 		return
 	}
-	account, hashes, err := a.store.ManageAccount(ctx, id, revoke, sessionHash, func(account *Account) error {
-		if a.isAdmin(*account) {
-			return &APIError{403, "administrator accounts are read-only here"}
+	var account Account
+	var hashes []string
+	for attempt := 0; ; attempt++ {
+		if prepare != nil {
+			if err = prepare(); err != nil {
+				break
+			}
 		}
-		if err := change(account); err != nil {
-			return err
+		account, hashes, err = a.store.ManageAccount(ctx, id, revoke, sessionHash, func(account *Account) error {
+			if a.isAdmin(*account) {
+				return &APIError{403, "administrator accounts are read-only here"}
+			}
+			if err := change(account); err != nil {
+				return err
+			}
+			// Audit is written once, with the change that was actually applied.
+			appendAdminAudit(account, actor, action, input.Reason, now)
+			return nil
+		})
+		if !errors.Is(err, billing.ErrLedgerChanged) || attempt >= 2 {
+			break
 		}
-		appendAdminAudit(account, actor, action, input.Reason, now)
-		return nil
-	})
+	}
+	if errors.Is(err, billing.ErrLedgerChanged) {
+		writeError(w, 409, billing.ErrLedgerChanged.Error())
+		return
+	}
 	if err != nil {
 		adminUserFailure(w, err)
 		return

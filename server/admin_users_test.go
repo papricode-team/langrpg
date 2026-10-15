@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing"
+	"glotworld/server/internal/billing/billingtest"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"testing"
@@ -201,7 +202,7 @@ func TestAdminUsersSupportSessionsAreScopedExpiringAndRevocable(t *testing.T) {
 }
 func TestAdminUsersGrantDoesNotOverwriteBillingOrProgress(t *testing.T) {
 	app, admin, member, player := adminUsersFixture(t)
-	app.billing = &CreemBilling{}
+	app.billing = &billing.Client{}
 	now := time.Now().UTC()
 	app.now = func() time.Time { return now }
 	app.store.UpdateAccount(context.Background(), tokenHash(member), func(account *Account) error {
@@ -231,48 +232,13 @@ func TestAdminUsersGrantDoesNotOverwriteBillingOrProgress(t *testing.T) {
 		t.Fatal("grant not revoked")
 	}
 }
-func TestAdminUsersManageAccountRollsBackAndSurvivesRestart(t *testing.T) {
-	file := filepath.Join(t.TempDir(), "state.json")
-	store, err := NewJSONStore(file)
-	if err != nil {
-		t.Fatal(err)
-	}
-	account := Account{Player: Player{ID: "member", Name: "Juniper"}, Progress: newProgress()}
-	if err = store.Create(context.Background(), "session", account); err != nil {
-		t.Fatal(err)
-	}
-	_, _, err = store.ManageAccount(context.Background(), "member", false, "support", func(a *Account) error {
-		a.Support.Grant.Lifetime = true
-		appendAdminAudit(a, account, "grant-access", "test grant", time.Now())
-		return nil
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	restarted, err := NewJSONStore(file)
-	if err != nil {
-		t.Fatal(err)
-	}
-	saved, err := restarted.Get(context.Background(), "support")
-	if err != nil || !saved.Support.Grant.Lifetime || len(saved.Support.Audit) != 1 {
-		t.Fatal("support state lost")
-	}
-	store.path = filepath.Join(file, "impossible.json")
-	if _, _, err = store.ManageAccount(context.Background(), "member", true, "", func(a *Account) error { a.PasswordHash = "replacement"; return nil }); err == nil {
-		t.Fatal("expected persistence failure")
-	}
-	saved, err = store.Get(context.Background(), "session")
-	if err != nil || saved.PasswordHash != "" {
-		t.Fatal("failed operation revoked or changed account")
-	}
-}
 func TestAdminUsersScheduledCancellationUsesVerifiedSubscription(t *testing.T) {
 	app, admin, _, player := adminUsersFixture(t)
 	now := time.Now().UTC()
 	app.now = func() time.Time { return now }
-	fixture := newCreemFixture(player.ID, "monthly", now)
+	fixture := billingtest.NewFixture(player.ID, "monthly", now)
 	canceled := 0
-	app.billing = testCreem(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	app.billing = billingtest.NewClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/v1/subscriptions/subscription/cancel" {
 			var body map[string]string
 			json.NewDecoder(r.Body).Decode(&body)
@@ -280,13 +246,13 @@ func TestAdminUsersScheduledCancellationUsesVerifiedSubscription(t *testing.T) {
 				t.Errorf("unsafe cancellation: %s %+v", r.Method, body)
 			}
 			canceled++
-			fixture.subscription.Status = "scheduled_cancel"
-			writeJSON(w, 200, fixture.subscription)
+			fixture.Subscription.Status = "scheduled_cancel"
+			writeJSON(w, 200, fixture.Subscription)
 			return
 		}
-		fixture.serve(w, r)
+		fixture.Serve(w, r)
 	}))
-	app.store.UpdateAccountByID(context.Background(), player.ID, func(a *Account) error { a.Billing = fixture.state(); return nil })
+	app.store.UpdateAccountByID(context.Background(), player.ID, func(a *Account) error { a.Billing = fixture.State(); return nil })
 	for range 2 {
 		if r := adminAction(t, app, admin, player.ID, "cancel-subscription", nil); r.Code != 200 {
 			t.Fatal(r.Body.String())
@@ -317,9 +283,9 @@ func TestPostgresAdminUserManagement(t *testing.T) {
 	member, player := createSession(t, app, "Support Member")
 	t.Cleanup(func() {
 		for _, id := range []string{owner.ID, player.ID} {
-			store.pool.Exec(ctx, "DELETE FROM learning_events WHERE account_id=$1", id)
-			store.pool.Exec(ctx, "DELETE FROM sessions WHERE account_id=$1", id)
-			store.pool.Exec(ctx, "DELETE FROM accounts WHERE id=$1", id)
+			store.Pool().Exec(ctx, "DELETE FROM learning_events WHERE account_id=$1", id)
+			store.Pool().Exec(ctx, "DELETE FROM sessions WHERE account_id=$1", id)
+			store.Pool().Exec(ctx, "DELETE FROM accounts WHERE id=$1", id)
 		}
 		app.Close()
 	})
@@ -403,9 +369,7 @@ func TestAdminUsersSupportSessionWorksAcrossCourses(t *testing.T) {
 		t.Fatal(r.Body.String())
 	}
 	scoped := *app
-	adapter := *app.canonical
-	adapter.expectedCourse = english
-	scoped.store = &adapter
+	scoped.store = app.canonical.WithCourse(english)
 	account, err := scoped.store.Get(context.Background(), tokenHash(result.Token))
 	if err != nil {
 		t.Fatal(err)

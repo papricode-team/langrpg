@@ -6,8 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5/pgxpool"
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 func TestPostgresContentImportSkipsAnUnchangedBundle(t *testing.T) {
@@ -23,6 +25,9 @@ func TestPostgresContentImportSkipsAnUnchangedBundle(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Cleanup(pool.Close)
+	if err = store.MigrateSchema(ctx, pool); err != nil {
+		t.Fatal(err)
+	}
 	data := []byte(`{"version":1,"courses":[{"id":"11111111-1111-4111-8111-111111111111","slug":"german","target":"de","supportLanguages":["en"],"title":"German"}],
 "records":[{"id":"22222222-2222-4222-8222-222222222222","courseId":"11111111-1111-4111-8111-111111111111","slug":"greeting","kind":"sentence","version":1,"body":{"text":"Guten Tag"}}],"ids":{}}`)
 	bundle, err := contentstore.Parse(data)
@@ -36,6 +41,7 @@ func TestPostgresContentImportSkipsAnUnchangedBundle(t *testing.T) {
 	if recorded, err := contentstore.ImportedFingerprint(ctx, pool); err != nil || recorded != "" {
 		t.Fatalf("fresh database: %q %v", recorded, err)
 	}
+	// The catalog schema is created by migrations, never by the importer.
 	if imported, err := contentstore.ImportFingerprinted(ctx, pool, bundle, fingerprint, false); err != nil || !imported {
 		t.Fatalf("first import: %v %v", imported, err)
 	}

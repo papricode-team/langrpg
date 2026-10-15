@@ -1,9 +1,11 @@
-package main
+package store
 
 import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing"
+	"glotworld/server/internal/world"
 	"sort"
 	"strings"
 	"time"
@@ -18,7 +20,7 @@ func matchesAdminSearch(a Account, query, kind string) bool {
 
 // The directory never loads progress, credentials, reset secrets or support sessions.
 func adminAccountSummary(a Account) Account {
-	return Account{Player: Player{ID: a.Player.ID, Name: a.Player.Name}, Email: a.Email, CreatedAt: a.CreatedAt, Billing: BillingState{Plan: a.Billing.Plan, CustomerID: a.Billing.CustomerID, SubscriptionID: a.Billing.SubscriptionID, SubscriptionStatus: a.Billing.SubscriptionStatus, LifetimeOrderID: a.Billing.LifetimeOrderID, PaidUntil: a.Billing.PaidUntil, VerifiedAt: a.Billing.VerifiedAt}, Support: AccountSupport{Grant: a.Support.Grant}, ActiveCourseID: a.ActiveCourseID, Access: PlayAccess{PlayedNanoseconds: a.Access.PlayedNanoseconds, ResetTrial: a.Access.ResetTrial}, Referrals: a.Referrals}
+	return Account{Player: world.Player{ID: a.Player.ID, Name: a.Player.Name}, Email: a.Email, CreatedAt: a.CreatedAt, Billing: billing.State{Plan: a.Billing.Plan, CustomerID: a.Billing.CustomerID, SubscriptionID: a.Billing.SubscriptionID, SubscriptionStatus: a.Billing.SubscriptionStatus, LifetimeOrderID: a.Billing.LifetimeOrderID, PaidUntil: a.Billing.PaidUntil, VerifiedAt: a.Billing.VerifiedAt}, Support: AccountSupport{Grant: a.Support.Grant}, ActiveCourseID: a.ActiveCourseID, Access: PlayAccess{PlayedNanoseconds: a.Access.PlayedNanoseconds, ResetTrial: a.Access.ResetTrial}, Referrals: a.Referrals}
 }
 func (s *JSONStore) ListAdminAccounts(_ context.Context, query, kind string, offset, limit int) ([]Account, int, error) {
 	s.mu.Lock()
@@ -82,7 +84,7 @@ func (s *JSONStore) ManageAccount(_ context.Context, id string, revoke bool, new
 	if !ok {
 		return Account{}, nil, ErrUnauthorized
 	}
-	account := cloneAccount(previous)
+	account := s.hooks.clone(previous)
 	if err := fn(&account); err != nil {
 		return Account{}, nil, err
 	}
@@ -129,7 +131,7 @@ func (s *JSONStore) ManageAccount(_ context.Context, id string, revoke bool, new
 		}
 		return Account{}, nil, err
 	}
-	return cloneAccount(account), removed, nil
+	return s.hooks.clone(account), removed, nil
 }
 func (s *PGStore) ManageAccount(ctx context.Context, id string, revoke bool, newSession string, fn func(*Account) error) (Account, []string, error) {
 	tx, err := s.pool.Begin(ctx)
@@ -149,7 +151,7 @@ func (s *PGStore) ManageAccount(ctx context.Context, id string, revoke bool, new
 	if err = json.Unmarshal(data, &account); err != nil {
 		return Account{}, nil, err
 	}
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	if err = fn(&account); err != nil {
 		return Account{}, nil, err
 	}

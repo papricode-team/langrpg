@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing/billingtest"
 	"net/http/httptest"
 	"strings"
 	"testing"
@@ -67,7 +68,7 @@ func TestUnconfiguredBillingAllowsUnlimitedFreePlay(t *testing.T) {
 				t.Fatalf("free play retained or renewed trial leases: %+v", account.Access)
 			}
 			// Re-enabling billing restores the saved trial instead of granting paid access.
-			app.billing = testCreem(nil)
+			app.billing = billingtest.NewClient(nil)
 			if status := app.accessState(account, app.now()); status.Phase == "free" || status.Phase == "paid" || accessBlocked(status) != (tc.played > 0) {
 				t.Fatalf("configured billing ignored the saved trial: %+v", status)
 			}

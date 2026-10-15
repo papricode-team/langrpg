@@ -146,7 +146,7 @@ func (a *App) requireMiniGameVocabulary(input AttemptInput, exercise Exercise, p
 		return routeLockedError(binding.RegionID)
 	}
 	for _, id := range exerciseWords(exercise) {
-		if !p.wordIntroduced(id) {
+		if !p.WordIntroduced(id) {
 			return &APIError{409, "mini-games use only words the Atlas has restored"}
 		}
 	}
@@ -156,7 +156,7 @@ func (a *App) requireMiniGameVocabulary(input AttemptInput, exercise Exercise, p
 			return err
 		}
 		for _, id := range exerciseWords(context) {
-			if !p.wordIntroduced(id) {
+			if !p.WordIntroduced(id) {
 				return &APIError{409, "every word in the witness recording must be restored first"}
 			}
 		}
@@ -177,7 +177,7 @@ func (a *App) requireMiniGameVocabulary(input AttemptInput, exercise Exercise, p
 			continue
 		}
 		known = true
-		if p.wordIntroduced(word.ID) {
+		if p.WordIntroduced(word.ID) {
 			return nil
 		}
 	}

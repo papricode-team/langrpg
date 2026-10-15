@@ -30,7 +30,11 @@ instance: world presence and positions are in memory.
    proxy's address and one rate limit. `SESSION_IDLE_DAYS` (default 90, `0`
    disables) expires unused sessions of accounts with an email; guest sessions
    never expire. The boot import skips a content bundle it has already
-   imported; `IMPORT_CONTENT_FORCE=true` re-imports it.
+   imported; `IMPORT_CONTENT_FORCE=true` re-imports it. Schema changes are
+   versioned migrations in `server/migrations`, applied once at boot under an
+   advisory lock. `METRICS_TOKEN` (16 or more characters) enables Prometheus
+   metrics at `/metrics`; scrape with `Authorization: Bearer <token>`. Empty
+   returns 404.
 
    Generate a password with `openssl rand -hex 32`. `POSTGRES_PASSWORD` and
    `ALLOWED_ORIGINS` are required. For multiple public domains, list their exact

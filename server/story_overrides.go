@@ -65,7 +65,7 @@ func (a *App) lineKey(id string) string {
 	if a.canonical == nil {
 		return strings.ToLower(id)
 	}
-	return a.canonical.translate(strings.ToLower(id), true)
+	return a.canonical.Translate(strings.ToLower(id), true)
 }
 
 // lineLock explains why a line must stay, or returns "" when it may be hidden.
@@ -119,7 +119,7 @@ func (a *App) storyGraphs(hidden map[string]HiddenLine) []storyGraph {
 		}
 		questID := stringValue(body["questId"])
 		if a.canonical != nil {
-			questID = a.canonical.translate(questID, false)
+			questID = a.canonical.Translate(questID, false)
 		}
 		graph := storyGraph{ID: record.ID, CourseID: record.CourseID, QuestID: questID, Level: stringValue(body["level"])}
 		block := func(kind, label string, lines []any) storyBlock {
@@ -276,7 +276,7 @@ func (a *App) setStoryLine(w http.ResponseWriter, r *http.Request) {
 	editing.mu.Lock()
 	editing.current = &next
 	editing.mu.Unlock()
-	a.world.publishStoryChange(found.ID, found.QuestID)
+	a.world.PublishStoryChange(found.ID, found.QuestID)
 	for _, graph := range a.storyGraphs(hidden) {
 		if graph.ID == found.ID {
 			writeJSON(w, 200, map[string]any{"graph": graph})
@@ -284,17 +284,4 @@ func (a *App) setStoryLine(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	writeJSON(w, 200, map[string]any{})
-}
-
-// publishStoryChange tells players to fetch a scene's dialogue again.
-func (w *World) publishStoryChange(graphID, questID string) {
-	message, err := json.Marshal(map[string]any{"type": "story.changed", "graphId": graphID, "questId": questID})
-	if err != nil {
-		return
-	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	for _, client := range w.clients {
-		w.enqueueLocked(client, message)
-	}
 }

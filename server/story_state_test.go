@@ -37,10 +37,8 @@ func storyProgress(t *testing.T, app *App, token string) Progress {
 }
 
 func placeStoryPlayer(app *App, player Player, mapID string, target MapSpawn) {
-	app.world.mu.Lock()
-	defer app.world.mu.Unlock()
 	player.MapID, player.X, player.Y = mapID, target.X, target.Y
-	app.world.clients[player.ID] = &worldClient{player: player, send: make(chan []byte, 256), cancel: func() {}}
+	app.world.AttachForTest(player, "")
 }
 
 func seedStoryProgress(t *testing.T, app *App, token string, ids []string) {
@@ -69,7 +67,7 @@ func investigateStory(t *testing.T, app *App, token string, player Player, quest
 		}
 	}
 	for _, object := range rule.Objects {
-		placeStoryPlayer(app, player, rule.MapID, MapSpawn{object.X, object.Y})
+		placeStoryPlayer(app, player, rule.MapID, MapSpawn{X: object.X, Y: object.Y})
 		r := request(app, "POST", "/api/story/inspect", token, map[string]string{"id": prefix + object.ID, "questId": questID, "objectId": object.ID})
 		if r.Code != 200 {
 			t.Fatalf("inspection: %d %s", r.Code, r.Body.String())
@@ -434,10 +432,7 @@ func TestStoryRoutesCannotBeBypassedThroughWebSocketOrReconnect(t *testing.T) {
 	readWorld(t, ctx, conn, "welcome")
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	readWorld(t, ctx, conn, "error")
-	app.world.mu.Lock()
-	current := app.world.clients[player.ID].player.MapID
-	app.world.mu.Unlock()
-	if current != DefaultMapID {
+	if current, _ := app.world.ClientPlayer(player.ID); current.MapID != DefaultMapID {
 		t.Fatal("locked travel changed membership")
 	}
 	seedStoryProgress(t, app, token, storyQuestsThrough(actOneFinale))
@@ -478,33 +473,14 @@ func TestLoadingAnEarlierStorySlotWithdrawsTheLiveLockedRoute(t *testing.T) {
 	if mapID, _, _ := mapValue(t, readWorld(t, ctx, conn, "map")); mapID != DefaultMapID {
 		t.Fatal("rewound save retained its withdrawn route")
 	}
-	app.world.mu.Lock()
-	client := app.world.clients[player.ID]
-	mapID, rememberedMap, interiorID := client.player.MapID, client.memory.mapID, client.player.InteriorID
-	app.world.mu.Unlock()
+	client, _ := app.world.ClientPlayer(player.ID)
+	rememberedMap, _, _ := app.world.RememberedLocation(player.ID)
+	mapID, interiorID := client.MapID, client.InteriorID
 	if mapID != DefaultMapID || rememberedMap != DefaultMapID || interiorID != "" {
 		t.Fatal("world membership and reconnect memory disagree after restore")
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	readWorld(t, ctx, conn, "error")
-}
-
-func TestRestoringARouteCannotOverfillTheUnlockedTown(t *testing.T) {
-	w := NewWorld(1, nil)
-	defer w.Close()
-	w.mu.Lock()
-	w.clients["resident"] = &worldClient{player: Player{ID: "resident", MapID: DefaultMapID}, send: make(chan []byte, 256), cancel: func() {}}
-	memory := &worldMemory{mapID: "waldruh", positions: map[string]MapSpawn{}, interiorID: "inn"}
-	w.clients["returning"] = &worldClient{player: Player{ID: "returning", MapID: "waldruh", InteriorID: "inn"}, memory: memory, send: make(chan []byte, 256), cancel: func() {}}
-	w.mu.Unlock()
-	w.reconcileStoryLocation("returning", nil)
-	w.mu.Lock()
-	_, retained := w.clients["returning"]
-	count, reconnectMap, reconnectInterior := w.mapCountLocked(DefaultMapID), memory.mapID, memory.interiorID
-	w.mu.Unlock()
-	if retained || count != 1 || reconnectMap != DefaultMapID || reconnectInterior != "" {
-		t.Fatal("restore bypassed town capacity or retained the locked room")
-	}
 }
 
 func TestAllThreeFactionEndingsRemainReachable(t *testing.T) {

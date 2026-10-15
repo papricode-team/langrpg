@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/avatar"
+	"glotworld/server/internal/world"
 	"math"
 	"net/http/httptest"
 	"strings"
@@ -188,13 +190,11 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": "lindenhafen", "x": 1, "y": 1})
 	readWorld(t, ctx, conn, "error")
-	app.world.mu.Lock()
-	for _, client := range app.world.clients {
-		if client.player.X != spawn.X || client.player.Y != spawn.Y || client.player.MapID != id {
-			t.Errorf("stale movement changed world %+v", client.player)
+	for _, client := range app.world.Players() {
+		if client.X != spawn.X || client.Y != spawn.Y || client.MapID != id {
+			t.Errorf("stale movement changed world %+v", client)
 		}
 	}
-	app.world.mu.Unlock()
 	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "coordinateVersion": compiledWorldMaps.Maps[id].CoordinateVersion, "x": 1, "y": 1})
 	for {
 		packet := readWorld(t, ctx, conn, "players")
@@ -264,7 +264,7 @@ func TestNewTabReplacesSessionWithoutRetryableDisconnect(t *testing.T) {
 		if err == nil {
 			continue // Drain any presence snapshots queued before takeover.
 		}
-		if websocket.CloseStatus(err) != sessionReplacedStatus {
+		if websocket.CloseStatus(err) != world.SessionReplacedStatus {
 			t.Fatalf("replaced tab received a retryable disconnect: %v", err)
 		}
 		break
@@ -294,18 +294,16 @@ func TestMapJoinRateLimitSurvivesReconnect(t *testing.T) {
 	readWorld(t, ctx, two, "welcome")
 	writeWorld(t, ctx, two, map[string]any{"type": "joinMap", "mapId": "nebelstadt"})
 	readWorld(t, ctx, two, "error")
-	app.world.mu.Lock()
-	defer app.world.mu.Unlock()
-	for _, client := range app.world.clients {
-		if client.player.MapID != "waldruh" {
-			t.Fatalf("rate-limited join changed map %+v", client.player)
+	for _, client := range app.world.Players() {
+		if client.MapID != "waldruh" {
+			t.Fatalf("rate-limited join changed map %+v", client)
 		}
 	}
 }
 
 func TestMapCapacityIsPerMapAndJoinFailureKeepsCurrentMap(t *testing.T) {
 	app := testApp(t)
-	app.world.maxPlayers = 1
+	app.world.SetMaxPlayersForTest(1)
 	tokenA, playerA := createSession(t, app, "Ada")
 	tokenB, _ := createSession(t, app, "Mira")
 	tokenC, _ := createSession(t, app, "Otto")
@@ -324,13 +322,11 @@ func TestMapCapacityIsPerMapAndJoinFailureKeepsCurrentMap(t *testing.T) {
 	}
 	writeWorld(t, ctx, one, map[string]any{"type": "joinMap", "mapId": "waldruh"})
 	readWorld(t, ctx, one, "error")
-	app.world.mu.Lock()
-	for _, client := range app.world.clients {
-		if client.player.ID == playerA.ID && client.player.MapID != "lindenhafen" {
+	for _, client := range app.world.Players() {
+		if client.ID == playerA.ID && client.MapID != "lindenhafen" {
 			t.Error("full target map changed source map")
 		}
 	}
-	app.world.mu.Unlock()
 }
 
 func TestInvalidInitialMapRejectedBeforeUpgrade(t *testing.T) {
@@ -351,8 +347,8 @@ func TestProfileUpdatePreservesCurrentMapAndPosition(t *testing.T) {
 	defer cancel()
 	conn := dialMap(t, ctx, server, token, "nebelstadt")
 	_, spawn, _ := mapValue(t, readWorld(t, ctx, conn, "welcome"))
-	avatar := Avatar{Hair: "#d9bc75", Skin: "#533728", Outfit: "#6c7894"}
-	response := request(app, "POST", "/api/session", token, map[string]any{"name": "New Ada", "avatar": avatar})
+	recipe := Avatar{Hair: "#d9bc75", Skin: "#533728", Outfit: "#6c7894"}
+	response := request(app, "POST", "/api/session", token, map[string]any{"name": "New Ada", "avatar": recipe})
 	if response.Code != 200 {
 		t.Fatalf("update status %d: %s", response.Code, response.Body.String())
 	}
@@ -362,7 +358,7 @@ func TestProfileUpdatePreservesCurrentMapAndPosition(t *testing.T) {
 	if err := json.Unmarshal(response.Body.Bytes(), &updated); err != nil {
 		t.Fatal(err)
 	}
-	if updated.Player.ID != player.ID || updated.Player.MapID != "nebelstadt" || updated.Player.X != spawn.X || updated.Player.Y != spawn.Y || !sameAvatar(updated.Player.Avatar, normalizeAvatar(avatar)) {
+	if updated.Player.ID != player.ID || updated.Player.MapID != "nebelstadt" || updated.Player.X != spawn.X || updated.Player.Y != spawn.Y || !sameAvatar(updated.Player.Avatar, avatar.Normalize(recipe)) {
 		t.Fatalf("profile update changed map position %+v", updated.Player)
 	}
 }
@@ -413,6 +409,7 @@ func TestRetiredExpeditionTravelIsRejected(t *testing.T) {
 }
 
 func TestMapRegistryContainsThreeUniqueDestinations(t *testing.T) {
+	mapIDs := world.MapIDs()
 	if len(mapIDs) != 3 || len(mapSpawns) != 3 {
 		t.Fatalf("atlas registry mismatch: %d IDs, %d spawns", len(mapIDs), len(mapSpawns))
 	}
@@ -423,7 +420,7 @@ func TestMapRegistryContainsThreeUniqueDestinations(t *testing.T) {
 		}
 		seen[id] = true
 		spawn := mapSpawns[id]
-		if !validCoordinate(spawn.X) || !validCoordinate(spawn.Y) {
+		if !world.ValidCoordinate(spawn.X) || !world.ValidCoordinate(spawn.Y) {
 			t.Fatalf("invalid spawn for %s: %+v", id, spawn)
 		}
 	}

@@ -1,4 +1,4 @@
-package main
+package store
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ func (s *JSONStore) UpdateAccount(_ context.Context, hash string, fn func(*Accou
 		return Account{}, ErrUnauthorized
 	}
 	previous := s.state.Accounts[id]
-	account := cloneAccount(previous)
+	account := s.hooks.clone(previous)
 	if err := fn(&account); err != nil {
 		return Account{}, err
 	}
@@ -31,7 +31,7 @@ func (s *JSONStore) UpdateAccount(_ context.Context, hash string, fn func(*Accou
 		s.state.Accounts[id] = previous
 		return Account{}, err
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 func (s *JSONStore) ResetGame(_ context.Context, hash string) (Account, error) {
@@ -42,8 +42,8 @@ func (s *JSONStore) ResetGame(_ context.Context, hash string) (Account, error) {
 		return Account{}, ErrUnauthorized
 	}
 	previous := s.state.Accounts[id]
-	account := cloneAccount(previous)
-	if err := resetGameProgress(&account); err != nil {
+	account := s.hooks.clone(previous)
+	if err := s.hooks.ResetGame(&account); err != nil {
 		return Account{}, err
 	}
 	actions := s.state.Actions[id]
@@ -53,7 +53,7 @@ func (s *JSONStore) ResetGame(_ context.Context, hash string) (Account, error) {
 		s.state.Accounts[id], s.state.Actions[id] = previous, actions
 		return Account{}, err
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 func (s *PGStore) UpdateAccount(ctx context.Context, hash string, fn func(*Account) error) (Account, error) {
@@ -61,7 +61,7 @@ func (s *PGStore) UpdateAccount(ctx context.Context, hash string, fn func(*Accou
 }
 
 func (s *PGStore) ResetGame(ctx context.Context, hash string) (Account, error) {
-	return s.updateSessionAccount(ctx, hash, true, resetGameProgress)
+	return s.updateSessionAccount(ctx, hash, true, s.hooks.ResetGame)
 }
 
 func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEvents bool, fn func(*Account) error) (Account, error) {
@@ -83,7 +83,7 @@ func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEv
 	if err = json.Unmarshal(previous, &account); err != nil {
 		return Account{}, err
 	}
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	before, err := json.Marshal(account)
 	if err != nil {
 		return Account{}, err

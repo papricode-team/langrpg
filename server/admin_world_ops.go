@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"glotworld/server/internal/world"
 	"io"
 	"net/http"
-	"regexp"
 	"sort"
 	"strings"
 	"sync"
@@ -19,8 +19,6 @@ const (
 	maxWorkerWait    = 45 * time.Second
 	worldLeaseTTL    = 30 * time.Second
 )
-
-var editableObjectID = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 
 // WorldLease marks an object one admin is editing. Leases live in memory: the
 // game runs as a single server instance.
@@ -241,7 +239,7 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 			if _, kept := after.Entrances[room]; kept {
 				continue
 			}
-			if count := a.world.interiorOccupancy(mapID, room); count > 0 {
+			if count := a.world.InteriorOccupancy(mapID, room); count > 0 {
 				people := "1 player is"
 				if count > 1 {
 					people = fmt.Sprintf("%d players are", count)
@@ -267,7 +265,7 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 	editing.current = next
 	editing.mu.Unlock()
 	editing.worker.committed(result.Key, next.Revision)
-	a.world.publishPatch(next.WorldMaps, result.Applied, next.Revision)
+	a.world.PublishPatch(next.WorldMaps, result.Applied, next.Revision)
 	w.Header().Set("ETag", `"`+next.Revision+`"`)
 	warnings := result.Warnings
 	if warnings == nil {
@@ -298,7 +296,7 @@ func (a *App) editWorldLock(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	if !validMapID(body.Map) || !editableObjectID.MatchString(body.ID) {
+	if !validMapID(body.Map) || !world.EditableObjectID.MatchString(body.ID) {
 		apiFailure(w, worldProblems(400, "invalid", "Choose an object in one of the towns."))
 		return
 	}
@@ -315,7 +313,7 @@ func (a *App) editWorldLock(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	locks := a.editLeases.list(body.Map)
-	a.world.publishLocks(body.Map, locks)
+	a.world.PublishLocks(body.Map, locks)
 	writeJSON(w, 200, map[string]any{"locks": locks})
 }
 
@@ -331,65 +329,4 @@ func (a *App) worldEditStatus(w http.ResponseWriter, r *http.Request) {
 		a.editing.worker.warmSoon(current)
 	}
 	writeJSON(w, 200, map[string]any{"revision": current.Revision, "contentVersion": current.ContentVersion, "locks": a.editLeases.list(r.URL.Query().Get("map"))})
-}
-
-// publishPatch streams edit operations to every player instead of reloading
-// their scenes. Clients that missed a patch fall back to a full reload.
-func (w *World) publishPatch(registry WorldMapRegistry, ops json.RawMessage, revision string) {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	from := w.contentVersion
-	if registry.ContentVersion == from {
-		return
-	}
-	w.maps = registry.Maps
-	w.contentVersion = registry.ContentVersion
-	message, err := json.Marshal(map[string]any{"type": "world.patch", "from": from, "contentVersion": registry.ContentVersion, "revision": revision, "ops": ops})
-	if err != nil {
-		return
-	}
-	for _, client := range w.clients {
-		w.enqueueLocked(client, message)
-	}
-}
-
-// publishLocks tells admins in a town which objects others are editing.
-func (w *World) publishLocks(mapID string, locks []WorldLease) {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	message, err := json.Marshal(map[string]any{"type": "edit.locks", "mapId": mapID, "locks": locks})
-	if err != nil {
-		return
-	}
-	for _, client := range w.clients {
-		if client.admin && client.player.MapID == mapID {
-			w.enqueueLocked(client, message)
-		}
-	}
-}
-
-func (w *World) interiorOccupancy(mapID, interiorID string) int {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	count := 0
-	for _, client := range w.clients {
-		if client.player.MapID == mapID && client.player.InteriorID == interiorID {
-			count++
-		}
-	}
-	return count
-}
-
-func (w *World) publishPreview(from *worldClient, objectID string, x, y float64) {
-	message, err := json.Marshal(map[string]any{"type": "edit.preview", "mapId": from.player.MapID, "objectId": objectID, "x": x, "y": y, "adminName": from.player.Name})
-	if err != nil {
-		return
-	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	for _, client := range w.clients {
-		if client != from && client.admin && client.player.MapID == from.player.MapID {
-			w.enqueueLocked(client, message)
-		}
-	}
 }

@@ -10,39 +10,6 @@ import (
 	"unicode/utf8"
 )
 
-type StoryState struct {
-	Flags           map[string]bool                `json:"flags"`
-	Inventory       []string                       `json:"inventory"`
-	Reputation      map[string]int                 `json:"reputation"`
-	Bell            int                            `json:"bell"`
-	BellWarnings    int                            `json:"bellWarnings"`
-	GateFailures    map[string]int                 `json:"gateFailures"`
-	Day             int                            `json:"day"`
-	LanternStreak   int                            `json:"lanternStreak"`
-	Promise         DailyPromise                   `json:"promise"`
-	Nodes           map[string]string              `json:"nodes"`
-	Choices         map[string]string              `json:"choices"`
-	Ending          string                         `json:"ending,omitempty"`
-	Expeditions     map[string]ExpeditionRecord    `json:"expeditions"`
-	ExpeditionPlans map[string]ExpeditionPlanState `json:"expeditionPlans"`
-	Inspections     map[string][]string            `json:"inspections"`
-	GateAttempts    map[string][]string            `json:"gateAttempts"`
-}
-
-type ExpeditionRecord struct {
-	Selected int  `json:"selected"`
-	Correct  bool `json:"correct"`
-	Attempts int  `json:"attempts"`
-}
-
-type StorySave struct {
-	Slot              string     `json:"slot"`
-	Name              string     `json:"name"`
-	At                time.Time  `json:"at"`
-	Story             StoryState `json:"story"`
-	CompletedQuestIDs []string   `json:"completedQuestIds"`
-}
-
 type StoryRule struct {
 	QuestID                string            `json:"questId"`
 	GateExerciseID         string            `json:"gateExerciseId"`
@@ -519,7 +486,7 @@ func (a *App) saveStory(w http.ResponseWriter, r *http.Request) {
 				account.RewardedQuestIDs = append(account.RewardedQuestIDs, id)
 			}
 		}
-		account.StorySaves[input.Slot] = StorySave{input.Slot, input.Name, a.now().UTC(), account.Progress.Story, append([]string{}, account.Progress.CompletedQuestIDs...)}
+		account.StorySaves[input.Slot] = StorySave{Slot: input.Slot, Name: input.Name, At: a.now().UTC(), Story: account.Progress.Story, CompletedQuestIDs: append([]string{}, account.Progress.CompletedQuestIDs...)}
 		return Receipt{}, nil
 	})
 	if err != nil {
@@ -576,7 +543,8 @@ func (a *App) loadStory(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	a.world.reconcileStoryLocation(account.Player.ID, account.Progress.CompletedQuestIDs)
+	completed := account.Progress.CompletedQuestIDs
+	a.world.ReconcileStoryLocation(account.Player.ID, func(mapID string) bool { return routeUnlocked(mapID, completed) })
 	writeJSON(w, 200, map[string]any{"story": account.Progress.Story, "progress": account.Progress})
 }
 
@@ -603,7 +571,7 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 	var target MapSpawn
 	for _, object := range rule.Objects {
 		if object.ID == input.ObjectID {
-			target = MapSpawn{object.X, object.Y}
+			target = MapSpawn{X: object.X, Y: object.Y}
 			break
 		}
 	}

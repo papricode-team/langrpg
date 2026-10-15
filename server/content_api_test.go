@@ -5,7 +5,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"glotworld/server/internal/billing/billingtest"
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
 	"net/http/httptest"
 	"strconv"
 	"strings"
@@ -50,22 +52,22 @@ func contentTestApp(t *testing.T) *App {
 	if contentFixture.err != nil {
 		t.Fatal(contentFixture.err)
 	}
-	store, err := NewJSONStore("")
+	storage, err := NewJSONStore("")
 	if err != nil {
 		t.Fatal(err)
 	}
-	app := NewApp(store, Curriculum{}, nil, 128)
+	app := NewApp(storage, Curriculum{}, nil, 128)
 	t.Cleanup(app.Close)
 	app.content = contentFixture.bundle
 	app.courseCurricula = contentFixture.curricula
 	app.lexemeSentences = contentFixture.lexemeSentences
 	app.stationRooms = contentFixture.stationRooms
-	app.canonical, err = newCanonicalStore(store, app.content)
+	app.canonical, err = store.NewCanonical(storage, app.content, storeHooks())
 	if err != nil {
 		t.Fatal(err)
 	}
 	app.store = app.canonical
-	app.curriculum = app.courseCurricula[app.canonical.defaultCourse]
+	app.curriculum = app.courseCurricula[app.canonical.DefaultCourse()]
 	return app
 }
 func testContentID(t *testing.T, app *App, kind, slug string) string {
@@ -166,13 +168,13 @@ func TestContentNewSessionIncludesPersistedDefaultCourse(t *testing.T) {
 		t.Fatal(err)
 	}
 	account, err := app.store.Get(context.Background(), tokenHash(response.Token))
-	if err != nil || response.ActiveCourseID != app.canonical.defaultCourse || response.ActiveCourseID != account.ActiveCourseID || response.Course.ID != account.ActiveCourseID || response.Course.Target != "de" {
+	if err != nil || response.ActiveCourseID != app.canonical.DefaultCourse() || response.ActiveCourseID != account.ActiveCourseID || response.Course.ID != account.ActiveCourseID || response.Course.Target != "de" {
 		t.Fatalf("new session omitted its persisted default course: %v %+v", err, response)
 	}
 }
 func TestContentETagChecksAccessAndSupportLanguageBefore304(t *testing.T) {
 	app := contentTestApp(t)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	token, player := createSession(t, app, "Ada")
 	id := testContentID(t, app, "graph", "a1-arrival")
 	first := request(app, "GET", "/api/content/graphs/"+id, token, nil)
@@ -447,7 +449,7 @@ func TestContentBillingWebhookRemainsAccountScopedWhileEnglishActive(t *testing.
 	}
 	beforeProgress, _ := json.Marshal(before.Progress)
 	body := creemEvent("content-English-paid", "checkout.completed", app.now(), map[string]string{"id": "checkout"})
-	r := signedCreemEvent(app.billing.webhookSecret, body)
+	r := signedCreemEvent(app.billing.WebhookSecret, body)
 	w := httptest.NewRecorder()
 	app.Handler().ServeHTTP(w, r)
 	if w.Code != 200 {
@@ -458,7 +460,7 @@ func TestContentBillingWebhookRemainsAccountScopedWhileEnglishActive(t *testing.
 		t.Fatal(err)
 	}
 	afterProgress, _ := json.Marshal(after.Progress)
-	if after.ActiveCourseID != english || after.Billing.Plan != "lifetime" || !strings.Contains(string(afterProgress), string(beforeProgress)) || fixture.calls == 0 {
+	if after.ActiveCourseID != english || after.Billing.Plan != "lifetime" || !strings.Contains(string(afterProgress), string(beforeProgress)) || fixture.Calls == 0 {
 		t.Fatal("account billing reconciled against or mutated the wrong course")
 	}
 	if res := request(app, "POST", "/api/billing/sync", token, map[string]any{}); res.Code != 200 {

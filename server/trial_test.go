@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing"
+	"glotworld/server/internal/billing/billingtest"
+	"glotworld/server/internal/world"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
@@ -19,7 +22,7 @@ import (
 func trialTestApp(t *testing.T) *App {
 	t.Helper()
 	app := testApp(t)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	return app
 }
 
@@ -170,11 +173,11 @@ func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
 func TestGameResetPreservesPaidAccess(t *testing.T) {
 	app := trialTestApp(t)
 	trialTestClock(app)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	token, _ := createSession(t, app, "Paid Restart Ada")
 	before, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
 		account.Email, account.PasswordHash = "paid-restart@example.com", "preserved-password"
-		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
+		account.Billing = billing.State{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
 		account.Progress.XP = 100
 		return nil
 	})
@@ -293,9 +296,7 @@ func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.
 	if err != nil {
 		t.Fatal(err)
 	}
-	app.world.mu.Lock()
-	app.world.memories[player.ID] = &worldMemory{mapID: "waldruh", interiorID: "inn", positions: map[string]MapSpawn{"waldruh": {.9, .9}}}
-	app.world.mu.Unlock()
+	app.world.RememberForTest(player.ID, "waldruh", "inn", map[string]MapSpawn{"waldruh": {X: .9, Y: .9}})
 	w := request(app, "POST", "/api/access/reset", token, nil)
 	if w.Code != 200 {
 		t.Fatalf("guest reset: %d %s", w.Code, w.Body.String())
@@ -318,7 +319,8 @@ func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.
 	if after.Progress.XP != 0 || after.Progress.Attempts != 0 || len(after.Progress.Items) != 0 || len(after.Progress.CompletedQuestIDs) != 0 || len(after.Progress.CompletedUnitIDs) != 0 || after.Progress.Intake.ActiveSeconds != 0 || len(after.StorySaves) != 0 || len(after.RewardedQuestIDs) != 0 || len(after.RewardedExpeditionIDs) != 0 {
 		t.Fatalf("reset retained learning or narrative progress: %+v", after)
 	}
-	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 900 || response.Access.Phase != "guest" || app.world.memories[player.ID] != nil {
+	_, _, remembered := app.world.RememberedLocation(player.ID)
+	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 900 || response.Access.Phase != "guest" || remembered {
 		t.Fatalf("reset retained location or clock: %+v", response)
 	}
 	again := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("repeat-after-reset")))
@@ -337,7 +339,7 @@ func TestPausingOneDeviceCannotPauseAnotherDevicesLease(t *testing.T) {
 	}
 	// Two application worlds emulate separate server instances sharing storage.
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
-	secondApp.billing = testCreem(nil)
+	secondApp.billing = billingtest.NewClient(nil)
 	t.Cleanup(secondApp.world.Close)
 	secondApp.now = app.now
 	active, inactive := true, false
@@ -361,12 +363,10 @@ func TestSameTokenTabCannotPauseSocketOnAnotherServer(t *testing.T) {
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Remote Socket Ada")
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
-	secondApp.billing = testCreem(nil)
+	secondApp.billing = billingtest.NewClient(nil)
 	t.Cleanup(secondApp.world.Close)
 	secondApp.now = app.now
-	secondApp.world.mu.Lock()
-	secondApp.world.clients[player.ID] = &worldClient{player: player, sessionHash: tokenHash(token), send: make(chan []byte, 32), cancel: func() {}}
-	secondApp.world.mu.Unlock()
+	secondApp.world.AttachForTest(player, tokenHash(token))
 	ctx := context.Background()
 	if _, err := secondApp.touchAccess(ctx, tokenHash(token), nil); err != nil {
 		t.Fatal(err)
@@ -386,9 +386,7 @@ func TestSameTokenTabCannotPauseSocketOnAnotherServer(t *testing.T) {
 	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 20 {
 		t.Fatalf("same-token tab paused remote socket: %+v", status)
 	}
-	secondApp.world.mu.Lock()
-	delete(secondApp.world.clients, player.ID)
-	secondApp.world.mu.Unlock()
+	secondApp.world.DetachForTest(player.ID)
 	if _, err := secondApp.touchAccess(ctx, tokenHash(token), &inactive); err != nil {
 		t.Fatal(err)
 	}
@@ -509,7 +507,7 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 	trialTestClock(app)
 	token, player := createSession(t, app, "Remote Reset Ada")
 	secondApp := NewApp(app.store, testCurriculum(), nil, 10)
-	secondApp.billing = testCreem(nil)
+	secondApp.billing = billingtest.NewClient(nil)
 	secondApp.now = app.now
 	t.Cleanup(secondApp.world.Close)
 	server := httptest.NewServer(secondApp.Handler())
@@ -536,14 +534,12 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 			break
 		}
 	}
-	if websocket.CloseStatus(err) != accessRequiredStatus {
+	if websocket.CloseStatus(err) != world.AccessRequiredStatus {
 		t.Fatalf("remote socket survived reset: %v", err)
 	}
-	secondApp.world.mu.Lock()
-	if memory := secondApp.world.memories[player.ID]; memory != nil {
-		memory.mapID, memory.interiorID = "waldruh", "inn"
+	if _, _, remembered := secondApp.world.RememberedLocation(player.ID); remembered {
+		secondApp.world.RememberForTest(player.ID, "waldruh", "inn", nil)
 	}
-	secondApp.world.mu.Unlock()
 	reconnected, _, err := websocket.Dial(ctx, url, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -579,7 +575,7 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 		t.Fatal(err)
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Saved Ada")
 	playTrial(t, app, token, clock, 95*time.Second)
@@ -589,7 +585,7 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 		t.Fatal(err)
 	}
 	app = NewApp(reopened, testCurriculum(), nil, 10)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	t.Cleanup(app.Close)
 	app.now = func() time.Time { return time.Unix(0, clock.Load()).UTC() }
 	resume := request(app, "POST", "/api/session", token, map[string]any{})
@@ -635,7 +631,7 @@ func TestWorldEnforcesTrialOnExistingSocketAndReconnect(t *testing.T) {
 			break
 		}
 	}
-	if websocket.CloseStatus(err) != accessRequiredStatus {
+	if websocket.CloseStatus(err) != world.AccessRequiredStatus {
 		t.Fatalf("existing socket bypassed guest wall: %v", err)
 	}
 	_, response, err := websocket.Dial(ctx, url, nil)
@@ -656,15 +652,15 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 		t.Fatal(err)
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "PG Trial Ada")
 	t.Cleanup(func() {
 		cleanupCtx, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanupCtx, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanupCtx, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanupCtx, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanupCtx, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanupCtx, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanupCtx, "DELETE FROM accounts WHERE id=$1", player.ID)
 		app.Close()
 	})
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("pg-reset-receipt")))
@@ -684,7 +680,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 		t.Fatalf("Postgres reset: %d %s", w.Code, w.Body.String())
 	}
 	var receipts int
-	if err := store.pool.QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
+	if err := store.Pool().QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
 		t.Fatalf("Postgres reset retained receipts: %d %v", receipts, err)
 	}
 	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 0 || status.RemainingSeconds != 900 {
@@ -703,7 +699,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 	if status := trialStatus(t, app, token, nil); status.Phase != "trial" || status.RemainingSeconds != 900 || status.PlayedSeconds != 0 {
 		t.Fatalf("registered Postgres reset did not renew trial: %+v", status)
 	}
-	if err := store.pool.QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
+	if err := store.Pool().QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
 		t.Fatalf("registered Postgres reset retained receipts: %d %v", receipts, err)
 	}
 }

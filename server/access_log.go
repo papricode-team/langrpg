@@ -74,13 +74,17 @@ func (a *App) accessLog(next http.Handler) http.Handler {
 		w.Header().Set("X-Request-ID", id)
 		recorder := &statusRecorder{ResponseWriter: w}
 		r = r.WithContext(context.WithValue(r.Context(), requestIDKey{}, id))
+		a.metrics.inFlight.Add(1)
 		next.ServeHTTP(recorder, r)
+		a.metrics.inFlight.Add(-1)
 		status := recorder.status
 		if status == 0 {
 			status = http.StatusOK
 		}
-		// Container health probes would otherwise dominate the log.
-		if (r.URL.Path == "/api/live" || r.URL.Path == "/api/health") && status < 400 {
+		// ServeMux recorded the matched pattern on this request.
+		a.metrics.observeRequest(r, status, time.Since(started))
+		// Health probes and scrapes would otherwise dominate the log.
+		if (r.URL.Path == "/api/live" || r.URL.Path == "/api/health" || r.URL.Path == "/metrics") && status < 400 {
 			return
 		}
 		path := r.URL.Path

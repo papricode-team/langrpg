@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
 	"log/slog"
 	"net/http"
 	"sort"
@@ -127,7 +128,7 @@ func (a *App) activateCourse(w http.ResponseWriter, r *http.Request) {
 		migrateContextExposures(&account.Progress, c, a.now().UTC())
 		migrateIntake(&account.Progress, c.Syllabus)
 		introduceDue(&account.Progress, c.Syllabus, a.now().UTC())
-		snapshotCourse(account)
+		store.SnapshotCourse(account)
 		return nil
 	})
 	if err != nil {
@@ -179,7 +180,7 @@ func (a *App) readContent(w http.ResponseWriter, r *http.Request) {
 			writeError(w, 400, "content IDs must be UUIDs")
 			return
 		}
-		record = a.content.ByID[a.canonical.translate(strings.ToLower(id), true)]
+		record = a.content.ByID[a.canonical.Translate(strings.ToLower(id), true)]
 		singular := map[string]string{"graphs": "graph", "exercises": "exercise", "units": "unit", "expeditions": "expedition", "minigames": "minigame", "contexts": "context"}[kind]
 		if record.Kind != singular {
 			record = contentstore.Record{}
@@ -247,7 +248,7 @@ func (a *App) contentBatch(w http.ResponseWriter, r *http.Request, account Accou
 	}
 	records := []map[string]any{}
 	for _, id := range ids {
-		record, exists := a.content.ByID[a.canonical.translate(strings.ToLower(id), true)]
+		record, exists := a.content.ByID[a.canonical.Translate(strings.ToLower(id), true)]
 		if exists && record.Kind == kind && a.recordVisible(record, account) {
 			records = append(records, a.publicRecordForAccount(record, account))
 		} else {
@@ -298,7 +299,7 @@ const contentWireVersion = "content-api-v2"
 func (a *App) writeContent(w http.ResponseWriter, r *http.Request, account Account, value any) {
 	data, _ := json.Marshal(value)
 	if a.canonical != nil {
-		data = a.canonical.raw(data, true)
+		data = a.canonical.Raw(data, true)
 	}
 	identity := contentWireVersion + ":" + account.Player.ID + ":" + account.ActiveCourseID + ":" + account.Preferences.BaseLanguage + ":" + strconv.FormatInt(account.Progress.Revision, 10)
 	hash := sha256.Sum256(append([]byte(identity), data...))
@@ -360,7 +361,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 	}
 	id := record.Slug
 	if id == "" && a.canonical != nil {
-		id = a.canonical.translate(record.ID, false)
+		id = a.canonical.Translate(record.ID, false)
 	}
 	switch record.Kind {
 	case "graph":
@@ -368,7 +369,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 		if quest == "" {
 			quest = id
 		}
-		quest = a.canonical.translate(quest, false)
+		quest = a.canonical.Translate(quest, false)
 		return a.questVisible(quest, account)
 	case "exercise":
 		exercise, ok := a.curriculum.Exercises[id]
@@ -409,7 +410,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 		if len(quests) > 0 {
 			available := false
 			for _, quest := range quests {
-				if a.questVisible(a.canonical.translate(quest, false), account) {
+				if a.questVisible(a.canonical.Translate(quest, false), account) {
 					available = true
 					break
 				}
@@ -422,13 +423,13 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 			return false
 		}
 		for _, word := range stringValues(body["wordIds"]) {
-			if !account.Progress.wordIntroduced(a.canonical.translate(word, false)) {
+			if !account.Progress.WordIntroduced(a.canonical.Translate(word, false)) {
 				return false
 			}
 		}
 		return a.levelVisible(stringValue(body["level"]), account)
 	case "lexeme":
-		if account.Progress.wordIntroduced(id) {
+		if account.Progress.WordIntroduced(id) {
 			return true
 		}
 		if _, ok := account.Progress.Words[id]; ok {
@@ -473,7 +474,7 @@ func (a *App) exerciseVisible(e Exercise, account Account) bool {
 		return true
 	}
 	if e.TargetWordID != "" {
-		return account.Progress.wordIntroduced(e.TargetWordID)
+		return account.Progress.WordIntroduced(e.TargetWordID)
 	}
 	for _, quest := range a.curriculum.Quests {
 		if contains(quest.RequiredItemIDs, e.ItemID) {
@@ -505,7 +506,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 			}
 			var g map[string]any
 			_ = json.Unmarshal(graph.Body, &g)
-			quest := a.canonical.translate(stringValue(g["questId"]), false)
+			quest := a.canonical.Translate(stringValue(g["questId"]), false)
 			if !a.questVisible(quest, account) {
 				continue
 			}
@@ -517,7 +518,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 				return true
 			}
 			stage := node
-			if slug, ok := a.canonical.reverse[node]; ok {
+			if slug, ok := a.canonical.ReverseID(node); ok {
 				_, stage, _ = strings.Cut(slug, ":")
 			}
 			current := storyNode(&account.Progress, quest)
@@ -526,7 +527,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 			}
 			continue
 		}
-		id = a.canonical.translate(id, false)
+		id = a.canonical.Translate(id, false)
 		switch kind {
 		case "quest", "story", "narrative":
 			if a.questVisible(id, account) {
@@ -547,7 +548,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 				return true
 			}
 		case "lexeme":
-			if account.Progress.wordIntroduced(id) {
+			if account.Progress.WordIntroduced(id) {
 				return true
 			}
 		case "activity":
@@ -572,7 +573,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 			}
 		case "specialItem":
 			for _, item := range account.Progress.Story.Inventory {
-				if id != "" && a.canonical.translate(item, false) == id {
+				if id != "" && a.canonical.Translate(item, false) == id {
 					return true
 				}
 			}
@@ -737,10 +738,10 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 		for _, entry := range anyValues(body["investigations"]) {
 			object, _ := entry.(map[string]any)
 			id := stringValue(object["objectId"])
-			worldID := a.canonical.translate(id, false)
+			worldID := a.canonical.Translate(id, false)
 			if worldID != "" {
 				object["worldId"] = worldID
-				object["objectId"] = a.canonical.translate(worldID, true)
+				object["objectId"] = a.canonical.Translate(worldID, true)
 			}
 		}
 		return value
@@ -762,7 +763,7 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 		exerciseIDs := []string{}
 		for id, binding := range a.curriculum.MiniGameContent {
 			if binding.MiniGameID == record.Slug && a.levelVisible(binding.Level, account) {
-				if uuid, ok := a.canonical.forward[id]; ok {
+				if uuid, ok := a.canonical.ForwardID(id); ok {
 					exerciseIDs = append(exerciseIDs, uuid)
 				}
 			}
@@ -788,7 +789,7 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 	}
 	words := make([]string, 0, len(exercise.WordIDs))
 	for _, word := range exercise.WordIDs {
-		words = append(words, a.canonical.translate(word, true))
+		words = append(words, a.canonical.Translate(word, true))
 	}
 	body["wordIds"] = words
 	attempted := account.Progress.ExerciseStats[exercise.ID].Attempts > 0
@@ -851,7 +852,7 @@ func (a *App) filterBootstrap(body map[string]any, account Account) {
 	clues := []any{}
 	for _, entry := range anyValues(body["clues"]) {
 		clue, _ := entry.(map[string]any)
-		if contains(account.Progress.CompletedQuestIDs, a.canonical.translate(stringValue(clue["questId"]), false)) {
+		if contains(account.Progress.CompletedQuestIDs, a.canonical.Translate(stringValue(clue["questId"]), false)) {
 			clues = append(clues, clue)
 		}
 	}

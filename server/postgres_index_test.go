@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing"
 	"os"
 	"strings"
 	"testing"
@@ -26,12 +27,12 @@ func TestPostgresBillingLookupAndSessionIndexes(t *testing.T) {
 	t.Cleanup(func() {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 		app.Close()
 	})
 	if _, err := store.UpdateAccount(ctx, tokenHash(token), func(account *Account) error {
-		account.Billing.Purchases = []CreemPurchase{{CheckoutID: "c-" + player.ID, SubscriptionID: "sub-" + player.ID, TransactionID: "tx-" + player.ID}}
+		account.Billing.Purchases = []billing.Purchase{{CheckoutID: "c-" + player.ID, SubscriptionID: "sub-" + player.ID, TransactionID: "tx-" + player.ID}}
 		return nil
 	}); err != nil {
 		t.Fatal(err)
@@ -48,7 +49,7 @@ func TestPostgresBillingLookupAndSessionIndexes(t *testing.T) {
 	}
 
 	// The planner can serve both lookups from indexes rather than scanning accounts.
-	tx, err := store.pool.Begin(ctx)
+	tx, err := store.Pool().Begin(ctx)
 	if err != nil {
 		t.Fatal(err)
 	}

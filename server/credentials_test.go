@@ -159,7 +159,7 @@ func TestConcurrentCredentialChangesKeepOneEmailOwnerAndRejectStalePassword(t *t
 	var workers sync.WaitGroup
 	for i, token := range tokens {
 		workers.Go(func() {
-			results <- app.store.ChangeCredentials(ctx, tokenHash(token), CredentialChange{emails[i], encoded, "shared@example.com", encoded})
+			results <- app.store.ChangeCredentials(ctx, tokenHash(token), CredentialChange{PreviousEmail: emails[i], PreviousHash: encoded, Email: "shared@example.com", PasswordHash: encoded})
 		})
 	}
 	workers.Wait()
@@ -178,7 +178,7 @@ func TestConcurrentCredentialChangesKeepOneEmailOwnerAndRejectStalePassword(t *t
 		t.Fatal("concurrent updates shared an email")
 	}
 	current, _ := app.store.Get(ctx, tokenHash(first))
-	change := CredentialChange{current.Email, encoded, current.Email, "new-password-hash"}
+	change := CredentialChange{PreviousEmail: current.Email, PreviousHash: encoded, Email: current.Email, PasswordHash: "new-password-hash"}
 	if err := app.store.ChangeCredentials(ctx, tokenHash(first), change); err != nil {
 		t.Fatal(err)
 	}

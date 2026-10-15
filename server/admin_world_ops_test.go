@@ -96,10 +96,7 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 			break
 		}
 	}
-	listener := &worldClient{player: Player{ID: "listener", MapID: "nebelstadt"}, send: make(chan []byte, 512), cancel: func() {}}
-	app.world.mu.Lock()
-	app.world.clients["listener"] = listener
-	app.world.mu.Unlock()
+	listener := app.world.AttachForTest(Player{ID: "listener", MapID: "nebelstadt"}, "")
 	before := app.editing.current.Revision
 
 	code, body := postOps(app, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": lamp.X + 4, "y": lamp.Y}})
@@ -112,7 +109,7 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 	found, deadline := false, time.After(3*time.Second)
 	for !found {
 		select {
-		case raw := <-listener.send:
+		case raw := <-listener:
 			var patch struct {
 				Type, From, ContentVersion string
 				Ops                        []map[string]any
@@ -164,26 +161,19 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 			bakery = item
 		}
 	}
-	setTestClientLocation(app.world, listener, "waldruh", "bakery")
+	app.world.PlaceForTest("listener", "waldruh", "bakery", MapSpawn{})
 	if code, body := postOps(app, token, []map[string]any{{"kind": "update", "map": "waldruh", "id": bakery.ID, "interior": nil}}); code != 409 || !strings.Contains(body["error"].(string), "inside the bakery") {
 		t.Fatalf("occupied room: %d %v", code, body)
 	}
-	setTestClientLocation(app.world, listener, "waldruh", "")
+	app.world.PlaceForTest("listener", "waldruh", "", MapSpawn{})
 	if code, body := postOps(app, token, []map[string]any{{"kind": "update", "map": "waldruh", "id": bakery.ID, "interior": nil}}); code != 200 {
 		t.Fatalf("empty room: %d %v", code, body)
 	} else if warnings, _ := body["warnings"].([]any); len(warnings) == 0 {
 		t.Fatalf("removing a town's bakery should warn: %v", body)
 	}
-	if _, exists := app.world.mapDefinition("waldruh").Entrances["bakery"]; exists {
+	if _, exists := app.world.Definition("waldruh").Entrances["bakery"]; exists {
 		t.Fatal("server authority should drop the removed doorway")
 	}
-}
-
-// The world ticker reads client locations under World.mu; tests must write them there too.
-func setTestClientLocation(w *World, client *worldClient, mapID, interiorID string) {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	client.player.MapID, client.player.InteriorID = mapID, interiorID
 }
 
 func TestWorldEditStatusRequiresAdmin(t *testing.T) {

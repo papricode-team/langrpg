@@ -1,4 +1,4 @@
-package main
+package store
 
 import (
 	"context"
@@ -46,7 +46,7 @@ func (s *JSONStore) ChangeCredentials(_ context.Context, hash string, change Cre
 		}
 	}
 	previous := s.state.Accounts[id]
-	account := cloneAccount(previous)
+	account := s.hooks.clone(previous)
 	if err := change.apply(&account); err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func (s *PGStore) changeCredentials(ctx context.Context, hash string, change Cre
 	if err = json.Unmarshal(data, &account); err != nil {
 		return err
 	}
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	if err = change.apply(&account); err != nil {
 		return err
 	}
@@ -135,10 +135,10 @@ func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded
 			return ErrCredentialsConflict
 		}
 	}
-	account := cloneAccount(previous)
+	account := s.hooks.clone(previous)
 	previousInviter, exists := s.state.Accounts[referralID]
-	inviter := cloneAccount(previousInviter)
-	credited := exists && creditReferral(&account, &inviter, email, now)
+	inviter := s.hooks.clone(previousInviter)
+	credited := exists && s.hooks.CreditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
 	account.Analytics.RegisteredAt = now
 	s.state.Accounts[id] = account
@@ -165,7 +165,7 @@ func (s *JSONStore) GetByEmail(_ context.Context, email string) (Account, error)
 	defer s.mu.Unlock()
 	for _, account := range s.state.Accounts {
 		if account.Email == email && email != "" {
-			return cloneAccount(account), nil
+			return s.hooks.clone(account), nil
 		}
 	}
 	return Account{}, ErrUnauthorized
@@ -241,7 +241,7 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 		return ErrCredentialsConflict
 	}
 	inviter, exists := accounts[referralID]
-	credited := exists && creditReferral(&account, &inviter, email, now)
+	credited := exists && s.hooks.CreditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
 	account.Analytics.RegisteredAt = now
 	data, err := json.Marshal(account)
@@ -284,7 +284,7 @@ func (s *PGStore) GetByEmail(ctx context.Context, email string) (Account, error)
 	}
 	var account Account
 	err = json.Unmarshal(data, &account)
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	return account, err
 }
 

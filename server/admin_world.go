@@ -8,6 +8,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"glotworld/server/internal/store"
+	"glotworld/server/internal/world"
 	"io"
 	"log/slog"
 	"net/http"
@@ -71,10 +73,11 @@ func worldSourceVersion(document json.RawMessage) (string, error) {
 }
 
 func (a *App) initWorldEditing(ctx context.Context, source, compiler string) error {
-	storage, ok := a.store.(worldContentStore)
+	documents, ok := a.store.(store.WorldDocuments)
 	if !ok {
 		return errors.New("world editing storage is unavailable")
 	}
+	storage := worldContentStorage{documents}
 	saved, err := storage.LoadWorldContent(ctx)
 	if err != nil {
 		return err
@@ -151,7 +154,7 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 	if _, err := os.Stat(a.editing.worker.script); err != nil {
 		a.editing.worker = nil
 	}
-	a.world.publishContent(saved.WorldMaps)
+	a.world.PublishContent(saved.WorldMaps)
 	// PostgreSQL publication is shared across processes; synchronize revisions
 	// without reloading the full scene document when nothing changed.
 	pollCtx, cancel := context.WithCancel(context.Background())
@@ -177,6 +180,41 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 	return nil
 }
 
+// worldContentStore persists the published world: the editable document and
+// every authority manifest compiled from it, as one revision.
+type worldContentStore interface {
+	LoadWorldContent(context.Context) (*WorldContent, error)
+	SaveWorldContent(ctx context.Context, expectedRevision string, next *WorldContent) error
+	WorldContentRevision(context.Context) (string, error)
+}
+
+// worldContentStorage decodes the store's opaque world documents.
+type worldContentStorage struct{ documents store.WorldDocuments }
+
+func (s worldContentStorage) LoadWorldContent(ctx context.Context) (*WorldContent, error) {
+	data, err := s.documents.LoadWorldDocument(ctx)
+	if err != nil || data == nil {
+		return nil, err
+	}
+	var content WorldContent
+	if err = json.Unmarshal(data, &content); err != nil {
+		return nil, err
+	}
+	return &content, nil
+}
+
+func (s worldContentStorage) SaveWorldContent(ctx context.Context, expected string, next *WorldContent) error {
+	data, err := json.Marshal(next)
+	if err != nil {
+		return err
+	}
+	return s.documents.SaveWorldDocument(ctx, expected, data)
+}
+
+func (s worldContentStorage) WorldContentRevision(ctx context.Context) (string, error) {
+	return s.documents.WorldDocumentRevision(ctx)
+}
+
 func (a *App) refreshWorldContent(ctx context.Context) error {
 	editing := a.editing
 	// Never wait behind a long compiler: the previous publication stays playable.
@@ -184,19 +222,15 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 		return nil
 	}
 	defer editing.writes.Unlock()
-	if source, ok := editing.store.(interface {
-		WorldContentRevision(context.Context) (string, error)
-	}); ok {
-		revision, err := source.WorldContentRevision(ctx)
-		if err != nil {
-			return err
-		}
-		editing.mu.RLock()
-		unchanged := revision == "" || revision == editing.current.Revision
-		editing.mu.RUnlock()
-		if unchanged {
-			return nil
-		}
+	revision, err := editing.store.WorldContentRevision(ctx)
+	if err != nil {
+		return err
+	}
+	editing.mu.RLock()
+	unchanged := revision == "" || revision == editing.current.Revision
+	editing.mu.RUnlock()
+	if unchanged {
+		return nil
 	}
 	saved, err := editing.store.LoadWorldContent(ctx)
 	if err != nil {
@@ -212,7 +246,7 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 	defer editing.mu.Unlock()
 	if saved.Revision != editing.current.Revision {
 		editing.current = saved
-		a.world.publishContent(saved.WorldMaps)
+		a.world.PublishContent(saved.WorldMaps)
 	}
 	return nil
 }
@@ -225,7 +259,7 @@ func validateWorldContent(content *WorldContent) error {
 	if err != nil {
 		return err
 	}
-	if _, err = parseWorldMapRegistry(data); err != nil {
+	if _, err = world.ParseRegistry(data); err != nil {
 		return err
 	}
 	if len(content.Investigations.Rules) == 0 {
@@ -378,7 +412,7 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 	editing.mu.Lock()
 	defer editing.mu.Unlock()
 	editing.current = next
-	a.world.publishContent(next.WorldMaps)
+	a.world.PublishContent(next.WorldMaps)
 	w.Header().Set("ETag", `"`+next.Revision+`"`)
 	writeJSON(w, 200, map[string]any{"document": next.Document, "revision": next.Revision, "contentVersion": next.ContentVersion, "diagnostics": next.Diagnostics})
 }
@@ -416,36 +450,4 @@ func validateWorldMigration(before, after json.RawMessage) error {
 
 func (a *App) currentStoryRule(id string) (StoryRule, bool) {
 	return a.storyRule(id)
-}
-
-func (w *World) publishContent(registry WorldMapRegistry) {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if registry.ContentVersion == w.contentVersion {
-		return
-	}
-	for _, memory := range w.memories {
-		for mapID, position := range memory.positions {
-			if next, ok := registry.Maps[mapID]; ok {
-				memory.rememberPosition(mapID, restoreWorldPosition(position, memory.positionFrames[mapID], next), next.WorldCoordinateFrame)
-			}
-		}
-	}
-	for _, client := range w.clients {
-		if client.player.InteriorID == "" {
-			before := w.maps[client.player.MapID]
-			next := registry.Maps[client.player.MapID]
-			position := restoreWorldPosition(MapSpawn{client.player.X, client.player.Y}, before.WorldCoordinateFrame, next)
-			client.player.X, client.player.Y = position.X, position.Y
-			if client.memory != nil {
-				client.memory.rememberPosition(client.player.MapID, position, next.WorldCoordinateFrame)
-			}
-		}
-	}
-	w.maps = registry.Maps
-	w.contentVersion = registry.ContentVersion
-	// Version metadata makes connected clients refresh their scene before playing.
-	for _, client := range w.clients {
-		w.enqueueMapLocked(client, "map")
-	}
 }

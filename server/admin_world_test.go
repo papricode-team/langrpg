@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"math"
+	"glotworld/server/internal/world"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -65,7 +65,7 @@ func adminWorldCompiledDraft(t *testing.T, baseline *WorldContent, document json
 	result.WorldMaps.ContentVersion = result.ContentVersion
 	var draft struct {
 		Maps map[string]struct {
-			WorldCoordinateFrame
+			world.CoordinateFrame
 			Spawn   MapSpawn      `json:"spawn"`
 			NPCs    []StoryObject `json:"npcs"`
 			Objects []StoryObject `json:"objects"`
@@ -76,7 +76,7 @@ func adminWorldCompiledDraft(t *testing.T, baseline *WorldContent, document json
 	}
 	for id, definition := range result.WorldMaps.Maps {
 		scene := draft.Maps[id]
-		definition.WorldCoordinateFrame = scene.WorldCoordinateFrame
+		definition.CoordinateFrame = scene.CoordinateFrame
 		definition.Spawn = MapSpawn{X: scene.Spawn.X / scene.Width, Y: scene.Spawn.Y / scene.Height}
 		result.WorldMaps.Maps[id] = definition
 	}
@@ -141,7 +141,7 @@ func assertAdminWorldUnchanged(t *testing.T, app *App, before *WorldContent) {
 	if !reflect.DeepEqual(app.editing.current, before) {
 		t.Fatal("failed or validation-only request changed the published bundle")
 	}
-	if app.world.contentVersion != before.ContentVersion {
+	if app.world.ContentVersion() != before.ContentVersion {
 		t.Fatal("failed or validation-only request changed live authority")
 	}
 }
@@ -242,7 +242,7 @@ func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing
 	if current.Revision == before.Revision || saved.Header().Get("ETag") != `"`+current.Revision+`"` {
 		t.Fatal("save did not return the new revision")
 	}
-	if current.ContentVersion != app.world.contentVersion || !reflect.DeepEqual(current.WorldMaps.Maps, app.world.maps) {
+	if current.ContentVersion != app.world.ContentVersion() || !reflect.DeepEqual(current.WorldMaps.Maps, app.world.Maps()) {
 		t.Fatal("live map authority did not follow publication")
 	}
 	rule, ok := app.currentStoryRule(before.Investigations.Rules[0].QuestID)
@@ -416,10 +416,10 @@ func TestAdminWorldPersistsAndRestartsWithoutRepositorySource(t *testing.T) {
 	if err := restarted.initWorldEditing(context.Background(), filepath.Join(t.TempDir(), "missing-source.json"), "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
-	if !reflect.DeepEqual(restarted.editing.current, published) || restarted.world.contentVersion != published.ContentVersion {
+	if !reflect.DeepEqual(restarted.editing.current, published) || restarted.world.ContentVersion() != published.ContentVersion {
 		t.Fatal("restart did not recover the saved document and authority")
 	}
-	if err := store.SaveWorldContent(context.Background(), "stale", before); !errors.Is(err, ErrConflict) {
+	if err := (worldContentStorage{store}).SaveWorldContent(context.Background(), "stale", before); !errors.Is(err, ErrConflict) {
 		t.Fatalf("storage accepted stale revision: %v", err)
 	}
 }
@@ -493,64 +493,7 @@ func TestAdminWorldExternalPublicationRefreshesLiveAndPublicAuthority(t *testing
 	if w.Code != 200 || !strings.Contains(adminWorldResponseBody(w), next.ContentVersion) {
 		t.Fatalf("published read did not refresh external revision: %d %s", w.Code, adminWorldResponseBody(w))
 	}
-	if app.editing.current.Revision != next.Revision || app.world.contentVersion != next.ContentVersion {
+	if app.editing.current.Revision != next.Revision || app.world.ContentVersion() != next.ContentVersion {
 		t.Fatal("external revision did not refresh live authority")
-	}
-}
-
-func TestPublishedWorldMigratesConnectedAndRememberedCoordinates(t *testing.T) {
-	app, _ := adminWorldTestApp(t, "")
-	registry := cloneAdminWorld(t, app.editing.current).WorldMaps
-	before := registry.Maps[DefaultMapID]
-	next := before
-	next.Width += 128
-	next.Height += 64
-	next.LegacyOffset = MapSpawn{X: before.LegacyOffset.X + 32, Y: before.LegacyOffset.Y + 16}
-	next.CoordinateVersion++
-	registry.Maps[DefaultMapID] = next
-	registry.ContentVersion = "published-migration"
-	position := MapSpawn{X: .4, Y: .6}
-	memory := &worldMemory{}
-	memory.rememberPosition(DefaultMapID, position, before.WorldCoordinateFrame)
-	client := &worldClient{player: Player{ID: "connected-editor", MapID: DefaultMapID, X: position.X, Y: position.Y}, memory: memory, send: make(chan []byte, 32), cancel: func() {}}
-	disconnected := &worldMemory{}
-	disconnected.rememberPosition(DefaultMapID, position, before.WorldCoordinateFrame)
-	app.world.mu.Lock()
-	app.world.clients[client.player.ID] = client
-	app.world.memories["connected-session"] = memory
-	app.world.memories["disconnected-session"] = disconnected
-	app.world.mu.Unlock()
-	app.world.publishContent(registry)
-	expected := MapSpawn{X: (position.X*before.Width + 32) / next.Width, Y: (position.Y*before.Height + 16) / next.Height}
-	app.world.mu.Lock()
-	actual := MapSpawn{X: client.player.X, Y: client.player.Y}
-	connectedPosition := memory.positions[DefaultMapID]
-	disconnectedPosition := disconnected.positions[DefaultMapID]
-	connectedFrame := memory.positionFrames[DefaultMapID]
-	disconnectedFrame := disconnected.positionFrames[DefaultMapID]
-	app.world.mu.Unlock()
-	for _, value := range []MapSpawn{actual, connectedPosition, disconnectedPosition} {
-		if math.Abs(value.X-expected.X) > 1e-12 || math.Abs(value.Y-expected.Y) > 1e-12 {
-			t.Fatalf("map publication stretched remembered position: actual=%+v expected=%+v", value, expected)
-		}
-	}
-	if connectedFrame != next.WorldCoordinateFrame || disconnectedFrame != next.WorldCoordinateFrame {
-		t.Fatal("map publication did not advance remembered coordinate frames")
-	}
-	select {
-	case message := <-client.send:
-		var packet struct {
-			Type  string
-			Spawn MapSpawn
-			Scene struct {
-				ContentVersion    string
-				CoordinateVersion int
-			}
-		}
-		if json.Unmarshal(message, &packet) != nil || packet.Type != "map" || packet.Scene.ContentVersion != registry.ContentVersion || packet.Scene.CoordinateVersion != next.CoordinateVersion || packet.Spawn != actual {
-			t.Fatalf("connected client did not receive new world metadata and migrated position: %s", message)
-		}
-	default:
-		t.Fatal("publication did not notify the connected client")
 	}
 }

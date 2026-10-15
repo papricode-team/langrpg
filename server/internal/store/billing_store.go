@@ -1,9 +1,10 @@
-package main
+package store
 
 import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -15,7 +16,7 @@ func (s *JSONStore) GetAccountByID(_ context.Context, id string) (Account, error
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 // Reconciliation runs inside the same account lock as its write. An older
@@ -27,7 +28,7 @@ func (s *JSONStore) UpdateAccountByID(_ context.Context, id string, fn func(*Acc
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
-	account := cloneAccount(previous)
+	account := s.hooks.clone(previous)
 	if err := fn(&account); err != nil {
 		return Account{}, err
 	}
@@ -36,7 +37,7 @@ func (s *JSONStore) UpdateAccountByID(_ context.Context, id string, fn func(*Acc
 		s.state.Accounts[id] = previous
 		return Account{}, err
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 func (s *PGStore) GetAccountByID(ctx context.Context, id string) (Account, error) {
@@ -50,7 +51,7 @@ func (s *PGStore) GetAccountByID(ctx context.Context, id string) (Account, error
 	}
 	var account Account
 	err = json.Unmarshal(data, &account)
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	return account, err
 }
 
@@ -72,7 +73,7 @@ func (s *PGStore) UpdateAccountByID(ctx context.Context, id string, fn func(*Acc
 	if err = json.Unmarshal(data, &account); err != nil {
 		return Account{}, err
 	}
-	ensureProgress(&account.Progress)
+	s.hooks.NormalizeProgress(&account.Progress)
 	if err = fn(&account); err != nil {
 		return Account{}, err
 	}
@@ -89,21 +90,11 @@ func (s *PGStore) UpdateAccountByID(ctx context.Context, id string, fn func(*Acc
 	return account, nil
 }
 
-// Locate refunds/disputes by payment references, never by an email address or
-// customer alone (one Creem customer can have purchases for several accounts).
-func billingPurchaseMatches(billing BillingState, subscriptionID, transactionID string) bool {
-	for _, purchase := range billing.Purchases {
-		if subscriptionID != "" && purchase.SubscriptionID == subscriptionID || transactionID != "" && purchase.TransactionID == transactionID {
-			return true
-		}
-	}
-	return false
-}
 func (s *JSONStore) FindBillingAccount(_ context.Context, subscriptionID, transactionID string) (string, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	for id, account := range s.state.Accounts {
-		if billingPurchaseMatches(account.Billing, subscriptionID, transactionID) {
+		if billing.PurchaseMatches(account.Billing, subscriptionID, transactionID) {
 			return id, nil
 		}
 	}

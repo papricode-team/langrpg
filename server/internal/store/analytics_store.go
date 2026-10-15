@@ -1,13 +1,14 @@
-package main
+package store
 
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing"
 	"sort"
 	"time"
 )
 
-const analyticsRetentionDays = 180
+const AnalyticsRetentionDays = 180
 
 // Fixed fields deliberately exclude names, emails, answers, URLs and arbitrary properties.
 type AnalyticsEvent struct {
@@ -35,21 +36,8 @@ type AnalyticsAccount struct {
 	Email      string              `json:"-"` // Only used to exclude configured administrators.
 	CreatedAt  time.Time           `json:"createdAt"`
 	Registered bool                `json:"registered"`
-	Billing    BillingState        `json:"-"`
+	Billing    billing.State       `json:"-"`
 	Milestones AnalyticsMilestones `json:"milestones"`
-}
-
-func (s *PGStore) initAnalytics(ctx context.Context) error {
-	_, err := s.pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS analytics_events (
- id TEXT PRIMARY KEY, name TEXT NOT NULL, account_id TEXT NOT NULL DEFAULT '',
- visitor TEXT NOT NULL DEFAULT '', session_id TEXT NOT NULL DEFAULT '',
- source TEXT NOT NULL DEFAULT '', campaign TEXT NOT NULL DEFAULT '', device TEXT NOT NULL DEFAULT '',
- detail TEXT NOT NULL DEFAULT '', correct INTEGER NOT NULL DEFAULT 0, at TIMESTAMPTZ NOT NULL);
- CREATE INDEX IF NOT EXISTS analytics_events_at ON analytics_events(at);
- CREATE INDEX IF NOT EXISTS analytics_events_account_at ON analytics_events(account_id, at);
- CREATE TABLE IF NOT EXISTS analytics_maintenance (id INTEGER PRIMARY KEY CHECK (id=1), pruned_at TIMESTAMPTZ NOT NULL);
- INSERT INTO analytics_maintenance VALUES(1, '1970-01-01') ON CONFLICT DO NOTHING;`)
-	return err
 }
 
 func (s *PGStore) RecordAnalytics(ctx context.Context, events []AnalyticsEvent, now time.Time) error {
@@ -64,7 +52,7 @@ func (s *PGStore) RecordAnalytics(ctx context.Context, events []AnalyticsEvent, 
 		return err
 	}
 	if result.RowsAffected() > 0 {
-		if _, err = tx.Exec(ctx, `DELETE FROM analytics_events WHERE at < $1`, now.AddDate(0, 0, -analyticsRetentionDays)); err != nil {
+		if _, err = tx.Exec(ctx, `DELETE FROM analytics_events WHERE at < $1`, now.AddDate(0, 0, -AnalyticsRetentionDays)); err != nil {
 			return err
 		}
 	}
@@ -86,7 +74,7 @@ func (s *JSONStore) RecordAnalytics(_ context.Context, events []AnalyticsEvent, 
 	defer s.mu.Unlock()
 	previous := s.state.Analytics
 	next := make(map[string]AnalyticsEvent, len(previous)+len(events))
-	cutoff := now.AddDate(0, 0, -analyticsRetentionDays)
+	cutoff := now.AddDate(0, 0, -AnalyticsRetentionDays)
 	for key, e := range previous {
 		if !e.At.Before(cutoff) {
 			next[key] = e
@@ -144,8 +132,8 @@ func (s *PGStore) ReadAnalytics(ctx context.Context, from, to time.Time) ([]Anal
 	for rows.Next() {
 		var a AnalyticsAccount
 		var created string
-		var billing, milestones []byte
-		if err = rows.Scan(&a.ID, &a.Email, &created, &billing, &milestones); err != nil {
+		var billingData, milestones []byte
+		if err = rows.Scan(&a.ID, &a.Email, &created, &billingData, &milestones); err != nil {
 			rows.Close()
 			return nil, nil, err
 		}
@@ -154,7 +142,7 @@ func (s *PGStore) ReadAnalytics(ctx context.Context, from, to time.Time) ([]Anal
 			rows.Close()
 			return nil, nil, err
 		}
-		if err = json.Unmarshal(billing, &a.Billing); err != nil {
+		if err = json.Unmarshal(billingData, &a.Billing); err != nil {
 			rows.Close()
 			return nil, nil, err
 		}

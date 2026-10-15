@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing/billingtest"
 	"maps"
 	"reflect"
 	"testing"
@@ -11,9 +12,9 @@ import (
 func TestContentReferralsStayAccountWideAcrossCoursesAndResets(t *testing.T) {
 	t.Setenv("PUBLIC_URL", "https://glotworld.com")
 	app := contentTestApp(t)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	inviterToken, inviter := createSession(t, app, "Course inviter")
-	german, english := app.canonical.defaultCourse, testContentID(t, app, "course", "english")
+	german, english := app.canonical.DefaultCourse(), testContentID(t, app, "course", "english")
 	update := func(token string, fn func(*Account) error) Account {
 		t.Helper()
 		account, err := app.store.UpdateAccount(context.Background(), tokenHash(token), fn)
@@ -112,18 +113,18 @@ func TestContentInteriorStationExercisesUseRoomEntitlementAndWordPacing(t *testi
 	}
 	wordID := testContentID(t, app, "exercise", wordExercise.ID)
 	app.stationRooms = maps.Clone(app.stationRooms)
-	app.stationRooms[wordID] = []stationRoom{{CourseID: app.canonical.defaultCourse, MapID: DefaultMapID, InteriorID: "cafe"}}
+	app.stationRooms[wordID] = []stationRoom{{CourseID: app.canonical.DefaultCourse(), MapID: DefaultMapID, InteriorID: "cafe"}}
 	if response := request(app, "GET", "/api/content/exercises/"+wordID, token, nil); response.Code != 200 {
 		t.Fatal("station vocabulary metadata remained unavailable")
 	}
-	input := AttemptInput{ID: "unrestored-station-word", ExerciseID: wordID, ItemID: app.canonical.translate(wordExercise.ItemID, true), Mode: wordExercise.Mode, Answer: wordExercise.Answer}
+	input := AttemptInput{ID: "unrestored-station-word", ExerciseID: wordID, ItemID: app.canonical.Translate(wordExercise.ItemID, true), Mode: wordExercise.Mode, Answer: wordExercise.Answer}
 	for _, preview := range []bool{true, false} {
 		input.Preview = preview
 		if response := request(app, "POST", "/api/attempt", token, input); response.Code != 409 {
 			t.Fatalf("station word bypassed restoration: %d %s", response.Code, response.Body.String())
 		}
 	}
-	app.stationRooms[wordID] = []stationRoom{{CourseID: app.canonical.defaultCourse, MapID: "waldruh", InteriorID: "cafe"}}
+	app.stationRooms[wordID] = []stationRoom{{CourseID: app.canonical.DefaultCourse(), MapID: "waldruh", InteriorID: "cafe"}}
 	if response := request(app, "GET", "/api/content/exercises/"+wordID, token, nil); response.Code != 404 {
 		t.Fatal("an invalid or unreachable station room granted an exercise")
 	}

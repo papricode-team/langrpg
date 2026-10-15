@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/store"
 	"net/http"
 	"slices"
 	"strings"
@@ -27,14 +28,6 @@ type expeditionGameRule struct {
 type expeditionManifest struct {
 	Encounters []expeditionRule     `json:"encounters"`
 	Games      []expeditionGameRule `json:"games"`
-}
-
-type ExpeditionPlanState struct {
-	Level     string         `json:"level"`
-	Values    map[string]int `json:"values"`
-	Order     []string       `json:"order"`
-	Completed bool           `json:"completed"`
-	Attempts  int            `json:"attempts"`
 }
 
 // Completed agreements predate these flexible timing fields. Keep the earned
@@ -141,7 +134,7 @@ func (a *App) answerExpedition(w http.ResponseWriter, r *http.Request) {
 	if receipt.Correct != nil {
 		record.Correct = *receipt.Correct
 	}
-	feedback := a.contentExpeditionFeedback(input.EncounterID, selected, normalizedPreferences(account.Preferences).BaseLanguage)
+	feedback := a.contentExpeditionFeedback(input.EncounterID, selected, store.NormalizePreferences(account.Preferences).BaseLanguage)
 	result := map[string]any{"record": record, "progress": account.Progress, "duplicate": duplicate, "correct": record.Correct, "feedback": feedback, "explanation": feedback}
 	writeJSON(w, 200, result)
 }
@@ -254,7 +247,7 @@ func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
 			previous.Attempts++
 			s.ExpeditionPlans[key] = previous
 		} else {
-			s.ExpeditionPlans[key] = ExpeditionPlanState{input.Level, input.Values, input.Order, correct, previous.Attempts + 1}
+			s.ExpeditionPlans[key] = ExpeditionPlanState{Level: input.Level, Values: input.Values, Order: input.Order, Completed: correct, Attempts: previous.Attempts + 1}
 		}
 		reward := 0
 		flag := "expedition:" + key
@@ -278,7 +271,7 @@ func (a *App) planExpedition(w http.ResponseWriter, r *http.Request) {
 	}
 	// Return the tested draft separately from the permanent earned agreement.
 	// The editor can show an incorrect retry while the notebook stays intact.
-	plan := ExpeditionPlanState{input.Level, input.Values, input.Order, correct, account.Progress.Story.ExpeditionPlans[key].Attempts}
+	plan := ExpeditionPlanState{Level: input.Level, Values: input.Values, Order: input.Order, Completed: correct, Attempts: account.Progress.Story.ExpeditionPlans[key].Attempts}
 	result := map[string]any{"correct": correct, "plan": plan, "progress": account.Progress, "xpAdded": added, "duplicate": duplicate}
 	if correct {
 		if agreement := a.expeditionAgreement(input.MapID, input.Values); agreement != "" {

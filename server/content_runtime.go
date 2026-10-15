@@ -10,6 +10,9 @@ import (
 	"strings"
 
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
+	"glotworld/server/internal/world"
+
 	"golang.org/x/text/unicode/norm"
 )
 
@@ -36,7 +39,7 @@ func (a *App) InstallContent(bundle *contentstore.Bundle) error {
 		}
 	}
 	a.courseCurricula = map[string]Curriculum{}
-	adapter, err := newCanonicalStore(a.store, bundle)
+	adapter, err := store.NewCanonical(a.store, bundle, storeHooks())
 	if err != nil {
 		return err
 	}
@@ -49,21 +52,21 @@ func (a *App) InstallContent(bundle *contentstore.Bundle) error {
 		}
 		a.courseCurricula[course.ID] = c
 	}
-	a.curriculum = a.courseCurricula[adapter.defaultCourse]
+	a.curriculum = a.courseCurricula[adapter.DefaultCourse()]
 	return nil
 }
-func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Course, adapter *canonicalStore) (Curriculum, error) {
+func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Course, adapter *store.Canonical) (Curriculum, error) {
 	data, ok := bundle.Private(course.ID, "curriculum")
 	if !ok {
 		return Curriculum{}, fmt.Errorf("missing private grading curriculum")
 	}
 	var merged map[string]json.RawMessage
-	if err := json.Unmarshal(adapter.raw(data, false), &merged); err != nil {
+	if err := json.Unmarshal(adapter.Raw(data, false), &merged); err != nil {
 		return Curriculum{}, err
 	}
 	if extra, exists := bundle.Private(course.ID, "course"); exists {
 		var additions map[string]json.RawMessage
-		if err := json.Unmarshal(adapter.raw(extra, false), &additions); err != nil {
+		if err := json.Unmarshal(adapter.Raw(extra, false), &additions); err != nil {
 			return Curriculum{}, err
 		}
 		for key, value := range additions {
@@ -111,12 +114,12 @@ func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Cour
 		c.Exercises[exerciseID] = exercise
 	}
 	if data, ok = bundle.Private(course.ID, "activityBoards"); ok {
-		if err = loadActivityBoards(&c, adapter.raw(data, false)); err != nil {
+		if err = loadActivityBoards(&c, adapter.Raw(data, false)); err != nil {
 			return c, err
 		}
 	}
 	if data, ok = bundle.Private(course.ID, "syllabus"); ok {
-		if c.Syllabus, err = parseSyllabus(adapter.raw(data, false), c.Lexicon); err != nil {
+		if c.Syllabus, err = parseSyllabus(adapter.Raw(data, false), c.Lexicon); err != nil {
 			return c, err
 		}
 	}
@@ -136,11 +139,11 @@ func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Cour
 				if !exists {
 					return c, fmt.Errorf("missing private expedition rules")
 				}
-				if err = json.Unmarshal(adapter.raw(ruleData, false), &rules); err != nil {
+				if err = json.Unmarshal(adapter.Raw(ruleData, false), &rules); err != nil {
 					return c, fmt.Errorf("expedition rules: %w", err)
 				}
 			}
-			if err = loadMiniGameExercisesWithRules(&c, adapter.raw(data, false), entry.source, rules); err != nil {
+			if err = loadMiniGameExercisesWithRules(&c, adapter.Raw(data, false), entry.source, rules); err != nil {
 				return c, err
 			}
 		}
@@ -150,7 +153,7 @@ func curriculumFromContent(bundle *contentstore.Bundle, course contentstore.Cour
 		var manifest struct {
 			Rules []StoryRule `json:"rules"`
 		}
-		if err = json.Unmarshal(adapter.raw(data, false), &manifest); err != nil {
+		if err = json.Unmarshal(adapter.Raw(data, false), &manifest); err != nil {
 			return c, err
 		}
 		for _, rule := range manifest.Rules {
@@ -204,7 +207,7 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 			return
 		}
 		scoped := *a
-		courseID := a.canonical.defaultCourse
+		courseID := a.canonical.DefaultCourse()
 		hash, authErr := bearer(r)
 		if authErr != nil && r.URL.Path == "/api/world" {
 			if token := r.URL.Query().Get("token"); len(token) >= 32 && len(token) <= 128 {
@@ -225,12 +228,11 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 		if c, ok := a.courseCurricula[courseID]; ok {
 			scoped.curriculum = c
 		}
-		copyStore := *a.canonical
-		copyStore.expectedCourse = courseID
+		expected := courseID
 		if r.URL.Path == "/api/account/login" || r.URL.Path == "/api/referral/link" || strings.HasPrefix(r.URL.Path, "/api/billing/") {
-			copyStore.expectedCourse = ""
+			expected = ""
 		}
-		scoped.store = &copyStore
+		scoped.store = a.canonical.WithCourse(expected)
 		if r.Body != nil && r.Method == http.MethodPost && r.URL.Path != "/api/billing/webhook" {
 			raw, err := io.ReadAll(io.LimitReader(r.Body, 65538))
 			if err != nil {
@@ -241,7 +243,7 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 				writeError(w, 400, "request exceeds 64 KiB")
 				return
 			}
-			r.Body = io.NopCloser(bytes.NewReader(a.canonical.raw(raw, false)))
+			r.Body = io.NopCloser(bytes.NewReader(a.canonical.Raw(raw, false)))
 		}
 		if r.URL.Path == "/api/world" {
 			handler(&scoped, w, r)
@@ -255,11 +257,11 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 // boundary; authored sentence strings and presentation IDs remain untouched.
 type canonicalWriter struct {
 	http.ResponseWriter
-	adapter *canonicalStore
+	adapter *store.Canonical
 }
 
 func (w *canonicalWriter) Write(data []byte) (int, error) {
-	changed := w.adapter.raw(data, true)
+	changed := w.adapter.Raw(data, true)
 	_, err := w.ResponseWriter.Write(changed)
 	if err != nil {
 		return 0, err
@@ -378,7 +380,7 @@ func (a *App) authoredExplanation(e Exercise, lang string) string {
 	if a.content == nil || a.canonical == nil {
 		return ""
 	}
-	id := a.canonical.forward[e.ID]
+	id, _ := a.canonical.ForwardID(e.ID)
 	record, exists := a.content.ByID[id]
 	if !exists || record.CourseID != a.curriculum.CourseID {
 		return ""
@@ -397,8 +399,8 @@ func (a *App) authoredExplanation(e Exercise, lang string) string {
 func (a *App) installProductionManifests() {
 	source := manifestFiles{content: map[string][]byte{}, sealed: true}
 	for kind, file := range map[string]string{"curriculum": "curriculum.json", "course": "course.json", "syllabus": "syllabus.json", "activityBoards": "activity_boards.json", "storyRules": "story_rules.json", "expeditions": "expeditions.json", "expeditionLearning": "expedition_learning.json", "minigames": "minigame_stories.json"} {
-		if data, ok := a.content.Private(a.canonical.defaultCourse, kind); ok {
-			source.content[file] = a.canonical.raw(data, false)
+		if data, ok := a.content.Private(a.canonical.DefaultCourse(), kind); ok {
+			source.content[file] = a.canonical.Raw(data, false)
 		}
 	}
 	curriculumFiles = source
@@ -412,10 +414,10 @@ func (a *App) nearCourseStoryTarget(account *Account, mapID string, target MapSp
 		}
 		_ = json.Unmarshal(course.World, &world)
 		if world.Interaction == "classroom" {
-			return account.Player.MapID == mapID && account.Player.InteriorID == "" && a.world.mapDefinition(mapID).WorldCoordinateFrame.within(MapSpawn{account.Player.X, account.Player.Y}, target, radius)
+			return account.Player.MapID == mapID && account.Player.InteriorID == "" && a.world.Definition(mapID).CoordinateFrame.Within(MapSpawn{X: account.Player.X, Y: account.Player.Y}, target, radius)
 		}
 	}
-	return a.world.nearStoryTarget(account.Player.ID, mapID, target, radius)
+	return a.world.NearTarget(account.Player.ID, mapID, target, radius)
 }
 
 func (a *App) classroomCourse(id string) bool {
@@ -433,7 +435,7 @@ func (a *App) saveCourseLocation(account *Account) {
 	} else {
 		account.Player, frame = a.world.SavedCourseLocation(account.Player, frame)
 	}
-	snapshotCourse(account)
+	store.SnapshotCourse(account)
 	state := account.CourseStates[account.ActiveCourseID]
 	state.LocationFrame = frame
 	account.CourseStates[account.ActiveCourseID] = state
@@ -451,7 +453,7 @@ func courseStartingPlayer(base Player, course contentstore.Course) Player {
 	base.InteriorID = ""
 	base.X = .52
 	base.Y = .61
-	if config.Spawn.MapID != "" && validMapID(config.Spawn.MapID) && validCoordinate(config.Spawn.X) && validCoordinate(config.Spawn.Y) {
+	if config.Spawn.MapID != "" && validMapID(config.Spawn.MapID) && world.ValidCoordinate(config.Spawn.X) && world.ValidCoordinate(config.Spawn.Y) {
 		base.MapID = config.Spawn.MapID
 		base.X = config.Spawn.X
 		base.Y = config.Spawn.Y

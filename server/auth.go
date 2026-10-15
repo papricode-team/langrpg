@@ -7,6 +7,7 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"errors"
+	"glotworld/server/internal/store"
 	"net/http"
 	"net/mail"
 	"strconv"
@@ -72,7 +73,7 @@ func passwordNeedsRehash(encoded string) bool {
 }
 
 func sessionResponse(token string, account Account) map[string]any {
-	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email, "admin": false}, "preferences": normalizedPreferences(account.Preferences)}
+	return map[string]any{"token": token, "player": account.Player, "progress": account.Progress, "account": map[string]any{"registered": account.Email != "", "email": account.Email, "admin": false}, "preferences": store.NormalizePreferences(account.Preferences)}
 }
 
 func (a *App) sessionResponse(token string, account Account) map[string]any {

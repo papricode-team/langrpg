@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"glotworld/server/internal/world"
 	"testing"
 	"time"
 )
@@ -14,7 +15,7 @@ func TestSharedWorldClockAdvancesAtOneRateForEveryPlayer(t *testing.T) {
 		day     int
 		period  string
 	}{{0, 7, 1, "day"}, {360, 19, 1, "night"}, {720, 7, 2, "day"}, {1080, 19, 2, "night"}} {
-		clock := sharedClockAt(epoch, epoch.Add(time.Duration(test.seconds)*time.Second))
+		clock := world.ClockAt(epoch, epoch.Add(time.Duration(test.seconds)*time.Second))
 		if clock.Hour != test.hour || clock.Day != test.day || clock.Period != test.period {
 			t.Fatalf("clock after %ds: %+v", test.seconds, clock)
 		}
@@ -30,9 +31,8 @@ func TestInnSleepKeepsLearningAndLightsOnlyCompletedPromises(t *testing.T) {
 	if r := request(app, "POST", "/api/story/sleep", token, map[string]string{"id": "outdoors"}); r.Code != 409 {
 		t.Fatalf("rest outside owned room: %d", r.Code)
 	}
-	app.world.mu.Lock()
-	app.world.clients[player.ID].player.InteriorID = "inn"
-	app.world.mu.Unlock()
+	present, _ := app.world.ClientPlayer(player.ID)
+	app.world.PlaceForTest(player.ID, present.MapID, "inn", MapSpawn{X: present.X, Y: present.Y})
 	if r := request(app, "POST", "/api/story/sleep", token, map[string]string{"id": "rest-without-promise"}); r.Code != 200 {
 		t.Fatal(r.Body.String())
 	}

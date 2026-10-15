@@ -3,6 +3,23 @@
 The Go service owns session credentials, player movement, curriculum grading, quest rewards, narrative state and FSRS vocabulary review state. One process hosts the three story towns. Lindenhafen opens first; Lina's letter restores Waldruh and Ada's confession opens Nebelstadt. Coastal expeditions remain learning games rather than multiplayer maps. `MAX_ZONE_PLAYERS` defaults to 128 connected players **per map** and accepts values from 2 to 1000; this is a configured capacity limit, not a measured concurrency guarantee. Horizontal zone routing and a production rollout remain future work.
 
 
+## Code layout
+
+`package main` (this directory) is the HTTP layer: routing, middleware, handlers, grading, story and trial rules. It builds on internal packages with one-way dependencies:
+
+| Package | Owns | Depends on |
+| --- | --- | --- |
+| `internal/avatar` | Character recipes, their JSON decoding/validation against the catalogue, legacy migration. `main` installs the embedded `character-kit.json` at startup. | — |
+| `internal/world` | Multiplayer presence: socket protocol, movement authority, towns and rooms, map registry and coordinate frames, world identity and clock. Callers inject the compiled registry, story route policy and access decisions. | `avatar` |
+| `internal/billing` | Creem client, response types and the purchase-verification snapshot; `billingtest` is a fake Creem for tests. | — |
+| `internal/store` | `Store` interface, JSON and PostgreSQL stores, the canonical content-ID decorator, the account model, sessions. Domain rules it applies while holding an account (story repair, game reset, referral credit) arrive as `store.Hooks`; optional features are capability interfaces (`WorldDocuments`, `CatalogStore`, `ReferenceMigrator`, `SessionPruner`, …) rather than concrete-type checks. | `avatar`, `world`, `billing`, `contentstore`, `migrations` |
+| `internal/contentstore` | The immutable content catalog: JSON bundle, PostgreSQL import/load, import fingerprint. | — |
+| `internal/migrate`, `migrations` | Versioned SQL migrations and their runner. | — |
+| `internal/metrics` | Prometheus text exposition without third-party clients. | — |
+| `internal/pgtest` | Isolated PostgreSQL schemas for integration tests. | — |
+
+`server/character-kit.json` and `server/world_maps.json` stay at their published paths because the asset and scene scripts write them; `package main` embeds them and hands them to `avatar` and `world`.
+
 ## User administration
 
 Open `/admin.html#users` with an `ADMIN_EMAILS` account. Search by name, email or user ID, filter registered users/guests, and page through 30 results at a time. Account details show subscription verification, complimentary access, course, XP, and the latest 100 admin actions. Administrator accounts are read-only here; roles remain deployment-managed.
@@ -39,6 +56,19 @@ Sessions of accounts with an email expire after `SESSION_IDLE_DAYS` (default `90
 
 Each request writes one access-log line (`requestId`, method, path, status, duration, bytes). Query strings and headers are never logged, so the world socket token and `Authorization` stay out of logs. A valid inbound `X-Request-ID` is echoed in the response; otherwise one is generated. Successful health probes are not logged.
 
+### Metrics
+
+`GET /metrics` serves Prometheus text format (0.0.4) when `METRICS_TOKEN` is set (at least 16 characters, no whitespace); scrapers send `Authorization: Bearer $METRICS_TOKEN`, compared in constant time. With `METRICS_TOKEN` empty (the default) the endpoint returns 404. Successful scrapes are not access-logged. Exported families (all prefixed `glotworld_`):
+
+- `http_requests_total` and `http_request_duration_seconds` by `route` (the registered route pattern, such as `/api/admin/users/{id}`, never the raw path), `method` (known methods, otherwise `OTHER`) and `status` class (`2xx`…). Requests answered before routing use `route="unrouted"`. WebSocket upgrades are counted when the socket closes and are excluded from the latency histogram. `http_requests_in_flight` includes open sockets.
+- `world_connections{map}`; `rate_limit_keys`; `rate_limit_rejections_total{limiter}` (the key prefix, such as `login` or `content`).
+- `creem_requests_total{operation,outcome}` and `creem_request_duration_seconds{operation}`, where operation is the method and path pattern (`GET /v1/subscriptions`, `POST /v1/subscriptions/{id}/cancel`) and outcome is `ok`, `http_4xx`, `http_5xx` or `error`.
+- `content_load_duration_seconds` (this process's catalog load at startup) and, on PostgreSQL, `content_import_duration_seconds` and `content_import_timestamp_seconds` from the last import recorded by `cmd/import-content` (read at most every 30 s).
+- On PostgreSQL, `pgxpool_*` connection pool gauges and counters.
+- `goroutines` and `start_time_seconds`.
+
+Every labelled family is capped at 500 series; further combinations fold into one series labelled `overflow`.
+
 The Vite frontend uses port 5187 and proxies `/api` to this server. Development browser origins are explicitly allowed: `http://localhost:5187`, `http://127.0.0.1:5187`, `http://127.240.77.9:5187`, and `http://localhost:8097`. Override `ALLOWED_ORIGINS` with a comma-separated list of exact origins. Browser-origin checks apply to REST and WebSocket upgrades; command-line clients without an Origin still require the same token for authenticated endpoints. No cookie authentication is used.
 
 Set `ADMIN_EMAILS` to a comma-separated list of registered admin account emails, for example `ADMIN_EMAILS=editor@example.com,owner@example.com`. Admins see **Edit** while playing, which turns on in-game edit mode, and an **Admin** link to analytics, user management and the map editor. Both editors send small operations to `POST /api/admin/world/ops`; each accepted operation is stored and streamed to every connected player as a `world.patch` socket message. `POST /api/admin/world/locks` takes or releases a 30-second object lease, renewed while selected, and `GET /api/admin/world/status` reports the revision and current leases. `GET`/`POST /api/admin/story/lines` list and hide or restore monologue lines; hidden lines are filtered when graphs are served and a `story.changed` message tells players to reload that scene's dialogue. `PUT /api/admin/world` remains for whole-world imports up to 2 MiB. Refusals return `{error, problems}`, where each problem names the objects to highlight. The server normalizes addresses with the same rules as signup and checks the authenticated account on every admin operation. The list stays on the server; clients receive only their own `account.admin` flag. Empty configuration grants nobody access; any invalid entry prevents startup. Compose passes `ADMIN_EMAILS` from `.env`, and standalone development reads the shell environment. Restart after configuration changes. Register intended accounts before enabling their emails, because account signup has no email verification.
@@ -56,7 +86,7 @@ go vet ./...
 
 ## PostgreSQL and Compose
 
-Set `DATABASE_URL` to use PostgreSQL. Startup creates account, session, learning-event, world-state and published-world tables. The content importer creates the course and typed content tables described below. Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
+Set `DATABASE_URL` to use PostgreSQL. The schema (accounts, sessions, learning events, world state, published world, analytics and the content catalog) is created and evolved by versioned migrations; see [Database migrations](#database-migrations). Each attempt or quest completion locks the account row and commits its receipt and progress in a single transaction. Duplicate attempt IDs return the saved grading outcome without awarding XP again. Reusing an ID with a different request returns HTTP 409.
 
 From the repository root:
 
@@ -69,6 +99,19 @@ docker compose -f compose.yaml -f compose.local.yaml up --build -d --wait
 Open `http://localhost:8088`. PostgreSQL is stored in a named volume; it is not published to the host. The Go application serves the compiled frontend, REST and WebSocket connections on port 8080. Compose waits for the database health check and the application's liveness check (`/app/world healthcheck`); the server only starts listening after storage and content are loaded. Use `docker compose -f compose.yaml -f compose.local.yaml down` to stop; adding `-v` also deletes the database volume.
 
 For Dokploy, choose a Docker Compose service, connect the repository, and use only `compose.yaml`. Configure the public domain on the **server service at internal port 8080, upstream HTTP** through Dokploy's Domains tab with public HTTPS. Set `ALLOWED_ORIGINS=https://glotworld.com` and a strong `POSTGRES_PASSWORD` in Dokploy Environment. Both are required. Compose passes credentials separately through `PGUSER`, `PGPASSWORD` and `PGDATABASE`, so passwords need no URL encoding. Both services retain the `app` network; only `server` needs Dokploy's ingress network. `TRAEFIK_NETWORK` pins routing to that network (default `dokploy-network`; override for isolated deployments). No host ports are published by the production file. See [deployment, backups and restore instructions](../docs/deployment.md). No remote deployment has been performed by this project.
+
+### Database migrations
+
+`server/migrations/NNNN_name.sql` holds the schema history; files are embedded in both binaries and applied by `internal/migrate`. Both the content importer (run first by the Docker entrypoint) and the server apply pending migrations at startup. Each migration runs once, in version order, in its own transaction together with its row in `schema_migrations(version, name, applied_at, checksum)`, under a PostgreSQL advisory lock, so replicas that start together apply each migration exactly once. When nothing is pending, startup only reads `schema_migrations`: no lock and no DDL. A database whose recorded checksum differs from the embedded file refuses to start. A database with migrations newer than the binary (for example after a rollback deploy) starts with a warning.
+
+`0001_baseline.sql` reproduces the schema that boot-time DDL created before migrations existed, entirely with `IF NOT EXISTS`, so existing databases adopt it unchanged. Later files carry the incremental history.
+
+To change the schema:
+
+1. Add the next file, for example `server/migrations/0006_add_widget_index.sql` (four-digit version, lower snake-case name, contiguous numbering).
+2. Write plain SQL; several statements are fine. The whole file commits atomically with its version row, so avoid statements that cannot run in a transaction (such as `CREATE INDEX CONCURRENTLY`). Prefer `IF NOT EXISTS`/`IF EXISTS` so a partially managed database cannot fail the deploy.
+3. Never edit or renumber a migration that has been applied anywhere; its checksum is recorded. Fix mistakes with a new migration.
+4. Run `TEST_DATABASE_URL=... go test ./migrations ./internal/migrate`. The tests apply every migration to a fresh schema and to a schema created by the pre-migration DDL (`migrations/testdata`), and require both to end with the same catalog.
 
 Redis is deliberately absent from this first deployment because the current world has one Go process. Additional zone processes can add Redis for ephemeral presence/routing; learning data should remain transactional in PostgreSQL.
 

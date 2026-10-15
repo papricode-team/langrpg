@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/avatar"
 	"os"
 	"reflect"
 	"strings"
@@ -28,9 +29,9 @@ func TestPostgresRestartRestoresProfileProgressAndReceipts(t *testing.T) {
 	t.Cleanup(func() {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 		app.Close()
 	})
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("restart-one")))
@@ -38,8 +39,8 @@ func TestPostgresRestartRestoresProfileProgressAndReceipts(t *testing.T) {
 	if result := request(app, "POST", "/api/quest/complete", token, map[string]string{"questId": "quest"}); result.Code != 200 {
 		t.Fatalf("complete quest: %d %s", result.Code, result.Body.String())
 	}
-	avatar := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#456789"}
-	before, err := store.UpdateProfile(ctx, tokenHash(token), "Restart Mira", avatar)
+	recipe := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#456789"}
+	before, err := store.UpdateProfile(ctx, tokenHash(token), "Restart Mira", recipe)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -92,9 +93,9 @@ func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 	t.Cleanup(func() {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 	})
 	var workers sync.WaitGroup
 	for range 12 {
@@ -116,14 +117,14 @@ func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 		t.Fatalf("transactional duplicate awarded %+v", account.Progress)
 	}
 	var count int
-	if err = store.pool.QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&count); err != nil {
+	if err = store.Pool().QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&count); err != nil {
 		t.Fatal(err)
 	}
 	if count != 1 {
 		t.Fatalf("duplicate created %d receipts", count)
 	}
 	var receiptJSON []byte
-	if err = store.pool.QueryRow(ctx, "SELECT receipt FROM learning_events WHERE account_id=$1", player.ID).Scan(&receiptJSON); err != nil {
+	if err = store.Pool().QueryRow(ctx, "SELECT receipt FROM learning_events WHERE account_id=$1", player.ID).Scan(&receiptJSON); err != nil {
 		t.Fatal(err)
 	}
 	var receipt Receipt
@@ -133,12 +134,12 @@ func TestPostgresTransactionsAndIdempotency(t *testing.T) {
 	if receipt.FSRSReview == nil || receipt.ScheduledMode != "recognition" {
 		t.Fatal("FSRS review log was not persisted")
 	}
-	avatar := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#456789"}
-	updated, err := store.UpdateProfile(ctx, tokenHash(token), "Postgres Mira", avatar)
+	recipe := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#456789"}
+	updated, err := store.UpdateProfile(ctx, tokenHash(token), "Postgres Mira", recipe)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if updated.Progress.XP != 6 || !sameAvatar(updated.Player.Avatar, normalizeAvatar(avatar)) {
+	if updated.Progress.XP != 6 || !sameAvatar(updated.Player.Avatar, avatar.Normalize(recipe)) {
 		t.Fatal("profile edit lost PostgreSQL progress")
 	}
 	if updated.Preferences.BaseLanguage != "" && updated.Preferences.BaseLanguage != "en" {
@@ -188,9 +189,9 @@ func TestPostgresPausedActivityUsesImmutableReceipts(t *testing.T) {
 	t.Cleanup(func() {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 	})
 	proof := missionSuccesses(t, app, token, "pg-paused-"+player.ID)
 	ex := curriculum.Exercises[proof.ExerciseIDs[0]]
@@ -241,12 +242,12 @@ func TestPostgresWordEvidenceAndAdditiveMigration(t *testing.T) {
 	t.Cleanup(func() {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 	})
 	oldJSON := `{"player":{"id":"` + player.ID + `","name":"Migration Ada"},"progress":{"xp":91,"completedQuestIds":["old-quest"],"attempts":8,"correctAttempts":6,"items":{}},"createdAt":"2026-01-01T00:00:00Z"}`
-	if _, err = store.pool.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", player.ID, oldJSON); err != nil {
+	if _, err = store.Pool().Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", player.ID, oldJSON); err != nil {
 		t.Fatal(err)
 	}
 	old, err := store.Get(ctx, tokenHash(token))
@@ -313,9 +314,9 @@ func TestPostgresAccountCredentials(t *testing.T) {
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
 		for _, id := range []string{first.ID, second.ID} {
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", id)
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", id)
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", id)
 		}
 	})
 	before := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("linked-before")))
@@ -411,7 +412,7 @@ func TestPostgresAccountCredentials(t *testing.T) {
 	if _, err := store.GetByEmail(ctx, email); !errors.Is(err, ErrUnauthorized) {
 		t.Fatal("old email still owns the account")
 	}
-	stale := CredentialChange{newEmail, encoded, "stale-" + email, encoded}
+	stale := CredentialChange{PreviousEmail: newEmail, PreviousHash: encoded, Email: "stale-" + email, PasswordHash: encoded}
 	if err := store.ChangeCredentials(ctx, tokenHash(result.Token), stale); !errors.Is(err, ErrCredentialsChanged) {
 		t.Fatalf("stale database edit accepted: %v", err)
 	}

@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/store"
+	"glotworld/server/internal/world"
 	"math"
 	"net/http/httptest"
 	"strings"
@@ -22,21 +24,21 @@ func TestContentPublishedUUIDsPreserveProgressReceiptsAndWorld(t *testing.T) {
 	}
 	input := AttemptInput{ID: "published-proof", ExerciseID: exercise, ItemID: item, Mode: "recognition", Answer: app.curriculum.Exercises["a1-arrival-exercise-1"].Answer}
 	body, _ := json.Marshal(input)
-	base.mu.Lock()
-	a := base.state.Accounts[player.ID]
-	a.ActiveCourseID = ""
-	a.CourseStates = nil
-	a.Progress.CompletedQuestIDs = []string{quest}
-	a.Progress.Words = map[string]WordMemory{word: {WordID: word, Exposures: 9}}
-	a.Progress.Story.Nodes = map[string]string{quest: old["nodes:a1-arrival:complete"]}
-	a.Progress.Story.Flags = map[string]bool{"reply:" + exercise: true}
-	a.RewardedQuestIDs = []string{quest}
-	a.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: a.Progress.Story, CompletedQuestIDs: []string{quest}}}
-	base.state.Accounts[player.ID] = a
-	correct := true
-	base.state.Actions[player.ID] = map[string]SavedAction{"attempt:published-proof": {Request: body, Receipt: Receipt{Correct: &correct, XPAdded: 7}}}
-	base.state.WorldContent = &WorldContent{Revision: "published-world", Document: json.RawMessage(`{"id":"access","start":"gate"}`)}
-	base.mu.Unlock()
+	base.EditStateForTest(func(state *store.DiskState) {
+		a := state.Accounts[player.ID]
+		a.ActiveCourseID = ""
+		a.CourseStates = nil
+		a.Progress.CompletedQuestIDs = []string{quest}
+		a.Progress.Words = map[string]WordMemory{word: {WordID: word, Exposures: 9}}
+		a.Progress.Story.Nodes = map[string]string{quest: old["nodes:a1-arrival:complete"]}
+		a.Progress.Story.Flags = map[string]bool{"reply:" + exercise: true}
+		a.RewardedQuestIDs = []string{quest}
+		a.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: a.Progress.Story, CompletedQuestIDs: []string{quest}}}
+		state.Accounts[player.ID] = a
+		correct := true
+		state.Actions[player.ID] = map[string]SavedAction{"attempt:published-proof": {Request: body, Receipt: Receipt{Correct: &correct, XPAdded: 7}}}
+		state.WorldContent, _ = json.Marshal(WorldContent{Revision: "published-world", Document: json.RawMessage(`{"id":"access","start":"gate"}`)})
+	})
 	legacyAccount, err := app.store.Get(context.Background(), tokenHash(token))
 	if err != nil {
 		t.Fatal(err)
@@ -58,7 +60,7 @@ func TestContentPublishedUUIDsPreserveProgressReceiptsAndWorld(t *testing.T) {
 	if raw.Progress.Words[newWord].Exposures != 9 || raw.Progress.Story.Nodes[newQuest] != testContentID(t, app, "node", "a1-arrival:complete") || raw.RewardedQuestIDs[0] != newQuest || raw.StorySaves["one"].CompletedQuestIDs[0] != newQuest {
 		t.Fatal("published progress or story refs were lost")
 	}
-	world, err := app.canonical.LoadWorldContent(context.Background())
+	world, err := (worldContentStorage{app.canonical}).LoadWorldContent(context.Background())
 	if err != nil || world.Revision != "published-world" || string(world.Document) != `{"id":"access","start":"gate"}` {
 		t.Fatal("UUID migration lost the independently published world")
 	}
@@ -208,7 +210,7 @@ func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
 	endingID := testContentID(t, app, "context", "story-ending:routes-reopened")
 	var panelIDs []string
 	for _, record := range app.content.Records {
-		if record.Kind != "context" || record.CourseID != app.canonical.defaultCourse {
+		if record.Kind != "context" || record.CourseID != app.canonical.DefaultCourse() {
 			continue
 		}
 		var body struct {
@@ -313,7 +315,7 @@ func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
 		t.Fatal("another active course exposed the saved German ending")
 	}
 	assertBootstrap(token, "")
-	if response := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": app.canonical.defaultCourse, "supportLanguage": "en"}); response.Code != 200 {
+	if response := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": app.canonical.DefaultCourse(), "supportLanguage": "en"}); response.Code != 200 {
 		t.Fatal(response.Body.String())
 	}
 	if response := request(app, "GET", "/api/content/contexts/"+endingID, token, nil); response.Code != 200 {
@@ -337,22 +339,17 @@ func TestContentInactiveCourseLocationMigratesEditedWorldBounds(t *testing.T) {
 		t.Fatal(err)
 	}
 	teacher := before.Player
-	app.world.mu.Lock()
-	oldDefinition := app.world.maps[DefaultMapID]
 	registry := compiledWorldMaps
-	registry.Maps = map[string]WorldMapDefinition{}
-	for id, definition := range app.world.maps {
-		registry.Maps[id] = definition
-	}
-	app.world.mu.Unlock()
+	registry.Maps = app.world.Maps()
+	oldDefinition := registry.Maps[DefaultMapID]
 	changed := oldDefinition
 	changed.CoordinateVersion++
 	changed.Width += 400
 	changed.LegacyOffset.X += 40
-	changed.Spawn = restoreWorldPosition(oldDefinition.Spawn, oldDefinition.WorldCoordinateFrame, changed)
+	changed.Spawn = world.RestorePosition(oldDefinition.Spawn, oldDefinition.CoordinateFrame, changed)
 	registry.Maps[DefaultMapID] = changed
 	registry.ContentVersion = "saved-course-bounds-fixture"
-	app.world.publishContent(registry)
+	app.world.PublishContent(registry)
 	// Access renewals must preserve the classroom's own authored coordinates.
 	if res := request(app, "GET", "/api/access", token, nil); res.Code != 200 {
 		t.Fatal(res.Body.String())
@@ -361,8 +358,8 @@ func TestContentInactiveCourseLocationMigratesEditedWorldBounds(t *testing.T) {
 		t.Fatal(res.Body.String())
 	}
 	after, err := app.store.Get(context.Background(), hash)
-	expected := restoreWorldPosition(MapSpawn{.31, .42}, oldDefinition.WorldCoordinateFrame, changed)
-	if err != nil || math.Abs(after.Player.X-expected.X) > 1e-9 || math.Abs(after.Player.Y-expected.Y) > 1e-9 || after.CourseStates[german].LocationFrame != changed.WorldCoordinateFrame {
+	expected := world.RestorePosition(MapSpawn{X: .31, Y: .42}, oldDefinition.CoordinateFrame, changed)
+	if err != nil || math.Abs(after.Player.X-expected.X) > 1e-9 || math.Abs(after.Player.Y-expected.Y) > 1e-9 || after.CourseStates[german].LocationFrame != changed.CoordinateFrame {
 		t.Fatalf("inactive location was not migrated: %v %+v want %+v", err, after.Player, expected)
 	}
 	if res := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": english, "supportLanguage": "de"}); res.Code != 200 {

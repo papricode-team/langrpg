@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"glotworld/server/internal/avatar"
 	"io/fs"
 	"os"
 	"regexp"
@@ -41,6 +42,16 @@ func (f manifestFiles) ReadFile(name string) ([]byte, error) {
 }
 
 var curriculumFiles = manifestFiles{}
+
+// The character catalogue is generated into server/character-kit.json and
+// embedded here; the avatar package validates every decoded recipe with it.
+func init() {
+	data, err := presentationFiles.ReadFile("character-kit.json")
+	if err != nil {
+		panic(err)
+	}
+	avatar.MustLoad(data)
+}
 
 type Quest struct {
 	ID              string   `json:"id"`

@@ -4,21 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"glotworld/server/internal/store"
 	"net/http"
 	"sort"
 	"time"
 )
-
-// Intake is the vocabulary governor: how much active play an account has
-// credited toward new words, and which syllabus words it has introduced so
-// far. Only the server appends to WordIDs, always in syllabus order.
-type Intake struct {
-	Version       int       `json:"version"`
-	ActiveSeconds int       `json:"activeSeconds"`
-	CreditSeconds int       `json:"creditSeconds"`
-	LastBeatAt    time.Time `json:"lastBeatAt"`
-	WordIDs       []string  `json:"wordIds"`
-}
 
 // IntakeStatus is derived on request; nothing here is persisted.
 type IntakeStatus struct {
@@ -36,14 +26,6 @@ const (
 	maxHeartbeatSecond = 120
 	heartbeatTolerance = 5
 )
-
-func ensureIntake(p *Progress) {
-	if p.Intake.WordIDs == nil {
-		p.Intake.WordIDs = []string{}
-	}
-}
-
-func (p *Progress) wordIntroduced(id string) bool { return contains(p.Intake.WordIDs, id) }
 
 func introducedSet(p *Progress) map[string]bool {
 	set := make(map[string]bool, len(p.Intake.WordIDs))
@@ -76,7 +58,7 @@ func wordDue(p *Progress, id string, now time.Time) bool {
 
 // intakeStatus mirrors web/src/intake.ts; keep the two in step.
 func intakeStatus(p *Progress, s *Syllabus, now time.Time) IntakeStatus {
-	ensureIntake(p)
+	store.EnsureIntake(p)
 	status := IntakeStatus{Introduced: len(p.Intake.WordIDs)}
 	if s == nil {
 		return status
@@ -137,7 +119,7 @@ func introduceDue(p *Progress, s *Syllabus, now time.Time) []string {
 // than bankCap words ahead of what was introduced, and paused intake earns
 // nothing until the learner has caught up with their restored words.
 func creditHeartbeat(p *Progress, s *Syllabus, seconds int, now time.Time) int {
-	ensureIntake(p)
+	store.EnsureIntake(p)
 	credited := max(0, min(seconds, maxHeartbeatSecond))
 	if !p.Intake.LastBeatAt.IsZero() {
 		elapsed := int(now.Sub(p.Intake.LastBeatAt).Seconds()) + heartbeatTolerance
@@ -224,7 +206,7 @@ func (a *App) requireWordIntroduced(exercise Exercise, p *Progress) error {
 	if a.curriculum.Syllabus == nil || exercise.TargetWordID == "" {
 		return nil
 	}
-	if _, scheduled := a.curriculum.Syllabus.position[exercise.TargetWordID]; !scheduled || p.wordIntroduced(exercise.TargetWordID) {
+	if _, scheduled := a.curriculum.Syllabus.position[exercise.TargetWordID]; !scheduled || p.WordIntroduced(exercise.TargetWordID) {
 		return nil
 	}
 	return &APIError{409, "this word has not been restored yet; keep playing and it will return"}

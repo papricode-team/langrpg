@@ -11,13 +11,6 @@ import (
 	"time"
 )
 
-// Milestones are written with account transactions and survive event retention / game resets.
-type AnalyticsMilestones struct {
-	RegisteredAt time.Time `json:"registeredAt,omitempty"`
-	ActivatedAt  time.Time `json:"activatedAt,omitempty"`
-	PaidAt       time.Time `json:"paidAt,omitempty"`
-}
-
 var analyticsID = regexp.MustCompile(`^[a-zA-Z0-9_-]{16,64}$`)
 var analyticsLabel = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$`)
 var browserEvents = map[string]bool{"session_started": true, "page_view": true, "paywall_viewed": true, "client_error": true}

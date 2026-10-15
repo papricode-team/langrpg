@@ -34,7 +34,7 @@ func (a *App) placementExerciseVisible(exerciseID string, account Account) bool 
 	}
 	for _, id := range body.Data.ExerciseIDs {
 		ref := a.content.ByID[id]
-		if ref.Kind == "exercise" && ref.CourseID == account.ActiveCourseID && a.canonical.translate(ref.ID, false) == exerciseID {
+		if ref.Kind == "exercise" && ref.CourseID == account.ActiveCourseID && a.canonical.Translate(ref.ID, false) == exerciseID {
 			return true
 		}
 	}

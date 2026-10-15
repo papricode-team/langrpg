@@ -3,47 +3,20 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"glotworld/server/internal/contentstore"
-	neturl "net/url"
+	"glotworld/server/internal/pgtest"
 	"os"
 	"reflect"
-	"strings"
 	"testing"
 	"time"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// contentTestSchemaURL isolates a test in its own schema of the test database.
 func contentTestSchemaURL(t *testing.T, databaseURL string) string {
 	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-	pool, err := pgxpool.New(ctx, databaseURL)
-	if err != nil {
-		t.Fatal(err)
-	}
-	schema := fmt.Sprintf("content_upgrade_%d", time.Now().UnixNano())
-	if _, err = pool.Exec(ctx, "CREATE SCHEMA "+schema); err != nil {
-		pool.Close()
-		t.Fatal(err)
-	}
-	t.Cleanup(func() {
-		ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-		defer cancel()
-		_, _ = pool.Exec(ctx, "DROP SCHEMA "+schema+" CASCADE")
-		pool.Close()
-	})
-	if strings.Contains(databaseURL, "://") {
-		parsed, err := neturl.Parse(databaseURL)
-		if err != nil {
-			t.Fatal(err)
-		}
-		query := parsed.Query()
-		query.Set("search_path", schema)
-		parsed.RawQuery = query.Encode()
-		return parsed.String()
-	}
-	return databaseURL + " search_path=" + schema
+	return pgtest.SchemaURL(t, databaseURL, "content_upgrade")
 }
 
 func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
@@ -54,32 +27,43 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	url = contentTestSchemaURL(t, url)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
+	bundle, err := contentstore.LoadJSON("content.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Exercise the exact legacy table shape published before multi-course IDs.
+	// Those tables predate the server's schema, so create them first; the
+	// versioned migrations then adopt and convert them at boot.
+	legacy, err := pgxpool.New(ctx, url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for kind, table := range contentstore.Tables {
+		if kind == "sentence" {
+			continue
+		}
+		if _, err = legacy.Exec(ctx, "CREATE TABLE "+table+"(id UUID PRIMARY KEY,slug TEXT NOT NULL UNIQUE,version INT NOT NULL,body JSONB NOT NULL)"); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err = legacy.Exec(ctx, `INSERT INTO content_exercises(id,slug,version,body) VALUES($1,'a1-arrival-exercise-1',1,'{"answer":"published legacy row"}')`, bundle.PublishedIDs["exercises:a1-arrival-exercise-1"]); err != nil {
+		t.Fatal(err)
+	}
+	legacy.Close()
 	store, err := NewPGStore(ctx, url)
 	if err != nil {
 		t.Fatal(err)
 	}
 	app := NewApp(store, Curriculum{}, nil, 128)
 	t.Cleanup(func() { app.Close() })
-	bundle, err := contentstore.LoadJSON("content.json")
-	if err != nil {
+	var legacyRows int
+	if err = store.Pool().QueryRow(ctx, `SELECT count(*) FROM content_exercises WHERE course_id IS NULL`).Scan(&legacyRows); err != nil || legacyRows != 0 {
+		t.Fatalf("migration left %d course-less legacy rows: %v", legacyRows, err)
+	}
+	if err = contentstore.Import(ctx, store.Pool(), bundle); err != nil {
 		t.Fatal(err)
 	}
-	// Exercise the exact legacy table shape published before multi-course IDs.
-	for kind, table := range contentstore.Tables {
-		if kind == "sentence" {
-			continue
-		}
-		if _, err = store.pool.Exec(ctx, "CREATE TABLE "+table+"(id UUID PRIMARY KEY,slug TEXT NOT NULL UNIQUE,version INT NOT NULL,body JSONB NOT NULL)"); err != nil {
-			t.Fatal(err)
-		}
-	}
-	if _, err = store.pool.Exec(ctx, `INSERT INTO content_exercises(id,slug,version,body) VALUES($1,'a1-arrival-exercise-1',1,'{"answer":"published legacy row"}')`, bundle.PublishedIDs["exercises:a1-arrival-exercise-1"]); err != nil {
-		t.Fatal(err)
-	}
-	if err = contentstore.Import(ctx, store.pool, bundle); err != nil {
-		t.Fatal(err)
-	}
-	loaded, err := contentstore.LoadPostgres(ctx, store.pool)
+	loaded, err := contentstore.LoadPostgres(ctx, store.Pool())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -99,10 +83,10 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 	duplicate.ID = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
 	broken.Records = append(broken.Records, duplicate)
 	broken.Records[0].Body = json.RawMessage(`{"rollbackProbe":true}`)
-	if err = contentstore.Import(ctx, store.pool, &broken); err == nil {
+	if err = contentstore.Import(ctx, store.Pool(), &broken); err == nil {
 		t.Fatal("duplicate authored slug did not reject the import")
 	}
-	afterFailure, err := contentstore.LoadPostgres(ctx, store.pool)
+	afterFailure, err := contentstore.LoadPostgres(ctx, store.Pool())
 	if err != nil || len(afterFailure.Records) != len(loaded.Records) || !reflect.DeepEqual(afterFailure.ByID[bundle.Records[0].ID], loaded.ByID[bundle.Records[0].ID]) {
 		t.Fatalf("failed import changed the published catalog: %v", err)
 	}
@@ -116,9 +100,9 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 		}
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
-		_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", player.ID)
+		_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", player.ID)
 	})
 	hash := tokenHash(token)
 	// Seed the pre-UUID representation, including an immutable graded receipt.
@@ -190,7 +174,7 @@ func TestPostgresContentImportBootMigrationAndCourseRestart(t *testing.T) {
 		t.Fatal(err)
 	}
 	app = NewApp(store, Curriculum{}, nil, 128)
-	loaded, err = contentstore.LoadPostgres(ctx, store.pool)
+	loaded, err = contentstore.LoadPostgres(ctx, store.Pool())
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/store"
 	"os"
 	"path/filepath"
 	"strings"
@@ -71,12 +72,12 @@ func TestBaseLanguageDefaultsToEnglishAndRoundTripsAcrossRestart(t *testing.T) {
 
 func TestBaseLanguageCanBeChosenAtFirstRunAndRejectsUnknownValues(t *testing.T) {
 	app := testApp(t)
-	avatar := Avatar{Hair: "#302020", Skin: "#edcaaa", Outfit: "#456789"}
-	created := request(app, "POST", "/api/session", "", map[string]any{"name": "Deniz", "avatar": avatar, "baseLanguage": "tr"})
+	recipe := Avatar{Hair: "#302020", Skin: "#edcaaa", Outfit: "#456789"}
+	created := request(app, "POST", "/api/session", "", map[string]any{"name": "Deniz", "avatar": recipe, "baseLanguage": "tr"})
 	if created.Code != 201 || decodeSessionPreferences(t, created.Body.Bytes()).Preferences.BaseLanguage != "tr" {
 		t.Fatalf("first-run language choice was not saved: %d %s", created.Code, created.Body.String())
 	}
-	if bad := request(app, "POST", "/api/session", "", map[string]any{"name": "Deniz", "avatar": avatar, "baseLanguage": "fr"}); bad.Code != 400 {
+	if bad := request(app, "POST", "/api/session", "", map[string]any{"name": "Deniz", "avatar": recipe, "baseLanguage": "fr"}); bad.Code != 400 {
 		t.Fatalf("unsupported first-run language accepted: %d", bad.Code)
 	}
 	token := decodeSessionPreferences(t, created.Body.Bytes()).Token
@@ -135,3 +136,5 @@ func TestLegacyStateWithoutPreferencesLoadsAsEnglish(t *testing.T) {
 		t.Fatalf("legacy account resumed without English default: %d %s", resumed.Code, resumed.Body.String())
 	}
 }
+
+func normalizedPreferences(p Preferences) Preferences { return store.NormalizePreferences(p) }

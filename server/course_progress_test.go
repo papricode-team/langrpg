@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"glotworld/server/internal/store"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
@@ -243,16 +244,16 @@ func TestLegacyContextLinksMergeAndMigrateExposureOnlyOnce(t *testing.T) {
 	if merged.Exercises["exercise-one"].Answer != "Guten Tag" || len(merged.Exercises["exercise-one"].WordIDs) != 2 {
 		t.Fatal("context merge changed grading or lost exposure")
 	}
-	store, err := NewJSONStore(filepath.Join(t.TempDir(), "state.json"))
+	storage, err := NewJSONStore(filepath.Join(t.TempDir(), "state.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	app := NewApp(store, merged, nil, 10)
+	app := NewApp(storage, merged, nil, 10)
 	defer app.Close()
 	token := strings.Repeat("b", 43)
 	seen := time.Date(2026, 10, 1, 12, 0, 0, 0, time.UTC)
 	old := Account{Player: Player{ID: "old-context", Name: "Ada"}, Progress: Progress{XP: 24, Items: map[string]Memory{"item-one": {ItemID: "item-one", StabilityDays: 15, Repetitions: 4, LastSeenAt: seen, ModeStats: map[string]ModeStats{"recognition": {Attempts: 4, Correct: 4, UnaidedSuccesses: 4}}}}}}
-	if err = store.Create(context.Background(), tokenHash(token), old); err != nil {
+	if err = storage.Create(context.Background(), tokenHash(token), old); err != nil {
 		t.Fatal(err)
 	}
 	for range 2 {
@@ -272,9 +273,11 @@ func TestLegacyContextLinksMergeAndMigrateExposureOnlyOnce(t *testing.T) {
 			t.Fatal("migration changed existing learning")
 		}
 	}
-	if len(store.state.Actions["old-context"]) != 1 {
-		t.Fatal("migration repeatedly wrote receipts")
-	}
+	storage.EditStateForTest(func(state *store.DiskState) {
+		if len(state.Actions["old-context"]) != 1 {
+			t.Fatal("migration repeatedly wrote receipts")
+		}
+	})
 	if _, err := mergeCurriculum(testCurriculum(), func() Curriculum {
 		bad, _ := parseCurriculum([]byte(strings.Replace(manifest, `"exercise-one":[`, `"unknown-exercise":[`, 1)))
 		return bad
@@ -386,7 +389,7 @@ func TestActivityRejectsCrossLevelUnrelatedAndDuplicateTargets(t *testing.T) {
 func TestPausedActivityUsesDurableProofAfterHistoryEvictionAndRestart(t *testing.T) {
 	app := missionTestApp(t)
 	store := app.store.(*JSONStore)
-	store.path = filepath.Join(t.TempDir(), "state.json")
+	store.SetPathForTest(filepath.Join(t.TempDir(), "state.json"))
 	started := time.Date(2026, 10, 8, 12, 0, 0, 0, time.UTC)
 	app.now = func() time.Time { return started }
 	token, _ := createSession(t, app, "Ada")
@@ -405,7 +408,7 @@ func TestPausedActivityUsesDurableProofAfterHistoryEvictionAndRestart(t *testing
 	if err != nil {
 		t.Fatal(err)
 	}
-	restored, err := NewJSONStore(store.path)
+	restored, err := NewJSONStore(store.Path())
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"glotworld/server/internal/billing/billingtest"
+	"glotworld/server/internal/world"
 	"net/http/httptest"
 	"strings"
 	"sync/atomic"
@@ -29,7 +31,7 @@ func TestWorldMovesReuseTheAccessTickInsteadOfReadingStorage(t *testing.T) {
 	}
 	store := &countingStore{Store: base}
 	app := NewApp(store, testCurriculum(), nil, 10)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	t.Cleanup(app.Close)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Cached Ada")
@@ -71,7 +73,7 @@ func TestWorldMovesReuseTheAccessTickInsteadOfReadingStorage(t *testing.T) {
 			break
 		}
 	}
-	if websocket.CloseStatus(err) != accessRequiredStatus {
+	if websocket.CloseStatus(err) != world.AccessRequiredStatus {
 		t.Fatalf("an ended allowance must close the socket on the next message: %v", err)
 	}
 }
@@ -99,7 +101,7 @@ func TestWorldSocketClosesWithinOneTickAfterSessionDeletion(t *testing.T) {
 			break
 		}
 	}
-	if websocket.CloseStatus(err) != accessRequiredStatus || time.Since(started) > 7*time.Second {
+	if websocket.CloseStatus(err) != world.AccessRequiredStatus || time.Since(started) > 7*time.Second {
 		t.Fatalf("a revoked session must be closed within one access tick: %v after %s", err, time.Since(started))
 	}
 }

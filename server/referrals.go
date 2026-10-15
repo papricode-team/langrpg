@@ -9,15 +9,6 @@ import (
 	"time"
 )
 
-// The public invite code is the existing opaque player ID, never a session token.
-// Enabled records that this registered player issued an invite during free play.
-type ReferralState struct {
-	Enabled           bool   `json:"enabled,omitempty"`
-	InvitedBy         string `json:"invitedBy,omitempty"`
-	SuccessfulSignups int64  `json:"successfulSignups,omitempty"`
-	ResetSignups      int64  `json:"resetSignups,omitempty"`
-}
-
 var referralCodePattern = regexp.MustCompile(`^[A-Za-z0-9_-]{8,64}$`)
 
 func validReferralCode(code string) string {

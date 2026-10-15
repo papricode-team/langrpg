@@ -1,4 +1,4 @@
-package main
+package store
 
 import (
 	"bytes"
@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"glotworld/server/internal/avatar"
+	"glotworld/server/internal/world"
 	"log/slog"
 	"os"
 	"path/filepath"
@@ -22,10 +24,10 @@ type Store interface {
 	ManageAccount(context.Context, string, bool, string, func(*Account) error) (Account, []string, error)
 	RecordAnalytics(context.Context, []AnalyticsEvent, time.Time) error
 	ReadAnalytics(context.Context, time.Time, time.Time) ([]AnalyticsFact, []AnalyticsAccount, error)
-	WorldIdentity() WorldIdentity
+	WorldIdentity() world.Identity
 	Create(context.Context, string, Account) error
 	Get(context.Context, string) (Account, error)
-	UpdateProfile(context.Context, string, string, Avatar) (Account, error)
+	UpdateProfile(context.Context, string, string, avatar.Avatar) (Account, error)
 	UpdatePreferences(context.Context, string, Preferences) (Account, error)
 	SetCredentials(context.Context, string, string, string) error
 	ChangeCredentials(context.Context, string, CredentialChange) error
@@ -45,10 +47,11 @@ type Store interface {
 	Close()
 }
 
-type diskState struct {
+// DiskState is the JSON development store's saved document.
+type DiskState struct {
 	Analytics    map[string]AnalyticsEvent `json:"analytics,omitempty"`
-	WorldContent *WorldContent             `json:"worldContent,omitempty"`
-	World        *WorldIdentity            `json:"world,omitempty"`
+	WorldContent json.RawMessage           `json:"worldContent,omitempty"`
+	World        *world.Identity           `json:"world,omitempty"`
 	Version      int                       `json:"version"`
 	Accounts     map[string]Account        `json:"accounts"`
 	Sessions     map[string]string         `json:"sessions"`
@@ -61,13 +64,19 @@ type diskState struct {
 // JSONStore is a single-process development fallback, not shared production storage.
 type JSONStore struct {
 	sessionIdlePolicy
+	hooks Hooks
 	mu    sync.Mutex
 	path  string
-	state diskState
+	state DiskState
 }
 
-func NewJSONStore(path string) (*JSONStore, error) {
-	s := &JSONStore{sessionIdlePolicy: newSessionIdlePolicy(), path: path, state: diskState{Version: 1, Accounts: map[string]Account{}, Sessions: map[string]string{}, Actions: map[string]map[string]SavedAction{}}}
+// NewJSONStore opens the single-process development store at path ("" keeps
+// it in memory only).
+func NewJSONStore(path string, hooks Hooks) (*JSONStore, error) {
+	if err := hooks.validate(); err != nil {
+		return nil, err
+	}
+	s := &JSONStore{sessionIdlePolicy: newSessionIdlePolicy(), hooks: hooks, path: path, state: DiskState{Version: 1, Accounts: map[string]Account{}, Sessions: map[string]string{}, Actions: map[string]map[string]SavedAction{}}}
 	if path == "" {
 		return s, s.initializeWorld()
 	}
@@ -123,7 +132,7 @@ func (s *JSONStore) save() error {
 func (s *JSONStore) Create(_ context.Context, hash string, a Account) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.state.Accounts[a.Player.ID] = cloneAccount(a)
+	s.state.Accounts[a.Player.ID] = s.hooks.clone(a)
 	s.state.Sessions[hash] = a.Player.ID
 	s.touchSessionLocked(hash, s.sessionNow())
 	if err := s.save(); err != nil {
@@ -141,7 +150,7 @@ func (s *JSONStore) Get(_ context.Context, hash string) (Account, error) {
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
-	return cloneAccount(s.state.Accounts[id]), nil
+	return s.hooks.clone(s.state.Accounts[id]), nil
 }
 
 // ActivityProofs reads immutable attempt receipts, rather than the bounded recent
@@ -165,7 +174,7 @@ func (s *JSONStore) ActivityProofs(_ context.Context, hash, activityID, runID st
 		if !strings.HasPrefix(key, "attempt:") || action.Receipt.Correct == nil || *action.Receipt.Correct {
 			continue
 		}
-		var input AttemptInput
+		var input attemptRequest
 		if err := json.Unmarshal(action.Request, &input); err != nil {
 			return nil, 0, err
 		}
@@ -183,7 +192,7 @@ func (s *JSONStore) Mutate(_ context.Context, hash, key string, request json.Raw
 	if !ok {
 		return Account{}, Receipt{}, false, ErrUnauthorized
 	}
-	account := cloneAccount(s.state.Accounts[id])
+	account := s.hooks.clone(s.state.Accounts[id])
 	if previous, ok := s.state.Actions[id][key]; ok {
 		if !bytes.Equal(previous.Request, request) {
 			return Account{}, Receipt{}, false, ErrConflict
@@ -206,10 +215,10 @@ func (s *JSONStore) Mutate(_ context.Context, hash, key string, request json.Raw
 		delete(s.state.Actions[id], key)
 		return Account{}, Receipt{}, false, err
 	}
-	return cloneAccount(account), receipt, false, nil
+	return s.hooks.clone(account), receipt, false, nil
 }
 
-func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar Avatar) (Account, error) {
+func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, recipe avatar.Avatar) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	id, ok := s.sessionLocked(hash)
@@ -217,15 +226,15 @@ func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar A
 		return Account{}, ErrUnauthorized
 	}
 	previous := s.state.Accounts[id]
-	account := cloneAccount(previous)
-	account.Player.Name, account.Player.Avatar = name, normalizeAvatar(avatar)
+	account := s.hooks.clone(previous)
+	account.Player.Name, account.Player.Avatar = name, avatar.Normalize(recipe)
 	account.Progress.Revision++
 	s.state.Accounts[id] = account
 	if err := s.save(); err != nil {
 		s.state.Accounts[id] = previous
 		return Account{}, err
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 func (s *JSONStore) UpdatePreferences(_ context.Context, hash string, preferences Preferences) (Account, error) {
@@ -236,14 +245,14 @@ func (s *JSONStore) UpdatePreferences(_ context.Context, hash string, preference
 		return Account{}, ErrUnauthorized
 	}
 	previous := s.state.Accounts[id]
-	account := cloneAccount(previous)
-	account.Preferences = normalizedPreferences(preferences)
+	account := s.hooks.clone(previous)
+	account.Preferences = NormalizePreferences(preferences)
 	s.state.Accounts[id] = account
 	if err := s.save(); err != nil {
 		s.state.Accounts[id] = previous
 		return Account{}, err
 	}
-	return cloneAccount(account), nil
+	return s.hooks.clone(account), nil
 }
 
 func (s *JSONStore) Health(context.Context) error { return nil }
@@ -252,44 +261,26 @@ func (s *JSONStore) Close()                       {}
 
 type PGStore struct {
 	sessionIdlePolicy
+	hooks         Hooks
 	pool          *pgxpool.Pool
-	worldIdentity WorldIdentity
+	worldIdentity world.Identity
 }
 
-func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
+// NewPGStore connects to PostgreSQL and applies pending schema migrations.
+func NewPGStore(ctx context.Context, url string, hooks Hooks) (*PGStore, error) {
+	if err := hooks.validate(); err != nil {
+		return nil, err
+	}
 	pool, err := pgxpool.New(ctx, url)
 	if err != nil {
 		return nil, err
 	}
-	s := &PGStore{sessionIdlePolicy: newSessionIdlePolicy(), pool: pool}
+	s := &PGStore{sessionIdlePolicy: newSessionIdlePolicy(), hooks: hooks, pool: pool}
 	if err = pool.Ping(ctx); err != nil {
 		pool.Close()
 		return nil, err
 	}
-	_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS accounts (id TEXT PRIMARY KEY, data JSONB NOT NULL);
-	CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id), created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
-	CREATE TABLE IF NOT EXISTS learning_events (account_id TEXT NOT NULL REFERENCES accounts(id), event_key TEXT NOT NULL, request JSONB NOT NULL, receipt JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY (account_id,event_key));
-	CREATE TABLE IF NOT EXISTS world_state (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);
-	CREATE TABLE IF NOT EXISTS world_content (id TEXT PRIMARY KEY CHECK (id = 'main'), data JSONB NOT NULL);`)
-	if err != nil {
-		pool.Close()
-		return nil, err
-	}
-	if err = s.initAnalytics(ctx); err != nil {
-		pool.Close()
-		return nil, err
-	}
-	_, err = pool.Exec(ctx, `CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique ON accounts ((data->>'email')) WHERE data->>'email' IS NOT NULL`)
-	if err != nil {
-		pool.Close()
-		return nil, err
-	}
-	// Existing sessions start their idle clock at this deployment.
-	_, err = pool.Exec(ctx, `ALTER TABLE sessions ADD COLUMN IF NOT EXISTS last_used_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
-	CREATE INDEX IF NOT EXISTS sessions_account_id ON sessions(account_id);
-	CREATE INDEX IF NOT EXISTS sessions_last_used_at ON sessions(last_used_at);
-	CREATE INDEX IF NOT EXISTS accounts_billing_purchases ON accounts USING GIN ((data->'billing'->'purchases') jsonb_path_ops);`)
-	if err != nil {
+	if err = MigrateSchema(ctx, pool); err != nil {
 		pool.Close()
 		return nil, err
 	}
@@ -336,7 +327,7 @@ func (s *PGStore) Get(ctx context.Context, hash string) (Account, error) {
 	}
 	var a Account
 	err = json.Unmarshal(b, &a)
-	ensureProgress(&a.Progress)
+	s.hooks.NormalizeProgress(&a.Progress)
 	return a, err
 }
 
@@ -401,7 +392,7 @@ func (s *PGStore) Mutate(ctx context.Context, hash, key string, request json.Raw
 	if err = json.Unmarshal(data, &a); err != nil {
 		return Account{}, Receipt{}, false, err
 	}
-	ensureProgress(&a.Progress)
+	s.hooks.NormalizeProgress(&a.Progress)
 	var previousRequest, previousReceipt []byte
 	err = tx.QueryRow(ctx, "SELECT request,receipt FROM learning_events WHERE account_id=$1 AND event_key=$2", id, key).Scan(&previousRequest, &previousReceipt)
 	if err == nil {
@@ -448,7 +439,7 @@ func (s *PGStore) Mutate(ctx context.Context, hash, key string, request json.Raw
 	return a, receipt, false, nil
 }
 
-func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, avatar Avatar) (Account, error) {
+func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, recipe avatar.Avatar) (Account, error) {
 	tx, err := s.pool.Begin(ctx)
 	if err != nil {
 		return Account{}, err
@@ -467,8 +458,8 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, avatar A
 	if err = json.Unmarshal(data, &account); err != nil {
 		return Account{}, err
 	}
-	ensureProgress(&account.Progress)
-	account.Player.Name, account.Player.Avatar = name, normalizeAvatar(avatar)
+	s.hooks.NormalizeProgress(&account.Progress)
+	account.Player.Name, account.Player.Avatar = name, avatar.Normalize(recipe)
 	account.Progress.Revision++
 	data, err = json.Marshal(account)
 	if err != nil {
@@ -504,8 +495,8 @@ func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preference
 	if err = json.Unmarshal(data, &account); err != nil {
 		return Account{}, err
 	}
-	ensureProgress(&account.Progress)
-	account.Preferences = normalizedPreferences(preferences)
+	s.hooks.NormalizeProgress(&account.Progress)
+	account.Preferences = NormalizePreferences(preferences)
 	data, err = json.Marshal(account)
 	if err != nil {
 		return Account{}, err
@@ -522,3 +513,21 @@ func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preference
 func (s *PGStore) Health(ctx context.Context) error { return s.pool.Ping(ctx) }
 func (s *PGStore) Kind() string                     { return "postgres" }
 func (s *PGStore) Close()                           { s.pool.Close() }
+
+// PoolStat exposes connection pool statistics for /metrics.
+func (s *PGStore) PoolStat() *pgxpool.Stat { return s.pool.Stat() }
+
+// ContentImportInfo reads the last import recorded by cmd/import-content.
+func (s *PGStore) ContentImportInfo(ctx context.Context) (ContentImportInfo, error) {
+	var info ContentImportInfo
+	var durationMS *int64
+	err := s.pool.QueryRow(ctx, `SELECT imported_at,duration_ms FROM content_imports WHERE id='main'`).Scan(&info.At, &durationMS)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return info, nil
+	}
+	if err != nil || durationMS == nil {
+		return info, err
+	}
+	info.Duration, info.Known = time.Duration(*durationMS)*time.Millisecond, true
+	return info, nil
+}

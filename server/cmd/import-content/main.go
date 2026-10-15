@@ -9,6 +9,8 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/migrate"
+	"glotworld/server/migrations"
 )
 
 func main() {
@@ -39,6 +41,19 @@ func main() {
 		log.Fatal(err)
 	}
 	defer pool.Close()
+	// The importer can run before the server's first boot; it applies the same
+	// versioned schema (a no-op read when everything is already applied).
+	all, err := migrations.All()
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := migrate.Apply(ctx, pool, all)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if len(result.Applied) > 0 {
+		log.Printf("applied database migrations %v", result.Applied)
+	}
 	// An unchanged bundle needs no DDL or bulk writes on an ordinary restart.
 	fingerprint := contentstore.Fingerprint(data)
 	if !*force {

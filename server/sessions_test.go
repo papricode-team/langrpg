@@ -3,24 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/store"
 	"os"
 	"strings"
 	"testing"
 	"time"
 )
-
-func TestParseSessionIdle(t *testing.T) {
-	for value, want := range map[string]time.Duration{"": defaultSessionIdle, "0": 0, " 30 ": 30 * 24 * time.Hour} {
-		if got, err := parseSessionIdle(value); err != nil || got != want {
-			t.Fatalf("%q: %v %v", value, got, err)
-		}
-	}
-	for _, value := range []string{"-1", "ninety", "1.5", "99999999"} {
-		if _, err := parseSessionIdle(value); err == nil {
-			t.Fatalf("%q should be rejected", value)
-		}
-	}
-}
 
 func loginToken(t *testing.T, app *App, email, password string) string {
 	t.Helper()
@@ -38,9 +26,15 @@ func progressCode(app *App, token string) int {
 
 // sessionLifecycle runs against either store: credential changes revoke other
 // sessions, linked sessions expire when idle, and guest sessions never do.
-func sessionLifecycle(t *testing.T, app *App, policy *sessionIdlePolicy, pruner sessionPruner, register func(string)) {
+// sessionClock is the session policy of either store.
+type sessionClock interface {
+	SetClockForTest(func() time.Time)
+	SetSessionIdle(time.Duration)
+}
+
+func sessionLifecycle(t *testing.T, app *App, policy sessionClock, pruner store.SessionPruner, register func(string)) {
 	clock := time.Now().UTC()
-	policy.clock = func() time.Time { return clock }
+	policy.SetClockForTest(func() time.Time { return clock })
 	policy.SetSessionIdle(90 * 24 * time.Hour)
 
 	guest, guestPlayer := createSession(t, app, "Guest Wren")
@@ -108,21 +102,23 @@ func sessionLifecycle(t *testing.T, app *App, policy *sessionIdlePolicy, pruner 
 }
 
 func TestJSONSessionsRevokeOnCredentialChangeAndExpireWhenIdle(t *testing.T) {
-	store, err := NewJSONStore(t.TempDir() + "/state.json")
+	storage, err := NewJSONStore(t.TempDir() + "/state.json")
 	if err != nil {
 		t.Fatal(err)
 	}
-	app := NewApp(store, testCurriculum(), nil, 10)
+	app := NewApp(storage, testCurriculum(), nil, 10)
 	t.Cleanup(app.Close)
-	sessionLifecycle(t, app, &store.sessionIdlePolicy, store, func(string) {})
+	sessionLifecycle(t, app, storage, storage, func(string) {})
 	// Use timestamps persist with the state file.
-	reloaded, err := NewJSONStore(store.path)
+	reloaded, err := NewJSONStore(storage.Path())
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(reloaded.state.SessionUse) != len(reloaded.state.Sessions) {
-		t.Fatalf("session use was not persisted: %d of %d", len(reloaded.state.SessionUse), len(reloaded.state.Sessions))
-	}
+	reloaded.EditStateForTest(func(state *store.DiskState) {
+		if len(state.SessionUse) != len(state.Sessions) {
+			t.Fatalf("session use was not persisted: %d of %d", len(state.SessionUse), len(state.Sessions))
+		}
+	})
 }
 
 func TestPostgresSessionsRevokeOnCredentialChangeAndExpireWhenIdle(t *testing.T) {
@@ -142,11 +138,11 @@ func TestPostgresSessionsRevokeOnCredentialChangeAndExpireWhenIdle(t *testing.T)
 		cleanup, done := context.WithTimeout(context.Background(), 5*time.Second)
 		defer done()
 		for _, id := range ids {
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", id)
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", id)
-			_, _ = store.pool.Exec(cleanup, "DELETE FROM accounts WHERE id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM learning_events WHERE account_id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM sessions WHERE account_id=$1", id)
+			_, _ = store.Pool().Exec(cleanup, "DELETE FROM accounts WHERE id=$1", id)
 		}
 		app.Close()
 	})
-	sessionLifecycle(t, app, &store.sessionIdlePolicy, store, func(id string) { ids = append(ids, id) })
+	sessionLifecycle(t, app, store, store, func(id string) { ids = append(ids, id) })
 }

@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing"
+	"glotworld/server/internal/billing/billingtest"
 	"reflect"
 	"testing"
 	"time"
@@ -10,13 +12,13 @@ import (
 
 func TestContentPlacementGrantsOnlyEligibleDiagnosticReadsAndReadOnlyChecks(t *testing.T) {
 	app := contentTestApp(t)
-	app.billing = testCreem(nil)
+	app.billing = billingtest.NewClient(nil)
 	token, _ := createSession(t, app, "Paid diagnostic")
 	other, _ := createSession(t, app, "Other diagnostic")
 	hash := tokenHash(token)
 	if _, err := app.store.UpdateAccount(context.Background(), hash, func(account *Account) error {
 		account.Email = "placement@example.com"
-		account.Billing = BillingState{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
+		account.Billing = billing.State{Plan: "lifetime", CustomerID: "customer", LifetimeOrderID: "order", VerifiedAt: app.now()}
 		account.Progress.Intake.ActiveSeconds = placementActiveSeconds - 1
 		return nil
 	}); err != nil {
@@ -41,11 +43,11 @@ func TestContentPlacementGrantsOnlyEligibleDiagnosticReadsAndReadOnlyChecks(t *t
 	late := authored.Data.Questions[len(authored.Data.Questions)-1]
 	check := func(questionID, level, id string) *AttemptInput {
 		t.Helper()
-		exercise := app.curriculum.Exercises[app.canonical.translate(questionID, false)]
+		exercise := app.curriculum.Exercises[app.canonical.Translate(questionID, false)]
 		if exercise.ID == "" {
 			t.Fatal("diagnostic exercise is outside the private grading curriculum")
 		}
-		return &AttemptInput{ID: id, ExerciseID: questionID, ItemID: app.canonical.translate(exercise.ItemID, true), Mode: exercise.Mode, Level: level, Answer: exercise.Answer, Preview: true}
+		return &AttemptInput{ID: id, ExerciseID: questionID, ItemID: app.canonical.Translate(exercise.ItemID, true), Mode: exercise.Mode, Level: level, Answer: exercise.Answer, Preview: true}
 	}
 	if response := request(app, "GET", "/api/content/contexts/"+contextID, token, nil); response.Code != 404 {
 		t.Fatal("placement context opened before ten active minutes")
@@ -98,7 +100,7 @@ func TestContentPlacementGrantsOnlyEligibleDiagnosticReadsAndReadOnlyChecks(t *t
 		if json.Unmarshal(response.Body.Bytes(), &record) != nil || record.Body.AnswerAvailable {
 			t.Fatal("diagnostic eligibility supplied an unearned model answer")
 		}
-		exercise := app.curriculum.Exercises[app.canonical.translate(question.ExerciseID, false)]
+		exercise := app.curriculum.Exercises[app.canonical.Translate(question.ExerciseID, false)]
 		if record.Body.SentenceID != "" {
 			stem := request(app, "GET", "/api/content/sentences?ids="+record.Body.SentenceID, token, nil)
 			var batch struct {

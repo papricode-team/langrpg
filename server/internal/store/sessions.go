@@ -1,4 +1,4 @@
-package main
+package store
 
 import (
 	"context"
@@ -15,15 +15,15 @@ import (
 // Sessions of accounts with an email expire after this long without use; the
 // holder can log in again. Guest sessions never expire: the bearer token is a
 // guest's only credential, so expiring it would delete their adventure.
-const defaultSessionIdle = 90 * 24 * time.Hour
+const DefaultSessionIdle = 90 * 24 * time.Hour
 
 // Recording use costs a write, so it is refreshed at most hourly per session.
 const sessionTouchInterval = time.Hour
 
-func parseSessionIdle(value string) (time.Duration, error) {
+func ParseSessionIdle(value string) (time.Duration, error) {
 	value = strings.TrimSpace(value)
 	if value == "" {
-		return defaultSessionIdle, nil
+		return DefaultSessionIdle, nil
 	}
 	days, err := strconv.Atoi(value)
 	if err != nil || days < 0 || days > 36500 {
@@ -39,7 +39,7 @@ type sessionIdlePolicy struct {
 }
 
 func newSessionIdlePolicy() sessionIdlePolicy {
-	return sessionIdlePolicy{idle: defaultSessionIdle, clock: time.Now}
+	return sessionIdlePolicy{idle: DefaultSessionIdle, clock: time.Now}
 }
 
 func (p *sessionIdlePolicy) SetSessionIdle(idle time.Duration) { p.idle = idle }
@@ -146,12 +146,12 @@ func (s *PGStore) PruneExpiredSessions(ctx context.Context) (int, error) {
 // $2 is the idle cutoff from sessionCutoff.
 const pgLiveSession = ` AND (s.last_used_at > $2 OR COALESCE(a.data->>'email','')='')`
 
-type sessionPruner interface {
+type SessionPruner interface {
 	PruneExpiredSessions(context.Context) (int, error)
 }
 
-// pruneSessionsPeriodically removes expired linked sessions hourly until ctx ends.
-func pruneSessionsPeriodically(ctx context.Context, pruner sessionPruner, every time.Duration) {
+// PruneSessionsPeriodically removes expired linked sessions hourly until ctx ends.
+func PruneSessionsPeriodically(ctx context.Context, pruner SessionPruner, every time.Duration) {
 	ticker := time.NewTicker(every)
 	defer ticker.Stop()
 	for {

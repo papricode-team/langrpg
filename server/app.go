@@ -5,7 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"glotworld/server/internal/avatar"
+	"glotworld/server/internal/billing"
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
+	"glotworld/server/internal/world"
 	"io"
 	"log/slog"
 	"net/http"
@@ -30,14 +34,14 @@ type App struct {
 	editing         *worldEditing
 	editLeases      *worldLeases
 	adminEmails     map[string]bool
-	billing         *CreemBilling
+	billing         *billing.Client
 	leaseOwner      string
 	store           Store
-	world           *World
+	world           *world.World
 	curriculum      Curriculum
 	content         *contentstore.Bundle
 	courseCurricula map[string]Curriculum
-	canonical       *canonicalStore
+	canonical       *store.Canonical
 	lexemeSentences map[string][]string
 	stationRooms    map[string][]stationRoom
 	origins         map[string]bool
@@ -47,6 +51,8 @@ type App struct {
 	rateMu          *sync.Mutex
 	limits          map[string]rateWindow
 	trustedProxies  []netip.Prefix
+	metrics         *serverMetrics
+	metricsToken    string
 }
 type rateWindow struct {
 	At    time.Time
@@ -68,7 +74,8 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 			allowed = append(allowed, origin)
 		}
 	}
-	a.world = newWorldWithIdentity(maxPlayers, allowed, store.WorldIdentity())
+	a.world = world.New(maxPlayers, allowed, store.WorldIdentity(), compiledWorldMaps)
+	a.metrics = newServerMetrics(a, store)
 	return a
 }
 
@@ -81,6 +88,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/analytics/events", a.collectAnalytics)
 	mux.HandleFunc("GET /api/admin/analytics", a.adminAnalytics)
 	// Liveness never touches storage; /api/health is readiness.
+	mux.HandleFunc("GET /metrics", a.metricsEndpoint)
 	mux.HandleFunc("GET /api/live", func(w http.ResponseWriter, r *http.Request) { writeJSON(w, 200, map[string]string{"status": "live"}) })
 	mux.HandleFunc("GET /api/health", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.health(w, r) }))
 	mux.HandleFunc("GET /api/version", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.deploymentVersion(w, r) }))
@@ -192,6 +200,8 @@ func apiFailure(w http.ResponseWriter, err error) {
 		writeError(w, 401, "session is invalid; create or restore a session")
 	case errors.Is(err, ErrConflict):
 		writeError(w, 409, ErrConflict.Error())
+	case errors.Is(err, store.ErrCourseChanged):
+		writeError(w, 409, store.ErrCourseChanged.Error())
 	default:
 		slog.Error("API operation failed", "error", err)
 		writeError(w, 503, "storage is temporarily unavailable")
@@ -272,7 +282,11 @@ func (a *App) allowCount(key string, limit, count int) bool {
 	}
 	window.Count += count
 	a.limits[key] = window
-	return window.Count <= limit
+	if window.Count > limit {
+		a.metrics.limited.Inc(limiterName(key))
+		return false
+	}
+	return true
 }
 
 // evictLimitsLocked frees room for new keys. Throttled windows carry the
@@ -333,9 +347,9 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// An empty profile resumes; a supplied profile updates this same account.
-		if input.Name != "" || !input.Avatar.empty() {
+		if input.Name != "" || !input.Avatar.Empty() {
 			input.Name = strings.TrimSpace(input.Name)
-			if !validName(input.Name) || !validAvatar(input.Avatar) {
+			if !validName(input.Name) || !avatar.Valid(input.Avatar) {
 				writeError(w, 400, "provide a valid name and complete avatar")
 				return
 			}
@@ -355,7 +369,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "name must contain 2–24 letters, numbers, spaces, apostrophes, dashes or underscores")
 		return
 	}
-	if !validAvatar(input.Avatar) {
+	if !avatar.Valid(input.Avatar) {
 		writeError(w, 400, "choose valid hair, skin and outfit values")
 		return
 	}
@@ -363,7 +377,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "level must be A1, A2 or B1")
 		return
 	}
-	if input.BaseLanguage != "" && !validBaseLanguage(input.BaseLanguage) {
+	if input.BaseLanguage != "" && !store.ValidBaseLanguage(input.BaseLanguage) {
 		writeError(w, 400, "baseLanguage must be en or tr")
 		return
 	}
@@ -381,7 +395,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC(), Preferences: normalizedPreferences(Preferences{BaseLanguage: input.BaseLanguage})}
+	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC(), Preferences: store.NormalizePreferences(Preferences{BaseLanguage: input.BaseLanguage})}
 	if a.content != nil {
 		account.ActiveCourseID = a.curriculum.CourseID
 	}
@@ -638,7 +652,17 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 	if a.content != nil {
 		a.world.RestoreCoursePlayer(account.Player, account.Access.Generation)
 	}
-	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, a.isAdmin(account), authorize, guard, stopped)
+	// Reconnects without an explicit map avoid towns the story has not opened.
+	var routeAllowed func(string) bool
+	if authorize != nil {
+		completed := account.Progress.CompletedQuestIDs
+		routeAllowed = func(mapID string) bool { return routeUnlocked(mapID, completed) }
+	}
+	worldGuard := func(ctx context.Context, renew bool) (world.Access, error) {
+		status, err := guard(ctx, renew)
+		return world.Access{Blocked: accessBlocked(status), Phase: status.Phase, Status: status}, err
+	}
+	a.world.ServeHTTP(w, r, account.Player, hash, account.Access.Generation, a.isAdmin(account), routeAllowed, authorize, worldGuard, stopped)
 }
 
 // worldAccessCacheTTL slightly exceeds the socket's 5 s access tick, so a

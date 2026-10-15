@@ -18,18 +18,6 @@ const (
 	playLease          = 30 * time.Second
 )
 
-// PlayAccess is separate from learning intake: client-supplied seconds, story
-// saves and idempotent learning receipts can never grant more free play.
-// The account-wide lease prevents reconnects or another tab resetting time.
-type PlayAccess struct {
-	ResetTrial        bool                 `json:"resetTrial,omitempty"`
-	Generation        int64                `json:"generation,omitempty"`
-	PlayedNanoseconds int64                `json:"playedNanoseconds,omitempty"`
-	ActiveSince       time.Time            `json:"activeSince,omitempty"`
-	ActiveUntil       time.Time            `json:"activeUntil,omitempty"`
-	SessionLeases     map[string]time.Time `json:"sessionLeases,omitempty"`
-}
-
 type AccessStatus struct {
 	Phase                string `json:"phase"`
 	RemainingSeconds     int    `json:"remainingSeconds"`

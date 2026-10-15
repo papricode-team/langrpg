@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/billing/billingtest"
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
@@ -163,43 +163,6 @@ func TestAnalyticsRegistrationTimestampIsStable(t *testing.T) {
 	}
 }
 
-func TestAnalyticsJSONRestartRetentionAndAtomicSave(t *testing.T) {
-	path := filepath.Join(t.TempDir(), "state.json")
-	s, err := NewJSONStore(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	now := time.Now().UTC()
-	old := browserAnalyticsEvent()
-	old.At = now.AddDate(0, 0, -181)
-	event := old
-	event.ID = "new-event"
-	event.At = now
-	if err = s.RecordAnalytics(context.Background(), []AnalyticsEvent{old}, old.At); err != nil {
-		t.Fatal(err)
-	}
-	if err = s.RecordAnalytics(context.Background(), []AnalyticsEvent{event, event}, now); err != nil {
-		t.Fatal(err)
-	}
-	s, err = NewJSONStore(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	facts, _, err := s.ReadAnalytics(context.Background(), now.AddDate(-1, 0, 0), now.Add(time.Hour))
-	if err != nil || len(facts) != 1 || facts[0].ID != "new-event" {
-		t.Fatalf("restart or retention: %+v %v", facts, err)
-	}
-	s.path = filepath.Join(path, "cannot-write.json")
-	next := event
-	next.ID = "failed-event"
-	if err = s.RecordAnalytics(context.Background(), []AnalyticsEvent{next}, now); err == nil {
-		t.Fatal("expected failed save")
-	}
-	if len(s.state.Analytics) != 1 {
-		t.Fatal("failed persistence leaked in-memory event")
-	}
-}
-
 func TestAnalyticsReportCohortsAttributionAndMatureRetention(t *testing.T) {
 	app := testApp(t)
 	now := time.Date(2026, 10, 14, 12, 0, 0, 0, time.UTC)
@@ -290,6 +253,61 @@ func TestAnalyticsOriginAndPayloadLimits(t *testing.T) {
 	}
 }
 
+func TestAnalyticsCountsRealStoryCompletionsButNotSaveLoadsOrNoOps(t *testing.T) {
+	app := testApp(t)
+	token, _ := createSession(t, app, "Story Learner")
+	ctx := context.Background()
+	hash := tokenHash(token)
+	apply := func(key, id string) {
+		t.Helper()
+		_, _, _, err := app.mutate(ctx, hash, key, json.RawMessage(`{}`), func(a *Account) (Receipt, error) {
+			if !contains(a.Progress.CompletedQuestIDs, id) {
+				a.Progress.CompletedQuestIDs = append(a.Progress.CompletedQuestIDs, id)
+			}
+			return Receipt{}, nil
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	apply("story:first", "story-quest")
+	apply("quest:already-complete", "story-quest")
+	apply("story-load:slot", "loaded-quest")
+	facts, _, err := app.store.ReadAnalytics(ctx, time.Now().Add(-time.Hour), time.Now().Add(time.Hour))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(facts) != 1 || facts[0].Name != "quest_completed" {
+		t.Fatalf("wrong completions: %+v", facts)
+	}
+}
+
+func TestAnalyticsPaymentMilestoneRequiresVerifiedBillingAndSurvivesRefresh(t *testing.T) {
+	app := testApp(t)
+	now := time.Now().UTC()
+	app.now = func() time.Time { return now }
+	token, player := createSession(t, app, "Paid Learner")
+	if err := app.store.SetCredentials(context.Background(), tokenHash(token), "paid@example.com", "hash"); err != nil {
+		t.Fatal(err)
+	}
+	fixture := billingtest.NewFixture(player.ID, "monthly", now)
+	app.billing = billingtest.NewClient(http.HandlerFunc(fixture.Serve))
+	_, err := app.store.UpdateAccountByID(context.Background(), player.ID, func(a *Account) error { a.Billing = fixture.State(); return nil })
+	if err != nil {
+		t.Fatal(err)
+	}
+	for range 2 {
+		account, err := app.refreshBilling(context.Background(), mustBillingAccount(t, app, player.ID), true)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !account.Analytics.PaidAt.Equal(fixture.Now) {
+			t.Fatalf("payment timestamp moved or missing: %+v", account.Analytics)
+		}
+		now = now.Add(time.Minute)
+	}
+}
+
 func TestAnalyticsPostgresMatchesJSONAndPersists(t *testing.T) {
 	url := os.Getenv("TEST_DATABASE_URL")
 	if url == "" {
@@ -310,9 +328,9 @@ func TestAnalyticsPostgresMatchesJSONAndPersists(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer func() {
-		pg.pool.Exec(context.Background(), "DELETE FROM analytics_events WHERE account_id=$1", id)
-		pg.pool.Exec(context.Background(), "DELETE FROM sessions WHERE account_id=$1", id)
-		pg.pool.Exec(context.Background(), "DELETE FROM accounts WHERE id=$1", id)
+		pg.Pool().Exec(context.Background(), "DELETE FROM analytics_events WHERE account_id=$1", id)
+		pg.Pool().Exec(context.Background(), "DELETE FROM sessions WHERE account_id=$1", id)
+		pg.Pool().Exec(context.Background(), "DELETE FROM accounts WHERE id=$1", id)
 	}()
 	if err = js.Create(ctx, id, account); err != nil {
 		t.Fatal(err)
@@ -354,60 +372,5 @@ func TestAnalyticsPostgresMatchesJSONAndPersists(t *testing.T) {
 	}
 	if len(filteredAccounts) != 1 || !filteredAccounts[0].Milestones.ActivatedAt.Equal(account.Analytics.ActivatedAt) {
 		t.Fatal("SQL milestone projection wrong")
-	}
-}
-
-func TestAnalyticsCountsRealStoryCompletionsButNotSaveLoadsOrNoOps(t *testing.T) {
-	app := testApp(t)
-	token, _ := createSession(t, app, "Story Learner")
-	ctx := context.Background()
-	hash := tokenHash(token)
-	apply := func(key, id string) {
-		t.Helper()
-		_, _, _, err := app.mutate(ctx, hash, key, json.RawMessage(`{}`), func(a *Account) (Receipt, error) {
-			if !contains(a.Progress.CompletedQuestIDs, id) {
-				a.Progress.CompletedQuestIDs = append(a.Progress.CompletedQuestIDs, id)
-			}
-			return Receipt{}, nil
-		})
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
-	apply("story:first", "story-quest")
-	apply("quest:already-complete", "story-quest")
-	apply("story-load:slot", "loaded-quest")
-	facts, _, err := app.store.ReadAnalytics(ctx, time.Now().Add(-time.Hour), time.Now().Add(time.Hour))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(facts) != 1 || facts[0].Name != "quest_completed" {
-		t.Fatalf("wrong completions: %+v", facts)
-	}
-}
-
-func TestAnalyticsPaymentMilestoneRequiresVerifiedBillingAndSurvivesRefresh(t *testing.T) {
-	app := testApp(t)
-	now := time.Now().UTC()
-	app.now = func() time.Time { return now }
-	token, player := createSession(t, app, "Paid Learner")
-	if err := app.store.SetCredentials(context.Background(), tokenHash(token), "paid@example.com", "hash"); err != nil {
-		t.Fatal(err)
-	}
-	fixture := newCreemFixture(player.ID, "monthly", now)
-	app.billing = testCreem(http.HandlerFunc(fixture.serve))
-	_, err := app.store.UpdateAccountByID(context.Background(), player.ID, func(a *Account) error { a.Billing = fixture.state(); return nil })
-	if err != nil {
-		t.Fatal(err)
-	}
-	for range 2 {
-		account, err := app.refreshBilling(context.Background(), mustBillingAccount(t, app, player.ID), true)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if !account.Analytics.PaidAt.Equal(fixture.now) {
-			t.Fatalf("payment timestamp moved or missing: %+v", account.Analytics)
-		}
-		now = now.Add(time.Minute)
 	}
 }

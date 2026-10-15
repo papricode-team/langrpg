@@ -127,7 +127,7 @@ No frontend test fails on an assertion. Every failure is a timeout or a missing 
 
 ## 7. Implementation status (2026-10-15)
 
-Implemented on branch `claude/engine-backend-repo-review-09e6dc`, uncommitted.
+Implemented on branch `claude/engine-backend-repo-review-09e6dc`.
 
 **CI and repository**
 
@@ -144,12 +144,16 @@ Implemented on branch `claude/engine-backend-repo-review-09e6dc`, uncommitted.
 
 - Fixed: presence after restart, room confirmation during restart, one dialog token for every async opener (`dialog-session.ts`), mini-game finish after a failed save and `end` on destroy, mini-game clock on the Phaser loop, travel beat cleared with a toast on disconnect, cinematics recorded only after they play with a still version for reduced motion, bark director stamping, density-gated label re-rendering, rejected promises caught, both import cycles removed (`world-patch.ts`), per-frame allocations listed in section 2.
 - `main.ts` lost its session, billing and speech blocks to `access-session.ts` and `speech.ts`; `game-mode.ts` names the mode. The mode is still derived, not set at each transition.
-- Not done: moving `content.ts` data to JSON. The content-runtime build plugin rewrites `content.ts` initialisers so answers never reach the browser, and `content.ts` is itself a legacy copy of data in `content/source.json`. The real fix is to make the remaining scripts read `content/source.json` and retire the TypeScript copy.
+- `content.ts` no longer holds data (4614 to 90 lines). Quests, characters and chapters live only in `content/source.json`; Node tools read them through `scripts/content-source.mjs` and Vitest through `web/src/test-support/authored-content.ts`. Generated content and the production bundle are byte-identical. Running the legacy importer `content-snapshot.mjs` would still change 30 Turkish UI strings and interior mini-game links in `source.json`, because other legacy TypeScript modules have drifted.
 
 **Backend** (`server/`)
 
 - Fixed: the test race, client IP from trusted proxies (`TRUSTED_PROXIES`), limiter keys only for valid sessions with eviction instead of global denial, session revocation on credential change, idle expiry for linked accounts (`SESSION_IDLE_DAYS`, guests never expire), PBKDF2 iteration parsing with rehash, ETag and rate limit on `/api/world-content`, per-tick websocket access cache, one fewer read per learning request, Creem calls outside row locks for sync, renewal, webhooks and checkout, GIN and session indexes, `/api/live` liveness, fingerprinted boot import under an advisory lock, access log with request IDs.
-- Not done: admin `sync-billing` and `cancel-subscription` still call Creem inside the account lock; package extraction; a migrations framework; metrics; replacing the websocket URL token; guest account pruning.
+- Admin `sync-billing` and `cancel-subscription` now call Creem before taking the account lock, like the player paths.
+- Versioned migrations: `internal/migrate` applies the embedded `server/migrations/*.sql` once each under an advisory lock, with checksums. `0001_baseline` matches the schema the old boot DDL created, so existing databases adopt it unchanged.
+- `/metrics` serves Prometheus text behind `METRICS_TOKEN`: HTTP traffic by route pattern, sockets per map, limiter rejections, Creem calls, content import timing and pool statistics.
+- Package extraction: `internal/store`, `internal/world`, `internal/billing`, `internal/avatar`, `internal/migrate`, `internal/metrics` and `internal/pgtest`. `package main` keeps HTTP wiring and handlers. The `*PGStore` assertion and concrete-type switch became declared capability interfaces.
+- Not done: replacing the websocket URL token; guest account pruning.
 
 **Verification on this machine after the fixes**
 
@@ -162,8 +166,6 @@ Implemented on branch `claude/engine-backend-repo-review-09e6dc`, uncommitted.
 | Tooling tests | 266 of 266 pass once LFS art is present |
 | Docker image build | not run; the Docker daemon was not running |
 
-**Left for a person**
+**Repository maintenance**
 
-- Pruning the 48 local branches already merged into `main`. Several are checked out in other worktrees.
-- `git gc` in the shared repository, which other sessions use concurrently.
-- Pushing will upload about 370 MB of newly LFS-tracked masters.
+- 39 merged branches were deleted and `git gc` reduced the pack from 3.5 GB to 2.1 GB. Merged branches still checked out in other worktrees were kept.

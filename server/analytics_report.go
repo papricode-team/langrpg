@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"glotworld/server/internal/billing"
+	"glotworld/server/internal/store"
 	"net/http"
 	"sort"
 	"strconv"
@@ -141,7 +143,7 @@ func (a *App) adminAnalytics(w http.ResponseWriter, r *http.Request) {
 	now := a.now().UTC()
 	ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
 	defer cancel()
-	facts, accounts, err := a.store.ReadAnalytics(ctx, analyticsDay(now).AddDate(0, 0, -analyticsRetentionDays+1), now)
+	facts, accounts, err := a.store.ReadAnalytics(ctx, analyticsDay(now).AddDate(0, 0, -store.AnalyticsRetentionDays+1), now)
 	if err != nil {
 		apiFailure(w, err)
 		return
@@ -202,10 +204,10 @@ func (a *App) buildAnalytics(raw []AnalyticsFact, rawAccounts []AnalyticsAccount
 	// Current period includes today; the comparison is the preceding complete period.
 	previousFrom := from.AddDate(0, 0, -days)
 	previousTo := from
-	report := AnalyticsReport{GeneratedAt: now, From: from, To: now, PreviousFrom: previousFrom, Days: days, RetentionDays: analyticsRetentionDays, BillingMode: "disabled", Daily: []AnalyticsDay{}, Sources: []AnalyticsBreakdown{}, Campaigns: []AnalyticsBreakdown{}, Devices: []AnalyticsBreakdown{}, Funnel: []AnalyticsFunnelStep{}, Cohorts: []AnalyticsCohort{}, Events: []AnalyticsEventTotal{}, Recent: []AnalyticsRecent{}}
+	report := AnalyticsReport{GeneratedAt: now, From: from, To: now, PreviousFrom: previousFrom, Days: days, RetentionDays: store.AnalyticsRetentionDays, BillingMode: "disabled", Daily: []AnalyticsDay{}, Sources: []AnalyticsBreakdown{}, Campaigns: []AnalyticsBreakdown{}, Devices: []AnalyticsBreakdown{}, Funnel: []AnalyticsFunnelStep{}, Cohorts: []AnalyticsCohort{}, Events: []AnalyticsEventTotal{}, Recent: []AnalyticsRecent{}}
 	if a.billingAvailable() {
 		report.BillingMode = "production"
-		if a.billing.baseURL == "https://test-api.creem.io" {
+		if a.billing.BaseURL == "https://test-api.creem.io" {
 			report.BillingMode = "sandbox"
 		}
 	}
@@ -363,7 +365,7 @@ func (a *App) buildAnalytics(raw []AnalyticsFact, rawAccounts []AnalyticsAccount
 			expired := (b.Plan == "monthly" || b.Plan == "yearly") && !now.Before(b.PaidUntil)
 			if expired {
 				report.Customers.Expired++
-			} else if b.VerifiedAt.IsZero() || now.Sub(b.VerifiedAt) > billingVerificationLifetime || now.Before(b.VerifiedAt) {
+			} else if b.VerifiedAt.IsZero() || now.Sub(b.VerifiedAt) > billing.VerificationLifetime || now.Before(b.VerifiedAt) {
 				report.Customers.Stale++
 			} else if a.hasPaidAccess(Account{Email: account.Email, Billing: b}, now) {
 				switch b.Plan {

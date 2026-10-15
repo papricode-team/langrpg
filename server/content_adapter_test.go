@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/store"
 	"strings"
 	"testing"
 	"time"
@@ -19,30 +20,30 @@ func TestContentUUIDMigrationPreservesReceiptsEvidenceRewardsAndSlots(t *testing
 	item := "word-" + word
 	rule, _ := app.storyRule(quest)
 	choice := rule.ChoiceIDs[0]
-	base.mu.Lock()
-	account := base.state.Accounts[player.ID]
-	account.ActiveCourseID = ""
-	account.CourseStates = nil
-	account.Progress = newProgress()
-	account.Progress.CompletedQuestIDs = []string{quest}
-	account.Progress.CompletedUnitIDs = []string{"course-a1-food-1"}
-	account.Progress.Intake.WordIDs = []string{word}
-	account.Progress.Items[item] = Memory{ItemID: item, StabilityDays: 12, Repetitions: 5}
-	account.Progress.Words[word] = WordMemory{WordID: word, Exposures: 11, DirectAttempts: 5}
-	account.Progress.ExerciseStats[exercise.ID] = ExerciseEvidence{ModeStats: ModeStats{Attempts: 2, Correct: 1}}
-	ensureStory(&account.Progress)
-	account.Progress.Story.Nodes[quest] = "gate"
-	account.Progress.Story.Choices[quest] = choice
-	account.Progress.Story.Flags["reply:"+exercise.ID] = true
-	account.RewardedQuestIDs = []string{quest}
-	account.RewardedExpeditionIDs = []string{"saffroncourt-encounter-salma"}
-	account.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: account.Progress.Story, CompletedQuestIDs: []string{quest}}}
-	base.state.Accounts[player.ID] = account
 	input := AttemptInput{ID: "old-proof", ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: exercise.Mode, Answer: exercise.Answer}
 	request, _ := json.Marshal(input)
-	correct := true
-	base.state.Actions[player.ID] = map[string]SavedAction{"attempt:old-proof": {Request: request, Receipt: Receipt{Correct: &correct, XPAdded: 7}, At: time.Now()}}
-	base.mu.Unlock()
+	base.EditStateForTest(func(state *store.DiskState) {
+		account := state.Accounts[player.ID]
+		account.ActiveCourseID = ""
+		account.CourseStates = nil
+		account.Progress = newProgress()
+		account.Progress.CompletedQuestIDs = []string{quest}
+		account.Progress.CompletedUnitIDs = []string{"course-a1-food-1"}
+		account.Progress.Intake.WordIDs = []string{word}
+		account.Progress.Items[item] = Memory{ItemID: item, StabilityDays: 12, Repetitions: 5}
+		account.Progress.Words[word] = WordMemory{WordID: word, Exposures: 11, DirectAttempts: 5}
+		account.Progress.ExerciseStats[exercise.ID] = ExerciseEvidence{ModeStats: ModeStats{Attempts: 2, Correct: 1}}
+		ensureStory(&account.Progress)
+		account.Progress.Story.Nodes[quest] = "gate"
+		account.Progress.Story.Choices[quest] = choice
+		account.Progress.Story.Flags["reply:"+exercise.ID] = true
+		account.RewardedQuestIDs = []string{quest}
+		account.RewardedExpeditionIDs = []string{"saffroncourt-encounter-salma"}
+		account.StorySaves = map[string]StorySave{"one": {Slot: "one", Story: account.Progress.Story, CompletedQuestIDs: []string{quest}}}
+		state.Accounts[player.ID] = account
+		correct := true
+		state.Actions[player.ID] = map[string]SavedAction{"attempt:old-proof": {Request: request, Receipt: Receipt{Correct: &correct, XPAdded: 7}, At: time.Now()}}
+	})
 	if err := app.canonical.Migrate(context.Background()); err != nil {
 		t.Fatal(err)
 	}
@@ -127,11 +128,9 @@ func TestContentPendingOldCourseAttemptCannotMutateActivatedCourse(t *testing.T)
 	token, player := createSession(t, app, "Ada")
 	// Capture the old request's course before allowing it to reach the store lock.
 	captured := *app
-	bound := *app.canonical
-	bound.expectedCourse = app.canonical.defaultCourse
 	pending := pendingContentStore{Store: app.canonical.Store, entered: make(chan struct{}), release: make(chan struct{})}
-	bound.Store = pending
-	captured.store = &bound
+	bound := app.canonical.WithCourse(app.canonical.DefaultCourse()).WithStore(pending)
+	captured.store = bound
 	exercise := app.curriculum.Exercises["a1-arrival-exercise-1"]
 	input := AttemptInput{ID: "pending-old-course", ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: exercise.Mode, Answer: exercise.Answer}
 	outcome := make(chan error, 1)
@@ -150,15 +149,15 @@ func TestContentPendingOldCourseAttemptCannotMutateActivatedCourse(t *testing.T)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if account.Progress.Attempts != 0 || account.Progress.XP != 0 || account.CourseStates[app.canonical.defaultCourse].Progress.Attempts != 0 {
+	if account.Progress.Attempts != 0 || account.Progress.XP != 0 || account.CourseStates[app.canonical.DefaultCourse()].Progress.Attempts != 0 {
 		t.Fatal("pending attempt changed either course")
 	}
 	base := app.canonical.Store.(*JSONStore)
-	base.mu.Lock()
-	defer base.mu.Unlock()
-	if len(base.state.Actions[player.ID]) != 0 {
-		t.Fatal("rejected old-course attempt stored a receipt")
-	}
+	base.EditStateForTest(func(state *store.DiskState) {
+		if len(state.Actions[player.ID]) != 0 {
+			t.Fatal("rejected old-course attempt stored a receipt")
+		}
+	})
 }
 
 func TestContentCanonicalReferencesPreserveNamesAndIdempotencyIDs(t *testing.T) {
@@ -220,9 +219,9 @@ func TestContentOldReceiptReplayIsSafeBeforeMigrationFlag(t *testing.T) {
 	input := AttemptInput{ID: "before-migration", ExerciseID: exercise.ID, ItemID: exercise.ItemID, Answer: exercise.Answer, Mode: exercise.Mode}
 	raw, _ := json.Marshal(input)
 	correct := true
-	base.mu.Lock()
-	base.state.Actions[player.ID] = map[string]SavedAction{"attempt:" + input.ID: {Request: raw, Receipt: Receipt{Correct: &correct, XPAdded: 7}}}
-	base.mu.Unlock()
+	base.EditStateForTest(func(state *store.DiskState) {
+		state.Actions[player.ID] = map[string]SavedAction{"attempt:" + input.ID: {Request: raw, Receipt: Receipt{Correct: &correct, XPAdded: 7}}}
+	})
 	_, receipt, duplicate, err := app.store.Mutate(context.Background(), tokenHash(token), "attempt:"+input.ID, raw, func(*Account) (Receipt, error) {
 		t.Fatal("legacy receipt was regraded before migration flag")
 		return Receipt{}, nil
@@ -237,8 +236,7 @@ func TestContentOldReceiptReplayIsSafeBeforeMigrationFlag(t *testing.T) {
 	if res := request(app, "POST", "/api/course/activate", token, map[string]any{"courseId": testContentID(t, app, "course", "english"), "supportLanguage": "tr"}); res.Code != 200 {
 		t.Fatal(res.Body.String())
 	}
-	bound := *app.canonical
-	bound.expectedCourse = testContentID(t, app, "course", "english")
+	bound := app.canonical.WithCourse(testContentID(t, app, "course", "english"))
 	ran := false
 	_, _, duplicate, err = bound.Mutate(context.Background(), tokenHash(token), "attempt:"+input.ID, raw, func(*Account) (Receipt, error) { ran = true; return Receipt{}, nil })
 	if err != nil || duplicate || !ran {
@@ -264,19 +262,19 @@ func TestContentStructuralJSONKeysAreNeverContentIdentifiers(t *testing.T) {
 	// Every known legacy slug could collide with a structural field. Only
 	// explicitly declared reference dictionaries may remap their member keys.
 	object := map[string]any{}
-	for slug := range app.canonical.forward {
+	for _, slug := range app.canonical.ForwardSlugs() {
 		object[slug] = map[string]any{"value": 1}
 	}
 	raw, _ := json.Marshal(object)
 	var result map[string]any
-	_ = json.Unmarshal(app.canonical.raw(raw, true), &result)
+	_ = json.Unmarshal(app.canonical.Raw(raw, true), &result)
 	for key := range object {
 		if _, ok := result[key]; !ok {
 			t.Fatalf("structural JSON key %q was rewritten", key)
 		}
 	}
 	raw = []byte(`{"words":{"ich-pron":{"wordId":"ich-pron"}}}`)
-	_ = json.Unmarshal(app.canonical.raw(raw, true), &result)
+	_ = json.Unmarshal(app.canonical.Raw(raw, true), &result)
 	words := result["words"].(map[string]any)
 	if words[testContentID(t, app, "lexeme", "ich-pron")] == nil {
 		t.Fatal("reference dictionary was not canonicalized")

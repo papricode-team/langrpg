@@ -75,7 +75,7 @@ func (a *App) stationExerciseVisible(exerciseID string, account Account) bool {
 	if a.canonical == nil {
 		return false
 	}
-	for _, room := range a.stationRooms[a.canonical.translate(exerciseID, true)] {
+	for _, room := range a.stationRooms[a.canonical.Translate(exerciseID, true)] {
 		if room.CourseID == account.ActiveCourseID && validInterior(room.MapID, room.InteriorID) && routeUnlocked(room.MapID, account.Progress.CompletedQuestIDs) && a.levelVisible(room.Level, account) {
 			return true
 		}

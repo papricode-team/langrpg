@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/avatar"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -229,8 +230,8 @@ func TestSessionProfileUpdatePreservesLearning(t *testing.T) {
 	app := testApp(t)
 	token, player := createSession(t, app, "Ada")
 	decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("before-edit")))
-	avatar := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#998877"}
-	w := request(app, "POST", "/api/session", token, map[string]any{"name": "Mira", "avatar": avatar})
+	recipe := Avatar{Hair: "#001122", Skin: "#ccbbaa", Outfit: "#998877"}
+	w := request(app, "POST", "/api/session", token, map[string]any{"name": "Mira", "avatar": recipe})
 	if w.Code != 200 {
 		t.Fatalf("profile edit %d %s", w.Code, w.Body.String())
 	}
@@ -240,7 +241,7 @@ func TestSessionProfileUpdatePreservesLearning(t *testing.T) {
 		Progress Progress `json:"progress"`
 	}
 	_ = json.Unmarshal(w.Body.Bytes(), &response)
-	if response.Token != token || response.Player.ID != player.ID || !sameAvatar(response.Player.Avatar, normalizeAvatar(avatar)) || response.Player.Name != "Mira" || response.Progress.XP != 6 {
+	if response.Token != token || response.Player.ID != player.ID || !sameAvatar(response.Player.Avatar, avatar.Normalize(recipe)) || response.Player.Name != "Mira" || response.Progress.XP != 6 {
 		t.Fatalf("profile update replaced progress %+v", response)
 	}
 }
@@ -430,7 +431,7 @@ func TestConcurrentPlayersAndAuthoritativeMovement(t *testing.T) {
 		for _, player := range players {
 			if player.ID == playerOne.ID {
 				definition := compiledWorldMaps.Maps[DefaultMapID]
-				dx, dy := definition.delta(MapSpawn{playerOne.X, playerOne.Y}, MapSpawn{player.X, player.Y})
+				dx, dy := definition.Delta(MapSpawn{X: playerOne.X, Y: playerOne.Y}, MapSpawn{X: player.X, Y: player.Y})
 				distance := math.Hypot(dx/1536, dy/1024)
 				if distance > 0 {
 					moved = true

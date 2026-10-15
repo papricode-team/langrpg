@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/world"
 	"math"
 	"net/http/httptest"
 	"testing"
@@ -36,7 +37,7 @@ func TestSharedInteriorPresenceMovementExitAndReconnect(t *testing.T) {
 			returnPoint := compiledWorldMaps.Maps[DefaultMapID].Entrances[room].Return
 			writeWorld(t, ctx, one, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": room})
 			id, spawn, players := interiorValue(t, readWorld(t, ctx, one, "interior"))
-			if id != room || spawn != interiorSpawns[room] || len(players) != 2 {
+			if id != room || spawn != world.InteriorSpawn(room) || len(players) != 2 {
 				t.Fatalf("entry lost presence: %s %+v %+v", id, spawn, players)
 			}
 			writeWorld(t, ctx, two, map[string]any{"type": "joinInterior", "mapId": DefaultMapID, "interiorId": room})
