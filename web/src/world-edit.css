@@ -1,0 +1,70 @@
+/* In-game edit mode: a brass band, one inspector card and an object tray. */
+.world-edit { position: fixed; inset: 0; pointer-events: none; z-index: 40; font: 400 14px 'DM Sans', system-ui, sans-serif; color: #f6efdc; }
+.world-edit button, .world-edit select { font: inherit; }
+.world-edit button {
+  min-height: 36px; padding: 6px 14px; border-radius: 8px; border: 1px solid #d8bb8077;
+  background: #1d3a31; color: #f6efdc; cursor: pointer;
+}
+.world-edit button:hover:not(:disabled) { border-color: #f0d49a; background: #24463b; }
+.world-edit button:focus-visible, .world-edit select:focus-visible, .world-edit input:focus-visible { outline: none; box-shadow: 0 0 0 2px #10211f, 0 0 0 4px #f0d49a; }
+.world-edit button:disabled { opacity: .5; cursor: default; }
+.world-edit button.primary { background: #c4a567; color: #152d25; border-color: #e8d39b; font-weight: 700; }
+.world-edit button.primary:hover:not(:disabled) { background: #e8d39b; }
+.world-edit button.danger { border-color: #e4645a99; color: #ffd2cc; }
+.world-edit button.active { border-color: #f0d49a; background: #2f5546; }
+
+.world-edit-band {
+  position: absolute; top: max(16px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 18px; pointer-events: auto;
+  background: #132a22ee; border: 1px solid #d8bb80aa; border-radius: 14px; box-shadow: 0 8px 24px #06140f80;
+}
+.world-edit-title { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+.world-edit-title strong { color: #f0d49a; font-weight: 700; }
+.world-edit-live { color: #c9d2c4; font-size: 13px; }
+.world-edit-status { min-width: 52px; color: #f0d49a; font-size: 13px; }
+
+.world-edit-toasts { position: absolute; top: calc(max(16px, env(safe-area-inset-top)) + 64px); left: 50%; transform: translateX(-50%); display: grid; gap: 8px; width: min(520px, calc(100vw - 32px)); }
+.world-edit-toast { margin: 0; padding: 10px 14px; border-radius: 10px; background: #1d3a31f2; border: 1px solid #9fe0a866; box-shadow: 0 6px 18px #06140f70; font-size: 15px; line-height: 1.4; }
+.world-edit-toast.error { background: #4a1f1cf2; border-color: #e4645a; }
+
+.world-edit-inspector {
+  position: absolute; right: max(20px, env(safe-area-inset-right)); top: 96px; width: 280px; padding: 14px 16px 16px;
+  display: grid; gap: 12px; pointer-events: auto;
+  background: #132a22f2; border: 1px solid #d8bb80aa; border-radius: 14px; box-shadow: 0 10px 28px #06140f90;
+}
+.world-edit-inspector[hidden], .world-edit-palette[hidden] { display: none; }
+.world-edit-inspector header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.world-edit-inspector h2 { margin: 0; font: 600 18px Fraunces, Georgia, serif; color: #f0d49a; }
+.world-edit-inspector header button { min-height: 32px; width: 32px; padding: 0; font-size: 18px; }
+.world-edit-row { display: flex; gap: 8px; }
+.world-edit-row button { flex: 1; }
+.world-edit-field { display: grid; gap: 6px; font-size: 13px; color: #c9d2c4; }
+.world-edit-field input[type=range] { width: 100%; accent-color: #c4a567; }
+.world-edit-field select { min-height: 36px; padding: 4px 8px; border-radius: 8px; border: 1px solid #d8bb8077; background: #1d3a31; color: #f6efdc; }
+.world-edit-check { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.world-edit-check input { width: 18px; height: 18px; accent-color: #c4a567; }
+.world-edit-note { margin: 0; font-size: 14px; line-height: 1.45; }
+.world-edit-note.warning { color: #ffd2cc; }
+.world-edit-hint { margin: 0; font-size: 13px; color: #c9d2c4; }
+
+.world-edit-palette {
+  position: absolute; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  width: min(920px, calc(100vw - 32px)); padding: 12px 14px 14px; display: grid; gap: 10px; pointer-events: auto;
+  background: #132a22f2; border: 1px solid #d8bb80aa; border-radius: 14px; box-shadow: 0 10px 28px #06140f90;
+}
+.world-edit-palette-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 104px; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.world-edit-palette-grid button { display: grid; justify-items: center; align-content: end; gap: 6px; height: 112px; padding: 8px 6px; font-size: 12px; line-height: 1.2; text-align: center; }
+.world-edit-palette-grid img { max-width: 88px; max-height: 64px; object-fit: contain; }
+
+/* Edit mode is a desktop tool. */
+@media (--phone) { .world-edit { display: none; } }
+
+/* Docked in the admin map editor's side panel. */
+.world-edit-docked { position: static; inset: auto; display: grid; gap: 12px; pointer-events: auto; z-index: auto; color: #f6efdc; }
+.world-edit-docked .world-edit-band, .world-edit-docked .world-edit-toasts, .world-edit-docked .world-edit-inspector, .world-edit-docked .world-edit-palette {
+  position: static; transform: none; width: auto; left: auto; right: auto; top: auto; bottom: auto; box-shadow: none;
+}
+.world-edit-docked .world-edit-band { flex-wrap: wrap; padding: 8px 10px; }
+.world-edit-docked .world-edit-live { display: none; }
+.world-edit-docked .world-edit-palette-grid { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); overflow: visible; }
+@media (--phone) { .world-edit-docked { display: grid; } }

@@ -30,6 +30,8 @@ type WorldContent struct {
 		Rules []StoryRule `json:"rules"`
 	} `json:"investigations"`
 	Diagnostics []string `json:"diagnostics"`
+	// Admin story overrides ride along with the world publication.
+	Story StoryOverrides `json:"story"`
 }
 
 type worldEditing struct {
@@ -37,6 +39,7 @@ type worldEditing struct {
 	writes  sync.Mutex
 	current *WorldContent
 	compile func(context.Context, json.RawMessage) (*WorldContent, error)
+	worker  *worldWorker
 	store   worldContentStore
 	cancel  context.CancelFunc
 	done    chan struct{}
@@ -123,12 +126,16 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 				message = "world validation failed"
 			}
 			var failure struct {
-				Error string `json:"error"`
+				Error    string         `json:"error"`
+				Problems []WorldProblem `json:"problems"`
 			}
-			if json.Unmarshal(diagnostics.Bytes(), &failure) == nil && failure.Error != "" {
+			if json.Unmarshal(diagnostics.Bytes(), &failure) == nil && len(failure.Problems) > 0 {
+				return nil, &WorldProblemError{422, failure.Problems}
+			}
+			if failure.Error != "" {
 				message = failure.Error
 			}
-			return nil, &APIError{422, message}
+			return nil, worldProblems(422, "invalid", message)
 		}
 		var next WorldContent
 		if err := json.Unmarshal(output.Bytes(), &next); err != nil {
@@ -140,6 +147,10 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 		}
 		return &next, nil
 	}}
+	a.editing.worker = newWorldWorker(filepath.Join(filepath.Dir(absolute), "admin-world-worker.mjs"), root)
+	if _, err := os.Stat(a.editing.worker.script); err != nil {
+		a.editing.worker = nil
+	}
 	a.world.publishContent(saved.WorldMaps)
 	// PostgreSQL publication is shared across processes; synchronize revisions
 	// without reloading the full scene document when nothing changed.
@@ -296,7 +307,7 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 	editing := a.editing
 	// Bound concurrent compilers and keep the revision check and publication together.
 	if !editing.writes.TryLock() {
-		writeError(w, 409, "another world operation is in progress; try again when it finishes")
+		apiFailure(w, worldProblems(409, "stale", "Another change is still being saved. Try again in a moment."))
 		return
 	}
 	defer editing.writes.Unlock()
@@ -305,7 +316,7 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 	editing.mu.RUnlock()
 	saving := r.Method == http.MethodPut
 	if saving && r.Header.Get("If-Match") != `"`+previous.Revision+`"` {
-		writeError(w, 409, "this world changed; reopen the editor before saving your draft")
+		apiFailure(w, worldProblems(409, "stale", "The world changed since you opened it. Reload and try again."))
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 55*time.Second)
@@ -326,7 +337,12 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 	if _, ok := a.requireAdmin(w, r); !ok {
 		return
 	}
+	next.Story = previous.Story
 	if err = editing.store.SaveWorldContent(ctx, previous.Revision, next); err != nil {
+		if errors.Is(err, ErrConflict) {
+			apiFailure(w, worldProblems(409, "stale", "The world changed while saving. Reload and try again."))
+			return
+		}
 		apiFailure(w, err)
 		return
 	}

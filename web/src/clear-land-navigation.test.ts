@@ -6,7 +6,9 @@ import {getWorldScene,sceneDocument} from './scene-data';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid,PLAYER_RADIUS,createMapNavigation,type MapPoint} from './navigation';
 import {parseWorldSceneDocument,type ScenePolygon,type WorldScene} from './scene-schema';
-import {editScenery,removeScenery} from './level-editor-model';
+import {applyEditOps,type WorldEditOp} from './world-edit-ops';
+const editScene=(scene:WorldScene,op:{kind:WorldEditOp['kind']}&Record<string,unknown>):WorldScene=>
+  applyEditOps({version:3,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
 
 const towns=['lindenhafen','waldruh','nebelstadt'] as const;
 const point=([x,y]:readonly number[]):MapPoint=>({x,y});
@@ -89,19 +91,19 @@ describe('clear land and owned collision',()=>{
   }
 
   it('moves, scales, mirrors and removes the owner footprint without leaving an invisible wall',()=>{
-    const original=fixture(),selected=new Set(['tree']);
+    const original=fixture();
     expect(navigation(original).isWalkable(118,100)).toBe(false);
     expect(navigation(original).isWalkable(88,100)).toBe(true);
-    const moved=editScenery(original,selected,{x:200,y:200}),movedNavigation=navigation(moved);
+    const moved=editScene(original,{kind:'move',id:'tree',x:200,y:200}),movedNavigation=navigation(moved);
     expect(movedNavigation.isWalkable(118,100)).toBe(true);
     expect(movedNavigation.isWalkable(218,200)).toBe(false);
     expect(movedNavigation.isWalkable(244,200)).toBe(true);
-    const scaled=editScenery(moved,selected,{width:80});
+    const scaled=editScene(moved,{kind:'update',id:'tree',width:80});
     expect(navigation(scaled).isWalkable(244,200)).toBe(false);
-    const mirrored=editScenery(scaled,selected,{flipX:true}),mirroredNavigation=navigation(mirrored);
+    const mirrored=editScene(scaled,{kind:'update',id:'tree',flipX:true}),mirroredNavigation=navigation(mirrored);
     expect(mirroredNavigation.isWalkable(168,200)).toBe(false);
     expect(mirroredNavigation.isWalkable(244,200)).toBe(true);
-    const removedNavigation=navigation(removeScenery(mirrored,selected));
+    const removedNavigation=navigation(editScene(mirrored,{kind:'remove',id:'tree'}));
     expect(removedNavigation.isWalkable(168,200)).toBe(true);
     expect(removedNavigation.isWalkable(330,50)).toBe(false);
   });

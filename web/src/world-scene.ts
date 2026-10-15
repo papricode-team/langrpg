@@ -17,6 +17,9 @@ import { createSceneryOcclusion } from './scenery-occlusion';
 import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
 import { StreamedWorldTerrain, terrainResidency } from './streamed-world-terrain';
 import { getWorldScene } from './scene-data';
+import { sceneNavigationGeometry } from './scene-navigation';
+import { sceneryThumbnail, WorldEditController, type EditSurface } from './world-edit-mode';
+import type { WorldEditOp } from './world-edit-ops';
 import { sceneTerrainImage } from './scene-terrain';
 import { WorldMapAssets, regionAssets } from './world-map-assets';
 import { WorldAnimationAssets } from './world-animation-assets';
@@ -76,7 +79,7 @@ export interface WorldSceneData { mapId?: MapId }
 export interface WorldWakeData { returnFrom?: InteriorId; instant?: boolean }
 
 /** One outdoor map. Travel restarts this scene; rooms sleep it so the town is intact on return. */
-export class WorldScene extends ExploreScene {
+export class WorldScene extends ExploreScene implements EditSurface {
   protected readonly objectPrefix = 'object' as const;
   mapSpec: WorldMapSpec = getMap('lindenhafen');
   private background?: StreamedWorldTerrain;
@@ -114,6 +117,7 @@ export class WorldScene extends ExploreScene {
   private mapAnnounced = false;
   private regionAssets = new WorldMapAssets(this, false);
   private animationAssets = new WorldAnimationAssets(this, false);
+  private editController?: WorldEditController;
 
   constructor() { super({ key: SceneKeys.World }); }
 
@@ -208,6 +212,106 @@ export class WorldScene extends ExploreScene {
     followWorld(this, 'learning', context => { this.learning = context; });
     followWorld(this, 'weatherPreview', mode => { this.weatherPreview = mode; this.updateActivityResidents(); });
     followWorld(this, 'observedResident', id => { this.observedResidentId = id; });
+    followWorld(this, 'editBridge', () => this.syncEditMode());
+    this.syncEditMode();
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { this.editController?.destroy(); this.editController = undefined; this.editing = false; });
+  }
+
+  // Edit mode ---------------------------------------------------------------
+
+  private syncEditMode(): void {
+    const bridge = readWorld(this.registry, 'editBridge');
+    if (!bridge) {
+      this.editController?.destroy(); this.editController = undefined; this.editing = false;
+      return;
+    }
+    if (this.editController) return;
+    this.editing = true;
+    this.clearControls();
+    this.editController = new WorldEditController(this, bridge);
+  }
+  get editMapId(): string { return this.mapSpec.id; }
+  editScenery(): WorldScenery | undefined { return this.scenery; }
+  editNavigation(): NavigationGrid { return this.navigation; }
+  editAnchors(): { kind: 'npc' | 'object'; id: string; x: number; y: number }[] {
+    const scene = getWorldScene(this.mapSpec.id), story = new Set(scene.objects.map(object => object.id));
+    return [
+      ...[...this.characters.values()].filter(character => scene.npcs.some(npc => npc.id === character.id))
+        .map(character => ({ kind: 'npc' as const, id: character.id, x: character.x, y: character.y })),
+      ...[...this.objects.values()].filter(object => story.has(object.spec.id)).map(object => ({ kind: 'object' as const, id: object.spec.id, x: object.x, y: object.y })),
+    ];
+  }
+  editThumbnail(frame: string): string | undefined { return sceneryThumbnail(this, this.mapSpec.id, this.period, frame); }
+
+  /**
+   * Apply admin edits in place: scenery, collision, story markers, doors and
+   * residents follow the new document without reloading the town.
+   */
+  applyWorldEdits(ops: readonly WorldEditOp[]): void {
+    const id = this.mapSpec.id, relevant = ops.filter(op => op.map === id);
+    if (!relevant.length || !this.ready) { this.editController?.documentChanged(); return; }
+    const scene = getWorldScene(id);
+    this.mapSpec = getMap(id);
+    this.scenery?.sync(scene.scenery);
+    this.previousScenery?.sync(scene.scenery);
+    if (this.scenery) this.atmosphere?.setLampLights(this.scenery.lampLights);
+    this.navigation = this.navigation.withObstacles(sceneNavigationGeometry(scene).barriers);
+    const spawn = this.spawnPoint();
+    this.navigation.prepareReachability(spawn);
+    // A player standing where something was just built steps out onto open ground.
+    if (!this.navigation.isWalkable(this.local.x, this.local.y)) {
+      const free = this.navigation.closestPoint(this.local.x, this.local.y, spawn);
+      this.local.x = this.local.targetX = free.x; this.local.y = this.local.targetY = free.y;
+      this.target = undefined; this.waypoints = [];
+    }
+    for (const op of relevant) if (op.kind === 'moveAnchor' && op.anchor === 'npc') {
+      const character = this.characters.get(op.id);
+      if (character) { const point = this.navigation.closestPoint(op.x, op.y); character.x = point.x; character.y = point.y; }
+    }
+    this.syncMapObjects();
+    this.syncPortals();
+    const owners = new Set((scene.activities ?? []).map(slot => slot.ownerId));
+    if (relevant.some(op => op.kind === 'residents' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
+    this.editController?.documentChanged();
+    this.refreshNearby();
+  }
+
+  private lampHosts(): WorldObjectSpec[] {
+    return getWorldScene(this.mapSpec.id).scenery.filter(prop => prop.asset === 'lamp').map(prop => ({
+      id: `lantern-drill-${prop.id}`, label: 'Die Laterne', kind: 'lantern', x: prop.x / this.worldWidth, y: prop.y / this.worldHeight,
+      exerciseIds: [], prompt: 'Listen to the whisper in the lantern.', description: 'The ink answers after dusk.', minigame: 'lantern-lighting',
+    }));
+  }
+
+  private syncMapObjects(): void {
+    const wanted = new Map([...this.mapSpec.objects, ...this.lampHosts()].map(spec => [spec.id, spec]));
+    for (const [id, object] of [...this.objects]) {
+      const spec = wanted.get(id);
+      if (!spec) { object.root.destroy(); this.objects.delete(id); continue; }
+      wanted.delete(id);
+      const x = spec.x * this.worldWidth, y = spec.y * this.worldHeight;
+      if (x === object.x && y === object.y) continue;
+      object.x = x; object.y = y; object.spec = spec;
+      object.root.setPosition(x, y).setDepth(worldDepth(y, 'shadow'));
+    }
+    if (wanted.size) this.createMapObjects([...wanted.values()]);
+  }
+
+  private syncPortals(): void {
+    const wanted = new Map(buildingEntrances(this.mapSpec.id).map(entrance => [entrance.id as string, entrance]));
+    for (const [id, portal] of [...this.portals]) {
+      const entrance = wanted.get(id);
+      if (!entrance) { portal.root.destroy(); this.portals.delete(id); continue; }
+      wanted.delete(id);
+      portal.x = entrance.x * this.worldWidth; portal.y = entrance.y * this.worldHeight;
+      portal.root.setPosition(portal.x, portal.y).setDepth(worldDepth(portal.y, 'label'));
+    }
+    for (const entrance of wanted.values()) {
+      const signKey = sceneryTextureKey(this.mapSpec.id);
+      const sign = this.textures.exists(signKey) && this.textures.get(signKey).has('sign') ? this.add.image(0, -21, signKey, 'sign').setDisplaySize(38, 46) : undefined;
+      this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
+    }
+    this.resizeHitTargets();
   }
 
   /** The first painted view ends the travel curtain; failed tiles cannot hold it forever. */
@@ -390,6 +494,7 @@ export class WorldScene extends ExploreScene {
     this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(), seconds);
     this.updateSilhouette();
     this.updateNavigationOverlay();
+    this.editController?.update();
     const hour = this.clock.advance(0).hour;
     this.atmosphere?.update(this.decorativeElapsed, hour, view, this.reducedMotion,
       this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')), this.rainIntensity());
@@ -513,7 +618,7 @@ export class WorldScene extends ExploreScene {
     // Authored sitting and working poses use exact prop anchors. Residents
     // keep their point routes while the player walks with body clearance.
     const actorNavigation = createMapNavigation(this.mapSpec.id, { agentRadius: 0 });
-    this.activityWorld = new ResidentActivityWorld(authored, actorNavigation);
+    this.activityWorld = this.compileActivityWorld(actorNavigation);
     for (const motion of createWorldResidents(this.mapSpec.id, actorNavigation).filter(motion => !authored.residents?.some(resident => resident.id === motion.id))) {
       const sharedTime = this.clock.simulationTime();
       const schedule = sharedTime ? sampleResidentSchedule(motion, sharedTime) : undefined;
@@ -531,6 +636,24 @@ export class WorldScene extends ExploreScene {
       character.root.setVisible(!homeReached && !this.terrainOnly);
       this.residents.push({ character, motion, sample: position, routineElapsed, homeReached });
     }
+    this.createActivityResidents();
+  }
+
+  /** A routine that no longer fits the town must not stop the town from loading. */
+  private compileActivityWorld(navigation: NavigationGrid): ResidentActivityWorld | undefined {
+    try { return new ResidentActivityWorld(getWorldScene(this.mapSpec.id), navigation); }
+    catch (error) { console.warn('Resident routines are paused until the schedule is fixed.', error); return undefined; }
+  }
+
+  private rebuildActivityResidents(): void {
+    for (const { character } of this.activityResidents) character.root.destroy();
+    this.activityResidents = [];
+    this.activityWorld = this.compileActivityWorld(createMapNavigation(this.mapSpec.id, { agentRadius: 0 }));
+    this.createActivityResidents();
+  }
+
+  private createActivityResidents(): void {
+    if (!this.activityWorld) return;
     for (const { spec } of this.activityWorld.residents) {
       const character = this.createCharacter(spec.id, spec.name, spec.home.x, spec.home.y, spec.avatar, undefined, spec.artVariant ?? -1, spec.artVariant);
       const key = spec.actionArt ? residentActionKey(this.mapSpec.id, spec.actionArt) : undefined;

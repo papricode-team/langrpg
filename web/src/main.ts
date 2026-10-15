@@ -2,13 +2,13 @@ import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnal
 import { castPortraitMarkup } from './cast-portrait';
 import { pendingReferral, referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
-import {loadPublishedWorld,sceneContentVersion} from './scene-data';
+import {applyWorldPatch,loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
 import { avatarPortraitMarkup, bakeAvatarPortrait, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement } from './placement-ui';
 import { QuestController } from './quest-controller';
 import { createGlossLookup } from './learning-context';
-import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse } from './content-runtime';
+import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse, refreshQuestGraph } from './content-runtime';
 import { contentApi, configureContentSession, getSentence } from './content-api';
 import { mountCoursePlayer, mountCoursePicker } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
@@ -56,7 +56,10 @@ import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './worl
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
-import { canEditWorld, updateWorldEditButton, WorldEditorOverlay } from './admin-world-editor';
+import { EditBridge } from './world-edit-mode';
+import { WorldEditOverlay } from './world-edit-overlay';
+import { WorldEditSession } from './world-edit-session';
+import { setDialogueLineEditor } from './dialogue-view';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
 import type { Progress, ExposureInput, ConnectionStatus, SessionResult, AccountStatus, ExpeditionAnswerResult } from './api';
@@ -161,7 +164,7 @@ let pendingTravelBeat = false;
 const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
 let entryTarget: 'de' | 'en' = sessionStorage.getItem('atlas.entryTarget') === 'en' ? 'en' : 'de';
-let worldEditor: WorldEditorOverlay | undefined;
+let worldEdit: { bridge: EditBridge; overlay: WorldEditOverlay; session: WorldEditSession } | undefined;
 let shellLanguage: BaseLanguage = 'en';
 let entryLanguage: BaseLanguage | undefined;
 let entryLanguageSelection: BaseLanguage | undefined;
@@ -345,8 +348,8 @@ function renderShell() {
 
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button class="game-menu-button" data-view="menu" aria-label="${e(t('Open game menu'))}">${icon('lantern')}<span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
-        <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-label="Edit world" hidden>Edit</button>
-        <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" hidden>Analytics</a>
+        <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-pressed="false" hidden>Edit</button>
+        <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" hidden>Admin</a>
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="${e(t('Touch movement joystick'))}"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="${e(t('Interact with something nearby'))}" hidden disabled>${icon('chat')}<span id="nearby-name"></span></button></div>
       </div>
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>
@@ -705,7 +708,7 @@ function showFirstControls() {
   setTimeout(() => { hint.hidden = true; }, 60_000);
 }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && !worldEditor?.isOpen && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen; }
+function worldCanInteract() { return started && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen; }
 let dialogueOpen = false;
 let worldInput = false;
 let syncingWorld = false;
@@ -721,7 +724,7 @@ function syncWorldMode(): void {
     const input = worldCanInteract();
     const dialog = document.querySelector<HTMLDialogElement>('#dialog');
     const covered = !!dialog?.open && dialog.classList.contains('activity-dialog');
-    const presentation: WorldPresentation = uiCheckSurface ? 'hidden' : document.hidden || worldEditor?.isOpen || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
+    const presentation: WorldPresentation = uiCheckSurface ? 'hidden' : document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
     if (worldInput && !input) document.dispatchEvent(new Event('atlas-controls-reset'));
     worldInput = input;
     world.setInputEnabled(input);
@@ -1406,7 +1409,7 @@ function renderOptions(el: HTMLElement) {
     bindAccountCredentials(el, api, (updated, kind) => {
       if (api.token !== owner) return;
       account = updated;
-      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      updateWorldEditButton();
       document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
       if (view === 'settings' && optionsTab === 'account') {
         renderOptions(el);
@@ -1687,7 +1690,7 @@ function bindProfileForm() {
     try {
       const result = await api.session(name, getAvatar());
       account = result.account;
-      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      updateWorldEditButton();
       document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
       profile = { name: result.player.name, avatar: result.player.avatar };
       localStorage.setItem('atlas.profile', JSON.stringify(profile));
@@ -1785,16 +1788,52 @@ function playCue(correct: boolean) {
     });
   } catch { /* Audio stays optional when the device blocks it. */ }
 }
+/** Admins edit the town in place; the game keeps running. */
+function startWorldEdit(): void {
+  if (worldEdit || account.admin !== true || !started) return;
+  const session = new WorldEditSession(() => api.token, () => sceneDocument);
+  const overlay = new WorldEditOverlay({ onDone: () => endWorldEdit() });
+  const bridge = new EditBridge(session, overlay, () => api.selfId, (id, x, y) => api.editPreview(id, x, y));
+  // Our own accepted edits apply at once; the socket patch that follows is then a no-op.
+  session.onApplied = result => { const changed = applyWorldPatch(result.from, result.contentVersion, result.applied); if (changed?.size) world.applyWorldEdits(result.applied); };
+  overlay.bridge = bridge;
+  worldEdit = { bridge, overlay, session };
+  world.setEditBridge(bridge);
+  setDialogueLineEditor({ hide: async lineId => {
+    await session.setStoryLine(lineId, true);
+    overlay.toast('Line hidden for everyone. Players stop seeing it the next time this conversation opens.');
+  } });
+  updateWorldEditButton();
+}
+function endWorldEdit(): void {
+  if (!worldEdit) return;
+  world.setEditBridge(undefined);
+  setDialogueLineEditor(undefined);
+  worldEdit.overlay.destroy();
+  worldEdit.session.dispose();
+  worldEdit = undefined;
+  updateWorldEditButton();
+  document.querySelector<HTMLElement>('#world-container')?.focus();
+}
+function updateWorldEditButton(): void {
+  const button = document.querySelector<HTMLButtonElement>('#world-edit-button');
+  if (!button) return;
+  const allowed = account.admin === true && started;
+  if (!allowed && worldEdit) endWorldEdit();
+  button.hidden = !allowed;
+  button.setAttribute('aria-pressed', String(!!worldEdit));
+  button.textContent = worldEdit ? 'Done editing' : 'Edit';
+}
 function bindGlobalEvents() {
   window.addEventListener('resize', syncTrackerState);
   document.addEventListener('keydown', event => {
-    if (worldEditor?.isOpen) return;
     const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
     if (document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now()))) return;
     if (cinematicActive) return;
     if (questController?.isOpen) { if (event.key === 'Escape') { event.preventDefault(); questController.close(); } return; }
     if (dialog.open || document.querySelector<HTMLDialogElement>('#account-dialog')!.open) return;
     const typing = (event.target as HTMLElement).matches('input:not([type="range"]),textarea,select') || (event.target as HTMLElement).isContentEditable;
+    if (event.key === 'Escape' && view === 'world' && worldEdit?.bridge.controller?.escape()) { event.preventDefault(); return; }
     if (event.key === 'Escape') { event.preventDefault(); if(deliveryController){deliveryController.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();return;} if (watchingWorld) watchWorld(false); else if (screenFilterControls?.isOpen()) screenFilterControls.close(); else if (view !== 'world') { if (menuNavigator) menuNavigator.back(); else setView('world'); } else if(started) setView('menu'); return; }
     if (menuNavigator?.handleKey(event)) return;
     if (view !== 'world' && event.key === 'Tab') {
@@ -1871,10 +1910,7 @@ function bindGlobalEvents() {
     }
     if (target.dataset.insert) { const input = document.querySelector<HTMLInputElement>('#typed-answer'); if (input && !run?.submission) { const pos = input.selectionStart ?? input.value.length; input.setRangeText(target.dataset.insert, pos, input.selectionEnd ?? pos, 'end'); input.focus(); } return; }
     switch (target.dataset.action) {
-      case 'edit-world': if (canEditWorld(account, started)) {
-        worldEditor ??= new WorldEditorOverlay(() => { syncWorldMode(); syncAccessActivity(); if (!worldEditor?.isOpen) document.querySelector<HTMLElement>('#world-container')!.focus(); }, contentVersion => window.dispatchEvent(new CustomEvent('atlas:world-saved', { detail: { contentVersion } })));
-        stopSpeech(); worldEditor.open(mapId);
-      } break;
+      case 'edit-world': if (worldEdit) endWorldEdit(); else startWorldEdit(); break;
       case 'screen-filters': if (screenFilterControls?.isOpen()) screenFilterControls.close(); else openScreenFilters(target); break;
       case 'watch-world': if (view !== 'world') setView('world'); watchWorld(true); break;
       case 'stop-watching': watchWorld(false); break;
@@ -1928,7 +1964,7 @@ function bindGlobalEvents() {
 }
 
 function accessIsActive(): boolean {
-  return started && !worldEditor?.isOpen && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
+  return started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
 }
 async function sendAccessHeartbeat(active: boolean): Promise<void> {
   if (uiCheckSurface || !started || activeCourse?.target && activeCourse.target !== 'de') return;
@@ -1951,7 +1987,7 @@ function syncAccessActivity(): void {
     return;
   }
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  const paused = document.hidden || worldEditor?.isOpen || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
+  const paused = document.hidden || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
   // A closed world socket releases the server's active-play lease.
   if (paused && !accessConnectionPaused) { accessConnectionPaused = true; api.destroy(); }
   else if (!paused && accessConnectionPaused) { accessConnectionPaused = false; api.connect(); }
@@ -2129,7 +2165,7 @@ function showBillingAccount(): void {
   };
 }
 function showAccountDialog(html: string, required = false) {
-  if (account.admin) html += '<a class="text-button" href="/admin.html">Open admin analytics</a>';
+  if (account.admin) html += '<a class="text-button" href="/admin.html">Open Admin</a>';
   const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
   if(!dialog.open){
     accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
@@ -2271,7 +2307,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   started = true;
   showFirstControls();
   account = result.account;
-  updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+  updateWorldEditButton();
   document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
   acceptProgress(result.progress, result.player.id);
   profile = { name: result.player.name, avatar: result.player.avatar };
@@ -2293,7 +2329,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   if (reminderTimer !== undefined) clearInterval(reminderTimer);
   reminderTimer = window.setInterval(() => {
     const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-    const active = !worldEditor?.isOpen && !document.hidden && connection === 'online' && !dialog.open;
+    const active = !document.hidden && connection === 'online' && !dialog.open;
     accountReminder!.tick(performance.now(), active);
     if (intakeClock.tick(performance.now(), active)) void sendHeartbeat(intakeClock.consume());
     syncAccessActivity(); updateAccessHud(); enforceAccessWall();
@@ -2323,7 +2359,7 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
     button.disabled = true;
     try {
       account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
-      updateWorldEditButton(document.querySelector<HTMLButtonElement>('#world-edit-button')!, account, started);
+      updateWorldEditButton();
       document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
       password.value = ''; confirmation.value = '';
       if (!account.access) await api.access();
@@ -2436,7 +2472,15 @@ async function boot() {
     if(previous!==sceneContentVersion){regionReady=false;world.reloadPublishedScene();updateProgress();syncWorldMode();}
   })().finally(()=>{refreshWorld=undefined;});
   api.onWorldChanged=async()=>{const previous=sceneContentVersion;await refreshPublishedWorld();if(previous===sceneContentVersion)throw new Error('The world versions do not match. Reload the game to try again.');};
-  window.addEventListener('atlas:world-saved',()=>{void refreshPublishedWorld().catch(error=>toast(error instanceof Error?error.message:'The saved world could not be loaded.',true));});
+  // Admin edits arrive as small patches; a missed patch falls back to a full reload.
+  api.onWorldPatch=patch=>{
+    const changed=applyWorldPatch(patch.from,patch.contentVersion,patch.ops);
+    if(!changed){void refreshPublishedWorld().catch(error=>toast(error instanceof Error?error.message:'The saved world could not be loaded.',true));return;}
+    if(changed.size)world.applyWorldEdits(patch.ops);
+  };
+  api.onEditLocks=locks=>worldEdit?.bridge.setLocks(locks);
+  api.onStoryChanged=(graphId,questId)=>{void refreshQuestGraph(graphId,questId).catch(()=>undefined);};
+  api.onEditPreview=preview=>worldEdit?.bridge.remotePreview(preview.objectId,preview.x,preview.y,preview.adminName);
   if (import.meta.env.PROD) {
     stopUpdateChecks = watchForUpdates(__APP_VERSION__, () => {
       removeUpdateNotice = showUpdateNotice(() => window.location.reload());

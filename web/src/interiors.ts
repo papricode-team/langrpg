@@ -2,9 +2,9 @@ import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid, PLAYER_RADIUS, type NavigationOptions } from './navigation';
 import {getWorldScene} from './scene-data';
-import {sceneEntrancePoint, type SceneEntrance} from './scene-schema';
+import {sceneEntrancePoint, sceneEntrances, type SceneInteriorKind} from './scene-schema';
 
-export type InteriorId = SceneEntrance['interiorId'];
+export type InteriorId = SceneInteriorKind;
 export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture';
 export type InteriorPolygon = readonly (readonly [number, number])[];
 export interface InteriorVocabulary {
@@ -349,7 +349,7 @@ export const interiorExercises: Exercise[] = quests.flatMap(quest => quest.exerc
 /** Scenery and its doorway share one authored transform. */
 export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
   const scene=getWorldScene(mapId);
-  return (scene.entrances ?? []).map(entrance => {
+  return sceneEntrances(scene).map(entrance => {
     const interior=getInterior(entrance.interiorId), point=sceneEntrancePoint(scene,entrance), back=sceneEntrancePoint(scene,entrance,true);
     return {id:`building:${interior.id}` as const,interiorId:interior.id,label:interior.germanName,description:interior.description,
       x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};

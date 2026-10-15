@@ -36,6 +36,8 @@ export interface SceneScenery extends SceneAnchor {
   flipX?: boolean; collidable?: boolean;
   sortLine?: readonly (readonly [number,number])[];
   groupId?: string; generatorId?: string; pinned?: boolean;
+  /** A building with a painted door can host one room. Its doorway follows the artwork. */
+  interior?: SceneInterior;
 }
 export interface SceneTerrain extends ScenePoint {
   id: string; width: number; height: number; dayAsset: string; nightAsset?: string;
@@ -73,13 +75,14 @@ export interface SceneResident {
   schedule:SceneResidentTask[];
 }
 export const sceneInteriorIds = ['cafe', 'bakery', 'supermarket', 'inn'] as const;
-export interface SceneEntrance {
-  id: string; ownerId: string; interiorId: typeof sceneInteriorIds[number];
-  /** Walkable approach measured from the owning scenery foot anchor. */
-  offsetX: number; offsetY: number;
-  /** Outdoor return offset; defaults to one adult-height below a painted door. */
+export type SceneInteriorKind = typeof sceneInteriorIds[number];
+export interface SceneInterior {
+  kind: SceneInteriorKind;
+  /** Outdoor return offset from the foot anchor; defaults to one adult height below the door. */
   returnOffset?: ScenePoint;
 }
+/** A placed doorway, derived from its building. */
+export interface SceneEntrance { id: string; ownerId: string; interiorId: SceneInteriorKind; owner: SceneScenery; }
 export interface SceneGenerationZone {
   id: string; polygon: ScenePolygon; seed: number; rulesVersion: number;
   palette: string[]; pinnedIds?: string[];
@@ -105,11 +108,11 @@ export interface WorldScene {
   /** Clear land is the default; only explicit terrain and owned objects block. */
   navigation?: {model:'clear-land'; terrainCollision:SceneTerrainCollision[]};
   terrain: SceneTerrain[]; districts: SceneDistrict[];
-  activities?: SceneActivity[]; entrances?: SceneEntrance[]; generationZones?: SceneGenerationZone[];
+  activities?: SceneActivity[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
   residents?: SceneResident[];
 }
-export interface WorldSceneDocument { version: 2; maps: Record<string, WorldScene>; prefabs?: ScenePrefab[]; }
+export interface WorldSceneDocument { version: 3; maps: Record<string, WorldScene>; prefabs?: ScenePrefab[]; }
 
 export function sceneActivityPoint(scene: WorldScene, activity: SceneActivity): ScenePoint {
   const owner = scene.scenery.find(item => item.id === activity.ownerId);
@@ -124,13 +127,39 @@ export function sceneActivityUsers(scene:WorldScene,ids:ReadonlySet<string>):str
   return (scene.residents??[]).flatMap(resident=>resident.schedule.filter(task=>ids.has(task.activityId)||!!task.fallbackActivityId&&ids.has(task.fallbackActivityId)).map(task=>`${resident.name}/${task.id}`));
 }
 
-export function sceneEntrancePoint(scene: WorldScene, entrance: SceneEntrance, returning = false): ScenePoint {
-  const owner = scene.scenery.find(item => item.id === entrance.ownerId);
-  if (!owner) throw new Error(`Missing entrance owner ${entrance.ownerId}`);
+/** Only artwork with a painted door can host a room. */
+export function sceneryHasDoor(mapId:string,placement:{asset:string;frame?:string}):boolean {
+  return !!getSceneryGeometry(mapId,placement)?.door;
+}
+/** Every building that hosts a room, in scenery order. */
+export function sceneEntrances(scene: WorldScene): SceneEntrance[] {
+  return scene.scenery.flatMap(owner=>owner.interior?[{id:`${owner.interior.kind}-entrance`,ownerId:owner.id,interiorId:owner.interior.kind,owner}]:[])
+    .sort((a,b)=>sceneInteriorIds.indexOf(a.interiorId)-sceneInteriorIds.indexOf(b.interiorId));
+}
+/** The doorway step, or the outdoor return point, of a building that hosts a room. */
+export function sceneEntrancePoint(scene: WorldScene, entrance: Pick<SceneEntrance,'owner'>|SceneScenery, returning = false): ScenePoint {
+  const owner='owner' in entrance?entrance.owner:entrance;
   const geometry=getSceneryGeometry(scene.id,owner),door=geometry?.door,scale=owner.width/(geometry?.referenceWidth??owner.width);
-  const approach=door?{x:(door.x+door.width/2)*scale*(owner.flipX?-1:1),y:(door.y+door.height)*scale}:{x:entrance.offsetX,y:entrance.offsetY};
-  const offset = returning ? entrance.returnOffset??{x:approach.x,y:approach.y+(door?PERSON_HEIGHT:0)} : approach;
+  const approach=door?{x:(door.x+door.width/2)*scale*(owner.flipX?-1:1),y:(door.y+door.height)*scale}:{x:0,y:0};
+  const offset = returning ? owner.interior?.returnOffset??{x:approach.x,y:approach.y+PERSON_HEIGHT} : approach;
   return {x:owner.x+offset.x,y:owner.y+offset.y};
+}
+/** Earlier documents kept doors in a separate list. Attach each to its building. */
+function upgradeEntrances(value: Record<string, unknown>): void {
+  if (value.version !== 2 || !record(value.maps)) return;
+  for (const scene of Object.values(value.maps)) {
+    if (!record(scene) || scene.entrances === undefined) continue;
+    if (!Array.isArray(scene.entrances) || !Array.isArray(scene.scenery)) fail('version 2 entrances must be a list');
+    for (const entrance of scene.entrances) {
+      if (!record(entrance)) fail('version 2 entrance must be an object');
+      const owner = (scene.scenery as unknown[]).find(item => record(item) && item.id === entrance.ownerId) as Record<string, unknown> | undefined;
+      if (!owner) fail(`${String(scene.id)} entrance ${String(entrance.id)} has missing owner`);
+      if (owner.interior !== undefined) fail(`${String(scene.id)} building ${String(owner.id)} has two entrances`);
+      owner.interior = {kind: entrance.interiorId, ...(entrance.returnOffset !== undefined ? {returnOffset: entrance.returnOffset} : {})};
+    }
+    delete scene.entrances;
+  }
+  value.version = 3;
 }
 
 const slug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -242,7 +271,8 @@ function prefabCatalog(value:unknown):asserts value is ScenePrefab[] {
 
 /** Pure structural validation. Content, file and path checks belong to the compiler. */
 export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
-  if (!record(value) || value.version !== 2 || !record(value.maps) || !Object.keys(value.maps).length) fail('expected version 2 and a nonempty map registry');
+  if (record(value)) upgradeEntrances(value);
+  if (!record(value) || value.version !== 3 || !record(value.maps) || !Object.keys(value.maps).length) fail('expected version 3 and a nonempty map registry');
   if(value.prefabs!==undefined)prefabCatalog(value.prefabs);
   const catalog=(value.prefabs??[]) as ScenePrefab[];
   for (const [id, input] of Object.entries(value.maps)) {
@@ -275,6 +305,7 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       for (const anchor of input[kind]) {point(anchor, `${id} ${kind} ${anchor.id}`, input.width, input.height);collision(anchor.collision,`${id} ${kind} ${anchor.id}`,true);}
     }
     list(input.scenery, `${id} scenery`);
+    const rooms = new Set<string>();
     for (const item of input.scenery) {
       point(item, `${id} scenery ${item.id}`);
       positive(item.width, `${id} scenery ${item.id} width`, 8192);
@@ -288,6 +319,17 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       if (item.motion !== undefined && !['tree', 'cloth', 'boat', 'lamp', 'building', 'water', 'still'].includes(String(item.motion))) fail(`${id} scenery ${item.id} has invalid motion`);
       for (const key of ['variant', 'flipX', 'collidable', 'pinned']) if (item[key] !== undefined && typeof item[key] !== 'boolean') fail(`${id} scenery ${item.id} has invalid ${key}`);
       for (const key of ['groupId', 'generatorId']) if (item[key] !== undefined && !validId(item[key])) fail(`${id} scenery ${item.id} has invalid ${key}`);
+      if (item.interior !== undefined) {
+        const interior = item.interior;
+        if (!record(interior) || !sceneInteriorIds.includes(interior.kind as SceneInteriorKind)) fail(`${id} scenery ${item.id} has an unknown room`);
+        if (!sceneryHasDoor(id, item as unknown as SceneScenery)) fail(`${id} scenery ${item.id} cannot host a room because its artwork has no door`);
+        if (rooms.has(String(interior.kind))) fail(`${id} has two buildings with a ${interior.kind}`);
+        rooms.add(String(interior.kind));
+        if (interior.returnOffset !== undefined) {
+          point(interior.returnOffset, `${id} scenery ${item.id} return offset`);
+          point({x: Number(item.x) + interior.returnOffset.x, y: Number(item.y) + interior.returnOffset.y}, `${id} scenery ${item.id} return point`, input.width, input.height);
+        }
+      }
     }
     list(input.terrain, `${id} terrain`);
     if (!input.terrain.length) fail(`${id} needs terrain`);
@@ -376,23 +418,6 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
             if(task.action!=='wait'||slot.kind!=='wait'||task.fallbackActivityId||task.heldObject)fail(`${id} exchange customer needs a waiting position with no fallback or held object`);
             if(Math.max(start,service.startHour)>=Math.min(end,service.endHour)||Number(task.durationSeconds)>service.durationSeconds)fail(`${id} exchange needs overlapping hours and enough service time`);
           }
-        }
-      }
-    }
-    if (input.entrances !== undefined) {
-      list(input.entrances, `${id} entrances`);
-      const interiors = new Set<string>();
-      for (const entrance of input.entrances) {
-        const owner = input.scenery.find(item => item.id === entrance.ownerId);
-        if (!owner) fail(`${id} entrance ${entrance.id} has missing owner`);
-        if (!sceneInteriorIds.includes(entrance.interiorId as SceneEntrance['interiorId'])) fail(`${id} entrance ${entrance.id} has unknown interior`);
-        if (interiors.has(String(entrance.interiorId))) fail(`${id} has duplicate entrances to ${entrance.interiorId}`);
-        interiors.add(String(entrance.interiorId));
-        point({x:entrance.offsetX,y:entrance.offsetY}, `${id} entrance ${entrance.id} offset`);
-        point({x:Number(owner.x)+Number(entrance.offsetX),y:Number(owner.y)+Number(entrance.offsetY)}, `${id} entrance ${entrance.id}`,input.width,input.height);
-        if (entrance.returnOffset !== undefined) {
-          point(entrance.returnOffset, `${id} entrance ${entrance.id} return offset`);
-          point({x:Number(owner.x)+entrance.returnOffset.x,y:Number(owner.y)+entrance.returnOffset.y}, `${id} entrance ${entrance.id} return`,input.width,input.height);
         }
       }
     }

@@ -3,7 +3,9 @@ import {NavigationGrid,createMapNavigation} from './navigation';
 import {sceneDocument,getWorldScene} from './scene-data';
 import {parseWorldSceneDocument,type SceneResident,type WorldScene} from './scene-schema';
 import {compileResidentActivities,planResidentDay,ResidentActivityWorld,sampleActivityResident} from './resident-activities';
-import {removeScenery,editScenery} from './level-editor-model';
+import {applyEditOps,type WorldEditOp} from './world-edit-ops';
+const editScene=(scene:WorldScene,op:{kind:WorldEditOp['kind']}&Record<string,unknown>):WorldScene=>
+  applyEditOps({version:3,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
 import {sceneNavigationGeometry} from './scene-navigation';
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
@@ -88,9 +90,9 @@ describe('authored resident activities',()=>{
     expect(()=>parseWorldSceneDocument(document)).toThrow(/missing activity/);
   });
   it('protects referenced objects and carries all capacity positions with object transforms',()=>{
-    const {scene}=fixture();expect(()=>removeScenery(scene,new Set(['bench']))).toThrow(/Reassign these resident tasks/);
+    const {scene}=fixture();expect(()=>editScene(scene,{kind:'remove',id:'bench'})).toThrow(/Change their schedule/);
     scene.activities![0].capacity=2;scene.activities![0].places=[{x:-14,y:0},{x:14,y:0}];
-    const edited=editScenery(scene,new Set(['bench']),{width:120,flipX:true});
+    const edited=editScene(editScene(scene,{kind:'update',id:'bench',width:120}),{kind:'update',id:'bench',flipX:true});
     expect(edited.activities![0].places).toEqual([{x:28,y:0},{x:-28,y:0}]);
   });
 });

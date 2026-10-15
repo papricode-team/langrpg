@@ -8,9 +8,12 @@ import {compileSceneDocument} from './scene-compiler.mjs';
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const maxSceneBytes = 2 * 1024 * 1024;
 
-/** Mirrors the local compiler without publishing anything to the source checkout. */
+/**
+ * Mirrors the local compiler without publishing anything to the source checkout.
+ * Composition hints are warnings for admins; anything that would break play is an error.
+ */
 export async function compileAdminWorld(value, {root = projectRoot} = {}) {
-  const compiled = await compileSceneDocument(value, {root});
+  const compiled = await compileSceneDocument(value, {root, strictQuality: false});
   // Scene edits only change physical placements. Keep the canonical encounter
   // and plan grading rules exported by export-world-content.mjs unchanged.
   const expeditions = JSON.parse(await readFile(resolve(root, 'server/expeditions.json'), 'utf8'));
@@ -21,6 +24,7 @@ export async function compileAdminWorld(value, {root = projectRoot} = {}) {
     expeditions,
     contentVersion: compiled.contentVersion,
     diagnostics: compiled.warnings,
+    problems: compiled.problems,
   };
 }
 
@@ -51,7 +55,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try { await main(); }
   catch (error) {
     const message = String(error.message ?? error);
-    process.stderr.write(`${JSON.stringify({error: message, diagnostics: message.split('\n').filter(Boolean)})}\n`);
+    const problems = Array.isArray(error.problems) ? error.problems : [{code: 'invalid', map: '', message, objectIds: [], severity: 'error'}];
+    process.stderr.write(`${JSON.stringify({error: problems[0].message, problems})}\n`);
     process.exitCode = 1;
   }
 }

@@ -489,3 +489,19 @@ export async function loadMiniGame(worldId: string): Promise<JsonObject | undefi
   }
   return body;
 }
+
+/**
+ * An admin hid or restored a story line. Fetch the scene's dialogue again and
+ * swap it in place, so code that reads the cached graph never finds it missing.
+ */
+export async function refreshQuestGraph(graphId: string, questId?: string): Promise<void> {
+  const quests = new Set([...graphIds].filter(([, id]) => id === graphId).map(([quest]) => quest));
+  if (questId) quests.add(questId);
+  const generation = revision, graphs = runtimeArray<QuestGraph>('questGraphs');
+  const cached = graphs.filter(graph => quests.has(graph.questId));
+  contentApi.invalidate(`graphs/${encodeURIComponent(graphId)}`);
+  if (!cached.length) return;
+  const record = await contentApi.graph<JsonObject>(graphId), next = normalizeGraph(record.body);
+  if (generation !== revision) return;
+  for (const graph of cached) { const index = graphs.indexOf(graph); if (index >= 0) graphs[index] = next; }
+}

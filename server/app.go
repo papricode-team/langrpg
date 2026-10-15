@@ -27,6 +27,7 @@ func (e *APIError) Error() string { return e.Message }
 
 type App struct {
 	editing         *worldEditing
+	editLeases      *worldLeases
 	adminEmails     map[string]bool
 	billing         *CreemBilling
 	leaseOwner      string
@@ -52,6 +53,7 @@ type rateWindow struct {
 
 func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int) *App {
 	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}, rateMu: &sync.Mutex{}}
+	a.editLeases = newWorldLeases(func() time.Time { return a.now() })
 	a.leaseOwner, _ = randomID(16)
 	if a.leaseOwner == "" {
 		a.leaseOwner = fmt.Sprintf("%p-%d", a, time.Now().UnixNano())
@@ -113,6 +115,11 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/admin/world", a.readAdminWorld)
 	mux.HandleFunc("POST /api/admin/world/validate", a.compileAdminWorld)
 	mux.HandleFunc("PUT /api/admin/world", a.compileAdminWorld)
+	mux.HandleFunc("POST /api/admin/world/ops", a.applyWorldOps)
+	mux.HandleFunc("POST /api/admin/world/locks", a.editWorldLock)
+	mux.HandleFunc("GET /api/admin/world/status", a.worldEditStatus)
+	mux.HandleFunc("GET /api/admin/story/lines", a.readStoryLines)
+	mux.HandleFunc("POST /api/admin/story/lines", a.setStoryLine)
 	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
 	mux.HandleFunc("GET /api/content/courses", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.listCourses(w, r) }))
 	mux.HandleFunc("GET /api/content/{path...}", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.readContent(w, r) }))
@@ -164,12 +171,15 @@ func writeError(w http.ResponseWriter, status int, message string) {
 
 func apiFailure(w http.ResponseWriter, err error) {
 	var apiError *APIError
+	var problems *WorldProblemError
 	var accessError *AccessDeniedError
 	switch {
 	case errors.As(err, &accessError):
 		writeAccessBlocked(w, accessError.Access)
 	case errors.As(err, &apiError):
 		writeError(w, apiError.Status, apiError.Message)
+	case errors.As(err, &problems):
+		writeJSON(w, problems.Status, map[string]any{"error": problems.Error(), "problems": problems.Problems})
 	case errors.Is(err, ErrUnauthorized):
 		writeError(w, 401, "session is invalid; create or restore a session")
 	case errors.Is(err, ErrConflict):
@@ -572,13 +582,16 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 	if a.content != nil {
 		a.world.RestoreCoursePlayer(account.Player, account.Access.Generation)
 	}
-	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, authorize, guard, stopped)
+	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, a.isAdmin(account), authorize, guard, stopped)
 }
 
 func (a *App) Close() {
 	if a.editing != nil && a.editing.cancel != nil {
 		a.editing.cancel()
 		<-a.editing.done
+	}
+	if a.editing != nil && a.editing.worker != nil {
+		a.editing.worker.stop()
 	}
 	a.world.Close()
 	a.store.Close()

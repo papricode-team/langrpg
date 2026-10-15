@@ -22,7 +22,7 @@ test('CLI rejects unreachable or unregistered imports before touching canonical 
       await writeFile(path,JSON.stringify(edited));
       const result=spawnSync(process.execPath,['scripts/map-editor.mjs','import',path],{cwd:root,encoding:'utf8'});
       assert.notEqual(result.status,0);
-      assert.match(result.stderr,kind==='unreachable'?/no reachable interaction approach/:/no authored content/);
+      assert.match(result.stderr,kind==='unreachable'?/Players could not reach/:/no authored content/);
       assert.equal(await readFile(source,'utf8'),original);
     }
   }finally{await rm(directory,{recursive:true,force:true});}

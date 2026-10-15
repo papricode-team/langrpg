@@ -1,22 +1,23 @@
+import {escapeHtml} from './icons';
 import {sceneActivityPoint,type SceneResidentTask,type WorldScene} from './scene-schema';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art';
-import {weatherPreviewLabels,type WorldWeatherMode} from './world-weather';
 
 let selectedResidentId:string|undefined;
-let previewHour=9;
-let previewWeather:WorldWeatherMode='regional';
-const escape=(value:unknown):string=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
+const escape=(value:unknown):string=>escapeHtml(String(value));
 const actions:Record<string,SceneResidentTask['action']>={seat:'read',work:'work',pickup:'carry',service:'serve',shelter:'shelter',wait:'wait'};
 
-/** The schedule form edits the same scene used by play and Tiled exchanges. */
-export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:ReadonlySet<string>,change:(scene:WorldScene)=>void,preview:(hour:number|undefined,weather:WorldWeatherMode)=>void,error:(message:string)=>void):void {
+/**
+ * Residents and their daily schedules. Each change publishes the town's
+ * resident list as one edit, checked on the server like any other edit.
+ */
+export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:ReadonlySet<string>,change:(scene:WorldScene)=>void,error:(message:string)=>void):void {
   const residents=scene.residents??[];
   const resident=residents.find(resident=>resident.id===selectedResidentId)??residents[0];
   selectedResidentId=resident?.id;
   const field=(label:string,key:string,value:number)=>`<label>${label}<input type="number" step="0.1" data-resident="${key}" value="${value}"></label>`;
   const options=(current:string|undefined,empty=false)=>`${empty?'<option value="">None</option>':''}${(scene.activities??[]).map(slot=>`<option value="${slot.id}"${current===slot.id?' selected':''}>${escape(slot.id)} · ${slot.kind}</option>`).join('')}`;
   const services=residents.filter(item=>item!==resident).flatMap(item=>item.schedule.filter(task=>task.action==='serve'&&!task.exchangeWith).map(task=>({residentId:item.id,taskId:task.id,label:`${item.name} · ${task.id} (${task.startHour}–${task.endHour})`})));
-  host.innerHTML=`<h3>Residents & daily activities</h3><p class="panel-note">Give a resident a home and timed visits to usable objects. Travel and waiting must fit inside each time window.</p>
+  host.innerHTML=`<h3>Residents</h3><p class="panel-note">Give a resident a home and timed visits to usable objects. Travel and waiting must fit inside each time window.</p>
     <label>Resident<select id="resident-select">${residents.map(item=>`<option value="${item.id}"${item===resident?' selected':''}>${escape(item.name)}</option>`).join('')}</select></label>
     <button id="add-resident">Add resident</button>
     ${resident?`<label>Name<input id="resident-name" maxlength="60" value="${escape(resident.name)}"></label><div class="field-grid">${field('Home X','home-x',resident.home.x)}${field('Home Y','home-y',resident.home.y)}${field('Walking speed','speed',resident.speed)}</div>
@@ -32,18 +33,15 @@ export function renderResidentTools(host:HTMLElement,scene:WorldScene,selected:R
       <label>Trade with<select data-exchange aria-label="${task.id} trade with"><option value="">Independent visit</option>${services.map((service,index)=>`<option value="${index}"${task.exchangeWith?.residentId===service.residentId&&task.exchangeWith?.taskId===service.taskId?' selected':''}>${escape(service.label)}</option>`).join('')}</select></label>
       <p class="panel-note">A customer needs a waiting position 16–96 units from the vendor. Both visits must fit the same service block. Trading clears the customer’s fallback and held object; the parcel appears at handover.</p>
       <button data-remove-task="${task.id}">Remove ${escape(task.id)}</button></details>`).join('')}
-    <button id="add-resident-task">Add daily activity</button>`:''}
-    <div class="section"><label>Schedule preview hour<input id="resident-preview-hour" type="number" min="0" max="23.99" step="0.1" value="${previewHour}"></label><label>Weather preview<select id="resident-preview-weather">${Object.entries(weatherPreviewLabels).map(([value,label])=>`<option value="${value}"${value===previewWeather?' selected':''}>${label}</option>`).join('')}</select></label><button id="preview-residents">Show schedule guide</button><button id="clear-resident-preview">Hide schedule guide</button><p class="panel-note">Guide circles show sampled positions; violet marks a rain response and orange links an active exchange. Work resumes only if it still fits the schedule. Save the validated scene, then use the game preview for character artwork.</p><a href="/qa/world-assets.html?map=${scene.id}" target="_blank" rel="noopener">Open game preview</a></div>`;
+    <button id="add-resident-task">Add daily activity</button>`:''}`;
   const query=<T extends HTMLElement>(selector:string)=>host.querySelector<T>(selector)!;
   const apply=(edit:(next:WorldScene)=>void)=>{const next=structuredClone(scene);edit(next);change(next);};
-  query<HTMLSelectElement>('#resident-select').onchange=()=>{selectedResidentId=query<HTMLSelectElement>('#resident-select').value;renderResidentTools(host,scene,selected,change,preview,error);};
+  if(residents.length)query<HTMLSelectElement>('#resident-select').onchange=()=>{selectedResidentId=query<HTMLSelectElement>('#resident-select').value;renderResidentTools(host,scene,selected,change,error);};
   query<HTMLButtonElement>('#add-resident').onclick=()=>apply(next=>{
     let index=1;while([...next.npcs,...(next.residents??[])].some(item=>item.id===`${scene.id}-neighbor-${index}`))index++;
     selectedResidentId=`${scene.id}-neighbor-${index}`;
     (next.residents??=[]).push({id:selectedResidentId,name:`Neighbor ${index}`,home:{...scene.spawn},speed:60,avatar:{hair:'#62412f',skin:'#c18b60',outfit:'#4e729a'},schedule:[]});
   });
-  query<HTMLButtonElement>('#preview-residents').onclick=()=>{const hour=Number(query<HTMLInputElement>('#resident-preview-hour').value);if(!Number.isFinite(hour)||hour<0||hour>=24){error('Choose an hour between 0 and 24.');return;}previewHour=hour;previewWeather=query<HTMLSelectElement>('#resident-preview-weather').value as WorldWeatherMode;preview(hour,previewWeather);};
-  query<HTMLButtonElement>('#clear-resident-preview').onclick=()=>preview(undefined,previewWeather);
   if(!resident)return;
   const edit=(mutate:(resident:NonNullable<WorldScene['residents']>[number])=>void)=>apply(next=>mutate(next.residents!.find(item=>item.id===resident.id)!));
   query<HTMLSelectElement>('#resident-action-art').onchange=()=>edit(item=>{

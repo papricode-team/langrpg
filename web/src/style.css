@@ -3663,25 +3663,4 @@ body:has(#dialog[open]) .game-hud,body:has(#account-dialog[open]) .game-hud {
 }
 .world-edit-button[hidden] { display:none; }
 .world-edit-button:focus-visible { outline:3px solid #f1deb0; outline-offset:3px; }
-.world-editor-overlay {
-  width:calc(100vw - 32px);
-  max-width:1600px;
-  height:calc(100dvh - 32px);
-  max-height:1100px;
-  padding:0;
-  border:1px solid #d4b97c;
-  border-radius:10px;
-  background:#fafbf6;
-  box-shadow:0 15px 60px #061a1499;
-  color:#183e36;
-}
-.world-editor-overlay[open] { display:grid; grid-template-rows:48px minmax(0,1fr); }
-.world-editor-overlay::backdrop { background:#061a14a8; }
-.world-editor-overlay-bar { display:flex; align-items:center; gap:16px; padding:0 15px; border-bottom:1px solid #d6d8cd; font:600 var(--type-caption) 'DM Sans',sans-serif; }
-.world-editor-overlay-status { margin-left:auto; font-size:var(--type-caption); font-weight:400; color:#6a776d; }
-.world-editor-overlay-bar button { border:1px solid #d6d8cd; border-radius:5px; padding:7px 10px; background:#183e36; color:white; font:500 var(--type-caption) 'DM Sans',sans-serif; }
-.world-editor-overlay iframe { display:block; border:0; width:100%; height:100%; min-height:0; }
-@media (--phone) {
-  .world-editor-overlay { width:100vw; height:100dvh; max-height:100dvh; border-radius:0; }
-  .world-editor-overlay-bar { gap:8px; padding:0 10px; }
-}
+.world-edit-button[aria-pressed=true] { background:#d4b97c; color:#152d25; font-weight:700; }

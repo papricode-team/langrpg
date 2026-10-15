@@ -4,6 +4,8 @@ import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
 import { isStoryMap, type MapId } from './maps';
 import { buildingEntrances, getInterior, type InteriorId } from './interiors';
 import {getWorldScene,sceneContentVersion} from './scene-data';
+import type {WorldEditOp} from './world-edit-ops';
+import type {WorldLock} from './world-edit-session';
 import type { StoryState } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
 import type { BillingPlan, GameAccess } from './game-access';
@@ -125,6 +127,12 @@ export class Api {
   onError?: (message: string) => void;
   onAccess?: (access: GameAccess) => void;
   onWorldChanged?: () => Promise<void>;
+  /** An admin edit to apply in place. */
+  onWorldPatch?: (patch: {from: string; contentVersion: string; ops: WorldEditOp[]}) => void;
+  onEditLocks?: (locks: WorldLock[]) => void;
+  /** An admin hid or restored a line in this scene's dialogue. */
+  onStoryChanged?: (graphId: string, questId?: string) => void;
+  onEditPreview?: (preview: {objectId: string; x: number; y: number; adminName: string}) => void;
   selfId = '';
 
   constructor() {
@@ -284,6 +292,14 @@ export class Api {
           this.onInterior?.(id);
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
+        } else if (value.type === 'world.patch' && typeof value.from === 'string' && typeof value.contentVersion === 'string' && Array.isArray(value.ops)) {
+          this.onWorldPatch?.({from: value.from, contentVersion: value.contentVersion, ops: value.ops});
+        } else if (value.type === 'story.changed' && typeof value.graphId === 'string') {
+          this.onStoryChanged?.(value.graphId, typeof value.questId === 'string' ? value.questId : undefined);
+        } else if (value.type === 'edit.locks' && value.mapId === this.mapId && Array.isArray(value.locks)) {
+          this.onEditLocks?.(value.locks);
+        } else if (value.type === 'edit.preview' && value.mapId === this.mapId && typeof value.objectId === 'string' && Number.isFinite(value.x) && Number.isFinite(value.y)) {
+          this.onEditPreview?.({objectId: value.objectId, x: value.x, y: value.y, adminName: String(value.adminName ?? '')});
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
           publishClock();
           this.onPlayers?.(value.players, this.selfId);
@@ -335,6 +351,14 @@ export class Api {
     this.pendingInterior = { id };
     return true;
   }
+  /** Show other admins where a dragged object is, at most ten times a second. */
+  editPreview(objectId: string, x: number, y: number) {
+    const now = performance.now();
+    if (now - this.lastEditPreview < 100) return;
+    this.lastEditPreview = now;
+    this.send({ type: 'edit.preview', mapId: this.mapId, objectId, x, y });
+  }
+  private lastEditPreview = 0;
   move(x: number, y: number) {
     if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
       ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y });

@@ -43,9 +43,19 @@ export class WorldScenery {
   private motionTime=0;
   private opacity=1;
   private occluded=new Map<string,{depth:number;strength:number}>();
-  constructor(private scene:Phaser.Scene,mapId:MapId,private period:WorldPeriod='day',placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory){
-    const manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
-    for(const spec of placements){
+  private manifest?:SceneryAnimationManifest;
+  private tint?:{scenery:number;light:number};
+  private preview?:{id:string;dx:number;dy:number};
+  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory){
+    this.manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
+    for(const spec of placements)this.addLayer(spec);
+    const ambient=worldAmbient(mapId,period);
+    this.setAmbientTint(ambient.scenery,ambient.light);
+  }
+  /** Build one placed object's sprites. Returns false when its artwork is not loaded. */
+  private addLayer(spec:PlacedScenerySpec):boolean{
+    const scene=this.scene,mapId=this.mapId,period=this.period,manifest=this.manifest;
+    {
       const name=spec.frame??spec.asset;
       const authored=manifest?.assets[name];
       const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;
@@ -55,8 +65,8 @@ export class WorldScenery {
       const key=scene.textures.exists(requestedKey)?requestedKey:sceneryTextureKey(mapId);
       const frameName=animation?.base?.frame??(animation
         ? building||tree?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
-      if(!scene.textures.exists(key))continue;
-      const atlas=scene.textures.get(key);if(!atlas.has(frameName))continue;
+      if(!scene.textures.exists(key))return false;
+      const atlas=scene.textures.get(key);if(!atlas.has(frameName))return false;
       const frame=atlas.get(frameName),base=animation?.base;
       const scale=spec.width/(base?.referenceWidth??animation?.referenceWidth??frame.width);
       const authoredGeometry=getSceneryGeometry(mapId,spec);
@@ -97,8 +107,68 @@ export class WorldScenery {
       this.layers.push({spec,parts:renderedParts,width:frame.width*scale,height:frame.height*scale,depthAt:x=>worldDepth(spec.depth??sampleDepth(x)),circles:noCircles,nightTint:animation?.nightTint,
         bounds:{x:spec.x-frame.width*scale*originX,right:spec.x+frame.width*scale*(1-originX),y:spec.y-frame.height*scale*sprite.originY,bottom:spec.y+frame.height*scale*(1-sprite.originY)}});
     }
-    const ambient=worldAmbient(mapId,period);
-    this.setAmbientTint(ambient.scenery,ambient.light);
+    return true;
+  }
+  private destroyLayer(layer:SceneryLayer):void{
+    for(const {sprite,next,cutout,nextCutout} of layer.parts){cutout?.configure([]);nextCutout?.configure([]);sprite.destroy();next?.destroy();}
+  }
+  /**
+   * Bring the sprites in line with edited placements: rebuild objects that
+   * changed, add new ones and drop removed ones. Unchanged objects keep
+   * their sprites and animation phase.
+   */
+  sync(placements:readonly PlacedScenerySpec[]):void{
+    this.clearPreview();
+    const wanted=new Map(placements.map(spec=>[spec.id,spec]));
+    const kept:SceneryLayer[]=[];
+    for(const layer of this.layers){
+      const next=wanted.get(layer.spec.id);
+      if(next&&JSON.stringify(next)===JSON.stringify(layer.spec)){kept.push(layer);wanted.delete(layer.spec.id);}
+      else this.destroyLayer(layer);
+    }
+    this.layers=kept;
+    for(const spec of wanted.values())this.addLayer(spec);
+    this.reapplyTint();
+    if(!this.visible)this.setVisible(false);
+    if(this.opacity!==1)this.setAlpha(this.opacity);
+  }
+  /** Painted bounds of a placed object, in world units. */
+  boundsOf(id:string):WorldBounds|undefined{return this.layers.find(layer=>layer.spec.id===id)?.bounds;}
+  /** The front-most object whose painting covers a world point. */
+  objectAt(x:number,y:number,accept:(spec:PlacedScenerySpec)=>boolean=()=>true):PlacedScenerySpec|undefined{
+    let best:SceneryLayer|undefined;
+    for(const layer of this.layers){
+      const b=layer.bounds;
+      if(x<b.x||x>b.right||y<b.y||y>b.bottom||!accept(layer.spec))continue;
+      // Objects lower on screen stand in front, as in play.
+      if(!best||layer.spec.y>best.spec.y)best=layer;
+    }
+    return best?.spec;
+  }
+  /** Move an object's sprites while it is dragged, without changing its placement. */
+  previewMove(id:string,dx:number,dy:number,valid=true):void{
+    if(this.preview&&this.preview.id!==id)this.clearPreview();
+    const layer=this.layers.find(item=>item.spec.id===id);if(!layer)return;
+    const before=this.preview??{id,dx:0,dy:0};
+    for(const {sprite,next} of layer.parts){
+      sprite.setPosition(sprite.x+dx-before.dx,sprite.y+dy-before.dy).setDepth(sprite.depth);
+      next?.setPosition(next.x+dx-before.dx,next.y+dy-before.dy);
+    }
+    this.preview={id,dx,dy};
+    if(valid)this.reapplyTint();
+    else for(const {sprite,next} of layer.parts){sprite.setTint(0xff8a7a);next?.setTint(0xff8a7a);}
+  }
+  clearPreview():void{
+    const preview=this.preview;if(!preview)return;
+    this.preview=undefined;
+    const layer=this.layers.find(item=>item.spec.id===preview.id);if(!layer)return;
+    for(const {sprite,next} of layer.parts){sprite.setPosition(sprite.x-preview.dx,sprite.y-preview.dy);next?.setPosition(next.x-preview.dx,next.y-preview.dy);}
+    this.reapplyTint();
+  }
+  /** Keep the current time-of-day light after sprites are rebuilt or a drag ends. */
+  private reapplyTint():void{
+    const tint=this.tint??(()=>{const ambient=worldAmbient(this.mapId,this.period);return {scenery:ambient.scenery,light:ambient.light};})();
+    this.setAmbientTint(tint.scenery,tint.light);
   }
   get objectCount(){return this.layers.length;}
   get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation||part.treeSway)).length;}
@@ -147,6 +217,7 @@ export class WorldScenery {
   setAlpha(alpha:number){this.opacity=alpha;for(const {parts} of this.layers)for(const {sprite,next} of parts){sprite.setAlpha(alpha);next?.setAlpha(0);}}
   /** Lanterns keep warm illumination while fixed architecture takes moonlight. */
   setAmbientTint(tint:number,light=0xffffff){
+    this.tint={scenery:tint,light};
     for(const {spec,parts,nightTint} of this.layers){
       const emitter=spec.asset==='lamp'||spec.frame==='motion-lamp';
       const appliedTint=emitter?light:nightTint??tint;
@@ -158,8 +229,10 @@ export class WorldScenery {
     this.occluded.clear();
     for(const item of this.layers){
       const {spec,parts,width,height}=item;
-      const visible=this.visible&&spec.x+width*.7>=view.x&&spec.x-width*.7<=view.right
-        &&spec.y+height*.12>=view.y&&spec.y-height*1.1<=view.bottom;
+      // A dragged object is drawn where the pointer took it.
+      const offset=this.preview?.id===spec.id?this.preview:undefined,x=spec.x+(offset?.dx??0),y=spec.y+(offset?.dy??0);
+      const visible=this.visible&&x+width*.7>=view.x&&x-width*.7<=view.right
+        &&y+height*.12>=view.y&&y-height*1.1<=view.bottom;
       if(!visible&&item.visible===false)continue;
       item.visible=visible;
       // Reject distant bodies before evaluating the local wall boundary.

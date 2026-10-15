@@ -53,6 +53,7 @@ type worldClient struct {
 	messageWindow time.Time
 	messageCount  int
 	authorizeMap  func(context.Context, string) error
+	admin         bool
 }
 
 type World struct {
@@ -144,7 +145,7 @@ func (w *World) clientError(client *worldClient, message string) {
 	w.enqueueLocked(client, b)
 }
 
-func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player, progress Progress, generation int64, authorize func(context.Context, string) error, accessGuard func(context.Context, bool) (AccessStatus, error), stopped func()) {
+func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player, progress Progress, generation int64, admin bool, authorize func(context.Context, string) error, accessGuard func(context.Context, bool) (AccessStatus, error), stopped func()) {
 	// App checks exact scheme/origin; the library repeats origin verification.
 	conn, err := websocket.Accept(rw, r, &websocket.AcceptOptions{OriginPatterns: w.originPatterns, CompressionMode: websocket.CompressionDisabled})
 	if err != nil {
@@ -154,7 +155,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	defer conn.CloseNow()
-	client := &worldClient{sessionHash: tokenHash(r.URL.Query().Get("token")), player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel, authorizeMap: authorize}
+	client := &worldClient{sessionHash: tokenHash(r.URL.Query().Get("token")), player: player, conn: conn, send: make(chan []byte, 32), cancel: cancel, authorizeMap: authorize, admin: admin}
 	w.mu.Lock()
 	now := time.Now()
 	w.pruneMemoriesLocked(now)
@@ -200,7 +201,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 	client.memory = memory
 	position := memory.restorePosition(mapID, w.mapDefinition(mapID))
 	client.player.MapID, client.player.X, client.player.Y = mapID, position.X, position.Y
-	if !validInterior(mapID, memory.interiorID) {
+	if !w.validInteriorLocked(mapID, memory.interiorID) {
 		memory.interiorID = ""
 	}
 	client.player.InteriorID = memory.interiorID
@@ -322,6 +323,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			MapID             string   `json:"mapId"`
 			InteriorID        string   `json:"interiorId"`
 			CoordinateVersion *int     `json:"coordinateVersion"`
+			ObjectID          string   `json:"objectId"`
 		}
 		if err := json.Unmarshal(b, &message); err != nil {
 			w.clientError(client, "invalid JSON message")
@@ -343,6 +345,11 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 		case "joinMap":
 			if err := w.joinMap(client, message.MapID, now); err != "" {
 				w.clientError(client, err)
+			}
+		case "edit.preview":
+			// Admins see each other's drags live; nobody else receives them.
+			if client.admin && message.X != nil && message.Y != nil && editableObjectID.MatchString(message.ObjectID) && !math.IsNaN(*message.X) && !math.IsNaN(*message.Y) {
+				w.publishPreview(client, message.ObjectID, *message.X, *message.Y)
 			}
 		default:
 			w.clientError(client, "unknown message type")

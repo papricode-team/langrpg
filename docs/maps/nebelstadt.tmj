@@ -9,8 +9,8 @@
   "height": 1024,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 212,
-  "nextlayerid": 212,
+  "nextobjectid": 207,
+  "nextlayerid": 207,
   "properties": [
     {
       "name": "mapId",
@@ -40,7 +40,7 @@
     {
       "name": "_optionalCollections",
       "type": "string",
-      "value": "[\"activities\",\"entrances\"]"
+      "value": "[\"activities\"]"
     },
     {
       "name": "_jsonFields",
@@ -50,7 +50,7 @@
   ],
   "layers": [
     {
-      "id": 150,
+      "id": 146,
       "name": "Terrain",
       "type": "objectgroup",
       "visible": true,
@@ -395,7 +395,7 @@
       ]
     },
     {
-      "id": 151,
+      "id": 147,
       "name": "Walkable",
       "type": "objectgroup",
       "visible": true,
@@ -404,7 +404,7 @@
       "objects": []
     },
     {
-      "id": 152,
+      "id": 148,
       "name": "Obstacles",
       "type": "objectgroup",
       "visible": true,
@@ -413,7 +413,7 @@
       "objects": []
     },
     {
-      "id": 187,
+      "id": 183,
       "name": "Terrain collision",
       "type": "objectgroup",
       "visible": true,
@@ -421,7 +421,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 153,
+          "id": 149,
           "name": "nebelstadt-northwest-rock-bay",
           "x": 0,
           "y": 0,
@@ -477,7 +477,7 @@
           ]
         },
         {
-          "id": 154,
+          "id": 150,
           "name": "nebelstadt-northern-sea-west",
           "x": 0,
           "y": 0,
@@ -529,7 +529,7 @@
           ]
         },
         {
-          "id": 155,
+          "id": 151,
           "name": "nebelstadt-northern-sea-east",
           "x": 0,
           "y": 0,
@@ -653,7 +653,7 @@
           ]
         },
         {
-          "id": 156,
+          "id": 152,
           "name": "nebelstadt-eastern-sea-north-of-bridge",
           "x": 0,
           "y": 0,
@@ -713,7 +713,7 @@
           ]
         },
         {
-          "id": 157,
+          "id": 153,
           "name": "nebelstadt-eastern-sea-south-of-bridge",
           "x": 0,
           "y": 0,
@@ -829,7 +829,7 @@
           ]
         },
         {
-          "id": 158,
+          "id": 154,
           "name": "nebelstadt-southern-middle-sea",
           "x": 0,
           "y": 0,
@@ -885,7 +885,7 @@
           ]
         },
         {
-          "id": 159,
+          "id": 155,
           "name": "nebelstadt-southwest-sea",
           "x": 0,
           "y": 0,
@@ -965,7 +965,7 @@
           ]
         },
         {
-          "id": 160,
+          "id": 156,
           "name": "nebelstadt-western-sea-upper-bay",
           "x": 0,
           "y": 0,
@@ -1009,7 +1009,7 @@
           ]
         },
         {
-          "id": 161,
+          "id": 157,
           "name": "nebelstadt-western-sea-lower-bay",
           "x": 0,
           "y": 0,
@@ -1049,7 +1049,7 @@
           ]
         },
         {
-          "id": 162,
+          "id": 158,
           "name": "nebelstadt-archive-upper-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1101,7 +1101,7 @@
           ]
         },
         {
-          "id": 163,
+          "id": 159,
           "name": "nebelstadt-archive-lower-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1157,7 +1157,7 @@
           ]
         },
         {
-          "id": 164,
+          "id": 160,
           "name": "nebelstadt-garden-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1217,7 +1217,7 @@
           ]
         },
         {
-          "id": 165,
+          "id": 161,
           "name": "nebelstadt-observatory-west-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1273,7 +1273,7 @@
           ]
         },
         {
-          "id": 166,
+          "id": 162,
           "name": "nebelstadt-east-square-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1325,7 +1325,7 @@
           ]
         },
         {
-          "id": 167,
+          "id": 163,
           "name": "nebelstadt-north-bridge-seawall-end",
           "x": 0,
           "y": 0,
@@ -1369,7 +1369,7 @@
           ]
         },
         {
-          "id": 168,
+          "id": 164,
           "name": "nebelstadt-square-southwest-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1409,7 +1409,7 @@
           ]
         },
         {
-          "id": 169,
+          "id": 165,
           "name": "nebelstadt-lower-terrace-west-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1453,7 +1453,7 @@
           ]
         },
         {
-          "id": 170,
+          "id": 166,
           "name": "nebelstadt-southern-quay-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1501,7 +1501,7 @@
           ]
         },
         {
-          "id": 171,
+          "id": 167,
           "name": "nebelstadt-archive-upper-wall-west-end",
           "x": 0,
           "y": 0,
@@ -1537,7 +1537,7 @@
           ]
         },
         {
-          "id": 172,
+          "id": 168,
           "name": "nebelstadt-archive-upper-wall-lower-face",
           "x": 0,
           "y": 0,
@@ -1589,7 +1589,7 @@
           ]
         },
         {
-          "id": 173,
+          "id": 169,
           "name": "nebelstadt-archive-lower-wall-west-face",
           "x": 0,
           "y": 0,
@@ -1629,7 +1629,7 @@
           ]
         },
         {
-          "id": 174,
+          "id": 170,
           "name": "nebelstadt-archive-lower-wall-base",
           "x": 0,
           "y": 0,
@@ -1685,7 +1685,7 @@
           ]
         },
         {
-          "id": 175,
+          "id": 171,
           "name": "nebelstadt-garden-retaining-wall-base",
           "x": 0,
           "y": 0,
@@ -1737,7 +1737,7 @@
           ]
         },
         {
-          "id": 176,
+          "id": 172,
           "name": "nebelstadt-observatory-east-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1821,7 +1821,7 @@
           ]
         },
         {
-          "id": 177,
+          "id": 173,
           "name": "nebelstadt-square-south-central-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1873,7 +1873,7 @@
           ]
         },
         {
-          "id": 178,
+          "id": 174,
           "name": "nebelstadt-square-southeast-retaining-wall",
           "x": 0,
           "y": 0,
@@ -1929,7 +1929,7 @@
           ]
         },
         {
-          "id": 179,
+          "id": 175,
           "name": "nebelstadt-lower-terrace-west-wall-base",
           "x": 0,
           "y": 0,
@@ -1985,7 +1985,7 @@
           ]
         },
         {
-          "id": 180,
+          "id": 176,
           "name": "nebelstadt-quay-east-retaining-wall",
           "x": 0,
           "y": 0,
@@ -2053,7 +2053,7 @@
           ]
         },
         {
-          "id": 181,
+          "id": 177,
           "name": "nebelstadt-archive-steps-west-rail",
           "x": 0,
           "y": 0,
@@ -2117,7 +2117,7 @@
           ]
         },
         {
-          "id": 182,
+          "id": 178,
           "name": "nebelstadt-garden-steps-east-rail",
           "x": 0,
           "y": 0,
@@ -2185,7 +2185,7 @@
           ]
         },
         {
-          "id": 183,
+          "id": 179,
           "name": "nebelstadt-western-upper-stairs-rail",
           "x": 0,
           "y": 0,
@@ -2229,7 +2229,7 @@
           ]
         },
         {
-          "id": 184,
+          "id": 180,
           "name": "nebelstadt-southwestern-square-stairs-rail",
           "x": 0,
           "y": 0,
@@ -2289,7 +2289,7 @@
           ]
         },
         {
-          "id": 185,
+          "id": 181,
           "name": "nebelstadt-northwest-coastal-cliff",
           "x": 0,
           "y": 0,
@@ -2337,7 +2337,7 @@
           ]
         },
         {
-          "id": 186,
+          "id": 182,
           "name": "nebelstadt-southern-quay-cliff-face",
           "x": 0,
           "y": 0,
@@ -2399,7 +2399,7 @@
       ]
     },
     {
-      "id": 188,
+      "id": 184,
       "name": "Scenery",
       "type": "objectgroup",
       "visible": true,
@@ -2605,8 +2605,8 @@
         {
           "id": 10,
           "name": "nebelstadt-shipwright-workshop",
-          "x": 124.305,
-          "y": 443.0338541666667,
+          "x": 316.305,
+          "y": 459.0338541666667,
           "width": 297.39,
           "height": 284.99875,
           "gid": 10,
@@ -2629,12 +2629,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 273
+              "value": 465
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 727
+              "value": 743
             },
             {
               "name": "_sourceObjectWidth",
@@ -2644,12 +2644,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 124.305
+              "value": 316.305
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 443.0338541666667
+              "value": 459.0338541666667
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2671,8 +2671,8 @@
         {
           "id": 11,
           "name": "nebelstadt-east-lighthouse",
-          "x": 824.645,
-          "y": 285.003421474359,
+          "x": 808.645,
+          "y": 333.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 11,
@@ -2695,12 +2695,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 940
+              "value": 924
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 500
+              "value": 548
             },
             {
               "name": "_sourceObjectWidth",
@@ -2710,12 +2710,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 824.645
+              "value": 808.645
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 285.003421474359
+              "value": 333.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2803,8 +2803,8 @@
         {
           "id": 13,
           "name": "nebelstadt-market-canopy",
-          "x": 542.25,
-          "y": 602.0020128824476,
+          "x": 654.25,
+          "y": 666.0020128824476,
           "width": 257.5,
           "height": 214.99798711755233,
           "gid": 13,
@@ -2825,14 +2825,19 @@
               "value": "{\"referenceWidth\":257.5,\"polygons\":[[[-109.88325281803543,-63.2347020933978],[114.2371175523349,-68.62520128824474],[114.02979066022544,-17.830112721417095],[41.25805152979069,-9.744363929146516],[27.36714975845416,-11.195652173913004],[-23.427938808373597,-11.195652173913004],[-32.55032206119165,-6.634460547503977],[-112.3711755233494,-10.159017713365529]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"supermarket\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
-              "value": 671
+              "value": 783
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 817
+              "value": 881
             },
             {
               "name": "_sourceObjectWidth",
@@ -2842,12 +2847,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 542.25
+              "value": 654.25
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 602.0020128824476
+              "value": 666.0020128824476
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2862,15 +2867,15 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 14,
           "name": "nebelstadt-west-cafe-canopy",
-          "x": 25.644999999999996,
-          "y": 220.003421474359,
+          "x": 41.644999999999996,
+          "y": 412.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 14,
@@ -2891,14 +2896,19 @@
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.935625,-62.48395833333336],[74.86983173076925,-100.93562500000002],[110.54854166666667,-46.2159455128205],[48.43431089743589,-31.611706730769242],[41.964078525641014,-29.94793269230769],[-6.100504807692317,-29.94793269230769],[-12.755600961538448,-15.898285256410247],[-61.55963942307693,-4.436730769230792]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"cafe\",\"returnOffset\":{\"x\":-9,\"y\":56}}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
-              "value": 141
+              "value": 157
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 435
+              "value": 627
             },
             {
               "name": "_sourceObjectWidth",
@@ -2908,12 +2918,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 25.644999999999996
+              "value": 41.644999999999996
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 220.003421474359
+              "value": 412.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2928,7 +2938,7 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
@@ -8496,6 +8506,11 @@
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.93562500000007,-62.483958333333334],[74.86983173076919,-100.935625],[110.54854166666678,-46.215945512820525],[48.43431089743581,-31.611706730769242],[41.96407852564107,-29.94793269230769],[-6.100504807692232,-29.94793269230769],[-12.755600961538448,-15.898285256410247],[-61.55963942307699,-4.436730769230763]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"inn\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 1806
@@ -8533,14 +8548,14 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 100,
           "name": "harbour-front-storefront-2",
-          "x": 1920.635,
+          "x": 1968.635,
           "y": 4.997385725741765,
           "width": 230.73,
           "height": 215.00261427425824,
@@ -8557,9 +8572,14 @@
               "value": "{\"referenceWidth\":230.73,\"polygons\":[[[-95.38196872493995,-72.53100240577385],[79.83961106655988,-88.25838813151563],[107.40879310344826,-39.966062550120284],[82.61503207698479,-10.176543704891742],[13.969619085805789,-3.330505212510019],[4.7182157177226145,-20.1680593424218],[-31.917341619887793,-20.1680593424218],[-41.90885725741782,-15.172301523656785],[-95.38196872493995,-35.34036086607858]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"bakery\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
-              "value": 2036
+              "value": 2084
             },
             {
               "name": "_sourceY",
@@ -8574,7 +8594,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1920.635
+              "value": 1968.635
             },
             {
               "name": "_sourceDisplayY",
@@ -8594,7 +8614,7 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
@@ -9760,7 +9780,7 @@
         {
           "id": 120,
           "name": "harbour-supply-storefront-2",
-          "x": 1907.25,
+          "x": 1971.25,
           "y": 517.0020128824476,
           "width": 257.5,
           "height": 214.99798711755233,
@@ -9779,7 +9799,7 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 2036
+              "value": 2100
             },
             {
               "name": "_sourceY",
@@ -9794,7 +9814,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1907.25
+              "value": 1971.25
             },
             {
               "name": "_sourceDisplayY",
@@ -10919,8 +10939,8 @@
         {
           "id": 139,
           "name": "nebelstadt-harbour-lodging",
-          "x": 994.64,
-          "y": 684.9941025641026,
+          "x": 1724.64,
+          "y": 784.9941025641026,
           "width": 230.72,
           "height": 215.00589743589742,
           "gid": 11,
@@ -10938,12 +10958,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1110
+              "value": 1840
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 900
+              "value": 1000
             },
             {
               "name": "_sourceObjectWidth",
@@ -10953,12 +10973,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 994.64
+              "value": 1724.64
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 684.9941025641026
+              "value": 784.9941025641026
             },
             {
               "name": "_sourceDisplayWidth",
@@ -10980,13 +11000,13 @@
       ]
     },
     {
-      "id": 190,
+      "id": 186,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 189,
+          "id": 185,
           "name": "spawn",
           "point": true,
           "x": 768,
@@ -11002,13 +11022,13 @@
       ]
     },
     {
-      "id": 200,
+      "id": 196,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 191,
+          "id": 187,
           "name": "marta",
           "point": true,
           "x": 454.65599999999995,
@@ -11027,7 +11047,7 @@
           ]
         },
         {
-          "id": 192,
+          "id": 188,
           "name": "otto",
           "point": true,
           "x": 1070.5919999999999,
@@ -11046,7 +11066,7 @@
           ]
         },
         {
-          "id": 193,
+          "id": 189,
           "name": "lina",
           "point": true,
           "x": 1320.96,
@@ -11065,7 +11085,7 @@
           ]
         },
         {
-          "id": 194,
+          "id": 190,
           "name": "emil",
           "point": true,
           "x": 394.752,
@@ -11084,7 +11104,7 @@
           ]
         },
         {
-          "id": 195,
+          "id": 191,
           "name": "ada",
           "point": true,
           "x": 525.312,
@@ -11103,7 +11123,7 @@
           ]
         },
         {
-          "id": 196,
+          "id": 192,
           "name": "fritz",
           "point": true,
           "x": 791.04,
@@ -11122,7 +11142,7 @@
           ]
         },
         {
-          "id": 197,
+          "id": 193,
           "name": "greta",
           "point": true,
           "x": 967.6800000000001,
@@ -11136,7 +11156,7 @@
           ]
         },
         {
-          "id": 198,
+          "id": 194,
           "name": "inspector",
           "point": true,
           "x": 416.25600000000003,
@@ -11155,7 +11175,7 @@
           ]
         },
         {
-          "id": 199,
+          "id": 195,
           "name": "elise",
           "point": true,
           "x": 769.5360000000001,
@@ -11176,13 +11196,13 @@
       ]
     },
     {
-      "id": 207,
+      "id": 203,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 201,
+          "id": 197,
           "name": "nebelstadt-repair-ledger",
           "point": true,
           "x": 437.76,
@@ -11206,7 +11226,7 @@
           ]
         },
         {
-          "id": 202,
+          "id": 198,
           "name": "nebelstadt-council-board",
           "point": true,
           "x": 388.608,
@@ -11235,7 +11255,7 @@
           ]
         },
         {
-          "id": 203,
+          "id": 199,
           "name": "nebelstadt-signal-lantern",
           "point": true,
           "x": 1354.752,
@@ -11264,7 +11284,7 @@
           ]
         },
         {
-          "id": 204,
+          "id": 200,
           "name": "nebelstadt-observatory",
           "point": true,
           "x": 769.5360000000001,
@@ -11293,7 +11313,7 @@
           ]
         },
         {
-          "id": 205,
+          "id": 201,
           "name": "nebelstadt-evidence-crate",
           "point": true,
           "x": 228.86399999999998,
@@ -11322,7 +11342,7 @@
           ]
         },
         {
-          "id": 206,
+          "id": 202,
           "name": "nebelstadt-harbor-chart",
           "point": true,
           "x": 961.5360000000001,
@@ -11348,7 +11368,7 @@
       ]
     },
     {
-      "id": 208,
+      "id": 204,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
@@ -11356,7 +11376,7 @@
       "objects": []
     },
     {
-      "id": 209,
+      "id": 205,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -11635,8 +11655,8 @@
           "id": 145,
           "name": "shipwright-delivery",
           "point": true,
-          "x": 273,
-          "y": 755,
+          "x": 465,
+          "y": 771,
           "properties": [
             {
               "name": "key",
@@ -11666,12 +11686,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 273
+              "value": 465
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 755
+              "value": 771
             },
             {
               "name": "_ownerSourceWidth",
@@ -11688,241 +11708,7 @@
       ]
     },
     {
-      "id": 210,
-      "name": "Entrances",
-      "type": "objectgroup",
-      "visible": true,
-      "objects": [
-        {
-          "id": 146,
-          "name": "cafe-entrance",
-          "point": true,
-          "x": 158.932,
-          "y": 407.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "cafe-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "nebelstadt-west-cafe-canopy"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "cafe"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "returnOffset",
-              "type": "string",
-              "value": "{\"x\":-9,\"y\":56}"
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 158.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 407.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "_jsonFields",
-              "type": "string",
-              "value": "[\"returnOffset\"]"
-            }
-          ]
-        },
-        {
-          "id": 147,
-          "name": "bakery-entrance",
-          "point": true,
-          "x": 2022.4,
-          "y": 202.052,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "bakery-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "harbour-front-storefront-2"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "bakery"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": -13.6
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -17.948
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 2022.4
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 202.052
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.73
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 148,
-          "name": "supermarket-entrance",
-          "point": true,
-          "x": 672.97,
-          "y": 808.292,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "supermarket-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "nebelstadt-market-canopy"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "supermarket"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 1.97
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -8.708
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 672.97
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 808.292
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 257.5
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 149,
-          "name": "inn-entrance",
-          "point": true,
-          "x": 1823.932,
-          "y": 197.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "inn-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "harbour-front-storefront-1"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "inn"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 1823.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 197.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 211,
+      "id": 206,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

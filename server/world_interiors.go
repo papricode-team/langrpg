@@ -24,6 +24,15 @@ func validInterior(mapID, interiorID string) bool {
 	return exists && knownInterior(interiorID)
 }
 
+// validInteriorLocked follows rooms added or removed by world edits.
+func (w *World) validInteriorLocked(mapID, interiorID string) bool {
+	if interiorID == "" {
+		return true
+	}
+	_, exists := w.mapDefinition(mapID).Entrances[interiorID]
+	return exists && knownInterior(interiorID)
+}
+
 func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now time.Time) string {
 	w.mu.Lock()
 	defer w.mu.Unlock()

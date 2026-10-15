@@ -39,7 +39,7 @@ COPY --from=frontend /app/web/dist /app/public
 COPY --from=frontend /runtime/node_modules /app/node_modules
 # Canonical source and validation rules are private runtime inputs. The Go
 # static handler serves only /app/public, never this compiler/source directory.
-COPY --from=frontend /app/scripts/scene-compiler.mjs /app/scripts/admin-world-compiler.mjs /app/scripts/register-content-loader.mjs /app/scripts/scene-quality.mjs /app/scripts/scenery-geometry.mjs /app/scripts/
+COPY --from=frontend /app/scripts/scene-compiler.mjs /app/scripts/admin-world-compiler.mjs /app/scripts/admin-world-worker.mjs /app/scripts/register-content-loader.mjs /app/scripts/scene-quality.mjs /app/scripts/scenery-geometry.mjs /app/scripts/
 COPY --from=frontend /app/web/src /app/web/src
 COPY --from=frontend /app/web/package.json /app/web/package.json
 COPY --from=frontend /app/server/story_rules.json /app/server/expeditions.json /app/server/

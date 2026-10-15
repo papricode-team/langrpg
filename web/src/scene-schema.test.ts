@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {parseWorldSceneDocument, sceneActivityPoint, sceneEntrancePoint, type SceneScenery, type WorldScene, type WorldSceneDocument} from './scene-schema';
+import {parseWorldSceneDocument, sceneActivityPoint, sceneEntrancePoint, sceneEntrances, type SceneScenery, type WorldScene, type WorldSceneDocument} from './scene-schema';
 import {getWorldScene, sceneDocument} from './scene-data';
 
 function room(): WorldSceneDocument {
@@ -8,7 +8,7 @@ function room(): WorldSceneDocument {
     scenery: [{id: 'bench', asset: 'bench', x: 250, y: 200, width: 80}],
     terrain: [{id: 'floor', x: 0, y: 0, width: 640, height: 480, dayAsset: '/assets/floor.webp'}], districts: [],
     activities: [{id: 'seat', ownerId: 'bench', kind: 'seat', offsetX: 20, offsetY: -5, approach: {x: 20, y: 30}}]};
-  return {version: 2, maps: {room: scene}};
+  return {version: 3, maps: {room: scene}};
 }
 
 describe('canonical scene contract', () => {
@@ -44,32 +44,31 @@ describe('canonical scene contract', () => {
     value.maps.room.objects = [{id: 'out-of-bounds', x: 250, y: 510}];
     expect(() => parseWorldSceneDocument(value)).toThrow('outside scene bounds');
   });
-  it('keeps entrance approaches and return positions relative to their owner', () => {
-    const value=room(), scene=value.maps.room;
-    scene.entrances=[{id:'cafe-door',interiorId:'cafe',ownerId:'bench',offsetX:8,offsetY:30,returnOffset:{x:12,y:45}}];
-    const door=scene.entrances[0];
-    expect(sceneEntrancePoint(scene,door)).toEqual({x:258,y:230});
-    scene.scenery[0].x+=60;scene.scenery[0].y+=40;
-    expect(sceneEntrancePoint(scene,door)).toEqual({x:318,y:270});
-    expect(sceneEntrancePoint(scene,door,true)).toEqual({x:322,y:285});
-    expect(parseWorldSceneDocument(value)).toBe(value);
-    scene.entrances.push({...door,id:'duplicate-room'});
-    expect(()=>parseWorldSceneDocument(value)).toThrow('duplicate entrances');
-    scene.entrances.pop();scene.scenery=[];
-    expect(()=>parseWorldSceneDocument(value)).toThrow('missing owner');
+  it('derives a room door from its building and upgrades separate version 2 entrances', () => {
+    const town=structuredClone(sceneDocument.maps.lindenhafen), owner=town.scenery.find(item=>item.interior)!;
+    const door=sceneEntrancePoint(town,owner);
+    owner.x+=60;owner.y+=40;
+    expect(sceneEntrancePoint(town,owner)).toEqual({x:door.x+60,y:door.y+40});
+    const legacy=structuredClone(sceneDocument) as unknown as {version:number;maps:Record<string,Record<string,unknown>&{scenery:SceneScenery[]}>};
+    legacy.version=2;
+    for(const scene of Object.values(legacy.maps)){
+      scene.entrances=scene.scenery.filter(item=>item.interior).map(item=>({id:`${item.interior!.kind}-entrance`,ownerId:item.id,interiorId:item.interior!.kind,offsetX:0,offsetY:0}));
+      for(const item of scene.scenery)delete item.interior;
+    }
+    const upgraded=parseWorldSceneDocument(legacy);
+    expect(upgraded.version).toBe(3);
+    expect(sceneEntrances(upgraded.maps.lindenhafen).map(item=>item.interiorId).sort()).toEqual(['bakery','cafe','inn','supermarket']);
+    expect('entrances' in upgraded.maps.lindenhafen).toBe(false);
   });
-  it('scales and mirrors painted doors with their owner and returns one adult below the sill',()=>{
-    const scene=structuredClone(sceneDocument.maps.lindenhafen),entrance=scene.entrances![0];
-    const owner=scene.scenery.find(item=>item.id===entrance.ownerId)!;
-    const before=sceneEntrancePoint(scene,entrance);
-    owner.width*=1.25;
-    const larger=sceneEntrancePoint(scene,entrance);
-    expect(larger.x-owner.x).toBeCloseTo((before.x-owner.x)*1.25);
-    expect(larger.y-owner.y).toBeCloseTo((before.y-owner.y)*1.25);
-    owner.flipX=true;
-    const mirrored=sceneEntrancePoint(scene,entrance);
-    expect(mirrored.x-owner.x).toBeCloseTo(-(larger.x-owner.x));
-    expect(sceneEntrancePoint(scene,entrance,true)).toEqual({x:mirrored.x,y:mirrored.y+72});
+  it('lets only buildings with a painted door host a room, once per town', () => {
+    const document=structuredClone(sceneDocument), town=document.maps.lindenhafen;
+    const tree=town.scenery.find(item=>item.asset==='tree')!;
+    tree.interior={kind:'bakery'};
+    expect(()=>parseWorldSceneDocument(structuredClone(document))).toThrow('has no door');
+    delete tree.interior;
+    const hosts=town.scenery.filter(item=>item.interior);
+    hosts[1].interior={kind:hosts[0].interior!.kind};
+    expect(()=>parseWorldSceneDocument(structuredClone(document))).toThrow('two buildings with a');
   });
   it('rejects invalid authored sort segments',()=>{
     const value=room();value.maps.room.scenery[0].sortLine=[[0,0],[0,10]];

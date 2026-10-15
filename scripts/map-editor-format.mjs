@@ -2,7 +2,7 @@ const property = (name,value) => ({name,type:typeof value==='number'?'int':'stri
 const valueOf = (properties,name) => properties?.find(property=>property.name===name)?.value;
 
 export function toTiled(mapId,document,options) {
-  if(document.version===2)return sceneToTiled(mapId,document,options);
+  if(document.version>=2)return sceneToTiled(mapId,document,options);
   const map=document.maps[mapId];if(!map)throw new Error(`Unknown map ${mapId}`);
   let nextId=1;
   const polygons=(name,values,color)=>({id:nextId++,name,type:'objectgroup',color,opacity:.35,visible:true,objects:values.map((polygon,index)=>({id:nextId++,name:`${name.toLowerCase()}-${index+1}`,x:0,y:0,polygon:polygon.map(([x,y])=>({x,y}))}))});
@@ -12,7 +12,7 @@ export function toTiled(mapId,document,options) {
 }
 
 export function fromTiled(tiled,document) {
-  if(document.version===2)return sceneFromTiled(tiled,document);
+  if(document.version>=2)return sceneFromTiled(tiled,document);
   const mapId=valueOf(tiled.properties,'mapId');
   if(!document.maps[mapId])throw new Error('Tiled mapId must name an existing story map');
   if(tiled.orientation!=='orthogonal'||tiled.infinite||tiled.width*tiled.tilewidth!==document.width||tiled.height*tiled.tileheight!==document.height)throw new Error('Tiled map must keep the painting dimensions and orthogonal orientation');

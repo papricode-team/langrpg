@@ -28,7 +28,7 @@ The UI content budget and screenshot checks are documented in [UI guidelines](do
 
 ## Run locally
 
-Requirements: **Go 1.26+** and **Node.js 24+**. The world editor uses Node to validate drafts; Docker includes the runtime and its dependencies.
+Requirements: **Go 1.26+** and **Node.js 24+**. The world editors use a Node worker to check edits; Docker includes the runtime and its dependencies.
 
 From the repository root:
 
@@ -51,7 +51,12 @@ Without `DATABASE_URL`, the server saves development data to `server/.data/state
 
 Set the server-only `ADMIN_EMAILS` environment variable to a comma-separated list of registered account emails, for example `ADMIN_EMAILS=editor@example.com,owner@example.com`. Addresses are trimmed and compared without case; an empty list disables admin access and an invalid address stops server startup. Register the intended accounts before adding their addresses to the allowlist, because signup currently has no email verification. Compose passes this variable from `.env`; for local development, run `ADMIN_EMAILS=editor@example.com npm run dev`. Restart the server after changing the list.
 
-While playing, admins can press **Edit** to open World Studio over the game at their current region. **Back to game** closes the editor and resumes play. **Export** downloads the complete world, including unsaved edits; **Import** accepts a complete World Studio JSON document up to **2 MiB**, checks it on the server, and opens it as an undoable draft. **Save world** validates and publishes the draft for players. Published worlds persist in PostgreSQL or the development JSON store across server restarts and deployments; the editor does not rewrite repository files. Unsaved drafts stay on the current device. If another admin publishes first, saving reports a conflict and retains the draft so the latest world can be reopened and reviewed.
+Admins edit the world in two places. Both publish each change immediately, and players see it without reloading:
+
+- **Edit mode in the game.** Press **Edit** while playing. The town keeps running and you keep walking with the keyboard. Click an object, story character or evidence marker to select it, and drag to move it. The inspector flips, resizes within the artwork's limits, chooses the room a building with a painted door hosts, and deletes. **Add** places new objects. A building's door comes from its painting, so a room never needs a separate entrance. While editing, a conversation shows **Hide this line for everyone** on monologue lines. **Undo** reverts your own last edits. Another admin's selected object is outlined with their name and cannot be changed until they let go. Edit mode is hidden on phones.
+- **Admin › Map editor.** The **Admin** link opens analytics and the map editor. The map editor shows a whole town with the same tools, plus a **Town** check, the **Residents** schedule editor, a **Story** list for hiding and restoring lines, and **Import** and **Export** of the complete world (up to **2 MiB**).
+
+Edits are checked where they are made. Objects stay inside the town, off water and walls, out of other objects' bases, and a walking gap away from other buildings; players must still reach every story character, door and resident spot. Refusals name the object in one sentence and highlight it. Published worlds and hidden story lines persist in PostgreSQL or the development JSON store; the editors never rewrite repository files. See [the redesign handover](docs/map-editor-redesign-handover.md).
 
 ## Controls
 

@@ -31,7 +31,8 @@ test('publication bridge compiles canonical scenes and authority without source 
   const result = await compile(JSON.stringify(draft));
   assert.equal(result.code, 0, result.stderr);
   const bundle = JSON.parse(result.stdout);
-  assert.deepEqual(Object.keys(bundle).sort(), ['document', 'worldMaps', 'investigations', 'expeditions', 'contentVersion', 'diagnostics'].sort());
+  assert.deepEqual(Object.keys(bundle).sort(), ['document', 'worldMaps', 'investigations', 'expeditions', 'contentVersion', 'diagnostics', 'problems'].sort());
+  assert.ok(bundle.problems.every(problem => problem.severity === 'warning'));
   assert.equal(bundle.contentVersion, bundle.worldMaps.contentVersion);
   assert.deepEqual(bundle.worldMaps.maps.lindenhafen.spawn, {x: draft.maps.lindenhafen.spawn.x / draft.maps.lindenhafen.width, y: draft.maps.lindenhafen.spawn.y / draft.maps.lindenhafen.height});
   for (const rule of bundle.investigations.rules) {
@@ -58,7 +59,7 @@ test('publication bridge rejects malformed JSON, oversized documents and unknown
     assert.equal(result.stdout, '');
     const failure = JSON.parse(result.stderr);
     assert.match(failure.error, expected);
-    assert.ok(failure.diagnostics.length);
+    assert.ok(failure.problems.length);
   }
 });
 

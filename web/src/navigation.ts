@@ -183,6 +183,7 @@ export class NavigationGrid {
   private readonly checkedEdges: Uint8Array;
   private readonly clearEdges: Uint8Array;
   private readonly streets: readonly Region[];
+  private readonly streetEdges: readonly Boundary[];
   private readonly barriers: readonly Region[];
   private readonly geometry: readonly Region[];
   private readonly boundaries: readonly Boundary[];
@@ -210,16 +211,9 @@ export class NavigationGrid {
     this.streets = areas.map(region);
     this.barriers = obstacles.map(region);
     this.geometry = [...this.streets, ...this.barriers];
-    this.boundaries=this.agentRadius ? [
-      ...streetBoundaries(this.streets), ...this.barriers.flatMap(area=>polygonEdges(area.polygon)),
-      ...polygonEdges([[4,4],[this.width-4,4],[this.width-4,this.height-4],[4,this.height-4]]),
-    ] : [];
-    this.boundaries.forEach((edge,index)=>{
-      this.visitBoundaryBins(edge.minX,edge.minY,edge.maxX,edge.maxY,key=>{
-        const bin=this.boundaryBins.get(key);
-        if(bin)bin.push(index);else this.boundaryBins.set(key,[index]);
-      });
-    });
+    this.streetEdges=this.agentRadius?streetBoundaries(this.streets):[];
+    this.boundaries=this.collisionEdges(this.barriers);
+    this.indexBoundaries();
     for (let index = 0; index < this.allowed.length; index++) {
       const point = this.point(index);
       if (this.isWalkable(point.x, point.y)) {
@@ -227,6 +221,66 @@ export class NavigationGrid {
         this.nodes.push(index);
       }
     }
+  }
+
+  private collisionEdges(barriers: readonly Region[]): Boundary[] {
+    return this.agentRadius ? [
+      ...this.streetEdges, ...barriers.flatMap(area=>polygonEdges(area.polygon)),
+      ...polygonEdges([[4,4],[this.width-4,4],[this.width-4,this.height-4],[4,this.height-4]]),
+    ] : [];
+  }
+
+  private indexBoundaries(): void {
+    this.boundaries.forEach((edge,index)=>{
+      this.visitBoundaryBins(edge.minX,edge.minY,edge.maxX,edge.maxY,key=>{
+        const bin=this.boundaryBins.get(key);
+        if(bin)bin.push(index);else this.boundaryBins.set(key,[index]);
+      });
+    });
+  }
+
+  /**
+   * Return a grid for a changed obstacle set, recomputing only the cells near
+   * obstacles that were added or removed. The original grid stays unchanged,
+   * so editors can test a placement before committing it.
+   */
+  withObstacles(obstacles: readonly Polygon[]): NavigationGrid {
+    const key=(polygon:Polygon)=>polygon.map(([x,y])=>`${x},${y}`).join(';');
+    const pool=new Map<string,Region[]>();
+    for(const area of this.barriers){const id=key(area.polygon);const list=pool.get(id);if(list)list.push(area);else pool.set(id,[area]);}
+    const changed:Region[]=[];
+    const barriers=obstacles.map(polygon=>{
+      const reused=pool.get(key(polygon))?.pop();
+      if(reused)return reused;
+      const area=region(polygon);changed.push(area);return area;
+    });
+    for(const rest of pool.values())changed.push(...rest);
+    if(!changed.length)return this;
+    const next=Object.create(NavigationGrid.prototype) as NavigationGrid;
+    Object.assign(next,{
+      cellSize:this.cellSize,agentRadius:this.agentRadius,cell:this.cell,width:this.width,height:this.height,
+      columns:this.columns,rows:this.rows,streets:this.streets,streetEdges:this.streetEdges,barriers,
+      geometry:[...this.streets,...barriers],boundaryBins:new Map<number,number[]>(),boundaryBinSize:this.boundaryBinSize,
+      boundaryColumns:this.boundaryColumns,closestCandidates:new Map<number,readonly number[]>(),
+      allowed:this.allowed.slice(),checkedEdges:this.checkedEdges.slice(),clearEdges:this.clearEdges.slice(),
+      components:new Uint32Array(this.allowed.length),componentCounts:[0],nodes:[],
+    });
+    Object.assign(next,{boundaries:next.collisionEdges(barriers)});
+    next.indexBoundaries();
+    // A cell's walkability and its edges depend only on geometry within the
+    // agent radius. Cells further away keep their cached results.
+    const margin=this.agentRadius+this.cell*2;
+    for(const area of changed){
+      const left=Math.max(0,Math.floor((area.minX-margin)/this.cell)),right=Math.min(this.columns-1,Math.ceil((area.maxX+margin)/this.cell));
+      const top=Math.max(0,Math.floor((area.minY-margin)/this.cell)),bottom=Math.min(this.rows-1,Math.ceil((area.maxY+margin)/this.cell));
+      for(let row=top;row<=bottom;row++)for(let column=left;column<=right;column++){
+        const index=row*this.columns+column,point=next.point(index);
+        next.allowed[index]=next.isWalkable(point.x,point.y)?1:0;
+        next.checkedEdges[index]=0;next.clearEdges[index]=0;
+      }
+    }
+    for(let index=0;index<next.allowed.length;index++)if(next.allowed[index])next.nodes.push(index);
+    return next;
   }
 
   isWalkable(x: number, y: number): boolean {

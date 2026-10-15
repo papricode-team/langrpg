@@ -20,18 +20,15 @@ test('v2 roundtrip preserves every scene field, including activities and generat
   const source=structuredClone(scenes),scene=source.maps.lindenhafen;
   scene.activities=[{id:'test-seat',ownerId:scene.scenery[0].id,kind:'seat',offsetX:18.5,offsetY:-3.5,approach:{x:14,y:20},exit:{x:-14,y:20},capacity:1}];
   scene.generationZones=[{id:'garden',polygon:[[100,100],[200,100],[200,200],[100,200]],seed:42,rulesVersion:1,palette:['tree','bench'],pinnedIds:[scene.scenery[0].id],count:4,minSpacing:30,clearance:12,minScale:.8,maxScale:1.1}];
-  scene.entrances=[{id:'test-door',ownerId:scene.scenery[0].id,interiorId:'cafe',offsetX:0,offsetY:8,returnOffset:{x:5,y:12}}];
   for(const id of Object.keys(source.maps))assert.deepEqual(fromTiled(toTiled(id,source),source),source);
   const tiled=toTiled('lindenhafen',source);
   tiled.layers.find(layer=>layer.name==='Scenery').objects[0].x+=20;
   const moved=fromTiled(tiled,source).maps.lindenhafen;
   assert.equal(moved.scenery[0].x,scene.scenery[0].x+20);
   assert.deepEqual(moved.activities,scene.activities,'owner movement preserves relative activity offsets');
-  assert.deepEqual(moved.entrances,scene.entrances,'owner movement preserves doorway offsets');
-  const door=tiled.layers.find(layer=>layer.name==='Entrances').objects[0];door.x+=35;
-  const edited=fromTiled(tiled,source).maps.lindenhafen.entrances[0];
-  assert.equal(edited.offsetX,15,'moving the doorway explicitly recalculates its offset from the moved owner');
-  assert.deepEqual(edited.returnOffset,{x:5,y:12});
+  const host=scene.scenery.find(item=>item.interior);
+  assert.deepEqual(fromTiled(tiled,source).maps.lindenhafen.scenery.find(item=>item.id===host.id).interior,host.interior,'rooms stay with their building');
+  assert.equal(tiled.layers.some(layer=>layer.name==='Entrances'),false);
 });
 test('v2 image terrain uses logical dimensions and scenery preserves pivots and horizontal flips',()=>{
   const scene=scenes.maps.lindenhafen,item=scene.scenery[0],plate=scene.terrain[0];
@@ -50,14 +47,14 @@ test('v2 image terrain uses logical dimensions and scenery preserves pivots and 
 test('Tiled furniture resizing and mirroring carry its usable positions',()=>{
   const source=structuredClone(scenes),scene=source.maps.lindenhafen,owner=scene.scenery[0];
   scene.activities=[{id:'seat',ownerId:owner.id,kind:'seat',offsetX:5,offsetY:10,approach:{x:8,y:20},capacity:2,places:[{x:-12,y:0},{x:12,y:0}]}];
-  scene.entrances=[{id:'door',ownerId:owner.id,interiorId:'inn',offsetX:12,offsetY:30,returnOffset:{x:15,y:35}}];
+  owner.interior={kind:'inn',returnOffset:{x:15,y:35}};
   const tiled=toTiled(scene.id,source),object=tiled.layers.find(layer=>layer.name==='Scenery').objects[0];
   object.properties.find(value=>value.name==='width').value*=2;
   object.properties.push({name:'flipX',type:'bool',value:true});
   const moved=fromTiled(tiled,source).maps.lindenhafen;
   assert.deepEqual(moved.activities[0].approach,{x:-16,y:40});
   assert.deepEqual(moved.activities[0].places,[{x:24,y:0},{x:-24,y:0}]);
-  assert.deepEqual(moved.entrances[0].returnOffset,{x:-30,y:70});
+  assert.deepEqual(moved.scenery[0].interior.returnOffset,{x:-30,y:70});
 });
 test('unsupported v2 content cannot disappear silently',()=>{
   const source=structuredClone(scenes);delete source.maps.lindenhafen.navigation;
@@ -114,19 +111,19 @@ test('malformed layer and shape edits cannot silently remove runtime collision',
   assert.throws(()=>fromTiled(tiled,document),/Missing Tiled layer/);
 });
 
-test('Tiled preserves prefab catalog, overrides and group placement baselines',async()=>{
-  const {stampPrefab,previewPrefabUpdate}=await import('../web/src/level-editor-prefabs.ts');
-  const source=structuredClone(scenes),prefab=source.prefabs.find(item=>item.id==='sheltered-bench');
-  const origin={x:source.maps.lindenhafen.width*.75,y:source.maps.lindenhafen.height*.25};
-  const stamped=stampPrefab(source.maps.lindenhafen,prefab,origin);source.maps.lindenhafen=stamped.scene;
+test('Tiled preserves prefab catalog and moves a whole placed group with its baselines',()=>{
+  const source=structuredClone(scenes),scene=source.maps.lindenhafen,prefab=source.prefabs.find(item=>item.id==='sheltered-bench');
+  const origin={x:scene.width*.75,y:scene.height*.25},instanceId='lindenhafen-sheltered-bench-test';
+  const members=prefab.scenery.map(child=>({key:child.id,id:`${instanceId}-${child.id}`,base:{...structuredClone(child),id:`${instanceId}-${child.id}`,x:origin.x+child.x,y:origin.y+child.y}}));
+  scene.scenery.push(...members.map(member=>({...structuredClone(member.base),groupId:instanceId})));
+  scene.prefabInstances=[...(scene.prefabInstances??[]),{id:instanceId,prefabId:prefab.id,revision:prefab.revision,origin,members,activities:[]}];
   const tiled=toTiled('lindenhafen',source);
   assert.deepEqual(fromTiled(tiled,source),source);
-  const instance=stamped.scene.prefabInstances.at(-1),objects=tiled.layers.find(layer=>layer.name==='Scenery').objects;
-  for(const object of objects.filter(object=>stamped.ids.includes(object.name))){object.x+=100;object.y+=10;}
+  const ids=new Set(members.map(member=>member.id));
+  for(const object of tiled.layers.find(layer=>layer.name==='Scenery').objects.filter(object=>ids.has(object.name))){object.x+=100;object.y+=10;}
   const imported=fromTiled(tiled,source);
   assert.deepEqual(imported.prefabs,source.prefabs);
-  assert.deepEqual(imported.maps.lindenhafen.prefabInstances.at(-1).origin,{x:origin.x+100,y:origin.y+10});
-  const revised=structuredClone(prefab);revised.revision++;revised.scenery[1].x+=12;
-  const update=previewPrefabUpdate(imported.maps.lindenhafen,revised,instance.id);
-  assert.equal(update.scene.scenery.find(item=>item.id===instance.members[1].id).x,origin.x+100+revised.scenery[1].x);
+  const moved=imported.maps.lindenhafen.prefabInstances.find(item=>item.id===instanceId);
+  assert.deepEqual(moved.origin,{x:origin.x+100,y:origin.y+10});
+  assert.equal(moved.members[0].base.x,members[0].base.x+100);
 });

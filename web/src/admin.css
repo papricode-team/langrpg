@@ -199,3 +199,49 @@ th,td{padding:12px 10px}
 
 .mobile-admin-link { display:none; }
 @media (--phone) { .mobile-admin-link { display:block; margin-top:10px; } }
+
+/* Map editor ---------------------------------------------------------------- */
+.sidebar nav a.current { background: #31574b; color: #fff; }
+.sidebar nav a:first-child:not(.current) { background: transparent; color: #bfd1c7; }
+.nav-sub { display: grid; gap: 2px; margin: -2px 0 6px 12px; }
+.nav-sub[hidden] { display: none; }
+.nav-sub a { padding: 8px 12px; font-size: 13px; }
+.map-main { display: flex; flex-direction: column; height: 100vh; }
+.map-main[hidden] { display: none; }
+.map-host { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.map-topbar { flex: none; }
+.map-topbar #map-status { font-size: 12px; color: var(--muted); }
+.map-editor { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+.map-canvas { position: relative; min-height: 0; overflow: hidden; background: #c8d0bc; }
+.map-canvas canvas { display: block; }
+.map-panel { min-height: 0; overflow: auto; background: #132a22; color: #f6efdc; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.map-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.map-tabs button { flex: 1; min-height: 34px; border-radius: 8px; border: 1px solid #d8bb8055; background: transparent; color: #c9d2c4; font: 600 13px 'DM Sans', sans-serif; cursor: pointer; }
+.map-tabs button[aria-selected=true] { background: #2f5546; color: #fff; border-color: #f0d49a; }
+.map-tab[hidden] { display: none; }
+.map-tab h3 { margin: 4px 0 8px; font: 600 18px Fraunces, Georgia, serif; color: #f0d49a; }
+.map-tab h4 { margin: 14px 0 6px; font-size: 14px; color: #f0d49a; }
+.map-tab button { min-height: 32px; padding: 4px 12px; border-radius: 8px; border: 1px solid #d8bb8077; background: #1d3a31; color: #f6efdc; font: 500 13px 'DM Sans', sans-serif; cursor: pointer; }
+.map-tab label { display: grid; gap: 4px; font-size: 13px; color: #c9d2c4; margin: 6px 0; }
+.map-tab input, .map-tab select { min-height: 32px; padding: 4px 8px; border-radius: 8px; border: 1px solid #d8bb8077; background: #1d3a31; color: #f6efdc; font: inherit; }
+.map-tab details { border: 1px solid #d8bb8033; border-radius: 10px; padding: 8px 10px; margin: 8px 0; }
+.map-tab .field-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.map-tab .panel-note, .map-note { margin: 4px 0; font-size: 13px; line-height: 1.45; color: #c9d2c4; }
+.map-note.good { color: #9fe0a8; }
+.map-help { margin: auto 0 0; font-size: 12px; color: #9fb8ac; }
+.map-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+.map-facts div { background: #1d3a31; border-radius: 8px; padding: 8px 10px; }
+.map-facts dt { font-size: 12px; color: #c9d2c4; }
+.map-facts dd { margin: 2px 0 0; font-size: 20px; font-weight: 600; }
+.map-rooms, .map-problems, .story-hidden { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.map-rooms li, .map-problems li, .story-hidden li { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; }
+.map-rooms em { color: #ffd2cc; font-style: normal; font-size: 13px; }
+.map-problems li { align-items: flex-start; padding: 8px 10px; border-radius: 8px; background: #4a1f1c; }
+.map-problems li.warning { background: #3d3720; }
+.story-block ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.story-block li { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; padding: 8px; border-radius: 8px; background: #1d3a31; }
+.story-block li.hidden-line { opacity: .6; text-decoration: line-through; }
+.story-text { font-size: 14px; line-height: 1.4; }
+.story-english { display: block; color: #c9d2c4; font-size: 13px; margin-top: 2px; }
+.story-locked { font-size: 12px; color: #9fb8ac; white-space: nowrap; }
+@media (--tablet) { .map-editor { grid-template-columns: 1fr; grid-template-rows: minmax(320px, 1fr) auto; } .map-panel { max-height: 50vh; } }

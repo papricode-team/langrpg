@@ -246,3 +246,6 @@
 
 .admin-analytics-link { position: absolute; right: 24px; top: 112px; pointer-events: auto; color: #fff; background: #183e36; border: 1px solid #c7d6cd; border-radius: 8px; padding: 8px 14px; font: 600 14px sans-serif; text-decoration: none; }
 .admin-analytics-link[hidden] { display: none; }
+
+/* In-game edit mode is a desktop tool. */
+@media (--phone) { .world-edit-button { display: none; } }

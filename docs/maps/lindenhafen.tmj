@@ -9,8 +9,8 @@
   "height": 1536,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 312,
-  "nextlayerid": 312,
+  "nextobjectid": 307,
+  "nextlayerid": 307,
   "properties": [
     {
       "name": "mapId",
@@ -50,7 +50,7 @@
     {
       "name": "_optionalCollections",
       "type": "string",
-      "value": "[\"activities\",\"entrances\",\"generationZones\"]"
+      "value": "[\"activities\",\"generationZones\"]"
     },
     {
       "name": "_jsonFields",
@@ -60,7 +60,7 @@
   ],
   "layers": [
     {
-      "id": 270,
+      "id": 266,
       "name": "Terrain",
       "type": "objectgroup",
       "visible": true,
@@ -573,7 +573,7 @@
       ]
     },
     {
-      "id": 271,
+      "id": 267,
       "name": "Walkable",
       "type": "objectgroup",
       "visible": true,
@@ -582,7 +582,7 @@
       "objects": []
     },
     {
-      "id": 272,
+      "id": 268,
       "name": "Obstacles",
       "type": "objectgroup",
       "visible": true,
@@ -591,7 +591,7 @@
       "objects": []
     },
     {
-      "id": 279,
+      "id": 275,
       "name": "Terrain collision",
       "type": "objectgroup",
       "visible": true,
@@ -599,7 +599,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 273,
+          "id": 269,
           "name": "west-canal",
           "x": 0,
           "y": 0,
@@ -735,7 +735,7 @@
           ]
         },
         {
-          "id": 274,
+          "id": 270,
           "name": "north-canal",
           "x": 0,
           "y": 0,
@@ -847,7 +847,7 @@
           ]
         },
         {
-          "id": 275,
+          "id": 271,
           "name": "north-canal-garden-inlet",
           "x": 0,
           "y": 0,
@@ -895,7 +895,7 @@
           ]
         },
         {
-          "id": 276,
+          "id": 272,
           "name": "east-canal",
           "x": 0,
           "y": 0,
@@ -1099,7 +1099,7 @@
           ]
         },
         {
-          "id": 277,
+          "id": 273,
           "name": "south-harbor-basin",
           "x": 0,
           "y": 0,
@@ -1367,7 +1367,7 @@
           ]
         },
         {
-          "id": 278,
+          "id": 274,
           "name": "south-bridge-water",
           "x": 0,
           "y": 0,
@@ -1413,7 +1413,7 @@
       ]
     },
     {
-      "id": 280,
+      "id": 276,
       "name": "Scenery",
       "type": "objectgroup",
       "visible": true,
@@ -1421,8 +1421,8 @@
         {
           "id": 10,
           "name": "archive",
-          "x": 70.5,
-          "y": 22.952380952380963,
+          "x": 166.5,
+          "y": 134.95238095238096,
           "width": 265,
           "height": 295,
           "gid": 10,
@@ -1445,12 +1445,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 203
+              "value": 299
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 317
+              "value": 429
             },
             {
               "name": "_sourceObjectWidth",
@@ -1460,12 +1460,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 70.5
+              "value": 166.5
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 22.952380952380963
+              "value": 134.95238095238096
             },
             {
               "name": "_sourceDisplayWidth",
@@ -1509,6 +1509,11 @@
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.93562500000002,-62.48395833333336],[74.86983173076919,-100.93562500000002],[110.54854166666667,-46.2159455128205],[48.43431089743592,-31.611706730769242],[41.96407852564107,-29.94793269230769],[-6.100504807692346,-29.94793269230769],[-12.755600961538448,-15.898285256410247],[-61.55963942307699,-4.436730769230792]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"cafe\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 588
@@ -1546,14 +1551,14 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 12,
           "name": "station",
-          "x": 1178.835,
+          "x": 1322.835,
           "y": -12.973863636363603,
           "width": 292.33,
           "height": 299.9959965034965,
@@ -1577,7 +1582,7 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1325
+              "value": 1469
             },
             {
               "name": "_sourceY",
@@ -1592,7 +1597,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1178.835
+              "value": 1322.835
             },
             {
               "name": "_sourceDisplayY",
@@ -1619,8 +1624,8 @@
         {
           "id": 13,
           "name": "workshop",
-          "x": 119.62,
-          "y": 440.95772609819124,
+          "x": 647.62,
+          "y": 616.9577260981912,
           "width": 278.76,
           "height": 285.0026873385013,
           "gid": 13,
@@ -1643,12 +1648,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 259
+              "value": 787
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 725
+              "value": 901
             },
             {
               "name": "_sourceObjectWidth",
@@ -1658,12 +1663,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 119.62
+              "value": 647.62
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 440.95772609819124
+              "value": 616.9577260981912
             },
             {
               "name": "_sourceDisplayWidth",
@@ -1707,6 +1712,11 @@
               "value": "{\"referenceWidth\":230.73,\"polygons\":[[[-95.38196872493995,-72.53100240577385],[79.83961106655966,-88.25838813151563],[107.40879310344826,-39.96606255012034],[82.61503207698479,-10.176543704891742],[13.969619085806016,-3.3305052125100474],[4.7182157177226145,-20.16805934242177],[-31.917341619887793,-20.16805934242177],[-41.90885725741782,-15.172301523656756],[-95.38196872493995,-35.34036086607853]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"bakery\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 1161
@@ -1744,7 +1754,7 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
@@ -1752,7 +1762,7 @@
           "id": 15,
           "name": "west-edge-house",
           "x": -111.355,
-          "y": 21.003421474358987,
+          "y": 133.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 2147483663,
@@ -1780,7 +1790,7 @@
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 236
+              "value": 348
             },
             {
               "name": "_sourceObjectWidth",
@@ -1795,7 +1805,7 @@
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 21.003421474358987
+              "value": 133.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -1883,7 +1893,7 @@
         {
           "id": 17,
           "name": "north-central-house",
-          "x": 255.64499999999998,
+          "x": 463.645,
           "y": -111.99657852564101,
           "width": 230.71,
           "height": 214.996578525641,
@@ -1907,7 +1917,7 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 371
+              "value": 579
             },
             {
               "name": "_sourceY",
@@ -1922,7 +1932,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 255.64499999999998
+              "value": 463.645
             },
             {
               "name": "_sourceDisplayY",
@@ -1949,7 +1959,7 @@
         {
           "id": 18,
           "name": "high-street-house",
-          "x": 534.645,
+          "x": 1030.645,
           "y": -38.99657852564101,
           "width": 230.71,
           "height": 214.996578525641,
@@ -1973,7 +1983,7 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 650
+              "value": 1146
             },
             {
               "name": "_sourceY",
@@ -1988,7 +1998,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 534.645
+              "value": 1030.645
             },
             {
               "name": "_sourceDisplayY",
@@ -2081,8 +2091,8 @@
         {
           "id": 20,
           "name": "high-street-cottage",
-          "x": 660.645,
-          "y": 2.003421474358987,
+          "x": 740.645,
+          "y": 194.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 15,
@@ -2105,12 +2115,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 776
+              "value": 856
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 217
+              "value": 409
             },
             {
               "name": "_sourceObjectWidth",
@@ -2120,12 +2130,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 660.645
+              "value": 740.645
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 2.003421474358987
+              "value": 194.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2147,8 +2157,8 @@
         {
           "id": 21,
           "name": "workshop-west-house",
-          "x": -73.355,
-          "y": 408.003421474359,
+          "x": -9.355000000000004,
+          "y": 472.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 2147483663,
@@ -2171,12 +2181,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 42
+              "value": 106
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 623
+              "value": 687
             },
             {
               "name": "_sourceObjectWidth",
@@ -2186,12 +2196,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": -73.355
+              "value": -9.355000000000004
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 408.003421474359
+              "value": 472.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -2213,8 +2223,8 @@
         {
           "id": 22,
           "name": "east-canal-house",
-          "x": 1014.645,
-          "y": 481.003421474359,
+          "x": 1350.645,
+          "y": 497.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 15,
@@ -2237,12 +2247,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1130
+              "value": 1466
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 696
+              "value": 712
             },
             {
               "name": "_sourceObjectWidth",
@@ -2252,12 +2262,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1014.645
+              "value": 1350.645
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 481.003421474359
+              "value": 497.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -5535,6 +5545,11 @@
               "value": "{\"referenceWidth\":257.5,\"polygons\":[[[-109.88325281803554,-63.23470209339774],[114.2371175523349,-68.62520128824474],[114.02979066022544,-17.830112721417095],[41.25805152979069,-9.744363929146516],[27.36714975845416,-11.19565217391306],[-23.427938808373483,-11.19565217391306],[-32.55032206119154,-6.634460547504034],[-112.3711755233494,-10.159017713365529]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"supermarket\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 1151
@@ -5572,7 +5587,7 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
@@ -6041,8 +6056,8 @@
         {
           "id": 80,
           "name": "rose-garden-greenhouse",
-          "x": 748.99,
-          "y": 647.703980181668,
+          "x": 396.99,
+          "y": 631.703980181668,
           "width": 212.02,
           "height": 214.99633360858797,
           "gid": 29,
@@ -6065,12 +6080,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 855
+              "value": 503
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 862
+              "value": 846
             },
             {
               "name": "_sourceObjectWidth",
@@ -6080,12 +6095,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 748.99
+              "value": 396.99
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 647.703980181668
+              "value": 631.703980181668
             },
             {
               "name": "_sourceDisplayWidth",
@@ -11597,7 +11612,7 @@
           "id": 160,
           "name": "library-building",
           "x": 1823.5,
-          "y": 966.952380952381,
+          "y": 950.952380952381,
           "width": 265,
           "height": 295,
           "gid": 10,
@@ -11630,7 +11645,7 @@
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 1261
+              "value": 1245
             },
             {
               "name": "_sourceObjectWidth",
@@ -11645,7 +11660,7 @@
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 966.952380952381
+              "value": 950.952380952381
             },
             {
               "name": "_sourceDisplayWidth",
@@ -14294,8 +14309,8 @@
         {
           "id": 198,
           "name": "workyard-workshop",
-          "x": 267.62,
-          "y": 1082.9577260981912,
+          "x": 11.620000000000005,
+          "y": 890.9577260981912,
           "width": 278.76,
           "height": 285.0026873385013,
           "gid": 13,
@@ -14323,12 +14338,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 407
+              "value": 151
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 1367
+              "value": 1175
             },
             {
               "name": "_sourceObjectWidth",
@@ -14338,12 +14353,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 267.62
+              "value": 11.620000000000005
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 1082.9577260981912
+              "value": 890.9577260981912
             },
             {
               "name": "_sourceDisplayWidth",
@@ -15123,6 +15138,11 @@
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.93562500000007,-62.48395833333325],[74.86983173076919,-100.93562500000007],[110.54854166666678,-46.215945512820554],[48.43431089743581,-31.61170673076913],[41.96407852564107,-29.94793269230763],[-6.100504807692232,-29.94793269230763],[-12.755600961538448,-15.89828525641019],[-61.55963942307699,-4.436730769230735]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"inn\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 1436
@@ -15160,15 +15180,15 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 211,
           "name": "bridge-quay-storefront-2",
-          "x": 1278.25,
-          "y": 1198.0020128824476,
+          "x": 1406.25,
+          "y": 1310.0020128824476,
           "width": 257.5,
           "height": 214.99798711755233,
           "gid": 39,
@@ -15186,12 +15206,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1407
+              "value": 1535
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 1413
+              "value": 1525
             },
             {
               "name": "_sourceObjectWidth",
@@ -15201,12 +15221,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1278.25
+              "value": 1406.25
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 1198.0020128824476
+              "value": 1310.0020128824476
             },
             {
               "name": "_sourceDisplayWidth",
@@ -15655,13 +15675,13 @@
       ]
     },
     {
-      "id": 282,
+      "id": 278,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 281,
+          "id": 277,
           "name": "spawn",
           "point": true,
           "x": 798.72,
@@ -15677,13 +15697,13 @@
       ]
     },
     {
-      "id": 291,
+      "id": 287,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 283,
+          "id": 279,
           "name": "marta",
           "point": true,
           "x": 678.912,
@@ -15702,7 +15722,7 @@
           ]
         },
         {
-          "id": 284,
+          "id": 280,
           "name": "otto",
           "point": true,
           "x": 1251.84,
@@ -15721,7 +15741,7 @@
           ]
         },
         {
-          "id": 285,
+          "id": 281,
           "name": "lina",
           "point": true,
           "x": 926.208,
@@ -15740,7 +15760,7 @@
           ]
         },
         {
-          "id": 286,
+          "id": 282,
           "name": "emil",
           "point": true,
           "x": 350.208,
@@ -15759,7 +15779,7 @@
           ]
         },
         {
-          "id": 287,
+          "id": 283,
           "name": "ada",
           "point": true,
           "x": 202.752,
@@ -15778,7 +15798,7 @@
           ]
         },
         {
-          "id": 288,
+          "id": 284,
           "name": "fritz",
           "point": true,
           "x": 1190.4,
@@ -15797,7 +15817,7 @@
           ]
         },
         {
-          "id": 289,
+          "id": 285,
           "name": "greta",
           "point": true,
           "x": 635.904,
@@ -15811,7 +15831,7 @@
           ]
         },
         {
-          "id": 290,
+          "id": 286,
           "name": "inspector",
           "point": true,
           "x": 1311.744,
@@ -15832,13 +15852,13 @@
       ]
     },
     {
-      "id": 302,
+      "id": 298,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 292,
+          "id": 288,
           "name": "lindenhafen-platform-ticket",
           "point": true,
           "x": 1285.632,
@@ -15867,7 +15887,7 @@
           ]
         },
         {
-          "id": 293,
+          "id": 289,
           "name": "lindenhafen-cafe-receipt",
           "point": true,
           "x": 703.488,
@@ -15896,7 +15916,7 @@
           ]
         },
         {
-          "id": 294,
+          "id": 290,
           "name": "lindenhafen-market-crate",
           "point": true,
           "x": 1170.432,
@@ -15925,7 +15945,7 @@
           ]
         },
         {
-          "id": 295,
+          "id": 291,
           "name": "lindenhafen-fountain",
           "point": true,
           "x": 818.6880000000001,
@@ -15954,7 +15974,7 @@
           ]
         },
         {
-          "id": 296,
+          "id": 292,
           "name": "lindenhafen-noticeboard",
           "point": true,
           "x": 1242.624,
@@ -15983,7 +16003,7 @@
           ]
         },
         {
-          "id": 297,
+          "id": 293,
           "name": "lindenhafen-parcel",
           "point": true,
           "x": 1021.44,
@@ -16012,7 +16032,7 @@
           ]
         },
         {
-          "id": 298,
+          "id": 294,
           "name": "lindenhafen-workbench",
           "point": true,
           "x": 370.176,
@@ -16041,7 +16061,7 @@
           ]
         },
         {
-          "id": 299,
+          "id": 295,
           "name": "lindenhafen-garden",
           "point": true,
           "x": 637.4399999999999,
@@ -16065,7 +16085,7 @@
           ]
         },
         {
-          "id": 300,
+          "id": 296,
           "name": "lindenhafen-berg-house",
           "point": true,
           "x": 591.36,
@@ -16089,7 +16109,7 @@
           ]
         },
         {
-          "id": 301,
+          "id": 297,
           "name": "lindenhafen-bench",
           "point": true,
           "x": 1330.176,
@@ -16115,14 +16135,14 @@
       ]
     },
     {
-      "id": 308,
+      "id": 304,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 303,
+          "id": 299,
           "name": "station-yard",
           "x": 0,
           "y": 0,
@@ -16158,7 +16178,7 @@
           ]
         },
         {
-          "id": 304,
+          "id": 300,
           "name": "canal-walk",
           "x": 0,
           "y": 0,
@@ -16194,7 +16214,7 @@
           ]
         },
         {
-          "id": 305,
+          "id": 301,
           "name": "harbor-court",
           "x": 0,
           "y": 0,
@@ -16230,7 +16250,7 @@
           ]
         },
         {
-          "id": 306,
+          "id": 302,
           "name": "bridge-quay",
           "x": 0,
           "y": 0,
@@ -16266,7 +16286,7 @@
           ]
         },
         {
-          "id": 307,
+          "id": 303,
           "name": "library-square",
           "x": 0,
           "y": 0,
@@ -16304,7 +16324,7 @@
       ]
     },
     {
-      "id": 309,
+      "id": 305,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -17651,7 +17671,7 @@
           "name": "library-books",
           "point": true,
           "x": 1956,
-          "y": 1347,
+          "y": 1331,
           "properties": [
             {
               "name": "key",
@@ -17686,7 +17706,7 @@
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 1347
+              "value": 1331
             },
             {
               "name": "_ownerSourceWidth",
@@ -18529,8 +18549,8 @@
           "id": 258,
           "name": "workyard-repairs",
           "point": true,
-          "x": 407,
-          "y": 1400,
+          "x": 151,
+          "y": 1208,
           "properties": [
             {
               "name": "key",
@@ -18560,12 +18580,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 407
+              "value": 151
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 1400
+              "value": 1208
             },
             {
               "name": "_ownerSourceWidth",
@@ -18960,231 +18980,7 @@
       ]
     },
     {
-      "id": 310,
-      "name": "Entrances",
-      "type": "objectgroup",
-      "visible": true,
-      "objects": [
-        {
-          "id": 266,
-          "name": "cafe-entrance",
-          "point": true,
-          "x": 605.932,
-          "y": 427.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "cafe-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "cafe"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "cafe"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 605.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 427.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 267,
-          "name": "bakery-entrance",
-          "point": true,
-          "x": 1147.4,
-          "y": 801.052,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "bakery-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "riverside-house"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "bakery"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": -13.6
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -17.948
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 1147.4
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 801.052
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.73
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 268,
-          "name": "supermarket-entrance",
-          "point": true,
-          "x": 1152.97,
-          "y": 449.292,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "supermarket-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "market-east-stall"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "supermarket"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 1.97
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -8.708
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 1152.97
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 449.292
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 257.5
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 269,
-          "name": "inn-entrance",
-          "point": true,
-          "x": 1453.932,
-          "y": 1225.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "inn-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "bridge-quay-storefront-1"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "inn"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 1453.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 1225.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 311,
+      "id": 306,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

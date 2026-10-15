@@ -873,3 +873,8 @@
     font-size: var(--type-caption)
   }
 }
+
+/* Admin edit mode: hide a monologue line for everyone. */
+.dialogue-admin { display: flex; justify-content: flex-end; margin-top: 6px; }
+.dialogue-admin button { min-height: 32px; padding: 4px 12px; border-radius: 8px; border: 1px dashed #c4a567; background: transparent; color: inherit; font: 600 13px 'DM Sans', system-ui, sans-serif; cursor: pointer; }
+.dialogue-admin button:disabled { cursor: default; opacity: .8; }

@@ -9,8 +9,8 @@
   "height": 1024,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 232,
-  "nextlayerid": 232,
+  "nextobjectid": 227,
+  "nextlayerid": 227,
   "properties": [
     {
       "name": "mapId",
@@ -45,7 +45,7 @@
     {
       "name": "_optionalCollections",
       "type": "string",
-      "value": "[\"activities\",\"entrances\"]"
+      "value": "[\"activities\"]"
     },
     {
       "name": "_jsonFields",
@@ -55,7 +55,7 @@
   ],
   "layers": [
     {
-      "id": 153,
+      "id": 149,
       "name": "Terrain",
       "type": "objectgroup",
       "visible": true,
@@ -400,7 +400,7 @@
       ]
     },
     {
-      "id": 154,
+      "id": 150,
       "name": "Walkable",
       "type": "objectgroup",
       "visible": true,
@@ -409,7 +409,7 @@
       "objects": []
     },
     {
-      "id": 155,
+      "id": 151,
       "name": "Obstacles",
       "type": "objectgroup",
       "visible": true,
@@ -418,7 +418,7 @@
       "objects": []
     },
     {
-      "id": 207,
+      "id": 203,
       "name": "Terrain collision",
       "type": "objectgroup",
       "visible": true,
@@ -426,7 +426,7 @@
       "opacity": 0.35,
       "objects": [
         {
-          "id": 156,
+          "id": 152,
           "name": "waldruh-northwest-cliff",
           "x": 0,
           "y": 0,
@@ -510,7 +510,7 @@
           ]
         },
         {
-          "id": 157,
+          "id": 153,
           "name": "waldruh-north-upper-ridge",
           "x": 0,
           "y": 0,
@@ -614,7 +614,7 @@
           ]
         },
         {
-          "id": 158,
+          "id": 154,
           "name": "waldruh-north-step-west-cliff",
           "x": 0,
           "y": 0,
@@ -670,7 +670,7 @@
           ]
         },
         {
-          "id": 159,
+          "id": 155,
           "name": "waldruh-north-step-east-cliff",
           "x": 0,
           "y": 0,
@@ -734,7 +734,7 @@
           ]
         },
         {
-          "id": 160,
+          "id": 156,
           "name": "waldruh-north-east-ridge",
           "x": 0,
           "y": 0,
@@ -806,7 +806,7 @@
           ]
         },
         {
-          "id": 161,
+          "id": 157,
           "name": "waldruh-west-terrace-cliff",
           "x": 0,
           "y": 0,
@@ -882,7 +882,7 @@
           ]
         },
         {
-          "id": 162,
+          "id": 158,
           "name": "waldruh-west-terrace-wall",
           "x": 0,
           "y": 0,
@@ -974,7 +974,7 @@
           ]
         },
         {
-          "id": 163,
+          "id": 159,
           "name": "waldruh-west-middle-cliff",
           "x": 0,
           "y": 0,
@@ -1114,7 +1114,7 @@
           ]
         },
         {
-          "id": 164,
+          "id": 160,
           "name": "waldruh-west-lower-low-wall",
           "x": 0,
           "y": 0,
@@ -1218,7 +1218,7 @@
           ]
         },
         {
-          "id": 165,
+          "id": 161,
           "name": "waldruh-southwest-upper-cliff",
           "x": 0,
           "y": 0,
@@ -1290,7 +1290,7 @@
           ]
         },
         {
-          "id": 166,
+          "id": 162,
           "name": "waldruh-southwest-step-west-cliff",
           "x": 0,
           "y": 0,
@@ -1386,7 +1386,7 @@
           ]
         },
         {
-          "id": 167,
+          "id": 163,
           "name": "waldruh-southwest-step-east-cliff",
           "x": 0,
           "y": 0,
@@ -1474,7 +1474,7 @@
           ]
         },
         {
-          "id": 168,
+          "id": 164,
           "name": "waldruh-north-east-core-ridge",
           "x": 0,
           "y": 0,
@@ -1514,7 +1514,7 @@
           ]
         },
         {
-          "id": 169,
+          "id": 165,
           "name": "waldruh-north-east-upper-cliff",
           "x": 0,
           "y": 0,
@@ -1702,7 +1702,7 @@
           ]
         },
         {
-          "id": 170,
+          "id": 166,
           "name": "waldruh-north-path-west-rock",
           "x": 0,
           "y": 0,
@@ -1754,7 +1754,7 @@
           ]
         },
         {
-          "id": 171,
+          "id": 167,
           "name": "waldruh-north-east-middle-wall-west",
           "x": 0,
           "y": 0,
@@ -1830,7 +1830,7 @@
           ]
         },
         {
-          "id": 172,
+          "id": 168,
           "name": "waldruh-north-east-middle-wall-east",
           "x": 0,
           "y": 0,
@@ -1886,7 +1886,7 @@
           ]
         },
         {
-          "id": 173,
+          "id": 169,
           "name": "waldruh-north-east-middle-cliff",
           "x": 0,
           "y": 0,
@@ -2010,7 +2010,7 @@
           ]
         },
         {
-          "id": 174,
+          "id": 170,
           "name": "waldruh-north-east-south-bank-cliff",
           "x": 0,
           "y": 0,
@@ -2110,7 +2110,7 @@
           ]
         },
         {
-          "id": 175,
+          "id": 171,
           "name": "waldruh-river-north",
           "x": 0,
           "y": 0,
@@ -2314,7 +2314,7 @@
           ]
         },
         {
-          "id": 176,
+          "id": 172,
           "name": "waldruh-north-east-river-rocks",
           "x": 0,
           "y": 0,
@@ -2366,7 +2366,7 @@
           ]
         },
         {
-          "id": 177,
+          "id": 173,
           "name": "waldruh-middle-east-river-rocks",
           "x": 0,
           "y": 0,
@@ -2430,7 +2430,7 @@
           ]
         },
         {
-          "id": 178,
+          "id": 174,
           "name": "waldruh-bridge-west-lower-rocks",
           "x": 0,
           "y": 0,
@@ -2526,7 +2526,7 @@
           ]
         },
         {
-          "id": 179,
+          "id": 175,
           "name": "waldruh-bridge-east-lower-rocks",
           "x": 0,
           "y": 0,
@@ -2618,7 +2618,7 @@
           ]
         },
         {
-          "id": 180,
+          "id": 176,
           "name": "waldruh-river-south",
           "x": 0,
           "y": 0,
@@ -2814,7 +2814,7 @@
           ]
         },
         {
-          "id": 181,
+          "id": 177,
           "name": "waldruh-south-river-west-bank",
           "x": 0,
           "y": 0,
@@ -2990,7 +2990,7 @@
           ]
         },
         {
-          "id": 182,
+          "id": 178,
           "name": "waldruh-south-river-east-bank",
           "x": 0,
           "y": 0,
@@ -3050,7 +3050,7 @@
           ]
         },
         {
-          "id": 183,
+          "id": 179,
           "name": "waldruh-south-middle-boundary-cliff",
           "x": 0,
           "y": 0,
@@ -3134,7 +3134,7 @@
           ]
         },
         {
-          "id": 184,
+          "id": 180,
           "name": "waldruh-terrace-central-rock",
           "x": 0,
           "y": 0,
@@ -3210,7 +3210,7 @@
           ]
         },
         {
-          "id": 185,
+          "id": 181,
           "name": "waldruh-terrace-north-step-west-rock",
           "x": 0,
           "y": 0,
@@ -3262,7 +3262,7 @@
           ]
         },
         {
-          "id": 186,
+          "id": 182,
           "name": "waldruh-terrace-northeast-rock",
           "x": 0,
           "y": 0,
@@ -3322,7 +3322,7 @@
           ]
         },
         {
-          "id": 187,
+          "id": 183,
           "name": "waldruh-yard-central-rock",
           "x": 0,
           "y": 0,
@@ -3386,7 +3386,7 @@
           ]
         },
         {
-          "id": 188,
+          "id": 184,
           "name": "waldruh-yard-northeast-rock",
           "x": 0,
           "y": 0,
@@ -3430,7 +3430,7 @@
           ]
         },
         {
-          "id": 189,
+          "id": 185,
           "name": "waldruh-terrace-central-west-rock",
           "x": 0,
           "y": 0,
@@ -3482,7 +3482,7 @@
           ]
         },
         {
-          "id": 190,
+          "id": 186,
           "name": "waldruh-terrace-north-step-east-rock",
           "x": 0,
           "y": 0,
@@ -3550,7 +3550,7 @@
           ]
         },
         {
-          "id": 191,
+          "id": 187,
           "name": "waldruh-terrace-east-middle-rock",
           "x": 0,
           "y": 0,
@@ -3610,7 +3610,7 @@
           ]
         },
         {
-          "id": 192,
+          "id": 188,
           "name": "waldruh-terrace-west-north-rock",
           "x": 0,
           "y": 0,
@@ -3658,7 +3658,7 @@
           ]
         },
         {
-          "id": 193,
+          "id": 189,
           "name": "waldruh-terrace-west-middle-rock",
           "x": 0,
           "y": 0,
@@ -3762,7 +3762,7 @@
           ]
         },
         {
-          "id": 194,
+          "id": 190,
           "name": "waldruh-terrace-west-middle-south-rock",
           "x": 0,
           "y": 0,
@@ -3834,7 +3834,7 @@
           ]
         },
         {
-          "id": 195,
+          "id": 191,
           "name": "waldruh-terrace-west-south-rock",
           "x": 0,
           "y": 0,
@@ -3954,7 +3954,7 @@
           ]
         },
         {
-          "id": 196,
+          "id": 192,
           "name": "waldruh-terrace-east-south-rock",
           "x": 0,
           "y": 0,
@@ -4050,7 +4050,7 @@
           ]
         },
         {
-          "id": 197,
+          "id": 193,
           "name": "waldruh-yard-west-middle-rock",
           "x": 0,
           "y": 0,
@@ -4186,7 +4186,7 @@
           ]
         },
         {
-          "id": 198,
+          "id": 194,
           "name": "waldruh-yard-west-middle-left-rock",
           "x": 0,
           "y": 0,
@@ -4242,7 +4242,7 @@
           ]
         },
         {
-          "id": 199,
+          "id": 195,
           "name": "waldruh-yard-west-upper-rock",
           "x": 0,
           "y": 0,
@@ -4402,7 +4402,7 @@
           ]
         },
         {
-          "id": 200,
+          "id": 196,
           "name": "waldruh-yard-step-east-rock",
           "x": 0,
           "y": 0,
@@ -4450,7 +4450,7 @@
           ]
         },
         {
-          "id": 201,
+          "id": 197,
           "name": "waldruh-yard-east-middle-rock",
           "x": 0,
           "y": 0,
@@ -4498,7 +4498,7 @@
           ]
         },
         {
-          "id": 202,
+          "id": 198,
           "name": "waldruh-yard-south-middle-rock",
           "x": 0,
           "y": 0,
@@ -4590,7 +4590,7 @@
           ]
         },
         {
-          "id": 203,
+          "id": 199,
           "name": "waldruh-yard-south-east-rock",
           "x": 0,
           "y": 0,
@@ -4690,7 +4690,7 @@
           ]
         },
         {
-          "id": 204,
+          "id": 200,
           "name": "waldruh-yard-south-west-rock",
           "x": 0,
           "y": 0,
@@ -4782,7 +4782,7 @@
           ]
         },
         {
-          "id": 205,
+          "id": 201,
           "name": "waldruh-yard-south-boundary-rock",
           "x": 0,
           "y": 0,
@@ -4838,7 +4838,7 @@
           ]
         },
         {
-          "id": 206,
+          "id": 202,
           "name": "waldruh-yard-south-center-boundary-rock",
           "x": 0,
           "y": 0,
@@ -4888,7 +4888,7 @@
       ]
     },
     {
-      "id": 208,
+      "id": 204,
       "name": "Scenery",
       "type": "objectgroup",
       "visible": true,
@@ -4916,6 +4916,11 @@
               "name": "collision",
               "type": "string",
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.93562500000002,-62.48395833333336],[74.86983173076925,-100.93562500000002],[110.54854166666667,-46.2159455128205],[48.43431089743592,-31.611706730769242],[41.964078525641014,-29.94793269230769],[-6.100504807692289,-29.94793269230769],[-12.755600961538448,-15.898285256410247],[-61.55963942307693,-4.436730769230792]]]}"
+            },
+            {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"cafe\"}"
             },
             {
               "name": "_sourceX",
@@ -4955,15 +4960,15 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 8,
           "name": "waldruh-station",
-          "x": 942.51,
-          "y": 6.118234323432318,
+          "x": 366.51,
+          "y": 630.1182343234323,
           "width": 338.98,
           "height": 285.0005115511551,
           "gid": 8,
@@ -4986,12 +4991,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1112
+              "value": 536
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 290
+              "value": 914
             },
             {
               "name": "_sourceObjectWidth",
@@ -5001,12 +5006,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 942.51
+              "value": 366.51
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 6.118234323432318
+              "value": 630.1182343234323
             },
             {
               "name": "_sourceDisplayWidth",
@@ -5094,7 +5099,7 @@
         {
           "id": 10,
           "name": "waldruh-west-workshop",
-          "x": 120.635,
+          "x": 88.635,
           "y": 476.99738572574176,
           "width": 230.73,
           "height": 215.00261427425824,
@@ -5116,9 +5121,14 @@
               "value": "{\"referenceWidth\":230.73,\"polygons\":[[[-95.38196872493984,-72.53100240577385],[79.83961106655977,-88.25838813151563],[107.40879310344826,-39.96606255012034],[82.61503207698479,-10.176543704891742],[13.969619085805931,-3.3305052125100474],[4.718215717722529,-20.16805934242177],[-31.917341619887736,-20.16805934242177],[-41.90885725741779,-15.172301523656756],[-95.38196872493984,-35.34036086607853]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"bakery\",\"returnOffset\":{\"x\":-13.6,\"y\":82}}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
-              "value": 236
+              "value": 204
             },
             {
               "name": "_sourceY",
@@ -5133,7 +5143,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 120.635
+              "value": 88.635
             },
             {
               "name": "_sourceDisplayY",
@@ -5153,15 +5163,15 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 11,
           "name": "waldruh-archive",
-          "x": 427.645,
-          "y": -69.99657852564101,
+          "x": 507.645,
+          "y": 250.003421474359,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 7,
@@ -5184,12 +5194,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 543
+              "value": 623
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 145
+              "value": 465
             },
             {
               "name": "_sourceObjectWidth",
@@ -5199,12 +5209,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 427.645
+              "value": 507.645
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": -69.99657852564101
+              "value": 250.003421474359
             },
             {
               "name": "_sourceDisplayWidth",
@@ -5226,8 +5236,8 @@
         {
           "id": 12,
           "name": "waldruh-north-chapel",
-          "x": 721.645,
-          "y": -91.99657852564101,
+          "x": 833.645,
+          "y": 20.003421474358987,
           "width": 230.71,
           "height": 214.996578525641,
           "gid": 7,
@@ -5250,12 +5260,12 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 837
+              "value": 949
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 123
+              "value": 235
             },
             {
               "name": "_sourceObjectWidth",
@@ -5265,12 +5275,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 721.645
+              "value": 833.645
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": -91.99657852564101
+              "value": 20.003421474358987
             },
             {
               "name": "_sourceDisplayWidth",
@@ -5380,6 +5390,11 @@
               "value": "{\"referenceWidth\":230.71,\"polygons\":[[[-100.93562499999996,-62.483958333333334],[74.86983173076919,-100.935625],[110.54854166666667,-46.215945512820525],[48.43431089743592,-31.611706730769228],[41.96407852564107,-29.94793269230769],[-6.100504807692346,-29.94793269230769],[-12.755600961538448,-15.898285256410247],[-61.55963942307699,-4.436730769230763]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"inn\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
               "value": 660
@@ -5417,14 +5432,14 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
         {
           "id": 15,
           "name": "waldruh-conservatory",
-          "x": 1008.99,
+          "x": 1072.99,
           "y": 634.703980181668,
           "width": 212.02,
           "height": 214.99633360858797,
@@ -5448,7 +5463,7 @@
             {
               "name": "_sourceX",
               "type": "int",
-              "value": 1115
+              "value": 1179
             },
             {
               "name": "_sourceY",
@@ -5463,7 +5478,7 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 1008.99
+              "value": 1072.99
             },
             {
               "name": "_sourceDisplayY",
@@ -5622,8 +5637,8 @@
         {
           "id": 18,
           "name": "waldruh-market-east",
-          "x": 891.25,
-          "y": 465.0020128824477,
+          "x": 779.25,
+          "y": 497.0020128824477,
           "width": 257.5,
           "height": 214.99798711755233,
           "gid": 15,
@@ -5644,14 +5659,19 @@
               "value": "{\"referenceWidth\":257.5,\"polygons\":[[[-109.88325281803543,-63.2347020933978],[114.2371175523349,-68.62520128824474],[114.02979066022544,-17.830112721417095],[41.25805152979069,-9.744363929146516],[27.36714975845416,-11.195652173913004],[-23.427938808373597,-11.195652173913004],[-32.55032206119165,-6.634460547503977],[-112.3711755233494,-10.159017713365529]]]}"
             },
             {
+              "name": "interior",
+              "type": "string",
+              "value": "{\"kind\":\"supermarket\"}"
+            },
+            {
               "name": "_sourceX",
               "type": "int",
-              "value": 1020
+              "value": 908
             },
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 680
+              "value": 712
             },
             {
               "name": "_sourceObjectWidth",
@@ -5661,12 +5681,12 @@
             {
               "name": "_sourceDisplayX",
               "type": "float",
-              "value": 891.25
+              "value": 779.25
             },
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 465.0020128824477
+              "value": 497.0020128824477
             },
             {
               "name": "_sourceDisplayWidth",
@@ -5681,7 +5701,7 @@
             {
               "name": "_jsonFields",
               "type": "string",
-              "value": "[\"collision\"]"
+              "value": "[\"collision\",\"interior\"]"
             }
           ]
         },
@@ -13275,7 +13295,7 @@
           "id": 135,
           "name": "waldruh-bakery-neighbor",
           "x": -60.36,
-          "y": 649.9941025641026,
+          "y": 793.9941025641026,
           "width": 230.72,
           "height": 215.00589743589742,
           "gid": 7,
@@ -13298,7 +13318,7 @@
             {
               "name": "_sourceY",
               "type": "int",
-              "value": 865
+              "value": 1009
             },
             {
               "name": "_sourceObjectWidth",
@@ -13313,7 +13333,7 @@
             {
               "name": "_sourceDisplayY",
               "type": "float",
-              "value": 649.9941025641026
+              "value": 793.9941025641026
             },
             {
               "name": "_sourceDisplayWidth",
@@ -13335,13 +13355,13 @@
       ]
     },
     {
-      "id": 210,
+      "id": 206,
       "name": "Spawn",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 209,
+          "id": 205,
           "name": "spawn",
           "point": true,
           "x": 798.72,
@@ -13357,13 +13377,13 @@
       ]
     },
     {
-      "id": 219,
+      "id": 215,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 211,
+          "id": 207,
           "name": "marta",
           "point": true,
           "x": 430.08000000000004,
@@ -13382,7 +13402,7 @@
           ]
         },
         {
-          "id": 212,
+          "id": 208,
           "name": "otto",
           "point": true,
           "x": 1060,
@@ -13401,7 +13421,7 @@
           ]
         },
         {
-          "id": 213,
+          "id": 209,
           "name": "lina",
           "point": true,
           "x": 660.48,
@@ -13420,7 +13440,7 @@
           ]
         },
         {
-          "id": 214,
+          "id": 210,
           "name": "emil",
           "point": true,
           "x": 460.79999999999995,
@@ -13439,7 +13459,7 @@
           ]
         },
         {
-          "id": 215,
+          "id": 211,
           "name": "ada",
           "point": true,
           "x": 371.712,
@@ -13458,7 +13478,7 @@
           ]
         },
         {
-          "id": 216,
+          "id": 212,
           "name": "fritz",
           "point": true,
           "x": 909.3119999999999,
@@ -13477,7 +13497,7 @@
           ]
         },
         {
-          "id": 217,
+          "id": 213,
           "name": "greta",
           "point": true,
           "x": 978.432,
@@ -13491,7 +13511,7 @@
           ]
         },
         {
-          "id": 218,
+          "id": 214,
           "name": "inspector",
           "point": true,
           "x": 1090,
@@ -13512,13 +13532,13 @@
       ]
     },
     {
-      "id": 225,
+      "id": 221,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 220,
+          "id": 216,
           "name": "waldruh-clock",
           "point": true,
           "x": 1184.256,
@@ -13547,7 +13567,7 @@
           ]
         },
         {
-          "id": 221,
+          "id": 217,
           "name": "waldruh-housing-board",
           "point": true,
           "x": 582.144,
@@ -13571,7 +13591,7 @@
           ]
         },
         {
-          "id": 222,
+          "id": 218,
           "name": "waldruh-herb-garden",
           "point": true,
           "x": 978.432,
@@ -13600,7 +13620,7 @@
           ]
         },
         {
-          "id": 223,
+          "id": 219,
           "name": "waldruh-route-sign",
           "point": true,
           "x": 961.5360000000001,
@@ -13629,7 +13649,7 @@
           ]
         },
         {
-          "id": 224,
+          "id": 220,
           "name": "waldruh-memory-stone",
           "point": true,
           "x": 299.52,
@@ -13660,14 +13680,14 @@
       ]
     },
     {
-      "id": 228,
+      "id": 224,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 226,
+          "id": 222,
           "name": "mill-supply-terrace",
           "x": 0,
           "y": 0,
@@ -13703,7 +13723,7 @@
           ]
         },
         {
-          "id": 227,
+          "id": 223,
           "name": "mill-service-yard",
           "x": 0,
           "y": 0,
@@ -13741,7 +13761,7 @@
       ]
     },
     {
-      "id": 229,
+      "id": 225,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -14466,241 +14486,7 @@
       ]
     },
     {
-      "id": 230,
-      "name": "Entrances",
-      "type": "objectgroup",
-      "visible": true,
-      "objects": [
-        {
-          "id": 149,
-          "name": "cafe-entrance",
-          "point": true,
-          "x": 337.932,
-          "y": 296.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "cafe-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "waldruh-inn"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "cafe"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 337.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 296.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 150,
-          "name": "bakery-entrance",
-          "point": true,
-          "x": 222.4,
-          "y": 674.052,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "bakery-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "waldruh-west-workshop"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "bakery"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": -13.6
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -17.948
-            },
-            {
-              "name": "returnOffset",
-              "type": "string",
-              "value": "{\"x\":-13.6,\"y\":82}"
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 222.4
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 674.052
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.73
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            },
-            {
-              "name": "_jsonFields",
-              "type": "string",
-              "value": "[\"returnOffset\"]"
-            }
-          ]
-        },
-        {
-          "id": 151,
-          "name": "supermarket-entrance",
-          "point": true,
-          "x": 1021.97,
-          "y": 671.292,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "supermarket-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "waldruh-market-east"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "supermarket"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 1.97
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -8.708
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 1021.97
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 671.292
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 257.5
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        },
-        {
-          "id": 152,
-          "name": "inn-entrance",
-          "point": true,
-          "x": 677.932,
-          "y": 130.27,
-          "properties": [
-            {
-              "name": "key",
-              "type": "string",
-              "value": "inn-entrance"
-            },
-            {
-              "name": "ownerId",
-              "type": "string",
-              "value": "waldruh-north-cottage"
-            },
-            {
-              "name": "interiorId",
-              "type": "string",
-              "value": "inn"
-            },
-            {
-              "name": "offsetX",
-              "type": "float",
-              "value": 17.932
-            },
-            {
-              "name": "offsetY",
-              "type": "float",
-              "value": -27.73
-            },
-            {
-              "name": "_sourceX",
-              "type": "float",
-              "value": 677.932
-            },
-            {
-              "name": "_sourceY",
-              "type": "float",
-              "value": 130.27
-            },
-            {
-              "name": "_ownerSourceWidth",
-              "type": "float",
-              "value": 230.71
-            },
-            {
-              "name": "_ownerSourceFlip",
-              "type": "bool",
-              "value": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 231,
+      "id": 226,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

@@ -114,6 +114,8 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected objects = new Map<string, WorldObject>();
   protected portals = new Map<string, WorldPortal>();
   protected navigation!: NavigationGrid;
+  /** In edit mode the pointer selects objects instead of walking or talking. */
+  protected editing = false;
   protected clock!: WorldClock;
   protected audio?: WorldAudio;
   protected storyState: WorldStoryState = { completedQuestIds: [], bellCount: 0 };
@@ -265,7 +267,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     });
     this.input.gamepad?.on('down', this.handlePadDown, this);
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, objects: Phaser.GameObjects.GameObject[]) => {
-      if (!this.controlsEnabled || this.watching || objects.length || pointer.rightButtonDown()) return;
+      if (!this.controlsEnabled || this.watching || this.editing || objects.length || pointer.rightButtonDown()) return;
       const destination = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
       this.walkTo(destination.x, destination.y);
     });
@@ -863,6 +865,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       character.figure.on('pointerover', () => { character.hovered = true; });
       character.figure.on('pointerout', () => { character.hovered = false; });
       character.figure.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+        if (this.editing) return;
         event.stopPropagation();
         this.approachInteraction(character.interactionId ?? npc.id);
       });
@@ -892,6 +895,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     hit.on('pointerover', () => { target.hovered = true; });
     hit.on('pointerout', () => { target.hovered = false; });
     hit.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      if (this.editing) return;
       event.stopPropagation();
       activate();
     });

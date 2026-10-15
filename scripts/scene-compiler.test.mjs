@@ -4,7 +4,7 @@ import {readFile, writeFile, mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {compileSceneDocument, saveSceneDocument, sceneContentVersion} from './scene-compiler.mjs';
-const {sceneEntrancePoint}=await import('../web/src/scene-schema.ts');
+const {sceneEntrancePoint,sceneEntrances}=await import('../web/src/scene-schema.ts');
 const {NavigationGrid}=await import('../web/src/navigation.ts');
 const {sceneNavigationGeometry}=await import('../web/src/scene-navigation.ts');
 
@@ -39,11 +39,11 @@ test('compiles all regions and aligns server spawns and story evidence with draf
 test('rejects missing content, unknown artwork and collision introduced by a draft prop', async () => {
   const missing = structuredClone(source); missing.maps.waldruh.objects.pop();
   await assert.rejects(compileSceneDocument(missing), /missing required objects/);
-  const artwork = structuredClone(source); artwork.maps.waldruh.scenery[0].frame = 'missing-artwork';
+  const artwork = structuredClone(source); artwork.maps.waldruh.scenery.find(item => !item.interior).frame = 'missing-artwork';
   await assert.rejects(compileSceneDocument(artwork), /no registered frame/);
   const blocked = structuredClone(source), scene = blocked.maps.lindenhafen;
   scene.scenery.push({id: 'blocked-spawn', asset: 'house', x: scene.spawn.x, y: scene.spawn.y + 18, width: 200});
-  await assert.rejects(compileSceneDocument(blocked), /spawn is outside walkable ground/);
+  await assert.rejects(compileSceneDocument(blocked), /covers the spot where players arrive/);
 });
 
 test('rejects a draft spawn that is clear for feet but too close to a solid for the player body', async () => {
@@ -55,8 +55,8 @@ test('rejects a draft spawn that is clear for feet but too close to a solid for 
   const geometry=sceneNavigationGeometry(scene);
   assert.equal(new NavigationGrid(geometry.ground, geometry.barriers, scene).isWalkable(x, y), true);
   await assert.rejects(compileSceneDocument(value), error => {
-    assert.match(error.message, /lindenhafen: spawn needs 10 units of player clearance/);
-    assert.doesNotMatch(error.message, /lindenhafen: spawn is outside walkable ground/);
+    assert.match(error.message, /lindenhafen: Something covers the spot where players arrive in Lindenhafen/);
+    assert.equal(error.problems[0].code, 'blocks-spawn');
     return true;
   });
 });
@@ -102,18 +102,26 @@ test('rejects high-resolution crop bounds and misleading pixel-density declarati
   await assert.rejects(compileSceneDocument(stretched), /artwork does not match/);
 });
 
-test('compiles attached doors from draft owner positions and rejects obstructed approaches and returns',async()=>{
-  const value=structuredClone(source),scene=value.maps.lindenhafen,door=scene.entrances.find(value=>value.interiorId==='cafe');
-  const owner=scene.scenery.find(value=>value.id===door.ownerId);owner.x+=2;
-  const compiled=await compileSceneDocument(value),point=sceneEntrancePoint(scene,door);
+test('compiles doors from their building and rejects obstructed approaches, returns and missing rooms',async()=>{
+  const value=structuredClone(source),scene=value.maps.lindenhafen,owner=scene.scenery.find(item=>item.interior?.kind==='cafe');
+  owner.x+=2;
+  const compiled=await compileSceneDocument(value),point=sceneEntrancePoint(scene,owner);
   assert.deepEqual(compiled.registry.maps.lindenhafen.entrances.cafe.approach,{x:point.x/scene.width,y:point.y/scene.height});
+  assert.equal(compiled.registry.maps.lindenhafen.entrances.cafe.ownerId,owner.id);
   const blocked=structuredClone(value);
-  attachCollision(blocked.maps.lindenhafen, [[[point.x-4,point.y-4],[point.x+4,point.y-4],[point.x+4,point.y+4],[point.x-4,point.y+4]]]);
-  await assert.rejects(compileSceneDocument(blocked),/cafe-entrance approach is not on reachable/);
-  door.returnOffset={x:1-owner.x,y:1-owner.y};
-  await assert.rejects(compileSceneDocument(value),/cafe-entrance return is not on reachable/);
-  delete scene.entrances;
-  await assert.rejects(compileSceneDocument(value),/missing required cafe entrance/);
+  attachCollision(blocked.maps.lindenhafen, [[[point.x-30,point.y-30],[point.x+30,point.y-30],[point.x+30,point.y+30],[point.x-30,point.y+30]]]);
+  await assert.rejects(compileSceneDocument(blocked),error=>{
+    assert.match(error.message,/The café door would open onto blocked ground/);
+    assert.deepEqual(error.problems.find(item=>item.code==='door-blocked').objectIds,[owner.id]);
+    return true;
+  });
+  owner.interior.returnOffset={x:1-owner.x,y:1-owner.y};
+  await assert.rejects(compileSceneDocument(value),/The café door would open onto blocked ground/);
+  delete owner.interior;
+  await assert.rejects(compileSceneDocument(value),/Lindenhafen has no café/);
+  const relaxed=await compileSceneDocument(value,{strictQuality:false});
+  assert.ok(relaxed.warnings.some(warning=>/Lindenhafen has no café/.test(warning)));
+  assert.equal(relaxed.registry.maps.lindenhafen.entrances.cafe,undefined);
 });
 
 test('rejects activity feet, approaches and exits that would require path projection', async () => {
@@ -124,7 +132,7 @@ test('rejects activity feet, approaches and exits that would require path projec
     const slot = scene.activities.find(item => item.ownerId === owner.id);
     if (field === 'feet') { slot.offsetX = blocked.x; slot.offsetY = blocked.y; }
     else slot[field] = blocked;
-    await assert.rejects(compileSceneDocument(value), new RegExp(`activity ${slot.id} ${field} is not on reachable`));
+    await assert.rejects(compileSceneDocument(value), /People could no longer reach the bench/);
   }
 });
 
@@ -161,16 +169,18 @@ test('rejects crowded painted buildings even when optional quality checks and co
   const value=structuredClone(source),scene=value.maps.lindenhafen;
   const owner=scene.scenery.find(item=>item.id==='workshop');
   scene.scenery.push({...structuredClone(owner),id:'crowded-workshop',x:owner.x+owner.width+31,collidable:false});
-  await assert.rejects(compileSceneDocument(value,{strictQuality:false}),/buildings workshop and crowded-workshop need at least 32 units between their painted bounds/);
+  await assert.rejects(compileSceneDocument(value,{strictQuality:false}),error=>{
+    const gap=error.problems.find(item=>item.code==='too-close');
+    assert.match(gap.message,/32-unit walking gap between the workshop and the workshop/);
+    assert.deepEqual(gap.objectIds,['workshop','crowded-workshop']);
+    return true;
+  });
 });
 
-test('requires distinct real doors and rejects offsets detached from painted openings',async()=>{
-  const detached=structuredClone(source),scene=detached.maps.lindenhafen;
-  scene.entrances[0].offsetX+=180;
-  await assert.rejects(compileSceneDocument(detached),/lies outside its painted door rectangle/);
-  const tent=structuredClone(source),door=tent.maps.lindenhafen.entrances[0];
-  door.ownerId=tent.maps.lindenhafen.scenery.find(item=>item.asset==='stall').id;
-  await assert.rejects(compileSceneDocument(tent),/owner has no painted door/);
+test('lets only buildings with a painted door host a room',async()=>{
+  const tent=structuredClone(source),scene=tent.maps.lindenhafen;
+  scene.scenery.find(item=>item.asset==='stall').interior={kind:'bakery'};
+  await assert.rejects(compileSceneDocument(tent),/cannot host a room because its artwork has no door/);
 });
 
 test('rejects empty chunks and a required interaction isolated by owned collision',async()=>{
@@ -187,7 +197,7 @@ test('rejects empty chunks and a required interaction isolated by owned collisio
     [[x-150,y-150],[x-130,y-150],[x-130,y+150],[x-150,y+150]],
     [[x+130,y-150],[x+150,y-150],[x+150,y+150],[x+130,y+150]],
   ]);
-  await assert.rejects(compileSceneDocument(island),/otto has no reachable approach with 10 units of player clearance/);
+  await assert.rejects(compileSceneDocument(island),/Players could not reach Otto there/);
 });
 
 test('rejects legacy street whitelists and loose obstacles in clear-land scenes',async()=>{
@@ -227,10 +237,10 @@ test('requires the latest-main high-resolution format for expansion terrain',asy
 test('rejects resident schedules whose home, capacity or travel window cannot work in the draft',async()=>{
   const blocked=structuredClone(source);
   blocked.maps.lindenhafen.residents[0].home={x:1600,y:760}; // Canal water.
-  await assert.rejects(compileSceneDocument(blocked),/home must be on spawn-connected ground/);
+  await assert.rejects(compileSceneDocument(blocked),/home must be on ground connected to the town/);
   const rushed=structuredClone(source),task=rushed.maps.lindenhafen.residents[0].schedule[0];
   task.endHour=task.startHour+.1;
-  await assert.rejects(compileSceneDocument(rushed),/time window is too short/);
+  await assert.rejects(compileSceneDocument(rushed),/time window is too short to walk there/);
   const crowded=structuredClone(source),scene=crowded.maps.lindenhafen;
   const slot=scene.activities.find(slot=>slot.id===scene.residents[0].schedule[0].activityId);
   slot.capacity=2;

@@ -1,6 +1,7 @@
 import data from './data/world-scenes.json';
 import {parseWorldSceneDocument, type WorldScene} from './scene-schema';
 import version from './data/world-scene-version.json';
+import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 
 export let sceneDocument = parseWorldSceneDocument(data);
 export let sceneContentVersion = version.contentVersion;
@@ -20,4 +21,18 @@ export function getWorldScene(id: string): WorldScene {
   const scene = sceneDocument.maps[id];
   if (!scene) throw new Error(`Unknown world scene ${id}`);
   return scene;
+}
+
+/**
+ * Apply an admin edit streamed by the server. Returns the towns that changed,
+ * or undefined when this client missed an earlier edit and must reload.
+ */
+export function applyWorldPatch(from: string, to: string, ops: readonly WorldEditOp[]): Set<string> | undefined {
+  if (from !== sceneContentVersion) return to === sceneContentVersion ? new Set() : undefined;
+  try {
+    const result = applyEditOps(sceneDocument, ops);
+    sceneDocument = result.document;
+    sceneContentVersion = to;
+    return new Set(result.changed.keys());
+  } catch { return undefined; }
 }

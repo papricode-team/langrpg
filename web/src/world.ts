@@ -18,6 +18,8 @@ import { WorldScene } from './world-scene';
 import { InteriorScene } from './interior-scene';
 import { TravelScene, raiseTravelCurtain } from './travel-scene';
 import type { ExploreScene } from './explore-scene';
+import type { EditBridge } from './world-edit-mode';
+import type { WorldEditOp } from './world-edit-ops';
 import { readWorld, SceneKeys, WorldEvents, writeWorld, type Avatar, type WorldMotion, type WorldPlayer, type WorldPresentation, type WorldRegistry, type WorldStoryState } from './world-state';
 
 export type { Avatar, WorldPlayer, WorldMotion, WorldStoryState, WorldPresentation } from './world-state';
@@ -81,7 +83,7 @@ export class World {
         inputEnabled: true, windowFocused: typeof document === 'undefined' || document.hasFocus(), reducedMotion: this.reducedMotion,
         watching: false, terrainOnly: false, screenFilter: normalizeScreenFilterSettings(undefined),
         learning: { lexicon: [], progress: { words: {} } }, weatherPreview: 'regional', observedResident: undefined,
-        density: size.density, clock: this.clock, audio: this.audio,
+        density: size.density, clock: this.clock, audio: this.audio, editBridge: undefined,
       };
       for (const [key, value] of Object.entries(initial)) target.registry.set(key, value);
     };
@@ -261,6 +263,15 @@ export class World {
   setJoystick(x: number, y: number): void {
     const active = readWorld(this.game.registry, 'inputEnabled');
     this.explore?.setJoystick(active && Number.isFinite(x) ? Math.max(-1, Math.min(1, x)) : 0, active && Number.isFinite(y) ? Math.max(-1, Math.min(1, y)) : 0);
+  }
+
+  /** Turn in-game edit mode on with a bridge, or off with undefined. */
+  setEditBridge(bridge: EditBridge | undefined): void { this.set('editBridge', bridge); }
+  /** Apply admin edits that already updated the shared scene document. */
+  applyWorldEdits(ops: readonly WorldEditOp[]): void {
+    // The town scene sleeps while a room is open; it still needs the edit.
+    const scene = this.game.scene.getScene(SceneKeys.World);
+    if (scene instanceof WorldScene && (scene.sys.isActive() || scene.sys.isSleeping())) scene.applyWorldEdits(ops);
   }
 
   /** Switch after the server acknowledges travel; snapshots restore saved positions. */

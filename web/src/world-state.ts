@@ -1,3 +1,4 @@
+import type { EditBridge } from './world-edit-mode';
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { InteriorId } from './interiors';
@@ -55,6 +56,8 @@ export interface WorldRegistry {
   density: number;
   clock: WorldClock;
   audio: WorldAudio;
+  /** Present while an admin is in edit mode. */
+  editBridge: EditBridge | undefined;
 }
 export type WorldKey = keyof WorldRegistry;
 

@@ -2,7 +2,7 @@ import {describe,expect,it} from 'vitest';
 import baseline from '../../docs/audits/living-world-area-baseline.json';
 import lindenCore from '../../docs/audits/lindenhafen-core-v1.json';
 import waldruhCore from '../../docs/audits/waldruh-core-v1.json';
-import {sceneActivityPoint,sceneEntrancePoint} from './scene-schema';
+import {sceneActivityPoint,sceneEntrancePoint, sceneEntrances} from './scene-schema';
 import {sceneDocument} from './scene-data';
 import {getMap,type MapId} from './maps';
 import {NavigationGrid,createMapNavigation} from './navigation';
@@ -80,7 +80,7 @@ describe('canonical scenes in the game runtime',()=>{
         expect(navigation.findPath(scene.spawn,point).at(-1),slot.id).toEqual(point);
         checkPlayerApproach(point,slot.id);
       }
-      for(const door of scene.entrances??[])for(const returning of [false,true]){
+      for(const door of sceneEntrances(scene))for(const returning of [false,true]){
         const point=sceneEntrancePoint(scene,door,returning);
         expect(navigation.findPath(scene.spawn,point).at(-1),`${door.id}: ${returning?'return':'door'}`).toEqual(point);
         checkPlayerApproach(point,`${door.id}: ${returning?'return':'door'}`);
