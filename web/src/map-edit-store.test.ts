@@ -24,8 +24,8 @@ function harness(initial = document()) {
       next.resolve({revision: `r${version}`, from, contentVersion: `v${version}`, applied: next.ops, warnings: []});
       await flush();
     },
-    async refuse(message = 'Players could not reach the baker there.') {
-      waiting.shift()!.reject(new WorldEditRequestError(message, 422, [{code: 'blocks-route', map: 'waldruh', message, objectIds: [], severity: 'error'}]));
+    async refuse(message = 'Players could not reach the baker there.', code: 'blocks-route' | 'stale' = 'blocks-route') {
+      waiting.shift()!.reject(new WorldEditRequestError(message, code === 'stale' ? 409 : 422, [{code, map: 'waldruh', message, objectIds: [], severity: 'error'}]));
       await flush();
     },
     /** Another admin publishes behind our back. */
@@ -107,5 +107,20 @@ describe('map edit store', () => {
     next.resolve({revision: 'r9', from: 'v8', contentVersion: 'v9', applied: next.ops, warnings: []});
     await Promise.resolve(); await Promise.resolve();
     expect(server.stale).toBe(1);
+  });
+
+  it('catches up and sends an edit again when the server says the world moved on', async () => {
+    const server = harness(), lamp = lampOf(server.store.document);
+    server.store.commit([{kind: 'move', map: 'waldruh', id: lamp.id, x: lamp.x + 40, y: lamp.y}], 'Move lamp');
+    await server.refuse('The world changed while saving.', 'stale');
+    expect(server.stale).toBe(1);
+    expect(server.failures).toHaveLength(0);
+    // The same edit is on its way again and still shows.
+    expect(server.waiting).toHaveLength(1);
+    expect(lampOf(server.store.document).x).toBe(lamp.x + 40);
+    await server.refuse('The world changed while saving.', 'stale');
+    // A second refusal is reported instead of retrying for ever.
+    expect(server.failures).toHaveLength(1);
+    expect(lampOf(server.store.document).x).toBe(lamp.x);
   });
 });

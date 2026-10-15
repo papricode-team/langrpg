@@ -65,7 +65,8 @@ export function objectLabel(scene: WorldScene, id: string): string {
   const item = scene.scenery.find(value => value.id === id);
   if (item) return item.interior ? `the ${roomNames[item.interior.kind]}` : `the ${assetLabel(item)}`;
   if (scene.npcs.some(value => value.id === id)) return capital(words(id));
-  if (scene.objects.some(value => value.id === id)) return `the ${words(id)}`;
+  // Evidence IDs carry their town, as in `lindenhafen-parcel`; the town goes without saying.
+  if (scene.objects.some(value => value.id === id)) return `the ${words(id.startsWith(`${scene.id}-`) ? id.slice(scene.id.length + 1) : id)}`;
   const resident = scene.residents?.find(value => value.id === id);
   if (resident) return resident.name;
   return words(id);

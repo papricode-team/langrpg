@@ -204,65 +204,76 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	defer editing.writes.Unlock()
-	editing.mu.RLock()
-	previous := editing.current
-	editing.mu.RUnlock()
 	ctx, cancel := context.WithTimeout(r.Context(), maxWorkerWait)
 	defer cancel()
-	result, err := editing.worker.apply(ctx, previous, body.Ops)
-	if err != nil {
-		apiFailure(w, err)
-		return
-	}
-	if !result.OK {
-		status := 422
-		if len(result.Problems) > 0 && (result.Problems[0].Code == "missing" || result.Problems[0].Code == "locked") {
-			status = 409
-		}
-		apiFailure(w, &WorldProblemError{status, result.Problems})
-		return
-	}
-	next := result.Bundle
-	if next == nil {
-		apiFailure(w, errors.New("world edit worker returned no publication"))
-		return
-	}
-	next.Revision = worldRevision(next.Document)
-	if next.Diagnostics == nil {
-		next.Diagnostics = []string{}
-	}
-	if err := validateWorldContent(next); err != nil {
-		apiFailure(w, err)
-		return
-	}
-	// A room cannot disappear while players are inside it.
-	for mapID, before := range previous.WorldMaps.Maps {
-		after := next.WorldMaps.Maps[mapID]
-		for room := range before.Entrances {
-			if _, kept := after.Entrances[room]; kept {
-				continue
-			}
-			if count := a.world.InteriorOccupancy(mapID, room); count > 0 {
-				people := "1 player is"
-				if count > 1 {
-					people = fmt.Sprintf("%d players are", count)
-				}
-				apiFailure(w, worldProblems(409, "occupied", fmt.Sprintf("%s inside the %s. Wait until they leave.", people, roomLabel(room)), before.Entrances[room].OwnerID))
-				return
-			}
-		}
-	}
-	if _, ok := a.requireAdmin(w, r); !ok {
-		return
-	}
-	next.Story = previous.Story
-	if err := editing.store.SaveWorldContent(ctx, previous.Revision, next); err != nil {
-		if errors.Is(err, ErrConflict) {
-			apiFailure(w, worldProblems(409, "stale", "The world changed while saving. Reload and try again."))
+	var previous, next *WorldContent
+	var result *workerResponse
+	for attempt := 0; ; attempt++ {
+		editing.mu.RLock()
+		previous = editing.current
+		editing.mu.RUnlock()
+		var err error
+		result, err = editing.worker.apply(ctx, previous, body.Ops)
+		if err != nil {
+			apiFailure(w, err)
 			return
 		}
-		apiFailure(w, err)
-		return
+		if !result.OK {
+			status := 422
+			if len(result.Problems) > 0 && (result.Problems[0].Code == "missing" || result.Problems[0].Code == "locked") {
+				status = 409
+			}
+			apiFailure(w, &WorldProblemError{status, result.Problems})
+			return
+		}
+		next = result.Bundle
+		if next == nil {
+			apiFailure(w, errors.New("world edit worker returned no publication"))
+			return
+		}
+		next.Revision = worldRevision(next.Document)
+		if next.Diagnostics == nil {
+			next.Diagnostics = []string{}
+		}
+		if err := validateWorldContent(next); err != nil {
+			apiFailure(w, err)
+			return
+		}
+		// A room cannot disappear while players are inside it.
+		for mapID, before := range previous.WorldMaps.Maps {
+			after := next.WorldMaps.Maps[mapID]
+			for room := range before.Entrances {
+				if _, kept := after.Entrances[room]; kept {
+					continue
+				}
+				if count := a.world.InteriorOccupancy(mapID, room); count > 0 {
+					people := "1 player is"
+					if count > 1 {
+						people = fmt.Sprintf("%d players are", count)
+					}
+					apiFailure(w, worldProblems(409, "occupied", fmt.Sprintf("%s inside the %s. Wait until they leave.", people, roomLabel(room)), before.Entrances[room].OwnerID))
+					return
+				}
+			}
+		}
+		if _, ok := a.requireAdmin(w, r); !ok {
+			return
+		}
+		next.Story = previous.Story
+		if err := editing.store.SaveWorldContent(ctx, previous.Revision, next); err != nil {
+			if errors.Is(err, ErrConflict) {
+				// Memory fell behind the stored publication. Edits are absolute, so
+				// adopt the stored world and apply them again once.
+				if attempt == 0 && a.refreshWorldContentLocked(ctx) == nil {
+					continue
+				}
+				apiFailure(w, worldProblems(409, "stale", "The world changed while saving. Reload and try again."))
+				return
+			}
+			apiFailure(w, err)
+			return
+		}
+		break
 	}
 	editing.mu.Lock()
 	editing.current = next
