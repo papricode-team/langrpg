@@ -232,14 +232,16 @@
       "id": "town-cobble",
       "name": "Lindenhafen blue cobbles",
       "group": "Paving",
-      "color": "#476178",
+      "color": "#596b82",
       "worldSize": 190,
       "edge": {
         "kind": "curb"
       },
       "source": "town-cobble.png",
-      "generatedFile": "exec-c0354ebf-c0b2-4a9b-853e-2cef936dd3d2.png",
-      "promptFile": "docs/prompts/terrain-materials/town-cobble.txt"
+      "generatedFile": "exec-a306cb08-ef3f-4929-b6be-7387eebd1ee3.png",
+      "promptFile": "docs/prompts/terrain-materials/town-cobble.txt",
+      "previousGeneratedFile": "exec-c0354ebf-c0b2-4a9b-853e-2cef936dd3d2.png",
+      "colorMatchPromptFile": "docs/prompts/terrain-materials/town-cobble-bridge-match.txt"
     },
     {
       "id": "canal-masonry",
