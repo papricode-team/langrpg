@@ -16,9 +16,13 @@
   "independentLayerControls": true,
   "pieceOutlines": true,
   "roadBordersCloseup": true,
+  "bridgeLandings": [
+    "main",
+    "harbor"
+  ],
   "chunkCheck": {
     "checked": 10215,
-    "different": 47,
-    "maxDelta": 10
+    "different": 30,
+    "maxDelta": 9
   }
 }

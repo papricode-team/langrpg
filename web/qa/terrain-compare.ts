@@ -22,15 +22,16 @@ const original=document.querySelector<HTMLCanvasElement>('#original')!,component
 const status=document.querySelector('#status')!;
 const checked=(id:string)=>document.querySelector<HTMLInputElement>(`#${id}`)!.checked;
 const images=new Map<string,HTMLImageElement>();
-let oldImages=new Map<string,HTMLImageElement>(),generation=0,ready=false,mode:'whole'|'bridge'|'borders'='whole',zoom=1,offset={x:0,y:0};
+let oldImages=new Map<string,HTMLImageElement>(),generation=0,ready=false,mode:'whole'|'bridge'|'borders'|'main-landing'|'harbor-landing'='whole',zoom=1,offset={x:0,y:0};
 const load=async(src:string)=>{const image=new Image();image.src=src;await image.decode();return image;};
 const ids=terrainMaterialDependencies([terrain.base,...terrain.surfaces.map(s=>s.material)]);
-const detailSize=()=>mode==='borders'?{width:650,height:540}:{width:1000,height:820};
+const details={bridge:{x:1400,y:750,width:1000,height:820},borders:{x:680,y:770,width:650,height:540},'main-landing':{x:1730,y:940,width:420,height:340},'harbor-landing':{x:1425,y:1160,width:420,height:340}};
+const detailSize=()=>details[mode==='whole'?'bridge':mode];
 function cameraScale(){const fit=Math.min(original.clientWidth/world.width,original.clientHeight/world.height)*.96;return (mode==='whole'?fit:Math.min(original.clientWidth/detailSize().width,original.clientHeight/detailSize().height))*zoom;}
 function render(){
  if(!ready)return;
  const scale=cameraScale();
- const centers=mode==='whole'?[{x:world.width/2,y:world.height/2},{x:draft.width/2,y:draft.height/2}]:mode==='borders'?[{x:680,y:770},{x:680,y:770}]:[{x:1400,y:750},{x:1400,y:750}];
+ const centers=mode==='whole'?[{x:world.width/2,y:world.height/2},{x:draft.width/2,y:draft.height/2}]:[details[mode],details[mode]];
  for(const [index,canvas] of [original,components].entries()){
   const w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(devicePixelRatio,2);
   if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
@@ -71,7 +72,7 @@ await Promise.all([...ids.map(async id=>images.set(id,await load(terrainMaterial
 document.querySelector('#changes')!.innerHTML=draft.changes.map(change=>`<li>${change}</li>`).join('');
 document.querySelector('#pieces')!.innerHTML=(terrain.features??[]).map((f,i)=>`<span class="piece-label">${i+1}. ${terrainFeature(f.asset)!.name}</span>`).join('');
 for(const id of ['ground','water','roads','outlines'])document.querySelector(`#${id}`)!.addEventListener('change',render);
-for(const value of ['whole','bridge','borders'] as const)document.querySelector(`#${value}`)!.addEventListener('click',()=>{mode=value;zoom=1;offset={x:0,y:0};for(const id of ['whole','bridge','borders'])document.querySelector(`#${id}`)!.setAttribute('aria-pressed',String(id===mode));render();});
+for(const value of ['whole','bridge','borders','main-landing','harbor-landing'] as const)document.querySelector(`#${value}`)!.addEventListener('click',()=>{mode=value;zoom=1;offset={x:0,y:0};for(const id of ['whole','bridge','borders','main-landing','harbor-landing'])document.querySelector(`#${id}`)!.setAttribute('aria-pressed',String(id===mode));render();});
 for(const [id,multiplier] of [['in',1.4],['out',1/1.4]] as const)document.querySelector(`#${id}`)!.addEventListener('click',()=>{zoom=Math.max(.5,Math.min(5,zoom*multiplier));render();});
 document.querySelector('#period')!.addEventListener('change',()=>void loadOriginal());
 for(const canvas of [original,components]){

@@ -36,9 +36,14 @@ describe('painted terrain in the game camera',()=>{
   expect(()=>parseWorldSceneDocument(doc)).toThrow();
  });
  it('draws visible native art after the ground and culls offscreen art',()=>{
-  const image={} as CanvasImageSource,drawImage=vi.fn(),context={drawImage,save:vi.fn(),restore:vi.fn(),fillRect:vi.fn(),createPattern:()=>null} as unknown as CanvasRenderingContext2D;
+  const image={} as CanvasImageSource,drawImage=vi.fn(),stroke=vi.fn(),fillRect=vi.fn(),context={
+   drawImage,stroke,fillRect,save:vi.fn(),restore:vi.fn(),createPattern:()=>null,
+   beginPath:vi.fn(),rect:vi.fn(),moveTo:vi.fn(),lineTo:vi.fn(),closePath:vi.fn(),clip:vi.fn(),getTransform:()=>({a:1,b:0}),
+  } as unknown as CanvasRenderingContext2D;
   paintModularTerrain(context,{version:1,base:'meadow',surfaces:[],features:[bridge,{...bridge,id:'distant',x:3000}]},{x:0,y:0,width:1000,height:1000},()=>undefined,()=>image);
   expect(drawImage).toHaveBeenCalledExactlyOnceWith(image,100,80,800,800);
+  expect(stroke).toHaveBeenCalledTimes(1); // Only the visible bridge casts a contact shadow.
+  expect(fillRect.mock.invocationCallOrder[0]).toBeLessThan(drawImage.mock.invocationCallOrder[0]);
  });
  it('has varied independently painted geometry at actual HD resolution',()=>{
   expect(terrainFeatures).toHaveLength(15);

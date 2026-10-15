@@ -118,9 +118,14 @@ const faces = [[280,264,96,57],[442,267,96,57],[600,265,92,58],[742,265,90,58],
 
 export function paintRoadCurbs(ctx:CanvasRenderingContext2D,terrain:ModularTerrain,view:TerrainView,
   source:(id:string)=>CanvasImageSource|undefined):void{
+  paintStoneCourse(ctx,geometry(terrain),view,source);
+}
+
+export function paintStoneCourse(ctx:CanvasRenderingContext2D,stones:CurbStone[],view:TerrainView,
+  source:(id:string)=>CanvasImageSource|undefined):void{
   const image=source('canal-masonry');
   ctx.save();ctx.lineJoin='round';
-  for(const stone of geometry(terrain)){
+  for(const stone of stones){
     const {top,center,tangent,length,variant}=stone;
     if(center[0]<view.x-50||center[0]>view.x+view.width+50||center[1]<view.y-50||center[1]>view.y+view.height+50)continue;
     // Ground contact shadow and small raised front faces, lit from upper-left.

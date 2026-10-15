@@ -7,6 +7,7 @@ import type {TerrainView} from './terrain-residency';
 import type {TerrainResidency} from './terrain-residency';
 import {paintTerrainEdge,terrainMaterialDependencies} from './terrain-masonry';
 import {paintRoadCurbs} from './terrain-curbs';
+import {clipBridgeClearance,paintJoinedBridge} from './terrain-bridge-joins';
 const CHUNK=256;
 let sequence=0;
 interface Chunk {key:string;image:Phaser.GameObjects.Image;}
@@ -33,16 +34,21 @@ export function paintModularTerrain(context:CanvasRenderingContext2D,terrain:Mod
   }
   // Borders follow the final road silhouette, including gardens painted over paving.
   // Draw after the ground so grass cannot bury the raised stones around its islands.
+  context.save();clipBridgeClearance(context,terrain,view);
   paintRoadCurbs(context,terrain,view,source);
+  context.restore();
   for(const surface of terrain.surfaces){
     const edge=terrainMaterial(surface.material)?.edge;
-    if(edge?.kind==='quay')paintTerrainEdge(context,surface.polygon,'quay',source,edge.height);
+    if(edge?.kind==='quay')paintTerrainEdge(context,surface.polygon,'quay',source,edge.height,view);
   }
   for(const feature of terrain.features??[]){
     const bounds=featureBounds(feature);
     if(bounds.x+bounds.width<view.x||bounds.x>view.x+view.width||bounds.y+bounds.height<view.y||bounds.y>view.y+view.height)continue;
     const image=featureSource(feature.asset);
-    if(image)context.drawImage(image,bounds.x,bounds.y,bounds.width,bounds.height);
+    if(image){
+      if(feature.asset==='canal-arch-bridge')paintJoinedBridge(context,terrain,feature,image);
+      else context.drawImage(image,bounds.x,bounds.y,bounds.width,bounds.height);
+    }
   }
 }
 /** Cache only visible composed chunks. Source art is shared through terrain residency. */
