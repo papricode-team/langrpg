@@ -10,6 +10,14 @@ const {sceneNavigationGeometry}=await import('../web/src/scene-navigation.ts');
 
 const source = JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json', import.meta.url), 'utf8'));
 
+test('publishes authored town terrain while retaining every existing world placement',async()=>{
+  const value=structuredClone(source);
+  const draft=JSON.parse(await readFile(new URL('../web/src/data/lindenhafen-terrain-rebuild.json',import.meta.url),'utf8'));
+  value.maps.lindenhafen.modularTerrain=draft.modularTerrain;
+  const compiled=await compileSceneDocument(value,{strictQuality:false});
+  assert.deepEqual(compiled.document,value);
+});
+
 // Draft barriers belong to a registered object. Express their world vertices
 // in that owner's local coordinates so these tests exercise the save contract.
 const attachCollision = (scene, polygons) => {
@@ -136,12 +144,13 @@ test('rejects activity feet, approaches and exits that would require path projec
   }
 });
 
-test('rejects removed water hazards when their terrain masks have not been regenerated',async()=>{
+test('legacy painted terrain rejects removed water hazards until its masks are regenerated',async()=>{
   for(const scene of Object.values(source.maps))for(const tile of scene.terrain){
     assert.ok(tile.walkableMaskAsset,`${scene.id}/${tile.id} needs its traced ground mask`);
   }
   const water=structuredClone(source);
   const scene=water.maps.lindenhafen;
+  delete scene.modularTerrain;
   const waterHazard=scene.navigation.terrainCollision.find(hazard=>hazard.kind==='water');
   assert.ok(waterHazard, 'the water audit needs an authored water blocker');
   scene.navigation.terrainCollision=scene.navigation.terrainCollision.filter(hazard=>hazard!==waterHazard);

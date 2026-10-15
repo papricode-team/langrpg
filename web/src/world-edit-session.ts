@@ -32,7 +32,7 @@ export class WorldEditSession {
   /** Called with the server's applied operations, for editors that do not receive socket patches. */
   onApplied?: (result: EditResult) => void;
 
-  constructor(token: () => string, document: () => WorldSceneDocument) { this.token = token; this.document = document; }
+  constructor(token: () => string, document: () => WorldSceneDocument, private readonly fetcher: typeof fetch = fetch) { this.token = token; this.document = document; }
 
   get canUndo(): boolean { return this.undoStack.length > 0; }
 
@@ -41,7 +41,7 @@ export class WorldEditSession {
     if (!token) throw new WorldEditRequestError('Log in with an admin account to edit the world.', 401);
     let response: Response;
     try {
-      response = await fetch(`/api${path}`, {
+      response = await this.fetcher(`/api${path}`, {
         method: init.method ?? (init.body === undefined ? 'GET' : 'POST'),
         headers: {Authorization: `Bearer ${token}`, ...(init.body === undefined ? {} : {'Content-Type': 'application/json'})},
         body: init.body === undefined ? undefined : JSON.stringify(init.body),
@@ -120,7 +120,7 @@ export class WorldEditSession {
   /** Replace the whole world, for imports. Undo history no longer applies afterwards. */
   async replaceWorld(document: WorldSceneDocument, revision: string): Promise<AdminWorld> {
     const token = this.token();
-    const response = await fetch('/api/admin/world', {method: 'PUT', headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'If-Match': `"${revision}"`},
+    const response = await this.fetcher('/api/admin/world', {method: 'PUT', headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'If-Match': `"${revision}"`},
       body: JSON.stringify(document), signal: AbortSignal.timeout(60_000)}).catch(() => undefined);
     if (!response) throw new WorldEditRequestError('The server could not be reached. Check your connection and try again.', 0);
     const value = await response.json().catch(() => ({})) as {error?: string; problems?: WorldProblem[]} & Partial<AdminWorld>;

@@ -2,6 +2,8 @@ import terrain from './data/foundation-terrain.json';
 import {sceneDocument} from './scene-data';
 import type {PlacedScenerySpec} from './placed-scenery';
 import type {ScenePolygon,SceneryGeometry} from './scene-schema';
+import {terrainSurfaces,terrainContains,type ModularTerrain} from './modular-terrain';
+import {terrainMaterial} from './terrain-materials';
 
 type Colour=readonly [number,number,number];
 export interface FoundationGround {colour:Colour;vegetation:number;water:number;}
@@ -19,7 +21,12 @@ const random=(seed:number,index:number)=>{
 
 /** Sample the actual authored daylight ground, even when its GPU tile is unloaded.
  * Keys follow the current scene document, so moved tiles retain their own material. */
-export function foundationGround(mapId:string,x:number,y:number):FoundationGround {
+export function foundationGround(mapId:string,x:number,y:number,modular:ModularTerrain|undefined=sceneDocument.maps[mapId]?.modularTerrain):FoundationGround {
+  if(modular){
+    const material=terrainMaterial(terrainSurfaces(modular).reverse().find(surface=>terrainContains(surface.polygon,x,y))?.material??modular.base)!;
+    const hex=material.color.replace('#',''),colour=[0,2,4].map(offset=>parseInt(hex.slice(offset,offset+2),16)) as [number,number,number];
+    return {colour,vegetation:['meadow','forest-floor','moss','marsh','canal-grass'].includes(material.id)?1:material.id==='dry-grass'?.5:0,water:material.id.endsWith('water')?1:0};
+  }
   const tile=sceneDocument.maps[mapId]?.terrain?.slice().reverse().find(tile=>x>=tile.x&&y>=tile.y&&x<tile.x+tile.width&&y<tile.y+tile.height);
   const source=tile&&(tile.dayPreviewAsset??tile.dayAsset);
   const grid=source&&(terrain.tiles as Record<string,{width:number;height:number;pixels:string}>)[source];

@@ -6,8 +6,8 @@ export let sceneDocument = parseWorldSceneDocument(data);
 export let sceneContentVersion = version.contentVersion;
 
 /** Load the published world before creating scenes or resolving map placements. */
-export async function loadPublishedWorld(): Promise<void> {
-  const response = await fetch('/api/world-content', {cache:'no-cache',signal:AbortSignal.timeout(12000)});
+export async function loadPublishedWorld(fetcher: typeof fetch = fetch): Promise<void> {
+  const response = await fetcher('/api/world-content', {cache:'no-cache',signal:AbortSignal.timeout(12000)});
   // Older deployments still use the world bundled with the client.
   if(response.status===404)return;
   if(!response.ok)throw new Error('The saved world could not be loaded. Please reload to try again.');

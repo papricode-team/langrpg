@@ -3,6 +3,7 @@ import {getWorldScene} from './scene-data';
 import {getSceneryGeometryMap} from './scene-schema';
 import type {SceneCollision} from './scene-schema';
 import {worldDepth} from './world-depth';
+import {terrainObject,terrainObjectKey} from './terrain-objects';
 
 /** Each frame is reusable transparent artwork, independent of the terrain. */
 export const sceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp',
@@ -35,7 +36,7 @@ export const sceneryDepth = (baseY: number): number => worldDepth(baseY, 'prop')
 export const sceneryTextureKey = (mapId: MapId): string => `${mapId}-props`;
 export const sceneryVariationKey = (mapId: MapId): string => `${mapId}-variations`;
 export const sceneryTextureFor = (mapId: MapId, spec: PlacedScenerySpec): string =>
-  spec.variant ? sceneryVariationKey(mapId) : sceneryTextureKey(mapId);
+  terrainObject(spec.frame)?terrainObjectKey(mapId,spec.frame!):spec.variant ? sceneryVariationKey(mapId) : sceneryTextureKey(mapId);
 
 /** Deterministic independent phases survive revisits without random frame work. */
 export function sceneryPhase(id: string): number {

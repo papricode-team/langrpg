@@ -12,6 +12,7 @@ function preservePrefabPlacement(before, after) {
 import './register-content-loader.mjs';
 const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
 import {getSceneryGeometryMap} from '../web/src/scene-schema.ts';
+import {terrainFeature,featureBounds} from '../web/src/terrain-features.ts';
 /** Tiled v2 interchange. Source records remain lossless, with native editable geometry. */
 const omit = (value, keys) => Object.fromEntries(Object.entries(value).filter(([key]) => !keys.includes(key)));
 const property = (name, value) => ({name, type: typeof value === 'number' ? Number.isInteger(value) ? 'int' : 'float' : typeof value === 'boolean' ? 'bool' : 'string', value});
@@ -82,7 +83,12 @@ export function sceneToTiled(mapId, document, {images = {}, imagePath = asset =>
       _ownerSourceWidth:owner.width,_ownerSourceFlip:!!owner.flipX})};
   });
   const activities = ownedPoints(scene.activities ?? []);
-  const layers = [layer('Terrain', terrain, {locked: true}),
+  const layers = [layer('Terrain', terrain, {locked: true,...(scene.modularTerrain?{visible:false}:{})}),
+    ...(scene.modularTerrain?[layer('Terrain surfaces',scene.modularTerrain.surfaces.map(value=>shape(value)),{opacity:.7})]:[]),
+    ...(scene.modularTerrain?.features?[layer('Painted terrain',scene.modularTerrain.features.map(value=>{
+      const art=terrainFeature(value.asset),bounds=featureBounds(value);
+      return {id:nextId++,name:value.id,...bounds,gid:tile({asset:art.asset,imageWidth:art.width,imageHeight:art.height},{terrainArt:value.asset}),properties:properties({key:value.id})};
+    }))]:[]),
     layer('Walkable', scene.walkable.map((polygon, i) => shape({polygon}, `walkable-${i + 1}`)), {color: '#7700aa55', opacity: .35}),
     layer('Obstacles', scene.obstacles.map((polygon, i) => shape({polygon}, `obstacle-${i + 1}`)), {color: '#77dd5544', opacity: .35}),
     ...(scene.navigation?[layer('Terrain collision',scene.navigation.terrainCollision.map(value=>shape(value)),{color:'#77dd8844',opacity:.35})]:[]),
@@ -101,7 +107,7 @@ export function sceneFromTiled(tiled, document) {
   const metadata = readProperties(tiled.properties), mapId = metadata.mapId;
   if (!document.maps[mapId]) throw new Error('Tiled mapId must name an existing world scene');
   if (metadata.navigationVersion !== 2 || tiled.orientation !== 'orthogonal' || tiled.infinite) throw new Error('Expected finite orthogonal scene version 2');
-  const names = ['Terrain', 'Walkable', 'Obstacles', 'Scenery', 'Spawn', 'NPCs', 'Objects', 'Districts', 'Activities', 'Generation zones', 'Entrances'];
+  const names = ['Painted terrain', 'Terrain surfaces', 'Terrain', 'Walkable', 'Obstacles', 'Scenery', 'Spawn', 'NPCs', 'Objects', 'Districts', 'Activities', 'Generation zones', 'Entrances'];
   const groups = new Map();
   for (const layer of tiled.layers ?? []) {
     if (layer.type !== 'objectgroup' || ![...names,'Terrain collision'].includes(layer.name) || groups.has(layer.name) || !Array.isArray(layer.objects)) throw new Error(`Unsupported or duplicate Tiled layer ${layer.name}`);
@@ -115,7 +121,9 @@ export function sceneFromTiled(tiled, document) {
   }
   // Pre-entrance v2 exports stored unfamiliar collections in map metadata.
   if (groups.get('Entrances')?.objects.length) throw new Error('Doors now belong to buildings. Remove the Entrances layer and set the room in the building\'s interior property.');
-  for (const name of names) if (name !== 'Entrances' && !groups.has(name)) throw new Error(`Missing Tiled layer ${name}`);
+  for (const name of names) if (name !== 'Entrances' && (name !== 'Terrain surfaces'||metadata.modularTerrain) && (name!=='Painted terrain'||metadata.modularTerrain?.features) && !groups.has(name)) throw new Error(`Missing Tiled layer ${name}`);
+  if(!metadata.modularTerrain&&groups.has('Terrain surfaces'))throw new Error('Terrain surfaces need modular terrain metadata');
+  if(!metadata.modularTerrain&&groups.has('Painted terrain'))throw new Error('Painted terrain needs modular terrain metadata');
   if(metadata.navigation&&!groups.has('Terrain collision'))throw new Error('Missing Tiled layer Terrain collision');
   if(!metadata.navigation&&groups.has('Terrain collision'))throw new Error('Terrain collision needs a clear-land navigation model');
   const imageInfo = object => {
@@ -196,6 +204,13 @@ export function sceneFromTiled(tiled, document) {
   const next = structuredClone(document);
   next.maps[mapId] = {...omit(metadata, ['mapId', 'navigationVersion', '_optionalCollections']), id: mapId,
     width: tiled.width * tiled.tilewidth, height: tiled.height * tiled.tileheight,
+    ...(metadata.modularTerrain?{modularTerrain:{...metadata.modularTerrain,surfaces:objects('Terrain surfaces',(object,group)=>({...parseRecord(object),polygon:objectPolygon(object,group)})),
+      ...(groups.has('Painted terrain')?{features:objects('Painted terrain',(object,group)=>{
+        if(object.rotation||(object.gid&0x80000000)!==0)throw new Error('Painted terrain preserves its camera: rotation/flips are unsupported');
+        const asset=imageInfo(object).terrainArt,art=terrainFeature(asset);
+        if(!art||Math.abs(object.height-object.width*art.height/art.width)>.01)throw new Error('Painted terrain must preserve its native aspect ratio');
+        return {...parseRecord(object),...worldPoint(object,group),asset,width:object.width};
+      })}:{})}}:{}),
     terrain, scenery, spawn: omit(spawn[0], ['id']), npcs: points('NPCs'), objects: points('Objects'),
     walkable: collision('Walkable'), obstacles: collision('Obstacles'),
     ...(metadata.navigation?{navigation:{...metadata.navigation,terrainCollision:objects('Terrain collision',(object,group)=>({...parseRecord(object),polygon:objectPolygon(object,group)}))}}:{}),

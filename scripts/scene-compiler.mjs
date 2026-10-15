@@ -14,6 +14,7 @@ const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resi
 const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
 const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
 const {getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
+const {terrainObjects,terrainObject}=await import('../web/src/terrain-objects.ts');
 const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
 const {auditScene,SceneReach,problem} = await import('../web/src/world-edit-rules.ts');
@@ -128,6 +129,24 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       for (const id of actual) if (!expected.has(id)) report(map, `${kind} ${id} has no authored content`, {ids: [id]});
       for (const id of expected) if (!actual.has(id)) report(map, `missing required ${kind} ${id}; deletion needs a content migration`, {code: 'missing', ids: [id]});
     }
+    if(scene.modularTerrain){
+      const {terrainMaterial}=await import('../web/src/terrain-materials.ts');
+      const {terrainFeature}=await import('../web/src/terrain-features.ts');
+      for(const id of new Set((scene.modularTerrain.features??[]).map(feature=>feature.asset))){
+        const art=terrainFeature(id);
+        try{
+          const size=await sharp(resolve(root,'web/public',art.asset.slice(1))).metadata();
+          if(size.width!==art.width||size.height!==art.height||Math.min(size.width,size.height)<1024||!size.hasAlpha)report(map,`terrain piece ${id} needs native HD art with transparency`);
+        }catch{report(map,`missing painted terrain piece ${id}`);}
+      }
+      for(const id of new Set([scene.modularTerrain.base,...scene.modularTerrain.surfaces.map(surface=>surface.material)])){
+        const material=terrainMaterial(id);
+        try{
+          const size=await sharp(resolve(root,'web/public',material.asset.slice(1))).metadata();
+          if(size.width!==material.width||size.height!==material.height||Math.min(size.width,size.height)<1024||size.width/material.worldSize<2)report(map,`terrain material ${id} must retain its registered high resolution`);
+        }catch{report(map,`missing terrain material ${id}`);}
+      }
+    }
     for (const tile of scene.terrain) {
       if(content&&!tile.walkableMaskAsset)quality_(map,`${tile.id} needs an authored ground mask`);
       const coreX=scene.legacyOffset?.x??0,coreY=scene.legacyOffset?.y??0;
@@ -170,8 +189,15 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       for (const issue of quality[scene.id].issues.filter(issue=>!spacingIssues.includes(issue))) quality_(map, issue.replace(`${map}: `, ''));
       for(const [variant,atlas] of atlases.entries())for(const frame of Object.keys(atlas.frames??{}))prefabFrames.add(`${!!variant}:${frame}`);
       for(const frame of Object.keys(manifests[0].assets??{}))if(manifests.every(manifest=>manifest.assets?.[frame]))for(const variant of [false,true])prefabFrames.add(`${variant}:${frame}`);
+      for(const detail of terrainObjects)for(const variant of [false,true])prefabFrames.add(`${variant}:${detail.id}`);
       for (const item of scene.scenery) {
         const frame = item.frame ?? item.asset, atlas = atlases[item.variant ? 1 : 0];
+        const detail=terrainObject(frame);
+        if(detail){
+          try{const size=await sharp(resolve(root,`web/public${detail.asset}`)).metadata();if(size.width!==detail.width||size.height!==detail.height||detail.width/item.width<4)report(map,`scenery ${item.id} needs native high-resolution detail artwork`,{ids:[item.id]});}
+          catch{report(map,`missing detail artwork ${detail.asset}`,{ids:[item.id]});}
+          continue;
+        }
         if (!atlas.frames?.[frame] && !manifests.every(manifest => manifest.assets?.[frame])) report(map, `scenery ${item.id} has no registered frame ${frame}`, {ids: [item.id]});
       }
     }
@@ -181,7 +207,7 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
     // Spawn, story targets, doors and activity spots, measured with a full player footprint.
     for (const issue of auditScene(scene, SceneReach.from(scene, new NavigationGrid(geometry.ground,geometry.barriers,scene,{agentRadius:PLAYER_RADIUS}), grid)))
       problems.push(issue.code === 'missing-room' && strictQuality ? {...issue, severity: 'error'} : issue);
-    for(const tile of scene.terrain.filter(tile=>tile.walkableMaskAsset)){
+    for(const tile of (scene.modularTerrain ? [] : scene.terrain.filter(tile=>tile.walkableMaskAsset))){
       try{
         const {data,info}=await sharp(resolve(root,'web/public',tile.walkableMaskAsset.slice(1))).removeAlpha().greyscale().raw().toBuffer({resolveWithObject:true});
         if(info.width!==tile.width||info.height!==tile.height)report(map,`${tile.id} walkable mask must be one pixel per world unit`);

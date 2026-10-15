@@ -255,6 +255,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.scenery?.sync(scene.scenery);
     this.previousScenery?.sync(scene.scenery);
     if (this.scenery) this.atmosphere?.setLampLights(this.scenery.lampLights);
+    if(relevant.some(op=>op.kind==='terrain')){
+      this.pendingTerrain?.destroy();this.pendingTerrain=undefined;
+      this.previousBackground?.destroy();this.previousBackground=undefined;
+      this.background?.destroy();
+      this.background=new StreamedWorldTerrain(this,scene,this.period).setTint(worldAmbient(this.mapSpec.id,this.period).terrain);
+    }
     this.navigation = this.navigation.withObstacles(sceneNavigationGeometry(scene).barriers);
     const spawn = this.spawnPoint();
     this.navigation.prepareReachability(spawn);
@@ -271,7 +277,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.syncMapObjects();
     this.syncPortals();
     const owners = new Set((scene.activities ?? []).map(slot => slot.ownerId));
-    if (relevant.some(op => op.kind === 'residents' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
+    if (relevant.some(op => op.kind === 'residents' || op.kind === 'terrain' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
     this.editController?.documentChanged();
     this.refreshNearby();
   }

@@ -22,16 +22,33 @@ function packedFrame(atlas:{data:Uint8Array|Uint8ClampedArray;width:number;heigh
 }
 
 describe('browser avatar baking', () => {
-  it.each(['wave','seated','lantern-raise'])('bakes %s sheets identically to the reviewed offline atlas and refuses unsupported clothes before loading', async poseSet => {
+  it('makes the published jacket and arm gaps transparent without changing the shirt buttons or eyes', async () => {
+    const recipe=JSON.parse(readFileSync(resolve(root,'src/data/character-presets.json'),'utf8'))[0].recipe as AvatarRecipe;
+    const source=await avatarFramePixels(recipe,0,{loadSheet:load,sourceMatte:'preserve'});
+    const clean=await avatarFramePixels(recipe,0,{loadSheet:load});
+    for(const [x,y] of [[202,350],[193,380],[191,385],[190,388]]) {
+      const p=(y*source.width+x)*4;
+      expect(source.data[p+3]).toBe(255);
+      expect(clean.data[p+3]).toBe(0);
+    }
+    // Central face and shirt placket contain intentional light details.
+    for(const [left,top,width,height] of [[230,160,50,40],[250,250,20,150]]) {
+      for(let y=top;y<top+height;y++) {
+        const p=(y*source.width+left)*4;
+        expect(clean.data.slice(p,p+width*4)).toEqual(source.data.slice(p,p+width*4));
+      }
+    }
+  });
+  it.each(['wave','seated','lantern-raise'])('preserves reviewed %s source pixels for art inspection and refuses unsupported outfits', async poseSet => {
     const recipe=JSON.parse(readFileSync(resolve(root,`../art/source/character-kit/poses/${poseSet}/regular/jacket-outfit.recipe.json`),'utf8')) as AvatarRecipe;
     const loadSheet=vi.fn(load);
-    const atlas=await bakeAvatarPixels(recipe,{poseSet,resolution:'editor',loadSheet});
+    const atlas=await bakeAvatarPixels(recipe,{poseSet,resolution:'editor',loadSheet,sourceMatte:'preserve'});
     const {data}=await sharp(resolve(root,`../art/proofs/character-kit-hd/outfit-${poseSet}.webp`)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
     const visible=Buffer.from(atlas.data);
     for(let p=0;p<data.length;p+=4)if(data[p+3]===0&&visible[p+3]===0){data.fill(0,p,p+3);visible.fill(0,p,p+3);}
     expect(visible.equals(data)).toBe(true);
     expect(loadSheet.mock.calls.every(([url])=>url.includes(`-${poseSet}.`))).toBe(true);
-    const frame=await avatarFramePixels(recipe,12,{poseSet,loadSheet});
+    const frame=await avatarFramePixels(recipe,12,{poseSet,loadSheet,sourceMatte:'preserve'});
     const cell=composeFrame([{id:'baked',materials:['detail'],tints:{detail:0xffffff}}],new Map([['baked.detail',atlas]]),12,frame.width,frame.height);
     expect(Buffer.from(frame.data).equals(Buffer.from(cell))).toBe(true);
     loadSheet.mockClear();
@@ -40,9 +57,9 @@ describe('browser avatar baking', () => {
     await expect(bakeAvatarPixels(recipe,{poseSet:'unpublished',loadSheet})).rejects.toThrow('Unavailable pose set');
     expect(loadSheet).not.toHaveBeenCalled();
   },30000);
-  it('composes all exported frames with the same pixels as the approved offline preview', async () => {
+  it('preserves all reviewed source pixels when explicitly inspecting the original matte', async () => {
     const recipe = JSON.parse(readFileSync(resolve(root, '../art/proofs/foundation-outfit-preview.webp.json'), 'utf8')).recipe as AvatarRecipe;
-    const atlas = await bakeAvatarPixels(recipe, { preview: true, resolution: 'editor', loadSheet: load });
+    const atlas = await bakeAvatarPixels(recipe, { preview: true, resolution: 'editor', loadSheet: load, sourceMatte: 'preserve' });
     const { data, info } = await sharp(resolve(root, '../art/proofs/character-kit-hd/outfit-foundation.webp')).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     expect([atlas.width, atlas.height]).toEqual([info.width, info.height]);
     // WebP may discard RGB underneath zero alpha; visible RGBA must match exactly.
@@ -52,7 +69,7 @@ describe('browser avatar baking', () => {
     }
     expect(visible.equals(data)).toBe(true);
     // A live single-frame preview uses the same facing/column as the baked atlas.
-    const frame = await avatarFramePixels(recipe, 25, { preview: true, loadSheet: load });
+    const frame = await avatarFramePixels(recipe, 25, { preview: true, loadSheet: load, sourceMatte: 'preserve' });
     const cell = composeFrame([{ id: 'baked', materials: ['detail'], tints: { detail: 0xffffff } }], new Map([['baked.detail', atlas]]), 25, frame.width, frame.height);
     expect(Buffer.from(frame.data).equals(Buffer.from(cell))).toBe(true);
   },30000);
@@ -189,10 +206,10 @@ describe('browser avatar baking', () => {
   });
 });
 
-it.each(['smile','worried'])('matches the reviewed %s atlas and changes only face pixels',async expression=>{
+it.each(['smile','worried'])('retains reviewed %s source paint and changes only face pixels',async expression=>{
   const recipe=JSON.parse(readFileSync(resolve(root,'../art/source/character-kit/cast/marta.json'),'utf8')) as AvatarRecipe;
-  const atlas=await bakeAvatarPixels(recipe,{expression,resolution:'editor',loadSheet:load});
-  const neutral=await bakeAvatarPixels(recipe,{resolution:'editor',loadSheet:load});
+  const atlas=await bakeAvatarPixels(recipe,{expression,resolution:'editor',loadSheet:load,sourceMatte:'preserve'});
+  const neutral=await bakeAvatarPixels(recipe,{resolution:'editor',loadSheet:load,sourceMatte:'preserve'});
   const reviewed=await sharp(resolve(root,`../art/proofs/character-kit-hd/expression-${expression}.webp`)).ensureAlpha().raw().toBuffer();
   let changed=0,outsideFace=0;
   const visible=Buffer.from(atlas.data);

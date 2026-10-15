@@ -9,6 +9,17 @@ const scenes=JSON.parse(await readFile(new URL('../web/src/data/world-scenes.jso
 test('Tiled roundtrip preserves canonical geometry and foot placements',()=>{
   for(const id of Object.keys(document.maps))assert.deepEqual(fromTiled(toTiled(id,document),document),document);
 });
+test('Tiled preserves modular terrain layers, blocked water and construction groups',()=>{
+  const source=structuredClone(scenes),scene=source.maps.lindenhafen;
+  scene.modularTerrain={version:1,base:'meadow',surfaces:[{id:'canal-water',groupId:'canal-piece',material:'deep-water',blocked:true,polygon:[[100,100],[200,100],[200,200],[100,200]]}]};
+  const tiled=toTiled(scene.id,source);
+  assert.equal(tiled.layers.find(layer=>layer.name==='Terrain').visible,false);
+  assert.deepEqual(fromTiled(tiled,source),source);
+  tiled.layers.find(layer=>layer.name==='Terrain surfaces').objects[0].x+=20;
+  const moved=fromTiled(tiled,source).maps.lindenhafen.modularTerrain.surfaces[0];
+  assert.deepEqual(moved.polygon,[[120,100],[220,100],[220,200],[120,200]]);
+  assert.equal(moved.groupId,'canal-piece');assert.equal(moved.blocked,true);
+});
 test('all three checked-in editor documents preserve canonical scene data',async()=>{
   assert.equal(Object.keys(scenes.maps).length,3);
   for(const id of Object.keys(scenes.maps)) {
@@ -126,4 +137,16 @@ test('Tiled preserves prefab catalog and moves a whole placed group with its bas
   const moved=imported.maps.lindenhafen.prefabInstances.find(item=>item.id===instanceId);
   assert.deepEqual(moved.origin,{x:origin.x+100,y:origin.y+10});
   assert.equal(moved.members[0].base.x,members[0].base.x+100);
+});
+
+test('Tiled preserves native painted terrain and permits movement and proportional scaling',()=>{
+ const source=structuredClone(scenes),scene=source.maps.lindenhafen;
+ scene.modularTerrain={version:1,base:'meadow',surfaces:[],features:[{id:'arch',asset:'canal-arch-bridge',x:200,y:300,width:700}]};
+ const tiled=toTiled(scene.id,source);
+ assert.deepEqual(fromTiled(tiled,source),source);
+ const object=tiled.layers.find(layer=>layer.name==='Painted terrain').objects[0];
+ object.x+=35;object.y+=20;object.width*=.8;object.height*=.8;
+ assert.deepEqual(fromTiled(tiled,source).maps[scene.id].modularTerrain.features,[{id:'arch',asset:'canal-arch-bridge',x:235,y:320,width:560}]);
+ object.height+=10;assert.throws(()=>fromTiled(tiled,source),/aspect ratio/);
+ object.height-=10;object.rotation=90;assert.throws(()=>fromTiled(tiled,source),/camera/);
 });

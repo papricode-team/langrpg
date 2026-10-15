@@ -1,3 +1,7 @@
+import {terrainMaterial} from './terrain-materials.ts';
+import {terrainFeature,featureBounds,type TerrainFeature} from './terrain-features.ts';
+import {terrainObjectGeometry} from './terrain-objects.ts';
+import type {ModularTerrain} from './modular-terrain';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
@@ -15,8 +19,11 @@ export interface SceneryGeometry {
   /** Painted opening relative to the foot anchor, in reference pixels. */
   door?: {x:number;y:number;width:number;height:number};
 }
+const sceneryGeometryCache=new Map<string,{assets:Readonly<Record<string,SceneryGeometry>>}>();
 export function getSceneryGeometryMap(mapId:string):{assets:Readonly<Record<string,SceneryGeometry>>} {
-  return (sceneryGeometry as unknown as Record<string,{assets:Record<string,SceneryGeometry>}>)[mapId]??{assets:{}};
+  let geometry=sceneryGeometryCache.get(mapId);
+  if(!geometry){geometry={assets:{...((sceneryGeometry as unknown as Record<string,{assets:Record<string,SceneryGeometry>}>)[mapId]?.assets??{}),...terrainObjectGeometry}};sceneryGeometryCache.set(mapId,geometry);}
+  return geometry;
 }
 export const getSceneryGeometry=(mapId:string,placement:{asset:string;frame?:string}):SceneryGeometry|undefined=>
   getSceneryGeometryMap(mapId).assets[placement.frame??placement.asset];
@@ -107,6 +114,7 @@ export interface WorldScene {
   walkable: ScenePolygon[]; obstacles: ScenePolygon[]; scenery: SceneScenery[];
   /** Clear land is the default; only explicit terrain and owned objects block. */
   navigation?: {model:'clear-land'; terrainCollision:SceneTerrainCollision[]};
+  modularTerrain?: ModularTerrain;
   terrain: SceneTerrain[]; districts: SceneDistrict[];
   activities?: SceneActivity[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
@@ -328,6 +336,29 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
         if (interior.returnOffset !== undefined) {
           point(interior.returnOffset, `${id} scenery ${item.id} return offset`);
           point({x: Number(item.x) + interior.returnOffset.x, y: Number(item.y) + interior.returnOffset.y}, `${id} scenery ${item.id} return point`, input.width, input.height);
+        }
+      }
+    }
+    if (input.modularTerrain !== undefined) {
+      const modular = input.modularTerrain;
+      if (!record(modular) || modular.version !== 1 || typeof modular.base !== 'string' || !terrainMaterial(modular.base)) fail(`${id} has invalid modular terrain`);
+      list(modular.surfaces, `${id} terrain surfaces`);
+      if (modular.surfaces.length > 512) fail(`${id} supports at most 512 terrain surfaces`);
+      for (const surface of modular.surfaces) {
+        if (typeof surface.material !== 'string' || !terrainMaterial(surface.material)) fail(`${id} has unknown terrain material`);
+        polygon(surface.polygon, `${id} terrain surface ${surface.id}`, input.width, input.height);
+        if (surface.blocked !== undefined && typeof surface.blocked !== 'boolean') fail(`${id} terrain surface needs a boolean blocked value`);
+        if (surface.groupId !== undefined && !validId(surface.groupId)) fail(`${id} terrain surface has an invalid group`);
+      }
+      if(modular.features!==undefined){
+        list(modular.features,`${id} authored terrain pieces`);
+        if(modular.features.length>256)fail(`${id} supports at most 256 authored terrain pieces`);
+        for(const feature of modular.features){
+          if(typeof feature.asset!=='string'||!terrainFeature(feature.asset))fail(`${id} has unknown authored terrain art`);
+          point(feature,`${id} terrain piece ${feature.id}`,input.width,input.height);
+          positive(feature.width,`${id} terrain piece ${feature.id} width`,2048);
+          const bounds=featureBounds(feature as unknown as TerrainFeature);
+          if(bounds.x+bounds.width>input.width||bounds.y+bounds.height>input.height)fail(`${id} terrain piece ${feature.id} exceeds scene bounds`);
         }
       }
     }

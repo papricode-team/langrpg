@@ -114,14 +114,15 @@
         "station"
       ],
       "fps": 0,
-      "width": 1149,
-      "height": 1178,
+      "width": 4596,
+      "height": 4712,
       "referenceWidth": 1149,
       "originX": 0.5,
       "originY": 0.9966044142614601,
       "base": {
         "key": "lindenhafen-night-building-station",
-        "frame": "station"
+        "frame": "station",
+        "referenceWidth": 4596
       },
       "overlays": [],
       "footprint": [

@@ -16,6 +16,7 @@ import {clampSize,objectLabel,placementProblems,roomOptions,SceneReach,sizeRange
 import type {WorldEditSession,WorldLock} from './world-edit-session';
 import type {WorldScenery} from './world-scenery';
 import {sceneryTextureKey,sceneryVariationKey} from './placed-scenery';
+import {terrainObject,terrainObjectKey} from './terrain-objects';
 import {sceneryAnimationManifestKey,type SceneryAnimationManifest} from './scenery-animation';
 import {worldDepth} from './world-depth';
 
@@ -386,7 +387,9 @@ export class WorldEditController {
         this.placing.ghost = this.scene.add.image(0, 0, key).setOrigin(.5, 1).setAlpha(.7).setDepth(this.graphics.depth - 1);
         this.placing.ghost.setScale(width / Math.max(1, this.placing.ghost.width));
       };
-      this.scene.textures.once(`addtexture-${key}`, show); this.scene.textures.addBase64(key, thumbnail);
+      this.scene.textures.once(`addtexture-${key}`, show);
+      if(thumbnail.startsWith('data:'))this.scene.textures.addBase64(key,thumbnail);
+      else{this.scene.load.image(key,thumbnail);if(!this.scene.load.isLoading())this.scene.load.start();}
     }
     this.publish();
   }
@@ -482,6 +485,14 @@ export class WorldEditController {
 
 /** A small picture of an object's artwork, for the Add palette. */
 export function sceneryThumbnail(scene: Phaser.Scene, mapId: MapId, period: 'day' | 'night', frame: string): string | undefined {
+  const detail=terrainObject(frame);
+  if(detail){
+    const key=terrainObjectKey(mapId,frame);
+    if(!scene.textures.exists(key))return detail.thumbnail;
+    const source=scene.textures.getFrame(key),canvas=document.createElement('canvas');canvas.width=160;canvas.height=Math.round(160*detail.height/detail.width);
+    canvas.getContext('2d')?.drawImage(source.source.image as CanvasImageSource,0,0,canvas.width,canvas.height);
+    return canvas.toDataURL('image/png');
+  }
   const manifest = scene.cache.json.get(sceneryAnimationManifestKey(mapId, period)) as SceneryAnimationManifest | undefined;
   const animation = manifest?.assets[frame];
   let key = animation?.base?.key ?? animation?.key, name = animation ? animation.base?.frame ?? animation.frames[0] : frame;

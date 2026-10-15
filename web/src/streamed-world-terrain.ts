@@ -1,3 +1,4 @@
+import {ModularTerrainRenderer} from './modular-terrain-renderer';
 import type * as Phaser from 'phaser';
 import type {SceneTerrain, WorldScene} from './scene-schema';
 import {sceneTerrainImage} from './scene-terrain';
@@ -39,6 +40,7 @@ interface DisplayedTile {image:Phaser.GameObjects.Image; key:string; density:num
 /** View-local terrain. Overview images cover loading detail without stretching the core. */
 export class StreamedWorldTerrain {
   private root: Phaser.GameObjects.Container;
+  private modular?: ModularTerrainRenderer;
   private images = new Map<string, DisplayedTile>();
   private pool: TerrainResidency;
   private lastView: TerrainView = {x:0,y:0,width:0,height:0};
@@ -51,14 +53,17 @@ export class StreamedWorldTerrain {
   constructor(private scene: Phaser.Scene, private world: WorldScene, readonly period: 'day'|'night') {
     this.root = scene.add.container(0,0).setDepth(-1000);
     this.pool = terrainResidency(scene);
+    if(world.modularTerrain)this.modular=new ModularTerrainRenderer(scene,world,this.pool);
   }
-  get alpha():number {return this.root.alpha;}
-  get visible():boolean {return this.root.visible;}
+  get alpha():number {return this.modular?.alpha??this.root.alpha;}
+  get visible():boolean {return this.modular?.visible??this.root.visible;}
   get nativeSize():{width:number;height:number} {
+    if(this.modular)return this.modular.nativeSize;
     const density = this.images.size ? Math.min(...[...this.images.values()].map(tile=>tile.density)) : 0;
     return {width: this.world.width*density,height: this.world.height*density};
   }
   get ready():boolean {
+    if(this.modular)return this.modular.ready;
     return visibleTerrain(this.world.terrain,this.lastView).every(tile => this.images.has(tile.id));
   }
   private preview(tile:SceneTerrain):TerrainAsset|undefined {
@@ -67,6 +72,7 @@ export class StreamedWorldTerrain {
   }
   update(view:TerrainView, zoom=1):void {
     if (this.destroyed || !this.enabled) return;
+    if(this.modular){this.modular.update(view,zoom);return;}
     const useDetails = zoom > 1;
     // Owned textures cannot be evicted by another layer. Once every request is
     // ready, the same view and detail mode have exactly the same selection.
@@ -118,16 +124,17 @@ export class StreamedWorldTerrain {
     this.settled = assets.every(asset=>this.scene.textures.exists(asset.key));
     this.pool.retain(this,assets);
   }
-  setDepth(depth:number):this {this.root.setDepth(depth);return this;}
-  setAlpha(alpha:number):this {this.root.setAlpha(alpha);return this;}
-  setTint(tint:number):this {this.tint=tint;for(const value of this.images.values())value.image.setTint(tint);return this;}
+  setDepth(depth:number):this {this.root.setDepth(depth);this.modular?.setDepth(depth);return this;}
+  setAlpha(alpha:number):this {this.root.setAlpha(alpha);this.modular?.setAlpha(alpha);return this;}
+  setTint(tint:number):this {this.tint=tint;this.modular?.setTint(tint);for(const value of this.images.values())value.image.setTint(tint);return this;}
   setVisible(visible:boolean):this {
+    this.modular?.setVisible(visible);
     this.root.setVisible(visible);this.enabled=visible;
     if (!visible) {this.settled=false;for(const value of this.images.values())value.image.destroy();this.images.clear();this.pool.release(this);}
     return this;
   }
   destroy():void {
     if (this.destroyed) return;this.destroyed=true;
-    this.root.destroy();this.images.clear();this.pool.release(this);
+    this.modular?.destroy();this.root.destroy();this.images.clear();this.pool.release(this);
   }
 }

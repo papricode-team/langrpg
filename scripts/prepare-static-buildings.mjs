@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-/** Native-resolution rectangular export of separately painted static buildings. */
+/** Rectangular export of static paintings, with optional authored texture density. */
 import sharp from 'sharp';
 import {exportSceneryGeometry} from './scenery-geometry.mjs';
 import { readFile, writeFile, mkdir, unlink } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { expeditionArt } from './expedition-art-plan.mjs';
+import {exportStaticBuilding} from './static-building-export.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const out = resolve(root, 'web/public/assets');
@@ -116,13 +117,13 @@ async function sourceCells(map, period) {
         const minimum=sheet.standalone?800:400;
         if(Math.max(crop.width,crop.height)<minimum)throw Error(`${source}/${name}: native resolution below ${minimum}px`);
         const pixels=await sharp(path).extract(crop).ensureAlpha().raw().toBuffer();
-        // Only crop native pixels. Never upscale, warp, mask or remove backgrounds.
+        // Keep source pixels intact; an explicit exportScale can resample the output.
         let geometry = {};
         try { geometry = JSON.parse(await readFile(path.replace(/\.png$/, '.json'), 'utf8')); }
         catch (error) { if (error.code !== 'ENOENT') throw error; }
-        const assetGeometry = geometry.assets?.[name] ?? (geometry.assets ? {} : geometry);
+        const {exportScale = 1, ...assetGeometry} = geometry.assets?.[name] ?? (geometry.assets ? {} : geometry);
         result.push({name,source,crop,width:crop.width,height:crop.height,pixels,geometry:assetGeometry,standalone:!!sheet.standalone,
-          originX:.5,originY:(bottom-crop.top+1)/crop.height});
+          exportScale,originX:.5,originY:(bottom-crop.top+1)/crop.height});
     }
   }
   return result;
@@ -146,9 +147,7 @@ async function exportBases(map, period) {
   for (const item of items) {
     if (item.standalone) {
       const key=`${map}-${period}-building-${item.name}`;
-      await sharp(item.pixels,{raw:{width:item.width,height:item.height,channels:4}}).webp({quality:88,alphaQuality:100,effort:6}).toFile(resolve(out,`${key}.webp`));
-      await writeFile(resolve(out,`${key}.json`),JSON.stringify({frames:{[item.name]:{frame:{x:0,y:0,w:item.width,h:item.height},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w:item.width,h:item.height},sourceSize:{w:item.width,h:item.height},source:{path:item.source,crop:item.crop,standalone:true}}},meta:{image:`${key}.webp`,size:{w:item.width,h:item.height},scale:'1',provenance:'Individual built-in ImageGen building painting; native crop'}},null,2)+'\n');
-      entries[item.name]={key,frames:[item.name],fps:0,width:item.width,height:item.height,referenceWidth:item.width,originX:item.originX,originY:item.originY,base:{key,frame:item.name},overlays:[],...item.geometry};
+      entries[item.name]=await exportStaticBuilding(out,key,item);
       continue;
     }
     if (item.width + 8 > 2048 || item.height + 8 > 2048) throw Error(`${item.source}: texture budget exceeded`);

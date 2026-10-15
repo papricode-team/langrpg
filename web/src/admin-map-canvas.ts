@@ -1,3 +1,4 @@
+import type {ModularTerrain} from './modular-terrain';
 /**
  * The admin area's map view. It draws a town with the same terrain and scenery
  * renderers as play and hosts the same edit controller as in-game edit mode.
@@ -16,6 +17,8 @@ import {objectLabel} from './world-edit-rules';
 import {editingControlFocused,sceneryThumbnail,WorldEditController,type EditBridge,type EditSurface} from './world-edit-mode';
 
 export class AdminMapScene extends Phaser.Scene implements EditSurface {
+  private terrainEditing=false;
+  private terrainDocument?:ModularTerrain;
   private mapId: MapId = 'lindenhafen';
   private readonly period = 'day' as const;
   private scenery?: WorldScenery;
@@ -39,7 +42,7 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
 
   create(): void {
     this.cameras.main.setBackgroundColor('#c8d0bc');
-    this.regionAssets = new WorldMapAssets(this, false);
+    this.regionAssets = new WorldMapAssets(this, false, true);
     this.animationAssets = new WorldAnimationAssets(this, false);
     this.markers = this.add.graphics().setDepth(1e7);
     this.input.mouse?.disableContextMenu();
@@ -86,10 +89,11 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
     if (generation !== this.loading) return;
     const scene = getWorldScene(mapId);
     this.terrain = new StreamedWorldTerrain(this, scene, this.period).setDepth(-1e6);
+    this.terrainDocument=scene.modularTerrain;
     this.scenery = new WorldScenery(this, mapId, this.period);
     this.navigation = createMapNavigation(mapId);
     this.fit();
-    this.controller = new WorldEditController(this, bridge);
+    if(!this.terrainEditing)this.controller = new WorldEditController(this, bridge);
   }
 
   /** The published document changed: bring sprites and navigation up to date. */
@@ -97,6 +101,11 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
     if (!this.navigation) return;
     const scene = getWorldScene(this.mapId);
     this.scenery?.sync(scene.scenery);
+    if(this.terrainDocument!==scene.modularTerrain){
+      this.terrain?.destroy();
+      this.terrain=new StreamedWorldTerrain(this,scene,this.period).setDepth(-1e6);
+      this.terrainDocument=scene.modularTerrain;
+    }
     this.navigation = this.navigation.withObstacles(sceneNavigationGeometry(scene).barriers);
     this.controller?.documentChanged();
   }
@@ -114,6 +123,16 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
   focus(point: {x: number; y: number}): void {
     const camera = this.cameras.main;
     camera.setZoom(Math.max(camera.zoom, .8)).centerOn(point.x, point.y);
+  }
+  previewTerrain(terrain?:ModularTerrain):void{
+    const world=getWorldScene(this.mapId);this.terrain?.destroy();
+    this.terrain=new StreamedWorldTerrain(this,terrain?{...world,modularTerrain:terrain}:world,this.period).setDepth(-1e6);
+    this.terrainDocument=world.modularTerrain;
+    this.scenery?.sync(world.scenery,terrain??world.modularTerrain);
+  }
+  setTerrainEditing(active:boolean,bridge:EditBridge):void{
+    this.terrainEditing=active;this.controller?.destroy();this.controller=undefined;
+    if(!active)this.controller=new WorldEditController(this,bridge);
   }
   get editor(): WorldEditController | undefined { return this.controller; }
 

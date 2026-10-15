@@ -247,5 +247,73 @@
 .admin-analytics-link { position: absolute; right: 24px; top: 112px; pointer-events: auto; color: #fff; background: #183e36; border: 1px solid #c7d6cd; border-radius: 8px; padding: 8px 14px; font: 600 14px sans-serif; text-decoration: none; }
 .admin-analytics-link[hidden] { display: none; }
 
+/* The generated enamel sprite supplies its own frame and lighting. */
+.game-menu-button.game-menu-sprite {
+  width:auto;
+  min-width:64px;
+  height:64px;
+  min-height:64px;
+  padding:0 10px 0 0;
+  gap:8px;
+  flex-direction:row;
+  border:0;
+  border-radius:14px;
+  background:linear-gradient(90deg,transparent,#10211fe6);
+  box-shadow:none;
+  text-shadow:0 2px 4px #061410;
+}
+
+.menu-button-art {
+  display:block;
+  flex:none;
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  pointer-events:none;
+  filter:drop-shadow(0 3px 4px #06141099);
+  transition:filter .16s ease,scale .16s ease;
+}
+
+.game-menu-sprite:hover:not(:disabled) .menu-button-art {
+  filter:brightness(1.12) drop-shadow(0 0 6px #e8d39b55);
+  scale:1.04;
+}
+
+.game-menu-sprite:active:not(:disabled) .menu-button-art {
+  filter:brightness(.92);
+  scale:.96;
+}
+
+.game-menu-button.game-menu-sprite>i {
+  top:6px;
+  right:auto;
+  left:48px;
+  width:8px;
+  height:8px;
+  outline:2px solid #152d25;
+}
+
+@media (--phone) {
+  .game-menu-button.game-menu-sprite {
+    width:56px;
+    min-width:56px;
+    height:56px;
+    min-height:56px;
+    padding:0;
+    background:transparent;
+  }
+  .game-menu-sprite .menu-button-art {
+    width:56px;
+    height:56px;
+  }
+  .game-menu-button.game-menu-sprite>i {
+    left:42px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .game-menu-sprite .menu-button-art { transition:none; }
+}
+
 /* In-game edit mode is a desktop tool. */
 @media (--phone) { .world-edit-button { display: none; } }

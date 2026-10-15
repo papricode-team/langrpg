@@ -10,12 +10,17 @@ import type { SceneryOcclusionController } from './scenery-occlusion';
 import { BuildingFoundation } from './world-foundations';
 import { SceneryContact } from './world-scenery-contact';
 import { sceneryContactKind } from './scenery-contact-shape';
+import {terrainObject,sampleDetailMotion,ensureTerrainObject,type DetailMotion} from './terrain-objects';
+import {foundationGround} from './foundation-dressing';
+import {sceneDocument} from './scene-data';
+import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   scale:number;
   next?:Phaser.GameObjects.Sprite;
   animation?:SceneryAnimation;
   treeSway?:boolean;
+  detailMotion?:DetailMotion;
   currentFrame:string;
   nextFrame?:string;
   phaseId:string;
@@ -56,7 +61,11 @@ export class WorldScenery {
   private manifest?:SceneryAnimationManifest;
   private tint?:{scenery:number;light:number;ground:number};
   private preview?:{id:string;dx:number;dy:number};
-  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory){
+  private destroyed=false;
+  private loadingDetails=new Set<string>();
+  private terrainStamp='';
+  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory,private terrain:ModularTerrain|undefined=sceneDocument.maps[mapId]?.modularTerrain){
+    this.terrainStamp=terrainFingerprint(terrain);
     this.manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of placements)this.addLayer(spec);
     const ambient=worldAmbient(mapId,period);
@@ -67,14 +76,21 @@ export class WorldScenery {
     const scene=this.scene,mapId=this.mapId,period=this.period,manifest=this.manifest;
     {
       const name=spec.frame??spec.asset;
+      const detail=terrainObject(name);
       const authored=manifest?.assets[name];
       const animation=authored&&scene.textures.exists(authored.base?.key??authored.key)?authored:undefined;
       // A custom atlas frame does not change a placement's architectural role.
       const building=isBuildingScenery(spec.asset)||isBuildingScenery(name);
       const tree=spec.asset==='tree'||spec.asset==='cypress';
       const requestedKey=animation?.base?.key??animation?.key??sceneryTextureFor(mapId,spec);
+      if(detail&&!scene.textures.exists(requestedKey)){
+        if(!this.loadingDetails.has(detail.id)){
+          this.loadingDetails.add(detail.id);
+          ensureTerrainObject(scene,mapId,detail,loaded=>{this.loadingDetails.delete(detail.id);if(loaded&&!this.destroyed)this.sync(this.placements,this.terrain);});
+        }return false;
+      }
       const key=scene.textures.exists(requestedKey)?requestedKey:sceneryTextureKey(mapId);
-      const frameName=animation?.base?.frame??(animation
+      const frameName=detail?'__BASE':animation?.base?.frame??(animation
         ? building||tree?animation.frames[0]:sampleSceneryFrame(animation,spec.id,0):name);
       if(!scene.textures.exists(key))return false;
       const atlas=scene.textures.get(key);if(!atlas.has(frameName))return false;
@@ -87,10 +103,10 @@ export class WorldScenery {
         sortLine:spec.sortLine??(authoredGeometry?authoredGeometry.sortLine:animation?.sortLine)};
       const sampleDepth=createDepthSampler(spec,geometry);
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
-        .setOrigin(base?.originX??animation?.originX??.5,base?.originY??animation?.originY??1).setScale(scale)
+        .setOrigin(detail?.originX??base?.originX??animation?.originX??.5,detail?.originY??base?.originY??animation?.originY??1).setScale(scale)
         .setDepth(worldDepth(spec.depth??sampleDepth(spec.x))).setFlipX(spec.flipX??false);
       if(tree)sprite.setRotation(sampleTreeSway(spec.id,0,period));
-      const parts:AnimatedSprite[]=[{sprite,scale,treeSway:tree,animation:building||tree||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
+      const parts:AnimatedSprite[]=[{sprite,scale,treeSway:tree,detailMotion:spec.motion==='still'?undefined:detail?.motion,animation:building||tree||animation?.base?undefined:animation,currentFrame:frameName,phaseId:spec.id}];
       for(const overlay of animation?.overlays??[]){
         if(!scene.textures.exists(overlay.key))continue;
         const phaseId=`${spec.id}:${overlay.id}`,detailFrame=sampleSceneryFrame(overlay,phaseId,0);
@@ -104,9 +120,9 @@ export class WorldScenery {
         parts.push({sprite:detail,scale:detailScale,animation:overlay,currentFrame:detailFrame,phaseId});
       }
       const contactArtwork={frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY};
-      const contactKind=sceneryContactKind(spec);
-      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork)
-        :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork):undefined;
+      const contactKind=sceneryContactKind(spec),groundAt=(x:number,y:number)=>foundationGround(mapId,x,y,this.terrain);
+      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork,groundAt)
+        :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork,groundAt):undefined;
       // Each narrow strip has its own wall segment depth. This also sorts two
       // characters correctly when they stand on opposite sides of one building.
       // A camera-dependent single depth cannot represent both relationships.
@@ -138,13 +154,16 @@ export class WorldScenery {
    * changed, add new ones and drop removed ones. Unchanged objects keep
    * their sprites and animation phase.
    */
-  sync(placements:readonly PlacedScenerySpec[]):void{
+  sync(placements:readonly PlacedScenerySpec[],terrain:ModularTerrain|undefined=sceneDocument.maps[this.mapId]?.modularTerrain):void{
+    const stamp=terrain===this.terrain?this.terrainStamp:terrainFingerprint(terrain),groundChanged=stamp!==this.terrainStamp;
+    this.terrain=terrain;this.terrainStamp=stamp;
+    this.placements=placements;
     this.clearPreview();
     const wanted=new Map(placements.map(spec=>[spec.id,spec]));
     const kept:SceneryLayer[]=[];
     for(const layer of this.layers){
       const next=wanted.get(layer.spec.id);
-      if(next&&JSON.stringify(next)===JSON.stringify(layer.spec)){kept.push(layer);wanted.delete(layer.spec.id);}
+      if(next&&(!groundChanged||!layer.foundation)&&JSON.stringify(next)===JSON.stringify(layer.spec)){kept.push(layer);wanted.delete(layer.spec.id);}
       else this.destroyLayer(layer);
     }
     this.layers=kept;
@@ -195,7 +214,7 @@ export class WorldScenery {
     this.setAmbientTint(tint.scenery,tint.light,tint.ground);
   }
   get objectCount(){return this.layers.length;}
-  get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation||part.treeSway)).length;}
+  get animatedObjectCount(){return this.layers.filter(item=>item.parts.some(part=>!!part.animation||part.treeSway||part.detailMotion&&part.detailMotion!=='still')).length;}
   occlusionFor(id:string):{depth:number;strength:number}|undefined{return this.occluded.get(id);}
   private segmentPart(part:AnimatedSprite,sampleDepth:(x:number)=>number):AnimatedSprite[]{
     const source=part.sprite,frame=source.frame;
@@ -333,6 +352,10 @@ export class WorldScenery {
         }
         const alpha=this.opacity*(part.cutout?1:1-.75*strength);
         if(part.sprite.alpha!==alpha)part.sprite.setAlpha(alpha);
+        if(part.detailMotion){
+          const motion=sampleDetailMotion(part.detailMotion,part.phaseId,this.motionTime,this.reducedMotion);
+          part.sprite.setRotation(motion.angle).setY(y+motion.y).setAlpha(alpha*motion.alpha);continue;
+        }
         // Keeping a single tree painting avoids branches morphing, doubled
         // silhouettes and jumping roots between independently painted poses.
         if(part.treeSway){part.sprite.setRotation(sampleTreeSway(part.phaseId,this.motionTime,this.period));continue;}
@@ -350,6 +373,7 @@ export class WorldScenery {
     }
   }
   destroy(){
+    this.destroyed=true;
     for(const layer of this.layers)this.destroyLayer(layer);
     this.preview=undefined;
     this.layers=[];

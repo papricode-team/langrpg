@@ -63,8 +63,11 @@ describe('authored sprite worlds',()=>{
         expect(animation.frames).toEqual([animation.base!.frame]);
         expect(animation.fps).toBe(0);
         expect(animation.overlays??[]).toEqual([]);
-        expect(baseAtlas.meta.size.w).toBeLessThanOrEqual(2048);
-        expect(baseAtlas.meta.size.h).toBeLessThanOrEqual(2048);
+        const exportScale=baseAtlas.frames[animation.base!.frame].source?.exportScale??1;
+        expect([1,2,3,4]).toContain(exportScale);
+        expect(baseAtlas.meta.size.w/exportScale).toBeLessThanOrEqual(2048);
+        expect(baseAtlas.meta.size.h/exportScale).toBeLessThanOrEqual(2048);
+        if(exportScale>1)expect(animation.base!.referenceWidth).toBe(animation.referenceWidth*exportScale);
         expect(base.x+base.w).toBeLessThanOrEqual(baseAtlas.meta.size.w);
         expect(base.y+base.h).toBeLessThanOrEqual(baseAtlas.meta.size.h);
         const referenceWidth=animation.base!.referenceWidth??animation.referenceWidth;

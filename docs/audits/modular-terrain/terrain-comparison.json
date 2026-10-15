@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "sceneryRequests": [],
+  "originalTiles": 9,
+  "sceneryLayers": 0,
+  "sharedScale": true,
+  "matchingCoordinates": true,
+  "worldSize": [
+    2304,
+    1536
+  ],
+  "editableShapes": 40,
+  "paintedPlacements": 5,
+  "synchronizedPan": true,
+  "dayAndNight": true,
+  "independentLayerControls": true,
+  "pieceOutlines": true,
+  "roadBordersCloseup": true,
+  "bridgeLandings": [
+    "main",
+    "harbor"
+  ],
+  "chunkCheck": {
+    "checked": 10215,
+    "different": 30,
+    "maxDelta": 9
+  }
+}
