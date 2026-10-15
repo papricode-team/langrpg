@@ -46,7 +46,8 @@ export interface MapCanvasHost {
   toast(message: string, error?: boolean): void;
 }
 
-const SELECT = 0xf3c76a, HOVER = 0xfff4d8, LOCKED = 0xe4645a, VALID = 0x9fe0a8, INVALID = 0xff7a6a, MARQUEE = 0x8fc7ff;
+type Verdict = 'ok' | 'warning' | 'error';
+const WARN = 0xf5b14a, SELECT = 0xf3c76a, HOVER = 0xfff4d8, LOCKED = 0xe4645a, VALID = 0x9fe0a8, INVALID = 0xff7a6a, MARQUEE = 0x8fc7ff;
 const MIN_ZOOM = .12, MAX_ZOOM = 4;
 const DRAG_THRESHOLD = 4;
 /** Labels for story markers appear once the town is this close. */
@@ -80,9 +81,9 @@ export class AdminMapScene extends Phaser.Scene {
   private selection: MapItem[] = [];
   private hovered?: MapItem;
   private pan?: {x: number; y: number; scrollX: number; scrollY: number};
-  private drag?: {items: {item: MapItem; x: number; y: number}[]; startX: number; startY: number; dx: number; dy: number; moved: boolean; valid: boolean; checkedAt: number};
+  private drag?: {items: {item: MapItem; x: number; y: number}[]; startX: number; startY: number; dx: number; dy: number; moved: boolean; verdict: Verdict; checkedAt: number};
   private marquee?: {x: number; y: number; toX: number; toY: number; additive: boolean; base: MapItem[]};
-  private placing?: {choice: PaletteChoice; ghost?: Phaser.GameObjects.Image; ghostKey?: string; x: number; y: number; valid: boolean};
+  private placing?: {choice: PaletteChoice; ghost?: Phaser.GameObjects.Image; ghostKey?: string; x: number; y: number; verdict: Verdict};
   private nudge?: {dx: number; dy: number; timer: number};
   private layers: MapLayers = {labels: true, footprints: false, walkable: false, grid: false};
   private snapping = false;
@@ -309,7 +310,7 @@ export class AdminMapScene extends Phaser.Scene {
     const holder = this.selection.map(item => locks.get(item.id)).find(Boolean);
     if (holder) { this.host?.toast(`${holder} is editing ${objectLabel(getWorldScene(this.mapId), target.id)} right now.`); return; }
     this.commitNudge();
-    this.drag = {items: this.selection.map(item => ({item, ...this.position(item)!})), startX: point.x, startY: point.y, dx: 0, dy: 0, moved: false, valid: true, checkedAt: 0};
+    this.drag = {items: this.selection.map(item => ({item, ...this.position(item)!})), startX: point.x, startY: point.y, dx: 0, dy: 0, moved: false, verdict: 'ok', checkedAt: 0};
   }
 
   private pointerMove(pointer: Phaser.Input.Pointer): void {
@@ -326,7 +327,7 @@ export class AdminMapScene extends Phaser.Scene {
     if (this.placing) {
       const at = this.snapping !== event.altKey ? {x: snap(point.x), y: snap(point.y)} : point;
       this.placing.x = at.x; this.placing.y = at.y;
-      this.placing.valid = !this.problems([{kind: 'place', map: this.mapId, item: newPlacement(scene, this.placing.choice, at)}]).length;
+      this.placing.verdict = this.verdict([{kind: 'place', map: this.mapId, item: newPlacement(scene, this.placing.choice, at)}]);
       return;
     }
     if (this.marquee) { this.marquee.toX = point.x; this.marquee.toY = point.y; this.updateMarquee(); return; }
@@ -341,8 +342,8 @@ export class AdminMapScene extends Phaser.Scene {
     if (this.snapping !== event.altKey) { dx = snap(lead.x + dx) - lead.x; dy = snap(lead.y + dy) - lead.y; }
     drag.dx = Math.round(dx); drag.dy = Math.round(dy);
     const now = performance.now();
-    if (now - drag.checkedAt > 60) { drag.checkedAt = now; drag.valid = !this.problems(this.moveOps(drag.dx, drag.dy, drag.items)).length; }
-    for (const entry of drag.items) if (entry.item.kind === 'scenery') this.scenery?.previewMove(entry.item.id, drag.dx, drag.dy, drag.valid);
+    if (now - drag.checkedAt > 60) { drag.checkedAt = now; drag.verdict = this.verdict(this.moveOps(drag.dx, drag.dy, drag.items)); }
+    for (const entry of drag.items) if (entry.item.kind === 'scenery') this.scenery?.previewMove(entry.item.id, drag.dx, drag.dy, drag.verdict !== 'error');
   }
 
   private pointerUp(): void {
@@ -373,14 +374,17 @@ export class AdminMapScene extends Phaser.Scene {
       : {kind: 'moveAnchor' as const, map: this.mapId, anchor: item.kind, id: item.id, x: x + dx, y: y + dy});
   }
 
-  /** Shape, bounds and spacing problems, fast enough to run while dragging. Routes are checked when publishing. */
-  problems(ops: WorldEditOp[]): string[] {
-    if (!ops.length) return [];
+  /**
+   * How a gesture would land, fast enough to run while dragging: 'error' would be
+   * refused, 'warning' publishes with a note. Routes are checked when publishing.
+   */
+  verdict(ops: WorldEditOp[]): Verdict {
+    if (!ops.length) return 'ok';
     try {
       const result = applyEditOps(sceneDocument, ops), before = getWorldScene(this.mapId), after = result.document.maps[this.mapId];
-      return placementProblems(before, after, result.changed.get(this.mapId) ?? new Set(), undefined, result.restored)
-        .filter(problem => problem.severity === 'error').map(problem => problem.message);
-    } catch (error) { return [error instanceof Error ? error.message : String(error)]; }
+      const problems = placementProblems(before, after, result.changed.get(this.mapId) ?? new Set(), undefined, result.restored);
+      return problems.some(problem => problem.severity === 'error') ? 'error' : problems.length ? 'warning' : 'ok';
+    } catch { return 'error'; }
   }
 
   // Keyboard nudging ------------------------------------------------------------------------------
@@ -416,7 +420,7 @@ export class AdminMapScene extends Phaser.Scene {
     this.cancelGesture();
     this.setSelection([]);
     const pointer = this.input.activePointer, point = this.worldPoint(pointer);
-    this.placing = {choice, x: point.x, y: point.y, valid: false};
+    this.placing = {choice, x: point.x, y: point.y, verdict: 'ok'};
     const thumbnail = this.thumbnail(choice.frame);
     if (thumbnail) {
       // A fresh key per placement: towns share frame names.
@@ -571,7 +575,7 @@ export class AdminMapScene extends Phaser.Scene {
     }
     if (this.hovered && !selected.has(this.hovered.id) && !locks.has(this.hovered.id) && !this.drag && !this.marquee) this.outline(this.hovered, HOVER, 1.5);
     const dragging = !!this.drag?.moved || !!this.nudge;
-    const color = this.drag?.moved ? (this.drag.valid ? VALID : INVALID) : SELECT;
+    const tones = {ok: VALID, warning: WARN, error: INVALID}, color = this.drag?.moved ? tones[this.drag.verdict] : SELECT;
     for (const item of this.selection) this.outline(item, color, 2.5, dragging ? offset : undefined);
     if (this.selection.length > 1) {
       // One frame around a group, so the whole selection reads as one thing.
@@ -591,10 +595,10 @@ export class AdminMapScene extends Phaser.Scene {
       g.lineStyle(1.5 / zoom, MARQUEE, .9).strokeRect(Math.min(box.x, box.toX), Math.min(box.y, box.toY), Math.abs(box.toX - box.x), Math.abs(box.toY - box.y));
     }
     if (this.placing) {
-      const item = newPlacement(scene, this.placing.choice, this.placing), tone = this.placing.valid ? VALID : INVALID;
+      const item = newPlacement(scene, this.placing.choice, this.placing), tone = {ok: VALID, warning: WARN, error: INVALID}[this.placing.verdict];
       g.lineStyle(2 / zoom, tone, .95);
       for (const polygon of this.footprint(item)) { g.beginPath(); polygon.forEach(([x, y], index) => index ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.strokePath(); }
-      this.placing.ghost?.setPosition(this.placing.x, this.placing.y).setTint(this.placing.valid ? 0xffffff : 0xff9a8a).setFlipX(false);
+      this.placing.ghost?.setPosition(this.placing.x, this.placing.y).setTint(this.placing.verdict === 'error' ? 0xff9a8a : 0xffffff).setFlipX(false);
     }
     for (let index = labels; index < this.labels.length; index++) if (this.labels[index].visible) this.labels[index].setVisible(false);
     this.game.canvas.style.cursor = this.pan ? 'grabbing' : this.panning ? 'grab' : this.placing ? 'crosshair' : this.drag?.moved ? 'move' : this.hovered && this.active ? 'pointer' : 'default';

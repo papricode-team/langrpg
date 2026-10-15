@@ -45,36 +45,49 @@ export function compileRegistry(document) {
   return registry;
 }
 
-/** Story positions follow the edited anchors; narrative and grading rules stay as authored. */
-export function compileStoryRules(document, authored) {
+/**
+ * Story positions follow the edited anchors; narrative and grading rules stay as authored.
+ * `strict` refuses a story pin whose anchor is missing, for the checked-in world. Admin
+ * edits are not strict: a pin whose anchor was removed keeps its authored position, as the
+ * server does when it reconciles a saved world, so a story pin never blocks a map edit.
+ */
+export function compileStoryRules(document, authored, {strict = true} = {}) {
   const storyRules = structuredClone(authored);
+  const fail = message => { if (strict) throw new Error(message); };
   for (const rule of storyRules.rules) {
     const scene = document.maps[rule.mapId];
-    if (!scene) throw new Error(`Missing scene for story ${rule.questId}`);
+    if (!scene) { fail(`Missing scene for story ${rule.questId}`); continue; }
     const normalize = anchor => ({id: anchor.id, x: anchor.x / scene.width, y: anchor.y / scene.height});
     const npc = scene.npcs.find(item => item.id === rule.npcId);
-    if (!npc) throw new Error(`Missing story NPC ${rule.npcId}`);
-    rule.npc = normalize(npc);
+    if (npc) rule.npc = normalize(npc); else fail(`Missing story NPC ${rule.npcId}`);
     rule.objects = rule.investigationObjectIds.map(id => {
       const object = scene.objects.find(item => item.id === id);
-      if (!object) throw new Error(`Missing story object ${id}`);
-      return normalize(object);
+      if (object) return normalize(object);
+      fail(`Missing story object ${id}`);
+      return rule.objects?.find(item => item.id === id) ?? {id, x: 0, y: 0};
     });
   }
   // Fading names and ticket addresses follow the anchors they are written on.
-  const resolve = (row, label) => {
+  for (const [row, label] of storyPins(storyRules)) {
     const scene = document.maps[row.mapId];
-    if (!scene) throw new Error(`Missing scene for ${label} ${row.id}`);
-    if (!row.anchor) return;
-    const [kind, id] = row.anchor.split(':');
-    const rows = kind === 'npc' ? scene.npcs : kind === 'object' ? scene.objects : kind === 'scenery' ? scene.scenery : undefined;
-    const anchor = rows?.find(item => item.id === id);
-    if (!anchor) throw new Error(`Missing ${label} anchor ${row.anchor} for ${row.id}`);
-    row.x = anchor.x / scene.width; row.y = anchor.y / scene.height;
-  };
-  for (const entry of storyRules.ink?.entries ?? []) resolve(entry, 'ink');
-  for (const side of storyRules.sideQuests ?? []) resolve(side, 'ticket');
+    if (!scene) { fail(`Missing scene for ${label} ${row.id}`); continue; }
+    const anchor = storyAnchor(scene, row.anchor);
+    if (anchor) { row.x = anchor.x / scene.width; row.y = anchor.y / scene.height; }
+    else if (row.anchor) fail(`Missing ${label} anchor ${row.anchor} for ${row.id}`);
+  }
   return storyRules;
+}
+const storyPins = rules => [...(rules.ink?.entries ?? []).map(entry => [entry, 'ink']), ...(rules.sideQuests ?? []).map(side => [side, 'ticket'])];
+function storyAnchor(scene, value) {
+  if (!value) return undefined;
+  const [kind, id] = value.split(':');
+  const rows = kind === 'npc' ? scene.npcs : kind === 'object' ? scene.objects : kind === 'scenery' ? scene.scenery : undefined;
+  return rows?.find(item => item.id === id);
+}
+/** Story pins written on an object that is missing from the town, for editor warnings. */
+export function missingStoryAnchors(scene, authored) {
+  return storyPins(authored).filter(([row]) => row.mapId === scene.id && row.anchor && !storyAnchor(scene, row.anchor))
+    .map(([row, label]) => ({id: row.id, kind: label, anchor: row.anchor, name: row.german ?? row.id}));
 }
 
 const residentReasons = [
@@ -246,7 +259,7 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
   if (errors.length) throw new SceneCompileError(errors);
   const registry = compileRegistry(document);
   // Position-only regeneration keeps the existing narrative/grading rules intact.
-  const storyRules = compileStoryRules(document, await loadJSON('server/story_rules.json'));
+  const storyRules = compileStoryRules(document, await loadJSON('server/story_rules.json'), {strict: strictQuality});
   return {document, contentVersion: registry.contentVersion, registry, storyRules,
     warnings: warnings.map(item => item.map ? `${item.map}: ${item.message}` : item.message), problems: warnings, quality};
 }

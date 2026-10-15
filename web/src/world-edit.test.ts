@@ -169,6 +169,13 @@ describe('placement rules', () => {
     expect(problems[0].objectIds).toEqual([host.id]);
     expect(problems.every(problem => !/[a-z]+-[a-z]+-\d/.test(problem.message))).toBe(true);
   });
+  it('leave layout choices to the admin and refuse only edits that break the world', () => {
+    const scene = town(), hosts = scene.scenery.filter(item => item.interior);
+    const tooBig = apply(scene, [{kind: 'update', map: scene.id, id: hosts[0].id, width: hosts[0].width * 3}]);
+    expect(new Set(placementProblems(scene, tooBig.scene, tooBig.changed).map(problem => problem.severity))).toEqual(new Set(['warning']));
+    const twice = apply(scene, [{kind: 'update', map: scene.id, id: hosts[1].id, interior: {kind: hosts[0].interior!.kind}}]);
+    expect(placementProblems(scene, twice.scene, twice.changed).find(problem => problem.code === 'room-taken')?.severity).toBe('error');
+  });
   it('blocks a second room of the same kind and an object outside the town', () => {
     const scene = town(), hosts = scene.scenery.filter(item => item.interior);
     const twice = apply(scene, [{kind: 'update', map: scene.id, id: hosts[1].id, interior: {kind: hosts[0].interior!.kind}}]);

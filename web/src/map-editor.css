@@ -149,3 +149,15 @@
   .me-bar { flex-wrap: wrap; }
   .me-help dl { grid-template-columns: 1fr; }
 }
+
+/* Terrain panel: tiles of material swatches and tool buttons in the dark workspace. */
+.me [data-panel=terrain] label { display: grid; gap: 4px; color: var(--me-muted); font-size: 12px; margin: 0; }
+.me [data-panel=terrain] select, .me [data-panel=terrain] input[type=number] { width: 100%; box-sizing: border-box; color: var(--me-text); font-size: 13px; }
+.me .terrain-tools { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.me .terrain-tools button { flex: 1 1 auto; }
+.me .terrain-materials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: max-content; gap: 6px; max-height: 360px; overflow-y: auto; align-items: start; }
+.me .terrain-materials button { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 4px; min-height: 0; height: auto; padding: 4px; font-size: 12px; font-weight: 400; line-height: 1.2; text-align: left; }
+.me .terrain-materials img { display: block; width: 100%; height: auto; aspect-ratio: 1.6; object-fit: cover; border-radius: 4px; }
+.me .terrain-materials span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.me .terrain-materials [aria-pressed=true], .me .terrain-tools [aria-pressed=true] { outline: 2px solid var(--me-accent); outline-offset: -2px; }
+.me .terrain-piece-preview { display: block; width: 120px; height: 120px; margin: 0 auto; object-fit: contain; background: var(--me-bg); border-radius: 8px; }

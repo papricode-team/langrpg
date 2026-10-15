@@ -22,6 +22,8 @@ export interface StoreListener {
   failed(failure: StoreFailure): void;
   /** Another admin published first: the caller reloads and calls `rebase`. */
   stale(): void;
+  /** The server accepted a batch but has something to point out. */
+  warned?(problems: readonly WorldProblem[]): void;
   /** Saving started or finished. */
   saving(active: boolean): void;
 }
@@ -136,6 +138,7 @@ export class MapEditStore {
           this.confirmed = applyEditOps(this.confirmed, result.applied).document;
           this.confirmedVersion = result.contentVersion;
           this.lastSaved = new Date();
+          if (result.warnings.length) this.listener.warned?.(result.warnings);
           // Nothing else is waiting: the server's version is exactly what is on screen.
           if (!this.queue.length) this.current = this.confirmed;
         } catch (error) {

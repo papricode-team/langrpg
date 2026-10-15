@@ -157,6 +157,10 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       saveState('error');
     },
     stale: () => { void reloadWorld(); },
+    warned: problems => {
+      for (const problem of problems.filter(value => value.severity === 'warning').slice(0, 2))
+        toast(problem.message, false, problem.objectIds.length || problem.point ? {ids: problem.objectIds, point: problem.point} : undefined);
+    },
     saving: active => saveState(active ? 'saving' : 'idle'),
   });
   let saveError = 0;

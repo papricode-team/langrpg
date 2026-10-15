@@ -127,7 +127,7 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
   let next: WorldScene;
   switch (op.kind) {
     case 'terrain': {
-      if(terrainFingerprint(scene.modularTerrain)!==op.expected)throw invalid(op.map,'The terrain changed while you were editing. Reload it and try again.');
+      // Terrain is replaced whole; the newest edit wins, like any other absolute edit.
       next={...scene};
       if(op.terrain)next.modularTerrain=structuredClone(op.terrain);else delete next.modularTerrain;
       break;

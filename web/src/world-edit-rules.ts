@@ -17,7 +17,7 @@ import {
 export type WorldProblemCode =
   | 'out-of-bounds' | 'off-ground' | 'overlap' | 'size' | 'no-door' | 'room-taken'
   | 'blocks-spawn' | 'blocks-route' | 'door-blocked' | 'activity-blocked' | 'resident-route'
-  | 'in-use' | 'occupied' | 'locked' | 'missing' | 'invalid' | 'stale' | 'missing-room' | 'quality';
+  | 'in-use' | 'occupied' | 'locked' | 'missing' | 'invalid' | 'stale' | 'missing-room' | 'quality' | 'story-anchor';
 
 export interface WorldProblem {
   code: WorldProblemCode;
@@ -34,6 +34,15 @@ export class WorldEditError extends Error {
   readonly problems: WorldProblem[];
   constructor(problems: WorldProblem[]) { super(problems.map(problem => problem.message).join('\n')); this.problems = problems; }
 }
+
+/**
+ * Problems that still refuse an edit, because the world would stop working as data: a
+ * second room of one kind, a door on a building without one, an object outside the town,
+ * a removed object someone's schedule uses. Everything else (routes, overlaps, water,
+ * size) is the admin's call; the editor reports it as a warning and publishes anyway.
+ */
+export const blockingProblems: ReadonlySet<WorldProblemCode> = new Set<WorldProblemCode>(['invalid', 'missing', 'locked', 'stale', 'occupied', 'in-use', 'room-taken', 'no-door', 'out-of-bounds']);
+const soften = (value: WorldProblem): WorldProblem => value.severity === 'error' && !blockingProblems.has(value.code) ? {...value, severity: 'warning'} : value;
 
 export const problem = (code: WorldProblemCode, map: string, message: string, objectIds: string[] = [], point?: ScenePoint, severity: WorldProblem['severity'] = 'error'): WorldProblem =>
   ({code, map, message, objectIds, ...(point ? {point: {x: Math.round(point.x), y: Math.round(point.y)}} : {}), severity});
@@ -302,10 +311,10 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
       break;
     }
   }
-  if (!reach || problems.some(value => value.severity === 'error')) return distinctProblems(problems);
+  if (!reach || problems.some(value => value.severity === 'error' && blockingProblems.has(value.code))) return distinctProblems(problems.map(soften));
   if (!reach.after.spawnClear && reach.before.spawnClear) {
     problems.push(problem('blocks-spawn', map, `This covers the spot where players arrive in ${townName(map)}.`, [...changed], after.spawn));
-    return problems;
+    return problems.map(soften);
   }
   const beforeTargets = new Map(sceneTargets(before).map(target => [target.id, target]));
   for (const candidate of sceneTargets(after)) {
@@ -317,7 +326,7 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
     if (!moved && earlier && !reach.before.reachesTarget(earlier)) continue;
     problems.push(targetProblem(after, target, moved));
   }
-  return distinctProblems(problems);
+  return distinctProblems(problems.map(soften));
 }
 
 /** One message per issue, most important first, at most `limit`. */

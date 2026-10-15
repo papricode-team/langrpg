@@ -19,7 +19,7 @@ import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import './register-content-loader.mjs';
 import {compileAdminWorld} from './admin-world-compiler.mjs';
-import {compileRegistry, compileStoryRules, residentProblems, sceneContentVersion} from './scene-compiler.mjs';
+import {compileRegistry, compileStoryRules, missingStoryAnchors, residentProblems, sceneContentVersion} from './scene-compiler.mjs';
 const {parseWorldSceneDocument} = await import('../web/src/scene-schema.ts');
 const {applyEditOps, parseEditOps} = await import('../web/src/world-edit-ops.ts');
 const {placementProblems, newWarnings, SceneReach, WorldEditError, problem} = await import('../web/src/world-edit-rules.ts');
@@ -62,8 +62,13 @@ function apply(request) {
     const reachBefore = state.reachFor(map), reachAfter = reachBefore.with(after);
     reach.set(map, reachAfter);
     problems.push(...placementProblems(before, after, ids, {before: reachBefore, after: reachAfter}, restored));
-    if (!problems.some(item => item.severity === 'error') && after.residents?.length) problems.push(...residentProblems(after, reachAfter.actors));
-    problems.push(...newWarnings(before, after));
+    if (after.residents?.length) {
+      // A broken routine never refuses an edit; the town keeps playing without that resident's walk.
+      const broken = residentProblems(after, reachAfter.actors);
+      const earlier = broken.length ? new Set(residentProblems(before, reachBefore.actors).map(item => item.message)) : new Set();
+      problems.push(...broken.filter(item => !earlier.has(item.message)).map(item => ({...item, severity: 'warning'})));
+    }
+    problems.push(...newWarnings(before, after), ...storyPinWarnings(before, after));
   }
   const errors = problems.filter(item => item.severity === 'error');
   if (errors.length) return {ok: false, problems: errors};
@@ -73,7 +78,15 @@ function apply(request) {
   const applied = ops.map(op => op.kind !== 'place' ? op : {...op, item: document.maps[op.map].scenery.find(item => item.id === op.item.id)});
   const worldMaps = compileRegistry(document);
   return {ok: true, key, applied, warnings: problems,
-    bundle: {document, worldMaps, investigations: compileStoryRules(document, authoredRules), contentVersion: sceneContentVersion(document), diagnostics: []}};
+    bundle: {document, worldMaps, investigations: compileStoryRules(document, authoredRules, {strict: false}), contentVersion: sceneContentVersion(document), diagnostics: []}};
+}
+
+/** Story pins (fading names, Otto's tickets) whose object this edit removed. They stay at their authored spot. */
+function storyPinWarnings(before, after) {
+  const earlier = new Set(missingStoryAnchors(before, authoredRules).map(pin => pin.id));
+  return missingStoryAnchors(after, authoredRules).filter(pin => !earlier.has(pin.id)).map(pin => problem('story-anchor', after.id,
+    `${pin.kind === 'ticket' ? `Otto's ticket for ${pin.name}` : `The fading name “${pin.name}”`} was written on this object. Players now find it at its original spot; put the object back with Undo to keep them together.`,
+    [pin.anchor.split(':')[1]], undefined, 'warning'));
 }
 
 /** Build every town's grids ahead of the first edit. */
