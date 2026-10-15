@@ -23,6 +23,58 @@ export function combineMaterials(materials) {
   return out;
 }
 
+/** Remove white source matte connected to transparent space. Only untinted
+ * detail paint is eligible; white fabric and enclosed buttons are preserved. */
+export function clearWhiteMatte(pixels, detail, width, height, body = false) {
+  if (pixels.length !== width * height * 4 || detail.length !== pixels.length) throw new Error('Matte dimensions must match');
+  let enclosedBelow = height;
+  if (body) {
+    // Find the head in each pose, including seated poses where it sits lower.
+    head: for (let y = 0; y < height; y++) for (let x = Math.floor(width * .45); x < Math.ceil(width * .55); x++) {
+      if (pixels[(y * width + x) * 4 + 3] > 128) {
+        enclosedBelow = y + Math.ceil(height * .18); break head;
+      }
+    }
+  }
+  const count = width * height, candidates = new Uint8Array(count);
+  let candidateCount = 0;
+  for (let i = 0; i < count; i++) {
+    const p = i * 4;
+    if (!detail[p + 3] || !pixels[p + 3]) continue;
+    const min = Math.min(detail[p], detail[p + 1], detail[p + 2]);
+    const max = Math.max(detail[p], detail[p + 1], detail[p + 2]);
+    if (min < 224 || max - min > 16) continue;
+    candidates[i] = 1; candidateCount++;
+  }
+  if (!candidateCount) return pixels;
+  const queue = new Int32Array(candidateCount);
+  let tail = 0;
+  for (let i = 0; i < count; i++) {
+    if (!candidates[i]) continue;
+    const x = i % width, y = Math.floor(i / width);
+    if (y >= enclosedBelow || x === 0 || y === 0 || x === width - 1 || y === height - 1 ||
+      pixels[(i - 1) * 4 + 3] <= 8 || pixels[(i + 1) * 4 + 3] <= 8 ||
+      pixels[(i - width) * 4 + 3] <= 8 || pixels[(i + width) * 4 + 3] <= 8) {
+      candidates[i] = 2; queue[tail++] = i;
+    }
+  }
+  for (let head = 0; head < tail; head++) {
+    const i = queue[head], x = i % width, y = Math.floor(i / width);
+    for (const next of [x > 0 ? i - 1 : -1, x < width - 1 ? i + 1 : -1, y > 0 ? i - width : -1, y < height - 1 ? i + width : -1]) {
+      if (next < 0 || candidates[next] !== 1) continue;
+      candidates[next] = 2; queue[tail++] = next;
+    }
+  }
+  for (let i = 0; i < tail; i++) {
+    const p = queue[i] * 4, alpha = pixels[p + 3], remaining = Math.max(0, alpha - detail[p + 3]);
+    // Antialiasing mixes detail and fabric at a seam. Remove only the white
+    // contribution, retaining the fabric's coverage and unpremultiplied colour.
+    for (let c = 0; c < 3; c++) pixels[p + c] = remaining ? Math.max(0, Math.min(255, Math.round((pixels[p + c] * alpha - detail[p + c] * detail[p + 3]) / remaining))) : 0;
+    pixels[p + 3] = remaining;
+  }
+  return pixels;
+}
+
 export function over(target, source) {
   if (target.length !== source.length || target.length % 4) throw new Error('Layer dimensions must match');
   for (let p = 0; p < target.length; p += 4) {
@@ -36,7 +88,7 @@ export function over(target, source) {
 }
 
 /** Loaded sheets and resolved components contain no canvas/Phaser/Sharp types. */
-export function composeFrame(layers, images, frame, cellWidth, cellHeight, columns = 9) {
+export function composeFrame(layers, images, frame, cellWidth, cellHeight, columns = 9, sourceMatte = 'remove') {
   if (!Number.isInteger(frame) || frame < 0 || frame >= 36) throw new Error('Frame must be in 0..35');
   const output = new Uint8ClampedArray(cellWidth * cellHeight * 4);
   for (const layer of layers) {
@@ -50,9 +102,14 @@ export function composeFrame(layers, images, frame, cellWidth, cellHeight, colum
         const from = ((top + y) * image.width + left) * 4;
         data.set(image.data.subarray(from, from + cellWidth * 4), y * cellWidth * 4);
       }
-      materials.push({ data, tint: layer.tints[material] });
+      materials.push({ data, tint: layer.tints[material], material });
     }
-    over(output, combineMaterials(materials));
+    const pixels = combineMaterials(materials);
+    const detail = materials.find(material => material.material === 'detail' && material.tint === 0xffffff);
+    // Bare body gaps can be enclosed by an arm or fingers. Keep the face region
+    // protected so the whites of the eyes remain part of the artwork.
+    if (detail && layer.slot && sourceMatte !== 'preserve') clearWhiteMatte(pixels, detail.data, cellWidth, cellHeight, layer.slot === 'body');
+    over(output, pixels);
   }
   return output;
 }

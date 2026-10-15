@@ -11,7 +11,8 @@ const facings: Facing[] = ['down', 'right', 'up', 'left'];
 type Resolution = 'runtime' | 'editor';
 type SheetLoader = (url: string, width: number, height: number) => Promise<PixelSheet>;
 interface PoseOptions { catalogue?: CharacterCatalogue; poseSet?: string; }
-interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; atlasColumns?: number; preview?: boolean; loadSheet?: SheetLoader; }
+// Preserve is for comparing historical source proofs; all live renders remove matte.
+interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; atlasColumns?: number; preview?: boolean; loadSheet?: SheetLoader; sourceMatte?: 'remove' | 'preserve'; }
 interface TextureBakeOptions extends PoseOptions { resolution?: Resolution; }
 
 /** CPU copies are bounded separately from the GPU atlas cache. Failures are retryable. */
@@ -75,7 +76,7 @@ async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatal
 }
 
 /** No Phaser dependency: editor, portrait and world baking share these pixels. */
-export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', atlasColumns = 9, preview = false, loadSheet = sheets.load }: BakeOptions = {}) {
+export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', atlasColumns = 9, preview = false, loadSheet = sheets.load, sourceMatte = 'remove' }: BakeOptions = {}) {
   if(!Number.isInteger(atlasColumns)||atlasColumns<1||atlasColumns>36)throw new Error('Atlas columns must be in 1..36');
   catalogue = catalogueForExpression(recipe, expression, catalogueForPose(poseSet, catalogue));
   // Snapshot before awaiting IO; rapid editor changes must not mutate a pending bake.
@@ -90,7 +91,7 @@ export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = chara
     const frames=Array.from({length:4},(_,i)=>start+i);
     const images=await loadLayers(frames.flatMap(frame=>resolved[Math.floor(frame/9)]),catalogue,resolution,sourceCache.load,frames);
     for(const frame of frames){
-      const pixels=composeFrame(resolved[Math.floor(frame/9)],images,frame,width,height);
+      const pixels=composeFrame(resolved[Math.floor(frame/9)],images,frame,width,height,9,sourceMatte);
       // Logical direction still changes every nine frames; only physical packing changes.
       for(let y=0;y<height;y++)data.set(pixels.subarray(y*width*4,(y+1)*width*4),((Math.floor(frame/atlasColumns)*height+y)*atlasWidth+frame%atlasColumns*width)*4);
     }
@@ -98,7 +99,7 @@ export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = chara
   return {data,width:atlasWidth,height:atlasHeight};
 }
 
-export async function avatarFramePixels(recipe: AvatarRecipe, frame: number, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'editor', preview = false, loadSheet = sheets.load }: BakeOptions = {}) {
+export async function avatarFramePixels(recipe: AvatarRecipe, frame: number, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'editor', preview = false, loadSheet = sheets.load, sourceMatte = 'remove' }: BakeOptions = {}) {
   if (!Number.isInteger(frame) || frame < 0 || frame >= 36) throw new Error('Frame must be in 0..35');
   catalogue = catalogueForExpression(recipe, expression, catalogueForPose(poseSet, catalogue));
   const snapshot = structuredClone(recipe);
@@ -106,7 +107,7 @@ export async function avatarFramePixels(recipe: AvatarRecipe, frame: number, { c
   const layers = resolveRecipe(snapshot, facings[Math.floor(frame / 9)], catalogue).layers;
   const images = await loadLayers(layers, catalogue, resolution, loadSheet, [frame]);
   const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
-  return { data: composeFrame(layers, images, frame, width, height), width, height };
+  return { data: composeFrame(layers, images, frame, width, height,9,sourceMatte), width, height };
 }
 
 function pixelCanvas(pixels: { data: Uint8ClampedArray<ArrayBuffer>; width: number; height: number }): HTMLCanvasElement {

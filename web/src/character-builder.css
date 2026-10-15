@@ -129,7 +129,8 @@
 .builder-tile img {
   object-fit:contain;
   height:96px;
-  width:64px
+  width:88px;
+  max-width:100%
 }
 
 .builder-tile[aria-pressed=true] {
