@@ -81,6 +81,8 @@ export class EditBridge {
 }
 
 let ghostSequence = 0;
+/** Lock bookkeeping is best effort: the server expires a held lock, so a failed release only needs a note. */
+const releaseFailed = (error: unknown) => console.warn('An edit lock could not be released; it will expire on its own.', error);
 /** Keys typed into a form field or pressed on a panel control belong to that control. */
 export function editingControlFocused(target: EventTarget | null = document.activeElement): boolean {
   const element = (target instanceof HTMLElement ? target : document.activeElement) as HTMLElement | null;
@@ -134,7 +136,7 @@ export class WorldEditController {
     this.cancelPlacing(false);
     this.graphics.destroy();
     for (const name of this.names) name.destroy();
-    if (this.selected) void this.bridge.session.release(this.scene.editMapId, this.selected.id);
+    if (this.selected) void this.bridge.session.release(this.scene.editMapId, this.selected.id).catch(releaseFailed);
     if (this.bridge.controller === this) this.bridge.controller = undefined;
   }
 
@@ -180,13 +182,13 @@ export class WorldEditController {
 
   private select(target: EditTarget | undefined): void {
     const previous = this.selected;
-    if (previous && (!target || previous.id !== target.id)) void this.bridge.session.release(this.map, previous.id);
+    if (previous && (!target || previous.id !== target.id)) void this.bridge.session.release(this.map, previous.id).catch(releaseFailed);
     this.selected = target;
     if (target && (!previous || previous.id !== target.id)) {
       const map = this.map;
       void this.bridge.session.lock(map, target.id).then(locks => {
         // The admin moved on while the lock was being taken: give it back.
-        if (this.selected?.id !== target.id) { void this.bridge.session.release(map, target.id); return; }
+        if (this.selected?.id !== target.id) { void this.bridge.session.release(map, target.id).catch(releaseFailed); return; }
         this.bridge.setLocks(locks);
       }).catch((error: Error) => {
         if (this.selected?.id !== target.id) return;

@@ -14,7 +14,7 @@ import { setDepthIfChanged, worldDepth } from './world-depth';
 import { getExpeditionNpc } from './expeditions';
 import { explorationZoom, conversationZoom, CameraRig } from './world-camera';
 import type { WorldAudio } from './world-audio';
-import { gamepadInput } from './world-gamepad';
+import { gamepadInput, type PadInput } from './world-gamepad';
 import { FrameTelemetry } from './world-performance';
 import { sampleSceneryFrame, type SceneryAnimation } from './scenery-animation';
 import type { WorldClock, WorldTimeState } from './world-clock';
@@ -100,9 +100,23 @@ export const INTERACTION_DISTANCE = 140;
 export const DEFAULT_AVATAR: Avatar = { hair: '#4d3229', skin: '#dfad85', outfit: '#497d75' };
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const avatarKey = (avatar: Avatar) => avatarTextureKey(normalizeAvatar(avatar));
-export const isTyping = () => {
-  const focused = typeof document === 'undefined' ? null : document.activeElement;
-  return typeof HTMLElement !== 'undefined' && focused instanceof HTMLElement && (focused.matches('input, textarea, select') || focused.isContentEditable);
+const typingElement = (focused: Element | null): boolean =>
+  typeof HTMLElement !== 'undefined' && focused instanceof HTMLElement && (focused.matches('input, textarea, select') || focused.isContentEditable);
+/** Focus changes invalidate the cached answer; a removed field (which may not fire focusout) is rechecked. */
+let typingCache: { element: Element | null; typing: boolean } | undefined;
+let typingListeners = false;
+export const isTyping = (): boolean => {
+  if (typeof document === 'undefined') return false;
+  if (!typingListeners) {
+    typingListeners = true;
+    const invalidate = () => { typingCache = undefined; };
+    document.addEventListener('focusin', invalidate, true);
+    document.addEventListener('focusout', invalidate, true);
+  }
+  if (typingCache && (!typingCache.element || typingCache.element.isConnected)) return typingCache.typing;
+  const element = document.activeElement;
+  typingCache = { element, typing: typingElement(element) };
+  return typingCache.typing;
 };
 
 /** Walking, talking and the camera: everything an outdoor map and a room share. */
@@ -155,8 +169,13 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected suspended = false;
   /** Smoothed camera centre and zoom; each mode decides where it should aim. */
   protected cameraRig = new CameraRig();
-  private padMove: MapPoint = { x: 0, y: 0 };
+  private padMove: PadInput = { x: 0, y: 0, interact: false };
+  private readonly padList: (Gamepad | null)[] = [null];
   private markerTweens: Phaser.Tweens.Tween[] = [];
+  /** Resolution the scene's text labels were last rasterised at; only a density change re-renders them. */
+  protected labelDensity = 0;
+  private nextSendAt = 0;
+  private lastClockLabel = '';
 
   abstract get worldWidth(): number;
   abstract get worldHeight(): number;
@@ -185,6 +204,12 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.lastX = this.lastY = -1; this.initializedSelf = false; this.elapsed = 0; this.decorativeElapsed = 0;
     this.queuedKeyboardInteraction = false; this.joystick = { x: 0, y: 0 }; this.smoothJoystick = { x: 0, y: 0 };
     this.cameraLead = { x: 0, y: 0 }; this.tourTime = 0; this.markerTweens = []; this.frames = new FrameTelemetry(); this.suspended = false;
+    // Field initialisers run once per scene instance; a restart (travel, a second room visit) must not
+    // inherit the previous run's timers, which are measured against the `elapsed` reset above.
+    this.nextSendAt = 0; this.lastClockLabel = ''; this.labelDensity = 0; this.frameClock = undefined;
+    this.padMove = { x: 0, y: 0, interact: false }; this.cameraRig = new CameraRig();
+    this.controlsEnabled = false; this.editing = false; this.mobileCamera = false;
+    this.conversationTarget = undefined; this.cinematicTarget = undefined; this.keys = undefined;
   }
 
   create(): void {
@@ -192,6 +217,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.clock = readWorld(registry, 'clock');
     this.audio = readWorld(registry, 'audio');
     this.density = readWorld(registry, 'density') ?? 1;
+    // Labels built below take this resolution; fitCamera re-renders them only when it changes.
+    this.labelDensity = this.density;
     this.storyState = readWorld(registry, 'storyState');
     this.objective = readWorld(registry, 'objective');
     this.reducedMotion = readWorld(registry, 'reducedMotion');
@@ -243,7 +270,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     followWorld(this, 'objective', id => { this.objective = id; });
     followWorld(this, 'storyState', state => this.setStoryState(state));
     followWorld(this, 'conversationTarget', id => this.applyConversationTarget(id));
-    followWorld(this, 'cinematicBeat', beat => { this.cinematicTarget = beat; this.refreshControls(); });
+    // With reduced motion the camera cuts to each story beat (and back to the player) instead of panning.
+    followWorld(this, 'cinematicBeat', beat => { this.cinematicTarget = beat; this.refreshControls(); if (this.reducedMotion) this.snapCamera(); });
     followWorld(this, 'inputEnabled', enabled => { this.inputAllowed = enabled; this.refreshControls(); });
     followWorld(this, 'windowFocused', focused => { this.windowFocused = focused; this.refreshControls(); });
     followWorld(this, 'reducedMotion', reduced => this.setReducedMotion(reduced));
@@ -277,8 +305,9 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (button.index === 0) this.queueKeyboardInteraction();
   }
 
+  /** A live resize (a phone's URL bar, rotation) eases the camera to its new framing instead of jumping. */
   private handleResize(gameSize: Phaser.Structs.Size): void {
-    this.fitCamera(gameSize.width, gameSize.height, this.density);
+    this.fitCamera(gameSize.width, gameSize.height, this.density, false);
   }
 
   /** The registry permission, window focus and transient scene states all gate control. */
@@ -573,8 +602,9 @@ export abstract class ExploreScene extends Phaser.Scene {
     let vx = 0, vy = 0, arrived: string | undefined;
     const previousX = this.local.x, previousY = this.local.y;
     const keys = this.keys;
-    const pad = gamepadInput(this.input.gamepad?.pad1 ? [this.input.gamepad.pad1.pad] : []);
-    this.padMove = { x: pad.x, y: pad.y };
+    const pad1 = this.input.gamepad?.pad1;
+    this.padList[0] = pad1 ? pad1.pad : null;
+    gamepadInput(this.padList, this.padMove);
     const pressedInteract = this.queuedKeyboardInteraction;
     this.queuedKeyboardInteraction = false;
     const typing = isTyping();
@@ -638,7 +668,6 @@ export abstract class ExploreScene extends Phaser.Scene {
     return { dx, dy, vx, vy, moving, arrived };
   }
 
-  private nextSendAt = 0;
   private sendPosition(): void {
     if (this.elapsed < this.nextSendAt) return;
     const x = this.local.x / this.worldWidth, y = this.local.y / this.worldHeight;
@@ -682,10 +711,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     }
   }
 
-  private lastClockLabel = '';
+  /** This frame's clock state, so per-frame systems need not advance the clock again. */
+  protected frameClock?: WorldTimeState;
   /** One shared clock; each label change is announced once for the HUD. */
   protected tickClock(seconds: number): WorldTimeState {
-    const state = this.clock.advance(seconds);
+    const state = this.frameClock = this.clock.advance(seconds);
     this.audio?.setHour(state.hour);
     const label = state.label + state.period + state.mode;
     if (label !== this.lastClockLabel) {
@@ -756,7 +786,7 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   // Camera ------------------------------------------------------------------
 
-  fitCamera(width: number, height: number, density = this.density): void {
+  fitCamera(width: number, height: number, density = this.density, snap = true): void {
     this.density = density;
     const camera = this.cameras.main;
     camera.setBounds(0, 0, this.worldWidth, this.worldHeight);
@@ -768,13 +798,21 @@ export abstract class ExploreScene extends Phaser.Scene {
       for (const npc of this.characters.values()) npc.hint?.setText(this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E');
       this.mobileCameraChanged();
     }
+    // Setting a text's resolution re-rasterises it, so only a real density change touches the labels.
+    if (density !== this.labelDensity) {
+      this.labelDensity = density;
+      this.applyLabelDensity(density);
+    }
+    this.resizeHitTargets();
+    // A scene that is not advancing cannot ease, so it takes its new framing at once.
+    if (snap || !this.sys.isActive()) this.snapCamera();
+  }
+  protected applyLabelDensity(density: number): void {
     for (const actor of this.actors()) {
-      for (const label of [actor?.name, actor?.role, actor?.hint, actor?.marker]) label?.setResolution(density);
+      actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.hint?.setResolution(density); actor?.marker?.setResolution(density);
     }
     for (const object of this.objects.values()) object.label.setResolution(density);
     for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph.setResolution(density); }
-    this.resizeHitTargets();
-    this.snapCamera();
   }
   protected mobileCameraChanged(): void {}
   protected actors(): Character[] { return [this.local, ...this.characters.values(), ...this.peers.values()]; }

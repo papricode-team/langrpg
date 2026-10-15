@@ -6,7 +6,7 @@ import { paintCharacter } from './modular-character';
 import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 import { canvasSize } from './world-camera';
 import { WorldAudio } from './world-audio';
-import { CutsceneScene, type CutsceneKind } from './cutscene';
+import { CutsceneScene, type CutsceneKind, type CutsceneOutcome } from './cutscene';
 import { WorldClock, type WorldTimeOptions, type WorldTimeState, type WorldPeriod } from './world-clock';
 import type { InteriorId } from './interiors';
 import type { ActivityResidentSample } from './resident-activities';
@@ -62,6 +62,13 @@ export class World {
   private size = '';
   /** Commands for a scene that is still loading or asleep run as soon as it can take them. */
   private pending: ((scene: ExploreScene) => void)[] = [];
+  /** The latest room the server confirmed; a queued room opening is dropped once it no longer matches. */
+  private confirmedInterior?: InteriorId;
+  /**
+   * Set from a town restart request until the new run reports ready. Phaser queues the restart for its next
+   * step, so until then the old run still looks ready and must not take commands meant for the new map.
+   */
+  private townRestarting = false;
   private handleMotionPreference = () => this.set('reducedMotion', this.reducedMotion);
 
   private get pixelDensity(): number {
@@ -126,7 +133,10 @@ export class World {
     events.on(WorldEvents.Bark, (bark: WorldBark) => options.onBarkShown?.(bark));
     events.on(WorldEvents.Time, (state: WorldTimeState) => options.onTimeChange?.(state));
     events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined) => { options.onInteriorChange?.(id); });
-    events.on(WorldEvents.ExploreReady, () => { this.flush(); this.applyPresentation(); });
+    events.on(WorldEvents.ExploreReady, (key: string) => {
+      if (key === SceneKeys.World && this.world?.ready) this.townRestarting = false;
+      this.flush(); this.applyPresentation();
+    });
     events.on(WorldEvents.Ready, () => {
       this.game.canvas?.setAttribute('aria-label', 'glotworld game world. Use WASD, arrow keys, the touch joystick, or tap a destination. Press E or the action button to speak or investigate nearby.');
       this.game.canvas?.setAttribute('role', 'application');
@@ -149,7 +159,9 @@ export class World {
   }
   /** The scene the player is in, once it can take commands. */
   private get explore(): ExploreScene | undefined {
-    const scene = this.activeKey === SceneKeys.Interior ? this.interior : this.world;
+    const interior = this.activeKey === SceneKeys.Interior;
+    if (!interior && this.townRestarting) return undefined;
+    const scene = interior ? this.interior : this.world;
     return scene?.ready && scene.sys.isActive() ? scene : undefined;
   }
   private withExplore(command: (scene: ExploreScene) => void): void {
@@ -164,7 +176,7 @@ export class World {
   }
   private get townReady(): WorldScene | undefined {
     const world = this.world;
-    return world?.ready ? world : undefined;
+    return world?.ready && !this.townRestarting ? world : undefined;
   }
 
   // State --------------------------------------------------------------------
@@ -228,13 +240,18 @@ export class World {
 
   // Story beats --------------------------------------------------------------
 
-  playCutscene(kind: CutsceneKind, ending?: string): Promise<void> {
-    if (!this.townReady || this.reducedMotion) return Promise.resolve();
-    if (this.game.scene.isActive(SceneKeys.Cinematic)) return Promise.resolve();
+  /**
+   * Play a story beat over the town. Resolves 'played' once it has been shown (including when the player
+   * skips through it) and 'skipped' when it could not be shown, so the caller can keep it for later.
+   * Reduced motion plays a still version rather than skipping the story.
+   */
+  playCutscene(kind: CutsceneKind, ending?: string): Promise<CutsceneOutcome> {
+    if (!this.townReady) return Promise.resolve('skipped');
+    if (this.game.scene.isActive(SceneKeys.Cinematic)) return Promise.resolve('skipped');
     const mapId = readWorld(this.game.registry, 'mapId');
-    return new Promise(resolve => this.game.scene.run(SceneKeys.Cinematic, { kind, mapId, ending, complete: () => {
+    return new Promise(resolve => this.game.scene.run(SceneKeys.Cinematic, { kind, mapId, ending, reduced: this.reducedMotion, complete: () => {
       this.options.onCinematicEnd?.();
-      resolve();
+      resolve('played');
     } }));
   }
 
@@ -279,6 +296,7 @@ export class World {
     this.set('interiorId',undefined);
     this.set('players',{players:[],selfId:readWorld(this.game.registry,'players').selfId});
     this.pending=[];
+    this.townRestarting=true;
     this.game.scene.stop(SceneKeys.World);
     this.game.scene.start(SceneKeys.World,{mapId});
   }
@@ -301,15 +319,19 @@ export class World {
     if (!world) {
       // Still booting; the boot scene starts whichever map the registry names.
       const scene = this.world;
-      if (scene && scene.sys.settings.status >= Phaser.Scenes.START && previous !== map) scene.scene.restart({ mapId: map });
+      if (scene && scene.sys.settings.status >= Phaser.Scenes.START && previous !== map) { this.townRestarting = true; scene.scene.restart({ mapId: map }); }
       return;
     }
     if (world.mapSpec.id === map) {
-      if (world.scene.isSleeping()) world.scene.wake(SceneKeys.World, { instant: true });
-      world.returnToSpawn();
+      // A sleeping town returns to the spawn only once it is awake; the wake may be queued behind this frame.
+      if (world.scene.isSleeping()) {
+        world.scene.wake(SceneKeys.World, { instant: true });
+        this.withExplore(scene => { if (scene instanceof WorldScene) scene.returnToSpawn(); });
+      } else world.returnToSpawn();
       return;
     }
     raiseTravelCurtain(world, getMap(map).name);
+    this.townRestarting = true;
     world.scene.restart({ mapId: map });
   }
 
@@ -323,12 +345,23 @@ export class World {
 
   getInteriorId(): InteriorId | undefined { return readWorld(this.game.registry, 'interiorId'); }
 
-  /** Apply a room the server confirmed, without the doorway walk, then accept its next player snapshot. */
+  /**
+   * Apply a room the server confirmed, without the doorway walk, then accept its next player snapshot.
+   * A reconnect confirms the map (restarting the town) and the room in one message, so opening the room
+   * waits for the town to be ready; a later confirmation replaces one that is still waiting.
+   */
   confirmInterior(id: InteriorId | undefined): void {
+    this.confirmedInterior = id;
     const current = readWorld(this.game.registry, 'interiorId');
     if (id === current) { this.withExplore(scene => scene.resetPlayerPosition()); return; }
     if (current) this.interior.leave(true);
-    if (id) this.townReady?.openInterior(id, true);
+    if (!id) return;
+    const open = (town: WorldScene) => {
+      if (this.confirmedInterior === id && readWorld(this.game.registry, 'interiorId') !== id) town.openInterior(id, true);
+    };
+    const town = this.townReady;
+    if (town) open(town);
+    else this.withExplore(scene => { if (scene instanceof WorldScene) open(scene); });
   }
 
   // Delivery run -------------------------------------------------------------

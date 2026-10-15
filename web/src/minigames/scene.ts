@@ -101,6 +101,14 @@ class MiniGameStage {
   }
   pause(owner: number) { if (owner === this.owner && this.game?.scene.isActive(SCENE_KEY)) this.game.scene.pause(SCENE_KEY); }
   resume(owner: number) { if (owner === this.owner && this.game?.scene.isPaused(SCENE_KEY)) this.game.scene.resume(SCENE_KEY); }
+  /** Run `callback` after every step of the shared mini-game loop while `owner` holds the stage. */
+  onFrame(owner: number, callback: (now: number) => void): () => void {
+    const game = this.game;
+    if (!game) return () => undefined;
+    const handler = () => { if (owner === this.owner) callback(performance.now()); };
+    game.events.on(Phaser.Core.Events.POST_STEP, handler);
+    return () => { game.events.off(Phaser.Core.Events.POST_STEP, handler); };
+  }
   unmount(owner: number) {
     if (owner !== this.owner || !this.game) return;
     this.game.scene.stop(SCENE_KEY);
@@ -117,5 +125,7 @@ export function mountMiniGameScene(root: HTMLElement, mechanic: GameMechanic, re
     pause: () => stage.pause(owner),
     resume: () => stage.resume(owner),
     destroy: () => stage.unmount(owner),
+    /** Subscribe to the shared loop; the round clock uses this instead of its own requestAnimationFrame. */
+    onFrame: (callback: (now: number) => void) => stage.onFrame(owner, callback),
   };
 }

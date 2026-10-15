@@ -26,6 +26,8 @@ interface CurrentRound {
   context?:{before:string;after:string;printed:string;wordIds:string[]};
   board?:DepartureRound;
 }
+/** A flat line for the tape waveform before audio is playing. */
+const silentWaveform=new Uint8Array(128).fill(128);
 const numberValues:Record<string,number>={eins:1,zwei:2,drei:3,vier:4,fünf:5};
 const spelling=(value:string)=>value.normalize('NFC').toLocaleLowerCase('de').replace(/[äöüß]/g,letter=>({ä:'ae',ö:'oe',ü:'ue',ß:'ss'} as Record<string,string>)[letter]);
 const displayNumbers:Record<string,number>={...numberValues,sechs:6,sieben:7,acht:8,neun:9,zehn:10,elf:11,zwölf:12,dreizehn:13,vierzehn:14,fünfzehn:15,sechzehn:16,siebzehn:17,achtzehn:18,neunzehn:19,zwanzig:20,dreißig:30,vierzig:40,fünfzig:50,sechzig:60,siebzig:70,achtzig:80,neunzig:90,hundert:100,einhundert:100,eintausend:1000};
@@ -36,7 +38,9 @@ export class RetrievalGame implements MiniGame {
   private root!:HTMLElement;private services!:MiniGameHost;private opts!:MiniGameOptions;
   private pool:GameItem[]=[];private queue!:RoundQueue;private current?:CurrentRound;
   private scene?:ReturnType<typeof mountMiniGameScene>;private unbind?:()=>void;
-  private raf=0;private previous=0;private elapsed=0;private roundElapsed=0;private count=0;
+  private raf=0;private stopFrames?:()=>void;private previous=0;
+  /** Last values written to the timer and patience bar, so frames that change nothing touch no DOM. */
+  private shownSeconds=-1;private shownPatience='';private unsaved=0;private elapsed=0;private roundElapsed=0;private count=0;
   private paused=false;private running=false;private destroyed=false;private submitting=false;
   private manualPaused=false;
   private generation=0;private selected?:number;private confirmTimer?:ReturnType<typeof setTimeout>;
@@ -86,7 +90,7 @@ export class RetrievalGame implements MiniGame {
   private click=(event:Event)=>{
     const button=(event.target as HTMLElement).closest<HTMLButtonElement>('button');if(!button||button.disabled)return;
     const action=button.dataset.gameAction;
-    if(action==='start'){this.running=true;this.next();this.previous=performance.now();this.raf=requestAnimationFrame(this.tick);}
+    if(action==='start'){this.running=true;this.next();this.previous=performance.now();this.startFrames();}
     else if(action==='finish')this.finish();
     else if(action==='pause'){if(this.paused)this.resume(true);else this.pause(true);}
     else if(action==='replay')void this.speak(true);
@@ -224,7 +228,7 @@ export class RetrievalGame implements MiniGame {
     const form=current.production&&!sentence?`<form class="minigame-recall"><label class="sr-only" for="minigame-answer">German word or sentence</label><input id="minigame-answer" lang="de" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${e(this.opts.level==='A2'&&mechanic==='chain'?'Artikel + Wort':'…')}" required/><div class="minigame-umlauts">${['ä','ö','ü','ß'].map(letter=>`<button type="button" data-game-umlaut="${letter}">${letter}</button>`).join('')}</div><button type="submit" class="primary-button">${mechanic==='tape'?'Restore the recording':'Re-ink the word'}</button></form>`:'';
     const tray=current.order||sentence?`<div class="minigame-dropzone" data-game-drop role="group" aria-label="${sentence?'Your German sentence':'Your tray or assembly'}"><div data-game-selections></div></div><div class="minigame-tray-actions"><button type="button" data-game-action="${sentence?'clear-tiles':'undo'}">Undo</button><button type="button" class="primary-button" data-game-action="${sentence?'check':'serve'}">${sentence?'Speak for the council':mechanic==='tray'?'Ring the bell':'Build the device'}</button></div>`:'';
     const objects=current.board||mechanic==='catch'?'<div data-game-surface></div>':!current.production||sentence?`<div class="minigame-options minigame-options-${mechanic}" role="group" aria-label="Choose your answer">${current.choices.map((choice,index)=>`<button type="button" draggable="${!!current.order||sentence||mechanic==='sequence'}" data-game-option="${index}" class="minigame-object" aria-label="Option ${index+1}"><span class="minigame-object-art"></span><span class="minigame-object-label" lang="de">${e(current.modality==='recognition'&&this.definition.sprites?'':choice.sprite&&!rule?'':choice.label)}</span><kbd>${index+1}</kbd></button>`).join('')}</div>`:'';
-    this.play.innerHTML=`<div class="minigame-round">${cue}${controls}${form}${tray}${objects}<div class="minigame-patience"><i></i></div></div>`;
+    this.play.innerHTML=`<div class="minigame-round">${cue}${controls}${form}${tray}${objects}<div class="minigame-patience"><i></i></div></div>`;this.shownPatience='';
     if(current.production&&!sentence){this.play.querySelector('form')?.insertAdjacentHTML('beforeend',`<button type="button" data-game-action="keyboard">Letter keys</button><div class="minigame-letter-keys" hidden role="group" aria-label="German letter keys">${[...'abcdefghijklmnopqrstuvwxyzäöüß','space','shift','backspace'].map(key=>`<button type="button" data-game-key="${key}" ${key==='shift'?'aria-pressed="false"':''}>${key==='space'?'␣':key==='shift'?'⇧':key==='backspace'?'⌫':key}</button>`).join('')}</div>`);}
     if(current.production&&current.item.sprite){this.play.querySelector('.minigame-prompt-picture')?.append(this.services.sprites.render(current.item.sprite,'Word to recall',136));}
     this.play.querySelectorAll<HTMLButtonElement>('[data-game-option]').forEach((button,index)=>{
@@ -368,39 +372,69 @@ export class RetrievalGame implements MiniGame {
       this.play.insertAdjacentHTML('beforeend','<button type="button" data-game-action="save" class="primary-button">Retry saving this answer</button>');
     }
   }
+  /**
+   * The round clock runs on the shared mini-game Phaser loop when the scene offers it, so the page has one
+   * frame loop; a scene without one (or a test stand-in) falls back to requestAnimationFrame.
+   */
+  private startFrames(){
+    if(this.stopFrames||this.raf)return;
+    const subscribe=this.scene?.onFrame;
+    if(subscribe){this.stopFrames=subscribe(this.tick);return;}
+    const loop=(now:number)=>{this.tick(now);if(!this.destroyed&&this.running)this.raf=requestAnimationFrame(loop);else this.raf=0;};
+    this.raf=requestAnimationFrame(loop);
+  }
+  private stopFrameLoop(){this.stopFrames?.();this.stopFrames=undefined;if(this.raf){cancelAnimationFrame(this.raf);this.raf=0;}}
   private tick=(now:number)=>{
     if(this.destroyed)return;
     const delta=Math.min(100,Math.max(0,now-this.previous));this.previous=now;
     if(this.running&&!this.paused){
       this.elapsed+=delta;
-      const remaining=Math.max(0,this.definition.seconds-Math.floor(this.elapsed/1000));this.root.querySelector('[data-game-time]')!.textContent=`${remaining}s`;
+      const remaining=Math.max(0,this.definition.seconds-Math.floor(this.elapsed/1000));
+      if(remaining!==this.shownSeconds){this.shownSeconds=remaining;this.root.querySelector('[data-game-time]')!.textContent=`${remaining}s`;}
       const current=this.current;
       if(current&&!this.submitting&&!this.pending&&(current.modality!=='listening'||current.heard)){
         this.roundElapsed+=delta;
         const limit=(current.exercise?20000:responseLimit(current.item,current.production)*(current.board?current.board.targets.length:current.order?2:1))*(current.letterKeys?3:1);
-        const bar=this.play.querySelector<HTMLElement>('.minigame-patience i');if(bar)bar.style.transform=`scaleX(${Math.max(0,1-this.roundElapsed/limit)})`;
+        const patience=`scaleX(${Math.max(0,1-this.roundElapsed/limit)})`;
+        if(patience!==this.shownPatience){const bar=this.play.querySelector<HTMLElement>('.minigame-patience i');if(bar){bar.style.transform=patience;this.shownPatience=patience;}}
         if(this.roundElapsed>=limit&&!current.freeName&&!this.catcher&&(this.definition.mechanic!=='tape'||current.heard)){if(current.board)void this.submitDeparture({});else if(current.order)void this.serve();else void this.answer('__timeout__',current.production?undefined:current.choices[0]?.kind);}
       }
       if(this.elapsed>=this.definition.seconds*1000&&!this.submitting)this.finish();
       if(this.definition.mechanic==='tape'){
         const canvas=this.play.querySelector<HTMLCanvasElement>('.minigame-waveform'),ctx=canvas?.getContext('2d'),data=this.services.audio.waveform?.();
-        if(canvas&&ctx){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.strokeStyle='#efcd80';ctx.lineWidth=2;ctx.beginPath();const values=data??new Uint8Array(128).fill(128);for(let index=0;index<values.length;index++){const x=index*canvas.width/(values.length-1),y=values[index]*canvas.height/256;if(index===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}
+        if(canvas&&ctx){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.strokeStyle='#efcd80';ctx.lineWidth=2;ctx.beginPath();const values=data??silentWaveform;for(let index=0;index<values.length;index++){const x=index*canvas.width/(values.length-1),y=values[index]*canvas.height/256;if(index===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}
       }
     }
-    this.raf=requestAnimationFrame(this.tick);
   };
   pause(manual=false){if(manual)this.manualPaused=true;if(this.destroyed||this.paused)return;this.paused=true;this.scene?.pause();this.departure?.pause();this.catcher?.pause();this.services.audio.stop();if(this.confirmTimer){clearTimeout(this.confirmTimer);this.confirmTimer=undefined;}this.root.querySelector<HTMLButtonElement>('[data-game-action="pause"]')!.textContent='Resume';this.root.classList.add('minigame-paused');}
   resume(manual=false){if(this.manualPaused&&!manual)return;if(manual)this.manualPaused=false;if(this.destroyed||!this.paused)return;this.paused=false;this.previous=performance.now();this.scene?.resume();this.root.querySelector<HTMLButtonElement>('[data-game-action="pause"]')!.textContent='Pause';this.root.classList.remove('minigame-paused');if(this.submitting&&!this.pending)this.next();else if(this.current&&(this.current.modality==='listening'||this.definition.mechanic==='tape')&&!this.current.heard)void this.speak(true);else if(!this.submitting&&!this.pending){this.departure?.resume();this.catcher?.resume();}}
-  private finish(){
-    if(!this.running||this.destroyed||this.pending)return;
+  /** Answers whose save failed and were not retried; the round can still finish, and says so. */
+  private dropUnsaved(){
+    if(!this.pending||this.submitting)return;
+    this.unsaved+=this.pending.length;this.pending=undefined;
+  }
+  /** Stop the round and report it once: on Finish, when time runs out, or when the round is closed. */
+  private endRound(){
     this.departure?.destroy();this.departure=undefined;this.catcher?.destroy();this.catcher=undefined;
-    this.running=false;this.generation++;if(this.advanceTimer){clearTimeout(this.advanceTimer);this.advanceTimer=undefined;}if(this.confirmTimer){clearTimeout(this.confirmTimer);this.confirmTimer=undefined;}this.services.audio.stop();this.summary.activeMs=this.elapsed;this.saveBest();this.services.end(this.summary);
+    this.running=false;this.generation++;this.stopFrameLoop();
+    if(this.advanceTimer){clearTimeout(this.advanceTimer);this.advanceTimer=undefined;}if(this.confirmTimer){clearTimeout(this.confirmTimer);this.confirmTimer=undefined;}
+    this.services.audio.stop();this.summary.activeMs=this.elapsed;this.saveBest();this.services.end(this.summary);
+  }
+  private finish(){
+    // A save still in flight decides this answer first; a save that failed no longer holds the round open.
+    if(!this.running||this.destroyed||this.submitting&&this.pending)return;
+    this.dropUnsaved();
+    this.endRound();
     const rate=this.elapsed>0?Math.round(this.summary.attempts*3600000/this.elapsed):0;
-    this.play.innerHTML=`<div class="minigame-intro"><span class="minigame-seal">${this.summary.correct}</span><h3>The ink remembers.</h3><p>${this.summary.correct} / ${this.summary.attempts} answers · ${this.summary.hinted} supported recalls</p><p>${rate} retrievals per active hour · longest chain ${this.summary.longestChain}</p><p>${e(this.bestLabel())}</p><button type="button" class="primary-button" data-minigame="${e(this.id)}">Another lantern round</button><button type="button" data-action="close-dialog">Back to the town</button></div>`;
-    this.feedback.textContent='Your answers are in the Atlas. Due words will return.';
+    const unsaved=this.unsaved?`<p class="minigame-unsaved" role="alert">${this.unsaved===1?'1 answer could not be saved and was not counted.':`${this.unsaved} answers could not be saved and were not counted.`}</p>`:'';
+    this.play.innerHTML=`<div class="minigame-intro"><span class="minigame-seal">${this.summary.correct}</span><h3>The ink remembers.</h3><p>${this.summary.correct} / ${this.summary.attempts} answers · ${this.summary.hinted} supported recalls</p><p>${rate} retrievals per active hour · longest chain ${this.summary.longestChain}</p>${unsaved}<p>${e(this.bestLabel())}</p><button type="button" class="primary-button" data-minigame="${e(this.id)}">Another lantern round</button><button type="button" data-action="close-dialog">Back to the town</button></div>`;
+    this.feedback.textContent=this.unsaved?'The saved answers are in the Atlas. Due words will return.':'Your answers are in the Atlas. Due words will return.';
   }
   private bestKey(){const date=new Date();date.setDate(date.getDate()-(date.getDay()+6)%7);const week=`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;return`atlas.minigame.chain:${this.services.playerId??'local'}:${this.id}:${week}`;}
   private bestLabel(){try{return`This week’s longest chain: ${Number(localStorage.getItem(this.bestKey())??0)}`;}catch{return'';}}
   private saveBest(){try{const best=Number(localStorage.getItem(this.bestKey())??0);localStorage.setItem(this.bestKey(),String(Math.max(best,this.summary.longestChain)));}catch{/* Optional record only. */}}
-  destroy(){this.destroyed=true;this.generation++;cancelAnimationFrame(this.raf);if(this.advanceTimer)clearTimeout(this.advanceTimer);if(this.confirmTimer)clearTimeout(this.confirmTimer);this.departure?.destroy();this.catcher?.destroy();this.unbind?.();this.scene?.destroy();this.services.audio.stop();this.root.removeEventListener('click',this.click);this.root.removeEventListener('submit',this.form);this.root.removeEventListener('input',this.inkInput);this.root.removeEventListener('dragstart',this.dragStart);this.root.removeEventListener('dragover',this.dragOver);this.root.removeEventListener('drop',this.drop);}
+  destroy(){
+    // Closing a round that was in progress still reports what was saved; an answer still saving is not counted.
+    if(this.running&&!this.destroyed)this.endRound();
+    this.destroyed=true;this.generation++;this.stopFrameLoop();if(this.advanceTimer)clearTimeout(this.advanceTimer);if(this.confirmTimer)clearTimeout(this.confirmTimer);this.departure?.destroy();this.catcher?.destroy();this.unbind?.();this.scene?.destroy();this.services.audio.stop();this.root.removeEventListener('click',this.click);this.root.removeEventListener('submit',this.form);this.root.removeEventListener('input',this.inkInput);this.root.removeEventListener('dragstart',this.dragStart);this.root.removeEventListener('dragover',this.dragOver);this.root.removeEventListener('drop',this.drop);}
 }

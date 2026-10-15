@@ -72,4 +72,19 @@ describe('town routines and ambient German', () => {
     expect(director.next({ ...context, level: 'A1' })?.source).toBe('routine');
     expect(director.next({ ...context, speakerId: 'otto', level: 'A1', elapsedSeconds: 10 })?.source).toBe('routine');
   });
+  it('waits out the global pause after a routine line is rejected instead of rechecking every frame', () => {
+    const director = new WorldBarkDirector();
+    let checks = 0;
+    const context: BarkContext = { speakerId: 'marta', mapId: 'lindenhafen', level: 'A1', hour: 8, elapsedSeconds: 0,
+      lineAllowed: () => { checks++; return false; } };
+    expect(director.next(context)).toBeUndefined();
+    expect(checks).toBe(1);
+    // Every following frame inside the nine-second pause returns before filtering or asking again.
+    for (let frame = 1; frame < 60; frame++) expect(director.next({ ...context, elapsedSeconds: frame / 60 })).toBeUndefined();
+    expect(director.next({ ...context, speakerId: 'fritz', elapsedSeconds: 8.9 })).toBeUndefined();
+    expect(checks).toBe(1);
+    expect(director.next({ ...context, elapsedSeconds: 9 })).toBeUndefined();
+    expect(checks).toBe(2);
+    expect(director.stats.emitted).toBe(0);
+  });
 });

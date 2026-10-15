@@ -3,7 +3,8 @@ import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnal
 import { castPortraitMarkup } from './cast-portrait';
 import { pendingReferral, referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
-import {applyWorldPatch,loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
+import {loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
+import {applyWorldPatch} from './world-patch';
 import { avatarPortraitMarkup, bakeAvatarPortrait, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
 import { mountOptionalPlacement } from './placement-ui';
@@ -17,7 +18,7 @@ import { storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
 import { evidenceBoard, optionalStoryPractice, saveSlotsMarkup } from './story-panels';
 import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewards';
-import type { CutsceneKind } from './cutscene';
+import type { CutsceneKind, CutsceneOutcome } from './cutscene';
 import { grammarForQuest } from './contextual-grammar';
 import { questObjectivesMarkup } from './quest-objectives';
 import { routeUnlocked, routeLockReason, questUnlocked, questAvailable, questLockReason, firstAvailableMap } from './progression';
@@ -67,7 +68,10 @@ import type { Progress, ExposureInput, ConnectionStatus, SessionResult, AccountS
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
 import { AccountReminder, nameSuggestions } from './player-account';
 import './player-account.css';
-import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, type BillingPlan, type GameAccess } from './game-access';
+import { AccessClock, accessBlocked, formatAccessTime } from './game-access';
+import { AccessSession } from './access-session';
+import { Speech } from './speech';
+import { gameMode, type GameMode } from './game-mode';
 import './game-access.css';
 import { reviewExercises,wordReadyForReview } from './review';
 import { phrasePracticeQueue } from './phrase-practice';
@@ -101,6 +105,7 @@ import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
+import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
 const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckRequest) ? uiCheckRequest : null;
@@ -114,11 +119,9 @@ let coursePromise: Promise<CourseModule> | undefined;
 let activities: ActivityModule | undefined;
 let activitiesPromise: Promise<ActivityModule> | undefined;
 let activityController: { destroy(): void; pause(): void; resume(): void; reset(): void } | undefined;
-let activityLoading = 0;
 let accountKeptActivityPaused=false;
 let miniGameController: MiniGame | undefined;
 let miniGameHost: (import('./minigames/types').MiniGameHost & {destroy():void}) | undefined;
-let miniGameLoading = 0;
 let exerciseInputCleanup:(()=>void)|undefined;
 let exerciseChoiceTimer:ReturnType<typeof setTimeout>|undefined;
 let pendingExerciseChoice:string|undefined;
@@ -151,6 +154,13 @@ const removeSentenceTranslations = installSentenceTranslations(document, sentenc
 });
 if (!uiCheckSurface) startAnalytics(() => api.token);
 const api = new Api();
+/** Every async opener of #dialog checks this; opening or closing the dialog ends the ones still loading. */
+const dialogSession = new DialogSession(() => api.selfId);
+const dialogHost: AsyncDialogHost = {
+  session: dialogSession,
+  dialog: () => document.querySelector<HTMLDialogElement>('#dialog')!,
+  open: (html, className) => openDialog(html, className),
+};
 let stopUpdateChecks: (() => void) | undefined;
 let removeUpdateNotice: (() => void) | undefined;
 let progress: Progress = emptyProgress();
@@ -174,14 +184,29 @@ let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
 const accessClock = new AccessClock();
-let accessHeartbeatBusy = false;
-let accessHeartbeatAt = 0;
-let pendingAccessHeartbeat: boolean | undefined;
-let accessWasActive = false;
-let accessConnectionPaused = false;
-let accessResetting = false;
-let billingVerificationTimer: number | undefined;
-let billingVerificationRevision = 0;
+/** Metered play, billing and the account dialog (access-session.ts). */
+const accessSession = new AccessSession({
+  api, clock: accessClock, uiCheck: !!uiCheckSurface,
+  started: () => started, connection: () => connection, account: () => account, activeCourse: () => activeCourse,
+  toast: (message, bad) => toast(message, bad), syncWorldMode: () => syncWorldMode(),
+  showSaveAccount: (required, subscribeAfter) => showSaveAccount(required, subscribeAfter),
+  pauseForAccount: () => {
+    accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
+    activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
+    if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
+  },
+  accountShown: () => accountReminder?.tick(performance.now(), false),
+  discardPlay: () => {
+    activityController?.destroy(); activityController = undefined;
+    miniGameController?.destroy(); miniGameController = undefined;
+    miniGameHost?.destroy(); miniGameHost = undefined;
+    deliveryController?.destroy(); deliveryController = undefined;
+    deliveryHost?.destroy(); deliveryHost = undefined;
+    notifications?.destroy(); notifications = undefined;
+    if (reminderTimer !== undefined) clearInterval(reminderTimer);
+    reminderTimer = undefined; accountReminder = undefined;
+  },
+});
 /** Vocabulary intake: one heartbeat per minute of visible, connected play; the server introduces words at its own pace. */
 const intakeClock = new IntakeClock();
 let heartbeatBusy = false;
@@ -390,13 +415,13 @@ function renderShell() {
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
     onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
-    onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic()); },
+    onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic().catch(error => console.warn('The story scene could not load; it will be offered again.', error))); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
     onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
-    onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}); },
+    onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
   world.setAvatar(profile.avatar);
@@ -424,20 +449,20 @@ function renderShell() {
   accountDialog.addEventListener('cancel', event => { if (!started || accessBlocked(accessClock.snapshot(performance.now())) || accountDialog.dataset.accessWall === 'required') event.preventDefault(); });
   accountDialog.addEventListener('close', () => {
     if (accountDialog.open) return;
-    if (started && accessBlocked(accessClock.snapshot(performance.now()))) { enforceAccessWall(); return; }
+    if (started && accessBlocked(accessClock.snapshot(performance.now()))) { accessSession.enforceWall(); return; }
     if (!document.hidden) { if (!accountKeptActivityPaused) activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); }
     accountKeptActivityPaused = false;
     accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online');
-    syncAccessActivity(); syncWorldMode();
+    accessSession.syncActivity(); syncWorldMode();
     if (started && regionReady) onRegionReady(mapId);
   });
   document.querySelector<HTMLButtonElement>('#access-button')!.onclick = () => {
     const access = accessClock.snapshot(performance.now());
-    if (access?.phase === 'paid') showBillingAccount();
-    else if (access?.registered) showPaywall();
+    if (access?.phase === 'paid') accessSession.showBillingAccount();
+    else if (access?.registered) accessSession.showPaywall();
     else showSaveAccount(access?.phase === 'login_required');
   };
-  document.querySelector<HTMLButtonElement>('#access-invite')!.onclick = () => void showInviteFriend();
+  document.querySelector<HTMLButtonElement>('#access-invite')!.onclick = () => void accessSession.showInviteFriend();
   syncWorldMode();
 }
 function watchWorld(watching: boolean): void {
@@ -522,8 +547,9 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
   }));
 }
 async function showInteriorObject(id: string) {
-  const generation = ++interiorLoading;
-  if (interiorId) { try { await loadInterior(interiorId); } catch (error) { toast((error as Error).message, true); return; } }
+  const current = dialogSession.begin();
+  if (interiorId) { try { await loadInterior(interiorId); } catch (error) { if (current()) toast((error as Error).message, true); return; } }
+  if (!current()) return;
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
   if (interiorId === 'inn') {
@@ -534,23 +560,25 @@ async function showInteriorObject(id: string) {
   const npc = object.npcId ? npcs.find(item => item.id === object.npcId) : undefined;
   if (npc) recordExposure({npcId:npc.id});
   const miniGame = object.minigame ? miniGameById.get(object.minigame) : undefined;
-  try { await loadInteriorConversation(id); } catch (error) { toast((error as Error).message, true); return; }
-  if (generation !== interiorLoading || interiorId !== room.id) return;
+  try { await loadInteriorConversation(id); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current() || interiorId !== room.id) return;
   interiorConversation = undefined;
   openDialog(renderInteriorEncounter({room,object,portraitMarkup:npc?portrait(npc.id,'large-portrait'):undefined,miniGame:miniGame?{id:miniGame.id,title:miniGame.title}:undefined}), 'interior-dialog', npc?.id);
 }
 async function startInteriorPractice(id: string) {
-  const generation = ++interiorLoading;
-  if (interiorId) { try { await loadInterior(interiorId); } catch (error) { toast((error as Error).message, true); return; } }
+  const current = dialogSession.begin();
+  if (interiorId) { try { await loadInterior(interiorId); } catch (error) { if (current()) toast((error as Error).message, true); return; } }
+  if (!current()) return;
   const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
   if (!object || !room || !room.objects.some(item => item.id === id)) return;
   try {
     for (const exerciseId of object.exerciseIds.slice(0, 8)) {
       try { await loadExercise(exerciseId); }
       catch (error) { if (!(error instanceof Error && 'status' in error && error.status === 404)) throw error; }
+      if (!current()) return;
     }
-  } catch (error) { toast((error as Error).message, true); return; }
-  if (generation !== interiorLoading || interiorId !== room.id) return;
+  } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current() || interiorId !== room.id) return;
   const queue = interiorPracticeQueue(object);
   if (!queue.length) { startInteriorConversation(id); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try this session again in a moment.'), true); return; }
@@ -559,11 +587,10 @@ async function startInteriorPractice(id: string) {
   openDialog('', 'quest-dialog interior-practice-dialog', object.npcId); renderExercise();
 }
 let interiorConversation: InteriorConversationState | undefined;
-let interiorLoading = 0;
 async function startInteriorConversation(id: string) {
-  const generation = ++interiorLoading;
-  try { await loadInteriorConversation(id); } catch (error) { toast((error as Error).message, true); return; }
-  if (generation !== interiorLoading) return;
+  const current = dialogSession.begin();
+  try { await loadInteriorConversation(id); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   interiorConversation = createInteriorConversationState(id);
   if (!interiorConversation) return;
   cancelRun();
@@ -707,7 +734,16 @@ function showFirstControls() {
   setTimeout(() => { hint.hidden = true; }, 60_000);
 }
 let menuFocus: HTMLElement | null = null;
-function worldCanInteract() { return started && !accessBlocked(accessClock.snapshot(performance.now())) && (!deliveryController||deliveryController.canMove) && connection === 'online' && !cinematicActive && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && view === 'world' && !watchingWorld && !pendingMap && !screenFilterControls?.isOpen() && !document.querySelector<HTMLDialogElement>('#dialog')!.open && !dialogueOpen && !questController?.isOpen; }
+/** The page's single answer to "what is in front of the world"; see game-mode.ts for the precedence. */
+function currentGameMode(): GameMode {
+  return gameMode({
+    started, accessBlocked: accessBlocked(accessClock.snapshot(performance.now())), connected: connection === 'online', travelling: !!pendingMap,
+    accountOpen: !!document.querySelector<HTMLDialogElement>('#account-dialog')?.open, cinematic: cinematicActive, menuOpen: view !== 'world',
+    watching: watchingWorld, filtersOpen: !!screenFilterControls?.isOpen(), encounterOpen: !!document.querySelector<HTMLDialogElement>('#dialog')?.open,
+    dialogueOpen: dialogueOpen || !!questController?.isOpen, deliveryHolding: !!deliveryController && !deliveryController.canMove,
+  });
+}
+function worldCanInteract() { return currentGameMode() === 'world'; }
 let dialogueOpen = false;
 let worldInput = false;
 let syncingWorld = false;
@@ -802,23 +838,35 @@ function seenKey(kind: string) { return `atlas.${kind}.${api.selfId || 'visitor'
 function readSeen(kind: string): string[] { try { const value: unknown = JSON.parse(localStorage.getItem(seenKey(kind)) || '[]'); return Array.isArray(value) ? value.filter((id): id is string => typeof id === 'string') : []; } catch { return []; } }
 function rememberSeen(kind: string, id: string) { const seen = new Set(readSeen(kind)); seen.add(id); localStorage.setItem(seenKey(kind), JSON.stringify([...seen])); }
 const attemptedCinematics = new Set<string>();
-async function playPendingCinematic(): Promise<void> {
-  if (!regionReady || !worldCanInteract()) return;
+/**
+ * Play the next story beat. Only a beat that was actually shown is remembered and saved as seen; a beat the
+ * town could not show yet stays pending for the next region-ready check. Resolves whether one was shown.
+ */
+async function playPendingCinematic(): Promise<boolean> {
+  if (!regionReady || !worldCanInteract()) return false;
   const arrival = mapId === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival');
-  const kind = pendingStoryBeat ?? (arrival ? 'arrival' : pendingTravelBeat ? 'travel' : undefined);
-  if (!kind) return;
+  const storyBeat = pendingStoryBeat;
+  const kind = storyBeat ?? (arrival ? 'arrival' : pendingTravelBeat ? 'travel' : undefined);
+  if (!kind) return false;
   pendingStoryBeat = undefined; pendingTravelBeat = false;
-  if (kind !== 'travel' && (progress.story?.flags[`cinematic:${kind}`] || attemptedCinematics.has(kind))) return;
-  cinematicActive = true; attemptedCinematics.add(kind);
+  if (kind !== 'travel' && (progress.story?.flags[`cinematic:${kind}`] || attemptedCinematics.has(kind))) return false;
+  cinematicActive = true;
   document.querySelector('#game-shell')!.classList.add('cinematic-open');
   syncWorldMode(); stopSpeech();
   try {
-    await loadCinematic(kind, mapId, progress.story?.ending);
-    if (kind !== 'travel') {
-      try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
-      catch { /* The world beat can still play while its saved marker reconnects. */ }
-    }
-    await world.playCutscene(kind, progress.story?.ending);
+    let outcome: CutsceneOutcome;
+    try {
+      await loadCinematic(kind, mapId, progress.story?.ending);
+      outcome = await world.playCutscene(kind, progress.story?.ending);
+    } catch (error) { if (storyBeat) pendingStoryBeat ??= storyBeat; throw error; }
+    if (outcome === 'played') {
+      attemptedCinematics.add(kind);
+      if (kind !== 'travel') {
+        try { const result = await api.request<{progress:Progress}>('/story/cinematic', {id:crypto.randomUUID(),kind}); acceptProgress(result.progress); updateProgress(); }
+        catch { /* Seen this session; without the saved marker it is offered again next session. */ }
+      }
+    } else if (storyBeat) pendingStoryBeat ??= storyBeat;
+    return outcome === 'played';
   } finally {
     cinematicActive = false;
     document.querySelector('#game-shell')!.classList.remove('cinematic-open');
@@ -839,7 +887,12 @@ function onRegionReady(id: MapId) {
   }
   if (cinematicActive) return;
   if (!worldCanInteract()) return;
-  if (pendingStoryBeat || pendingTravelBeat || id === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival')) { void playPendingCinematic().then(() => { if (id === mapId) onRegionReady(id); }); return; }
+  if (pendingStoryBeat || pendingTravelBeat || id === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival')) {
+    // A beat that could not be shown waits for the next region-ready check instead of retrying at once.
+    void playPendingCinematic().then(played => { if (played && id === mapId) onRegionReady(id); })
+      .catch(error => console.warn('The story scene could not load; it will be offered again.', error));
+    return;
+  }
   if (!readSeen('acts').includes(id)) { rememberSeen('acts', id); const q = currentQuest(); if (!getExpedition(id)) { world.focusNpc(q.npcId); toast(t('Find {name} to begin Act {act}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name), act: actFor(id).number })); } else showActIntro(id); return; }
   continueDestination();
 }
@@ -930,11 +983,13 @@ const expeditionLearning = new ExpeditionLearning({api,progress:()=>progress,onP
 async function showExpeditionEncounter(targetId:string) {
   const region=expeditionRegions.find(region=>!!getExpeditionEncounter(region.id,targetId));if(!region)return;
   const encounter=getExpeditionEncounter(region.id,targetId)!,npc=getExpeditionNpc(targetId),object=region.objects.find(object=>object.id===targetId);
+  const current = dialogSession.begin();
   try {
     const served = await loadExpeditionEncounter(encounter.id);
     if (!served) throw new Error('This encounter is unavailable.');
     Object.assign(encounter, served); if (npc) npc.encounterId = encounter.id; if (object) object.encounterId = encounter.id;
-  } catch (error) { toast((error as Error).message, true); return; }
+  } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   if(object)rememberSeen('objects',object.id);
   activityController?.destroy();activityController=undefined;
   openDialog(`<div class="expedition-encounter"><header class="expedition-encounter-heading">${npc?portrait(npc.id,'large-portrait'):`<span class="expedition-portrait">${icon('lantern')}</span>`}<div><h2>${e(npc?.name??object?.label??encounter.title)}</h2>${npc?`<span>${e(npc.role)}</span>`:''}</div></header>${object?`<p>${e(object.description)}</p>`:''}${npc?`<aside class="expedition-relationship">${icon('users')} ${e(npc.relationship)}</aside>`:''}<div id="expedition-encounter-learning-root">Preparing the neighbor’s message…</div><p class="expedition-save-note">${icon('book')} ${e(encounter.languageFocus)}</p><div class="expedition-game-actions"><button class="outline-button" data-expedition-game="${region.id}">${t('Build this neighborhood’s plan')} ${icon('arrow')}</button><button class="text-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div></div>`,'expedition-dialog',npc?.id);
@@ -957,7 +1012,9 @@ function expeditionOverview(): string {
 }
 async function startExpeditionGame(id: string, requestedLevel?: Level) {
   invalidateContext('expeditionGame', id);
-  try { await loadContexts('expeditionGame', id); } catch (error) { toast((error as Error).message, true); return; }
+  const current = dialogSession.begin();
+  try { await loadContexts('expeditionGame', id); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   const game = getExpeditionGame(id);
   if (!game) return;
   if (!routeUnlocked(game.id, progress.completedQuestIds)) { toast(routeLockReason(game.id, progress.completedQuestIds)); return; }
@@ -1046,7 +1103,9 @@ function recordExpeditionExposure(text:string):void {
   }).catch(()=>{});
 }
 async function startMiniGame(id:string):Promise<void>{
-  try { await loadMiniGame(id); } catch (error) { toast((error as Error).message, true); return; }
+  const current=dialogSession.begin();
+  try { await loadMiniGame(id); } catch (error) { if(current())toast((error as Error).message, true); return; }
+  if(!current())return;
   const definition=miniGameById.get(id);if(!definition)return;
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   if(id==='neighborhood-boards'){
@@ -1063,29 +1122,32 @@ async function startMiniGame(id:string):Promise<void>{
   if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
   setView('world');cancelRun();activityController?.destroy();activityController=undefined;
-  openDialog('<div class="route-loading"><h2>Opening the lantern round…</h2></div>','minigame-dialog activity-dialog');
-  const generation=miniGameLoading,owner=api.selfId;
-  try{
-    const [courseModule,{loadMiniGame,loadMiniGameExercises},{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames'),import('./minigames/host')]);
-    const [game,authoredExercises]=await Promise.all([loadMiniGame(id),loadMiniGameExercises(id)]),dialog=document.querySelector<HTMLDialogElement>('#dialog')!;
-    if(generation!==miniGameLoading||!dialog.open||owner!==api.selfId)return;
-    dialog.innerHTML=`<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div id="minigame-root"></div>`;
-    const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
-    miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
-      onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>{if(summary.attempts)toast(`${summary.correct} / ${summary.attempts} answers remembered.`);},
-      playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced'||worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
-    miniGameController=game;
-    const fixedPool=questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
-    game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId).asset:getMap(mapId).previewAsset});
-    if(document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open)game.pause();
-  }catch(error){if(generation===miniGameLoading){toast((error as Error).message,true);document.querySelector<HTMLDialogElement>('#dialog')!.close();}}
+  const owner=api.selfId;
+  await openAsyncDialog(dialogHost,'<div class="route-loading"><h2>Opening the lantern round…</h2></div>','minigame-dialog activity-dialog',
+    async()=>{
+      const [courseModule,games,{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames'),import('./minigames/host')]);
+      const [game,authoredExercises]=await Promise.all([games.loadMiniGame(id),games.loadMiniGameExercises(id)]);
+      return {courseModule,game,authoredExercises,createMiniGameHost};
+    },
+    ({courseModule,game,authoredExercises,createMiniGameHost},dialog)=>{
+      dialog.innerHTML=`<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div id="minigame-root"></div>`;
+      const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
+      miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
+        onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>{if(summary.attempts)toast(`${summary.correct} / ${summary.attempts} answers remembered.`);},
+        playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced'||worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
+      miniGameController=game;
+      const fixedPool=questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
+      game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId).asset:getMap(mapId).previewAsset});
+      if(document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open)game.pause();
+    },
+    (error,dialog)=>{toast((error as Error).message,true);dialog.close();});
 }
 async function startWorldDelivery():Promise<void>{
   if(silentMode){toast('Turn off silent mode to hear Lina’s directions.');return;}
   if(interiorId){toast('Meet Lina outside for the courtyard delivery.');return;}
-  const owner=api.selfId,startingMap=mapId;
+  const current=dialogSession.begin(),owner=api.selfId,startingMap=mapId;
   const [module,{WorldDeliveryRun},{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames/delivery'),import('./minigames/host')]);
-  if(owner!==api.selfId)return;
+  if(!current())return;
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
   const host=createMiniGameHost({api,gameId:'delivery-run',lexicon:module.courseLexicon,exercises:module.courseExercises,progress:()=>progress,onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>toast(`${summary.correct} / ${summary.attempts} spoken directions remembered.`),playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
   document.querySelector<HTMLDialogElement>('#dialog')!.close();setView('world');
@@ -1094,7 +1156,9 @@ async function startWorldDelivery():Promise<void>{
   deliveryController=controller;deliveryHost=host;syncWorldMode();
 }
 async function startActivity(id: ActivityId, source?: {roomId:InteriorId; stationId:string}) {
-  try { await loadActivity(id, source ? 'A1' : level); } catch (error) { toast((error as Error).message, true); return; }
+  const current = dialogSession.begin();
+  try { await loadActivity(id, source ? 'A1' : level); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   if (!activityInfo.some(game => game.id === id)) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try the adventure again in a moment.'), true); return; }
   const room = source ? getInterior(source.roomId) : undefined;
@@ -1102,14 +1166,11 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
   const venue = room && gameCopy ? { id:room.id, name:room.name, asset:room.asset, title:gameCopy.title, npcId:gameCopy.npcId, briefing:gameCopy.description } : undefined;
   setView('world'); run = undefined;
   activityController?.destroy(); activityController = undefined;
-  openDialog(`<div class="route-loading"><h2>${t('Preparing your adventure…')}</h2></div>`, 'activity-dialog');
-  const generation = ++activityLoading;
-  try {
+  await openAsyncDialog(dialogHost, `<div class="route-loading"><h2>${t('Preparing your adventure…')}</h2></div>`, 'activity-dialog', async () => {
     activitiesPromise ??= import('./activities').then(module => { activities = module; return module; }).catch(error => { activitiesPromise = undefined; throw error; });
-    const module = activities ?? await activitiesPromise;
+    return activities ?? await activitiesPromise;
+  }, (module, dialog) => {
     for (const job of module.activityAudioJobs ?? []) if (!audioPaths.has(job.text)) audioPaths.set(job.text, `/audio/${job.id}.mp3`);
-    const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
-    if (generation !== activityLoading || !dialog.open) return;
     dialog.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Leave activity'))}">${icon('close')}</button><div id="activity-root"></div>`;
     const regionLevel: Level = venue ? 'A1' : level;
     activityController = module.mountActivity(document.querySelector<HTMLElement>('#activity-root')!, {
@@ -1136,11 +1197,10 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
         return result;
       },
     });
-  } catch (error) {
-    if (generation !== activityLoading) return;
+  }, (error, dialog) => {
     toast((error as Error).message || t('The adventure could not open.'), true);
-    document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div class="route-loading"><h2>${t('A small detour.')}</h2><p>${t('Try the adventure again when the route is connected.')}</p><button class="primary-button" ${source ? `data-interior-activity="${e(source.stationId)}"` : `data-activity="${id}"`}>${t('Try again')}</button></div>`;
-  }
+    dialog.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div class="route-loading"><h2>${t('A small detour.')}</h2><p>${t('Try the adventure again when the route is connected.')}</p><button class="primary-button" ${source ? `data-interior-activity="${e(source.stationId)}"` : `data-activity="${id}"`}>${t('Try again')}</button></div>`;
+  });
 }
 let coursePage = 0;
 function exerciseHasSuccess(exercise: Exercise): boolean {
@@ -1179,11 +1239,13 @@ function todaysWordsCard(): string {
   return `<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button></section>`;
 }
 async function startTodaysWords() {
-  const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
-  if (!module) return;
+  const current = dialogSession.begin();
+  const module = await loadCourse().catch(error => { if (current()) toast(error.message, true); return undefined; });
+  if (!module || !current()) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const ids = todaysWords(progress);
-  try { await loadWordDrills(ids); } catch (error) { toast((error as Error).message, true); return; }
+  try { await loadWordDrills(ids); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   // Meaning first, then the sound, then recall: every mode across today's words before the next mode begins.
   const queue = playablePractice((['recognition', 'listening', 'production'] as const).flatMap(mode => ids.flatMap(id => { const ex = module.courseExerciseById.get(`lex-${id}-${mode}`); return ex && !exerciseHasSuccess(ex) ? [ex] : []; }))).slice(0, 12);
   if (!queue.length) { toast(t('You have met every restored word. New words return as you play.')); return; }
@@ -1213,9 +1275,11 @@ function renderWordJournal(el: Element) {
   if (seen.length) bindLexiconSearch(seen);
 }
 async function startWordPractice(id: string) {
-  const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
-  const word = module?.lexemeById.get(id); if (!word || !module) return;
-  try { await loadWordDrills([id]); } catch (error) { toast((error as Error).message, true); return; }
+  const current = dialogSession.begin();
+  const module = await loadCourse().catch(error => { if (current()) toast(error.message, true); return undefined; });
+  const word = module?.lexemeById.get(id); if (!word || !module || !current()) return;
+  try { await loadWordDrills([id]); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   if (wordScheduled(id) && !wordIntroduced(progress, id)) { toast(t('This word has not returned to the Atlas yet. Keep playing and it will.')); return; }
   const memory = progress.words?.[id];
   if (memory?.mastery === 'retained' && Date.parse(memory.dueAt) > Date.now()) {
@@ -1229,9 +1293,10 @@ async function startWordPractice(id: string) {
   openDialog('', 'quest-dialog'); renderExercise();
 }
 async function startCourseUnit(id: string) {
-  try { await loadUnit(id, progress); } catch (error) { toast((error as Error).message, true); return; }
-  const module = await loadCourse().catch(error => { toast(error.message, true); return undefined; });
-  const unit = module?.courseUnits.find(item => item.id === id); if (!module || !unit) return;
+  const current = dialogSession.begin();
+  try { await loadUnit(id, progress); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  const module = await loadCourse().catch(error => { if (current()) toast(error.message, true); return undefined; });
+  const unit = module?.courseUnits.find(item => item.id === id); if (!module || !unit || !current()) return;
   const missing = progress.completedUnitIds?.includes(unit.id) ? 0 : missingWordCount(unit.wordIds, progress);
   if (missing) { toast(missing === 1 ? t('Opens after {count} more restored word', { count: missing }) : t('Opens after {count} more restored words', { count: missing })); return; }
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
@@ -1248,9 +1313,12 @@ async function startCourseUnit(id: string) {
   openDialog(`<div class="quest-intro"><h2>${e(unitTitle)}</h2><div class="course-intro-reference"><p class="intro-story">${e(unitSummary)}</p>${guides.map(guide => `<div class="course-intro-examples">${guide.title !== unitTitle ? `<strong>${e(guide.title)}</strong>` : ''}${guide.explanation !== unitSummary ? `<p>${e(guide.explanation)}</p>` : ''}${guide.examples.slice(0,2).map(example => `<p>${renderCourseExample(example)}</p>`).join('')}</div>`).join('')}</div><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Follow this learning route') : t('Save this completed route')} ${icon('arrow')}</button></div>`, 'quest-dialog course-dialog');
 }
 async function startAdaptiveReview() {
+  const current = dialogSession.begin();
   const module = await loadCourse().catch(() => undefined);
+  if (!current()) return;
   if (!module) { startReview(); return; }
-  try { await loadWordDrills(module.courseLexicon.filter(word => progress.words[word.id] && wordReadyForReview(progress.words[word.id])).map(word => word.id)); } catch (error) { toast((error as Error).message, true); return; }
+  try { await loadWordDrills(module.courseLexicon.filter(word => progress.words[word.id] && wordReadyForReview(progress.words[word.id])).map(word => word.id)); } catch (error) { if (current()) toast((error as Error).message, true); return; }
+  if (!current()) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode, writingReady());
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
@@ -1454,7 +1522,7 @@ async function startPlacement() {
 }
 function openDialog(html: string, className = '', speakerId?:string) {
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
-  miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined;
+  dialogSession.invalidate(); miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined;
   if(!questController?.isOpen)world.setConversationTarget(speakerId);
   screenFilterControls?.close(false);
   const dialog = document.querySelector<HTMLDialogElement>('#dialog')!;
@@ -1708,18 +1776,18 @@ function bindProfileForm() {
 }
 function showProfile() { openDialog(`<div class="profile-dialog-heading"><h2>${t('Nice to meet you.')}</h2></div>${profileForm()}`, 'profile-dialog'); bindProfileForm(); }
 const audioPaths = new Map<string, string>();
-let activeSpeech: HTMLAudioElement | undefined;
-let speechGeneration = 0;
-function stopSpeech() {
-  world?.setNarrationActive(false);
-  speechGeneration++;
-  if (activeSpeech) { activeSpeech.pause(); activeSpeech = undefined; }
-  if ('speechSynthesis' in window) speechSynthesis.cancel();
-}
+/** Narration and answer cues (speech.ts). */
+const speech = new Speech({
+  silent: () => silentMode, muted: () => muted,
+  narration: active => world?.setNarrationActive(active),
+  clipFor: text => audioReference((findSentence(text) as { audio?: unknown } | undefined)?.audio) ?? audioPaths.get(text),
+  voiceIndex: speaker => Math.max(0, npcs.findIndex(npc => npc.id === speaker)),
+});
+function stopSpeech() { speech.stop(); }
 function setSilentMode(enabled: boolean, notify = true) {
   silentMode = enabled;
   localStorage.setItem('atlas.silentMode', String(silentMode)); world.setAudioPreferences({ silent: silentMode, muted });
-  if (silentMode) { stopSpeech(); void audioContext?.suspend(); }
+  if (silentMode) { stopSpeech(); speech.suspendCues(); }
   if (view === 'settings') renderOther();
   if (silentMode && run && !run.answered && !run.submission && run.queue[run.index]?.mode === 'listen') renderExercise();
   document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
@@ -1729,64 +1797,22 @@ function setSilentMode(enabled: boolean, notify = true) {
   questController?.refreshAudio();
   if (notify) toast(silentMode ? t('Silent mode on. Listening exercises will be skipped.') : t('Silent mode off. Listening exercises will return in your next session.'));
 }
+/** Speak German for the current exercise or dialogue; a listening exercise counts as heard only when it plays out. */
 function speak(text: string, speaker?: string, clipId?: string, rate = speechRate) {
-  if (silentMode) return;
-  stopSpeech();
-  world?.setNarrationActive(true);
-  const generation = speechGeneration;
   const listeningRun = run;
   const listeningIndex = run?.index;
   const audioStatus = (message: string) => { if (run === listeningRun && run?.index === listeningIndex) { const label = document.querySelector<HTMLElement>('.audio-scene span'); if (label) label.textContent = message; } };
-  const heard = () => { world?.setNarrationActive(false); if (run && run === listeningRun && run.index === listeningIndex && run.queue[run.index]?.mode === 'listen' && run.queue[run.index].german === text) { run.audioHeard = true; recordExposure({exerciseId:run.queue[run.index].id}); audioStatus(t('Audio finished. Choose your answer, or listen again.')); } };
-  const unavailable = () => {
-    if (generation !== speechGeneration) return;
-    world?.setNarrationActive(false);
-    toast(t('The audio couldn’t play. You can use the transcript and try it again.'));
-    if (run && run === listeningRun && run.index === listeningIndex) { run.audioHeard = false; run.hinted = true; const transcript = document.querySelector<HTMLElement>('#transcript'); if (transcript) { transcript.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } }
-  };
-  let fallbackStarted = false;
-  const fallback = () => {
-    if (generation !== speechGeneration || fallbackStarted) return;
-    fallbackStarted = true;
-    if (!('speechSynthesis' in window)) { unavailable(); return; }
-    const voices = speechSynthesis.getVoices();
-    const germanVoices = voices.filter(v => v.lang.startsWith('de'));
-    const castIndex = Math.max(0, npcs.findIndex(npc => npc.id === speaker));
-    const voice = germanVoices[castIndex % Math.max(germanVoices.length, 1)];
-    if (!voice) { unavailable(); return; }
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.onend = () => { if (generation === speechGeneration) heard(); };
-    utterance.onstart = () => audioStatus(t('Playing German audio…'));
-    utterance.onerror = unavailable;
-    utterance.lang = 'de-DE'; utterance.voice = voice; utterance.rate = rate;
-    speechSynthesis.speak(utterance);
-  };
-  const path = clipId ? `/audio/dialogue/${clipId}.mp3` : audioReference((findSentence(text) as { audio?: unknown } | undefined)?.audio) ?? audioPaths.get(text);
-  if (path) {
-    const audio = new Audio(path);
-    activeSpeech = audio;
-    audio.playbackRate = rate / 0.82;
-    audio.onplay = () => audioStatus(t('Playing German audio…'));
-    audio.onended = () => { if (generation === speechGeneration) heard(); };
-    audio.onerror = fallback;
-    void audio.play().catch(() => { if (activeSpeech === audio) fallback(); });
-  } else fallback();
+  speech.speak(text, {
+    speaker, clipId, rate,
+    started: () => audioStatus(t('Playing German audio…')),
+    heard: () => { if (run && run === listeningRun && run.index === listeningIndex && run.queue[run.index]?.mode === 'listen' && run.queue[run.index].german === text) { run.audioHeard = true; recordExposure({exerciseId:run.queue[run.index].id}); audioStatus(t('Audio finished. Choose your answer, or listen again.')); } },
+    unavailable: () => {
+      toast(t('The audio couldn’t play. You can use the transcript and try it again.'));
+      if (run && run === listeningRun && run.index === listeningIndex) { run.audioHeard = false; run.hinted = true; const transcript = document.querySelector<HTMLElement>('#transcript'); if (transcript) { transcript.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } }
+    },
+  });
 }
-let audioContext: AudioContext | undefined;
-function playCue(correct: boolean) {
-  if (muted || silentMode) return;
-  try {
-    audioContext ??= new AudioContext();
-    void audioContext.resume();
-    const now = audioContext.currentTime;
-    (correct ? [523.25, 659.25, 783.99] : [329.63, 293.66]).forEach((freq, i) => {
-      const osc = audioContext!.createOscillator(), gain = audioContext!.createGain();
-      osc.type = 'sine'; osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0, now + i * 0.09); gain.gain.linearRampToValueAtTime(0.06, now + i * 0.09 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.35);
-      osc.connect(gain); gain.connect(audioContext!.destination); osc.start(now + i * 0.09); osc.stop(now + i * 0.09 + 0.4);
-    });
-  } catch { /* Audio stays optional when the device blocks it. */ }
-}
+function playCue(correct: boolean) { speech.cue(correct); }
 /** Admins edit the town in place; the game keeps running. */
 function startWorldEdit(): void {
   if (worldEdit || account.admin !== true || !started) return;
@@ -1922,7 +1948,7 @@ function bindGlobalEvents() {
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); continueDestination(); break;
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))); break;
       case 'close-dialog': interiorConversation=undefined;wordDetailReturn=undefined;cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); pendingDestination = undefined; pendingExpeditionGame = undefined; break;
-      case 'manage-access': if(accessClock.snapshot(performance.now())?.phase==='paid')showBillingAccount();else if(account.registered)showPaywall();else showSaveAccount();break;
+      case 'manage-access': if(accessClock.snapshot(performance.now())?.phase==='paid')accessSession.showBillingAccount();else if(account.registered)accessSession.showPaywall();else showSaveAccount();break;
       case 'course-help': openDialog(`<div class="help-dialog"><h2>${t('Learning routes')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
       case 'journal-help': openDialog(`<div class="help-dialog"><h2>${t('Your words')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
       case 'begin-exercises': renderExercise(); break;
@@ -1945,7 +1971,7 @@ function bindGlobalEvents() {
       case 'save-account': showSaveAccount(); break;
       case 'login-account': showLogin(); break;
       case 'logout-account': showLogout(); break;
-      case 'reset-game': showResetGame(); break;
+      case 'reset-game': accessSession.showResetGame(); break;
       case 'sound': muted = !muted; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted });  if (!muted) playCue(true); if (view === 'settings') renderOther(); break;
     }
   });
@@ -1956,242 +1982,16 @@ function bindGlobalEvents() {
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { cancelRun(); pendingDestination = undefined; dialog.close(); }
   });
-  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { interiorLoading++; interiorConversation = undefined; wordDetailReturn = undefined; document.querySelector('#game-shell')!.classList.remove('encounter-open'); syncWorldMode(); placementController?.destroy(); placementController = undefined; cancelRun(); miniGameLoading++; miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined; activityLoading++; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } if(view==='world')document.querySelector<HTMLElement>('#world-container')?.focus({preventScroll:true}); } });
+  const closeInvalidated = trackDialogClose(document.querySelector<HTMLDialogElement>('#dialog')!, dialogSession);
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('close', () => { const invalidated = closeInvalidated(); if (!document.querySelector<HTMLDialogElement>('#dialog')!.open) { if (!invalidated) dialogSession.invalidate(); interiorConversation = undefined; wordDetailReturn = undefined; document.querySelector('#game-shell')!.classList.remove('encounter-open'); syncWorldMode(); placementController?.destroy(); placementController = undefined; cancelRun(); miniGameController?.destroy(); miniGameController=undefined; miniGameHost?.destroy(); miniGameHost=undefined; activityController?.destroy(); activityController = undefined; if (!questController?.isOpen) { world.setConversationTarget(undefined); stopSpeech(); } if(view==='world')document.querySelector<HTMLElement>('#world-container')?.focus({preventScroll:true}); } });
   const menu = document.querySelector<HTMLDialogElement>('#menu-layer')!;
   menu.addEventListener('close', () => { if (!menu.open && view !== 'world') setView('world'); });
   menu.addEventListener('click', event => { if (event.target === menu) setView('world'); });
 }
 
-function accessIsActive(): boolean {
-  return started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now()));
-}
-async function sendAccessHeartbeat(active: boolean): Promise<void> {
-  if (uiCheckSurface || !started || activeCourse?.target && activeCourse.target !== 'de') return;
-  if (accessHeartbeatBusy) { pendingAccessHeartbeat = active; return; }
-  accessHeartbeatBusy = true;
-  accessHeartbeatAt = performance.now();
-  try { await api.accessHeartbeat(active); }
-  catch { /* Keep the last server allowance; the local boundary still blocks play. */ }
-  finally {
-    accessHeartbeatBusy = false;
-    const pending = pendingAccessHeartbeat;
-    pendingAccessHeartbeat = undefined;
-    if (pending !== undefined && pending !== active) void sendAccessHeartbeat(pending);
-  }
-}
-function syncAccessActivity(): void {
-  if (uiCheckSurface || !started || accessResetting) return;
-  if (activeCourse?.target && activeCourse.target !== 'de') {
-    accessClock.setActive(!document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open && !accessBlocked(accessClock.snapshot(performance.now())), performance.now());
-    return;
-  }
-  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  const paused = document.hidden || dialog.open || accessBlocked(accessClock.snapshot(performance.now()));
-  // A closed world socket releases the server's active-play lease.
-  if (paused && !accessConnectionPaused) { accessConnectionPaused = true; api.destroy(); }
-  else if (!paused && accessConnectionPaused) { accessConnectionPaused = false; api.connect(); }
-  const active = accessIsActive();
-  accessClock.setActive(active, performance.now());
-  if (active !== accessWasActive) { accessWasActive = active; void sendAccessHeartbeat(active); }
-}
-function updateAccessHud(): void {
-  const hud = document.querySelector<HTMLElement>('#access-hud');
-  if (!hud) return;
-  const access = accessClock.snapshot(performance.now());
-  const paid = access?.phase === 'paid';
-  hud.hidden = !started || !access || paid || access.phase === 'free' || (!referralAvailable(access) && access.remainingSeconds > 60);
-  hud.dataset.phase = access?.phase ?? 'checking';
-  document.querySelector('#access-label')!.textContent = paid ? 'Unlimited play' : access?.registered ? 'Free trial left' : 'Guest play left';
-  const time = document.querySelector('#access-time')!;
-  time.textContent = paid ? access.plan === 'complimentary' ? 'Complimentary' : access.plan === 'lifetime' ? 'Lifetime' : 'Subscribed' : access ? formatAccessTime(access.remainingSeconds) : 'Checking…';
-  time.setAttribute('aria-label', paid ? 'Unlimited game access' : `${access?.registered ? 'Trial' : 'Guest play'} time remaining: ${access ? formatAccessTime(access.remainingSeconds) : 'checking'}`);
-  document.querySelector('#access-button')!.textContent = paid ? 'Manage' : access?.registered ? 'Subscribe' : 'Login';
-  document.querySelector<HTMLButtonElement>('#access-invite')!.hidden = !referralAvailable(access);
-  const courseInvite = document.querySelector<HTMLButtonElement>('[data-course-invite]'); if (courseInvite) courseInvite.hidden = !referralAvailable(access);
-  const referralCount = document.querySelector('#referral-count');
-  if (referralCount) {
-    const count = access?.referralSignups ?? 0;
-    referralCount.textContent = `${count} ${count === 1 ? 'friend has' : 'friends have'} signed up · ${Math.floor((access?.referralBonusSeconds ?? 0) / 60)} extra minutes earned`;
-  }
-}
-function applyAccess(access: GameAccess): void {
-  const previousBonus = accessClock.snapshot(performance.now())?.referralBonusSeconds ?? 0;
-  accessClock.update(access, performance.now());
-  updateAccessHud();
-  if (uiCheckSurface || !started || accessResetting) return;
-  if ((access.referralBonusSeconds ?? 0) > previousBonus) toast(`${Math.floor(((access.referralBonusSeconds ?? 0) - previousBonus) / 60)} extra minutes added. Your friend signed up!`);
-
-  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  if (!accessBlocked(access) && dialog.open && dialog.dataset.accessWall === 'required') dialog.close();
-  enforceAccessWall(); syncAccessActivity(); syncWorldMode();
-}
-function enforceAccessWall(): void {
-  if (!started) return;
-  const access = accessClock.snapshot(performance.now());
-  if (!accessBlocked(access)) return;
-  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  if (dialog.open && dialog.dataset.accessWall === 'required' && dialog.dataset.accessPhase === (access?.phase ?? 'checking')) return;
-  if (access?.phase === 'payment_required') showPaywall(true);
-  else if (access?.phase === 'login_required') showSaveAccount(true);
-  else {
-    showAccountDialog(`<h2 id="account-title">Checking your play time…</h2><p>Your adventure will continue when your saved allowance is confirmed.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button" id="access-retry">Try again</button>`, true);
-    document.querySelector<HTMLButtonElement>('#access-retry')!.onclick = () => { void api.access().catch(accountError); };
-    void api.access().catch(accountError);
-  }
-}
-function showResetGame(): void {
-  const access = accessClock.snapshot(performance.now());
-  const required = accessBlocked(access);
-  const free = access?.phase === 'free';
-  showAccountDialog(`<h2 id="account-title">Reset your game?</h2><p>Starting over deletes all quests, XP, learned words, practice results and story saves. Your character, account and any paid access stay the same. ${free ? 'You return to the beginning with unlimited free play.' : 'You return to the beginning with 15 free minutes.'}</p>${free ? '' : '<p>You can start over for another 15 minutes as often as you like.</p>'}<p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button reset-progress-button" id="game-reset-confirm">${free ? 'Reset game' : 'Reset game &amp; play 15 minutes'}</button><button type="button" class="text-button" id="game-reset-back">Keep my progress</button>`, required);
-  document.querySelector<HTMLButtonElement>('#game-reset-back')!.onclick = () => {
-    if (!required) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-    else if (account.registered) showPaywall(true);
-    else showSaveAccount(true);
-  };
-  document.querySelector<HTMLButtonElement>('#game-reset-confirm')!.onclick = async event => {
-    const button = event.currentTarget as HTMLButtonElement;
-    const back = document.querySelector<HTMLButtonElement>('#game-reset-back')!;
-    button.disabled = true; back.disabled = true;
-    try {
-      accessResetting = true;
-      api.destroy();
-      const result = await api.resetGame();
-      // Activity destruction persists its draft, so dispose it before clearing.
-      activityController?.destroy(); activityController = undefined;
-      miniGameController?.destroy(); miniGameController = undefined;
-      miniGameHost?.destroy(); miniGameHost = undefined;
-      deliveryController?.destroy(); deliveryController = undefined;
-      deliveryHost?.destroy(); deliveryHost = undefined;
-      notifications?.destroy(); notifications = undefined;
-      if (reminderTimer !== undefined) clearInterval(reminderTimer);
-      reminderTimer = undefined; accountReminder = undefined;
-      clearGameProgress(localStorage, result.player.id, result.player.name);
-      location.reload();
-    } catch (error) { accessResetting = false; accountError(error); button.disabled = false; back.disabled = false; }
-  };
-}
-let referralDialogRevision = 0;
-async function showInviteFriend(): Promise<void> {
-  if (!referralAvailable(accessClock.snapshot(performance.now()))) return;
-  const owner = api.selfId;
-  const revision = ++referralDialogRevision;
-  const back = '<button type="button" class="billing-secondary-button" id="referral-back">Back to my adventure</button>';
-  showAccountDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>When a new friend signs up through your link, you get 90 extra minutes of free play. Each new signup counts once, and the bonus adds to your remaining time.</p><p role="status">Getting your invite link…</p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
-  const bindBack = () => { document.querySelector<HTMLButtonElement>('#referral-back')!.onclick = () => { referralDialogRevision++; document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); }; };
-  bindBack();
-  try {
-    const result = await api.referralLink();
-    const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-    if (revision !== referralDialogRevision || owner !== api.selfId || !dialog.open || !dialog.querySelector('#referral-panel')) return;
-    const url = new URL(result.url);
-    if (url.username || url.password || (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname)))) throw new Error('Your invite link could not load. Please try again.');
-    showAccountDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>Send your link to a friend. When they create a new account, you get 90 extra minutes of free play—even if your trial has ended by then.</p><label class="form-label" for="referral-url">Your invite link</label><input class="name-input referral-url" id="referral-url" readonly value="${e(url.href)}"/><button type="button" class="primary-button" id="referral-copy">Copy invite link ${icon('check')}</button><p class="referral-status" id="referral-count" role="status"></p><p class="referral-status" id="referral-copy-status" role="status"></p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
-    bindBack(); updateAccessHud();
-    document.querySelector<HTMLButtonElement>('#referral-copy')!.onclick = async () => {
-      const status = document.querySelector<HTMLElement>('#referral-copy-status')!;
-      const input = document.querySelector<HTMLInputElement>('#referral-url')!;
-      let clipboardTimeout: ReturnType<typeof setTimeout> | undefined;
-      try {
-        if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable');
-        await Promise.race([navigator.clipboard.writeText(url.href), new Promise<never>((_, reject) => { clipboardTimeout = setTimeout(() => reject(new Error('clipboard unavailable')), 2500); })]);
-        if (status.isConnected) status.textContent = 'Invite link copied. Send it to your friend.';
-      } catch {
-        if (input.isConnected) { input.focus(); input.select(); status.textContent = 'Select and copy the link above to send it to your friend.'; }
-      } finally { if (clipboardTimeout !== undefined) clearTimeout(clipboardTimeout); }
-    };
-  } catch (error) {
-    if (revision === referralDialogRevision && owner === api.selfId && document.querySelector('#referral-panel')) accountError(error);
-  }
-}
-function showFreeAccess(): void {
-  showAccountDialog(`<h2 id="account-title">Enjoy unlimited free play.</h2><p>Your adventure is free to play. There are no time limits or subscriptions.</p><button type="button" class="primary-button" id="free-access-back">Back to my adventure</button>`);
-  document.querySelector<HTMLButtonElement>('#free-access-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-}
-function showPaywall(required = accessClock.snapshot(performance.now())?.phase === 'payment_required', notice = ''): void {
-  const access = accessClock.snapshot(performance.now());
-  if (access?.phase === 'free') { showFreeAccess(); return; }
-  if (!access?.registered) { showSaveAccount(access?.phase === 'login_required', true); return; }
-  if (access.phase === 'paid') { showBillingAccount(); return; }
-  trackAnalytics('paywall_viewed', required ? 'required' : 'optional');
-  showAccountDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'Your free play time is used up. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<span class="caption">/ month</span></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan" data-billing-plan="yearly" ${access.billingAvailable ? '' : 'disabled'}><span>Yearly</span><strong>€9.99<span class="caption">/ year</span></strong><p>Billed yearly. Cancel anytime.</p><b>Subscribe yearly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<span class="caption">once</span></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><span class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
-
-  document.querySelector('#account-dialog')!.classList.add('billing-dialog');
-  document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
-    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
-    buttons.forEach(item => { item.disabled = true; });
-    try { const result = await api.checkout(button.dataset.billingPlan as BillingPlan); location.assign(billingURL(result.url)); }
-    catch (error) { accountError(error); buttons.forEach(item => { item.disabled = !access.billingAvailable; }); }
-  }; });
-  document.querySelector<HTMLButtonElement>('#billing-reset')!.addEventListener('click', showResetGame);
-  document.querySelector<HTMLButtonElement>('#billing-back')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
-  document.querySelector<HTMLButtonElement>('#billing-check')!.onclick = () => void verifyBilling();
-}
-async function verifyBilling(attempt = 0, revision = ++billingVerificationRevision): Promise<void> {
-  if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer);
-  const access = accessClock.snapshot(performance.now());
-  if (access?.phase === 'free') { showFreeAccess(); return; }
-  if (attempt === 0) showAccountDialog(`<h2 id="account-title">Confirming your payment…</h2><p role="status">We’re checking your payment with Creem. Your progress is saved.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="billing-secondary-button" id="billing-verification-back">${accessBlocked(access) ? 'Back to plans' : 'Back to my adventure'}</button>`, accessBlocked(access));
-  document.querySelector<HTMLButtonElement>('#billing-verification-back')!.onclick = () => {
-    billingVerificationRevision++;
-    if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer);
-    billingVerificationTimer = undefined;
-    if (accessBlocked(accessClock.snapshot(performance.now()))) showPaywall();
-    else document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-  };
-  try {
-    const result = await api.syncBilling();
-    if (revision !== billingVerificationRevision) return;
-    if (result.access.phase === 'paid') {
-      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-      toast('Payment confirmed. Your adventure is ready to continue.');
-      if (!activeCourse) location.reload();
-      return;
-    }
-    if (attempt < 11) { billingVerificationTimer = window.setTimeout(() => void verifyBilling(attempt + 1, revision), 2500); return; }
-    showPaywall(undefined, 'Your payment is still processing. Check payment status again in a moment.');
-  } catch (error) { if (revision === billingVerificationRevision) showPaywall(undefined, error instanceof Error ? error.message : 'Could not check payment. Please try again.'); }
-}
-function showBillingAccount(): void {
-  const access = accessClock.snapshot(performance.now());
-  if (access?.plan === 'complimentary') {
-    showAccountDialog('<h2 id="account-title">Complimentary access is active.</h2><p>Your account has unlimited play through a support grant. Contact support for details about its duration.</p><button type="button" class="primary-button" id="complimentary-back">Back to my adventure</button>');
-    document.querySelector<HTMLButtonElement>('#complimentary-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-    return;
-  }
-  showAccountDialog(`<h2 id="account-title">${access?.plan === 'lifetime' ? 'Lifetime access is yours.' : 'Your subscription is active.'}</h2><p>Enjoy unlimited play. Manage your ${access?.plan === 'lifetime' ? 'purchase and receipts' : 'subscription, payment details and cancellation'} securely with Creem.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button" id="billing-portal">Open billing portal ${icon('arrow')}</button><button type="button" class="billing-secondary-button" id="billing-account-back">Back to my adventure</button>`);
-  document.querySelector<HTMLButtonElement>('#billing-account-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-  document.querySelector<HTMLButtonElement>('#billing-portal')!.onclick = async event => {
-    const button = event.currentTarget as HTMLButtonElement;
-    button.disabled = true;
-    try { const result = await api.billingPortal(); location.assign(billingURL(result.url)); }
-    catch (error) { accountError(error); button.disabled = false; }
-  };
-}
-function showAccountDialog(html: string, required = false) {
-  if (account.admin) html += '<a class="text-button" href="/admin.html" target="_blank" rel="noopener">Open Admin</a>';
-  const dialog = document.querySelector<HTMLDialogElement>('#account-dialog')!;
-  if(!dialog.open){
-    accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
-    activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
-    if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;}
-  }
-  dialog.innerHTML = brandMarkup + html;
-  dialog.dataset.accessWall = required ? 'required' : '';
-  dialog.dataset.accessPhase = required ? accessClock.snapshot(performance.now())?.phase ?? 'checking' : '';
-  dialog.classList.remove('billing-dialog');
-  if (!dialog.open) dialog.showModal();
-  syncAccessActivity();
-  syncWorldMode();
-  accountReminder?.tick(performance.now(), false);
-}
-function accountError(error: unknown) {
-  if (import.meta.env.DEV) console.error(error);
-  document.querySelector<HTMLElement>('#account-error')!.textContent = error instanceof Error ? error.message : t('Please try again.');
-}
 function showLanguageEntry(restoreName = false, initialLanguage = entryLanguageSelection ?? baseLanguage()) {
   entryLanguage = undefined;
-  showAccountDialog('');
+  accessSession.showDialog('');
   mountLanguageOnboarding(document.querySelector<HTMLDialogElement>('#account-dialog')!, {
     initialLanguage, initialLearningLanguage: entryTarget,
     onConfirm: languages => {
@@ -2223,7 +2023,7 @@ function reconcileBaseLanguage(result: SessionResult): boolean {
     return false;
   }
   if (result.preferences.baseLanguage === baseLanguage()) return false;
-  void setBaseLanguage(result.preferences.baseLanguage).then(() => window.location.reload());
+  void setBaseLanguage(result.preferences.baseLanguage).then(() => window.location.reload()).catch(error => toast((error as Error).message, true));
   return true;
 }
 function showNameEntry(restoreName = false) {
@@ -2231,7 +2031,7 @@ function showNameEntry(restoreName = false) {
   try { typed = sessionStorage.getItem('atlas.entryName'); sessionStorage.removeItem('atlas.entryName'); } catch { /* Optional convenience only. */ }
   const selected = entryDraft?.name ?? (typed?.trim() ? typed.trim().slice(0, 24) : restoreName ? profile.name : entryNames[0]);
   const suggestions = entryNames.includes(selected) ? entryNames : [selected, ...entryNames.slice(0, 3)];
-  showAccountDialog(`${onboardingStepsMarkup(2)}<h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage(), entryTarget)}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><span id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</span>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
+  accessSession.showDialog(`${onboardingStepsMarkup(2)}<h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage(), entryTarget)}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><span id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</span>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
   const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
   const input = document.querySelector<HTMLInputElement>('#entry-name')!;
   const getAvatar = bindCharacterBuilder(form, entryDraft?.avatar ?? profile.avatar);
@@ -2267,7 +2067,7 @@ function showNameEntry(restoreName = false) {
       if (result.preferences.baseLanguage !== baseLanguage()) result = { ...result, preferences: await api.savePreferences({ baseLanguage: baseLanguage() }) };
       localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
       if (await enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-    } catch (error) { accountError(error); }
+    } catch (error) { accessSession.showError(error); }
     finally {
       button.disabled = false; button.innerHTML = `${t('Start my adventure')} ${icon('arrow')}`;
       document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = false;
@@ -2286,13 +2086,13 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   if (params.get('billing') === 'success') {
     for (const key of ['billing', 'checkout_id', 'order_id', 'customer_id', 'subscription_id', 'product_id', 'request_id', 'signature']) params.delete(key);
     history.replaceState(null, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
-    queueMicrotask(() => void verifyBilling());
+    queueMicrotask(() => void accessSession.verifyBilling());
   }
 
   if (result.access && accessBlocked(result.access)) {
     started = true; account = result.account; profile = { name: result.player.name, avatar: result.player.avatar };
     acceptProgress(result.progress, result.player.id); accessClock.update(result.access, performance.now());
-    if (result.access.phase === 'login_required') showSaveAccount(true); else showPaywall();
+    if (result.access.phase === 'login_required') showSaveAccount(true); else accessSession.showPaywall();
     return false;
   }
   await loadServerContent(result);
@@ -2302,7 +2102,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
     document.querySelector<HTMLElement>('#game-shell')!.hidden = true; world.destroy();
     document.body.classList.add('course-player-mode');
     const host = document.createElement('main'); host.className = 'course-player'; document.body.append(host);
-    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? showPaywall(false) : showSaveAccount(), onInvite: () => void showInviteFriend(), canInvite: () => referralAvailable(accessClock.snapshot(performance.now())), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
+    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) accessSession.showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? accessSession.showPaywall(false) : showSaveAccount(), onInvite: () => void accessSession.showInviteFriend(), canInvite: () => referralAvailable(accessClock.snapshot(performance.now())), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
     return true;
   }
   if (reconcileBaseLanguage(result)) return false;
@@ -2322,8 +2122,8 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   updateSelfPortraits(document, profile.avatar);
   api.mapId = firstAvailableMap(api.mapId, progress.completedQuestIds);
   if (result.access) accessClock.update(result.access, performance.now());
-  accessConnectionPaused = true;
-  updateProgress(); updateAccessHud();
+  accessSession.connectionPaused = true;
+  updateProgress(); accessSession.updateHud();
   void sendHeartbeat(0);
   void loadCourse().catch(error => toast(error.message, true));
   const owner = result.player.id;
@@ -2336,20 +2136,20 @@ async function enterGame(result: SessionResult): Promise<boolean> {
     const active = !document.hidden && connection === 'online' && !dialog.open;
     accountReminder!.tick(performance.now(), active);
     if (intakeClock.tick(performance.now(), active)) void sendHeartbeat(intakeClock.consume());
-    syncAccessActivity(); updateAccessHud(); enforceAccessWall();
-    if (performance.now() - accessHeartbeatAt >= 10000) void sendAccessHeartbeat(accessIsActive());
+    accessSession.syncActivity(); accessSession.updateHud(); accessSession.enforceWall();
+    if (accessSession.heartbeatDue(performance.now())) void accessSession.sendHeartbeat(accessSession.isActive());
   }, 1000);
-  queueMicrotask(() => { enforceAccessWall(); syncAccessActivity(); });
+  queueMicrotask(() => { accessSession.enforceWall(); accessSession.syncActivity(); });
   return true;
 }
 function showSaveAccount(required = accessClock.snapshot(performance.now())?.phase === 'login_required', subscribeAfter = false) {
   if (!started || account.registered) return;
   const allowance = accessClock.snapshot(performance.now());
   if (allowance?.phase === 'free') required = false;
-  showAccountDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${allowance?.phase === 'free' ? 'Keep your character and progress on every device. Playing is free with no time limit; creating an account is optional.' : required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 900 ? ` and play for ${Math.ceil((900 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 15 free minutes.` : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 15 free minutes as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
+  accessSession.showDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${allowance?.phase === 'free' ? 'Keep your character and progress on every device. Playing is free with no time limit; creating an account is optional.' : required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 900 ? ` and play for ${Math.ceil((900 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 15 free minutes.` : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 15 free minutes as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
   document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
   if (allowance?.phase !== 'free' && pendingReferral(localStorage)) document.querySelector('#save-account-form')!.insertAdjacentHTML('beforebegin', '<p class="referral-status">Your signup gives the friend who invited you 90 extra minutes of free play.</p>');
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGame);
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', accessSession.showResetGame);
 
   document.querySelector<HTMLButtonElement>('#account-later')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
   const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
@@ -2369,15 +2169,15 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
       if (!account.access) await api.access();
       if (!activeCourse) { location.reload(); return; }
       document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-      if (subscribeAfter) showPaywall();
+      if (subscribeAfter) accessSession.showPaywall();
       if (view === 'settings') renderOther();
       toast(t('Saved, {name}. Use your email and password to log in on another device.', { name: profile.name }));
-    } catch (error) { accountError(error); }
+    } catch (error) { accessSession.showError(error); }
     finally { button.disabled = false; }
   };
 }
 function showLogout() {
-  showAccountDialog(`<h2 id="account-title">${t('Log out?')}</h2><p>${account.registered ? t('Your adventure is saved. Log in with your email and password to continue later.') : t('This guest adventure has no email or password. If you log out, you cannot return to this character. Save your adventure first to keep your progress.')}</p><p id="account-error" class="account-error" role="alert"></p>${!account.registered ? `<button class="primary-button" id="logout-save">${t('Save my adventure')}</button>` : ''}<button class="${account.registered ? 'primary-button' : 'text-button'}" id="logout-confirm">${account.registered ? t('Log out') : t('Log out without saving')}</button><button class="text-button" id="logout-cancel">${t('Back to my adventure')}</button>`);
+  accessSession.showDialog(`<h2 id="account-title">${t('Log out?')}</h2><p>${account.registered ? t('Your adventure is saved. Log in with your email and password to continue later.') : t('This guest adventure has no email or password. If you log out, you cannot return to this character. Save your adventure first to keep your progress.')}</p><p id="account-error" class="account-error" role="alert"></p>${!account.registered ? `<button class="primary-button" id="logout-save">${t('Save my adventure')}</button>` : ''}<button class="${account.registered ? 'primary-button' : 'text-button'}" id="logout-confirm">${account.registered ? t('Log out') : t('Log out without saving')}</button><button class="text-button" id="logout-cancel">${t('Back to my adventure')}</button>`);
   document.querySelector<HTMLButtonElement>('#logout-save')?.addEventListener('click', () => showSaveAccount());
   const cancel = document.querySelector<HTMLButtonElement>('#logout-cancel')!;
   cancel.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
@@ -2386,20 +2186,20 @@ function showLogout() {
     button.disabled = true;
     cancel.disabled = true;
     try { await api.logout(); location.reload(); }
-    catch { accountError(new Error(t('Could not log out. Check your connection and try again.'))); button.disabled = false; cancel.disabled = false; }
+    catch { accessSession.showError(new Error(t('Could not log out. Check your connection and try again.'))); button.disabled = false; cancel.disabled = false; }
   };
 }
 
 function showLogin() {
   const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
-  showAccountDialog(`<h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
+  accessSession.showDialog(`<h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
   document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => {
     if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     else if (entryLanguage) showNameEntry(!!api.token);
     else showLanguageEntry(!!api.token);
   });
   document.querySelector<HTMLButtonElement>('#login-signup')?.addEventListener('click', () => showSaveAccount(required));
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', showResetGame);
+  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', accessSession.showResetGame);
   const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
   form.onsubmit = async event => {
     event.preventDefault();
@@ -2410,7 +2210,7 @@ function showLogin() {
       localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
       // Restart the UI so in-flight learning responses cannot cross account owners.
       location.reload();
-    } catch (error) { accountError(error); button.disabled = false; }
+    } catch (error) { accessSession.showError(error); button.disabled = false; }
   };
 }
 
@@ -2428,7 +2228,7 @@ async function openUiCheck(surface: string) {
   started=true; connection='online';
   accessClock.update({phase:'paid',remainingSeconds:0,playedSeconds:600,registered:true,billingAvailable:false,plan:'lifetime'},performance.now());
   profile.name='Wanderer';
-  updateProgress();updateAccessHud();
+  updateProgress();accessSession.updateHud();
   if(surface==='home')setView('menu');
   else if(surface==='options')setView('settings');
   else if(surface==='character')setView('character');
@@ -2468,7 +2268,7 @@ async function boot() {
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
   if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
-  api.onAccess = applyAccess;
+  api.onAccess = accessSession.apply;
   let refreshWorld:Promise<void>|undefined;
   const refreshPublishedWorld=():Promise<void>=>refreshWorld??=(async()=>{
     const previous=sceneContentVersion;
@@ -2512,13 +2312,16 @@ async function boot() {
   api.onStatus = value => {
     connection = value;
     if (value !== 'online' && pendingMap) {
-      pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined;
+      // The server never confirmed the trip: stay here, drop its arrival beat and say so.
+      const destination = getMap(pendingMap).name;
+      pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; pendingTravelBeat = false;
+      toast(t('The connection dropped, so the journey to {place} was cancelled. Try again once you are reconnected.', { place: destination }), true);
     }
-    syncAccessActivity(); syncWorldMode();
+    accessSession.syncActivity(); syncWorldMode();
     updateConnection();
   };
-  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; syncWorldMode(); } toast(message, true); };
-  showAccountDialog(`<h2 id="account-title">${t('Opening your adventure…')}</h2><p role="status">${t('Checking for your saved character.')}</p>`);
+  api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; pendingTravelBeat = false; syncWorldMode(); } toast(message, true); };
+  accessSession.showDialog(`<h2 id="account-title">${t('Opening your adventure…')}</h2><p role="status">${t('Checking for your saved character.')}</p>`);
   try {
     const result = await api.resume();
     if (result) {
@@ -2542,8 +2345,8 @@ function updateConnection() {
   close.querySelector('.connection-dot')?.remove();
   if (connection !== 'online') close.insertAdjacentHTML('beforeend', `<span class="connection-dot" role="status" aria-label="${e(connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting'))}"></span>`);
 }
-document.addEventListener('visibilitychange', () => { syncAccessActivity(); updateAccessHud(); void sendAccessHeartbeat(accessIsActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+document.addEventListener('visibilitychange', () => { accessSession.syncActivity(); accessSession.updateHud(); void accessSession.sendHeartbeat(accessSession.isActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
+window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accessSession.destroy(); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();
 
 mountSupportBanner();

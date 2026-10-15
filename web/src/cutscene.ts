@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import { cinematicBeats,type CutsceneKind,type CameraBeat,type Beat } from './cinematic-content';
 export {cinematicBeats,type CutsceneKind,type CameraBeat} from './cinematic-content';
+/** Whether a story beat was shown. A skipped beat (no town to show it over) has not been seen. */
+export type CutsceneOutcome='played'|'skipped';
 import { baseLanguage, localizedName, translatedText } from './i18n';
 
 /** A real transparent Phaser scene above the live world; keyboard/click skippable. */
@@ -17,11 +19,13 @@ export class CutsceneScene extends Phaser.Scene {
   private finish?: () => void;
   private kind:CutsceneKind='arrival';
   constructor(private cameraBeat: (beat: CameraBeat | undefined) => void,private voice?:(speaker:string,german:string,clipId:string)=>void) { super({ key: 'cinematic' }); }
-  create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;complete:()=>void}) {
+  /** Reduced motion keeps the story: lines appear whole, the camera cuts instead of panning and no train passes. */
+  private reduced=false;
+  create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;reduced?:boolean;complete:()=>void}) {
     this.beats = cinematicBeats(data.kind,data.mapId,data.ending); this.index = 0; this.finish = data.complete;
-    this.kind=data.kind;
+    this.kind=data.kind; this.reduced=!!data.reduced;
     const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
-    if(['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
+    if(!this.reduced&&['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
       const train=this.add.image(-width*.4,height*.52,'greenhouse-train').setDisplaySize(width*.92,width*.92*1024/1536);
       this.tweens.add({targets:train,x:width*1.4,duration:data.kind==='arrival'?6000:3000,ease:'Sine.easeInOut'});
     }
@@ -44,7 +48,8 @@ export class CutsceneScene extends Phaser.Scene {
     this.subtitle?.setText(translatedText({german:beat.german,english:''})??'');this.cameraBeat(beat);
     this.voice?.(beat.speaker.toLowerCase(),beat.german,beat.clipId??`cinematic-${this.kind}-${this.index}`);
     let shown=0;
-    this.typing=this.time.addEvent({delay:25,repeat:Math.max(0,beat.german.length-1),callback:()=>this.line?.setText(beat.german.slice(0,++shown))});
+    if(this.reduced)this.line?.setText(beat.german);
+    else this.typing=this.time.addEvent({delay:25,repeat:Math.max(0,beat.german.length-1),callback:()=>this.line?.setText(beat.german.slice(0,++shown))});
     this.advance=this.time.delayedCall(beat.seconds*1000,()=>this.next());
   }
   private next() { if(++this.index>=this.beats.length)this.complete();else this.present(); }

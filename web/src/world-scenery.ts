@@ -38,6 +38,8 @@ interface SceneryLayer {
   foundation?:BuildingFoundation|SceneryContact;
 }
 const noCircles:readonly OcclusionCircle[]=[];
+/** Shared "nobody behind this" result. Never pushed to: a match replaces it with a fresh array first. */
+const noCovered:OcclusionCharacter[]=[];
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
 export interface LampLight { x:number;y:number;footY:number;width:number; }
 export type SceneryOcclusionFactory=(scene:Phaser.Scene,sprite:Phaser.GameObjects.Sprite)=>SceneryOcclusionController|undefined;
@@ -303,8 +305,11 @@ export class WorldScenery {
       item.visible=visible;
       item.foundation?.setVisible(visible&&this.groundContactVisible);
       // Reject distant bodies before evaluating the local wall boundary.
-      const covered=visible?characters.filter(character=>isCharacterOccluded(character,item.bounds,Infinity)
-        &&item.depthAt(character.x)>character.depth):[];
+      let covered:OcclusionCharacter[]=noCovered;
+      if(visible)for(const character of characters)if(isCharacterOccluded(character,item.bounds,Infinity)&&item.depthAt(character.x)>character.depth){
+        if(covered===noCovered)covered=[];
+        covered.push(character);
+      }
       item.circles=visible&&(covered.length||item.circles.length)?updateOcclusion(item.circles,covered,seconds,this.reducedMotion):noCircles;
       for(const part of parts){
         const partVisible=visible&&(!part.foundationSurface||this.groundContactVisible);

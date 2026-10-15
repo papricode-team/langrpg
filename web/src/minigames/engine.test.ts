@@ -10,7 +10,7 @@ import { miniGameDefinitions } from './catalogue';
 import { loadMiniGame } from './index';
 import type { GameItem, MiniGameDefinition, MiniGameHost, MiniGameOptions, RoundResult } from './types';
 
-const scene = vi.hoisted(() => ({feedback:vi.fn(),pause:vi.fn(),resume:vi.fn(),destroy:vi.fn()}));
+const scene = vi.hoisted(() => ({feedback:vi.fn(),pause:vi.fn(),resume:vi.fn(),destroy:vi.fn()} as {feedback:()=>void;pause:()=>void;resume:()=>void;destroy:()=>void;onFrame?:(callback:(now:number)=>void)=>()=>void}));
 vi.mock('./scene',()=>({mountMiniGameScene:()=>scene}));
 let frames:Map<number,FrameRequestCallback>,frameId:number,games:RetrievalGame[];
 const flush=async()=>{for(let index=0;index<32;index++)await Promise.resolve();};
@@ -257,11 +257,48 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     expect(submit.mock.calls[0][0].hinted).toBe(false);expect(submit.mock.calls[3][0].hinted).toBe(true);
   });
 
-  it('allows an in-flight answer to settle after destroy without rebuilding UI or ending the session',async()=>{
+  it('reports a closed round once and lets an in-flight answer settle after destroy without rebuilding UI',async()=>{
     let resolve!:(value:AttemptResult)=>void;const submit=vi.fn((result:RoundResult)=>{void result;return new Promise<AttemptResult>(done=>{resolve=done;});});
     const {root,host,game,start,choose}=setup('departure-board',{submit},{},{modalities:['recognition']});await start();choose('Kaffee');
-    game.destroy();const closedMarkup=root.innerHTML;resolve(receipt(submit.mock.calls[0][0]));await flush();await advance(2000);
-    expect(root.innerHTML).toBe(closedMarkup);expect(scene.feedback).not.toHaveBeenCalled();expect(host.end).not.toHaveBeenCalled();
+    game.destroy();const closedMarkup=root.innerHTML;
+    // The answer was still saving when the round closed, so the summary does not count it.
+    expect(host.end).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({attempts:0,correct:0}));
+    resolve(receipt(submit.mock.calls[0][0]));await flush();await advance(2000);
+    expect(root.innerHTML).toBe(closedMarkup);expect(scene.feedback).not.toHaveBeenCalled();expect(host.end).toHaveBeenCalledOnce();
+  });
+
+  it('does not report a round that never started, or one already finished, when it is closed',async()=>{
+    const idle=setup('departure-board',{},{},{modalities:['recognition']});idle.game.destroy();expect(idle.host.end).not.toHaveBeenCalled();
+    const done=setup('departure-board',{},{},{modalities:['recognition']});await done.start();done.click('finish');done.game.destroy();
+    expect(done.host.end).toHaveBeenCalledOnce();
+  });
+
+  it('can still finish after a save fails, and says which answers were not counted',async()=>{
+    const submit=vi.fn(async()=>{throw new Error('The town is offline.');});
+    const {root,host,start,choose,click}=setup('departure-board',{submit},{},{modalities:['recognition']});await start();choose('Kaffee');await flush();
+    expect(root.textContent).toContain('The town is offline.');expect(root.querySelector('[data-game-action="save"]')).not.toBeNull();
+    click('finish');
+    expect(host.end).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({attempts:0}));
+    expect(root.textContent).toContain('The ink remembers.');expect(root.textContent).toContain('1 answer could not be saved and was not counted.');
+  });
+
+  it('finishes on time after a failed save instead of waiting for a retry forever',async()=>{
+    const submit=vi.fn(async()=>{throw new Error('The town is offline.');});
+    const {root,host,start,choose}=setup('departure-board',{submit},{},{modalities:['recognition'],seconds:5});await start();choose('Kaffee');await flush();
+    await advance(6000);
+    expect(host.end).toHaveBeenCalledOnce();expect(root.textContent).toContain('could not be saved');
+  });
+
+  it('runs the round clock on the shared mini-game loop when the scene provides one',async()=>{
+    const callbacks=new Set<(now:number)=>void>();
+    scene.onFrame=vi.fn((callback:(now:number)=>void)=>{callbacks.add(callback);return()=>callbacks.delete(callback);});
+    try{
+      const {root,game,start}=setup('departure-board',{},{},{modalities:['recognition'],seconds:30});await start();
+      expect(scene.onFrame).toHaveBeenCalledOnce();expect(callbacks.size).toBe(1);expect(frames.size).toBe(0);
+      for(let step=0;step<20;step++){await vi.advanceTimersByTimeAsync(100);for(const callback of callbacks)callback(performance.now());}
+      expect(root.querySelector('[data-game-time]')?.textContent).toBe('28s');
+      game.destroy();expect(callbacks.size).toBe(0);
+    }finally{delete scene.onFrame;}
   });
 
   it('does not start another cue after a completed round is finished during its feedback delay',async()=>{

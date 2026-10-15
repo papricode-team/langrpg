@@ -28,7 +28,7 @@ import { WorldAtmosphere } from './world-atmosphere';
 import { npcRoutine, residentRoutine, WorldBarkDirector } from './world-routines';
 import { NpcRoutineWalk } from './npc-motion';
 import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
-import type { WorldPeriod } from './world-clock';
+import type { WorldPeriod, WorldTimeState } from './world-clock';
 import { buildingEntrances, type InteriorId } from './interiors';
 import { ExploreScene, clamp, type Character } from './explore-scene';
 import { emitWorld, followWorld, readWorld, SceneKeys, WorldEvents, writeWorld, type WorldLearningContext, type WorldPlayer, type WorldStoryState } from './world-state';
@@ -118,6 +118,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private regionAssets = new WorldMapAssets(this, false);
   private animationAssets = new WorldAnimationAssets(this, false);
   private editController?: WorldEditController;
+  private readonly occlusionList: OcclusionCharacter[] = [];
+  private readonly occlusionPool: OcclusionCharacter[] = [];
 
   constructor() { super({ key: SceneKeys.World }); }
 
@@ -138,6 +140,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.deliveryMarkers = []; this.bark = undefined; this.barkSpeaker = undefined; this.barkUntil = 0;
     this.silhouette = undefined; this.silhouetteLayers = []; this.navigationOverlay = undefined; this.navigationOverlayAt = -Infinity;
     this.entranceTransition = undefined; this.enteringInterior = false; this.mapAnnounced = false;
+    // Bark timing is measured against this run's elapsed time, which init() just reset.
+    this.barkDirector.reset(); this.learning = { lexicon: [], progress: { words: {} } };
     // Loader requests belong to one scene run; a restart abandons the previous batch.
     this.regionAssets = new WorldMapAssets(this, false);
     this.animationAssets = new WorldAnimationAssets(this, false);
@@ -478,14 +482,14 @@ export class WorldScene extends ExploreScene implements EditSurface {
         .setPosition(barkX, this.barkSpeaker.y - 92).setScale(this.labelScale);
       setDepthIfChanged(this.bark, worldDepth(this.worldHeight + 100, 'label'));
     }
-    this.updateWorldTime();
+    const time = this.frameClock ?? this.clock.advance(0);
+    this.updateWorldTime(time);
     this.updateResidents(seconds);
     this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(), seconds);
     this.updateSilhouette();
     this.updateNavigationOverlay();
     this.editController?.update();
-    const hour = this.clock.advance(0).hour;
-    this.atmosphere?.update(this.decorativeElapsed, hour, view, this.reducedMotion,
+    this.atmosphere?.update(this.decorativeElapsed, time.hour, view, this.reducedMotion,
       this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')), this.rainIntensity());
     this.background?.update(view, this.cameras.main.zoom);
     this.previousBackground?.update(view, this.cameras.main.zoom);
@@ -494,8 +498,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   }
 
   /** The shared clock has already advanced this frame; follow its light and period. */
-  private updateWorldTime(): void {
-    const state = this.clock.advance(0);
+  private updateWorldTime(state: WorldTimeState = this.clock.advance(0)): void {
     const ambientStamp = `${Math.round(state.hour * 120)}:${this.period}`;
     if (ambientStamp !== this.lastAmbient) {
       this.lastAmbient = ambientStamp;
@@ -706,6 +709,9 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private updateActivityResidents(): void {
     if (!this.activityWorld) return;
     const samples = this.activityWorld.sample(this.activityTime(), this.weatherMode()), view = this.cameras.main.worldView;
+    // The period's people tint is the same for every resident this frame.
+    let people: number | undefined;
+    const peopleTint = () => people ??= timeAmbient(this.mapSpec.id, this.clock.gameplayHour(), this.period).people;
     const bySpeaker = new Map(samples.map(sample => [sample.residentId, sample]));
     for (const resident of this.activityResidents) {
       const sample = bySpeaker.get(resident.character.id)!; resident.sample = sample;
@@ -722,7 +728,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
         const frame=character.facing*9+(this.reducedMotion?3:poseColumn(sample.phaseSeconds*1000,componentPose.frameDurations));
         if(character.componentPoseSet!==poseSet)character.figure!.setTexture(componentPose.key,frame);
         character.componentPoseSet=poseSet;
-        character.figure!.setFrame(frame).setFlipX(false).setTint(timeAmbient(this.mapSpec.id,this.clock.gameplayHour(),this.period).people);
+        character.figure!.setFrame(frame).setFlipX(false).setTint(peopleTint());
       }else{
         if(character.componentPoseSet){
           character.figure!.setTexture(actor!.key,characterFrame(character.facing)).setPosition(0,0).setFlipX(false);
@@ -736,7 +742,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       resident.actionFigure?.setVisible(!!pose);
       const seatedOffset=pose||componentPose&&poseSet==='seated'?residentSeatedOffset(sample,this.reducedMotion):0;
       if(componentPose)character.figure!.setPosition(0,seatedOffset);
-      if(pose)resident.actionFigure!.setFrame(pose.frame).setPosition(0,seatedOffset).setFlipX(sample.facingLeft??character.facing===3).setTint(timeAmbient(this.mapSpec.id,this.clock.gameplayHour(),this.period).people);
+      if(pose)resident.actionFigure!.setFrame(pose.frame).setPosition(0,seatedOffset).setFlipX(sample.facingLeft??character.facing===3).setTint(peopleTint());
       character.shadow.setPosition(0,2+seatedOffset);
       character.name.setY(((pose||componentPose&&poseSet==='seated')&&sample.seatedOffsetY!==undefined?-62:-79)+seatedOffset);
       const visible = !this.terrainOnly && sample.phase !== 'home' && sample.x >= view.x - 90 && sample.x <= view.right + 90 && sample.y >= view.y - 100 && sample.y <= view.bottom + 100;
@@ -785,14 +791,28 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.atmosphere?.setVisible(!terrainOnly);
   }
 
-  fitCamera(width: number, height: number, density = this.density): void {
-    super.fitCamera(width, height, density);
+  protected applyLabelDensity(density: number): void {
+    super.applyLabelDensity(density);
     this.bark?.setResolution(density);
+    for (const resident of this.activityResidents) resident.speech?.setResolution(density);
   }
 
+  /** Rebuilt every frame into reused records, in the same order as actors(); the scenery copies what it keeps. */
   private occlusionCharacters(): OcclusionCharacter[] {
-    return this.actors().filter(character => character.root.visible)
-      .map(character => ({ id: character.id, x: character.x, y: character.y, depth: character.root.depth, height: character.npc ? 82 : 72 }));
+    const list = this.occlusionList, pool = this.occlusionPool;
+    list.length = 0;
+    const add = (character: Character | undefined) => {
+      if (!character?.root.visible) return;
+      const entry = pool[list.length] ??= { id: '', x: 0, y: 0, depth: 0, height: 0 };
+      entry.id = character.id; entry.x = character.x; entry.y = character.y; entry.depth = character.root.depth; entry.height = character.npc ? 82 : 72;
+      list.push(entry);
+    };
+    add(this.local);
+    for (const character of this.characters.values()) add(character);
+    for (const character of this.peers.values()) add(character);
+    for (const resident of this.residents) add(resident.character);
+    for (const resident of this.activityResidents) add(resident.character);
+    return list;
   }
 
   private updateSilhouette(): void {

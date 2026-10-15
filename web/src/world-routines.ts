@@ -210,7 +210,8 @@ export class WorldBarkDirector {
     if (!bark) {
       const routine = routineBark(context);
       // A routine line full of unrestored words stays unsaid; silence is better than a word firehose.
-      if (context.lineAllowed && !context.lineAllowed(routine.german)) return undefined;
+      // Stamp the attempt too: a rejected line must not re-filter and re-sort the lexicon every frame.
+      if (context.lineAllowed && !context.lineAllowed(routine.german)) { this.lastGlobal = time; return undefined; }
       bark = routine;
     }
     this.lastGlobal = time;
