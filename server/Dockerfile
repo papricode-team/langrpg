@@ -17,7 +17,7 @@ COPY docs/archive/expedition-scenes.json docs/archive/
 RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
 # Keep the validator's dependency closure without bundling the build toolchain.
 # @img contains sharp's platform-specific native libraries selected by npm ci.
-RUN mkdir -p /runtime/node_modules && cp -a node_modules/sharp node_modules/typescript node_modules/@img node_modules/detect-libc node_modules/semver /runtime/node_modules/
+RUN mkdir -p /runtime/node_modules && cp -a node_modules/sharp node_modules/typescript node_modules/@img node_modules/detect-libc node_modules/semver node_modules/polygon-clipping node_modules/earcut node_modules/robust-predicates node_modules/splaytree /runtime/node_modules/
 
 FROM golang:1.26-alpine AS build
 WORKDIR /src

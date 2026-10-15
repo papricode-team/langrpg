@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Terrain material library</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#18211e;color:#edf1e7;font:15px/1.5 system-ui,sans-serif}main{max-width:1440px;margin:auto;padding:40px}h1{font-size:38px;margin:0 0 8px;font-weight:600}p{color:#bdc9bd;max-width:820px}.top{display:flex;justify-content:space-between;gap:30px;align-items:center}button,select{font:inherit;color:inherit;background:#2c3b32;border:1px solid #526451;border-radius:8px;padding:8px 16px}label{display:flex;gap:10px;align-items:center}.badge{font-size:13px;color:#b6d5a9;border:1px solid #526451;border-radius:30px;padding:8px 14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}.card{background:#243028;border:1px solid #415044;border-radius:12px;overflow:hidden}.swatch{height:250px;background-size:250px 250px}.caption{padding:12px 16px}.caption strong{display:block}.caption small{color:#bac5b7}canvas{width:100%;border-radius:12px;display:block;background:#718347}.section{margin:40px 0 14px}.gallery-controls{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}#editor{background:white;color:#243028;min-height:900px}.seams .swatch{background-image:linear-gradient(#ffdc6b80 1px,transparent 1px),linear-gradient(90deg,#ffdc6b80 1px,transparent 1px),var(--texture);background-size:250px 250px} @media(max-width:800px){main{padding:20px}.grid{grid-template-columns:repeat(2,1fr)}.top{display:block}}
+</style><main><div class="top"><div><h1>Ground, without a baked-in world.</h1><p>20 materials. Independent shapes. Seamless repeats. Roads, water, shores and bridges use the same editable geometry for their artwork and collision.</p></div><span class="badge">1152 × 1152 lossless repeat cells</span></div>
+<h2 class="section">One palette, many terrain shapes</h2><canvas id="composition" width="2560" height="1440"></canvas>
+<div class="gallery-controls"><label>Bridge width <input id="bridge" type="range" min="0" max="160" value="70"></label><label>Base material <select id="base"></select></label><label><input id="collision" type="checkbox"> Show blocked water</label></div>
+<h2 class="section">Material library</h2><p>Each card repeats the export. Native source is 1254 × 1254; periodic overlap sampling produces a 1152 × 1152 repeat cell without mirroring or upscaling. Exact edge matches are checked after lossless WebP decoding.</p><button id="scale">Show denser repeats</button><div class="grid" id="gallery"></div></main>
+<script type="module">
+import {terrainMaterials} from '/src/terrain-materials.ts';
+import {paintModularTerrain} from '/src/modular-terrain-renderer.ts';
+import {rectangleSurface,modularTerrainBarriers} from '/src/modular-terrain.ts';
+const gallery=document.querySelector('#gallery'),base=document.querySelector('#base'),images=new Map();
+for(const m of terrainMaterials){gallery.insertAdjacentHTML('beforeend',`<article class="card"><div class="swatch" style="background-image:url('${m.asset}')"></div><div class="caption"><strong>${m.name}</strong><small>${m.group} · ${m.width} × ${m.height}</small></div></article>`);base.insertAdjacentHTML('beforeend',`<option value="${m.id}">${m.name}</option>`);}
+let dense=false;document.querySelector('#scale').onclick=()=>{dense=!dense;document.querySelectorAll('.swatch').forEach(s=>s.style.backgroundSize=dense?'125px 125px':'250px 250px');};
+const canvas=document.querySelector('canvas'),context=canvas.getContext('2d');
+function draw(){const width=Number(document.querySelector('#bridge').value);const terrain={version:1,base:base.value,surfaces:[
+ {id:'shore',material:'sand',polygon:[[620,0],[830,0],[850,180],[750,340],[810,510],[1020,720],[720,720],[560,510],[580,330],[650,170]]},
+ {id:'river',material:'shallow-water',polygon:[[665,0],[790,0],[800,180],[700,340],[760,510],[950,720],[780,720],[615,510],[630,330],[700,170]]},
+ rectangleSurface('plaza','limestone',160,120,290,230),rectangleSurface('road','cobble',0,400,640,70),
+ rectangleSurface('garden','farmland',180,540,280,120),rectangleSurface('gravel','gravel',1040,60,140,360),
+ rectangleSurface('bridge','timber',540,390,390,width),rectangleSurface('village-path','earth',920,390,360,70),
+ {id:'island',material:'moss',polygon:[[680,200],[735,220],[705,265],[670,245]]}
+ ].filter(s=>s.id!=='bridge'||width>0)};
+ context.setTransform(2,0,0,2,0,0);paintModularTerrain(context,terrain,{x:0,y:0,width:1280,height:720},id=>images.get(id));
+ if(document.querySelector('#collision').checked){context.fillStyle='#ed65537a';for(const p of modularTerrainBarriers(terrain,1280,720)){context.beginPath();p.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.closePath();context.fill();}}
+}
+await Promise.all(terrainMaterials.map(async m=>{const img=new Image();img.src=m.asset;await img.decode();images.set(m.id,img);}));draw();window.terrainPreviewReady=true;
+for(const id of ['base','bridge','collision'])document.querySelector('#'+id).oninput=draw;
+</script></html>

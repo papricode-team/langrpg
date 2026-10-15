@@ -128,6 +128,16 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       for (const id of actual) if (!expected.has(id)) report(map, `${kind} ${id} has no authored content`, {ids: [id]});
       for (const id of expected) if (!actual.has(id)) report(map, `missing required ${kind} ${id}; deletion needs a content migration`, {code: 'missing', ids: [id]});
     }
+    if(scene.modularTerrain){
+      const {terrainMaterial}=await import('../web/src/terrain-materials.ts');
+      for(const id of new Set([scene.modularTerrain.base,...scene.modularTerrain.surfaces.map(surface=>surface.material)])){
+        const material=terrainMaterial(id);
+        try{
+          const size=await sharp(resolve(root,'web/public',material.asset.slice(1))).metadata();
+          if(size.width!==material.width||size.height!==material.height||size.width/material.worldSize<4)report(map,`terrain material ${id} must retain its registered high resolution`);
+        }catch{report(map,`missing terrain material ${id}`);}
+      }
+    }
     for (const tile of scene.terrain) {
       if(content&&!tile.walkableMaskAsset)quality_(map,`${tile.id} needs an authored ground mask`);
       const coreX=scene.legacyOffset?.x??0,coreY=scene.legacyOffset?.y??0;
@@ -181,7 +191,7 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
     // Spawn, story targets, doors and activity spots, measured with a full player footprint.
     for (const issue of auditScene(scene, SceneReach.from(scene, new NavigationGrid(geometry.ground,geometry.barriers,scene,{agentRadius:PLAYER_RADIUS}), grid)))
       problems.push(issue.code === 'missing-room' && strictQuality ? {...issue, severity: 'error'} : issue);
-    for(const tile of scene.terrain.filter(tile=>tile.walkableMaskAsset)){
+    for(const tile of (scene.modularTerrain ? [] : scene.terrain.filter(tile=>tile.walkableMaskAsset))){
       try{
         const {data,info}=await sharp(resolve(root,'web/public',tile.walkableMaskAsset.slice(1))).removeAlpha().greyscale().raw().toBuffer({resolveWithObject:true});
         if(info.width!==tile.width||info.height!==tile.height)report(map,`${tile.id} walkable mask must be one pixel per world unit`);

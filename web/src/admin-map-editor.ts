@@ -1,3 +1,4 @@
+import {AdminTerrainEditor} from './admin-terrain-editor';
 /**
  * The Map editor section of the admin area. It edits the published world
  * directly: every change is checked by the server and goes live for players.
@@ -15,7 +16,7 @@ import {WorldEditOverlay} from './world-edit-overlay';
 import {auditScene,roomNames,SceneReach,townName,type WorldProblem} from './world-edit-rules';
 import {WorldEditRequestError,WorldEditSession,type EditResult} from './world-edit-session';
 
-type Tab = 'edit' | 'town' | 'residents' | 'story';
+type Tab = 'terrain' | 'edit' | 'town' | 'residents' | 'story';
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 
 export interface MapEditorHandle { destroy(): void; }
@@ -34,12 +35,13 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     <div class="map-editor"><div class="map-canvas" id="map-canvas" aria-label="Town map. Drag objects to move them. Scroll to zoom. Right-drag or hold Space to pan."></div>
       <aside class="map-panel"><nav class="map-tabs" role="tablist">
         <button type="button" role="tab" data-tab="edit" aria-selected="true">Edit</button>
+        <button type="button" role="tab" data-tab="terrain">Terrain</button>
         <button type="button" role="tab" data-tab="town">Town</button>
         <button type="button" role="tab" data-tab="residents">Residents</button>
         ${options.storyTab ? '<button type="button" role="tab" data-tab="story">Story</button>' : ''}
       </nav>
       <div class="map-tab" data-panel="edit"></div><div class="map-tab" data-panel="town" hidden></div>
-      <div class="map-tab" data-panel="residents" hidden></div><div class="map-tab" data-panel="story" hidden></div>
+      <div class="map-tab" data-panel="terrain" hidden></div><div class="map-tab" data-panel="residents" hidden></div><div class="map-tab" data-panel="story" hidden></div>
       <p class="map-help">Drag to move. Scroll to zoom. Right-drag, Space-drag or WASD to pan. Esc deselects.</p></aside></div>`;
   const query = <T extends HTMLElement>(selector: string) => host.querySelector<T>(selector)!;
   const status = (text: string) => { query('#map-status').textContent = text; };
@@ -67,6 +69,8 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     check();
   });
 
+  const terrainEditor=new AdminTerrainEditor(query('[data-panel="terrain"]'),scene,bridge);
+
   /** Our own accepted edits apply locally when we were up to date; otherwise reload. */
   session.onApplied = (result: EditResult) => {
     if (result.from === sceneContentVersion && applyWorldPatch(result.from, result.contentVersion, result.applied)) { scene.refresh(); afterChange(); }
@@ -74,6 +78,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   };
   const afterChange = () => {
     status(`Published · ${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`);
+    if(tab==='terrain')terrainEditor.refresh();
     if (tab === 'town') renderTown(); else if (tab === 'residents') renderResidents();
   };
   let reloading = false;
@@ -105,6 +110,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     status(`Loading ${townName(id)}…`);
     await scene.show(id, bridge);
     status(`${townName(id)} · changes go live for everyone`);
+    if(tab==='terrain')terrainEditor.refresh();
     if (tab === 'town') renderTown(); else if (tab === 'residents') renderResidents();
   };
 
@@ -140,6 +146,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   // Events -------------------------------------------------------------------------------
   const selectTab = (next: Tab) => {
     tab = next;
+    terrainEditor.setActive(next==='terrain');
     host.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.tab === next)));
     host.querySelectorAll<HTMLElement>('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== next; });
     if (next === 'town') renderTown();
@@ -209,6 +216,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     destroy() {
       destroyed = true;
       window.clearInterval(poll);
+      terrainEditor.destroy();
       session.dispose();
       overlay.destroy();
       game.destroy(true);

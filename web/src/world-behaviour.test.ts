@@ -1,3 +1,4 @@
+import {terrainMaterialKey} from './terrain-materials';
 // @vitest-environment happy-dom
 import './test-support/phaser-dom';
 import { describe, expect, it, vi } from 'vitest';
@@ -26,6 +27,8 @@ const seedActionArt = (game: Phaser.Game, mapId = 'lindenhafen') => {
 };
 /** Preview and detail images for every terrain tile of a period, so streamed terrain can display. */
 const seedTerrain = (game: Phaser.Game, mapId: MapId, period: 'day' | 'night') => {
+  const modular=getWorldScene(mapId).modularTerrain;
+  if(modular)for(const id of new Set([modular.base,...modular.surfaces.map(surface=>surface.material)]))seedTexture(game,terrainMaterialKey(id),[],8,8);
   for (const tile of getWorldScene(mapId).terrain) {
     const detail = sceneTerrainImage(tile, period);
     seedTexture(game, detail.key, [], 8, 8);

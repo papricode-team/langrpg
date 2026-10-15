@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen",
+  "materials": [
+    {
+      "id": "meadow",
+      "name": "Meadow grass",
+      "group": "Ground",
+      "color": "#718347",
+      "detail": "Dense short temperate meadow grass, olive and sage green blades, tiny clover and restrained irregular earthy patches. No flowers or large tufts.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Meadow grass. Dense short temperate meadow grass, olive and sage green blades, tiny clover and restrained irregular earthy patches. No flowers or large tufts.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "meadow.png",
+      "generatedFile": "exec-9c0bb1dc-0284-41e0-9bfb-d1fb1e716faa.png"
+    },
+    {
+      "id": "dry-grass",
+      "name": "Dry grass",
+      "group": "Ground",
+      "color": "#a59a5c",
+      "detail": "Late summer dry grass, straw gold and olive green fine blades, scattered exposed warm earth, understated natural variation.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Dry grass. Late summer dry grass, straw gold and olive green fine blades, scattered exposed warm earth, understated natural variation.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "dry-grass.png",
+      "generatedFile": "exec-8fbc69f1-df2a-4240-a1f5-c8a08ca1994f.png"
+    },
+    {
+      "id": "forest-floor",
+      "name": "Forest floor",
+      "group": "Ground",
+      "color": "#69563b",
+      "detail": "Temperate woodland soil with small tawny oak leaves, pine needles, fine twigs and subdued moss speckles. No large roots, logs or objects.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Forest floor. Temperate woodland soil with small tawny oak leaves, pine needles, fine twigs and subdued moss speckles. No large roots, logs or objects.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "forest-floor.png",
+      "generatedFile": "exec-03e1d9d0-cea2-4848-82df-cab0c9edae1d.png"
+    },
+    {
+      "id": "moss",
+      "name": "Soft moss",
+      "group": "Ground",
+      "color": "#536b38",
+      "detail": "Soft velvety green woodland moss, small cushion patches and delicate tiny fern-like strands, occasional dark earth pinholes.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Soft moss. Soft velvety green woodland moss, small cushion patches and delicate tiny fern-like strands, occasional dark earth pinholes.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "moss.png",
+      "generatedFile": "exec-0991a228-3068-4dda-9bf9-0202b61dee3c.png"
+    },
+    {
+      "id": "earth",
+      "name": "Packed earth",
+      "group": "Paths",
+      "color": "#9c805b",
+      "detail": "Well trodden warm ochre brown compacted earth, fine granular surface with small pale stones, subtle shallow irregularities. No footprints or wheel tracks.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Packed earth. Well trodden warm ochre brown compacted earth, fine granular surface with small pale stones, subtle shallow irregularities. No footprints or wheel tracks.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "earth.png",
+      "generatedFile": "exec-92e5e027-8cf9-4f82-92b3-f171fa5a6b45.png"
+    },
+    {
+      "id": "mud",
+      "name": "Wet mud",
+      "group": "Ground",
+      "color": "#63523f",
+      "detail": "Wet dark brown muddy soil with small satin reflections and minute puddles, granular damp grit, no footprints and no large pools.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Wet mud. Wet dark brown muddy soil with small satin reflections and minute puddles, granular damp grit, no footprints and no large pools.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "mud.png",
+      "generatedFile": "exec-1323160b-3107-4008-854c-88586e4789de.png"
+    },
+    {
+      "id": "gravel",
+      "name": "Gravel path",
+      "group": "Paths",
+      "color": "#9d9987",
+      "detail": "Fine compacted limestone gravel, pale warm grey and beige angular pebbles, natural random distribution of similarly small stones.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Gravel path. Fine compacted limestone gravel, pale warm grey and beige angular pebbles, natural random distribution of similarly small stones.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "gravel.png",
+      "generatedFile": "exec-fbb5bb8e-f13e-4677-9824-7c00aa043510.png"
+    },
+    {
+      "id": "sand",
+      "name": "River sand",
+      "group": "Ground",
+      "color": "#c6b88d",
+      "detail": "Pale warm beige riverbank sand, fine subtle ripple grains, few tiny stones, matte softly mottled sand. No shells, footprints or shoreline.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of River sand. Pale warm beige riverbank sand, fine subtle ripple grains, few tiny stones, matte softly mottled sand. No shells, footprints or shoreline.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "sand.png",
+      "generatedFile": "exec-88b97b55-5926-4e08-bb3d-f025ce246aa5.png"
+    },
+    {
+      "id": "cobble",
+      "name": "Town cobblestone",
+      "group": "Paving",
+      "color": "#aaa18a",
+      "detail": "Historic European street paving, small irregular warm grey and cream rounded cobblestones in loose offset rows, fine dark sand joints, modest wear. No curbs or road markings.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Town cobblestone. Historic European street paving, small irregular warm grey and cream rounded cobblestones in loose offset rows, fine dark sand joints, modest wear. No curbs or road markings.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "cobble.png",
+      "generatedFile": "exec-45e789a8-8dab-4110-ab6a-93812fd2452d.png"
+    },
+    {
+      "id": "limestone",
+      "name": "Limestone plaza",
+      "group": "Paving",
+      "color": "#c8bf9e",
+      "detail": "Warm cream limestone flagstones, medium rectangular slabs in staggered courses, worn softened edges, subtle mineral freckles, narrow beige mortar.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Limestone plaza. Warm cream limestone flagstones, medium rectangular slabs in staggered courses, worn softened edges, subtle mineral freckles, narrow beige mortar.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "limestone.png",
+      "generatedFile": "exec-1d897027-87a4-42ef-b582-275c9448428e.png"
+    },
+    {
+      "id": "slate",
+      "name": "Slate paving",
+      "group": "Paving",
+      "color": "#68757b",
+      "detail": "Cool blue grey slate pavement, medium rectangular flagstones in staggered courses, fine stone cleavage and lightly worn corners, narrow dark joints.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Slate paving. Cool blue grey slate pavement, medium rectangular flagstones in staggered courses, fine stone cleavage and lightly worn corners, narrow dark joints.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "slate.png",
+      "generatedFile": "exec-7fefff09-2d83-4579-a85e-a4aa7053351b.png"
+    },
+    {
+      "id": "brick",
+      "name": "Brick paving",
+      "group": "Paving",
+      "color": "#a16f51",
+      "detail": "Warm terracotta brick courtyard paving in herringbone pattern, softly aged handmade brick, subtle sienna variation, narrow sand joints.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Brick paving. Warm terracotta brick courtyard paving in herringbone pattern, softly aged handmade brick, subtle sienna variation, narrow sand joints.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "source": "brick.png",
+      "generatedFile": "exec-2c1a7498-8370-4ab9-b317-1d90d3a17c7f.png"
+    },
+    {
+      "id": "timber",
+      "name": "Timber boardwalk",
+      "group": "Structures",
+      "color": "#97724e",
+      "detail": "Weathered golden brown wooden boardwalk decking, long parallel horizontal planks, fine natural grain, staggered joins and tiny iron nail heads, narrow dark gaps.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Timber boardwalk. Weathered golden brown wooden boardwalk decking, long parallel horizontal planks, fine natural grain, staggered joins and tiny iron nail heads, narrow dark gaps.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "timber.png",
+      "generatedFile": "exec-76c2585a-d17c-4eaf-af93-2f08cd052d9b.png"
+    },
+    {
+      "id": "rock",
+      "name": "Granite rock",
+      "group": "Structures",
+      "color": "#87867a",
+      "detail": "Exposed weathered grey granite bedrock, subtle irregular fissures, small mineral grains, muted moss in some cracks. Flat continuous bedrock surface, no isolated boulders.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Granite rock. Exposed weathered grey granite bedrock, subtle irregular fissures, small mineral grains, muted moss in some cracks. Flat continuous bedrock surface, no isolated boulders.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "rock.png",
+      "generatedFile": "exec-49fe5581-12d2-45a2-b3d0-f9dfa43c3d54.png"
+    },
+    {
+      "id": "shallow-water",
+      "name": "Shallow water",
+      "group": "Water",
+      "color": "#569f9a",
+      "blocked": true,
+      "detail": "Clear shallow turquoise river water viewed from above, gentle tiny ripples and soft restrained sun caustics, muted sandy hints beneath. Uniform water depth, no shoreline.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Shallow water. Clear shallow turquoise river water viewed from above, gentle tiny ripples and soft restrained sun caustics, muted sandy hints beneath. Uniform water depth, no shoreline.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "shallow-water.png",
+      "generatedFile": "exec-0702318f-cbff-4cfc-9333-716feeadd204.png"
+    },
+    {
+      "id": "deep-water",
+      "name": "Deep water",
+      "group": "Water",
+      "color": "#255f72",
+      "blocked": true,
+      "detail": "Deep cool teal blue harbour water viewed from above, delicate overlapping wavelets, very restrained silvery ripple highlights, calm and readable. No shore, reflections of buildings or boats.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Deep water. Deep cool teal blue harbour water viewed from above, delicate overlapping wavelets, very restrained silvery ripple highlights, calm and readable. No shore, reflections of buildings or boats.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "deep-water.png",
+      "generatedFile": "exec-6d6b6512-3d72-4b8a-8809-3e84b8ad17a8.png"
+    },
+    {
+      "id": "marsh",
+      "name": "Marsh ground",
+      "group": "Ground",
+      "color": "#65724b",
+      "detail": "Damp green brown marsh ground with tiny waterlogged dark soil pockets, low olive moss and flattened small wet grasses. No tall reeds or large pools.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Marsh ground. Damp green brown marsh ground with tiny waterlogged dark soil pockets, low olive moss and flattened small wet grasses. No tall reeds or large pools.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "marsh.png",
+      "generatedFile": "exec-89e92efb-c4de-48af-8d61-6297f4ffcef1.png"
+    },
+    {
+      "id": "snow",
+      "name": "Fresh snow",
+      "group": "Winter",
+      "color": "#dedfd7",
+      "detail": "Fresh soft white snow ground, faint blue grey surface dimples, fine powder crystals and very subtle wind texture. Even snow cover, no footprints or objects.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Fresh snow. Fresh soft white snow ground, faint blue grey surface dimples, fine powder crystals and very subtle wind texture. Even snow cover, no footprints or objects.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "snow.png",
+      "generatedFile": "exec-46056565-fd97-4c9b-979f-ba79b5ffa1cb.png"
+    },
+    {
+      "id": "ice",
+      "name": "Frozen ground",
+      "group": "Winter",
+      "color": "#9db9bd",
+      "detail": "Solid frozen pale blue grey ice surface, fine subtle branching cracks, milky translucent patches, restrained crystalline frost flecks. Flat frozen surface, no open water.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Frozen ground. Solid frozen pale blue grey ice surface, fine subtle branching cracks, milky translucent patches, restrained crystalline frost flecks. Flat frozen surface, no open water.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "ice.png",
+      "generatedFile": "exec-ca7ba196-0fc2-4ce7-9fe5-1a227cf3c9c4.png"
+    },
+    {
+      "id": "farmland",
+      "name": "Tilled soil",
+      "group": "Ground",
+      "color": "#79563a",
+      "detail": "Rich dark brown cultivated garden soil with even parallel horizontal shallow furrows, small earth clods, gently irregular handmade vegetable garden beds. No plants or tools.",
+      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Tilled soil. Rich dark brown cultivated garden soil with even parallel horizontal shallow furrows, small earth clods, gently irregular handmade vegetable garden beds. No plants or tools.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.\nCritical: opposite edges must match seamlessly when repeated horizontally AND vertically.",
+      "source": "farmland.png",
+      "generatedFile": "exec-b55d5596-1b8e-4252-bd9c-8e6db1cd8325.png"
+    }
+  ]
+}

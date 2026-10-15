@@ -136,12 +136,13 @@ test('rejects activity feet, approaches and exits that would require path projec
   }
 });
 
-test('rejects removed water hazards when their terrain masks have not been regenerated',async()=>{
+test('legacy painted terrain rejects removed water hazards until its masks are regenerated',async()=>{
   for(const scene of Object.values(source.maps))for(const tile of scene.terrain){
     assert.ok(tile.walkableMaskAsset,`${scene.id}/${tile.id} needs its traced ground mask`);
   }
   const water=structuredClone(source);
   const scene=water.maps.lindenhafen;
+  delete scene.modularTerrain;
   const waterHazard=scene.navigation.terrainCollision.find(hazard=>hazard.kind==='water');
   assert.ok(waterHazard, 'the water audit needs an authored water blocker');
   scene.navigation.terrainCollision=scene.navigation.terrainCollision.filter(hazard=>hazard!==waterHazard);

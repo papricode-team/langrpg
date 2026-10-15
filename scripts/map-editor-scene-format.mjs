@@ -82,7 +82,8 @@ export function sceneToTiled(mapId, document, {images = {}, imagePath = asset =>
       _ownerSourceWidth:owner.width,_ownerSourceFlip:!!owner.flipX})};
   });
   const activities = ownedPoints(scene.activities ?? []);
-  const layers = [layer('Terrain', terrain, {locked: true}),
+  const layers = [layer('Terrain', terrain, {locked: true,...(scene.modularTerrain?{visible:false}:{})}),
+    ...(scene.modularTerrain?[layer('Terrain surfaces',scene.modularTerrain.surfaces.map(value=>shape(value)),{opacity:.7})]:[]),
     layer('Walkable', scene.walkable.map((polygon, i) => shape({polygon}, `walkable-${i + 1}`)), {color: '#7700aa55', opacity: .35}),
     layer('Obstacles', scene.obstacles.map((polygon, i) => shape({polygon}, `obstacle-${i + 1}`)), {color: '#77dd5544', opacity: .35}),
     ...(scene.navigation?[layer('Terrain collision',scene.navigation.terrainCollision.map(value=>shape(value)),{color:'#77dd8844',opacity:.35})]:[]),
@@ -101,7 +102,7 @@ export function sceneFromTiled(tiled, document) {
   const metadata = readProperties(tiled.properties), mapId = metadata.mapId;
   if (!document.maps[mapId]) throw new Error('Tiled mapId must name an existing world scene');
   if (metadata.navigationVersion !== 2 || tiled.orientation !== 'orthogonal' || tiled.infinite) throw new Error('Expected finite orthogonal scene version 2');
-  const names = ['Terrain', 'Walkable', 'Obstacles', 'Scenery', 'Spawn', 'NPCs', 'Objects', 'Districts', 'Activities', 'Generation zones', 'Entrances'];
+  const names = ['Terrain surfaces', 'Terrain', 'Walkable', 'Obstacles', 'Scenery', 'Spawn', 'NPCs', 'Objects', 'Districts', 'Activities', 'Generation zones', 'Entrances'];
   const groups = new Map();
   for (const layer of tiled.layers ?? []) {
     if (layer.type !== 'objectgroup' || ![...names,'Terrain collision'].includes(layer.name) || groups.has(layer.name) || !Array.isArray(layer.objects)) throw new Error(`Unsupported or duplicate Tiled layer ${layer.name}`);
@@ -196,6 +197,7 @@ export function sceneFromTiled(tiled, document) {
   const next = structuredClone(document);
   next.maps[mapId] = {...omit(metadata, ['mapId', 'navigationVersion', '_optionalCollections']), id: mapId,
     width: tiled.width * tiled.tilewidth, height: tiled.height * tiled.tileheight,
+    ...(metadata.modularTerrain?{modularTerrain:{...metadata.modularTerrain,surfaces:objects('Terrain surfaces',(object,group)=>({...parseRecord(object),polygon:objectPolygon(object,group)}))}}:{}),
     terrain, scenery, spawn: omit(spawn[0], ['id']), npcs: points('NPCs'), objects: points('Objects'),
     walkable: collision('Walkable'), obstacles: collision('Obstacles'),
     ...(metadata.navigation?{navigation:{...metadata.navigation,terrainCollision:objects('Terrain collision',(object,group)=>({...parseRecord(object),polygon:objectPolygon(object,group)}))}}:{}),

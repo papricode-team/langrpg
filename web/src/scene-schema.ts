@@ -1,3 +1,5 @@
+import {terrainMaterial} from './terrain-materials.ts';
+import type {ModularTerrain} from './modular-terrain';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
@@ -107,6 +109,7 @@ export interface WorldScene {
   walkable: ScenePolygon[]; obstacles: ScenePolygon[]; scenery: SceneScenery[];
   /** Clear land is the default; only explicit terrain and owned objects block. */
   navigation?: {model:'clear-land'; terrainCollision:SceneTerrainCollision[]};
+  modularTerrain?: ModularTerrain;
   terrain: SceneTerrain[]; districts: SceneDistrict[];
   activities?: SceneActivity[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
@@ -329,6 +332,17 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
           point(interior.returnOffset, `${id} scenery ${item.id} return offset`);
           point({x: Number(item.x) + interior.returnOffset.x, y: Number(item.y) + interior.returnOffset.y}, `${id} scenery ${item.id} return point`, input.width, input.height);
         }
+      }
+    }
+    if (input.modularTerrain !== undefined) {
+      const modular = input.modularTerrain;
+      if (!record(modular) || modular.version !== 1 || typeof modular.base !== 'string' || !terrainMaterial(modular.base)) fail(`${id} has invalid modular terrain`);
+      list(modular.surfaces, `${id} terrain surfaces`);
+      if (modular.surfaces.length > 512) fail(`${id} supports at most 512 terrain surfaces`);
+      for (const surface of modular.surfaces) {
+        if (typeof surface.material !== 'string' || !terrainMaterial(surface.material)) fail(`${id} has unknown terrain material`);
+        polygon(surface.polygon, `${id} terrain surface ${surface.id}`, input.width, input.height);
+        if (surface.blocked !== undefined && typeof surface.blocked !== 'boolean') fail(`${id} terrain surface needs a boolean blocked value`);
       }
     }
     list(input.terrain, `${id} terrain`);

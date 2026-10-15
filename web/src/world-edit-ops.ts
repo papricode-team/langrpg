@@ -1,3 +1,4 @@
+import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
 /**
  * World edits as small, absolute operations. The server applies them to the
  * published document and broadcasts the same operations, so every client
@@ -15,6 +16,7 @@ import {objectLabel,problem,WorldEditError} from './world-edit-rules';
 type ArtworkState = Pick<SceneScenery, 'frame' | 'variant' | 'collision' | 'sortLine'>;
 
 export type WorldEditOp =
+  | {kind: 'terrain'; map: string; terrain: ModularTerrain | null; expected: string}
   | {kind: 'move'; map: string; id: string; x: number; y: number}
   | {kind: 'update'; map: string; id: string; frame?: string; restoreArtwork?: ArtworkState; width?: number; flipX?: boolean; collidable?: boolean; interior?: SceneInterior | null}
   /** `restore` reinstates an object exactly as it was, for undo; routes are still checked. */
@@ -38,6 +40,9 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
     const needId = () => { if (typeof id !== 'string' || !slug.test(id)) throw invalid(map, 'An edit needs an object.'); };
     const needPoint = () => { if (!finite(op.x) || !finite(op.y)) throw invalid(map, 'A move needs a position.'); };
     switch (op.kind) {
+      case 'terrain':
+        if ((op.terrain !== null && !record(op.terrain)) || typeof op.expected !== 'string') throw invalid(map, 'Choose valid terrain.');
+        return {kind:'terrain',map,terrain:op.terrain as unknown as ModularTerrain|null,expected:op.expected};
       case 'move': needId(); needPoint(); return {kind: 'move', map, id: id as string, x: op.x as number, y: op.y as number};
       case 'moveAnchor':
         needId(); needPoint();
@@ -84,6 +89,7 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
 
 /** Objects an operation edits. Another admin must not hold any of them. */
 export function editOpTargets(op: WorldEditOp): string[] {
+  if (op.kind === 'terrain') return ['terrain'];
   if (op.kind === 'place') return [op.item.id];
   if (op.kind === 'residents') return [];
   return [op.id];
@@ -120,6 +126,12 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
   const scene = sceneOf(document, op);
   let next: WorldScene;
   switch (op.kind) {
+    case 'terrain': {
+      if(terrainFingerprint(scene.modularTerrain)!==op.expected)throw invalid(op.map,'The terrain changed while you were editing. Reload it and try again.');
+      next={...scene};
+      if(op.terrain)next.modularTerrain=structuredClone(op.terrain);else delete next.modularTerrain;
+      break;
+    }
     case 'move': {
       const item = itemOf(scene, op.id);
       next = {...scene, scenery: scene.scenery.map(value => value === item ? {...value, x: round(op.x), y: round(op.y)} : value)};
@@ -211,6 +223,7 @@ export function applyEditOps(document: WorldSceneDocument, ops: readonly WorldEd
 export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): WorldEditOp[] {
   const scene = sceneOf(document, op);
   switch (op.kind) {
+    case 'terrain': return [{kind:'terrain',map:op.map,terrain:structuredClone(scene.modularTerrain??null),expected:terrainFingerprint(op.terrain)}];
     case 'move': { const item = itemOf(scene, op.id); return [{kind: 'move', map: op.map, id: op.id, x: item.x, y: item.y}]; }
     case 'moveAnchor': {
       const anchor = (op.anchor === 'npc' ? scene.npcs : scene.objects).find(value => value.id === op.id);

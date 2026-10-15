@@ -77,3 +77,10 @@
 .world-edit-palette { max-height: 42vh; overflow-y: auto; box-sizing: border-box; }
 .world-edit-docked .world-edit-inspector, .world-edit-docked .world-edit-palette { max-height: none; overflow: visible; }
 .world-edit-docked .world-edit-palette-grid { grid-auto-columns: auto; }
+.terrain-tools{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.terrain-materials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;max-height:320px;overflow:auto}
+.terrain-materials button{display:flex;flex-direction:column;gap:4px;padding:5px;font-size:12px;text-align:left}
+.terrain-materials img{width:100%;aspect-ratio:1.6;object-fit:cover;border-radius:4px}
+.terrain-materials [aria-pressed=true],.terrain-tools [aria-pressed=true]{outline:2px solid #b18135;outline-offset:-2px}
+[data-panel=terrain] label{display:block;margin:12px 0}
+[data-panel=terrain] select{max-width:100%;width:100%}
