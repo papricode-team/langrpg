@@ -49,7 +49,7 @@ func (s *PGStore) ListAdminAccounts(ctx context.Context, query, kind string, off
 	if err = tx.QueryRow(ctx, `SELECT count(*) FROM accounts`+filter, query, kind).Scan(&total); err != nil {
 		return nil, 0, err
 	}
-	rows, err := tx.Query(ctx, `SELECT jsonb_build_object('player',jsonb_build_object('id',id,'name',data->'player'->'name'),'email',data->'email','createdAt',data->'createdAt','billing',data->'billing' - 'purchases' - 'webhookReceipts','support',jsonb_build_object('grant',data->'support'->'grant'),'access',data->'access','referrals',data->'referrals','activeCourseId',data->'activeCourseId') FROM accounts`+filter+` ORDER BY data->>'createdAt' DESC,id LIMIT $3 OFFSET $4`, query, kind, limit, offset)
+	rows, err := tx.Query(ctx, `SELECT jsonb_build_object('player',jsonb_build_object('id',id,'name',data->'player'->'name'),'email',data->'email','createdAt',data->'createdAt','billing',(data->'billing') - 'purchases' - 'webhookReceipts','support',jsonb_build_object('grant',data->'support'->'grant'),'access',data->'access','referrals',data->'referrals','activeCourseId',data->'activeCourseId') FROM accounts`+filter+` ORDER BY data->>'createdAt' DESC,id LIMIT $3 OFFSET $4`, query, kind, limit, offset)
 	if err != nil {
 		return nil, 0, err
 	}

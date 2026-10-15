@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -309,6 +310,7 @@ func TestPostgresAdminUserManagement(t *testing.T) {
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
 	suffix, _ := randomID(8)
+	suffix = strings.ToLower(suffix)
 	adminEmail := "admin-" + suffix + "@example.com"
 	app.adminEmails = map[string]bool{adminEmail: true}
 	admin, owner := createSession(t, app, "Support Owner")
@@ -326,6 +328,36 @@ func TestPostgresAdminUserManagement(t *testing.T) {
 	}
 	if err = store.SetCredentials(ctx, tokenHash(member), "member-"+suffix+"@example.com", "test-hash"); err != nil {
 		t.Fatal(err)
+	}
+	// Exercise the HTTP route with the empty filters sent by the admin page.
+	if r := request(app, "GET", "/api/admin/users?q=&kind=&offset=0", admin, nil); r.Code != http.StatusOK || r.Header().Get("Cache-Control") != "no-store" {
+		t.Fatalf("unfiltered directory: %d %s", r.Code, r.Body.String())
+	}
+	for _, test := range []struct {
+		kind   string
+		offset int
+		total  int
+		users  int
+	}{
+		{kind: "registered", total: 2, users: 2},
+		{kind: "registered", offset: 1, total: 2, users: 1},
+		{kind: "registered", offset: 2, total: 2},
+		{kind: "guest"},
+	} {
+		query := url.Values{"q": {strings.ToUpper(suffix)}, "kind": {test.kind}, "offset": {strconv.Itoa(test.offset)}}
+		r := request(app, "GET", "/api/admin/users?"+query.Encode(), admin, nil)
+		var response struct {
+			Users  []map[string]any `json:"users"`
+			Total  int              `json:"total"`
+			Offset int              `json:"offset"`
+			Limit  int              `json:"limit"`
+		}
+		if r.Code != http.StatusOK || json.Unmarshal(r.Body.Bytes(), &response) != nil || response.Total != test.total || len(response.Users) != test.users || response.Offset != test.offset || response.Limit != 30 {
+			t.Fatalf("directory %s: %d %s", query.Encode(), r.Code, r.Body.String())
+		}
+		if strings.Contains(r.Body.String(), "test-hash") || strings.Contains(r.Body.String(), "passwordHash") {
+			t.Fatal("directory exposed credentials")
+		}
 	}
 	directory, total, err := store.ListAdminAccounts(ctx, strings.ToLower(suffix), "registered", 0, 30)
 	if err != nil || total != 2 || len(directory) != 2 {
