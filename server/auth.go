@@ -7,15 +7,19 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"errors"
-	"net"
 	"net/http"
 	"net/mail"
+	"strconv"
 	"strings"
 	"time"
 	"unicode/utf8"
 )
 
 const passwordIterations = 600000
+
+// Stored hashes carry their own iteration count so the work factor can rise
+// without locking anyone out. The bounds reject corrupt or hostile values.
+const minPasswordIterations, maxPasswordIterations = 10000, 10000000
 
 func normalizeEmail(value string) (string, bool) {
 	value = strings.ToLower(strings.TrimSpace(value))
@@ -32,20 +36,39 @@ func hashPassword(password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return "pbkdf2-sha256$600000$" + salt + "$" + base64.RawURLEncoding.EncodeToString(key), nil
+	return "pbkdf2-sha256$" + strconv.Itoa(passwordIterations) + "$" + salt + "$" + base64.RawURLEncoding.EncodeToString(key), nil
+}
+
+func passwordHashIterations(encoded string) (int, bool) {
+	parts := strings.Split(encoded, "$")
+	if len(parts) != 4 || parts[0] != "pbkdf2-sha256" {
+		return 0, false
+	}
+	iterations, err := strconv.Atoi(parts[1])
+	if err != nil || strconv.Itoa(iterations) != parts[1] || iterations < minPasswordIterations || iterations > maxPasswordIterations {
+		return 0, false
+	}
+	return iterations, true
 }
 
 func verifyPassword(password, encoded string) bool {
-	parts := strings.Split(encoded, "$")
-	if len(parts) != 4 || parts[0] != "pbkdf2-sha256" || parts[1] != "600000" {
+	iterations, ok := passwordHashIterations(encoded)
+	if !ok {
 		return false
 	}
+	parts := strings.Split(encoded, "$")
 	expected, err := base64.RawURLEncoding.DecodeString(parts[3])
 	if err != nil || len(expected) != 32 {
 		return false
 	}
-	key, err := pbkdf2.Key(sha256.New, password, []byte(parts[2]), passwordIterations, 32)
+	key, err := pbkdf2.Key(sha256.New, password, []byte(parts[2]), iterations, 32)
 	return err == nil && subtle.ConstantTimeCompare(key, expected) == 1
+}
+
+// passwordNeedsRehash reports a valid hash weaker than the current work factor.
+func passwordNeedsRehash(encoded string) bool {
+	iterations, ok := passwordHashIterations(encoded)
+	return ok && iterations < passwordIterations
 }
 
 func sessionResponse(token string, account Account) map[string]any {
@@ -74,6 +97,12 @@ type credentialInput struct {
 func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 	hash, err := bearer(r)
 	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	// Resolve the session before touching the limiter: arbitrary bearer strings
+	// must not create limiter keys. Each existing session has its own window.
+	if _, err = a.store.Get(r.Context(), hash); err != nil {
 		apiFailure(w, err)
 		return
 	}
@@ -139,16 +168,12 @@ func (a *App) registerAccount(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
-	remote, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		remote = r.RemoteAddr
-	}
-	if !a.allow("login:"+remote, 10) {
+	if !a.allow("login:"+a.clientIP(r), 10) {
 		writeError(w, 429, "too many login attempts; try again in a minute")
 		return
 	}
 	var input credentialInput
-	if err = decodeJSON(w, r, &input); err != nil {
+	if err := decodeJSON(w, r, &input); err != nil {
 		apiFailure(w, err)
 		return
 	}
@@ -171,7 +196,7 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 	encoded := account.PasswordHash
 	if errors.Is(err, ErrUnauthorized) {
 		// Spend the same derivation work for unknown accounts.
-		encoded = "pbkdf2-sha256$600000$unknown-account-salt$" + base64.RawURLEncoding.EncodeToString(make([]byte, 32))
+		encoded = "pbkdf2-sha256$" + strconv.Itoa(passwordIterations) + "$unknown-account-salt$" + base64.RawURLEncoding.EncodeToString(make([]byte, 32))
 	}
 	if !verifyPassword(input.Password, encoded) || err != nil {
 		writeError(w, 401, "email or password is incorrect")
@@ -182,9 +207,21 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	// Upgrade an older work factor while the plaintext is available. The new
+	// hash is derived outside the account lock and applied only if unchanged.
+	upgraded := ""
+	if passwordNeedsRehash(account.PasswordHash) {
+		if upgraded, err = hashPassword(input.Password); err != nil {
+			apiFailure(w, err)
+			return
+		}
+	}
 	if _, _, err = a.store.ManageAccount(ctx, account.Player.ID, false, tokenHash(token), func(current *Account) error {
 		if current.PasswordHash != account.PasswordHash || current.Email != account.Email {
 			return ErrUnauthorized
+		}
+		if upgraded != "" {
+			current.PasswordHash = upgraded
 		}
 		return nil
 	}); err != nil {
@@ -284,6 +321,8 @@ func (a *App) changeCredentials(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+	// Every other session of this account was revoked with the change.
+	a.world.RevokeOtherSessions(account.Player.ID, hash)
 	account.Email, account.PasswordHash = change.Email, change.PasswordHash
 	writeJSON(w, 200, map[string]any{"registered": true, "email": account.Email, "admin": a.isAdmin(account), "access": a.accessState(account, a.now().UTC())})
 }

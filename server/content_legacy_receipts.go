@@ -17,7 +17,7 @@ type legacyReceiptReader interface {
 func (s *JSONStore) legacyReceipt(_ context.Context, hash, key string) (SavedAction, bool, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return SavedAction{}, false, ErrUnauthorized
 	}
@@ -62,7 +62,7 @@ func receiptInCourse(key, course string, legacy bool) bool {
 func (s *JSONStore) exerciseReceiptExists(_ context.Context, hash, course, slug, uuid string, legacy bool) (bool, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return false, ErrUnauthorized
 	}

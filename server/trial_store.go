@@ -12,7 +12,7 @@ import (
 func (s *JSONStore) UpdateAccount(_ context.Context, hash string, fn func(*Account) error) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
@@ -37,7 +37,7 @@ func (s *JSONStore) UpdateAccount(_ context.Context, hash string, fn func(*Accou
 func (s *JSONStore) ResetGame(_ context.Context, hash string) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
@@ -72,7 +72,7 @@ func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEv
 	defer tx.Rollback(ctx)
 	var id string
 	var previous []byte
-	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &previous)
+	id, previous, err = s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}

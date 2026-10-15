@@ -24,8 +24,14 @@ func env(key, fallback string) string {
 
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "healthcheck" {
+		// Container health is liveness: a database blip must not restart the
+		// process. `healthcheck ready` checks readiness (storage reachable).
+		path := "/api/live"
+		if len(os.Args) > 2 && os.Args[2] == "ready" {
+			path = "/api/health"
+		}
 		client := &http.Client{Timeout: 3 * time.Second}
-		response, err := client.Get("http://127.0.0.1:" + env("PORT", "8097") + "/api/health")
+		response, err := client.Get("http://127.0.0.1:" + env("PORT", "8097") + path)
 		if err != nil {
 			os.Exit(1)
 		}
@@ -46,6 +52,15 @@ func main() {
 	if err != nil {
 		slog.Error("storage initialization failed", "error", err)
 		os.Exit(1)
+	}
+	sessionIdle, err := parseSessionIdle(os.Getenv("SESSION_IDLE_DAYS"))
+	if err != nil {
+		slog.Error("session configuration is invalid", "error", err)
+		store.Close()
+		os.Exit(1)
+	}
+	if configurable, ok := store.(interface{ SetSessionIdle(time.Duration) }); ok {
+		configurable.SetSessionIdle(sessionIdle)
 	}
 	var catalog *contentstore.Bundle
 	if postgres, ok := store.(*PGStore); ok {
@@ -92,6 +107,11 @@ func main() {
 		slog.Error("admin configuration is invalid", "error", err)
 		os.Exit(1)
 	}
+	app.trustedProxies, err = parseTrustedProxies(os.Getenv("TRUSTED_PROXIES"))
+	if err != nil {
+		slog.Error("proxy configuration is invalid", "error", err)
+		os.Exit(1)
+	}
 	app.billing, err = creemBillingFromEnv()
 	if err != nil {
 		slog.Error("billing configuration is invalid", "error", err)
@@ -113,18 +133,23 @@ func main() {
 		os.Exit(1)
 	}
 	server := &http.Server{Addr: ":" + env("PORT", "8097"), Handler: app.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 65 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
+	maintenance, stopMaintenance := context.WithCancel(context.Background())
+	if pruner, ok := store.(sessionPruner); ok && sessionIdle > 0 {
+		go pruneSessionsPeriodically(maintenance, pruner, time.Hour)
+	}
 	stopped := make(chan os.Signal, 1)
 	shutdownDone := make(chan struct{})
 	signal.Notify(stopped, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		defer close(shutdownDone)
 		<-stopped
+		stopMaintenance()
 		app.world.Close()
 		shutdown, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 		_ = server.Shutdown(shutdown)
 	}()
-	slog.Info("language world listening", "port", env("PORT", "8097"), "storage", store.Kind(), "courses", len(catalog.Courses), "quests", len(app.curriculum.Quests), "items", len(app.curriculum.Items))
+	slog.Info("language world listening", "port", env("PORT", "8097"), "storage", store.Kind(), "sessionIdleDays", int(sessionIdle/(24*time.Hour)), "trustedProxies", len(app.trustedProxies), "courses", len(catalog.Courses), "quests", len(app.curriculum.Quests), "items", len(app.curriculum.Items))
 	if store.Kind() == "json-development" {
 		slog.Warn("JSON development persistence is single-process; configure DATABASE_URL for production")
 	}

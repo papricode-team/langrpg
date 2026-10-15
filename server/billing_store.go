@@ -113,10 +113,21 @@ func (s *PGStore) FindBillingAccount(ctx context.Context, subscriptionID, transa
 	if subscriptionID == "" && transactionID == "" {
 		return "", ErrUnauthorized
 	}
+	// JSONB containment is served by the accounts_billing_purchases GIN index
+	// (jsonb_path_ops); each reference is looked up separately so an empty
+	// one never widens the match.
 	var id string
-	err := s.pool.QueryRow(ctx, `SELECT id FROM accounts WHERE EXISTS (
- SELECT 1 FROM jsonb_array_elements(COALESCE(data->'billing'->'purchases','[]'::jsonb)) purchase
- WHERE ($1<>'' AND purchase->>'subscriptionId'=$1) OR ($2<>'' AND purchase->>'transactionId'=$2)) LIMIT 1`, subscriptionID, transactionID).Scan(&id)
+	err := pgx.ErrNoRows
+	for _, match := range []struct{ key, value string }{{"subscriptionId", subscriptionID}, {"transactionId", transactionID}} {
+		if match.value == "" {
+			continue
+		}
+		purchase, _ := json.Marshal([]map[string]string{{match.key: match.value}})
+		err = s.pool.QueryRow(ctx, `SELECT id FROM accounts WHERE data->'billing'->'purchases' @> $1::jsonb LIMIT 1`, purchase).Scan(&id)
+		if !errors.Is(err, pgx.ErrNoRows) {
+			break
+		}
+	}
 	if errors.Is(err, pgx.ErrNoRows) {
 		return "", ErrUnauthorized
 	}

@@ -604,6 +604,17 @@ func (w *World) RevokeSession(hash string) {
 	}
 }
 
+// RevokeOtherSessions disconnects a player's socket unless it belongs to the
+// kept session, for example after a credential change revoked the others.
+func (w *World) RevokeOtherSessions(playerID, keepHash string) {
+	w.mu.Lock()
+	client := w.clients[playerID]
+	w.mu.Unlock()
+	if client != nil && client.sessionHash != keepHash {
+		w.RevokeSession(client.sessionHash)
+	}
+}
+
 func (w *World) IsSessionConnected(playerID, sessionHash string) bool {
 	w.mu.Lock()
 	defer w.mu.Unlock()

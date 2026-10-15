@@ -94,6 +94,21 @@ func (s *JSONStore) ManageAccount(_ context.Context, id string, revoke bool, new
 				delete(s.state.Sessions, hash)
 			}
 		}
+		previousUse := map[string]time.Time{}
+		for _, hash := range removed {
+			if at, ok := s.state.SessionUse[hash]; ok {
+				previousUse[hash] = at
+			}
+			delete(s.state.SessionUse, hash)
+		}
+		defer func() {
+			// Restore use timestamps if the save below failed and sessions came back.
+			for hash, at := range previousUse {
+				if _, back := s.state.Sessions[hash]; back {
+					s.touchSessionLocked(hash, at)
+				}
+			}
+		}()
 		account.Support.Sessions = nil
 		account.Access.ActiveSince = time.Time{}
 		account.Access.ActiveUntil = time.Time{}
@@ -101,12 +116,13 @@ func (s *JSONStore) ManageAccount(_ context.Context, id string, revoke bool, new
 	}
 	if newSession != "" {
 		s.state.Sessions[newSession] = id
+		s.touchSessionLocked(newSession, s.sessionNow())
 	}
 	s.state.Accounts[id] = account
 	if err := s.save(); err != nil {
 		s.state.Accounts[id] = previous
 		if newSession != "" {
-			delete(s.state.Sessions, newSession)
+			s.dropSessionLocked(newSession)
 		}
 		for _, hash := range removed {
 			s.state.Sessions[hash] = id

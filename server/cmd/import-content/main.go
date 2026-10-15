@@ -14,12 +14,17 @@ import (
 func main() {
 	path := flag.String("content", "content.json", "generated content bundle")
 	validate := flag.Bool("validate", false, "validate without writing Postgres")
+	force := flag.Bool("force", false, "import even when this bundle was already imported")
 	flag.Parse()
-	b, err := contentstore.LoadJSON(*path)
+	data, err := os.ReadFile(*path)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if *validate {
+		b, err := contentstore.Parse(data)
+		if err != nil {
+			log.Fatal(err)
+		}
 		log.Printf("valid content: %d courses, %d records", len(b.Courses), len(b.Records))
 		return
 	}
@@ -34,8 +39,29 @@ func main() {
 		log.Fatal(err)
 	}
 	defer pool.Close()
-	if err = contentstore.Import(ctx, pool, b); err != nil {
+	// An unchanged bundle needs no DDL or bulk writes on an ordinary restart.
+	fingerprint := contentstore.Fingerprint(data)
+	if !*force {
+		imported, err := contentstore.ImportedFingerprint(ctx, pool)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if imported == fingerprint {
+			log.Printf("content unchanged (%s); skipping import", fingerprint[:12])
+			return
+		}
+	}
+	b, err := contentstore.Parse(data)
+	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("imported %d courses and %d records", len(b.Courses), len(b.Records))
+	imported, err := contentstore.ImportFingerprinted(ctx, pool, b, fingerprint, *force)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if !imported {
+		log.Printf("content was imported concurrently (%s); nothing to do", fingerprint[:12])
+		return
+	}
+	log.Printf("imported %d courses and %d records (%s)", len(b.Courses), len(b.Records), fingerprint[:12])
 }

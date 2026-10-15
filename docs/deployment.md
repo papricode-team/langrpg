@@ -24,6 +24,14 @@ instance: world presence and positions are in memory.
    TRAEFIK_NETWORK=dokploy-network
    ```
 
+   Optional: `TRUSTED_PROXIES` lists the proxies whose `X-Forwarded-For` the
+   server believes. Compose defaults it to the private Docker ranges, which
+   covers Traefik on the Dokploy network; without it every player shares the
+   proxy's address and one rate limit. `SESSION_IDLE_DAYS` (default 90, `0`
+   disables) expires unused sessions of accounts with an email; guest sessions
+   never expire. The boot import skips a content bundle it has already
+   imported; `IMPORT_CONTENT_FORCE=true` re-imports it.
+
    Generate a password with `openssl rand -hex 32`. `POSTGRES_PASSWORD` and
    `ALLOWED_ORIGINS` are required. For multiple public domains, list their exact
    origins separated by commas (scheme and hostname, plus port if nonstandard;

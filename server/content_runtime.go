@@ -213,8 +213,11 @@ func (a *App) withCourse(handler func(*App, http.ResponseWriter, *http.Request))
 			}
 		}
 		if authErr == nil {
-			account, err := a.store.Get(r.Context(), hash)
-			if err == nil && account.ActiveCourseID != "" {
+			if active, loaded := r.Context().Value(activeCourseKey{}).(string); loaded {
+				if active != "" {
+					courseID = active
+				}
+			} else if account, err := a.store.Get(r.Context(), hash); err == nil && account.ActiveCourseID != "" {
 				courseID = account.ActiveCourseID
 			}
 		}

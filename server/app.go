@@ -8,9 +8,10 @@ import (
 	"glotworld/server/internal/contentstore"
 	"io"
 	"log/slog"
-	"net"
 	"net/http"
+	"net/netip"
 	"regexp"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -45,6 +46,7 @@ type App struct {
 	now             func() time.Time
 	rateMu          *sync.Mutex
 	limits          map[string]rateWindow
+	trustedProxies  []netip.Prefix
 }
 type rateWindow struct {
 	At    time.Time
@@ -78,6 +80,8 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/account/reset-password", a.resetPassword)
 	mux.HandleFunc("POST /api/analytics/events", a.collectAnalytics)
 	mux.HandleFunc("GET /api/admin/analytics", a.adminAnalytics)
+	// Liveness never touches storage; /api/health is readiness.
+	mux.HandleFunc("GET /api/live", func(w http.ResponseWriter, r *http.Request) { writeJSON(w, 200, map[string]string{"status": "live"}) })
 	mux.HandleFunc("GET /api/health", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.health(w, r) }))
 	mux.HandleFunc("GET /api/version", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.deploymentVersion(w, r) }))
 	mux.HandleFunc("POST /api/session", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.session(w, r) }))
@@ -136,7 +140,7 @@ func (a *App) Handler() http.Handler {
 	} else {
 		mux.HandleFunc("/", missing)
 	}
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return a.accessLog(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Cache-Control", "no-store")
 		origin := r.Header.Get("Origin")
@@ -147,7 +151,7 @@ func (a *App) Handler() http.Handler {
 			}
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Add("Vary", "Origin")
-			w.Header().Set("Access-Control-Expose-Headers", "ETag")
+			w.Header().Set("Access-Control-Expose-Headers", "ETag, X-Request-ID")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, If-Match, If-None-Match, X-Analytics-Visitor, X-Analytics-Session")
 		}
@@ -159,7 +163,7 @@ func (a *App) Handler() http.Handler {
 			return
 		}
 		mux.ServeHTTP(w, r)
-	})
+	}))
 }
 
 func writeJSON(w http.ResponseWriter, status int, value any) {
@@ -251,28 +255,56 @@ func (a *App) allow(key string, limit int) bool {
 	return a.allowCount(key, limit, 1)
 }
 
+// maxLimiterKeys bounds limiter memory. Reaching it never denies a request:
+// expired windows are dropped first, then the least-used windows are evicted.
+const maxLimiterKeys = 4096
+
 func (a *App) allowCount(key string, limit, count int) bool {
 	a.rateMu.Lock()
 	defer a.rateMu.Unlock()
 	now := time.Now()
-	// Expire old entries instead of retaining every remote address forever.
-	if len(a.limits) > 2048 {
-		for k, v := range a.limits {
-			if now.Sub(v.At) > time.Minute {
-				delete(a.limits, k)
-			}
-		}
-		if len(a.limits) > 4096 {
-			return false
-		}
+	window, exists := a.limits[key]
+	if !exists && len(a.limits) >= maxLimiterKeys {
+		a.evictLimitsLocked(now)
 	}
-	window := a.limits[key]
 	if now.Sub(window.At) > time.Minute {
 		window = rateWindow{At: now}
 	}
 	window.Count += count
 	a.limits[key] = window
 	return window.Count <= limit
+}
+
+// evictLimitsLocked frees room for new keys. Throttled windows carry the
+// highest counts, so a flood of one-off keys evicts other one-off keys first
+// and cannot reset a client that is currently being limited.
+func (a *App) evictLimitsLocked(now time.Time) {
+	for key, window := range a.limits {
+		if now.Sub(window.At) > time.Minute {
+			delete(a.limits, key)
+		}
+	}
+	target := maxLimiterKeys * 7 / 8
+	if len(a.limits) <= target {
+		return
+	}
+	type entry struct {
+		key    string
+		window rateWindow
+	}
+	entries := make([]entry, 0, len(a.limits))
+	for key, window := range a.limits {
+		entries = append(entries, entry{key, window})
+	}
+	sort.Slice(entries, func(i, j int) bool {
+		if entries[i].window.Count != entries[j].window.Count {
+			return entries[i].window.Count < entries[j].window.Count
+		}
+		return entries[i].window.At.Before(entries[j].window.At)
+	})
+	for _, e := range entries[:len(entries)-target] {
+		delete(a.limits, e.key)
+	}
 }
 
 func (a *App) session(w http.ResponseWriter, r *http.Request) {
@@ -335,11 +367,7 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "baseLanguage must be en or tr")
 		return
 	}
-	remote, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		remote = r.RemoteAddr
-	}
-	if !a.allow("session:"+remote, 60) {
+	if !a.allow("session:"+a.clientIP(r), 60) {
 		writeError(w, 429, "too many new sessions; try again in a minute")
 		return
 	}
@@ -554,7 +582,23 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	// Movement messages reuse the account snapshot from the socket's 5 s access
+	// tick instead of reading storage per message. Time-based limits (trial
+	// end, support expiry) are still evaluated against the current clock on
+	// every message; revocation and resets are enforced by the next tick.
+	var cacheMu sync.Mutex
+	cached, cachedAt := account, time.Now()
 	guard := func(ctx context.Context, renew bool) (AccessStatus, error) {
+		if !renew {
+			cacheMu.Lock()
+			snapshot, fresh := cached, time.Since(cachedAt) < worldAccessCacheTTL
+			cacheMu.Unlock()
+			if fresh {
+				if status, ok := a.cachedWorldAccess(snapshot, hash, token); ok {
+					return status, nil
+				}
+			}
+		}
 		ctx = context.WithValue(ctx, accessGenerationKey{}, account.Access.Generation)
 		// Movement messages check authoritative time without writing account JSON
 		// for every frame. The socket ticker persists and renews the same lease.
@@ -579,6 +623,9 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		if current.Billing.Plan != "" && !a.hasPaidAccess(current, a.now().UTC()) {
 			current = a.refreshAccessBilling(ctx, current)
 		}
+		cacheMu.Lock()
+		cached, cachedAt = current, time.Now()
+		cacheMu.Unlock()
 		return a.accessState(current, a.now().UTC()), nil
 	}
 	stopped := func() {
@@ -592,6 +639,28 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		a.world.RestoreCoursePlayer(account.Player, account.Access.Generation)
 	}
 	a.world.ServeHTTP(w, r, account.Player, account.Progress, account.Access.Generation, a.isAdmin(account), authorize, guard, stopped)
+}
+
+// worldAccessCacheTTL slightly exceeds the socket's 5 s access tick, so a
+// healthy connection reads storage once per tick and never per message.
+const worldAccessCacheTTL = 6 * time.Second
+
+// cachedWorldAccess answers from a recent snapshot when it is clearly still
+// allowed. Anything that might block (an ended trial, a lapsed paid period
+// awaiting renewal, an expiring support session) falls back to storage.
+func (a *App) cachedWorldAccess(snapshot Account, hash, token string) (AccessStatus, bool) {
+	now := a.now().UTC()
+	if strings.HasPrefix(token, "support_") {
+		session, ok := snapshot.Support.Sessions[hash]
+		if !ok || !now.Before(session.ExpiresAt) {
+			return AccessStatus{}, false
+		}
+	}
+	status := a.accessState(snapshot, now)
+	if accessBlocked(status) {
+		return AccessStatus{}, false
+	}
+	return status, true
 }
 
 func (a *App) Close() {

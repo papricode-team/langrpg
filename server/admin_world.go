@@ -260,9 +260,18 @@ func (a *App) readAdminWorld(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, map[string]any{"document": current.Document, "revision": current.Revision, "diagnostics": current.Diagnostics})
 }
 
+// worldContentPerMinute bounds anonymous document reads per client address.
+// Revalidation keeps normal reloads to a 304 without the 2 MiB body.
+const worldContentPerMinute = 60
+
 func (a *App) worldContent(w http.ResponseWriter, r *http.Request) {
 	if a.editing == nil {
 		writeError(w, 404, "published world is bundled with the game")
+		return
+	}
+	if !a.allow("world-content:"+a.clientIP(r), worldContentPerMinute) {
+		w.Header().Set("Retry-After", "60")
+		writeError(w, 429, "too many world downloads; try again in a minute")
 		return
 	}
 	if err := a.refreshWorldContent(r.Context()); err != nil {
@@ -271,7 +280,27 @@ func (a *App) worldContent(w http.ResponseWriter, r *http.Request) {
 	}
 	a.editing.mu.RLock()
 	defer a.editing.mu.RUnlock()
-	writeJSON(w, 200, map[string]any{"document": a.editing.current.Document, "contentVersion": a.editing.current.ContentVersion})
+	current := a.editing.current
+	etag := `"world-` + current.Revision + "-" + current.ContentVersion + `"`
+	w.Header().Set("ETag", etag)
+	// Published worlds are public; caches must revalidate before reuse.
+	w.Header().Set("Cache-Control", "no-cache")
+	if etagMatches(r.Header.Get("If-None-Match"), etag) {
+		w.WriteHeader(http.StatusNotModified)
+		return
+	}
+	writeJSON(w, 200, map[string]any{"document": current.Document, "contentVersion": current.ContentVersion})
+}
+
+// etagMatches implements If-None-Match's weak comparison for a list of tags.
+func etagMatches(header, etag string) bool {
+	for _, candidate := range strings.Split(header, ",") {
+		candidate = strings.TrimPrefix(strings.TrimSpace(candidate), "W/")
+		if candidate == "*" || candidate == etag {
+			return true
+		}
+	}
+	return false
 }
 
 func readWorldDocument(w http.ResponseWriter, r *http.Request) (json.RawMessage, error) {

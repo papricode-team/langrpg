@@ -176,6 +176,10 @@ func (e *AccessDeniedError) Error() string { return e.Access.Phase }
 
 type accessGenerationKey struct{}
 
+// activeCourseKey carries the active course of the account that the access
+// middleware already loaded for this request.
+type activeCourseKey struct{}
+
 func checkAccessGeneration(ctx context.Context, account Account) error {
 	if generation, ok := ctx.Value(accessGenerationKey{}).(int64); ok && generation != account.Access.Generation {
 		return &APIError{409, "progress was reset; reload the game"}
@@ -306,7 +310,11 @@ func (a *App) enforceGameAccess(w http.ResponseWriter, r *http.Request) bool {
 	if account.Billing.Plan != "" && !a.hasPaidAccess(account, a.now().UTC()) {
 		account = a.refreshAccessBilling(ctx, account)
 	}
-	*r = *r.WithContext(context.WithValue(r.Context(), accessGenerationKey{}, account.Access.Generation))
+	ctxWithAccount := context.WithValue(r.Context(), accessGenerationKey{}, account.Access.Generation)
+	// withCourse scopes the request to this same account's course without a
+	// second storage read.
+	ctxWithAccount = context.WithValue(ctxWithAccount, activeCourseKey{}, account.ActiveCourseID)
+	*r = *r.WithContext(ctxWithAccount)
 	status := a.accessState(account, a.now().UTC())
 	if accessBlocked(status) {
 		writeAccessBlocked(w, status)
@@ -324,6 +332,22 @@ func (a *App) refreshAccessBilling(ctx context.Context, account Account) Account
 		slog.Warn("billing refresh failed", "accountId", account.Player.ID, "error", err)
 	}
 	return account
+}
+
+// allowSession applies a per-session limit only after the session is known to
+// exist, so unauthenticated floods cannot fill the limiter with junk keys.
+func (a *App) allowSession(w http.ResponseWriter, r *http.Request, hash, prefix string, limit int, message string) bool {
+	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+	defer cancel()
+	if _, err := a.store.Get(ctx, hash); err != nil {
+		apiFailure(w, err)
+		return false
+	}
+	if !a.allow(prefix+hash, limit) {
+		writeError(w, 429, message)
+		return false
+	}
+	return true
 }
 
 func (a *App) access(w http.ResponseWriter, r *http.Request) {
@@ -349,8 +373,7 @@ func (a *App) accessHeartbeat(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	if !a.allow("access:"+hash, 120) {
-		writeError(w, 429, "too many play heartbeats; try again in a minute")
+	if !a.allowSession(w, r, hash, "access:", 120, "too many play heartbeats; try again in a minute") {
 		return
 	}
 	var input struct {
@@ -377,8 +400,7 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	if !a.allow("reset:"+hash, 12) {
-		writeError(w, 429, "too many resets; try again in a minute")
+	if !a.allowSession(w, r, hash, "reset:", 12, "too many resets; try again in a minute") {
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"net"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -329,11 +328,7 @@ func (a *App) manageAdminUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) resetPassword(w http.ResponseWriter, r *http.Request) {
-	remote, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		remote = r.RemoteAddr
-	}
-	if !a.allow("password-reset:"+remote, 10) {
+	if !a.allow("password-reset:"+a.clientIP(r), 10) {
 		writeError(w, 429, "too many reset attempts; try again in a minute")
 		return
 	}

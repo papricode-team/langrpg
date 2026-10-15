@@ -3,6 +3,8 @@ package contentstore
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,6 +12,8 @@ import (
 	"regexp"
 	"sort"
 
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -134,7 +138,16 @@ func (b *Bundle) Private(courseID, kind string) (json.RawMessage, bool) {
 	return nil, false
 }
 
+// execer is satisfied by both a pool and a transaction.
+type execer interface {
+	Exec(context.Context, string, ...any) (pgconn.CommandTag, error)
+}
+
 func EnsureSchema(ctx context.Context, pool *pgxpool.Pool) error {
+	return ensureSchema(ctx, pool)
+}
+
+func ensureSchema(ctx context.Context, pool execer) error {
 	_, err := pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS content_courses(id UUID PRIMARY KEY,slug TEXT NOT NULL UNIQUE,body JSONB NOT NULL);
 	CREATE TABLE IF NOT EXISTS content_metadata(id TEXT PRIMARY KEY CHECK(id='main'),version INTEGER NOT NULL,ids JSONB NOT NULL,published_ids JSONB NOT NULL DEFAULT '{}');
 	ALTER TABLE content_metadata ADD COLUMN IF NOT EXISTS published_ids JSONB NOT NULL DEFAULT '{}';
@@ -153,20 +166,98 @@ func EnsureSchema(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// Import replaces a version atomically: a removed record cannot remain readable
-// after the importer publishes its replacement manifest.
-func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
-	if err := b.Validate(); err != nil {
-		return err
+// ImportFormat versions the importer itself. Bump it whenever Import changes
+// how a bundle is stored, so an unchanged bundle is imported again once.
+const ImportFormat = "content-import-v1"
+
+// importLock serializes importers across replicas booting at the same time.
+const importLock = 7418309912
+
+// Fingerprint identifies a bundle file together with the importer format.
+func Fingerprint(data []byte) string {
+	h := sha256.New()
+	h.Write([]byte(ImportFormat))
+	h.Write([]byte{0})
+	h.Write(data)
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+type queryRower interface {
+	QueryRow(context.Context, string, ...any) pgx.Row
+}
+
+// ImportedFingerprint returns the fingerprint of the last recorded import, or
+// "" when nothing was recorded. It performs no DDL and no writes.
+func ImportedFingerprint(ctx context.Context, db queryRower) (string, error) {
+	// Table names resolve when a statement is parsed, so check existence first;
+	// a failed statement would abort the importer's transaction.
+	var exists bool
+	if err := db.QueryRow(ctx, `SELECT to_regclass('content_imports') IS NOT NULL`).Scan(&exists); err != nil || !exists {
+		return "", err
 	}
-	if err := EnsureSchema(ctx, pool); err != nil {
-		return err
+	var fingerprint string
+	err := db.QueryRow(ctx, `SELECT fingerprint FROM content_imports WHERE id='main'`).Scan(&fingerprint)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return "", nil
+	}
+	return fingerprint, err
+}
+
+// Import replaces a version atomically: a removed record cannot remain readable
+// after the importer publishes its replacement manifest. Unfingerprinted
+// imports clear any recorded fingerprint, so the next boot imports again.
+func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
+	_, err := ImportFingerprinted(ctx, pool, b, "", true)
+	return err
+}
+
+// ImportFingerprinted imports b and records fingerprint in the same
+// transaction. Unless force is set, a fingerprint that is already recorded
+// (for example, another replica imported it while this one waited for the
+// lock) returns false without writing anything.
+func ImportFingerprinted(ctx context.Context, pool *pgxpool.Pool, b *Bundle, fingerprint string, force bool) (bool, error) {
+	if err := b.Validate(); err != nil {
+		return false, err
 	}
 	tx, err := pool.Begin(ctx)
 	if err != nil {
-		return err
+		return false, err
 	}
 	defer tx.Rollback(ctx)
+	if _, err = tx.Exec(ctx, `SELECT pg_advisory_xact_lock($1)`, int64(importLock)); err != nil {
+		return false, err
+	}
+	if fingerprint != "" && !force {
+		current, err := ImportedFingerprint(ctx, tx)
+		if err != nil {
+			return false, err
+		}
+		if current == fingerprint {
+			return false, nil
+		}
+	}
+	if err = ensureSchema(ctx, tx); err != nil {
+		return false, err
+	}
+	if err = importBundle(ctx, tx, b); err != nil {
+		return false, err
+	}
+	if _, err = tx.Exec(ctx, `CREATE TABLE IF NOT EXISTS content_imports(id TEXT PRIMARY KEY CHECK(id='main'),fingerprint TEXT NOT NULL,imported_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`); err != nil {
+		return false, err
+	}
+	if fingerprint == "" {
+		_, err = tx.Exec(ctx, `DELETE FROM content_imports WHERE id='main'`)
+	} else {
+		_, err = tx.Exec(ctx, `INSERT INTO content_imports(id,fingerprint,imported_at) VALUES('main',$1,NOW()) ON CONFLICT(id) DO UPDATE SET fingerprint=EXCLUDED.fingerprint,imported_at=EXCLUDED.imported_at`, fingerprint)
+	}
+	if err != nil {
+		return false, err
+	}
+	return true, tx.Commit(ctx)
+}
+
+func importBundle(ctx context.Context, tx pgx.Tx, b *Bundle) error {
+	var err error
 	// The first published catalog used these table names without course_id and
 	// assigned different UUIDs. Replace its rows atomically; account references
 	// remain recoverable through the published identifier map.
@@ -223,10 +314,8 @@ func Import(ctx context.Context, pool *pgxpool.Pool, b *Bundle) error {
 	if b.PublishedIDs == nil {
 		published = []byte("{}")
 	}
-	if _, err = tx.Exec(ctx, `INSERT INTO content_metadata(id,version,ids,published_ids) VALUES('main',$1,$2,$3) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,ids=EXCLUDED.ids,published_ids=EXCLUDED.published_ids`, b.Version, ids, published); err != nil {
-		return err
-	}
-	return tx.Commit(ctx)
+	_, err = tx.Exec(ctx, `INSERT INTO content_metadata(id,version,ids,published_ids) VALUES('main',$1,$2,$3) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,ids=EXCLUDED.ids,published_ids=EXCLUDED.published_ids`, b.Version, ids, published)
+	return err
 }
 func tableNames() []string {
 	var names []string

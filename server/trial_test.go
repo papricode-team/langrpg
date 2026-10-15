@@ -514,7 +514,9 @@ func TestResetClosesSocketOnAnotherServerAndClearsReconnectionLocation(t *testin
 	t.Cleanup(secondApp.world.Close)
 	server := httptest.NewServer(secondApp.Handler())
 	t.Cleanup(server.Close)
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	// A reset on another server reaches this socket through storage, so it is
+	// enforced by the socket's next 5 s access tick rather than per message.
+	ctx, cancel := context.WithTimeout(context.Background(), 12*time.Second)
 	defer cancel()
 	url := "ws" + strings.TrimPrefix(server.URL, "http") + "/api/world?token=" + token
 	conn, _, err := websocket.Dial(ctx, url, nil)

@@ -522,7 +522,7 @@ func (s *canonicalStore) Migrate(ctx context.Context) error {
 		base.mu.Lock()
 		defer base.mu.Unlock()
 		old := base.state
-		next := diskState{Version: old.Version, World: old.World, WorldContent: old.WorldContent, Sessions: old.Sessions, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
+		next := diskState{Version: old.Version, World: old.World, WorldContent: old.WorldContent, Sessions: old.Sessions, SessionUse: old.SessionUse, Analytics: old.Analytics, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
 		for id, a := range old.Accounts {
 			next.Accounts[id] = migrate(a)
 		}

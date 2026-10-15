@@ -25,6 +25,11 @@ services:
       PGDATABASE: "${POSTGRES_DB:-lernen}"
       ALLOWED_ORIGINS: "${ALLOWED_ORIGINS:?Set ALLOWED_ORIGINS to the public origin}"
       MAX_ZONE_PLAYERS: "${MAX_ZONE_PLAYERS:-128}"
+      # Only Traefik on the private Docker networks reaches this service, so its
+      # X-Forwarded-For identifies the player for rate limits.
+      TRUSTED_PROXIES: "${TRUSTED_PROXIES:-10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}"
+      SESSION_IDLE_DAYS: "${SESSION_IDLE_DAYS:-90}"
+      IMPORT_CONTENT_FORCE: "${IMPORT_CONTENT_FORCE:-false}"
       ADMIN_EMAILS: "${ADMIN_EMAILS:-}"
       PUBLIC_URL: "${PUBLIC_URL:-}"
       FREE_TO_PLAY: "${FREE_TO_PLAY:-false}"

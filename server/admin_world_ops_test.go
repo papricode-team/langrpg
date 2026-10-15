@@ -164,11 +164,11 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 			bakery = item
 		}
 	}
-	listener.player.MapID, listener.player.InteriorID = "waldruh", "bakery"
+	setTestClientLocation(app.world, listener, "waldruh", "bakery")
 	if code, body := postOps(app, token, []map[string]any{{"kind": "update", "map": "waldruh", "id": bakery.ID, "interior": nil}}); code != 409 || !strings.Contains(body["error"].(string), "inside the bakery") {
 		t.Fatalf("occupied room: %d %v", code, body)
 	}
-	listener.player.InteriorID = ""
+	setTestClientLocation(app.world, listener, "waldruh", "")
 	if code, body := postOps(app, token, []map[string]any{{"kind": "update", "map": "waldruh", "id": bakery.ID, "interior": nil}}); code != 200 {
 		t.Fatalf("empty room: %d %v", code, body)
 	} else if warnings, _ := body["warnings"].([]any); len(warnings) == 0 {
@@ -177,6 +177,13 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 	if _, exists := app.world.mapDefinition("waldruh").Entrances["bakery"]; exists {
 		t.Fatal("server authority should drop the removed doorway")
 	}
+}
+
+// The world ticker reads client locations under World.mu; tests must write them there too.
+func setTestClientLocation(w *World, client *worldClient, mapID, interiorID string) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	client.player.MapID, client.player.InteriorID = mapID, interiorID
 }
 
 func TestWorldEditStatusRequiresAdmin(t *testing.T) {

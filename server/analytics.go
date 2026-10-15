@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"net"
 	"net/http"
 	"regexp"
 	"strings"
@@ -95,11 +94,7 @@ func (a *App) recordLearningAnalytics(ctx context.Context, account Account, key 
 }
 
 func (a *App) collectAnalytics(w http.ResponseWriter, r *http.Request) {
-	remote, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		remote = r.RemoteAddr
-	}
-	if !a.allow("analytics:"+remote, 120) {
+	if !a.allow("analytics:"+a.clientIP(r), 120) {
 		writeError(w, 429, "too many analytics requests")
 		return
 	}

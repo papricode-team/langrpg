@@ -26,28 +26,93 @@ func (change CredentialChange) apply(account *Account) error {
 	}
 	account.Email, account.PasswordHash = change.Email, change.PasswordHash
 	account.Support.Reset = PasswordReset{}
+	// Their tokens are revoked with every other session of the account.
+	account.Support.Sessions = nil
 	return nil
 }
 
-func (s *JSONStore) ChangeCredentials(ctx context.Context, hash string, change CredentialChange) error {
-	_, err := s.UpdateAccount(ctx, hash, func(account *Account) error {
-		for id, other := range s.state.Accounts {
-			if id != account.Player.ID && other.Email == change.Email {
-				return ErrCredentialsConflict
+// ChangeCredentials also revokes every other session of the account, keeping
+// only the caller's: a stolen token must not survive a password change.
+func (s *JSONStore) ChangeCredentials(_ context.Context, hash string, change CredentialChange) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	id, ok := s.sessionLocked(hash)
+	if !ok {
+		return ErrUnauthorized
+	}
+	for otherID, other := range s.state.Accounts {
+		if otherID != id && other.Email == change.Email {
+			return ErrCredentialsConflict
+		}
+	}
+	previous := s.state.Accounts[id]
+	account := cloneAccount(previous)
+	if err := change.apply(&account); err != nil {
+		return err
+	}
+	removed := map[string]time.Time{}
+	for other, owner := range s.state.Sessions {
+		if owner == id && other != hash {
+			removed[other] = s.state.SessionUse[other]
+			s.dropSessionLocked(other)
+		}
+	}
+	s.state.Accounts[id] = account
+	if err := s.save(); err != nil {
+		s.state.Accounts[id] = previous
+		for other, used := range removed {
+			s.state.Sessions[other] = id
+			if !used.IsZero() {
+				s.touchSessionLocked(other, used)
 			}
 		}
-		return change.apply(account)
-	})
-	return err
+		return err
+	}
+	return nil
 }
 
+// ChangeCredentials updates the account and deletes every other session of it
+// in one transaction, keeping only the caller's session.
 func (s *PGStore) ChangeCredentials(ctx context.Context, hash string, change CredentialChange) error {
-	_, err := s.UpdateAccount(ctx, hash, change.apply)
+	err := s.changeCredentials(ctx, hash, change)
 	var pgErr *pgconn.PgError
 	if errors.As(err, &pgErr) && pgErr.Code == "23505" {
 		return ErrCredentialsConflict
 	}
 	return err
+}
+
+func (s *PGStore) changeCredentials(ctx context.Context, hash string, change CredentialChange) error {
+	tx, err := s.pool.Begin(ctx)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback(ctx)
+	id, data, err := s.lockSessionAccount(ctx, tx, hash)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return ErrUnauthorized
+	}
+	if err != nil {
+		return err
+	}
+	var account Account
+	if err = json.Unmarshal(data, &account); err != nil {
+		return err
+	}
+	ensureProgress(&account.Progress)
+	if err = change.apply(&account); err != nil {
+		return err
+	}
+	if data, err = json.Marshal(account); err != nil {
+		return err
+	}
+	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+		return err
+	}
+	if _, err = tx.Exec(ctx, "DELETE FROM sessions WHERE account_id=$1 AND token_hash<>$2", id, hash); err != nil {
+		return err
+	}
+	return tx.Commit(ctx)
 }
 
 func (s *JSONStore) SetCredentials(ctx context.Context, hash, email, encoded string) error {
@@ -57,7 +122,7 @@ func (s *JSONStore) SetCredentials(ctx context.Context, hash, email, encoded str
 func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded, referralID string, now time.Time) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return ErrUnauthorized
 	}
@@ -77,6 +142,8 @@ func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded
 	account.Email, account.PasswordHash = email, encoded
 	account.Analytics.RegisteredAt = now
 	s.state.Accounts[id] = account
+	previousUse, hadUse := s.state.SessionUse[hash]
+	s.touchSessionLocked(hash, s.sessionNow())
 	if credited {
 		s.state.Accounts[referralID] = inviter
 	}
@@ -84,6 +151,9 @@ func (s *JSONStore) RegisterWithReferral(_ context.Context, hash, email, encoded
 		s.state.Accounts[id] = previous
 		if credited {
 			s.state.Accounts[referralID] = previousInviter
+		}
+		if hadUse {
+			s.touchSessionLocked(hash, previousUse)
 		}
 		return err
 	}
@@ -108,8 +178,9 @@ func (s *JSONStore) AddSession(_ context.Context, hash, id string) error {
 		return ErrUnauthorized
 	}
 	s.state.Sessions[hash] = id
+	s.touchSessionLocked(hash, s.sessionNow())
 	if err := s.save(); err != nil {
-		delete(s.state.Sessions, hash)
+		s.dropSessionLocked(hash)
 		return err
 	}
 	return nil
@@ -185,6 +256,11 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 	if err != nil {
 		return err
 	}
+	// Linking an email starts this session's idle clock now, even if the guest
+	// session itself was dormant for longer than the idle limit.
+	if _, err = tx.Exec(ctx, "UPDATE sessions SET last_used_at=$2 WHERE token_hash=$1", hash, s.sessionNow()); err != nil {
+		return err
+	}
 	if credited {
 		data, err = json.Marshal(inviter)
 		if err != nil {
@@ -225,9 +301,13 @@ func (s *JSONStore) DeleteSession(_ context.Context, hash string) error {
 	if !exists {
 		return nil
 	}
-	delete(s.state.Sessions, hash)
+	used, hadUse := s.state.SessionUse[hash]
+	s.dropSessionLocked(hash)
 	if err := s.save(); err != nil {
 		s.state.Sessions[hash] = id
+		if hadUse {
+			s.touchSessionLocked(hash, used)
+		}
 		return err
 	}
 	return nil

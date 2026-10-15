@@ -18,7 +18,7 @@ DATABASE_URL= DATA_PATH="$check_dir/state.json" CONTENT_PATH=/app/content.json \
 check_pid=$!
 attempt=0
 while [ "$attempt" -lt 30 ]; do
-  if /app/world healthcheck; then
+  if /app/world healthcheck ready; then
     exit 0
   fi
   if ! kill -0 "$check_pid" 2>/dev/null; then

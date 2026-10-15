@@ -156,21 +156,62 @@ func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (
 	if !force && billingSnapshotFresh(account.Billing, now) {
 		return account, nil
 	}
-	return a.store.UpdateAccountByID(ctx, account.Player.ID, func(current *Account) error {
-		if !force && billingSnapshotFresh(current.Billing, now) {
-			return nil
-		}
-		snapshot, err := a.billing.snapshot(ctx, current.Player.ID, current.Billing, now)
-		if err != nil {
-			return err
-		}
+	return a.reconcileBilling(ctx, account.Player.ID, now, func(current *Account) (bool, error) {
+		return current.Email != "" && (force || !billingSnapshotFresh(current.Billing, now)), nil
+	}, func(current *Account, snapshot BillingState) {
 		snapshot.WebhookReceipts = current.Billing.WebhookReceipts
 		current.Billing = snapshot
 		if a.hasPaidAccess(*current, now) && current.Analytics.PaidAt.IsZero() {
 			current.Analytics.PaidAt = now
 		}
-		return nil
 	})
+}
+
+var errBillingLedgerChanged = errors.New("billing purchases changed during reconciliation; try again")
+
+// sameBillingLedger compares the inputs a Creem snapshot is computed from.
+func sameBillingLedger(left, right BillingState) bool {
+	l, _ := json.Marshal([]any{left.Reference, left.CustomerID, left.Purchases})
+	r, _ := json.Marshal([]any{right.Reference, right.CustomerID, right.Purchases})
+	return bytes.Equal(l, r)
+}
+
+// reconcileBilling queries Creem without holding the account row lock, then
+// applies the snapshot under the lock only if the purchase ledger it was
+// computed from is unchanged; a concurrent checkout or webhook causes a retry
+// with the newer ledger. prepare runs on the unlocked read and again under the
+// lock (it must be deterministic); returning false makes the call a no-op.
+func (a *App) reconcileBilling(ctx context.Context, accountID string, now time.Time, prepare func(*Account) (bool, error), apply func(*Account, BillingState)) (Account, error) {
+	for attempt := 0; attempt < 3; attempt++ {
+		current, err := a.store.GetAccountByID(ctx, accountID)
+		if err != nil {
+			return Account{}, err
+		}
+		proceed, err := prepare(&current)
+		if err != nil || !proceed {
+			return current, err
+		}
+		snapshot, err := a.billing.snapshot(ctx, accountID, current.Billing, now)
+		if err != nil {
+			return Account{}, err
+		}
+		updated, err := a.store.UpdateAccountByID(ctx, accountID, func(locked *Account) error {
+			proceed, err := prepare(locked)
+			if err != nil || !proceed {
+				return err
+			}
+			if !sameBillingLedger(locked.Billing, current.Billing) {
+				return errBillingLedgerChanged
+			}
+			apply(locked, snapshot)
+			return nil
+		})
+		if errors.Is(err, errBillingLedgerChanged) {
+			continue
+		}
+		return updated, err
+	}
+	return Account{}, errBillingLedgerChanged
 }
 
 func billingSnapshotFresh(state BillingState, now time.Time) bool {
@@ -243,55 +284,7 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 409, "your account already has paid access")
 		return
 	}
-	var checkoutURL string
-	_, err = a.store.UpdateAccountByID(ctx, account.Player.ID, func(current *Account) error {
-		// Serialize checkout creation with webhook reconciliation. Only IDs and
-		// references returned by our own server-created sessions are persisted.
-		if a.hasPaidAccess(*current, a.now()) {
-			return errors.New("already subscribed")
-		}
-		kept := make([]CreemPurchase, 0, len(current.Billing.Purchases))
-		for _, purchase := range current.Billing.Purchases {
-			if purchase.CustomerID != "" || a.now().Sub(purchase.CreatedAt) < 24*time.Hour {
-				kept = append(kept, purchase)
-			}
-		}
-		if len(kept) >= 32 {
-			return errors.New("too many pending purchases; use billing management")
-		}
-		if current.Billing.Reference == "" {
-			current.Billing.Reference, err = randomID(24)
-			if err != nil {
-				return err
-			}
-		}
-		requestID, err := randomID(24)
-		if err != nil {
-			return err
-		}
-		customer := map[string]string{"email": current.Email}
-		if current.Billing.CustomerID != "" {
-			customer = map[string]string{"id": current.Billing.CustomerID}
-		}
-		var response creemCheckout
-		err = a.billing.request(ctx, "POST", "/v1/checkouts", map[string]any{
-			"product_id": product, "request_id": requestID, "units": 1,
-			"customer":    customer,
-			"success_url": a.billing.publicURL + "/?billing=success",
-			"metadata":    map[string]string{"account_id": current.Player.ID, "billing_reference": current.Billing.Reference},
-		}, &response)
-		if err != nil {
-			return err
-		}
-		// Creem may omit request_id from creation responses. Retrieval returns it,
-		// and reconciliation verifies it against our persisted request before access.
-		if response.ID == "" || response.RequestID != "" && response.RequestID != requestID || !validCreemURL(response.URL) {
-			return errors.New("invalid checkout response")
-		}
-		current.Billing.Purchases = append(kept, CreemPurchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, CreatedAt: a.now().UTC()})
-		checkoutURL = response.URL
-		return nil
-	})
+	checkoutURL, err := a.createCheckout(ctx, account.Player.ID, product)
 	if err != nil {
 		a.recordAnalytics(r.Context(), account, AnalyticsEvent{Name: "checkout_failed", Detail: input.Plan})
 		writeError(w, 503, "unable to start checkout; please try again")
@@ -299,6 +292,86 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 	}
 	a.recordAnalytics(r.Context(), account, AnalyticsEvent{Name: "checkout_started", Detail: input.Plan})
 	writeJSON(w, 200, map[string]string{"url": checkoutURL})
+}
+
+// pendingPurchases keeps paid purchases and unpaid checkouts from the last day.
+func (a *App) pendingPurchases(billing BillingState) []CreemPurchase {
+	kept := make([]CreemPurchase, 0, len(billing.Purchases))
+	for _, purchase := range billing.Purchases {
+		if purchase.CustomerID != "" || a.now().Sub(purchase.CreatedAt) < 24*time.Hour {
+			kept = append(kept, purchase)
+		}
+	}
+	return kept
+}
+
+// createCheckout creates the Creem checkout outside the account row lock.
+// The billing reference is persisted first, so the checkout's metadata binds
+// it to this account; the purchase is recorded afterwards under the lock.
+// If that final write fails, the orphaned checkout is harmless: it grants
+// nothing unless paid, and a paid checkout.completed webhook records it.
+func (a *App) createCheckout(ctx context.Context, accountID, product string) (string, error) {
+	reserved, err := a.store.UpdateAccountByID(ctx, accountID, func(current *Account) error {
+		if a.hasPaidAccess(*current, a.now()) {
+			return errors.New("already subscribed")
+		}
+		if len(a.pendingPurchases(current.Billing)) >= 32 {
+			return errors.New("too many pending purchases; use billing management")
+		}
+		if current.Billing.Reference == "" {
+			reference, err := randomID(24)
+			if err != nil {
+				return err
+			}
+			current.Billing.Reference = reference
+		}
+		return nil
+	})
+	if err != nil {
+		return "", err
+	}
+	requestID, err := randomID(24)
+	if err != nil {
+		return "", err
+	}
+	customer := map[string]string{"email": reserved.Email}
+	if reserved.Billing.CustomerID != "" {
+		customer = map[string]string{"id": reserved.Billing.CustomerID}
+	}
+	var response creemCheckout
+	if err = a.billing.request(ctx, "POST", "/v1/checkouts", map[string]any{
+		"product_id": product, "request_id": requestID, "units": 1,
+		"customer":    customer,
+		"success_url": a.billing.publicURL + "/?billing=success",
+		"metadata":    map[string]string{"account_id": accountID, "billing_reference": reserved.Billing.Reference},
+	}, &response); err != nil {
+		return "", err
+	}
+	// Creem may omit request_id from creation responses. Retrieval returns it,
+	// and reconciliation verifies it against our persisted request before access.
+	if response.ID == "" || response.RequestID != "" && response.RequestID != requestID || !validCreemURL(response.URL) {
+		return "", errors.New("invalid checkout response")
+	}
+	_, err = a.store.UpdateAccountByID(ctx, accountID, func(current *Account) error {
+		// Serialize with webhook reconciliation; only IDs and references
+		// returned by our own server-created sessions are persisted.
+		if a.hasPaidAccess(*current, a.now()) {
+			return errors.New("already subscribed")
+		}
+		if current.Billing.Reference != reserved.Billing.Reference {
+			return errors.New("billing reference changed during checkout")
+		}
+		kept := a.pendingPurchases(current.Billing)
+		if len(kept) >= 32 {
+			return errors.New("too many pending purchases; use billing management")
+		}
+		current.Billing.Purchases = append(kept, CreemPurchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, CreatedAt: a.now().UTC()})
+		return nil
+	})
+	if err != nil {
+		return "", err
+	}
+	return response.URL, nil
 }
 
 func (a *App) billingPortal(w http.ResponseWriter, r *http.Request) {
@@ -424,16 +497,17 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(200)
 		return
 	}
-	_, err = a.store.UpdateAccountByID(ctx, accountID, func(account *Account) error {
+	// Creem is queried outside the account row lock; see reconcileBilling.
+	_, err = a.reconcileBilling(ctx, accountID, now, func(account *Account) (bool, error) {
 		if account.Email == "" {
-			return nil
+			return false, nil
 		}
 		if _, duplicate := account.Billing.WebhookReceipts[event.ID]; duplicate {
-			return nil
+			return false, nil
 		}
 		if checkout != nil {
 			if !a.billing.checkoutBelongsTo(*checkout, account.Player.ID, account.Billing.Reference) {
-				return nil
+				return false, nil
 			}
 			found := false
 			for _, purchase := range account.Billing.Purchases {
@@ -441,15 +515,13 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 			}
 			if !found {
 				if len(account.Billing.Purchases) >= 64 {
-					return errors.New("purchase reconciliation limit exceeded")
+					return false, errors.New("purchase reconciliation limit exceeded")
 				}
 				account.Billing.Purchases = append(account.Billing.Purchases, CreemPurchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, CreatedAt: now})
 			}
 		}
-		snapshot, err := a.billing.snapshot(ctx, account.Player.ID, account.Billing, now)
-		if err != nil {
-			return err
-		}
+		return true, nil
+	}, func(account *Account, snapshot BillingState) {
 		snapshot.WebhookReceipts = map[string]time.Time{}
 		for key, at := range account.Billing.WebhookReceipts {
 			if now.Sub(at) < 24*time.Hour {
@@ -471,7 +543,6 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 		if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
 			account.Analytics.PaidAt = now
 		}
-		return nil
 	})
 	if errors.Is(err, ErrUnauthorized) {
 		w.WriteHeader(200)

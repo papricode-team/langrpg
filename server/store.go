@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,24 +46,28 @@ type Store interface {
 }
 
 type diskState struct {
-	Analytics    map[string]AnalyticsEvent         `json:"analytics,omitempty"`
-	WorldContent *WorldContent                     `json:"worldContent,omitempty"`
-	World        *WorldIdentity                    `json:"world,omitempty"`
-	Version      int                               `json:"version"`
-	Accounts     map[string]Account                `json:"accounts"`
-	Sessions     map[string]string                 `json:"sessions"`
-	Actions      map[string]map[string]SavedAction `json:"actions"`
+	Analytics    map[string]AnalyticsEvent `json:"analytics,omitempty"`
+	WorldContent *WorldContent             `json:"worldContent,omitempty"`
+	World        *WorldIdentity            `json:"world,omitempty"`
+	Version      int                       `json:"version"`
+	Accounts     map[string]Account        `json:"accounts"`
+	Sessions     map[string]string         `json:"sessions"`
+	// Last use per session hash, refreshed at most hourly. Missing entries
+	// predate tracking and count as used when next seen.
+	SessionUse map[string]time.Time              `json:"sessionUse,omitempty"`
+	Actions    map[string]map[string]SavedAction `json:"actions"`
 }
 
 // JSONStore is a single-process development fallback, not shared production storage.
 type JSONStore struct {
+	sessionIdlePolicy
 	mu    sync.Mutex
 	path  string
 	state diskState
 }
 
 func NewJSONStore(path string) (*JSONStore, error) {
-	s := &JSONStore{path: path, state: diskState{Version: 1, Accounts: map[string]Account{}, Sessions: map[string]string{}, Actions: map[string]map[string]SavedAction{}}}
+	s := &JSONStore{sessionIdlePolicy: newSessionIdlePolicy(), path: path, state: diskState{Version: 1, Accounts: map[string]Account{}, Sessions: map[string]string{}, Actions: map[string]map[string]SavedAction{}}}
 	if path == "" {
 		return s, s.initializeWorld()
 	}
@@ -120,9 +125,10 @@ func (s *JSONStore) Create(_ context.Context, hash string, a Account) error {
 	defer s.mu.Unlock()
 	s.state.Accounts[a.Player.ID] = cloneAccount(a)
 	s.state.Sessions[hash] = a.Player.ID
+	s.touchSessionLocked(hash, s.sessionNow())
 	if err := s.save(); err != nil {
 		delete(s.state.Accounts, a.Player.ID)
-		delete(s.state.Sessions, hash)
+		s.dropSessionLocked(hash)
 		return err
 	}
 	return nil
@@ -131,7 +137,7 @@ func (s *JSONStore) Create(_ context.Context, hash string, a Account) error {
 func (s *JSONStore) Get(_ context.Context, hash string) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
@@ -143,7 +149,7 @@ func (s *JSONStore) Get(_ context.Context, hash string) (Account, error) {
 func (s *JSONStore) ActivityProofs(_ context.Context, hash, activityID, runID string, attemptIDs []string) (map[string]SavedAction, int, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return nil, 0, ErrUnauthorized
 	}
@@ -173,7 +179,7 @@ func (s *JSONStore) ActivityProofs(_ context.Context, hash, activityID, runID st
 func (s *JSONStore) Mutate(_ context.Context, hash, key string, request json.RawMessage, fn func(*Account) (Receipt, error)) (Account, Receipt, bool, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, Receipt{}, false, ErrUnauthorized
 	}
@@ -206,7 +212,7 @@ func (s *JSONStore) Mutate(_ context.Context, hash, key string, request json.Raw
 func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar Avatar) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
@@ -225,7 +231,7 @@ func (s *JSONStore) UpdateProfile(_ context.Context, hash, name string, avatar A
 func (s *JSONStore) UpdatePreferences(_ context.Context, hash string, preferences Preferences) (Account, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	id, ok := s.state.Sessions[hash]
+	id, ok := s.sessionLocked(hash)
 	if !ok {
 		return Account{}, ErrUnauthorized
 	}
@@ -245,6 +251,7 @@ func (s *JSONStore) Kind() string                 { return "json-development" }
 func (s *JSONStore) Close()                       {}
 
 type PGStore struct {
+	sessionIdlePolicy
 	pool          *pgxpool.Pool
 	worldIdentity WorldIdentity
 }
@@ -254,7 +261,7 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 	if err != nil {
 		return nil, err
 	}
-	s := &PGStore{pool: pool}
+	s := &PGStore{sessionIdlePolicy: newSessionIdlePolicy(), pool: pool}
 	if err = pool.Ping(ctx); err != nil {
 		pool.Close()
 		return nil, err
@@ -273,6 +280,15 @@ func NewPGStore(ctx context.Context, url string) (*PGStore, error) {
 		return nil, err
 	}
 	_, err = pool.Exec(ctx, `CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique ON accounts ((data->>'email')) WHERE data->>'email' IS NOT NULL`)
+	if err != nil {
+		pool.Close()
+		return nil, err
+	}
+	// Existing sessions start their idle clock at this deployment.
+	_, err = pool.Exec(ctx, `ALTER TABLE sessions ADD COLUMN IF NOT EXISTS last_used_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+	CREATE INDEX IF NOT EXISTS sessions_account_id ON sessions(account_id);
+	CREATE INDEX IF NOT EXISTS sessions_last_used_at ON sessions(last_used_at);
+	CREATE INDEX IF NOT EXISTS accounts_billing_purchases ON accounts USING GIN ((data->'billing'->'purchases') jsonb_path_ops);`)
 	if err != nil {
 		pool.Close()
 		return nil, err
@@ -305,12 +321,18 @@ func (s *PGStore) Create(ctx context.Context, hash string, a Account) error {
 
 func (s *PGStore) Get(ctx context.Context, hash string) (Account, error) {
 	var b []byte
-	err := s.pool.QueryRow(ctx, "SELECT a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1", hash).Scan(&b)
+	var lastUsed time.Time
+	now := s.sessionNow()
+	err := s.pool.QueryRow(ctx, "SELECT a.data,s.last_used_at FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1"+pgLiveSession, hash, s.sessionCutoff(now)).Scan(&b, &lastUsed)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, err
+	}
+	// Recording use is best effort on reads; a failed touch never fails a request.
+	if err := s.touchSession(ctx, s.pool, hash, lastUsed, now); err != nil {
+		slog.Warn("session use was not recorded", "error", err)
 	}
 	var a Account
 	err = json.Unmarshal(b, &a)
@@ -320,7 +342,7 @@ func (s *PGStore) Get(ctx context.Context, hash string) (Account, error) {
 
 func (s *PGStore) ActivityProofs(ctx context.Context, hash, activityID, runID string, attemptIDs []string) (map[string]SavedAction, int, error) {
 	var accountID string
-	err := s.pool.QueryRow(ctx, "SELECT account_id FROM sessions WHERE token_hash=$1", hash).Scan(&accountID)
+	err := s.pool.QueryRow(ctx, "SELECT s.account_id FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=$1"+pgLiveSession, hash, s.sessionCutoff(s.sessionNow())).Scan(&accountID)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, 0, ErrUnauthorized
 	}
@@ -368,7 +390,7 @@ func (s *PGStore) Mutate(ctx context.Context, hash, key string, request json.Raw
 	defer tx.Rollback(ctx)
 	var data []byte
 	var id string
-	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &data)
+	id, data, err = s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, Receipt{}, false, ErrUnauthorized
 	}
@@ -434,7 +456,7 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, avatar A
 	defer tx.Rollback(ctx)
 	var data []byte
 	var id string
-	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &data)
+	id, data, err = s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
@@ -471,7 +493,7 @@ func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preference
 	defer tx.Rollback(ctx)
 	var data []byte
 	var id string
-	err = tx.QueryRow(ctx, "SELECT a.id,a.data FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1 FOR UPDATE OF a", hash).Scan(&id, &data)
+	id, data, err = s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
