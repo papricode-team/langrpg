@@ -119,6 +119,7 @@ let textureSequence = 0;
 
 /** One small contact atlas per regional painting, shared across placement sizes. */
 export class BuildingFoundation {
+  readonly kind = 'building';
   readonly shadow: Phaser.GameObjects.Image;
   readonly wear: Phaser.GameObjects.Image;
   /** Owned, segmented and depth-sorted with the building's painted parts. */

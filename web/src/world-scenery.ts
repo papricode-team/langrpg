@@ -8,6 +8,8 @@ import { getSceneryGeometry } from './scene-schema';
 import { createDepthSampler, worldDepth, isCharacterOccluded, updateOcclusion, type DepthGeometry, type OcclusionCharacter, type OcclusionCircle, type WorldBounds } from './world-depth';
 import type { SceneryOcclusionController } from './scenery-occlusion';
 import { BuildingFoundation } from './world-foundations';
+import { SceneryContact } from './world-scenery-contact';
+import { sceneryContactKind } from './scenery-contact-shape';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   scale:number;
@@ -33,7 +35,7 @@ interface SceneryLayer {
   circles:readonly OcclusionCircle[];
   visible?:boolean;
   nightTint?:number;
-  foundation?:BuildingFoundation;
+  foundation?:BuildingFoundation|SceneryContact;
 }
 const noCircles:readonly OcclusionCircle[]=[];
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
@@ -99,9 +101,10 @@ export class WorldScenery {
           .setOrigin(.5,.5).setScale(detailScale).setDepth(sprite.depth).setFlipX(spec.flipX??false);
         parts.push({sprite:detail,scale:detailScale,animation:overlay,currentFrame:detailFrame,phaseId});
       }
-      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,{
-        frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY,
-      }):undefined;
+      const contactArtwork={frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY};
+      const contactKind=sceneryContactKind(spec);
+      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork)
+        :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork):undefined;
       // Each narrow strip has its own wall segment depth. This also sorts two
       // characters correctly when they stand on opposite sides of one building.
       // A camera-dependent single depth cannot represent both relationships.
@@ -223,7 +226,11 @@ export class WorldScenery {
   private segmentFoundationSurface(part:AnimatedSprite,walls:readonly AnimatedSprite[]):AnimatedSprite[]{
     const source=part.sprite,frame=source.frame,texture=source.texture,result:AnimatedSprite[]=[];
     for(const {sprite:wall} of walls){
-      const left=wall.x-wall.displayWidth*wall.originX,right=left+wall.displayWidth;
+      const wallLeft=wall.x-wall.displayWidth*wall.originX;
+      // Root collars can be much narrower than the canopy. Intersect their
+      // bounds instead of stretching a tiny root decal across the whole tree.
+      const left=Math.max(wallLeft,source.x),right=Math.min(wallLeft+wall.displayWidth,source.x+source.displayWidth);
+      if(right<=left)continue;
       const start=Math.max(0,Math.floor((left-source.x)/part.scale)),end=Math.min(frame.width,Math.ceil((right-source.x)/part.scale));
       if(end<=start)continue;
       const name=`__contact:${part.currentFrame}:${start}:${end}`;

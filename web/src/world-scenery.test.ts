@@ -3,7 +3,7 @@ import type * as Phaser from 'phaser';
 import { depthAt, worldDepth, isCharacterOccluded, updateOcclusion } from './world-depth';
 import { WorldScenery, type SceneryOcclusionFactory } from './world-scenery';
 import { getSceneryGeometry } from './scene-schema';
-import { sceneryFootprints } from './placed-scenery';
+import { sceneryFootprints, type PlacedScenerySpec } from './placed-scenery';
 import { NavigationGrid } from './navigation';
 import { foundationScene } from './test-support/foundation-scene';
 
@@ -71,12 +71,12 @@ describe('occlusion fades', () => {
   });
 });
 
-function fixture(period:'day'|'night'='day',inheritSortLine=false) {
-  const canonical=getSceneryGeometry('lindenhafen',{asset:'house'})!;
+function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedScenerySpec['asset']='house') {
+  const canonical=getSceneryGeometry('lindenhafen',{asset})!;
   const reference=canonical.referenceWidth*(period==='night'?.8:1);
-  const initial={name:'house',width:reference,height:reference,cutX:0,cutY:0,cutHeight:reference,sourceIndex:0,trimmed:false,rotated:false};
-  const frames=new Map([['house',initial]]);
-  const texture={key:'test-house',has:(name:string)=>frames.has(name),get:(name:string)=>frames.get(name)!,
+  const initial={name:String(asset),width:reference,height:reference,cutX:0,cutY:0,cutHeight:reference,sourceIndex:0,trimmed:false,rotated:false};
+  const frames=new Map<string,typeof initial>([[asset,initial]]);
+  const texture={key:`test-${asset}`,has:(name:string)=>frames.has(name),get:(name:string)=>frames.get(name)!,
     add:(name:string,sourceIndex:number,cutX:number,cutY:number,width:number,height:number)=>{const frame={...initial,name,sourceIndex,cutX,cutY,width,height,cutHeight:height};frames.set(name,frame);return frame;}};
   class Sprite {
     originX=.5;originY=1;scaleX=1;scaleY=1;depth=0;alpha=1;visible=true;flipX=false;rotation=0;destroyed=false;
@@ -92,17 +92,17 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false) {
     destroy(){this.destroyed=true;}
   }
   const sprites:Sprite[]=[],ground=foundationScene();
-  const scene={cache:{json:{get:()=>({assets:{house:{key:texture.key,frames:['house'],fps:0,width:reference,height:reference,referenceWidth:reference,originX:.5,originY:1,
+  const scene={cache:{json:{get:()=>({assets:{[asset]:{key:texture.key,frames:[asset],fps:0,width:reference,height:reference,referenceWidth:reference,originX:.5,originY:1,
     sortLine:period==='night'?[[-reference/2,-reference*.8],[reference/2,-reference*.6]]:canonical.sortLine}}})}},
     textures:{exists:()=>true,get:()=>texture,createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image,sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
   const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:()=>undefined})) as unknown as SceneryOcclusionFactory;
-  const placement={id:'test-wall',asset:'house' as const,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
+  const placement={id:'test-wall',asset,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
   return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement};
 }
 
 describe('segmented scenery rendering', () => {
-  it('moves ground contact with editor previews and cleans it up when edited buildings are rebuilt or removed',()=>{
-    const {scenery,ground,placement}=fixture();
+  it.each(['house','tree','bench','boat'] as const)('moves %s ground contact with editor previews and cleans it up when rebuilt or removed',(asset)=>{
+    const {scenery,ground,placement}=fixture('day',false,asset);
     const originals=ground.images.map(image=>({x:image.x,y:image.y}));
     scenery.setAmbientTint(0xffffff,0xffedd0,0x445566);
     scenery.previewMove(placement.id,20,30);
@@ -124,6 +124,17 @@ describe('segmented scenery rendering', () => {
     expect(ground.remove).toHaveBeenCalledTimes(2);
     scenery.destroy();
     expect(ground.remove).toHaveBeenCalledTimes(2);
+  });
+  it('anchors root contact while the tree painting sways',()=>{
+    const {scenery,sprites,ground}=fixture('day',false,'tree');
+    const roots=ground.images.map(image=>[image.x,image.y]);
+    const view={x:0,y:0,right:300,bottom:300};
+    scenery.update(0,view);
+    const rotation=sprites.filter(sprite=>!sprite.destroyed).map(sprite=>sprite.rotation);
+    scenery.update(3,view);
+    expect(sprites.filter(sprite=>!sprite.destroyed).some((sprite,i)=>sprite.rotation!==rotation[i])).toBe(true);
+    expect(ground.images.map(image=>[image.x,image.y])).toEqual(roots);
+    scenery.destroy();
   });
   it('keeps ground effects under all strips, culls and fades them, and releases textures on exit',()=>{
     const {scenery,sprites,ground}=fixture(),view={x:0,y:0,right:300,bottom:300};

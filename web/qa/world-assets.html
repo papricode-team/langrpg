@@ -56,24 +56,24 @@ if(import.meta.env.DEV){
  const controls = document.createElement('label'); controls.innerHTML = '<input type="checkbox" id="controls">Walk & interact';
  controls.querySelector('input').checked=walkingTest;
  document.querySelector('header').insertBefore(controls, status);
- const foundations=document.createElement('label');foundations.innerHTML='<input type="checkbox" id="foundations" checked>Foundation contact';
+ const foundations=document.createElement('label');foundations.innerHTML='<input type="checkbox" id="foundations" checked>Ground contact';
  document.querySelector('header').insertBefore(foundations,status);
  const foundationInput=foundations.querySelector('input');
  const showFoundations=()=>window.atlasGame?.scene.getScenes(true).forEach(scene=>{
   scene.scenery?.setGroundContactVisible(foundationInput.checked);scene.previousScenery?.setGroundContactVisible(foundationInput.checked);
  });
  foundationInput.addEventListener('change',showFoundations);
- const buildingPicker=document.createElement('select');buildingPicker.id='building';buildingPicker.setAttribute('aria-label','Inspect building foundation');
- buildingPicker.add(new Option('Inspect building foundation',''));document.querySelector('header').insertBefore(buildingPicker,status);
+ const buildingPicker=document.createElement('select');buildingPicker.id='building';buildingPicker.setAttribute('aria-label','Inspect scenery ground contact');
+ buildingPicker.add(new Option('Inspect scenery ground contact',''));document.querySelector('header').insertBefore(buildingPicker,status);
  let buildingSignature='',inspectionGame;
- const requestedBuilding=new URLSearchParams(location.search).get('building');let requestedBuildingApplied=false;
+ const requestedBuilding=new URLSearchParams(location.search).get('scenery')??new URLSearchParams(location.search).get('building');let requestedBuildingApplied=false;
  const inspectBuilding=()=>{
   if(!buildingPicker.value||rooms.value)return;
   const scene=window.atlasGame?.scene.getScene('world');
   const layer=scene?.scenery?.layers.find(layer=>layer.spec.id===buildingPicker.value);
   if(!layer)return;
   const camera=scene.cameras.main;
-  camera.stopFollow();camera.setZoom(camera.width*.72/layer.width).centerOn(layer.spec.x,layer.spec.y-layer.height*.12);
+  camera.stopFollow();camera.setZoom(Math.min(7,camera.width*.72/layer.width)).centerOn(layer.spec.x,layer.spec.y-layer.height*.12);
  };
  buildingPicker.addEventListener('change',()=>{
   world.setWatchMode(false);document.querySelector('#tour').checked=false;
@@ -87,7 +87,12 @@ if(import.meta.env.DEV){
   const signature=`${shownRegion}:${buildings.map(layer=>layer.spec.id).join(',')}`;
   if(signature!==buildingSignature){
    buildingSignature=signature;const selected=buildingPicker.value;
-   buildingPicker.replaceChildren(new Option(`Inspect building foundation (${buildings.length})`,''),...buildings.map(layer=>new Option(layer.spec.id.replaceAll('-',' '),layer.spec.id)));
+   buildingPicker.replaceChildren(new Option(`Inspect scenery ground contact (${buildings.length})`,''));
+   for(const [kind,label] of [['building','Buildings'],['leaf-tree','Broadleaf trees'],['conifer','Conifers'],['planter','Planters'],['fountain','Fountains'],['bench','Benches'],['post','Lamps & signs'],['market','Market stalls'],['boat','Boats']]){
+    const group=document.createElement('optgroup');group.label=label;
+    group.append(...buildings.filter(layer=>layer.foundation.kind===kind).map(layer=>new Option(layer.spec.id.replaceAll('-',' '),layer.spec.id)));
+    if(group.children.length)buildingPicker.append(group);
+   }
    if(buildings.some(layer=>layer.spec.id===selected))buildingPicker.value=selected;
    if(!requestedBuildingApplied&&shownRegion&&buildings.some(layer=>layer.spec.id===requestedBuilding)){buildingPicker.value=requestedBuilding;requestedBuildingApplied=true;}
   }

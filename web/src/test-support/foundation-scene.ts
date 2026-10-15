@@ -19,6 +19,7 @@ export function foundationScene() {
   const createCanvas = vi.fn((key: string, width: number, height: number) => ({ key, width, height,
     context: { save: vi.fn(), restore: vi.fn(), translate: vi.fn(), scale: vi.fn(),
       beginPath: vi.fn(), moveTo: vi.fn(), lineTo: vi.fn(), closePath: vi.fn(), stroke: vi.fn(), fill: vi.fn(), fillRect: vi.fn(),
+      ellipse: vi.fn(), quadraticCurveTo: vi.fn(), rect: vi.fn(), clip: vi.fn(),
       createRadialGradient: vi.fn(() => ({ addColorStop: vi.fn() })) },
     add: vi.fn(), refresh: vi.fn(),
   }));

@@ -64,10 +64,10 @@ the lowest stones without covering people standing in front. Ground marks stay
 below characters and architecture. Matching frames with identical dressing share
 textures; they follow ambient light and fades and release with the last instance.
 The regional daylight bounce colours come from `docs/style`, rather than sampling
-terrain tiles that may not yet be resident. Use **Foundation contact** on
+terrain tiles that may not yet be resident. Use **Ground contact** on
 `/qa/world-assets.html` for an in-place comparison in each region and period.
-The **Inspect building foundation** selector visits every placed building in the
-selected town, including houses, stations, workshops, greenhouses and arches.
+The **Inspect scenery ground contact** selector visits every placed object in the
+selected town, grouped by buildings, trees and prop types.
 Use `?map=waldruh&building=waldruh-clockmill` to open a particular base directly. The same
 renderer applies contact to every building asset, including custom frame names,
 mirrored instances and non-collidable decorative placements.
@@ -88,6 +88,23 @@ when GPU tiles stream out or the night art loads. Unknown terrain assets use a
 restrained neutral fallback until sampled. A four-frame atlas per dressed base
 is bounded to 512 pixels per frame dimension; the current largest town uses about
 30 MiB for all 34 building contact atlases together.
+
+Other scenery uses `web/src/world-scenery-contact.ts`, with alpha contours that
+locate trunks, separate bench feet, post plinths, planter bottoms and boat hulls.
+Broadleaf trees get a soft broken canopy shadow, a tighter root shadow, soil and
+fallen leaves. Conifers use a narrower shadow and needle litter. Moss and a few
+grass blades cross the root edge where the sampled terrain supports vegetation.
+Posts, benches and stalls use close contact shadows and restrained dust; planters
+spill a little soil, while fountains have damp staining and moss around the base.
+Boats use a hull shadow and incomplete waterline ripples only on sampled water.
+Organic dressing is suppressed on water, and all colours follow ambient light.
+
+Root marks remain anchored while trees sway. Foreground collars use the same
+depth as the object, and all contacts follow editor drags, rebuild after edits,
+cull, fade and release with their owning scenery. Seeded material variants share
+bounded atlases (at most 192 × 96 pixels per layer); the 175 non-building objects
+in Lindenhafen currently add about 18.5 MiB of texture memory. Use
+`?map=lindenhafen&scenery=rose-garden-south-tree` to inspect a tree base.
 
 Future building repaints may include a thin, neutral contact band at the lowest
 foundation stones: crevice occlusion, a few grass blades or soil crumbs fading
