@@ -1,5 +1,7 @@
-# New source paintings use LFS. Existing tracked art remains compatible; migrate
-# its history separately when all clones and release tooling are ready.
+# Source paintings use LFS. Town and expedition masters moved to LFS on
+# 2026-10-15; earlier history still holds them as ordinary blobs.
+art/source/*.png filter=lfs diff=lfs merge=lfs -text
+art/source/expeditions/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/story-cast/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Native-resolution building masters, with exact prompts tracked as ordinary text.
