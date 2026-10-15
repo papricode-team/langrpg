@@ -24,7 +24,7 @@ try{
  await page.waitForTimeout(4000); // Allow streamed HD terrain textures to finish loading before the visual audit.
  await page.screenshot({path:'docs/audits/modular-terrain/live-terrain-with-placements.png'});
  await page.locator('[data-terrain-action="undo"]').click();
- await page.waitForFunction(key=>!JSON.parse(localStorage.getItem(key)).maps.lindenhafen.modularTerrain,storage);
+ await page.waitForFunction(({key,terrain})=>JSON.stringify(JSON.parse(localStorage.getItem(key)).maps.lindenhafen.modularTerrain)===terrain,{key:storage,terrain:JSON.stringify(before.maps.lindenhafen.modularTerrain)});
  assert.deepEqual(await saved(),before,'undo must restore terrain without changing objects');
  assert.deepEqual(requests,[]);
  console.log('PASS: terrain file preview, terrain-only publication, exact placement preservation, undo; zero backend requests.');
