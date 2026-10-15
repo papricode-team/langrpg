@@ -47,6 +47,15 @@ describe('editable terrain',()=>{
  it('rejects stale terrain edits instead of overwriting another admin',()=>{
   expect(()=>applyEditOps(sceneDocument,[{kind:'terrain',map:'lindenhafen',terrain:null,expected:'stale'}])).toThrow(/changed/);
  });
+ it('preserves building and object edits made before a terrain publication',()=>{
+  const published=structuredClone(sceneDocument),scene=published.maps.lindenhafen;
+  scene.scenery[0].x+=1;
+  scene.scenery[0].flipX=!scene.scenery[0].flipX;
+  const next={...scene.modularTerrain!,base:'snow'};
+  const applied=applyEditOps(published,[{kind:'terrain',map:scene.id,terrain:next,expected:terrainFingerprint(scene.modularTerrain)}]).document;
+  const expected=structuredClone(published);expected.maps.lindenhafen.modularTerrain=next;
+  expect(applied).toEqual(expected);
+ });
  it.each(['unknown-material','self-intersection','outside-map'])('rejects %s at the scene boundary',kind=>{
   const doc=structuredClone(sceneDocument),terrain=doc.maps.lindenhafen.modularTerrain!;
   if(kind==='unknown-material')terrain.base='missing';

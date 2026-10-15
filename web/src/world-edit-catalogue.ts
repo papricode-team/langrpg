@@ -22,8 +22,8 @@ export function paletteChoices(mapId: string): PaletteChoice[] {
     if (!sceneryAssets.includes(name as SceneScenery['asset'])) return [];
     const asset = name as SceneScenery['asset'];
     return [{asset, frame, label: assetLabel({asset, frame}), rooms: roomOptions(mapId, {asset, frame})}];
-  }).sort((a, b) => groupOrder.indexOf(a.asset) - groupOrder.indexOf(b.asset) || a.frame.localeCompare(b.frame, undefined, {numeric: true}))
-    .concat(terrainObjects.map(object=>({asset:object.role,frame:object.id,label:object.name,rooms:[]})));
+  }).concat(terrainObjects.map(object=>({asset:object.role,frame:object.id,label:object.name,rooms:[]})))
+    .sort((a, b) => groupOrder.indexOf(a.asset) - groupOrder.indexOf(b.asset) || a.frame.localeCompare(b.frame, undefined, {numeric: true}));
 }
 
 /** Group interchangeable objects by their physical role. */

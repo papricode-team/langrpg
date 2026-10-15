@@ -26,7 +26,8 @@ export function auditSceneQuality(scene,manifest,geometry=manifest){
   issues.push(...auditBuildingSpacing(scene,geometry));
   for(const item of scene.scenery){
     const asset=manifest.assets[item.frame??item.asset];if(!asset)continue;
-    const height=item.width*asset.height/asset.referenceWidth,range=scaleCanon[item.asset];
+    // Standalone exports can increase texture density without changing placement scale.
+    const height=item.width*asset.height/(asset.base?.referenceWidth??asset.referenceWidth),range=scaleCanon[item.asset];
     if(range&&(height/PERSON_HEIGHT<range[0]-.01||height/PERSON_HEIGHT>range[1]+.01))issues.push(`${scene.id}: ${item.id} height ${(height/PERSON_HEIGHT).toFixed(2)} persons is outside ${range.join('–')}`);
     (classes[item.asset]??=[]).push(asset.referenceWidth/item.width);
     if(['house','archive','cafe','station','workshop','greenhouse'].includes(item.asset)&&!asset.footprint)issues.push(`${scene.id}: ${item.id} building needs a painted footprint`);
