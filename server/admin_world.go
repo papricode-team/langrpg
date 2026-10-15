@@ -107,7 +107,7 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 			return err
 		}
 	} else {
-		saved = a.reconcileStoredWorld(ctx, saved, source)
+		saved = a.reconcileStoredWorld(ctx, storage, saved, source)
 	}
 	if err := validateWorldContent(saved); err != nil {
 		return err
@@ -228,6 +228,13 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 		return nil
 	}
 	defer editing.writes.Unlock()
+	return a.refreshWorldContentLocked(ctx)
+}
+
+// refreshWorldContentLocked adopts the stored publication when it differs from
+// memory. The caller holds editing.writes.
+func (a *App) refreshWorldContentLocked(ctx context.Context) error {
+	editing := a.editing
 	revision, err := editing.store.WorldContentRevision(ctx)
 	if err != nil {
 		return err
@@ -246,7 +253,7 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 		return nil
 	}
 	if editing.source != "" {
-		saved = a.reconcileStoredWorld(ctx, saved, editing.source)
+		saved = a.reconcileStoredWorld(ctx, editing.store, saved, editing.source)
 	}
 	if err = validateWorldContent(saved); err != nil {
 		return err

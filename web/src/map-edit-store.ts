@@ -13,15 +13,15 @@ import type {EditResult} from './world-edit-session';
 
 export interface EditTransport { send(ops: WorldEditOp[]): Promise<EditResult>; }
 interface Entry { ops: WorldEditOp[]; inverse: WorldEditOp[]; label: string; }
-interface Pending { entry: Entry; direction: 'do' | 'undo' | 'redo'; ops: WorldEditOp[]; }
+interface Pending { entry: Entry; direction: 'do' | 'undo' | 'redo'; ops: WorldEditOp[]; retried?: boolean; }
 export interface StoreFailure { label: string; message: string; problems: WorldProblem[]; }
 export interface StoreListener {
   /** The view changed; the towns that changed are listed. */
   changed(maps: ReadonlySet<string>): void;
   /** A batch was refused and taken back out of the view. */
   failed(failure: StoreFailure): void;
-  /** Another admin published first: the caller reloads and calls `rebase`. */
-  stale(): void;
+  /** The server holds a newer world than this view: the caller reloads it and calls `rebase`. */
+  stale(): void | Promise<void>;
   /** The server accepted a batch but has something to point out. */
   warned?(problems: readonly WorldProblem[]): void;
   /** Saving started or finished. */
@@ -131,7 +131,7 @@ export class MapEditStore {
           if (result.from !== this.confirmedVersion) {
             // Someone else published in between: our base is out of date.
             this.confirmedVersion = result.contentVersion;
-            this.listener.stale();
+            await this.listener.stale();
             continue;
           }
           // The server's operations, including footprints it worked out, become the base.
@@ -142,6 +142,12 @@ export class MapEditStore {
           // Nothing else is waiting: the server's version is exactly what is on screen.
           if (!this.queue.length) this.current = this.confirmed;
         } catch (error) {
+          // The server's copy moved on: catch up and send the same edit once more.
+          if (problemsOf(error)[0]?.code === 'stale' && !pending.retried) {
+            pending.retried = true;
+            await this.listener.stale();
+            continue;
+          }
           this.queue.shift();
           this.reject(pending);
           this.listener.failed({label: pending.entry.label, message: error instanceof Error ? error.message : 'The change could not be saved.', problems: problemsOf(error)});

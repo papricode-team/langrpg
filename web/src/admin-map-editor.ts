@@ -156,7 +156,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       else toast(`${failure.label} was undone: ${failure.message}`, true);
       saveState('error');
     },
-    stale: () => { void reloadWorld(); },
+    stale: () => reloadWorld(),
     warned: problems => {
       for (const problem of problems.filter(value => value.severity === 'warning').slice(0, 2))
         toast(problem.message, false, problem.objectIds.length || problem.point ? {ids: problem.objectIds, point: problem.point} : undefined);
@@ -251,10 +251,8 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   };
 
   // Loading -------------------------------------------------------------------------------------------
-  let reloading = false;
-  const reloadWorld = async (rebuild = false) => {
-    if (reloading) return;
-    reloading = true;
+  let reloading: Promise<void> | undefined;
+  const reloadWorld = (rebuild = false): Promise<void> => reloading ??= (async () => {
     try {
       const before = getWorldScene(mapId);
       await loadPublishedWorld(options.request);
@@ -263,8 +261,8 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       if (rebuild || after.width !== before.width || after.height !== before.height) await scene.rebuild();
       if (mode === 'terrain') terrainEditor.refresh();
     } catch (error) { toast(error instanceof Error ? error.message : 'The world could not be reloaded.', true); }
-    finally { reloading = false; }
-  };
+    finally { reloading = undefined; }
+  })();
 
   // Other admins' edits and locks.
   const poll = window.setInterval(() => {
@@ -349,7 +347,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     const match = (label: string, id: string) => !search || label.toLocaleLowerCase().includes(search) || id.includes(search);
     const sections: {title: string; rows: {kind: MapItem['kind']; id: string; label: string}[]}[] = [
       {title: 'Story characters', rows: town.npcs.map(item => ({kind: 'npc' as const, id: item.id, label: objectLabel(town, item.id)}))},
-      {title: 'Story evidence', rows: town.objects.map(item => ({kind: 'object' as const, id: item.id, label: objectLabel(town, item.id)}))},
+      {title: 'Story evidence', rows: town.objects.map(item => ({kind: 'object' as const, id: item.id, label: capital(objectLabel(town, item.id).replace(/^the /, ''))}))},
     ];
     const byGroup = new Map<string, typeof sections[number]['rows']>();
     for (const item of town.scenery) {

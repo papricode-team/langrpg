@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"log/slog"
 	"os"
 	"strings"
 )
@@ -197,8 +198,10 @@ func reconcileWorldContent(saved *WorldContent, canonical json.RawMessage, autho
 }
 
 // reconcileStoredWorld persists the reconciled publication once; every server
-// instance then reads the same revision.
-func (a *App) reconcileStoredWorld(ctx context.Context, saved *WorldContent, source string) *WorldContent {
+// instance then reads the same revision. The reconciled copy is only adopted when
+// it was stored: serving a revision the store does not hold would refuse every
+// later edit as a conflict.
+func (a *App) reconcileStoredWorld(ctx context.Context, storage worldContentStore, saved *WorldContent, source string) *WorldContent {
 	canonical, err := os.ReadFile(source)
 	if err != nil {
 		return saved
@@ -211,8 +214,10 @@ func (a *App) reconcileStoredWorld(ctx context.Context, saved *WorldContent, sou
 	if err != nil || !changed || validateWorldContent(next) != nil {
 		return saved
 	}
-	if storage, ok := a.store.(worldContentStore); ok {
-		_ = storage.SaveWorldContent(ctx, saved.Revision, next)
+	if err := storage.SaveWorldContent(ctx, saved.Revision, next); err != nil {
+		// Another process may have reconciled first; the next refresh reads its revision.
+		slog.Warn("world reconciliation was not stored", "error", err)
+		return saved
 	}
 	return next
 }
