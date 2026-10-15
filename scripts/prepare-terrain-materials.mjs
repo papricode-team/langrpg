@@ -2,6 +2,7 @@
 /** Compile generated material sources into periodic, lossless game textures. */
 import sharp from 'sharp';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const source='art/source/terrain-materials',output='web/public/assets/terrain-materials';
 const manifest=JSON.parse(await readFile(`${source}/manifest.json`,'utf8'));
 await mkdir(output,{recursive:true});
@@ -29,7 +30,7 @@ for(const item of manifest.materials){
  if(info.width<1024||info.height<1024)throw new Error(`${item.id}: source is not high resolution`);
  const periodic=periodicTexture(data,info.width,info.height,info.channels);
  await sharp(periodic.data,{raw:periodic}).webp({lossless:true,effort:6}).toFile(`${output}/${outputName}.webp`);
- await sharp(`${output}/${outputName}.webp`).resize(160,160).webp({quality:85}).toFile(`${output}/${outputName}-thumb.webp`);
+ await sharp(`${output}/${outputName}.webp`).resize(160,160).webp({quality: WEBP_QUALITY}).toFile(`${output}/${outputName}-thumb.webp`);
  materials.push({id:item.id,name:item.name,group:item.group,color:item.color,blocked:!!item.blocked,
   asset:`/assets/terrain-materials/${outputName}.webp`,thumbnail:`/assets/terrain-materials/${outputName}-thumb.webp`,
   width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap',...(item.edge?{edge:item.edge}:{})});

@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const regionIds = ['lindenhafen', 'waldruh', 'nebelstadt'];
@@ -51,7 +52,7 @@ for (const region of requested.length ? requested : regionIds) {
   const out = resolve(root, 'web/public/assets');
   await mkdir(out, { recursive: true });
   await sharp({ create: { width: 1024, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(images).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${region}-variations.webp`));
+    .composite(images).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${region}-variations.webp`));
   await writeFile(resolve(out, `${region}-variations.json`), JSON.stringify({
     frames, meta: { image: `${region}-variations.webp`, size: { w: 1024, h: height }, scale: '1' },
   }, null, 2) + '\n');

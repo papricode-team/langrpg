@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {stitchTerrainGrid} from './terrain-stitch.mjs';
+import {WEBP_QUALITY, MIN_WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const [town = 'lindenhafen', district = 'parcel-yard', period = 'day'] = process.argv.slice(2);
@@ -48,14 +49,14 @@ if (stitched.width !== 3072 || stitched.height !== 2048) throw Error('Unexpected
 const painting = sharp(stitched.data, {raw:{width:stitched.width, height:stitched.height, channels:3}});
 const guarded = painting.clone().extend({top:1,bottom:1,left:1,right:1,extendWith:'copy'});
 let encoded, quality;
-for (quality = 94; quality >= 76; quality--) {
+for (quality = WEBP_QUALITY; quality >= MIN_WEBP_QUALITY; quality--) {
   encoded = await guarded.clone().webp({quality,effort:6}).toBuffer();
   if (encoded.length <= 2 * 1024 * 1024) break;
 }
-if (quality < 76) throw Error('Detailed chunk exceeds 2 MiB even at the approved minimum quality');
+if (quality < MIN_WEBP_QUALITY) throw Error('Detailed chunk exceeds 2 MiB even at the approved minimum quality');
 const file = `${town}-${district}-${period}-terrain.webp`;
 await writeFile(resolve(out, file), encoded);
-await painting.clone().resize(768,512).webp({quality:78,effort:6}).toFile(resolve(out,file.replace('.webp','-overview.webp')));
+await painting.clone().resize(768,512).webp({quality: WEBP_QUALITY,effort:6}).toFile(resolve(out,file.replace('.webp','-overview.webp')));
 await writeFile(resolve(source, `${district}-${period}.json`), JSON.stringify({
   version:1, status:'review-export', generator:prompts.generator, pixelDensity:4,
   worldSize:{width:768,height:512}, outputSize:{width:3072,height:2048},

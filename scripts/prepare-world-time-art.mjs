@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import { access, readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const maps = process.argv.slice(2);
 for (const map of maps.length ? maps : ['lindenhafen', 'waldruh', 'nebelstadt']) {
   for (const period of ['day', 'night']) {
@@ -21,7 +22,7 @@ for (const map of maps.length ? maps : ['lindenhafen', 'waldruh', 'nebelstadt'])
     try { await access(source); }
     catch (error) { if (period === 'day' && error.code === 'ENOENT') continue; throw error; }
     const output = `web/public/assets/${map}-${period}-terrain.webp`;
-    await sharp(source).resize(1536, 1024).webp({ quality: 90, effort: 6 }).toFile(output);
+    await sharp(source).resize(1536, 1024).webp({ quality: WEBP_QUALITY, effort: 6 }).toFile(output);
     const manifestPath = `web/public/assets/${map}-${period}-animations.json`;
     try {
       const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));

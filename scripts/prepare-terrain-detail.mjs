@@ -5,6 +5,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { stitchTerrainGrid } from './terrain-stitch.mjs';
 import { exportAuthoredWalkableMasks } from './terrain-walkable-mask.mjs';
+import {WEBP_QUALITY, MIN_WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const source = resolve(root, 'art/source/terrain-detail');
@@ -19,13 +20,13 @@ await mkdir(source, { recursive: true });
 // Masks can be re-exported without regenerating or touching any painted terrain.
 for (const town of selected.length ? selected : towns) await exportAuthoredWalkableMasks(root, town);
 if (args.includes('--walkable-masks')) process.exit(0);
-async function webp(painting, minimumQuality = 76) {
+async function webp(painting, minimumQuality = MIN_WEBP_QUALITY) {
   const encode = async quality => ({ data: await painting.clone().webp({ quality, effort: 6 }).toBuffer(), quality });
-  const maximum = await encode(94);
+  const maximum = await encode(WEBP_QUALITY);
   if (maximum.data.length <= 2 * 1024 * 1024) return maximum;
   let best = await encode(minimumQuality);
   if (best.data.length > 2 * 1024 * 1024) throw Error('Terrain piece exceeds the 2 MiB download budget');
-  let low = minimumQuality + 1, high = 93;
+  let low = minimumQuality + 1, high = WEBP_QUALITY - 1;
   while (low <= high) {
     const quality = Math.floor((low + high) / 2), candidate = await encode(quality);
     if (candidate.data.length <= 2 * 1024 * 1024) { best = candidate; low = quality + 1; }

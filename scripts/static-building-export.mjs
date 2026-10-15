@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import {writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 /** Texture density is independent of the original collision coordinate system. */
 export async function exportStaticBuilding(out, key, item) {
@@ -9,7 +10,7 @@ export async function exportStaticBuilding(out, key, item) {
   const width = item.width * scale, height = item.height * scale;
   let painting = sharp(item.pixels, {raw:{width:item.width,height:item.height,channels:4}});
   if (scale !== 1) painting = painting.resize(width, height, {kernel:'lanczos3'});
-  await painting.webp({quality:scale === 1 ? 88 : 95,alphaQuality:100,effort:6}).toFile(resolve(out, `${key}.webp`));
+  await painting.webp({quality: WEBP_QUALITY,alphaQuality:100,effort:6}).toFile(resolve(out, `${key}.webp`));
   await writeFile(resolve(out, `${key}.json`), JSON.stringify({frames:{[item.name]:{
     frame:{x:0,y:0,w:width,h:height},rotated:false,trimmed:false,
     spriteSourceSize:{x:0,y:0,w:width,h:height},sourceSize:{w:width,h:height},

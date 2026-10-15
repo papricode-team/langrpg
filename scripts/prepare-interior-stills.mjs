@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = process.cwd(), key = 'interior-proportioned';
 const source = resolve(root, 'art/source/interiors/interior-proportioned.png');
@@ -40,7 +41,7 @@ for (const [index, name] of names.entries()) {
 }
 const height = packY + rowHeight + 2;
 await sharp({ create: { width: 1024, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-  .composite(parts).webp({ quality: 93, alphaQuality: 100, effort: 6 }).toFile(resolve(destination, `${key}.webp`));
+  .composite(parts).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(resolve(destination, `${key}.webp`));
 await writeFile(resolve(destination, `${key}.json`), JSON.stringify({ frames, meta: { image: `${key}.webp`, size: { w: 1024, h: height }, scale: '1' } }, null, 2) + '\n');
 await writeFile(resolve(destination, 'interior-stills.json'), JSON.stringify({ version: 1, framesPerAsset: 1, assets }, null, 2) + '\n');
 console.log('Packed six corrected furniture stills with floor anchors.');

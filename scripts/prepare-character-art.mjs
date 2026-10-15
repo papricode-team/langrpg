@@ -6,6 +6,7 @@ import sharp from 'sharp';
 import { readFile, mkdir, rename, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const flags = new Map();
@@ -193,7 +194,7 @@ async function buildAtlas(spec) {
   const destination = resolve(outputDirectory, spec.output);
   const temporary = `${destination}.tmp`;
   await sharp({ create: { width: spec.columns * spec.cellWidth, height: outputRows * spec.cellHeight, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(composites).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(temporary);
+    .composite(composites).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(temporary);
   await rename(temporary, destination);
   console.log(JSON.stringify({ output: destination, dimensions: [spec.columns * spec.cellWidth, outputRows * spec.cellHeight], cell: [spec.cellWidth, spec.cellHeight], footAnchor: [0.5, footBaseline], targetBodyHeight: spec.bodyHeight, bytes: (await stat(destination)).size, rows: report, idle: idleReport }, null, 2));
 }

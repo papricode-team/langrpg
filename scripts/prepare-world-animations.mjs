@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import { readFile,writeFile,mkdir,access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const root=process.cwd();
 const rawArgs=process.argv.slice(2);
 const setIndex=rawArgs.indexOf('--set'), set=setIndex<0?'':rawArgs[setIndex+1];
@@ -66,7 +67,7 @@ for(const map of maps){
   }
   const atlasH=packY+rowH+2;
   if(atlasH>2048)throw Error(`${map}/${batch.batch}: atlas too high ${atlasH}`);
-  await sharp({create:{width:1024,height:atlasH,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts).webp({quality:88,alphaQuality:100,effort:6}).toFile(resolve(root,`web/public/assets/${namespace}-animation-${batch.batch}.webp`));
+  await sharp({create:{width:1024,height:atlasH,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:6}).toFile(resolve(root,`web/public/assets/${namespace}-animation-${batch.batch}.webp`));
   await writeFile(resolve(root,`web/public/assets/${namespace}-animation-${batch.batch}.json`),JSON.stringify({frames,meta:{image:`${namespace}-animation-${batch.batch}.webp`,size:{w:1024,h:atlasH},scale:'1'}},null,2)+'\n');
   console.log(`${map}/${batch.batch}:24paintedframes →1024×${atlasH}`);
  }

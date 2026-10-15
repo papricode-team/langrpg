@@ -5,6 +5,7 @@ import { access, mkdir, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { stitchTerrain } from './terrain-stitch.mjs';
+import {WEBP_QUALITY, MIN_WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const directory = resolve(root, 'art/source/terrain-hd');
@@ -50,7 +51,7 @@ for (const town of towns.length ? towns : ['lindenhafen', 'waldruh', 'nebelstadt
     const stitched = stitchTerrain(tiles, 256);
     const runtime = sharp(stitched.data, { raw: { width: stitched.width, height: stitched.height, channels: 3 } });
     let encoded;
-    for (let quality = 90; quality >= 78; quality -= 2) {
+    for (let quality = WEBP_QUALITY; quality >= MIN_WEBP_QUALITY; quality--) {
       encoded = await runtime.clone().webp({ quality, effort: 6 }).toBuffer();
       if (encoded.length <= 2 * 1024 * 1024) { manifest.quality = quality; break; }
     }

@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {stitchTerrainGrid} from './terrain-stitch.mjs';
+import {WEBP_QUALITY, MIN_WEBP_QUALITY} from './webp-quality.mjs';
 
 const root=resolve(import.meta.dirname,'..');
 const source=resolve(root,'art/source/terrain-expansion/nebelstadt');
@@ -29,11 +30,11 @@ for(const chunk of ['harbour-front','harbour-supply'])for(const period of ['day'
   const painting=sharp(merged.data,{raw:{width:merged.width,height:merged.height,channels:3}}).extract({left:16,top:16,width:3072,height:2048});
   const key=`nebelstadt-${chunk}-${period}-terrain`;
   const guarded=painting.clone().extend({top:1,bottom:1,left:1,right:1,extendWith:'copy'});
-  let quality=94,buffer=await guarded.clone().webp({quality,effort:6}).toBuffer();
-  while(buffer.length>2*1024*1024&&quality>70){quality-=2;buffer=await guarded.clone().webp({quality,effort:6}).toBuffer();}
+  let quality=WEBP_QUALITY,buffer=await guarded.clone().webp({quality,effort:6}).toBuffer();
+  while(buffer.length>2*1024*1024&&quality>MIN_WEBP_QUALITY){quality--;buffer=await guarded.clone().webp({quality,effort:6}).toBuffer();}
   if(buffer.length>2*1024*1024)throw Error(`${key} exceeds the2MiB texture download budget`);
   await writeFile(resolve(out,`${key}.webp`),buffer);
-  await painting.clone().resize(768,512).webp({quality:90,effort:6}).toFile(resolve(out,`${key}-overview.webp`));
+  await painting.clone().resize(768,512).webp({quality: WEBP_QUALITY,effort:6}).toFile(resolve(out,`${key}-overview.webp`));
   const record={id:chunk,period,dayOrNightAsset:`/assets/world-expansions/nebelstadt/${key}.webp`,
     previewAsset:`/assets/world-expansions/nebelstadt/${key}-overview.webp`,crop:{x:1,y:1,width:3072,height:2048},
     width:768,height:512,pixelDensity:4,nativePixelDensity:4,outputWidth:3074,outputHeight:2050,

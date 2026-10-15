@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import {exportSceneryGeometry} from './scenery-geometry.mjs';
 import {access, mkdir, readFile, writeFile} from 'node:fs/promises';
 import {resolve, relative} from 'node:path';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root=resolve(import.meta.dirname,'..'), source=resolve(root,'art/source/map-quality'), out=resolve(root,'web/public/assets');
 const towns=['lindenhafen','waldruh','nebelstadt'];
@@ -83,7 +84,7 @@ for(const sheet of sheets){
   const save=async()=>{
     if(!parts.length)return;
     const key=`${sheet.key}${page?`-${page}`:''}`,width=2048,height=2**Math.ceil(Math.log2(y+rowHeight+4));
-    await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts.map(item=>({input:item.buffer,left:item.x,top:item.y}))).webp({quality:92,alphaQuality:100,effort:6}).toFile(resolve(out,`${key}.webp`));
+    await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts.map(item=>({input:item.buffer,left:item.x,top:item.y}))).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:6}).toFile(resolve(out,`${key}.webp`));
     await writeFile(resolve(out,`${key}.json`),JSON.stringify({frames,meta:{image:`${key}.webp`,size:{w:width,h:height},scale:'1',provenance:'Built-in ImageGen painting; native rectangular crops; no upscaling'}},null,2)+'\n');
     page++;x=4;y=4;rowHeight=0;parts=[];frames={};
   };

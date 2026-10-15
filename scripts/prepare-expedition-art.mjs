@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { expeditionArt, propFrames } from './expedition-art-plan.mjs';
 import { peopleGrid, registerPeopleSequence } from './expedition-people-registration.mjs';
 import { reviewedPeopleSeams } from './expedition-people-seam-reviews.mjs';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const root=resolve(import.meta.dirname,'..'), sourceDir=resolve(root,'art/source/expeditions'), out=resolve(root,'web/public/assets');
 await mkdir(out,{recursive:true});
 const selected=process.argv.slice(2).filter(arg=>!arg.startsWith('--'));
@@ -89,7 +90,7 @@ async function pack(id,kind,items,names){
   layers.push({input:buffer,left:x,top:y});x+=w+4;rowHeight=Math.max(rowHeight,h);
  }
  const height=y+rowHeight+2;if(height>2048)throw Error(`${id}-${kind}: atlas too tall`);
- await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(layers).webp({quality:90,alphaQuality:100,effort:4}).toFile(resolve(out,`${id}-${kind}.webp`));
+ await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(layers).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:4}).toFile(resolve(out,`${id}-${kind}.webp`));
  const atlas={frames,meta:{image:`${id}-${kind}.webp`,size:{w:width,h:height},scale:'1'}};
  if(items.seams)atlas.meta.peopleRegistration={version:1,anchor:'Robust torso center and planted sole; complete-frame translation; one scale per identity',seams:items.seams};
  await writeFile(resolve(out,`${id}-${kind}.json`),JSON.stringify(atlas,null,2)+'\n');return atlas;
@@ -119,9 +120,9 @@ if(!process.argv.includes('--previews-only')) for(const region of expeditionArt.
    const portrait=await sharp(sprite.buffer).extract({left:0,top:0,width:sprite.width,height:cropHeight}).resize(244,244,{fit:'contain',background:{r:0,g:0,b:0,alpha:0}}).png().toBuffer();
    portraits.push({input:portrait,left:row*256+6,top:6});
   }
-  await sharp({create:{width:2048,height:256,channels:4,background:{r:244,g:238,b:225,alpha:1}}}).composite(portraits).webp({quality:90,effort:4}).toFile(resolve(out,`${id}-portraits.webp`));
+  await sharp({create:{width:2048,height:256,channels:4,background:{r:244,g:238,b:225,alpha:1}}}).composite(portraits).webp({quality: WEBP_QUALITY,effort:4}).toFile(resolve(out,`${id}-portraits.webp`));
  });
- if(!peopleOnly)await perform('terrain',async()=>{await sharp(resolve(sourceDir,`${id}-terrain.png`)).resize(1536,1024,{fit:'fill'}).webp({quality:89,effort:4}).toFile(resolve(out,`${id}-terrain.webp`));});
+ if(!peopleOnly)await perform('terrain',async()=>{await sharp(resolve(sourceDir,`${id}-terrain.png`)).resize(1536,1024,{fit:'fill'}).webp({quality: WEBP_QUALITY,effort:4}).toFile(resolve(out,`${id}-terrain.webp`));});
  console.log(`${id}: exported ${peopleOnly?'character artwork':'available terrain /24 props /24 motion frames'} /64 character frames in3 sheets /8 named portraits`);
 }
 

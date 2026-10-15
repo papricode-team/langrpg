@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import './register-content-loader.mjs';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const {sceneDocument} = await import('../web/src/scene-data.ts');
 const root = resolve(import.meta.dirname, '..'), out = resolve(root, 'web/public/assets');
 const args = process.argv.slice(2);
@@ -45,6 +46,6 @@ for (const map of args.length ? args : Object.keys(sceneDocument.maps)) {
     const input = await sharp(await image.png().toBuffer()).extract({ left: cropLeft, top: cropTop, width: cropWidth, height: cropHeight }).png().toBuffer();
     images.push({ input, left: Math.max(0, left), top: Math.max(0, top) });
   }
-  await sharp({create:{width:canvasWidth,height:canvasHeight,channels:4,background:'#c6cdb9'}}).composite(images).webp({ quality: 86, effort: 4 }).toFile(resolve(out, `${map}-preview.webp`));
+  await sharp({create:{width:canvasWidth,height:canvasHeight,channels:4,background:'#c6cdb9'}}).composite(images).webp({ quality: WEBP_QUALITY, effort: 4 }).toFile(resolve(out, `${map}-preview.webp`));
   console.log(`${map}: preview ${canvasWidth}×${canvasHeight} uses canonical terrain, runtime stills and ground anchors`);
 }
