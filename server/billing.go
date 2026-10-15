@@ -25,15 +25,16 @@ const billingVerificationLifetime = 24 * time.Hour
 // input never write an entitlement. Periodic reconciliation bounds stale access
 // even if a refund/revocation webhook could not be delivered.
 type BillingState struct {
-	Reference       string               `json:"reference,omitempty"`
-	Purchases       []CreemPurchase      `json:"purchases,omitempty"`
-	Plan            string               `json:"plan,omitempty"`
-	CustomerID      string               `json:"customerId,omitempty"`
-	SubscriptionID  string               `json:"subscriptionId,omitempty"`
-	LifetimeOrderID string               `json:"lifetimeOrderId,omitempty"`
-	PaidUntil       time.Time            `json:"paidUntil,omitempty"`
-	VerifiedAt      time.Time            `json:"verifiedAt,omitempty"`
-	WebhookReceipts map[string]time.Time `json:"webhookReceipts,omitempty"`
+	Reference          string               `json:"reference,omitempty"`
+	Purchases          []CreemPurchase      `json:"purchases,omitempty"`
+	Plan               string               `json:"plan,omitempty"`
+	CustomerID         string               `json:"customerId,omitempty"`
+	SubscriptionID     string               `json:"subscriptionId,omitempty"`
+	SubscriptionStatus string               `json:"subscriptionStatus,omitempty"`
+	LifetimeOrderID    string               `json:"lifetimeOrderId,omitempty"`
+	PaidUntil          time.Time            `json:"paidUntil,omitempty"`
+	VerifiedAt         time.Time            `json:"verifiedAt,omitempty"`
+	WebhookReceipts    map[string]time.Time `json:"webhookReceipts,omitempty"`
 }
 
 type CreemBilling struct {

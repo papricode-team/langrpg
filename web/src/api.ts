@@ -1,3 +1,4 @@
+import { supportSession, clearSupportSession } from './support-session';
 import { analyticsHeaders, analyticsAdmin, rotateAnalytics, trackAnalytics } from './analytics-client';
 import type { Avatar, WorldPlayer } from './world';
 import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
@@ -105,7 +106,7 @@ class ApiError extends Error {
 }
 
 export class Api {
-  token = localStorage.getItem('atlas.token') ?? '';
+  token = supportSession()?.token ?? localStorage.getItem('atlas.token') ?? '';
   mapId: MapId = initialMap();
   interiorId?: InteriorId;
   private pendingMap?: MapId;
@@ -165,7 +166,7 @@ export class Api {
     const body = { name, avatar, ...(baseLanguage ? { baseLanguage } : {}) };
     try { result = await this.request('/session', body); }
     catch (error) {
-      if (!this.token || !(error instanceof ApiError) || error.status !== 401) throw error;
+      if (supportSession() || !this.token || !(error instanceof ApiError) || error.status !== 401) throw error;
       const oldToken = this.token;
       this.token = '';
       try { result = await this.request('/session', body); }
@@ -175,11 +176,11 @@ export class Api {
   }
   private rememberSession(result: SessionResult) {
     result = normalizeSession(result);
-    analyticsAdmin(result.account.admin === true);
+    analyticsAdmin(result.account.admin === true || !!supportSession());
     if (result.account.registered) clearReferral(localStorage);
     this.token = result.token;
     this.selfId = result.player.id;
-    localStorage.setItem('atlas.token', this.token);
+    if (!supportSession()) localStorage.setItem('atlas.token', this.token);
     return result;
   }
   async resume(): Promise<SessionResult | undefined> {
@@ -188,7 +189,7 @@ export class Api {
       const result = await this.request<SessionResult>('/session', {});
       return this.rememberSession(result);
     } catch (error) {
-      if (!(error instanceof ApiError) || error.status !== 401) throw error;
+      if (supportSession() || !(error instanceof ApiError) || error.status !== 401) throw error;
       this.token = ''; this.selfId = ''; localStorage.removeItem('atlas.token');
       return undefined;
     }
@@ -225,6 +226,7 @@ export class Api {
     if (this.token) await this.request('/account/logout', {});
     this.destroy();
     this.token = ''; this.selfId = '';
+    if (supportSession()) { clearSupportSession(); return; }
     localStorage.removeItem('atlas.token');
     localStorage.removeItem('atlas.profile');
     rotateAnalytics();

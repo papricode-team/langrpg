@@ -8,7 +8,7 @@ export interface GameAccess {
   billingAvailable: boolean;
   referralBonusSeconds?: number;
   referralSignups?: number;
-  plan?: BillingPlan;
+  plan?: BillingPlan | 'complimentary';
 }
 
 export function accessBlocked(access: GameAccess | undefined): boolean {

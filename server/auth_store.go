@@ -25,6 +25,7 @@ func (change CredentialChange) apply(account *Account) error {
 		return ErrCredentialsChanged
 	}
 	account.Email, account.PasswordHash = change.Email, change.PasswordHash
+	account.Support.Reset = PasswordReset{}
 	return nil
 }
 

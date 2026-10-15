@@ -172,6 +172,7 @@ func (p *CreemBilling) snapshot(ctx context.Context, accountID string, previous 
 		}
 		if coversPeriod && result.Plan != "lifetime" && subscription.CurrentPeriodEnd.After(result.PaidUntil) {
 			result.Plan, result.CustomerID, result.SubscriptionID, result.PaidUntil = plan, purchase.CustomerID, subscription.ID, subscription.CurrentPeriodEnd
+			result.SubscriptionStatus = subscription.Status
 		}
 	}
 	// A known customer remains available for managing canceled or refunded plans.

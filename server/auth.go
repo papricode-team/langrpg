@@ -182,7 +182,12 @@ func (a *App) loginAccount(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	if err = a.store.AddSession(ctx, tokenHash(token), account.Player.ID); err != nil {
+	if _, _, err = a.store.ManageAccount(ctx, account.Player.ID, false, tokenHash(token), func(current *Account) error {
+		if current.PasswordHash != account.PasswordHash || current.Email != account.Email {
+			return ErrUnauthorized
+		}
+		return nil
+	}); err != nil {
 		apiFailure(w, err)
 		return
 	}

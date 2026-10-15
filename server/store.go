@@ -17,6 +17,8 @@ import (
 )
 
 type Store interface {
+	ListAdminAccounts(context.Context, string, string, int, int) ([]Account, int, error)
+	ManageAccount(context.Context, string, bool, string, func(*Account) error) (Account, []string, error)
 	RecordAnalytics(context.Context, []AnalyticsEvent, time.Time) error
 	ReadAnalytics(context.Context, time.Time, time.Time) ([]AnalyticsFact, []AnalyticsAccount, error)
 	WorldIdentity() WorldIdentity

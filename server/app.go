@@ -72,6 +72,10 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 
 func (a *App) Handler() http.Handler {
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /api/admin/users", a.listAdminUsers)
+	mux.HandleFunc("GET /api/admin/users/{id}", a.readAdminUser)
+	mux.HandleFunc("POST /api/admin/users/{id}/{action}", a.manageAdminUser)
+	mux.HandleFunc("POST /api/account/reset-password", a.resetPassword)
 	mux.HandleFunc("POST /api/analytics/events", a.collectAnalytics)
 	mux.HandleFunc("GET /api/admin/analytics", a.adminAnalytics)
 	mux.HandleFunc("GET /api/health", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.health(w, r) }))
@@ -151,7 +155,7 @@ func (a *App) Handler() http.Handler {
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}
-		if !a.enforceGameAccess(w, r) {
+		if !a.enforceSupportSession(w, r) || !a.enforceGameAccess(w, r) {
 			return
 		}
 		mux.ServeHTTP(w, r)
@@ -563,6 +567,11 @@ func (a *App) connect(w http.ResponseWriter, r *http.Request) {
 		}
 		if err != nil {
 			return AccessStatus{}, err
+		}
+		if strings.HasPrefix(token, "support_") {
+			if err := a.validateSupportSession(ctx, current, hash); err != nil {
+				return AccessStatus{}, err
+			}
 		}
 		if err := checkAccessGeneration(ctx, current); err != nil {
 			return AccessStatus{}, err

@@ -30,6 +30,7 @@ export default defineConfig(({ command, mode }) => {
         input: {
           game: fileURLToPath(new URL('./index.html', import.meta.url)),
           admin: fileURLToPath(new URL('./admin.html', import.meta.url)),
+          resetPassword: fileURLToPath(new URL('./reset-password.html', import.meta.url)),
         },
         output: {
           codeSplitting: {

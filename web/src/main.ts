@@ -1,3 +1,4 @@
+import { mountSupportBanner } from './support-session';
 import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
 import { pendingReferral, referralAvailable } from './referrals';
@@ -2004,7 +2005,7 @@ function updateAccessHud(): void {
   hud.dataset.phase = access?.phase ?? 'checking';
   document.querySelector('#access-label')!.textContent = paid ? 'Unlimited play' : access?.registered ? 'Free trial left' : 'Guest play left';
   const time = document.querySelector('#access-time')!;
-  time.textContent = paid ? access.plan === 'lifetime' ? 'Lifetime' : 'Subscribed' : access ? formatAccessTime(access.remainingSeconds) : 'Checking…';
+  time.textContent = paid ? access.plan === 'complimentary' ? 'Complimentary' : access.plan === 'lifetime' ? 'Lifetime' : 'Subscribed' : access ? formatAccessTime(access.remainingSeconds) : 'Checking…';
   time.setAttribute('aria-label', paid ? 'Unlimited game access' : `${access?.registered ? 'Trial' : 'Guest play'} time remaining: ${access ? formatAccessTime(access.remainingSeconds) : 'checking'}`);
   document.querySelector('#access-button')!.textContent = paid ? 'Manage' : access?.registered ? 'Subscribe' : 'Login';
   document.querySelector<HTMLButtonElement>('#access-invite')!.hidden = !referralAvailable(access);
@@ -2155,6 +2156,11 @@ async function verifyBilling(attempt = 0, revision = ++billingVerificationRevisi
 }
 function showBillingAccount(): void {
   const access = accessClock.snapshot(performance.now());
+  if (access?.plan === 'complimentary') {
+    showAccountDialog('<h2 id="account-title">Complimentary access is active.</h2><p>Your account has unlimited play through a support grant. Contact support for details about its duration.</p><button type="button" class="primary-button" id="complimentary-back">Back to my adventure</button>');
+    document.querySelector<HTMLButtonElement>('#complimentary-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
+    return;
+  }
   showAccountDialog(`<h2 id="account-title">${access?.plan === 'lifetime' ? 'Lifetime access is yours.' : 'Your subscription is active.'}</h2><p>Enjoy unlimited play. Manage your ${access?.plan === 'lifetime' ? 'purchase and receipts' : 'subscription, payment details and cancellation'} securely with Creem.</p><p id="account-error" class="account-error" role="alert"></p><button type="button" class="primary-button" id="billing-portal">Open billing portal ${icon('arrow')}</button><button type="button" class="billing-secondary-button" id="billing-account-back">Back to my adventure</button>`);
   document.querySelector<HTMLButtonElement>('#billing-account-back')!.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
   document.querySelector<HTMLButtonElement>('#billing-portal')!.onclick = async event => {
@@ -2541,3 +2547,5 @@ function updateConnection() {
 document.addEventListener('visibilitychange', () => { syncAccessActivity(); updateAccessHud(); void sendAccessHeartbeat(accessIsActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
 window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); if (billingVerificationTimer !== undefined) clearTimeout(billingVerificationTimer); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();
+
+mountSupportBanner();
