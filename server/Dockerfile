@@ -19,7 +19,7 @@ RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
 # @img contains sharp's platform-specific native libraries selected by npm ci.
 RUN mkdir -p /runtime/node_modules && cp -a node_modules/sharp node_modules/typescript node_modules/@img node_modules/detect-libc node_modules/semver node_modules/polygon-clipping node_modules/earcut node_modules/robust-predicates node_modules/splaytree /runtime/node_modules/
 
-FROM golang:1.26-alpine AS build
+FROM golang:1.27-alpine AS build
 WORKDIR /src
 COPY server/go.mod server/go.sum ./
 RUN go mod download
