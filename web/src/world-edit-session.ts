@@ -74,7 +74,8 @@ export class WorldEditSession {
     catch (error) { if (error instanceof WorldEditRequestError && error.status === 0) this.undoStack.push(ops); throw error; }
   }
 
-  private async send(ops: WorldEditOp[]): Promise<EditResult> {
+  /** Publish operations without recording them for undo; the caller keeps its own history. */
+  async send(ops: WorldEditOp[]): Promise<EditResult> {
     const result = await this.request<EditResult>('/admin/world/ops', {body: {ops}});
     this.onApplied?.(result);
     return result;

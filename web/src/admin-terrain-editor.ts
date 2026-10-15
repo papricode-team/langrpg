@@ -1,7 +1,7 @@
 /** Authored terrain art and seamless ground are edited independently in the map editor. */
 import type * as Phaser from 'phaser';
 import type {AdminMapScene} from './admin-map-canvas';
-import type {EditBridge} from './world-edit-mode';
+import type {WorldEditOp} from './world-edit-ops';
 import {getWorldScene,sceneDocument} from './scene-data';
 import {terrainMaterials,terrainMaterial} from './terrain-materials';
 import {editableTerrainFromScene,surfaceAt,terrainContains,terrainFingerprint,type ModularTerrain,type TerrainSurface} from './modular-terrain';
@@ -10,6 +10,13 @@ import {parseWorldSceneDocument,type ScenePolygon} from './scene-schema';
 import {escapeHtml as escape} from './icons';
 
 type Tool='select'|'polygon'|'rectangle'|'ellipse'|'piece';
+/** How terrain edits reach the map editor's history and the server. */
+export interface TerrainHost {
+  commit(ops:WorldEditOp[],label:string):boolean;
+  undo():void;
+  readonly canUndo:boolean;
+  toast(message:string,error?:boolean):void;
+}
 export class AdminTerrainEditor {
   private active=false;
   private previewing=false;
@@ -30,13 +37,13 @@ export class AdminTerrainEditor {
   private ghostKey=`terrain-editor-${crypto.randomUUID()}`;
   private ghostRequest=0;
   private snapshot?:ModularTerrain;
-  constructor(private host:HTMLElement,private scene:AdminMapScene,private bridge:EditBridge){
+  constructor(private host:HTMLElement,private scene:AdminMapScene,private editor:TerrainHost){
     this.graphics=scene.add.graphics().setDepth(2e7);
     scene.input.on('pointerdown',this.down,this);scene.input.on('pointermove',this.move,this);scene.input.on('pointerup',this.up,this);
     scene.input.keyboard?.on('keydown-ENTER',this.finish,this);scene.input.keyboard?.on('keydown-ESC',this.cancel,this);
     host.addEventListener('click',this.click);host.addEventListener('change',this.change);
   }
-  setActive(active:boolean):void{this.active=active;this.scene.setTerrainEditing(active,this.bridge);this.cancel();if(!active&&this.previewing){this.previewing=false;this.scene.previewTerrain();}if(active)this.refresh();}
+  setActive(active:boolean):void{this.active=active;this.scene.setActive(!active);this.cancel();if(!active&&this.previewing){this.previewing=false;this.scene.previewTerrain();}if(active)this.refresh();}
   refresh():void{this.cancel();if(this.previewing)this.scene.previewTerrain();this.previewing=false;this.snapshot=getWorldScene(this.scene.editMapId).modularTerrain;this.expected=terrainFingerprint(this.snapshot);this.render();}
   private render():void{
     const terrain=this.snapshot,selected=terrain?.surfaces.find(s=>s.id===this.selected),feature=terrain?.features?.find(f=>f.id===this.selected);
@@ -50,7 +57,7 @@ export class AdminTerrainEditor {
       <label>Base ground<select data-terrain-base>${options}</select></label>
       <p class="map-note">Polygon: click corners, then Finish or Enter. Rectangle / ellipse: drag. Select: drag a piece or a surface; surface corners can also move. Esc cancels.</p>
       <div class="terrain-materials">${terrainMaterials.map(m=>`<button type="button" data-terrain-material="${m.id}" aria-pressed="${this.material===m.id}" title="${escape(m.name)}"><img src="${m.thumbnail}" alt=""><span>${escape(m.name)}</span></button>`).join('')}</div>
-      <div class="terrain-tools"><button type="button" data-terrain-action="finish">Finish polygon</button><button type="button" data-terrain-action="cancel">Cancel</button><button type="button" data-terrain-action="undo" ${!this.previewing&&this.bridge.session.canUndo?'':'disabled'}>Undo</button></div>
+      <div class="terrain-tools"><button type="button" data-terrain-action="finish">Finish polygon</button><button type="button" data-terrain-action="cancel">Cancel</button><button type="button" data-terrain-action="undo" ${!this.previewing&&this.editor.canUndo?'':'disabled'}>Undo</button></div>
       <label>Selection<select data-terrain-selected><option value="">Choose terrain</option>${(terrain.features??[]).map(f=>`<option value="${f.id}">${escape(terrainFeature(f.asset)?.name??f.asset)} · ${escape(f.id)}</option>`).join('')}${terrain.surfaces.map(s=>`<option value="${s.id}">${escape(terrainMaterial(s.material)?.name??s.material)} · ${escape(s.id)}</option>`).join('')}</select></label>
       ${feature?`<label>Piece width<input type="number" min="120" max="1600" step="10" data-selected-width value="${feature.width}"></label><p class="map-note">Walking boundaries move and scale with the painted deck and walls.</p>`:''}
       ${selected?`<label>Material<select data-terrain-replace>${options}</select></label><label><input type="checkbox" data-terrain-blocked ${selected.blocked??terrainMaterial(selected.material)?.blocked?'checked':''}> Blocks walking</label>`:''}
@@ -68,13 +75,13 @@ export class AdminTerrainEditor {
     switch(button.dataset.terrainAction){
       case 'import':this.host.querySelector<HTMLInputElement>('[data-terrain-file]')!.click();break;
       case 'enable':this.snapshot=editableTerrainFromScene(getWorldScene(this.scene.editMapId));this.previewing=true;this.scene.previewTerrain(this.snapshot);this.render();break;
-      case 'publish':if(terrain)void this.commit(terrain,true);break;
+      case 'publish':if(terrain)this.commit(terrain,true);break;
       case 'discard':this.refresh();break;
       case 'finish':this.finish();break;
       case 'cancel':this.cancel();break;
-      case 'undo':this.busy=true;this.render();void this.bridge.session.undo().catch(e=>this.bridge.view.toast(e.message,true)).finally(()=>{this.busy=false;this.refresh();});break;
-      case 'remove':if(terrain)void this.commit({...terrain,surfaces:terrain.surfaces.filter(s=>!this.inSelection(s)),...(features?{features:features.filter(f=>f.id!==this.selected)}:{})});break;
-      case 'front':if(terrain)void this.commit({...terrain,surfaces:[...terrain.surfaces.filter(s=>!this.inSelection(s)),...terrain.surfaces.filter(s=>this.inSelection(s))],...(features?{features:[...features.filter(f=>f.id!==this.selected),...features.filter(f=>f.id===this.selected)]}:{})});break;
+      case 'undo':this.editor.undo();this.refresh();break;
+      case 'remove':if(terrain)this.commit({...terrain,surfaces:terrain.surfaces.filter(s=>!this.inSelection(s)),...(features?{features:features.filter(f=>f.id!==this.selected)}:{})});break;
+      case 'front':if(terrain)this.commit({...terrain,surfaces:[...terrain.surfaces.filter(s=>!this.inSelection(s)),...terrain.surfaces.filter(s=>this.inSelection(s))],...(features?{features:[...features.filter(f=>f.id!==this.selected),...features.filter(f=>f.id===this.selected)]}:{})});break;
     }
   };
   private change=(event:Event):void=>{
@@ -83,10 +90,10 @@ export class AdminTerrainEditor {
     if(!this.snapshot)return;
     if(input.hasAttribute('data-feature-art')){this.art=input.value;this.artWidth=terrainFeature(this.art)!.worldWidth;this.cancel();this.render();return;}
     if(input.hasAttribute('data-feature-width')){this.artWidth=this.width(Number(input.value));this.render();return;}
-    if(input.hasAttribute('data-selected-width')){void this.commit({...this.snapshot,features:this.snapshot.features?.map(f=>f.id===this.selected?this.fit({...f,width:this.width(Number(input.value))}):f)});return;}
-    if(input.hasAttribute('data-terrain-base'))void this.commit({...this.snapshot,base:input.value});
+    if(input.hasAttribute('data-selected-width')){this.commit({...this.snapshot,features:this.snapshot.features?.map(f=>f.id===this.selected?this.fit({...f,width:this.width(Number(input.value))}):f)});return;}
+    if(input.hasAttribute('data-terrain-base'))this.commit({...this.snapshot,base:input.value});
     if(input.hasAttribute('data-terrain-selected')){this.selected=input.value||undefined;this.render();}
-    if(input.hasAttribute('data-terrain-replace')||input.hasAttribute('data-terrain-blocked'))void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.id!==this.selected?s:input.hasAttribute('data-terrain-replace')?{...s,material:input.value,blocked:terrainMaterial(input.value)?.blocked??false}:{...s,blocked:input.checked})});
+    if(input.hasAttribute('data-terrain-replace')||input.hasAttribute('data-terrain-blocked'))this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.id!==this.selected?s:input.hasAttribute('data-terrain-replace')?{...s,material:input.value,blocked:terrainMaterial(input.value)?.blocked??false}:{...s,blocked:input.checked})});
   };
   private async importTerrain(file:File):Promise<void>{
     this.busy=true;
@@ -97,7 +104,7 @@ export class AdminTerrainEditor {
       const checked=parseWorldSceneDocument({...sceneDocument,maps:{...sceneDocument.maps,[map]:{...world,modularTerrain:terrain}}});
       this.expected=terrainFingerprint(world.modularTerrain);this.snapshot=checked.maps[map].modularTerrain;
       this.selected=undefined;this.cancel();this.previewing=true;this.scene.previewTerrain(this.snapshot);
-    }catch(error){this.bridge.view.toast(error instanceof Error?error.message:'Terrain could not be read.',true);}
+    }catch(error){this.editor.toast(error instanceof Error?error.message:'Terrain could not be read.',true);}
     finally{this.busy=false;this.render();}
   }
   private width(value:number):number{return Number.isFinite(value)?Math.max(120,Math.min(1600,value)):600;}
@@ -106,8 +113,8 @@ export class AdminTerrainEditor {
   private point(pointer:Phaser.Input.Pointer):[number,number]{const p=this.scene.cameras.main.getWorldPoint(pointer.x,pointer.y),world=getWorldScene(this.scene.editMapId);return [Math.round(Math.max(0,Math.min(world.width,p.x))),Math.round(Math.max(0,Math.min(world.height,p.y)))];}
   private candidate(x:number,y:number):TerrainFeature{const art=terrainFeature(this.art)!;return this.fit({id:'preview',asset:this.art,width:this.artWidth,x:x-this.artWidth/2,y:y-this.artWidth*art.height/art.width/2});}
   private down(pointer:Phaser.Input.Pointer):void{
-    if(!this.active||this.busy||!this.snapshot||this.scene.editPanning()||!pointer.leftButtonDown())return;const [x,y]=this.point(pointer);
-    if(this.tool==='piece'){const feature={...this.candidate(x,y),id:`feature-${crypto.randomUUID()}`};this.selected=feature.id;void this.commit({...this.snapshot,features:[...(this.snapshot.features??[]),feature]});return;}
+    if(!this.active||this.busy||!this.snapshot||this.scene.panning||!pointer.leftButtonDown())return;const [x,y]=this.point(pointer);
+    if(this.tool==='piece'){const feature={...this.candidate(x,y),id:`feature-${crypto.randomUUID()}`};this.selected=feature.id;this.commit({...this.snapshot,features:[...(this.snapshot.features??[]),feature]});return;}
     if(this.tool==='polygon'){this.points.push([x,y]);this.draw();return;}
     if(this.tool==='select'){
       const feature=[...(this.snapshot.features??[])].reverse().find(f=>terrainContains(featurePolygon(f,terrainFeature(f.asset)!.outline),x,y));
@@ -133,23 +140,22 @@ export class AdminTerrainEditor {
   }
   private up():void{
     if(!this.active||!this.drag)return;const preview=this.preview,existing=this.drag.surface,feature=this.drag.feature,placement=this.placement;this.drag=undefined;this.preview=undefined;this.placement=undefined;
-    if(feature&&placement&&this.snapshot){void this.commit({...this.snapshot,features:this.snapshot.features!.map(f=>f.id===feature.id?placement:f)});return;}
+    if(feature&&placement&&this.snapshot){this.commit({...this.snapshot,features:this.snapshot.features!.map(f=>f.id===feature.id?placement:f)});return;}
     if(preview&&Math.abs(preview.reduce((sum,p,i)=>{const n=preview[(i+1)%preview.length];return sum+p[0]*n[1]-n[0]*p[1];},0))>2)this.saveSurface(preview,existing);else this.draw();
   }
   private finish=():void=>{if(this.active&&this.points.length>=3){const polygon=this.points;this.points=[];this.saveSurface(polygon);}};
   private cancel=():void=>{this.points=[];this.drag=undefined;this.preview=undefined;this.placement=undefined;this.draw();};
   private saveSurface(polygon:ScenePolygon,existing?:TerrainSurface):void{
     if(!this.snapshot)return;
-    if(existing?.groupId){const dx=polygon[0][0]-existing.polygon[0][0],dy=polygon[0][1]-existing.polygon[0][1];void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.groupId===existing.groupId?{...s,polygon:s.polygon.map(([x,y])=>[x+dx,y+dy] as const)}:s)});return;}
+    if(existing?.groupId){const dx=polygon[0][0]-existing.polygon[0][0],dy=polygon[0][1]-existing.polygon[0][1];this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.groupId===existing.groupId?{...s,polygon:s.polygon.map(([x,y])=>[x+dx,y+dy] as const)}:s)});return;}
     const id=existing?.id??`terrain-${crypto.randomUUID()}`,surface={...(existing??{id,material:this.material}),polygon};this.selected=id;
-    void this.commit({...this.snapshot,surfaces:existing?this.snapshot.surfaces.map(s=>s.id===id?surface:s):[...this.snapshot.surfaces,surface]});
+    this.commit({...this.snapshot,surfaces:existing?this.snapshot.surfaces.map(s=>s.id===id?surface:s):[...this.snapshot.surfaces,surface]});
   }
-  private async commit(terrain:ModularTerrain,publish=false):Promise<void>{
+  private commit(terrain:ModularTerrain,publish=false):void{
     if(this.previewing&&!publish){this.snapshot=terrain;this.scene.previewTerrain(terrain);this.render();return;}
-    if(this.busy)return;const map=this.scene.editMapId,expected=this.expected;this.busy=true;this.render();
-    try{await this.bridge.session.lock(map,'terrain');await this.bridge.session.commit([{kind:'terrain',map,terrain,expected}]);this.bridge.view.toast('Terrain published.');}
-    catch(error){this.bridge.view.toast(error instanceof Error?error.message:'Terrain could not be saved.',true);}
-    finally{await this.bridge.session.release(map,'terrain');this.busy=false;this.refresh();}
+    const map=this.scene.editMapId;
+    // The store publishes in the background; the fingerprint stops a stale draft overwriting newer terrain.
+    if(this.editor.commit([{kind:'terrain',map,terrain,expected:this.expected}],publish?'Publish terrain':'Edit terrain'))this.refresh();
   }
   private showGhost(feature:TerrainFeature):void{
     const art=terrainFeature(feature.asset)!;
