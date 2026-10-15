@@ -16,6 +16,12 @@ Draw polygon, rectangle or ellipse ground and water surfaces separately. Ground 
 
 Finished edits on an already converted map publish through the redesigned editor's lock, validation and undo workflow. The **Edit** tab's scenery palette contains all 16 independent details in every town, with existing move, resize, collision and undo controls. They load on demand in the game, including after live edits.
 
+## Terrain-only comparison
+
+Open `/qa/terrain-compare.html` for original Lindenhafen terrain beside the current component study. No scenery, detail objects, characters or editor markers are rendered or loaded. The original uses its registered native terrain plates and crop rectangles. Whole-map and bridge-detail views share a world scale and synchronized pan/zoom; the original can switch between day and night. Ground, water and painted pieces on the new side can be toggled independently, with optional piece outlines. Labels explicitly identify the new view as a study rather than a reconstruction of the original map.
+
+Run `node scripts/audit-terrain-comparison.mjs` with Vite on port 4178 to verify the cameras, controls, both lighting sets and absence of scenery image requests. Screenshots are saved beside the other terrain audits.
+
 ## Connected district draft
 
 Open `/qa/terrain-district.html` to walk through Bridgewater courtyard: six independently placed terrain paintings, a bakery and two houses, stone bridge, market landing, garden path and 22 separate scenery placements. The cool undergrowth and dark canal water were generated directly from the user's reference. The route marker uses the game's `NavigationGrid` with the normal 10-unit player radius. Three crossing routes, building approaches and story markers are checked against terrain and object footprints.
