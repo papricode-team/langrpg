@@ -21,6 +21,7 @@ try{
  await page.waitForFunction(key=>!!JSON.parse(localStorage.getItem(key)).maps.lindenhafen.modularTerrain,storage);
  const after=await saved(),expected=structuredClone(before);expected.maps.lindenhafen.modularTerrain=draft.modularTerrain;
  assert.deepEqual(after,expected,'publication must preserve every other field');
+ await page.waitForTimeout(4000); // Allow streamed HD terrain textures to finish loading before the visual audit.
  await page.screenshot({path:'docs/audits/modular-terrain/live-terrain-with-placements.png'});
  await page.locator('[data-terrain-action="undo"]').click();
  await page.waitForFunction(key=>!JSON.parse(localStorage.getItem(key)).maps.lindenhafen.modularTerrain,storage);
