@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vitest';
+import {buildingBounds} from './building-bounds';
 import {sceneDocument} from './scene-data';
 import {sceneEntrancePoint, sceneEntrances, type WorldScene} from './scene-schema';
 import {sceneNavigationGeometry} from './scene-navigation';
@@ -104,6 +105,33 @@ describe('world edit operations', () => {
 });
 
 describe('placement rules', () => {
+  it('allows overlapping building artwork while rejecting overlapping solid bases', () => {
+    const scene = town();
+    delete scene.modularTerrain;
+    delete scene.navigation;
+    scene.width = 800; scene.height = 600;
+    scene.terrain = [{...scene.terrain[0], x: 0, y: 0, width: 800, height: 600}];
+    scene.walkable = [[[0, 0], [800, 0], [800, 600], [0, 600]]];
+    scene.obstacles = []; scene.npcs = []; scene.objects = [];
+    scene.activities = []; scene.residents = []; scene.spawn = {x: 50, y: 50};
+    const building = {
+      id: 'first-house', asset: 'house' as const, frame: 'house-4', x: 200, y: 300, width: 170,
+      collision: {referenceWidth: 170, polygons: [[[-20, -20], [20, -20], [20, 20], [-20, 20]]] as [number, number][][]},
+    };
+    scene.scenery = [building, {...structuredClone(building), id: 'second-house', x: 600}];
+    const reach = SceneReach.build(scene);
+    const close = apply(scene, [{kind: 'move', map: scene.id, id: 'second-house', x: 250, y: 300}]);
+    const geometry = getSceneryGeometryMap(scene.id).assets['house-4'];
+    const first = buildingBounds(close.scene.scenery[0], geometry)!;
+    const second = buildingBounds(close.scene.scenery[1], geometry)!;
+    expect(first.right).toBeGreaterThan(second.left);
+    expect(placementProblems(scene, close.scene, close.changed, {before: reach, after: reach.with(close.scene)})).toEqual([]);
+    expect(auditScene(close.scene).filter(problem => problem.severity === 'error')).toEqual([]);
+
+    const overlap = apply(scene, [{kind: 'move', map: scene.id, id: 'second-house', x: 205, y: 300}]);
+    expect(placementProblems(scene, overlap.scene, overlap.changed, {before: reach, after: reach.with(overlap.scene)}))
+      .toContainEqual(expect.objectContaining({code: 'overlap', objectIds: ['second-house', 'first-house']}));
+  });
   it('derive size limits and room eligibility from the artwork', () => {
     const scene = town(), host = scene.scenery.find(item => item.interior)!, tree = scene.scenery.find(item => item.asset === 'tree')!;
     expect(roomOptions(scene.id, host)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);

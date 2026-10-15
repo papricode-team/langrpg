@@ -4,7 +4,6 @@
  * (size range, which rooms they can host), so most mistakes cannot be made.
  * The remaining checks run on the objects an edit touched and name them.
  */
-import {BUILDING_SPACING,buildingsTooClose,isBuildingPlacement,type BuildingGeometryManifest} from './building-spacing';
 import {NavigationGrid,PLAYER_RADIUS,type MapPoint} from './navigation';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {sceneryFootprints} from './placed-scenery';
@@ -16,7 +15,7 @@ import {
 } from './scene-schema';
 
 export type WorldProblemCode =
-  | 'out-of-bounds' | 'off-ground' | 'overlap' | 'too-close' | 'size' | 'no-door' | 'room-taken'
+  | 'out-of-bounds' | 'off-ground' | 'overlap' | 'size' | 'no-door' | 'room-taken'
   | 'blocks-spawn' | 'blocks-route' | 'door-blocked' | 'activity-blocked' | 'resident-route'
   | 'in-use' | 'occupied' | 'locked' | 'missing' | 'invalid' | 'stale' | 'missing-room' | 'quality';
 
@@ -251,7 +250,7 @@ function targetProblem(scene: WorldScene, target: SceneTarget, moved: boolean): 
  */
 export function placementProblems(before: WorldScene, after: WorldScene, changed: ReadonlySet<string>,
   reach?: {before: SceneReach; after: SceneReach}, restored: ReadonlySet<string> = new Set()): WorldProblem[] {
-  const problems: WorldProblem[] = [], map = after.id, geometry = getSceneryGeometryMap(map) as unknown as BuildingGeometryManifest;
+  const problems: WorldProblem[] = [], map = after.id;
   const previous = new Map(before.scenery.map(item => [item.id, item]));
   const hazards = after.modularTerrain ? sceneNavigationGeometry(after).terrain.map((polygon,index)=>({id:`surface-${index}`,kind:'water',polygon})) : after.navigation?.terrainCollision ?? [];
   for (const id of changed) {
@@ -296,13 +295,6 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
       if (!within || !shapes.some(shape => otherShapes.some(value => polygonsOverlap(shape, value)))) continue;
       problems.push(problem('overlap', map, `${capital(name)} would stand inside ${objectLabel(after, other.id)}.`, [id, other.id], item));
       break;
-    }
-    if (isBuildingPlacement(item)) for (const other of after.scenery) {
-      if (other.id === id || !isBuildingPlacement(other) || (changed.has(other.id) && other.id < id)) continue;
-      if (!buildingsTooClose(item, other, geometry)) continue;
-      const otherBefore = previous.get(other.id);
-      if (old && otherBefore && buildingsTooClose(old, otherBefore, geometry)) continue;
-      problems.push(problem('too-close', map, `Leave a ${BUILDING_SPACING}-unit walking gap between ${name} and ${objectLabel(after, other.id)}.`, [id, other.id], item));
     }
   }
   if (!reach || problems.some(value => value.severity === 'error')) return distinctProblems(problems);
@@ -351,15 +343,10 @@ export function sceneWarnings(scene: WorldScene): WorldProblem[] {
 
 /**
  * Check a complete scene, for imports and the compiler. Everything players
- * need must be reachable and buildings must keep their walking gaps.
+ * need must be reachable.
  */
 export function auditScene(scene: WorldScene, reach: SceneReach = SceneReach.build(scene)): WorldProblem[] {
-  const problems: WorldProblem[] = [], map = scene.id, geometry = getSceneryGeometryMap(map) as unknown as BuildingGeometryManifest;
-  const buildings = scene.scenery.filter(isBuildingPlacement);
-  for (let index = 0; index < buildings.length; index++) for (const other of buildings.slice(index + 1)) {
-    if (buildingsTooClose(buildings[index], other, geometry))
-      problems.push(problem('too-close', map, `Leave a ${BUILDING_SPACING}-unit walking gap between ${objectLabel(scene, buildings[index].id)} and ${objectLabel(scene, other.id)}.`, [buildings[index].id, other.id], buildings[index]));
-  }
+  const problems: WorldProblem[] = [], map = scene.id;
   for (const item of scene.scenery) if (item.interior) {
     if (!sceneryHasDoor(map, item)) problems.push(problem('no-door', map, `${capital(assetLabel(item))} has no door, so it cannot be a ${roomNames[item.interior.kind]}.`, [item.id], item));
   }

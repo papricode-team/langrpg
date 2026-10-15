@@ -1,6 +1,3 @@
-/** Keep complete roofs and façades separate, even when foundations do not touch. */
-export const BUILDING_SPACING = 32;
-
 export interface BuildingPlacement {
   asset: string;
   frame?: string;
@@ -28,14 +25,6 @@ export interface BuildingGeometry {
   base?: {referenceWidth?: number; originX?: number; originY?: number};
 }
 
-export interface BuildingGeometryManifest {
-  assets: Readonly<Record<string, BuildingGeometry>>;
-}
-
-const buildingNames = new Set(['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse']);
-export const isBuildingPlacement = (placement: {asset: string; frame?: string}): boolean =>
-  buildingNames.has(placement.asset) || buildingNames.has(placement.frame ?? '') || !!placement.frame?.startsWith('house-');
-
 /** Geometry snapshots and raw art manifests both follow the rendered pivot/scale. */
 export function buildingBounds(placement: BuildingPlacement, geometry?: BuildingGeometry): BuildingVisualBounds | undefined {
   if (!geometry || geometry.referenceWidth <= 0) return undefined;
@@ -57,13 +46,3 @@ export function buildingBounds(placement: BuildingPlacement, geometry?: Building
   };
 }
 
-/** Diagonal neighbours keep the same minimum visible gap as rows and columns. */
-export function buildingsTooClose(a: BuildingPlacement, b: BuildingPlacement, manifest: BuildingGeometryManifest): boolean {
-  if (!isBuildingPlacement(a) || !isBuildingPlacement(b)) return false;
-  const first = buildingBounds(a, manifest.assets[a.frame ?? a.asset]);
-  const second = buildingBounds(b, manifest.assets[b.frame ?? b.asset]);
-  if (!first || !second) return false;
-  const xGap = Math.max(0, first.left - second.right, second.left - first.right);
-  const yGap = Math.max(0, first.top - second.bottom, second.top - first.bottom);
-  return Math.hypot(xGap, yGap) < BUILDING_SPACING - 1e-7;
-}
