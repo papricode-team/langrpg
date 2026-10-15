@@ -125,10 +125,6 @@
   width: min(580px, calc(100vw - 32px));
 }
 
-.account-dialog #account-title[tabindex="-1"]:focus {
-  outline: none;
-}
-
 .onboarding-steps {
   display: flex;
   gap: 24px;
@@ -200,11 +196,6 @@
   background: #326a6544;
   border-color: #74a59c;
   box-shadow: inset 0 0 0 1px #74a59c;
-}
-
-.onboarding-language-option:focus-within {
-  outline: 2px solid #d9bd7d;
-  outline-offset: 3px;
 }
 
 .onboarding-language-option input {

@@ -248,7 +248,7 @@
   border-color:#dbc58b
 }
 
-.world-dialogue :is(button,input,[tabindex]):focus-visible {
+.world-dialogue :is(button,input,select,textarea,summary,a[href]):focus-visible {
   outline:none;
   box-shadow:var(--focus-ring)
 }

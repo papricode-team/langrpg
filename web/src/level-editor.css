@@ -2,6 +2,7 @@
 @import '@fontsource/dm-sans/500.css';
 @import '@fontsource/dm-sans/600.css';
 @import '@fontsource/fraunces/500.css';
+@import './focus.css';
 :root {
   font-family:'DM Sans',sans-serif;
   color:#25352d;

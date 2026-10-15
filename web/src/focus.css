@@ -1,0 +1,5 @@
+/* Headings and regions receive programmatic focus for navigation and announcements.
+   Keep that focus without a browser outline; interactive controls retain their rings. */
+:where([tabindex="-1"]:not(button,input,select,textarea,summary,a[href])):focus {
+  outline:none;
+}

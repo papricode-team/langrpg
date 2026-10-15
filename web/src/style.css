@@ -1,3 +1,5 @@
+@import './focus.css';
+
 :root {
   /* Layout widths: phone <= 600px, tablet <= 1000px; short landscape <= 520px. */
   --type-display: 34px;
@@ -53,7 +55,7 @@ button,a,input,select {
   outline:none
 }
 
-button:focus-visible,input:focus-visible,select:focus-visible {
+:is(button,input,select,textarea,summary,a[href]):focus-visible {
   outline:2px solid var(--gold-light);
   outline-offset:4px
 }
