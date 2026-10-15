@@ -32,7 +32,7 @@ export class WorldEditSession {
   /** Called with the server's applied operations, for editors that do not receive socket patches. */
   onApplied?: (result: EditResult) => void;
 
-  constructor(token: () => string, document: () => WorldSceneDocument, private readonly fetcher: typeof fetch = fetch) { this.token = token; this.document = document; }
+  constructor(token: () => string, document: () => WorldSceneDocument, private readonly fetcher: typeof fetch = (input, init) => fetch(input, init)) { this.token = token; this.document = document; }
 
   get canUndo(): boolean { return this.undoStack.length > 0; }
 
